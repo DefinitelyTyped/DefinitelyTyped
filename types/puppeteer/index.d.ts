@@ -1,8 +1,12 @@
-// Type definitions for puppeteer 1.5
+// Type definitions for puppeteer 1.20
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
+//                 Simon Schick <https://github.com/SimonSchick>
+//                 Serban Ghita <https://github.com/SerbanGhita>
+//                 Jason Kaczmarsky <https://github.com/JasonKaz>
+//                 Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,11 +15,31 @@
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
 
+import * as errors from "./Errors";
+import * as devices from "./DeviceDescriptors";
+
+export { errors, devices };
+
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 
 /** Unwraps a DOM element out of an ElementHandle instance */
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
+
+export type Serializable =
+  | number
+  | string
+  | boolean
+  | null
+  | JSONArray
+  | JSONObject;
+export interface JSONArray extends Array<Serializable> { }
+export interface JSONObject {
+  [key: string]: Serializable;
+}
+export type SerializableOrJSHandle = Serializable | JSHandle;
+
+export type Platform = "mac" | "win32" | "win64" | "linux";
 
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
@@ -105,7 +129,7 @@ export interface Evalable {
   $eval<R>(
     selector: string,
     pageFunction: (element: Element, ...args: any[]) => R | Promise<R>,
-    ...args: any[],
+    ...args: SerializableOrJSHandle[],
   ): Promise<WrapElementHandle<R>>;
 
   /**
@@ -194,9 +218,34 @@ export interface Evalable {
   $$eval<R>(
     selector: string,
     pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<WrapElementHandle<R>>;
 }
+
+export interface JSEvalable<A = any> {
+    /**
+     * Evaluates a function in the browser context.
+     * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
+     * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
+     * @param fn Function to be evaluated in browser context
+     * @param args Arguments to pass to `fn`
+     */
+    evaluate<T extends EvaluateFn<A>>(
+      pageFunction: T,
+      ...args: SerializableOrJSHandle[],
+    ): Promise<EvaluateFnReturnType<T>>;
+    /**
+     * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
+     * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
+     * promise to resolve and return its value.
+     * @param fn Function to be evaluated in browser context
+     * @param args Arguments to pass to `fn`
+     */
+    evaluateHandle(
+      pageFunction: (arg1: A, ...args: any[]) => any,
+      ...args: SerializableOrJSHandle[],
+    ): Promise<JSHandle>;
+  }
 
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
@@ -290,6 +339,8 @@ export interface TracingStartOptions {
   categories?: string[];
 }
 
+export type DialogType = "alert" | "beforeunload" | "confirm" | "prompt";
+
 /** Dialog objects are dispatched by page via the 'dialog' event. */
 export interface Dialog {
   /**
@@ -308,42 +359,53 @@ export interface Dialog {
   message(): string;
 
   /** The dialog type. Dialog's type, can be one of `alert`, `beforeunload`, `confirm` or `prompt`. */
-  type(): "alert" | "beforeunload" | "confirm" | "prompt";
+  type(): DialogType;
+}
+
+export type ConsoleMessageType = "log"
+  | "debug"
+  | "info"
+  | "error"
+  | "warning"
+  | "dir"
+  | "dirxml"
+  | "table"
+  | "trace"
+  | "clear"
+  | "startGroup"
+  | "startGroupCollapsed"
+  | "endGroup"
+  | "assert"
+  | "profile"
+  | "profileEnd"
+  | "count"
+  | "timeEnd";
+
+export interface ConsoleMessageLocation {
+  /**
+   * URL of the resource if known.
+   */
+  url?: string;
+  /**
+   * Line number in the resource if known
+   */
+  lineNumber?: number;
+  /**
+   * Column number in the resource if known.
+   */
+  columnNumber?: number;
 }
 
 /** ConsoleMessage objects are dispatched by page via the 'console' event. */
 export interface ConsoleMessage {
   /** The message arguments. */
   args(): JSHandle[];
+  /** The location the message originated from */
+  location(): ConsoleMessageLocation;
   /** The message text. */
   text(): string;
-  type(): 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
-  'trace' | 'clear' | 'startGroup' | 'startGroupCollapsed' | 'endGroup' | 'assert' |
-  'profile' | 'profileEnd' | 'count' | 'timeEnd';
+  type(): ConsoleMessageType;
 }
-
-export type PageEvents =
-  | "close"
-  | "console"
-  | "dialog"
-  | "error"
-  | "frameattached"
-  | "framedetached"
-  | "framenavigated"
-  | "load"
-  | "pageerror"
-  | "request"
-  | "requestfailed"
-  | "requestfinished"
-  | "response"
-  | "workercreated"
-  | "workerdestroyed";
-
-export type BrowserEvents =
-  | "disconnected"
-  | "targetchanged"
-  | "targetcreated"
-  | "targetdestroyed";
 
 export interface AuthOptions {
   username: string;
@@ -353,16 +415,18 @@ export interface AuthOptions {
 export type MouseButtons = "left" | "right" | "middle";
 
 export interface ClickOptions {
-  /** defaults to left */
+  /** @default MouseButtons.Left */
   button?: MouseButtons;
-  /** defaults to 1 */
+  /** @default 1 */
   clickCount?: number;
   /**
    * Time to wait between mousedown and mouseup in milliseconds.
-   * Defaults to 0.
+   * @default 0
    */
   delay?: number;
 }
+
+export type SameSiteSetting = "Strict" | "Lax";
 
 /** Represents a browser cookie. */
 export interface Cookie {
@@ -376,6 +440,8 @@ export interface Cookie {
   path: string;
   /** The cookie Unix expiration time in seconds. */
   expires: number;
+  /** The cookie size */
+  size: number;
   /** The cookie http only flag. */
   httpOnly: boolean;
   /** The session cookie flag. */
@@ -383,7 +449,7 @@ export interface Cookie {
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
-  sameSite: "Strict" | "Lax";
+  sameSite: SameSiteSetting;
 }
 
 export interface DeleteCookie {
@@ -392,7 +458,6 @@ export interface DeleteCookie {
   url?: string;
   domain?: string;
   path?: string;
-  secure?: boolean;
 }
 
 export interface SetCookie {
@@ -415,7 +480,7 @@ export interface SetCookie {
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */
-  sameSite?: "Strict" | "Lax";
+  sameSite?: SameSiteSetting;
 }
 
 export interface Viewport {
@@ -453,7 +518,8 @@ export interface EmulateOptions {
   userAgent?: string;
 }
 
-export type EvaluateFn = string | ((...args: any[]) => any);
+export type EvaluateFn<T = any> = string | ((arg1: T, ...args: any[]) => any);
+export type EvaluateFnReturnType<T extends EvaluateFn> = T extends ((...args: any[]) => infer R) ? R : any;
 
 export type LoadEvent =
   | "load"
@@ -461,13 +527,16 @@ export type LoadEvent =
   | "networkidle0"
   | "networkidle2";
 
+export interface Timeoutable {
+    /**
+     * Maximum navigation time in milliseconds, pass 0 to disable timeout.
+     * @default 30000
+     */
+    timeout?: number;
+}
+
 /** The navigation options. */
-export interface NavigationOptions {
-  /**
-   * Maximum navigation time in milliseconds, pass 0 to disable timeout.
-   * @default 30000
-   */
-  timeout?: number;
+export interface NavigationOptions extends Timeoutable {
   /**
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
@@ -475,17 +544,33 @@ export interface NavigationOptions {
   waitUntil?: LoadEvent | LoadEvent[];
 }
 
+/**
+ * Navigation options for `page.goto`.
+ */
+export interface DirectNavigationOptions extends NavigationOptions {
+  /**
+   * Referer header value.
+   * If provided it will take preference over the referer header value set by
+   * [page.setExtraHTTPHeaders()](#pagesetextrahttpheadersheaders).
+   */
+  referer?: string;
+}
+
+/** Accepts values labeled with units. If number, treat as pixels. */
+export type LayoutDimension = string | number;
+
 export type PDFFormat =
   | "Letter"
   | "Legal"
-  | "Tabload"
+  | "Tabloid"
   | "Ledger"
   | "A0"
   | "A1"
   | "A2"
   | "A3"
   | "A4"
-  | "A5";
+  | "A5"
+  | "A6";
 
 export interface PDFOptions {
   /**
@@ -533,27 +618,36 @@ export interface PDFOptions {
    */
   landscape?: boolean;
   /**
-   * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
-   * string, which means print all pages.
+   * Paper ranges to print, e.g., '1-5, 8, 11-13'.
+   * @default '' which means print all pages.
    */
   pageRanges?: string;
-  /** Paper format. If set, takes priority over width or height options. Defaults to 'Letter'. */
+  /**
+   * Paper format. If set, takes priority over width or height options.
+   * @default 'Letter'
+   */
   format?: PDFFormat;
-  /** Paper width, accepts values labeled with units. */
-  width?: string;
-  /** Paper height, accepts values labeled with units. */
-  height?: string;
-  /** Paper margins, defaults to none.  */
+  /** Paper width. */
+  width?: LayoutDimension;
+  /** Paper height. */
+  height?: LayoutDimension;
+  /** Paper margins, defaults to none. */
   margin?: {
-    /** Top margin, accepts values labeled with units. */
-    top?: string;
-    /** Right margin, accepts values labeled with units. */
-    right?: string;
-    /** Bottom margin, accepts values labeled with units. */
-    bottom?: string;
-    /** Left margin, accepts values labeled with units. */
-    left?: string;
+    /** Top margin. */
+    top?: LayoutDimension;
+    /** Right margin. */
+    right?: LayoutDimension;
+    /** Bottom margin. */
+    bottom?: LayoutDimension;
+    /** Left margin. */
+    left?: LayoutDimension;
   };
+  /**
+   * Give any CSS @page size declared in the page priority over what is declared in width and
+   * height or format options.
+   * @default false which will scale the content to fit the paper size.
+   */
+  preferCSSPageSize?: boolean;
 }
 
 /** Defines the screenshot options. */
@@ -585,6 +679,19 @@ export interface ScreenshotOptions {
    * @default false
    */
   omitBackground?: boolean;
+  /**
+   * The encoding of the image, can be either base64 or binary.
+   * @default binary
+   */
+  encoding?: "base64" | "binary";
+}
+
+export interface BinaryScreenShotOptions extends ScreenshotOptions {
+    encoding?: "binary";
+}
+
+export interface Base64ScreenShotOptions extends ScreenshotOptions {
+    encoding: "base64";
 }
 
 /** Options for `addStyleTag` */
@@ -608,9 +715,8 @@ export interface ScriptTagOptions {
   type?: string;
 }
 
-export interface PageFnOptions {
+export interface PageFnOptions extends Timeoutable {
   polling?: "raf" | "mutation" | number;
-  timeout?: number;
 }
 
 export interface BoundingBox {
@@ -646,28 +752,7 @@ export interface Box {
  * The Worker class represents a WebWorker.
  * The events workercreated and workerdestroyed are emitted on the page object to signal the worker lifecycle.
  */
-export interface Worker {
-  /**
-   * If the function passed to the `worker.evaluate` returns a Promise,
-   * then `worker.evaluate` would wait for the promise to resolve and return its value.
-   *
-   * If the function passed to the `worker.evaluate` returns a non-Serializable value,
-   * then `worker.evaluate` resolves to `undefined`.
-   */
-  evaluate<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
-  ): Promise<T>;
-
-  /**
-   * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
-   * that `worker.evaluateHandle` returns in-page object (JSHandle).
-   */
-  evaluateHandle<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
-  ): Promise<T>;
-
+export interface Worker extends JSEvalable {
   executionContext(): Promise<ExecutionContext>;
 
   url(): string;
@@ -676,7 +761,7 @@ export interface Worker {
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
-export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
+export interface ElementHandle<E extends Element = Element> extends JSHandle<E>, Evalable {
   /**
    * The method runs element.querySelector within the page.
    * If no element matches the selector, the return value resolve to null.
@@ -728,6 +813,10 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    */
   hover(): Promise<void>;
   /**
+   * Resolves to true if the element is visible in the current viewport.
+   */
+  isIntersectingViewport(): Promise<boolean>;
+  /**
    * Focuses the element, and then uses keyboard.down and keyboard.up.
    * @param key Name of key to press, such as ArrowLeft. See USKeyboardLayout for a list of all key names.
    * @param options The text and delay options.
@@ -738,7 +827,17 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * If the element is detached from DOM, the method throws an error.
    * @param options Same options as in page.screenshot.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
+  /**
+   * Triggers a change and input event once all the provided options have been selected. If there's no <select> element
+   * matching selector, the method throws an error.
+   * @param values Values of options to select. If the <select> has the multiple attribute, all values are considered, otherwise only the first one is taken into account.
+   * @returns An array of option values that have been successfully selected.
+   * @since 1.12.0
+   */
+  select(...values: string[]): Promise<string[]>;
   /**
    * This method scrolls element into view if needed, and then uses touchscreen.tap to tap in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -759,20 +858,12 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
 }
 
 /** The class represents a context for JavaScript execution. */
-export interface ExecutionContext {
-  evaluate(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<any>;
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<JSHandle>;
+export interface ExecutionContext extends JSEvalable {
   queryObjects(prototypeHandle: JSHandle): JSHandle;
 }
 
 /** JSHandle represents an in-page JavaScript object. */
-export interface JSHandle {
+export interface JSHandle<T = any> extends JSEvalable<T> {
   /**
    * Returns a ElementHandle
    */
@@ -860,6 +951,8 @@ export type ErrorCode =
   | "aborted"
   | "accessdenied"
   | "addressunreachable"
+  | "blockedbyclient"
+  | "blockedbyresponse"
   | "connectionaborted"
   | "connectionclosed"
   | "connectionfailed"
@@ -901,7 +994,7 @@ export interface Request {
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
    */
-  frame(): Promise<Frame | null>;
+  frame(): Frame | null;
 
   /**
    * An object with HTTP headers associated with the request.
@@ -963,10 +1056,32 @@ export interface RespondOptions {
   body?: Buffer | string;
 }
 
+export interface RemoteInfo {
+    /** the IP address of the remote server */
+    ip: string;
+    /** the port used to connect to the remote server */
+    port: number;
+}
+
+export interface SecurityDetails {
+    /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
+    issuer(): string;
+    /** String with the security protocol (e.g. TLS 1.2). */
+    protocol(): string;
+    /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
+    subjectName(): string;
+    /** Timestamp stating the start of validity of the certificate. */
+    validFrom(): number;
+    /** Timestamp stating the end of validity of the certificate. */
+    validTo(): number;
+}
+
 /** Response class represents responses which are received by page. */
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
   buffer(): Promise<Buffer>;
+  /** A Frame that initiated this response, or null if navigating to error pages. */
+  frame(): Frame | null;
   /** True if the response was served from either the browser's disk cache or memory cache. */
   fromCache(): boolean;
   /** True if the response was served by a service worker. */
@@ -980,17 +1095,42 @@ export interface Response {
   json(): Promise<any>;
   /** Contains a boolean stating whether the response was successful (status in the range 200-299) or not. */
   ok(): boolean;
+  /** Returns remote connection info */
+  remoteAddress(): RemoteInfo;
+  /** Returns an object with security details associated with the response. */
+  securityDetails(): SecurityDetails | null;
   /** A matching Request object. */
   request(): Request;
   /** Contains the status code of the response (e.g., 200 for a success). */
   status(): number;
+  /** Contains the status text of the response (e.g. usually an "OK" for a success).  */
+  statusText(): string;
   /** Promise which resolves to a text representation of response body. */
   text(): Promise<string>;
   /** Contains the URL of the response. */
   url(): string;
 }
 
-export interface FrameBase extends Evalable {
+export interface WaitForSelectorOptions extends Timeoutable {
+  /**
+   * Wait for element to be present in DOM and to be visible,
+   * i.e. to not have display: none or visibility: hidden CSS properties.
+   * @default false
+   */
+  visible?: boolean;
+  /**
+   * Wait for element to not be found in the DOM or to be hidden,
+   * i.e. have display: none or visibility: hidden CSS properties.
+   * @default false
+   */
+  hidden?: boolean;
+}
+
+export interface WaitForSelectorOptionsHidden extends WaitForSelectorOptions {
+  hidden: true;
+}
+
+export interface FrameBase extends Evalable, JSEvalable {
   /**
    * The method queries frame for the selector.
    * If there's no such element within the frame, the method will resolve to null.
@@ -1028,29 +1168,11 @@ export interface FrameBase extends Evalable {
   content(): Promise<string>;
 
   /**
-   * Evaluates a function in the browser context.
-   * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
-   * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
-   * @param fn Function to be evaluated in browser context
-   * @param args Arguments to pass to `fn`
+   * Navigates to a URL.
+   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
+   * @param options The navigation parameters.
    */
-  evaluate(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<any>;
-
-  /**
-   * Evaluates a function in the page context.
-   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
-   * would wait for the promise to resolve and return its value.
-   * @param fn The function to be evaluated in the page context.
-   * @param args The arguments to pass to the `fn`.
-   * @returns A promise which resolves to return value of `fn`.
-   */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<JSHandle>;
+  goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
 
   /** This method fetches an element with selector and focuses it. */
   focus(selector: string): Promise<void>;
@@ -1064,10 +1186,20 @@ export interface FrameBase extends Evalable {
   hover(selector: string): Promise<void>;
 
   /**
+   * Triggers a `change` and `input` event once all the provided options have been selected.
+   * If there's no `<select>` element matching selector, the method throws an error.
+   * @param selector A selector to query page for.
+   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
+   * all values are considered, otherwise only the first one is taken into account.
+   */
+  select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
+   * @param options The navigation parameters.
    */
-  setContent(html: string): Promise<void>;
+  setContent(html: string, options?: NavigationOptions): Promise<void>;
 
   /**
    * This method fetches an element with `selector`, scrolls it into view if needed,
@@ -1091,30 +1223,53 @@ export interface FrameBase extends Evalable {
   /** Returns frame's url. */
   url(): string;
 
-  waitFor(
-    // fn can be an abritary function
-    // tslint:disable-next-line ban-types
-    selectorOrFunctionOrTimeout: string | number | Function,
-    options?: any,
-    ...args: any[]
-  ): Promise<any>;
+  /**
+   * Waits for a certain amount of time before resolving.
+   * @param duration The time to wait for.
+   */
+  waitFor(duration: number): Promise<void>;
+  /**
+   * Shortcut for waitForSelector and waitForXPath
+   */
+  waitFor(selector: string, options: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
+  waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
 
+  /**
+   * Shortcut for waitForFunction.
+   */
+  waitFor(
+    selector: EvaluateFn,
+    options?: WaitForSelectorOptions,
+    ...args: SerializableOrJSHandle[]
+  ): Promise<JSHandle>;
+
+  /**
+   * Allows waiting for various conditions.
+   */
   waitForFunction(
-    // fn can be an abritary function
-    // tslint:disable-next-line ban-types
-    fn: string | Function,
+    fn: EvaluateFn,
     options?: PageFnOptions,
-    ...args: any[]
-  ): Promise<any>;
+    ...args: SerializableOrJSHandle[]
+  ): Promise<JSHandle>;
+
+  /**
+   * Wait for the page navigation occur.
+   * @param options The navigation parameters.
+   */
+  waitForNavigation(options?: NavigationOptions): Promise<Response>;
 
   waitForSelector(
     selector: string,
-    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+    options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
+  waitForSelector(
+      selector: string,
+      options?: WaitForSelectorOptionsHidden,
+  ): Promise<ElementHandle | null>;
 
   waitForXPath(
     xpath: string,
-    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+    options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
 }
 
@@ -1143,6 +1298,11 @@ export interface PageEventObj {
    * Puppeteer can respond to the dialog via Dialog's accept or dismiss methods.
    */
   dialog: Dialog;
+  /**
+   * Emitted when the initial HTML document has been completely loaded and parsed,
+   * without waiting for stylesheets, images, and subframes to finish loading.
+   */
+  domcontentloaded: never;
   /** Emitted when the page crashes. */
   error: Error;
   /** Emitted when a frame is attached. */
@@ -1157,9 +1317,11 @@ export interface PageEventObj {
    * Emitted when the JavaScript code makes a call to `console.timeStamp`.
    * For the list of metrics see `page.metrics`.
    */
-  metrics: { title: string, metrics: any };
+  metrics: { title: string, metrics: Metrics };
   /** Emitted when an uncaught exception happens within the page. */
-  pageerror: string;
+  pageerror: Error;
+  /** Emitted when the page opens a new tab or window. */
+  popup: Page;
   /**
    * Emitted when a page issues a request. The request object is read-only.
    * In order to intercept and mutate requests, see page.setRequestInterceptionEnabled.
@@ -1178,8 +1340,176 @@ export interface PageEventObj {
 }
 
 export interface PageCloseOptions {
-  /** Defaults to `false`. Whether to run the before unload page handlers. */
+  /**
+   * Whether to run the before unload page handlers.
+   * @default false
+   */
   runBeforeUnload?: boolean;
+}
+
+export interface GeoOptions {
+  /**
+   * Latitude between -90 and 90.
+   */
+  latitude: number;
+  /**
+   * Longitude between -180 and 180.
+   */
+  longitude: number;
+  /**
+   * Non-negative accuracy value.
+   */
+  accuracy?: number;
+}
+
+export type MediaType = "screen" | "print";
+
+export interface AXNode {
+  /**
+   * The role.
+   */
+  role: string;
+  /**
+   * A human readable name for the node.
+   */
+  name: string;
+  /**
+   * The current value of the node.
+   */
+  value: string | number;
+  /**
+   * An additional human readable description of the node.
+   */
+  description: string;
+  /**
+   * Keyboard shortcuts associated with this node.
+   */
+  keyshortcuts: string;
+  /**
+   * A human readable alternative to the role.
+   */
+  roledescription: string;
+  /**
+   * A description of the current value.
+   */
+  valuetext: string;
+  /**
+   * Whether the node is disabled.
+   */
+  disabled: boolean;
+  /**
+   * Whether the node is expanded or collapsed.
+   */
+  expanded: boolean;
+  /**
+   * Whether the node is focused.
+   */
+  focused: boolean;
+  /**
+   * Whether the node is modal.
+   */
+  modal: boolean;
+  /**
+   * Whether the node text input supports multiline.
+   */
+  multiline: boolean;
+  /**
+   * Whether more than one child can be selected.
+   */
+  multiselectable: boolean;
+  /**
+   * Whether the node is read only.
+   */
+  readonly: boolean;
+  /**
+   * Whether the node is required.
+   */
+  required: boolean;
+  /**
+   * Whether the node is selected in its parent node.
+   */
+  selected: boolean;
+  /**
+   * Whether the checkbox is checked, or "mixed".
+   */
+  checked: boolean | "mixed";
+  /**
+   * Whether the toggle button is checked, or "mixed".
+   */
+  pressed: boolean | "mixed";
+  /**
+   * The level of a heading.
+   */
+  level: number;
+  /**
+   * The minimum value in a node.
+   */
+  valuemin: number;
+  /**
+   * The maximum value in a node.
+   */
+  valuemax: number;
+  /**
+   * What kind of autocomplete is supported by a control.
+   */
+  autocomplete: string;
+  /**
+   * What kind of popup is currently being shown for a node.
+   */
+  haspopup: string;
+  /**
+   * Whether and in what way this node's value is invalid.
+   */
+  invalid: string;
+  /**
+   * Whether the node is oriented horizontally or vertically.
+   */
+  orientation: string;
+  /**
+   * Child nodes of this node, if any.
+   */
+  children: AXNode[];
+}
+
+export interface SnapshopOptions {
+  /**
+   * Prune uninteresting nodes from the tree.
+   * @default true
+   */
+  interestingOnly?: boolean;
+  /**
+   * The root DOM element for the snapshot.
+   * @default document.body
+   */
+  root?: ElementHandle;
+}
+
+/**
+ * The Accessibility class provides methods for inspecting Chromium's accessibility tree.
+ * The accessibility tree is used by assistive technology such as screen readers.
+ * Accessibility is a very platform-specific thing. On different platforms,
+ * there are different screen readers that might have wildly different output.
+ * Blink - Chrome's rendering engine - has a concept of "accessibility tree",
+ * which is than translated into different platform-specific APIs.
+ * Accessibility namespace gives users access to the Blink Accessibility Tree.
+ * Most of the accessibility tree gets filtered out when converting from Blink AX Tree to Platform-specific AX-Tree or
+ * by screen readers themselves. By default, Puppeteer tries to approximate this filtering,
+ * exposing only the "interesting" nodes of the tree.
+ */
+export interface Accessibility {
+  snapshot(options?: SnapshopOptions): Promise<AXNode>;
+}
+
+export interface FileChooser {
+  /**
+   * Accept the file chooser request with given paths.
+   * If some of the filePaths are relative paths, then they are resolved relative to the current working directory.
+   */
+  accept(filePaths: string[]): Promise<void>;
+  /** Closes the file chooser without selecting any files. */
+  cancel(): Promise<void>;
+  /** Whether file chooser allow for multiple file selection. */
+  isMultiple(): boolean;
 }
 
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
@@ -1207,6 +1537,8 @@ export interface Page extends EventEmitter, FrameBase {
     handler: (e: PageEventObj[K], ...args: any[]) => void
   ): this;
 
+  accessibility: Accessibility;
+
   /**
    * Provide credentials for http authentication.
    * To disable authentication, pass `null`.
@@ -1217,7 +1549,10 @@ export interface Page extends EventEmitter, FrameBase {
   bringToFront(): Promise<void>;
 
   /** Get the browser the page belongs to. */
-  browser(): Promise<Browser>;
+  browser(): Browser;
+
+  /** Get the browser context that the page belongs to. */
+  browserContext(): BrowserContext;
 
   /** Closes the current page. */
   close(options?: PageCloseOptions): Promise<void>;
@@ -1237,23 +1572,10 @@ export interface Page extends EventEmitter, FrameBase {
   deleteCookie(...cookies: DeleteCookie[]): Promise<void>;
 
   /** Emulates given device metrics and user agent. This method is a shortcut for `setUserAgent` and `setViewport`.  */
-  emulate(options: Partial<EmulateOptions>): Promise<void>;
+  emulate(options: EmulateOptions): Promise<void>;
 
   /** Emulates the media. */
-  emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
-
-  /**
-   * Evaluates a function in the page context.
-   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
-   * would wait for the promise to resolve and return its value.
-   * @param fn The function to be evaluated in the page context.
-   * @param args The arguments to pass to the `fn`.
-   * @returns A promise which resolves to return value of `fn`.
-   */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<JSHandle>;
+  emulateMedia(mediaType: MediaType | null): Promise<void>;
 
   /**
    * Adds a function which would be invoked in one of the following scenarios: whenever the page is navigated; whenever the child frame is attached or navigated.
@@ -1263,7 +1585,7 @@ export interface Page extends EventEmitter, FrameBase {
    */
   evaluateOnNewDocument(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<void>;
 
   /**
@@ -1282,20 +1604,13 @@ export interface Page extends EventEmitter, FrameBase {
    * Navigate to the previous page in history.
    * @param options The navigation parameters.
    */
-  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goBack(options?: NavigationOptions): Promise<Response | null>;
 
   /**
    * Navigate to the next page in history.
    * @param options The navigation parameters.
    */
-  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
-
-  /**
-   * Navigates to a URL.
-   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
-   * @param options The navigation parameters.
-   */
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goForward(options?: NavigationOptions): Promise<Response | null>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
@@ -1317,7 +1632,7 @@ export interface Page extends EventEmitter, FrameBase {
    * To generate a pdf with `screen` media, call `page.emulateMedia('screen')` before calling `page.pdf()`:
    * @param options The PDF parameters.
    */
-  pdf(options?: Partial<PDFOptions>): Promise<Buffer>;
+  pdf(options?: PDFOptions): Promise<Buffer>;
 
   /**
    * The method iterates JavaScript heap and finds all the objects with the given prototype.
@@ -1335,16 +1650,9 @@ export interface Page extends EventEmitter, FrameBase {
    * Captures a screenshot of the page.
    * @param options The screenshot options.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
-
-  /**
-   * Triggers a `change` and `input` event once all the provided options have been selected.
-   * If there's no `<select>` element matching selector, the method throws an error.
-   * @param selector A selector to query page for.
-   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
-   * all values are considered, otherwise only the first one is taken into account.
-   */
-  select(selector: string, ...values: string[]): Promise<string[]>;
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
 
   /**
    * Toggles bypassing page's Content-Security-Policy.
@@ -1356,9 +1664,9 @@ export interface Page extends EventEmitter, FrameBase {
 
   /**
    * Determines whether cache is enabled on the page.
-   * @param enabled Whether or not to enable cache on the page.
+   * @param [enabled=true] Whether or not to enable cache on the page.
    */
-  setCacheEnabled(enabled: boolean): Promise<void>;
+  setCacheEnabled(enabled?: boolean): Promise<void>;
 
   /**
    * Sets the cookies on the page.
@@ -1377,10 +1685,34 @@ export interface Page extends EventEmitter, FrameBase {
   setDefaultNavigationTimeout(timeout: number): void;
 
   /**
+   * This setting will change the default maximum time for the following methods and related shortcuts:
+   * - `page.goBack`
+   * - `page.goForward`
+   * - `page.goto`
+   * - `page.reload`
+   * - `page.setContent`
+   * - `page.waitFor`
+   * - `page.waitForFunction`
+   * - `page.waitForNavigation`
+   * - `page.waitForRequest`
+   * - `page.waitForResponse`
+   * - `page.waitForSelector`
+   * - `page.waitForXPath`
+   *
+   * NOTE page.setDefaultNavigationTimeout takes priority over page.setDefaultTimeout
+   */
+  setDefaultTimeout(timeout: number): void;
+
+  /**
    * The extra HTTP headers will be sent with every request the page initiates.
    * @param headers An object containing additional http headers to be sent with every request. All header values must be strings.
    */
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
+
+  /**
+   * Sets the page's geolocation.
+   */
+  setGeolocation(options: GeoOptions): Promise<void>;
 
   /**
    * Determines whether JavaScript is enabled on the page.
@@ -1431,18 +1763,33 @@ export interface Page extends EventEmitter, FrameBase {
   /** Gets the page viewport. */
   viewport(): Viewport;
 
+  waitForRequest(
+    urlOrPredicate: string | ((req: Request) => boolean),
+    options?: Timeoutable
+  ): Promise<Request>;
+
+  waitForResponse(
+    urlOrPredicate: string | ((res: Response) => boolean),
+    options?: Timeoutable
+  ): Promise<Response>;
+
   /**
-   * Wait for the page navigation occur.
-   * @param options The navigation parameters.
+   * In non-headless Chromium, this method results in the native file picker dialog not showing up for the user.
+   * This method is typically coupled with an action that triggers file choosing.
+   * This must be called before the file chooser is launched. It will not return a currently active file chooser.
    */
-  waitForNavigation(options?: NavigationOptions): Promise<Response>;
+  waitForFileChooser(options?: Timeoutable): Promise<FileChooser>;
 
   /** This method returns all of the dedicated WebWorkers associated with the page. */
   workers(): Worker[];
 }
 
+export interface TargetAwaiter {
+    waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
+}
+
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
-export interface Browser extends EventEmitter {
+export interface Browser extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1490,6 +1837,15 @@ export interface Browser extends EventEmitter {
    */
   disconnect(): void;
 
+  /** Indicates that the browser is connected. */
+  isConnected(): boolean;
+
+  /**
+   * Returns the default browser context.
+   * The default browser context can not be closed.
+   */
+  defaultBrowserContext(): BrowserContext;
+
   /** Promise which resolves to a new Page object. */
   newPage(): Promise<Page>;
 
@@ -1498,6 +1854,9 @@ export interface Browser extends EventEmitter {
 
   /** Spawned browser process. Returns `null` if the browser instance was created with `puppeteer.connect` method */
   process(): ChildProcess;
+
+  /** A target associated with the browser. */
+  target(): Target;
 
   /** Promise which resolves to an array of all active targets. */
   targets(): Promise<Target[]>;
@@ -1529,12 +1888,30 @@ export interface BrowserEventObj {
   targetdestroyed: Target;
 }
 
+export type Permission =
+  "geolocation" |
+  "midi" |
+  "midi-sysex" |
+  "notifications" |
+  "push" |
+  "camera" |
+  "microphone" |
+  "background-sync" |
+  "ambient-light-sensor" |
+  "accelerometer" |
+  "gyroscope" |
+  "magnetometer" |
+  "accessibility-events" |
+  "clipboard-read" |
+  "clipboard-write" |
+  "payment-handler";
+
 /**
  * BrowserContexts provide a way to operate multiple independent browser sessions.
  * When a browser is launched, it has a single BrowserContext used by default.
  * The method `browser.newPage()` creates a page in the default browser context.
  */
-export interface BrowserContext extends EventEmitter {
+export interface BrowserContext extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1561,6 +1938,11 @@ export interface BrowserContext extends EventEmitter {
   /** The browser this browser context belongs to. */
   browser(): Browser;
 
+  /**
+   * Clears all permission overrides for the browser context.
+   */
+  clearPermissionOverrides(): Promise<void>;
+
   /** Closes the browser context. All the targets that belong to the browser context will be closed. */
   close(): Promise<void>;
 
@@ -1572,6 +1954,17 @@ export interface BrowserContext extends EventEmitter {
 
   /** Creates a new page in the browser context. */
   newPage(): Promise<Page>;
+
+  /**
+   *
+   * @param origin The origin to grant permissions to, e.g. "https://example.com".
+   * @param permissions An array of permissions to grant.
+   * All permissions that are not listed here will be automatically denied.
+   */
+  overridePermissions(origin: string, permissions: Permission[]): Promise<void>;
+
+  /** Promise which resolves to an array of all open pages. */
+  pages(): Promise<Page[]>;
 
   /** An array of all active targets inside the browser context. */
   targets(): Target[];
@@ -1587,6 +1980,8 @@ export interface BrowserContextEventObj {
   /** Emitted when a target is destroyed, for example when a page is closed. */
   targetdestroyed: Target;
 }
+
+export type TargetType = "page" | "background_page" | "shared_worker" | "service_worker" | "browser" | "other";
 
 export interface Target {
   /** Get the browser the target belongs to. */
@@ -1605,21 +2000,16 @@ export interface Target {
   page(): Promise<Page>;
 
   /** Identifies what kind of target this is.  */
-  type(): "page" | "background_page" | "service_worker" | "browser" | "other";
+  type(): TargetType;
 
   /** Returns the target URL. */
   url(): string;
+
+  /** If the target is not of type `service_worker` or `shared_worker`, resolves `null`. */
+  worker(): Promise<Worker | null>;
 }
 
-export interface LaunchOptions {
-  /** Whether to open chrome in appMode. Defaults to false. */
-  appMode?: boolean;
-  /** Whether to ignore HTTPS errors during navigation. Defaults to false. */
-  ignoreHTTPSErrors?: boolean;
-  /** Do not use `puppeteer.defaultArgs()` for launching Chromium. Defaults to false. */
-  ignoreDefaultArgs?: boolean;
-  /** Whether to run Chromium in headless mode. Defaults to true. */
-  headless?: boolean;
+export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
@@ -1627,49 +2017,134 @@ export interface LaunchOptions {
    */
   executablePath?: string;
   /**
-   * Slows down Puppeteer operations by the specified amount of milliseconds.
-   * Useful so that you can see what is going on.
+   * Do not use `puppeteer.defaultArgs()` for launching Chromium.
+   * @default false
    */
-  slowMo?: number;
+  ignoreDefaultArgs?: boolean | string[];
   /**
-   * Additional arguments to pass to the Chromium instance. List of Chromium
-   * flags can be found here.
+   * Close chrome process on Ctrl-C.
+   * @default true
    */
-  args?: string[];
-  /** Close chrome process on Ctrl-C. Defaults to true. */
   handleSIGINT?: boolean;
-  /** Close chrome process on SIGTERM. Defaults to true. */
+  /**
+   * Close chrome process on SIGTERM.
+   * @default true
+   */
   handleSIGTERM?: boolean;
-  /** Close chrome process on SIGHUP. Defaults to true. */
+  /**
+   * Close chrome process on SIGHUP.
+   * @default true
+   */
   handleSIGHUP?: boolean;
   /**
-   * Maximum time in milliseconds to wait for the Chrome instance to start.
-   * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
-   */
-  timeout?: number;
-  /**
    * Whether to pipe browser process stdout and stderr into process.stdout and
-   * process.stderr. Defaults to false.
+   * process.stderr.
+   * @default false
    */
   dumpio?: boolean;
-  /** Path to a User Data Directory. */
-  userDataDir?: string;
-  /** Specify environment variables that will be visible to Chromium. Defaults to process.env. */
-  env?: any;
-  /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
-  devtools?: boolean;
-  /** Connects to the browser over a pipe instead of a WebSocket. Defaults to false. */
+  /**
+   * Specify environment variables that will be visible to Chromium.
+   * @default `process.env`.
+   */
+  env?: {
+    [key: string]: string | boolean | number;
+  };
+  /**
+   * Connects to the browser over a pipe instead of a WebSocket.
+   * @default false
+   */
   pipe?: boolean;
 }
 
-export interface ConnectOptions {
-  /** A browser websocket endpoint to connect to. */
-  browserWSEndpoint?: string;
+export interface ChromeArgOptions {
+    /**
+     * Whether to run browser in headless mode.
+     * @default true unless the devtools option is true.
+     */
+    headless?: boolean;
+    /**
+     * Additional arguments to pass to the browser instance.
+     * The list of Chromium flags can be found here.
+     */
+    args?: string[];
+    /**
+     * Path to a User Data Directory.
+     */
+    userDataDir?: string;
+    /**
+     * Whether to auto-open a DevTools panel for each tab.
+     * If this option is true, the headless option will be set false.
+     */
+    devtools?: boolean;
+}
+
+export interface BrowserOptions {
   /**
    * Whether to ignore HTTPS errors during navigation.
    * @default false
    */
   ignoreHTTPSErrors?: boolean;
+  /**
+   * Sets a consistent viewport for each page. Defaults to an 800x600 viewport. null disables the default viewport.
+   */
+  defaultViewport?: {
+    /**
+     * page width in pixels.
+     */
+    width?: number;
+    /**
+     * page height in pixels.
+     */
+    height?: number;
+    /**
+     * Specify device scale factor (can be thought of as dpr).
+     * @default 1
+     */
+    deviceScaleFactor?: number;
+    /**
+     * Whether the meta viewport tag is taken into account.
+     * @default false
+     */
+    isMobile?: boolean;
+    /**
+     * Specifies if viewport supports touch events.
+     * @default false
+     */
+    hasTouch?: boolean;
+    /**
+     * Specifies if viewport is in landscape mode.
+     * @default false
+     */
+    isLandscape?: boolean;
+  } | null;
+  /**
+   * Slows down Puppeteer operations by the specified amount of milliseconds.
+   * Useful so that you can see what is going on.
+   */
+  slowMo?: number;
+}
+
+export interface ConnectOptions extends BrowserOptions {
+  /**
+   * A browser url to connect to, in format `http://${host}:${port}`.
+   * Use interchangeably with browserWSEndpoint to let Puppeteer fetch it from metadata endpoint.
+   */
+  browserURL?: string;
+
+  /** A browser websocket endpoint to connect to. */
+  browserWSEndpoint?: string;
+
+  /**
+   * **Experimental** Specify a custom transport object for Puppeteer to use.
+   */
+  transport?: ConnectionTransport;
+}
+
+export interface ConnectionTransport {
+  send(message: string): void;
+  close(): void;
+  onmessage?(message: string): void;
+  onclose?(): void;
 }
 
 export interface CDPSession extends EventEmitter {
@@ -1682,7 +2157,7 @@ export interface CDPSession extends EventEmitter {
   /**
    * @param method Protocol method name
    */
-  send(method: string, params?: object): Promise<any>;
+  send(method: string, params?: object): Promise<object>;
 }
 
 export interface Coverage {
@@ -1693,8 +2168,16 @@ export interface Coverage {
 }
 
 export interface StartCoverageOptions {
-  /** Whether to reset coverage on every navigation. Defaults to `true`. */
+  /**
+   * Whether to reset coverage on every navigation.
+   * @default true
+   */
   resetOnNavigation?: boolean;
+  /**
+   * Whether anonymous scripts generated by the page should be reported.
+   * @default false
+   */
+  reportAnonymousScripts?: boolean;
 }
 
 export interface CoverageEntry {
@@ -1703,11 +2186,47 @@ export interface CoverageEntry {
   ranges: Array<{start: number, end: number}>;
 }
 
+/** BrowserFetcher can download and manage different versions of Chromium. */
+export interface BrowserFetcher {
+  /** The method initiates a HEAD request to check if the revision is available. */
+  canDownload(revision: string): Promise<boolean>;
+  /** The method initiates a GET request to download the revision from the host. */
+  download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
+  localRevisions(): Promise<string[]>;
+  platform(): Platform;
+  remove(revision: string): Promise<void>;
+  revisionInfo(revision: string): RevisionInfo;
+}
+
+export interface RevisionInfo {
+  /** The revision the info was created from */
+  revision: string;
+  /** Path to the extracted revision folder */
+  folderPath: string;
+  /** Path to the revision executable */
+  executablePath: string;
+  /** URL this revision can be downloaded from */
+  url: string;
+  /** whether the revision is locally available on disk */
+  local: boolean;
+}
+
+export interface FetcherOptions {
+  /** A download host to be used. Defaults to `https://storage.googleapis.com`. */
+  host?: string;
+  /** A path for the downloads folder. Defaults to `<root>/.local-chromium`, where `<root>` is puppeteer's package root. */
+  path?: string;
+  /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
+  platform?: Platform;
+}
+
 /** Attaches Puppeteer to an existing Chromium instance */
 export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
-export function defaultArgs(): string[];
+export function defaultArgs(options?: ChromeArgOptions): string[];
 /** Path where Puppeteer expects to find bundled Chromium */
 export function executablePath(): string;
 /** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */
 export function launch(options?: LaunchOptions): Promise<Browser>;
+/** This methods attaches Puppeteer to an existing Chromium instance. */
+export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;

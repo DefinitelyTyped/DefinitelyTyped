@@ -6,6 +6,7 @@
 //                 Dan Chao <https://github.com/bioball>
 //                 Michal Lower <https://github.com/keton>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Clayton Kucera <https://github.com/claytonkucera>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -29,6 +30,8 @@ export declare function removeListener(event: "scanStart", listener: () => void)
 export declare function removeListener(event: "scanStop", listener: () => void): events.EventEmitter;
 export declare function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 export declare function removeListener(event: string, listener: Function): events.EventEmitter;
+
+export declare function removeAllListeners(event?: string): events.EventEmitter;
 
 export declare var state:string;
 
@@ -63,10 +66,10 @@ export declare class Peripheral extends events.EventEmitter {
 
 export interface Advertisement {
     localName: string;
-    serviceData: {
+    serviceData: Array<{
         uuid: string,
         data: Buffer
-    };
+    }>;
     txPowerLevel: number;
     manufacturerData: Buffer;
     serviceUuids: string[];

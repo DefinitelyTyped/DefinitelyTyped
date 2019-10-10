@@ -454,6 +454,13 @@ declare module CANNON {
         type?: number;
         linearDamping?: number;
         angularDamping?: number;
+        allowSleep?: boolean;
+        sleepSpeedLimit?: number;
+        sleepTimeLimit?: number;
+        collisionFilterGroup?: number;
+        collisionFilterMask?: number;
+        fixedRotation?: boolean;
+        shape?: Shape;
     }
 
     export class Body extends EventTarget {
@@ -528,6 +535,8 @@ declare module CANNON {
         updateInertiaWorld(force: Vec3): void;
         applyForce(force: Vec3, worldPoint: Vec3): void;
         applyImpulse(impulse: Vec3, worldPoint: Vec3): void;
+        applyLocalForce(force: Vec3, localPoint: Vec3): void;
+        applyLocalImpulse(impulse: Vec3, localPoint: Vec3): void;
         updateMassProperties(): void;
         getVelocityAtWorldPoint(worldPoint: Vec3, result: Vec3): Vec3;
 

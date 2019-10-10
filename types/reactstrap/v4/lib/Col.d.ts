@@ -16,7 +16,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   lg?: ColumnProps;
   xl?: ColumnProps;
 
-  //custom widths
+  // custom widths
   widths?: string[];
 }
 

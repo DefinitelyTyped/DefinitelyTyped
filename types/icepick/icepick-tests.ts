@@ -1,5 +1,4 @@
 import i = require("icepick");
-import * as _ from 'underscore';
 
 "use strict"; // so attempted modifications of frozen objects will throw errors
 
@@ -146,15 +145,13 @@ class Foo {}
 {
     i.map(function(v) { return v * 2 }, [1, 2, 3]); // [2, 4, 6]
 
-    var removeEvens = _.partial(i.filter, function(v: number) { return v % 2; });
-
-    removeEvens([1, 2, 3]); // [1, 3]
+    i.filter(function(v: number) { return v % 2 === 0; }, [1, 2, 3]); // [1, 3]
 }
 {
     var arr = i.freeze([{ a: 1 }, { b: 2 }]);
 
     //ECMAScript 2015
-    //arr.find(function(item) { return item.b != null; }); // {b: 2} 
+    //arr.find(function(item) { return item.b != null; }); // {b: 2}
 }
 
 // chain(coll) - not defined

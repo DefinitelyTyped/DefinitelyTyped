@@ -5,7 +5,7 @@
 
 declare const ScrollReveal: scrollReveal.ScrollRevealObject;
 
-declare module 'ScrollReveal' {
+declare module 'scrollreveal' {
     export = ScrollReveal;
 }
 
@@ -28,6 +28,7 @@ declare namespace scrollReveal {
         distance ? : string;
         duration ? : number;
         delay ? : number;
+        interval ? : number;
         rotate ? : ScrollRevealRotateObject;
         opacity ? : number;
         scale ? : number;

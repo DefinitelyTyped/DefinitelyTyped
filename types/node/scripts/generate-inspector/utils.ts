@@ -7,7 +7,7 @@ import { Documentable, Field, ObjectReference } from "./devtools-protocol-schema
  * arrays.
  * @param inBetween A value to insert between groups of flattened values
  */
-export function flattenArgs<T = string>(inBetween?: T) {
+export function flattenArgs<T = string>(inBetween?: T): (acc: T[], next: T[]) => T[] {
     if (inBetween != null) {
         return (acc: T[], next: T[]) => {
             if (acc.length > 0) {
@@ -25,7 +25,14 @@ export function flattenArgs<T = string>(inBetween?: T) {
  * Returns whether an array exists and has elements.
  * @param a The array to check.
  */
-export const hasElements = (a: any[]): boolean => a && a.length > 0;
+export const hasElements = (a?: any[]): boolean => !!a && a.length > 0;
+
+/**
+ * Given an array that might have null elements, return an array with just the
+ * non-null elements.
+ * @param a The array to filter.
+ */
+export const filterNull = <T>(a: Array<T | null>): T[] => a.filter(x => x != null) as T[];
 
 /**
  * Returns the capitalized form of a given string.
@@ -47,30 +54,15 @@ export function isObjectReference(t: Field): t is ObjectReference {
  * to populate a comment block.
  * @param documentable A Documentable object.
  */
-export const createDocs = (documentable: Documentable): string[] => {
-    const hasDocs = !!documentable.description ||
-        documentable.deprecated ||
-        documentable.experimental;
-    return hasDocs ? [
+export const createDocs = ({ deprecated, description, experimental }: Documentable): string[] => {
+    const hasDocs = !!description || deprecated || experimental;
+    return hasDocs ? filterNull([
         "/**",
-        documentable.description && ` * ${documentable.description}`,
-        documentable.deprecated && " * @deprecated",
-        documentable.experimental && " * @experimental",
+        ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
+        deprecated ? " * @deprecated" : null,
+        experimental ? " * @experimental" : null,
         " */",
-    ].filter(l => l != null) : [];
-};
-
-/**
- * Given a string, prepend a given domain string to it if applicable.
- * @param ref The name of a class within a domain to reference.
- * @param domain The domain string to prepend.
- */
-export const resolveReference = (ref: string, domain?: string): string => {
-    if (!domain || ref.indexOf(".") !== -1) {
-        return ref;
-    } else {
-        return `${domain}.${ref}`;
-    }
+    ]) : [];
 };
 
 /**

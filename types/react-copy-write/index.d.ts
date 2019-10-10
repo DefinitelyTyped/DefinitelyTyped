@@ -7,21 +7,17 @@
 
 import { Component } from 'react';
 
-type DeepReadonly<T> = {
-    readonly [P in keyof T]: DeepReadonly<T[P]>;
-};
-
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
 // the ability to restrict type widening.
 type AnyDeepMemberOfState<T> = any;
 
-type MutateFn<T> = (draft: T, state: DeepReadonly<T>) => void;
+type MutateFn<T> = (draft: T, state: Readonly<T>) => void;
 type Mutator<T> = (mutator: MutateFn<T>) => void;
 
 type SelectorFn<T> = (state: T) => AnyDeepMemberOfState<T>;
 
-type RenderFn<T> = (...state: Array<DeepReadonly<ReturnType<SelectorFn<T>>>>) => JSX.Element | JSX.Element[] | null;
+type RenderFn<T> = (...state: Array<Readonly<ReturnType<SelectorFn<T>>>>) => JSX.Element | JSX.Element[] | null;
 
 interface ConsumerPropsBase<T> {
     select?: Array<SelectorFn<T>>;

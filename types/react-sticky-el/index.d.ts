@@ -2,7 +2,7 @@
 // Project: https://github.com/gm0t/react-sticky-el
 // Definitions by: Justin Braithwaite <https://github.com/jbraithwaite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -41,7 +41,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        wrapperCmp?: keyof React.ReactHTML | React.ReactElement<any>;
+        wrapperCmp?: keyof React.ReactHTML | React.ReactElement;
 
         /**
          * Anything that can be used by React.createElement. Used for holder

@@ -3,7 +3,7 @@ declare class Session {
     readonly token: string;
     readonly createdAt: Date;
     readonly expiresAt: Date;
- 
+
     constructor(token: string, createdAt: Date, expiresAt: Date);
     toCrowd(): SessionObj;
     static fromCrowd(obj: SessionObj): Session;

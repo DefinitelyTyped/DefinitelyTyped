@@ -14,6 +14,7 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
   private readonly handleSwipedLeft: Swipeable.OnSwipedDirectionCallback = () => {};
   private readonly handleTap: Swipeable.OnTapCallback = () => {};
   private readonly handleClick = () => {};
+  private readonly swipeRef = React.createRef<HTMLElement>();
 
   render() {
     return (
@@ -36,8 +37,9 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
         nodeName="swipe"
         trackMouse
         disabled
-        innerRef="swipe-ref"
+        innerRef={this.swipeRef}
         onClick={this.handleClick}
+        rotationAngle={0}
       >
         <div>
           This element can be swiped

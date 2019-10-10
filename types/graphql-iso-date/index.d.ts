@@ -2,7 +2,7 @@
 // Project: https://github.com/excitement-engineer/graphql-iso-date
 // Definitions by: Jason Waldrip <https://github.com/jwaldrip>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { GraphQLScalarType } from "graphql";
 

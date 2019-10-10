@@ -1,6 +1,7 @@
 // Type definitions for Espruino 1.94
-// Project: http://www.espruino.com/
+// Project: http://www.espruino.com/, https://github.com/espruino/espruinotools
 // Definitions by: Stanislav Berkov <https://github.com/stasberkov>
+//                 Jurand Niemczycki <https://github.com/createdbyjurand>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare interface Object {
@@ -9,6 +10,7 @@ declare interface Object {
 
 declare module "Wifi" {
     function connect(ssid: string, options: any, callback: (err: any) => any): any;
+    function startAP(ssid: string, options: any, callback: (err: any) => any): any;
 }
 
 declare module "InfluxDB" {
@@ -391,10 +393,10 @@ declare interface Timer {
 }
 
 
-    // write(data: any[]): any;
-    // on(event: string, handler: (data: any) => any): any;
-    // setup(boudrate: number, options: any): any;
-    // read(chars?: number): string;
+// write(data: any[]): any;
+// on(event: string, handler: (data: any) => any): any;
+// setup(boudrate: number, options: any): any;
+// read(chars?: number): string;
 
 
 /**
@@ -3598,7 +3600,7 @@ declare function digitalPulse(pin: Pin, value: boolean, time: any): void;
 * @param value 
 * @url http://www.espruino.com/Reference#l__global_digitalWrite
 */
-declare function digitalWrite(pin: Pin, value: number): void;
+declare function digitalWrite(pin: Pin, value: number | boolean): void;
 
 /**
 * <p>Get the digital value of the given pin.</p>

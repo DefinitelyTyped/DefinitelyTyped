@@ -10,18 +10,37 @@ const server = createServer({
         distDir: "./dist",
         useFileSystemPublicRoutes: false,
         anotherProperty: {
-            key: true,
-        },
-    },
+            key: true
+        }
+    }
 });
 
-const voidFunc = () => {};
-const stringFunc = (x: string) => x.split("\n");
+const devServer = createServer({
+    dev: true,
+    dir: "..",
+    quiet: true,
+    conf: {
+        distDir: "./dist",
+        useFileSystemPublicRoutes: false,
+        anotherProperty: {
+            key: true
+        }
+    }
+});
+
+const {
+    dir,
+    quiet,
+    router,
+    nextConfig,
+    distDir,
+    buildId
+ } = server;
+ const { assetPrefix } = nextConfig;
+ const voidFunc = () => {};
 
 server.prepare().then(voidFunc);
 server.close().then(voidFunc);
-server.defineRoutes().then(voidFunc);
-server.start().then(voidFunc);
 
 const parsedUrl = url.parse("https://www.example.com");
 const handler = server.getRequestHandler();
@@ -68,11 +87,7 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
 
     let b: boolean;
     b = server.isServeableUrl("/path/to/thing");
-    b = server.isInternalUrl(req);
-    b = server.handleBuildId("{buildId}", res);
 
     const s: string = server.readBuildId();
-    server.getCompilationError("page", req, res).then(err => err.thisIsAnAny);
-    server.handleBuildHash("filename", "hash", res);
-    server.send404(res);
+    devServer.getCompilationError().then(err => err.thisIsAnAny);
 }

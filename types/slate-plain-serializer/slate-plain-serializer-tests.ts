@@ -1,6 +1,6 @@
-import * as Plain from "slate-plain-serializer";
-import { Slate } from "slate";
+import Plain from "slate-plain-serializer";
+import { Value } from "slate";
 
-const val = Slate.Value.create();
+const val = Value.create();
 const serialized = Plain.serialize(val);
 const deserialized = Plain.deserialize(serialized);

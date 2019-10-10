@@ -1,6 +1,7 @@
-// Type definitions for serialize-javascript 1.3
+// Type definitions for serialize-javascript 1.5
 // Project: https://github.com/yahoo/serialize-javascript
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
+//                 Pochodaydayup <https://github.com/Pochodaydayup>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace serializeJavascript {
@@ -16,6 +17,12 @@ declare namespace serializeJavascript {
          * If you're serializing a lot of data, and know its pure JSON, then you can enable this option for a speed-up.
          */
         isJSON?: boolean;
+        /**
+         * This option is to signal serialize() that we want to do a straight conversion, without the XSS protection.
+         * This options needs to be explicitly set to true. HTML characters and JavaScript line terminators will not be escaped.
+         * You will have to roll your own.
+         */
+        unsafe?: boolean;
     }
 }
 

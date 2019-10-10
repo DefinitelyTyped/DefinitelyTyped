@@ -4,11 +4,13 @@ import {
 	unhookCreateScript,
 	hookRunInThisContext,
 	unhookRunInThisContext,
+	hookRunInContext,
+	unhookRunInContext,
 	unloadRequireCache
 } from 'istanbul-lib-hook';
 
 const matcher = (filename: string) => true;
-const transformer = (code: string, filepath: string) => 'foo';
+const transformer = (code: string, options: { filename: string }) => 'foo';
 
 hookRequire(matcher, transformer);
 hookRequire(matcher, transformer, {});
@@ -31,3 +33,8 @@ hookRunInThisContext(matcher, transformer, { verbose: true });
 unhookRunInThisContext();
 
 unloadRequireCache(matcher);
+
+hookRunInContext(matcher, transformer, {});
+hookRunInContext(matcher, transformer, { verbose: true, coverageVariable: '__cov__' });
+
+unhookRunInContext();

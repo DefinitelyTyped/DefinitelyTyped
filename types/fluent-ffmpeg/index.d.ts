@@ -1,6 +1,9 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
+//                 DingWeizhe <https://github.com/DingWeizhe>
+//                 Mounir Abid <https://github.com/mabidina>
+//                 Doyoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +14,7 @@ import * as stream from "stream";
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
-        warning(...data: any[]): void;
+        warn(...data: any[]): void;
         info(...data: any[]): void;
         debug(...data: any[]): void;
     }
@@ -29,8 +32,8 @@ declare namespace Ffmpeg {
 
     interface FilterSpecification {
         filter: string;
-        inputs: string | string[];
-        outputs: string | string[];
+        inputs?: string | string[];
+        outputs?: string | string[];
         options?: any | string | any[];
     }
 
@@ -90,9 +93,89 @@ declare namespace Ffmpeg {
     type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
-        streams: any[];
-        format: any;
+        streams: FfprobeStream[];
+        format: FfprobeFormat;
         chapters: any[];
+    }
+
+    interface FfprobeStream {
+        [key: string]: any;
+        index: number;
+        codec_name?: string;
+        codec_long_name?: string;
+        profile?: number;
+        codec_type?: string;
+        codec_time_base?: string;
+        codec_tag_string?: string;
+        codec_tag?: string;
+        width?: number;
+        height?: number;
+        coded_width?: number;
+        coded_height?: number;
+        has_b_frames?: number;
+        sample_aspect_ratio?: string;
+        display_aspect_ratio?: string;
+        pix_fmt?: string;
+        level?: string;
+        color_range?: string;
+        color_space?: string;
+        color_transfer?: string;
+        color_primaries?: string;
+        chroma_location?: string;
+        field_order?: string;
+        timecode?: string;
+        refs?: number;
+        id?: string;
+        r_frame_rate?: string;
+        avg_frame_rate?: string;
+        time_base?: string;
+        start_pts?: number;
+        start_time?: number;
+        duration_ts?: string;
+        duration?: string;
+        bit_rate?: string;
+        max_bit_rate?: string;
+        bits_per_raw_sample?: string;
+        nb_frames?: string;
+        nb_read_frames?: string;
+        nb_read_packets?: string;
+        sample_fmt?: string;
+        sample_rate?: number;
+        channels?: number;
+        channel_layout?: string;
+        bits_per_sample?: number;
+        disposition?: FfprobeStreamDisposition;
+    }
+
+    interface FfprobeStreamDisposition {
+        [key: string]: any;
+        default?: number;
+        dub?: number;
+        original?: number;
+        comment?: number;
+        lyrics?: number;
+        karaoke?: number;
+        forced?: number;
+        hearing_impaired?: number;
+        visual_impaired?: number;
+        clean_effects?: number;
+        attached_pic?: number;
+        timed_thumbnails?: number;
+    }
+
+    interface FfprobeFormat {
+        [key: string]: any;
+        filename?: string;
+        nb_streams?: number;
+        nb_programs?: number;
+        format_name?: string;
+        format_long_name?: string;
+        start_time?: number;
+        duration?: number;
+        size?: number;
+        bit_rate?: number;
+        probe_score?: number;
+        tags?: any[];
     }
 
     interface ScreenshotsConfig {
@@ -109,6 +192,19 @@ declare namespace Ffmpeg {
         filter: string;
         options: string | string[] | {};
     }
+
+    // static methods
+    function setFfmpegPath(path: string): FfmpegCommand;
+    function setFfprobePath(path: string): FfmpegCommand;
+    function setFlvtoolPath(path: string): FfmpegCommand;
+    function availableFilters(callback: FiltersCallback): void;
+    function getAvailableFilters(callback: FiltersCallback): void;
+    function availableCodecs(callback: CodecsCallback): void;
+    function getAvailableCodecs(callback: CodecsCallback): void;
+    function availableEncoders(callback: EncodersCallback): void;
+    function getAvailableEncoders(callback: EncodersCallback): void;
+    function availableFormats(callback: FormatsCallback): void;
+    function getAvailableFormats(callback: FormatsCallback): void;
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
@@ -256,8 +352,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;
@@ -266,6 +362,7 @@ declare namespace Ffmpeg {
         // processor
         renice(niceness: number): FfmpegCommand;
         kill(signal: string): FfmpegCommand;
+        _getArguments(): string[];
 
         // capabilities
         setFfmpegPath(path: string): FfmpegCommand;
@@ -290,7 +387,7 @@ declare namespace Ffmpeg {
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
-        pipe(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
+        pipe(stream?: stream.Writable, options?: { end?: boolean }): stream.Writable|stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;

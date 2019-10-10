@@ -1,25 +1,33 @@
 import * as React from "react";
-import Highlighter from "react-highlight-words";
+import Highlighter, { FindChunks } from "react-highlight-words";
+
+const findChunks = ({
+    searchWords,
+    textToHighlight
+}: FindChunks) => [];
+
+const CustomHighlight: React.FC = ({children}) => (<span>{children}</span>);
 
 class HighlighterTest extends React.Component {
     render() {
         return (
             <div>
                 <Highlighter
+                    highlightTag="span"
                     searchWords={["el", "or"]}
                     textToHighlight="Hello World"
                 />
                 <Highlighter
                     activeClassName="activeClassName"
-                    activeIndex="activeIndex"
+                    activeIndex={1}
                     activeStyle={{ color: "red" }}
                     autoEscape={true}
                     className="className"
                     caseSensitive={true}
-                    findChunks={() => {}}
+                    findChunks={findChunks}
                     highlightClassName="highlightClassName"
                     highlightStyle={{ color: "red" }}
-                    highlightTag="span"
+                    highlightTag={CustomHighlight}
                     sanitize={(text: string) => text}
                     searchWords={["el", "or"]}
                     textToHighlight="Hello World"

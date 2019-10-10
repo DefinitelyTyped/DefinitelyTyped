@@ -90,3 +90,7 @@ declare module "moment" {
 
     type TemplateFunction = ((this: DurationFormatSettings) => string);
 }
+
+declare function momentDurationFormatSetup(_moment: typeof moment): void;
+
+export = momentDurationFormatSetup;

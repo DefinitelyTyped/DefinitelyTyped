@@ -2,18 +2,18 @@
 // Project: https://github.com/mlmorg/react-hyperscript
 // Definitions by: tock203 <https://github.com/tock203>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
 declare namespace h {}
 
-type Element = ReactElement<any> | string | number | null;
+type Element = ReactElement | string | number | null;
 
 declare function h(
     componentOrTag: ComponentClass | StatelessComponent | string,
     children?: ReadonlyArray<Element> | Element
-): ReactElement<any>;
+): ReactElement;
 
 declare function h<P extends {[attr: string]: any}>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,

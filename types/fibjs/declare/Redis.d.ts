@@ -90,7 +90,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	mset(kvs: Object): void;
+	mset(kvs: object): void;
 
 	/**
 	 * 
@@ -108,7 +108,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	msetNX(kvs: Object): void;
+	msetNX(kvs: object): void;
 
 	/**
 	 * 
@@ -383,7 +383,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	sub(map: Object): void;
+	sub(map: object): void;
 
 	/**
 	 * 
@@ -424,7 +424,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	unsub(map: Object): void;
+	unsub(map: object): void;
 
 	/**
 	 * 
@@ -445,7 +445,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	psub(map: Object): void;
+	psub(map: object): void;
 
 	/**
 	 * 
@@ -486,7 +486,7 @@ declare class Class_Redis extends Class__object {
 	 * 
 	 * 
 	 */
-	unpsub(map: Object): void;
+	unpsub(map: object): void;
 
 	/**
 	 * 

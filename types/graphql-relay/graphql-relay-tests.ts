@@ -11,6 +11,7 @@ import {
     GraphQLInputFieldConfigMap,
     GraphQLNonNull,
     GraphQLID,
+    GraphQLInt
 } from "graphql";
 import {
     // Connections
@@ -30,18 +31,19 @@ import {
     // Mutations
     mutationWithClientMutationId,
 } from "graphql-relay";
+
 // Connections
 // connectionArgs returns the arguments that fields should provide when they return a connection type that supports bidirectional pagination.
-connectionArgs.first = 10;
-connectionArgs.after = "a";
-connectionArgs.before = "b";
-connectionArgs.last = 10;
+connectionArgs.first = { type: GraphQLInt };
+connectionArgs.after = { type: GraphQLString };
+connectionArgs.before = { type: GraphQLString };
+connectionArgs.last = { type: GraphQLInt };
 // forwardConnectionArgs returns the arguments that fields should provide when they return a connection type that only supports forward pagination.
-forwardConnectionArgs.after = "a";
-forwardConnectionArgs.first = 10;
+forwardConnectionArgs.after = { type: GraphQLString };
+forwardConnectionArgs.first = { type: GraphQLInt };
 // backwardConnectionArgs returns the arguments that fields should provide when they return a connection type that only supports backward pagination.
-backwardConnectionArgs.before = "b";
-backwardConnectionArgs.last = 10;
+backwardConnectionArgs.before = { type: GraphQLString };
+backwardConnectionArgs.last = { type: GraphQLInt };
 // connectionDefinitions returns a connectionType and its associated edgeType, given a node type.
 const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
     context.flag = "f";

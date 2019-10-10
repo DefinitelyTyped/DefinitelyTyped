@@ -1,5 +1,5 @@
 // Type definitions for emojione 2.2
-// Project: https://github.com/Ranks/emojione
+// Project: https://github.com/Ranks/emojione, https://www.emojione.com
 // Definitions by: Danilo Bargen <https://github.com/dbrgn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -18,3 +18,4 @@ export function toShort(str: string): string;
 export function toImage(str: string): string;
 export function shortnameToImage(str: string): string;
 export function unicodeToImage(str: string): string;
+export function shortnameToUnicode(str: string): string;

@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
@@ -36,7 +36,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
-      opacity: 1
+      opacity: 1,
+      width: 'mapData(weight, 40, 80, 20, 60)'
     }
   },
   {
@@ -46,7 +47,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
-      'target-arrow-shape': 'triangle'
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'taxi',
     }
   },
   {
@@ -56,6 +58,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'line-color': 'black',
       'target-arrow-color': 'black',
       'source-arrow-color': 'black'
+    }
+  },
+  {
+    selector: 'node.lesstext',
+    style: {
+      label: 'data(name)',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '200',
     }
   }
 ];
@@ -125,7 +135,7 @@ cy.on('zoom', (event) => {
 cy.off('zoom');
 // events(cy); - TODO
 
-cy.add({ data: { id: 'g' }, position: {x: 200, y: 150} });
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
 cy.add([
   { data: { id: 'h' }, position: {x: 250, y: 100} }
 ]);
@@ -341,7 +351,8 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 //   layout.stop();
 // });
 
-// TODO: cy.style
+cy.style(cy.style());
+cy.style([cy.style()]);
 
 // $ExpectType string
 cy.png({
@@ -469,6 +480,13 @@ const edgePoints: cytoscape.Position[] = [
 aliases(eles.layout, eles.createLayout, eles.makeLayout);
 const layout = eles.layout({name: 'random'}).run();
 
+layout.on('layoutstop', () => {
+  cy.fit();
+});
+layout.on('layoutstop', {}, (obj) => {
+  console.log(obj);
+});
+
 eles.select();
 assert(ele.selected()); // as we selected all, and this too
 aliases(eles.unselect, eles.deselect);
@@ -496,6 +514,18 @@ nodes.forEach((child) => {
     complete: () => {
       console.log(child.id());
     }
+  });
+});
+
+// position is not required for an animation
+nodes.forEach((child) => {
+  child.animate({
+    style: {
+      backgroundColor: '#f185dc',
+      width: '30px',
+      height: '30px'
+    },
+    duration: 300
   });
 });
 
@@ -538,10 +568,68 @@ eles.difference(collNodes).abscomp().intersection(collSel).symdiff(collNodes);
 const diff = collSel.diff(collNodes);
 cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(collSel).filter((ele, i, eles) => true);
 
-eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
+nodes.map(n => n.degree(false));
+edges.map(e => e.source());
+eles.map(e => e.id());
+eles.map(e => e.isNode() ? e.degree(false) : e.source());
+eles.map(e => e.isEdge() ? e.source() : e.degree(false));
+
+eles.sort((a, b) => a.id.length - b.id.length).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
-const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;
-const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
+
+const min = eles.min((ele, i, eles) => ele.isNode() ? ele.degree(false) : ele.source().degree(false));
+min.ele.scratch('min', min.value).scratch('min').value;
+const max = eles.max((ele, i, eles) => ele.isEdge() ? ele.source().degree(false) : ele.degree(false));
+max.ele.scratch('max', max.value);
+
+nodes.min(n => n.degree(false));
+nodes.max(n => n.degree(false));
+edges.max(n => n.source().id().length);
+edges.max(n => n.source().id().length);
+
+// directly from the doc: http://js.cytoscape.org/#eles.stop
+cy.nodes().animate({
+  style: { 'background-color': 'cyan' }
+}, {
+  duration: 5000,
+  complete: () => {
+    console.log('Animation complete');
+  }
+}).delay(100);
+
+setTimeout(() => {
+  console.log('Stopping nodes animation');
+  cy.nodes().stop();
+}, 2500);
+
+// directly from the doc: http://js.cytoscape.org/#eles.breadthFirstSearch
+const bfs = cy.elements().bfs({
+  roots: '#e',
+  visit: (v, e, u, i, depth) => {
+    console.log('visit ' + v.id());
+
+    // example of finding desired node
+    if (v.data('weight') > 70) {
+      return true;
+    }
+
+    // example of exiting search early
+    if (v.data('weight') < 0) {
+      return false;
+    }
+  },
+  directed: false
+});
+
+const path = bfs.path; // path to found node
+const found = bfs.found; // found node
+
+// select the path
+path.select();
+
+// root || roots are both ok
+cy.elements(':grabbable').bfs({ root: '#1' });
+cy.elements(':grabbable').dfs({ roots: '#1' });
 
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo, ReactFacebookLoginProps } from 'react-facebook-login';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
@@ -106,3 +105,9 @@ class MyComponent2 extends React.Component {
         );
     }
 }
+
+type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string };
+
+export const FacebookLoginWrapper = ({ className, ...props }: FacebookLoginWrapperProps) => (
+    <FacebookLogin {...props} cssClass={className} />
+);

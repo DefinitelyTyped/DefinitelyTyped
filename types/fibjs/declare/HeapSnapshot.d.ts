@@ -71,7 +71,7 @@ declare class Class_HeapSnapshot extends Class__object {
 	 * 
 	 * 
 	 */
-	diff(before: Class_HeapSnapshot): Object;
+	diff(before: Class_HeapSnapshot): object;
 
 	/**
 	 * 

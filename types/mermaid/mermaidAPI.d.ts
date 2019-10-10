@@ -1,5 +1,5 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "netural";
+    type Theme = "default" | "forest" | "dark" | "neutral";
 
     enum LogLevel {
         Debug = 1,
@@ -162,6 +162,16 @@ declare namespace mermaidAPI {
     }
 
     interface Config {
+        /**
+         * securityLevel: disallow/allow potentially dangerous cross-site scripting behavior
+         *   the two documented values are "strict" and "loose", i.e. disallow and allow
+         *   default: "strict"
+         *   If the value is not present, the default behavior is "strict"
+         *   Up through version mermaid@8.2.3, if any text value is present in a config but is not "strict", the behavior is "loose".
+         *   This should be fixed after that version, i.e. any value other "loose" should be treated as "strict".
+         */
+        securityLevel?: string;
+
         theme?: Theme;
 
         /**
@@ -240,7 +250,7 @@ declare namespace mermaidAPI {
 
     function parse(text: string): any;
 
-    function initalize(options: Config): void;
+    function initialize(options: Config): void;
 
     function getConfig(): Config;
 }

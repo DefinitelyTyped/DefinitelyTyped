@@ -22,43 +22,71 @@ interface SizzleStatic {
 declare namespace Sizzle {
     interface Selectors {
         cacheLength: number;
-        match: { [name: string]: RegExp; };
-        find: { [name: string]: Selectors.FindFunction; };
-        preFilter: { [name: string]: Selectors.PreFilterFunction; };
-        filter: { [name: string]: Selectors.FilterFunction; };
-        attrHandle: { [name: string]: Selectors.AttrHandleFunction; };
-        pseudos: { [name: string]: Selectors.PseudoFunction; };
-        setFilters: { [name: string]: Selectors.SetFilterFunction; };
+        match: Selectors.Matches;
+        find: Selectors.FindFunctions;
+        preFilter: Selectors.PreFilterFunctions;
+        filter: Selectors.FilterFunctions;
+        attrHandle: Selectors.AttrHandleFunctions;
+        pseudos: Selectors.PseudoFunctions;
+        setFilters: Selectors.SetFilterFunctions;
         createPseudo(fn: Selectors.CreatePseudoFunction): Selectors.PseudoFunction;
     }
 
     namespace Selectors {
+        interface Matches {
+            [name: string]: RegExp;
+        }
+
         interface FindFunction {
             (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
+        }
+
+        interface FindFunctions {
+            [name: string]: FindFunction;
         }
 
         interface PreFilterFunction {
             (match: RegExpMatchArray): string[];
         }
 
+        interface PreFilterFunctions {
+            [name: string]: PreFilterFunction;
+        }
+
         interface FilterFunction {
             (element: string, ...matches: string[]): boolean;
+        }
+
+        interface FilterFunctions {
+            [name: string]: FilterFunction;
         }
 
         interface AttrHandleFunction {
             (elem: any, casePreservedName: string, isXML: boolean): string;
         }
 
+        interface AttrHandleFunctions {
+            [name: string]: AttrHandleFunction;
+        }
+
         interface PseudoFunction {
             (elem: Element): boolean;
         }
 
-        interface CreatePseudoFunction {
-            (...args: any[]): PseudoFunction;
+        interface PseudoFunctions {
+            [name: string]: PseudoFunction;
         }
 
         interface SetFilterFunction {
             (elements: Element[], argument: number, not: boolean): Element[];
+        }
+
+        interface SetFilterFunctions {
+            [name: string]: SetFilterFunction;
+        }
+
+        interface CreatePseudoFunction {
+            (...args: any[]): PseudoFunction;
         }
     }
 }

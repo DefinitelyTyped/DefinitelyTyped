@@ -8,202 +8,95 @@
 
 import * as d3Hexbin from 'd3-hexbin';
 
+// ----------------------------------------------------------------------------
+// Preparatory Steps
+// ----------------------------------------------------------------------------
+
 interface Point {
-    x0: number;
-    y0: number;
+    x: number;
+    y: number;
 }
 
-{
-    // d3.hexbin() has the expected defaults
-    const b = d3Hexbin.hexbin();
-    const extent = b.extent(); // [[0, 0], [1, 1]]
-    extent.map((x: any, y: any) => { });
-    b.x()([41, 42]); // === 41;
-    b.y()([41, 42]); // === 42;
-    b.radius();      // === 1;
+let num: number;
+let str: string;
+let centers: Array<[number, number]>;
+let extent: [[number, number], [number, number]];
+let size: [number, number];
 
-    // hexbin(points) bins the specified points into hexagonal bins
-    const bins = d3Hexbin.hexbin()([
-        [0, 0], [0, 1], [0, 2],
-        [1, 0], [1, 1], [1, 2],
-        [2, 0], [2, 1], [2, 2]
-    ]);
+let hexbin: d3Hexbin.Hexbin<[number, number]>;
+let hexbinBins: Array<d3Hexbin.HexbinBin<[number, number]>>;
+const data: Array<[number, number]> = [[10, 20], [30, 10]];
 
-    bins.map((bin: any) => {});
-}
+let pointHexbin: d3Hexbin.Hexbin<Point>;
+let pointHexbinBins: Array<d3Hexbin.HexbinBin<Point>>;
+const pointData: Point[] = [{x: 10, y: 20}, {x: 30, y: 10}];
 
-{
-    // hexbin(points) observes the current x- and y-accessors
-    const x = (d: any) => d.x;
-    const y = (d: any) => d.y;
-    const bins = d3Hexbin.hexbin<Point>().x(x).y(y)([
-        {x0: 0, y0: 0}, {x0: 0, y0: 1}, {x0: 0, y0: 2},
-        {x0: 1, y0: 0}, {x0: 1, y0: 1}, {x0: 1, y0: 2},
-        {x0: 2, y0: 0}, {x0: 2, y0: 1}, {x0: 2, y0: 2}
-    ]);
-    bins.map((bin: any) => {});
-}
+let pointAccessor: (d: Point) => number;
 
-{
-    // hexbin(points) observes the current radius
-    const bins = d3Hexbin.hexbin().radius(2)([
-      [0, 0], [0, 1], [0, 2],
-      [1, 0], [1, 1], [1, 2],
-      [2, 0], [2, 1], [2, 2]
-    ]);
-    bins.map((bin: any) => {});
-}
+// ----------------------------------------------------------------------------
+// Hexbin
+// ----------------------------------------------------------------------------
 
-{
-    interface PointX {
-        x: number;
-        [key: number]: number;
-    }
+// Create Hexbin ==============================================================
 
-    // hexbin.x(x) sets the x-coordinate accessor
-    const x = (d: PointX) => d.x;
-    const b = d3Hexbin.hexbin<PointX>().x(x);
-    const bins = b([{x: 1, 1: 2}]);
+// with default data type [number, number] ------------------------------------
 
-    b.x();          // should be x;
-    bins.length;    // should be 1;
-    bins[0].x;      // should be 0.8660254037844386;
-    bins[0].y;      // should be 1.5;
-    bins[0].length; // should be 1;
-}
+hexbin = d3Hexbin.hexbin();
 
-{
-    interface PointY {
-        y: number;
-        [key: number]: number;
-    }
-    // hexbin.y(y) sets the y-coordinate accessor
-    const y = (d: PointY) => d.y;
-    const b = d3Hexbin.hexbin<PointY>().y(y);
-    const bins = b([{0: 1, y: 2}]);
+// with custom data type ------------------------------------------------------
 
-    bins.length;    // should be 1;
-    bins[0].x;      // should be 0.8660254037844386;
-    bins[0].y;      // should be 1.5;
-    bins[0].length; // should be 1;
-}
+pointHexbin = d3Hexbin.hexbin<Point>();
 
-{
-    // hexbin.hexagon() returns the expected path
-    const path: string = d3Hexbin.hexbin().hexagon();
-}
+// Configure Hexbin ===========================================================
 
-{
-    // hexbin.hexagon() observes the current bin radius
-    const path: string = d3Hexbin.hexbin().radius(2).hexagon();
-}
+// x(...) ---------------------------------------------------------------------
 
-{
-    // hexbin.hexagon(radius) observes the specified radius
-    const path: string = d3Hexbin.hexbin().hexagon(2);
-}
+pointHexbin = pointHexbin.x(d => d.x);
 
-{
-    // hexbin.hexagon(radius) uses the current bin radius if radius is null
-    let path: string = d3Hexbin.hexbin().hexagon(null);
-    path = d3Hexbin.hexbin().hexagon(undefined);
-}
+pointAccessor = pointHexbin.x();
 
-{
-    // hexbin.centers() returns an array of bin centers
-    const centers = d3Hexbin.hexbin().centers();
-    centers.map((x: any, y: any) => { });
-}
+// y(...) ---------------------------------------------------------------------
 
-{
-    // hexbin.centers() observes the current bin radius
-    const centers = d3Hexbin.hexbin().radius(0.5).centers();
-    centers.map((x: any, y: any) => { });
-}
+pointHexbin = pointHexbin.y(d => d.y);
 
-{
-    // hexbin.centers() observes the current extent
-    const centers = d3Hexbin.hexbin().radius(0.5)
-                            .extent([[-1.1, -1.1], [1.1, 1.1]])
-                            .centers();
-    centers.map((x, y) => { });
-}
+pointAccessor = pointHexbin.x();
 
-{
-    // hexbin.mesh() returns the expected path
-    const path: string = d3Hexbin.hexbin().mesh();
-}
+// hexagon(...) ---------------------------------------------------------------
 
-{
-    // hexbin.mesh() observes the bin radius
-    const path: string = d3Hexbin.hexbin().radius(0.5).mesh();
-}
+str = hexbin.hexagon();
 
-{
-    // hexbin.mesh() observes the extent
-    const path: string = d3Hexbin.hexbin().radius(0.5)
-                         .extent([[-1.1, -1.1], [1.1, 1.1]])
-                         .mesh();
-}
+// centers(...) ---------------------------------------------------------------
 
-{
-    let hb: d3Hexbin.Hexbin<Point>;
-    let bins: Array<d3Hexbin.HexbinBin<Point>>;
+centers = hexbin.centers();
 
-    // Create generator =======================================
+// mesh(...) ------------------------------------------------------------------
 
-    hb = d3Hexbin.hexbin<Point>();
+str = hexbin.mesh();
 
-    // Configure generator =====================================
+// radius(...) ----------------------------------------------------------------
 
-    // x Accessor ----------------------------------------------
+hexbin = hexbin.radius(20);
 
-    let x: (d: Point) => number;
-    x = (d: Point) => d.x0;
+num = hexbin.radius();
 
-    // test setter
-    hb = hb.x(x);
+// extent(...) ----------------------------------------------------------------
 
-    // test getter
-    x = hb.x();
+hexbin = hexbin.extent([[0, 0], [1, 1]]);
 
-    // y Accessor ----------------------------------------------
+extent = hexbin.extent();
 
-    let y: (d: Point) => number;
-    y = (d: Point) => d.y0;
+// size(...) ------------------------------------------------------------------
 
-    // test setter
-    hb = hb.y(y);
+hexbin = hexbin.size([1, 1]);
 
-    // test getter
-    y = hb.y();
+size = hexbin.size();
 
-    // Use generator ============================================
+// Use Hexbin =================================================================
 
-    bins = hb([
-        { x0: 0, y0: 0 }, { x0: 0, y0: 1 }, { x0: 0, y0: 2 },
-        { x0: 1, y0: 0 }, { x0: 1, y0: 1 }, { x0: 1, y0: 2 },
-        { x0: 2, y0: 0 }, { x0: 2, y0: 1 }, { x0: 2, y0: 2 }
-    ]);
+hexbinBins = hexbin(data);
+num = hexbinBins[0].x;
+num = hexbinBins[0].y;
 
-    interface RemappedBin {
-        binCoordinates: [number, number];
-        points: Point[];
-    }
-
-    let remappedBins: RemappedBin[];
-
-    remappedBins = bins.map(bin => {
-        const x: number = bin.x; // x-coordinate of bin
-        const y: number = bin.y; // y-coordinate of bin
-        const pointsInBin: Point[] = bin.map(p => {
-            const point: Point = p;
-            return point;
-        });
-        const remapped: RemappedBin = {
-            binCoordinates: [x, y],
-            points: pointsInBin
-        };
-        return remapped;
-    });
-}
+pointHexbinBins = pointHexbin(pointData);
+num = pointHexbinBins[0].x;
+num = pointHexbinBins[0].y;

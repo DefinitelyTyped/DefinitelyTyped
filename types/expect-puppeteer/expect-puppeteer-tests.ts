@@ -23,6 +23,9 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 
     await expect(instance).toUploadFile("selector", "filePath");
     await expect(instance).toUploadFile("selector", "filePath", { timeout: 777 });
+
+    await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 });
+    await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 }, { timeout: 777 });
 };
 
 const testImported = async (instance: ElementHandle | Page) => {

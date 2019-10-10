@@ -1,9 +1,12 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
-//                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
+//                 siwalik <https://github.com/siwalikm>
+//                 plhery <https://github.com/plhery>
+//                 justGoscha <https://github.com/justgoscha>
+//                 darkade <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -246,6 +249,11 @@ declare module 'twit' {
       max_id?: string,
       include_entities?: boolean,
 
+      source_id?: number,
+      source_screen_name?: string,
+      target_id?: number,
+      target_screen_name?: string,
+
       // Other params from various endpoints
       track?: string | string[],
       media_id?: string,
@@ -262,14 +270,18 @@ declare module 'twit' {
       user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string | string[],
       include_email?: boolean,
-      cursor?: number,
+      cursor?: number | string,
       tweet_mode?: string,
       trim_user?: boolean,
       exclude_replies?: boolean,
       include_rts?: boolean,
       skip_status?: boolean,
+      url?: string,
+      include_user_entities?: boolean,
+      stringify_ids?: boolean,
+      in_reply_to_status_id?: number | string,
     }
     export interface PromiseResponse {
       data: Response,
@@ -288,6 +300,7 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+      strictSSL?: boolean
     }
     export interface Stream extends EventEmitter {
       start(): void;

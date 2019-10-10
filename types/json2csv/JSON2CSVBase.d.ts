@@ -1,12 +1,24 @@
 export declare namespace json2csv {
-    export interface FieldValueCallback<T> {
-        (row: T, field: string): string;
+    export interface FieldValueCallbackInfo {
+        label: string;
+        default?: string;
+    }
+
+    export type FieldValueCallback<T> = FieldValueCallbackWithoutField<T> | FieldValueCallbackWithField<T>;
+
+    export interface FieldValueCallbackWithoutField<T> {
+        (row: T): any;
+    }
+
+    export interface FieldValueCallbackWithField<T> {
+        (row: T, field: FieldValueCallbackInfo): any;
     }
 
     export interface FieldInfo<T> {
-        label: string;
+        label?: string;
         default?: string;
-        value?: string | FieldValueCallback<T>;
+        value: string | FieldValueCallback<T>;
+        stringify?: boolean;
     }
 
     export interface Options<T> {
@@ -92,9 +104,10 @@ declare abstract class JSON2CSVBase<T> {
      * Performs the flattening of a data row recursively
      *
      * @param {object} dataRow Original JSON object
+     * @param {string} separator Separator to be used as the flattened field name
      * @returns {object} Flattened object
      */
-    protected flatten(dataRow: T): object;
+    protected flatten(dataRow: T, separator: string): object;
 
     /**
      * Performs the unwind recursively in specified sequence

@@ -1,11 +1,16 @@
-// Type definitions for qrcode 1.2
-// Project: https://github.com/soldair/node-qrcode
+// Type definitions for qrcode 1.3
+// Project: http://github.com/soldair/node-qrcode
 // Definitions by: York Yao <https://github.com/plantain-00>
+//                 Michael Nahkies <https://github.com/mnahkies>
+//                 Rémi Sormain <https://github.com/Marchelune>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
 import * as stream from "stream";
+
+export type QRCodeErrorCorrectionLevel = "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
 
 export interface QRCodeOptions {
     /**
@@ -17,7 +22,7 @@ export interface QRCodeOptions {
      * Possible values are low, medium, quartile, high or L, M, Q, H.
      * Default: M
      */
-    errorCorrectionLevel?: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
+    errorCorrectionLevel?: QRCodeErrorCorrectionLevel;
     /**
      * Helper function used internally to convert a kanji to its Shift JIS value.
      * Provide this function if you need support for Kanji mode.
@@ -68,6 +73,25 @@ export interface QRCodeToFileOptions extends QRCodeRenderersOptions {
     };
 }
 
+export interface QRCodeToFileStreamOptions extends QRCodeRenderersOptions {
+    /**
+     * Output format. Only png supported for file stream
+     */
+    type?: "png";
+    rendererOpts?: {
+        /**
+         * Compression level for deflate.
+         * Default: 9
+         */
+        deflateLevel?: number;
+        /**
+         * Compression strategy for deflate.
+         * Default: 3
+         */
+        deflateStrategy?: number;
+    };
+}
+
 export interface QRCodeRenderersOptions extends QRCodeOptions {
     /**
      * Define how much wide the quiet zone should be.
@@ -79,6 +103,12 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
      * Default: 4
      */
     scale?: number;
+    /**
+     * Forces a specific width for the output image.
+     * If width is too small to contain the qr symbol, this option will be ignored.
+     * Takes precedence over scale.
+     */
+    width?: number;
     color?: {
         /**
          * Color of dark module. Value must be in hex format (RGBA).
@@ -96,7 +126,7 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
 
 export interface QRCodeSegment {
     data: string;
-    mode: 'alphanumeric' | 'numeric';
+    mode: 'alphanumeric' | 'numeric' | 'kanji' | 'byte';
 }
 
 export interface QRCode {
@@ -134,11 +164,11 @@ export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCode
 /**
  * Draws qr code symbol to canvas.
  */
-export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeOptions): Promise<any>;
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeRenderersOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
-export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error) => void): void;
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeRenderersOptions, callback: (error: Error) => void): void;
 /**
  * Draws qr code symbol to canvas.
  */
@@ -146,11 +176,11 @@ export function toCanvas(text: string | QRCodeSegment[], callback: (error: Error
 /**
  * Draws qr code symbol to canvas.
  */
-export function toCanvas(text: string | QRCodeSegment[], options?: QRCodeOptions): Promise<any>;
+export function toCanvas(text: string | QRCodeSegment[], options?: QRCodeRenderersOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
-export function toCanvas(text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error, canvas: HTMLCanvasElement) => void): void;
+export function toCanvas(text: string | QRCodeSegment[], options: QRCodeRenderersOptions, callback: (error: Error, canvas: HTMLCanvasElement) => void): void;
 /**
  * Draws qr code symbol to node canvas.
  */
@@ -158,11 +188,11 @@ export function toCanvas(canvas: any, text: string | QRCodeSegment[], callback: 
 /**
  * Draws qr code symbol to node canvas.
  */
-export function toCanvas(canvas: any, text: string | QRCodeSegment[], options?: QRCodeOptions): Promise<any>;
+export function toCanvas(canvas: any, text: string | QRCodeSegment[], options?: QRCodeRenderersOptions): Promise<any>;
 /**
  * Draws qr code symbol to node canvas.
  */
-export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error) => void): void;
+export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeRenderersOptions, callback: (error: Error) => void): void;
 
 /**
  * Returns a Data URI containing a representation of the QR Code image.
@@ -171,7 +201,7 @@ export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCod
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<any>;
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<string>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -184,7 +214,7 @@ export function toDataURL(text: string | QRCodeSegment[], callback: (error: Erro
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<any>;
+export function toDataURL(text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<string>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -199,7 +229,7 @@ export function toString(text: string | QRCodeSegment[], callback: (error: Error
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
  */
-export function toString(text: string | QRCodeSegment[], options?: QRCodeToStringOptions): Promise<any>;
+export function toString(text: string | QRCodeSegment[], options?: QRCodeToStringOptions): Promise<string>;
 /**
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
@@ -232,8 +262,8 @@ export function toFileStream(stream: stream.Writable, text: string | QRCodeSegme
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */
-export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options?: QRCodeOptions): Promise<any>;
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options?: QRCodeToFileStreamOptions): Promise<any>;
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */
-export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error) => void): void;
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options: QRCodeToFileStreamOptions, callback: (error: Error) => void): void;

@@ -1,14 +1,17 @@
 import findup = require('findup-sync');
 
-var str: string;
+let str: string;
 
 str = findup('foo');
 str = findup(['foo', 'bar']);
 
 str = findup('foo', {
-	debug: true
+    matchBase: true,
 });
 
 str = findup('foo', {
-	cwd: "c:\\"
+    cwd: 'c:\\',
 });
+
+str = findup('{a,b}*.txt');
+str = findup('{a,b}*.txt', { cwd: '/some/path', nocase: true });

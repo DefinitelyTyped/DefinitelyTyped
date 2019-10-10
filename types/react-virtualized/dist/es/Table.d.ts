@@ -1,13 +1,7 @@
-import { Validator, ReactNode, Requireable, PureComponent, Component } from "react";
-import { CellMeasurerCache } from "./CellMeasurer";
-import {
-    Index,
-    Alignment,
-    ScrollEventData,
-    IndexRange,
-    OverscanIndexRange
-} from "../../index";
-import { Grid, GridCoreProps } from "./Grid";
+import { Validator, ReactNode, Requireable, PureComponent, Component } from 'react';
+import { CellMeasurerCache } from './CellMeasurer';
+import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from '../../index';
+import { Grid, GridCoreProps } from './Grid';
 
 export type SortParams = {
     defaultSortDirection: SortDirectionType;
@@ -42,9 +36,7 @@ export type MultiSortReturn = {
 };
 
 export function createMultiSort(
-    sortCallback: (
-        params: { sortBy: string; sortDirection: SortDirectionType }
-    ) => void,
+    sortCallback: (params: { sortBy: string; sortDirection: SortDirectionType }) => void,
     options?: MultiSortOptions
 ): MultiSortReturn;
 
@@ -84,6 +76,7 @@ export type TableRowProps = {
     columns: any[];
     index: number;
     isScrolling: boolean;
+    key: string;
     onRowClick?: (params: RowMouseEventHandlerParams) => void;
     onRowDoubleClick?: (params: RowMouseEventHandlerParams) => void;
     onRowMouseOver?: (params: RowMouseEventHandlerParams) => void;
@@ -96,15 +89,13 @@ export type TableRowProps = {
 export type TableCellDataGetter = (params: TableCellDataGetterParams) => any;
 export type TableCellRenderer = (props: TableCellProps) => React.ReactNode;
 export type TableHeaderRenderer = (props: TableHeaderProps) => React.ReactNode;
-export type TableHeaderRowRenderer = (
-    props: TableHeaderRowProps
-) => React.ReactNode;
+export type TableHeaderRowRenderer = (props: TableHeaderRowProps) => React.ReactNode;
 export type TableRowRenderer = (props: TableRowProps) => React.ReactNode;
 
 // https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
 export type ColumnProps = {
     /** Optional aria-label value to set on the column header */
-    "aria-label"?: string;
+    'aria-label'?: string;
     /**
      * Callback responsible for returning a cell's data, given its :dataKey
      * ({ columnData: any, dataKey: string, rowData: any }): any
@@ -153,7 +144,7 @@ export type ColumnProps = {
 };
 export class Column extends Component<ColumnProps> {
     static propTypes: {
-        "aria-label": Requireable<string>;
+        'aria-label': Requireable<string>;
         cellDataGetter: Requireable<TableCellDataGetter>;
         cellRenderer: Requireable<TableCellRenderer>;
         className: Requireable<string>;
@@ -183,24 +174,20 @@ export class Column extends Component<ColumnProps> {
 }
 
 export type RowMouseEventHandlerParams = {
-    rowData: {
-        columnData: object;
-        id: string;
-        index: number;
-    };
+    rowData: any;
     index: number;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 export type HeaderMouseEventHandlerParams = {
     dataKey: string;
     columnData: any;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
 export type TableProps = GridCoreProps & {
-    "aria-label"?: string;
+    'aria-label'?: string;
     deferredMeasurementCache?: CellMeasurerCache;
     /**
      * Removes fixed height from the scrollingContainer so that the total height
@@ -345,9 +332,7 @@ export type TableProps = GridCoreProps & {
 
 export const defaultCellDataGetter: TableCellDataGetter;
 export const defaultCellRenderer: TableCellRenderer;
-export const defaultHeaderRenderer: () => React.ReactElement<
-    TableHeaderProps
->[];
+export const defaultHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
 export const defaultHeaderRowRenderer: TableHeaderRowRenderer;
 export const defaultRowRenderer: TableRowRenderer;
 
@@ -356,18 +341,18 @@ export type SortDirectionStatic = {
      * Sort items in ascending order.
      * This means arranging from the lowest value to the highest (e.g. a-z, 0-9).
      */
-    ASC: "ASC";
+    ASC: 'ASC';
 
     /**
      * Sort items in descending order.
      * This means arranging from the highest value to the lowest (e.g. z-a, 9-0).
      */
-    DESC: "DESC";
+    DESC: 'DESC';
 };
 
 export const SortDirection: SortDirectionStatic;
 
-export type SortDirectionType = "ASC" | "DESC";
+export type SortDirectionType = 'ASC' | 'DESC';
 
 export const SortIndicator: React.StatelessComponent<{
     sortDirection?: SortDirectionType;
@@ -379,7 +364,7 @@ export const SortIndicator: React.StatelessComponent<{
  */
 export class Table extends PureComponent<TableProps> {
     static propTypes: {
-        "aria-label": Requireable<string>;
+        'aria-label': Requireable<string>;
         autoHeight: Requireable<boolean>;
         children: Validator<Column>;
         className: Requireable<string>;
@@ -394,22 +379,12 @@ export class Table extends PureComponent<TableProps> {
         height: Validator<number>;
         id: Requireable<string>;
         noRowsRenderer: Requireable<() => JSX.Element>;
-        onHeaderClick: Requireable<
-            (params: HeaderMouseEventHandlerParams) => void
-        >;
+        onHeaderClick: Requireable<(params: HeaderMouseEventHandlerParams) => void>;
         onRowClick: Requireable<(params: RowMouseEventHandlerParams) => void>;
-        onRowDoubleClick: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowMouseOut: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowMouseOver: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowsRendered: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
+        onRowDoubleClick: Requireable<(params: RowMouseEventHandlerParams) => void>;
+        onRowMouseOut: Requireable<(params: RowMouseEventHandlerParams) => void>;
+        onRowMouseOver: Requireable<(params: RowMouseEventHandlerParams) => void>;
+        onRowsRendered: Requireable<(params: IndexRange & OverscanIndexRange) => void>;
         onScroll: Requireable<(params: ScrollEventData) => void>;
         overscanRowCount: Validator<number>;
         rowClassName: Requireable<string | ((params: Index) => string)>;
@@ -417,17 +392,11 @@ export class Table extends PureComponent<TableProps> {
         rowHeight: Validator<number | ((params: Index) => number)>;
         rowCount: Validator<number>;
         rowRenderer: Requireable<(props: TableRowProps) => React.ReactNode>;
-        rowStyle: Validator<
-            React.CSSProperties | ((params: Index) => React.CSSProperties)
-        >;
+        rowStyle: Validator<React.CSSProperties | ((params: Index) => React.CSSProperties)>;
         scrollToAlignment: Validator<Alignment>;
         scrollToIndex: Validator<number>;
         scrollTop: Requireable<number>;
-        sort: Requireable<
-            (
-                params: { sortBy: string; sortDirection: SortDirectionType }
-            ) => void
-        >;
+        sort: Requireable<(params: { sortBy: string; sortDirection: SortDirectionType }) => void>;
         sortBy: Requireable<string>;
         sortDirection: Validator<SortDirectionType>;
         style: Requireable<React.CSSProperties>;
@@ -445,9 +414,9 @@ export class Table extends PureComponent<TableProps> {
         onScroll: () => null;
         overscanRowCount: 10;
         rowRenderer: TableRowRenderer;
-        headerRowRenderer: TableHeaderRenderer;
+        headerRowRenderer: TableHeaderRowRenderer;
         rowStyle: {};
-        scrollToAlignment: "auto";
+        scrollToAlignment: 'auto';
         scrollToIndex: -1;
         style: {};
     };

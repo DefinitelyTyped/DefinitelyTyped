@@ -883,6 +883,14 @@ declare namespace Matter {
         */
         isStatic: boolean;
         /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+        * @property isSensor
+        * @type boolean
+        * @default false
+        */
+        isSensor: boolean;
+        /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label
@@ -1074,17 +1082,16 @@ declare namespace Matter {
 
     }
 
-    export interface IBound {
-        min: { x: number, y: number }
-        max: { x: number, y: number }
-    }
-
     /**
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
+
+        min: Vector;
+        max: Vector;
+
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create

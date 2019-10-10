@@ -2,9 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
-        "dt-header": false,
         "no-mergeable-namespace": false,
-        "no-void-expression": false,
         "no-unnecessary-generics": false
     }
 }

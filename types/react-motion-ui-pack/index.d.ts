@@ -2,14 +2,14 @@
 // Project: https://github.com/souporserious/react-motion-ui-pack
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as motion from 'react-motion';
 
 declare namespace Transition {
     interface TransitionProps {
-        component?: string | boolean | React.ReactElement<any>;
+        component?: string | boolean | React.ReactElement;
         runOnMount?: boolean;
         appear?: motion.Style;
         enter?: motion.Style;

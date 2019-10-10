@@ -2,7 +2,7 @@
 // Project: https://github.com/maxs15/react-native-modalbox#readme
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
@@ -146,6 +146,14 @@ export interface ModalProps {
      * Custom styling for the content area
      */
     style?: StyleProp<ViewStyle>;
+
+    /**
+     * Enables the hardware acceleration to animate the modal. Please note that enabling this can cause some flashes in a weird way when animating
+     *
+     * Default is true
+     *
+     */
+    useNativeDriver?: boolean;
 
     /**
      * Event fired when the modal is closed and the animation is complete

@@ -111,7 +111,7 @@ interface SelectListMessages {
     /**
      * @default: "There are no items in this list"
      */
-    emptyList?: string | ((props: SelectListProps) => string)
+    emptyList?: string | ((props: SelectListProps) => string);
 }
 
 interface SelectList extends React.ReactElement<SelectListProps> {}

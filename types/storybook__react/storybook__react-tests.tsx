@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { storiesOf, setAddon, addDecorator, configure, getStorybook, RenderFunction, Story, forceReRender } from '@storybook/react';
+import { storiesOf, setAddon, addDecorator, addParameters, configure, getStorybook, RenderFunction, Story, forceReRender, DecoratorParameters, clearDecorators } from '@storybook/react';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;
+const parameters: DecoratorParameters = { parameter: 'foo' };
 
 forceReRender();
 
@@ -9,10 +10,13 @@ storiesOf('Welcome', module)
     // local addDecorator
     .addDecorator(Decorator)
     .add('to Storybook', () => <div/>)
-    .add('to Storybook as Array', () => [<div />, <div />]);
+    .add('to Storybook as Array', () => [<div />, <div />])
+    .add('and a story with additional parameters', () => <div/>, parameters);
 
 // global addDecorator
 addDecorator(Decorator);
+addParameters(parameters);
+clearDecorators();
 
 // setAddon
 interface AnyAddon {
@@ -30,6 +34,7 @@ storiesOf<AnyAddon>('withAnyAddon', module)
     .addWithSideEffect('more', () => <div/>)
     .add('another story', () => <div/>)
     .add('to Storybook as Array', () => [<div />, <div />])
+    .add('and a story with additional parameters', () => <div/>, parameters)
     .addWithSideEffect('even more', () => <div/>);
 
 // configure

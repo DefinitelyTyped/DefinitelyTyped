@@ -151,7 +151,7 @@ declare class Class_HttpMessage extends Class_Message {
 	 * 
 	 * 
 	 */
-	addHeader(map: Object): void;
+	addHeader(map: object): void;
 
 	/**
 	 * 
@@ -172,7 +172,7 @@ declare class Class_HttpMessage extends Class_Message {
 	 * 
 	 * 
 	 */
-	setHeader(map: Object): void;
+	setHeader(map: object): void;
 
 	/**
 	 * 

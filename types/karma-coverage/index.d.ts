@@ -1,27 +1,22 @@
-// Type definitions for karma-coverage v0.5.3
+// Type definitions for karma-coverage 1.1
 // Project: https://github.com/karma-runner/karma-coverage
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
-import * as karma from 'karma';
+import 'karma';
 import * as istanbul from 'istanbul';
 
-declare namespace karmaCoverage {
-    interface Karma extends karma.Karma { }
-
-    interface Config extends karma.Config {
-        set: (config: ConfigOptions) => void;
-    }
-
-    interface ConfigOptions extends karma.ConfigOptions {
+declare module 'karma' {
+    interface ConfigOptions {
         /**
          * See https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md
          */
-        coverageReporter?: (Reporter | Reporter[]);
+        coverageReporter?: KarmaCoverageReporter & { reporters?: KarmaCoverageReporter[] };
     }
 
-    interface Reporter {
+    interface KarmaCoverageReporter {
         type?: string;
         dir?: string;
         subdir?: string | ((browser: string) => string);
@@ -33,7 +28,3 @@ declare namespace karmaCoverage {
         [moreSettings: string]: any;
     }
 }
-
-declare var karmaCoverage: karmaCoverage.Karma;
-
-export = karmaCoverage;

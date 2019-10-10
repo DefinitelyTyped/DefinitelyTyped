@@ -1,10 +1,11 @@
-// Type definitions for Cytoscape.js 3.2
+// Type definitions for Cytoscape.js 3.8
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
+//                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -81,7 +82,7 @@ declare namespace cytoscape {
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
-        scatch?: Scratchpad;
+        scratch?: Scratchpad;
         /**
          * The model position of the node (optional on init, mandatory after)
          */
@@ -133,6 +134,8 @@ declare namespace cytoscape {
     }
 
     interface EdgeDataDefinition extends ElementDataDefinition {
+        id?: string;
+
         /**
          * the source node id (edge comes from this node)
          */
@@ -141,6 +144,8 @@ declare namespace cytoscape {
          * the target node id (edge goes to this node)
          */
         target: string;
+
+        [key: string]: any;
     }
 
     interface NodeDefinition extends ElementDefinition {
@@ -148,7 +153,9 @@ declare namespace cytoscape {
     }
 
     interface NodeDataDefinition extends ElementDataDefinition {
+        id?: string;
         parent?: string;
+        [key: string]: any;
     }
 
     interface CytoscapeOptions {
@@ -459,10 +466,37 @@ declare namespace cytoscape {
         endBatch(): void;
 
         /**
+         * Attaches the instance to the specified container for visualisation.
+         * http://js.cytoscape.org/#cy.mount
+         *
+         * If the core instance is headless prior to calling cy.mount(), then
+         * the instance will no longer be headless and the visualisation will
+         * be shown in the specified container. If the core instance is
+         * non-headless prior to calling cy.mount(), then the visualisation
+         * is swapped from the prior container to the specified container.
+         */
+        mount(element: Element): void;
+
+        /**
+         * Remove the instance from its current container.
+         * http://js.cytoscape.org/#cy.unmount
+         *
+         * This function sets the instance to be headless after unmounting from
+         * the current container.
+         */
+        unmount(): void;
+
+        /**
          * A convenience function to explicitly destroy the Core.
          * http://js.cytoscape.org/#cy.destroy
          */
         destroy(): void;
+
+        /**
+         * Get whether the instance of Cytoscape.js has been destroyed or not.
+         * https://js.cytoscape.org/#cy.destroyed
+         */
+        destroyed(): boolean;
     }
 
     /**
@@ -1016,7 +1050,10 @@ declare namespace cytoscape {
      * Get the entry point to modify the visual style of the graph after initialisation.
      * http://js.cytoscape.org/#core/style
      */
-    interface ElementStylesheet extends StylesheetStyle {
+    interface ElementStylesheetStyle extends StylesheetStyle {
+        json(): any;
+    }
+    interface ElementStylesheetCSS extends StylesheetCSS {
         json(): any;
     }
 
@@ -1024,11 +1061,11 @@ declare namespace cytoscape {
         /**
          * Get the current style object.
          */
-        style(): ElementStylesheet | string;
+        style(): ElementStylesheetStyle | ElementStylesheetCSS;
         /**
          * Assign a new stylesheet to replace the existing one.
          */
-        style(sheet: Stylesheet): Stylesheet;
+        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
     }
 
     /**
@@ -1137,10 +1174,11 @@ declare namespace cytoscape {
         extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
+        CollectionTraversing,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
-        CollectionBuildingFiltering<TOut>, CollectionAlgorithms { }
+        CollectionBuildingFiltering<TIn, TOut>, CollectionAlgorithms { }
 
     /**
      * ele  --> Cy.Singular
@@ -1163,8 +1201,8 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    type CollectionArgument = EdgeCollection | NodeCollection | SingularElementArgument;
-    type CollectionReturnValue = EdgeCollection & NodeCollection & SingularElementReturnValue;
+    type CollectionArgument = Collection | EdgeCollection | NodeCollection | SingularElementArgument;
+    type CollectionReturnValue = Collection & EdgeCollection & NodeCollection & SingularElementReturnValue;
 
     /**
      * edges -> Cy.EdgeCollection
@@ -1430,13 +1468,13 @@ declare namespace cytoscape {
          * Get whether the element is a node.
          * http://js.cytoscape.org/#ele.isNode
          */
-        isNode(): boolean;
+        isNode(): this is NodeSingular;
 
         /**
          * Get whether the element is an edge.
          * http://js.cytoscape.org/#ele.isEdge
          */
-        isEdge(): boolean;
+        isEdge(): this is EdgeSingular;
     }
     /**
      * http://js.cytoscape.org/#collection/data
@@ -2067,11 +2105,11 @@ declare namespace cytoscape {
     }
     interface ElementAnimateOptionPos extends ElementAnimateOptionsBase {
         /** A position to which the elements will be animated. */
-        position: Position;
+        position?: Position;
     }
     interface ElementAnimateOptionRen extends ElementAnimateOptionsBase {
         /** A rendered position to which the elements will be animated. */
-        renderedPosition: Position;
+        renderedPosition?: Position;
     }
     interface CollectionAnimation {
         /**
@@ -2086,14 +2124,14 @@ declare namespace cytoscape {
          * @param complete A function to call when the delay is complete.
          * http://js.cytoscape.org/#eles.delay
          */
-        delay(duration: number, complete: () => void): this;
+        delay(duration: number, complete?: () => void): this;
         /**
          * Stop all animations that are currently running.
          * @param clearQueue A boolean, indicating whether the queue of animations should be emptied.
          * @param jumpToEnd A boolean, indicating whether the currently-running animations should jump to their ends rather than just stopping midway.
          * http://js.cytoscape.org/#eles.stop
          */
-        stop(clearQueue: boolean, jumpToEnd: boolean): this;
+        stop(clearQueue?: boolean, jumpToEnd?: boolean): this;
         /**
          * Remove all queued animations for the elements.
          * http://js.cytoscape.org/#eles.clearQueue
@@ -2335,7 +2373,7 @@ declare namespace cytoscape {
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
-    interface CollectionBuildingFiltering<TOut> {
+    interface CollectionBuildingFiltering<TIn, TOut> {
         /**
          * Get an element in the collection from its ID in a very performant way.
          * @param id The ID of the element to get.
@@ -2382,12 +2420,12 @@ declare namespace cytoscape {
          * Get the elements in both this collection and another specified collection.
          * http://js.cytoscape.org/#eles.intersection
          */
-        intersection: CollectionSymmetricDifferenceFunc;
-        intersect: CollectionSymmetricDifferenceFunc;
-        and: CollectionSymmetricDifferenceFunc;
-        n: CollectionSymmetricDifferenceFunc;
-        '&': CollectionSymmetricDifferenceFunc;
-        '.': CollectionSymmetricDifferenceFunc;
+        intersection: CollectionBuildingIntersectionFunc;
+        intersect: CollectionBuildingIntersectionFunc;
+        and: CollectionBuildingIntersectionFunc;
+        n: CollectionBuildingIntersectionFunc;
+        '&': CollectionBuildingIntersectionFunc;
+        '.': CollectionBuildingIntersectionFunc;
 
         /**
          * Get the elements that are in the calling collection
@@ -2442,7 +2480,7 @@ declare namespace cytoscape {
          * var col = cy.collection(); // new, empty collection
          * col.merge('#j').merge('#e');
          */
-        merge(eles: CollectionArgument | string): this;
+        merge(eles: CollectionArgument | Selector): this;
         /**
          * Perform an in-place operation on the calling collection to remove the given elements.
          * @param eles The elements to remove  in-place or a selector representing the elements to remove .
@@ -2467,7 +2505,7 @@ declare namespace cytoscape {
          * col.merge( cy.nodes() );
          * col.unmerge('#e');
          */
-        unmerge(eles: CollectionArgument | string): this;
+        unmerge(eles: CollectionArgument | Selector): this;
 
         /**
          * Get a new collection containing elements that are accepted by the specified filter.
@@ -2478,7 +2516,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: TOut, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2504,7 +2542,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: CollectionArgument, ele2: CollectionArgument) => number): CollectionReturnValue;
+        sort(sort: (ele1: TIn, ele2: TIn) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2517,7 +2555,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): any[];
+        map<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
 
         /**
          * Reduce a single value by applying a
@@ -2527,15 +2565,15 @@ declare namespace cytoscape {
          * given the previous value and the current element.
          * prevVal The value accumulated from previous elements.
          * ele The current element.
-         * ix The index of the current element.
+         * i The index of the current element.
          * eles The collection of elements being reduced.
          * @param initialValue The initial value for reducing
          * It is used also for type inference of output, but the type can be
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: SingularElementReturnValue,
-            ix: number, eles: CollectionReturnValue) => T, initialValue: T): T;
+        reduce<T>(fn: (prevVal: T, ele: TIn,
+            i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2548,11 +2586,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        min<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2570,11 +2608,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        max<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2676,14 +2714,14 @@ declare namespace cytoscape {
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.source
          */
-        source(selector?: Selector): NodeCollection;
+        source(selector?: Selector): NodeSingular;
 
         /**
          * Get target node of this edge.
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.target
          */
-        target(selector?: Selector): NodeCollection;
+        target(selector?: Selector): NodeSingular;
     }
     interface EdgeCollectionTraversing {
         // http://js.cytoscape.org/#collection/traversing
@@ -2816,18 +2854,14 @@ declare namespace cytoscape {
 
     /**
      * The handler returns true when it finds the desired node, and it returns false to cancel the search.
-     * i - The index indicating this node is the ith visited node.
-     * depth - How many edge hops away this node is from the root nodes.
      * v - The current node.
      * e - The edge connecting the previous node to the current node.
      * u - The previous node.
+     * i - The index indicating this node is the ith visited node.
+     * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection) => boolean;
-    interface SearchFirstOptions {
-        /**
-         * The root nodes (selector or collection) to start the search from.
-         */
-        roots: Selector | CollectionArgument;
+    type SearchVisitFunction = (v: NodeSingular,  e: EdgeSingular, u: NodeSingular, i: number, depth: number) => boolean | void;
+    interface SearchFirstOptionsBase {
         /**
          * A handler function that is called when a node is visited in the search.
          */
@@ -2837,6 +2871,19 @@ declare namespace cytoscape {
          */
         directed?: boolean;
     }
+    interface SearchFirstOptions1 extends SearchFirstOptionsBase {
+        /**
+         * The root nodes (selector or collection) to start the search from.
+         */
+        root: Selector | CollectionArgument;
+    }
+    interface SearchFirstOptions2 extends SearchFirstOptionsBase {
+        /**
+         * The root nodes (selector or collection) to start the search from.
+         */
+        roots: Selector | CollectionArgument;
+    }
+    type SearchFirstOptions = SearchFirstOptions1 | SearchFirstOptions2;
     interface SearchFirstResult {
         /**
          * The path of the search.
@@ -3166,13 +3213,17 @@ declare namespace cytoscape {
          * Perform a breadth-first search within the elements in the collection.
          * @param options
          * http://js.cytoscape.org/#eles.breadthFirstSearch
+         * @alias bfs
          */
         breadthFirstSearch(options: SearchFirstOptions): SearchFirstResult;
+        bfs(options: SearchFirstOptions): SearchFirstResult;
         /**
          * Perform a depth-first search within the elements in the collection.
          * http://js.cytoscape.org/#eles.depthFirstSearch
+         * @alias dfs
          */
         depthFirstSearch(options: SearchFirstOptions): SearchFirstResult;
+        dfs(options: SearchFirstOptions): SearchFirstResult;
 
         /**
          * Perform Dijkstra's algorithm on the elements in the collection.
@@ -3192,13 +3243,13 @@ declare namespace cytoscape {
          * This finds the shortest path between all pairs of nodes.
          * http://js.cytoscape.org/#eles.floydWarshall
          */
-        aStar(options: SearchFloydWarshallOptions): SearchFloydWarshallResult;
+        floydWarshall(options: SearchFloydWarshallOptions): SearchFloydWarshallResult;
         /**
          * Perform the Bellman-Ford search algorithm on the elements in the collection.
          * This finds the shortest path from the starting node to all other nodes in the collection.
          * http://js.cytoscape.org/#eles.bellmanFord
          */
-        bellmanFort(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
         /**
          * Perform Kruskal's algorithm on the elements in the collection,
          * returning the minimum spanning tree, assuming undirected edges.
@@ -3435,20 +3486,24 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels> {
             "label"?: string;
+            /**
+             * The CSS content field
+             */
+            "content"?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
              * so the width is automatically based on the node’s label.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The height of the node’s body.
              * This property can take on the special value label
              * so the height is automatically based on the node’s label.
              */
-            "height"?: number | "label";
+            "height"?: number | string;
             /**
              * The shape of the node’s body.
              */
@@ -3621,7 +3676,7 @@ declare namespace cytoscape {
             /**
              * The width of an edge’s line.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The curving method used to separate two or more edges between two nodes;
              * may be
@@ -3633,7 +3688,7 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
             /**
              * The colour of the edge’s line.
              */
@@ -3758,8 +3813,7 @@ declare namespace cytoscape {
              */
             "edge-distances": "intersection" | "segment-weights" | "node-position";
         }
-        type ArrowShape = "tee" | "triangle" | "triangle-tee" | "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
-
+        type ArrowShape = "tee" | "vee" | "triangle" | "triangle-tee" | "triangle-cross" | "triangle-backcurve" | "square" | "circle" | "diamond" | "chevron" | "none";
         type ArrowFill = "filled" | "hollow";
 
         /**
@@ -3904,7 +3958,7 @@ declare namespace cytoscape {
              *  * "none" for no wrapping (including manual newlines ) or
              *  * "wrap" for manual and/ or autowrapping.
              */
-            "text-wrap": "none" | "wrap";
+            "text-wrap": "none" | "wrap" | "ellipsis";
             /**
              * The maximum width for wrapped text,
              * applied when "text-wrap" is set to wrap.
@@ -4045,7 +4099,7 @@ declare namespace cytoscape {
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "ractangle" | "roundrectangle";
+            "text-background-shape": "rectangle" | "roundrectangle";
 
             /**
              * Border:
@@ -4677,9 +4731,13 @@ declare namespace cytoscape {
          * @param handler  The handler function that is called
          * when one of the specified events occurs.
          */
+        on(events: EventNames, handler: EventHandler): this;
         on(events: EventNames, data: any, handler: EventHandler): this;
+        bind(events: EventNames, handler: EventHandler): this;
         bind(events: EventNames, data: any, handler: EventHandler): this;
+        listen(events: EventNames, handler: EventHandler): this;
         listen(events: EventNames, data: any, handler: EventHandler): this;
+        addListener(events: EventNames, handler: EventHandler): this;
         addListener(events: EventNames, data: any, handler: EventHandler): this;
 
         /**

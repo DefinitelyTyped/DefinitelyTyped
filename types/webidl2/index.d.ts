@@ -1,4 +1,4 @@
-// Type definitions for webidl2 10.2
+// Type definitions for webidl2 23.8
 // Project: https://github.com/w3c/webidl2.js#readme
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,15 +7,17 @@ export as namespace WebIDL2;
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
 
-export type IDLRootType = InterfaceType | InterfaceMixinType | NamespaceType | CallbackType | DictionaryType | EnumType | TypedefType | ImplementsType | IncludesType;
+export type IDLRootType = InterfaceType | InterfaceMixinType | NamespaceType | CallbackType | DictionaryType | EnumType | TypedefType | IncludesType;
 
-export type IDLInterfaceMemberType = OperationMemberType | AttributeMemberType | ConstantMemberType | DeclarationMemberType;
+export type IDLInterfaceMemberType = OperationMemberType | ConstructorMemberType | AttributeMemberType | ConstantMemberType | DeclarationMemberType;
 
 export type IDLNamespaceMemberType = OperationMemberType | AttributeMemberType;
 
 export interface ParseOptions {
-    /** Boolean indicating whether the parser should accept typedefs as valid members of interfaces. */
-    allowNestedTypedefs?: boolean;
+    /** Boolean indicating whether the result should include EOF node or not. */
+    concrete?: boolean;
+    /** The source name, typically a filename. Errors and validation objects can indicate their origin if you pass a value. */
+    sourceName?: string;
 }
 
 export interface WebIDLParseError {
@@ -49,7 +51,7 @@ export interface IDLTypeDescription {
      * If it is a generic type, it contains the IDL type description for the type in the sequence,
      * the eventual value of the promise, etc.
      */
-    idlType: string | IDLTypeDescription | IDLTypeDescription[];
+    idlType: string | IDLTypeDescription[];
 }
 
 export interface InterfaceType {
@@ -63,7 +65,7 @@ export interface InterfaceType {
     /** A string giving the name of an interface this one inherits from, null otherwise. */
     inheritance: string | null;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface InterfaceMixinType {
@@ -75,7 +77,7 @@ export interface InterfaceMixinType {
     /** An array of interface members (attributes, operations, etc.). Empty if there are none. */
     members: IDLInterfaceMemberType[];
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface NamespaceType {
@@ -87,7 +89,7 @@ export interface NamespaceType {
     /** An array of namespace members (attributes, operations). Empty if there are none. */
     members: IDLNamespaceMemberType[];
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface CallbackType {
@@ -99,7 +101,7 @@ export interface CallbackType {
     /** A list of arguments, as in function paramters. */
     arguments: Argument[];
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface DictionaryType {
@@ -113,7 +115,7 @@ export interface DictionaryType {
     /** A string indicating which dictionary is being inherited from, null otherwise. */
     inheritance: string | null;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface DictionaryMemberType extends FieldType {
@@ -130,7 +132,7 @@ export interface FieldType {
     /** An IDL Type describing what field's type. */
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
     /** A default value, absent if there is none. */
     default: ValueDescription | null;
 }
@@ -142,7 +144,7 @@ export interface EnumType {
     /** An array of values (strings). */
     values: Array<{ type: "string", value: string }>;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface TypedefType {
@@ -152,17 +154,7 @@ export interface TypedefType {
     /** An IDL Type describing what typedef's type. */
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
-}
-
-export interface ImplementsType {
-    type: "implements";
-    /** The interface that implements another. */
-    target: string;
-    /** The interface that is being implemented by the target. */
-    implements: string;
-    /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface IncludesType {
@@ -172,21 +164,21 @@ export interface IncludesType {
     /** The interface mixin that is being included by the target. */
     includes: string;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
+}
+
+export interface ConstructorMemberType {
+    type: "constructor";
+    /** An array of arguments for the constructor operation. */
+    arguments: Argument[];
+    /** A list of extended attributes. */
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface OperationMemberType {
     type: "operation";
-    /** True if a getter operation. */
-    getter: boolean;
-    /** True if a setter operation. */
-    setter: boolean;
-    /** True if a deleter operation. */
-    deleter: boolean;
-    /** True if a static operation. */
-    static: boolean;
-    /** True if a stringifier operation. */
-    stringifier: boolean;
+    /** Special modifier if exists */
+    special: "getter" | "setter" | "deleter" | "static" | "stringifier";
     /** An IDL Type of what the operation returns. If a stringifier, may be absent. */
     idlType: IDLTypeDescription | null;
     /** The name of the operation. If a stringifier, may be null. */
@@ -194,17 +186,15 @@ export interface OperationMemberType {
     /** An array of arguments for the operation. */
     arguments: Argument[];
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface AttributeMemberType {
     type: "attribute";
     /** The attribute's name. */
     name: string;
-    /** True if it's a static attribute. */
-    static: boolean;
-    /** True if it's a stringifier attribute. */
-    stringifier: boolean;
+    /** Special modifier if exists */
+    special: "static" | "stringifier";
     /** True if it's an inherit attribute. */
     inherit: boolean;
     /** True if it's a read-only attribute. */
@@ -212,7 +202,7 @@ export interface AttributeMemberType {
     /** An IDL Type for the attribute. */
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface ConstantMemberType {
@@ -226,7 +216,7 @@ export interface ConstantMemberType {
     /** The constant value */
     value: ValueDescription;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface Argument {
@@ -240,10 +230,10 @@ export interface Argument {
     /** The argument's name. */
     name: string;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }
 
-export interface ExtendedAttributes {
+export interface ExtendedAttribute {
     /** The extended attribute's name. */
     name: string;
     /** If the extended attribute takes arguments or if its right-hand side does they are listed here. */
@@ -264,21 +254,21 @@ export interface ExtendedAttributeRightHandSideIdentifier {
 
 export interface ExtendedAttributeRightHandSideIdentifierList {
     type: "identifier-list";
-    value: string[];
+    value: ExtendedAttributeRightHandSideIdentifier[];
 }
 
 export interface ValueDescription {
-    type: "string" | "number" | "boolean" | "null" | "Infinity" | "NaN" | "sequence";
+    type: "string" | "number" | "boolean" | "null" | "Infinity" | "NaN" | "sequence" | "dictionary";
     value: string | any[] | null;
     negative: boolean | null;
 }
 
 export interface DeclarationMemberType {
-    type: "iterable" | "legacyiterable" | "setlike" | "maplike";
+    type: "iterable" | "setlike" | "maplike";
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
     /** Whether the maplike or setlike is declared as read only. */
     readonly: boolean;
     /** A list of extended attributes. */
-    extAttrs: ExtendedAttributes[];
+    extAttrs: ExtendedAttribute[];
 }

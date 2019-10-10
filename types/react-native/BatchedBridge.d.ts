@@ -13,11 +13,11 @@ declare class MessageQueue {
     registerLazyCallableModule(name: string, factory: () => Object): void;
 }
 
-declare module "react-native/Libraries/BatchedBridge/BatchedBridge" {
+declare module 'react-native/Libraries/BatchedBridge/BatchedBridge' {
     const BatchedBridge: MessageQueue;
-    export = BatchedBridge;
+    export default BatchedBridge;
 }
 
-declare module "react-native/Libraries/BatchedBridge/MessageQueue" {
-    export = MessageQueue;
+declare module 'react-native/Libraries/BatchedBridge/MessageQueue' {
+    export default MessageQueue;
 }

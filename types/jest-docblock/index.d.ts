@@ -1,5 +1,5 @@
 // Type definitions for jest-docblock 21.0
-// Project: https://github.com/facebook/jest/tree/master/packages/jest-docblock
+// Project: https://github.com/facebook/jest/tree/master/packages/jest-docblock, https://github.com/facebook/jest
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

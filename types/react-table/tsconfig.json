@@ -20,6 +20,10 @@
     },
     "files": [
         "index.d.ts",
-        "react-table-tests.tsx"
+        "lib/hoc/selectTable.d.ts",
+        "lib/hoc/treeTable.d.ts",
+        "react-table-tests.tsx",
+        "test/select-table-tests.tsx",
+        "test/tree-table-tests.tsx"
     ]
 }

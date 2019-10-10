@@ -87,8 +87,8 @@ declare namespace jquery.velocity {
 	interface VelocityStatic {
 		Sequences: any;
 		mock: any;
-		animate(options: {elements: NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
-		animate(elements: HTMLElement|NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
+		animate(options: {elements: HTMLCollection | NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
+		animate(elements: HTMLElement | HTMLCollection | NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
 		RegisterEffect(name: string, options: RegisterEffectOptions): VelocityStatic;
 		RunSequence(sequence: SequenceCall[]): VelocityStatic;
 

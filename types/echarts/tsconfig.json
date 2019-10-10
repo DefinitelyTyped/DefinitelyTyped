@@ -18,6 +18,34 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "options/axis-pointer.d.ts",
+        "options/data-zoom.d.ts",
+        "options/text-style.d.ts",
+        "options/tooltip.d.ts",
+        "options/x-axis.d.ts",
+        "options/y-axis.d.ts",
+        "options/series/bar.d.ts",
+        "options/series/boxplot.d.ts",
+        "options/series/candlestick.d.ts",
+        "options/series/custom.d.ts",
+        "options/series/effect-scatter.d.ts",
+        "options/series/funnel.d.ts",
+        "options/series/gauge.d.ts",
+        "options/series/graph.d.ts",
+        "options/series/heatmap.d.ts",
+        "options/series/line.d.ts",
+        "options/series/lines.d.ts",
+        "options/series/map.d.ts",
+        "options/series/parallel.d.ts",
+        "options/series/pictorial-bar.d.ts",
+        "options/series/pie.d.ts",
+        "options/series/radar.d.ts",
+        "options/series/sankey.d.ts",
+        "options/series/scatter.d.ts",
+        "options/series/sunburst.d.ts",
+        "options/series/theme-river.d.ts",
+        "options/series/tree.d.ts",
+        "options/series/treemap.d.ts"
     ]
 }

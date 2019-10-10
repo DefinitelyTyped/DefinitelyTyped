@@ -2,7 +2,7 @@
 // Project: https://github.com/glennflanagan/react-collapsible#readme
 // Definitions by: knegusen <https://github.com/knegusen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 export interface CollapsibleProp {

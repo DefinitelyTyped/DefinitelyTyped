@@ -1,32 +1,56 @@
-// Type definitions for react-native-share 1.0
+// Type definitions for react-native-share 1.1
 // Project: https://github.com/react-native-community/react-native-share#readme
 // Definitions by: Mark Nelissen <https://github.com/marknelissen>
+//                 pera <https://github.com/santiagofm>
+//                 MateusAndrade <https://github.com/MateusAndrade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace Share {
-    function open(options: OpenOptions): Promise<any>;
-    function shareSingle(options: ShareSingleOptions): Promise<any>;
+    function open(options: Options | MultipleOptions): Promise<OpenReturn>;
+    function shareSingle(options: Options & { social: SupportedSocialApps }): Promise<ShareSingleReturn>;
 }
 
 export default Share;
 
-interface OpenOptions {
-    url: string;
-    type?: string;
+export interface OpenReturn {
+    app?: string;
+    dismissedAction?: boolean;
+}
+
+export interface ShareSingleReturn {
     message: string;
+}
+
+export interface Options {
+    url?: string;
+    urls?: string[];
+    type?: string;
+    message?: string;
+    title?: string;
+    subject?: string;
+    filename?: string;
+    excludedActivityTypes?: string;
+    failOnCancel?: boolean;
+    showAppsToView?: boolean;
+}
+export interface MultipleOptions {
+    url?: string;
+    urls: string[];
+    type?: string;
+    message?: string;
     title?: string;
     subject?: string;
     excludedActivityTypes?: string;
-    showAppsToview?: boolean;
+    failOnCancel?: boolean;
+    showAppsToView?: boolean;
 }
 
-interface ShareSingleOptions {
-    url: string;
-    type?: string;
-    message: string;
-    title?: string;
-    subject?: string;
-    social: SupportedSocialApps;
-}
-
-type SupportedSocialApps = 'twitter' | 'facebook' | 'whatsapp' | 'googleplus' | 'email';
+export type SupportedSocialApps =
+    | 'facebook'
+    | 'pagesmanager'
+    | 'twitter'
+    | 'whatsapp'
+    | 'instagram'
+    | 'googleplus'
+    | 'email';

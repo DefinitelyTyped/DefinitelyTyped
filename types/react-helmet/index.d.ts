@@ -2,9 +2,22 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>, Kok Sam <https://github.com/sammkj>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
+
+type LinkProps = JSX.IntrinsicElements['link'];
+
+type MetaProps = JSX.IntrinsicElements['meta'];
+
+export interface HelmetTags {
+    baseTag: Array<any>;
+    linkTags: Array<HTMLLinkElement>;
+    metaTags: Array<HTMLMetaElement>;
+    noscriptTags: Array<any>;
+    scriptTags: Array<HTMLScriptElement>;
+    styleTags: Array<HTMLStyleElement>;
+}
 
 export interface HelmetProps {
     async?: boolean;
@@ -14,9 +27,13 @@ export interface HelmetProps {
     defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
-    onChangeClientState?: (newState: any) => void;
-    link?: Array<any>;
-    meta?: Array<any>;
+    onChangeClientState?: (
+        newState: any,
+        addedTags: HelmetTags,
+        removedTags: HelmetTags,
+    ) => void;
+    link?: LinkProps[];
+    meta?: MetaProps[];
     noscript?: Array<any>;
     script?: Array<any>;
     style?: Array<any>;
@@ -64,4 +81,3 @@ export const peek: () => HelmetData;
 export const rewind: () => HelmetData;
 export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;
-export default Helmet;

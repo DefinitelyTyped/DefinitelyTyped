@@ -1,4 +1,4 @@
-// Type definitions for http-rx 1.1
+// Type definitions for http-rx 2.0
 // Project: https://github.com/JasonRammoray/HttpRx
 // Definitions by: L2jLiga <https://github.com/L2jLiga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,18 +7,23 @@
 import { Observable } from 'rxjs';
 import request = require('request');
 
+interface ResponseWrapper {
+    response: request.Response;
+    body: any;
+}
+
 interface HttpRx {
-    get(url: string, options?: request.CoreOptions): Observable<any>;
+    get(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 
-    head(url: string, options?: request.CoreOptions): Observable<any>;
+    head(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 
-    patch(url: string, options?: request.CoreOptions): Observable<any>;
+    patch(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 
-    post(url: string, options?: request.CoreOptions): Observable<any>;
+    post(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 
-    put(url: string, options?: request.CoreOptions): Observable<any>;
+    put(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 
-    'delete'(url: string, options?: request.CoreOptions): Observable<any>;
+    delete(url: string, options?: request.CoreOptions): Observable<ResponseWrapper>;
 }
 
 declare const httpRx: HttpRx;

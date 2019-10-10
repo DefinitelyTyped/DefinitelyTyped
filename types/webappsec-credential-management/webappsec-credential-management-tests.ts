@@ -5,7 +5,7 @@ function passwordBasedSignInDeprecated() {
         return;
     }
 
-    navigator.credentials.get({password: true}).then((credential) => {
+    navigator.credentials.get({ password: true }).then((credential) => {
         if (!credential) {
             return;
         }
@@ -117,7 +117,7 @@ function federatedSignIn() {
     navigator.credentials
         .get({
             password: true,
-            federated: {providers: ['https://federation.com']}
+            federated: { providers: ['https://federation.com'] }
         })
         .then((credential) => {
             if (!credential) return;
@@ -135,13 +135,16 @@ function federatedSignIn() {
                     // ... any other providers you care about ...
 
                     default:
+                        fetch(
+                            'https://example.com/loginEndpoint',
+                            { credentials: credential, method: 'POST' });
                         break;
                 }
             } else {
                 const pwCred = credential as PasswordCredential;
                 fetch(
                     'https://example.com/loginEndpoint',
-                    {credentials: pwCred, method: 'POST'});
+                    { credentials: pwCred, method: 'POST' });
             }
         });
 }
@@ -159,9 +162,9 @@ function passwordPostSignInConfirmation() {
 
             const formElem = (e.target as HTMLFormElement);
             const c = new PasswordCredential(formElem);
-            fetch(formElem.action, {method: 'POST', credentials: c}).then(r => {
+            fetch(formElem.action, { method: 'POST', credentials: c }).then(r => {
                 if (r.status === 200) {
-                    navigator.credentials!.store(c);
+                    navigator.credentials.store(c);
                 }
             });
         }
@@ -172,7 +175,7 @@ function passwordPostSignInConfirmation() {
 function federationPostSignInConfirmation() {
     if (navigator.credentials) {
         navigator.credentials.store(new FederatedCredential(
-            {id: 'username', provider: 'https://federation.com'}));
+            { id: 'username', provider: 'https://federation.com' }));
     }
 }
 
@@ -188,7 +191,7 @@ function existingFormPost(credential: PasswordCredential) {
     credential.passwordName = 'p';
     fetch(
         'https://example.com/loginEndpoint',
-        {credentials: credential, method: 'POST'});
+        { credentials: credential, method: 'POST' });
 }
 
 function additionalDataPost(credential: PasswordCredential, token: string) {
@@ -196,14 +199,20 @@ function additionalDataPost(credential: PasswordCredential, token: string) {
     credential.additionalData.append('csrf', token);
     fetch(
         'https://example.com/loginEndpoint',
-        {credentials: credential, method: 'POST'});
+        { credentials: credential, method: 'POST' });
 }
 
 function formEncodedPost(credential: PasswordCredential, token: string) {
     credential.additionalData = new URLSearchParams();
     fetch(
         'https://example.com/loginEndpoint',
-        {credentials: credential, method: 'POST'});
+        { credentials: credential, method: 'POST' });
+}
+
+function federatedCredentialPost(credential: FederatedCredential) {
+    fetch(
+        'https://example.com/loginEndpoint',
+        { credentials: credential, method: 'POST' });
 }
 
 // requireUserMediation example: not included in the spec, but included here
@@ -236,7 +245,7 @@ function createPasswordCredential() {
     }
 
     navigator.credentials.create({
-        password: {id: 'username', password: 'password'}
+        password: { id: 'username', password: 'password' }
     }).then((credential) => {
         // Credential created!
     });
@@ -266,7 +275,7 @@ function createFederatedCredential() {
     }
 
     navigator.credentials.create({
-        federated: {id: 'username', provider: 'provider'}
+        federated: { id: 'username', provider: 'provider' }
     }).then((credential) => {
         // Credential created!
     });
@@ -287,17 +296,28 @@ function webauthnRegister() {
                 name: document.domain,
             },
             user: {
-                id: (new Uint8Array(1)).buffer,
+                id: new Uint8Array(1).buffer,
                 name: 'test user',
                 displayName: 'test user',
             },
             challenge,
-            pubKeyCredParams: [
-                {type: 'public-key', alg: -7},
+            pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
+            excludeCredentials: [
+                {
+                    id: new Uint8Array(1).buffer,
+                    type: 'public-key',
+                    transports: ['ble', 'internal'],
+                },
             ],
             timeout: 5000,
-            authenticatorSelection: {},
-        }
+            attestation: 'direct',
+            authenticatorSelection: {
+                userVerification: 'preferred',
+
+                requireResidentKey: false,
+                authenticatorAttachment: 'platform',
+            },
+        },
     });
 
     credPromise.then((cred) => {
@@ -317,15 +337,18 @@ function webauthnAuthenticate() {
     const challenge = new Uint8Array(32);
     window.crypto.getRandomValues(challenge);
 
-    const authPromise = navigator.credentials.get({publicKey: {
-        challenge,
-        timeout: 5000,
-        rpId: document.domain,
-        allowCredentials: [{
-            type: "public-key",
-            id: credentialID,
-        }],
-    }});
+    const authPromise = navigator.credentials.get({
+        publicKey: {
+            challenge,
+            timeout: 5000,
+            rpId: document.domain,
+            allowCredentials: [{
+                type: "public-key",
+                id: credentialID,
+                transports: ['internal', 'ble', 'nfc', 'usb']
+            }],
+        }
+    });
 
     authPromise.then((cred) => {
         if (cred === null) {
@@ -338,4 +361,18 @@ function webauthnAuthenticate() {
     }, (e) => {
         console.log(e.message);
     });
+}
+
+function mockAuthenticatorAssertionResponse() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const sampleResponse: AuthenticatorAssertionResponse = {
+        clientDataJSON: new ArrayBuffer(0),
+        authenticatorData: new ArrayBuffer(0),
+        signature: new ArrayBuffer(0),
+        userHandle: null,
+    };
+    sampleResponse.userHandle === undefined;
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: Adam Webb <https://github.com/adamwpc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -21,6 +21,16 @@ export interface ReactImageGalleryItem {
     description?: string;
     srcSet?: string;
     sizes?: string;
+    bulletClass?: string;
+    bulletOnClick?({
+        item,
+        itemIndex,
+        currentIndex,
+    }: {
+        item: ReactImageGalleryItem;
+        itemIndex: number;
+        currentIndex: number;
+    }): void;
 }
 
 export interface ReactImageGalleryProps {

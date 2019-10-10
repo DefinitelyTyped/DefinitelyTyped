@@ -44,6 +44,13 @@ tar.c(
     ['some', 'files', 'and', 'folders']
 ).pipe(fs.createWriteStream('my-tarball.tgz'));
 
+tar.c(
+    {
+        prefix: 'some-prefix',
+    },
+    ['some', 'files', 'and', 'folders']
+).pipe(fs.createWriteStream('my-tarball.tgz'));
+
 tar.x(
     {
         file: 'my-tarball.tgz',

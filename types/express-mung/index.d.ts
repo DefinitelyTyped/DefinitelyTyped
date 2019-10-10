@@ -1,44 +1,69 @@
-// Type definitions for express-mung 0.4.2
+// Type definitions for express-mung 0.5
 // Project: https://github.com/richardschneider/express-mung
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="express"/>
 /// <reference types="node"/>
 
-declare module "express-mung" {
-    import { Request, Response } from "express";
-    import * as http from "http";
+import { Request, Response, RequestHandler, ErrorRequestHandler } from "express";
 
-    type Transform = (body: {}, request: Request, response: Response) => any;
-    type TransformHeader = (body: http.IncomingMessage, request: Request, response: Response) => any;
+export type Transform = (body: {}, request: Request, response: Response) => any;
+export type TransformAsync = (body: {}, request: Request, response: Response) => PromiseLike<any>;
+export type TransformHeader = (request: Request, response: Response) => any;
+export type TransformHeaderAsync = (request: Request, response: Response) => PromiseLike<any>;
+export type TransformChunk = (
+    chunk: string | Buffer,
+    encoding: string | null,
+    request: Request,
+    response: Response
+) => string | Buffer;
 
-    /**
-     * Transform the JSON body of the response.
-     * @param {Transform} fn A transformation function.
-     * @return {any} The body.
-     */
-    export function json(fn: Transform): any;
-
-    /**
-     * Transform the JSON body of the response.
-     * @param {Transform} fn A transformation function.
-     * @return {any} The body.
-     */
-    export function jsonAsync(fn: Transform): PromiseLike<any>;
-
-    /**
-     * Transform the HTTP headers of the response.
-     * @param {Transform} fn A transformation function.
-     * @return {any} The body.
-     */
-    export function headers(fn: TransformHeader): any;
-
-    /**
-     * Transform the HTTP headers of the response.
-     * @param {Transform} fn A transformation function.
-     * @return {any} The body.
-     */
-    export function headersAsync(fn: TransformHeader): PromiseLike<any>;
+export interface Options {
+    mungError: boolean;
 }
+
+/**
+ * Transform the JSON body of the response.
+ * @param fn A transformation function.
+ * @param options json options.
+ * @return Middleware to transform the body
+ */
+export function json(fn: Transform, options?: Options): RequestHandler;
+
+/**
+ * Asynchronously transform the JSON body of the response.
+ * @param fn A transformation function.
+ * @param options jsonAsync options.
+ * @return Middleware to transform the body
+ */
+export function jsonAsync(fn: TransformAsync, options?: Options): RequestHandler;
+
+/**
+ * Transform the HTTP headers of the response.
+ * @param fn A transformation function.
+ * @return Middleware to transform the headers
+ */
+export function headers(fn: TransformHeader): RequestHandler;
+
+/**
+ * Asynchronously transform the HTTP headers of the response.
+ * @param fn A transformation function.
+ * @return Middleware to transform the headers
+ */
+export function headersAsync(fn: TransformHeaderAsync): RequestHandler;
+
+/**
+ * Transform chunks as they are written to the response
+ * @param fn A transformation function.
+ * @param options Write options.
+ * @return Middleware to transform chunks.
+ */
+export function write(fn: TransformChunk, options?: Options): RequestHandler;
+
+/**
+ * Override the default onError handler.
+ * @see {ErrorRequestHandler}
+ */
+export let onError: ErrorRequestHandler;

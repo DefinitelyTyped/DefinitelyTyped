@@ -143,6 +143,15 @@ server.use(restify.plugins.queryParser());
 server.use(restify.plugins.jsonp());
 server.use(restify.plugins.gzipResponse());
 server.use(restify.plugins.bodyParser());
+server.use(
+  restify.plugins.serveStaticFiles('somePath', {
+    etag: '1',
+    maxAge: 10,
+    setHeaders: (res: restify.Response, path: string, stat: object) => {
+      res.setHeader('header-set-x', 'some-header');
+    },
+  }),
+);
 server.use(restify.plugins.throttle({
     burst: 100,
     rate: 50,
@@ -175,7 +184,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
-(<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
@@ -196,3 +205,6 @@ requestCaptureStream.toString();
 const asStream: stream.Stream = requestCaptureStream;
 
 const logger2: Logger = restify.bunyan.createLogger("horse");
+
+server.router.render("a-route-name", {});
+server.router.render("a-route-name", {}, {});

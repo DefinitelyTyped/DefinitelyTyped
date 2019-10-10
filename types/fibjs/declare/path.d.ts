@@ -343,6 +343,19 @@ declare module "path" {
 	
 		/**
 		 * 
+		 * @brief 求 _from 到 to 的相对路径
+		 * 
+		 * @param _from 源路径
+		 * @param to 目标路径
+		 * @return 返回得到的相对路径
+		 * 
+		 * 
+		 * 
+		 */
+		export function relative(_from: string, to: string): string;
+	
+		/**
+		 * 
 		 * @brief 转换成 namespace-prefixed 路径。只在 windows 有效，其他系统直接返回。
 		 * see: https://msdn.microsoft.com/library/windows/desktop/aa365247(v=vs.85).aspx#namespaces
 		 * @param path 给定的路径。

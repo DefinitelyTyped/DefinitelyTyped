@@ -1,9 +1,9 @@
-import npmlog from "npmlog";
+import * as npmlog from "npmlog";
 
 const prefix = "str";
 const message = "otherStr";
 
-['silly', 'verbose', 'info', 'http', 'warn', 'error'].forEach(lvl => npmlog.log(lvl, prefix, message));
+["silly", "verbose", "info", "timing", "http", "notice", "warn", "error", "silent"].forEach(lvl => npmlog.log(lvl, prefix, message));
 
 npmlog.silly(prefix, message);
 npmlog.verbose(prefix, message);
@@ -12,13 +12,15 @@ npmlog.http(prefix, message);
 npmlog.warn(prefix, message);
 npmlog.error(prefix, message);
 
-npmlog.level = "silly";
+// ES6 module does't support changing variable exported by `export let`
+// npmlog.level = "silly";
 
 npmlog.enableColor();
 npmlog.disableColor();
 
 npmlog.enableProgress();
 npmlog.disableProgress();
+npmlog.progressEnabled();
 
 npmlog.enableUnicode();
 npmlog.disableUnicode();
@@ -41,3 +43,20 @@ npmlog.addLevel("styled-level", 42, {
     bold: false,
     underline: true,
 }, 'display name');
+
+npmlog.addLevel("broadcast", 10);
+
+npmlog.broadcast(prefix, message);
+npmlog.broadcast(message);
+
+npmlog.on("broadcast", () => {});
+
+const msg: npmlog.MessageObject = {
+    id: 1,
+    level: "broadcast",
+    prefix,
+    message,
+    messageRaw: message,
+};
+
+npmlog.emit("broadcast", msg);

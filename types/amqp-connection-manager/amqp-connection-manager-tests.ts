@@ -18,3 +18,48 @@ connection.on("disconnect", (_arg: { err: Error }): void => undefined);
 channelWrapper.on("close", () => undefined);
 channelWrapper.on("connect", () => undefined);
 channelWrapper.on("error", (_error: Error) => undefined);
+
+channelWrapper.sendToQueue("foo", Buffer.from("bar"))
+    .catch((error: Error): void => {
+        // nothing
+    });
+
+// Checking connection options
+amqpConMgr.connect(["foo", "bar"], {
+    findServers(callback) {
+        callback("x");
+    }
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    findServers(callback) {
+        callback(["x", "y"]);
+    }
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    findServers() {
+        return Promise.resolve("x");
+    }
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    findServers() {
+        return Promise.resolve(["x", "y"]);
+    }
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    reconnectTimeInSeconds: 123
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    heartbeatIntervalInSeconds: 123
+});
+
+amqpConMgr.connect(["foo", "bar"], {
+    connectionOptions: {
+        ca: "some CA",
+        servername: "foo.example.com"
+    }
+});

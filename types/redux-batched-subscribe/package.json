@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "redux": ">=1.0.0 <4.0.0"
+        "redux": "^4.0.0"
     }
 }

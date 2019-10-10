@@ -2,11 +2,12 @@
 
 import {
 	create as createJSS,
+	createGenerateClassName,
 	SheetsRegistry,
 	default as sharedInstance,
 } from 'jss';
 
-const jss = createJSS().setup({});
+const jss = createJSS().setup({ createGenerateClassName });
 jss.use({}, {}); // $ExpectType JSS
 
 const styleSheet = jss.createStyleSheet<string>(
@@ -68,10 +69,8 @@ attachedStyleSheet.addRules({
 		fontSize: 17,
 	},
 });
-
-styleSheet.addRule('badProperty', {
-	thisIsNotAValidProperty: 'blah', // $ExpectError
-});
+// $ExpectError
+styleSheet.addRule('badProperty', { thisIsNotAValidProperty: 'blah', });
 
 styleSheet.addRule('badValue', { // $ExpectError
 	'align-items': Symbol(),

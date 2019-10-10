@@ -14,7 +14,9 @@ newrelic.setDispatcher("foo", "42"); // $ExpectType void
 newrelic.setControllerName("foo", "GET"); // $ExpectType void
 
 newrelic.addCustomAttribute("foo", "bar"); // $ExpectType void
+newrelic.addCustomAttribute("foo", 42); // $ExpectType void
 newrelic.addCustomAttributes({ foo: "bar", baz: "bang" }); // $ExpectType void
+newrelic.addCustomAttributes({ foo: "bar", baz: 42 }); // $ExpectType void
 
 newrelic.setIgnoreTransaction(true); // $ExpectType void
 
@@ -42,14 +44,17 @@ const wrappedResult: number = wrappedFn(42);
 
 newrelic.startWebTransaction('/some/url/path', () => {
     const transaction = newrelic.getTransaction();
-    Promise.all([]);
     setTimeout(() => {
         // do some work
         transaction.end();
     }, 100);
 });
 
+newrelic.startWebTransaction('/some/url/path', Promise.resolve(7)); // $ExpectType Promise<number>
+
 newrelic.startBackgroundTransaction('Red October', (foo) => foo); // $ExpectType any
+newrelic.startBackgroundTransaction('Red October', () => 7); // $ExpectType number
+newrelic.startBackgroundTransaction('Red October', Promise.resolve(7)); // $ExpectType Promise<number>
 newrelic.startBackgroundTransaction('Red October', 'Subs', () => {
     const transaction = newrelic.getTransaction();
     setTimeout(() => {
@@ -102,3 +107,5 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, (err) => {
 newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
+
+newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined

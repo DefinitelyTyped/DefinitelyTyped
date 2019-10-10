@@ -1,10 +1,3 @@
-// Type definitions for Highstock 2.1.6
-// Project: http://www.highcharts.com/
-
-// Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
-// Definitions by: Dave Baumann <https://github.com/route2Dev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Highcharts from "highcharts";
 
 declare namespace Highstock {
@@ -31,11 +24,16 @@ declare namespace Highstock {
         yAxis?: Highcharts.AxisOptions;
     }
 
+    interface RangeSelectorButtonEvent {
+        click?(event: Event): void;
+    }
+
     interface RangeSelectorButton {
         type: string; // Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
         count?: number;
         text: string;
         dataGrouping?: any; // not sure how this works
+        events?: RangeSelectorButtonEvent;
     }
 
     interface RangeSelectorOptions {
@@ -123,8 +121,7 @@ declare namespace Highstock {
     }
 
     interface Chart {
-        new (options: Options): ChartObject;
-        new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
+        new (options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     }
 
     interface Static extends Highcharts.Static {
@@ -140,21 +137,13 @@ declare global {
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
          * @param options Options for this chart
-         * @return current selector the current JQuery selector
-         */
-        highcharts(type: "StockChart", options: Highstock.Options): JQuery;
-        /**
-         * Creates a new Highcharts.Chart for the current JQuery selector; usually
-         * a div selected by $('#container')
-         * @param options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current selector the current JQuery selector
          */
-        highcharts(type: "StockChart", options: Highstock.Options, callback: (chart: Highstock.ChartObject) => void): JQuery;
+        highcharts(type: "StockChart", options: Highstock.Options, callback?: (chart: Highstock.ChartObject) => void): JQuery;
 
         highcharts(type: string): Highcharts.ChartObject;
-        highcharts(type: string, options: Highcharts.Options): JQuery;
-        highcharts(type: string, options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
+        highcharts(type: string, options: Highcharts.Options, callback?: (chart: Highcharts.ChartObject) => void): JQuery;
     }
 }
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/evetstech/react-native-settings-list
 // Definitions by: MrLuje <https://github.com/MrLuje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ReactNode } from "react";
 import { TextStyle, StyleProp, ImageStyle, ViewStyle } from "react-native";

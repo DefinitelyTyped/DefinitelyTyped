@@ -6,7 +6,7 @@
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -1949,6 +1949,8 @@ export interface SvgCommonProps {
 export interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
+    rx?: number | string;
+    ry?: number | string;
 }
 
 export interface SvgCircleProps extends SvgCommonProps {
@@ -2056,7 +2058,7 @@ export class Svg extends Component<{ width: number, height: number }> {
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    view?: (number | React.ReactElement),
     options?: {
         width?: number,
         height?: number,

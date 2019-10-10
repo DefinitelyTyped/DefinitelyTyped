@@ -183,6 +183,11 @@ export class HttpStatusError extends global.Error {
      * @param req the request object
      */
     constructor(err: Error, req?: express.Request);
+
+    /**
+     * Status code for this error.
+     */
+    statusCode: number;
 }
 
 /**

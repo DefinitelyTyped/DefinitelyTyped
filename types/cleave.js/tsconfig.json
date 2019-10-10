@@ -23,6 +23,7 @@
         "index.d.ts",
         "options/creditCard.d.ts",
         "options/index.d.ts",
-        "react/index.d.ts"
+        "react/index.d.ts",
+        "react/props.d.ts"
     ]
 }

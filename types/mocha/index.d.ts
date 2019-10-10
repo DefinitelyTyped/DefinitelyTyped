@@ -1,5 +1,5 @@
 // Type definitions for mocha 5.2
-// Project: http://mochajs.org/
+// Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
 //                 jt000 <https://github.com/jt000>
@@ -423,7 +423,9 @@ declare namespace Mocha {
      * @returns [bdd] `Suite`
      * @returns [tdd] `void`
      */
-    type PendingSuiteFunction = (title: string, fn: (this: Suite) => void) => Suite | void;
+    interface PendingSuiteFunction {
+        (title: string, fn: (this: Suite) => void): Suite | void;
+    }
 
     interface TestFunction {
         /**
@@ -2159,7 +2161,7 @@ declare namespace Mocha {
     type TestInterface = (suite: Suite) => void;
 
     interface ReporterConstructor {
-        new (runner: Runner, options: { reporterOptions?: any; }): reporters.Base;
+        new (runner: Runner, options: MochaOptions): reporters.Base;
     }
 
     type Done = (err?: any) => void;

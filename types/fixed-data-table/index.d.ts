@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/fixed-data-table
 // Definitions by: Petar Paar <https://github.com/pepaar>, Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react"/>
 
@@ -291,7 +291,7 @@ declare namespace FixedDataTable {
           *
           * If you pass in a function, you will receive the same props object as the first argument.
           */
-        header?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
+        header?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
 
         /**
           * This is the body cell that will be cloned for this
@@ -315,7 +315,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        cell?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
+        cell?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
 
          /**
           * The footer cell for this column. This can either be a
@@ -338,7 +338,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        footer?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
+        footer?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
 
         /**
           * This is used to uniquely identify the column, and is not
@@ -440,7 +440,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same props
           * object as the first argument.
           */
-	    header: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
+	    header: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
     }
 
     /**

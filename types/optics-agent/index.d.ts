@@ -2,7 +2,7 @@
 // Project: https://github.com/apollostack/optics-agent-js#readme
 // Definitions by: Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { GraphQLSchema } from "graphql";
 import { Request, Response } from "express";

@@ -71,6 +71,8 @@ export default class MDCTextFieldFoundation extends MDCFoundation<MDCTextFieldAd
 
     setValid(isValid: boolean): void;
 
+    setUseNativeValidation(useNativeValidation: boolean): void;
+
     isDisabled(): boolean;
 
     setDisabled(disabled: boolean): void;

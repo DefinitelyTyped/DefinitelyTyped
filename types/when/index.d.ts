@@ -3,13 +3,9 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function When<T>(value: When.Promise<T>): When.Promise<T>;
-declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
-declare function When<T>(value: T): When.Promise<T>;
-
-declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): When.Promise<U>;
-declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
-declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
+declare function When(): When.Promise<void>;
+declare function When<T>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>): When.Promise<T>;
+declare function When<T, U>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 
 declare namespace When {
     // Helper interfaces
@@ -236,9 +232,8 @@ declare namespace When {
      *    - fulfilled with promiseOrValue's value after it is fulfilled
      *    - rejected with promiseOrValue's reason after it is rejected
      */
-    function resolve<T>(promise: Promise<T>): Promise<T>;
-    function resolve<T>(foreign: Thenable<T>): Promise<T>;
-    function resolve<T>(value?: T): Promise<T>;
+    function resolve(): Promise<void>;
+    function resolve<T>(promiseOrValue: T | Promise<T> | Thenable<T>): Promise<T>;
 
     interface Deferred<T> {
         notify(update: any): void;
