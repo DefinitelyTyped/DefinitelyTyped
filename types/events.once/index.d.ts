@@ -1,5 +1,5 @@
 // Type definitions for events.once 2.0
-// Project: https://github.com/davidmarkclements/events.once#readme
+// Project: https://github.com/davidmarkclements/events.once
 // Definitions by: John Meyer <https://github.com/0x326>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
