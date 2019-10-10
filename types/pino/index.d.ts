@@ -505,7 +505,7 @@ declare namespace P {
 
     interface redactOptions {
         paths: string[];
-        censor?: string;
+        censor?: string | ((v: any) => any);
         remove?: boolean;
     }
 }
