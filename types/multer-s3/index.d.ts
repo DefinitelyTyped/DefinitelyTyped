@@ -5,7 +5,7 @@
 //                 Matt Terski <https://github.com/terski>
 //                 Agata Belkius <https://github.com/abelkius>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as AWS from "aws-sdk";
 import { IncomingMessage } from "http";
