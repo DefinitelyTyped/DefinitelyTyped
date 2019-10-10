@@ -1,4 +1,4 @@
-// Taken from https://github.com/davidmarkclements/events.once/blob/master/readme.md
+// Copied from https://github.com/davidmarkclements/events.once/blob/master/readme.md
 
 import once from 'events.once';
 import { EventEmitter } from 'events';
