@@ -14,6 +14,7 @@
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
+//                  Jeff Gu Kang <https://github.com/jeffgukang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -779,6 +780,141 @@ subscription.on('close', () => {});
 
         linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
         _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
+    }
+
+    /**
+    * A Parse.Schema object is for handling schema data from Parse.
+    * All the schemas methods require MasterKey.
+    *
+    * @param {String} className Parse Class string
+    *
+    * https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Schema.html
+    *
+    * ```
+    * const schema = new Parse.Schema('MyClass');
+    * schema.addString('field');
+    * schema.addIndex('index_name', { field: 1 });
+    * schema.save();
+    * ```
+    */
+    class Schema {
+
+        constructor(className: string)
+
+        /**
+         * Static method to get all schemas
+         * @param options Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         */
+        static all(options?: ScopeOptions): Promise<Schema[]>
+
+        addArray(name: string): this
+        addBoolean(name: string): this
+        addDate(name: string): this
+        addField(name: string, type?: Schema.TYPE): this
+        addFile(name: string): this
+        addGeoPoint(name: string): this
+
+        /**
+         * Adding an Index to Create / Update a Schema
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {Schema.Index} index { 'field': value } `field` should exist in the schema before using addIndex. `value` can be a (String|Number|Boolean|Date|Parse.File|Parse.GeoPoint|Array|Object|Pointer|Parse.Relation)
+         * @return Returns the schema, so you can chain this call.
+         * @example
+         * ```
+         * schema.addIndex('index_name', {'field': 1});
+         * ```
+         */
+        addIndex(name: string, index: Schema.Index): this
+
+        addNumber(name: string): this
+        addObject(name: string): this
+
+        /**
+         * Adding Pointer Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addPointer(name: string, targetClass: string): this
+
+        addPolygon(name: string): this
+
+        /**
+         * Adding Relation Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addRelation(name: string, targetClass: string): this
+
+        addString(name: string): this
+
+        /**
+         * Removing a Schema from Parse Can only be used on Schema without objects
+         * @param options
+         * Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         * @returns {Promise} A promise that is resolved with the result when the query completes.
+         */
+        // @TODO Fix Promise<any>
+        delete(options?: ScopeOptions): Promise<any>
+
+        /**
+         * Deleting a Field to Update on a Schema
+         * @param name Name of the field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteField(name: string): this
+
+        /**
+         * Deleting a Index Field to Update on a Schema
+         * @param name Name of the index field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteIndex(name: string): this
+
+        /**
+         * Get the Schema from Parse
+         */
+        get(options?: ScopeOptions): Promise<Schema>
+
+        /**
+         * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+         */
+        // TODO Fix Promise<any>
+        purge(): Promise<any>
+
+        /**
+         * Create a new Schema on Parse
+         */
+        save(options?: ScopeOptions): Promise<Schema>
+
+        /**
+         * Update a Schema on Parse
+         */
+        update(options?: ScopeOptions): Promise<Schema>
+    }
+
+    namespace Schema {
+
+        type TYPE =
+            | string
+            | number
+            | boolean
+            | Date
+            | File
+            | GeoPoint
+            | Array<any>
+            | object
+            | Pointer
+            | Relation
+    
+        interface Index {
+            [fieldName: string]: TYPE
+        }      
     }
 
 
