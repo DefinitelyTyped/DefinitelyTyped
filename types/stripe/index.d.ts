@@ -191,7 +191,7 @@ declare namespace Stripe {
                 card_payments?: 'active' | 'inactive' | 'pending';
 
                 /**
-                 * he status of the legacy payments capability of the account.
+                 * The status of the legacy payments capability of the account.
                  */
                 legacy_payments?: 'active' | 'inactive' | 'pending';
 

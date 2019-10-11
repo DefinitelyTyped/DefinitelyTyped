@@ -3208,7 +3208,7 @@ declare namespace sap {
        * provide the support custom style classes. The control API provides functionsto the application which
        * allow it to add, remove or change style classes for the control.In general, this option is not
        * available for elements because elements do not necessarily have a representation in the DOM.This
-       * function can be used by a control developer to explicitly enrich the API of his/her element
+       * function can be used by a control developer to explicitly enrich the API of their element
        * implementation with the API functionsfor the custom style class support. It must be called on the
        * prototype of the element.<b>Usage Example:</b><pre>sap.ui.define(['sap/ui/core/Element',
        * 'sap/ui/core/CustomStyleClassSupport'], function(Element, CustomStyleClassSupport) {   "use strict";
@@ -11544,7 +11544,7 @@ declare namespace sap {
        * The ScrollBar control can be used for virtual scrolling of a certain area.This means: to simulate a
        * very large scrollable area when technically the area is small and the control takes care of
        * displaying the respective part only. E.g. a Table control can take care of only rendering the
-       * currently visible rows and use this ScrollBar control to make the user think he actually scrolls
+       * currently visible rows and use this ScrollBar control to make the user think they actually scroll
        * through a long list.
        * @resource sap/ui/core/ScrollBar.js
       */
