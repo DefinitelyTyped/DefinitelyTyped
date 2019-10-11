@@ -36,6 +36,10 @@ declare class Sortable {
     /**
      * Mounts a plugin to Sortable
      * @param sortablePlugin a sortable plugin.
+     * 
+     * @example
+     * 
+     * Sortable.mount(new MultiDrag(), new AutoScroll())
      */
     static mount(...sortablePlugins: SortablePlugin[]): void;
 
