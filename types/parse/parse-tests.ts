@@ -464,6 +464,10 @@ function test_cloud_functions() {
         return new Parse.Object('MyCustomClass');
     });
 
+    Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
+        return 'Some result';
+    });
+
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
