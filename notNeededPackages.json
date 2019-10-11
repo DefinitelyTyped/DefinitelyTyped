@@ -3976,7 +3976,7 @@
             "libraryName": "watson-developer-cloud",
             "typingsPackageName": "watson-developer-cloud",
             "sourceRepoURL": "https://github.com/watson-developer-cloud/node-sdk",
-            "asOfVersion": "3.0"
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "typescript",
