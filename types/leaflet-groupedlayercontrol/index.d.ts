@@ -2,6 +2,7 @@
 // Project: https://github.com/ismyrnow/leaflet-groupedlayercontrol
 // Definitions by: Ryan Conklin <https://github.com/ryanc16>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 
