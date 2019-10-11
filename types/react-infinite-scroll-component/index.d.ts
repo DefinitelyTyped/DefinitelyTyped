@@ -30,7 +30,7 @@ declare namespace InfiniteScroll {
         hasMore: boolean;
 
         /**
-         * This message is shown to the user when they have seen all the records which means they're at the bottom and hasMore is false
+         * This message is shown to the user when they have seen all the records, which means they are at the bottom and hasMore is false
          */
         endMessage?: React.ReactNode;
 
