@@ -1,13 +1,11 @@
 import * as React from "react";
-import Interactive from 'react-interactive';
+import Interactive, { State } from 'react-interactive';
 
 class InteractiveDiv extends React.Component {
-    
-    private handleInteractiveStateChange(e: Event) => {}
-    
-    private handleClick(e: Event) => {}
+    private handleInteractiveStateChange(arg0: {prevState: State, nextState: State, event: React.SyntheticEvent}): void {}
+    private handleClick(e: React.SyntheticEvent): void {}
 
-    public render() {
+    render() {
         return (<Interactive
             as="div"
             hover={{ color: 'green' }}

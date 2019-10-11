@@ -1,79 +1,85 @@
-// Type definitions for react-interactive 0.9.1
+// Type definitions for react-interactive 0.9
 // Project: https://github.com/rafrex/react-interactive
 // Definitions by: Daniel <https://github.com/DanudeSandstorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="react"/>
+import { ReactNode, ReactElement, Component, SyntheticEvent, CSSProperties } from 'react';
 
-declare module 'react-interactive' {
-    import { ReactNode, ReactElement, Component, CSSProperties, SyntheticEvent } from 'react';
+export {};
 
-    export type iState = 'normal' | 'hover' | 'hoverActive' | 'touchActive' | 'keyActive';
-    export type focus = false | 'tab' | 'mouse' | 'touch';
-    export type clickType = "mouseClick" | "tapClick" | "keyClick";
+export type iState = 'normal' | 'hover' | 'hoverActive' | 'touchActive' | 'keyActive';
+export type focus = false | 'tab' | 'mouse' | 'touch';
+export type clickType = "mouseClick" | "tapClick" | "keyClick";
 
-    export type State = {focus: focus, iState: iState};
+export type State = {focus: focus, iState: iState};
 
-    type Hover = {
-        hover?: CSSProperties;
-    } | {
-        hoverActive?: CSSProperties;
-        touchActive?: CSSProperties;
-        keyActive?: CSSProperties;
-    }
+type Active = {
+    active?: CSSProperties;
+} | {
+    hoverActive?: CSSProperties;
+    touchActive?: CSSProperties;
+    keyActive?: CSSProperties;
+};
 
-    type Focus = {
-        focus?: CSSProperties;
-    } | {
-        focusFromTab?: CSSProperties;
-        focusFromMouse?: CSSProperties;
-        focusFromTouch?: CSSProperties;
-    }
+type Focus = {
+    focus?: CSSProperties;
+} | {
+    focusFromTab?: CSSProperties;
+    focusFromMouse?: CSSProperties;
+    focusFromTouch?: CSSProperties;
+};
 
-    type InteractiveProps = Focus & Hover & {
-        as: string | Component | ReactElement;
+type InteractiveProps = Focus & Active & {
+    // as: string | Component | ReactElement;
+    as: any;
 
-        style?: CSSProperties;
+    hover?: CSSProperties;
 
-        className?: string;
+    style?: CSSProperties;
 
-        onStateChange?: (arg0: {prevState: State, nextState: State, event: SyntheticEvent}) => void;
+    className?: string;
 
-        setStateCallback?: (arg0: {prevState: State, nextState: State}) => void;
+    onStateChange?: (arg0: {prevState: State, nextState: State, event: SyntheticEvent}) => void;
 
-        onClick?: (event: SyntheticEvent, clickType: clickType) => void;
+    setStateCallback?: (arg0: {prevState: State, nextState: State}) => void;
 
-        onTapTwo?: (event: Event) => void;
+    onClick?: (event: SyntheticEvent, clickType: clickType) => void;
 
-        tapTimeCutoff?: number;
+    onTapTwo?: (event: Event) => void;
+    onTapThree?: (event: Event) => void;
+    onTapFour?: (event: Event) => void;
 
-        onLongPress?: (event: Event) => void;
+    tapTimeCutoff?: number;
 
-        touchActiveTapOnly?: boolean; 
+    onLongPress?: (event: Event) => void;
 
-        extraTouchNoTap?: boolean;
+    touchActiveTapOnly?: boolean;
 
-        nonContainedChild?: boolean;
+    extraTouchNoTap?: boolean;
 
-        initialState?: State;
+    nonContainedChild?: boolean;
 
-        forceState?: State;
+    initialState?: State;
 
-        styleProperty?: Object;
+    forceState?: State;
 
-        refDOMNode?: (node: any) => any; // Not sure about this type
+    styleProperty?: object;
 
-        focusToggleOff?: boolean;
+    refDOMNode?: (node: any) => any; // Not sure about this type
 
-        mutableProps?: boolean;
+    focusToggleOff?: boolean;
 
-        interactiveChild?: boolean;
+    mutableProps?: boolean;
 
-        wrapperStyle?: CSSProperties;
+    interactiveChild?: boolean;
 
-        wrapperClassName?: string;
-    }
+    wrapperStyle?: CSSProperties;
 
-    export default class Interactive extends Component<InteractiveProps> {}
+    wrapperClassName?: string;
+};
+
+export default class Interactive extends Component<InteractiveProps> {
+    constructor(props: InteractiveProps);
+    render(): any;
 }
