@@ -16,11 +16,11 @@ import https = require('https');
 import net = require('net');
 import url = require('url');
 
-export interface Stringified {
+export interface IStringified {
     toString: (...args: any[]) => string;
 }
 
-export interface Config {
+export interface IConfig {
     /**
      * The maximum allowed received frame size in bytes.
      * Single frame messages will also be limited to this maximum.
@@ -61,7 +61,7 @@ export interface Config {
     closeTimeout?: number;
 }
 
-export interface ServerConfig extends Config {
+export interface IServerConfig extends IConfig {
     /** The http or https server instance(s) to attach to */
     httpServer: http.Server | https.Server | Array<(http.Server | https.Server)>;
 
@@ -151,20 +151,20 @@ export interface ServerConfig extends Config {
 }
 
 export class server extends events.EventEmitter {
-    config?: ServerConfig;
+    config?: IServerConfig;
     connections: connection[];
     pendingRequests: request[];
 
-    constructor(serverConfig?: ServerConfig);
+    constructor(serverConfig?: IServerConfig);
 
     /** Send binary or UTF-8 message for each connection */
-    broadcast(data: Buffer | Stringified): void;
+    broadcast(data: Buffer | IStringified): void;
     /** Send binary message for each connection */
     broadcastBytes(data: Buffer): void;
     /** Send UTF-8 message for each connection */
-    broadcastUTF(data: Stringified): void;
+    broadcastUTF(data: IStringified): void;
     /** Attach the `server` instance to a Node http.Server instance */
-    mount(serverConfig: ServerConfig): void;
+    mount(serverConfig: IServerConfig): void;
 
     /**
      * Detach the `server` instance from the Node http.Server instance.
@@ -192,7 +192,7 @@ export class server extends events.EventEmitter {
     addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
 }
 
-export interface Cookie {
+export interface ICookie {
     name: string;
     value: string;
     path?: string;
@@ -203,7 +203,7 @@ export interface Cookie {
     httponly?: boolean;
 }
 
-export interface Extension {
+export interface IExtension {
     name: string;
     value: string;
 }
@@ -239,7 +239,7 @@ export class request extends events.EventEmitter {
     /** An array containing a list of extensions requested by the client */
     requestedExtensions: any[];
 
-    cookies: Cookie[];
+    cookies: ICookie[];
     socket: net.Socket;
 
     /**
@@ -252,12 +252,12 @@ export class request extends events.EventEmitter {
     requestedProtocols: string[];
     protocolFullCaseMap: { [key: string]: string };
 
-    serverConfig: ServerConfig;
+    serverConfig: IServerConfig;
 
     _resolved: boolean;
     _socketIsClosing: boolean;
 
-    constructor(socket: net.Socket, httpRequest: http.IncomingMessage, config: ServerConfig);
+    constructor(socket: net.Socket, httpRequest: http.IncomingMessage, config: IServerConfig);
 
     /**
      * After inspecting the `request` properties, call this function on the
@@ -266,7 +266,7 @@ export class request extends events.EventEmitter {
      *
      * @param [acceptedProtocol] case-insensitive value that was requested by the client
      */
-    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: Cookie[]): connection;
+    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
 
     /**
      * Reject connection.
@@ -287,20 +287,20 @@ export class request extends events.EventEmitter {
 
     parseExtensions(extensionString: string): string[];
 
-    parseCookies(str: string): Cookie[] | void;
+    parseCookies(str: string): ICookie[] | void;
 
     _handleSocketCloseBeforeAccept(): void;
     _removeSocketCloseListeners(): void;
     _verifyResolution(): void;
 }
 
-export interface Message {
+export interface IMessage {
     type: string;
     utf8Data?: string;
     binaryData?: Buffer;
 }
 
-export interface BufferList extends events.EventEmitter {
+export interface IBufferList extends events.EventEmitter {
     encoding: string;
     length: number;
     write(buf: Buffer): boolean;
@@ -324,7 +324,7 @@ export interface BufferList extends events.EventEmitter {
      * If `n` the aggregate advance offset passes the end of the buffer list,
      * operations such as `take` will return empty strings until enough data is pushed.
      */
-    advance(n: number): BufferList;
+    advance(n: number): IBufferList;
 
     /**
      * Take `n` bytes from the start of the buffers.
@@ -376,12 +376,12 @@ export class connection extends events.EventEmitter {
      */
     protocol: string;
 
-    config: Config;
+    config: IConfig;
     socket: net.Socket;
     maskOutgoingPackets: boolean;
     maskBytes: Buffer;
     frameHeader: Buffer;
-    bufferList: BufferList;
+    bufferList: IBufferList;
     currentFrame: frame;
     fragmentationSize: number;
     frameQueue: frame[];
@@ -397,7 +397,7 @@ export class connection extends events.EventEmitter {
     socketHadError: boolean;
 
     /** An array of extensions that were negotiated for this connection */
-    extensions: Extension[];
+    extensions: IExtension[];
 
     /**
      * The IP address of the remote peer as a string. In the case of a server,
@@ -414,8 +414,8 @@ export class connection extends events.EventEmitter {
 
     _pingListenerCount: number;
 
-    constructor(socket: net.Socket, extensions: Extension[], protocol: string,
-        maskOutgoingPackets: boolean, config: Config);
+    constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
+        maskOutgoingPackets: boolean, config: IConfig);
 
     /**
      * Close the connection. A close frame will be sent to the remote peer indicating
@@ -436,7 +436,7 @@ export class connection extends events.EventEmitter {
      * peer. If `config.fragmentOutgoingMessages` is true the message may be sent as
      * multiple fragments if it exceeds `config.fragmentationThreshold` bytes.
      */
-    sendUTF(data: Stringified, cb?: (err?: Error) => void): void;
+    sendUTF(data: IStringified, cb?: (err?: Error) => void): void;
 
     /**
      * Immediately sends the specified Node Buffer object as a Binary WebSocket message
@@ -446,10 +446,10 @@ export class connection extends events.EventEmitter {
     sendBytes(buffer: Buffer, cb?: (err?: Error) => void): void;
 
     /** Auto-detect the data type and send UTF-8 or Binary message */
-    send(data: Buffer | Stringified, cb?: (err?: Error) => void): void;
+    send(data: Buffer | IStringified, cb?: (err?: Error) => void): void;
 
     /** Sends a ping frame. Ping frames must not exceed 125 bytes in length. */
-    ping(data: Buffer | Stringified): void;
+    ping(data: Buffer | IStringified): void;
 
     /**
      * Sends a pong frame. Pong frames may be sent unsolicited and such pong frames will
@@ -496,14 +496,14 @@ export class connection extends events.EventEmitter {
     _addSocketEventListeners(): void;
 
     // Events
-    on(event: 'message', cb: (data: Message) => void): this;
+    on(event: 'message', cb: (data: IMessage) => void): this;
     on(event: 'frame', cb: (frame: frame) => void): this;
     on(event: 'close', cb: (code: number, desc: string) => void): this;
     on(event: 'error', cb: (err: Error) => void): this;
     on(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
     on(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
     on(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
-    addListener(event: 'message', cb: (data: Message) => void): this;
+    addListener(event: 'message', cb: (data: IMessage) => void): this;
     addListener(event: 'frame', cb: (frame: frame) => void): this;
     addListener(event: 'close', cb: (code: number, desc: string) => void): this;
     addListener(event: 'error', cb: (err: Error) => void): this;
@@ -568,7 +568,7 @@ export class frame {
 
     maskBytes: Buffer;
     frameHeader: Buffer;
-    config: Config;
+    config: IConfig;
     maxReceivedFrameSize: number;
     protocolError: boolean;
     dropReason: string;
@@ -577,13 +577,13 @@ export class frame {
     parseState: number;
     closeStatus: number;
 
-    addData(bufferList: BufferList): boolean;
-    throwAwayPayload(bufferList: BufferList): boolean;
+    addData(bufferList: IBufferList): boolean;
+    throwAwayPayload(bufferList: IBufferList): boolean;
     toBuffer(nullMask: boolean): Buffer;
     toString(): string;
 }
 
-export interface ClientConfig extends Config {
+export interface IClientConfig extends IConfig {
     /**
      * Which version of the WebSocket protocol to use when making the connection.
      * Currently supported values are 8 and 13. This option will be removed once the
@@ -624,7 +624,7 @@ export class client extends events.EventEmitter {
     response: http.IncomingMessage;
     firstDataChunk: Buffer | null;
 
-    constructor(ClientConfig?: ClientConfig);
+    constructor(ClientConfig?: IClientConfig);
 
     /**
      * Establish a connection. The remote server will select the best subprotocol that
@@ -655,7 +655,7 @@ export class client extends events.EventEmitter {
     addListener(event: 'httpResponse', cb: (response: http.IncomingMessage, client: client) => void): this;
 }
 
-export interface RouterRequest extends events.EventEmitter {
+export interface IRouterRequest extends events.EventEmitter {
     webSocketRequest: request;
     protocol: string | null;
 
@@ -685,7 +685,7 @@ export interface RouterRequest extends events.EventEmitter {
     /** An array containing a list of extensions requested by the client */
     requestedExtensions: any[];
 
-    cookies: Cookie[];
+    cookies: ICookie[];
 
     /**
      * After inspecting the `request` properties, call this function on the
@@ -694,7 +694,7 @@ export interface RouterRequest extends events.EventEmitter {
      *
      * @param [acceptedProtocol] case-insensitive value that was requested by the client
      */
-    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: Cookie[]): connection;
+    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
 
     /**
      * Reject connection.
@@ -711,24 +711,24 @@ export interface RouterRequest extends events.EventEmitter {
     addListener(event: 'requestRejected', cb: (request: this) => void): this;
 }
 
-export interface RouterConfig {
+export interface IRouterConfig {
     /*
      * The WebSocketServer instance to attach to.
      */
     server: server;
 }
 
-export interface RouterHandler {
+export interface IRouterHandler {
     path: string;
     pathString: string;
     protocol: string;
-    callback: (request: RouterRequest) => void;
+    callback: (request: IRouterRequest) => void;
 }
 
 export class router extends events.EventEmitter {
-    handlers: RouterHandler[];
+    handlers: IRouterHandler[];
 
-    constructor(config?: RouterConfig);
+    constructor(config?: IRouterConfig);
 
     /** Attach to WebSocket server */
     attachServer(server: server): void;
@@ -736,7 +736,7 @@ export class router extends events.EventEmitter {
     /** Detach from WebSocket server */
     detachServer(): void;
 
-    mount(path: string | RegExp, protocol: string | null, callback: (request: RouterRequest) => void): void;
+    mount(path: string | RegExp, protocol: string | null, callback: (request: IRouterRequest) => void): void;
 
     unmount(path: string | RegExp, protocol?: string): void;
 
@@ -748,13 +748,13 @@ export class router extends events.EventEmitter {
     handleRequest(request: request): void;
 }
 
-export interface CloseEvent {
+export interface ICloseEvent {
     code: number;
     reason: string;
     wasClean: boolean;
 }
 
-export interface MessageEvent {
+export interface IMessageEvent {
     data: string | Buffer | ArrayBuffer;
 }
 
@@ -767,7 +767,7 @@ export class w3cwebsocket {
     _url: string;
     _readyState: number;
     _protocol?: string;
-    _extensions: Extension[];
+    _extensions: IExtension[];
     _bufferedAmount: number;
     _binaryType: 'arraybuffer';
     _connection?: connection;
@@ -776,7 +776,7 @@ export class w3cwebsocket {
     url: string;
     readyState: number;
     protocol?: string;
-    extensions: Extension[];
+    extensions: IExtension[];
     bufferedAmount: number;
 
     binaryType: 'arraybuffer';
@@ -788,8 +788,8 @@ export class w3cwebsocket {
 
     onopen: () => void;
     onerror: (error: Error) => void;
-    onclose: (event: CloseEvent) => void;
-    onmessage: (message: MessageEvent) => void;
+    onclose: (event: ICloseEvent) => void;
+    onmessage: (message: IMessageEvent) => void;
 
     constructor(
         url: string,
@@ -797,10 +797,10 @@ export class w3cwebsocket {
         origin?: string,
         headers?: http.OutgoingHttpHeaders,
         requestOptions?: object,
-        ClientConfig?: ClientConfig,
+        IClientConfig?: IClientConfig,
     );
 
-    send(data: ArrayBufferView | ArrayBuffer | Buffer | Stringified): void;
+    send(data: ArrayBufferView | ArrayBuffer | Buffer | IStringified): void;
     close(code?: number, reason?: string): void;
 }
 
