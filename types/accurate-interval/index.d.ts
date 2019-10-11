@@ -3,7 +3,7 @@
 // Definitions by: Artur Dziedziczak <https://github.com/grayrattus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function accurateInterval(func: () => void, interval: number, opts: accurateInterval.Opts): accurateInterval.AccurateInterval;
+declare function accurateInterval(func: (scheduledTime: number) => void, interval: number, opts: accurateInterval.Opts): accurateInterval.AccurateInterval;
 export = accurateInterval;
 
 declare namespace accurateInterval {
