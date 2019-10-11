@@ -104,8 +104,10 @@ declare namespace Sortable {
         to: HTMLElement;
         willInsertAfter?: boolean;
     }
-
-    export interface GroupOptions {
+    
+    type PullResult = ReadonlyArray<string> | boolean | 'clone';
+    type PutResult = ReadonlyArray<string> | boolean;
+    export interface Group {
         /**
          * group name
          */
@@ -113,11 +115,11 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: boolean | 'clone' | ((to: Sortable, from: Sortable) => boolean | string);
+        pull?: PullResult | ((to: Sortable, from: Sortable) => PullResult);
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: boolean | string | ReadonlyArray<string> | ((to: Sortable) => boolean);
+        put?: ((to: Sortable) => PutResult) | PutResult;
         /**
          * revert cloned element to initial position after moving to a another list.
          */
@@ -164,11 +166,13 @@ declare namespace Sortable {
          * Specify in pixels how far the mouse should move before it's considered as a drag.
          */
         fallbackTolerance?: number;
-        fallbackOffset?: { x: number, y: number };
+        fallbackOffset?: { x: number; y: number };
         /**
          * Selectors that do not lead to dragging (String or Function)
          */
-        filter?: string | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
+        filter?:
+            | string
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -195,7 +199,7 @@ declare namespace Sortable {
         /**
          * if you have custom scrollbar scrollFn may be used for autoscrolling
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
+        scrollFn?: (this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void;
         /**
          * px, how near the mouse must be to an edge to start scrolling.
          */
@@ -306,7 +310,11 @@ declare namespace Sortable {
          * @param tagName A tag name.
          * @param iterator An iterator.
          */
-        find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
+        find(
+            context: HTMLElement,
+            tagName: string,
+            iterator?: (value: HTMLElement, index: number) => void,
+        ): NodeListOf<HTMLElement>;
 
         /**
          * Check the current matched set of elements against a selector.
