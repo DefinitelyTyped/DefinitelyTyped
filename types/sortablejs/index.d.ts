@@ -104,10 +104,10 @@ declare namespace Sortable {
         to: HTMLElement;
         willInsertAfter?: boolean;
     }
-    
+
     type PullResult = ReadonlyArray<string> | boolean | 'clone';
     type PutResult = ReadonlyArray<string> | boolean;
-    export interface Group {
+    export interface GroupOptions {
         /**
          * group name
          */
