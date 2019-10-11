@@ -5,7 +5,17 @@
 //                 Wayne Van Son <https://github.com/waynevanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-import { AutoScrollOptions, MultiDragOptions, OnSpillOptions, SwapOptions } from './plugins';
+import {
+    AutoScrollOptions,
+    MultiDragOptions,
+    OnSpillOptions,
+    SwapOptions,
+    AutoScrollPlugin,
+    MultiDragPlugin,
+    OnSpillPlugin,
+    SwapPlugin,
+    SortablePlugin,
+} from './plugins';
 
 export = Sortable;
 
@@ -27,7 +37,7 @@ declare class Sortable {
      * Mounts a plugin to Sortable
      * @param sortablePlugin a sortable plugin.
      */
-    static mount(...sortablePlugins: any[]): void
+    static mount(...sortablePlugins: SortablePlugin[]): void;
 
     /**
      * Creation of new instances.
@@ -74,6 +84,18 @@ declare class Sortable {
 }
 
 declare namespace Sortable {
+    export interface Options
+        extends SortableOptions,
+            AutoScrollOptions,
+            MultiDragOptions,
+            OnSpillOptions,
+            SwapOptions {}
+
+    export class MultiDrag extends MultiDragPlugin {}
+    export class AutoScroll extends AutoScrollPlugin {}
+    export class Swap extends SwapPlugin {}
+    export class OnSpill extends OnSpillPlugin {}
+
     export interface SortableEvent extends Event {
         clone: HTMLElement;
         /**
@@ -111,13 +133,6 @@ declare namespace Sortable {
         to: HTMLElement;
         willInsertAfter?: boolean;
     }
-
-    export interface Options
-        extends SortableOptions,
-            AutoScrollOptions,
-            MultiDragOptions,
-            OnSpillOptions,
-            SwapOptions {}
 
     type PullResult = ReadonlyArray<string> | boolean | 'clone';
     type PutResult = ReadonlyArray<string> | boolean;

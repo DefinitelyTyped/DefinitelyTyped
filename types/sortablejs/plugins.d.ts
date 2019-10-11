@@ -1,6 +1,12 @@
 import * as Sortable from './index';
 import { SortableEvent } from './index';
 
+declare class SortablePlugin {}
+declare class AutoScrollPlugin {}
+declare class OnSpillPlugin {}
+declare class MultiDragPlugin {}
+declare class SwapPlugin {}
+
 export interface AutoScrollOptions {
     /**
      *  Enable the plugin. Can be `HTMLElement`.
@@ -78,9 +84,9 @@ export interface SwapOptions {
     /**
      * Enable swap mode
      */
-    swap: boolean
+    swap: boolean;
     /**
      * Class name for swap item (if swap mode is enabled)
      */
-    swapClass: string
+    swapClass: string;
 }
