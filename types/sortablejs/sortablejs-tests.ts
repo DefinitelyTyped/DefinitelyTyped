@@ -324,7 +324,7 @@ Sortable.create(simpleList, {
 Sortable.create(simpleList, {
     group: {
         name: 'bar',
-        put: 'qux',
+        put: ['qux'],
         pull: function (to, from) {
             return from.el.children.length > 2 || 'clone';
         }
