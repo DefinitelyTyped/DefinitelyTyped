@@ -1,4 +1,4 @@
-// Type definitions for Sortable.js 1.7
+// Type definitions for Sortable.js 1.10
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
@@ -22,6 +22,12 @@ declare class Sortable {
 
     static active: Sortable;
     static utils: Sortable.Utils;
+
+    /**
+     * Mounts a plugin to Sortable
+     * @param sortablePlugin a sortable plugin.
+     */
+    static mount(...sortablePlugins: any[]): void
 
     /**
      * Creation of new instances.

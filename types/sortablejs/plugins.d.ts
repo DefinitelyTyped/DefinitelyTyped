@@ -30,7 +30,6 @@ export interface AutoScrollOptions {
      */
     bubbleScroll?: boolean;
 }
-
 export interface OnSpillOptions {
     /**
      * This plugin, when enabled,
@@ -75,7 +74,6 @@ export interface MultiDragOptions {
      */
     onDeselect: (event: SortableEvent) => void;
 }
-
 export interface SwapOptions {
     /**
      * Enable swap mode
