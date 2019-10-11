@@ -58,35 +58,35 @@ export interface MultiDragOptions {
     /**
      * Enable the plugin
      */
-    multiDrag: boolean;
+    multiDrag?: boolean;
     /**
      * Class name for selected item
      */
-    selectedClass: string;
+    selectedClass?: string;
     /**
      * Key that must be down for items to be selected
      */
     // todo: create a type
     // todo: check source code for type
-    multiDragKey: null;
+    multiDragKey?: null;
 
     /**
      * Called when an item is selected
      */
-    onSelect: (event: SortableEvent) => void;
+    onSelect?: (event: SortableEvent) => void;
 
     /**
      * Called when an item is deselected
      */
-    onDeselect: (event: SortableEvent) => void;
+    onDeselect?: (event: SortableEvent) => void;
 }
 export interface SwapOptions {
     /**
      * Enable swap mode
      */
-    swap: boolean;
+    swap?: boolean;
     /**
      * Class name for swap item (if swap mode is enabled)
      */
-    swapClass: string;
+    swapClass?: string;
 }
