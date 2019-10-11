@@ -16,7 +16,7 @@
             "countries-and-timezones": [
                 "countries-and-timezones/v1"
             ],
-            "history/*": [
+            "countries-and-timezones/*": [
                 "countries-and-timezones/v1/*"
             ]
         },
