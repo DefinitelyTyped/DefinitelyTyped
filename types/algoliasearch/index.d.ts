@@ -1307,6 +1307,12 @@ declare namespace algoliasearch {
     sortFacetValuesBy?: 'count' | 'alpha';
 
     ruleContexts?: string[];
+    
+    /**
+     * allow the usage of an AB-test. This parameter is only allowed for queries, not for settings.
+     * default: true
+     */
+    enableABTest?: boolean;
   }
 
   namespace SearchForFacetValues {
