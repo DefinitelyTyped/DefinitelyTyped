@@ -1,6 +1,6 @@
 // Type definitions for define-properties 1.1
 // Project: https://github.com/ljharb/define-properties#readme
-// Definitions by: ExE Boss <https://github.com/me>
+// Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
