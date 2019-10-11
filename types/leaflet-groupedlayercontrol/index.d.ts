@@ -8,16 +8,16 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     namespace Control {
-        class GroupedLayers extends L.Control {
-            constructor(baseLayers: { [index: string]: L.Layer }, groupedOverlays: { [index: string]: { [index: string]: L.LayerGroup } }, options: GroupedLayersOptions);
+        class GroupedLayers extends Control {
+            constructor(baseLayers: { [index: string]: Layer }, groupedOverlays: { [index: string]: { [index: string]: LayerGroup } }, options: GroupedLayersOptions);
         }
     }
 
     namespace control {
-        function groupedLayers(baseLayers: { [index: string]: L.Layer }, groupedOverlays: { [index: string]: { [index: string]: L.LayerGroup } }, options: GroupedLayersOptions): L.Control
+        function groupedLayers(baseLayers: { [index: string]: Layer }, groupedOverlays: { [index: string]: { [index: string]: LayerGroup } }, options: GroupedLayersOptions): Control;
     }
 
-    export interface GroupedLayersOptions extends L.ControlOptions {
+    interface GroupedLayersOptions extends ControlOptions {
         /** Default: true */
         collapsed?: boolean;
         /** Default: true */
@@ -26,5 +26,4 @@ declare module 'leaflet' {
         /** Default: false */
         groupCheckboxes?: boolean;
     }
-
 }
