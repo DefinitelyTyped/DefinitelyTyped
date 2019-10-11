@@ -8,15 +8,41 @@
 import { Plugin } from 'webpack';
 
 declare class SentryPlugin extends Plugin {
-    constructor(options?: Options);
+    constructor(options?: SentryPlugin.Options);
 }
 
-declare interface Options {
-    debug?: boolean;
-    include?: string | string[];
-    ignoreFile?: string;
-    ignore?: string | string[];
-    configFile?: string;
+declare namespace SentryPlugin {
+    type EntriesFunction = (key: string) => boolean;
+    type ErrorHandlerFunction = (err: Error, invokeErr: () => void) => void;
+
+    interface SetCommitsOptions {
+        repo: string;
+        commit?: string;
+        previousCommit?: string;
+        auto?: boolean;
+    }
+
+    interface Options {
+        release?: string;
+        include: string | string[];
+        entries?: any[] | RegExp | EntriesFunction;
+        ignoreFile?: string;
+        ignore?: string | string[];
+        configFile?: string;
+        ext?: string[];
+        urlPrefix?: string;
+        urlSuffix?: string;
+        validate?: boolean;
+        stripPrefix?: [];
+        stripCommonPrefix?: boolean;
+        sourceMapReference?: boolean;
+        rewrite?: boolean;
+        dryRun?: boolean;
+        debug?: boolean;
+        silent?: boolean;
+        errorHandler?: ErrorHandlerFunction;
+        setCommits?: SetCommitsOptions;
+    }
 }
 
 export = SentryPlugin;
