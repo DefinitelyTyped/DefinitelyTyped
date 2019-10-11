@@ -105,6 +105,8 @@ declare namespace Sortable {
         willInsertAfter?: boolean;
     }
 
+    export interface Options extends SortableOptions {}
+
     type PullResult = ReadonlyArray<string> | boolean | 'clone';
     type PutResult = ReadonlyArray<string> | boolean;
     export interface GroupOptions {
@@ -125,8 +127,8 @@ declare namespace Sortable {
          */
         revertClone?: boolean;
     }
-
-    export interface Options {
+    type Direction = 'vertical' | 'horizontal';
+    export interface SortableOptions {
         /**
          * ms, animation speed moving items when sorting, `0` — without animation
          */
@@ -141,6 +143,15 @@ declare namespace Sortable {
          */
         delay?: number;
         /**
+         * Only delay if user is using touch
+         */
+        delayOnTouchOnly?: boolean;
+        /**
+         * Direction of Sortable
+         * (will be detected automatically if not given)
+         */
+        direction?: ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction) | Direction;
+        /**
          * Disables the sortable if set to true.
          */
         disabled?: boolean;
@@ -154,6 +165,38 @@ declare namespace Sortable {
         draggable?: string;
         dragoverBubble?: boolean;
         dropBubble?: boolean;
+        /**
+         * distance mouse must be from empty sortable
+         * to insert drag element into it
+         */
+        emptyInsertThreshold?: number;
+
+        /**
+         * Easing for animation. Defaults to null.
+         *
+         * See https://easings.net/ for examples.
+         *
+         * For other possible values, see
+         * https://www.w3schools.com/cssref/css3_pr_animation-timing-function.asp
+         *
+         * @example
+         *
+         * // CSS functions
+         * | 'steps(int, start | end)'
+         * | 'cubic-bezier(n, n, n, n)'
+         *
+         * // CSS values
+         * | 'linear'
+         * | 'ease'
+         * | 'ease-in'
+         * | 'ease-out'
+         * | 'ease-in-out'
+         * | 'step-start'
+         * | 'step-end'
+         * | 'initial'
+         * | 'inherit'
+         */
+        easing?: string;
         /**
          * Class name for the cloned DOM Element when using forceFallback
          */
@@ -192,22 +235,23 @@ declare namespace Sortable {
         handle?: string;
         ignore?: string;
         /**
+         * Will always use inverted swap zone if set to true
+         */
+        invertSwap?: boolean;
+        /**
+         * Threshold of the inverted swap zone
+         * (will be set to `swapThreshold` value by default)
+         */
+        invertedSwapThreshold?: number;
+        /**
          * Call `event.preventDefault()` when triggered `filter`
          */
         preventOnFilter?: boolean;
-        scroll?: boolean;
         /**
-         * if you have custom scrollbar scrollFn may be used for autoscrolling
+         * Remove the clone element when it is not showing,
+         * rather than just hiding it
          */
-        scrollFn?: (this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void;
-        /**
-         * px, how near the mouse must be to an edge to start scrolling.
-         */
-        scrollSensitivity?: number;
-        /**
-         * px
-         */
-        scrollSpeed?: number;
+        removeCloneOnHide?: true;
         /**
          * sorting inside list
          */
@@ -216,6 +260,16 @@ declare namespace Sortable {
             get: (sortable: Sortable) => string[];
             set: (sortable: Sortable) => void;
         };
+        /**
+         * Threshold of the swap zone.
+         * Defaults to `1`
+         */
+        swapThreshold?: number;
+        /**
+         * How many *pixels* the point should move before cancelling a delayed drag event
+         */
+        touchStartThreshold?: number;
+
         setData?: (dataTransfer: DataTransfer, draggedElement: HTMLElement) => void;
         /**
          * Element dragging started
@@ -259,11 +313,12 @@ declare namespace Sortable {
         onFilter?: (event: SortableEvent) => void;
         /**
          * Event when you move an item in the list or between lists
-         * return false; for cancel
-         * return -1; insert before target
-         * return 1; insert after target
          */
-        onMove?: (event: MoveEvent, originalEvent: MouseEvent) => false | -1 | 1;
+        onMove?: (evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1;
+        /**
+         * Called when dragging element changes position
+         */
+        onChange?: (evt: SortableEvent) => void;
     }
 
     interface Utils {
