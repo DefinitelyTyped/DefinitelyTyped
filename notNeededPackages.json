@@ -3973,6 +3973,12 @@
             "asOfVersion": "4.3.0"
         },
         {
+            "libraryName": "watson-developer-cloud",
+            "typingsPackageName": "watson-developer-cloud",
+            "sourceRepoURL": "https://github.com/watson-developer-cloud/node-sdk",
+            "asOfVersion": "3.0"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "webassembly-js-api",
             "sourceRepoURL": "https://github.com/winksaville/test-webassembly-js-ts",
