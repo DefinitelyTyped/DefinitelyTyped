@@ -1,16 +1,28 @@
-import fs from 'fs';
-import wav from 'wav';
-import Speaker from 'speaker';
+import { createReadStream } from 'fs';
+import { Reader, Writer, FileWriter } from 'wav';
 
-var file = fs.createReadStream('track01.wav');
-var reader = new wav.Reader();
+const file = createReadStream('track01.wav');
+const reader = new Reader();
+const reader2 = new Reader();
 
-// the "format" event gets emitted at the end of the WAVE header
-reader.on('format', (format) => {
-
-  // the WAVE header is stripped from the output of the reader
-  reader.pipe(new Speaker(format));
+const writer = new Writer({
+  sampleRate: 16000,
+  channels: 1
 });
 
-// pipe the WAVE file to the Reader instance
+const fileWriter = new FileWriter('./test.wav', {
+  sampleRate: 16000,
+  channels: 1
+});
+
+reader.on('format', (format) => {
+  console.log(format);
+  reader.pipe(writer);
+});
+
+reader2.on('format', (format) => {
+  console.log(format);
+  reader2.pipe(fileWriter);
+});
+
 file.pipe(reader);
