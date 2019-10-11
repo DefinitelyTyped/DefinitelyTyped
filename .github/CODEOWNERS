@@ -6124,7 +6124,7 @@
 /types/webpack-fail-plugin/                             @deevus
 /types/webpack-hot-client/                              @rynclark @ZSkycat
 /types/webpack-hot-middleware/                          @bumbleblym @icylace @chrisabrams
-/types/webpack-manifest-plugin/                         @r3nya @monsonjeremy
+/types/webpack-manifest-plugin/                         @r3nya
 /types/webpack-merge/                                   @deevus @mtraynham
 /types/webpack-merge/v0/                                @deevus
 /types/webpack-node-externals/                          @mtraynham
