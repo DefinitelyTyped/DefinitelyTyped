@@ -5,7 +5,7 @@
 //                 Wayne Van Son <https://github.com/waynevanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-import { AutoScrollOptions, MultiDragOptions, OnSpillOptions } from './plugins';
+import { AutoScrollOptions, MultiDragOptions, OnSpillOptions, SwapOptions } from './plugins';
 
 export = Sortable;
 
@@ -106,7 +106,12 @@ declare namespace Sortable {
         willInsertAfter?: boolean;
     }
 
-    export interface Options extends SortableOptions, AutoScrollOptions, MultiDragOptions, OnSpillOptions {}
+    export interface Options
+        extends SortableOptions,
+            AutoScrollOptions,
+            MultiDragOptions,
+            OnSpillOptions,
+            SwapOptions {}
 
     type PullResult = ReadonlyArray<string> | boolean | 'clone';
     type PutResult = ReadonlyArray<string> | boolean;

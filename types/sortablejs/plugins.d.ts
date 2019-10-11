@@ -75,3 +75,14 @@ export interface MultiDragOptions {
      */
     onDeselect: (event: SortableEvent) => void;
 }
+
+export interface SwapOptions {
+    /**
+     * Enable swap mode
+     */
+    swap: boolean
+    /**
+     * Class name for swap item (if swap mode is enabled)
+     */
+    swapClass: string
+}
