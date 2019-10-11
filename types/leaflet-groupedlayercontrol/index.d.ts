@@ -18,13 +18,13 @@ declare module 'leaflet' {
     }
 
     export interface GroupedLayersOptions extends L.ControlOptions {
-        /** true */
-        collapsed?: boolean,
-        /** true */
-        autoZIndex?: boolean,
-        exclusiveGroups?: string[],
-        /** false */
-        groupCheckboxes?: boolean
+        /** Default: true */
+        collapsed?: boolean;
+        /** Default: true */
+        autoZIndex?: boolean;
+        exclusiveGroups?: string[];
+        /** Default: false */
+        groupCheckboxes?: boolean;
     }
 
 }
