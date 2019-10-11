@@ -17762,7 +17762,7 @@ declare module fhir {
          * This patient is known to be an animal (non-human)
          */
         animal?: PatientAnimal;
-        /**their
+        /**
          * A list of Languages which may be used to communicate with the patient about their health
          */
         communication?: PatientCommunication[];
