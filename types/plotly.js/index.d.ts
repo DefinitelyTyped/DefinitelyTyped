@@ -490,7 +490,8 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
-export type Color = string | Array<string | undefined | null> | Array<Array<string | undefined | null>>;
+export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
+export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
@@ -557,7 +558,7 @@ export interface PlotData {
 	orientation: 'v' | 'h';
 	width: number | number[];
 	boxmean: boolean | 'sd';
-	colorscale: string | Array<[number, string]>;
+	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
 	xgap: number;
@@ -663,7 +664,7 @@ export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
 	colors: Color[];
-	colorscale: string | string[] | Array<Array<(string | number)>>;
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;
@@ -693,7 +694,7 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
 	width: number | number[];
 	color: Color;
-	colorscale: string | string[];
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;

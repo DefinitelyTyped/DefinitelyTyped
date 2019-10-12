@@ -36,12 +36,7 @@ export default class TileSource extends Source {
     protected setKey(key: string): void;
     canExpireCache(): boolean;
     expireCache(projection: Projection, usedTiles: { [key: string]: TileRange }): void;
-    forEachLoadedTile(
-        projection: Projection,
-        z: number,
-        tileRange: TileRange,
-        callback: (p0: Tile) => boolean
-    ): boolean;
+    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: (p0: Tile) => boolean): boolean;
     getGutterForProjection(projection: Projection): number;
     getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;

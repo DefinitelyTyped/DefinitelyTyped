@@ -5,17 +5,19 @@ import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
-    graphql,
     commitMutation,
     createFragmentContainer,
     createPaginationContainer,
     createRefetchContainer,
-    requestSubscription,
+    FragmentRef,
+    graphql,
     QueryRenderer,
     ReactRelayContext,
-    RelayRefetchProp,
+    readInlineData,
     RelayPaginationProp,
     RelayProp,
+    RelayRefetchProp,
+    requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -34,19 +36,19 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-type MyQueryRendererVariables = {
+type MyQueryVariables = {
     pageID: string;
 };
-type MyQueryRendererResponse = {
+type MyQueryResponse = {
     name: string;
 };
-type MyQueryRenderer = {
-    variables: MyQueryRendererVariables;
-    response: MyQueryRendererResponse;
+type MyQuery = {
+    variables: MyQueryVariables;
+    response: MyQueryResponse;
 };
 
 const MyQueryRenderer = (props: { name: string; show: boolean }) => (
-    <QueryRenderer<MyQueryRenderer>
+    <QueryRenderer<MyQuery>
         environment={modernEnvironment}
         query={
             props.show
@@ -59,6 +61,7 @@ const MyQueryRenderer = (props: { name: string; show: boolean }) => (
                   `
                 : null
         }
+        fetchPolicy="store-and-network"
         variables={{
             pageID: '110798995619330',
         }}
@@ -135,7 +138,7 @@ const Story = (() => {
                 error => {
                     this.setState({ isLoading: false });
                 },
-                { force: true }
+                { force: true },
             );
         }
 
@@ -168,7 +171,7 @@ const Story = (() => {
                     ...Story_story
                 }
             }
-        `
+        `,
     );
 
     function requiresTheRightProps() {
@@ -392,7 +395,7 @@ type UserFeed_user = {
                 10, // Fetch the next 10 feed items
                 e => {
                     console.log(e);
-                }
+                },
             );
         }
     }
@@ -444,7 +447,7 @@ type UserFeed_user = {
                     }
                 }
             `,
-        }
+        },
     );
 
     function requiresTheRightProps() {
@@ -595,6 +598,24 @@ function markNotificationAsRead(source: string, storyID: string) {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const storyFragment = graphql`
+    fragment Story_story on Todo {
+        id
+        text
+        isPublished
+    }
+`;
+
+function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
+    return readInlineData<Story_story>(storyFragment, storyRef);
+}
+
+functionWithInline({ ' $fragmentRefs': _Story_story$ref });
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
 // ~~~~~~~~~~~~~~~~~~~~~
 const subscription = graphql`
@@ -629,11 +650,11 @@ requestSubscription(
                 store,
                 notifications!,
                 notification!,
-                '<TypeOfNotificationsEdge>'
+                '<TypeOfNotificationsEdge>',
             );
             ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
-    }
+    },
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~

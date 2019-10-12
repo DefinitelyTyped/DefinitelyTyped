@@ -21,7 +21,7 @@ export default class ImageArcGISRest extends ImageSource {
     constructor(opt_options?: Options);
     getImageLoadFunction(): LoadFunction;
     getParams(): any;
-    getUrl(): string;
+    getUrl(): string | undefined;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
     setUrl(url: string | undefined): void;
     updateParams(params: any): void;

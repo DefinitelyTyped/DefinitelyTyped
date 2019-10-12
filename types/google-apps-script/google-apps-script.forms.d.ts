@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -650,10 +650,10 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface ItemResponse {
-      getFeedback(): any;
+      getFeedback(): QuizFeedback;
       getItem(): Item;
-      getResponse(): any;
-      getScore(): any;
+      getResponse(): string[][]|string[]|string;
+      getScore(): number;
       setFeedback(feedback: any): ItemResponse;
       setScore(score: any): ItemResponse;
     }

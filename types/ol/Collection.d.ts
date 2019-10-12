@@ -14,10 +14,10 @@ export default class Collection<T> extends BaseObject {
     getLength(): number;
     insertAt(index: number, elem: T): void;
     item(index: number): T;
-    pop(): T;
+    pop(): T | undefined;
     push(elem: T): number;
-    remove(elem: T): T;
-    removeAt(index: number): T;
+    remove(elem: T): T | undefined;
+    removeAt(index: number): T | undefined;
     setAt(index: number, elem: T): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

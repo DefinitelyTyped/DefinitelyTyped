@@ -10,4 +10,5 @@ export default class NodeEnvironment implements Environment {
     getRandomId: () => string;
     isWindowExists: (uuid: string, name: string) => boolean;
     getWebWindow: (identity: Identity) => Window;
+    getCurrentEntityIdentity: () => Identity;
 }

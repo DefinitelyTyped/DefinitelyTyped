@@ -5689,6 +5689,7 @@ declare namespace chrome.runtime {
             js?: string[];
             run_at?: string;
             all_frames?: boolean;
+            match_about_blank?: boolean;
             include_globs?: string[];
             exclude_globs?: string[];
         }[];

@@ -73,6 +73,10 @@ myCodeMirror.getValue();
 myCodeMirror.getValue("foo")
 myCodeMirror.setValue("bar");
 
+myCodeMirror.getCursor();
+myCodeMirror.getCursor('from');
+myCodeMirror.setCursor({ ch: 1, line: 0 });
+
 myCodeMirror.on(
   "renderLine",
   (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }

@@ -21,7 +21,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl" | "lrgb";
 
     interface ChromaStatic {
         /**
@@ -61,6 +61,8 @@ declare namespace chroma {
          * @return the color object.
          */
         hex(color: string): Color;
+
+        valid(color: any): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
@@ -215,7 +217,8 @@ declare namespace chroma {
         /**
          * Get and set the color opacity.
          */
-        alpha(a?: number): Color;
+        alpha(a: number): Color;
+        alpha(): number;
 
         darken(f?: number): Color;
 

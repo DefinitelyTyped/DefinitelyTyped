@@ -51,7 +51,7 @@ export interface TextState {
 export const labelCache: LRUCache<HTMLCanvasElement>;
 export function drawImage(
     context: CanvasRenderingContext2D,
-    transform: Transform | undefined,
+    transform: Transform | null,
     opacity: number,
     image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
     originX: number,
@@ -63,9 +63,4 @@ export function drawImage(
     scale: number
 ): void;
 export function measureTextWidth(font: string, text: string): number;
-export function rotateAtOffset(
-    context: CanvasRenderingContext2D,
-    rotation: number,
-    offsetX: number,
-    offsetY: number
-): void;
+export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;

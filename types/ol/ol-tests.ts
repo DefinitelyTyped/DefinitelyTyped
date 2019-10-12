@@ -1,15 +1,7 @@
 import { Collection, Map, MapBrowserEvent, Overlay, PluggableMap, View } from 'ol';
 import { unByKey } from 'ol/Observable';
-import {
-    Control,
-    FullScreen,
-    MousePosition,
-    OverviewMap,
-    ScaleLine,
-    ZoomSlider,
-    ZoomToExtent,
-    defaults as defaultControls,
-} from 'ol/control';
+import { stableSort } from 'ol/array';
+import { Control, FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults as defaultControls } from 'ol/control';
 import { Options as ControlOptions } from 'ol/control/Control';
 import { toStringXY } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
@@ -102,7 +94,7 @@ const styles: { [key: string]: Style } = {
     }),
 };
 
-const styleFunction: StyleFunction = feature => styles[feature.getGeometry().getType()];
+const styleFunction: StyleFunction = feature => styles[feature.getGeometry()!.getType()];
 
 /**
  * ==================================================
@@ -110,11 +102,60 @@ const styleFunction: StyleFunction = feature => styles[feature.getGeometry().get
  * ==================================================
  */
 
-const geojsonString =
-    '{"type":"FeatureCollection","crs":{"type":"name","properties":{"name":"EPSG:3857"}},"features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[4000000,-2000000],[8000000,2000000]]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[4000000,2000000],[8000000,-2000000]]}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-5000000,-1000000],[-4000000,1000000],[-3000000,-1000000]]]}},{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[[[-1000000,-750000],[-1000000,750000]],[[1000000,-750000],[1000000,750000]],[[-750000,-1000000],[750000,-1000000]],[[-750000,1000000],[750000,1000000]]]}},{"type":"Feature","geometry":{"type":"MultiPolygon","coordinates":[[[[-5000000,6000000],[-5000000,8000000],[-3000000,8000000],[-3000000,6000000]]],[[[-2000000,6000000],[-2000000,8000000],[0,8000000],[0,6000000]]],[[[1000000,6000000],[1000000,8000000],[3000000,8000000],[3000000,6000000]]]]}},{"type":"Feature","geometry":{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[-5000000,-5000000],[0,-5000000]]},{"type":"Point","coordinates":[4000000,-5000000]},{"type":"Polygon","coordinates":[[[1000000,-6000000],[2000000,-4000000],[3000000,-6000000]]]}]}}]}';
+const geojsonObj = {
+    type: 'FeatureCollection',
+    crs: { type: 'name', properties: { name: 'EPSG:3857' } },
+    features: [
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } },
+        {
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates: [[4000000, -2000000], [8000000, 2000000]] },
+        },
+        {
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates: [[4000000, 2000000], [8000000, -2000000]] },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'Polygon',
+                coordinates: [[[-5000000, -1000000], [-4000000, 1000000], [-3000000, -1000000]]],
+            },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'MultiLineString',
+                coordinates: [[[-1000000, -750000], [-1000000, 750000]], [[1000000, -750000], [1000000, 750000]], [[-750000, -1000000], [750000, -1000000]], [[-750000, 1000000], [750000, 1000000]]],
+            },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'MultiPolygon',
+                coordinates: [
+                    [[[-5000000, 6000000], [-5000000, 8000000], [-3000000, 8000000], [-3000000, 6000000]]],
+                    [[[-2000000, 6000000], [-2000000, 8000000], [0, 8000000], [0, 6000000]]],
+                    [[[1000000, 6000000], [1000000, 8000000], [3000000, 8000000], [3000000, 6000000]]],
+                ],
+            },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'GeometryCollection',
+                geometries: [
+                    { type: 'LineString', coordinates: [[-5000000, -5000000], [0, -5000000]] },
+                    { type: 'Point', coordinates: [4000000, -5000000] },
+                    { type: 'Polygon', coordinates: [[[1000000, -6000000], [2000000, -4000000], [3000000, -6000000]]] },
+                ],
+            },
+        },
+    ],
+};
 
 const vectorSource = new VectorSource({
-    features: new GeoJSON().readFeatures(JSON.parse(geojsonString)),
+    features: new GeoJSON().readFeatures(geojsonObj),
 });
 
 const vectorLayer = new VectorLayer({
@@ -160,7 +201,7 @@ const layers = [osmLayer, vectorLayer, vectorTileLayer];
 const controls = defaultControls().extend([
     new FullScreen(),
     new MousePosition({
-        coordinateFormat: coord => toStringXY(coord, 8),
+        coordinateFormat: coord => toStringXY(coord!, 8),
         undefinedHTML: '',
     }),
     new OverviewMap({
@@ -259,7 +300,6 @@ interface CustomControlOptions extends ControlOptions {
 }
 
 class CustomControl extends Control {
-    element: HTMLElement;
     name: string;
     mapViewport?: HTMLElement;
     private readonly _boundListener: (e: Event) => void;
@@ -320,3 +360,15 @@ map.on('click', evt => {
     if (overlay.getPosition() === undefined) overlay.setPosition(evt.coordinate);
     else overlay.setPosition(undefined);
 });
+
+/**
+ * ==================================================
+ * # ol/array.stableSort
+ * ==================================================
+ */
+
+const arr = Array(10)
+    .fill(0)
+    .map((_, i) => i);
+
+stableSort(arr, (a: number, b: number) => (a < b ? 1 : a > b ? -1 : 0));

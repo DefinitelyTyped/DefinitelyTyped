@@ -1,6 +1,8 @@
-// Type definitions for WebTorrent 0.98
+// Type definitions for WebTorrent 0.107
 // Project: https://github.com/feross/webtorrent, https://webtorrent.io
-// Definitions by: Bazyli Brzóska <https://github.com/niieani>, Tomasz Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Bazyli Brzóska <https://github.com/niieani>
+//                 Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 Gabriel Juchault <https://github.com/gjuchault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -74,6 +76,10 @@ declare namespace WebTorrent {
 
         readonly files: TorrentFile[];
 
+        readonly announce: string[];
+
+        readonly pieces: Array<TorrentPiece | null>;
+
         readonly timeRemaining: number;
 
         readonly received: number;
@@ -90,13 +96,31 @@ declare namespace WebTorrent {
 
         readonly ratio: number;
 
+        readonly length: number;
+
+        readonly pieceLength: number;
+
+        readonly lastPieceLength: number;
+
         readonly numPeers: number;
 
         readonly path: string;
 
         readonly ready: boolean;
 
+        readonly paused: boolean;
+
+        readonly done: boolean;
+
         readonly name: string;
+
+        readonly created: Date;
+
+        readonly createdBy: string;
+
+        readonly comment: string;
+
+        readonly maxWebConns: number;
 
         destroy(cb?: (err: Error | string) => void): void;
 
@@ -159,6 +183,12 @@ declare namespace WebTorrent {
         getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;
 
         getBlobURL(callback: (err: string | Error | undefined, blobURL?: string) => void): void;
+    }
+
+    interface TorrentPiece {
+        readonly length: number;
+
+        readonly missing: number;
     }
 }
 

@@ -1,4 +1,4 @@
-// Type definitions for react-responsive 3.0
+// Type definitions for react-responsive 8.0
 // Project: http://github.com/contra/react-responsive
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Alec Hill <https://github.com/alechill>
@@ -87,4 +87,13 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
 
 declare class MediaQuery extends React.Component<MediaQueryProps> { }
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
+
+export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
+
+export function useMediaQuery(
+    settings: Partial<MediaQueryAllQueryable & { query?: string }>,
+    device?: MediaQueryMatchers,
+    callback?: (matches: boolean) => void
+): boolean;
+
 export default MediaQuery;

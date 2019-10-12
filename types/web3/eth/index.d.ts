@@ -47,24 +47,24 @@ export default interface Eth {
     subscribe(
         type: "logs",
         options?: Logs,
-        callback?: Callback<Subscribe<Log>>
+        callback?: Callback<Log>
     ): Promise<Subscribe<Log>>;
     subscribe(
         type: "syncing",
-        callback?: Callback<Subscribe<any>>
+        callback?: Callback<any>
     ): Promise<Subscribe<any>>;
     subscribe(
         type: "newBlockHeaders",
-        callback?: Callback<Subscribe<BlockHeader>>
+        callback?: Callback<BlockHeader>
     ): Promise<Subscribe<BlockHeader>>;
     subscribe(
         type: "pendingTransactions",
-        callback?: Callback<Subscribe<Transaction>>
+        callback?: Callback<Transaction>
     ): Promise<Subscribe<Transaction>>;
     subscribe(
         type: "pendingTransactions" | "newBlockHeaders" | "syncing" | "logs",
         options?: Logs,
-        callback?: Callback<Subscribe<any>>
+        callback?: Callback<any>
     ): Promise<Subscribe<any>>;
 
     unsubscribe(callBack: Callback<boolean>): void | boolean;

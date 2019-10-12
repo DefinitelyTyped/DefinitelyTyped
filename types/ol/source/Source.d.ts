@@ -21,9 +21,9 @@ export default class Source extends BaseObject {
     getAttributions(): Attribution;
     getAttributionsCollapsible(): boolean;
     getProjection(): Projection;
-    getResolutions(): number[];
+    getResolutions(): number[] | undefined;
     getState(): State;
-    getWrapX(): boolean;
+    getWrapX(): boolean | undefined;
     refresh(): void;
     setAttributions(attributions: AttributionLike | undefined): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

@@ -9,6 +9,9 @@
 
 import { Duplex, Readable } from 'stream';
 
+/**
+ * @deprecated These types are no longer maintained. Please upgrade to oracledb version 4.
+ */
 declare namespace OracleDB {
     /** Constant for the query result outFormat option. */
     const ARRAY: number;
@@ -512,7 +515,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | null> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | Buffer | null> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**

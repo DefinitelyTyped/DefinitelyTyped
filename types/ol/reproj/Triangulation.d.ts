@@ -7,13 +7,7 @@ export interface Triangle {
     target: Coordinate[];
 }
 export default class Triangulation {
-    constructor(
-        sourceProj: Projection,
-        targetProj: Projection,
-        targetExtent: Extent,
-        maxSourceExtent: Extent,
-        errorThreshold: number
-    );
+    constructor(sourceProj: Projection, targetProj: Projection, targetExtent: Extent, maxSourceExtent: Extent, errorThreshold: number);
     calculateSourceExtent(): Extent;
     getTriangles(): Triangle[];
 }

@@ -27,5 +27,16 @@ const options: SVGO.Options = {
 svgo = new SVGO(options);
 
 // SVGO instance methods
-svgo.optimize(`<?xml version="1.0" encoding="utf-8"?><svg></svg>`, { path: "filepath" })
-    .then(result => result.data, error => error);
+svgo
+  .optimize(`<?xml version="1.0" encoding="utf-8"?><svg></svg>`, {
+    path: 'filepath',
+  })
+  .then(
+    result => {
+      result.data;
+      result.info.height;
+      result.info.width;
+      result.path;
+    },
+    error => error,
+  );

@@ -5,6 +5,10 @@
 // TypeScript Version: 2.3
 
 import * as angular from 'angular';
+
+declare const moduleName: 'ngFileSaver';
+export = moduleName;
+
 declare module 'angular' {
     /**
      * A core Angular factory proving FileSaver functionality.

@@ -415,7 +415,10 @@ declare namespace React {
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
          * @deprecated if used without a type annotation, or without static contextType
@@ -439,7 +442,7 @@ declare namespace React {
             callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => void): void;
+        forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -725,6 +728,7 @@ declare namespace React {
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
@@ -1628,7 +1632,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: string | number | string[];
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 

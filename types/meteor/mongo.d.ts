@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/mongo" {
     module Mongo {
 
@@ -108,7 +109,7 @@ declare module "meteor/mongo" {
             $rename?: PartialMapTo<T, string> & Dictionary<string>,
             $set?: Partial<T> & Dictionary<any>,
             $setOnInsert?: Partial<T> & Dictionary<any>,
-            $unset?: PartialMapTo<T, boolean | 1 | 0> & Dictionary<any>,
+            $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>,
             $addToSet?: ArraysOrEach<T> & Dictionary<any>,
             $push?: PushModifier<T> & Dictionary<any>,
             $pull?: ElementsOf<T> & Dictionary<any>,

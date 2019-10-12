@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 16.8
+// Type definitions for React (react-dom) 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -92,3 +92,33 @@ export interface Renderer {
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
 }
+
+export interface Work {
+  then(onCommit?: () => void): void;
+}
+
+export interface Batch {
+  commit(): void;
+  render(children: React.ReactNode): Work;
+  then(onComplete?: () => void): void;
+}
+
+export interface RootOptions {
+    hydrate?: boolean;
+}
+
+export interface SyncRoot {
+    render(children: React.ReactNode, callback?: () => void): Work;
+    unmount(callback?: () => void): void;
+}
+
+export function unstable_createSyncRoot(container: Element, options?: RootOptions): SyncRoot;
+
+export interface Root extends SyncRoot {
+  createBatch(): Batch;
+}
+
+export function unstable_createRoot(
+    container: Element,
+    options?: RootOptions
+): Root;

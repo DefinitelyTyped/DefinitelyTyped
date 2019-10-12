@@ -183,6 +183,8 @@ declare namespace request {
     type OptionsWithUrl = UrlOptions & CoreOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 
+    type MultipartBody = string | Buffer | ArrayBuffer | Uint8Array;
+
     type RequestCallback = (error: any, response: Response, body: any) => void;
 
     interface HttpArchiveRequest {
@@ -204,7 +206,7 @@ declare namespace request {
         chunked?: boolean;
         data?: Array<{
             'content-type'?: string,
-            body: string
+            body: MultipartBody
         }>;
     }
 

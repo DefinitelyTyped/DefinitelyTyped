@@ -6,7 +6,7 @@
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
 //                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="serve-static" />
