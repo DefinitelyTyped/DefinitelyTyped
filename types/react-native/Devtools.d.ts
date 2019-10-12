@@ -16,7 +16,5 @@ declare module 'react-native/Libraries/Core/Devtools/parseErrorStack' {
 declare module 'react-native/Libraries/Core/Devtools/symbolicateStackTrace' {
     import { StackFrame } from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 
-    export default function symbolicateStackTrace(
-        stack: ReadonlyArray<StackFrame>
-    ): Promise<StackFrame[]>;
+    export default function symbolicateStackTrace(stack: ReadonlyArray<StackFrame>): Promise<StackFrame[]>;
 }

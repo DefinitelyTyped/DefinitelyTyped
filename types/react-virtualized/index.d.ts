@@ -1,13 +1,13 @@
-// Type definitions for react-virtualized 9.18
+// Type definitions for react-virtualized 9.21
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 John Gunther <https://github.com/guntherjh>
 //                 Konstantin Nesterov <https://github.com/wasd171>
 //                 Szőke Szabolcs <https://github.com/szabolcsx>
-//                 Kræn Hansen <https://github.com/kraenhansen>
 //                 Steve Zhang <https://github.com/Stevearzh>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Brandon Hall <https://github.com/brandonhall>
+//                 Sebastian Busch <https://github.com/sbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,21 +15,16 @@ export {
     ArrowKeyStepper,
     ArrowKeyStepperProps,
     ChildProps as ArrowKeyStepperChildProps,
-    ScrollIndices
-} from "./dist/es/ArrowKeyStepper";
-export {
-    AutoSizer,
-    AutoSizerProps,
-    Dimensions,
-    Size
-} from "./dist/es/AutoSizer";
+    ScrollIndices,
+} from './dist/es/ArrowKeyStepper';
+export { AutoSizer, AutoSizerProps, Dimensions, Size } from './dist/es/AutoSizer';
 export {
     CellMeasurer,
     CellMeasurerCache,
     CellMeasurerCacheParams,
     CellMeasurerProps,
-    KeyMapper
-} from "./dist/es/CellMeasurer";
+    KeyMapper,
+} from './dist/es/CellMeasurer';
 export {
     Collection,
     CollectionCellGroupRenderer,
@@ -38,13 +33,9 @@ export {
     CollectionCellRendererParams,
     CollectionCellSizeAndPosition,
     CollectionCellSizeAndPositionGetter,
-    CollectionProps
-} from "./dist/es/Collection";
-export {
-    ColumnSizer,
-    ColumnSizerProps,
-    SizedColumnProps
-} from "./dist/es/ColumnSizer";
+    CollectionProps,
+} from './dist/es/Collection';
+export { ColumnSizer, ColumnSizerProps, SizedColumnProps } from './dist/es/ColumnSizer';
 export {
     accessibilityOverscanIndicesGetter,
     defaultOverscanIndicesGetter,
@@ -67,14 +58,10 @@ export {
     SectionRenderedParams,
     SizeAndPositionData,
     VisibleCellRange,
-    ScrollbarPresenceParams
-} from "./dist/es/Grid";
-export {
-    InfiniteLoader,
-    InfiniteLoaderChildProps,
-    InfiniteLoaderProps
-} from "./dist/es/InfiniteLoader";
-export { List, ListProps, ListRowProps, ListRowRenderer } from "./dist/es/List";
+    ScrollbarPresenceParams,
+} from './dist/es/Grid';
+export { InfiniteLoader, InfiniteLoaderChildProps, InfiniteLoaderProps } from './dist/es/InfiniteLoader';
+export { List, ListProps, ListRowProps, ListRowRenderer } from './dist/es/List';
 export {
     createCellPositioner as createMasonryCellPositioner,
     Masonry,
@@ -85,16 +72,16 @@ export {
     OnCellsRenderedCallback,
     OnScrollCallback,
     Position,
-    Positioner
-} from "./dist/es/Masonry";
-export { MultiGrid, MultiGridProps, MultiGridState } from "./dist/es/MultiGrid";
+    Positioner,
+} from './dist/es/Masonry';
+export { MultiGrid, MultiGridProps, MultiGridState } from './dist/es/MultiGrid';
 export {
     ScrollSync,
     OnScrollParams,
     ScrollSyncChildProps,
     ScrollSyncProps,
-    ScrollSyncState
-} from "./dist/es/ScrollSync";
+    ScrollSyncState,
+} from './dist/es/ScrollSync';
 export {
     createMultiSort as createTableMultiSort,
     defaultCellDataGetter as defaultTableCellDataGetter,
@@ -121,15 +108,15 @@ export {
     TableProps,
     TableRowProps,
     TableRowRenderer,
-    SortParams
-} from "./dist/es/Table";
+    SortParams,
+} from './dist/es/Table';
 export {
     WindowScroller,
     WindowScrollerChildProps,
     WindowScrollerProps,
     WindowScrollerState,
-    IS_SCROLLING_TIMEOUT
-} from "./dist/es/WindowScroller";
+    IS_SCROLLING_TIMEOUT,
+} from './dist/es/WindowScroller';
 
 export type Index = {
     index: number;
@@ -154,7 +141,7 @@ export type SizeAndPositionInfo = SizeInfo & PositionInfo;
 
 export type Map<T> = { [key: string]: T };
 
-export type Alignment = "auto" | "end" | "start" | "center";
+export type Alignment = 'auto' | 'end' | 'start' | 'center';
 
 export type IndexRange = {
     startIndex: number;

@@ -50,7 +50,7 @@ export class Tree {
     /**
      * Get an entry at a path. Unlike by name, this takes a fully qualified path, like /foo/bar/baz.javascript
      */
-    getEntry(filePath: string): TreeEntry;
+    getEntry(filePath: string): Promise<TreeEntry>;
     /**
      * Return an array of the entries in this tree (excluding its children).
      */
@@ -58,7 +58,12 @@ export class Tree {
     /**
      * Recursively walk the tree in breadth-first order. Fires an event for each entry.
      */
-    walk(blobsOnly?: boolean): NodeJS.EventEmitter;
+    walk(blobsOnly?: boolean): NodeJS.EventEmitter & {
+        /**
+         * Start walking the tree and emitting events. This should be called after event listeners have been attached.
+         */
+        start: () => void;
+    };
     /**
      * Return the path of this tree, like /lib/foo/bar
      *

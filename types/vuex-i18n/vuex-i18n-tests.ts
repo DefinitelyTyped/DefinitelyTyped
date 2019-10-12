@@ -3,11 +3,16 @@ import Vue from "vue";
 import { Store } from "vuex";
 
 // load vuex i18n module
-import vuexI18n from "vuex-i18n";
+import vuexI18n, { i18nState } from "vuex-i18n";
+
+// declare interface for store's root state
+interface RootState {
+    i18n: i18nState;
+}
 
 // initialize the vuex store using the vuex module. note that you can change the
-//  name of the module if you wish
-const store = new Store({});
+// name of the module if you wish
+const store = new Store<RootState>({});
 
 // initialize the internationalization plugin on the vue instance. note that
 // the store must be passed to the plugin. the plugin will then generate some

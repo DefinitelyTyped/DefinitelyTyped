@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-request module 1.0
-// Project: https://github.com/d3/d3-request/
+// Project: https://github.com/d3/d3-request/, https://d3js.org/d3-request
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -10,7 +10,7 @@
 
 // Last module patch version validated against: 1.0.6
 
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowString } from 'd3-dsv';
 
 export interface Request {
     /**
@@ -230,7 +230,7 @@ export interface Request {
 }
 
 export interface DsvRequest extends Request {
-    row<ParsedRow extends DSVRowAny>(value: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow): DsvRequest;
+    row<ParsedRow extends object>(value: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow): DsvRequest;
 }
 
 /**
@@ -247,7 +247,7 @@ export function csv(url: string, callback: (this: DsvRequest, error: any, d: DSV
  * And send a GET request.
  * Use a row conversion function to map and filter row objects to a more-specific representation; see `dsv.parse` for details.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow,
     callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void
@@ -314,7 +314,7 @@ export function tsv(url: string, callback: (this: DsvRequest, error: any, d: DSV
  * And send a GET request.
  * Use a row conversion function to map and filter row objects to a more-specific representation; see `dsv.parse` for details.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow,
     callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void

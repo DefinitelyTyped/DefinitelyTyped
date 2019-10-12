@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
 import httpRx = require('http-rx');
+import request = require('request');
 
-const httpGet: Observable<any> = httpRx.get('');
+const httpGet: Observable<{response: request.Response}> = httpRx.get('');
 
-const httpHead: Observable<number> = httpRx.head('');
+const httpHead: Observable<{body: any}> = httpRx.head('');
 
-const httpPatch: Observable<string> = httpRx.patch('');
+const httpPatch: Observable<{response: request.Response, body: any}> = httpRx.patch('');
 
-const httpPost: Observable<void> = httpRx.post('');
+const httpPost: Observable<{response: request.Response, body: any}> = httpRx.post('', {json: true});
 
 const httpPut: Observable<{}> = httpRx.put('');
 

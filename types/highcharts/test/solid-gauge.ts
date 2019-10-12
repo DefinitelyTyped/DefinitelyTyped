@@ -1,0 +1,1 @@
+HighchartsSolidGauge(Highcharts);

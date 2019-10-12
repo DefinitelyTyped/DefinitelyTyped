@@ -1,8 +1,14 @@
 // Type definitions for pubnub 4.0
 // Project: https://github.com/pubnub/javascript
-// Definitions by: bitbankinc <https://github.com/bitbankinc>, rollymaduk <https://github.com/rollymaduk>, vitosamson <https://github.com/vitosamson>
+// Definitions by:  bitbankinc <https://github.com/bitbankinc>,
+//                  rollymaduk <https://github.com/rollymaduk>,
+//                  vitosamson <https://github.com/vitosamson>,
+//                  FlorianDr <https://github.com/FlorianDr>,
+//                  danduh <https://github.com/danduh>,
+//                  ChristianBoehlke <https://github.com/ChristianBoehlke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
+// TypeScript Version: 2.2
 
 declare class Pubnub {
   constructor(config: Pubnub.PubnubConfig);
@@ -12,6 +18,8 @@ declare class Pubnub {
   static OPERATIONS: Pubnub.Operations;
 
   static generateUUID(): string;
+
+  channelGroups: Pubnub.ChannelGroups;
 
   setUUID(uuid: string): void;
 
@@ -25,21 +33,31 @@ declare class Pubnub {
 
   publish(
     params: Pubnub.PublishParameters,
-    callback: (status: Pubnub.PublishStatus, response: Pubnub.PublishResponse) => void
+    callback: (
+      status: Pubnub.PublishStatus,
+      response: Pubnub.PublishResponse,
+    ) => void,
   ): void;
 
-  publish(
-    params: Pubnub.PublishParameters
-  ): Promise<Pubnub.PublishResponse>;
+  publish(params: Pubnub.PublishParameters): Promise<Pubnub.PublishResponse>;
 
   fire(
     params: Pubnub.FireParameters,
-    callback: (status: Pubnub.PublishStatus, response: Pubnub.PublishResponse) => void
+    callback: (
+      status: Pubnub.PublishStatus,
+      response: Pubnub.PublishResponse,
+    ) => void,
   ): void;
 
-  fire(
-    params: Pubnub.FireParameters
-  ): Promise<Pubnub.PublishResponse>;
+  fire(params: Pubnub.FireParameters): Promise<Pubnub.PublishResponse>;
+
+  history(
+    params: Pubnub.HistoryParameters,
+    callback: (
+      status: Pubnub.HistoryStatus,
+      response: Pubnub.HistoryResponse,
+    ) => void,
+  ): void;
 
   subscribe(params: Pubnub.SubscribeParameters): void;
 
@@ -55,39 +73,64 @@ declare class Pubnub {
 
   hereNow(
     params: Pubnub.HereNowParameters,
-    callback: (status: Pubnub.HereNowStatus, response: Pubnub.HereNowResponse) => void
+    callback: (
+      status: Pubnub.HereNowStatus,
+      response: Pubnub.HereNowResponse,
+    ) => void,
   ): void;
 
-  hereNow(
-    params: Pubnub.HereNowParameters
-  ): Promise<Pubnub.HereNowResponse>;
+  hereNow(params: Pubnub.HereNowParameters): Promise<Pubnub.HereNowResponse>;
 
   whereNow(
     params: Pubnub.WhereNowParameters,
-    callback: (status: Pubnub.WhereNowStatus, response: Pubnub.WhereNowResponse) => void
+    callback: (
+      status: Pubnub.WhereNowStatus,
+      response: Pubnub.WhereNowResponse,
+    ) => void,
   ): void;
 
-  whereNow(
-    params: Pubnub.WhereNowParameters
-  ): Promise<Pubnub.WhereNowResponse>;
+  whereNow(params: Pubnub.WhereNowParameters): Promise<Pubnub.WhereNowResponse>;
 
   getState(
     params: Pubnub.GetStateParameters,
-    callback: (status: Pubnub.GetStateStatus, state: Pubnub.GetStateResponse) => void
+    callback: (
+      status: Pubnub.GetStateStatus,
+      state: Pubnub.GetStateResponse,
+    ) => void,
   ): void;
 
-  getState(
-    params: Pubnub.GetStateParameters
-  ): Promise<Pubnub.GetStateResponse>;
+  getState(params: Pubnub.GetStateParameters): Promise<Pubnub.GetStateResponse>;
 
   setState(
     params: Pubnub.SetStateParameters,
-    callback: (status: Pubnub.SetStateStatus, state: Pubnub.SetStateResponse) => void
+    callback: (
+      status: Pubnub.SetStateStatus,
+      state: Pubnub.SetStateResponse,
+    ) => void,
   ): void;
 
-  setState(
-    params: Pubnub.SetStateParameters
-  ): Promise<Pubnub.SetStateResponse>;
+  setState(params: Pubnub.SetStateParameters): Promise<Pubnub.SetStateResponse>;
+
+  grant(
+    params: Pubnub.GrantParameters,
+    callback: (status: Pubnub.GrantStatus, response: {}) => void,
+  ): void;
+
+  grant(params: Pubnub.GrantParameters): Promise<{}>;
+
+  encrypt(
+    data: string,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters,
+  ): any;
+
+  decrypt(
+    data: string | object,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters,
+  ): any;
+
+  time(): Promise<Pubnub.FetchTimeResponse>;
 }
 
 declare namespace Pubnub {
@@ -180,6 +223,34 @@ declare namespace Pubnub {
     timetoken: number;
   }
 
+  interface HistoryParameters {
+    channel: string;
+    count: number;
+    stringifiedTimeToken?: boolean;
+    includeTimetoken?: boolean;
+    reverse?: boolean;
+    start?: number; // timetoken
+    end?: number; // timetoken
+  }
+
+  interface HistoryMessage {
+    entry: any;
+    timetoken?: string | number;
+  }
+
+  interface HistoryResponse {
+    endTimeToken?: number;
+    startTimeToken?: number;
+    messages: HistoryMessage[];
+  }
+
+  interface HistoryStatus {
+    error: boolean;
+    errorData?: Error;
+    operation: string; // see Pubnub.Operations
+    statusCode?: number;
+  }
+
   interface PublishStatus {
     operation: string; // see Pubnub.Operations
     category: string; // see Pubnub.Categories;
@@ -209,10 +280,90 @@ declare namespace Pubnub {
     channelGroups?: string[];
   }
 
+  // channelGroups
+  interface ChannelGroups {
+    addChannels(
+      params: AddChannelParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    addChannels(
+      params: AddChannelParameters
+    ): Promise<{}>;
+
+    removeChannels(
+      params: RemoveChannelParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    removeChannels(
+      params: RemoveChannelParameters
+    ): Promise<{}>;
+
+    listChannels(
+      params: ListChannelsParameters,
+      callback: (status: ChannelGroupStatus, response: ListChannelsResponse) => void
+    ): void;
+
+    listChannels(
+      params: ListChannelsParameters
+    ): Promise<ListChannelsResponse>;
+
+    listGroups(
+      callback: (status: ChannelGroupStatus, response: ListAllGroupsResponse) => void
+    ): void;
+
+    listGroups(): Promise<ListAllGroupsResponse>;
+
+    deleteGroup(
+      params: DeleteGroupParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    deleteGroup(
+      params: DeleteGroupParameters
+    ): Promise<{}>;
+  }
+
+  interface AddChannelParameters {
+    channels: string[];
+    channelGroup: string;
+  }
+
+  interface RemoveChannelParameters {
+    channels: string[];
+    channelGroup: string;
+  }
+
+  interface ListChannelsParameters {
+    channelGroup: string;
+  }
+
+  interface DeleteGroupParameters {
+    channelGroup: string;
+  }
+
+  interface ListAllGroupsResponse {
+    groups: string[];
+  }
+
+  interface ListChannelsResponse {
+    channels: string[];
+  }
+
+  interface ChannelGroupStatus {
+    error: boolean;
+    errorData?: Error;
+    operation: string; // see Pubnub.Operations
+    statusCode?: number;
+  }
+
   // addListener
   interface ListenerParameters {
     status?(statusEvent: StatusEvent): void;
+
     message?(messageEvent: MessageEvent): void;
+
     presence?(presenceEvent: PresenceEvent): void;
   }
 
@@ -294,6 +445,36 @@ declare namespace Pubnub {
     channels: {
       [channel: string]: any;
     };
+  }
+
+  // grant
+  interface GrantParameters {
+    channels?: string[];
+    channelGroups?: string[];
+    authKeys?: string[];
+    ttl?: number;
+    read?: boolean;
+    write?: boolean;
+    manage?: boolean;
+  }
+
+  interface GrantStatus {
+    error: boolean;
+    operation: string;
+    statusCode: number;
+  }
+
+  // encrypt & decrypt
+  interface CryptoParameters {
+    encryptKey?: boolean;
+    keyEncoding?: string;
+    keyLength?: number;
+    mode?: string;
+  }
+
+  // fetch time
+  interface FetchTimeResponse {
+    timetoken: number;
   }
 
   interface Categories {

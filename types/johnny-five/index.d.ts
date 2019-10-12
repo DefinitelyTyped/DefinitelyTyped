@@ -1,9 +1,13 @@
-// Type definitions for johnny-five
+// Type definitions for johnny-five 1.3.0
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
+//                 XtrimSystems <https://github.com/xtrimsystems>
+//                 Marcin Obiedziński <https://github.com/marcinobiedz>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 ///<reference types="node"/>
 
@@ -110,21 +114,20 @@ export declare class Board {
 
     io: any;
     id: string;
-    repl: any;
+    repl: Repl;
     isReady: boolean;
     pins: Array<Pin>;
     port: string;
-    inject: Repl;
 
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
@@ -156,6 +159,35 @@ export declare class Button {
     on(event: "release", cb: () => void): this;
 }
 
+export interface CollectionPinOptions {
+  pins: Array<string | number>;
+  [key: string]: any;
+}
+
+export declare class Collection<Base = {}> {
+  static installMethodForwarding(target: object, source: object): object;
+
+  constructor(options: Array<number | string | object> | CollectionPinOptions);
+
+  type?: Base;
+
+  add(...args: Array<number | object>): number;
+
+  each(callback: (item: Base, index: number) => void): this;
+
+  forEach(callback: (item: Base, index: number) => void): this;
+
+  includes(item: Base): boolean;
+
+  indexOf(item: Base): number;
+
+  map(callback: (item: Base, index: number) => void): Array<any>;
+
+  slice(begin?: number, end?: number): Collection<Base>;
+
+  byId(id: any): Base | undefined;
+}
+
 export interface CompassOption {
     controller: string;
     gauss?: number;
@@ -174,25 +206,32 @@ export declare class Compass {
 
 export interface ESCOption {
     pin: number | string;
-    range?: Array<number>;
-    startAt?: number;
-    controller?: string;
-    device?: string;
+    pwmRange?: Array<number>;
+    address?: string;
+    controller?: 'PCA9685' | 'DEFAULT';
+    device?: 'FORWARD' | 'FORWARD_REVERSE' | 'FORWARD_REVERSE_BRAKE';
     neutral?: number;
 }
 
 export declare class ESC {
+    static Collection: ESCs;
+
     constructor(option: number | string | ESCOption);
 
     id: string;
     pin: number | string;
-    range: Array<number>;
+    pwmRange: Array<number>;
     readonly value: number;
 
-    speed(value: number): void;
-    min(): void;
-    max(): void;
-    stop(): void;
+    throttle(value: number): this;
+    brake(): this;
+}
+
+export declare class ESCs extends Collection<ESC> {
+  constructor(option: Array<number | string | ESCOption>);
+
+  throttle(value: number): this;
+  brake(): this;
 }
 
 export declare class Fn {
@@ -364,22 +403,22 @@ export declare class LCD {
     rows: number;
     cols: number;
 
-    print(message: string): void;
-    useChar(char: string): void;
-    clear(): void;
-    cursor(row: number, col: number): void;
-    home(): void;
-    on(): void;
-    off(): void;
-    display(): void;
-    noDisplay(): void;
-    blink(): void;
-    noBlink(): void;
-    autoscroll(): void;
-    noAutoscroll(): void;
-    bgColor(color: any): void;
-    noBacklight(): void;
-    backlight(): void;
+    print(message: string): this;
+    useChar(char: string): this;
+    clear(): this;
+    cursor(row: number, col: number): this;
+    home(): this;
+    on(): this;
+    off(): this;
+    display(): this;
+    noDisplay(): this;
+    blink(): this;
+    noBlink(): this;
+    autoscroll(): this;
+    noAutoscroll(): this;
+    bgColor(color: any): this;
+    noBacklight(): this;
+    backlight(): this;
 }
 
 export interface LedOption {
@@ -514,9 +553,16 @@ export class Motion {
     on(event: "calibrated", cb: () => void): this;
 }
 
+export interface MotorPins {
+    pwm: number;
+    dir: number;
+    cdir?: number;
+    brake?:number;
+}
+
 export interface MotorOption {
-    pins: any;
-    current?: any;
+    pins: MotorPins;
+    current?: SensorOption;
     invertPWM?: boolean;
     address?: number;
     controller?: string;
@@ -525,7 +571,7 @@ export interface MotorOption {
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
 
@@ -533,8 +579,22 @@ export declare class Motor {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
+export declare class Motors {
+    constructor(option: number[] | MotorOption[]);
+
+    readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
@@ -625,7 +685,7 @@ export declare class Ping {
 export declare interface ProximityOption {
     pin: number | string;
     controller: string;
-}   
+}
 
 export declare interface ProximityData {
     cm: number;
@@ -665,6 +725,7 @@ export interface SensorOption {
     pin: number | string;
     freq?: boolean;
     threshold?: number;
+    enabled?: boolean;
 }
 
 export declare class Sensor {

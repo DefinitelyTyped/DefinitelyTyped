@@ -779,7 +779,7 @@ class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBo
   getFieldValue() {
     const newRow: Partial<Product> = {};
     this.props.columns.forEach((column, i) => {
-      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
+      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value as number & string;
     }, this);
     return newRow as Product;
   }
@@ -1222,7 +1222,7 @@ class HideOnInsertTable extends React.Component {
     };
     return (
       <BootstrapTable data={jobs} insertRow={true} options={options}>
-        <TableHeaderColumn dataField='id' isKey={true} autovalue>Job ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={true} autoValue>Job ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name' hiddenOnInsert>Job Name</TableHeaderColumn>
         <TableHeaderColumn dataField='type' editable={{ type: 'select', options: { values: jobTypes }, readOnly: true }}>Job Type</TableHeaderColumn>
         <TableHeaderColumn dataField='active' editable={{ type: 'checkbox', options: { values: 'Y:N' } }}>Active</TableHeaderColumn>

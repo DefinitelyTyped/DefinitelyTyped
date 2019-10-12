@@ -1,4 +1,4 @@
-// Type definitions for Google Google Cloud Resource Manager API v1 1.0
+// Type definitions for non-npm package Google Google Cloud Resource Manager API v1 1.0
 // Project: https://cloud.google.com/resource-manager
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -15,6 +15,9 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientId: '',
         clientSecret: '',
     },
+    refreshFn: (conn: sf.Connection, callback?: sf.Callback<sf.UserInfo>): Promise<sf.UserInfo> => {
+        return conn.login('username', 'password', callback);
+    },
 });
 
 async function testSObject(connection: sf.Connection) {
@@ -615,7 +618,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
 
     const feedResource: sf.Resource<sf.RequestResult> = chatter.resource('/feed-elements');
 
-    const feedCreateRequest: any = await (feedResource.create({
+    const feedCreateRequest: any = await feedResource.create({
         body: {
             messageSegments: [{
                 type: 'Text',
@@ -624,13 +627,13 @@ async function testChatter(conn: sf.Connection): Promise<void> {
         },
         feedElementType: 'FeedItem',
         subjectId: 'me'
-    }) as Promise<sf.RequestResult>);
+    });
 
     console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
     const itemLikesUrl = `/feed-elements/${feedCreateRequest.id}/capabilities/chatter-likes/items`;
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
-    const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
+    const itemsLikeCreateResult: sf.RequestResult = await itemsLikeResource.create('');
     console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
 }
 

@@ -74,7 +74,7 @@ declare namespace RcSelect {
     export class Option extends React.Component<OptionProps> { }
 
     interface OptGroupProps {
-        label?: string | React.ReactElement<any>;
+        label?: string | React.ReactElement;
         key?: string;
         value?: string;
     }

@@ -45,7 +45,3 @@ declare module "codemirror" {
 
     }
 }
-
-declare module "codemirror/addon/display/panel" {
-    export = CodeMirror;
-}

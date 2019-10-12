@@ -1,4 +1,4 @@
-// Type definitions for js-combinatorics v0.5.0
+// Type definitions for js-combinatorics v0.5.4
 // Project: https://github.com/dankogai/js-combinatorics
 // Definitions by: Vasya Aksyonov <https://github.com/outring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ declare namespace __Combinatorics {
 	interface IGenerator<T> {
 
 		/**
-		 * Returns the element or undefined if no more element is available.
+		 * Returns the element or undefined if no more elements are available.
 		 */
 		next():T;
 
@@ -18,24 +18,24 @@ declare namespace __Combinatorics {
 		forEach(f:(item:T) => void):void;
 
 		/**
-		 * All elements at once with function applied to each element.
+		 * Returns an array that is the output of calling the callback function separately on each element.
 		 */
 		map<TResult>(f:(item:T) => TResult):TResult[];
 
 		/**
-		 * Returns an array with elements that passes the filter function.
+		 * Returns an array of elements that return `true` for the filter function.
 		 */
 		filter(predicate:(item:T) => boolean):T[];
 
 		/**
-		 * All elements at once.
+		 * Returns an array of all elements.
 		 */
 		toArray():T[];
 
 		/**
-		 * Returns the number of elements to be generated which equals to generator.toArray().length
-		 * but it is precalculated without actually generating elements.
-		 * Handy when you prepare for large iteration.
+		 * Returns the total number of elements to be generated. This equals the result of calling
+     * `generator.toArray().length` but it is precalculated without actually generating any elements.
+		 * Handy when doing setup for a potentially long-running loop.
 		 */
 		length:number;
 
@@ -44,7 +44,7 @@ declare namespace __Combinatorics {
 	interface IPredictableGenerator<T> extends IGenerator<T> {
 
 		/**
-		 * Returns the nth element (starting 0).
+		 * Returns the nth element (indexed from 0).
 		 */
 		nth(n:number):T;
 
@@ -53,11 +53,10 @@ declare namespace __Combinatorics {
 	interface ICartesianProductGenerator<T> extends IPredictableGenerator<T> {
 
 		/**
-		 * Arguments are coordinates in integer.
-		 * Arguments can be out of bounds but it returns undefined in such cases.
+		 * Arguments are integer coordinates.
+		 * Arguments can be out of bounds but it returns `undefined` in such cases.
 		 */
 		get(...coordinates:number[]):T;
-
 	}
 
 	/**
@@ -76,38 +75,47 @@ declare namespace __Combinatorics {
 	function factorial(n:number):number;
 
 	/**
-	 * Returns the factoradic representation of n in array, in least significant order.
+	 * Returns the factoradic representation of `n` in an array, in
+   * least significant order.
 	 * See http://en.wikipedia.org/wiki/Factorial_number_system
 	 */
 	function factoradic(n:number):number[];
 
 	/**
-	 * Generates the power set of array.
+	 * Generates the power set of `a`.
 	 */
 	function power<T>(a:T[]):IPredictableGenerator<T[]>;
 
 	/**
-	 * Generates the combination of array with n elements.
-	 * When n is ommited, the length of the array is used.
+	 * Generates the combination of `a` with `n` elements.
+	 * `n` defaults to the length of `a`.
 	 */
 	function combination<T>(a:T[], n?:number):IGenerator<T[]>;
 
 	/**
-	 * Generates the permutation of array with n elements.
-	 * When n is ommited, the length of the array is used.
+	 * Generates the combination of `a` with `n` elements, which
+	 * also supports larger sets of elements.
+	 * When `n` is ommited, the length of the array is used.
+	 * Somewhat slower than `combination()`
+	 */
+	function bigCombination<T>(a:T[], n?:number):IGenerator<T[]>;
+
+	/**
+	 * Generates the permutation of `a` with `n` elements.
+	 * `n` defaults to the length of `a`.
 	 */
 	function permutation<T>(a:T[], n?:number):IGenerator<T[]>;
 
 	/**
-	 * Generates the permutation of the combination of n.
-	 * Equivalent to permutation(combination(a)), but more efficient.
+	 * Generates the permutation of the combination of `a`.
+	 * Equivalent to `permutation(combination(a))`, but more efficient.
 	 */
 	function permutationCombination<T>(a:T[]):IGenerator<T[]>;
 
 	/**
-	 * Generates n-digit "numbers" where each digit is an element in array.
+	 * Generates `n`-digit "numbers" where each digit is an element in array.
 	 * Note this "number" is in the least significant order.
-	 * When n is ommited, the length of the array is used.
+	 * `n` defaults to the length of `a`.
 	 */
 	function baseN<T>(a:T[], n?:number):IPredictableGenerator<T[]>;
 

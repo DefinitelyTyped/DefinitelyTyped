@@ -3,7 +3,7 @@
 // Definitions by: Steve <https://github.com/stevegeek>
 //                 Jungwoo-An <https://github.com/Jungwoo-An>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 
@@ -19,6 +19,8 @@ declare namespace nextReduxWrapper {
     interface Options {
         storeKey?: string;
         debug?: boolean;
+        serializeState?: any;
+        deserializeState?: any;
     }
 
     interface StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> extends Options {

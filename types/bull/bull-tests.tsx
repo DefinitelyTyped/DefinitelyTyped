@@ -12,12 +12,33 @@ const audioQueue = new Queue('audio transcoding', {
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 
+videoQueue.getWorkers();
+videoQueue.setWorkerName();
+videoQueue.base64Name();
+videoQueue.clientName();
+videoQueue.parseClientList('');
+
 videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
 
+    // job.opts contains the options that were passed to the job
+    job.opts;
+
+    job.queue;
+    job.queue.client;
+
     // transcode video asynchronously and report progress
     job.progress(42);
+
+    job.log('loglog');
+    job.isCompleted();
+    job.isFailed();
+    job.isDelayed();
+    job.isActive();
+    job.isWaiting();
+    job.isPaused();
+    job.isStuck();
 
     // call done when finished
     done();
@@ -30,6 +51,9 @@ videoQueue.process((job, done) => {
 
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error('some unexpected error');
+}).catch(error => {
+    // Catch the general error, like redis connection
+    console.log(error);
 });
 
 audioQueue.process((job, done) => {
@@ -72,6 +96,19 @@ imageQueue.add({image: 'http://example.com/image1.tiff'});
 
 //////////////////////////////////////////////////////////////////////////////////
 //
+// Test Redis Cluster connexion
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+const clusterQueue = new Queue('queue on redis cluster', {
+    prefix: 'cluster-test',
+    createClient: (clusterUri: Redis.ClusterNode) => {
+        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
+    }
+});
+
+//////////////////////////////////////////////////////////////////////////////////
+//
 // Re-using Redis Connections
 //
 //////////////////////////////////////////////////////////////////////////////////
@@ -98,10 +135,16 @@ const pdfQueue = new Queue('pdf transcoding', {
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-pdfQueue.process((job) => {
+pdfQueue.process((job: Queue.Job) => {
     // Processors can also return promises instead of using the done callback
     return Promise.resolve();
 });
+
+async function pfdPromise(job: Queue.Job) {
+    return Promise.resolve();
+}
+
+pdfQueue.process(1, pfdPromise);
 
 videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 .then((video1Job) => {
@@ -133,9 +176,11 @@ pdfQueue
 .on('failed', (job: Queue.Job) => undefined)
 .on('paused', () => undefined)
 .on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined)
+.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
 .on('drained', () => undefined)
 .on('removed', (job: Queue.Job) => undefined);
+
+pdfQueue.setMaxListeners(42);
 
 // test different process methods
 
@@ -176,6 +221,9 @@ myQueue.on('active', (job: Queue.Job) => {
 
     job.discard();
 });
+
+// Get Redis clients
+const clients = myQueue.clients;
 
 // test all constructor options:
 

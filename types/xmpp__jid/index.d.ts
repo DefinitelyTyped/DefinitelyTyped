@@ -1,55 +1,63 @@
-// Type definitions for @xmpp/jid 0.0
-// Project: https://github.com/node-xmpp/node-xmpp/
+// Type definitions for @xmpp/jid 1.3
+// Project: https://github.com/xmppjs/xmpp.js/tree/master/packages/jid
 // Definitions by: PJakcson <https://github.com/PJakcson>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-export function createJID(local: string, domain: string, resource: string): JID;
-export function equal(a: JID, b: JID): boolean;
-export function is(a: any): boolean;
+export = jid;
 
-/**
- * Created by marcneumann on 17.02.17.
- */
-export class JID {
-    local: string;
-    domain: string;
-    resource: string;
+declare function jid(address: string): jid.JID;
+declare function jid(local: string | undefined, domain: string, resource?: string): jid.JID;
 
-    constructor(local: string, domain?: string, resource?: string);
+declare namespace jid {
+    function jid(address: string): JID;
+    function jid(local: string | undefined, domain: string, resource?: string): JID;
 
-    parseJID(jid: string): void;
+    function createJID(local: string | undefined, domain: string, resource?: string): JID;
+    function equal(a: JID, b: JID): boolean;
+    function detectEscape(local?: string): boolean;
+    function escapeLocal(local: string): string;
+    function unescapeLocal(local: string): string;
+    function parse(s: string): JID;
 
-    toString(unescape?: any): string;
+    class JID {
+        local: string;
+        domain: string;
+        resource: string;
 
-    /**
-     * Convenience method to distinguish users
-     */
-    bare(): JID;
+        constructor(local: string | undefined, domain: string, resource?: string);
 
-    /**
-     * Comparison function
-     */
-    equals(other: JID): boolean;
+        toString(unescape?: boolean): string;
 
-    /**
-     * http://xmpp.org/rfcs/rfc6122.html#addressing-localpart
-     */
-    setLocal(local: string, escape?: any): void;
+        /**
+         * Convenience method to distinguish users
+         */
+        bare(): JID;
 
-    getLocal(unescape?: any): string;
+        /**
+         * Comparison function
+         */
+        equals(other: JID): boolean;
 
-    /**
-     * http://xmpp.org/rfcs/rfc6122.html#addressing-domain
-     */
-    setDomain(value: string): void;
+        /**
+         * http://xmpp.org/rfcs/rfc6122.html#addressing-localpart
+         */
+        setLocal(local: string, escape?: boolean): void;
 
-    getDomain(): string;
+        getLocal(unescape?: boolean): string;
 
-    /**
-     * http://xmpp.org/rfcs/rfc6122.html#addressing-resourcepart
-     */
-    setResource(value: string): void;
+        /**
+         * http://xmpp.org/rfcs/rfc6122.html#addressing-domain
+         */
+        setDomain(value: string): void;
 
-    getResource(): string;
+        getDomain(): string;
+
+        /**
+         * http://xmpp.org/rfcs/rfc6122.html#addressing-resourcepart
+         */
+        setResource(value: string): void;
+
+        getResource(): string;
+    }
 }

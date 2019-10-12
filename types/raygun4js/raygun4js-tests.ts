@@ -1,8 +1,7 @@
 // V2 Api
+// Used in CommonJS-like environments
 
-// To use the V2 api you will need to declare a `rg4js` variable
-// This is because `rg4js` name is configurable by users
-declare var rg4js: RaygunV2;
+import rg4js, { RaygunStatic } from 'raygun4js';
 
 rg4js("apiKey", "api-key");
 rg4js("enableCrashReporting", true);
@@ -13,16 +12,25 @@ rg4js('setUser', {
     fullName: "Robert Raygun"
 });
 
+try {
+    throw new Error('oops');
+} catch (e) {
+    rg4js('send', e);
+}
+
 // V1 Api
-var client: RaygunStatic = Raygun.noConflict();
-var newClient: RaygunStatic = client.constructNewRaygun();
+// Used in non CommonJS enviroments
+declare const Raygun: RaygunStatic;
+
+const client: RaygunStatic = Raygun.noConflict();
+const newClient: RaygunStatic = client.constructNewRaygun();
 
 client.init('api-key');
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false });
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false }, { some: 'data' });
 
 client.withCustomData({ some: 'data' });
-client.withCustomData(function() {
+client.withCustomData(() => {
     return { some: 'data' };
 });
 
@@ -36,8 +44,7 @@ client.send(new Error('a error'), { some: 'data' }, ['tag1', 'tag2']);
 
 try {
     throw new Error('oops');
-}
-catch (e) {
+} catch (e) {
     client.send(e);
 }
 
@@ -57,7 +64,7 @@ client.setFilterScope('all');
 
 client.whitelistCrossOriginDomains(['domain1', 'domain2']);
 
-client.onBeforeSend(payload=> {
+client.onBeforeSend(payload => {
     payload.OccurredOn = new Date();
     return payload;
 });

@@ -1,7 +1,7 @@
 // The following code comes from:
 // https://www.npmjs.com/package/recorder-js#usage
 
-import Recorder from 'recorder-js';
+import Recorder = require('recorder-js');
 
 const audioContext = new AudioContext();
 let isRecording = false;

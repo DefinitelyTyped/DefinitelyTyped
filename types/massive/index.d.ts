@@ -1,5 +1,5 @@
 // Type definitions for massive 5.4
-// Project: https://github.com/dmfay/massive-js.git
+// Project: https://massivejs.org, https://github.com/dmfay/massive-js.git, https://dmfay.github.io/massive-js
 // Definitions by: Pascal Birchler <https://github.com/swissspidy>
 //                 Clarence Ho <https://github.com/clarenceh>
 //                 Felix Faust <https://github.com/AmazingTurtle>
@@ -104,6 +104,9 @@ declare namespace massive {
         fields: string[];
         term: string;
     }
+
+    type QueryParamTypes = string | number | object;
+    type QueryParams = QueryParamTypes[] |  QueryParamTypes;
 
     interface EntitySpecification {
         /** A Database. */
@@ -442,7 +445,7 @@ declare namespace massive {
         /** Execute a query. */
         query(
             query: Select | Insert | Update | Delete | string,
-            params?: string[],
+            params?: QueryParams,
             options?: ResultProcessingOptions
         ): Promise<any>;
 

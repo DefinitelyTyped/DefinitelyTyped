@@ -12,7 +12,7 @@ declare namespace ngeohash {
   type GeographicBoundingBox = [number, number, number, number];
   type NSEW = [number, number];
 
-  function encode(latitude: number, longitude: number, precision?: number): string;
+  function encode(latitude: number | string, longitude: number | string, precision?: number): string;
   function decode(hashstring: string): GeographicPoint;
   function decode_bbox(hashstring: string): GeographicBoundingBox;
   function bboxes(minlat: number, minlon: number, maxlat: number, maxlon: number, precision?: number): Array<string>;

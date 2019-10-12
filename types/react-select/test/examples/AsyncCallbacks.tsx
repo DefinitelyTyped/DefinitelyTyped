@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 import { colourOptions } from '../data';
-import { OptionsType } from 'react-select/lib/types';
+import { OptionsType } from 'react-select/src/types';
 
 interface State {
   inputValue: string;

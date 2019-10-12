@@ -4,12 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 
 export = CaseSensitivePathsWebpackPlugin;
 
 declare class CaseSensitivePathsWebpackPlugin extends Plugin {
     constructor(options?: CaseSensitivePathsWebpackPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace CaseSensitivePathsWebpackPlugin {

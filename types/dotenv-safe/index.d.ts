@@ -24,7 +24,12 @@ export interface DotenvSafeOptions {
    */
   path?: string,
   /**
-   * Path to example environment file.
+   * Path to example environment file. (Option 1)
+   * @default ".env.example"
+   */
+  example?: string,
+  /**
+   * Path to example environment file. (Option 2 -- example takes precendence)
    * @default ".env.example"
    */
   sample?: string,
@@ -50,11 +55,11 @@ export interface DotenvSafeOptions {
  *
  * @throws MissingEnvVarsError
  */
-export function load(options?: DotenvSafeOptions): env.DotenvResult
+export function load(options?: DotenvSafeOptions): env.DotenvConfigOutput
 
 /**
  * Loads environment variables file into 'process.env'.
  *
  * @throws MissingEnvVarsError
  */
-export function config(options?: DotenvSafeOptions): env.DotenvResult
+export function config(options?: DotenvSafeOptions): env.DotenvConfigOutput

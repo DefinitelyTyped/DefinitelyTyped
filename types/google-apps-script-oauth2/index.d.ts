@@ -1,4 +1,4 @@
-// Type definitions for google-apps-script-oauth2 24.0
+// Type definitions for non-npm package google-apps-script-oauth2 24.0
 // Project: https://github.com/googlesamples/apps-script-oauth2
 // Definitions by: dhayab <https://github.com/dhayab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -88,6 +88,13 @@ declare namespace GoogleAppsScriptOAuth2 {
          * appropriate if you want to share access across users.
          */
         setCache(cache: GoogleAppsScript.Cache.Cache): OAuth2Service;
+        /**
+         * Sets the lock to use when checking and refreshing credentials (optional).
+         * Using a lock will ensure that only one execution will be able to access the
+         * stored credentials at a time. This can prevent race conditions that arise
+         * when two executions attempt to refresh an expired token.
+         */
+        setLock(lock: GoogleAppsScript.Lock.Lock): OAuth2Service;
         /**
          * Sets the name of the authorization callback function (required).
          * This is the function that will be called when the user completes the authorization flow

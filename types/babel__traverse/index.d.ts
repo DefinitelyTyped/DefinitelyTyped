@@ -1,18 +1,30 @@
 // Type definitions for @babel/traverse 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse
+// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as t from "@babel/types";
 
 export type Node = t.Node;
 
-export default function traverse<S>(parent: Node | Node[], opts: TraverseOptions<S>, scope: Scope, state: S, parentPath?: NodePath): void;
-export default function traverse(parent: Node | Node[], opts: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
+export default function traverse<S>(
+    parent: Node | Node[],
+    opts: TraverseOptions<S>,
+    scope: Scope | undefined,
+    state: S,
+    parentPath?: NodePath,
+): void;
+export default function traverse(
+    parent: Node | Node[],
+    opts: TraverseOptions,
+    scope?: Scope,
+    state?: any,
+    parentPath?: NodePath,
+): void;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
@@ -90,11 +102,16 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: any): void;
+    push(opts: {
+        id: t.LVal,
+        init?: t.Expression,
+        unique?: boolean,
+        kind?: "var" | "let" | "const",
+    }): void;
 
     getProgramParent(): Scope;
 
-    getFunctionParent(): Scope;
+    getFunctionParent(): Scope | null;
 
     getBlockParent(): Scope;
 
@@ -138,17 +155,19 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = Node> = VisitNodeObject<Node> & {
-    [P in Node["type"]]?: VisitNode<S, Extract<Node, { type: P; }>>;
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
 };
 
-export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
+export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
-export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
+export type VisitNodeFunction<S, P> = (this: S, path: NodePath<P>, state: S) => void;
 
-export interface VisitNodeObject<T> {
-    enter?(path: NodePath<T>, state: any): void;
-    exit?(path: NodePath<T>, state: any): void;
+export interface VisitNodeObject<S, P> {
+    enter?: VisitNodeFunction<S, P>;
+    exit?: VisitNodeFunction<S, P>;
 }
 
 export class NodePath<T = Node> {

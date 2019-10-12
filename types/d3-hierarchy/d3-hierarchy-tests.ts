@@ -12,6 +12,7 @@ import * as d3Hierarchy from 'd3-hierarchy';
 // Preparatory Steps
 // -----------------------------------------------------------------------
 
+let str: string;
 let num: number;
 let numOrUndefined: number | undefined;
 let size: [number, number];
@@ -825,22 +826,34 @@ copiedPackNode = packRootNode.copy();
 // Pack Siblings and Enclosure
 // -----------------------------------------------------------------------
 
-interface CircleData extends d3Hierarchy.PackCircle {
-    v: string;
-}
-
-let circles: CircleData[] = [
+const radius = [
     { r: 10, v: 'a' },
-    { r: 1, v: 'b' },
+    { r: 30, v: 'b' },
     { r: 20, v: 'c' }
 ];
 
 // packSiblings
 
-circles = d3Hierarchy.packSiblings(circles);
+const circles = d3Hierarchy.packSiblings(radius);
+str = circles[0].v;
+num = circles[0].r;
+num = circles[0].x;
+num = circles[0].y;
 
 // packEnclose
 
-let enclosure: { r: number, x: number, y: number };
+const moreCircles = [
+    { r: 10, v: 'a', x: 0, y: 10 },
+    { r: 30, v: 'b', x: 5, y: 15 },
+    { r: 20, v: 'c', x: 7, y: 30 }
+];
 
-enclosure = d3Hierarchy.packEnclose(circles);
+const circle = d3Hierarchy.packEnclose(moreCircles);
+num = circle.r;
+num = circle.x;
+num = circle.y;
+// $ExpectError
+str = circle.v; // fails, property 'v' does not exist
+
+// $ExpectError
+d3Hierarchy.packEnclose(radius);

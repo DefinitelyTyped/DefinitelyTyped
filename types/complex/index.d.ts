@@ -4,7 +4,8 @@
 //                 Paul Vasich <https://github.com/pavasich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Complex {
+export = Complex;
+declare class Complex {
     /**
      * @param real The real part of the number
      * @param im The imaginary part of the number

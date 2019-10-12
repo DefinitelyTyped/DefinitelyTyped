@@ -11,6 +11,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "experimentalDecorators": true,
         "typeRoots": [
             "../"
         ],
@@ -49,6 +50,8 @@
         "test/extend.ts",
         "test/object.ts",
         "test/observable.ts",
+        "test/octane.ts",
+        "test/proxy.ts",
         "test/reopen.ts"
     ]
 }

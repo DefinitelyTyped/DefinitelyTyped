@@ -3,7 +3,7 @@
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
@@ -59,7 +59,7 @@ declare global {
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
             toFillForm(selector: string, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
             toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
-            toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<void>;
+            toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<ElementHandle>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
             toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
         }

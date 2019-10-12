@@ -1,7 +1,9 @@
-// Type definitions for match-sorter 2.2
+// Type definitions for match-sorter 2.3
 // Project: https://github.com/kentcdodds/match-sorter#readme
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
+//                 Christian Ruigrok <https://github.com/chrisru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace matchSorter {
     namespace rankings {
@@ -18,24 +20,13 @@ declare namespace matchSorter {
     }
 }
 
-interface MinRanking {
-    minRanking: number;
-    key: string;
-}
-
-interface MaxRanking {
-    maxRanking: number;
-    key: string;
-}
-
-interface MinMaxRanking {
-    minRanking: number;
-    maxRanking: number;
-    key: string;
-}
+type ExtendedKeyOptions<T> = { key: string | ((item: T) => string) } & (
+    | { minRanking: number }
+    | { maxRanking: number }
+    | { threshold: number });
 
 interface Options<T> {
-    keys?: Array<(string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)>;
+    keys?: Array<string | ((item: T) => string) | ExtendedKeyOptions<T>>;
     threshold?: number;
     keepDiacritics?: boolean;
 }
@@ -47,6 +38,10 @@ interface Options<T> {
  * @param options - Some options to configure the sorter
  * @return the new sorted array
  */
-declare function matchSorter<T>(items: T[], value: string, options?: Options<T>): T[];
+declare function matchSorter<T>(
+    items: ReadonlyArray<T>,
+    value: string,
+    options?: Options<T>
+): T[];
 
 export = matchSorter;

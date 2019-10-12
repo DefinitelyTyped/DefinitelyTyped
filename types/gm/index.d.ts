@@ -3,6 +3,7 @@
 // Definitions by:  Joel Spadin <https://github.com/ChaosinaCan>
 //                  Maarten van Vliet <https://github.com/maartenvanvliet>
 //                  Vaclav Mlejnsky <https://github.com/mlejva>
+//                  Dimitry Kooijmans <https://github.com/mrcageman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -284,6 +285,7 @@ declare namespace m {
         format(callback: GetterCallback<string>): State;
         format(opts: GetterOptions, callback: GetterCallback<string>): State;
         identify(callback: GetterCallback<ImageInfo>): State;
+        identify(format: string, callback: GetterCallback<string>): State;
         identify(opts: GetterOptions, callback: GetterCallback<ImageInfo>): State;
         res(callback: GetterCallback<string>): State;
         res(opts: GetterOptions, callback: GetterCallback<string>): State;
@@ -295,13 +297,13 @@ declare namespace m {
         // Drawing Operations
         draw(args: string): State;
         drawArc(x0: number, y0: number, x1: number, y1: number, r0: number, r1: number): State;
-        drawBezier(x0: number, y0: number, x1: number, y1: number, x2?: number, y2?: number, ...coords: number[]): State;
+        drawBezier(coord0: [number, number], coord1: [number, number], ...coords: Array<[number, number]>): State;
         drawCircle(x0: number, y0: number, x1: number, y1: number): State;
         drawEllipse(x0: number, y0: number, rx: number, ry: number, a0: number, a1: number): State;
         drawLine(x0: number, y0: number, x1: number, y1: number): State;
         drawPoint(x: number, y: number): State;
-        drawPolygon(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, ...coords: number[]): State;
-        drawPolyline(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, ...coords: number[]): State;
+        drawPolygon(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
+        drawPolyline(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
         drawRectangle(x0: number, y0: number, x1: number, y1: number, wc?: number, hc?: number): State;
         drawText(x: number, y: number, text: string, gravity?: GravityDirection | string): State;
         fill(color: string): State;
@@ -314,8 +316,8 @@ declare namespace m {
         // Commands
         stream(callback?: WriteCallback): stream.PassThrough;
         stream(format: string, callback?: WriteCallback): stream.PassThrough;
-        toBuffer(callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
-        toBuffer(format: string, callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(format: string, callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
         write(filename: string, callback: WriteCallback): void;
     }
 
@@ -389,7 +391,7 @@ declare namespace m {
         | 'YPbPr'
         | 'YUV';
 
-    type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
+    type CompareCallback = (err: Error|null, isEqual: boolean, equality: number, raw: number) => any;
 
     type ComposeOperator = 'Over'
         | 'In'
@@ -463,7 +465,7 @@ declare namespace m {
         | 'Bessel'
         | 'Sinc';
 
-    type GetterCallback<T> = (err: Error, value: T) => any;
+    type GetterCallback<T> = (err: Error|null, value: T) => any;
 
     type GravityDirection = 'NorthWest'
         | 'North'
@@ -599,7 +601,7 @@ declare namespace m {
         | 'DirectColor'
         | 'default';
 
-    type WriteCallback = (err: Error, stdout: string, stderr: string, cmd: string) => any;
+    type WriteCallback = (err: Error|null, stdout: stream.Readable, stderr: stream.Readable, cmd: string) => any;
 }
 
 export = m;

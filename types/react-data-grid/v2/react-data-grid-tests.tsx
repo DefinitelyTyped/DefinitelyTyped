@@ -252,11 +252,11 @@ class Example extends React.Component<any, any> {
     getColumns() {
         var clonedColumns = columns.slice();
         clonedColumns[2].events = {
-            onClick: function (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) {
+            onClick: (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) => {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
-                this.refs.grid.openCellEditor(rowIdx, idx);
-            }.bind(this)
+                (this.refs.grid as ReactDataGrid).openCellEditor(rowIdx, idx);
+            }
         };
 
         return clonedColumns;
@@ -282,6 +282,9 @@ class Example extends React.Component<any, any> {
     }
 
     onRowClick(rowIdx:number, row: Object) {
+        // Do nothing, just test that it accepts an event
+    }
+    onRowDoubleClick(rowIdx:number, row: Object) {
         // Do nothing, just test that it accepts an event
     }
 
@@ -355,6 +358,7 @@ class Example extends React.Component<any, any> {
                 rowActionsCell={CustomRowSelectorCell}
                 selectAllRenderer={CustomSelectAll}
                 onRowClick={this.onRowClick}
+                onRowDoubleClick={this.onRowDoubleClick}
             />
 
         );

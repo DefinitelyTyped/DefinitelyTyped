@@ -121,7 +121,7 @@ export interface FormFieldApi {
 
 export interface FormFieldPropsWithField {
     field?: string;
-    children(api: FormFieldApi): React.ReactElement<any> | null;
+    children(api: FormFieldApi): React.ReactElement | null;
 }
 export interface FormFieldPropsWithoutField {
     children(api: FormApi): RenderReturn;
@@ -147,7 +147,7 @@ export interface FormInputProps {
 }
 
 export interface FormInputPropsWithChildren extends FormInputProps {
-    children(api: FormFieldApi): React.ReactElement<any> | null;
+    children(api: FormFieldApi): React.ReactElement | null;
 }
 export const FormInput: React.SFC<FormInputPropsWithChildren>;
 

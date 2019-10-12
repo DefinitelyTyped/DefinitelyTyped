@@ -44,11 +44,15 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     beforeModel(transition: Transition): any;
 
     /**
-     * Returns the controller for a particular route or name.
-     * The controller instance must already have been created, either through entering the
-     * associated route or using `generateController`.
+     * Returns the controller of the current route, or a parent (or any
+     * ancestor) route in a route hierarchy.
+     *
+     * The controller instance must already have been created, either through
+     * entering the associated route or using `generateController`.
+     *
+     * @param name the name of the route or controller
      */
-    controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
+    controllerFor(name: string): Controller;
 
     /**
      * Disconnects a view that has been rendered into an outlet.
@@ -79,20 +83,26 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     paramsFor(name: string): {};
 
     /**
-     * Refresh the model on this route and any child routes, firing the
-     * `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
-     * to how routes are entered when transitioning in from other route.
-     * The current route params (e.g. `article_id`) will be passed in
-     * to the respective model hooks, and if a different model is returned,
-     * `setupController` and associated route hooks will re-fire as well.
-     * An example usage of this method is re-querying the server for the
-     * latest information using the same parameters as when the route
-     * was first entered.
-     * Note that this will cause `model` hooks to fire even on routes
-     * that were provided a model object when the route was initially
-     * entered.
+     * A hook you can implement to optionally redirect to another route.
+     *
+     * If you call `this.transitionTo` from inside of this hook, this route
+     * will not be entered in favor of the other hook.
+     *
+     * `redirect` and `afterModel` behave very similarly and are
+     * called almost at the same time, but they have an important
+     * distinction in the case that, from one of these hooks, a
+     * redirect into a child route of this route occurs: redirects
+     * from `afterModel` essentially invalidate the current attempt
+     * to enter this route, and will result in this route's `beforeModel`,
+     * `model`, and `afterModel` hooks being fired again within
+     * the new, redirecting transition. Redirects that occur within
+     * the `redirect` hook, on the other hand, will _not_ cause
+     * these hooks to be fired again the second time around; in
+     * other words, by the time the `redirect` hook has been called,
+     * both the resolved model and attempted entry into this route
+     * are considered to be fully validated.
      */
-    redirect(): Transition;
+    redirect(model: {}, transition: Transition): void;
 
     /**
      * Refresh the model on this route and any child routes, firing the

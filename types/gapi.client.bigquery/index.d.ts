@@ -1,4 +1,4 @@
-// Type definitions for Google BigQuery API v2 2.0
+// Type definitions for non-npm package Google BigQuery API v2 2.0
 // Project: https://cloud.google.com/bigquery/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

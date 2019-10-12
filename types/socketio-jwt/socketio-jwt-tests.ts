@@ -5,7 +5,7 @@ import { authorize, JwtSecretFuncCallback } from 'socketio-jwt';
 
 const app = http.createServer((req: any, rsp: any) => {
 	fs.readFile(__dirname + '/index.html',
-		(err: Error, data: any) => {
+		(err: Error | null, data: any) => {
 			if (err) {
 				rsp.writeHead(500);
 				return rsp.end('Error loading index.html');
@@ -27,7 +27,7 @@ io.on('connection', authorize({
 
 io.on('authenticated', (socket: SocketIo.Socket) => {
 	console.log('authenticated!!');
-	console.log(JSON.stringify((<any> socket).anyNameYouWant));
+	console.log(JSON.stringify((socket as any).anyNameYouWant));
 });
 
 const secrets: any = {

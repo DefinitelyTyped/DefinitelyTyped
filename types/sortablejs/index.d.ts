@@ -194,7 +194,7 @@ declare namespace Sortable {
         /**
          * if you have custom scrollbar scrollFn may be used for autoscrolling
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void)
+        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
         /**
          * px, how near the mouse must be to an edge to start scrolling.
          */
@@ -225,6 +225,18 @@ declare namespace Sortable {
          */
         onAdd?: (event: SortableEvent) => void;
         /**
+         * Created a clone of an element
+         */
+        onClone?: (event: SortableEvent) => void;
+        /**
+         * Element is chosen
+         */
+        onChoose?: (event: SortableEvent) => void;
+        /**
+         * Element is unchosen
+         */
+        onUnchoose?: (event: SortableEvent) => void;
+        /**
          * Changed sorting within list
          */
         onUpdate?: (event: SortableEvent) => void;
@@ -242,8 +254,11 @@ declare namespace Sortable {
         onFilter?: (event: SortableEvent) => void;
         /**
          * Event when you move an item in the list or between lists
+         * return false; for cancel
+         * return -1; insert before target
+         * return 1; insert after target
          */
-        onMove?: (event: MoveEvent) => boolean;
+        onMove?: (event: MoveEvent, originalEvent: MouseEvent) => false | -1 | 1;
     }
 
     interface Utils {

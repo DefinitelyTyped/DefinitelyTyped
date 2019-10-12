@@ -1,5 +1,5 @@
 // Type definitions for prosemirror-state 1.2
-// Project: https://github.com/ProseMirror/prosemirror-state
+// Project: https://github.com/ProseMirror/prosemirror-state, https://github.com/prosemirror/prosemirror
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
@@ -22,7 +22,7 @@ import { EditorProps, EditorView } from 'prosemirror-view';
  * This is the type passed to the [`Plugin`](#state.Plugin)
  * constructor. It provides a definition for a plugin.
  */
-export interface PluginSpec<S extends Schema = any> {
+export interface PluginSpec<T = any, S extends Schema = any> {
   /**
    * The [view props](#view.EditorProps) added by this plugin. Props
    * that are functions will be bound to have the plugin instance as
@@ -33,14 +33,14 @@ export interface PluginSpec<S extends Schema = any> {
    * Allows a plugin to define a [state field](#state.StateField), an
    * extra slot in the state object in which it can keep its own data.
    */
-  state?: StateField<any> | null;
+  state?: StateField<T, S> | null;
   /**
    * Can be used to make this a keyed plugin. You can have only one
    * plugin with a given key in a given state, but it is possible to
    * access the plugin's configuration and state through the key,
    * without having access to the plugin instance object.
    */
-  key?: PluginKey<S> | null;
+  key?: PluginKey<T, S> | null;
   /**
    * When the plugin needs to interact with the editor view, or
    * set something up in the DOM, use this field. The function
@@ -60,7 +60,7 @@ export interface PluginSpec<S extends Schema = any> {
    * applied by the state, allowing the plugin to cancel it (by
    * returning false).
    */
-  filterTransaction?: ((p1: Transaction, p2: EditorState<S>) => boolean) | null;
+  filterTransaction?: ((p1: Transaction<S>, p2: EditorState<S>) => boolean) | null;
   /**
    * Allows the plugin to append another transaction to be applied
    * after the given array of transactions. When another plugin
@@ -71,10 +71,10 @@ export interface PluginSpec<S extends Schema = any> {
    */
   appendTransaction?:
   | ((
-    transactions: Transaction[],
+    transactions: Array<Transaction<S>>,
     oldState: EditorState<S>,
     newState: EditorState<S>
-  ) => Transaction | null | undefined | void)
+  ) => Transaction<S> | null | undefined | void)
   | null;
 }
 /**
@@ -82,11 +82,11 @@ export interface PluginSpec<S extends Schema = any> {
  * They are part of the [editor state](#state.EditorState) and
  * may influence that state and the view that contains it.
  */
-export class Plugin<S extends Schema = any> {
+export class Plugin<T = any, S extends Schema = any> {
   /**
    * Create a plugin.
    */
-  constructor(spec: PluginSpec<S>);
+  constructor(spec: PluginSpec<T, S>);
   /**
    * The [props](#view.EditorProps) exported by this plugin.
    */
@@ -94,11 +94,11 @@ export class Plugin<S extends Schema = any> {
   /**
    * The plugin's [spec object](#state.PluginSpec).
    */
-  spec: { [key: string]: any };
+  spec: PluginSpec<T, S>;
   /**
    * Extract the plugin's state field from an editor state.
    */
-  getState(state: EditorState<S>): any;
+  getState(state: EditorState<S>): T;
 }
 /**
  * A plugin spec may provide a state field (under its
@@ -106,7 +106,7 @@ export class Plugin<S extends Schema = any> {
  * describes the state it wants to keep. Functions provided here are
  * always called with the plugin instance as their `this` binding.
  */
-export interface StateField<T, S extends Schema = Schema> {
+export interface StateField<T = any, S extends Schema = Schema> {
   /**
    * Initialize the value of the field. `config` will be the object
    * passed to [`EditorState.create`](#state.EditorState^create). Note
@@ -120,7 +120,7 @@ export interface StateField<T, S extends Schema = Schema> {
    * constructed state does not yet contain the state from plugins
    * coming after this one.
    */
-  apply(tr: Transaction, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
+  apply(tr: Transaction<S>, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
   /**
    * Convert this field to JSON. Optional, can be left off to disable
    * JSON serialization for the field.
@@ -138,7 +138,7 @@ export interface StateField<T, S extends Schema = Schema> {
  * editor state. Assigning a key does mean only one plugin of that
  * type can be active in a state.
  */
-export class PluginKey<S extends Schema = any> {
+export class PluginKey<T = any, S extends Schema = any> {
   /**
    * Create a plugin key.
    */
@@ -147,7 +147,7 @@ export class PluginKey<S extends Schema = any> {
    * Get the active plugin with this key, if any, from an editor
    * state.
    */
-  get(state: EditorState<S>): Plugin<S> | null | undefined;
+  get(state: EditorState<S>): Plugin<T, S> | null | undefined;
   /**
    * Get the plugin's state from an editor state.
    */
@@ -223,12 +223,12 @@ export class Selection<S extends Schema = any> {
    * Replace the selection with a slice or, if no slice is given,
    * delete the selection. Will append to the given transaction.
    */
-  replace(tr: Transaction, content?: Slice<S>): void;
+  replace(tr: Transaction<S>, content?: Slice<S>): void;
   /**
    * Replace the selection with the given node, appending the changes
    * to the given transaction.
    */
-  replaceWith(tr: Transaction, node: ProsemirrorNode<S>): void;
+  replaceWith(tr: Transaction<S>, node: ProsemirrorNode<S>): void;
   /**
    * Convert the selection to a JSON representation. When implementing
    * this for a custom selection class, make sure to give the object a
@@ -440,11 +440,11 @@ export class EditorState<S extends Schema = any> {
   /**
    * The plugins that are active in this state.
    */
-  plugins: Array<Plugin<S>>;
+  plugins: Array<Plugin<any, S>>;
   /**
    * Apply the given transaction to produce a new state.
    */
-  apply(tr: Transaction): EditorState<S>;
+  apply(tr: Transaction<S>): EditorState<S>;
   /**
    * Verbose variant of [`apply`](#state.EditorState.apply) that
    * returns the precise transactions that were applied (which might
@@ -452,11 +452,11 @@ export class EditorState<S extends Schema = any> {
    * hooks](#state.PluginSpec.filterTransaction) of
    * plugins) along with the new state.
    */
-  applyTransaction(tr: Transaction): { state: EditorState<S>; transactions: Transaction[] };
+  applyTransaction(tr: Transaction<S>): { state: EditorState<S>; transactions: Array<Transaction<S>> };
   /**
    * Start a [transaction](#state.Transaction) from this state.
    */
-  tr: Transaction;
+  tr: Transaction<S>;
   /**
    * Create a new state based on this one, but with an adjusted set of
    * active plugins. State fields that exist in both sets of plugins
@@ -465,13 +465,13 @@ export class EditorState<S extends Schema = any> {
    * [`init`](#state.StateField.init) method, passing in the new
    * configuration object..
    */
-  reconfigure(config: { schema?: S | null; plugins?: Array<Plugin<S>> | null }): EditorState<S>;
+  reconfigure(config: { schema?: S | null; plugins?: Array<Plugin<any, S>> | null }): EditorState<S>;
   /**
    * Serialize this state to JSON. If you want to serialize the state
    * of plugins, pass an object mapping property names to use in the
    * resulting JSON object to plugin objects.
    */
-  toJSON(pluginFields?: { [name: string]: Plugin<S> } | string | number): { [key: string]: any };
+  toJSON(pluginFields?: { [name: string]: Plugin<any, S> } | string | number): { [key: string]: any };
   /**
    * Create a new state.
    */
@@ -480,7 +480,7 @@ export class EditorState<S extends Schema = any> {
     doc?: ProsemirrorNode<S> | null;
     selection?: Selection<S> | null;
     storedMarks?: Mark[] | null;
-    plugins?: Array<Plugin<S>> | null;
+    plugins?: Array<Plugin<any, S>> | null;
   }): EditorState<S>;
   /**
    * Deserialize a JSON representation of a state. `config` should
@@ -490,9 +490,9 @@ export class EditorState<S extends Schema = any> {
    * instances with the property names they use in the JSON object.
    */
   static fromJSON<S extends Schema = any>(
-    config: { schema: S; plugins?: Array<Plugin<S>> | null },
+    config: { schema: S; plugins?: Array<Plugin<any, S>> | null },
     json: { [key: string]: any },
-    pluginFields?: { [name: string]: Plugin<S> }
+    pluginFields?: { [name: string]: Plugin<any, S> }
   ): EditorState<S>;
 }
 /**
@@ -589,11 +589,11 @@ export class Transaction<S extends Schema = any> extends Transform<S> {
    * Store a metadata property in this transaction, keyed either by
    * name or by plugin.
    */
-  setMeta(key: string | Plugin | PluginKey, value: any): Transaction;
+  setMeta(key: string | Plugin<any, S> | PluginKey<any, S>, value: any): Transaction;
   /**
    * Retrieve a metadata property for a given name or plugin.
    */
-  getMeta(key: string | Plugin | PluginKey): any;
+  getMeta(key: string | Plugin<any, S> | PluginKey<any, S>): any;
   /**
    * Returns true if this transaction doesn't contain any metadata,
    * and can thus safely be extended.

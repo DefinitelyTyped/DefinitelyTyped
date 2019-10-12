@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -478,6 +478,7 @@ declare namespace google {
             showColorCode?: boolean;
             textStyle?: ChartTextStyle;
             trigger?: string;
+            ignoreBounds?: boolean;
         }
 
         export interface ChartBoundingBox {
@@ -596,6 +597,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
             focusTarget?: string;
             fontSize?: number;
             fontName?: string;
@@ -1165,6 +1167,130 @@ declare namespace google {
         }
 
         //#endregion
+        //#region Dashboard
+
+        // https://developers.google.com/chart/interactive/docs/gallery/controls#dashboard
+        export class Dashboard {
+            constructor(containerRef: HTMLElement);
+            bind(controls: ControlWrapper | ControlWrapper[], charts: ChartWrapper | ChartWrapper[]): google.visualization.Dashboard;
+            draw(dataTable: DataTable): void;
+            getSelection(): Object[];
+        }
+
+        //#endregion
+        //#region ControlWrapper
+        
+        // https://developers.google.com/chart/interactive/docs/gallery/controls#controlwrapperobject
+        export class ControlWrapper {
+            constructor(opt_spec?: ControlWrapperOptions)
+            draw(): void;
+            toJSON(): string;
+            clone(): ControlWrapper;
+            getControlType(): string;
+            getControlName(): string;
+            getControl(): ControlWrapper;
+            getContainerId(): string;
+            getOption(key: string, opt_default_val?: any): any;
+            getOptions(): Object;
+            getState(): Object;
+            setControlType(type: string): void;
+            setControlName(name: string): void;
+            setContainerId(id: number): void;
+            setOption(key: string, value: string): void;
+            setOptions(options_obj: Object): void;
+            setState(state_obj: Object): void;
+        }
+
+        export interface ControlWrapperOptions {        
+            controlType: string;
+            containerId: string;
+            options?: Object;
+            state?: Object;
+        }
+
+        //#endregion
+        //#region calendar
+
+        // https://developers.google.com/chart/interactive/docs/gallery/calendar
+        export class Calendar extends ChartBase {
+            draw(data: DataTable | DataView, options?: CalendarOptions): void;
+            getBoundingBox(id: string): Object;
+            getSelection(): any[];
+            setSelection(): void;
+            clearChart(): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
+        export interface CalendarOptions {
+            calendar: {
+                cellColor: Object;
+                cellSize: number;
+                dayOfWeekLabel: Object;
+                dayOfWeekRightSpace: number;
+                daysOfWeek: string;
+                focusedCellColor: Object;
+                monthLabel: Object;
+                monthOutlineColor: Object;
+                underMonthSpace: number;
+                underYearSpace: number;
+                unusedMonthOutlineColor: Object;
+            };
+            colorAxis?: {
+                colors: string[];
+                maxValue: number;
+                minValue: number;
+                values: number[];
+            };
+            forceIFrame?: boolean;
+            height?: number;
+            noDataPattern?: Object;
+            tooltip: {
+                isHtml: boolean;
+            };
+            width?: number;
+        }
+
+        //#endregion
+        //#region Map
+
+        // https://developers.google.com/chart/interactive/docs/gallery/map
+        export class Map extends CoreChartBase {
+            draw(data: DataTable | DataView, options?: MapOptions): void;
+            getAction(actionID: string): void;
+            getImageURI(): string;
+            getSelection(): any[];
+            getHAxisValue(position: number, axisIndex?: number): number;
+            getVAxisValue(position: number, axisIndex?: number): number;
+            getXLocation(position: number, axisIndex?: number): number;
+            getYLocation(position: number, axisIndex?: number): number;
+            removeAction(actionID: number): void;
+            setAction(action: number): void;
+            setSelection(): void;
+            clearChart(): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/map#Configuration_Options
+        export interface MapOptions {
+            enableScrollWheel?: boolean;
+            icons?: Object;
+            lineColor?: string;
+            lineWidth?: number;
+            maps: {
+                mapTypeId: {
+                    name?: string;
+                    styles?: any[];
+                }
+            };
+            mapType?: string;
+            mapTypeIds?: any[];
+            showInfoWindow?: boolean;
+            showLine?: boolean;
+            showTooltip?: boolean;
+            useMapTypeControl?: boolean;
+            zoomLevel?: number;
+        }
+
+        //#endregion         
         //#region Events
 
         namespace events {

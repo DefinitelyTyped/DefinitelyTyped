@@ -12,17 +12,18 @@ export type ColumnProps
     order?: string | number
   };
 
-export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
-  tag?: React.ReactType;
-  xs?: ColumnProps;
-  sm?: ColumnProps;
-  md?: ColumnProps;
-  lg?: ColumnProps;
-  xl?: ColumnProps;
+export interface ColProps extends React.HTMLProps<HTMLDivElement> {
+    [key: string]: any;
+    tag?: string | React.ReactType;
+    xs?: ColumnProps;
+    sm?: ColumnProps;
+    md?: ColumnProps;
+    lg?: ColumnProps;
+    xl?: ColumnProps;
 
-  // custom widths
-  widths?: string[];
-} & T;
+    // custom widths
+    widths?: string[];
+}
 
-declare class Col<T = {[key: string]: any}> extends React.Component<ColProps<T>> {}
+declare class Col<T = {[key: string]: any}> extends React.Component<ColProps> {}
 export default Col;

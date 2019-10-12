@@ -1,14 +1,15 @@
-// Type definitions for kos-core 0.3
+// Type definitions for kos-core 0.6
 // Project: https://github.com/ali-Kos/Kos
 // Definitions by: alibaba ali-Kos <https://github.com/ali-Kos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 import * as React from 'react';
 
 type ReactComponent<P = any, S = any> = React.ComponentClass<P, S>;
 
 interface Util {
     getActionType: (action: string) => { namespace: string | null; type: string };
+    getParam: () => any;
 }
 
 interface WrapperConfig {
@@ -20,12 +21,12 @@ interface WrapperConfig {
 
 interface Action<T = any> {
     type: string;
-    payload?: Partial<T>;
+    payload?: Partial<T> & { [x: string]: any };
 }
 
 export interface KosProps<T = any> {
     dispatch?: (action: Action<T>) => void;
-    getParam?: () => string;
+    getParam?: () => any;
     getNamespace?: () => string;
 }
 
@@ -40,9 +41,9 @@ export interface KosModel<T = any> {
         [key: string]: (state: T, { payload }: { payload: T }) => void;
     };
     asyncs: {
-        [key: string]: (dispatch: KosDispatch, getState?: GetKosState<T>) => void;
+        [key: string]: (dispatch?: KosDispatch, getState?: GetKosState<T>, action?: { payload: T }) => void;
     };
-    setup?: (dispatch: KosDispatch, getState: GetKosState<T>) => void;
+    setup?: (dispatch: KosDispatch, getState: GetKosState<T>, action: { payload: { param: any } }) => void;
     getAsync?: (
         key: string
     ) => (dispatch: KosDispatch, getState?: GetKosState) => void;

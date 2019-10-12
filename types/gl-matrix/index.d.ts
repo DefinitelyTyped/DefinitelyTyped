@@ -2663,6 +2663,17 @@ declare module 'gl-matrix' {
         public static lookAt(out: mat4, eye: vec3 | number[], center: vec3 | number[], up: vec3 | number[]): mat4;
 
         /**
+         * Generates a matrix that makes something look at something else.
+         *
+         * @param out mat4 frustum matrix will be written into
+         * @param eye Position of the viewer
+         * @param target Point the viewer is looking at
+         * @param up vec3 pointing up
+         * @returns out
+         */
+        public static targetTo(out: mat4, eye: vec3 | number[], target: vec3 | number[], up: vec3 | number[]): mat4;
+
+        /**
          * Returns a string representation of a mat4
          *
          * @param mat matrix to represent as a string

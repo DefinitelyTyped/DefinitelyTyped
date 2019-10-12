@@ -240,8 +240,9 @@ declare namespace angular {
          * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
          * @param directiveFactory An injectable directive factory function.
          */
-        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): IModule;
-        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): IModule;
+        directive<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope, TElement, TAttributes, TController>>): IModule;
+        directive<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope, TElement, TAttributes, TController>>}): IModule;
+
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
          *
@@ -1198,6 +1199,15 @@ declare namespace angular {
          */
         then<TResult1 = T, TResult2 = never>(
             successCallback?:
+                | ((value: T) => PromiseLike<never> | PromiseLike<TResult1> | TResult1)
+                | null,
+            errorCallback?:
+                | ((reason: any) => PromiseLike<never> | PromiseLike<TResult2> | TResult2)
+                | null,
+            notifyCallback?: (state: any) => any
+        ): IPromise<TResult1 | TResult2>;
+        then<TResult1 = T, TResult2 = never>(
+            successCallback?:
                 | ((value: T) => IPromise<never> | IPromise<TResult1> | TResult1)
                 | null,
             errorCallback?:
@@ -1209,6 +1219,11 @@ declare namespace angular {
         /**
          * Shorthand for promise.then(null, errorCallback)
          */
+        catch<TResult = never>(
+            onRejected?:
+                | ((reason: any) => PromiseLike<never> | PromiseLike<TResult> | TResult)
+                | null
+        ): IPromise<T | TResult>;
         catch<TResult = never>(
             onRejected?:
                 | ((reason: any) => IPromise<never> | IPromise<TResult> | TResult)
@@ -1346,8 +1361,8 @@ declare namespace angular {
     }
 
     interface ICompileProvider extends IServiceProvider {
-        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): ICompileProvider;
-        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
+        directive<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope, TElement, TAttributes, TController>>): ICompileProvider;
+        directive<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope, TElement, TAttributes, TController>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
         component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
@@ -2066,29 +2081,31 @@ declare namespace angular {
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
-    interface IDirectiveFactory<TScope extends IScope = IScope> {
-        (...args: any[]): IDirective<TScope> | IDirectiveLinkFn<TScope>;
+    type IDirectiveController = IController | IController[] | {[key: string]: IController};
+
+    interface IDirectiveFactory<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        (...args: any[]): IDirective<TScope, TElement, TAttributes, TController> | IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirectiveLinkFn<TScope extends IScope = IScope> {
+    interface IDirectiveLinkFn<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
         (
             scope: TScope,
-            instanceElement: JQLite,
-            instanceAttributes: IAttributes,
-            controller?: IController | IController[] | {[key: string]: IController},
+            instanceElement: TElement,
+            instanceAttributes: TAttributes,
+            controller?: TController,
             transclude?: ITranscludeFunction
         ): void;
     }
 
-    interface IDirectivePrePost<TScope extends IScope = IScope> {
-        pre?: IDirectiveLinkFn<TScope>;
-        post?: IDirectiveLinkFn<TScope>;
+    interface IDirectivePrePost<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        pre?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
+        post?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirectiveCompileFn<TScope extends IScope = IScope> {
+    interface IDirectiveCompileFn<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
         (
-            templateElement: JQLite,
-            templateAttributes: IAttributes,
+            templateElement: TElement,
+            templateAttributes: TAttributes,
             /**
              * @deprecated
              * Note: The transclude function that is passed to the compile function is deprecated,
@@ -2096,11 +2113,11 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): void | IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
+        ): void | IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirective<TScope extends IScope = IScope> {
-        compile?: IDirectiveCompileFn<TScope>;
+    interface IDirective<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        compile?: IDirectiveCompileFn<TScope, TElement, TAttributes, TController>;
         controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
@@ -2109,7 +2126,7 @@ declare namespace angular {
          * relies upon bindings inside a $onInit method on the controller, instead.
          */
         bindToController?: boolean | {[boundProperty: string]: string};
-        link?: IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
+        link?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController>;
         multiElement?: boolean;
         priority?: number;
         /**
@@ -2119,9 +2136,9 @@ declare namespace angular {
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
+        template?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
+        templateUrl?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
         terminal?: boolean;
         transclude?: boolean | 'element' | {[slot: string]: string};
     }

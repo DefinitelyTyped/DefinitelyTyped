@@ -592,6 +592,7 @@ interface BaseJQueryEventObject extends Event {
     pageY: number;
     /**
      * For key or mouse events, this property indicates the specific key or button that was pressed.
+     * @deprecated Use `key` for KeyEvents or `button` for MouseEvents instead.
      * @see {@link https://api.jquery.com/event.which/}
      */
     which: number;
@@ -600,6 +601,14 @@ interface BaseJQueryEventObject extends Event {
      * @see {@link https://api.jquery.com/event.metaKey/}
      */
     metaKey: boolean;
+}
+
+interface JQueryCustomEventObject extends BaseJQueryEventObject {
+    /**
+     * @see {@link https://api.jquery.com/category/events/event-object/}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent}
+     */
+    detail?: any;
 }
 
 interface JQueryInputEventObject extends BaseJQueryEventObject {
@@ -622,13 +631,16 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
 }
 
 interface JQueryKeyEventObject extends JQueryInputEventObject {
-    char: any;
+    /** @deprecated */
+    char: string;
+    /** @deprecated */
     charCode: number;
-    key: any;
+    key: string;
+    /** @deprecated */
     keyCode: number;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject{
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryCustomEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
 }
 
 /**
@@ -3506,24 +3518,11 @@ interface JQuery {
     /**
      * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
      *
-     * @param selector A string containing a selector expression to match elements against.
+     * @param selector_element A string containing a selector expression, an element or a jQuery object to match elements against.
      * @see {@link https://api.jquery.com/find/#find-selector}
-     */
-    find(selector: string): JQuery;
-    /**
-     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
-     *
-     * @param element An element to match elements against.
      * @see {@link https://api.jquery.com/find/#find-element}
      */
-    find(element: Element): JQuery;
-    /**
-     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
-     *
-     * @param obj A jQuery object to match elements against.
-     * @see {@link https://api.jquery.com/find/#find-element}
-     */
-    find(obj: JQuery): JQuery;
+    find(selector_element: string | Element | JQuery): JQuery;
 
     /**
      * Reduce the set of matched elements to the first in the set.

@@ -17,6 +17,10 @@ which("cat", {all: true}, (err, paths) => {
   }
 });
 
+var promise: Promise<string> = which("cat");
+var promise1: Promise<string> = which("cat", { all: false });
+var promise2: Promise<string[]> = which("cat", { all: true });
+
 var paths = which.sync("cat", {all: true});
 for(let path of paths) {
   console.log(path);

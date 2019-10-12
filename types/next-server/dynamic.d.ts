@@ -7,16 +7,14 @@ import {
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-type AsyncComponent<P = any> = Promise<React.ComponentType<P>>;
+type AsyncComponent<P = any> = Promise<React.ComponentType<P> | { default: React.ComponentType<P> }>;
 type AsyncComponentLoader<P = any> = () => AsyncComponent<P>;
-type ModuleMapping = Record<string, AsyncComponent>;
-type LoadedModuleMapping = Record<string, React.ComponentType>;
 
-interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "modules"> {
-    modules?: () => ModuleMapping; // overridden
+type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
+
+// Base dynamic loader options (essential Loadable config required by `next/dynamic`)
+interface NextDynamicOptionsBase extends Omit<LoadableOptions, "loading" | "modules"> {
     loading?: LoadableOptions["loading"]; // optional
-    loader?: AsyncComponentLoader<P>; // optional, overriden
-    render?: (props: P, loaded: LoadedModuleMapping) => React.ReactNode; // optional, overriden
     ssr?: boolean;
     loadableGenerated?: {
         webpack?: any;
@@ -24,19 +22,42 @@ interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "
     };
 }
 
-type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
+// Dynamic loader options with `loader` key.
+interface NextDynamicLoaderOptions<P extends {}> extends NextDynamicOptionsBase {
+    loader?: AsyncComponentLoader<P>;
+}
+
+// Dynamic loader options for mapped modules.
+interface NextModuleMapOptions<P extends {}, E extends { [key: string]: any }> extends NextDynamicOptionsBase {
+    modules: () => {
+        [P in keyof E]: AsyncComponentLoader<E[P]>
+    };
+    render: (props: P, loaded: {
+        [P in keyof E]: DynamicComponent<E[P]>
+    }) => React.ReactNode;
+}
 
 /**
  * Overloaded dynamic function.
- * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
+ * https://github.com/zeit/next.js/blob/v8.0.4/packages/next-server/lib/dynamic.js#L24
  */
-declare function dynamic<P = {}>(
-    options: AsyncComponent<P> | NextDynamicOptions<P>
+// tslint:disable:no-unnecessary-generics
+declare function dynamic<
+    P extends {},
+    E extends { [key: string]: any }
+>(options: NextModuleMapOptions<P, E>): DynamicComponent<P>;
+declare function dynamic<P extends {}>(
+    options: NextDynamicLoaderOptions<P>
 ): DynamicComponent<P>;
-declare function dynamic<P = {}>(
-    asyncModule: AsyncComponent<P>,
-    options: NextDynamicOptions<P>
+declare function dynamic<P extends {}>(
+    asyncModule: AsyncComponentLoader<P> | AsyncComponent<P>,
+    options: NextDynamicOptionsBase
 ): DynamicComponent<P>;
+declare function dynamic<P extends {}>(
+    asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
+    options?: any
+): DynamicComponent<P>;
+// tslint:enable:no-unnecessary-generics
 
 export type LoadingComponentProps = LoadableLoadingComponentProps;
 export default dynamic;

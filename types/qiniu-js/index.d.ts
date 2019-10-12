@@ -1,6 +1,7 @@
-// Type definitions for qiniu-js 2.4
+// Type definitions for qiniu-js 2.5
 // Project: https://github.com/qiniu/js-sdk#readme
 // Definitions by: taoqf <https://github.com/taoqf>
+//                 qiqizjl <https://github.com/qiqizjl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -100,7 +101,9 @@ export interface CompletedResult {
 
 export interface Observer {
 	next(res: Next): void;
+
 	error(err: Error | string): void;
+
 	complete(res: CompletedResult): void;
 }
 
@@ -110,6 +113,7 @@ export interface Subscription {
 
 export interface Observable {
 	subscribe(options: Observer): Subscription;
+
 	/**
 	 * 订阅
 	 *
@@ -128,8 +132,14 @@ export interface Extra {
 }
 
 export interface Config {
-	useCdnDomain: boolean;
-	region: Region | string;
+	useCdnDomain: boolean; // 是否使用CDN域名 默认false
+	region: Region | string; // 区域
+	uphost: string; // 上传 host，类型为 string， 如果设定该参数则优先使用该参数作为上传地址
+	disableStatisticsReport: boolean; // 是否不允许上报日志 默认false
+	retryCount: number; // 上传自动重试次 默认3
+	concurrentRequestLimit: number; // 分片上传的并发请求量 默认3
+	checkByMD5: boolean; // 是否开启 MD5 校验，为布尔值；在断点续传时，开启 MD5 校验会将已上传的分片与当前分片进行 MD5 值比对，若不一致，则重传该分片，避免使用错误的分片。读取分片内容并计算 MD5 需要花费一定的时间，因此会稍微增加断点续传时的耗时，默认为 false，不开启。
+	forceDirect: boolean; // 是否上传全部采用直传方式，为布尔值；为 true 时则上传方式全部为直传 form 方式，禁用断点续传，默认 false。
 }
 
 /**
@@ -322,6 +332,7 @@ export function imageInfo(key: string, domain: string): Promise<ImageInfo>;
 export interface ExtendedInfo {
 	code: number;
 	error: string;
+
 	[key: string]: {
 		type: number;
 		val: string;
@@ -335,6 +346,7 @@ export interface ExtentInfoValue {
 
 export interface ExtentInfo {
 	[key: string]: ExtentInfoValue;
+
 	DateTime: ExtentInfoValue;
 	ExposureBiasValue: ExtentInfoValue;
 	ExposureTime: ExtentInfoValue;

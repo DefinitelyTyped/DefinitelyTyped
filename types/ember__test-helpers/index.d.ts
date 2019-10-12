@@ -22,6 +22,7 @@ declare module '@ember/test-helpers' {
     export { default as triggerEvent } from '@ember/test-helpers/dom/trigger-event';
     export { default as triggerKeyEvent } from '@ember/test-helpers/dom/trigger-key-event';
     export { default as fillIn } from '@ember/test-helpers/dom/fill-in';
+    export { default as typeIn } from '@ember/test-helpers/dom/type-in';
 
     // DOM Query Helpers
 
@@ -115,6 +116,12 @@ declare module '@ember/test-helpers/dom/fill-in' {
     import { Target } from '@ember/test-helpers';
 
     export default function(target: Target, text: string): Promise<void>;
+}
+
+declare module '@ember/test-helpers/dom/type-in' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, text: string, options?: {delay: number}): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/find' {

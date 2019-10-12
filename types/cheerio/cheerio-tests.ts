@@ -24,6 +24,8 @@ if ($fromElement("ul > li").length !== 3) {
   throw new Error("Expecting 3 elements when passing `CheerioElement` to `load()`");
 }
 
+$ = cheerio.load(Buffer.from(html));
+
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
     xmlMode: true
@@ -53,6 +55,9 @@ var $multiEl = $('selector', 'selector', 'selector');
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+$el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+$el.attr('id', el => el.tagName).html();
+$el.attr({ id: 'uniq', class: 'big' }).html();
 
 // props
 $el.prop('style')

@@ -7,4 +7,8 @@ new Critters({
     preloadFonts: true,
     keyframes: 'critical',
     noscriptFallback: true,
+    inlineThreshold: 0,
+    mergeStylesheets: true,
+    pruneSource: true,
+    minimumExternalSize: 0,
 });

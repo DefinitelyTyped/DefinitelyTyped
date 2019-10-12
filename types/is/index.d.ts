@@ -1,7 +1,9 @@
 // Type definitions for is.js
 // Project: http://arasatasaygin.github.io/is.js/
-// Definitions by: Rodrigo Cabral <https://github.com/cabralRodrigo>
+// Definitions by: Rodrigo Cabral <https://github.com/cabralRodrigo>, Mitchell Grice <https://github.com/gricey432>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+type EnvironmentVersionRange = number | string;
 
 interface IsStatic {
 
@@ -367,29 +369,45 @@ interface IsStatic {
 
     /**
      * Checks if current browser is ie
-     * @parm value Optional version number of browser
+     * @parm value Optional version range of browser
      */
-    ie(value?: number): boolean;
+    ie(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is chrome.
+     * @parm value Optional version range of browser
      */
-    chrome(): boolean;
+    chrome(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is firefox.
+     * @parm value Optional version range of browser
      */
-    firefox(): boolean;
+    firefox(range?: EnvironmentVersionRange): boolean;
+
+    /**
+     * Checks if current browser is edge.
+     * @parm value Optional version range of browser
+     */
+    edge(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is opera.
+     * @parm value Optional version range of browser
      */
-    opera(): boolean;
+    opera(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is safari.
+     * @parm value Optional version range of browser
      */
-    safari(): boolean;
+    safari(range?: EnvironmentVersionRange): boolean;
+
+    /**
+     * Checks if current browser is phantom.
+     * @parm value Optional version range of browser
+     */
+    phantom(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device has ios.
@@ -398,18 +416,21 @@ interface IsStatic {
 
     /**
      * Checks if current device is iPhone.
+     * @parm value Optional version range of device
      */
-    iphone(): boolean;
+    iphone(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPad.
+     * @parm value Optional version range of device
      */
-    ipad(): boolean;
+    ipad(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPod.
+     * @parm value Optional version range of device
      */
-    ipod(): boolean;
+    ipod(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device has Android.
@@ -480,6 +501,11 @@ interface IsStatic {
      * Checks if current device is offline.
      */
     offline(): boolean;
+
+    /**
+     * Checks if current device supports touch.
+     */
+    touchDevice(): boolean;
 
     //#endregion
 

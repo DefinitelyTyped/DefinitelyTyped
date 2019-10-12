@@ -1,5 +1,5 @@
-// Type definitions for Sinon 5.0
-// Project: http://sinonjs.org/
+// Type definitions for Sinon 7.5
+// Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
@@ -7,6 +7,10 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
+//                 John Wood <https://github.com/johnjesse>
+//                 Alec Flett <https://github.com/alecf>
+//                 Simon Schick <https://github.com/SimonSchick>
+//                 Roey Berman <https://github.com/bergundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -349,7 +353,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T>(obj: T, method: keyof T): SinonSpy;
+        <T>(obj: T, method: keyof T, types?: string[]): SinonSpy;
     }
 
     interface SinonStub extends SinonSpy {
@@ -725,16 +729,25 @@ declare namespace Sinon {
 
     interface SinonFakeTimers {
         now: number;
+        loopLimit: number;
 
         setTimeout(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
         clearTimeout(id: SinonTimerId): void;
+
         setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
         clearInterval(id: SinonTimerId): void;
+
         setImmediate(callback: (...args: any[]) => void, ...args: any[]): SinonTimerId;
         clearImmediate(id: SinonTimerId): void;
-        requestAnimationFrame(callback: (...args: any[]) => void): number;
-        cancelAnimationFrame(id: number): void;
-        nextTick(callback: () => void): void;
+
+        requestAnimationFrame(callback: (time: number) => void): SinonTimerId;
+        cancelAnimationFrame(id: SinonTimerId): void;
+
+        nextTick(callback: (...args: any[]) => void, ...args: any[]): void;
+        queueMicrotask(callback: () => void): void;
+
+        requestIdleCallback(func: (...args: any[]) => void, timeout?: number, ...args: any[]): SinonTimerId;
+        cancelIdleCallback(timerId: SinonTimerId): void;
 
         /**
          * Tick the clock ahead time milliseconds.
@@ -744,20 +757,20 @@ declare namespace Sinon {
          * time may be negative, which causes the clock to change but won’t fire any callbacks.
          * @param ms
          */
-        tick(ms: number | string): void;
+        tick(ms: number | string): number;
         /**
          * Advances the clock to the the moment of the first scheduled timer, firing it.
          */
-        next(): void;
+        next(): number;
         /**
          * This runs all pending timers until there are none remaining. If new timers are added while it is executing they will be run as well.
          * This makes it easier to run asynchronous tests to completion without worrying about the number of timers they use, or the delays in those timers.
          */
-        runAll(): void;
-        runToLast(): void;
+        runAll(): number;
+        runToLast(): number;
         reset(): void;
         runMicrotasks(): void;
-        runToFrame(): void;
+        runToFrame(): number;
 
         Date(): Date;
         Date(year: number): Date;
@@ -787,6 +800,8 @@ declare namespace Sinon {
          * @param now The new 'now' as a JavaScript Date
          */
         setSystemTime(date: Date): void;
+
+        countTimers(): number;
     }
 
     interface SinonFakeTimersConfig {
@@ -1357,6 +1372,10 @@ declare namespace Sinon {
          */
         symbol: SinonMatcher;
         /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
+        /**
          * Requires the value to strictly equal ref.
          */
         same(obj: any): SinonMatcher;
@@ -1611,10 +1630,14 @@ declare namespace Sinon {
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
-        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+        createStubInstance<TType>(
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?: any }
+        ): SinonStubbedInstance<TType>;
     }
 
     interface SinonApi {

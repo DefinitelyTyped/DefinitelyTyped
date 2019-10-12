@@ -1,7 +1,8 @@
-// Type definitions for react-dnd-multi-backend 3.0
-// Project: https://github.com/LouisBrunner/react-dnd-multi-backend
+// Type definitions for react-dnd-multi-backend 4.0
+// Project: https://github.com/LouisBrunner/react-dnd-multi-backend, https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 Adam Haglund <https://github.com/beeequeue>
+//                 Rob Valentine <https://github.com/robcodemonkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -53,6 +54,10 @@ export interface BackendDeclaration {
      */
     backend: BackendFactory;
     /**
+     * Parameters to the backend
+     */
+    options?: object;
+    /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
      * available.
@@ -97,7 +102,10 @@ export interface PreviewProps {
  * This is frequently used with the Touch backend to provide a preview on mobile devices.
  */
 export class Preview extends PureComponent<PreviewProps> {}
-
+/**
+ * Pre-existing/default react-dnd-multi-backend transition available to use.
+ */
+ export const MouseTransition: Transition;
 /**
  * Pre-existing/default react-dnd-touch-backend transition available to use.
  * This transition has the setting for "enableMouseEvents" turned on.
@@ -109,8 +117,9 @@ export const TouchTransition: Transition;
 export const HTML5DragTransition: Transition;
 
 /**
- * Primary construction function for react-dnd-multi-backend.
- * @param backends The list of backends in descending order of preference to use for drag and drop.
- * @returns A backend definition compatible with react-dnd.
+ * Primary BackendFactory for react-dnd-multi-backend.
+ * You must pass an object containing `backends[]` as options
+ * @returns A backend factory compatible with react-dnd.
  */
-export default function(backends: Backends): BackendFactory;
+export const MultiBackend: BackendFactory;
+export default MultiBackend;

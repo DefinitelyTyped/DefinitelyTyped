@@ -27,8 +27,25 @@ class Test2 extends React.Component {
                 useCapture
                 useWindow={false}
             >
-                <div>Test 1</div>
+                <div>Test 2</div>
             </InfiniteScroll>
+        );
+    }
+}
+
+class Test3 extends React.Component {
+    inputRef = React.createRef<HTMLDivElement>();
+
+    render() {
+        return (
+            <div ref={this.inputRef}>
+                <InfiniteScroll
+                  loadMore={(page) => {}}
+                  getScrollParent={() => this.inputRef.current}
+                >
+                    <div>Test 3</div>
+                </InfiniteScroll>
+            </div>
         );
     }
 }

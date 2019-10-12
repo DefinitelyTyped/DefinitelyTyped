@@ -1,4 +1,4 @@
-import RewritingStream from 'parse5-html-rewriting-stream';
+import RewritingStream = require('parse5-html-rewriting-stream');
 
 const rewritingStream = new RewritingStream();
 rewritingStream.on('startTag', (startTag, rawHtml) => {
