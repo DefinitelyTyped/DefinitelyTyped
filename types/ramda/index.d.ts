@@ -129,7 +129,6 @@
 /// <reference path="./es/invert.d.ts" />
 /// <reference path="./es/invertObj.d.ts" />
 /// <reference path="./es/invoker.d.ts" />
-/// <reference path="./es/isArrayLike.d.ts" />
 /// <reference path="./es/is.d.ts" />
 /// <reference path="./es/isEmpty.d.ts" />
 /// <reference path="./es/isNil.d.ts" />
@@ -384,7 +383,6 @@
 /// <reference path="./src/invert.d.ts" />
 /// <reference path="./src/invertObj.d.ts" />
 /// <reference path="./src/invoker.d.ts" />
-/// <reference path="./src/isArrayLike.d.ts" />
 /// <reference path="./src/is.d.ts" />
 /// <reference path="./src/isEmpty.d.ts" />
 /// <reference path="./src/isNil.d.ts" />
@@ -1628,11 +1626,6 @@ declare namespace R {
          */
         is(ctor: any, val: any): boolean;
         is(ctor: any): (val: any) => boolean;
-
-        /**
-         * Tests whether or not an object is similar to an array.
-         */
-        isArrayLike(val: any): boolean;
 
         /**
          * Reports whether the list has zero elements.
