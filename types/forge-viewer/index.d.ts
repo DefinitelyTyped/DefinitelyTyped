@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.2
+// Type definitions for non-npm package Forge Viewer 7.4
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -561,6 +561,7 @@ declare namespace Autodesk {
             getScreenViewport(): ClientRect;
             setScreenViewport(viewport: ClientRect): void;
             setView(position: THREE.Vector3, target: THREE.Vector3): void;
+            setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
         }
