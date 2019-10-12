@@ -1,4 +1,4 @@
-import { Chart, ChartData, Point } from "chart.js";
+import { Chart, ChartData, Point, ChartOptions } from "chart.js";
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -150,4 +150,32 @@ Chart.Tooltip.positioners.custom = (elements: any[], eventPosition: Point) => {
         x: eventPosition.x,
         y: eventPosition.y + 10
     };
+};
+
+const lineChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+        xAxes: [{
+            id: 'x-axis-0',
+            position: 'bottom'
+        }],
+        yAxes: [
+            {
+                id: 'y-axis-0',
+                display: 'auto' as any,
+                position: 'left'
+            },
+            {
+                id: 'y-axis-1',
+                display: 'auto' as any,
+                position: 'right',
+                gridLines: {
+                    color: 'rgba(255,0,0,0.3)',
+                },
+                ticks: {
+                    fontColor: 'red',
+                }
+            }
+        ]
+    }
 };
