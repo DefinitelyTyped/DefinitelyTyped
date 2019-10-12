@@ -22,5 +22,5 @@ function testByRole() {
 
 function testA11yHelper() {
     const element = document.createElement('svg');
-    console.assert(isInaccessible(element) === false);
+    console.assert(!isInaccessible(element));
 }
