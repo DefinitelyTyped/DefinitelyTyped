@@ -15,6 +15,7 @@
 //                  Thibault MOCELLIN <https://github.com/tybi>
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
+//                  Bui Tan Loc <https://github.com/buitanloc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -582,7 +583,7 @@ declare namespace Parse {
         skip(n: number): Query<T>;
         sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
-        subscribe(): LiveQuerySubscription;
+        subscribe(): Promise<LiveQuerySubscription>;
         withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
