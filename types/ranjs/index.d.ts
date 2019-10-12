@@ -567,3 +567,4 @@ declare namespace ts {
 }
 
 export { core, dist, la, mc, test, ts };
+export as namespace ranjs;
