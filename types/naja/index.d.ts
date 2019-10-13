@@ -94,7 +94,7 @@ interface NajaEventsMap {
     abort: NajaEventListener<AbortEvent>;
 }
 
-interface NajaEvents {
+interface NajaEventTarget {
     addEventListener<K extends keyof NajaEventsMap>(type: K, listener: NajaEventsMap[K]): void;
     addEventListener(type: 'before', listener: NajaEventListener<BeforeEvent>): void;
     addEventListener(type: 'success', listener: NajaEventListener<SuccessEvent>): void;
@@ -107,7 +107,7 @@ declare class NajaExtension {
     constructor(naja: Naja, ...optionalArguments: any);
 }
 
-export interface Naja extends NajaEvents {
+export interface Naja extends NajaEventTarget {
     readonly formsHandler: FormsHandler;
     readonly historyHandler: HistoryHandler;
     readonly snippetHandler: SnippetHandler;
