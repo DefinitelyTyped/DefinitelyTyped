@@ -102,6 +102,7 @@ interface NajaEvents {
     addEventListener(type: 'complete', listener: NajaEventListener<CompleteEvent>): void;
 }
 
+// tslint:disable-next-line no-unnecessary-class
 declare class NajaExtension {
     constructor(naja: Naja, ...optionalArguments: any);
 }

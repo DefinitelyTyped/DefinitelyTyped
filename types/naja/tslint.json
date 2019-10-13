@@ -1,8 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-class": [
-            "allow-constructor-only"
-        ]
-    }
-}
+{ "extends": "dtslint/dt.json" }
