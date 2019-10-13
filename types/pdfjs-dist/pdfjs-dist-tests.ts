@@ -1,4 +1,4 @@
-import { getDocument, PDFDocumentProxy, PDFPromise, Util } from 'pdfjs-dist';
+import { getDocument, PDFDocumentProxy, Util } from 'pdfjs-dist';
 
 //
 // Fetch the PDF document from the URL using promises
@@ -57,6 +57,6 @@ function goNext() {
 //
 // Test PDFPromise allows return value mutation
 //
-var promise: PDFPromise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
+var promise: Promise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
 	return "arbitrary string";
 });
