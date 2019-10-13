@@ -1,0 +1,14 @@
+{
+  "name": "@types/pdfjs-dist-2-2-228",
+  "version": "2.2.228",
+  "description": "Typescript bindings for the latest PDFJS listed from typescript branch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "find  -name *Test.js | xargs mocha --timeout 20000 --exit ",
+    "compile": "echo nothing to compile"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "types": "pdf"
+}
