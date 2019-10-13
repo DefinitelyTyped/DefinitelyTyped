@@ -18,6 +18,20 @@ type RequestData = null | string | number | [] | object | ArrayBuffer | Blob | F
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
+export interface RequestOptions extends Record<string, any> {
+    abort?: boolean;
+    async?: boolean;
+    dataType?: string;
+    history?: boolean | 'replace';
+    historyUiCache?: boolean;
+    responseType?: string;
+    unique?: boolean;
+}
+
+export interface NajaOptions extends RequestOptions, Record<string, any> {
+    selector?: string;
+}
+
 export interface SnippetUpdateEvent extends Event {
     readonly content: string;
     readonly snippet: HTMLElement;
@@ -45,13 +59,13 @@ interface UIHandler {
 }
 
 export interface InitEvent extends Event {
-    readonly defaultOptions: object;
+    readonly defaultOptions: NajaOptions;
 }
 
 export interface InteractionEvent extends Event {
     readonly element: HTMLElement;
     readonly originalEvent: SnippetUpdateEvent | null | undefined;
-    readonly options: object;
+    readonly options: RequestOptions;
 }
 
 export interface BeforeEvent<T extends RequestData = RequestData> extends Event {
@@ -59,7 +73,7 @@ export interface BeforeEvent<T extends RequestData = RequestData> extends Event 
     readonly method: RequestMethod;
     readonly url: string;
     readonly data: T;
-    readonly options: object;
+    readonly options: NajaOptions;
 }
 
 export interface StartEvent extends Event {
@@ -74,21 +88,21 @@ export interface AbortEvent extends Event {
 export interface SuccessEvent<T extends object = any> extends Event {
     readonly xhr: XMLHttpRequest;
     readonly response: T;
-    readonly options: object;
+    readonly options: NajaOptions;
 }
 
 export interface ErrorEvent<T extends object = any> extends Event {
     readonly error: Error;
     readonly xhr: XMLHttpRequest;
     readonly response: T | null | undefined;
-    readonly options: object;
+    readonly options: NajaOptions;
 }
 
 export interface CompleteEvent<T extends object = any> extends Event {
     readonly error: Error | null | undefined;
     readonly xhr: XMLHttpRequest;
     readonly response: T | null | undefined;
-    readonly options: object;
+    readonly options: NajaOptions;
 }
 
 export type NajaEventListener<T extends Event = Event> = (event: T) => void;
@@ -122,8 +136,8 @@ export interface Naja extends NajaEventTarget {
     readonly snippetHandler: SnippetHandler;
     readonly uiHandler: UIHandler;
     fireEvent(name: string, args: any): void;
-    initialize(defaultOptions: object): void;
-    makeRequest(method: RequestMethod, url: string, data: RequestData, options?: object): Promise<any>;
+    initialize(defaultOptions: NajaOptions): void;
+    makeRequest(method: RequestMethod, url: string, data: RequestData, options?: RequestOptions): Promise<any>;
     registerExtension(extension: typeof NajaExtension, ...optionalArguments: any): void;
 }
 

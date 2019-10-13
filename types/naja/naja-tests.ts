@@ -12,7 +12,7 @@ class TestExtension {
     private readonly optionalArg: string;
 
     private async makeRequest(): Promise<void> {
-        return this.naja.makeRequest('GET', 'some-url', null);
+        return this.naja.makeRequest('GET', 'some-url', null, { abort: false });
     }
 }
 
@@ -53,6 +53,6 @@ naja.removeEventListener('start', genericListener);
 naja.snippetHandler.removeEventListener('beforeUpdate', null);
 
 document.addEventListener('DOMContentLoaded', () => {
-    naja.initialize({ history: false, selector: '[data-ajax]' });
+    naja.initialize({ history: false, selector: '[data-ajax]', customOption: 1 });
     naja.fireEvent('customEvent', {});
 });
