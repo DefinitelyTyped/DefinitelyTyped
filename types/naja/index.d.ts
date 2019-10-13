@@ -94,7 +94,7 @@ interface NajaEventsMap {
     abort: NajaEventListener<AbortEvent>;
 }
 
-interface NajaEventTarget {
+interface NajaEventTarget extends EventTarget {
     addEventListener<K extends keyof NajaEventsMap>(type: K, listener: NajaEventsMap[K]): void;
     addEventListener(type: 'before', listener: NajaEventListener<BeforeEvent>): void;
     addEventListener(type: 'success', listener: NajaEventListener<SuccessEvent>): void;
