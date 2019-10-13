@@ -1,4 +1,4 @@
-import * as CertManager from 'node-easy-cert';
+import CertManager = require('node-easy-cert');
 
 const options = {
     rootDirPath: '/the/full/path/of/the/dir',
