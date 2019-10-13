@@ -90,16 +90,17 @@ interface NajaEventsMap {
     init: NajaEventListener<InitEvent>;
     load: NajaEventListener;
     interaction: NajaEventListener<InteractionEvent>;
+    before: NajaEventListener<BeforeEvent>;
     start: NajaEventListener<StartEvent>;
     abort: NajaEventListener<AbortEvent>;
+    success: NajaEventListener<SuccessEvent>;
+    error: NajaEventListener<ErrorEvent>;
+    complete: NajaEventListener<CompleteEvent>;
 }
 
 interface NajaEventTarget extends EventTarget {
     addEventListener<K extends keyof NajaEventsMap>(type: K, listener: NajaEventsMap[K]): void;
-    addEventListener(type: 'before', listener: NajaEventListener<BeforeEvent>): void;
-    addEventListener(type: 'success', listener: NajaEventListener<SuccessEvent>): void;
-    addEventListener(type: 'error', listener: NajaEventListener<ErrorEvent>): void;
-    addEventListener(type: 'complete', listener: NajaEventListener<CompleteEvent>): void;
+    addEventListener(type: string, listener: NajaEventListener): void;
 }
 
 // tslint:disable-next-line no-unnecessary-class
