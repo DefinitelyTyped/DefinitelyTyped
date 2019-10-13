@@ -49,4 +49,10 @@ naja.addEventListener('success', successListener);
 naja.addEventListener('error', event => console.error(event.error));
 naja.addEventListener('complete', completeListener);
 
-document.addEventListener('DOMContentLoaded', () => naja.initialize({ history: false, selector: '[data-ajax]' }));
+naja.removeEventListener('start', genericListener);
+naja.snippetHandler.removeEventListener('beforeUpdate', null);
+
+document.addEventListener('DOMContentLoaded', () => {
+    naja.initialize({ history: false, selector: '[data-ajax]' });
+    naja.fireEvent('customEvent', {});
+});

@@ -25,8 +25,15 @@ export interface SnippetUpdateEvent extends Event {
 
 export type SnippetUpdateListener = (event: SnippetUpdateEvent) => void;
 
-interface SnippetHandler {
-    addEventListener(type: 'afterUpdate' | 'beforeUpdate', listener: SnippetUpdateListener): void;
+interface SnippetListeners {
+    afterUpdate: SnippetUpdateListener;
+    beforeUpdate: SnippetUpdateListener;
+}
+
+interface SnippetHandler extends EventTarget {
+    addEventListener<K extends keyof SnippetListeners>(type: K, listener: SnippetListeners[K]): void;
+    addEventListener(type: string, listener: SnippetUpdateListener): void;
+    removeEventListener(type: string, listener: SnippetUpdateListener | object | null): void;
 }
 
 interface UIHandler {
@@ -101,6 +108,7 @@ interface NajaEventsMap {
 interface NajaEventTarget extends EventTarget {
     addEventListener<K extends keyof NajaEventsMap>(type: K, listener: NajaEventsMap[K]): void;
     addEventListener(type: string, listener: NajaEventListener): void;
+    removeEventListener(type: string, listener: NajaEventListener | object | null): void;
 }
 
 // tslint:disable-next-line no-unnecessary-class
@@ -113,6 +121,7 @@ export interface Naja extends NajaEventTarget {
     readonly historyHandler: HistoryHandler;
     readonly snippetHandler: SnippetHandler;
     readonly uiHandler: UIHandler;
+    fireEvent(name: string, args: any): void;
     initialize(defaultOptions: object): void;
     makeRequest(method: RequestMethod, url: string, data: RequestData, options?: object): Promise<any>;
     registerExtension(extension: typeof NajaExtension, ...optionalArguments: any): void;
