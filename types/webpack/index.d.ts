@@ -711,7 +711,7 @@ declare namespace webpack {
         trace(message?: any, ...optionalParams: any[]): void;
         group(...label: any[]): void;
         groupEnd(): void;
-        groupCollapsed(...label: any): void;
+        groupCollapsed(...label: any[]): void;
         status(message?: any, ...optionalParams: any[]): void;
         clear(): void;
         profile(label?: string): void;
@@ -739,7 +739,6 @@ declare namespace webpack {
         }
     }
 
-    
     namespace compilation {
         class Asset {
         }
