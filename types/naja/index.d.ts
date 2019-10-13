@@ -59,13 +59,13 @@ interface UIHandler {
 }
 
 export interface InitEvent extends Event {
-    readonly defaultOptions: NajaOptions;
+    readonly defaultOptions: Readonly<NajaOptions>;
 }
 
 export interface InteractionEvent extends Event {
     readonly element: HTMLElement;
     readonly originalEvent: SnippetUpdateEvent | null | undefined;
-    readonly options: RequestOptions;
+    readonly options: Readonly<RequestOptions>;
 }
 
 export interface BeforeEvent<T extends RequestData = RequestData> extends Event {
@@ -73,7 +73,7 @@ export interface BeforeEvent<T extends RequestData = RequestData> extends Event 
     readonly method: RequestMethod;
     readonly url: string;
     readonly data: T;
-    readonly options: NajaOptions;
+    readonly options: Readonly<NajaOptions>;
 }
 
 export interface StartEvent extends Event {
@@ -88,21 +88,21 @@ export interface AbortEvent extends Event {
 export interface SuccessEvent<T extends object = any> extends Event {
     readonly xhr: XMLHttpRequest;
     readonly response: T;
-    readonly options: NajaOptions;
+    readonly options: Readonly<NajaOptions>;
 }
 
 export interface ErrorEvent<T extends object = any> extends Event {
     readonly error: Error;
     readonly xhr: XMLHttpRequest;
     readonly response: T | null | undefined;
-    readonly options: NajaOptions;
+    readonly options: Readonly<NajaOptions>;
 }
 
 export interface CompleteEvent<T extends object = any> extends Event {
     readonly error: Error | null | undefined;
     readonly xhr: XMLHttpRequest;
     readonly response: T | null | undefined;
-    readonly options: NajaOptions;
+    readonly options: Readonly<NajaOptions>;
 }
 
 export type NajaEventListener<T extends Event = Event> = (event: T) => void;
