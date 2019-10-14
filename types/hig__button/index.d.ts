@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+// Turn off automatic exporting
+export {};
+
 import * as React from 'react';
 
 type Callback = () => void;
