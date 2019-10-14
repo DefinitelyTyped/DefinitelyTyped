@@ -679,11 +679,38 @@ declare module "fs" {
      */
     function unlinkSync(path: PathLike): void;
 
+    export interface RemoveDirectoryOptions {
+        /**
+         * If an EMFILE error is encountered, Node.js will retry the operation with a linear backoff of 1ms longer on
+         * each try until the timeout duration passes this limit. This option is ignored if the recursive option is not
+         * true. Default: 1000.
+         */
+        emfileWait?: number;
+        /**
+         * If an EBUSY, ENOTEMPTY, or EPERM error is encountered, Node.js will retry the operation with a linear backoff
+         * wait of 100ms longer on each try. This option represents the number of retries. This option is ignored if the
+         * recursive option is not true. Default: 3.
+         */
+        maxBusyTries?: number;
+        /**
+         * If true, perform a recursive directory removal. In recursive mode, errors are not reported if path does not
+         * exist, and operations are retried on failure. Default: false.
+         */
+        recursive?: boolean;
+    }
+
     /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+
+    /**
+     * Asynchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options An object optionally specifying the retry behavior and whether to recursively delete subdirectories.
+     */
+    function rmdir(path: PathLike, options: RemoveDirectoryOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -691,14 +718,15 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<void>;
+        function __promisify__(path: PathLike, options?: RemoveDirectoryOptions): Promise<void>;
     }
 
     /**
      * Synchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options An object optionally specifying the retry behavior and whether to recursively delete subdirectories.
      */
-    function rmdirSync(path: PathLike): void;
+    function rmdirSync(path: PathLike, options?: RemoveDirectoryOptions): void;
 
     export interface MakeDirectoryOptions {
         /**
@@ -2029,8 +2057,9 @@ declare module "fs" {
         /**
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options An object optionally specifying the retry behavior and whether to recursively delete subdirectories.
          */
-        function rmdir(path: PathLike): Promise<void>;
+        function rmdir(path: PathLike, options?: RemoveDirectoryOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
