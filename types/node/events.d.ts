@@ -5,12 +5,13 @@ declare module "events" {
         once(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    interface DomEventTarget {
-        addEventListener(event: string, listener: (...args: any[]) => void, opts: { once: boolean }): any;
+    interface DOMEventTarget {
+        addEventListener(event: string, listener: (...args: any[]) => void, opts?: { once: boolean }): any;
     }
 
     namespace internal {
-        function once(emitter: NodeEventTarget | DomEventTarget, event: string | symbol): Promise<any[]>;
+        function once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
+        function once(emitter: DOMEventTarget, event: string): Promise<any[]>;
          class EventEmitter extends internal {
             /** @deprecated since v4.0.0 */
             static listenerCount(emitter: EventEmitter, event: string | symbol): number;
