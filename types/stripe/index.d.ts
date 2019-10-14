@@ -41,121 +41,116 @@
 import { Agent } from 'http';
 
 interface RequestEvent {
-  api_version: string;
-  account?: string;
-  idempotency_key?: string;
-  method: string;
-  path: string;
-  request_start_time: number;
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    request_start_time: number;
 }
 
 interface ResponseEvent {
-  api_version: string;
-  account?: string;
-  idempotency_key?: string;
-  method: string;
-  path: string;
-  status: number;
-  request_id: string;
-  elapsed: number;
-  request_start_time: number;
-  request_end_time: number;
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    status: number;
+    request_id: string;
+    elapsed: number;
+    request_start_time: number;
+    request_end_time: number;
 }
 
 declare class Stripe {
-  DEFAULT_HOST: string;
-  DEFAULT_PORT: string;
-  DEFAULT_BASE_PATH: string;
-  DEFAULT_API_VERSION: string;
-  DEFAULT_TIMEOUT: number;
-  PACKAGE_VERSION: string;
-  USER_AGENT: {
-    bindings_version: string;
-    lang: string;
-    lang_version: string;
-    platform: string;
-    publisher: string;
-    uname: string;
-  };
-  USER_AGENT_SERIALIZED: string;
+    DEFAULT_HOST: string;
+    DEFAULT_PORT: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_API_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: {
+        bindings_version: string;
+        lang: string;
+        lang_version: string;
+        platform: string;
+        publisher: string;
+        uname: string;
+    };
+    USER_AGENT_SERIALIZED: string;
 
-  resources: typeof Stripe.resources;
-  StripeResource: typeof Stripe.StripeResource;
+    resources: typeof Stripe.resources;
+    StripeResource: typeof Stripe.StripeResource;
 
-  constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, version?: string);
 
-  accounts: Stripe.resources.Accounts;
-  balance: Stripe.resources.Balance;
-  balanceTransactions: Stripe.resources.BalanceTransaction;
-  charges: Stripe.resources.Charges;
-  checkout: Stripe.resources.Checkout;
-  coupons: Stripe.resources.Coupons;
-  creditNotes: Stripe.resources.CreditNotes;
-  customers: Stripe.resources.Customers;
-  disputes: Stripe.resources.Disputes;
-  events: Stripe.resources.Events;
-  invoices: Stripe.resources.Invoices;
-  invoiceItems: Stripe.resources.InvoiceItems;
-  paymentIntents: Stripe.resources.PaymentIntents;
-  paymentMethods: Stripe.resources.PaymentMethods;
-  payouts: Stripe.resources.Payouts;
-  plans: Stripe.resources.Plans;
-  /**
-   * @deprecated
-   */
-  recipientCards: Stripe.resources.RecipientCards;
-  /**
-   * @deprecated
-   */
-  recipients: Stripe.resources.Recipients;
-  subscriptions: Stripe.resources.Subscriptions;
-  subscriptionItems: Stripe.resources.SubscriptionItems;
-  tokens: Stripe.resources.Tokens;
-  transfers: Stripe.resources.Transfers;
-  applicationFees: Stripe.resources.ApplicationFees;
-  fileUploads: Stripe.resources.FileUploads;
-  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-  refunds: Stripe.resources.Refunds;
-  countrySpecs: Stripe.resources.CountrySpecs;
-  orders: Stripe.resources.Orders;
-  products: Stripe.resources.Products;
-  setupIntents: Stripe.resources.SetupIntents;
-  skus: Stripe.resources.SKUs;
-  webhooks: Stripe.resources.WebHooks;
-  ephemeralKeys: Stripe.resources.EphemeralKeys;
-  usageRecords: Stripe.resources.UsageRecords;
-  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-  sources: Stripe.resources.Sources;
+    accounts: Stripe.resources.Accounts;
+    balance: Stripe.resources.Balance;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
+    charges: Stripe.resources.Charges;
+    checkout: Stripe.resources.Checkout;
+    coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
+    customers: Stripe.resources.Customers;
+    disputes: Stripe.resources.Disputes;
+    events: Stripe.resources.Events;
+    invoices: Stripe.resources.Invoices;
+    invoiceItems: Stripe.resources.InvoiceItems;
+    paymentIntents: Stripe.resources.PaymentIntents;
+    paymentMethods: Stripe.resources.PaymentMethods;
+    payouts: Stripe.resources.Payouts;
+    plans: Stripe.resources.Plans;
+    /**
+     * @deprecated
+     */
+    recipientCards: Stripe.resources.RecipientCards;
+    /**
+     * @deprecated
+     */
+    recipients: Stripe.resources.Recipients;
+    subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
+    tokens: Stripe.resources.Tokens;
+    transfers: Stripe.resources.Transfers;
+    applicationFees: Stripe.resources.ApplicationFees;
+    fileUploads: Stripe.resources.FileUploads;
+    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+    refunds: Stripe.resources.Refunds;
+    countrySpecs: Stripe.resources.CountrySpecs;
+    orders: Stripe.resources.Orders;
+    products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
+    skus: Stripe.resources.SKUs;
+    webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
+    usageRecords: Stripe.resources.UsageRecords;
+    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+    sources: Stripe.resources.Sources;
 
-  setHost(host: string): void;
-  setHost(host: string, port: string | number): void;
-  setHost(host: string, port: string | number, protocol: string): void;
+    setHost(host: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
-  setProtocol(protocol: string): void;
-  setPort(port: string | number): void;
-  setApiVersion(version?: string): void;
-  setApiKey(key?: string): void;
-  setAppInfo(info?: {
-    partner_id?: string;
-    name: string;
-    url?: string;
-    version?: string;
-  }): void;
-  setTimeout(timeout?: number): void;
-  setMaxNetworkRetries(maxNetworkRetries: number): void;
-  setTelemetryEnabled(enabled: boolean): void;
-  setHttpAgent(agent: Agent): void;
-  getConstant(c: string): any;
-  getMaxNetworkRetries(): number;
-  getTelemetryEnabled(): boolean;
-  getClientUserAgent(response: (userAgent: string) => void): void;
+    setProtocol(protocol: string): void;
+    setPort(port: string | number): void;
+    setApiVersion(version?: string): void;
+    setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
+    setTimeout(timeout?: number): void;
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
+    setHttpAgent(agent: Agent): void;
+    getConstant(c: string): any;
+    getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
+    getClientUserAgent(response: (userAgent: string) => void): void;
 
-  on(event: 'request', handler: (event: RequestEvent) => void): void;
-  on(event: 'response', handler: (event: ResponseEvent) => void): void;
-  once(event: 'request', handler: (event: RequestEvent) => void): void;
-  once(event: 'response', handler: (event: ResponseEvent) => void): void;
-  off(event: 'request', handler: (event: RequestEvent) => void): void;
-  off(event: 'response', handler: (event: ResponseEvent) => void): void;
+    on(event: 'request', handler: (event: RequestEvent) => void): void;
+    on(event: 'response', handler: (event: ResponseEvent) => void): void;
+    once(event: 'request', handler: (event: RequestEvent) => void): void;
+    once(event: 'response', handler: (event: ResponseEvent) => void): void;
+    off(event: 'request', handler: (event: RequestEvent) => void): void;
+    off(event: 'response', handler: (event: ResponseEvent) => void): void;
 }
 
 export = Stripe;
@@ -301,6 +296,13 @@ declare namespace Stripe {
                  * "legal_entity.first_name").
                  */
                 fields_needed: string[];
+
+                /**
+                 * The set of capabilities you want to unlock for this account (US only).
+                 * Each capability will be inactive until you have provided its specific requirements and Stripe has verified them.
+                 * An account may have some of its requested capabilities be active and some be inactive.
+                 */
+                requested_capabilities?: string[];
             };
         }
 
@@ -1015,6 +1017,31 @@ declare namespace Stripe {
                      */
                     front?: string;
                 };
+
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details?: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code?:
+                    | 'document_address_mismatch'
+                    | ' document_dob_mismatch'
+                    | ' document_duplicate_type'
+                    | ' document_id_number_mismatch'
+                    | ' document_name_mismatch'
+                    | ' failed_keyed_identity'
+                    | 'failed_other';
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status?: 'unverified' | 'pending' | 'verified';
             };
         }
 
@@ -1154,8 +1181,7 @@ declare namespace Stripe {
             metadata: IMetadata;
         }
 
-        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {
-        }
+        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {}
 
         interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -1827,8 +1853,7 @@ declare namespace Stripe {
             seller_message: string;
         }
 
-        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {
-        }
+        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {}
 
         type IPaymentMethodDetails =
             | IAchCreditTransferPaymentMethodDetails
@@ -2696,8 +2721,7 @@ declare namespace Stripe {
             tax_info_verification?: any;
         }
 
-        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {
-        }
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -5205,7 +5229,11 @@ declare namespace Stripe {
             transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
-        type PaymentIntentUserProvidedCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'abandoned';
+        type PaymentIntentUserProvidedCancellationReason =
+            | 'duplicate'
+            | 'fraudulent'
+            | 'requested_by_customer'
+            | 'abandoned';
         type PaymentIntentStripeProvidedCancellationReason = 'failed_invoice' | 'void_invoice' | 'automatic';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
@@ -5250,7 +5278,10 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancellation_reason: PaymentIntentUserProvidedCancellationReason | PaymentIntentStripeProvidedCancellationReason | null;
+            cancellation_reason:
+                | PaymentIntentUserProvidedCancellationReason
+                | PaymentIntentStripeProvidedCancellationReason
+                | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -6296,14 +6327,14 @@ declare namespace Stripe {
              */
             card?:
                 | {
-                exp_month: number;
-                exp_year: number;
-                number: string;
-                cvc?: string;
-            }
+                      exp_month: number;
+                      exp_year: number;
+                      number: string;
+                      cvc?: string;
+                  }
                 | {
-                token: string;
-            };
+                      token: string;
+                  };
 
             /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: IMetadata;
@@ -6879,13 +6910,11 @@ declare namespace Stripe {
         type ProductType = 'service' | 'good';
     }
 
-    namespace recipientCards {
-    }
+    namespace recipientCards {}
 
     namespace recipients {
         // tslint:disable-next-line:no-empty-interface
-        interface IRecipient extends IResourceObject {
-        }
+        interface IRecipient extends IResourceObject {}
     }
 
     namespace skus {
@@ -7109,8 +7138,7 @@ declare namespace Stripe {
     }
 
     namespace tokens {
-        interface IToken extends ICardToken, IBankAccountToken {
-        }
+        interface IToken extends ICardToken, IBankAccountToken {}
 
         interface ICardToken extends ITokenBase {
             /**
@@ -7306,8 +7334,7 @@ declare namespace Stripe {
             type: 'card' | 'bank_account' | 'stripe_account';
         }
 
-        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {
-        }
+        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {}
 
         interface ITransferCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -13522,26 +13549,26 @@ declare namespace Stripe {
     type IDateFilter =
         | string
         | {
-        /**
-         * Return values where the created field is after this timestamp.
-         */
-        gt?: string;
+              /**
+               * Return values where the created field is after this timestamp.
+               */
+              gt?: string;
 
-        /**
-         * Return values where the created field is after or equal to this timestamp.
-         */
-        gte?: string;
+              /**
+               * Return values where the created field is after or equal to this timestamp.
+               */
+              gte?: string;
 
-        /**
-         * Return values where the created field is before this timestamp.
-         */
-        lt?: string;
+              /**
+               * Return values where the created field is before this timestamp.
+               */
+              lt?: string;
 
-        /**
-         * Return values where the created field is before or equal to this timestamp.
-         */
-        lte?: string;
-    };
+              /**
+               * Return values where the created field is before or equal to this timestamp.
+               */
+              lte?: string;
+          };
 
     /**
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
@@ -13822,8 +13849,7 @@ declare namespace Stripe {
             readonly message: string;
         }
 
-        namespace _Error {
-        }
+        namespace _Error {}
 
         type RawType = 'card_error' | 'invalid_request_error' | 'api_error' | 'idempotency_error';
 
