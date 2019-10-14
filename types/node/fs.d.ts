@@ -684,6 +684,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function rmdir(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -692,6 +693,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
         function __promisify__(path: PathLike): Promise<void>;
+        function __promisify__(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }): Promise<void>;
     }
 
     /**
@@ -699,6 +701,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdirSync(path: PathLike): void;
+    function rmdirSync(path: PathLike, options: { recursive?: boolean; }): void;
 
     export interface MakeDirectoryOptions {
         /**
@@ -2031,6 +2034,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
         function rmdir(path: PathLike): Promise<void>;
+        function rmdir(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
