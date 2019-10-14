@@ -67,8 +67,8 @@ interface WeakSetConstructor { }
 interface Set<T> {}
 interface Map<K, V> {}
 interface ReadonlySet<T> {}
-interface IteratorResult<T> { }
 interface Iterable<T> { }
+interface IteratorResult<T> { }
 interface AsyncIterable<T> { }
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
@@ -91,10 +91,6 @@ interface PromiseSettlement<T> {
     status: 'rejected' | 'fulfilled';
     reason?: any;
     value?: T;
-}
-
-interface PromiseConstructor {
-    allSettled<R>(iterable: Iterable<R | PromiseLike<R>>): Promise<Array<PromiseSettlement<R>>>;
 }
 
 declare module "util" {
