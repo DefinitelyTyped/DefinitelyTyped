@@ -1405,14 +1405,14 @@ declare namespace webpack {
                 childrenByOrder: Record<string, number[]>;
                 entry: boolean;
                 files: string[];
-                filteredModules?: boolean;
-                hash: string | undefined;
+                filteredModules?: number;
+                hash?: string;
                 id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
                 origins?: Array<{
-                    moduleId: string | number | undefined;
+                    moduleId?: string | number;
                     module: string;
                     moduleIdentifier: string;
                     moduleName: string;
@@ -1421,8 +1421,6 @@ declare namespace webpack {
                     reasons: string[];
                 }>;
                 parents: number[];
-                reason: string | undefined;
-                recorded: undefined;
                 rendered: boolean;
                 size: number;
                 siblings: number[];
