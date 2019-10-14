@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.32
+// Type definitions for stripe 7.10
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -13900,9 +13900,16 @@ declare namespace Stripe {
             };
             readonly requestId: string;
             readonly detail?: any;
-            readonly: number;
             readonly params?: string;
             readonly type: string;
+            readonly statusCode?: number;
+
+            readonly charge?: string;
+            readonly decline_code?: string;
+            readonly payment_intent?: paymentIntents.IPaymentIntent;
+            readonly payment_method?: paymentMethods.IPaymentMethod;
+            readonly setup_intent?: setupIntents.ISetupIntent;
+            readonly source?: sources.ISource;
         }
         class StripeCardError extends StripeError {
             readonly type: 'StripeCardError';
