@@ -1,8 +1,14 @@
-// Type definitions for is-windows 0.2
+// Type definitions for is-windows 1.0
 // Project: https://github.com/jonschlinkert/is-windows
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Returns `true` if the platform is windows.
+ */
 declare function isWindows(): boolean;
-declare namespace isWindows {}
 export = isWindows;
+
+// Export UMD namespace
+export as namespace isWindows;
