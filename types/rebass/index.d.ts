@@ -6,6 +6,7 @@
 //                 sara f-p <https://github.com/gretzky>
 //                 angusfretwell <https://github.com/angusfretwell>
 //                 orzarchi <https://github.com/orzarchi>
+//                 ilaiwi <https://github.com/ilaiwi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -31,7 +32,7 @@ export interface BaseProps extends React.RefAttributes<any> {
  * such that properties that are part of the `Theme` will be transformed to
  * their corresponding values. Other valid CSS properties are also allowed.
  */
-export type SxStyleProp = SystemStyleObject &
+export type SxStyleProp = SystemStyleObject |
     Record<
         string,
         | SystemStyleObject
