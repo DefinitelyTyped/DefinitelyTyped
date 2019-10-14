@@ -1421,6 +1421,7 @@ declare namespace webpack {
                     reasons: string[];
                 }>;
                 parents: number[];
+                reason?: string;
                 rendered: boolean;
                 size: number;
                 siblings: number[];
