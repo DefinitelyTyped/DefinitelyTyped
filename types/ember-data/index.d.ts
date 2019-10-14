@@ -1482,6 +1482,10 @@ export namespace DS {
          * Determines the pathname for a given type.
          */
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
+
+        private parseErrorResponse(responseTest: string): any;
+
+        private normalizeErrorResponse(status: number, headers: any, payload: any): any[];
     }
     /**
      * ## Using Embedded Records
