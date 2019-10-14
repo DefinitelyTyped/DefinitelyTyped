@@ -193,6 +193,31 @@ const s = StyleSheet.create({
 });
 const f1: TextStyle = s.shouldWork;
 
+// StyleSheet.compose
+// It create a new style object by composing two existing styles
+const composeTextStyle1: StyleProp<TextStyle> = {
+    color: '#000000',
+    fontSize: 20,
+};
+
+const composeTextStyle2: StyleProp<TextStyle> = {
+    fontSize: 12,
+};
+
+const composeImageStyle: StyleProp<ImageStyle> = {
+    resizeMode: 'contain',
+};
+
+// It should only possible to combine styles from the same type,
+// so the following code is invalid:
+// const noCombinedStyle2 = StyleSheet.compose(composeImageStyle, composeTextStyle2);
+
+// Composing two styles from the same type is fine
+const combinedStyle2 = StyleSheet.compose(
+    composeTextStyle1,
+    composeTextStyle2,
+);
+
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
     e.preventDefault();
