@@ -22,3 +22,23 @@ import * as R from 'ramda';
   }, testObject);
   console.log(errorMessages);
 };
+
+() => {
+    interface Student {
+        name: string;
+        teacherName: string;
+    }
+
+    const s: Student = {
+        name: 'sn',
+        teacherName: 'tn',
+    };
+
+    const ns: Student = R.mapObjIndexed((value, key) => value, s);
+
+    const ns1: Student = R.mapObjIndexed<Student, string>((value, key) => value)(s);
+
+    const ns2: {
+        [index: string]: any;
+    } = R.mapObjIndexed((value, key) => value)(s);
+};

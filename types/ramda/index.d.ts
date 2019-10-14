@@ -1773,18 +1773,19 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mapObjIndexed<T, TResult>(
-            fn: (value: T, key: string, obj?: {
-                [key: string]: T
-            }) => TResult,
-            obj: {
-                [key: string]: T
-            }
+        mapObjIndexed<T extends object, V>(
+            fn: (value: T[keyof T], key: keyof T, obj: T) => V,
+            obj: T,
         ): {
-            [key: string]: TResult
+            [K in keyof T]: V;
         };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
+        mapObjIndexed<T extends object = any , V = any>(
+            fn: (value: T[keyof T], key: keyof T, obj: T) => V,
+        ): (
+            obj: T,
+        ) => {
+            [K in keyof T]: V;
+        };
 
         /**
          * Tests a regular expression agains a String
