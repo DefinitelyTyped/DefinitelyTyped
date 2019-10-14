@@ -87,12 +87,6 @@ interface SharedArrayBuffer {
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }
 
-interface PromiseSettlement<T> {
-    status: 'rejected' | 'fulfilled';
-    reason?: any;
-    value?: T;
-}
-
 declare module "util" {
     namespace inspect {
         const custom: symbol;
