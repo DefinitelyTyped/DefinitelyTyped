@@ -5038,6 +5038,7 @@ declare namespace chrome.privacy {
         instantEnabled: chrome.types.ChromeSetting;
         alternateErrorPagesEnabled: chrome.types.ChromeSetting;
         safeBrowsingEnabled: chrome.types.ChromeSetting;
+        /** @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. */
         autofillEnabled: chrome.types.ChromeSetting;
         translationServiceEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 38. */
@@ -5046,6 +5047,10 @@ declare namespace chrome.privacy {
         hotwordSearchEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 42. */
         safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillAddressEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillCreditCardEnabled: chrome.types.ChromeSetting;
     }
 
     export interface Network {
