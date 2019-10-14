@@ -99,8 +99,7 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHookT<T> = (event: T, editor: CoreEditor, next: () => any) => any;
-export type EventHook = EventHookT<Event>;
+export type EventHook<T = Event> = (event: T, editor: CoreEditor, next: () => any) => any;
 
 export interface Plugin extends CorePlugin {
     decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
@@ -119,25 +118,25 @@ export interface Plugin extends CorePlugin {
         next: () => any
     ) => any;
 
-    onBeforeInput?: EventHookT<React.FormEvent>;
-    onBlur?: EventHookT<React.FocusEvent>;
-    onClick?: EventHookT<React.MouseEvent>;
-    onCompositionEnd?: EventHookT<React.CompositionEvent>;
-    onCompositionStart?: EventHookT<React.CompositionEvent>;
-    onCopy?: EventHookT<React.ClipboardEvent>;
-    onCut?: EventHookT<React.ClipboardEvent>;
-    onDragEnd?: EventHookT<React.DragEvent>;
-    onDragEnter?: EventHookT<React.DragEvent>;
-    onDragExit?: EventHookT<React.DragEvent>;
-    onDragLeave?: EventHookT<React.DragEvent>;
-    onDragOver?: EventHookT<React.DragEvent>;
-    onDragStart?: EventHookT<React.DragEvent>;
-    onDrop?: EventHookT<React.DragEvent>;
-    onFocus?: EventHookT<React.FocusEvent>;
-    onInput?: EventHookT<React.FormEvent>;
-    onKeyDown?: EventHookT<React.KeyboardEvent>;
-    onPaste?: EventHookT<React.ClipboardEvent>;
-    onSelect?: EventHookT<React.SyntheticEvent>;
+    onBeforeInput?: EventHook<React.FormEvent>;
+    onBlur?: EventHook<React.FocusEvent>;
+    onClick?: EventHook<React.MouseEvent>;
+    onCompositionEnd?: EventHook<React.CompositionEvent>;
+    onCompositionStart?: EventHook<React.CompositionEvent>;
+    onCopy?: EventHook<React.ClipboardEvent>;
+    onCut?: EventHook<React.ClipboardEvent>;
+    onDragEnd?: EventHook<React.DragEvent>;
+    onDragEnter?: EventHook<React.DragEvent>;
+    onDragExit?: EventHook<React.DragEvent>;
+    onDragLeave?: EventHook<React.DragEvent>;
+    onDragOver?: EventHook<React.DragEvent>;
+    onDragStart?: EventHook<React.DragEvent>;
+    onDrop?: EventHook<React.DragEvent>;
+    onFocus?: EventHook<React.FocusEvent>;
+    onInput?: EventHook<React.FormEvent>;
+    onKeyDown?: EventHook<React.KeyboardEvent>;
+    onPaste?: EventHook<React.ClipboardEvent>;
+    onSelect?: EventHook<React.SyntheticEvent>;
 }
 
 export type PluginOrPlugins = Plugin | Plugins;
