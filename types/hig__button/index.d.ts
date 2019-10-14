@@ -1,4 +1,4 @@
-// Type definitions for hig__button 1.4.3
+// Type definitions for hig__button 1.4
 // Project: https://github.com/Autodesk/hig/tree/development/packages/button
 // Definitions by: Matthew Bryant <https://github.com/matthewbryant95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
