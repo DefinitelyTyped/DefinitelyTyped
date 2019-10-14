@@ -280,7 +280,6 @@
 /// <reference path="./es/where.d.ts" />
 /// <reference path="./es/whereEq.d.ts" />
 /// <reference path="./es/without.d.ts" />
-/// <reference path="./es/wrap.d.ts" />
 /// <reference path="./es/xprod.d.ts" />
 /// <reference path="./es/zip.d.ts" />
 /// <reference path="./es/zipObj.d.ts" />
@@ -535,7 +534,6 @@
 /// <reference path="./src/where.d.ts" />
 /// <reference path="./src/whereEq.d.ts" />
 /// <reference path="./src/without.d.ts" />
-/// <reference path="./src/wrap.d.ts" />
 /// <reference path="./src/xprod.d.ts" />
 /// <reference path="./src/zip.d.ts" />
 /// <reference path="./src/zipObj.d.ts" />
@@ -3116,12 +3114,6 @@ declare namespace R {
          */
         without<T>(list1: readonly T[], list2: readonly T[]): T[];
         without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        wrap(fn: (...a: readonly any[]) => any, wrapper: (...a: readonly any[]) => any): (...a: readonly any[]) => any;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.

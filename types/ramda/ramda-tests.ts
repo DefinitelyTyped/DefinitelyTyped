@@ -297,13 +297,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-})();
-
-(() => {
     const numbers = [1, 2, 3];
     R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
