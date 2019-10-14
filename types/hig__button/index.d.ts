@@ -2,6 +2,7 @@
 // Project: https://github.com/Autodesk/hig/tree/development/packages/button
 // Definitions by: Matthew Bryant <https://github.com/matthewbryant95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
