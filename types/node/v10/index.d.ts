@@ -19,7 +19,6 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Lishude <https://github.com/islishude>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 Matthieu Sieben <https://github.com/matthieusieben>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
@@ -35,6 +34,7 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
+//                 Minh Son Nguyen <https://github.com/nguymin4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.1.
@@ -83,5 +83,9 @@ declare module "util" {
     }
     namespace promisify {
         const custom: symbol;
+    }
+    namespace types {
+        function isBigInt64Array(value: any): boolean;
+        function isBigUint64Array(value: any): boolean;
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for bunyan-blackhole 0.2
+// Type definitions for bunyan-seq 0.2
 // Project: https://github.com/datalust/bunyan-seq, https://github.com/continuousit/bunyan-seq
 // Definitions by: Ray Booysen <https://github.com/raybooysen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

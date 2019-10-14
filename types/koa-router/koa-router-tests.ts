@@ -188,3 +188,10 @@ router4.post('/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.post('/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+
+
+const router5 = new Router();
+router5.register('/foo', ['GET'], middleware1, {
+    name: 'foo',
+});
+router5.register('/bar', ['GET', 'DELETE'], [middleware1, middleware2]);

@@ -1,7 +1,8 @@
-// Type definitions for react-window 1.5
+// Type definitions for react-window 1.8
 // Project: https://github.com/bvaughn/react-window/, http://react-window.now.sh
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
+//                 John Gozde <https://github.com/jgoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,9 +16,11 @@ import {
     ComponentClass
 } from "react";
 
-export type Direction = "vertical" | "horizontal";
+export type CSSDirection = "ltr" | "rtl";
+export type Direction = "vertical" | "horizontal"; // TODO: deprecate in favour of Layout
+export type Layout = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
-export type Align = "auto" | "center" | "end" | "start";
+export type Align = "auto" | "smart" | "center" | "end" | "start";
 
 export interface ListChildComponentProps {
     index: number;
@@ -135,14 +138,25 @@ export interface ListProps extends CommonProps {
      */
     width: number | string;
     /**
-     * Primary scroll direction of the list. Acceptable values are:
+     * Determines the direction of text and horizontal scrolling.
      *
-     * - vertical (default) - Up/down scrolling.
-     * - horizontal - Left/right scrolling.
+     * This property also automatically sets the CSS direction style for the list component.
      *
-     * Note that lists may scroll in both directions (depending on CSS) but content will only be windowed in the primary direction.
+     * Specifying "horizontal" or "vertical" for this value is deprecated. Use "layout" prop instead.
+     *
+     * @default "ltr"
      */
-    direction?: Direction;
+    direction?: CSSDirection | Direction;
+    /**
+     * Layout/orientation of the list.
+     *
+     * Acceptable values are:
+     * - "vertical" (default) - Up/down scrolling.
+     * - "horizontal" - Left/right scrolling.
+     *
+     * Note that lists may scroll in both directions (depending on CSS) but content will only be windowed in the layout direction specified.
+     */
+    layout?: Layout;
     /**
      * Scroll offset for initial render.
      *
@@ -214,6 +228,14 @@ export interface GridProps extends CommonProps {
      */
     columnCount: number;
     /**
+     * Determines the direction of text and horizontal scrolling.
+     *
+     * This property also automatically sets the CSS direction style for the grid component.
+     *
+     * @default "ltr"
+     */
+    direction?: CSSDirection;
+    /**
      * Height of the grid. This affects the number of rows that will be rendered (and displayed) at any given time.
      */
     height: number;
@@ -243,6 +265,10 @@ export interface GridProps extends CommonProps {
      */
     onScroll?: (props: GridOnScrollProps) => any;
     /**
+     * @deprecated since version 1.8.2, please use overscanColumnCount
+     */
+    overscanColumnsCount?: number;
+    /**
      * The number of columns to render outside of the visible area. This property can be important for two reasons:
      *
      * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
@@ -250,7 +276,11 @@ export interface GridProps extends CommonProps {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanColumnsCount?: number;
+    overscanColumnCount?: number;
+    /**
+     * @deprecated since version 1.8.2, please use overscanRowCount
+     */
+    overscanRowsCount?: number;
     /**
      * The number of rows to render outside of the visible area. This property can be important for two reasons:
      *
@@ -259,7 +289,7 @@ export interface GridProps extends CommonProps {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanRowsCount?: number;
+    overscanRowCount?: number;
     /**
      * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
      *
@@ -350,6 +380,10 @@ export class FixedSizeList extends Component<FixedSizeListProps> {
      * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the list.
      * - center - Center align the item within the list.
      * - end - Align the item to the end of the list (the bottom for vertical lists or the right for horizontal lists).
      * - start - Align the item to the beginning of the list (the top for vertical lists or the left for horizontal lists).
@@ -369,6 +403,10 @@ export class VariableSizeList extends Component<VariableSizeListProps> {
      * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the list.
      * - center - Center align the item within the list.
      * - end - Align the item to the end of the list (the bottom for vertical lists or the right for horizontal lists).
      * - start - Align the item to the beginning of the list (the top for vertical lists or the left for horizontal lists).
@@ -395,17 +433,23 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
      * Scroll to the specified item.
      *
      * By default, the Grid will scroll as little as possible to ensure the item is visible.
-     * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
+     * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the grid.
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
+     *
+     * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
         align?: Align;
-        columnIndex: number;
-        rowIndex: number;
+        columnIndex?: number;
+        rowIndex?: number;
     }): void;
 }
 
@@ -418,17 +462,23 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      * Scroll to the specified item.
      *
      * By default, the Grid will scroll as little as possible to ensure the item is visible.
-     * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
+     * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the grid.
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
+     *
+     * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
         align?: Align;
-        columnIndex: number;
-        rowIndex: number;
+        columnIndex?: number;
+        rowIndex?: number;
     }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each column index for performance purposes.

@@ -6,18 +6,17 @@
 //                 Mike Lazer-Walker <https://github.com/lazerwalker>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
 declare module 'chai-as-promised' {
-    function chaiAsPromised(chai: any, utils: any): void;
-
-    namespace chaiAsPromised {
-        function transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
-
-        function transformAsserterArgs(values: any[]): any;
+    interface ChaiAsPromised extends Chai.ChaiPlugin {
+        transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
+        transformAsserterArgs(values: any[]): any;
     }
 
+    const chaiAsPromised: ChaiAsPromised;
     export = chaiAsPromised;
 }
 
@@ -228,12 +227,8 @@ declare namespace Chai {
 
     interface PromisedThrow {
         (): PromisedAssertion;
-        (expected: string, message?: string): PromisedAssertion;
-        (expected: RegExp, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: RegExp, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: RegExp, message?: string): PromisedAssertion;
+        (expected: string | RegExp, message?: string): PromisedAssertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): PromisedAssertion;
     }
 
     interface PromisedRespondTo {

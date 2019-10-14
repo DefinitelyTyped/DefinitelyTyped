@@ -8,7 +8,8 @@ let diff: semver.ReleaseType | null;
 const op: semver.Operator = '';
 declare const arr: any[];
 declare const exp: RegExp;
-let strArr: string[] | null;
+let strArr: ReadonlyArray<string> | null;
+let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
 let versionsArr: Array<string | semver.SemVer>;
@@ -18,7 +19,10 @@ const v2 = '';
 const version = '';
 const versions: string[] = [];
 const loose = true;
-let sem: semver.SemVer | null;
+let sem: semver.SemVer | null = new semver.SemVer(str, {});
+
+sem = new semver.SemVer(str, {includePrerelease: false});
+sem = new semver.SemVer(str, {loose: true});
 
 sem = semver.parse(str);
 strn = semver.valid(str);
@@ -34,6 +38,7 @@ strn = semver.inc(str, "patch", loose);
 strn = semver.inc(str, "prepatch", loose);
 strn = semver.inc(str, "prerelease", loose);
 strn = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
@@ -58,12 +63,13 @@ diff = semver.diff(v1, v2, loose);
 // Ranges
 str = semver.validRange(str, loose);
 bool = semver.satisfies(version, str, loose);
-str = semver.maxSatisfying(versions, str, loose);
-str = semver.minSatisfying(versions, str, loose);
+strn = semver.maxSatisfying(versions, str, loose);
+strn = semver.minSatisfying(versions, str, loose);
 bool = semver.gtr(version, str, loose);
 bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
 bool = semver.intersects(str, str, loose);
+sem = semver.minVersion(str, loose);
 
 // Coercion
 sem = semver.coerce(str);
@@ -80,7 +86,8 @@ num = ver.minor;
 num = ver.patch;
 str = ver.version;
 strArr = ver.build;
-strArr = ver.prerelease;
+strNumArr = ver.prerelease;
+ver.prerelease = strNumArr;
 
 comparatorResult = ver.compare(ver);
 comparatorResult = ver.compareMain(ver);
@@ -99,7 +106,7 @@ str = comp.toString();
 
 ver = comp.semver;
 str = comp.operator;
-bool = comp.value;
+str = comp.value;
 comp.parse(str);
 bool = comp.test(ver);
 bool = comp.intersects(new semver.Comparator(str));
@@ -115,8 +122,8 @@ bool = range.test(ver);
 bool = range.intersects(new semver.Range(''));
 bool = range.intersects(new semver.Range(''), bool);
 
-let sets: semver.Comparator[][];
+let sets: ReadonlyArray<ReadonlyArray<semver.Comparator>>;
 sets = range.set;
 
-let lims: semver.Comparator[];
+let lims: ReadonlyArray<semver.Comparator>;
 lims = range.parseRange(str);

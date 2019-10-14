@@ -8,6 +8,8 @@ declare namespace pusher {
     interface PusherStatic {
         logToConsole: boolean;
         log: (msg: string) => void;
+        instances: Pusher[];
+        isReady: boolean;
         new (apiKey: string, config?: Config): Pusher;
     }
 
@@ -32,6 +34,11 @@ declare namespace pusher {
     interface Config {
         /**
          * Forces the connection to use encrypted transports.
+         */
+        forceTLS?: boolean;
+        /**
+         * Forces the connection to use encrypted transports.
+         * @deprecated
          */
         encrypted?: boolean;
 

@@ -254,8 +254,11 @@ declare namespace Sortable {
         onFilter?: (event: SortableEvent) => void;
         /**
          * Event when you move an item in the list or between lists
+         * return false; for cancel
+         * return -1; insert before target
+         * return 1; insert after target
          */
-        onMove?: (event: MoveEvent) => boolean;
+        onMove?: (event: MoveEvent, originalEvent: MouseEvent) => false | -1 | 1;
     }
 
     interface Utils {

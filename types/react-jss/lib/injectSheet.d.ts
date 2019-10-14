@@ -62,9 +62,9 @@ export type PropInjector<InjectedProps, AdditionalProps = {}> = <
 
 // Allow functions that take the properties of the component and return a CSS value
 export type DynamicCSSRule<Props> = {
-  [K in keyof CSS.Properties<number | string>]:
-  | CSS.Properties<number | string>[K]
-  | ((props: Props) => CSS.Properties<number | string>[K])
+  [K in keyof CSS.Properties<number | string | Array<number | string>>]:
+  | CSS.Properties<number | string | Array<number | string>>[K]
+  | ((props: Props) => CSS.Properties<number | string | Array<number | string>>[K])
 }[keyof CSS.Properties];
 
 export interface CSSProperties<Props> {

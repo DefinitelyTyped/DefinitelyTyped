@@ -328,7 +328,7 @@ export interface VastCreativeLinear extends VastCreative {
     skipDelay: number | null;
     videoClickThroughURLTemplate: string | null;
     videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTempaltes: string[];
+    videoCustomClickURLTemplates: string[];
 }
 
 export interface VastCreativeNonLinear extends VastCreative {

@@ -21,6 +21,7 @@ declare const marker: AMap.Marker;
 declare const layer: AMap.Layer;
 declare const tileLayer: AMap.TileLayer;
 declare const massMarksLayer: AMap.MassMarks;
+declare const labelMarker: AMap.LabelMarker;
 
 // declare const videoLayer: AMap.VideoLayer;
 // declare const buildings: AMap.Buildings;
@@ -60,6 +61,16 @@ testArrayBounds.getCenter();
 
 // $ExpectType Bounds
 const testBounds = new AMap.Bounds(lnglat, lnglat);
+// $ExpectType Bounds
+new AMap.Bounds();
+// $ExpectError
+new AMap.Bounds([0, 0, 0]);
+// $ExpectType Bounds
+new AMap.Bounds([0, 0, 0, 0]);
+// $ExpectType Bounds
+new AMap.Bounds(lnglatTuple, lnglatTuple);
+// $ExpectType Bounds
+new AMap.Bounds(0, 0, 0, 0);
 
 // $ExpectType boolean
 testBounds.contains(lnglat);
@@ -1284,6 +1295,159 @@ testImageLayer.setImageUrl('url');
 testImageLayer.getImageUrl();
 
 /**
+ * layer/labelsLayer.ts
+ */
+
+// $ExpectType LabelsLayer
+new AMap.LabelsLayer();
+// $ExpectType LabelsLayer
+new AMap.LabelsLayer({});
+// $ExpectType LabelsLayer
+const testLabelsLayer = new AMap.LabelsLayer({
+    visible: true,
+    zIndex: 1,
+    zooms: [1, 1],
+    opacity: 1
+});
+
+// $ExpectType void
+testLabelsLayer.add(labelMarker);
+// $ExpectType void
+testLabelsLayer.add([labelMarker]);
+
+// $ExpectType void
+testLabelsLayer.remove(labelMarker);
+
+// $ExpectType void
+testLabelsLayer.clear();
+
+// $ExpectType any
+testLabelsLayer.on('click', () => { });
+
+// $ExpectType any
+testLabelsLayer.off('click', () => { });
+
+// $ExpectType any
+testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
+    {
+        const { data, opts } = event.data;
+        // $ExpectType number
+        data.id;
+        // $ExpectType string
+        data.name;
+        // $ExpectType [number, number] | [string, string]
+        data.position;
+        // $ExpectType number | undefined
+        data.rank;
+        // $ExpectType string | undefined
+        data.txt;
+        // $ExpectType [number, number]
+        data.zooms;
+
+        // $ExpectType number
+        opts.opacity;
+        // $ExpectType number
+        opts.zIndex;
+
+        {
+            // $ExpectType TextOptions
+            const textOptions = opts.text;
+
+            // $ExpectType string | undefined
+            textOptions.content;
+            if (textOptions.direction !== undefined) {
+                // $ExpectType TextDirection
+                textOptions.direction;
+            } else {
+                // $ExpectType undefined
+                textOptions.direction;
+            }
+
+            if (textOptions.offset !== undefined) {
+                // $ExpectType [number, number] | Pixel
+                textOptions.offset;
+            } else {
+                // $ExpectType undefined
+                textOptions.offset;
+            }
+
+            // $ExpectType [number, number] | undefined
+            textOptions.zooms;
+
+            {
+                const textStyle = textOptions.style;
+                if (textStyle) {
+                    // $ExpectType string | undefined
+                    textStyle.fillColor;
+
+                    // $ExpectType string | undefined
+                    textStyle.fontFamily;
+
+                    if (textStyle.fontWeight !== undefined) {
+                        // $ExpectType FontWeight
+                        textStyle.fontWeight;
+                    } else {
+                        // $ExpectType undefined
+                        textStyle.fontWeight;
+                    }
+
+                    // $ExpectType string | undefined
+                    textStyle.fillColor;
+
+                    // $ExpectType string | undefined
+                    textStyle.strokeColor;
+
+                    // $ExpectType number | undefined
+                    textStyle.strokeWidth;
+                }
+            }
+        }
+
+        {
+            const iconOptions = opts.icon;
+            // $ExpectType string | undefined
+            iconOptions.image;
+
+            if (iconOptions.size !== undefined) {
+                // $ExpectType number[] | Size
+                iconOptions.size;
+            } else {
+                // $ExpectType undefined
+                iconOptions.size;
+            }
+
+            if (iconOptions.clipOrigin !== undefined) {
+                // $ExpectType number[] | Pixel
+                iconOptions.clipOrigin;
+            } else {
+                // $ExpectType undefined
+                iconOptions.clipOrigin;
+            }
+
+            if (iconOptions.anchor !== undefined) {
+                // $ExpectType Anchor
+                iconOptions.anchor;
+            } else {
+                // $ExpectType undefined
+                iconOptions.anchor;
+            }
+
+            // $ExpectType boolean | undefined
+            iconOptions.retina;
+        }
+    }
+
+    // $ExpectType LngLat
+    event.lnglat;
+
+    // $ExpectType Pixel
+    event.pixel;
+
+    // $ExpectType LabelsLayer
+    event.target;
+});
+
+/**
  * layer/layer.ts
  */
 
@@ -1968,7 +2132,7 @@ const testCircle = new AMap.Circle<CircleExtraData>({
     cursor: 'pointer',
     radius: 1000,
     strokeColor: '#FF0000',
-    strokeOpcity: 0.8,
+    strokeOpacity: 0.8,
     strokeWeight: 3,
     fillColor: '#00FF00',
     fillOpacity: 0.5,
@@ -2004,7 +2168,7 @@ testCircle.setOptions({
     cursor: 'pointer',
     radius: 1000,
     strokeColor: '#FF0000',
-    strokeOpcity: 0.8,
+    strokeOpacity: 0.8,
     strokeWeight: 3,
     fillColor: '#00FF00',
     fillOpacity: 0.5,
@@ -2415,6 +2579,7 @@ const testInfoWindow = new AMap.InfoWindow<InfoWindowExtraData>({
     closeWhenClickMap: false,
     content: 'content',
     size: [100, 100],
+    anchor: 'bottom-center',
     offset: new AMap.Pixel(10, 10),
     position: lnglat,
     showShadow: true
@@ -2449,6 +2614,20 @@ testInfoWindow.setPosition(lnglatTuple);
 // $ExpectType LngLat | undefined
 testInfoWindow.getPosition();
 
+const testInfoWindowAnchor = testInfoWindow.getAnchor();
+if (testInfoWindowAnchor !== undefined) {
+    // $ExpectType Anchor
+    testInfoWindowAnchor;
+} else {
+    // $ExpectType undefined
+    testInfoWindowAnchor;
+}
+
+// $ExpectType void
+testInfoWindow.setAnchor();
+// $ExpectType void
+testInfoWindow.setAnchor(testInfoWindowAnchor);
+
 // $ExpectType Size | undefined
 testInfoWindow.getSize();
 
@@ -2474,6 +2653,70 @@ testInfoWindow.on('open', (event: AMap.InfoWindow.EventMap<typeof testInfoWindow
 });
 
 /**
+ * overlay/labelMarker.ts
+ */
+
+// $ExpectTYpe LabelMarker<any>;
+new AMap.LabelMarker();
+// $ExpectTYpe LabelMarker<any>;
+new AMap.LabelMarker({});
+// $ExpectTYpe LabelMarker<ExtraData>;
+const testLabelMarker = new AMap.LabelMarker({
+    title: "全聚德烤鸭",
+    position: [116.467456, 39.994996],
+    zooms: [10, 20],
+    opacity: 1,
+    rank: 10,
+    zIndex: 10,
+    icon: {
+        type: 'image',
+        image: 'https://a.amap.com/jsapi_demos/static/images/poi-marker.png',
+        clipOrigin: [14, 92],
+        clipSize: [50, 68],
+        size: [25, 34],
+        anchor: 'bottom-center',
+        angel: 0,
+        retina: true
+    },
+    text: {
+        content: '全聚德烤鸭',
+        direction: 'left',
+        offset: [0, 0],
+        style: {
+            fontSize: 15,
+            fontWeight: 'normal',
+            fillColor: '#666',
+            strokeColor: '#fff',
+            strokeWidth: 1
+        }
+    }
+});
+
+// $ExpectType void
+testLabelMarker.setPosition(lnglatTuple);
+
+// $ExpectType [number, number] | [string, string]
+testLabelMarker.getPosition();
+
+// $ExpectType [number, number]
+testLabelMarker.getZooms();
+
+// $ExpectType void
+testLabelMarker.setZooms([1, 1]);
+
+// $ExpectType number
+testLabelMarker.getOpacity();
+
+// $ExpectType void
+testLabelMarker.setOpacity(1);
+
+// $ExpectType any
+testLabelMarker.on('click', () => {});
+
+// $ExpectType any
+testLabelMarker.off('click', () => {});
+
+/**
  * overlay/marker.ts
  */
 
@@ -2491,6 +2734,7 @@ new AMap.Marker({});
 export const testMarker = new AMap.Marker<MarkerExtraData>({
     map,
     position: lnglat,
+    anchor: 'bottom-center',
     offset: pixel,
     icon: 'iconUrl',
     content: 'htmlString',
@@ -2506,6 +2750,11 @@ export const testMarker = new AMap.Marker<MarkerExtraData>({
     title: '123',
     clickable: true,
     shape: markerShape,
+    label: {
+        content: 'label',
+        offset: pixel,
+        direction: 'left'
+    },
     extData: {
         test: 123
     }
@@ -2525,6 +2774,20 @@ testMarker.markOnAMAP({
     position: [1, 2],
     name: '123'
 });
+
+const testMarkerAnchor = testMarker.getAnchor();
+if (testMarkerAnchor) {
+    // $ExpectType Anchor
+    testMarkerAnchor;
+} else {
+    // $ExpectType undefined
+    testMarkerAnchor;
+}
+
+// $ExpectType void
+testMarker.setAnchor(testMarkerAnchor);
+// $ExpectType void
+testMarker.setAnchor();
 
 // $ExpectType Pixel
 testMarker.getOffset();
@@ -2560,11 +2823,29 @@ testMarker.setLabel({});
 // $ExpectType void
 testMarker.setLabel({
     content: 'label content',
-    offset: pixel
+    offset: pixel,
+    direction: 'top'
 });
 
-// $ExpectType Label | undefined
-testMarker.getLabel();
+{
+    const testMarkerLabel = testMarker.getLabel();
+    if (testMarkerLabel !== undefined) {
+        // $ExpectType Label
+        testMarkerLabel;
+
+        // $ExpectType string | undefined
+        testMarkerLabel.content;
+
+        // $ExpectType Pixel | undefined
+        testMarkerLabel.offset;
+
+        type TempLabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center' | undefined;
+        const tempLabelDirection: TempLabelDirection = testMarkerLabel.direction;
+    } else {
+        // $ExpectType undefined
+        testMarkerLabel;
+    }
+}
 
 // $ExpectType number
 testMarker.getAngle();
@@ -3229,6 +3510,7 @@ const testText = new AMap.Text<TextExtraData>({
     verticalAlign: 'top',
     map,
     position: lnglat,
+    anchor: 'bottom-center',
     offset: pixel,
     topWhenClick: true,
     bubble: true,
@@ -3245,6 +3527,20 @@ const testText = new AMap.Text<TextExtraData>({
     clickable: true,
     extData: { test: 1 }
 });
+
+const testTextAnchor = testText.getAnchor();
+if (testTextAnchor) {
+    // $ExpectType Anchor
+    testTextAnchor;
+} else {
+    // $ExpectType undefined
+    testTextAnchor;
+}
+
+// $ExpectType void
+testText.setAnchor(testTextAnchor);
+// $ExpectType void
+testText.setAnchor();
 
 // $ExpectType string
 testText.getText();
@@ -3363,7 +3659,7 @@ testText.setShadow(icon);
 testText.setShadow('shadow url');
 
 // $ExpectType void
-testText.setExtData({test: 1});
+testText.setExtData({ test: 1 });
 
 // $ExpectType {} | TextExtraData
 testText.getExtData();

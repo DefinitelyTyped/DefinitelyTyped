@@ -3,6 +3,7 @@
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
 //                 Deskoh <https://github.com/deskoh>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -121,8 +122,10 @@ interface SimpleSchemaStatic {
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
   omit(...fields: string[]): SimpleSchemaStatic;
+  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
   clean(doc: any, options?: CleanOption): any;
-  schema(key?: string): SchemaDefinition | SchemaDefinition[];
+  schema(key: string): SchemaDefinition;
+  schema(): SchemaDefinition[];
   getDefinition(key: string, propList?: any, functionContext?: any): any;
   keyIsInBlackBox(key: string): boolean;
   labels(labels: {[key: string]: string}): void;
@@ -135,6 +138,7 @@ interface SimpleSchemaStatic {
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): () => boolean;
+  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;

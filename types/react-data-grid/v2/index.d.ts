@@ -1,6 +1,9 @@
 // Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, 
+//                 Kieran Peat <https://github.com/KieranPeat>, 
+//                 Martin Novak <https://github.com/martinnov92>,
+//                 Raghuram Iyer 'Ragzzy-R' <https://github.com/Ragzzy-R>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -230,7 +233,15 @@ declare namespace AdazzleReactDataGrid {
          * @param rowIdx zero index number of row clicked
          * @param row object behind the row
          */
-        onRowClick?: (rowIdx : number, row : object) => void
+        onRowClick?: (rowIdx: number, row: object) => void
+        
+        /**
+         * An event function called when a row is clicked.
+         * Clicking the header row will trigger a call with -1 for the rowIdx.
+         * @param rowIdx zero index number of row clicked
+         * @param row object behind the row
+         */
+        onRowDoubleClick?: (rowIdx : number, row : object) => void
 
         /**
          * An event function called when a row is expanded with the toggle

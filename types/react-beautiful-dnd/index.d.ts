@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 10.1
+// Type definitions for react-beautiful-dnd 11.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -71,9 +71,9 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation | null;
+    destination?: DraggableLocation;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine | null;
+    combine?: Combine;
 }
 
 // details of the item that is being combined with
@@ -105,7 +105,7 @@ export interface DroppableProvidedProps {
 }
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
     droppableProps: DroppableProvidedProps;
 }
 
@@ -122,7 +122,7 @@ export interface DroppableProps {
     isDropDisabled?: boolean;
     isCombineEnabled?: boolean;
     direction?: 'vertical' | 'horizontal';
-    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement;
+    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
 export class Droppable extends React.Component<DroppableProps> { }
@@ -176,7 +176,7 @@ export interface DraggableProvided {
 
     // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
-    placeholder?: React.ReactElement | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
 }
 
 export interface DraggableStateSnapshot {
@@ -200,14 +200,21 @@ export interface DropAnimation {
     scale?: number;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface DraggableProps {
     draggableId: DroppableId;
     index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
-    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement;
+    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
     type?: TypeId;
-    shouldRespectForceTouch?: boolean;
+    shouldRespectForcePress?: boolean;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }
+
+export function resetServerContext(): void;

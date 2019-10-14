@@ -7,6 +7,7 @@ const apiLimiter = new RateLimit({
   skipFailedRequests: false,
   skipSuccessfulRequests: true,
 });
+apiLimiter.resetKey('testKey');
 
 const apiLimiterWithMaxFn = new RateLimit({
     windowMs: 15 * 60 * 1000,

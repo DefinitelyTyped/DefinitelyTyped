@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,8 @@ declare namespace GoogleAppsScript {
     export interface Action {
       setFunctionName(functionName: string): Action;
       setLoadIndicator(loadIndicator: LoadIndicator): Action;
-      setParameters(parameters: Object): Action;
+      setParameters(parameters: { [key: string]: string }): Action;
+      /** @deprecated DO NOT USE */
       setMethodName(functionName: string): Action;
     }
 
@@ -37,7 +38,6 @@ declare namespace GoogleAppsScript {
      *     // An action that shows a notification.
      *     var actionResponse = CardService.newActionResponseBuilder()
      *         .setNotification(CardService.newNotification()
-     *             .setType(CardService.NotificationType.INFO)
      *             .setText("Some info to display to user"))
      *         .build();
      *
@@ -255,7 +255,6 @@ declare namespace GoogleAppsScript {
       Icon: typeof Icon;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
-      NotificationType: typeof NotificationType;
       OnClose: typeof OnClose;
       OpenAs: typeof OpenAs;
       SelectionInputType: typeof SelectionInputType;
@@ -390,7 +389,7 @@ declare namespace GoogleAppsScript {
      *     var multilineKeyValue = CardService.newKeyValue()
      *         .setTopLabel("Top label - single line)")
      *         .setContent("Content can be multiple lines")
-     *     .setMultiline(true)
+     *         .setMultiline(true)
      *         .setBottomLabel("Bottom label - single line");
      */
     export interface KeyValue {
@@ -438,20 +437,13 @@ declare namespace GoogleAppsScript {
      *     function notificationCallback() {
      *       return CardService.newActionResponseBuilder()
      *           .setNotification(CardService.newNotification()
-     *               .setType(CardService.NotificationType.WARNING)
      *               .setText("Some info to display to user"))
      *           .build();
      *     }
      */
     export interface Notification {
       setText(text: string): Notification;
-      setType(type: NotificationType): Notification;
     }
-
-    /**
-     * Type of notification to show.
-     */
-    export enum NotificationType { INFO, ERROR, WARNING }
 
     /**
      * An enum that specifies what to do when a URL opened through an OpenLink is closed.
@@ -523,7 +515,7 @@ declare namespace GoogleAppsScript {
      *         .addItem("radio button three title", "radio_three_value", false);
      */
     export interface SelectionInput {
-      addItem(text: Object, value: Object, selected: boolean): SelectionInput;
+      addItem(text: any, value: any, selected: boolean): SelectionInput;
       setFieldName(fieldName: string): SelectionInput;
       setOnChangeAction(action: Action): SelectionInput;
       setTitle(title: string): SelectionInput;
@@ -545,7 +537,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Suggestions {
       addSuggestion(suggestion: string): Suggestions;
-      addSuggestions(suggestions: Object[]): Suggestions;
+      addSuggestions(suggestions: string[]): Suggestions;
     }
 
     /**
@@ -590,7 +582,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A TextButton with a text label.
+     * A TextButton with a text label. You can set the background color and disable the button when
+     * needed.
      *
      *     var textButton = CardService.newTextButton()
      *         .setText("Open Link")
@@ -676,7 +669,7 @@ declare namespace GoogleAppsScript {
      */
     export interface UniversalActionResponseBuilder {
       build(): UniversalActionResponse;
-      displayAddOnCards(cardObjects: Object[]): UniversalActionResponseBuilder;
+      displayAddOnCards(cardObjects: Card[]): UniversalActionResponseBuilder;
       setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
     }
 

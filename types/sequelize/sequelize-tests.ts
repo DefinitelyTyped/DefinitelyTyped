@@ -41,19 +41,26 @@ s.transaction().then( ( a ) => t = a );
 // ~~~~~~~~~~
 //
 
-interface GUserAttributes {
-    id? : number;
+interface GUserCreationAttributes {
+    id? : number
     username? : string;
     email: string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+interface GUserAttributes {
+    id : number;
+    username? : string;
+    email: string;
+}
+
+interface GUserInstance extends Sequelize.Instance<GUserAttributes>, GUserAttributes {}
+const GUser = s.define<GUserInstance, GUserAttributes, GUserCreationAttributes>('user', {
     id: Sequelize.INTEGER,
     username: Sequelize.STRING,
     email: Sequelize.STRING
 });
 GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
+GUser.create({ email: 'two@lol.com' }).then((guser) => guser.save())
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -129,6 +136,7 @@ User.hasMany( User, {
     foreignKey : 'parent',
     foreignKeyConstraint : true
 } );
+User.hasOne( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
 
 User.belongsToMany( Task, { through : 'UserTasks' } );
 User.belongsToMany( User, { through : Task } );
@@ -997,17 +1005,84 @@ User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new D
 User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
-User.findById( 'a string' );
-User.findById( 42 );
-User.findById( Buffer.from('a buffer') );
+var options: Sequelize.AnyFindOptions = { where: { $and: Sequelize.where( Sequelize.fn( 'char_length', Sequelize.col('username') ), 4 ) } };
+User.findAll( options );
 
-User.findByPrimary( 'a string' );
-User.findByPrimary( 42 );
-User.findByPrimary( Buffer.from('a buffer') );
+User.findById( 1 );
+User.findById( 1, { attributes : ['id'] } );
+User.findById( 1, { logging : function(  ) { } } );
+User.findById( 1, { transaction : t } );
+User.findById( 1, { include : [User] } );
+User.findById( 1, { include : [{ model : User }] });
+User.findById( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findById( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findById( 'id' );
+User.findById( 'id', { attributes : ['id'] } );
+User.findById( 'id', { logging : function(  ) { } } );
+User.findById( 'id', { transaction : t } );
+User.findById( 'id', { include : [User] } );
+User.findById( 'id', { include : [{ model : User }] });
+User.findById( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findById( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findById( Buffer.from('id') );
+User.findById( Buffer.from('id'), { attributes : ['id'] } );
+User.findById( Buffer.from('id'), { logging : function(  ) { } } );
+User.findById( Buffer.from('id'), { transaction : t } );
+User.findById( Buffer.from('id'), { include : [User] } );
+User.findById( Buffer.from('id'), { include : [{ model : User }] });
+User.findById( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findById( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
 
-User.findByPk( 'a string' );
-User.findByPk( 42 );
-User.findByPk( Buffer.from('a buffer') );
+User.findByPrimary( 1 );
+User.findByPrimary( 1, { attributes : ['id'] } );
+User.findByPrimary( 1, { logging : function(  ) { } } );
+User.findByPrimary( 1, { transaction : t } );
+User.findByPrimary( 1, { include : [User] } );
+User.findByPrimary( 1, { include : [{ model : User }] });
+User.findByPrimary( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPrimary( 'id' );
+User.findByPrimary( 'id', { attributes : ['id'] } );
+User.findByPrimary( 'id', { logging : function(  ) { } } );
+User.findByPrimary( 'id', { transaction : t } );
+User.findByPrimary( 'id', { include : [User] } );
+User.findByPrimary( 'id', { include : [{ model : User }] });
+User.findByPrimary( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPrimary( Buffer.from('id') );
+User.findByPrimary( Buffer.from('id'), { attributes : ['id'] } );
+User.findByPrimary( Buffer.from('id'), { logging : function(  ) { } } );
+User.findByPrimary( Buffer.from('id'), { transaction : t } );
+User.findByPrimary( Buffer.from('id'), { include : [User] } );
+User.findByPrimary( Buffer.from('id'), { include : [{ model : User }] });
+User.findByPrimary( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
+
+User.findByPk( 1 );
+User.findByPk( 1, { attributes : ['id'] } );
+User.findByPk( 1, { logging : function(  ) { } } );
+User.findByPk( 1, { transaction : t } );
+User.findByPk( 1, { include : [User] } );
+User.findByPk( 1, { include : [{ model : User }] });
+User.findByPk( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPk( 'id' );
+User.findByPk( 'id', { attributes : ['id'] } );
+User.findByPk( 'id', { logging : function(  ) { } } );
+User.findByPk( 'id', { transaction : t } );
+User.findByPk( 'id', { include : [User] } );
+User.findByPk( 'id', { include : [{ model : User }] });
+User.findByPk( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPk( Buffer.from('id') );
+User.findByPk( Buffer.from('id'), { attributes : ['id'] } );
+User.findByPk( Buffer.from('id'), { logging : function(  ) { } } );
+User.findByPk( Buffer.from('id'), { transaction : t } );
+User.findByPk( Buffer.from('id'), { include : [User] } );
+User.findByPk( Buffer.from('id'), { include : [{ model : User }] });
+User.findByPk( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
+
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -1185,7 +1260,12 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
-queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' });
+queryInterface.addIndex( 'Group', ['from'], { type: 'FULLTEXT' });
+queryInterface.addIndex( 'Group', ['from'], { indicesType: 'FULLTEXT' } );
+queryInterface.addIndex( 'Group', ['from'], { concurrently: true } );
+queryInterface.addIndex( 'Group', ['data'], { using: 'gin', operator: 'jsonb_path_ops' } );
+queryInterface.addIndex( 'Group', { fields: ['data'], using: 'gin', operator: 'jsonb_path_ops' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1206,6 +1286,8 @@ queryInterface.createTable( { tableName : 'y', schema : 'a' },
 queryInterface.changeColumn( { tableName : 'a', schema : 'b' }, 'c', { type : Sequelize.FLOAT },
     { logging : () => s } );
 queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.bulkInsert({tableName:'users', schema:'test'}, [{}, {}, {}]);
+queryInterface.getForeignKeysForTables(['users']);
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
@@ -1781,6 +1863,7 @@ s.define('DefineOptionsIndexesTest', {
             {
                 name: "DefineOptionsIndexesTest_lower_email",
                 unique: true,
+                type: "SPATIAL",
                 fields: [
                     Sequelize.fn("LOWER", Sequelize.col("email"))
                 ]

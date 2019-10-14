@@ -1,20 +1,28 @@
 import * as React from 'react';
 import {
+    AlertComponentPropsWithStyle,
+    AlertManager,
     Provider as AlertProvider,
-    Alert,
+    AlertProviderProps,
+    useAlert,
     withAlert,
-    AlertPosition,
-    AlertTransition,
-    ProviderOptions,
-    InjectedAlertProp
 } from 'react-alert';
 
-class AppWithoutAlert extends React.Component<{ alert: InjectedAlertProp }> {
+class AppWithoutAlert extends React.Component<{ alert: AlertManager }> {
     render() {
         return (
             <button
                 onClick={() => {
-                    this.props.alert.show('Oh look, an alert!');
+                    this.props.alert.show(
+                        'Oh look, an alert!',
+                        {
+                            type: 'info',
+                            timeout: 1000,
+                            onOpen(): void {
+                            },
+                            onClose(): void {
+                            }
+                        });
                 }}
             >
                 Show Alert
@@ -23,27 +31,32 @@ class AppWithoutAlert extends React.Component<{ alert: InjectedAlertProp }> {
     }
 }
 
-const App = withAlert(AppWithoutAlert);
+const customContext = React.createContext<AlertManager | undefined>(undefined);
 
-class AppAlert extends React.Component {
-    render() {
-        return (
-            <Alert>
-                {alert => (
-                    <button
-                        onClick={() => {
-                            alert.show('Oh look, an alert!');
-                        }}
-                    >
-                        Show Alert
-                    </button>
-                )}
-            </Alert>
-        );
-    }
-}
+const App = withAlert(customContext)(AppWithoutAlert);
 
-class AlertTemplate extends React.Component<any> {
+const AlertHook = (): JSX.Element => {
+    const alert = useAlert();
+    return (
+        <button
+            onClick={() => {
+                alert.info(
+                    <div style={{ color: 'blue' }}>Some Message</div>,
+                    {
+                        timeout: 1000,
+                        onOpen(): void {
+                        },
+                        onClose(): void {
+                        }
+                    });
+            }}
+        >
+            Show Alert
+        </button>
+    );
+};
+
+class AlertTemplate extends React.Component<AlertComponentPropsWithStyle> {
     render() {
         // the style contains only the margin given as offset
         // options contains all alert given options
@@ -63,28 +76,25 @@ class AlertTemplate extends React.Component<any> {
     }
 }
 
-const options: ProviderOptions = {
-    position: 'bottom center' as AlertPosition,
+const options: AlertProviderProps = {
+    position: 'bottom center',
     timeout: 5000,
     offset: '30px',
-    transition: 'scale' as AlertTransition
+    transition: 'scale',
+    context: customContext,
+    className: 'cssClass',
+    template: AlertTemplate,
+    containerStyle: {
+        margin: 5,
+    },
 };
 
 class Root extends React.Component {
     render() {
         return (
-            <AlertProvider template={AlertTemplate} {...options}>
+            <AlertProvider {...options}>
                 <App />
-            </AlertProvider>
-        );
-    }
-}
-
-class RootAlert extends React.Component {
-    render() {
-        return (
-            <AlertProvider template={AlertTemplate} {...options}>
-                <AppAlert />
+                <AlertHook />
             </AlertProvider>
         );
     }

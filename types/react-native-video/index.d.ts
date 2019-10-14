@@ -23,11 +23,23 @@ export interface OnLoadData {
   };
 }
 
+export interface OnProgressData {
+  currentTime: number;
+  playableDuration: number;
+  seekableDuration: number;
+}
+
 export interface LoadError {
   error: {
     '': string;
     errorString: string;
   };
+}
+
+export interface OnSeekData {
+  currentTime: number;
+  seekTime: number;
+  target?: number;
 }
 
 export const TextTrackType: {
@@ -41,6 +53,8 @@ export interface VideoProperties extends ViewProps {
   src?: any;
   seek?: number;
   fullscreen?: boolean;
+  fullscreenOrientation?: 'all' | 'landscape' | 'portrait';
+  fullscreenAutorotate?: boolean;
   onVideoLoadStart?(): void;
   onVideoLoad?(): void;
   onVideoBuffer?(): void;
@@ -74,17 +88,14 @@ export interface VideoProperties extends ViewProps {
   progressUpdateInterval?: number;
   useTextureView?: boolean;
   allowsExternalPlayback?: boolean;
+  audioOnly?: boolean;
 
   onLoadStart?(): void;
   onLoad?(data: OnLoadData): void;
   onBuffer?(): void;
   onError?(error: LoadError): void;
-  onProgress?(data: {
-    currentTime: number;
-    playableDuration: number;
-    seekableDuration: number;
-  }): void;
-  onSeek?(): void;
+  onProgress?(data: OnProgressData): void;
+  onSeek?(data: OnSeekData): void;
   onEnd?(): void;
   onFullscreenPlayerWillPresent?(): void;
   onFullscreenPlayerDidPresent?(): void;

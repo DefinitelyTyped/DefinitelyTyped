@@ -5,10 +5,19 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 // DOM
 // https://community.algolia.com/react-instantsearch/Getting_started.html
 () => {
-  const App = () => (
+  const App1 = () => (
     <InstantSearch
       appId="latency"
       apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+      indexName="bestbuy"
+    >
+      <Search />
+    </InstantSearch>
+  );
+
+  const App2 = () => (
+    <InstantSearch
+      searchClient={{}}
       indexName="bestbuy"
     >
       <Search />
@@ -80,9 +89,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   function App() {
     return (
       <InstantSearch
-        appId="latency"
-        apiKey="6be0576ff61c053d5f9a3225e2a90f76"
         indexName="instant_search"
+        searchClient={{}}
       >
         <Hits hitComponent={Hit} />
       </InstantSearch>
@@ -116,9 +124,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 //   function App() {
 //     return (
 //       <InstantSearch
-//         appId="latency"
-//         apiKey="6be0576ff61c053d5f9a3225e2a90f76"
 //         indexName="instant_search"
+//         searchClient={{}}
 //       >
 //         <Hits hitComponent={Hit} />
 //       </InstantSearch>
@@ -130,9 +137,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   const App = () => (
     <InstantSearch
-      appId="..."
-      apiKey="..."
       indexName="..."
+      searchClient={{}}
     >
       <Menu
         attribute="fruits"
@@ -147,9 +153,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 // () => {
 //   const App = () => (
 //     <InstantSearch
-//       appId="..."
-//       apiKey="..."
 //       indexName="..."
+//       searchClient={{}}
 //     >
 //       <SearchBox defaultRefinement="hi" />
 //       <RefinementList
@@ -166,9 +171,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   const App = () => (
     <InstantSearch
-      appId="..."
-      apiKey="..."
       indexName="..."
+      searchClient={{}}
     >
       <SearchBox defaultRefinement="hi" />
       <Menu attribute="fruits" defaultRefinement="Orange" />
@@ -182,9 +186,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
 //   const App = () => (
 //     <InstantSearch
-//       appId="..."
-//       apiKey="..."
 //       indexName="..."
+//       searchClient={{}}
 //     >
 //       <div>
 //         <CurrentRefinements
@@ -207,9 +210,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   // https://community.algolia.com/react-instantsearch/guide/Search_parameters.html
   <InstantSearch
-    appId="appId"
-    apiKey="apiKey"
     indexName="indexName"
+    searchClient={{}}
   >
     <Configure distinct={1}/>
     // widgets
@@ -246,9 +248,8 @@ import { renderToString } from 'react-dom/server';
     render() {
       return (
         <InstantSearch
-          appId="appId"
-          apiKey="apiKey"
           indexName="indexName"
+          searchClient={{}}
           searchState={this.props.searchState}
           resultsState={this.props.resultsState}
         >

@@ -462,7 +462,7 @@ describe('FakeRequest', () => {
 
 	it('ticks the jasmine clock on timeout', () => {
 		const clock = { tick: jasmine.createSpy('tick') };
-		spyOn(jasmine, 'clock').and.returnValue(clock);
+		spyOn(jasmine, 'clock').and.returnValue(clock as any);
 
 		const request = new this.FakeRequest();
 		request.open();
@@ -523,9 +523,9 @@ describe('FakeRequest', () => {
 		request.open();
 		request.send('foo=bar&baz=quux');
 
-		this.parserInstance.and.returnValue('parsed');
+		this.parserInstance.and.returnValue({data: 'parsed'});
 
-		expect(request.data()).toBe('parsed');
+		expect(request.data()).toEqual({data: 'parsed'});
 	});
 
 	it('skips parsing if no data was sent', () => {
@@ -1430,6 +1430,42 @@ describe('RequestStub', () => {
 
 		expect(stub)['toMatchRequest']('/foo', 'baz=quux&foo=bar');
 		expect(stub).not['toMatchRequest']('/foo', 'foo=bar');
+	});
+
+	it('has methods', () => {
+		jasmine.Ajax.stubRequest('/foo').andReturn({
+			status: 200,
+			contentType: 'application/json',
+			responseText: '{"success": true}',
+			responseHeaders: { 'X-Example': 'a value' },
+		});
+		jasmine.Ajax.stubRequest('/bar').andReturn({});
+		jasmine.Ajax.stubRequest('/baz').andError({
+			status: 400,
+			statusText: 'Invalid',
+		});
+		jasmine.Ajax.stubRequest('/foobar').andError({});
+		jasmine.Ajax.stubRequest('/foobaz').andTimeout();
+		jasmine.Ajax.stubRequest('/barbaz').andCallFunction((xhr) => {
+			xhr.url === '/barbaz';
+			xhr.method === 'POST';
+			xhr.params === {};
+			xhr.username === 'jane_coder';
+			xhr.password === '12345';
+			xhr.requestHeaders === {Accept: 'application/json'};
+			xhr.data() === {query: 'bananas'};
+			xhr.respondWith({
+				status: 200,
+				contentType: 'application/json',
+				responseText: '{"success": true}',
+				responseHeaders: { 'X-Example': 'a value' },
+			});
+			xhr.responseTimeout();
+			xhr.responseError({
+				status: 400,
+				statusText: 'Invalid',
+			});
+		});
 	});
 });
 

@@ -1,5 +1,5 @@
 // Type definitions for react-instantsearch-core 5.2
-// Project: https://community.algolia.com/react-instantsearch/
+// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
 //                 David Furlong <https://github.com/davidfurlong>
@@ -320,7 +320,7 @@ export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPass
 export function connectHighlight<TDoc = any>(stateless: React.StatelessComponent<HighlightProps<TDoc>>): React.ComponentClass<HighlightPassedThru<TDoc>>;
 export function connectHighlight<TProps extends Partial<HighlightProps<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HighlightProvided<TDoc>>;
 
-interface HitsProvided<THit> {
+export interface HitsProvided<THit> {
   /** the records that matched the search state */
   hits: Array<Hit<THit>>;
 }
@@ -333,7 +333,7 @@ interface HitsProvided<THit> {
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass<HighlightPassedThru>;
+export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HitsProvided<THit>>;
 
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
@@ -341,10 +341,11 @@ export function connectHitsPerPage(Composed: React.ComponentType<any>): React.Co
 export interface InfiniteHitsProvided<THit = any> {
   /** the records that matched the search */
   hits: THit[];
-  /** a function to toggle the refinement */
-  refine: (...args: any[]) => any;
   /** indicates if there are more pages to load */
   hasMore: boolean;
+  hasPrevious: boolean;
+  refineNext: (...args: any[]) => any;
+  refinePrevious: (...args: any[]) => any;
 }
 
 /**

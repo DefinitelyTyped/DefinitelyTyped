@@ -16,9 +16,9 @@ client.exists('/remote/path').then(() => null);
 
 client.stat('/remote/path').then(() => null);
 
-client.get('/remote/path').then(stream => stream.read(0));
-client.get('/remote/path', true, 'utf8').then(stream => stream.read(0));
-client.get('/remote/path', true, null).then(stream => stream.read(0));
+client.realPath('/remote/path').then(() => null);
+
+client.get('/remote/path').then(() => null);
 
 client.fastGet('/remote/path', 'local/path').then(() => null);
 
@@ -27,6 +27,8 @@ client.put(new Buffer('content'), '/remote/path').then(() => null);
 client.put(fs.createReadStream('Hello World'), '/remote/path').then(() => null);
 
 client.fastPut('/remote/path', 'local/path').then(() => null);
+
+client.cwd().then(() => null);
 
 client.mkdir('/remote/path/dir', true).then(() => null);
 client.rmdir('/remote/path/dir', true).then(() => null);

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { SafeString } from '@ember/string/-private/handlebars';
+import { SafeString } from '@ember/template/-private/handlebars';
 
 const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w } = Ember.String;
 

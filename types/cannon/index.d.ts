@@ -535,6 +535,8 @@ declare module CANNON {
         updateInertiaWorld(force: Vec3): void;
         applyForce(force: Vec3, worldPoint: Vec3): void;
         applyImpulse(impulse: Vec3, worldPoint: Vec3): void;
+        applyLocalForce(force: Vec3, localPoint: Vec3): void;
+        applyLocalImpulse(impulse: Vec3, localPoint: Vec3): void;
         updateMassProperties(): void;
         getVelocityAtWorldPoint(worldPoint: Vec3, result: Vec3): Vec3;
 

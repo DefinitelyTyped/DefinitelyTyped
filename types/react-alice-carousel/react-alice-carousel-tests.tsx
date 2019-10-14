@@ -46,7 +46,6 @@ class Gallery extends React.Component<Props> {
 				responsive={responsive}
 				autoPlayInterval={2000}
 				autoPlayDirection="rtl"
-				autoPlayActionDisabled={true}
 				onSlideChange={this.onSlideChange}
 				onSlideChanged={this.onSlideChanged}
 			>

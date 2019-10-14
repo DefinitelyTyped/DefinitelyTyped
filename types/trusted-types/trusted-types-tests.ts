@@ -1,17 +1,69 @@
-const policy = {
-	createHTML: (s: string) => s,
-	createScript: (s: string) => s,
-	createScriptURL: (s: string) => s,
-	createURL: (s: string) => s,
+import TT from 'trusted-types';
+
+// $ExpectType TrustedTypePolicyFactory
+TT;
+
+// $ExpectError
+trustedTypes;
+
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.trustedTypes;
+
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.TrustedTypes;
+
+const rules = {
+    createHTML: (s: string) => s,
+    createScript: (s: string) => s,
+    createScriptURL: (s: string) => s,
+    createURL: (s: string) => s,
 };
 
-TrustedTypes.getPolicyNames();
-TrustedTypes.createPolicy('default', policy, true);
-TrustedTypes.getExposedPolicy('default');
+// $ExpectType string[]
+TT.getPolicyNames();
+TT.createPolicy('default', rules, true);
 
-const trustedTypes = TrustedTypes.createPolicy('test', policy);
+const policy = TT.createPolicy('test', rules);
 
-trustedTypes.createHTML('') instanceof TrustedHTML;
-trustedTypes.createScript('') instanceof TrustedScript;
-trustedTypes.createScriptURL('') instanceof TrustedScriptURL;
-trustedTypes.createURL('') instanceof TrustedURL;
+// $ExpectType string
+policy.name;
+// $ExpectType TrustedHTML
+policy.createHTML('');
+// $ExpectType TrustedScript
+policy.createScript('');
+// $ExpectType TrustedScriptURL
+policy.createScriptURL('');
+// $ExpectType TrustedURL
+policy.createURL('');
+
+const htmlOnlyPolicy = TT.createPolicy('htmlOnly', {
+    createHTML: (html: string) => {
+        return html;
+    },
+});
+
+// $ExpectType string
+htmlOnlyPolicy.name;
+// $ExpectType TrustedHTML
+const html = htmlOnlyPolicy.createHTML('');
+// $ExpectError
+htmlOnlyPolicy.createScript('');
+
+// $ExpectType boolean
+TT.isHTML(html);
+// $ExpectType boolean
+TT.isScript(html);
+// $ExpectType boolean
+TT.isScriptURL(html);
+// $ExpectType boolean
+TT.isURL(html);
+
+// Ensure the types are globaly available
+let trustedHTML: TrustedHTML = null as any;
+const trustedScript: TrustedScript = null as any;
+
+// $ExpectError
+trustedHTML = trustedScript;
+
+// $ExpectError
+new TrustedHTML();

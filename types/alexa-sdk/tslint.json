@@ -6,6 +6,7 @@
         "no-empty-interface": false,
         "prefer-method-signature": false,
         "object-literal-key-quotes": false,
-        "no-any": false
+        "no-any": false,
+        "npm-naming": false
     }
 }

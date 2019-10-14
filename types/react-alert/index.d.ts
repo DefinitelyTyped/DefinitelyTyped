@@ -1,4 +1,4 @@
-// Type definitions for react-alert 4.0
+// Type definitions for react-alert 5.2
 // Project: https://github.com/schiehll/react-alert
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,16 +8,49 @@ import * as React from 'react';
 
 export type AlertPosition =
     | 'top left'
-    | 'top right'
     | 'top center'
+    | 'top right'
+    | 'middle left'
+    | 'middle'
+    | 'middle right'
     | 'bottom left'
-    | 'bottom right'
-    | 'bottom center';
+    | 'bottom center'
+    | 'bottom right';
+
+export interface Positions {
+    TOP_LEFT: 'top left';
+    TOP_CENTER: 'top center';
+    TOP_RIGHT: 'top right';
+    MIDDLE_LEFT: 'middle left';
+    MIDDLE: 'middle';
+    MIDDLE_RIGHT: 'middle right';
+    BOTTOM_LEFT: 'bottom left';
+    BOTTOM_CENTER: 'bottom center';
+    BOTTOM_RIGHT: 'bottom right';
+}
+
+export const positions: Positions;
 
 export type AlertType = 'info' | 'success' | 'error';
+
+export interface Types {
+    INFO: 'info';
+    SUCCESS: 'success';
+    ERROR: 'error';
+}
+
+export const types: Types;
+
 export type AlertTransition = 'fade' | 'scale';
 
-export interface ProviderOptions {
+export interface Transitions {
+    FADE: 'fade';
+    SCALE: 'scale';
+}
+
+export const transitions: Transitions;
+
+export interface AlertProviderProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * The margin of each alert
      *
@@ -49,18 +82,33 @@ export interface ProviderOptions {
      */
     transition?: AlertTransition;
     /**
-     * The z-index of alerts
+     * The style of the alert container
      *
-     * Default value: 100
+     * Default z-index value: 100
      */
-    zIndex?: number;
+    containerStyle?: React.CSSProperties;
+    /**
+     * The alert component for each message
+     */
+    template: React.ComponentType<AlertComponentPropsWithStyle>;
+    /**
+     * Custom context to separate alerts.
+     */
+    context?: React.Context<AlertManager | undefined>;
 }
 
-export class Provider extends React.Component<ProviderOptions & {
-    template: React.ComponentType
-}> {}
+export interface AlertComponentProps {
+    id: string;
+    message: React.ReactNode;
+    options: AlertCustomOptionsWithType;
+    close(): void;
+}
 
-export const Alert: React.Consumer<InjectedAlertProp>;
+export interface AlertComponentPropsWithStyle extends AlertComponentProps {
+    style: React.CSSProperties;
+}
+
+export class Provider extends React.Component<AlertProviderProps> {}
 
 export interface AlertCustomOptions {
     /**
@@ -70,28 +118,32 @@ export interface AlertCustomOptions {
     /**
      * Callback that will be executed after this alert open
      */
-    onOpen?(): undefined;
+    onOpen?(): void;
     /**
      * Callback that will be executed after this alert is removed
      */
-    onClose?(): undefined;
+    onClose?(): void;
 }
 
 export interface AlertCustomOptionsWithType extends AlertCustomOptions {
     type?: AlertType;
 }
 
-export interface InjectedAlertProp {
+export interface AlertManager {
+    root?: HTMLElement;
+    alerts: AlertComponentProps[];
     show(
-        message?: string,
+        message?: React.ReactNode,
         options?: AlertCustomOptionsWithType
-    ): InjectedAlertProp;
-    remove(alert: InjectedAlertProp): undefined;
-    success(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
-    error(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
-    info(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
+    ): AlertComponentProps;
+    remove(alert: AlertComponentProps): void;
+    success(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
+    error(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
+    info(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
 }
 
-export function withAlert<P extends { alert: InjectedAlertProp }>(
-    c: React.ComponentType<P>
-): React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;
+export function withAlert<P extends { alert: AlertManager }>(context?: React.Context<AlertManager | undefined>):
+    (c: React.ComponentType<P>) =>
+        React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;
+
+export function useAlert(context?: React.Context<AlertManager | undefined>): AlertManager;
