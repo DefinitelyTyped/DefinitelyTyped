@@ -3549,7 +3549,7 @@ export interface Invitation extends Entity {
     sendInvitationMessage?: boolean;
     // The URL user should be redirected to once the invitation is redeemed. Required.
     inviteRedirectUrl?: string;
-    // The URL user can use to redeem his invitation. Read-Only
+    // The URL user can use to redeem their invitation. Read-Only
     inviteRedeemUrl?: string;
     // The status of the invitation. Possible values: PendingAcceptance, Completed, InProgress, and Error
     status?: string;
@@ -8286,7 +8286,7 @@ export interface PasswordProfile {
      * user’s passwordPolicies property. By default, a strong password is required.
      */
     password?: string;
-    // true if the user must change her password on the next login; otherwise false.
+    // true if the user must change their password on the next login; otherwise false.
     forceChangePasswordNextSignIn?: boolean;
     /**
      * If true, at next sign-in, the user must perform a multi-factor authentication (MFA) before being forced to change their

@@ -1278,7 +1278,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj The item to look for
        */
       indexOf(obj: any): number;
 
