@@ -8979,7 +8979,7 @@ declare namespace Office {
         /**
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item. 
          * The optionalAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the optional attendees 
-         * for a meeting.
+         * for a meeting. The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9027,7 +9027,7 @@ declare namespace Office {
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item. 
          * The requiredAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the required attendees 
-         * for a meeting.
+         * for a meeting. The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9891,10 +9891,12 @@ declare namespace Office {
         * *Read mode*
         *
         * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
+        * The collection is limited to a maximum of 100 members.
         *
         * *Compose mode*
         *
         * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
+        * The collection is limited to a maximum of 100 members.
         *
         * [Api set: Mailbox 1.0]
         *
@@ -9923,10 +9925,12 @@ declare namespace Office {
          * *Read mode*
          *
          * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
+         * The collection is limited to a maximum of 100 members.
          *
          * *Compose mode*
          *
          * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
+         * The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10213,7 +10217,7 @@ declare namespace Office {
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
          * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each optional attendee to 
-         * the meeting.
+         * the meeting. The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10260,7 +10264,7 @@ declare namespace Office {
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
          * The requiredAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each required attendee to 
-         * the meeting.
+         * the meeting. The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14420,7 +14424,7 @@ declare namespace Office {
          * current item.
          *
          * The cc property returns an {@link Office.Recipients} object that provides methods to get or update the recipients on the Cc line of 
-         * the message.
+         * the message. The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14554,6 +14558,7 @@ declare namespace Office {
          * current item.
          *
          * The to property returns a Recipients object that provides methods to get or update the recipients on the To line of the message.
+         * The collection is limited to a maximum of 100 members.
          *
          * [Api set: Mailbox 1.0]
          *
