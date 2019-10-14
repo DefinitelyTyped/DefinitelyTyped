@@ -8,6 +8,32 @@ client.add(magnetURI, {}, torrent => {
     // Got torrent metadata!
     console.log('Client is downloading:', torrent.infoHash);
 
+    console.log(
+      torrent.maxWebConns,
+      torrent.ready,
+      torrent.paused,
+      torrent.done,
+      torrent.created,
+      torrent.createdBy,
+      torrent.comment,
+    );
+
+    torrent.announce.forEach(announce => console.log(announce));
+
+    console.log(torrent.length, torrent.pieceLength, torrent.lastPieceLength);
+    console.log(
+      torrent.pieces.reduce(
+        (acc, piece) => acc + (piece ? piece.length : 0),
+        0,
+      ),
+    );
+    console.log(
+      torrent.pieces.reduce(
+        (acc, piece) => acc + (piece ? piece.missing : 0),
+        0,
+      ),
+    );
+
     torrent.files.forEach(file => {
         // Display the file by appending it to the DOM. Supports video, audio, images, and
         // more. Specify a container element (CSS selector or reference to DOM node).

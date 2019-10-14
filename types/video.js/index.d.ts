@@ -9,6 +9,7 @@
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
+//                 Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1964,6 +1965,7 @@ declare namespace videojs {
 
 	interface ControlBarOptions extends ComponentOptions {
 		volumePanel?: VolumePanelOptions;
+		fullscreenToggle?: boolean;
 	}
 
 	/**
@@ -6702,6 +6704,7 @@ declare namespace videojs {
         inactivityTimeout?: number;
         language?: string;
         languages?: { [code: string]: videojs.LanguageTranslations };
+        liveui?: boolean;
         loop?: boolean;
         muted?: boolean;
         nativeControlsForTouch?: boolean;

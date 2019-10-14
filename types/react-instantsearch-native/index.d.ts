@@ -42,13 +42,8 @@ export { connectStats } from 'react-instantsearch-core';
 export { connectToggleRefinement } from 'react-instantsearch-core';
 
 // Native
-export interface InstantSearchProps {
-    apiKey: string;
-    appId: string;
+interface InstantSearchBaseProps {
     indexName: string;
-
-    algoliaClient?: any;
-    searchClient?: any;
     createURL?: (...args: any[]) => any;
     searchState?: any;
     refresh?: boolean;
@@ -60,6 +55,18 @@ export interface InstantSearchProps {
         props: any;
     };
 }
+
+export interface UsingSearchClientProps extends InstantSearchBaseProps {
+    searchClient: any;
+}
+
+export interface UsingManualInfoProps extends InstantSearchBaseProps {
+    apiKey: string;
+    appId: string;
+    algoliaClient?: any;
+}
+
+export type InstantSearchProps = UsingSearchClientProps | UsingManualInfoProps;
 /**
  * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
  *

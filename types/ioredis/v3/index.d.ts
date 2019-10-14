@@ -221,6 +221,8 @@ declare namespace IORedis {
 
         zadd(key: string, ...args: string[]): any;
 
+        zaddBuffer(key: string, score1: number, member1: Buffer): Promise<string | number>;
+
         zincrby(key: string, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: string, increment: number, member: string): Promise<any>;
 
@@ -438,6 +440,8 @@ declare namespace IORedis {
 
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
+
+        publishBuffer(channel: string, message: Buffer): Promise<number>;
 
         watch(...keys: string[]): any;
 

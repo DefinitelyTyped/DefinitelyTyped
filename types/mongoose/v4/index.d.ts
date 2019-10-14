@@ -5,7 +5,7 @@
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 murbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -1278,7 +1278,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj The item to look for
        */
       indexOf(obj: any): number;
 

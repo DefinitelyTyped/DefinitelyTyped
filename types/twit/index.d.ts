@@ -6,6 +6,7 @@
 //                 siwalik <https://github.com/siwalikm>
 //                 plhery <https://github.com/plhery>
 //                 justGoscha <https://github.com/justgoscha>
+//                 darkade <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -247,6 +248,11 @@ declare module 'twit' {
       since_id?: string,
       max_id?: string,
       include_entities?: boolean,
+
+      source_id?: number,
+      source_screen_name?: string,
+      target_id?: number,
+      target_screen_name?: string,
 
       // Other params from various endpoints
       track?: string | string[],

@@ -24,7 +24,7 @@ class Component extends React.Component<{}, ComponentState> {
     renderYAxisTitle = () => {
         return (
             <Text textAnchor="start" verticalAnchor="start" capHeight="0.8em" lineHeight="2em">
-              pv of page
+                pv of page
             </Text>
         );
     }
@@ -92,7 +92,7 @@ class Component extends React.Component<{}, ComponentState> {
             );
         };
         return (
-            <div style={{width: "100%", height: "100%"}}>
+            <div style={{ width: "100%", height: "100%" }}>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
@@ -101,8 +101,8 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]}  />
-                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
+                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
@@ -124,8 +124,8 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis>
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]}  />
-                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
+                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]} />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
@@ -143,8 +143,8 @@ class Component extends React.Component<{}, ComponentState> {
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name" label={{ value: "X axis - name" }} />
                         <YAxis label={{ value: "Y axis" }} />
-                        <CartesianGrid stroke="#eee" strokeDasharray="5 5"  />
-                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
+                        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
@@ -161,7 +161,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer height={400}>
                     <PieChart width={800} height={400}>
                         <Pie
-                            label={(props: {name: string}) => <Label>{props.name}</Label>}
+                            label={(props: { name: string }) => <Label>{props.name}</Label>}
                             dataKey="value"
                             activeIndex={this.state.activeIndex}
                             activeShape={renderActiveShape}
@@ -178,8 +178,8 @@ class Component extends React.Component<{}, ComponentState> {
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
                     <ScatterChart width={500} height={300}>
-                        <XAxis type="number" dataKey="uv" name="stature" unit="cm" />
-                        <YAxis dataKey="pv" name="weight" unit="kg" />
+                        <XAxis type="number" dataKey="uv" name="stature" unit="cm" angle={30} dx={20} dy={20} />
+                        <YAxis dataKey="pv" name="weight" unit="kg" angle={30} dx={20} dy={20} />
                         <ZAxis dataKey="amt" range={[64, 144]} name="score" unit="km" />
                         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                         <Legend />
@@ -193,20 +193,20 @@ class Component extends React.Component<{}, ComponentState> {
                         data={data}
                         margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
                     >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name">
-                        <Label value="Pages of my website" offset={0} position="insideBottom" />
-                    </XAxis>
-                    <YAxis>
-                      <Label position="top" content={this.renderYAxisTitle} />
-                    </YAxis>
-                    <Legend align="right" verticalAlign="top" height={36} width={800} wrapperStyle={{ top: 5 }}/>
-                    <Bar dataKey="pv" fill="#8884d8">
-                        <LabelList dataKey="name" position="insideTop" angle={45}  />
-                    </Bar>
-                    <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                        <LabelList dataKey="uv" position="top" />
-                    </Bar>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name">
+                            <Label value="Pages of my website" offset={0} position="insideBottom" />
+                        </XAxis>
+                        <YAxis>
+                            <Label position="top" content={this.renderYAxisTitle} />
+                        </YAxis>
+                        <Legend align="right" verticalAlign="top" height={36} width={800} wrapperStyle={{ top: 5 }} />
+                        <Bar dataKey="pv" fill="#8884d8">
+                            <LabelList dataKey="name" position="insideTop" angle={45} />
+                        </Bar>
+                        <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
+                            <LabelList dataKey="uv" position="top" />
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -214,4 +214,4 @@ class Component extends React.Component<{}, ComponentState> {
     }
 }
 
-ReactDOM.render(<Component/>, document.getElementById('app'));
+ReactDOM.render(<Component />, document.getElementById('app'));

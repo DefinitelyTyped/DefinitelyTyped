@@ -35,7 +35,6 @@ export default class VectorTileLayer extends VectorLayer {
     constructor(opt_options?: Options);
     protected type: LayerType;
     getPreload(): number;
-    getSource(): VectorTile;
     getSource(): VectorSource;
     getUseInterimTilesOnError(): boolean;
     setPreload(preload: number): void;

@@ -127,7 +127,7 @@ declare module "readline" {
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
-    function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: Interface): void;
+    function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
 
     type Direction = -1 | 0 | 1;
 
@@ -142,7 +142,7 @@ declare module "readline" {
     /**
      * Moves this WriteStream's cursor to the specified position.
      */
-    function cursorTo(stream: NodeJS.WritableStream, x: number, y: number, callback?: () => void): boolean;
+    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * Moves this WriteStream's cursor relative to its current position.
      */

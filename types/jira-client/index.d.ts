@@ -129,6 +129,8 @@ declare class JiraApi {
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;
 
+    getIssueWorklogs(issueId: string): Promise<JiraApi.JsonResponse>;
+
     listIssueTypes(): Promise<JiraApi.JsonResponse>;
 
     registerWebhook(webhook: JiraApi.WebhookObject): Promise<JiraApi.JsonResponse>;
@@ -352,12 +354,7 @@ declare namespace JiraApi {
         startAt?: number;
         maxResults?: number;
         fields?: string[];
-    }
-
-    interface SearchQuery {
-        startAt?: number;
-        maxResults?: number;
-        fields?: string[];
+        expand?: string[];
     }
 
     interface UriOptions {

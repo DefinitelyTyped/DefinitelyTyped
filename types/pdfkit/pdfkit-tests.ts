@@ -188,3 +188,33 @@ doc.image('path/to/image.png', {
     goTo: {},
     destination: 'lorem',
 });
+
+
+// Subclassing
+class SubPDFDocument extends PDFDocument {
+    constructor(options:PDFKit.PDFDocumentOptions) {
+        super(options);
+    }
+
+    // override
+    text(text: string | number, x?:number | PDFKit.Mixins.TextOptions, y?:number, options?:PDFKit.Mixins.TextOptions):this {
+        if (typeof text === "string") {
+            return super.text(text, options);
+        }
+        else {
+            return super.text(text + "", options);
+        }
+    }
+
+    // new method
+    segment(xa:number, ya:number, xb:number, yb:number):this {
+        this.moveTo(xa, ya);
+        this.lineTo(xb, yb);
+        return this;
+    }
+}
+
+var subDoc = new SubPDFDocument({});
+
+subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
+subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");

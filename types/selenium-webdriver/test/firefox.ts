@@ -18,6 +18,7 @@ function TestFirefoxOptions() {
     options = options.setBinary('binary');
     options = options.setProfile('profile');
     options = options.setProxy({ proxyType: 'proxy' });
+    options = options.headless();
 }
 
 function TestServiceBuilder() {
