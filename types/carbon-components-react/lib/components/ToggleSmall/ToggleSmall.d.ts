@@ -6,7 +6,7 @@ interface InheritedProps extends
     Omit<ReactInputAttr, ExcludedAttributes>,
     RequiresIdProps
 {
-    ["aria-Label"]: NonNullable<React.AriaAttributes["aria-label"]>,
+    ["aria-label"]: NonNullable<React.AriaAttributes["aria-label"]>,
 }
 
 export interface ToggleSmallProps extends InheritedProps {
