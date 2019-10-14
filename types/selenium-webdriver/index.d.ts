@@ -8,6 +8,7 @@
 //   Ziyu <https://github.com/oddui>
 //   Johann Wolf <https://github.com/beta-vulgaris>
 //   Aleksey Chemakin <https://github.com/Dzenly>
+//   thislooksfun <https://github.com/thislooksfun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
