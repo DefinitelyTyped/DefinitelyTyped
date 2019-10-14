@@ -99,7 +99,8 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook = (event: Event, editor: CoreEditor, next: () => any) => any;
+export type EventHookT<T> = (event: T, editor: CoreEditor, next: () => any) => any;
+export type EventHook = EventHookT<Event>;
 
 export interface Plugin extends CorePlugin {
     decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
@@ -118,25 +119,25 @@ export interface Plugin extends CorePlugin {
         next: () => any
     ) => any;
 
-    onBeforeInput?: EventHook;
-    onBlur?: EventHook;
-    onClick?: EventHook;
-    onCompositionEnd?: EventHook;
-    onCompositionStart?: EventHook;
-    onCopy?: EventHook;
-    onCut?: EventHook;
-    onDragEnd?: EventHook;
-    onDragEnter?: EventHook;
-    onDragExit?: EventHook;
-    onDragLeave?: EventHook;
-    onDragOver?: EventHook;
-    onDragStart?: EventHook;
-    onDrop?: EventHook;
-    onFocus?: EventHook;
-    onInput?: EventHook;
-    onKeyDown?: EventHook;
-    onPaste?: EventHook;
-    onSelect?: EventHook;
+    onBeforeInput?: EventHookT<React.FormEvent>;
+    onBlur?: EventHookT<React.FocusEvent>;
+    onClick?: EventHookT<React.MouseEvent>;
+    onCompositionEnd?: EventHookT<React.CompositionEvent>;
+    onCompositionStart?: EventHookT<React.CompositionEvent>;
+    onCopy?: EventHookT<React.ClipboardEvent>;
+    onCut?: EventHookT<React.ClipboardEvent>;
+    onDragEnd?: EventHookT<React.DragEvent>;
+    onDragEnter?: EventHookT<React.DragEvent>;
+    onDragExit?: EventHookT<React.DragEvent>;
+    onDragLeave?: EventHookT<React.DragEvent>;
+    onDragOver?: EventHookT<React.DragEvent>;
+    onDragStart?: EventHookT<React.DragEvent>;
+    onDrop?: EventHookT<React.DragEvent>;
+    onFocus?: EventHookT<React.FocusEvent>;
+    onInput?: EventHookT<React.FormEvent>;
+    onKeyDown?: EventHookT<React.KeyboardEvent>;
+    onPaste?: EventHookT<React.ClipboardEvent>;
+    onSelect?: EventHookT<React.SyntheticEvent>;
 }
 
 export type PluginOrPlugins = Plugin | Plugins;
