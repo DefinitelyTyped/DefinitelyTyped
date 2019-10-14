@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "dnd-core": "^9.3.1",
+        "react-dnd": "^9.3.1",
         "react-dnd-touch-backend": "^9.3.1"
     }
 }

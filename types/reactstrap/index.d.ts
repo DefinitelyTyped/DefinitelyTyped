@@ -10,6 +10,7 @@
 //                 Georg Steinmetz <https://github.com/georg94>
 //                 Kyle Tsang <https://github.com/kyletsang>
 //                 Hayato Shimokawa <https://github.com/ichiwa>
+//                 Bill Parrott <https://github.com/chimericdream>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

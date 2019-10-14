@@ -2972,7 +2972,7 @@ declare namespace Sys {
             resolveElement(elementOrElementId: string|HTMLElement, containerElement?: HTMLElement): HTMLElement;
             /**
              * Sets the position of a DOM element. This member is static and can be invoked without creating an instance of the class.
-             * he left and top style attributes (upper-left corner) of an element specify the relative position of an element.
+             * The left and top style attributes (upper-left corner) of an element specify the relative position of an element.
              * The actual position will depend on the offsetParent property of the target element and the positioning mode of the element.             *
              * @param element The target element.
              * @param x The x-coordinate in pixels.

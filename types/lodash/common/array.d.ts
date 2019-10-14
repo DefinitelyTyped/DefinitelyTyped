@@ -1858,7 +1858,7 @@ declare module "../index" {
          */
         remove<T>(
             array: List<T>,
-            predicate?: ListIterator<T, NotVoid>
+            predicate?: ListIteratee<T>
         ): T[];
     }
 
@@ -1868,7 +1868,7 @@ declare module "../index" {
          */
         remove<T>(
             this: LoDashImplicitWrapper<List<T>>,
-            predicate?: ListIterator<T, NotVoid>
+            predicate?: ListIteratee<T>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1878,7 +1878,7 @@ declare module "../index" {
          */
         remove<T>(
             this: LoDashExplicitWrapper<List<T>>,
-            predicate?: ListIterator<T, NotVoid>
+            predicate?: ListIteratee<T>
         ): LoDashExplicitWrapper<T[]>;
     }
 
