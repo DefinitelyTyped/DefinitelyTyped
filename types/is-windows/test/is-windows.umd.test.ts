@@ -1,5 +1,3 @@
-/// <reference types="is-windows"/>
-
 // $ExpectType () => boolean
 isWindows;
 
