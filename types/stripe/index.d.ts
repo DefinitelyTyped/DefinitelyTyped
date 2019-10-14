@@ -157,6 +157,7 @@ declare class Stripe {
   off(event: 'request', handler: (event: RequestEvent) => void): void;
   off(event: 'response', handler: (event: ResponseEvent) => void): void;
 }
+
 export = Stripe;
 
 declare namespace Stripe {
@@ -1153,7 +1154,8 @@ declare namespace Stripe {
             metadata: IMetadata;
         }
 
-        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {}
+        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {
+        }
 
         interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -1825,7 +1827,8 @@ declare namespace Stripe {
             seller_message: string;
         }
 
-        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {}
+        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {
+        }
 
         type IPaymentMethodDetails =
             | IAchCreditTransferPaymentMethodDetails
@@ -2271,6 +2274,7 @@ declare namespace Stripe {
                  */
                 quantity?: number;
             }
+
             interface ICheckOutCreationSubscriptionData {
                 /**
                  * A list of items, each with an attached plan, that the customer is subscribing to. Use this parameter for subscriptions. To create one-time payments, use line_items.
@@ -2298,6 +2302,7 @@ declare namespace Stripe {
                  */
                 trial_period_days?: number;
             }
+
             interface ICheckoutCreationOptions {
                 /**
                  * The URL to return the customer to if they cancel payment
@@ -2691,7 +2696,8 @@ declare namespace Stripe {
             tax_info_verification?: any;
         }
 
-        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {
+        }
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -3864,20 +3870,20 @@ declare namespace Stripe {
              * The aggregate amounts calculated per tax rate for all line items.
              */
             total_tax_amounts: {
-              /**
-               * The amount, in pence, of the tax.
-               */
-              amount: number;
+                /**
+                 * The amount, in pence, of the tax.
+                 */
+                amount: number;
 
-              /**
-               * Whether this tax amount is inclusive or exclusive.
-               */
-              inclusive: boolean;
+                /**
+                 * Whether this tax amount is inclusive or exclusive.
+                 */
+                inclusive: boolean;
 
-              /**
-               * The tax rate that was applied to get this tax amount.
-               */
-              tax_rate: string;
+                /**
+                 * The tax rate that was applied to get this tax amount.
+                 */
+                tax_rate: string;
             };
 
             /**
@@ -5199,7 +5205,8 @@ declare namespace Stripe {
             transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
-        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentUserProvidedCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'abandoned';
+        type PaymentIntentStripeProvidedCancellationReason = 'failed_invoice' | 'void_invoice' | 'automatic';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
 
@@ -5243,7 +5250,7 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancellation_reason: PaymentIntentCancellationReason | null;
+            cancellation_reason: PaymentIntentUserProvidedCancellationReason | PaymentIntentStripeProvidedCancellationReason | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -5312,18 +5319,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
@@ -5409,48 +5405,22 @@ declare namespace Stripe {
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
         type PaymentIntentPaymentMethodType = 'card' | 'card_present';
 
-        interface IPaymentIntentCreationOptions {
+        interface IPaymentMethodCardOptions {
             /**
-             * Amount intended to be collected by this PaymentIntent (in cents).
+             * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
+             * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
              */
-            amount: number;
+            request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
+        }
 
+        interface IPaymentMethodOptions {
             /**
-             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             * Configuration for any card payments attempted on this PaymentIntent.
              */
-            currency: string;
+            card?: IPaymentMethodCardOptions;
+        }
 
-            /**
-             * The ID of the payment method used to pay
-             */
-            payment_method?: string;
-
-            /**
-             * The list of payment method types that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"].
-             */
-            payment_method_types?: PaymentIntentPaymentMethodType[];
-
-            /**
-             * Payment-method-specific configuration for this PaymentIntent.
-             */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
-
-            /**
-             * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
-             */
-            application_fee_amount?: number;
-
+        interface IPaymentIntentCreationOptions extends IPaymentIntentUpdateOptions {
             /**
              * Capture method of this PaymentIntent.
              */
@@ -5467,32 +5437,14 @@ declare namespace Stripe {
             confirmation_method?: 'automatic' | 'manual';
 
             /**
-             * ID of the customer this PaymentIntent is for if one exists.
-             */
-            customer?: string;
-
-            /**
-             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
-             */
-            description?: string | null;
-
-            /**
-             * A set of key/value pairs that you can attach to an object. It can be
-             * useful for storing additional information about the object in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IOptionsMetadata;
-
-            /**
              * The Stripe account ID for which these funds are intended.
              */
             on_behalf_of?: string;
 
             /**
-             * Email address that the receipt for the resulting payment will be sent to.
+             * Payment-method-specific configuration for this PaymentIntent.
              */
-            receipt_email?: string;
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site. If you’d prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This param can only be used if `confirm=true`.
@@ -5500,34 +5452,9 @@ declare namespace Stripe {
             return_url?: string;
 
             /**
-             * Set to `true` to save this PaymentIntent’s payment method to the associated Customer, if the payment method is not already attached. This parameter only applies to the payment method passed in the same request or the current payment method attached to the PaymentIntent and must be specified again if a new payment method is added.
-             */
-            save_payment_method?: boolean;
-
-            /*
-             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
-             */
-            setup_future_usage?: PaymentIntentFutureUsageType;
-
-            /**
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
-
-            /**
-             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
-             */
-            statement_descriptor?: string;
-
-            /**
-             * The parameters used to automatically create a Transfer when the payment succeeds.
-             */
-            transfer_data?: IPaymentIntentTransferData;
-
-            /**
-             * A string that identifies the resulting payment as part of a group.
-             */
-            transfer_group?: string;
         }
 
         interface IPaymentIntentUpdateOptions {
@@ -5584,7 +5511,7 @@ declare namespace Stripe {
              */
             save_payment_method?: boolean;
 
-            /*
+            /**
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
             setup_future_usage?: PaymentIntentFutureUsageType;
@@ -5600,9 +5527,9 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * ID of the Source object to attach to this PaymentIntent.
+             * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
              */
-            source?: string;
+            statement_descriptor_suffix?: string;
 
             /**
              * A string that identifies the resulting payment as part of a group.
@@ -5629,18 +5556,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types that this PaymentIntent is allowed to use.
@@ -5671,11 +5587,6 @@ declare namespace Stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation | null;
-
-            /**
-             * ID of the source used in this PaymentIntent.
-             */
-            source?: string;
         }
 
         interface IPaymentIntentRetrieveOptions {
@@ -6122,56 +6033,56 @@ declare namespace Stripe {
          * Tax rates can be applied to invoices and subscriptions to collect tax.
          */
         interface ITaxRate extends IResourceObject {
-             /**
-              * String representing the object’s type. Objects of the same type share the same value.
-              */
-             object: 'tax_rate';
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: 'tax_rate';
 
-             /**
-              * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
-              */
-             active: boolean;
+            /**
+             * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
+             */
+            active: boolean;
 
-             /**
-              * Time at which the object was created. Measured in seconds since the Unix epoch.
-              */
-             created: number;
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
 
-             /**
-              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
-              */
-             description: string;
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description: string;
 
-             /**
-              * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
-              */
-             display_name: string;
+            /**
+             * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
+             */
+            display_name: string;
 
-             /**
-              * This specifies if the tax rate is inclusive or exclusive.
-              */
-             inclusive: boolean;
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
 
-             /**
-              * The jurisdiction for the tax rate.
-              */
-             jurisdiction: string;
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction: string;
 
-             /**
-              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
-              */
-             livemode: boolean;
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
 
-             /**
-              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-              */
-             metadata: IMetadata;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
 
-             /**
-              * This represents the tax rate percent out of 100.
-              */
-             percentage: number | null;
-          }
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number | null;
+        }
     }
     namespace paymentMethods {
         interface WalletAddress {
@@ -6241,6 +6152,7 @@ declare namespace Stripe {
             type: 'google_pay';
             google_pay: {};
         }
+
         interface SamsungPayWallet extends TokenizedWallet {
             type: 'samsung_pay';
             samsung_pay: {};
@@ -6384,14 +6296,14 @@ declare namespace Stripe {
              */
             card?:
                 | {
-                      exp_month: number;
-                      exp_year: number;
-                      number: string;
-                      cvc?: string;
-                  }
+                exp_month: number;
+                exp_year: number;
+                number: string;
+                cvc?: string;
+            }
                 | {
-                      token: string;
-                  };
+                token: string;
+            };
 
             /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: IMetadata;
@@ -6967,11 +6879,13 @@ declare namespace Stripe {
         type ProductType = 'service' | 'good';
     }
 
-    namespace recipientCards {}
+    namespace recipientCards {
+    }
 
     namespace recipients {
         // tslint:disable-next-line:no-empty-interface
-        interface IRecipient extends IResourceObject {}
+        interface IRecipient extends IResourceObject {
+        }
     }
 
     namespace skus {
@@ -7195,7 +7109,8 @@ declare namespace Stripe {
     }
 
     namespace tokens {
-        interface IToken extends ICardToken, IBankAccountToken {}
+        interface IToken extends ICardToken, IBankAccountToken {
+        }
 
         interface ICardToken extends ITokenBase {
             /**
@@ -7391,7 +7306,8 @@ declare namespace Stripe {
             type: 'card' | 'bank_account' | 'stripe_account';
         }
 
-        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {}
+        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {
+        }
 
         interface ITransferCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -8004,6 +7920,7 @@ declare namespace Stripe {
             | 'invoice_too_large'
             | 'invoice_too_small'
             | 'unspent_receiver_credit';
+
         interface ICustomerBalanceTransaction extends IResourceObject {
             /**
              * Value is "customer_balance_transaction"
@@ -8118,6 +8035,7 @@ declare namespace Stripe {
             | 'canceled'
             | 'unpaid';
         type SubscriptionBilling = 'charge_automatically' | 'send_invoice';
+
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -9187,6 +9105,7 @@ declare namespace Stripe {
 
     interface IListPromise<T> extends Promise<IList<T>>, AsyncIterableIterator<T> {
         autoPagingEach(handler: (item: T) => Promise<void>): void;
+
         autoPagingToArray(opts: { limit: number }): Promise<T[]>;
     }
 
@@ -9877,6 +9796,7 @@ declare namespace Stripe {
                 data: checkouts.sessions.ICheckoutCreationOptions,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+
             retrieve(
                 data: string,
                 options: HeaderOptions,
@@ -10121,6 +10041,7 @@ declare namespace Stripe {
             ): IListPromise<refunds.IRefund>;
 
             markAsSafe(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+
             markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
         }
 
@@ -11452,6 +11373,7 @@ declare namespace Stripe {
                 response?: IResponseFn<subscriptions.ISubscription>,
             ): Promise<subscriptions.ISubscription>;
         }
+
         class CustomerSubscriptions extends SubscriptionsBase {
             /**
              * Creates a new subscription on an existing customer.
@@ -12261,7 +12183,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason;
+                    cancellation_reason?: paymentIntents.PaymentIntentUserProvidedCancellationReason;
                 },
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
@@ -12274,7 +12196,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason;
+                    cancellation_reason?: paymentIntents.PaymentIntentUserProvidedCancellationReason;
                 },
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
@@ -12445,6 +12367,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodCreationOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             retrieve(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12454,6 +12377,7 @@ declare namespace Stripe {
                 paymentMethodId: string,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             update(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodUpdateOptions,
@@ -12465,6 +12389,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodUpdateOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             list<T extends paymentMethods.IPaymentMethodType>(
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 options: HeaderOptions,
@@ -12474,6 +12399,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>,
             ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+
             attach(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodAttachOptions,
@@ -12485,6 +12411,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodAttachOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             detach(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12672,18 +12599,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -12699,18 +12630,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -13587,26 +13522,26 @@ declare namespace Stripe {
     type IDateFilter =
         | string
         | {
-              /**
-               * Return values where the created field is after this timestamp.
-               */
-              gt?: string;
+        /**
+         * Return values where the created field is after this timestamp.
+         */
+        gt?: string;
 
-              /**
-               * Return values where the created field is after or equal to this timestamp.
-               */
-              gte?: string;
+        /**
+         * Return values where the created field is after or equal to this timestamp.
+         */
+        gte?: string;
 
-              /**
-               * Return values where the created field is before this timestamp.
-               */
-              lt?: string;
+        /**
+         * Return values where the created field is before this timestamp.
+         */
+        lt?: string;
 
-              /**
-               * Return values where the created field is before or equal to this timestamp.
-               */
-              lte?: string;
-          };
+        /**
+         * Return values where the created field is before or equal to this timestamp.
+         */
+        lte?: string;
+    };
 
     /**
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
@@ -13886,12 +13821,15 @@ declare namespace Stripe {
         class _Error extends Error {
             readonly message: string;
         }
-        namespace _Error {}
+
+        namespace _Error {
+        }
 
         type RawType = 'card_error' | 'invalid_request_error' | 'api_error' | 'idempotency_error';
 
         abstract class StripeError extends _Error implements IStripeError {
             static populate(type: RawType): StripeError;
+
             readonly rawType: RawType;
             readonly code?: string;
             readonly raw: any;
@@ -13911,30 +13849,39 @@ declare namespace Stripe {
             readonly setup_intent?: setupIntents.ISetupIntent;
             readonly source?: sources.ISource;
         }
+
         class StripeCardError extends StripeError {
             readonly type: 'StripeCardError';
         }
+
         class StripeInvalidRequestError extends StripeError {
             readonly type: 'StripeInvalidRequestError';
         }
+
         class StripeAPIError extends StripeError {
             readonly type: 'StripeAPIError';
         }
+
         class StripeAuthenticationError extends StripeError {
             readonly type: 'StripeAuthenticationError';
         }
+
         class StripePermissionError extends StripeError {
             readonly type: 'StripePermissionError';
         }
+
         class StripeRateLimitError extends StripeError {
             readonly type: 'StripeRateLimitError';
         }
+
         class StripeConnectionError extends StripeError {
             readonly type: 'StripeConnectionError';
         }
+
         class StripeSignatureVerificationError extends StripeError {
             readonly type: 'StripeSignatureVerificationError';
         }
+
         class StripeIdempotencyError extends StripeError {
             readonly type: 'StripeIdempotencyError';
         }
