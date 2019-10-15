@@ -159,11 +159,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -176,12 +172,12 @@ export function verify(
  */
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
