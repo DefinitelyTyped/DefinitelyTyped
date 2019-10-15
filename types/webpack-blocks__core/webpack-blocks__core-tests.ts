@@ -19,11 +19,7 @@ createConfig([
     match(['*.eot', '*.ttf', '*.woff', '*.woff2'], [file()]),
     match(['*.gif', '*.jpg', '*.jpeg', '*.png', '*.svg', '*.webp'], [url({ limit: 10000 })]),
 ]);
-createConfig([
-    match(['*.js', '!*node_modules*'], [
-        babel()
-    ])
-]);
+createConfig([match(['*.js', '!*node_modules*'], [babel()])]);
 
 group([]);
 group(blocks);
