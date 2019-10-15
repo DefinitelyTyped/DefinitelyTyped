@@ -13,7 +13,7 @@ export class Onfleet {
   webhooks: Resources.Webhook;
   // containers: {}; // TODO define resource
   hubs: Resources.Hub;
-  // organization: {}; // TODO define resource
+  organization: Resources.Organization;
   // teams: {}; // TODO define resource
   workers: Resources.Worker; // TODO define resource
 }
