@@ -1,18 +1,16 @@
-import { OnfleetDestination } from './Destination';
+import { OnfleetDestination, CreateDestinationProps } from './Destination';
 import { OnfleetMetadata } from '../metadata';
-import { OnfleetRecipient } from './Recipient';
+import { OnfleetRecipient, CreateRecipientProps } from './Recipient';
 
 export class Task {
   autoAssign(tasks: OnfleetTask[]): Promise<any>; // TODO need to confirm response
-  batch(tasks: OnfleetTask[]): Promise<OnfleetTask[]>;
-  clone(id: string, options?: CloneTaskOptions): Promise<OnfleetTask>;
+  batchCreate(tasks: CreateTaskProps[]): Promise<OnfleetTask[]>;
+  clone(id: string): Promise<OnfleetTask>;
   create(task: CreateTaskProps): Promise<OnfleetTask>;
   deleteOne(id: string): Promise<number>;
   forceComplete(id: string): Promise<void>;
-  get(): Promise<OnfleetTask[]>;
-  get(id: string): Promise<OnfleetTask>;
-  get(queryParams: TaskQueryParam): Promise<OnfleetTask[]>;
-  get(queryValue: string, queryKey: TaskQueryKey): Promise<OnfleetTask>;
+  get(queryOrId: string, queryKey?: TaskQueryKey): Promise<OnfleetTask>;
+  get(queryParams?: TaskQueryParam): Promise<OnfleetTask[]>;
   update(id: string, task: Partial<CreateTaskProps>): Promise<UpdateTaskResult>;
 }
 
@@ -70,8 +68,8 @@ export interface OnfleetTask {
 }
 
 export interface CreateTaskProps {
-  destination: string | OnfleetDestination;
-  recipients: string[] | OnfleetRecipient[];
+  destination: string | CreateDestinationProps;
+  recipients: string[] | CreateRecipientProps[];
   autoAssign?: TaskAutoAssign;
   capacity?: number;
   completeAfter?: number;
@@ -122,7 +120,7 @@ export interface CloneTaskOptions {
   overrides?: {
     completeAfter?: number;
     completeBefore?: number;
-    destination?: string | OnfleetDestination;
+    destination?: string | CreateDestinationProps;
     metadata?: OnfleetMetadata[];
     notes?: string;
     pickupTask?: boolean;

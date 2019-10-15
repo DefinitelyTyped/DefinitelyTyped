@@ -5,12 +5,11 @@ export class Destination {
   get(id: string): Promise<OnfleetDestination>;
 }
 
-type Latitude = number;
-type Longitude = number;
+export type Latitude = number;
+export type Longitude = number;
 export type Location = [Longitude, Latitude];
 
 /**
- * @interface DestinationAddress
  * @prop { string } [apartment] - The suite or apartment number, or any additional relevant information.
  * @prop { string } city - The name of the municipality.
  * @prop { string } country - The name of the country.
@@ -20,11 +19,11 @@ export type Location = [Longitude, Latitude];
  * @prop { string } [state] - The name of the state, province or jurisdiction.
  * @prop { string } street - The name of the street.
  * @prop { string } [unparsed] - A complete address specified in a single, unparsed string where the various elements are separated by commas.
- ** If present, all other address properties will be ignored (with the exception of name and apartment).
- ** In some countries, you may skip most address details (like city or state) if you provide a valid postalCode:
+ * * If present, all other address properties will be ignored (with the exception of name and apartment).
+ * * In some countries, you may skip most address details (like city or state) if you provide a valid postalCode:
  *  for example, 325 Front Street W., M5V 3B5, CA will be geocoded correctly.
  */
-interface DestinationAddress {
+export interface DestinationAddress {
   apartment?: string;
   city: string;
   country: string;
@@ -59,4 +58,3 @@ export interface CreateDestinationProps {
   location?: Location;
   notes?: string;
 }
-

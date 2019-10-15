@@ -4,7 +4,7 @@ export class Organization {
   insertTask(id: string, obj: { tasks: string[] }): Promise<any>;
 }
 
-interface OnfleetOrganization {
+export interface OnfleetOrganization {
   id: string;
   timeCreated: number;
   timeLastModified: number;
@@ -13,10 +13,10 @@ interface OnfleetOrganization {
   image: string;
   timezone: string;
   country: string;
-  delegatees: Delegatee['id'][];
+  delegatees: string[];
 }
 
-interface Delegatee {
+export interface Delegatee {
   country: string;
   email: string;
   id: string;

@@ -17,11 +17,11 @@ export interface WebhookResult {
   url: string;
 }
 
-interface GetWebhookResult extends WebhookResult {
+export interface GetWebhookResult extends WebhookResult {
   isEnabled: boolean;
 }
 
-export const enum WebhookTriggerName {
+export enum WebhookTriggerName {
   SmsRecipientResponseMissed = 'smsRecipientResponseMissed',
   TaskArrival = 'taskArrival',
   TaskAssigned = 'taskAssigned',

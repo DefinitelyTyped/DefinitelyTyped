@@ -1,9 +1,8 @@
 export class Container {
     get(id: string, group: 'organizations' | 'teams' | 'workers'): Promise<OnfleetContainer>;
-    update(id: string, obj: UpdateOnfleetContainer): Promise<OnfleetContainer>;
 }
 
-interface OnfleetContainer {
+export interface OnfleetContainer {
     id: string;
     timeCreated: number;
     timeLastModified: number;
@@ -12,8 +11,4 @@ interface OnfleetContainer {
     activeTask: string | null;
     tasks: string[];
     worker: string;
-}
-
-interface UpdateOnfleetContainer {
-    tasks?: string[];
 }

@@ -2,8 +2,7 @@ import { OnfleetMetadata } from '../metadata';
 
 export class Recipient {
   create(recipient: CreateRecipientProps): Promise<OnfleetRecipient>;
-  get(id: string): Promise<OnfleetRecipient>;
-  get(queryValue: string, queryKey: RecipientQueryKey): Promise<OnfleetRecipient>;
+  get(queryOrId: string, queryKey?: RecipientQueryKey): Promise<OnfleetRecipient>;
   update(id: string, recipient: Partial<CreateRecipientProps>): Promise<OnfleetRecipient>;
 }
 

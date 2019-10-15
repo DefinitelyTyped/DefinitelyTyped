@@ -1,10 +1,10 @@
-import { Location, OnfleetDestination} from "./Destination";
+import { Location, OnfleetDestination } from "./Destination";
 
 export class Hub {
   get(): Promise<OnfleetHub[]>;
 }
 
-interface OnfleetHub {
+export interface OnfleetHub {
   address: OnfleetDestination['address'];
   id: string;
   location: Location;

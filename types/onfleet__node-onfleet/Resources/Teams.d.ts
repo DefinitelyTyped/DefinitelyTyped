@@ -7,7 +7,7 @@ export class Team {
   update(id: string, obj: UpdateTeamProps): Promise<OnfleetTeam>;
 }
 
-interface OnfleetTeam {
+export interface OnfleetTeam {
   hub: string;
   id: string;
   managers: string[];
@@ -18,21 +18,19 @@ interface OnfleetTeam {
 }
 
 /**
- * @interface CreateTeamProps
  * @prop managers - An array of managing administrator IDs.
  * @prop name - A unique name for the team.
  * @prop workers - An array of worker IDs.
  * @prop hub - Optional. The ID of the team's hub.
  */
-
-interface CreateTeamProps {
+export interface CreateTeamProps {
   managers: string[];
   name: string;
   workers: string[];
   hub?: string;
 }
 
-interface UpdateTeamProps {
+export interface UpdateTeamProps {
   managers?: string[];
   name?: string;
   workers?: string[];
