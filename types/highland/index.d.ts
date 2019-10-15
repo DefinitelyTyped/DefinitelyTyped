@@ -1021,8 +1021,8 @@ declare namespace Highland {
 		 * @name Stream.flatten()
 		 * @api public
 		 */
-		flatten<U>(): Stream<U>;
 		flatten(): Stream<R>;
+		flatten<U>(): Stream<U>;
 
 		/**
 		 * Forks a stream, allowing you to add additional consumers with shared

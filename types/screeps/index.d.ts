@@ -1165,7 +1165,7 @@ interface Creep extends RoomObject {
     rangedMassAttack(): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NO_BODYPART;
     /**
      * Repair a damaged structure using carried energy. Needs the WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
-     * @param target he target structure to be repaired.
+     * @param target The target structure to be repaired.
      */
     repair(target: Structure): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES;
     /**

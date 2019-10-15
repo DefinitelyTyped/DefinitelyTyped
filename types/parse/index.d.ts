@@ -1030,6 +1030,7 @@ subscription.on('close', () => {});
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<void> | void): void;
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
+        function beforeLogin(func?: (request: TriggerRequest) => Promise<any> | any): void;
         function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
         /**
          * Gets data for the current set of cloud jobs.

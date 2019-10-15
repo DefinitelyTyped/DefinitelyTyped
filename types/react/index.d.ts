@@ -85,6 +85,10 @@ declare namespace React {
 
     type ComponentState = any;
 
+    /**
+     * @internal You shouldn't need to use this type since you never see these attributes
+     * inside your component or have to validate them.
+     */
     interface Attributes {
         key?: Key;
     }
@@ -1081,7 +1085,7 @@ declare namespace React {
     }
 
     interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         target: EventTarget & T;
     }
 
@@ -1134,7 +1138,7 @@ declare namespace React {
         movementY: number;
         pageX: number;
         pageY: number;
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         screenX: number;
         screenY: number;
         shiftKey: boolean;

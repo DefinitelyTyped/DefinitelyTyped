@@ -1,4 +1,4 @@
-import { queries } from '@testing-library/dom';
+import { queries, isInaccessible } from '@testing-library/dom';
 
 const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryByRole } = queries;
 
@@ -18,4 +18,9 @@ function testByRole() {
 
     console.assert(queryByRole(element, 'button') === null);
     console.assert(queryByRole(element, 'button', { hidden: true }) !== null);
+}
+
+function testA11yHelper() {
+    const element = document.createElement('svg');
+    console.assert(!isInaccessible(element));
 }
