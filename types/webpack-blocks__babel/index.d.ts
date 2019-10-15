@@ -1,4 +1,4 @@
-// Type definitions for @webpack-blocks/core 2.0
+// Type definitions for @webpack-blocks/babel 2.0
 // Project: https://github.com/andywer/webpack-blocks
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
