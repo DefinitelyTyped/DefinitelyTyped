@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import assets from '@webpack-blocks/assets';
+import { css, url, file } from '@webpack-blocks/assets';
 import babel from '@webpack-blocks/babel';
 import devServer from '@webpack-blocks/dev-server';
 import extractText from '@webpack-blocks/extract-text';
@@ -12,12 +12,13 @@ import postcss from '@webpack-blocks/postcss';
 import sass from '@webpack-blocks/sass';
 import typescript from '@webpack-blocks/typescript';
 import uglify from '@webpack-blocks/uglify';
-import webpack from '@webpack-blocks/webpack';
+import { Block, group, createConfig, InitialContext, Context, Util, MatchOptions, ConfigSetter, env, match, when } from '@webpack-blocks/webpack';
 
-// Export all components.
 export {
-    webpack,
-    assets,
+    // webpack,
+    // assets,
+    Block, group, createConfig, InitialContext, Context, Util, MatchOptions, ConfigSetter, env, match, when,
+    css, url, file,
     babel,
     devServer,
     extractText,

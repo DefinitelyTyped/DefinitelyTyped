@@ -19,6 +19,7 @@
         "paths": {
             "@webpack-blocks/assets": ["webpack-blocks__assets"],
             "@webpack-blocks/babel": ["webpack-blocks__babel"],
+            "@webpack-blocks/core": ["webpack-blocks__core"],
             "@webpack-blocks/dev-server": ["webpack-blocks__dev-server"],
             "@webpack-blocks/extract-text": ["webpack-blocks__extract-text"],
             "@webpack-blocks/postcss": ["webpack-blocks__postcss"],
