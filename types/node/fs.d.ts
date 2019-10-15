@@ -679,12 +679,18 @@ declare module "fs" {
      */
     function unlinkSync(path: PathLike): void;
 
+    interface RmdirOptions {
+        emfileWait?: number;
+        maxBusyTries?: number;
+        recursive?: boolean;
+    }
+
     /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
-    function rmdir(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function rmdir(path: PathLike, options: RmdirOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -692,16 +698,14 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<void>;
-        function __promisify__(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmdirOptions): Promise<void>;
     }
 
     /**
      * Synchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdirSync(path: PathLike): void;
-    function rmdirSync(path: PathLike, options: { recursive?: boolean; }): void;
+    function rmdirSync(path: PathLike, options?: { recursive?: boolean; }): void;
 
     export interface MakeDirectoryOptions {
         /**
@@ -2033,8 +2037,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function rmdir(path: PathLike): Promise<void>;
-        function rmdir(path: PathLike, options: { emfileWait?: number; maxBusyTries?: number; recursive?: boolean; }): Promise<void>;
+        function rmdir(path: PathLike, options?: RmdirOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
