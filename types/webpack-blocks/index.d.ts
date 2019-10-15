@@ -12,18 +12,40 @@ import postcss from '@webpack-blocks/postcss';
 import sass from '@webpack-blocks/sass';
 import typescript from '@webpack-blocks/typescript';
 import uglify from '@webpack-blocks/uglify';
-import { Block, group, createConfig, InitialContext, Context, Util, MatchOptions, ConfigSetter, env, match, when } from '@webpack-blocks/webpack';
+import {
+    Block,
+    group,
+    createConfig,
+    InitialContext,
+    Context,
+    Util,
+    MatchOptions,
+    ConfigSetter,
+    env,
+    match,
+    when,
+} from '@webpack-blocks/webpack';
 
 export {
-    // webpack,
-    // assets,
-    Block, group, createConfig, InitialContext, Context, Util, MatchOptions, ConfigSetter, env, match, when,
-    css, url, file,
+    Block,
+    group,
+    createConfig,
+    InitialContext,
+    Context,
+    Util,
+    MatchOptions,
+    ConfigSetter,
+    env,
+    match,
+    when,
+    css,
+    url,
+    file,
     babel,
     devServer,
     extractText,
     postcss,
     sass,
     typescript,
-    uglify
+    uglify,
 };
