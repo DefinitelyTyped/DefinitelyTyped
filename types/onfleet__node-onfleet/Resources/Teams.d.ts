@@ -1,11 +1,9 @@
-import { OnfleetTask } from "./Task";
-
 export class Team {
   get(): Promise<OnfleetTeam[]>;
   get(id: string): Promise<OnfleetTeam>;
   create(obj: any): Promise<OnfleetTeam>;
   update(id: string, obj: UpdateTeamProps): Promise<OnfleetTeam>;
-  insertTask(id: string, task: OnfleetTask): Promise<OnfleetTeam>;
+  insertTask(id: string, obj: { tasks: string[] }): Promise<OnfleetTeam>;
   deleteOne(id: string): Promise<void>;
 }
 

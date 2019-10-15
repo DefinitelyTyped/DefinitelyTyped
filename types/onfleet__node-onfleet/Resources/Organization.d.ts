@@ -1,9 +1,7 @@
-import { OnfleetTask } from "./Task";
-
 export class Organization {
   get(): Promise<OnfleetOrganization[]>;
   get(id: string): Promise<OnfleetOrganization | Delegatee>;
-  insertTask(id: string, task: OnfleetTask): Promise<any>;
+  insertTask(id: string, obj: { tasks: string[] }): Promise<any>;
 }
 
 interface OnfleetOrganization {

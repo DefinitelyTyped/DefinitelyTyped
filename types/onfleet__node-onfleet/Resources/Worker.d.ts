@@ -1,6 +1,5 @@
 import { Location } from './Destination';
 import { OnfleetMetadata } from '../metadata';
-import { OnfleetTask } from './Task';
 
 export class Worker {
   get(): Promise<WorkerResult[]>;
@@ -11,7 +10,7 @@ export class Worker {
   create(worker: CreateWorkerProps): Promise<WorkerResult>;
   setSchedule(id: string, schedule: WorkerSchedule): Promise<{ entries: WorkerSchedule[] }>;
   update(id: string, worker: UpdateWorkerProps): Promise<WorkerResult>;
-  insertTask(id: string, task: OnfleetTask): Promise<WorkerResult>;
+  insertTask(id: string, obj: { tasks: string[] }): Promise<WorkerResult>;
   deleteOne(id: string): Promise<void>;
 }
 
