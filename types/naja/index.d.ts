@@ -87,7 +87,7 @@ export interface InitEvent extends Event {
 
 export interface InteractionEvent extends Event {
     readonly element: HTMLElement;
-    readonly originalEvent: SnippetUpdateEvent | null | undefined;
+    readonly originalEvent: SnippetUpdateEvent | undefined;
     readonly options: Readonly<RequestOptions>;
 }
 
@@ -117,14 +117,14 @@ export interface SuccessEvent<T extends object = any> extends Event {
 export interface ErrorEvent<T extends object = any> extends Event {
     readonly error: Error;
     readonly xhr: XMLHttpRequest;
-    readonly response: T | null | undefined;
+    readonly response: T | undefined;
     readonly options: Readonly<NajaOptions>;
 }
 
 export interface CompleteEvent<T extends object = any> extends Event {
-    readonly error: Error | null | undefined;
+    readonly error: Error | undefined;
     readonly xhr: XMLHttpRequest;
-    readonly response: T | null | undefined;
+    readonly response: T | undefined;
     readonly options: Readonly<NajaOptions>;
 }
 
@@ -174,7 +174,7 @@ export interface Naja extends NajaEventTarget {
     readonly historyHandler: HistoryHandler;
     readonly snippetHandler: SnippetHandler;
     readonly uiHandler: UIHandler;
-    fireEvent(name: string, args: any): void;
+    fireEvent(name: string, args?: any): void;
     initialize(defaultOptions?: NajaOptions): void;
     makeRequest(method: RequestMethod, url: string, data: RequestData, options?: RequestOptions): Promise<any>;
     registerExtension<T extends any[]>(extension: NajaExtension<T>, ...optionalArguments: T): void;
