@@ -5,11 +5,19 @@
 // TypeScript Version: 3.6
 import * as Babel from 'babel__core';
 
-declare type References = Babel.NodePath[];
+type References = Babel.NodePath[];
 
-declare interface Options {
+interface Options {
     configName?: string;
 }
+
+interface MacroParams {
+    references: { default: References } & References;
+    state: any;
+    babel: typeof Babel;
+}
+
+type MacroHandler = (params: MacroParams) => void;
 
 declare function babel_plugin_macros(
     babel: typeof Babel,
@@ -20,17 +28,9 @@ declare function babel_plugin_macros(
 ): Babel.PluginObj;
 
 declare namespace babel_plugin_macros {
-    interface MacroParams<S = {}> {
-        references: { default: References } & References;
-        state: S;
-        babel: typeof Babel;
-    }
-
-    type MacroHandler<S = {}> = (params: MacroParams<S>) => void;
-
     class MacroError extends Error {}
 
-    function createMacro<M, S = {}>(handler: MacroHandler<S>, options?: Options): M;
+    function createMacro(handler: MacroHandler, options?: Options): any;
 }
 
 export = babel_plugin_macros;
