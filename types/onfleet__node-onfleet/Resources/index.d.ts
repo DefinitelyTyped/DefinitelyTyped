@@ -1,4 +1,4 @@
-export * from './Admin';
+export * from './Administrator';
 export * from './Container';
 export * from './Destination';
 export * from './Hub';
