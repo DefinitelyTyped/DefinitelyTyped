@@ -2,7 +2,7 @@
 // Project: http://knockout-contrib.github.io/KoGrid/
 // Definitions by: huer12 <https://github.com/huer12>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // These are very definitely preliminary. Please feel free to improve.
 
@@ -16,7 +16,7 @@ declare namespace kg {
    }
 
    interface Row<EntityType> {
-      selected: KnockoutObservable<boolean>;
+      selected: ko.Observable<boolean>;
       entity: EntityType;
    }
 
@@ -58,13 +58,13 @@ declare namespace kg {
       canSelectRows?:boolean;
 
       /** definitions of columns as an array [], if not defined columns are auto-generated. See github wiki for more details. */
-      columnDefs?: ColumnDef[] | KnockoutObservable<ColumnDef[]>;
+      columnDefs?: ko.MaybeSubscribable<ColumnDef[]>;
 
       /** Column width of columns in grid. */
       columnWidth?: number;
 
       /** Data being displayed in the grid. Each item in the array is mapped to a row being displayed. */
-      data?: KnockoutObservableArray<EntityType>;
+      data?: ko.ObservableArray<EntityType>;
 
       /** Row selection check boxes appear as the first column. */
       displaySelectionCheckbox: boolean;
@@ -132,10 +132,10 @@ declare namespace kg {
       rowTemplate?: string | JQueryGenericPromise<string>;
 
       /** Defines the binding to select all at once */
-      selectAllState?: KnockoutObservable<boolean>;
+      selectAllState?: ko.Subscribable<boolean>;
 
       /** all of the items selected in the grid. In single select mode there will only be one item in the array. */
-      selectedItems?: KnockoutObservableArray<any>;
+      selectedItems?: ko.ObservableArray<any>;
 
       /** Disable row selections by clicking on the row and only when the checkbox is clicked. */
       selectWithCheckboxOnly?: boolean;
@@ -154,7 +154,7 @@ declare namespace kg {
       /** Define a sortInfo object to specify a default sorting state.
       You can also observe this variable to utilize server-side sorting (see useExternalSorting).
       Syntax is sortinfo: { fields: ['fieldName1',' fieldName2'], direction: 'ASC'/'asc' || 'desc'/'DESC'}*/
-      sortInfo?: SortInfo | KnockoutObservable<SortInfo>;
+      sortInfo?: ko.MaybeSubscribable<SortInfo>;
 
       /** Set the tab index of the Vieport. */
       tabIndex?: number;
@@ -173,7 +173,7 @@ declare namespace kg {
       /** Which direction to sort */
       direction: Direction;
    }
-   
+
    interface SortColumn {
       /** The string name of the property in your data model you want that column to represent. Can also be a property path on your data model. 'foo.bar.myField', 'Name.First', etc.. */
       field: string;
@@ -188,7 +188,7 @@ declare namespace kg {
 
       /**
        * A function which takes the value of the cell and returns the display value. Useful when your data model has an underlying value which you need to convert to a human readable format.
-       * @param val 
+       * @param val
        * @returns the display value
        * @example function(unixTimeTicks) { return new Date(unixTimeTicks); }
        */
@@ -227,7 +227,7 @@ declare namespace kg {
 
    interface FilterOptions {
       /** Variable to contain the current search filter */
-      filterText?: KnockoutObservable<string>;
+      filterText?: ko.Subscribable<string>;
 
       /** Is the filtering internal or does it require a server visit. You should subscribe to filterText to refresh */
       useExternalFilter?: boolean;
@@ -238,16 +238,16 @@ declare namespace kg {
 
    interface PagingOptions {
       /**  pageSizes: list of available page sizes.  */
-      pageSizes?: KnockoutObservableArray<number>;
+      pageSizes?: ko.ObservableArray<number>;
 
       /** pageSize: currently selected page size.  */
-      pageSize?: KnockoutObservable<number>;
+      pageSize?: ko.Subscribable<number>;
 
       /** totalServerItems: Total items are on the server.  */
-      totalServerItems?: KnockoutObservable<number>;
+      totalServerItems?: ko.Subscribable<number>;
 
       /** currentPage: the uhm... current page. */
-      currentPage?: KnockoutObservable<number>;
+      currentPage?: ko.Subscribable<number>;
    }
 }
 

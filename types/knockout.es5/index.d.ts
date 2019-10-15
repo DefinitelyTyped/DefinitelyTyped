@@ -2,23 +2,15 @@
 // Project: https://github.com/SteveSanderson/knockout-es5
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
-interface KnockoutStatic {
-    track<T>(obj: T, propertyNames?: Array<string>): T;
-    untrack(obj: any, propertyNames?: Array<string>): void;
-    defineProperty<T>(obj: T, propertyName: string, evaluator: Function): T;
-    defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
-    getObservable(obj: any, propertyName: string): KnockoutObservable<any>;
-    valueHasMutated(obj: any, propertyName: string): void;
-    es5: KnockoutEs5;
-}
+type KnockoutStatic = typeof ko;
 
 interface KnockoutEs5 {
     getAllObservablesForObject<T>(obj: T, createIfNotDefined?: boolean): T;
-    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: KnockoutObservable<T>): void;
+    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: ko.Subscribable<T>): void;
     isTracked<T>(obj: T, propertyName: string): boolean;
 }
 
@@ -35,4 +27,15 @@ interface Array<T> {
 	destroy(item: T): void;
 	destroyAll(items: T[]): void;
 	destroyAll(): void;
+}
+
+
+declare namespace ko {
+    function track<T>(obj: T, propertyNames?: Array<string>): T;
+    function untrack(obj: any, propertyNames?: Array<string>): void;
+    function defineProperty<T>(obj: T, propertyName: string, evaluator: Function): T;
+    function defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
+    function getObservable(obj: any, propertyName: string): Subscribable<any>;
+    function valueHasMutated(obj: any, propertyName: string): void;
+    const es5: KnockoutEs5;
 }

@@ -2,32 +2,34 @@
 // Project: https://github.com/Igorbek/knockout.rx
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout"/>
 /// <reference types="rx"/>
 
-interface KnockoutSubscribableFunctions<T> {
-	toObservable(event?: string): Rx.Observable<T>;
-	toObservable<TEvent>(event: string): Rx.Observable<TEvent>;
-}
+declare namespace ko {
+    interface SubscribableFunctions<T> {
+        toObservable(event?: string): Rx.Observable<T>;
+        toObservable<TEvent>(event: string): Rx.Observable<TEvent>;
+    }
 
-interface KnockoutObservableFunctions<T> {
-	toObservableWithReplyLatest(): Rx.Observable<T>;
-	toSubject(): Rx.ISubject<T>;
-}
+    interface ObservableFunctions<T> {
+        toObservableWithReplyLatest(): Rx.Observable<T>;
+        toSubject(): Rx.ISubject<T>;
+    }
 
-interface KnockoutComputedFunctions<T> {
-	toObservableWithReplyLatest(): Rx.Observable<T>;
+    interface ComputedFunctions<T> {
+        toObservableWithReplyLatest(): Rx.Observable<T>;
+    }
 }
 
 declare namespace Rx {
-	interface Observable<T> {
-		toKoSubscribable(): KnockoutSubscribable<T>;
-		toKoObservable(initialValue?: T): KnockoutObservable<T>;
-	}
+    interface Observable<T> {
+        toKoSubscribable(): ko.Subscribable<T>;
+        toKoObservable(initialValue?: T): ko.Observable<T>;
+    }
 
-	interface Subject<T> {
-		toKoObservable(initialValue?: T): KnockoutObservable<T>;
-	}
+    interface Subject<T> {
+        toKoObservable(initialValue?: T): ko.Observable<T>;
+    }
 }

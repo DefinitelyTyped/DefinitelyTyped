@@ -1,10 +1,12 @@
+import ko = require('knockout');
+
 export interface IGridItem {
 	name: string;
 }
 
 export class Tests {
-	public items: KnockoutObservableArray<IGridItem>;
-	public selectedItems: KnockoutObservableArray<IGridItem>;
+	public items: ko.ObservableArray<IGridItem>;
+	public selectedItems: ko.ObservableArray<IGridItem>;
 	public gridOptionsAlarms: kg.GridOptions<IGridItem>;
 
 	constructor() {
@@ -13,7 +15,7 @@ export class Tests {
 		this.gridOptionsAlarms = this.createDefaultGridOptions(this.items, this.selectedItems);
 	}
 
-	public createDefaultGridOptions<Type>(dataArray: KnockoutObservableArray<Type>, selectedItems: KnockoutObservableArray<Type>): kg.GridOptions<Type> {
+	public createDefaultGridOptions<Type>(dataArray: ko.ObservableArray<Type>, selectedItems: ko.ObservableArray<Type>): kg.GridOptions<Type> {
 		return {
 			data: dataArray,
 			displaySelectionCheckbox: false,

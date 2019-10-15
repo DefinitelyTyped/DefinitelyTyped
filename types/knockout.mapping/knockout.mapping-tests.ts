@@ -11,13 +11,13 @@ interface Address {
 }
 
 interface MappedUser {
-    firstName: KnockoutObservable<string>
-    age: KnockoutObservable<number>
+    firstName: ko.Observable<string>
+    age: ko.Observable<number>
     address: MappedAddress
 }
 
 interface MappedAddress {
-    street: KnockoutObservable<string>
+    street: ko.Observable<string>
 }
 
 interface Car {
@@ -27,9 +27,9 @@ interface Car {
 }
 
 interface MappedCar {
-    name: KnockoutObservable<string>
-    maintenance: KnockoutReadonlyObservableArray<number>
-    drivers: KnockoutObservableArray<MappedUser>
+    name: ko.Observable<string>
+    maintenance: ko.ObservableArray<number>
+    drivers: ko.ObservableArray<MappedUser>
 }
 
 let badUserMappingOptions: KnockoutMappingOptions<User> = {
@@ -58,13 +58,13 @@ let badMapping = {
 // fromJS function with JS object without Array properties
 let userInput: User = { firstName: 'foo', age: 12, address: { street: 'street name' } }
 
-let mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType KnockoutObservableType<User>
-mappedUserViewModel.age // $ExpectType KnockoutObservable<number>
+let mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType ko.ObservableType<User>
+mappedUserViewModel.age // $ExpectType ko.Observable<number>
 
-mapping.fromJS(userInput, {}) // $ExpectType KnockoutObservableType<User>
-mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
-mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
-mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, {}) // $ExpectType ko.ObservableType<User>
+mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
+mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
+mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
 mapping.fromJS(userInput, {}, userInput) // $ExpectError
 mapping.fromJS(userInput, userInput) // $ExpectError
 
@@ -75,8 +75,8 @@ mapping.fromJS(untypedObject) // $ExpectType any
 // fromJS function with JS object with Array properties
 let carInput: Car = { name: 'hb20x', maintenance: [1, 2], drivers: [userInput] }
 let mappedCar: MappedCar = mapping.fromJS(carInput)
-let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
-let maintenance: KnockoutReadonlyObservableArray<number> = mappedCar.maintenance
+let drivers: ko.ObservableArray<MappedUser> = mappedCar.drivers
+let maintenance: ko.ObservableArray<number> = mappedCar.maintenance
 
 ////////////////////////////////
 // fromJS function with primitives
@@ -85,12 +85,12 @@ let stringInput: string
 let booleanInput: boolean
 let symbolInput: symbol
 
-mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
-mapping.fromJS(stringInput) // $ExpectType KnockoutObservable<string>
-mapping.fromJS(symbolInput) // $ExpectType KnockoutObservable<symbol>
+mapping.fromJS(numberInput) // $ExpectType ko.Observable<number>
+mapping.fromJS(stringInput) // $ExpectType ko.Observable<string>
+mapping.fromJS(symbolInput) // $ExpectType ko.Observable<symbol>
 
-// Typescript weirdly returns KnockoutObservable<false> | KnockoutObservable<true>
-let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)
+// Typescript weirdly returns ko.Observable<false> | ko.Observable<true>
+let booleanMapped: ko.Observable<boolean> = mapping.fromJS(booleanInput)
 
 ////////////////////////////////
 // fromJS function with JS Array
@@ -98,24 +98,24 @@ let userArrayInput = [userInput]
 let untypedArrayObject: any[]
 let numberArrayInput: number[]
 
-mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
-mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userArrayInput) // $ExpectType ko.ObservableArray<ko.ObservableType<User>>
+mapping.fromJS(userArrayInput, {}) // $ExpectType ko.ObservableArray<ko.ObservableType<User>>
 mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
 
 // Could not solve this issue. Could not get this to return any when T is any. It returns a Union type of the possible values.
-mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> | KnockoutObservableArray<KnockoutObservableType<any>>
+mapping.fromJS(untypedArrayObject) // $ExpectType ko.ObservableArray<any> | ko.ObservableArray<ko.ObservableType<any>>
 
-let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType KnockoutObservableArray<number>
-mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType KnockoutObservableArray<number>
-mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel) // $ExpectType KnockoutObservableArray<number>
+let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType ko.ObservableArray<number>
+mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType ko.ObservableArray<number>
+mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel) // $ExpectType ko.ObservableArray<number>
 
 ////////////////////////////////
-// fromJS function with JS ReadonlyArray 
+// fromJS function with JS ReadonlyArray
 let userReadonlyArrayInput: ReadonlyArray<User>
 let numberReadonlyArray: ReadonlyArray<number>
 
-mapping.fromJS(userReadonlyArrayInput) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
-mapping.fromJS(userReadonlyArrayInput, {}) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userReadonlyArrayInput) // $ExpectType KnockoutReadonlyObservableArray<ko.ObservableType<User>>
+mapping.fromJS(userReadonlyArrayInput, {}) // $ExpectType KnockoutReadonlyObservableArray<ko.ObservableType<User>>
 mapping.fromJS(userReadonlyArrayInput, {}, userArrayInput) // $ExpectError
 
 let mappedNumberReadonlyArrayViewModel = mapping.fromJS(numberReadonlyArray) // $ExpectType KnockoutReadonlyObservableArray<number>

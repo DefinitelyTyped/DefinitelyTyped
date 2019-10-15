@@ -2,7 +2,7 @@
 // Project: http://romanych.github.com/ko.editables/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
@@ -28,6 +28,6 @@ interface KnockoutEditableStatic {
 }
 
 // extend ko global
-interface KnockoutStatic {
-    editable: KnockoutEditableStatic;
+declare namespace ko {
+    const editable: KnockoutEditableStatic;
 }

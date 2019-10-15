@@ -31,13 +31,15 @@ ko.defineProperty(model, 'propPlusOne', { get: () => model.prop++, set: (value) 
 // Utility functions
 ko.getObservable(model, 'propPlusOne').subscribe((newValue) => notifiedValues.push(newValue));
 
+ko.es5.notifyWhenPresentOrFutureArrayValuesMutate(ko, observable);
+
 
 // Simple usage example
 class OrderLine {
     subtotal: string;
 
     constructor(public item: any, public price: number, public quantity: number) {
-        // Instead of declaring ko.observable properties, we just have one call to ko.track 
+        // Instead of declaring ko.observable properties, we just have one call to ko.track
         ko.track(this);
 
         // Computed property
@@ -89,3 +91,4 @@ anOrder.lines.removeAll();
 anOrder.lines.destroy(someOrderLine);
 anOrder.lines.destroyAll([someOrderLine]);
 anOrder.lines.destroyAll();
+

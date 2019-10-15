@@ -2,7 +2,7 @@
 // Project: https://github.com/ericmbarnard/Knockout-Validation
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
@@ -131,8 +131,7 @@ interface KnockoutValidationAsyncCallback {
     (result: KnockoutValidationAsyncCallbackArgs): void;
 }
 
-interface KnockoutValidationRuleBase
-{
+interface KnockoutValidationRuleBase {
     message: string | KnockoutValidationMessageFunction;
 }
 
@@ -166,8 +165,7 @@ interface KnockoutValidationRuleDefinitions {
     required: KnockoutValidationRuleDefinition;
     step: KnockoutValidationRuleDefinition;
     unique: KnockoutValidationRuleDefinition;
-    [ruleName: string]: KnockoutValidationRuleDefinition |
-                        KnockoutValidationAsyncRuleDefinition;
+    [ruleName: string]: KnockoutValidationRuleDefinition | KnockoutValidationAsyncRuleDefinition;
 }
 
 interface KnockoutValidationRule {
@@ -201,12 +199,12 @@ interface KnockoutValidationStatic {
 
     formatMessage(message: string, params: string): string;
 
-    addRule<T>(observable: KnockoutObservable<T>, rule: KnockoutValidationRule): KnockoutObservable<T>;
+    addRule<T>(observable: ko.Observable<T>, rule: KnockoutValidationRule): ko.Observable<T>;
 
-    addAnonymousRule(observable: KnockoutObservable<any>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
+    addAnonymousRule(observable: ko.Observable<any>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
 
     insertValidationMessage(element: Element): Element;
-    parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservable<any>): void;
+    parseInputValidationAttributes(element: Element, valueAccessor: () => ko.Observable<any>): void;
 
     rules: KnockoutValidationRuleDefinitions;
 
@@ -215,29 +213,36 @@ interface KnockoutValidationStatic {
     utils: KnockoutValidationUtils;
 
     localize(msgTranslations: KnockoutValidationLocalizationDictionary): void;
-    defineLocale(newLocale: string, msgTranslations: KnockoutValidationLocalizationDictionary): KnockoutValidationLocalizationDictionary;
+    defineLocale(
+        newLocale: string,
+        msgTranslations: KnockoutValidationLocalizationDictionary,
+    ): KnockoutValidationLocalizationDictionary;
     locale(newLocale: string): string;
-    validateObservable(observable: KnockoutObservable<any>): boolean;
+    validateObservable(observable: ko.Observable<any>): boolean;
 }
 
-interface KnockoutStatic {
-    validation: KnockoutValidationStatic;
-    validatedObservable<T>(initialValue?: T): KnockoutObservable<T>;
-    applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
+declare namespace ko {
+    interface SubscribableFunctions<T> {
+        isValid: Computed<boolean>;
+        isValidating: Observable<boolean>;
+        rules: ObservableArray<KnockoutValidationRule>;
+        isModified: Observable<boolean>;
+        error: Computed<string>;
+        setError(error: string): void;
+        clearError(): void;
+    }
+
+    const validation: KnockoutValidationStatic;
+    function validatedObservable<T>(initialValue?: T): ko.Observable<T>;
+    function napplyBindingsWithValidation(
+        viewModel: any,
+        rootNode?: any,
+        options?: KnockoutValidationConfiguration,
+    ): void;
 }
 
-interface KnockoutSubscribableFunctions<T> {
-    isValid: KnockoutComputed<boolean>;
-    isValidating: KnockoutObservable<boolean>;
-    rules: KnockoutObservableArray<KnockoutValidationRule>;
-    isModified: KnockoutObservable<boolean>;
-    error: KnockoutComputed<string>;
-    setError(error: string): void;
-    clearError(): void;
-}
-
-declare module "knockout.validation" {
+declare module 'knockout.validation' {
     export = validation;
 }
 
-declare var validation: KnockoutValidationStatic
+declare var validation: KnockoutValidationStatic;

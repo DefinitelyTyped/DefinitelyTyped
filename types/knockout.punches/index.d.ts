@@ -2,7 +2,7 @@
 // Project: https://github.com/mbest/knockout.punches
 // Definitions by: Stephen Lautier <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
@@ -37,9 +37,9 @@ interface KnockoutPunchesFilters {
 	default(value: any, defaultValue?: any): any;
 }
 
-interface KnockoutStatic {
-	punches: KnockoutPunchesStatic;
-	filters: KnockoutPunchesFilters;
+declare namespace ko {
+	const punches: KnockoutPunchesStatic;
+	const filters: KnockoutPunchesFilters;
 }
 
 declare module "knockout.punches" {

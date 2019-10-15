@@ -1,8 +1,8 @@
-// Type definitions for Knockout.Mapper 
+// Type definitions for Knockout.Mapper
 // Project: https://github.com/LucasLorentz/knockout.mapper
 // Definitions by: Brandon Meyer <https://github.com/BMeyerKC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
@@ -11,6 +11,6 @@ interface KnockoutMapper {
     toJS(value: any, options?: any): any;
 }
 
-interface KnockoutStatic {
-    mapper: KnockoutMapper;
+declare namespace ko {
+    const mapper: KnockoutMapper;
 }
