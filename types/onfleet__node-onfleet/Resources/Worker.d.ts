@@ -2,16 +2,16 @@ import { Location } from './Destination';
 import { OnfleetMetadata } from '../metadata';
 
 export class Worker {
+  create(worker: CreateWorkerProps): Promise<WorkerResult>;
+  deleteOne(id: string): Promise<void>;
   get(): Promise<WorkerResult[]>;
   get(id: string): Promise<WorkerResult>;
   get(query: GetWorkerQueryProps): Promise<WorkerResult[]>;
   getByLocation(location: GetWorkerByLocationProps): Promise<{ workers: WorkerResult[] }>;
   getSchedule(id: string): Promise<{ entries: WorkerSchedule[] }>;
-  create(worker: CreateWorkerProps): Promise<WorkerResult>;
+  insertTask(id: string, obj: { tasks: string[] }): Promise<WorkerResult>;
   setSchedule(id: string, schedule: WorkerSchedule): Promise<{ entries: WorkerSchedule[] }>;
   update(id: string, worker: UpdateWorkerProps): Promise<WorkerResult>;
-  insertTask(id: string, obj: { tasks: string[] }): Promise<WorkerResult>;
-  deleteOne(id: string): Promise<void>;
 }
 
 interface OnfleetWorker {

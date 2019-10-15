@@ -1,24 +1,75 @@
-import { OnfleetRecipient, RecipientResult } from './Recipient';
-import { OnfleetDestination, DestinationResult } from './Destination';
+import { OnfleetDestination } from './Destination';
 import { OnfleetMetadata } from '../metadata';
+import { OnfleetRecipient } from './Recipient';
 
 export class Task {
   autoAssign(tasks: OnfleetTask[]): Promise<any>; // TODO need to confirm response
-  batch(tasks: OnfleetTask[]): Promise<TaskResult[]>;
-  clone(id: string, options?: CloneTaskOptions): Promise<TaskResult>;
-  create(task: OnfleetTask): Promise<TaskResult>;
+  batch(tasks: OnfleetTask[]): Promise<OnfleetTask[]>;
+  clone(id: string, options?: CloneTaskOptions): Promise<OnfleetTask>;
+  create(task: CreateTaskProps): Promise<OnfleetTask>;
   deleteOne(id: string): Promise<number>;
-  forceComplete(id: string): Promise<any>; // TODO need to confirm response
-  get(): Promise<TaskResult[]>;
-  get(id: string): Promise<TaskResult>;
-  get(queryParams: TaskQueryParam): Promise<TaskResult[]>;
-  get(queryValue: string, queryKey: TaskQueryKey): Promise<TaskResult>;
-  update(id: string, task: Partial<OnfleetTask>): Promise<UpdateTaskResult>;
+  forceComplete(id: string): Promise<void>;
+  get(): Promise<OnfleetTask[]>;
+  get(id: string): Promise<OnfleetTask>;
+  get(queryParams: TaskQueryParam): Promise<OnfleetTask[]>;
+  get(queryValue: string, queryKey: TaskQueryKey): Promise<OnfleetTask>;
+  update(id: string, task: Partial<CreateTaskProps>): Promise<UpdateTaskResult>;
 }
 
 export type TaskQueryKey = 'shortId';
 
 export interface OnfleetTask {
+  completeAfter: number;
+  completeBefore: number;
+  completionDetails: {
+    failureNotes: string;
+    failureReason: string;
+    events: any[];
+    actions: any[];
+    time: number | null;
+    firstLocation: any[];
+    lastLocation: any[];
+    unavailableAttachments: any[];
+  };
+  container: {
+    organization: string;
+    type: string;
+  };
+  creator: string;
+  dependencies: string[];
+  destination: OnfleetDestination;
+  didAutoAssign: boolean;
+  executor: string;
+  feedback: any[];
+  id: string;
+  identity: {
+    failedScanCount: number;
+    checksum: null;
+  };
+  merchant: string;
+  metadata: OnfleetMetadata[];
+  notes: string;
+  organization: string;
+  overrides: {
+    recipientName: string | null;
+    recipientNotes: string | null;
+    recipientSkipSMSNotifications: string | null;
+    useMerchantForProxy: string | null;
+  };
+  pickupTask: boolean;
+  quantity: number;
+  recipients: OnfleetRecipient[];
+  serviceTime: number;
+  shortId: string;
+  state: number;
+  timeCreated: number;
+  timeLastModified: number;
+  trackingURL: string;
+  trackingViewed: boolean;
+  worker: string | null;
+}
+
+export interface CreateTaskProps {
   destination: string | OnfleetDestination;
   recipients: string[] | OnfleetRecipient[];
   autoAssign?: TaskAutoAssign;
@@ -80,58 +131,7 @@ export interface CloneTaskOptions {
   };
 }
 
-export interface TaskResult {
-  completeAfter: number;
-  completeBefore: number;
-  completionDetails: {
-    failureNotes: string;
-    failureReason: string;
-    events: any[];
-    actions: any[];
-    time: number | null;
-    firstLocation: any[];
-    lastLocation: any[];
-    unavailableAttachments: any[];
-  };
-  container: {
-    organization: string;
-    type: string;
-  };
-  creator: string;
-  dependencies: string[];
-  destination: DestinationResult;
-  didAutoAssign: boolean;
-  executor: string;
-  feedback: any[];
-  id: string;
-  identity: {
-    failedScanCount: number;
-    checksum: null;
-  };
-  merchant: string;
-  metadata: OnfleetMetadata[];
-  notes: string;
-  organization: string;
-  overrides: {
-    recipientName: string | null;
-    recipientNotes: string | null;
-    recipientSkipSMSNotifications: string | null;
-    useMerchantForProxy: string | null;
-  };
-  pickupTask: boolean;
-  quantity: number;
-  recipients: RecipientResult[];
-  serviceTime: number;
-  shortId: string;
-  state: number;
-  timeCreated: number;
-  timeLastModified: number;
-  trackingURL: string;
-  trackingViewed: boolean;
-  worker: string | null;
-}
-
-export interface UpdateTaskResult extends TaskResult {
+export interface UpdateTaskResult extends OnfleetTask {
   estimatedArrivalTime: number | null;
   estimatedCompletionTime: number | null;
   eta: number;

@@ -1,10 +1,10 @@
 export class Team {
+  create(obj: any): Promise<OnfleetTeam>;
+  deleteOne(id: string): Promise<void>;
   get(): Promise<OnfleetTeam[]>;
   get(id: string): Promise<OnfleetTeam>;
-  create(obj: any): Promise<OnfleetTeam>;
-  update(id: string, obj: UpdateTeamProps): Promise<OnfleetTeam>;
   insertTask(id: string, obj: { tasks: string[] }): Promise<OnfleetTeam>;
-  deleteOne(id: string): Promise<void>;
+  update(id: string, obj: UpdateTeamProps): Promise<OnfleetTeam>;
 }
 
 interface OnfleetTeam {

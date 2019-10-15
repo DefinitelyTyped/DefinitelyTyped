@@ -1,8 +1,8 @@
 import { OnfleetMetadata } from '../metadata';
 
 export class Destination {
-  create(destination: OnfleetDestination): Promise<DestinationResult>;
-  get(id: string): Promise<DestinationResult>;
+  create(destination: CreateDestinationProps): Promise<OnfleetDestination>;
+  get(id: string): Promise<OnfleetDestination>;
 }
 
 type Latitude = number;
@@ -37,12 +37,6 @@ interface DestinationAddress {
 }
 
 export interface OnfleetDestination {
-  address: DestinationAddress;
-  location?: Location;
-  notes?: string;
-}
-
-export interface DestinationResult {
   id: string;
   timeCreated: number;
   timeLastModified: number;
@@ -59,3 +53,10 @@ export interface DestinationResult {
   notes: string;
   metadata: OnfleetMetadata[];
 }
+
+export interface CreateDestinationProps {
+  address: DestinationAddress;
+  location?: Location;
+  notes?: string;
+}
+
