@@ -2,7 +2,7 @@
 // Project: http://kmalakoff.github.com/knockback
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 /// <reference types="backbone" />
