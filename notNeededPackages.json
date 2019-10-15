@@ -1837,6 +1837,12 @@
             "asOfVersion": "0.16.1"
         },
         {
+            "libraryName": "knockout",
+            "typingsPackageName": "knockout",
+            "sourceRepoURL": "https://github.com/knockout/knockout",
+            "asOfVersion": "3.5.0"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
