@@ -8,13 +8,15 @@ export as namespace Naja;
 
 interface FormsHandler {
     netteForms: object;
+    initForms(element: Element): void;
+    processForm(event: Event): void;
 }
 
 interface HistoryHandler {
     uiCache: boolean;
 }
 
-type RequestData = null | string | number | [] | object | ArrayBuffer | Blob | FormData;
+type RequestData = null | string | number | any[] | object | ArrayBuffer | Blob | FormData;
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -37,7 +39,9 @@ export interface SnippetUpdateEvent extends Event {
     readonly snippet: HTMLElement;
 }
 
-export type SnippetUpdateListener = (event: SnippetUpdateEvent) => void;
+export type SnippetUpdateListener = (
+    event: SnippetUpdateEvent,
+) => void | { handleEvent(event: SnippetUpdateEvent): void };
 
 interface SnippetListeners {
     afterUpdate: SnippetUpdateListener;
@@ -45,17 +49,36 @@ interface SnippetListeners {
 }
 
 interface SnippetHandler extends EventTarget {
-    addEventListener<K extends keyof SnippetListeners>(type: K, listener: SnippetListeners[K]): void;
-    addEventListener(type: string, listener: SnippetUpdateListener): void;
-    removeEventListener(type: string, listener: SnippetUpdateListener | object | null): void;
+    addEventListener<K extends keyof SnippetListeners>(
+        type: K,
+        listener: SnippetListeners[K],
+        options?: EventListenerOptions | boolean,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject | null,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof SnippetListeners>(
+        type: K,
+        listener: SnippetListeners[K],
+        options?: EventListenerOptions | boolean,
+    ): void;
+    removeEventListener(
+        type: string,
+        callback: EventListenerOrEventListenerObject | null,
+        options?: EventListenerOptions | boolean,
+    ): void;
 }
 
 interface UIHandler {
     readonly allowedOrigins: string[];
     selector: string;
     bindUI(element: HTMLElement): void;
-    clickElement(element: HTMLElement): void;
-    submitForm(element: HTMLFormElement): void;
+    clickElement(element: HTMLElement, options?: object, event?: Event): void;
+    handleUI(event: Event): void;
+    isUrlAllowed(url: string): boolean;
+    submitForm(element: HTMLFormElement, options?: object, event?: Event): void;
 }
 
 export interface InitEvent extends Event {
@@ -105,7 +128,7 @@ export interface CompleteEvent<T extends object = any> extends Event {
     readonly options: Readonly<NajaOptions>;
 }
 
-export type NajaEventListener<T extends Event = Event> = (event: T) => void;
+export type NajaEventListener<T extends Event = Event> = (event: T) => void | { handleEvent(event: T): void };
 
 interface NajaEventsMap {
     init: NajaEventListener<InitEvent>;
@@ -120,14 +143,30 @@ interface NajaEventsMap {
 }
 
 interface NajaEventTarget extends EventTarget {
-    addEventListener<K extends keyof NajaEventsMap>(type: K, listener: NajaEventsMap[K]): void;
-    addEventListener(type: string, listener: NajaEventListener): void;
-    removeEventListener(type: string, listener: NajaEventListener | object | null): void;
+    addEventListener<K extends keyof NajaEventsMap>(
+        type: K,
+        listener: NajaEventsMap[K],
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject | null,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof NajaEventsMap>(
+        type: K,
+        listener: NajaEventsMap[K],
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject | null,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
 }
 
-// tslint:disable-next-line no-unnecessary-class
-declare class NajaExtension {
-    constructor(naja: Naja, ...optionalArguments: any);
+export interface NajaExtension<T extends any[]> {
+    new (naja: Naja, ...args: T): any;
 }
 
 export interface Naja extends NajaEventTarget {
@@ -136,9 +175,9 @@ export interface Naja extends NajaEventTarget {
     readonly snippetHandler: SnippetHandler;
     readonly uiHandler: UIHandler;
     fireEvent(name: string, args: any): void;
-    initialize(defaultOptions: NajaOptions): void;
+    initialize(defaultOptions?: NajaOptions): void;
     makeRequest(method: RequestMethod, url: string, data: RequestData, options?: RequestOptions): Promise<any>;
-    registerExtension(extension: typeof NajaExtension, ...optionalArguments: any): void;
+    registerExtension<T extends any[]>(extension: NajaExtension<T>, ...optionalArguments: T): void;
 }
 
 declare const naja: Naja;

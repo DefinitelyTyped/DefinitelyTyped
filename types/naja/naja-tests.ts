@@ -53,6 +53,7 @@ naja.removeEventListener('start', genericListener);
 naja.snippetHandler.removeEventListener('beforeUpdate', null);
 
 document.addEventListener('DOMContentLoaded', () => {
+    naja.initialize();
     naja.initialize({ history: false, selector: '[data-ajax]', customOption: 1 });
     naja.fireEvent('customEvent', {});
 });
