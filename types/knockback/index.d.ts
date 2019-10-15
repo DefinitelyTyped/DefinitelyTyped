@@ -38,7 +38,7 @@ declare namespace Knockback {
     }
 
     class EventWatcher extends Destroyable {
-        static useOptionsOrCreate(options, emitter: KnockoutObservable<any>, obj: Backbone.Model, callback_options: any);
+        static useOptionsOrCreate(options, emitter: ko.Subscribable<any>, obj: Backbone.Model, callback_options: any);
 
         emitter(): Backbone.Model;
         emitter(newEmitter: Backbone.Model);
@@ -58,22 +58,22 @@ declare namespace Knockback {
     }
 
     class Store extends Destroyable {
-        static useOptionsOrCreate(options: StoreOptions, obj: any, observable: KnockoutObservable<any>);
+        static useOptionsOrCreate(options: StoreOptions, obj: any, observable: ko.Subscribable<any>);
 
         constructor (model:Backbone.Model, options: StoreOptions);
         clear();
-        register(obj: Backbone.Model, observable: KnockoutObservable<any>, options: StoreOptions);
+        register(obj: Backbone.Model, observable: ko.Subscribable<any>, options: StoreOptions);
         findOrCreate(obj: Backbone.Model, options: StoreOptions);
     }
 
     class DefaultObservable extends Destroyable {
-        constructor (targetObservable: KnockoutObservable<any>, defaultValue: any);
+        constructor (targetObservable: ko.Subscribable<any>, defaultValue: any);
         setToDefault();
     }
 
     class FormattedObservable extends Destroyable {
         constructor (format: string, args: any[]);
-        constructor (format: KnockoutObservable<any>, args: any[]);
+        constructor (format: ko.Subscribable<any>, args: any[]);
     }
 
     class LocalizedObservable {
@@ -126,7 +126,7 @@ declare namespace Knockback {
         filters?: any;              // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
     }
 
-    interface CollectionObservable extends KnockoutObservableArray<any> {
+    interface CollectionObservable extends ko.ObservableArray<any> {
         collection(colleciton: Backbone.Collection<Backbone.Model>);
         collection(): Backbone.Collection<Backbone.Model>;
         destroy();
@@ -154,7 +154,7 @@ declare namespace Knockback {
         wrappedEventWatcher(obj: any): any;
         wrappedEventWatcher(obj: any, value: any);
         wrappedDestroy(obj: any);
-        valueType(observable: KnockoutObservable<any>): any;
+        valueType(observable: ko.Subscribable<any>): any;
         pathJoin(path1: string, path2: string): string;
         optionsPathJoin(options: any, path: string): any;
         inferCreator(value: any, factory: Factory, path: string, owner: any, key: string);
@@ -174,19 +174,19 @@ declare namespace Knockback {
 			/** the create options. String is a single attribute name, Array is an array of attribute names. */
 				options: IObservableOptions,
 			/** the viewModel */
-			vm?: ViewModel): KnockoutObservable<any>;
+			vm?: ViewModel): ko.Subscribable<any>;
         observable(
 			/** the model to observe (can be null) */
         	model: Backbone.Model,
     		/** the create options. String is a single attribute name, Array is an array of attribute names. */
         	options_attributeName: string,
 			/** the viewModel */
-			vm?: ViewModel): KnockoutObservable<any>;
-        viewModel(model?: Backbone.Model, options?: any): KnockoutObservable<any>;
-        defaultObservable(targetObservable: KnockoutObservable<any>, defaultValue: any): KnockoutObservable<any>;
-        formattedObservable(format: string, args: any[]): KnockoutObservable<any>;
-        formattedObservable(format: KnockoutObservable<any>, args: any[]): KnockoutObservable<any>;
-        localizedObservable(data: any, options: any): KnockoutObservable<any>;
+			vm?: ViewModel): ko.Subscribable<any>;
+        viewModel(model?: Backbone.Model, options?: any): ko.Subscribable<any>;
+        defaultObservable(targetObservable: ko.Subscribable<any>, defaultValue: any): ko.Subscribable<any>;
+        formattedObservable(format: string, args: any[]): ko.Subscribable<any>;
+        formattedObservable(format: ko.Subscribable<any>, args: any[]): ko.Subscribable<any>;
+        localizedObservable(data: any, options: any): ko.Subscribable<any>;
         release(object: any, pre_release?: () => void );
         releaseKeys(object: any);
         releaseOnNodeRemove(viewmodel: ViewModel, node: Element);
@@ -212,7 +212,7 @@ declare namespace Knockback {
     	key: string;
     	read?: () => any;
     	write?: (value: any) => void;
-    	args?: KnockoutObservable<any>[];
+    	args?: ko.Subscribable<any>[];
     	localizer?: LocalizedObservable;
     	default?: any;
     	path?: string;

@@ -6,7 +6,7 @@
 
 /// <reference types="knockout" />
 
-interface KnockoutAMDModule {
+interface KnockoutAMDModule extends ko.BindingHandler {
     baseDir: string;
     initializer: string;
     disposeMethod: string;
@@ -19,16 +19,15 @@ interface KnockoutAMDTemplate {
     defaultRequireTextPluginName: string;
 }
 
-interface KnockoutBindingHandlers {
-    module: KnockoutAMDModule;
-}
-interface KnockoutStatic {
 
-    amdTemplateEngine: KnockoutAMDTemplate
+declare namespace ko {
+    interface BindingHandlers {
+        module: KnockoutAMDModule;
+    }
+    const amdTemplateEngine: KnockoutAMDTemplate;
 }
 
-declare module "knockout-amd-helpers" {
+
+declare module 'knockout-amd-helpers' {
     export = ko;
 }
-
-declare var ko: KnockoutStatic;

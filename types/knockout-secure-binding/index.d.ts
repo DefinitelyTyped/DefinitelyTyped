@@ -9,24 +9,20 @@
 interface KnockoutSecureBindingOptions {
     attribute?: string;
     globals?: any;
-    bindings?: KnockoutBindingHandlers;
+    bindings?: ko.BindingHandlers;
     noVirtualElements?: boolean;
 }
 
-interface KnockoutSecureBindingProvider extends KnockoutBindingProvider {
-    new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
+interface KnockoutSecureBindingProvider extends ko.IBindingProvider {
+    new (options?: KnockoutSecureBindingOptions): ko.IBindingProvider;
 }
 
-interface KnockoutStatic {
-    secureBindingsProvider: {
-        new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
-    };
+declare namespace ko {
+    const secureBindingsProvider: KnockoutSecureBindingProvider;
 }
 
 declare module "knockout-secure-binding" {
-    var klass: {
-        new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
-    };
+    var klass: KnockoutSecureBindingProvider;
 
     export = klass;
 }

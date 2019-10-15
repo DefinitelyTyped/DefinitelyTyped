@@ -15,22 +15,28 @@ declare namespace KnockoutTransformations {
         disposeItem?: (item: TResult) => void;
     }
     interface MappingWithDisposeCallbackOption<T, TResult> {
-        mappingWithDisposeCallback: (value: T) => {
+        mappingWithDisposeCallback: (
+            value: T,
+        ) => {
             mappedValue: TResult;
             dispose: () => void;
         };
     }
 }
 
-interface KnockoutObservableArrayFunctions<T> {
-    map<TResult>(mapping: KnockoutTransformations.Mapping<T, TResult>): KnockoutObservableArray<TResult>;
-    map<TResult>(mapping: KnockoutTransformations.MappingOption<T, TResult>): KnockoutObservableArray<TResult>;
-    map<TResult>(mapping: KnockoutTransformations.MappingWithDisposeCallbackOption<T, TResult>): KnockoutObservableArray<TResult>;
+declare namespace ko {
+    interface ObservableArrayFunctions<T> {
+        map<TResult>(mapping: KnockoutTransformations.Mapping<T, TResult>): ObservableArray<TResult>;
+        map<TResult>(mapping: KnockoutTransformations.MappingOption<T, TResult>): ObservableArray<TResult>;
+        map<TResult>(
+            mapping: KnockoutTransformations.MappingWithDisposeCallbackOption<T, TResult>,
+        ): ObservableArray<TResult>;
 
-    filter(predicate: (value: T) => boolean): KnockoutObservableArray<T>;
-    sortBy(sorter: (value: T, descending: (sorter: any) => any) => any): KnockoutObservableArray<T>;
-    indexBy(indexer: (value: T) => string): KnockoutObservable<{ [index: string]: T[] }>;
-    indexBy(indexer: (value: T) => string[]): KnockoutObservable<{ [index: string]: T[] }>;
-    indexBy(indexer: (value: T) => any): KnockoutObservable<any>;
-    uniqueIndexBy(indexer: (value: T) => string): KnockoutObservable<{ [index: string]: T }>;
+        filter(predicate: (value: T) => boolean): ObservableArray<T>;
+        sortBy(sorter: (value: T, descending: (sorter: any) => any) => any): ObservableArray<T>;
+        indexBy(indexer: (value: T) => string): Observable<{ [index: string]: T[] }>;
+        indexBy(indexer: (value: T) => string[]): Observable<{ [index: string]: T[] }>;
+        indexBy(indexer: (value: T) => any): Observable<any>;
+        uniqueIndexBy(indexer: (value: T) => string): Observable<{ [index: string]: T }>;
+    }
 }
