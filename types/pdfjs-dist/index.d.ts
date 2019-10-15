@@ -241,8 +241,15 @@ interface PDFProgressData {
 }
 
 interface PDFDocumentStats {
-    streamTypes: object; // Used stream types in the document (an item is set to true if specific stream ID was used in the document).
-    fontTypes: object; // Used font types in the document (an item is set to true if specific font ID was used in the document).
+    /**
+     * Used stream types in the document (an item is set to true if specific stream ID was used in the document).
+     */
+    streamTypes: object;
+
+    /**
+     * Used font types in the document (an item is set to true if specific font ID was used in the document).
+     */
+    fontTypes: object;
 }
 
 /**
@@ -274,24 +281,21 @@ interface PDFDocumentProxy {
     getPageIndex(ref: {num: number, gen: number}): Promise<number>;
 
     /**
-     * TODO: return type of Promise<???>
-     *  A promise that is resolved with a lookup table for mapping named destinations to reference numbers.
+     * A promise that is resolved with a lookup table for mapping named destinations to reference numbers.
      **/
-    getDestinations(): Promise<any[]>;
+    getDestinations(): Promise<any[]>; // TODO: return type of Promise<???>
 
     /**
-     * TODO: return type of Promise<???>
      * @param id The named destination to get.
      * @return A promise that is resolved with all information of the given named destination.
      */
-    getDestination(id: string): Promise<any>;
+    getDestination(id: string): Promise<any>; // TODO: return type of Promise<???>
 
     /**
-     * TODO: return type of Promise<???>
      * @return A promise that is resolved with an Array containing the page labels that
      *   correspond to the page indexes, or `null` when no page labels are present in the PDF file.
      */
-    getPageLabels(): Promise<any[] | null>;
+    getPageLabels(): Promise<any[] | null>; // TODO: return type of Promise<???>
 
     /**
      * @return A promise that is resolved with a string containing the page layout name.
@@ -309,17 +313,15 @@ interface PDFDocumentProxy {
     getViewerPreferences(): Promise<object>;
 
     /**
-     * TODO: return type of Promise<???>
      * @return A promise that is resolved with an Array containing the
      *   destination, or `null` when no open action is present in the PDF file.
      */
-    getOpenActionDestination(): Promise<any[] | null>;
+    getOpenActionDestination(): Promise<any[] | null>; // TODO: return type of Promise<???>
 
     /**
-     * TODO: return type of ???
      * @return A promise that is resolved with a lookup table for mapping named attachments to their content.
      */
-    getAttachments(): any;
+    getAttachments(): any; // TODO: return type of ???
 
     /**
      *  A promise that is resolved with an array of all the JavaScript strings in the name tree.
@@ -332,12 +334,11 @@ interface PDFDocumentProxy {
     getOutline(): Promise<PDFTreeNode[]>;
 
     /**
-     * TODO: return type of Promise<???>
      * @return A promise that is resolved with an Array that contains
      *   the permission flags for the PDF document, or `null` when
      *   no permissions are present in the PDF file.
      */
-    getPermissions(): Promise<any[] | null>;
+    getPermissions(): Promise<any[] | null>; // TODO: return type of Promise<???>
 
     /**
      * A promise that is resolved with the info and metadata of the PDF.
@@ -421,8 +422,15 @@ interface ViewportParameters {
  * Page getTextContent parameters.
  */
 interface GetTextContentParameters {
-    normalizeWhitespace: boolean; // Replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
-    disabledCombineTextItems: boolean; // Do not attempt to combine same line TextItem's. The default value is `false`.
+    /**
+     * Replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
+     */
+    normalizeWhitespace: boolean;
+
+    /**
+     * Do not attempt to combine same line TextItem's. The default value is `false`.
+     */
+    disabledCombineTextItems: boolean;
 }
 
 interface PDFAnnotationData {
@@ -485,8 +493,15 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
  * PDF page operator list.
  */
 interface PDFOperatorList {
-    fnArray: any[]; // Array containing the operator functions.  TODO: Type of Array<???>
-    argsArray: any[]; // Array containing the arguments of the functions.
+    /**
+     * Array containing the operator functions.
+     */
+    fnArray: any[]; // TODO: Type of Array<???>
+
+    /**
+     * Array containing the arguments of the functions.
+     */
+    argsArray: any[];
 }
 
 /**
