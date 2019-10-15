@@ -4,6 +4,7 @@ import * as Resources from './Resources';
 export class Onfleet {
   constructor(api_key: string);
   verifyKey(): boolean;
+  admins: Resources.Admin;
   api: API;
   apiKey: string;
   destinations: Resources.Destination;
