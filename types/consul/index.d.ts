@@ -961,9 +961,9 @@ declare namespace Consul {
         interface Options {
             method: Function;
             options?: CommonOptions & WatchOptions;
-            backoffFactor: number;
-            backoffMax: number;
-            maxAttempts: number;
+            backoffFactor?: number;
+            backoffMax?: number;
+            maxAttempts?: number;
         }
     }
 
