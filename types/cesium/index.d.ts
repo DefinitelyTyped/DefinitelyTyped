@@ -4183,15 +4183,15 @@ declare namespace Cesium {
         resolutionScale: number;
         constructor(container: Element | string, options?: {
             clock?: Clock;
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             sceneMode?: SceneMode;
             scene3DOnly?: boolean;
             orderIndependentTranslucency?: boolean;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
             showRenderLoopErrors?: boolean;
@@ -4515,10 +4515,10 @@ declare namespace Cesium {
             imageryProviderViewModels?: ProviderViewModel[];
             selectedTerrainProviderViewModel?: ProviderViewModel;
             terrainProviderViewModels?: ProviderViewModel[];
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             fullscreenElement?: Element | string;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
@@ -4527,7 +4527,7 @@ declare namespace Cesium {
             contextOptions?: any;
             sceneMode?: SceneMode;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             orderIndependentTranslucency?: boolean;
             creditContainer?: Element | string;
             creditViewport?: Element | string;
