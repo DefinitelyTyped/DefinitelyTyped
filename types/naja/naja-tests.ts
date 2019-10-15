@@ -12,7 +12,9 @@ class TestExtension {
     private readonly optionalArg: string;
 
     private async makeRequest(): Promise<void> {
-        return this.naja.makeRequest('GET', 'some-url', null, { abort: false });
+        if (this.naja.uiHandler.isUrlAllowed('some-url')) {
+            return this.naja.makeRequest('GET', 'some-url', null, { abort: false });
+        }
     }
 }
 
@@ -31,6 +33,8 @@ naja.registerExtension(TestExtension, 'optionalArg');
 
 naja.historyHandler.uiCache = false;
 naja.formsHandler.netteForms = {};
+naja.formsHandler.initForms(document.body);
+naja.formsHandler.processForm(new Event('submit'));
 naja.uiHandler.allowedOrigins.push('http://localhost');
 
 naja.snippetHandler.addEventListener('beforeUpdate', event => console.log(event.snippet, event.content));
@@ -38,6 +42,7 @@ naja.snippetHandler.addEventListener('afterUpdate', event => console.log(event.s
 
 naja.uiHandler.bindUI(document.createElement('div'));
 naja.uiHandler.clickElement(document.createElement('button'));
+naja.uiHandler.handleUI(new Event('change'));
 naja.uiHandler.submitForm(document.createElement('form'));
 
 naja.addEventListener('init', event => console.log(event.defaultOptions));
@@ -53,6 +58,8 @@ naja.removeEventListener('start', genericListener);
 naja.snippetHandler.removeEventListener('beforeUpdate', null);
 
 document.addEventListener('DOMContentLoaded', () => {
+    naja.initialize();
     naja.initialize({ history: false, selector: '[data-ajax]', customOption: 1 });
-    naja.fireEvent('customEvent', {});
+    naja.fireEvent('customEvent', { extra: 1 });
+    naja.fireEvent('anotherEvent');
 });
