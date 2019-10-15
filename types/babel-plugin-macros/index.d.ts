@@ -1,4 +1,4 @@
-// Type definitions for babel-plugin-macros 2.6.1
+// Type definitions for babel-plugin-macros 2.6
 // Project: https://github.com/kentcdodds/babel-plugin-macros
 // Definitions by: Billy Kwok <https://github.com/billykwok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
