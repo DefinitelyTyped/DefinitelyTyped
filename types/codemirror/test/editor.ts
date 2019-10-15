@@ -1,4 +1,5 @@
 // TypeScript Version: 3.1
+
 import CodeMirror = require("codemirror");
 
 // Init variables
