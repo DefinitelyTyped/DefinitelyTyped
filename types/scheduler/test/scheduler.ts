@@ -8,7 +8,7 @@ unstable_scheduleCallback(unstable_NormalPriority, () => {}, { delay: 100 });
 // $ExpectType number
 unstable_now();
 
-// $ExpectType number | undefined
+// $ExpectType number
 const nextNumberResult = unstable_next(() => 42);
-// $ExpectType string | undefined
+// $ExpectType string
 const nextStringResult = unstable_next(() => 'Hello');
