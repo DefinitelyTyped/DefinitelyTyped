@@ -1411,6 +1411,12 @@
             "asOfVersion": "0.2.2"
         },
         {
+            "libraryName": "image-size",
+            "typingsPackageName": "image-size",
+            "sourceRepoURL": "https://github.com/image-size/image-size",
+            "asOfVersion": "0.8.0"
+        },
+        {
             "libraryName": "image-type",
             "typingsPackageName": "image-type",
             "sourceRepoURL": "https://github.com/sindresorhus/image-type",
