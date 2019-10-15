@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export interface CarbonPictogramProps extends Omit<React.SVGProps<any>, 'tabIndex'> {
+export interface CarbonPictogramProps extends Omit<React.SVGProps<SVGElement>, 'tabIndex'> {
     tabIndex?: string;
 }
 
