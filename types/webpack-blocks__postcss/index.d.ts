@@ -1,0 +1,28 @@
+// Type definitions for @webpack-blocks/core 2.0
+// Project: https://github.com/andywer/webpack-blocks
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
+
+import { Block } from 'webpack-blocks';
+
+declare namespace postCss {
+    type FunctionType = () => string;
+
+    interface Plugin {
+        parser?: string | FunctionType;
+        syntax?: string | FunctionType;
+        stringifier?: string | FunctionType;
+    }
+
+    interface Options {
+        parser?: string;
+        stringifier?: string;
+        syntax?: string;
+        plugins?: any[];
+    }
+}
+
+declare function postCss(options?: postCss.Options): Block;
+
+export = postCss;
