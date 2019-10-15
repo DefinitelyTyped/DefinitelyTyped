@@ -17,6 +17,7 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Grgur Grisogono <https://github.com/grgur>
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
+//                 Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -153,7 +154,7 @@ declare namespace webpack {
         /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
         auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
-        filename?: string;
+        filename?: string | ((chunkData: ChunkData) => string);
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
         /** Number of milliseconds before chunk request expires, defaults to 120,000. */
@@ -233,6 +234,10 @@ declare namespace webpack {
     type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
+
+    interface ChunkData {
+        chunk: compilation.Chunk;
+    }
 
     interface Module {
         /** A array of applied pre loaders. */
@@ -1283,10 +1288,10 @@ declare namespace webpack {
 
         interface ChunkGroup {
             assets: string[];
-            chunks: number[];
+            chunks: Array<number | string>;
             children: Record<string, {
                 assets: string[];
-                chunks: number[];
+                chunks: Array<number | string>;
                 name: string;
             }>;
             childAssets: Record<string, string[]>;
@@ -1349,7 +1354,7 @@ declare namespace webpack {
             assets?: string[];
             built: boolean;
             cacheable: boolean;
-            chunks: number[];
+            chunks: Array<number | string>;
             depth?: number;
             errors: number;
             failed: boolean;
@@ -1380,11 +1385,12 @@ declare namespace webpack {
             usedExports?: boolean;
             warnings: number;
         }
+
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
             assets?: Array<{
-                chunks: number[];
+                chunks: Array<number | string>;
                 chunkNames: string[];
                 emitted: boolean;
                 isOverSizeLimit?: boolean;
@@ -1393,7 +1399,7 @@ declare namespace webpack {
             }>;
             assetsByChunkName?: Record<string, Record<string, string[]>>;
             builtAt?: number;
-            children?: ToJsonOptions[] & { name?: string };
+            children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{
                 children: number[];
                 childrenByOrder: Record<string, number[]>;
@@ -1401,7 +1407,7 @@ declare namespace webpack {
                 files: string[];
                 filteredModules?: boolean;
                 hash: string | undefined;
-                id: number;
+                id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];

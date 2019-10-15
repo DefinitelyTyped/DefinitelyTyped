@@ -52,6 +52,12 @@ passport.use(new httpBearer.Strategy({
     });
 }));
 
+passport.use(
+    new httpBearer.Strategy({}, (token, done) => {
+        done(null, false);
+    }),
+);
+
 let app = express();
 app.post("/login", passport.authenticate("bearer", { failureRedirect: "/login" }), function(req, res) {
     res.redirect("/");

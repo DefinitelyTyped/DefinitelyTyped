@@ -362,7 +362,11 @@ Sortable.create(simpleList, {
     handle: '.glyphicon-move',
     animation: 150,
     filter: ".disabled",
-    onMove: function (evt) {
-        return evt.related.className.indexOf('disabled') === -1;
+    onMove: function (evt, originalEvent) {
+        if (evt.related.className.indexOf('disabled') !== -1) {
+            return false;
+        }
+
+        return 1; // insert after target
     }
 });

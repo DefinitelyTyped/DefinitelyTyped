@@ -70,11 +70,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         assert.equal(3, "3", "uses == comparator");
 
-        assert.fail('stuff broke');
+        if (!!true) assert.fail('stuff broke');
 
-        assert.fail('actual', 'expected', 'message');
+        if (!!true) assert.fail('actual', 'expected', 'message');
 
-        assert.fail(1, 2, undefined, '>');
+        if (!!true) assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 

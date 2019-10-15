@@ -8,12 +8,14 @@ import {
     TableHeader,
     TableRow,
 } from 'carbon-components-react';
+import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
 interface Row1 extends DataTableRow {
     rowProp: string;
 }
 
-interface Header1 extends DataTableHeader {
+type Header1Key = "h1" | "h2" | "h3";
+interface Header1 extends DataTableHeader<Header1Key> {
     headerProp: number;
 }
 
@@ -48,18 +50,25 @@ const t2 = (
             let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: 'extra' });
             let s = bap2.extra1;
 
-            let hp = props.getHeaderProps({ header: { key: 'k', header: 'Test' } });
-            let k = hp.key;
+            let hp = props.getHeaderProps({ header: { key: 'h1', header: 'testh1', headerProp: 3 } });
+            let k: Header1Key = hp.key;
 
-            let hp2 = props.getHeaderProps<ExtraStuff>({ header: { key: 'k', header: 'Test' }, extra1: 'asdf' });
-            let k2 = hp.key;
+            let hp2 = props.getHeaderProps<ExtraStuff>({
+                header: { key: 'h2', header: 'Test', headerProp: 3 },
+                extra1: 'asdf',
+            });
+            k = hp.key;
             let e = hp2.extra1;
 
-            let rp = props.getRowProps({ row: { id: 'r1' } });
-            k = rp.key;
+            let hp3 = props.getHeaderProps({ header: { key: 'h3', header: 'testh1', headerProp: 5 }, someExtra: 2 });
+            let k3: Header1Key = hp.key;
+            let someExtra = hp3.someExtra;
 
-            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1' }, extra1: 'asdf' });
-            k = rp2.key;
+            let rp = props.getRowProps({ row: { id: 'r1', rowProp: 'asdf' }, extra1: 'asdf' });
+            let rk: string = rp.key;
+
+            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1', rowProp: 'edfg' }, extra1: 'asdf' });
+            rk = rp2.key;
             e = rp2.extra1;
 
             let sp = props.getSelectionProps();
@@ -75,7 +84,7 @@ const t2 = (
 
             props.selectAll();
             props.selectRow('qwerty');
-            props.sortBy('zxcv');
+            props.sortBy('h3');
 
             props.rows.forEach((denormalizedRow) => {
                 denormalizedRow.cells.forEach((cell) => {
@@ -137,4 +146,41 @@ const t4 = (
             return <div />;
         }}
     />
+);
+
+// UIShell - Link
+interface TestCompProps {
+    someProp: number,
+}
+
+class TestComp1 extends React.Component<TestCompProps> {
+    render() {
+        return (<div/>);
+    }
+}
+
+const TestComp2 = (props: TestCompProps) => (<div/>);
+
+const uisLinkT1 = (
+    <Link href="#test">Test</Link>
+);
+const uisLinkT2 = (
+    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>
+);
+const uisLinkT3 = (
+    <Link<TestCompProps> element={TestComp1} someProp={2}>ASDF</Link>
+);
+const uisLinkT4 = (
+    <Link<TestCompProps> element={TestComp2} someProp={2}>ASDF</Link>
+);
+
+interface TestCompPropsOverwrite {
+    element?: "overwriteTest", // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+    someProp: string,
+}
+
+const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
+
+const uisLinkT5 = (
+    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
 );

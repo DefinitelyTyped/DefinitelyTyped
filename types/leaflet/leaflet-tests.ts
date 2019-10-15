@@ -163,13 +163,20 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
-map.off('moveend');
-map.off('moveend', () => {});
-map.off('moveend', () => {}, {});
+map.on('zoomanim', (_e: L.ZoomAnimEvent) => {});
 
-map.removeEventListener('moveend');
-map.removeEventListener('moveend', () => {});
-map.removeEventListener('moveend', () => {}, {});
+map.once({
+    dragend: (_e: L.DragEndEvent) => {},
+    locationfound: (_e: L.LocationEvent) => {},
+});
+
+map.off('moveend');
+map.off('resize', (_e: L.ResizeEvent) => {});
+map.off('baselayerchange', (_e: L.LayersControlEvent) => {}, {});
+
+map.removeEventListener('loading');
+map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
+map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
 
@@ -699,7 +706,6 @@ const AsyncCanvasLayer = L.GridLayer.extend({
 });
 
 export class ExtendedTileLayer extends L.TileLayer {
-	options: L.TileLayerOptions;
 	createTile(coords: L.Coords, done: L.DoneCallback) {
 		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
 		newCoords.z = coords.z;

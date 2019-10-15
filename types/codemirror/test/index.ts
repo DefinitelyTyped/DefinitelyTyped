@@ -78,7 +78,7 @@ const options: CodeMirror.EditorConfiguration = {
 const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 // Check with all options
-const myCodeMirror1: CodeMirror.Editor = CodeMirror(document.body);
+const myCodeMirror1: CodeMirror.Editor = CodeMirror(document.body, options);
 
 // Check with some options
 const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {

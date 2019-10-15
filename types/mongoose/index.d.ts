@@ -30,8 +30,10 @@
 //                 Boris Figovsky <https://github.com/borfig>
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
+//                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 Tom Yam <https://github.com/tomyam1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -96,7 +98,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: ConnectionStates;
+  export var STATES: typeof ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** An array containing all connections associated with this Mongoose instance. */
@@ -308,7 +310,7 @@ declare module "mongoose" {
     readyState: number;
 
     /** mapping of ready states */
-    states: ConnectionStates;
+    states: typeof ConnectionStates;
   }
 
   /**
@@ -338,8 +340,8 @@ declare module "mongoose" {
     };
     autoIndex?: boolean;
 
-    /** Before Mongoose builds indexes, it calls Model.createCollection() 
-     * to create the underlying collection in MongoDB if autoCreate 
+    /** Before Mongoose builds indexes, it calls Model.createCollection()
+     * to create the underlying collection in MongoDB if autoCreate
      * is set to true.(default: false) */
     autoCreate?: boolean;
 
@@ -410,7 +412,7 @@ declare module "mongoose" {
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
     /** Expose the possible connection states. */
-    static STATES: ConnectionStates;
+    static STATES: typeof ConnectionStates;
   }
 
   export enum ConnectionStates {
@@ -775,6 +777,21 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      error: mongodb.MongoError, docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => Promise<any>
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
@@ -2276,6 +2293,10 @@ declare module "mongoose" {
       multipleCastError?: boolean;
     /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
     fields?: any | string;
+    /** If true, delete any properties whose value is undefined when casting an update. In other words,
+    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
+    before sending the update to the server.**/
+    omitUndefined?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

@@ -1,4 +1,4 @@
-// Type definitions for filesize 4.1
+// Type definitions for filesize 4.2
 // Project: https://github.com/avoidwork/filesize.js, https://filesizejs.com
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Renaud Chaput <https://github.com/renchap>
@@ -62,6 +62,10 @@ declare namespace Filesize {
          * BCP 47 language tag to specify a locale, or true to use default locale, default is ""
          */
         locale?: string | boolean;
+        /**
+         * ECMA-402 number format option overrides, default is "{}"
+         */
+        localeOptions?: Intl.NumberFormatOptions;
         /**
          * Output of function (array, exponent, object, or string), default is string
          */
