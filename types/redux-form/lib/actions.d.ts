@@ -75,6 +75,7 @@ declare const actions: {
     initialize: typeof initialize,
     registerField: typeof registerField,
     reset: typeof reset,
+    resetSection: typeof resetSection,
     startAsyncValidation: typeof startAsyncValidation,
     startSubmit: typeof startSubmit,
     stopAsyncValidation: typeof stopAsyncValidation,
