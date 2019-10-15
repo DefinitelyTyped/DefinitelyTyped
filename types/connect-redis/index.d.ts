@@ -4,7 +4,7 @@
 //				   Seth Butler <https://github.com/sbutler2901>
 //				   Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="express" />
 /// <reference types="express-session" />
@@ -21,7 +21,7 @@ declare module "connect-redis" {
 
     namespace s {
         interface RedisStore extends session.Store {
-            new (options: RedisStoreOptions): RedisStore;
+            new(options: RedisStoreOptions): RedisStore;
             client: redis.RedisClient;
         }
         interface RedisStoreOptions {
