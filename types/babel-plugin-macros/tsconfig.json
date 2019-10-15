@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "babel-plugin-macros-test.ts"
+        "babel-plugin-macros-tests.ts"
     ]
 }
