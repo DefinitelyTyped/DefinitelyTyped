@@ -14,6 +14,6 @@ export class Onfleet {
   // containers: {}; // TODO define resource
   hubs: Resources.Hub;
   organization: Resources.Organization;
-  // teams: {}; // TODO define resource
+  teams: Resources.Team;
   workers: Resources.Worker; // TODO define resource
 }
