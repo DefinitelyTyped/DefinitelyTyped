@@ -178,7 +178,7 @@ gm(src)
 	.modulate(b, s, h)
 	.monitor()
 	.monochrome()
-    .montage(src)
+	.montage(src)
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
 	})
