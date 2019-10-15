@@ -2,18 +2,20 @@ import { API } from './API';
 import * as Resources from './Resources';
 
 export class Onfleet {
-  constructor(api_key: string);
-  verifyKey(): boolean;
-  admins: Resources.Admin;
   api: API;
   apiKey: string;
+
+  constructor(api_key: string);
+  verifyKey(): boolean;
+
+  admins: Resources.Admin;
+  containers: Resources.Container;
   destinations: Resources.Destination;
-  recipients: Resources.Recipient;
-  tasks: Resources.Task;
-  webhooks: Resources.Webhook;
-  // containers: {}; // TODO define resource
   hubs: Resources.Hub;
   organization: Resources.Organization;
+  recipients: Resources.Recipient;
+  tasks: Resources.Task;
   teams: Resources.Team;
-  workers: Resources.Worker; // TODO define resource
+  webhooks: Resources.Webhook;
+  workers: Resources.Worker;
 }
