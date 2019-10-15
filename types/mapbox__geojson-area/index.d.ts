@@ -9,5 +9,5 @@ declare module "@mapbox/geojson-area" {
   import { Geometry, Position } from 'geojson';
 
   function geometry(geo: Geometry): number;
-  function ringArea(coordinates :Position[][]): number;
+  function ringArea(coordinates: Position[][]): number;
 }
