@@ -1,12 +1,4 @@
-import {
-    addPlugins,
-    createConfig,
-    entryPoint,
-    env,
-    setMode,
-    setOutput,
-    sourceMaps
-} from '@webpack-blocks/webpack';
+import { addPlugins, createConfig, entryPoint, env, setMode, setOutput, sourceMaps } from '@webpack-blocks/webpack';
 import { css } from '@webpack-blocks/assets';
 
 module.exports = createConfig([
@@ -15,7 +7,5 @@ module.exports = createConfig([
     setOutput('./build/bundle.js'),
     css(),
     addPlugins([]),
-    env('development', [
-        sourceMaps()
-    ])
+    env('development', [sourceMaps()]),
 ]);
