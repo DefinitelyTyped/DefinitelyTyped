@@ -5,9 +5,11 @@
 // TypeScript Version: 2.1
 /// <reference types="node"/>
 
-declare namespace NodeJS {
-    interface ProcessVersions {
-        pnp?: string;
+declare global {
+    namespace NodeJS {
+        interface ProcessVersions {
+            pnp?: string;
+        }
     }
 }
 
@@ -69,4 +71,5 @@ interface MasterFunctions {
 }
 
 declare const mainApi: PnpApi & MasterFunctions;
+
 export default mainApi;
