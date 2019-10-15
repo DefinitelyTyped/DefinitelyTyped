@@ -1,5 +1,7 @@
 import connectRedis = require("connect-redis");
 import session = require("express-session");
+import redis = require("redis");
+import IORedis = require("ioredis");
 
 let RedisStore = connectRedis(session);
 const store = new RedisStore({
@@ -11,3 +13,8 @@ const store = new RedisStore({
 		return 60;
 	}
 });
+
+// clients
+
+new RedisStore({ client: redis.createClient() });
+new RedisStore({ client: new IORedis() });

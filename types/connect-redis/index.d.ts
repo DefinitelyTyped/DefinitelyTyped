@@ -2,18 +2,20 @@
 // Project: https://npmjs.com/package/connect-redis
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 //				   Seth Butler <https://github.com/sbutler2901>
+//				   Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="express" />
 /// <reference types="express-session" />
 /// <reference types="redis" />
+/// <reference types="ioredis" />
 
 declare module "connect-redis" {
     import * as express from "express";
     import * as session from "express-session";
     import * as redis from "redis";
-
+    import * as ioredis from "ioredis";
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
@@ -23,7 +25,7 @@ declare module "connect-redis" {
             client: redis.RedisClient;
         }
         interface RedisStoreOptions {
-            client?: redis.RedisClient;
+            client?: redis.RedisClient | ioredis.Redis;
             host?: string;
             port?: number;
             socket?: string;
