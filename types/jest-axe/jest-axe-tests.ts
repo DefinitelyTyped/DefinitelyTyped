@@ -18,3 +18,8 @@ const sameJest: JestAxe = axe;
 
 expect('').toHaveNoViolations();
 expect(document.body).toHaveNoViolations();
+
+async () => {
+    expect(await Promise.resolve(document.body)).toHaveNoViolations();
+    await expect(Promise.resolve(document.body)).resolves.toHaveNoViolations();
+};

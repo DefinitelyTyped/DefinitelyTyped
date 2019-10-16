@@ -1,6 +1,7 @@
-// Type definitions for jest-axe 2.2
+// Type definitions for jest-axe 3.2
 // Project: https://github.com/nickcolley/jest-axe
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -79,7 +80,7 @@ export const toHaveNoViolations: {
 declare global {
     namespace jest {
         interface Matchers<R> {
-            toHaveNoViolations: IToHaveNoViolations;
+            toHaveNoViolations(): R;
         }
     }
 
