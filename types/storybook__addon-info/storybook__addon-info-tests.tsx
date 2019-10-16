@@ -1,37 +1,40 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { setDefaults, withInfo } from '@storybook/addon-info';
 
-const { Component } = React;
-
-const TableComponent = ({ propDefinitions }: { propDefinitions: Array<{
-    property: string;
-    propType: { [key: string]: any} | string;
-    required: boolean;
+interface PropDefinition {
+    defaultValue?: string;
     description: string;
-    defaultValue: any;
-}> }) => (
+    property: string;
+    propType: {
+        [key: string]: unknown
+    } | string;
+    required: boolean;
+}
+interface Props {
+    propDefinitions: PropDefinition[];
+}
+const TableComponent: FunctionComponent<Props> = ({ propDefinitions }) => (
     <table>
         <thead>
-        <tr>
-            <th>property</th>
-            <th>propType</th>
-            <th>required</th>
-            <th>default</th>
-            <th>description</th>
-        </tr>
-        </thead>
-        <tbody>
-        {propDefinitions.map(row => (
-            <tr key={row.property}>
-            <td>{row.property}</td>
-            <td>{row.required ? 'yes' : '-'}</td>
-            <td>
-                {row.defaultValue === undefined ? '-' : row.defaultValue}
-            </td>
-            <td>{row.description}</td>
+            <tr>
+                <th>property</th>
+                <th>propType</th>
+                <th>required</th>
+                <th>default</th>
+                <th>description</th>
             </tr>
-        ))}
+        </thead>
+
+        <tbody>
+            {propDefinitions.map(row => (
+                <tr key={row.property}>
+                    <td>{row.property}</td>
+                    <td>{row.required ? 'yes' : '-'}</td>
+                    <td>{row.defaultValue === undefined ? '-' : row.defaultValue}</td>
+                    <td>{row.description}</td>
+                </tr>
+            ))}
         </tbody>
     </table>
 );
@@ -46,12 +49,12 @@ setDefaults({
 storiesOf('Component', module)
   .add('no info',
        withInfo()(() =>
-         <Component>Click the "?" mark at top-right to view the info.</Component>
+         <div>Click the "?" mark at top-right to view the info.</div>
        )
   )
   .add('simple info',
        withInfo('doc string about my component')(() =>
-         <Component>Click the "?" mark at top-right to view the info.</Component>
+         <div>Click the "?" mark at top-right to view the info.</div>
        )
   )
   .add('using an options object',
@@ -70,6 +73,6 @@ storiesOf('Component', module)
          TableComponent,
          excludedPropTypes: [],
        })(() =>
-         <Component>Click the "?" mark at top-right to view the info.</Component>
+         <div>Click the "?" mark at top-right to view the info.</div>
        )
   );
