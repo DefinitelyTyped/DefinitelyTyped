@@ -1866,7 +1866,8 @@ declare module fhir {
          */
         identifier?: Identifier;
         /**
-         * AE | PAE An adverse event is an event that caused harm to a patient,  an adverse reaction is a something that is a subject-specific event that is a result of an exposure to a medication, food, device or environmental substance, a potential adverse event is something that occurred and that could have caused harm to a patient but did not
+         * AE | PAE
+         * An adverse event is an event that caused harm to a patient,  an adverse reaction is a something that is a subject-specific event that is a result of an exposure to a medication, food, device or environmental substance, a potential adverse event is something that occurred and that could have caused harm to a patient but did not
          */
         category?: code;
         /**
@@ -17636,11 +17637,11 @@ declare module fhir {
         genderStatus?: CodeableConcept;
     }
     /**
-     * A list of Languages which may be used to communicate with the patient about his or her health
+     * A list of Languages which may be used to communicate with the patient about their health
      */
     interface PatientCommunication extends BackboneElement {
         /**
-         * The language which can be used to communicate with the patient about his or her health
+         * The language which can be used to communicate with the patient about their health
          */
         language: CodeableConcept;
         /**
@@ -17762,7 +17763,7 @@ declare module fhir {
          */
         animal?: PatientAnimal;
         /**
-         * A list of Languages which may be used to communicate with the patient about his or her health
+         * A list of Languages which may be used to communicate with the patient about their health
          */
         communication?: PatientCommunication[];
         /**

@@ -753,7 +753,6 @@ declare namespace Draft {
                 getKey(): string;
 
                 getType(): DraftBlockType;
-                getType(): string;
 
                 getText(): string;
                 getCharacterList(): Immutable.List<CharacterMetadata>;
@@ -935,7 +934,7 @@ declare namespace Draft {
                 static getCurrentBlockType(editorState: EditorState): string;
                 static getDataObjectForLinkURL(uri: URI): Object;
 
-                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState | null;
                 static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
@@ -944,8 +943,8 @@ declare namespace Draft {
                  * For collapsed selections at the start of styled blocks, backspace should
                  * just remove the existing style.
                  */
-                static onBackspace(editorState: EditorState): EditorState;
-                static onDelete(editorState: EditorState): EditorState;
+                static onBackspace(editorState: EditorState): EditorState | null;
+                static onDelete(editorState: EditorState): EditorState | null;
                 static onTab(event: SyntheticKeyboardEvent, editorState: EditorState, maxDepth: number): EditorState;
 
                 static toggleBlockType(editorState: EditorState, blockType: DraftBlockType): EditorState;
@@ -968,7 +967,7 @@ declare namespace Draft {
                  * certain key commands (newline, backspace) to simply change the
                  * style of the block instead of the default behavior.
                  */
-                static tryToRemoveBlockStyle(editorState: EditorState): ContentState;
+                static tryToRemoveBlockStyle(editorState: EditorState): ContentState | null;
             }
         }
     }

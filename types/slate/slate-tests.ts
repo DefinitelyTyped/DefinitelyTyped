@@ -22,6 +22,13 @@ import {
 import { List } from "immutable";
 
 const data = Data.create({ foo: "bar " });
+
+// $ExpectType any
+data.get('hoge');
+
+// $ExpectError
+data['foo'];
+
 const value = Value.create({ data });
 
 const node: BlockJSON = {

@@ -578,7 +578,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null | undefined> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**

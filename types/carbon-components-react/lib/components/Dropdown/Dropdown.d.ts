@@ -1,11 +1,19 @@
 import * as React from "react";
-import { DownshiftTypedProps, InternationalProps, ReactInputAttr, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    DownshiftTypedProps,
+    InternationalProps,
+    ReactInputAttr,
+    RequiresIdProps,
+    ThemeProps,
+    ValidityProps
+} from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
 interface InheritedProps<ItemType> extends
     DownshiftTypedProps<ItemType>,
     InternationalProps<ListBoxMenuIconTranslationKey>,
+    RequiresIdProps,
     ThemeProps,
     ValidityProps
 {

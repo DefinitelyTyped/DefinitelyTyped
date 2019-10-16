@@ -2445,7 +2445,7 @@ export const symbolSquare: SymbolType;
 export const symbolStar: SymbolType;
 
 /**
- * he up-pointing triangle symbol type.
+ * The up-pointing triangle symbol type.
  */
 export const symbolTriangle: SymbolType;
 

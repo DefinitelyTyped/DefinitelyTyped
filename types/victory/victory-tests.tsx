@@ -11,7 +11,9 @@ import {
     VictoryChart,
     VictoryScatter,
     VictoryPie,
+    VictoryStyleInterface,
     VictoryTheme,
+    VictoryThemeDefinition,
     VictoryLegend,
     VictoryBoxPlot,
     VictoryGroup,
@@ -663,3 +665,149 @@ test = (
         data={[{ name: 'One' }, { name: 'Two' }, { name: 'Three' }]}
     />
 );
+
+const emptyTheme: VictoryThemeDefinition = {};
+
+type RecursiveRequired<T> = {
+    [P in keyof T]-?: T[P] extends (infer U)[]
+        ? RecursiveRequired<U>[]
+        : T[P] extends object
+        ? RecursiveRequired<T[P]>
+        : T[P];
+};
+
+// tslint:disable-next-line: no-object-literal-type-assertion
+const cssProps: Required<React.CSSProperties> = {} as Required<React.CSSProperties>;
+const colorScale: string[] = ['blue'];
+const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
+    parent: cssProps,
+    data: cssProps,
+    labels: cssProps,
+};
+const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
+    area: {
+        style: {
+            data: victoryStyle,
+            labels: victoryStyle,
+        },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    axis: {
+        style: {
+            axis: cssProps,
+            axisLabel: cssProps,
+            grid: cssProps,
+            ticks: cssProps,
+            tickLabels: cssProps,
+        },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    bar: {
+        colorScale,
+        height: 0,
+        padding: 0,
+        style: { data: cssProps, labels: cssProps },
+        width: 0,
+    },
+    boxplot: {
+        style: {
+            max: cssProps,
+            maxLabels: cssProps,
+            median: cssProps,
+            medianLabels: cssProps,
+            min: cssProps,
+            minLabels: cssProps,
+            q1: cssProps,
+            q1Labels: cssProps,
+            q3: cssProps,
+            q3Labels: cssProps,
+        },
+        boxWidth: 0,
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    candlestick: {
+        style: { data: cssProps, labels: cssProps },
+        candleColors: {
+            positive: '#ffffff',
+            negative: '#000000',
+        },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    chart: { width: 0, height: 0, colorScale, padding: 0 },
+    errorbar: {
+        style: { data: cssProps, labels: cssProps },
+        borderWidth: 0,
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    group: {
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    legend: {
+        style: { data: cssProps, labels: cssProps, title: cssProps },
+        colorScale,
+        gutter: 0,
+        height: 0,
+        orientation: 'vertical',
+        padding: 0,
+        titleOrientation: 'top',
+        width: 0,
+    },
+    line: {
+        style: { data: cssProps, labels: cssProps },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    pie: {
+        style: { data: cssProps, labels: cssProps },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    scatter: {
+        style: { data: cssProps, labels: cssProps },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+    stack: {
+        colorScale,
+        height: 0,
+        padding: 50,
+        width: 0,
+    },
+    tooltip: {
+        cornerRadius: 0,
+        flyoutStyle: cssProps,
+        pointerLength: 0,
+        style: cssProps,
+    },
+    voronoi: {
+        style: { data: cssProps, labels: cssProps, flyout: cssProps },
+        colorScale,
+        height: 0,
+        padding: 0,
+        width: 0,
+    },
+};
