@@ -31,6 +31,6 @@
 	},
 	"files": [
 		"index.d.ts",
-		"webpack-blocks__core-tests.ts"
+		"webpack-blocks__webpack-tests.ts"
 	]
 }
