@@ -1,3 +1,6 @@
+import * as ko from 'knockout';
+import * as mapping from 'knockout.mapping';
+
 ////////////////////////////////
 // variable tests and definitions
 interface User {
@@ -32,7 +35,7 @@ interface MappedCar {
     drivers: ko.ObservableArray<MappedUser>
 }
 
-let badUserMappingOptions: KnockoutMappingOptions<User> = {
+const badUserMappingOptions: KnockoutMappingOptions<User> = {
     ignore: ['age'],
     include: ['name'],
     copy: ['height'],
@@ -41,7 +44,7 @@ let badUserMappingOptions: KnockoutMappingOptions<User> = {
     create: (options: KnockoutMappingCreateOptions) => { }, // $ExpectError
 }
 
-let userMappingOptions: KnockoutMappingOptions<User> = {
+const userMappingOptions: KnockoutMappingOptions<User> = {
     ignore: ['age'],
     include: ['name'],
     copy: ['height'],
@@ -49,78 +52,73 @@ let userMappingOptions: KnockoutMappingOptions<User> = {
     deferEvaluation: false,
     firstName: { create: (options: KnockoutMappingCreateOptions) => { } },
 }
-let badMapping = {
+const badMapping = {
     ignof3efere: ['age'],
     inclfefeude: ['name'],
 }
 
 ////////////////////////////////
 // fromJS function with JS object without Array properties
-let userInput: User = { firstName: 'foo', age: 12, address: { street: 'street name' } }
+const userInput: User = { firstName: 'foo', age: 12, address: { street: 'street name' } }
 
-let mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType ko.ObservableType<User>
-mappedUserViewModel.age // $ExpectType ko.Observable<number>
+const mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType KnockoutObservableType<User>
+mappedUserViewModel.age // $ExpectType Observable<number>
 
-mapping.fromJS(userInput, {}) // $ExpectType ko.ObservableType<User>
-mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
-mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
-mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType ko.ObservableType<User>
+mapping.fromJS(userInput, {}) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
 mapping.fromJS(userInput, {}, userInput) // $ExpectError
 mapping.fromJS(userInput, userInput) // $ExpectError
 
-let untypedObject: any = { age: 22 }
+const untypedObject: any = { age: 22 }
 mapping.fromJS(untypedObject) // $ExpectType any
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
-let carInput: Car = { name: 'hb20x', maintenance: [1, 2], drivers: [userInput] }
-let mappedCar: MappedCar = mapping.fromJS(carInput)
-let drivers: ko.ObservableArray<MappedUser> = mappedCar.drivers
-let maintenance: ko.ObservableArray<number> = mappedCar.maintenance
+const carInput: Car = { name: 'hb20x', maintenance: [1, 2], drivers: [userInput] }
+const mappedCar: MappedCar = mapping.fromJS(carInput)
+const drivers: ko.ObservableArray<MappedUser> = mappedCar.drivers
+const maintenance: ko.ObservableArray<number> = mappedCar.maintenance
 
 ////////////////////////////////
 // fromJS function with primitives
+// tslint:disable-next-line: prefer-const
 let numberInput: number
+// tslint:disable-next-line: prefer-const
 let stringInput: string
+// tslint:disable-next-line: prefer-const
 let booleanInput: boolean
+// tslint:disable-next-line: prefer-const
 let symbolInput: symbol
 
-mapping.fromJS(numberInput) // $ExpectType ko.Observable<number>
-mapping.fromJS(stringInput) // $ExpectType ko.Observable<string>
-mapping.fromJS(symbolInput) // $ExpectType ko.Observable<symbol>
+mapping.fromJS(numberInput) // $ExpectType Observable<number>
+mapping.fromJS(stringInput) // $ExpectType Observable<string>
+mapping.fromJS(symbolInput) // $ExpectType Observable<symbol>
 
 // Typescript weirdly returns ko.Observable<false> | ko.Observable<true>
-let booleanMapped: ko.Observable<boolean> = mapping.fromJS(booleanInput)
+const booleanMapped: ko.Observable<boolean> = mapping.fromJS(booleanInput)
 
 ////////////////////////////////
 // fromJS function with JS Array
-let userArrayInput = [userInput]
+const userArrayInput = [userInput]
+// tslint:disable-next-line: prefer-const
 let untypedArrayObject: any[]
+// tslint:disable-next-line: prefer-const
 let numberArrayInput: number[]
 
-mapping.fromJS(userArrayInput) // $ExpectType ko.ObservableArray<ko.ObservableType<User>>
-mapping.fromJS(userArrayInput, {}) // $ExpectType ko.ObservableArray<ko.ObservableType<User>>
+mapping.fromJS(userArrayInput) // $ExpectType ObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userArrayInput, {}) // $ExpectType ObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
 
 // Could not solve this issue. Could not get this to return any when T is any. It returns a Union type of the possible values.
-mapping.fromJS(untypedArrayObject) // $ExpectType ko.ObservableArray<any> | ko.ObservableArray<ko.ObservableType<any>>
+mapping.fromJS(untypedArrayObject) // $ExpectType ObservableArray<any> | ObservableArray<KnockoutObservableType<any>>
 
-let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType ko.ObservableArray<number>
-mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType ko.ObservableArray<number>
-mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel) // $ExpectType ko.ObservableArray<number>
+const mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType ObservableArray<number>
+mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType ObservableArray<number>
+mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel) // $ExpectType ObservableArray<number>
 
-////////////////////////////////
-// fromJS function with JS ReadonlyArray
-let userReadonlyArrayInput: ReadonlyArray<User>
-let numberReadonlyArray: ReadonlyArray<number>
 
-mapping.fromJS(userReadonlyArrayInput) // $ExpectType KnockoutReadonlyObservableArray<ko.ObservableType<User>>
-mapping.fromJS(userReadonlyArrayInput, {}) // $ExpectType KnockoutReadonlyObservableArray<ko.ObservableType<User>>
-mapping.fromJS(userReadonlyArrayInput, {}, userArrayInput) // $ExpectError
-
-let mappedNumberReadonlyArrayViewModel = mapping.fromJS(numberReadonlyArray) // $ExpectType KnockoutReadonlyObservableArray<number>
-mapping.fromJS(numberReadonlyArray, {}, mappedNumberReadonlyArrayViewModel) // $ExpectType KnockoutReadonlyObservableArray<number>
-mapping.fromJS(numberReadonlyArray, mappedNumberReadonlyArrayViewModel) // $ExpectType KnockoutReadonlyObservableArray<number>
 
 ////////////////////////////////
 // fromJSON function
@@ -128,15 +126,15 @@ interface nameObject {
     name: string
 }
 
-let nameObjectInput: nameObject = { name: 'bar' }
-let nameObjectInputJSON = '{ name: "foo" }'
+const nameObjectInput: nameObject = { name: 'bar' }
+const nameObjectInputJSON = '{ name: "foo" }'
 
 mapping.fromJSON(nameObjectInputJSON) // $ExpectType any
 mapping.fromJSON(nameObjectInputJSON, {}) // $ExpectType any
 mapping.fromJSON(nameObjectInputJSON, nameObjectInput) // $ExpectType any
 mapping.fromJSON(nameObjectInputJSON, {}, nameObjectInput) // $ExpectType any
 
-let userInputJSON = "{ firstName: 'foo', age: 12 }"
+const userInputJSON = "{ firstName: 'foo', age: 12 }"
 mapping.fromJSON(userInputJSON, userMappingOptions, mappedUserViewModel) // $ExpectType any
 
 ////////////////////////////////
@@ -147,7 +145,7 @@ mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
 
 // Here the method isn't typed literally, it has implicit type. Unfortunatly the typing fails to properly type object properties that are object themselves.
 // Could not solve this issue.
-let unmmapedUser: User = mapping.toJS(mappedUserViewModel) // $ExpectError
+const unmmapedUser: User = mapping.toJS(mappedUserViewModel) // $ExpectError
 
 mapping.toJS<number>(mappedUserViewModel) // $ExpectError
 mapping.toJS<User>(stringInput) // $ExpectError

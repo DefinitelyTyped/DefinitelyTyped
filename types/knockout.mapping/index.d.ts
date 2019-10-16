@@ -3,12 +3,11 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 /// <reference types="knockout" />
-
-export as namespace mapping;
 
 declare var self: KnockoutMapping;
 export = self;
@@ -25,14 +24,12 @@ declare global {
     type KnockoutObservableType<T> = {
         [P in keyof T]: T[P] extends Primitives ? ko.Observable<T[P]> :
                         T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
-                        T[P] extends ReadonlyArray<any> ? KnockoutReadonlyObservableArrayType<T[P][number]> :
+                        T[P] extends ReadonlyArray<any> ? KnockoutObservableArrayType<T[P][number]> :
                         MappedType<T[P]>;
     };
 
     // Could not get this to return any when T is any. It returns a Union type of the possible values.
     type KnockoutObservableArrayType<T> = T extends Primitives ? ko.ObservableArray<T> : ko.ObservableArray<KnockoutObservableType<T>>;
-
-    type KnockoutReadonlyObservableArrayType<T> = T extends Primitives ? ko.ObservableArray<T> : ko.ObservableArray<KnockoutObservableType<T>>;
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions;
 
@@ -64,7 +61,7 @@ declare global {
         data: any;
         parent: any;
         target: any;
-        observable?: ko.Observable<any>;
+        observable?: ko.Observable;
     }
 
     interface KnockoutMapping {
@@ -94,13 +91,13 @@ declare global {
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: ReadonlyArray<T>, options?: KnockoutMappingOptions<ReadonlyArray<T>>, target?: KnockoutReadonlyObservableArrayType<T>): KnockoutReadonlyObservableArrayType<T>;
+        fromJS<T>(source: ReadonlyArray<T>, options?: KnockoutMappingOptions<ReadonlyArray<T>>, target?: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Array to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: ReadonlyArray<T>, target: KnockoutReadonlyObservableArrayType<T>): KnockoutReadonlyObservableArrayType<T>;
+        fromJS<T>(source: ReadonlyArray<T>, target: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
