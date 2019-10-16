@@ -10,6 +10,7 @@
 //                 Marlos Borges <https://github.com/marlosin>
 //                 Thomas Marek <https://github.com/ttmarek>
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
+//                 Krishna Pravin <https://github.com/KrishnaPravin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -57,11 +58,11 @@ declare namespace stripe {
         handleCardSetup(
             clientSecret: string,
             element: elements.Element,
-            data: HandleCardSetupOptions,
+            data?: HandleCardSetupOptions,
         ): Promise<SetupIntentResponse>;
         handleCardSetup(
             clientSecret: string,
-            data: HandleCardSetupOptionsWithoutElementsOptions,
+            data?: HandleCardSetupOptionsWithoutElementsOptions,
         ): Promise<SetupIntentResponse>;
         confirmPaymentIntent(
             clientSecret: string,
@@ -164,6 +165,10 @@ declare namespace stripe {
         usage?: 'reusable' | 'single_use';
         three_d_secure?: {
             card: string;
+        };
+        sofort?: {
+            country: string;
+            preferred_language?: 'de' | 'en' | 'es' | 'it' | 'fr' | 'nl' | 'pl';
         };
     }
 

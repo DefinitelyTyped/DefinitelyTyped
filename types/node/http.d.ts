@@ -277,7 +277,7 @@ declare module "http" {
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs: number, callback?: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */

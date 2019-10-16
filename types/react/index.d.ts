@@ -85,6 +85,10 @@ declare namespace React {
 
     type ComponentState = any;
 
+    /**
+     * @internal You shouldn't need to use this type since you never see these attributes
+     * inside your component or have to validate them.
+     */
     interface Attributes {
         key?: Key;
     }
@@ -415,7 +419,10 @@ declare namespace React {
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
          * @deprecated if used without a type annotation, or without static contextType
@@ -725,6 +732,7 @@ declare namespace React {
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
@@ -1077,7 +1085,7 @@ declare namespace React {
     }
 
     interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         target: EventTarget & T;
     }
 
@@ -1130,7 +1138,7 @@ declare namespace React {
         movementY: number;
         pageX: number;
         pageY: number;
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         screenX: number;
         screenY: number;
         shiftKey: boolean;
@@ -1628,7 +1636,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: string | number | string[];
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 

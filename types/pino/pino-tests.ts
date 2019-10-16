@@ -26,6 +26,18 @@ const log2: pino.Logger = pino({
 });
 
 pino({
+    write(o) {},
+});
+
+pino({
+    redact: { paths: [], censor: 'SECRET' },
+});
+
+pino({
+    redact: { paths: [], censor: () => 'SECRET' },
+});
+
+pino({
     browser: {
         write(o) {
         }

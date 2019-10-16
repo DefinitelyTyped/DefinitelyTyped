@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.9
+// Type definitions for prosemirror-view 1.11
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -21,11 +21,72 @@ import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
 
 /**
+ * The `spec` for a widget decoration
+ */
+export interface WidgetDecorationSpec {
+  /**
+   * Controls which side of the document position this widget is
+   * associated with. When negative, it is drawn before a cursor
+   * at its position, and content inserted at that position ends
+   * up after the widget. When zero (the default) or positive, the
+   * widget is drawn after the cursor and content inserted there
+   * ends up before the widget.
+   *
+   * When there are multiple widgets at a given position, their
+   * `side` values determine the order in which they appear. Those
+   * with lower values appear first. The ordering of widgets with
+   * the same `side` value is unspecified.
+   *
+   * When `marks` is null, `side` also determines the marks that
+   * the widget is wrapped in—those of the node before when
+   * negative, those of the node after when positive.
+   */
+  side?: number | null;
+  /**
+   * The precise set of marks to draw around the widget.
+   */
+  marks?: Mark[] | null;
+  /**
+   * Can be used to control which DOM events, when they bubble out
+   * of this widget, the editor view should ignore.
+   */
+  stopEvent?: ((event: Event) => boolean) | null;
+  /**
+   * When comparing decorations of this type (in order to decide
+   * whether it needs to be redrawn), ProseMirror will by default
+   * compare the widget DOM node by identity. If you pass a key,
+   * that key will be compared instead, which can be useful when
+   * you generate decorations on the fly and don't want to store
+   * and reuse DOM nodes. Make sure that any widgets with the same
+   * key are interchangeable—if widgets differ in, for example,
+   * the behavior of some event handler, they should get
+   * different keys.
+   */
+  key?: string | null;
+}
+/**
+ * The `spec` for the inline decoration.
+ */
+export interface InlineDecorationSpec {
+  /**
+   * Determines how the left side of the decoration is
+   * [mapped](#transform.Position_Mapping) when content is
+   * inserted directly at that position. By default, the decoration
+   * won't include the new content, but you can set this to `true`
+   * to make it inclusive.
+   */
+  inclusiveStart?: boolean | null;
+  /**
+   * Determines how the right side of the decoration is mapped.
+   */
+  inclusiveEnd?: boolean | null;
+}
+/**
  * Decoration objects can be provided to the view through the
  * [`decorations` prop](#view.EditorProps.decorations). They come in
  * several variants—see the static members of this class for details.
  */
-export class Decoration {
+export class Decoration<T extends object = { [key: string]: any }> {
   /**
    * The start position of the decoration.
    */
@@ -39,7 +100,7 @@ export class Decoration {
    * The spec provided when creating this decoration. Can be useful
    * if you've stored extra information in that object.
    */
-  spec: { [key: string]: any };
+  spec: T;
   /**
    * Creates a widget decoration, which is a DOM node that's shown in
    * the document at the given position. It is recommended that you
@@ -48,86 +109,32 @@ export class Decoration {
    * also directly pass a DOM node. getPos can be used to find the
    * widget's current document position.
    */
-  static widget(
+  static widget<T extends object = { [key: string]: any }>(
     pos: number,
     toDOM: ((view: EditorView, getPos: () => number) => Node) | Node,
-    spec?: {
-      /**
-       * Controls which side of the document position this widget is
-       * associated with. When negative, it is drawn before a cursor
-       * at its position, and content inserted at that position ends
-       * up after the widget. When zero (the default) or positive, the
-       * widget is drawn after the cursor and content inserted there
-       * ends up before the widget.
-       *
-       * When there are multiple widgets at a given position, their
-       * `side` values determine the order in which they appear. Those
-       * with lower values appear first. The ordering of widgets with
-       * the same `side` value is unspecified.
-       *
-       * When `marks` is null, `side` also determines the marks that
-       * the widget is wrapped in—those of the node before when
-       * negative, those of the node after when positive.
-       */
-      side?: number | null;
-      /**
-       * The precise set of marks to draw around the widget.
-       */
-      marks?: Mark[] | null;
-      /**
-       * Can be used to control which DOM events, when they bubble out
-       * of this widget, the editor view should ignore.
-       */
-      stopEvent?: ((event: Event) => boolean) | null;
-      /**
-       * When comparing decorations of this type (in order to decide
-       * whether it needs to be redrawn), ProseMirror will by default
-       * compare the widget DOM node by identity. If you pass a key,
-       * that key will be compared instead, which can be useful when
-       * you generate decorations on the fly and don't want to store
-       * and reuse DOM nodes. Make sure that any widgets with the same
-       * key are interchangeable—if widgets differ in, for example,
-       * the behavior of some event handler, they should get
-       * different keys.
-       */
-      key?: string | null;
-      [key: string]: any;
-    }
-  ): Decoration;
+    spec?: T & WidgetDecorationSpec
+  ): Decoration<T & WidgetDecorationSpec>;
   /**
    * Creates an inline decoration, which adds the given attributes to
    * each inline node between `from` and `to`.
    */
-  static inline(
+  static inline<T extends object = { [key: string]: any }>(
     from: number,
     to: number,
     attrs: DecorationAttrs,
-    spec?: {
-      /**
-       * Determines how the left side of the decoration is
-       * [mapped](#transform.Position_Mapping) when content is
-       * inserted directly at that position. By default, the decoration
-       * won't include the new content, but you can set this to `true`
-       * to make it inclusive.
-       */
-      inclusiveStart?: boolean | null;
-      /**
-       * Determines how the right side of the decoration is mapped.
-       */
-      inclusiveEnd?: boolean | null
-    }
-  ): Decoration;
+    spec?: T & InlineDecorationSpec
+  ): Decoration<T & InlineDecorationSpec>;
   /**
    * Creates a node decoration. `from` and `to` should point precisely
    * before and after a node in the document. That node, and only that
    * node, will receive the given attributes.
    */
-  static node(
+  static node<T extends object = { [key: string]: any }>(
     from: number,
     to: number,
     attrs: DecorationAttrs,
-    spec?: { [key: string]: any }
-  ): Decoration;
+    spec?: T
+  ): Decoration<T>;
 }
 /**
  * A set of attributes to add to a decorated node. Most properties
@@ -234,6 +241,10 @@ export class EditorView<S extends Schema = any> {
    * should not directly interfere with its content.)
    */
   dom: Element;
+  /**
+   * Indicates whether the editor is currently [editable](#view.EditorProps.editable).
+   */
+   editable: boolean;
   /**
    * When editor content is being dragged, this object contains
    * information about the dragged slice and whether it is being
@@ -546,7 +557,7 @@ export interface EditorProps<S extends Schema = any> {
     [name: string]: (
       node: ProsemirrorNode<S>,
       view: EditorView<S>,
-      getPos: () => number,
+      getPos: (() => number) | boolean,
       decorations: Decoration[]
     ) => NodeView<S>;
   } | null;
@@ -683,11 +694,17 @@ export interface NodeView<S extends Schema = any> {
   /**
    * Called when a DOM
    * [mutation](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)
-   * happens within the view. Return false if the editor should
+   * or a selection change happens within the view. When the change is
+   * a selection change, the record will have a `type` property of
+   * `"selection"` (which doesn't occur for native mutation records).
+   * Return false if the editor should re-read the selection or
    * re-parse the range around the mutation, true if it can safely be
    * ignored.
    */
-  ignoreMutation?: ((p: MutationRecord) => boolean) | null;
+  ignoreMutation?: ((p: MutationRecord | {
+    type: 'selection';
+    target: Element;
+  }) => boolean) | null;
   /**
    * Called when the node view is removed from the editor or the whole
    * editor is destroyed.

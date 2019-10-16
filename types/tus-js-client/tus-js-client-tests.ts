@@ -43,3 +43,11 @@ upload.abort();
 const upload2 = new Tus.Upload(file, {
 	endpoint: ""
 });
+
+const reader = {
+    read: () => Promise.resolve({ done: true, value: '' }),
+};
+const upload3 = new Tus.Upload(reader, {
+    endpoint: '',
+    uploadLengthDeferred: true,
+});

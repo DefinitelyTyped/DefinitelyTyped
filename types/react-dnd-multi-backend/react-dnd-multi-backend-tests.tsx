@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createDragDropManager } from 'dnd-core';
+import { DndProvider } from 'react-dnd';
 import MultiBackend, { createTransition, TouchTransition, Backends, Preview } from 'react-dnd-multi-backend';
 import HTML5ToTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import TouchBackend from 'react-dnd-touch-backend';
@@ -9,7 +9,11 @@ const context = {};
 /**
  * Most common use case - using the default HTML5 with Touch as a fallback.
  */
-const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), context);
+const multiDndComponent = (
+    <DndProvider backend={MultiBackend} options={HTML5ToTouch}>
+        <div>A page of Text</div>
+    </DndProvider>
+);
 
 /**
  * Creating a custom list of backends, including creating a touch transition.
@@ -17,18 +21,23 @@ const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), cont
 const CustomBackends: Backends = {
     backends: [
     {
-        backend: TouchBackend({ enableMouseEvents: false }),
+        backend: TouchBackend,
+        options: { enableMouseEvents: false },
         preview: true,
         transition: createTransition('touchstart', (event: TouchEvent) => {
             return event.touches != null;
         })
     },
     {
-        backend: TouchBackend({}),
+        backend: TouchBackend,
         transition: TouchTransition
     }]
 };
-const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBackends), context);
+const multiCustomBackendsComponent = (
+    <DndProvider backend={MultiBackend} options={CustomBackends}>
+        <div>A page of Text</div>
+    </DndProvider>
+);
 
 /**
  * Testing the Preview component.

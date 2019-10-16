@@ -3,6 +3,7 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>,
 //                 Tobias Nießen <https://github.com/tniessen>,
 //                 Pierre Vigier <https://github.com/pvigier>
+//                 Jibril Saffi <https://github.com/IGI-111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';

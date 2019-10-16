@@ -8,6 +8,7 @@
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
