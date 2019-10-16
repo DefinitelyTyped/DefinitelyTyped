@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "knockout": ">=3.5.0"
+    }
+}
