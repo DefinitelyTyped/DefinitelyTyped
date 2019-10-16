@@ -1,8 +1,9 @@
 // Type definitions for DevExpress ASP.NET 191.6
 // Project: https://devexpress.com/
 // Definitions by: DevExpress Inc. <https://devexpress.com/>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery"/>
 /// <reference types="knockout"/>
@@ -34386,21 +34387,21 @@ declare class ASPxDesignerEditorOptions {
     editorType: any;
 }
 declare class ASPxDesignerUndoEngine {
-    redoEnabled: KnockoutObservable<boolean>;
-    undoEnabled: KnockoutObservable<boolean>;
+    redoEnabled: ko.Observable<boolean>;
+    undoEnabled: ko.Observable<boolean>;
     undoAll(): void;
     clearHistory(): void;
     undo(): void;
     redo(): void;
-    isDirty: KnockoutObservable<boolean>;
+    isDirty: ko.Observable<boolean>;
 }
 declare class ASPxDesignerNavigateTab {
-    displayName: KnockoutComputed<string>;
-    isModified: KnockoutObservable<boolean>;
+    displayName: ko.Computed<string>;
+    isModified: ko.Observable<boolean>;
     resetIsModified(): void;
-    report: KnockoutObservable<any>;
+    report: ko.Observable;
     undoEngine: ASPxDesignerUndoEngine;
-    url: KnockoutObservable<string>;
+    url: ko.Observable<string>;
     refresh(): void;
 }
 declare class ASPxDesignerDialogModel {
@@ -34412,13 +34413,13 @@ declare class ASPxDesignerDialogModel {
 declare class ASPxDesignerReportDialogBase {
     show(tab: ASPxDesignerNavigateTab): void;
     customize(template: string, model: ASPxDesignerDialogModel): void;
-    width: KnockoutObservable<any>;
-    height: KnockoutObservable<any>;
-    template: KnockoutObservable<string>;
+    width: ko.Observable;
+    height: ko.Observable;
+    template: ko.Observable<string>;
     buttons: any[];
-    model: KnockoutObservable<ASPxDesignerDialogModel>;
-    tab: KnockoutObservable<ASPxDesignerNavigateTab>;
-    visible: KnockoutObservable<boolean>;
+    model: ko.Observable<ASPxDesignerDialogModel>;
+    tab: ko.Observable<ASPxDesignerNavigateTab>;
+    visible: ko.Observable<boolean>;
     cancel(): void;
     title: string;
 }
@@ -34822,8 +34823,8 @@ declare class ASPxClientWebDocumentViewerEditingFieldChangedEventArgs extends AS
     NewValue: any;
 }
 declare class ASPxClientWebDocumentViewerEditingField {
-    readOnly: KnockoutObservable<boolean>;
-    editValue: KnockoutObservable<any>;
+    readOnly: ko.Observable<boolean>;
+    editValue: ko.Observable;
     id(): string;
     groupID(): string;
     editorName(): string;
@@ -35166,16 +35167,16 @@ declare class ASPxClientSidePreviewModel {
     tabPanel: ASPxClientDocumentPreviewTabPanel;
 }
 declare class ASPxClientDocumentPreviewTabPanel {
-    width: KnockoutObservable<any>;
-    collapsed: KnockoutObservable<boolean>;
+    width: ko.Observable;
+    collapsed: ko.Observable<boolean>;
     tabs: ASPxClientDocumentPreviewTab[];
 }
 declare class ASPxClientDocumentPreviewTab {
     template: string;
     text: string;
     model: any;
-    active: KnockoutObservable<boolean>;
-    visible: KnockoutObservable<boolean>;
+    active: ko.Observable<boolean>;
+    visible: ko.Observable<boolean>;
 }
 declare class ASPxClientSideParametersModel {
     submit(): void;
@@ -35183,9 +35184,9 @@ declare class ASPxClientSideParametersModel {
     tabInfo: ASPxClientDocumentPreviewTab;
 }
 declare class ASPxClientReportPreview {
-    zoom: KnockoutObservable<number>;
-    showMultipagePreview: KnockoutObservable<boolean>;
-    pageIndex: KnockoutObservable<number>;
-    pages: KnockoutObservableArray<any>;
-    documentBuilding: KnockoutObservable<boolean>;
+    zoom: ko.Observable<number>;
+    showMultipagePreview: ko.Observable<boolean>;
+    pageIndex: ko.Observable<number>;
+    pages: ko.ObservableArray;
+    documentBuilding: ko.Observable<boolean>;
 }

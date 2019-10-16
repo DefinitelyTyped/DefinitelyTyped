@@ -1,8 +1,9 @@
 // Type definitions for DevExpress ASP.NET v172.6
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout"/>
 /// <reference types="jquery"/>
@@ -2714,9 +2715,9 @@ interface IExtension {
 interface DashboardControl {
     /**
      * Gets or sets knockout templates that you can use in the Web Dashboard.
-     * Value: A <see cref="KnockoutObservableArray" /> object that is a knockout template collection.
+     * Value: A <see cref="ko.ObservableArray" /> object that is a knockout template collection.
      */
-    customTemplates: KnockoutObservableArray<any>;
+    customTemplates: ko.ObservableArray;
     /**
      * Provides an access to the collection of registered dashboard extensions.
      * Value: An array of IExtension objects that are dashboard extensions.
@@ -3067,7 +3068,7 @@ interface DashboardToolboxGroup {
      * Provides access to a collection of toolbox group items.
      * Value: A DashboardToolboxItem).
      */
-    items: KnockoutObservableArray<any>;
+    items: ko.ObservableArray;
 }
 /**
  * A toolbar group that contains dashboard toolbar items.
@@ -3092,7 +3093,7 @@ interface DashboardToolbarGroup {
      * Provides access to a collection of toolbar group items.
      * Value: A DashboardToolbarItem).
      */
-    items: KnockoutObservableArray<any>;
+    items: ko.ObservableArray;
 }
 /**
  * The Web Dashboard Toolbox extension that provides access to the dashboard menu and allows you to add dashboard items, as well as undo or repeat user actions.
@@ -3102,17 +3103,17 @@ interface ToolboxExtension extends IExtension {
      * Provides access to a collection of the dashboard menu items.
      * Value: A DashboardMenuItem).
      */
-    menuItems: KnockoutObservableArray<any>;
+    menuItems: ko.ObservableArray;
     /**
      * Provides access to a collection of the Toolbox groups.
      * Value: A DashboardToolboxGroup).
      */
-    toolboxGroups: KnockoutObservableArray<any>;
+    toolboxGroups: ko.ObservableArray;
     /**
      * Provides access to a collection of toolbar groups from the Toolbox.
      * Value: A DashboardToolbarGroup).
      */
-    toolbarGroups: KnockoutObservableArray<any>;
+    toolbarGroups: ko.ObservableArray;
     /**
      * For internal use.
      */

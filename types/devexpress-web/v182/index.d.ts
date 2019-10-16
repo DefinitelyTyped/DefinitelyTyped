@@ -1,8 +1,9 @@
 // Type definitions for DevExpress ASP.NET 182.3
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery"/>
 /// <reference types="knockout"/>
@@ -34357,7 +34358,7 @@ interface ASPxDesignerNavigateTab {
      * Provides access to a report opened in the current tab.
      * Value: A knockout observable object that specifies a report opened in the current tab.
      */
-    report: KnockoutObservable<Object>;
+    report: ko.Observable<Object>;
     /**
      * Provides access to an engine that manages undo and redo operations in the Web Report Designer.
      * Value: An object that specifies an undo/redo engine.
@@ -34902,7 +34903,7 @@ interface ASPxClientMenuAction {
     /**
      * Provides access to the value that specifies whether or not the command is disabled by default.
      */
-    disabled: KnockoutObservable<boolean>;
+    disabled: ko.Observable<boolean>;
     /**
      * Provides access to the value that specifies whether or not the command is visible in the user interface.
      * Value: true if the command is visible; otherwise false.
