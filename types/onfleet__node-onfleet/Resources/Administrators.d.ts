@@ -1,4 +1,4 @@
-import { OnfleetMetadata } from "../metadata";
+import { OnfleetMetadata } from '../metadata';
 
 declare class Admin {
   create(obj: Admin.CreateAdminProps): Promise<Admin.OnfleetAdmin>;

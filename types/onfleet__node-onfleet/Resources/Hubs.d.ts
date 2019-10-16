@@ -1,4 +1,4 @@
-import { Location, OnfleetDestination } from "./Destinations";
+import { Location, OnfleetDestination } from './Destinations';
 
 declare class Hub {
   get(): Promise<Hub.OnfleetHub[]>;
