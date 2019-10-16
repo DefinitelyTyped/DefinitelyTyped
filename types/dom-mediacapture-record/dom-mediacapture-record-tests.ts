@@ -51,3 +51,10 @@ recorder.onpause = onEvent;
 recorder.onresume = onEvent;
 recorder.onstart = onEvent;
 recorder.onstop = onEvent;
+
+recorder.ondataavailable = null;
+recorder.onerror = null;
+recorder.onpause = null;
+recorder.onresume = null;
+recorder.onstart = null;
+recorder.onstop = null;
