@@ -120,6 +120,10 @@ import { readFile } from 'fs';
     const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
     const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
     const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
+    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: PoorMansUnknown, result: number) => void): void => { });
     const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
     const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
