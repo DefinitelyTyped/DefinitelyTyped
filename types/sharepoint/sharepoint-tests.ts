@@ -1,8 +1,9 @@
-/// <reference types="knockout" />
 /// <reference types="jquery" />
 
 import * as angular from 'angular';
 import * as ng from 'angular';
+import * as ko from 'knockout';
+
 // code from http://sptypescript.codeplex.com/
 // BasicTasksJSOM.ts
 // Website tasks
@@ -1134,7 +1135,7 @@ namespace CSR {
                 }
 
                 if (!vm.value) {
-                    vm.value = ko.observable<any>();
+                    vm.value = ko.observable();
                 }
 
                 vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
@@ -1619,7 +1620,7 @@ namespace CSR {
 
     export interface KoFieldInForm {
         renderingContext?: SPClientTemplates.RenderContext_FieldInForm;
-        value?: KnockoutObservable<any>;
+        value?: ko.Observable;
     }
 
     interface FormRenderContexWithHook extends SPClientTemplates.RenderContext_FieldInForm {

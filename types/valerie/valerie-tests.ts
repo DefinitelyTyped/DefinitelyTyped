@@ -39,7 +39,7 @@ function ObservableValidationTypes() {
         .end();
 
     //array
-    var t6 = ko.observableArray<any>(<any[]>[])
+    var t6 = ko.observableArray(<any[]>[])
         .validate()
         .end();
 }
@@ -199,7 +199,7 @@ function RuleTests() {
         .name(stringValue)
         .end();
 
-    var test_noneOf = ko.observable<any>(numberValue)
+    var test_noneOf = ko.observable(numberValue)
         .validate()
         .noneOf(arrayValue)
         .noneOf(arrayFN)

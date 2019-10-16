@@ -6,8 +6,9 @@
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
 //                 SPWizard01 <https://github.com/SPWizard01>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.8
 
 /// <reference types="microsoft-ajax" />
 

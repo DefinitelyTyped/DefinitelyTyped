@@ -1,204 +1,209 @@
 // Type definitions for valerie
 // Project: https://github.com/davewatts/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
-/**
- *
- * Extensions to KO functions to provide validation
- *
- * Version 1.2 - added more static methods to valerie object
- *
- */
-interface KnockoutObservable<T> {
-    // starts validation for observable
-    validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutObservable<T>>;
-}
-
-interface KnockoutComputed<T> {
-    // starts validation for observable
-    validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutComputed<T>>;
-}
-
-interface KnockoutObservableArray<T> {
-    validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutObservableArray<T>>;
-}
-
-interface KnockoutObservableArrayFunctions<T> {
+declare namespace ko {
     /**
-     * Creates and sets a model validation state on a Knockout observable array.<br/>
-     * <i>[fluent]</i>
-     * @name ko.observableArray#validateAsModel
-     * @method
-     * @fluent
-     * @param {valerie.ModelValidationState.options} [validationOptions] the options to use when creating the
-     * validation state
-     * @return {valerie.ModelValidationState} the validation state belonging to the observable array
+     *
+     * Extensions to KO functions to provide validation
+     *
+     * Version 1.2 - added more static methods to valerie object
+     *
      */
-    validateAsModel(): Valerie.ValidatableModel<KnockoutObservableArray<T>>;
-}
+    interface Observable<T> {
+        // starts validation for observable
+        validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<Observable<T>>;
+    }
 
-/**
-* Valerie BindingHandlers
-*/
-interface KnockoutBindingHandlers {
-    /**
-     * Validates entries that can be checked, i.e. check boxes and radio buttons.
-     * Functions in the same way as the <b>ko.bindingHandlers.checked</b> binding handler, with the following
-     * alterations:
-     * <ul>
-     *     <li>registers a blur event handler so validation messages for selections can be displayed</li>
-     *     <li>registers a click event handler so validation state can be marked as touched</i>
-     * </ul>
-     * @name ko.bindingHandlers.validatedChecked
-     */
-    validatedChecked: KnockoutBindingHandler;
+    interface Computed<T> {
+        // starts validation for observable
+        validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<Computed<T>>;
+    }
+
+    interface ObservableArray<T> {
+        validate(
+            validationOptions?: Valerie.ValidationOptions,
+        ): Valerie.PropertyValidationState<ObservableArray<T>>;
+    }
+
+    interface ObservableArrayFunctions<T> {
+        /**
+         * Creates and sets a model validation state on a Knockout observable array.<br/>
+         * <i>[fluent]</i>
+         * @name ko.observableArray#validateAsModel
+         * @method
+         * @fluent
+         * @param {valerie.ModelValidationState.options} [validationOptions] the options to use when creating the
+         * validation state
+         * @return {valerie.ModelValidationState} the validation state belonging to the observable array
+         */
+        validateAsModel(): Valerie.ValidatableModel<ObservableArray<T>>;
+    }
 
     /**
-     * Validates options selected in a select list.
-     * Functions in the same way as the <b>ko.bindingHandlers.selectedOptions</b> binding handler, with the
-     * following alterations:
-     * <ul>
-     *     <li>registers a blur event handler so validation messages for selections can be displayed</li>
-     *     <li>registers a click event handler so validation state can be marked as touched</i>
-     * </ul>
-     * @name ko.bindingHandlers.validatedSelectedOptions
+     * Valerie BindingHandlers
      */
-    validatedSelectedOptions: KnockoutBindingHandler;
+    interface BindingHandlers {
+        /**
+         * Validates entries that can be checked, i.e. check boxes and radio buttons.
+         * Functions in the same way as the <b>ko.bindingHandlers.checked</b> binding handler, with the following
+         * alterations:
+         * <ul>
+         *     <li>registers a blur event handler so validation messages for selections can be displayed</li>
+         *     <li>registers a click event handler so validation state can be marked as touched</i>
+         * </ul>
+         * @name ko.bindingHandlers.validatedChecked
+         */
+        validatedChecked: BindingHandler;
 
-    /**
-     * Validates entries that can be keyed or selected.
-     * Functions in the same way as the <b>ko.bindingHandlers.value</b> binding handler, with the following
-     * alterations:
-     * <ul>
-     *     <li>registers a blur event handler:
-     *     <ul>
-     *         <li>to display validation messages as entries or selections lose focus</li>
-     *         <li>to reformat successfully parsed textual entries</li>
-     *     </ul>
-     *     </li>
-     *     <li>
-     *         registers a focus event handler to pause the update of any existing visible validation message
-     *     </li>
-     *     <li>
-     *         registers a key-up event handler which validates the entry as it's being entered; this allows other
-     *         entries that are shown conditionally to be available before the user tabs out of this entry
-     *     </li>
-     * </ul>
-     * @name ko.bindingHandlers.validatedValue
-     */
-    validatedValue: KnockoutBindingHandler;
+        /**
+         * Validates options selected in a select list.
+         * Functions in the same way as the <b>ko.bindingHandlers.selectedOptions</b> binding handler, with the
+         * following alterations:
+         * <ul>
+         *     <li>registers a blur event handler so validation messages for selections can be displayed</li>
+         *     <li>registers a click event handler so validation state can be marked as touched</i>
+         * </ul>
+         * @name ko.bindingHandlers.validatedSelectedOptions
+         */
+        validatedSelectedOptions: BindingHandler;
 
-    /**
-     * Disables the element when the chosen property or model has failed or is pending validation, enabled
-     * otherwise.
-     * @name ko.bindingHandlers.disabledWhenNotValid
-     */
-    disabledWhenNotValid: KnockoutBindingHandler;
+        /**
+         * Validates entries that can be keyed or selected.
+         * Functions in the same way as the <b>ko.bindingHandlers.value</b> binding handler, with the following
+         * alterations:
+         * <ul>
+         *     <li>registers a blur event handler:
+         *     <ul>
+         *         <li>to display validation messages as entries or selections lose focus</li>
+         *         <li>to reformat successfully parsed textual entries</li>
+         *     </ul>
+         *     </li>
+         *     <li>
+         *         registers a focus event handler to pause the update of any existing visible validation message
+         *     </li>
+         *     <li>
+         *         registers a key-up event handler which validates the entry as it's being entered; this allows other
+         *         entries that are shown conditionally to be available before the user tabs out of this entry
+         *     </li>
+         * </ul>
+         * @name ko.bindingHandlers.validatedValue
+         */
+        validatedValue: BindingHandler;
 
-    /**
-     * Disables the element when the chosen property or model has been touched and has failed or is pending
-     * validation, enabled otherwise.<br/>
-     * @name ko.bindingHandlers.disabledWhenTouchedAndNotValid
-     */
-    disabledWhenTouchedAndNotValid: KnockoutBindingHandler;
+        /**
+         * Disables the element when the chosen property or model has failed or is pending validation, enabled
+         * otherwise.
+         * @name ko.bindingHandlers.disabledWhenNotValid
+         */
+        disabledWhenNotValid: BindingHandler;
 
-    /**
-     * Enables the element when the chosen property or model is applicable, disabled otherwise.
-     * @name ko.bindingHandlers.enabledWhenApplicable
-     */
-    enabledWhenApplicable: KnockoutBindingHandler;
+        /**
+         * Disables the element when the chosen property or model has been touched and has failed or is pending
+         * validation, enabled otherwise.<br/>
+         * @name ko.bindingHandlers.disabledWhenTouchedAndNotValid
+         */
+        disabledWhenTouchedAndNotValid: BindingHandler;
 
-    /**
-     * Sets the text of the element to be a formatted representation of the specified property.
-     * @name ko.bindingHandlers.formattedText
-     */
-    formattedText: KnockoutBindingHandler;
+        /**
+         * Enables the element when the chosen property or model is applicable, disabled otherwise.
+         * @name ko.bindingHandlers.enabledWhenApplicable
+         */
+        enabledWhenApplicable: BindingHandler;
 
-    /**
-     * Sets CSS classes on the element based on the validation state of the chosen property or model.</br>
-     * The names of the CSS classes used are held in the <b>ko.bindingHandlers.validationCss.classNames</b> object,
-     * by default they are:
-     * <ul>
-     *     <li><b>failed</b> - if validation failed</li>
-     *     <li><b>focused</b> - if the element is in focus</li>
-     *     <li><b>passed</b> - if validation passed</li>
-     *     <li><b>pending</b> - if validation is pending</li>
-     *     <li><b>required</b> - if an entry is required</li>
-     *     <li><b>showMessage</b> - if a validation message should be shown</li>
-     *     <li><b>touched</b> - set if the model or entry has been "touched"</li>
-     *     <li><b>untouched</b> - set if the model or entry has not been "touched"</li>
-     * </ul>
-     * @name ko.bindingHandlers.validationCss
-     */
-    validationCss: KnockoutBindingHandler
+        /**
+         * Sets the text of the element to be a formatted representation of the specified property.
+         * @name ko.bindingHandlers.formattedText
+         */
+        formattedText: BindingHandler;
 
-    /**
-     * Makes the element behave like a validation message for the chosen property or model:
-     * <ul>
-     *     <li>makes the element visible if the value is invalid</li>
-     *     <li>sets the text of the element to be the underlying validation state's message</li>
-     * </ul>
-     * @name ko.bindingHandlers.validationMessage
-     */
-    validationMessage: KnockoutBindingHandler;
+        /**
+         * Sets CSS classes on the element based on the validation state of the chosen property or model.</br>
+         * The names of the CSS classes used are held in the <b>ko.bindingHandlers.validationCss.classNames</b> object,
+         * by default they are:
+         * <ul>
+         *     <li><b>failed</b> - if validation failed</li>
+         *     <li><b>focused</b> - if the element is in focus</li>
+         *     <li><b>passed</b> - if validation passed</li>
+         *     <li><b>pending</b> - if validation is pending</li>
+         *     <li><b>required</b> - if an entry is required</li>
+         *     <li><b>showMessage</b> - if a validation message should be shown</li>
+         *     <li><b>touched</b> - set if the model or entry has been "touched"</li>
+         *     <li><b>untouched</b> - set if the model or entry has not been "touched"</li>
+         * </ul>
+         * @name ko.bindingHandlers.validationCss
+         */
+        validationCss: BindingHandler;
 
-    /**
-     * Sets the text of the element to be the underlying validation state's message.
-     * @name ko.bindingHandlers.validationMessageText
-     */
-    validationMessageText: KnockoutBindingHandler;
+        /**
+         * Makes the element behave like a validation message for the chosen property or model:
+         * <ul>
+         *     <li>makes the element visible if the value is invalid</li>
+         *     <li>sets the text of the element to be the underlying validation state's message</li>
+         * </ul>
+         * @name ko.bindingHandlers.validationMessage
+         */
+        validationMessage: BindingHandler;
 
-    /**
-     * Sets the text of the element to be the underlying validation state's name.
-     * @name ko.bindingHandlers.validationName
-     */
-    validationName: KnockoutBindingHandler;
+        /**
+         * Sets the text of the element to be the underlying validation state's message.
+         * @name ko.bindingHandlers.validationMessageText
+         */
+        validationMessageText: BindingHandler;
 
-    /**
-     * Makes the element visible if the chosen property or model is applicable, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenApplicable
-     */
-    visibleWhenApplicable: KnockoutBindingHandler;
+        /**
+         * Sets the text of the element to be the underlying validation state's name.
+         * @name ko.bindingHandlers.validationName
+         */
+        validationName: BindingHandler;
 
-    /**
-     * Makes the element visible when the entry bound to the chosen property is in focus, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenFocused
-     */
-    visibleWhenFocused: KnockoutBindingHandler;
+        /**
+         * Makes the element visible if the chosen property or model is applicable, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenApplicable
+         */
+        visibleWhenApplicable: BindingHandler;
 
-    /**
-     * Makes the element visible when the chosen property or model has failed validation, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenInvalid
-     */
-    visibleWhenInvalid: KnockoutBindingHandler;
+        /**
+         * Makes the element visible when the entry bound to the chosen property is in focus, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenFocused
+         */
+        visibleWhenFocused: BindingHandler;
 
-    /**
-     * Makes the element visible when the summary for the chosen model is not empty, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenSummaryNotEmpty
-     */
-    visibleWhenSummaryNotEmpty: KnockoutBindingHandler;
+        /**
+         * Makes the element visible when the chosen property or model has failed validation, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenInvalid
+         */
+        visibleWhenInvalid: BindingHandler;
 
-    /**
-     * Makes the element visible if the chosen property or model has been touched, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenTouched
-     */
-    visibleWhenTouched: KnockoutBindingHandler;
+        /**
+         * Makes the element visible when the summary for the chosen model is not empty, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenSummaryNotEmpty
+         */
+        visibleWhenSummaryNotEmpty: BindingHandler;
 
-    /**
-     * Makes the element visible if the chosen property or model is untouched, invisible otherwise.
-     * @name ko.bindingHandlers.visibleWhenUntouched
-     */
-    visibleWhenUntouched: KnockoutBindingHandler;
+        /**
+         * Makes the element visible if the chosen property or model has been touched, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenTouched
+         */
+        visibleWhenTouched: BindingHandler;
 
-    /**
-     * Makes the element visible if the chosen property or model has passed validation.
-     * @name ko.bindingHandlers.visibleWhenValid
-     */
-    visibleWhenValid: KnockoutBindingHandler;
+        /**
+         * Makes the element visible if the chosen property or model is untouched, invisible otherwise.
+         * @name ko.bindingHandlers.visibleWhenUntouched
+         */
+        visibleWhenUntouched: BindingHandler;
+
+        /**
+         * Makes the element visible if the chosen property or model has passed validation.
+         * @name ko.bindingHandlers.visibleWhenValid
+         */
+        visibleWhenValid: BindingHandler;
+    }
 }
 
 //
@@ -229,9 +234,11 @@ declare namespace Valerie {
          * model property is unwrapped, the result of which determines if the property is included in the destination model
          * @return {*} the destination model
          */
-        mapModel(sourceModel: any,
+        mapModel(
+            sourceModel: any,
             includeWrappedFunction?: IncludePropertyCallback,
-            includeUnwrappedFunction?: IncludePropertyCallback): any;
+            includeUnwrappedFunction?: IncludePropertyCallback,
+        ): any;
 
         /**
          * Makes the passed-in model validatable. After invocation the model will have a validation state.
@@ -266,11 +273,9 @@ declare namespace Valerie {
         utils: UtilsStatic;
 
         validationState: ValidationState;
-
     }
 
     interface ValidationResultStatic {
-
         passedInstance: ValidationResult;
 
         // static method to create validatio failed message
@@ -279,15 +284,12 @@ declare namespace Valerie {
 
     // Contains converters, always singletons.
     interface ConvertersStatic {
-
         //TODO: other converters to be added
 
         passThrough: Valerie.IConverter;
     }
 
-
     interface UtilsStatic {
-
         // Creates a function that returns the given value as an array of one item, or simply returns the given value if it is already an array.
         asArray<T>(value: any): any[];
 
@@ -317,8 +319,7 @@ declare namespace Valerie {
         //  - either parameter can be omitted and a clone of the other parameter will be returned
         //  - the merge is shallow
         //  - array properties are shallow cloned
-        mergeOptions(defaultOptions: ValidationOptions, options:any): ValidationOptions;
-
+        mergeOptions(defaultOptions: ValidationOptions, options: any): ValidationOptions;
     }
 
     // callback interface (see mapModel above)
@@ -332,11 +333,11 @@ declare namespace Valerie {
         new: (model: any, options?: ModelValidationStateOptions) => ModelValidationState;
 
         model: any;
-        options?: ModelValidationStateOptions
+        options?: ModelValidationStateOptions;
 
         // methods
 
-         /**
+        /**
          * Adds validation states to this validation state.<br/>
          * <i>[fluent]</i>
          * @name valerie.ModelValidationState#addValidationStates
@@ -403,13 +404,12 @@ declare namespace Valerie {
 
         result(): ValidationResult;
 
-        summary(): summaryItem[]
+        summary(): summaryItem[];
 
         /***
          * Gets or sets whether the model has been 'touched' by user action
          */
         touched(value: boolean): boolean;
-
 
         validationStates(): IValidationState[];
 
@@ -454,20 +454,20 @@ declare namespace Valerie {
         stopValidatingSubModel(validatableSubModel: any): ModelValidationState;
 
         /**
-        * Updates the static summary of validation states that are in a failure state.<br/>
-        * <i>[fluent]</i>
-        * @fluent
-        * @param {boolean} [updateSubModelSummaries = false] whether to update the static summaries for sub-models
-        * @return {valerie.ModelValidationState}
-        */
+         * Updates the static summary of validation states that are in a failure state.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @param {boolean} [updateSubModelSummaries = false] whether to update the static summaries for sub-models
+         * @return {valerie.ModelValidationState}
+         */
         updateSummary(updateSubModelSummaries: boolean): ModelValidationState;
 
         /**
-        * Adds the validation states for all the descendant properties and sub-models that belong to the model.<br/>
-        * <i>[fluent]</i>
-        * @fluent
-        * @return {valerie.ModelValidationState}
-        */
+         * Adds the validation states for all the descendant properties and sub-models that belong to the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
         validateAll(): ModelValidationState;
 
         /**
@@ -493,7 +493,6 @@ declare namespace Valerie {
          * @return {valerie.ModelValidationState}
          */
         validateChildPropertiesAndSubModels(): ModelValidationState;
-
 
         /**
          * Ends a chain of fluent method calls on this model validation state.
@@ -556,7 +555,11 @@ declare namespace Valerie {
         lengthBetween(shortest: number, longest: number, options?: ValidationOptions): PropertyValidationState<T>;
         lengthBetween(shortest: number, longest: () => number, options?: ValidationOptions): PropertyValidationState<T>;
         lengthBetween(shortest: () => number, longest: number, options?: ValidationOptions): PropertyValidationState<T>;
-        lengthBetween(shortest: () => number, longest: () => number, options?: ValidationOptions): PropertyValidationState<T>;
+        lengthBetween(
+            shortest: () => number,
+            longest: () => number,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         matches(permitted: any, options?: ValidationOptions): PropertyValidationState<T>;
         matches(permitted: () => any, options?: ValidationOptions): PropertyValidationState<T>;
 
@@ -580,11 +583,19 @@ declare namespace Valerie {
 
         not(forbiddenValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
         number(): PropertyValidationState<T>;
-        numberOfItems(minimumValueOrFunction: any, maximumValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
+        numberOfItems(
+            minimumValueOrFunction: any,
+            maximumValueOrFunction: any,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         oneOf(permittedValues: any[], options?: ValidationOptions): PropertyValidationState<T>;
         oneOf(permittedValues: () => any[], options?: ValidationOptions): PropertyValidationState<T>;
         postcode(): PropertyValidationState<T>;
-        range(minimumValueOrFunction: any, maximumValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
+        range(
+            minimumValueOrFunction: any,
+            maximumValueOrFunction: any,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         required(valueOrFunction?: any): PropertyValidationState<T>;
         rule(testFunction: () => any): PropertyValidationState<T>;
         ruleMessage(failureMessageFormat: string): PropertyValidationState<T>;
@@ -606,17 +617,17 @@ declare namespace Valerie {
         passed(): boolean;
         pending(): boolean;
         showMessage(): boolean;
-        touched(): boolean;               // get touched state
+        touched(): boolean; // get touched state
         touched(value: boolean): boolean; // set touched state
         result(): ValidationResult;
     }
 
     interface ValidationResult {
         state: any; // the result state
-        failed: boolean;	//true if the activity failed validation
-        passed: boolean;	//true if the activity passed validation
-        pending: boolean;	//true if the activity hasn't yet completed
-        message: string;	//a message from the activity
+        failed: boolean; //true if the activity failed validation
+        passed: boolean; //true if the activity passed validation
+        pending: boolean; //true if the activity hasn't yet completed
+        message: string; //a message from the activity
         new: (state: any, message?: string) => ValidationResult;
     }
 
@@ -645,16 +656,16 @@ declare namespace Valerie {
     }
 
     interface ValidationOptions {
-        applicable? (): any;  // the function used to determine if the property is applicable
-        converter?: IConverter;  // the converter used to parse user entries and format display of the property's value
-        entryFormat?: string;  // the string used to format the property's value for display in a user entry
-        excludeFromSummary?: boolean;  // whether any validation failures for this property are excluded from a summary
-        invalidFailureMessage?: string;  // the message shown when the user has entered an invalid value
-        missingFailureMessage?: string;  // the message shown when a value is required but is missing
-        name?: () => any;  // the function used to determine the name of the property; used in failure messages
-        required?: () => any;  // the function used to determine if a value is required
+        applicable?(): any; // the function used to determine if the property is applicable
+        converter?: IConverter; // the converter used to parse user entries and format display of the property's value
+        entryFormat?: string; // the string used to format the property's value for display in a user entry
+        excludeFromSummary?: boolean; // whether any validation failures for this property are excluded from a summary
+        invalidFailureMessage?: string; // the message shown when the user has entered an invalid value
+        missingFailureMessage?: string; // the message shown when a value is required but is missing
+        name?: () => any; // the function used to determine the name of the property; used in failure messages
+        required?: () => any; // the function used to determine if a value is required
         rules?: any; //Valerie.array.<IRule>;  // the chain of rules used to validate the property's value
-        valueFormat?: string;  // the string use to format the property's value for display in a message
+        valueFormat?: string; // the string use to format the property's value for display in a message
     }
 
     // The interface for a converter, a pair of functions: format and parse, which work in tandem on a single type of value.
@@ -672,10 +683,12 @@ declare namespace Valerie {
         format(value: number, format: string): string;
 
         // Initialises the helper
-        init(decimalSeparator: string,
+        init(
+            decimalSeparator: string,
             thousandsSeparator: string,
             currencySign: string,
-            currencyMinorUnitPlaces: number): NumericHelper;
+            currencyMinorUnitPlaces: number,
+        ): NumericHelper;
 
         // Informs whether the given numeric string represents a currency value with major units only.
         isCurrencyMajor(numericString: string): boolean;
@@ -698,10 +711,12 @@ declare namespace Valerie {
 
     interface ValidationState {
         // Finds and returns the validation states
-        findIn(model: any,
+        findIn(
+            model: any,
             includeSubModels?: boolean,
             recurse?: boolean,
-            validationStates?: IValidationState[]): IValidationState[];
+            validationStates?: IValidationState[],
+        ): IValidationState[];
 
         // Gets the validation state for the given model, observable or computed.
         getFor(modelOrObservableOrComputed: any): IValidationState;
