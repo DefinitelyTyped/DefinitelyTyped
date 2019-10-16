@@ -2,14 +2,14 @@
 // Project: https://github.com/andywer/webpack-blocks/tree/master/packages/typescript
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
-import * as ts from 'typescript';
+import { Program, CustomTransformers } from 'typescript';
 
 import { Block } from 'webpack-blocks';
 
 declare namespace typescript {
-    type CustomTransformersFunction = (program: ts.Program) => ts.CustomTransformers | undefined;
+    type CustomTransformersFunction = (program: Program) => CustomTransformers | undefined;
 
     interface BabelOptions {
         babelrc?: boolean;
