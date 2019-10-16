@@ -79,7 +79,7 @@ const ClassicComponentNoProps: React.ClassicComponentClass = createReactClass({
     }
 });
 
-const ClassicComponentNoState: React.ClassicComponentClass = createReactClass<{ text: string }>({
+const ClassicComponentNoState: React.ClassicComponentClass<{ text: string }> = createReactClass<{ text: string }>({
     render() {
         return DOM.div(this.props.text);
     }
