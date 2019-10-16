@@ -4,12 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Program, CustomTransformers } from 'typescript';
-
 import { Block } from 'webpack-blocks';
 
 declare namespace typescript {
-    type CustomTransformersFunction = (program: Program) => CustomTransformers | undefined;
+    type CustomTransformersFunction = (program: any) => any;
 
     interface BabelOptions {
         babelrc?: boolean;
