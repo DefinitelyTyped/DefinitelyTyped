@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.31
+// Type definitions for node-telegram-bot-api 0.40
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
