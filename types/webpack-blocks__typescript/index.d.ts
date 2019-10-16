@@ -1,5 +1,5 @@
 // Type definitions for @webpack-blocks/typescript 2.0
-// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/sass
+// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/typescript
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
