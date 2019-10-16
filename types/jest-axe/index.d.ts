@@ -6,7 +6,7 @@
 
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOnly } from "axe-core";
+import { AxeResults, Result, RunOnly } from 'axe-core';
 
 /**
  * Version of the aXe verifier with defaults set.
@@ -34,10 +34,7 @@ export interface AxeOptions {
  * @param options   Options to run aXe.
  * @returns Promise for the results of running aXe.
  */
-export type JestAxe = (
-  html: Element | string,
-  options?: AxeOptions,
-) => Promise<AxeResults>;
+export type JestAxe = (html: Element | string, options?: AxeOptions) => Promise<AxeResults>;
 
 /**
  * Creates a new aXe verifier function.
