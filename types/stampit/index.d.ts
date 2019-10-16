@@ -1,4 +1,5 @@
 // Type definitions for stampit 4.3
+// TypeScript Version: 3.5
 // Project: https://github.com/stampit-org/stampit, https://stampit.js.org
 // Definitions by: Vasyl Boroviak <https://github.com/koresar>
 //                 Harris Lummis <https://github.com/lummish>
@@ -11,7 +12,7 @@
  * @internal Base type for all `methods`-like metadata.
  * @template This The type to use for `this` within methods.
  */
-type _methodMap<This> = { [s: string]: (this: This, ...args: Array<any>) => any };
+interface _methodMap<This> {[s: string]: (this: This, ...args: any[]) => any; }
 
 /** @internal A plain old JavaScript object created by a `Stamp`. */
 type _pojo = object; // { [s: string]: any; }
@@ -22,7 +23,7 @@ type _propertyMap = object; // { [s: string]: any; }
 
 /** @internal Signature common to every `Stamp`s. */
 interface StampSignature {
-  (options?: _propertyMap, ...args: Array<unknown>): any;
+  (options?: _propertyMap, ...args: unknown[]): any;
   compose: ComposeMethod & stampit.Descriptor<any, any>;
 }
 
@@ -61,7 +62,6 @@ type StampObjectType<Original> = Original extends bigint | boolean | number | st
 /**
  * A factory function to create plain object instances.
  * @template Obj The object type that the `Stamp` will create.
- * @return {Obj} The object created by the `Stamp`.
  */
 interface FactoryFunction<Obj> {
   /**
@@ -71,7 +71,6 @@ interface FactoryFunction<Obj> {
    * `.initializers` functions that take arguments should not be considered safe to compose
    * with other `.initializers` functions that also take arguments. Taking arguments with
    * an `.initializers` function is an anti-pattern that should be avoided, when possible.
-   * @return {Obj} The object created by the `Stamp`.
    */
   (options?: _propertyMap, ...args: Array<any>): StampObjectType<Obj>;
 }
@@ -92,7 +91,6 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * Add methods to the methods prototype. Creates and returns new Stamp. **Chainable**.
    * @template This The type to use for `this` within methods.
    * @param methods Object(s) containing map of method names and bodies for delegation.
-   * @return {Stamp} A new Stamp.
    */
   methods<This = Obj>(...methods: Array<_methodMap<This>>): S̤t̤a̤m̤p̤;
 
@@ -100,42 +98,37 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * Take a variable number of objects and shallow assign them to any future
    * created instance of the Stamp. Creates and returns new Stamp. **Chainable**.
    * @param objects Object(s) to shallow assign for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  properties(...objects: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  properties(...objects: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take a variable number of objects and shallow assign them to any future
    * created instance of the Stamp. Creates and returns new Stamp. **Chainable**.
    * @param objects Object(s) to shallow assign for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  props(...objects: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  props(...objects: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take a variable number of objects and deeply merge them to any future
    * created instance of the Stamp. Creates and returns a new Stamp.
    * **Chainable**.
    * @param deepObjects The object(s) to deeply merge for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  deepProperties(...deepObjects: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  deepProperties(...deepObjects: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take a variable number of objects and deeply merge them to any future
    * created instance of the Stamp. Creates and returns a new Stamp.
    * **Chainable**.
    * @param deepObjects The object(s) to deeply merge for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  deepProps(...deepObjects: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  deepProps(...deepObjects: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take in a variable number of functions and add them to the initializers
    * prototype as initializers. **Chainable**.
    * @param functions Initializer functions used to create private data and
    * privileged methods.
-   * @return {Stamp} A new Stamp.
    */
   initializers(...functions: Array<stampit.Initializer<Obj, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   initializers(functions: Array<stampit.Initializer<Obj, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
@@ -145,7 +138,6 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * prototype as initializers. **Chainable**.
    * @param functions Initializer functions used to create private data and
    * privileged methods.
-   * @return {Stamp} A new Stamp.
    */
   init(...functions: Array<stampit.Initializer<Obj, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   init(functions: Array<stampit.Initializer<Obj, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
@@ -154,35 +146,31 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * Take n objects and add them to a new stamp and any future stamp it composes with.
    * Creates and returns new Stamp. **Chainable**.
    * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
-   * @return {Stamp} A new Stamp.
    */
-  staticProperties(...statics: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  staticProperties(...statics: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take n objects and add them to a new stamp and any future stamp it composes with.
    * Creates and returns new Stamp. **Chainable**.
    * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
-   * @return {Stamp} A new Stamp.
    */
-  statics(...statics: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  statics(...statics: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Deeply merge a variable number of objects and add them to a new stamp and
    * any future stamp it composes. Creates and returns a new Stamp. **Chainable**.
    * @param deepStatics The object(s) containing static properties to be
    * merged.
-   * @return {Stamp} A new Stamp.
    */
-  staticDeepProperties(...deepStatics: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  staticDeepProperties(...deepStatics: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Deeply merge a variable number of objects and add them to a new stamp and
    * any future stamp it composes. Creates and returns a new Stamp. **Chainable**.
    * @param deepStatics The object(s) containing static properties to be
    * merged.
-   * @return {Stamp} A new Stamp.
    */
-  deepStatics(...deepStatics: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  deepStatics(...deepStatics: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Take in a variable number of functions and add them to the composers
@@ -190,7 +178,6 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * @param functions Composer functions that will run in sequence while creating
    * a new stamp from a list of composables.  The resulting stamp and the
    * composables get passed to composers.
-   * @return {Stamp} A new Stamp.
    */
   composers(...functions: Array<stampit.Composer<S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   composers(functions: Array<stampit.Composer<S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
@@ -201,43 +188,38 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * a new stamp and any future Stamp it composes. Creates and returns a new
    * Stamp. **Chainable**.
    * @param confs The object(s) containing metadata properties.
-   * @return {Stamp} A new Stamp.
    */
-  configuration(...confs: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  configuration(...confs: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Shallowly assign properties of Stamp arbitrary metadata and add them to
    * a new stamp and any future Stamp it composes. Creates and returns a new
    * Stamp. **Chainable**.
    * @param confs The object(s) containing metadata properties.
-   * @return {Stamp} A new Stamp.
    */
-  conf(...confs: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  conf(...confs: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Deeply merge properties of Stamp arbitrary metadata and add them to a new
    * Stamp and any future Stamp it composes. Creates and returns a new Stamp.
    * **Chainable**.
    * @param deepConfs The object(s) containing metadata properties.
-   * @return {Stamp} A new Stamp.
    */
-  deepConfiguration(...deepConfs: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  deepConfiguration(...deepConfs: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Deeply merge properties of Stamp arbitrary metadata and add them to a new
    * Stamp and any future Stamp it composes. Creates and returns a new Stamp.
    * **Chainable**.
    * @param deepConfs The object(s) containing metadata properties.
-   * @return {Stamp} A new Stamp.
    */
-  deepConf(...deepConfs: Array<_propertyMap>): S̤t̤a̤m̤p̤;
+  deepConf(...deepConfs: _propertyMap[]): S̤t̤a̤m̤p̤;
 
   /**
    * Apply ES5 property descriptors to object instances created by the new
    * Stamp returned by the function and any future Stamp it composes. Creates
    * and returns a new stamp. **Chainable**.
    * @param descriptors
-   * @return {Stamp} A new Stamp.
    */
   propertyDescriptors(...descriptors: Array<PropertyDescriptorMap>): S̤t̤a̤m̤p̤;
 
@@ -245,7 +227,6 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
    * Apply ES5 property descriptors to a Stamp and any future Stamp it
    * composes. Creates and returns a new stamp. **Chainable**.
    * @param descriptors
-   * @return {Stamp} A new Stamp.
    */
   staticPropertyDescriptors(...descriptors: Array<PropertyDescriptorMap>): S̤t̤a̤m̤p̤;
 }
@@ -255,7 +236,6 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature>  {
  * @template Obj The type of the object instance being produced by the `Stamp`
  * or the type of the `Stamp` being created (when extending a `Stamp`.)
  * @param {Array<Composable>} composables A list of `Composable`s.
- * @return {Stamp} The new `Stamp`.
  */
 type ComposeMethod = typeof stampit;
 
@@ -264,9 +244,8 @@ type ComposeMethod = typeof stampit;
  * @template Obj The type of the object instance being created by the `Stamp`
  * or the type of the `Stamp` being created (when extending a `Stamp`.)
  * @param {Array<Composable>} composables A list of `Composable`s.
- * @return {Stamp} The new `Stamp`.
  */
-export function stampit<Obj = any>(...composables: Array<stampit.Composable>): StampType<Obj>;
+export function stampit<Obj = any, S = StampType<Obj>>(...composables: Array<stampit.Composable>): S;
 
 export namespace stampit {
   /** A composable object (either a `Stamp` or a `Descriptor`.) */
@@ -321,7 +300,6 @@ export namespace stampit {
   /**
    * @internal Checks that a type is a Descriptor (except `any` and `unknown`).
    * @template Type A type to check if a Descriptor.
-   * @return {boolean} `true` if the type `T` can be infered as a Descriptor, `false` otherwise.
    */
   // TODO: Improve test by checking the type of common keys
   type IsADescriptor<Type> =
@@ -335,7 +313,6 @@ export namespace stampit {
    * A function used as `.initializers` argument.
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * @template S̤t̤a̤m̤p̤ The type of the `Stamp` producing the instance.
-   * @return {Obj} The object produced by the `Stamp`.
    */
   interface Initializer<Obj, S̤t̤a̤m̤p̤ extends StampSignature> {
     /**
@@ -343,7 +320,6 @@ export namespace stampit {
      * containing properties that may be used by initializers. (Cf. the `Descriptor`
      * attributes `configuration` and `deepConfiguration`.)
      * @param {InitializerContext} context The context of current `.initializers` function.
-     * @return {void | Obj} The object produced by the `Stamp`.
      */
     // ??? should the type of `this` be the object or the stamp
     (/* this: S̤t̤a̤m̤p̤, */ options: /*_propertyMap*/ any, context: InitializerContext<Obj, S̤t̤a̤m̤p̤>): void | Obj;
@@ -370,12 +346,10 @@ export namespace stampit {
   /**
    * A function used as `.composers` argument.
    * @template S̤t̤a̤m̤p̤ The type of the `Stamp` produced by the `.compose()` method.
-   * @return {Stamp} The new `Stamp`.
    */
   interface Composer<S̤t̤a̤m̤p̤ extends StampSignature> {
     /**
      * @param {ComposerParameters} parameters The parameters recieved by the current `.composers` function.
-     * @return {Stamp} The new `Stamp`.
      */
     // ??? should the type of `this` be the object or the stamp
     (/* this: S, */ parameters: ComposerParameters<S̤t̤a̤m̤p̤>): S̤t̤a̤m̤p̤;
@@ -397,20 +371,8 @@ export namespace stampit {
    *
    * It also has a `.compose()` method which is a copy of the `ComposeMethod` function and a `.compose` accessor to its `Descriptor`.
    * @template Obj The object type that the `Stamp` will create.
-   * @return {Obj} The object produced by the `Stamp`.
    */
   interface Stamp<Obj> extends FactoryFunction<Obj>, StampChainables<Obj>, StampSignature {
-    // /**
-    //  * @param {_propertyMap} [options] Properties to set on the new object instance.
-    //  * @param {Array<any>} args Remaining arguments passed to all `.initializers` functions.
-    //  * **WARNING** Avoid using different `.initializers` functions that expect different arguments.
-    //  * `.initializers` functions that take arguments should not be considered safe to compose
-    //  * with other `.initializers` functions that also take arguments. Taking arguments with
-    //  * an `.initializers` function is an anti-pattern that should be avoided, when possible.
-    //  * @return {Obj} The object produced by the `Stamp`.
-    //  */
-    // (options?: _propertyMap, ...args: Array<any>): Obj;
-
     /**
      * Just like calling stamp(), stamp.create() invokes the stamp and returns a new instance.
      * @param {_propertyMap} [options] Properties to set on the new object instance.
@@ -419,7 +381,6 @@ export namespace stampit {
      * `.initializers` functions that take arguments should not be considered safe to compose
      * with other `.initializers` functions that also take arguments. Taking arguments with
      * an `.initializers` function is an anti-pattern that should be avoided, when possible.
-     * @return {Obj} The object produced by the `Stamp`.
      */
     create: FactoryFunction<Obj>;
 
@@ -428,7 +389,6 @@ export namespace stampit {
      * @template Obj The type of the object instance being produced by the `Stamp`.
      * or the type of the `Stamp` being created.
      * @param {Array<Composable>} composables A list of `Composable`s.
-     * @return {Stamp} The new `Stamp`.
      */
     compose: ComposeMethod & Descriptor<StampObjectType<Obj>>;
   }
@@ -441,7 +401,6 @@ export namespace stampit {
    * or the type of the `Stamp` being created.
    * @template This The type to use for `this` within methods.
    * @param methods Object(s) containing map of method names and bodies for delegation.
-   * @return {Stamp} A new Stamp.
    */
   function methods<Obj = any, This = StampObjectType<Obj>>(...methods: Array<_methodMap<Obj>>): StampType<Obj>;
 
@@ -453,9 +412,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param objects Object(s) to shallow assign for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  function properties<Obj = any>(...objects: Array<_propertyMap>): StampType<Obj>;
+  function properties<Obj = any, S = StampType<Obj>>(...objects: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().props()
@@ -465,9 +423,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param objects Object(s) to shallow assign for each new object.
-   * @return {Stamp} A new Stamp.
    */
-  function props<Obj = any>(...objects: Array<_propertyMap>): StampType<Obj>;
+  function props<Obj = any, S = StampType<Obj>>(...objects: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().deepProperties()
@@ -477,9 +434,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepObjects The object(s) to deeply merge for each new object
-   * @return {Stamp} A new Stamp.
    */
-  function deepProperties<Obj = any>(...deepObjects: Array<_propertyMap>): StampType<Obj>;
+  function deepProperties<Obj = any, S = StampType<Obj>>(...deepObjects: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().deepProps()
@@ -489,9 +445,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepObjects The object(s) to deeply merge for each new object
-   * @return {Stamp} A new Stamp.
    */
-  function deepProps<Obj = any>(...deepObjects: Array<_propertyMap>): StampType<Obj>;
+  function deepProps<Obj = any, S = StampType<Obj>>(...deepObjects: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().initializers()
@@ -502,7 +457,6 @@ export namespace stampit {
    * or the type of the `Stamp` being created.
    * @param functions Initializer functions used to create private data and
    * privileged methods
-   * @return {Stamp} A new Stamp.
    */
   function initializers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(...functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   function initializers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
@@ -516,7 +470,6 @@ export namespace stampit {
    * or the type of the `Stamp` being created.
    * @param functions Initializer functions used to create private data and
    * privileged methods
-   * @return {Stamp} A new Stamp.
    */
   function init<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(...functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   function init<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
@@ -529,9 +482,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
-   * @return {Stamp} A new Stamp.
    */
-  function staticProperties<Obj = any>(...statics: Array<_propertyMap>): StampType<Obj>;
+  function staticProperties<Obj = any, S = StampType<Obj>>(...statics: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().staticProperties()
@@ -541,9 +493,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
-   * @return {Stamp} A new Stamp.
    */
-  function statics<Obj = any>(...statics: Array<_propertyMap>): StampType<Obj>;
+  function statics<Obj = any, S = StampType<Obj>>(...statics: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().staticDeepProperties()
@@ -553,9 +504,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepStatics The object(s) containing static properties to be merged
-   * @return {Stamp} A new Stamp.
    */
-  function staticDeepProperties<Obj = any>(...deepStatics: Array<_propertyMap>): StampType<Obj>;
+  function staticDeepProperties<Obj = any, S = StampType<Obj>>(...deepStatics: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().deepStatics()
@@ -565,9 +515,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepStatics The object(s) containing static properties to be merged
-   * @return {Stamp} A new Stamp.
    */
-  function deepStatics<Obj = any>(...deepStatics: Array<_propertyMap>): StampType<Obj>;
+  function deepStatics<Obj = any, S = StampType<Obj>>(...deepStatics: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().composers()
@@ -579,11 +528,9 @@ export namespace stampit {
    * @param functions Composer functions that will run in sequence while creating
    * a new stamp from a list of composables.  The resulting stamp and the
    * composables get passed to composers.
-   * @return {Stamp} A new Stamp.
    */
   function composers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(...functions: Array<Composer<S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
   function composers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(functions: Array<Composer<S̤t̤a̤m̤p̤>>): S̤t̤a̤m̤p̤;
-// composers?: Array<Composer<S̤t̤a̤m̤p̤>>;
 
   /**
    * A shortcut method for stampit().configuration()
@@ -594,9 +541,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param confs The object(s) containing metadata properties
-   * @return {Stamp} A new Stamp.
    */
-  function configuration<Obj = any>(...confs: Array<_propertyMap>): StampType<Obj>;
+  function configuration<Obj = any, S = StampType<Obj>>(...confs: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().conf()
@@ -607,9 +553,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param confs The object(s) containing metadata properties
-   * @return {Stamp} A new Stamp.
    */
-  function conf<Obj = any>(...confs: Array<_propertyMap>): StampType<Obj>;
+  function conf<Obj = any, S = StampType<Obj>>(...confs: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().deepConfiguration()
@@ -620,9 +565,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepConfs The object(s) containing metadata properties
-   * @return {Stamp} A new Stamp.
    */
-  function deepConfiguration<Obj = any>(...deepConfs: Array<_propertyMap>): StampType<Obj>;
+  function deepConfiguration<Obj = any, S = StampType<Obj>>(...deepConfs: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().deepConf()
@@ -633,9 +577,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param deepConfs The object(s) containing metadata properties
-   * @return {Stamp} A new Stamp.
    */
-  function deepConf<Obj = any>(...deepConfs: Array<_propertyMap>): StampType<Obj>;
+  function deepConf<Obj = any, S = StampType<Obj>>(...deepConfs: _propertyMap[]): S;
 
   /**
    * A shortcut method for stampit().propertyDescriptors()
@@ -646,9 +589,8 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param descriptors
-   * @return {Stamp} A new Stamp.
    */
-  function propertyDescriptors<Obj = any>(...descriptors: Array<PropertyDescriptorMap>): StampType<Obj>;
+  function propertyDescriptors<Obj = any, S = StampType<Obj>>(...descriptors: PropertyDescriptorMap[]): S;
 
   /**
    * A shortcut method for stampit().staticPropertyDescriptors()
@@ -658,15 +600,10 @@ export namespace stampit {
    * @template Obj The type of the object instance being produced by the `Stamp`.
    * or the type of the `Stamp` being created.
    * @param descriptors
-   * @return {Stamp} A new Stamp.
    */
-  function staticPropertyDescriptors<Obj = any>(...descriptors: Array<PropertyDescriptorMap>): StampType<Obj>;
+  function staticPropertyDescriptors<Obj = any, S = StampType<Obj>>(...descriptors: PropertyDescriptorMap[]): S;
 
-  /**
-   * A function which creates a new `Stamp`s from a list of `Composable`s.
-   * @param {Array<Composable>} composables A list of `Composable`s.
-   * @return {Stamp} The new `Stamp`.
-   */
+  /** A function which creates a new `Stamp`s from a list of `Composable`s. */
   const compose: ComposeMethod;
 
   /** the version of the NPM `stampit` package. */
