@@ -9,7 +9,7 @@ export type Persistence = 'cookie' | 'localStorage';
 
 export type PushItem = Array<string | Dict>;
 
-export type Query = string | Element | Element[]
+export type Query = string | Element | Element[];
 
 export interface Dict {[key: string]: any; }
 
