@@ -1,6 +1,6 @@
-import Onfleet from 'onfleet__node-onfleet';
+import Onfleet = require('onfleet__node-onfleet');
 
-const onfleet: Onfleet = new Onfleet('test-api-key');
+const onfleet = new Onfleet('test-api-key');
 const isValid = onfleet.verifyKey();
 
 async function testTasks(onfleet: Onfleet) {

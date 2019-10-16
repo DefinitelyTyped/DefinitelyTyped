@@ -1,21 +1,30 @@
-import { API } from './API';
-import * as Resources from './Resources';
+import * as Resources from './resources';
 
-export class Onfleet {
-  api: API;
+declare class Onfleet {
   apiKey: string;
+  api: {
+    baseUrl: string;
+    timeout: number;
+    headers: {
+      'Content-Type': string;
+      'User-Agent': string;
+      Authorization: string;
+    }
+  };
 
   constructor(api_key: string);
   verifyKey(): boolean;
 
-  admins: Resources.Admin;
-  containers: Resources.Container;
-  destinations: Resources.Destination;
-  hubs: Resources.Hub;
+  admins: Resources.Administrators;
+  containers: Resources.Containers;
+  destinations: Resources.Destinations;
+  hubs: Resources.Hubs;
   organization: Resources.Organization;
-  recipients: Resources.Recipient;
-  tasks: Resources.Task;
-  teams: Resources.Team;
-  webhooks: Resources.Webhook;
-  workers: Resources.Worker;
+  recipients: Resources.Recipients;
+  tasks: Resources.Tasks;
+  teams: Resources.Teams;
+  webhooks: Resources.Webhooks;
+  workers: Resources.Workers;
 }
+
+export = Onfleet;
