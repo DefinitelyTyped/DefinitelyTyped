@@ -53,6 +53,7 @@ export interface ApiResponse {
 export interface ApiError {
     statusCode: number;
     statusMessage: string;
+    statusBody: unknown;
 }
 
 /**
