@@ -2,8 +2,8 @@
 // Project: https://github.com/kentcdodds/babel-plugin-macros
 // Definitions by: Billy Kwok <https://github.com/billykwok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-import * as Babel from 'babel__core';
+// TypeScript Version: 2.8
+import * as Babel from '@babel/core';
 
 type References = Babel.NodePath[];
 
