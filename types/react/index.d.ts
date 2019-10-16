@@ -417,6 +417,7 @@ declare namespace React {
         /**
          * If using the new style context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
+         * Should be used with type annotation or static contextType.
          *
          * ```ts
          * static contextType = MyContext
@@ -426,8 +427,7 @@ declare namespace React {
          * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @deprecated if used without a type annotation, or without static contextType
-         * @see https://reactjs.org/docs/legacy-context.html
+         * @see https://reactjs.org/docs/context.html
          */
         // TODO (TypeScript 3.0): unknown
         context: any;
