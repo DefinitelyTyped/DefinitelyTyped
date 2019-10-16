@@ -1,27 +1,4 @@
-import stampit from 'stampit';
-
-/** selective import from module */
-import {
-  compose,
-  composers,
-  conf,
-  configuration,
-  deepConf,
-  deepConfiguration,
-  deepProperties,
-  deepProps,
-  deepStatics,
-  init,
-  initializers,
-  methods,
-  properties,
-  propertyDescriptors,
-  props,
-  staticDeepProperties,
-  staticProperties,
-  staticPropertyDescriptors,
-  version,
-} from 'stampit';
+import stampit = require('stampit');
 
 const a = stampit().init(function(options) {
     const a = options.args[0];
@@ -47,7 +24,7 @@ foo.getB(); // "b"
 // Here's a mixin with public methods, and some refs:
 const membership = stampit({
     methods: {
-        // members: {},
+        members: {},
         add(member: any) {
             this.members[member.name] = member;
             return this;
@@ -55,11 +32,14 @@ const membership = stampit({
         getMember(name: any) {
             return this.members[name];
         }
+    },
+    refs: {
+        members: {}
     }
 });
 
 // Let's set some defaults:
-const defaults = stampit().conf({
+const defaults = stampit().refs({
     name: 'The Saloon',
     specials: 'Whisky, Gin, Tequila'
 });
@@ -91,7 +71,7 @@ const myStamp = stampit().methods({
 myStamp.props({
     foo: { bar: 'bar' },
     refsOverride: false
-}).conf({
+}).refs({
     bar: 'bar',
     refsOverride: true
 });
@@ -113,7 +93,7 @@ myStamp.init(function() {
 let obj = myStamp.create();
 obj.getSecret && obj.a && obj.b && obj.c; // true
 
-const newStamp = stampit({ conf: { defaultNum: 1 } }).compose(myStamp);
+const newStamp = stampit({ refs: { defaultNum: 1 } }).compose(myStamp);
 
 const obj1 = stampit().methods({
     a() {
@@ -125,7 +105,7 @@ const obj1 = stampit().methods({
     }
 }).create();
 
-const obj2 = stampit().conf({
+const obj2 = stampit().refs({
     a: 'a'
 }, {
     b: 'b'
@@ -169,15 +149,15 @@ interface SomeStampInstance {
 }
 
 // Test import of stamp type
-interface SomeStamp extends stampit.Stamp<SomeStampInstance> {
+interface SomeStamp extends stampit.Stamp {
     (params: { a: number; b: boolean}): SomeStampInstance;
 }
 
-const SomeStamp = stampit<SomeStamp>()
+const SomeStamp = stampit()
     .init(function(params: { a: number; b: boolean}) {
         this.a = '' + a;
         this.b = '' + b;
-    });
+    }) as SomeStamp;
 
 SomeStamp({ a: 1, b: false }); // $ExpectType SomeStampInstance
 SomeStamp({ a: 1, b: false }).a; // $ExpectType string
