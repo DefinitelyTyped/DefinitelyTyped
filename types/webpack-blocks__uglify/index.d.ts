@@ -2,7 +2,7 @@
 // Project: https://github.com/andywer/webpack-blocks/tree/master/packages/uglify
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
 import { Block } from 'webpack-blocks';
 import { MinifyOptions } from 'uglify-js';
