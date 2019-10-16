@@ -770,6 +770,7 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     points?: ScatterPoint[];
     hide?: boolean;
     data?: ReadonlyArray<object>;
+    dataKey?: DataKey;
     name?: string | number;
 }
 
