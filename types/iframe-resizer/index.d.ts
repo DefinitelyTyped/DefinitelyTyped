@@ -312,6 +312,5 @@ declare namespace iframeResizer {
   }
 }
 
-declare function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
-export = iframeResizer;
+export declare function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
 export as namespace iframeResizer;

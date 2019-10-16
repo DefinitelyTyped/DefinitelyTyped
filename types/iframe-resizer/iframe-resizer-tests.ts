@@ -1,4 +1,4 @@
-import iframeResizer = require("iframe-resizer");
+import { iframeResizer } from 'iframe-resizer';
 
 function testOne(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
