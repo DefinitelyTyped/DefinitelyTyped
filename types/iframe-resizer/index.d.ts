@@ -3,7 +3,7 @@
 // Definitions by: Armin Baljic <https://github.com/arminbaljic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace iframeResizer {
+export namespace iframeResizer {
   // tslint:disable-next-line:interface-name
   interface IFrameObject {
     close(): void;
@@ -312,5 +312,4 @@ declare namespace iframeResizer {
   }
 }
 
-export declare function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
-export as namespace iframeResizer;
+export function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
