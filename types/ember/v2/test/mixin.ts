@@ -6,7 +6,7 @@ interface EditableMixin {
     isEditing: boolean;
 }
 
-const EditableMixin: Ember.Mixin<EditableMixin, Ember.Route> = Ember.Mixin.create({
+const EditableMixin = Ember.Mixin.create<EditableMixin, Ember.Route>({
     edit() {
         this.get('controller');
         console.log('starting to edit');

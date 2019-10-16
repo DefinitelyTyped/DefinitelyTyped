@@ -1,6 +1,6 @@
 import stampit = require('stampit');
 
-const a = stampit().init((options) => {
+const a = stampit().init(function(options) {
     const a = options.args[0];
     this.getA = () => {
         return a;
@@ -154,7 +154,7 @@ interface SomeStamp extends stampit.Stamp {
 }
 
 const SomeStamp = stampit()
-    .init((params: { a: number; b: boolean}) => {
+    .init(function(params: { a: number; b: boolean}) {
         this.a = '' + a;
         this.b = '' + b;
     }) as SomeStamp;

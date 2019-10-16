@@ -1,5 +1,5 @@
 // Type definitions for datatables.net-select 1.2
-// Project: https://datatables.net/extensions/select/
+// Project: https://datatables.net/extensions/select/, https://datatables.net
 // Definitions by: Jared Szechy <https://github.com/szechyjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -80,5 +80,29 @@ declare namespace DataTables {
        * Deselect a row
        */
       deselect(): Api;
+    }
+
+    interface CellMethods {
+        /**
+         * Select cell
+         */
+        select(): Api;
+
+        /**
+         * Deselect a cell
+         */
+        deselect(): Api;
+    }
+
+    interface CellsMethods {
+        /**
+         * Select multiple cells
+         */
+        select(): Api;
+
+        /**
+         * Deselect cells
+         */
+        deselect(): Api;
     }
 }

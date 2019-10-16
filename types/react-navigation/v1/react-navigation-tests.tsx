@@ -366,7 +366,7 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
             />
         );
     }
-    _render = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps): React.ReactElement<any> => {
+    _render = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps): React.ReactElement => {
         return (
             <View />
         );

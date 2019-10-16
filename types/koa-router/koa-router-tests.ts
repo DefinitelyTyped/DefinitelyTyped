@@ -125,3 +125,73 @@ app2.use((ctx: Context, next: any) => {
 });
 
 app2.listen(8000);
+
+// Prepending middlewares tests
+
+type IBlah = { blah: string; }
+type IWooh = { wooh: string; }
+
+const router4 = new Router<MyState, MyContext>({prefix: "/users"});
+
+router4.get('/',
+    (ctx: Koa.ParameterizedContext<IBlah & IWooh>, next) => {
+        ctx.state.blah = "blah";
+        ctx.state.wooh = "wooh";
+        return next();
+    },
+    (ctx, next) => {
+        console.log(ctx.state.blah);
+        console.log(ctx.state.wooh);
+        console.log(ctx.state.foo);
+        ctx.body = 'Hello World!';
+        return next();
+    })
+
+const middleware1: Koa.Middleware<IBlah> = (ctx, next) => {
+    ctx.state.blah = "blah";
+}
+
+const middleware2: Koa.Middleware<IWooh> = (ctx, next) => {
+    ctx.state.wooh = "blah";
+}
+
+const emptyMiddleware: Koa.Middleware<{}> = (ctx, next) => {
+}
+
+function routeHandler1(ctx: Koa.ParameterizedContext<IWooh>): void {
+    ctx.body = "234";
+}
+
+function routeHandler2(ctx: Koa.ParameterizedContext<IBlah>): void {
+    ctx.body = "234";
+}
+
+function routeHandler3(ctx: Koa.ParameterizedContext<{}>): void {
+    ctx.body = "234";
+}
+
+function routeHandler4(ctx: Router.RouterContext<MyState, MyContext>): void {
+    ctx.body = "234";
+}
+
+const middleware3 = compose([middleware1, middleware2]);
+
+router4.get('/foo', middleware3, routeHandler1);
+router4.post('/foo', middleware1, routeHandler2);
+router4.put('/foo', middleware2, routeHandler3);
+
+router4.patch("foo", '/foo', middleware3, routeHandler1);
+router4.delete('/foo', middleware1, routeHandler2);
+router4.head('/foo', middleware2, routeHandler3);
+
+router4.post('/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.post('/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+
+
+const router5 = new Router();
+router5.register('/foo', ['GET'], middleware1, {
+    name: 'foo',
+});
+router5.register('/bar', ['GET', 'DELETE'], [middleware1, middleware2]);

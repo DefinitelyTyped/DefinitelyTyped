@@ -13,7 +13,7 @@ class ExampleOfUsingReactModal extends React.Component {
   render() {
     const onAfterOpenFn = () => { };
     const onAfterCloseFn = () => { };
-    const onRequestCloseFn = () => { };
+    const onRequestCloseFn = (event: React.MouseEvent | React.KeyboardEvent) => { };
     const customStyle = {
       overlay: {
         position: 'fixed',
@@ -50,7 +50,8 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     const customAriaVariables = {
       labelledby: 'labelledby',
-      describedby: 'describedby'
+      describedby: 'describedby',
+      modal: true,
     };
     const customDataVariables = {
       dataOne: 'one',
@@ -73,6 +74,7 @@ class ExampleOfUsingReactModal extends React.Component {
         data={customDataVariables}
         contentRef={instance => this.contentRef = instance}
         overlayRef={instance => this.overlayRef = instance}
+        testId="modal-content"
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

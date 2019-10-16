@@ -23,6 +23,8 @@ declare namespace URLParse {
         | 'username';
 
     type QueryParser = (query: string) => object;
+
+    type StringifyQuery = (query: object) => string;
 }
 
 interface URLParse {
@@ -40,7 +42,7 @@ interface URLParse {
     readonly slashes: boolean;
     readonly username: string;
     set(part: URLParse.URLPart, value: string | object | number | undefined, fn?: boolean | URLParse.QueryParser): URLParse;
-    toString(): string;
+    toString(stringify?: URLParse.StringifyQuery): string;
 }
 
 declare const URLParse: {
@@ -57,7 +59,7 @@ declare const URLParse: {
     location(url: string): object;
     qs: {
         parse: URLParse.QueryParser;
-        stringify(query: object): string;
+        stringify: URLParse.StringifyQuery;
     };
 };
 

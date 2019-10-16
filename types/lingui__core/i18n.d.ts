@@ -6,6 +6,13 @@ export interface MessageOptions {
     formats?: object;
 }
 
+export interface MessageDescriptor {
+    id: string;
+    defaults?: string;
+    values?: object;
+    formats?: object;
+}
+
 export interface LanguageData {
     plurals?: (n: number, pluralType?: "cardinal" | "ordinal") => string;
 }
@@ -62,6 +69,7 @@ export class I18n {
     use(language: string): I18n;
 
     _(id: string, values?: object, messageOptions?: MessageOptions): string;
+    _(id: MessageDescriptor): string;
 
     pluralForm(n: number, pluralType?: "cardinal" | "ordinal"): string;
 }

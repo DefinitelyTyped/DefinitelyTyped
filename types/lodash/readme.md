@@ -47,9 +47,9 @@
   - In general, no.
 - If the wrapper functions are almost copies of the original functions, shouldn't we auto-generate them like we do for `lodash/fp`?
   - Good idea! If you have time, submit a PR.
-- When I ran `npm run lint lodash`, I got an error that loks like `<--- Last few GCs --->`.
+- When I ran `npm run lint lodash`, I got an error that looks like `<--- Last few GCs --->`.
   - Yeah, this error is really annoying. It means that node.js ran out of memory before it could run all of your tests.
-    - If you see somthing like `Test with 2.6` before that error, it means that there's an error in an older version of typescript.
+    - If you see something like `Test with 2.6` before that error, it means that there's an error in an older version of typescript.
       The hard part is figuring out what the error is.
   - The general procedure for diagnosing these errors is:
     1. Delete half of the tests in `lodash-tests.ts` (either the top half or the bottom half).
@@ -57,6 +57,6 @@
     2. Run `npm run lint lodash`.
     3. If it succeeds, add that half back and delete the other half.
     4. If it fails with a GC error, delete half of the remaining tests.
-      - Note: If both halfs succeed on their own, then the tests are probably just consuming too much memory. Try simplifying them until they pass.
+      - Note: If both halves succeed on their own, then the tests are probably just consuming too much memory. Try simplifying them until they pass.
     5. Repeat steps 1-4 until it gives you the real error message. Usually it's something obscure that only happens in TS 2.3/T.4,
        so commenting/modifying the test is usually the best solution.

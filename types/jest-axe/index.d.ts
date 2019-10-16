@@ -2,7 +2,7 @@
 // Project: https://github.com/nickcolley/jest-axe
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
@@ -34,7 +34,10 @@ export interface AxeOptions {
  * @param options   Options to run aXe.
  * @returns Promise for the results of running aXe.
  */
-export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults>;
+export type JestAxe = (
+  html: Element | string,
+  options?: AxeOptions,
+) => Promise<AxeResults>;
 
 /**
  * Creates a new aXe verifier function.

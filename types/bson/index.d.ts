@@ -1,7 +1,8 @@
-// Type definitions for bson 1.0.6
+// Type definitions for bson 4.0
 // Project: https://github.com/mongodb/js-bson
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Federico Caselli <https://github.com/CaselIT>
+//                 Justin Grant <https://github.com/justingrant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -42,6 +43,8 @@ export interface DeserializeOptions {
     fieldsAsRaw?: { readonly [fieldName: string]: boolean };
     /** {default:false}, return BSON regular expressions as BSONRegExp instances. */
     bsonRegExp?: boolean;
+    /** {default:false}, allows the buffer to be larger than the parsed BSON object. */
+    allowObjectSmallerThanBufferSize?: boolean;
 }
 
 export interface CalculateObjectSizeOptions {
@@ -51,67 +54,64 @@ export interface CalculateObjectSizeOptions {
     ignoreUndefined?: boolean;
 }
 
-export class BSON {
 
-    /**
-     * Serialize a Javascript object.
-     * 
-     * @param object The Javascript object to serialize.
-     * @param options Serialize options.
-     * @return The Buffer object containing the serialized object.
-     */
-    serialize(object: any, options?: SerializeOptions): Buffer;
+/**
+ * Serialize a Javascript object.
+ * 
+ * @param object The Javascript object to serialize.
+ * @param options Serialize options.
+ * @return The Buffer object containing the serialized object.
+ */
+export function serialize(object: any, options?: SerializeOptions): Buffer;
 
-    /**
-     * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
-     * 
-     * @param object The Javascript object to serialize.
-     * @param buffer The Buffer you pre-allocated to store the serialized BSON object.
-     * @param options Serialize options.
-     * @returns The index pointing to the last written byte in the buffer
-     */
-    serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
+/**
+ * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
+ * 
+ * @param object The Javascript object to serialize.
+ * @param buffer The Buffer you pre-allocated to store the serialized BSON object.
+ * @param options Serialize options.
+ * @returns The index pointing to the last written byte in the buffer
+ */
+export function serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
 
-    /**
-     * Deserialize data as BSON.
-     * 
-     * @param buffer The buffer containing the serialized set of BSON documents.
-     * @param options Deserialize options.
-     * @returns The deserialized Javascript Object.
-     */
-    deserialize(buffer: Buffer, options?: DeserializeOptions): any;
+/**
+ * Deserialize data as BSON.
+ * 
+ * @param buffer The buffer containing the serialized set of BSON documents.
+ * @param options Deserialize options.
+ * @returns The deserialized Javascript Object.
+ */
+export function deserialize(buffer: Buffer, options?: DeserializeOptions): any;
 
-    /**
-     * Calculate the bson size for a passed in Javascript object.
-     *
-     * @param {Object} object the Javascript object to calculate the BSON byte size for.
-     * @param {CalculateObjectSizeOptions} Options
-     * @return {Number} returns the number of bytes the BSON object will take up.
-     */
-    calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
+/**
+ * Calculate the bson size for a passed in Javascript object.
+ *
+ * @param {Object} object the Javascript object to calculate the BSON byte size for.
+ * @param {CalculateObjectSizeOptions} Options
+ * @return {Number} returns the number of bytes the BSON object will take up.
+ */
+export function calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
 
-    /**
-     * Deserialize stream data as BSON documents.
-     * 
-     * @param data The buffer containing the serialized set of BSON documents.
-     * @param startIndex The start index in the data Buffer where the deserialization is to start.
-     * @param numberOfDocuments Number of documents to deserialize
-     * @param documents An array where to store the deserialized documents
-     * @param docStartIndex The index in the documents array from where to start inserting documents
-     * @param options Additional options used for the deserialization
-     * @returns The next index in the buffer after deserialization of the `numberOfDocuments`
-     */
-    deserializeStream(
-        data: Buffer,
-        startIndex: number,
-        numberOfDocuments: number,
-        documents: Array<any>,
-        docStartIndex: number,
-        options?: DeserializeOptions
-    ): number;
-
-}
-
+/**
+ * Deserialize stream data as BSON documents.
+ * 
+ * @param data The buffer containing the serialized set of BSON documents.
+ * @param startIndex The start index in the data Buffer where the deserialization is to start.
+ * @param numberOfDocuments Number of documents to deserialize
+ * @param documents An array where to store the deserialized documents
+ * @param docStartIndex The index in the documents array from where to start inserting documents
+ * @param options Additional options used for the deserialization
+ * @returns The next index in the buffer after deserialization of the `numberOfDocuments`
+ */
+export function deserializeStream(
+    data: Buffer,
+    startIndex: number,
+    numberOfDocuments: number,
+    documents: Array<any>,
+    docStartIndex: number,
+    options?: DeserializeOptions
+): number;
+  
 /** A class representation of the BSON Binary type. */
 export class Binary {
 
@@ -167,13 +167,12 @@ export class Code {
 export class DBRef {
     /**
      * @param namespace The collection name.
-     * @param oid The reference ObjectID.
+     * @param oid The reference ObjectId.
      * @param db Optional db name, if omitted the reference is local to the current db
      */
-    constructor(namespace: string, oid: ObjectID, db?: string);
-
+    constructor(namespace: string, oid: ObjectId, db?: string);
     namespace: string;
-    oid: ObjectID;
+    oid: ObjectId;
     db?: string;
 }
 
@@ -349,60 +348,64 @@ export class MinKey {
     constructor();
 }
 
-/** A class representation of the BSON ObjectID type. */
-export class ObjectID {
+/** A class representation of the BSON ObjectId type. */
+export class ObjectId {
     /**
-     * Create a new ObjectID instance
-     * @param {(string|number|ObjectID)} id Can be a 24 byte hex string, 12 byte binary string or a Number.
+     * Create a new ObjectId instance
+     * @param {(string|number|ObjectId)} id Can be a 24 byte hex string, 12 byte binary string or a Number.
      */
-    constructor(id?: string | number | ObjectID);
-    /** The generation time of this ObjectID instance */
+    constructor(id?: string | number | ObjectId);
+    /** The generation time of this ObjectId instance */
     generationTime: number;
-    /** If true cache the hex string representation of ObjectID */
+    /** If true cache the hex string representation of ObjectId */
     static cacheHexString?: boolean;
     /**
-     * Creates an ObjectID from a hex string representation of an ObjectID.
-     * @param {string} hexString create a ObjectID from a passed in 24 byte hexstring.
-     * @return {ObjectID} return the created ObjectID
+     * Creates an ObjectId from a hex string representation of an ObjectId.
+     * @param {string} hexString create a ObjectId from a passed in 24 byte hexstring.
+     * @return {ObjectId} return the created ObjectId
      */
-    static createFromHexString(hexString: string): ObjectID;
+    static createFromHexString(hexString: string): ObjectId;
     /**
-     * Creates an ObjectID from a second based number, with the rest of the ObjectID zeroed out. Used for comparisons or sorting the ObjectID.
+     * Creates an ObjectId from a second based number, with the rest of the ObjectId zeroed out. Used for comparisons or sorting the ObjectId.
      * @param {number} time an integer number representing a number of seconds.
-     * @return {ObjectID} return the created ObjectID
+     * @return {ObjectId} return the created ObjectId
      */
-    static createFromTime(time: number): ObjectID;
+    static createFromTime(time: number): ObjectId;
     /**
-     * Checks if a value is a valid bson ObjectID
+     * Checks if a value is a valid bson ObjectId
      *
-     * @return {boolean} return true if the value is a valid bson ObjectID, return false otherwise.
+     * @return {boolean} return true if the value is a valid bson ObjectId, return false otherwise.
      */
-    static isValid(id: string | number | ObjectID): boolean;
+    static isValid(id: string | number | ObjectId): boolean;
     /**
-     * Compares the equality of this ObjectID with `otherID`.
-     * @param {ObjectID|string} otherID ObjectID instance to compare against.
-     * @return {boolean} the result of comparing two ObjectID's
+     * Compares the equality of this ObjectId with `otherID`.
+     * @param {ObjectId|string} otherID ObjectId instance to compare against.
+     * @return {boolean} the result of comparing two ObjectId's
      */
-    equals(otherID: ObjectID | string): boolean;
+    equals(otherID: ObjectId | string): boolean;
     /**
-     * Generate a 12 byte id string used in ObjectID's
+     * Generate a 12 byte id string used in ObjectId's
      * @param {number} time optional parameter allowing to pass in a second based timestamp.
      * @return {string} return the 12 byte id binary string.
      */
-    generate(time?: number): Buffer;
+    static generate(time?: number): Buffer;
     /**
      * Returns the generation date (accurate up to the second) that this ID was generated.
      * @return {Date} the generation date
      */
     getTimestamp(): Date;
     /**
-     * Return the ObjectID id as a 24 byte hex string representation
+     * Return the ObjectId id as a 24 byte hex string representation
      * @return {string} return the 24 byte hex string representation.
      */
     toHexString(): string;
 }
 
-export { ObjectID as ObjectId };
+/**
+ * ObjectID (with capital "D") is deprecated. Use ObjectId (lowercase "d") instead. 
+ * @deprecated
+ */
+export { ObjectId as ObjectID };
 
 /** A class representation of the BSON RegExp type. */
 export class BSONRegExp {
@@ -452,4 +455,140 @@ export class Timestamp extends LongLike<Timestamp> {
      */
     static fromString(str: string, opt_radix?: number): Timestamp;
 
+}
+
+/**
+ * Functions for serializing JavaScript objects into Mongodb Extended JSON (EJSON).
+ * @namespace EJSON
+ */
+export namespace EJSON {
+
+    /**
+     * Parse an Extended JSON string, constructing the JavaScript value or object described by that
+     * string.
+     *
+     * @memberof EJSON
+     * @param {string} text
+     * @param {object} [options] Optional settings
+     * @param {boolean} [options.relaxed=true] Attempt to return native JS types where possible, rather than BSON types (if true)
+     * @return {object}
+     *
+     * @example
+     * const { EJSON } = require('bson');
+     * const text = '{ "int32": { "$numberInt": "10" } }';
+     *
+     * // prints { int32: { [String: '10'] _bsontype: 'Int32', value: '10' } }
+     * console.log(EJSON.parse(text, { relaxed: false }));
+     *
+     * // prints { int32: 10 }
+     * console.log(EJSON.parse(text));
+     */
+    export function parse(text: string, options?: {relaxed?: boolean;}): {};
+
+    /**
+     * Deserializes an Extended JSON object into a plain JavaScript object with native/BSON types
+     *
+     * @memberof EJSON
+     * @param {object} ejson The Extended JSON object to deserialize
+     * @param {object} [options] Optional settings passed to the parse method
+     * @return {object}
+     */
+    export function deserialize(ejson: {}, options?: {relaxed?: boolean;}): {};
+
+    /**
+     * Serializes an object to an Extended JSON string, and reparse it as a JavaScript object.
+     *
+     * @memberof EJSON
+     * @param {object} bson The object to serialize
+     * @param {object} [options] Optional settings passed to the `stringify` function
+     * @return {object}
+     */
+    export function serialize(bson: {}, options?: {relaxed?: boolean;}): {};
+
+    /**
+     * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
+     * function is specified or optionally including only the specified properties if a replacer array
+     * is specified.
+     *
+     * @memberof EJSON
+     * @param {object} value The value to convert to extended JSON
+     * @param {function|array} [replacer] A function that alters the behavior of the stringification process, or an array of String and Number objects that serve as a whitelist for selecting/filtering the properties of the value object to be included in the JSON string. If this value is null or not provided, all properties of the object are included in the resulting JSON string
+     * @param {string|number} [space] A String or Number object that's used to insert white space into the output JSON string for readability purposes.
+     * @param {object} [options] Optional settings.
+     * @param {boolean} [options.relaxed=true] Enabled Extended JSON's `relaxed` mode
+     * @returns {string}
+     *
+     * @example
+     * const { EJSON, Int32 } = require('bson');
+     * const doc = { int32: new Int32(10) };
+     *
+     * // prints '{"int32":{"$numberInt":"10"}}'
+     * console.log(EJSON.stringify(doc, { relaxed: false }));
+     *
+     * // prints '{"int32":10}'
+     * console.log(EJSON.stringify(doc));
+     */
+    export function stringify(
+        value: {}, 
+        options?: {relaxed?: boolean;}
+    ): string;
+
+    /**
+     * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
+     * function is specified or optionally including only the specified properties if a replacer array
+     * is specified.
+     *
+     * @memberof EJSON
+     * @param {object} value The value to convert to extended JSON
+     * @param {function|array} [replacer] A function that alters the behavior of the stringification process, or an array of String and Number objects that serve as a whitelist for selecting/filtering the properties of the value object to be included in the JSON string. If this value is null or not provided, all properties of the object are included in the resulting JSON string
+     * @param {string|number} [space] A String or Number object that's used to insert white space into the output JSON string for readability purposes.
+     * @param {object} [options] Optional settings.
+     * @param {boolean} [options.relaxed=true] Enabled Extended JSON's `relaxed` mode
+     * @returns {string}
+     *
+     * @example
+     * const { EJSON, Int32 } = require('bson');
+     * const doc = { int32: new Int32(10) };
+     *
+     * // prints '{"int32":{"$numberInt":"10"}}'
+     * console.log(EJSON.stringify(doc, { relaxed: false }));
+     *
+     * // prints '{"int32":10}'
+     * console.log(EJSON.stringify(doc));
+     */
+
+    export function stringify(
+        value: {}, 
+        replacer: ((key: string, value: any) => any) | Array<string|number>, 
+        options?: {relaxed?: boolean;}
+    ): string;
+    /**
+     * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
+     * function is specified or optionally including only the specified properties if a replacer array
+     * is specified.
+     *
+     * @memberof EJSON
+     * @param {object} value The value to convert to extended JSON
+     * @param {function|array} [replacer] A function that alters the behavior of the stringification process, or an array of String and Number objects that serve as a whitelist for selecting/filtering the properties of the value object to be included in the JSON string. If this value is null or not provided, all properties of the object are included in the resulting JSON string
+     * @param {string|number} [space] A String or Number object that's used to insert white space into the output JSON string for readability purposes.
+     * @param {object} [options] Optional settings.
+     * @param {boolean} [options.relaxed=true] Enabled Extended JSON's `relaxed` mode
+     * @returns {string}
+     *
+     * @example
+     * const { EJSON, Int32 } = require('bson');
+     * const doc = { int32: new Int32(10) };
+     *
+     * // prints '{"int32":{"$numberInt":"10"}}'
+     * console.log(EJSON.stringify(doc, { relaxed: false }));
+     *
+     * // prints '{"int32":10}'
+     * console.log(EJSON.stringify(doc));
+     */
+    export function stringify(
+        value: {}, 
+        replacer: ((key: string, value: any) => any) | Array<string | number>, 
+        indents?: string | number, 
+        options?: {relaxed?: boolean;}
+        ): string;  
 }

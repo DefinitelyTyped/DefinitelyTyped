@@ -1,10 +1,11 @@
 // Type definitions for react-bootstrap-typeahead 3.4
-// Project: https://github.com/ericgio/react-bootstrap-typeahead
+// Project: https://github.com/ericgio/react-bootstrap-typeahead, http://ericgio.github.io/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Andreas Richter <https://github.com/arichter83>
 //                 Dale Fenton <https://github.com/dalevfenton>
+//                 Håkon Holhjem <https://github.com/KngHawkon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -107,6 +108,8 @@ export interface TypeaheadContainerProps<T extends TypeaheadModel> {
     text: string;
 }
 
+export type TypeaheadResult<T extends TypeaheadModel> = T & { customOption: boolean };
+
 export interface TypeaheadProps<T extends TypeaheadModel> {
     /* For localized accessibility: Should return a string indicating the number of results for screen readers.
     Receives the current results. */
@@ -124,7 +127,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        but not the list of original options unless handled as such by Typeahead's parent.
        The newly added item will always be returned as an object even if the other options are simply strings,
        so be sure your onChange callback can handle this. */
-    allowNew?: boolean;
+    allowNew?: boolean | ((results: T[], props: AllTypeaheadOwnAndInjectedProps<T>) => boolean);
 
     /* Autofocus the input when the component initially mounts. */
     autoFocus?: boolean;
@@ -170,6 +173,9 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        Does not work with allowNew. */
     highlightOnlyResult?: boolean;
 
+    /* An html id attribute, required for assistive technologies such as screen readers. */
+    id?: string | number;
+
     /* Whether the filter should ignore accents and other diacritical marks. */
     ignoreDiacritics?: boolean;
 
@@ -196,7 +202,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        so as not to render too many DOM nodes in the case of large data sets. */
     maxResults?: number;
 
-    /* Id applied to the top-level menu element. Required for accessibility. */
+    /* DEPRECATED. Id applied to the top-level menu element. Required for accessibility. */
     menuId?: string;
 
     /* Number of input characters that must be entered before showing results. */
@@ -251,11 +257,15 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Placeholder text for the input. */
     placeholder?: string;
 
+    /* Whether to use fixed positioning for the menu, which is useful when rendering inside a
+    container with overflow: hidden;. Uses absolute positioning by default. */
+    positionFixed?: boolean;
+
     /* Callback for custom menu rendering. */
-    renderMenu?: (results: T[], menuProps: any) => React.ReactNode;
+    renderMenu?: (results: Array<TypeaheadResult<T>>, menuProps: any) => React.ReactNode;
 
     /* Provides a hook for customized rendering of menu item contents. */
-    renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
+    renderMenuItemChildren?: (option: TypeaheadResult<T>, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
     renderToken?: (selectedItem: T, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
@@ -324,7 +334,7 @@ export class TypeaheadInputMulti<T extends TypeaheadModel> extends React.Compone
 --------------------------------------------------------------------------- */
 export interface HighligherProps {
     children: React.ReactNode;
-    search: string;
+    search?: string;
 }
 
 export class Highlighter extends React.PureComponent<HighligherProps> { }

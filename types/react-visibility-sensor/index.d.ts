@@ -39,7 +39,7 @@ interface Props {
   resizeThrottle?: number;
   containment?: HTMLElement;
   delayedCall?: boolean;
-  children?: React.ReactElement<any> | ChildFunction;
+  children?: React.ReactElement | ChildFunction;
 }
 
 declare const ReactVisibilitySensor: React.StatelessComponent<Props>;

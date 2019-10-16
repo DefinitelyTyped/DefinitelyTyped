@@ -29,6 +29,9 @@ router.post('/users', async (ctx) => {
         .isString()
         .eq(ctx.vals.password1, 'Passwords must match')
 
+    ctx.validateBody('age')
+        .gte(18, 'Must be 18 or older')
+
     console.log(ctx.vals)
 })
 

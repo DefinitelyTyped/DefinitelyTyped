@@ -1,5 +1,5 @@
 // Type definitions for Petit-Dom 0.2
-// Project: // https://github.com/yelouafi/petit-dom
+// Project: https://github.com/yelouafi/petit-dom
 // Definitions by: James Messinger <https://github.com/JamesMessinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -98,6 +98,7 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
+        content?: Content | ReadonlyArray<Content>;
         key?: Key;
     }
 
@@ -153,8 +154,8 @@ export namespace PetitDom {
         readonly props: P & IntrinsicProps;
     }
 
-    interface DomElements extends HTMLElementTagNameMap, SVGElementTagNameMap {
-        "main": HTMLMainElement;
+    interface DomElements extends HTMLElementTagNameMap, Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">> {
+        "main": HTMLElement;
     }
 }
 

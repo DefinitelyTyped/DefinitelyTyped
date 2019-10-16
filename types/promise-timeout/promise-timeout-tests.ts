@@ -7,4 +7,8 @@ acceptError(new TimeoutError());
 timeout();                       // $ExpectError
 timeout(new Promise(() => { })); // $ExpectError
 
-timeout(new Promise(() => { }), 1000); // $ExpectType Promise<{}>
+const top = (<T>(x?: T): T => x!)();
+type Top = typeof top;
+declare function expectPromiseTop(x: Promise<Top>): void;
+
+expectPromiseTop(timeout(new Promise(() => { }), 1000));

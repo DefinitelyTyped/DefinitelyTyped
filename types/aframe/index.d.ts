@@ -235,7 +235,6 @@ export interface Scene extends Entity {
 	behaviors: Behavior[];
 	camera: THREE.Camera;
 	canvas: HTMLCanvasElement;
-	effect: THREE.VREffect;
 	isMobile: boolean;
 	object3D: THREE.Scene;
 	renderer: THREE.WebGLRenderer;

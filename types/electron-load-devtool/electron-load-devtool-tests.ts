@@ -1,4 +1,4 @@
-import loadDevtool from 'electron-load-devtool';
+import loadDevtool = require('electron-load-devtool');
 
 loadDevtool(loadDevtool.REDUX_DEVTOOLS);
 loadDevtool(loadDevtool.EMBER_INSPECTOR);

@@ -1,5 +1,5 @@
 // Type definitions for commonjs-assert 1.4
-// Project: https://github.com/browserify/commonjs-assert
+// Project: https://github.com/browserify/commonjs-assert, https://github.com/defunctzombie/commonjs-assert
 // Definitions by: Nico Gallinal <https://github.com/nicoabie>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,9 @@ declare namespace assert {
 
     function deepEqual(actual: any, expected: any, message?: string): void;
 
-    function notDeepEqual(acutal: any, expected: any, message?: string): void;
+    function notDeepEqual(actual: any, expected: any, message?: string): void;
+
+    function deepStrictEqual(actual: any, expected: any, message?: string): void;
 
     function strictEqual(actual: any, expected: any, message?: string): void;
 

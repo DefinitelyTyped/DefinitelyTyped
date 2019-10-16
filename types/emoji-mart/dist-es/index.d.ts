@@ -3,20 +3,27 @@ export { default as frequently } from './utils/frequently';
 export { Data } from './utils/data';
 
 export {
-    PickerProps,
+    BackgroundImageFn,
+    CategoryName,
+    CustomIcons,
     EmojiProps,
+    EmojiSet,
+    EmojiSheetSize,
     I18n,
     PartialI18n,
-    CategoryName
+    PickerProps,
 } from './utils/shared-props';
 
+export { default as emojiIndex } from './utils/emoji-index/emoji-index';
+
 export {
-    emojiIndex,
-    nimbleEmojiIndex,
-    EmojiData,
+    BaseEmoji,
     CustomEmoji,
-    EmojiSkin
-} from './utils/emoji-index';
+    EmojiData,
+    EmojiEntry,
+    EmojiSkin,
+    default as NimbleEmojiIndex,
+} from './utils/emoji-index/nimble-emoji-index';
 
 export {
     Picker,
@@ -26,5 +33,5 @@ export {
     NimbleEmoji,
     NimbleEmojiProps,
     Category,
-    CategoryProps
+    CategoryProps,
 } from './components';

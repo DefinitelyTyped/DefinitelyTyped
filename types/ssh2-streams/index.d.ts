@@ -1686,23 +1686,17 @@ export interface Stats extends Attributes {
 }
 
 export namespace utils {
-    export function parseKey(keyData: string | Buffer): ParsedKey | Error;
-    export function genPublicKey(privKeyInfo: ParsedKey): ParsedKey;
-    export function decryptKey(privKeyInfo: ParsedKey, passphrase: string): void;
+    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | {}[];
 }
 
 export interface ParsedKey {
-    fulltype: string;
     type: string;
-    extra: string;
     comment: string;
-    encryption: string;
-    private: Buffer;
-    privateOrig: Buffer;
-    public: Buffer;
-    publicOrig: Buffer;
-    ppk?: boolean;
-    privateMAC?: string;
+    getPrivatePEM(): string;
+    getPublicPEM(): string;
+    getPublicSSH(): string;
+    sign(data: string | Buffer): Buffer | Error;
+    verify(data: string | Buffer, signature: Buffer): boolean | Error;
 }
 
 export interface ReadFileOptions {

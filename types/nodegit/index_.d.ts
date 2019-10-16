@@ -26,7 +26,7 @@ export class Index {
     static open(indexPath: string): Promise<Index>;
 
     add(sourceEntry: IndexEntry): number;
-    addAll(pathspec: Strarray | string | string[], flags: number, callback?: Function): Promise<number>;
+    addAll(pathspec?: Strarray | string | string[], flags?: number, callback?: Function): Promise<number>;
     addByPath(path: string): Promise<number>;
     caps(): number;
     checksum(): Oid;

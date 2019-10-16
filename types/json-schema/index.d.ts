@@ -1,5 +1,5 @@
 // Type definitions for json-schema 4.0, 6.0 and 7.0
-// Project: https://www.npmjs.com/package/json-schema
+// Project: https://github.com/kriszyp/json-schema
 // Definitions by: Boris Cherny <https://github.com/bcherny>
 //                 Cyrille Tuzi <https://github.com/cyrilletuzi>
 //                 Lucian Buzzo <https://github.com/lucianbuzzo>

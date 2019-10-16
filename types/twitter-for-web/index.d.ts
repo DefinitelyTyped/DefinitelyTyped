@@ -1,18 +1,26 @@
 // Type definitions for Twitter for Websites
 // Project: https://dev.twitter.com/web/
 // Definitions by: Chitoku <https://github.com/chitoku-k>
+//                 Lucretiel <https://github.com/Lucretiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * The interface for Twitter for Websites.
+ * The interface for Twitter for Websites, before with widgets.js script has
+ * loaded. Users should use `ready` to await the script.
  */
-interface Twitter {
+interface TwitterLike {
     /**
      * All JavaScript code depending on widgets.js should execute on or after this function.
      *
      * @param callback A callback function which will be invoked when widgets.js is ready.
      */
     ready(callback: (twttr: Twitter) => void): void;
+}
+
+/**
+ * The interface for Twitter for Websites.
+ */
+interface Twitter extends TwitterLike {
     /**
      * Twitter widgets.
      */
@@ -46,7 +54,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createShareButton(url: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createShareButton(
+        url: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a follow button for a user.
      *
@@ -54,7 +66,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createFollowButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createFollowButton(
+        screen_name: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a hashtag button for a hashtag.
      *
@@ -62,7 +78,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createHashtagButton(hashtag: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createHashtagButton(
+        hashtag: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a mention button for a user.
      *
@@ -70,7 +90,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createMentionButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createMentionButton(
+        screen_name: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a timeline widget.
      *
@@ -78,7 +102,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTimeline(widgetId: string, target: HTMLElement, options?: TwitterTimelineWidgetOptions): Promise<HTMLElement>;
+    createTimeline(
+        source: TwitterTimelineWidgetDataSource,
+        target: HTMLElement,
+        options?: TwitterTimelineWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create an embedded Tweet for a Tweet.
      *
@@ -86,7 +114,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTweet(tweetId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): Promise<HTMLElement>;
+    createTweet(
+        tweetId: string,
+        target: HTMLElement,
+        options?: TwitterTweetWidgetOptions
+    ): Promise<HTMLElement>;
 }
 
 /**
@@ -122,7 +154,7 @@ interface TwitterButtonWidgetOptions extends TwitterWidgetOptions {
     /**
      * The alignment of the button within an iframe; use this to ensure flush layout when aligning buttons against opposite edges of your grid.
      */
-    align?: string;
+    align?: "left" | "right";
     /**
      * Share button and Follow button only. (Vertical count only available for share buttons.)
      */
@@ -134,7 +166,7 @@ interface TwitterButtonWidgetOptions extends TwitterWidgetOptions {
     /**
      * medium or large
      */
-    size?: string;
+    size?: "medium" | "large";
     /**
      * The default, highlighted text a user sees in the Tweet Web Intent.
      */
@@ -152,15 +184,15 @@ interface TwitterTweetWidgetOptions extends TwitterWidgetOptions {
     /**
      * For Tweets that are replies, the previous Tweet in the thread will be displayed by default. Use none to hide the thread and show a Tweet alone.
      */
-    conversation?: string;
+    conversation?: "none" | "all";
     /**
      * Toggle whether to render expanded media through Twitter Cards in Tweets. Also applies to images uploaded to Twitter.
      */
-    cards?: string;
+    cards?: "hidden" | "visible";
     /**
      * Fix the width of the embedded widget.
      */
-    width?: string|number;
+    width?: number | "auto";
     /**
      * Adjust the color of links inside the widget.
      */
@@ -168,21 +200,72 @@ interface TwitterTweetWidgetOptions extends TwitterWidgetOptions {
     /**
      * Toggle the default colorscheme of the widget.
      */
-    theme?: string;
+    theme?: "dark" | "light";
 }
 
+type TwitterTimelineWidgetProfileDataSource = {
+    sourceType: "profile";
+    screenName: string;
+} | {
+    sourceType: "profile";
+    userId: string;
+};
+
+type TwitterTimelineWidgetLikesDataSource = {
+    sourceType: "likes";
+    screenName: string;
+} | {
+    sourceType: "likes";
+    userId: string;
+};
+
+type TwitterTimelineWidgetListDataSource = {
+    sourceType: "list";
+    ownerScreenName: string;
+    slug: string;
+} | {
+    sourceType: "list";
+    id: string;
+};
+
+interface TwitterTimelineWidgetCollectionDataSource {
+    sourceType: "collection";
+    id: string;
+}
+
+interface TwitterTimelineWidgetUrlDataSource {
+    sourceType: "url";
+    url: string;
+}
+
+type TwitterTimelineWidgetDataSource = (
+    TwitterTimelineWidgetProfileDataSource |
+    TwitterTimelineWidgetLikesDataSource |
+    TwitterTimelineWidgetListDataSource |
+    TwitterTimelineWidgetCollectionDataSource |
+    TwitterTimelineWidgetUrlDataSource |
+    string
+);
+
+/**
+ * Base type for TwitterTimelineWidgetOptions. TwitterTimelineWidgetOptions can
+ * use all options of tweet widgets and button widgets
+ */
+type TwitterTimelineWidgetBaseOptions = TwitterTweetWidgetOptions &
+    TwitterButtonWidgetOptions;
 /**
  * The interface for additional options for embedded Timelines.
  */
-interface TwitterTimelineWidgetOptions extends TwitterWidgetOptions, TwitterButtonWidgetOptions, TwitterTweetWidgetOptions {
+type TwitterTimelineWidgetOptions = TwitterTimelineWidgetBaseOptions & {
     /**
      * Apply the specified aria-polite behavior to the rendered timeline.
      */
-    ariaPolite?: string;
+    ariaPolite?: "polite" | "assertive" | "rude";
     /**
      * Fix the height of the embedded widget.
      */
-    height?: string|number;
+    height?: number;
+
     /**
      * Adjust the color of borders inside the widget.
      */
@@ -195,43 +278,12 @@ interface TwitterTimelineWidgetOptions extends TwitterWidgetOptions, TwitterButt
      * Render a timeline statically, displaying only n number of Tweets.
      */
     tweetLimit?: number;
+
     /**
-     * Override the timeline source with this user’s Tweets.
-     */
-    screenName?: string;
-    /**
-     * Override the timeline source with this user’s Tweets.
-     */
-    userId?: string;
-    /**
-     * When overriding a user timeline, include Tweets that are in reply to to other users.
+     * Show Tweets in response to another Tweet or account
      */
     showReplies?: boolean;
-    /**
-     * Override the timeline source with favourite Tweets from this user.
-     */
-    favoritesScreenName?: string;
-    /**
-     * Override the timeline source with favourite Tweets from this user.
-     */
-    favoritesUserId?: string;
-    /**
-     * Override the timeline source with Tweets from a list owned by this user. Must be used in combination with listId or listSlug.
-     */
-    listOwnerScreenName?: string;
-    /**
-     * Override the timeline source with Tweets from a list owned by this user. Must be used in combination with listId or listSlug.
-     */
-    listOwnerId?: string;
-    /**
-     * Override the timeline source with Tweets from this list. Must be used in combination with listOwnerId or listOwnerScreenName.
-     */
-    listId?: string;
-    /**
-     * Override the timeline source with Tweets from this list. Must be used in combination with listOwnerId or listOwnerScreenName.
-     */
-    listSlug?: string;
-}
+};
 
 /**
  * The interface for Twitter events.
@@ -339,4 +391,4 @@ interface TwitterIntentEventData {
     user_id?: string;
 }
 
-declare var twttr: Twitter;
+declare var twttr: TwitterLike;

@@ -17,18 +17,18 @@ import {
 
 export function typeOf(value: any): symbol | undefined;
 export function isValidElementType(value: any): value is ReactType;
-export function isAsyncMode(value: any): value is ReactElement<any>;
-export function isContextConsumer(value: any): value is ReactElement<any>;
-export function isContextProvider(value: any): value is ReactElement<any>;
-export function isElement(value: any): value is ReactElement<any>;
-export function isForwardRef(value: any): value is ReactElement<any>;
-export function isFragment(value: any): value is ReactElement<any>;
+export function isAsyncMode(value: any): value is ReactElement;
+export function isContextConsumer(value: any): value is ReactElement;
+export function isContextProvider(value: any): value is ReactElement;
+export function isElement(value: any): value is ReactElement;
+export function isForwardRef(value: any): value is ReactElement;
+export function isFragment(value: any): value is ReactElement;
 export function isLazy(value: any): value is LazyExoticComponent<any>;
 export function isMemo(value: any): value is MemoExoticComponent<any>;
-export function isProfiler(value: any): value is ReactElement<any>;
-export function isPortal(value: any): value is ReactElement<any>;
-export function isStrictMode(value: any): value is ReactElement<any>;
-export function isSuspense(value: any): value is ReactElement<any>;
+export function isProfiler(value: any): value is ReactElement;
+export function isPortal(value: any): value is ReactElement;
+export function isStrictMode(value: any): value is ReactElement;
+export function isSuspense(value: any): value is ReactElement;
 
 export const AsyncMode: symbol;
 export const ContextConsumer: symbol;

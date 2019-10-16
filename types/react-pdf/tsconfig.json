@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "dist/Document.d.ts",
+        "dist/Outline.d.ts",
+        "dist/Page.d.ts",
+        "dist/entry.parcel.d.ts",
+        "dist/entry.webpack.d.ts",
+        "react-pdf-tests.tsx"
+    ]
+}

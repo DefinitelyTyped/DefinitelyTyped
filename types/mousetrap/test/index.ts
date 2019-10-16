@@ -1,8 +1,9 @@
 /// <reference types="jquery"/>
 
-Mousetrap.bind('4', function() { console.log('4'); });
-Mousetrap.bind("?", function() { console.log('show shortcuts!'); });
-Mousetrap.bind('esc', function() { console.log('escape'); }, 'keyup');
+Mousetrap
+    .bind('4', function() { console.log('4'); })
+    .bind("?", function() { console.log('show shortcuts!'); })
+    .bind('esc', function() { console.log('escape'); }, 'keyup');
 
 // combinations
 Mousetrap.bind('command+shift+K', function() { console.log('command shift k'); });
@@ -61,6 +62,8 @@ Mousetrap(element).bind('mod+s', function(){ console.log('Factory Saved'); });
 // Test that union types are accepted.
 const unionTypeKeys: string | string[] = ['a', 'b', 'c'];
 Mousetrap(element).bind(unionTypeKeys, function() { console.log('Union type test') });
+
+Mousetrap(element).handleKey = (character: string, modifiers: string[], e: KeyboardEvent) => { console.log('Override handleKey test') };
 
 // Test that Mousetrap can be loaded as an external module.
 // Assume that if the externally-loaded module can be assigned to a variable with the type of global Mousetrap,

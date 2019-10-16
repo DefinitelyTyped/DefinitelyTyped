@@ -12,7 +12,11 @@ declare namespace redisStore {
         duplicate?: boolean;
         client?: any;
     }
+
+    interface RedisSessionStore extends SessionStore {
+        client: any;
+    }
 }
 
-declare function redisStore(options: redisStore.RedisOptions): SessionStore;
+declare function redisStore(options: redisStore.RedisOptions): redisStore.RedisSessionStore;
 export = redisStore;

@@ -31,6 +31,8 @@
 //                 Fellipe Chagas <https://github.com/chagasaway>
 //                 Deniss Borisovs <https://github.com/denissb>
 //                 Kenneth Skovhus <https://github.com/skovhus>
+//                 Aaron Rosen <https://github.com/azrosen92>
+//                 Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -427,24 +429,24 @@ export interface NavigationSwitchRouterConfig {
 export interface NavigationStackScreenOptions {
   title?: string;
   header?:
-  | React.ReactElement<any>
-  | ((headerProps: HeaderProps) => React.ReactElement<any>)
+  | React.ReactElement
+  | ((headerProps: HeaderProps) => React.ReactElement)
   | null;
   headerTransparent?: boolean;
-  headerTitle?: string | React.ReactElement<any>;
+  headerTitle?: string | React.ReactElement;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTitleAllowFontScaling?: boolean;
   headerTintColor?: string;
   headerLeft?:
-  | React.ReactElement<any>
-  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement<any>)
+  | React.ReactElement
+  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement)
   | null;
   headerBackTitle?: string | null;
-  headerBackImage?: React.ReactElement<any>;
+  headerBackImage?: React.ReactElement;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any> | null;
+  headerRight?: React.ReactElement | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
   headerBackground?: React.ReactNode | React.ReactType;
@@ -539,16 +541,16 @@ export interface TabScene {
 interface NavigationTabScreenOptionsBase {
   title?: string;
   tabBarIcon?:
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean; horizontal: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   tabBarLabel?:
   | string
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | string | null);
+  ) => React.ReactElement | string | null);
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string; accessibilityLabel?: string };
 }
@@ -578,16 +580,16 @@ export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   drawerLabel?:
   | string
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   drawerLockMode?: DrawerLockMode;
 }
 
@@ -623,7 +625,7 @@ export interface NavigationEventSubscription {
 }
 
 export interface NavigationEventsProps extends ViewProps {
-  navigation?: NavigationNavigator;
+  navigation?: NavigationScreenProp<NavigationRoute>;
   onWillFocus?: NavigationEventCallback;
   onDidFocus?: NavigationEventCallback;
   onWillBlur?: NavigationEventCallback;
@@ -660,7 +662,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   getParam<T extends keyof P>(param: T): P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
+    eventName: EventType,
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -804,7 +806,7 @@ export type NavigationAnimationSetter = (
   lastState: NavigationState
 ) => void;
 
-export type NavigationSceneRenderer = () => React.ReactElement<any> | null;
+export type NavigationSceneRenderer = () => React.ReactElement | null;
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
@@ -870,10 +872,6 @@ export interface StackNavigatorConfig
 }
 
 // Return createNavigationContainer
-export function StackNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  stackConfig?: StackNavigatorConfig
-): NavigationContainer;
 
 export function createStackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -889,11 +887,6 @@ export interface SwitchNavigatorConfig {
 
 // Return createNavigationContainer
 export type _SwitchNavigatorConfig = NavigationSwitchRouterConfig;
-
-export function SwitchNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  switchConfig?: SwitchNavigatorConfig
-): NavigationContainer;
 
 export function createSwitchNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -921,6 +914,7 @@ export interface DrawerItemsProps {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
+  screenProps?: any;
 }
 export interface DrawerScene {
   route: NavigationRoute;
@@ -959,11 +953,6 @@ export interface DrawerNavigatorConfig
   drawerLockMode?: DrawerLockMode;
 }
 
-export function DrawerNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawerConfig?: DrawerNavigatorConfig
-): NavigationContainer;
-
 export function createDrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   drawerConfig?: DrawerNavigatorConfig
@@ -983,6 +972,7 @@ export interface TabViewConfig {
     activeBackgroundColor?: string;
     inactiveTintColor?: string;
     inactiveBackgroundColor?: string;
+    keyboardHidesTabBar?: boolean;
     showLabel?: boolean;
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
@@ -1013,20 +1003,12 @@ export interface BottomTabNavigatorConfig
   extends NavigationBottomTabRouterConfig,
   TabViewConfig {
   lazy?: boolean;
+  resetOnBlur?: boolean;
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }
 
 // From navigators/TabNavigator.js
-export function TabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
-
-export function createTabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -1061,7 +1043,7 @@ export interface TabBarTopProps {
         jumpToIndex: (index: number) => void;
       }
     ) => void;
-  renderIcon: (scene: TabScene) => React.ReactElement<any>;
+  renderIcon: (scene: TabScene) => React.ReactElement;
   labelStyle?: TextStyle;
   iconStyle?: ViewStyle;
 }
@@ -1367,3 +1349,5 @@ export interface SafeAreaViewProps extends ViewProps {
 }
 
 export const SafeAreaView: React.ComponentClass<SafeAreaViewProps>;
+
+export const NavigationContext: React.Context<NavigationScreenProp<NavigationRoute>>;

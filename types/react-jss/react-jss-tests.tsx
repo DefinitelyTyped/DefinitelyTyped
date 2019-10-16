@@ -77,7 +77,7 @@ const App = () => (
 );
 
 function ssrRender(req: any, res: { send: (text: string) => any }) {
-  const mockedRenderToString = (e: React.ReactElement<any>) => `${e}`;
+  const mockedRenderToString = (e: React.ReactElement) => `${e}`;
   const sheets = new SheetsRegistry();
 
   const body = mockedRenderToString(

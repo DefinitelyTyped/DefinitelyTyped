@@ -16,9 +16,9 @@ export interface Timezone {
 	countries: string[];
 }
 
-export function getAllCountries(): Country[];
+export function getAllCountries(): {[key: string]: Country};
 
-export function getAllTimezones(): Timezone[];
+export function getAllTimezones(): {[key: string]: Timezone};
 
 export function getCountriesForTimezone(timezoneId: string): Country[];
 

@@ -1,17 +1,19 @@
-// Type definitions for UI Events W3C Working Draft — Input Events — Interface InputEvent 1.0
+// Type definitions for non-npm package UI Events W3C Working Draft — Input Events — Interface InputEvent 1.0
 // Project: https://w3c.github.io/uievents/#interface-inputevent
 // Definitions by: Steven Sinatra <https://github.com/diagramatics>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface InputEventInit extends UIEventInit {
-    data?: string;
-    isComposing: boolean;
+    data?: string | null;
+    isComposing?: boolean;
 }
 
 // tslint:disable-next-line no-empty-interface
-interface InputEvent extends UIEvent {}
-declare class InputEvent {
-    constructor(typeArg: 'input' | 'beforeinput', inputEventInit?: InputEventInit);
-    readonly data: string;
+interface InputEvent extends UIEvent {
+    readonly data: string | null;
     readonly isComposing: boolean;
 }
+declare var InputEvent: {
+    prototype: InputEvent;
+    new(type: string, eventInitDict?: InputEventInit): InputEvent;
+};

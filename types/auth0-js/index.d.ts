@@ -1,8 +1,10 @@
-// Type definitions for Auth0.js 8.11
+// Type definitions for Auth0.js 9.10
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
+//                 Bartosz Kotrys <https://github.com/bkotrys>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -521,6 +523,7 @@ export interface AuthOptions {
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
+    __tryLocalStorageFirst?: boolean;
 }
 
 export interface PasswordlessAuthOptions {
@@ -568,7 +571,9 @@ export type SpecErrorCodes =
 
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
-    errorDescription: string;
+    errorDescription?: string;
+    // Auth0 is not consistent in the naming of the error description field
+    error_description?: string;
     // Need to include non-intuitive error fields that Auth0 uses
     code?: string;
     description?: string;
@@ -611,7 +616,6 @@ export interface Auth0DelegationToken {
 export interface ChangePasswordOptions {
     connection: string;
     email: string;
-    password?: string;
 }
 
 export interface PasswordlessStartOptions {
@@ -703,6 +707,15 @@ export interface CrossOriginLoginOptions {
     email?: string;
     password: string;
     realm?: string;
+    domain?: string;
+    clientID?: string;
+    redirectUri?: string;
+    responseType?: string;
+    responseMode?: string;
+    state?: string;
+    nonce?: string;
+    scope?: string;
+    audience?: string;
 }
 
 export interface LogoutOptions {
@@ -725,6 +738,8 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
+    username?: string;
     scope?: string;
     user_metadata?: any;
 }
@@ -734,6 +749,8 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
+    /** indicates that you want to allow IdP-Initiated flows. See {@link https://auth0.com/docs/protocols/saml/idp-initiated-sso#lock-auth0-js} */
+    __enableIdPInitiatedLogin?: boolean;
 }
 
 export interface RenewAuthOptions {
@@ -822,6 +839,7 @@ export interface AuthorizeOptions {
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
+    appState?: any;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

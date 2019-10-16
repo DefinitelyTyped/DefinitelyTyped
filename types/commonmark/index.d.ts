@@ -1,5 +1,5 @@
 // Type definitions for commonmark.js 0.27
-// Project: https://github.com/jgm/commonmark.js
+// Project: https://github.com/jgm/commonmark.js, http://commonmark.org
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -216,6 +216,12 @@ export interface HtmlRenderingOptions extends XmlRenderingOptions {
      *  if true, source position information for block-level elements will be rendered in the data-sourcepos attribute (for HTML) or the sourcepos attribute (for XML).
      */
     sourcepos?: boolean;
+
+    /**
+     * A raw string to be used for a softbreak.
+     * For example, `{ softbreak: "<br/>" }` treats a softbreak as `<br/>`.
+     */
+    softbreak?: string;
 }
 
 export interface XmlRenderingOptions {

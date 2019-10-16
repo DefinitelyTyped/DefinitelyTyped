@@ -16,7 +16,7 @@ const parentBehavior = Behavior({
 		}
 	},
 	data: {
-		myParentBehaviorData: "",
+		myParentBehaviorData: ""
 	},
 	methods: {
 		myParentBehaviorMethod(input: number) {
@@ -25,8 +25,55 @@ const parentBehavior = Behavior({
 	}
 });
 
+function createBehaviorWithUnionTypes(n: number) {
+	const properties =
+		n % 2 < 1
+			? {
+					unionPropA: {
+						type: String
+					}
+			  }
+			: {
+					unionPropB: {
+						type: Number
+					}
+			  };
+
+	const data =
+		n % 4 < 2
+			? {
+					unionDataA: "a"
+			  }
+			: {
+					unionDataB: 1
+			  };
+
+	const methods =
+		n % 8 < 4
+			? {
+					unionMethodA(a: number) {
+						return n + 1;
+					}
+			  }
+			: {
+					unionMethodB(a: string) {
+						return { value: a };
+					}
+			  };
+
+	return Behavior({
+		properties,
+		data,
+		methods
+	});
+}
+
 const behavior = Behavior({
-	behaviors: [parentBehavior, "wx://form-field"],
+	behaviors: [
+		createBehaviorWithUnionTypes(1),
+		parentBehavior,
+		"wx://form-field"
+	],
 	properties: {
 		myBehaviorProperty: {
 			type: String
@@ -126,6 +173,20 @@ Component({
 			console.log(this.data.myParentBehaviorData);
 			console.log(this.data.myParentBehaviorProperty);
 			this.myParentBehaviorMethod(456);
+			if (this.unionMethodA) {
+				console.log(this.unionMethodA(5));
+			}
+			if (this.unionMethodB) {
+				console.log(this.unionMethodB("test").value);
+			}
+			console.log(this.data.unionDataA);
+			console.log(this.data.unionDataB);
+			console.log(this.data.unionPropA);
+			console.log(this.data.unionPropB);
+			console.log(this.properties.unionDataA);
+			console.log(this.properties.unionDataB);
+			console.log(this.properties.unionPropA);
+			console.log(this.properties.unionPropB);
 		},
 		readMyDataAndMyProps() {
 			const stringValue1: string = this.data.myProperty;
@@ -514,5 +575,28 @@ App({
 		manager.onUpdateFailed(({ errMsg }) => {
 			console.warn("update failed", errMsg);
 		});
+	}
+});
+
+Component({
+	observers: {
+		"name, age": function nameAgeObserver(name: string, age: number) {
+			this.setData({
+				nameStr: `Dear ${name}`,
+				ageStr: `${age}`
+			});
+		}
+	},
+	properties: {
+		name: {
+			type: String
+		},
+		age: {
+			type: Number
+		}
+	},
+	data: {
+		nameStr: "",
+		ageStr: ""
 	}
 });

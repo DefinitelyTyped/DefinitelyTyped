@@ -73,4 +73,4 @@ declare namespace LM {
 /** Implementation of the Levenberg-Marquardt curve fitting method. */
 declare function LM(d: LM.Data, fn: LM.FittedFunction, o?: Partial<LM.Options>): LM.Result;
 
-export default LM;
+export = LM;

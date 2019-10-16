@@ -105,10 +105,8 @@ const greeting = i18n.__('Hello');
  * https://github.com/mashpie/i18n-node#example-usage-in-expressjs
  */
 // Configuration
-app.configure(() => {
-    // default: using 'accept-language' header to guess language settings
-    app.use(i18n.init);
-});
+// default: using 'accept-language' header to guess language settings
+app.use(i18n.init);
 
 app.get('/de', (_req: Express.Request, res: Express.Response) => {
     const greeting = res.__('Hello');
@@ -137,6 +135,16 @@ i18n.__({ phrase: 'Hello {{name}}', locale: 'fr' }, { name: 'Marcus' }); // Salu
  * __n()
  * https://github.com/mashpie/i18n-node#__n
  */
+// short syntax
+// global (this.locale == 'de')
+i18n.__n("%s cat", 1); // 1 Katze
+i18n.__n("%s cat", 3); // 3 Katzen
+
+// scoped via req object (req.locale == 'de')
+req.__n("%s cat", 1); // 1 Katze
+req.__n("%s cat", 3); // 3 Katzen
+
+// long syntax
 // global (this.locale == 'de')
 i18n.__n("%s cat", "%s cats", 1); // 1 Katze
 i18n.__n("%s cat", "%s cats", 3); // 3 Katzen

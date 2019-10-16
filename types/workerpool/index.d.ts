@@ -1,6 +1,7 @@
-// Type definitions for workerpool 2.3
+// Type definitions for workerpool 5.0
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
+//                 Seulgi Kim <https://github.com/sgkim126>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -65,7 +66,7 @@ export class Promise<T, E = Error> {
     cancel(): this;
     timeout(delay: number): this;
 
-    static all(promises: Array<Promise<any, any>>): Array<Promise<any, any>>;
+    static all(promises: Array<Promise<any, any>>): Promise<any[], any>;
 }
 
 export namespace Promise {
@@ -91,6 +92,24 @@ export interface WorkerPoolOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number;
+    /**
+     * In case of 'process' (default), child_process will be used.
+     * In case of 'thread', worker_threads will be used. If worker_threads are not available, an error is thrown.
+     * In case of 'auto', worker_threads will be used if available (Node.js >= 11.7.0), else child_process will be used as fallback.
+     * @deprecated
+     */
+    nodeWorker?: 'process' | 'thread' | 'auto';
+
+    /**
+     * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
+     *   when in a browser environment, `'web'` will be used. When in a node.js environment, `worker_threads` will be used
+     *   if available (Node.js >= 11.7.0), else `child_process` will be used.
+     * - In case of `'web'`, a Web Worker will be used. Only available in a browser environment.
+     * - In case of `'process'`, `child_process` will be used. Only available in a node.js environment.
+     * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
+     *   Only available in a node.js environment.
+     */
+    workerType?: 'auto' | 'web' | 'process' | 'thread';
 
     /** 2nd argument to pass to childProcess.fork() */
     forkArgs?: string[];
@@ -99,9 +118,11 @@ export interface WorkerPoolOptions {
 }
 
 /**
- * When a script argument is provided, the provided script will be started as a dedicated worker.
- * When no script argument is provided, a default worker is started which can be used to offload functions dynamically via Pool.exec.
- * Note that on node.js, script must be an absolute file path like __dirname + '/myWorker.js'.
+ * When a `script` argument is provided, the provided script will be started as a dedicated worker.
+ * When no `script` argument is provided, a default worker is started which can be used to offload functions dynamically via `Pool.exec`.
+ * Note that on node.js, `script` must be an absolute file path like `__dirname + '/myWorker.js'`.
+ * In a browser environment, `script` can also be a data URL like `'data:application/javascript;base64,...'`.
+ * This allows embedding the bundled code of a worker in your main application. See `examples/embeddedWorker` for a demo.
  */
 export function pool(pathToScript?: string, options?: WorkerPoolOptions): WorkerPool;
 

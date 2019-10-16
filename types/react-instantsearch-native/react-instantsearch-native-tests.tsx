@@ -5,8 +5,42 @@ import { InstantSearch, Index, connectStateResults } from 'react-instantsearch-n
 import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-const App = () => (
+const App1 = () => (
   <InstantSearch appId="" apiKey="" indexName="first">
+    <SearchBox />
+    <AllResults>
+      <div>
+        <Index indexName="first">
+          <IndexResults>
+            <div>
+              <div>first: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+        <Index indexName="second">
+          <IndexResults>
+            <div>
+              <div>second: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+        <Index indexName="third">
+          <IndexResults>
+            <div>
+              <div>third: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+      </div>
+    </AllResults>
+  </InstantSearch>
+);
+
+const App2 = () => (
+  <InstantSearch searchClient={{}} indexName="first">
     <SearchBox />
     <AllResults>
       <div>
@@ -42,7 +76,7 @@ const App = () => (
 const IndexResults = connectStateResults(
   ({ searchState, searchResults, children }) =>
     searchResults && searchResults.nbHits !== 0 ? (
-      children as React.ReactElement<any>
+      children as React.ReactElement
     ) : (
       <div>
         No results has been found for {searchState.query} and index{' '}
@@ -64,6 +98,6 @@ const AllResults = connectStateResults(({ allSearchResults, children }) => {
       <Index indexName="third" />
     </div>
   ) : (
-    children as React.ReactElement<any>
+    children as React.ReactElement
   );
 });

@@ -16,8 +16,14 @@ import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
 
-type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
-type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+/**
+  The keys from the actual Model class, removing all the keys which come from
+  the base class.
+ */
+type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
+
+type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
+type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
 
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
@@ -49,9 +55,9 @@ export namespace DS {
      */
     function errorsArrayToHash(errors: any[]): {};
 
-    interface RelationshipOptions<Model> {
+    interface RelationshipOptions<M extends Model> {
         async?: boolean;
-        inverse?: RelationshipsFor<Model> | null;
+        inverse?: RelationshipsFor<M> | null;
         polymorphic?: boolean;
     }
 
@@ -457,12 +463,12 @@ export namespace DS {
          * Create a JSON representation of the record, using the serialization
          * strategy of the store's adapter.
          */
-        serialize(options?: { includeId?: boolean }): {};
+        serialize(options?: { includeId?: boolean }): object;
         /**
          * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
          * get the JSON representation of a record.
          */
-        toJSON(options: {}): {};
+        toJSON(options?: { includeId?: boolean }): object;
         /**
          * Fired when the record is ready to be interacted with,
          * that is either loaded from the server or created locally.
@@ -502,15 +508,15 @@ export namespace DS {
          * method if you want to allow the user to still `rollbackAttributes()`
          * after a delete was made.
          */
-        deleteRecord(): any;
+        deleteRecord(): void;
         /**
          * Same as `deleteRecord`, but saves the record immediately.
          */
-        destroyRecord(options?: {}): RSVP.Promise<any>;
+        destroyRecord(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
          */
-        unloadRecord(): any;
+        unloadRecord(): void;
         /**
          * Returns an object, whose keys are changed properties, and value is
          * an [oldProp, newProp] array.
@@ -520,16 +526,16 @@ export namespace DS {
          * If the model `hasDirtyAttributes` this function will discard any unsaved
          * changes. If the model `isNew` it will be removed from the store.
          */
-        rollbackAttributes(): any;
+        rollbackAttributes(): void;
         /**
          * Save the record and persist any changes to the record to an
          * external source via the adapter.
          */
-        save(options?: {}): RSVP.Promise<this>;
+        save(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Reload the record from the adapter.
          */
-        reload(): RSVP.Promise<any>;
+        reload(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Get the reference for the specified belongsTo relationship.
          */
@@ -543,10 +549,11 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(
-            callback: (name: string, details: RelationshipMeta<this>) => void,
+        eachRelationship<T extends Model>(
+            this: T,
+            callback: (name: string, details: RelationshipMeta<T>) => void,
             binding?: any
-        ): any;
+        ): void;
         /**
          * Represents the model's class name as a string. This can be used to look up the model's class name through
          * `DS.Store`'s modelFor method.
@@ -604,14 +611,14 @@ export namespace DS {
         static eachRelationship<M extends Model = Model>(
             callback: (name: string, details: RelationshipMeta<M>) => void,
             binding?: any
-        ): any;
+        ): void;
         /**
          * Given a callback, iterates over each of the types related to a model,
          * invoking the callback with the related type's class. Each type will be
          * returned just once, regardless of how many different relationships it has
          * with a model.
          */
-        static eachRelatedType(callback: Function, binding: any): any;
+        static eachRelatedType(callback: (name: string) => void, binding?: any): void;
         /**
          * A map whose keys are the attributes of the model (properties
          * described by DS.attr) and whose values are the meta object for the
@@ -629,26 +636,27 @@ export namespace DS {
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
          */
-        static eachAttribute(callback: Function, binding: {}): any;
+        static eachAttribute<Class extends typeof Model, M extends InstanceType<Class>>(
+            this: Class,
+            callback: (
+                name: ModelKeys<M>,
+                meta: AttributeMeta<M>
+            ) => void,
+            binding?: any
+        ): void;
         /**
          * Iterates through the transformedAttributes of the model, calling
          * the passed function on each attribute. Note the callback will not be
          * called for any attributes that do not have an transformation type.
          */
-        static eachTransformedAttribute(callback: Function, binding: {}): any;
-        /**
-         * Discards any unsaved changes to the given attribute. This feature is not enabled by default. You must enable `ds-rollback-attribute` and be running a canary build.
-         */
-        rollbackAttribute(): any;
-        /**
-         * This Ember.js hook allows an object to be notified when a property
-         * is defined.
-         */
-        didDefineProperty(
-            proto: {},
-            key: string,
-            value: Ember.ComputedProperty<any>
-        ): any;
+        static eachTransformedAttribute<Class extends typeof Model>(
+            this: Class,
+            callback: (
+                name: ModelKeys<InstanceType<Class>>,
+                type: keyof TransformRegistry
+            ) => void,
+            binding?: any
+        ): void;
     }
     /**
      * ### State
@@ -699,7 +707,7 @@ export namespace DS {
          * Used to get the latest version of all of the records in this array
          * from the adapter.
          */
-        update(): any;
+        update(): PromiseArray<T>;
         /**
          * Saves all of the records in the `RecordArray`.
          */
@@ -781,7 +789,7 @@ export namespace DS {
         /**
          * `ids()` returns an array of the record ids in this relationship.
          */
-        ids(): any[];
+        ids(): string[];
         /**
          * The meta data for the has-many relationship.
          */
@@ -901,8 +909,8 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T>
-        extends ObjectProxy,
+    interface PromiseObject<T extends object>
+        extends ObjectProxy<T>,
             PromiseProxyMixin<T & ObjectProxy> {}
     class PromiseObject<T> {}
     /**
@@ -947,7 +955,7 @@ export namespace DS {
         /**
          * Get snapshots of the underlying record array
          */
-        snapshots(): any[];
+        snapshots(): Snapshot[];
     }
     class Snapshot<K extends keyof ModelRegistry = any> {
         /**
@@ -993,14 +1001,19 @@ export namespace DS {
         belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: {}
-        ): Snapshot<K>['record'][L] | string | null | undefined;
+        ): Snapshot | null | undefined;
+        belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
+            keyName: L,
+            options: { id: true }
+        ): string | null | undefined;
+
         /**
          * Returns the current value of a hasMany relationship.
          */
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: { ids: false }
-        ): Array<Snapshot<K>['record'][L]> | undefined;
+        ): Snapshot[] | undefined;
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options: { ids: true }
@@ -1010,21 +1023,21 @@ export namespace DS {
          * function on each attribute.
          */
         eachAttribute<M extends ModelRegistry[K]>(
-            callback: (key: keyof M, meta: AttributeMeta<M>) => void,
+            callback: (key: ModelKeys<M>, meta: AttributeMeta<M>) => void,
             binding?: {}
-        ): any;
+        ): void;
         /**
          * Iterates through all the relationships of the model, calling the passed
          * function on each relationship.
          */
         eachRelationship<M extends ModelRegistry[K]>(
-            callback: (key: keyof M, meta: RelationshipMeta<M>) => void,
+            callback: (key: ModelKeys<M>, meta: RelationshipMeta<M>) => void,
             binding?: {}
-        ): any;
+        ): void;
         /**
          * Serializes the snapshot using the serializer for the model.
          */
-        serialize(options: {}): {};
+        serialize<O extends object>(options: O): object;
     }
 
     /**
@@ -1094,7 +1107,8 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             modelName: K,
-            query: any
+            query: object,
+            options?: { adapterOptions?: object }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
             PromiseArray<ModelRegistry[K]>;
         /**
@@ -1104,7 +1118,8 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             modelName: K,
-            query: any
+            query: object,
+            options?: { adapterOptions?: object }
         ): RSVP.Promise<ModelRegistry[K]>;
         /**
          * `findAll` asks the adapter's `findAll` method to find the records for the

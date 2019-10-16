@@ -517,14 +517,14 @@ export function generate(ast: CssNode, options?: GenerateOptions): string;
 
 export interface WalkContext {
     root: CssNode;
-    stylesheet: StyleSheet;
-    atrule: Atrule;
-    atrulePrelude: AtrulePrelude;
-    rule: Rule;
-    selector: SelectorList;
-    block: Block;
-    declaration: Declaration;
-    function: FunctionNode | PseudoClassSelector | PseudoElementSelector;
+    stylesheet: StyleSheet | null;
+    atrule: Atrule | null;
+    atrulePrelude: AtrulePrelude | null;
+    rule: Rule | null;
+    selector: SelectorList | null;
+    block: Block | null;
+    declaration: Declaration | null;
+    function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
 }
 
 export type EnterOrLeaveFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => void;

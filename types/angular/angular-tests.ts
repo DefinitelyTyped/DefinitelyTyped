@@ -294,6 +294,14 @@ foo.then((x) => {
     x.toFixed();
 });
 
+namespace TestPromiseInterop {
+    declare const promiseInterop: ng.IPromise<number>;
+    const ngStringPromise: ng.IPromise<string> =
+        promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string|number> =
+        promiseInterop.catch((reason) => Promise.resolve('oh noes'));
+}
+
 // $q signature tests
 namespace TestQ {
     interface AbcObject {
@@ -777,6 +785,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {

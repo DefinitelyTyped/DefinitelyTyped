@@ -1,23 +1,29 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "prettier-tests.ts"
+        "prettier-tests.ts",
+        "parser-angular.d.ts",
+        "parser-babylon.d.ts",
+        "parser-flow.d.ts",
+        "parser-graphql.d.ts",
+        "parser-html.d.ts",
+        "parser-markdown.d.ts",
+        "parser-postcss.d.ts",
+        "parser-typescript.d.ts",
+        "parser-yaml.d.ts",
+        "standalone.d.ts"
     ]
 }

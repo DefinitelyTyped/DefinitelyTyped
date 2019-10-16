@@ -2,8 +2,10 @@
 // Project: https://github.com/jpuri/react-draft-wysiwyg#readme
 // Definitions by: imechZhangLY <https://github.com/imechZhangLY>
 //                 brunoMaurice <https://github.com/brunoMaurice>
+//                 ldanet <https://github.com/ldanet>
+//                 Munif Tanjim <https://github.com/MunifTanjim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as Draft from 'draft-js';
@@ -18,9 +20,9 @@ export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
 
 export interface EditorProps {
-    onChange?(contentState: ContentState): RawDraftContentState;
+    onChange?(contentState: RawDraftContentState): void;
     onEditorStateChange?(editorState: EditorState): void;
-    onContentStateChange?(contentState: ContentState): RawDraftContentState;
+    onContentStateChange?(contentState: RawDraftContentState): void;
     initialContentState?: RawDraftContentState;
     defaultContentState?: RawDraftContentState;
     contentState?: RawDraftContentState;
@@ -66,7 +68,12 @@ export interface EditorProps {
     wrapperId?: number;
     customDecorators?: object[];
     editorRef?(ref: object): void;
-    handlePastedText?(text: string, html: string, editorState: EditorState, onChange: (editorState: EditorState) => void): boolean;
+    handlePastedText?(
+        text: string,
+        html: string,
+        editorState: EditorState,
+        onChange: (editorState: EditorState) => void
+    ): boolean;
 }
 
 export class Editor extends React.Component<EditorProps> {

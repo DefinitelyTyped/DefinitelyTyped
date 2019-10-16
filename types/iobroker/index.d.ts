@@ -1,8 +1,8 @@
 // Type definitions for ioBroker 1.4
-// Project: https://github.com/ioBroker/ioBroker
+// Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -243,7 +243,7 @@ declare global {
         // Maybe this should extend Record<string, any>,
         // but the extra properties aren't defined anywhere,
         // so I'd rather force the user to explicitly state
-        // he knows what he's doing by casting to any
+        // they know what they're doing by casting to any
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -296,14 +296,28 @@ declare global {
 
             /** attached history information */
             history?: any;
+
+            /** Custom settings for this state */
+            custom?: Record<string, any>;
         }
         interface ChannelCommon extends ObjectCommon {
             /** description of this channel */
             desc?: string;
+
+            // Only states can have common.custom
+            custom?: undefined;
         }
-        type OtherCommon = ObjectCommon & {
+        interface DeviceCommon extends ObjectCommon {
+            // Only states can have common.custom
+            custom?: undefined;
+             // TODO: any other definition for device?
+        }
+        interface OtherCommon extends ObjectCommon {
             [propName: string]: any;
-        };
+
+            // Only states can have common.custom
+            custom?: undefined;
+        }
 
         interface BaseObject {
             /** The ID of this object */
@@ -311,7 +325,7 @@ declare global {
             native: Record<string, any>;
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
-            common: ObjectCommon;
+            common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
             acl?: ObjectACL;
         }
 
@@ -335,10 +349,10 @@ declare global {
 
         interface DeviceObject extends BaseObject {
             type: "device";
-            common: ObjectCommon; // TODO: any definition for device?
+            common: DeviceCommon;
         }
         interface PartialDeviceObject extends Partial<Pick<DeviceObject, "_id" | "native" | "enums" | "type" | "acl">> {
-            common?: Partial<ObjectCommon>;
+            common?: Partial<DeviceCommon>;
         }
 
         interface OtherObject extends BaseObject {
@@ -350,11 +364,15 @@ declare global {
         }
 
         type Object = StateObject | ChannelObject | DeviceObject | OtherObject;
+
+        type SettableObjectWorker<T extends ioBroker.Object> =
+            Pick<T, Exclude<keyof T, "_id" | "acl">> & {
+                _id?: T["_id"];
+                acl?: T["acl"];
+            };
+
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        interface SettableObject extends Pick<ioBroker.Object, Exclude<keyof ioBroker.Object, "_id" | "acl">> {
-            _id?: ioBroker.Object["_id"];
-            acl?: ioBroker.Object["acl"];
-        }
+        type SettableObject = SettableObjectWorker<ioBroker.Object>;
         type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialOtherObject;
 
         /** Defines access rights for a single file */
@@ -503,7 +521,7 @@ declare global {
         /** Provides low-level access to the ioBroker objects db */
         interface Objects {
             /**
-             * For a given user, returns the groups he belongs to, and his access rights
+             * For a given user, returns the groups they belong to, and their access rights
              * @param user Name of the user. Has to start with "system.user."
              * @param callback The callback function to be invoked with the return values
              */
@@ -882,7 +900,7 @@ declare global {
             q?: boolean;
             addID?: boolean;
             limit?: number;
-            ignoreNull: boolean;
+            ignoreNull?: boolean;
             sessionId?: any;
             aggregate?: "minmax" | "min" | "max" | "average" | "total" | "count" | "none";
         }
@@ -1008,8 +1026,10 @@ declare global {
             /**
              * Terminates the adapter execution but does not disable the adapter
              * @param reason (optional) A message to print into the log prior to termination
+             * @param exitCode (optional) The exit code to use for termination
              */
-            terminate(reason?: string): never;
+            terminate(reason?: string, exitCode?: number): never;
+            terminate(exitCode: number): never;
 
             /** Restarts the adapter */
             restart(): never;
@@ -1324,13 +1344,25 @@ declare global {
             // subscriptions
 
             /** Subscribe to changes of objects in this instance */
-            subscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects in this instance */
+            subscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Subscribe to changes of objects (which might not belong to this adapter) */
-            subscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects (which might not belong to this adapter) */
+            subscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects in this instance */
-            unsubscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects in this instance */
+            unsubscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects (which might not belong to this adapter) */
-            unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects (which might not belong to this adapter) */
+            unsubscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
 
             /** Subscribe to changes of states in this instance */
             subscribeStates(pattern: string, callback?: ErrorCallback): void;
@@ -1459,7 +1491,7 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getDevicesAsync(options?: unknown): Promise<Array<GetObjectsItem<DeviceObject>>>;
+            getDevicesAsync(options?: unknown): Promise<DeviceObject[]>;
 
             /**
              * Returns a list of all channels in this adapter instance
@@ -1484,9 +1516,9 @@ declare global {
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
              */
-            getChannelsOfAsync(): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(): Promise<ChannelObject[]>;
             // tslint:disable-next-line:unified-signatures
-            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
 
             /**
              * Returns a list of all states in this adapter instance
@@ -1506,9 +1538,9 @@ declare global {
              * @param options (optional) Some internal options.
              */
             // tslint:disable:unified-signatures
-            getStatesOfAsync(): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<Array<GetObjectsItem<StateObject>>>;
+            getStatesOfAsync(): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<StateObject[]>;
             // tslint:enable:unified-signatures
 
             // ==============================
@@ -1609,11 +1641,11 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
@@ -1649,7 +1681,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
         /** Infers the return type from a callback-style API and strips out null and undefined */
@@ -1664,7 +1696,8 @@ declare global {
         type SetStateCallback = (err: string | null, id?: string) => void;
         type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
         type DeleteStateCallback = (err: string | null, id?: string) => void;
-        type GetHistoryCallback = (err: string | null, result: Array<(State & { id?: string })>, step: number, sessionId?: string) => void;
+        type GetHistoryResult = Array<(State & { id?: string })>;
+        type GetHistoryCallback = (err: string | null, result: GetHistoryResult, step: number, sessionId?: string) => void;
 
         /** Contains the return values of readDir */
         interface ReadDirResult {

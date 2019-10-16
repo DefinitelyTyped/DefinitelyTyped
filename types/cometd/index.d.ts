@@ -1,6 +1,9 @@
 // Type definitions for CometD 4.0
-// Project: http://cometd.org
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Daniel Perez Alvarez <https://github.com/unindented>, Alex Henry <https://github.com/alxHenry>
+// Project: https://cometd.org
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
+//                 Alex Henry <https://github.com/alxHenry>
+//                 Harald Gliebe <https://github.com/hagl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -67,6 +70,15 @@ export interface Configuration {
      * CometD may fail to remain within the max URI length when encoded in JSON.
      */
     maxURILength?: number;
+    /**
+     * Uses the scheduler service available in Web Workers via Worker.setTimeout(fn, delay) rather
+     * than using that available via Window.setTimeout(fn, delay). Browsers are now throttling the
+     * Window scheduler in background tabs to save battery in mobile devices, so the Window scheduler
+     * events are delayed by possibly several seconds, causing CometD sessions to timeout on the
+     * server. The Worker scheduler is not throttled and guarantees that scheduler events happen
+     * on time.
+     */
+    useWorkerScheduler?: boolean;
 }
 
 export interface Message {
@@ -88,6 +100,8 @@ export interface SubscriptionHandle {
 export interface Extension {
     incoming?: Listener;
     outgoing?: Listener;
+    registered?: (name: string, cometd: CometD) => void;
+    unregistered?: () => void;
 }
 
 export class CometD {

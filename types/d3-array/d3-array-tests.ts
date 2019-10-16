@@ -70,7 +70,7 @@ const mixedObjectArray = [
 ];
 
 const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
-const mixedObjectArrayLike = mixedObjectArray as ArrayLike<MixedObject>;
+const mixedObjectArrayLike = mixedObjectArray as Iterable<MixedObject>;
 
 let typedArray = Uint8Array.from(numbersArray);
 let readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
@@ -81,55 +81,55 @@ const readonlyDateArray = dateArray as ReadonlyArray<Date>;
 const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
 const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject | undefined>;
 
-function accessorMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
+function accessorMixedObjectToNum(datum: MixedObject, index: number, array: Iterable<MixedObject>): number {
     return datum.num;
 }
 
-function accessorMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
+function accessorMixedObjectToStr(datum: MixedObject, index: number, array: Iterable<MixedObject>): string {
     return datum.str;
 }
 
-function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: Iterable<MixedObject>): NumCoercible {
     return datum.numeric;
 }
 
-function accessorMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
+function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Iterable<MixedObject>): Date {
     return datum.date;
 }
 
-function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject>): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
-function accessorLikeMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
+function accessorLikeMixedObjectToNum(datum: MixedObject, index: number, array: Iterable<MixedObject>): number {
     return datum.num;
 }
 
-function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
+function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: Iterable<MixedObject>): string {
     return datum.str;
 }
 
-function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: Iterable<MixedObject>): NumCoercible {
     return datum.numeric;
 }
 
-function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
+function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array: Iterable<MixedObject>): Date {
     return datum.date;
 }
 
-function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject>): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
-function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
@@ -485,6 +485,12 @@ num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(201
 num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(2015, 3, 14), 1);
 num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(2015, 3, 14), 3, 4);
 
+// quickselect
+numbersArray = d3Array.quickselect(numbersArray, 3);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0, 5);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0, 5, d3Array.descending);
+
 // ascending() -----------------------------------------------------------------
 
 num = d3Array.ascending(undefined, 20);
@@ -535,6 +541,23 @@ mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
 
 mergedArray = d3Array.merge(readonlyTestArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(readonlyTestArrays); // explicit type
+
+interface ObjDefinition {
+    name: string;
+    amount: string;
+    date: string;
+}
+
+const objArray: ObjDefinition[] = [
+    { name: "jim", amount: "34.0", date: "11/12/2015" },
+    { name: "carl", amount: "120.11", date: "11/12/2015" },
+    { name: "stacy", amount: "12.01", date: "01/04/2016" },
+    { name: "stacy", amount: "34.05", date: "01/04/2016" }
+];
+
+const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
+const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
+const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 // cross() ---------------------------------------------------------------------
 
@@ -608,7 +631,8 @@ const testObject = {
 };
 
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
-const p2: Array<Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
+// $ExpectType: Array<Date | number[]>
+const p2 = d3Array.permute(testObject, ['when', 'more']);
 // $ExpectError
 const p3 = d3Array.permute(testObject, ['when', 'unknown']);
 
@@ -779,7 +803,7 @@ histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fai
 domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) => [values[0]!, values[values.length]!]);
 
 // thresholds(...) -------------------------------------------------------------
 
@@ -934,8 +958,3 @@ num = d3Array.thresholdScott(readonlyNumbersArray, -1, 234);
 num = d3Array.thresholdSturges(numbersArray);
 num = d3Array.thresholdSturges(typedArray);
 num = d3Array.thresholdSturges(readonlyNumbersArray);
-
-// Deprecated ==================================================================
-
-const histDeprecatedNumber: d3Array.HistogramGenerator<MixedObject, number> = d3Array.histogram<MixedObject, number>();
-const histDeprecatedDate: d3Array.HistogramGenerator<MixedObject, Date> = d3Array.histogram<MixedObject, Date>();

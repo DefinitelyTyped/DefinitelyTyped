@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/mongo" {
     module Mongo {
 
@@ -61,10 +62,10 @@ declare module "meteor/mongo" {
         type Query<T> = {
             [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
         } & {
-                $or?: Query<T>[],
-                $and?: Query<T>[],
-                $nor?: Query<T>[]
-            } & Dictionary<any>
+            $or?: Query<T>[],
+            $and?: Query<T>[],
+            $nor?: Query<T>[]
+        } & Dictionary<any>
 
         type QueryWithModifiers<T> = {
             $query: Query<T>,
@@ -96,7 +97,7 @@ declare module "meteor/mongo" {
             { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
         }
         type ArraysOrEach<T> = {
-            [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
+            [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] }
         }
         type CurrentDateModifier = { $type: "timestamp" | "date" } | true
         type Modifier<T> = T | {
@@ -108,7 +109,7 @@ declare module "meteor/mongo" {
             $rename?: PartialMapTo<T, string> & Dictionary<string>,
             $set?: Partial<T> & Dictionary<any>,
             $setOnInsert?: Partial<T> & Dictionary<any>,
-            $unset?: PartialMapTo<T, boolean | 1 | 0> & Dictionary<any>,
+            $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>,
             $addToSet?: ArraysOrEach<T> & Dictionary<any>,
             $push?: PushModifier<T> & Dictionary<any>,
             $pull?: ElementsOf<T> & Dictionary<any>,
@@ -159,7 +160,7 @@ declare module "meteor/mongo" {
                 fields?: FieldSpecifier;
                 reactive?: boolean;
                 transform?: Function | null;
-            }): T;
+            }): T | undefined;
             insert(doc: T, callback?: Function): string;
             rawCollection(): any;
             rawDatabase(): any;
@@ -171,8 +172,8 @@ declare module "meteor/mongo" {
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
             }, callback?: Function): {
-                    numberAffected?: number; insertedId?: string;
-                };
+                numberAffected?: number; insertedId?: string;
+            };
             _ensureIndex(keys: {
                 [key: string]: number | string
             } | string, options?: {

@@ -24,7 +24,7 @@ declare namespace Dropdown {
          * argument should spread through to an element containing _both_ the
          * menu and toggle in order to handle keyboard events for focus management.
          */
-        children(renderProps: DropdownRenderProps): React.ReactElement<any>;
+        children(renderProps: DropdownRenderProps): React.ReactElement;
 
         /**
          * Determines the direction and location of the Menu in relation to it's Toggle.

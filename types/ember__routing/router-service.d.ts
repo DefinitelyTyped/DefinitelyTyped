@@ -1,3 +1,4 @@
+import RouteInfo from '@ember/routing/-private/route-info';
 import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
 
@@ -10,6 +11,12 @@ type RouteModel = object | string | number;
  */
 export default class RouterService extends Service {
     //
+    /**
+     * A `RouteInfo` that represents the current leaf route.
+     * It is guaranteed to change whenever a route transition happens
+     * (even when that transition only changes parameters and doesn't change the active route)
+     */
+    readonly currentRoute: RouteInfo;
     /**
      * Name of the current route.
      * This property represent the logical name of the route,
@@ -212,4 +219,23 @@ export default class RouterService extends Service {
         modelsD: RouteModel,
         options?: { queryParams: object }
     ): string;
+
+    // https://api.emberjs.com/ember/3.6/classes/RouterService/events/routeDidChange?anchor=routeDidChange
+    /**
+     * Register a callback for an event.
+     *
+     * The `routeWillChange` event is fired at the beginning of any attempted transition with a `Transition` object as the sole argument.
+     * This action can be used for aborting, redirecting, or decorating the transition from the currently active routes.
+     *
+     * The `routeDidChange` event only fires once a transition has settled.
+     * This includes aborts and error substates.
+     * Like the `routeWillChange` event it recieves a `Transition` as the sole argument.
+     *
+     * @param name     the name of the event
+     * @param callback the callback to execute
+     */
+    on(
+        name: 'routeDidChange' | 'routeWillChange',
+        callback: (transition: Transition) => void
+    ): RouterService;
 }

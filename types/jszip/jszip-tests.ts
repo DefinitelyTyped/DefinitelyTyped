@@ -44,7 +44,13 @@ function testJSZip() {
 	const zip = createTestZip();
 	zip.generateAsync({compression: "DEFLATE", type: "base64"}).then((serializedZip) => {
 		const newJszip = new JSZip();
-		return newJszip.loadAsync(serializedZip, {base64: true/*, checkCRC32: true*/});
+		return newJszip.loadAsync(serializedZip, {
+			base64: true,
+			checkCRC32: true,
+			optimizedBinaryString: true,
+			createFolders: true,
+			decodeFileName: filenameBytes => filenameBytes.toString()
+		});
 	}).then((newJszip: JSZip) => {
 		newJszip.file("test.txt").async('text').then((text: string) => {
 			if (text === "test string") {

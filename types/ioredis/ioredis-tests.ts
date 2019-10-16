@@ -44,6 +44,23 @@ redis.exists('foo', ((err, data) => data * 1));
 redis.set(Buffer.from('key'), '100');
 redis.setBuffer(Buffer.from('key'), '100', 'NX', 'EX', 10);
 
+const listData = ['foo', 'bar', 'baz'];
+listData.forEach(value => {
+    redis.rpushBuffer('bufferlist', Buffer.from(value));
+});
+redis.lpopBuffer('bufferlist', (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
+    results.forEach((value, index) => {
+        if (value.toString() !== listData[index + 1]) {
+            console.log(value.toString());
+        }
+    });
+});
+
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380
 new Redis(6379, '192.168.1.1');       // 192.168.1.1:6379
@@ -68,7 +85,7 @@ redis.subscribe('news', 'music', (err: any, count: any) => {
     // `count` represents the number of channels we are currently subscribed to.
 
     pub.publish('news', 'Hello world!');
-    pub.publish('music', 'Hello again!');
+    pub.publishBuffer('music', Buffer.from('Hello again!'));
 });
 
 redis.on('message', (channel: any, message: any) => {
@@ -154,6 +171,9 @@ redis.multi([
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
+redis.mset(...['foo', 'bar']);
+redis.mset({ foo: 'bar' });
+
 new Redis.Cluster([
     'localhost'
 ]);
@@ -177,6 +197,8 @@ new Redis.Cluster([{
 
 redis.xack('streamName', 'groupName', 'id');
 redis.xadd('streamName', '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id');
 redis.xdel('streamName', 'id');
 redis.xgroup('CREATE', 'streamName', 'groupName', '$');
@@ -201,4 +223,56 @@ new Redis.Cluster([], {
 
 new Redis.Cluster([], {
     clusterRetryStrategy: (times: number, reason?: Error) => 1
+});
+
+// Cluster types
+const clusterOptions: Redis.ClusterOptions = {};
+const cluster = new Redis.Cluster(
+    [
+        {
+            host: 'localhost',
+            port: 6379
+        }
+    ],
+    clusterOptions
+);
+cluster.on('end', () => console.log('on end'));
+cluster.nodes().map(node => {
+    node.pipeline()
+        .flushdb()
+        .exec()
+        .then(result => console.log(result));
+});
+cluster.set('foo', 'bar');
+cluster.get('foo', (err, result) => {
+    if (err) {
+        console.error(err);
+    }
+    console.log(result);
+});
+cluster.get('foo')
+    .then(result => console.log(result))
+    .catch(reason => console.error(reason));
+cluster.connect(() => {
+    console.log('connect');
+})
+.then(result => console.log(result))
+.then(reason => console.error(reason));
+cluster.disconnect();
+cluster.quit(result => {
+    console.log(result);
+});
+const getBuiltinCommandsResult = cluster.getBuiltinCommands();
+console.log(getBuiltinCommandsResult);
+const createBuiltinCommandResult = cluster.createBuiltinCommand('createBuiltinCommand');
+console.log(createBuiltinCommandResult);
+const defineCommandResult = cluster.defineCommand('defineCommand', {
+    numberOfKeys: 1,
+    lua: 'lua'
+});
+console.log(defineCommandResult);
+cluster.sendCommand();
+
+redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
+    // sorted set 'foo' now has score 'foo1' containing barBuffer
 });

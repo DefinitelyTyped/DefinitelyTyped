@@ -18,7 +18,7 @@ declare namespace DropdownMenu {
          * A render prop that returns a Menu element. The `props`
          * argument should spread through to **a component that can accept a ref**.
          */
-        children(renderProps: DropdownMenuRenderProps): React.ReactElement<any>;
+        children(renderProps: DropdownMenuRenderProps): React.ReactElement;
 
         /**
          * Controls the visible state of the menu, generally this is

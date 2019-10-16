@@ -1,4 +1,4 @@
-// Type definitions for @guardian/prosemirror-invisibles 1.0
+// Type definitions for @guardian/prosemirror-invisibles 1.2
 // Project: https://github.com/guardian/prosemirror-invisibles
 // Definitions by: Daniil Dotsev <https://github.com/dddotsev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,6 +16,10 @@ export interface TextBetweenPosition {
 }
 
 export default function(builders: Builder[]): Plugin;
+
+export function character(type: string): (predicate: (char: string) => boolean) => Builder;
+export function node(type: string, toPosition: (node: Node, pos: number) => number):
+  (predicate: (node: Node) => boolean) => Builder;
 
 export function hardBreak(predicate?: (node: Node) => boolean): Builder;
 export function paragraph(predicate?: (node: Node) => boolean): Builder;

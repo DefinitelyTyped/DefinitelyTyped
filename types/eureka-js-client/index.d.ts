@@ -1,12 +1,14 @@
-// Type definitions for eureka-js-client 4.4
+// Type definitions for eureka-js-client 4.5
 // Project: https://github.com/jquatier/eureka-js-client
 // Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
 //                 Karl O. <https://github.com/karl-run>
 //                 Tom Barton <https://github.com/tombarton>
+//                 Josh Sullivan <https://github.com/jpsullivan>
+//                 WayJam So <https://github.com/imsuwj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
-    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig)
+    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig | EurekaClient.EurekaMiddlewareConfig);
     start(cb?: (err: Error, ...rest: any[]) => void): void;
     stop(cb?: (err: Error, ...rest: any[]) => void): void;
     getInstancesByAppId(appId: string): EurekaClient.EurekaInstanceConfig[];
@@ -19,8 +21,16 @@ export namespace EurekaClient {
     type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
 
     interface EurekaConfig {
+        requestMiddleware?: EurekaMiddlewareConfig;
         instance: EurekaInstanceConfig;
         eureka: EurekaClientConfig;
+        shouldUseDelta?: boolean;
+        logger?: {
+            warn: (...args: any[]) => void;
+            info: (...args: any[]) => void;
+            debug: (...args: any[]) => void;
+            error: (...args: any[]) => void;
+        };
     }
     interface EurekaInstanceConfig {
         app: string;
@@ -68,20 +78,16 @@ export namespace EurekaClient {
         registerWithEureka?: boolean;
         useLocalMetadata?: boolean;
         preferIpAddress?: boolean;
-        shouldUseDelta?: boolean;
-        logger?: {
-            warn: (...args: any[]) => void;
-            info: (...args: any[]) => void;
-            debug: (...args: any[]) => void;
-            error: (...args: any[]) => void;
-        };
     }
     interface EurekaYmlConfig {
         cwd: string;
         filename?: string;
     }
+    interface EurekaMiddlewareConfig {
+        requestMiddleware: (requestOpts: any, done: (opts: any) => void) => void;
+    }
     interface LegacyPortWrapper {
-        '$': number;
+        $: number;
         '@enabled': boolean;
     }
     interface PortWrapper {

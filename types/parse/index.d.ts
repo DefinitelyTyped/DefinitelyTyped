@@ -1,4 +1,4 @@
-// Type definitions for parse 2.1.0
+// Type definitions for parse 2.2.9
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -7,10 +7,76 @@
 //                  Wes Grimes <https://github.com/wesleygrimes>
 //                  Otherwise SAS <https://github.com/owsas>
 //                  Andrew Goldis <https://github.com/agoldis>
+//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                  Diamond Lewis <https://github.com/dplewis>
+//                  Jong Eun Lee <https://github.com/yomybaby>
+//                  Julien Quere <https://github.com/jlnquere>
+//                  Yago Tomé <https://github.com/yagotome>
+//                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
+//                  Jeff Gu Kang <https://github.com/jeffgukang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
+
+declare enum ErrorCode {
+    OTHER_CAUSE = -1,
+    INTERNAL_SERVER_ERROR = 1,
+    CONNECTION_FAILED = 100,
+    OBJECT_NOT_FOUND = 101,
+    INVALID_QUERY = 102,
+    INVALID_CLASS_NAME = 103,
+    MISSING_OBJECT_ID = 104,
+    INVALID_KEY_NAME = 105,
+    INVALID_POINTER = 106,
+    INVALID_JSON = 107,
+    COMMAND_UNAVAILABLE = 108,
+    NOT_INITIALIZED = 109,
+    INCORRECT_TYPE = 111,
+    INVALID_CHANNEL_NAME = 112,
+    PUSH_MISCONFIGURED = 115,
+    OBJECT_TOO_LARGE = 116,
+    OPERATION_FORBIDDEN = 119,
+    CACHE_MISS = 120,
+    INVALID_NESTED_KEY = 121,
+    INVALID_FILE_NAME = 122,
+    INVALID_ACL = 123,
+    TIMEOUT = 124,
+    INVALID_EMAIL_ADDRESS = 125,
+    MISSING_CONTENT_TYPE = 126,
+    MISSING_CONTENT_LENGTH = 127,
+    INVALID_CONTENT_LENGTH = 128,
+    FILE_TOO_LARGE = 129,
+    FILE_SAVE_ERROR = 130,
+    DUPLICATE_VALUE = 137,
+    INVALID_ROLE_NAME = 139,
+    EXCEEDED_QUOTA = 140,
+    SCRIPT_FAILED = 141,
+    VALIDATION_ERROR = 142,
+    INVALID_IMAGE_DATA = 150,
+    UNSAVED_FILE_ERROR = 151,
+    INVALID_PUSH_TIME_ERROR = 152,
+    FILE_DELETE_ERROR = 153,
+    REQUEST_LIMIT_EXCEEDED = 155,
+    INVALID_EVENT_NAME = 160,
+    USERNAME_MISSING = 200,
+    PASSWORD_MISSING = 201,
+    USERNAME_TAKEN = 202,
+    EMAIL_TAKEN = 203,
+    EMAIL_MISSING = 204,
+    EMAIL_NOT_FOUND = 205,
+    SESSION_MISSING = 206,
+    MUST_CREATE_USER_THROUGH_SIGNUP = 207,
+    ACCOUNT_ALREADY_LINKED = 208,
+    INVALID_SESSION_TOKEN = 209,
+    LINKED_ID_MISSING = 250,
+    INVALID_LINKED_SESSION = 251,
+    UNSUPPORTED_SERVICE = 252,
+    AGGREGATE_ERROR = 600,
+    FILE_READ_ERROR = 601,
+    X_DOMAIN_REQUEST = 602
+}
 
 declare namespace Parse {
 
@@ -21,12 +87,39 @@ declare namespace Parse {
     let liveQueryServerURL: string;
     let VERSION: string;
 
+    interface BatchSizeOption {
+        batchSize?: number;
+    }
+
+    interface CascadeSaveOption {
+        /** If `false`, nested objects will not be saved (default is `true`). */
+        cascadeSave?: boolean;
+    }
+
     interface SuccessOption {
         success?: Function;
     }
 
     interface ErrorOption {
         error?: Function;
+    }
+
+    interface FullOptions {
+        success?: Function;
+        error?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        progress?: Function;
+    }
+
+    interface RequestOptions {
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        batchSize?: number;
+        include?: string | string[];
+        progress?: Function;
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
@@ -74,6 +167,10 @@ declare namespace Parse {
 
     interface IBaseObject {
         toJSON(): any;
+    }
+
+    interface AuthData {
+        [key: string]: any
     }
 
     class BaseObject implements IBaseObject {
@@ -163,7 +260,7 @@ declare namespace Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save(options?: SuccessFailureOptions): Promise<File>;
+        save(options?: FullOptions): Promise<File>;
 
     }
 
@@ -263,19 +360,26 @@ declare namespace Parse {
         constructor(className?: string, options?: any);
         constructor(attributes?: string[], options?: any);
 
-        static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fromJSON(json: any, override: boolean): any;
-
+        static createWithoutData<T extends Object>(id: string): T;
+        static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+        static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
-        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
+        static fromJSON<T extends Object>(json: any, override?: boolean): T;
+        static pinAll(objects: Object[]): Promise<void>;
+        static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        static createWithoutData<T extends Object>(id: string): T;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static unPinAll(objects: Object[]): Promise<void>;
+        static unPinAllObjects(): Promise<void>;
+        static unPinAllObjectsWithName(name: string): Promise<void>;
+        static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        initialize(): void;
-        add(attr: string, item: any): this;
-        addUnique(attr: string, item: any): any;
+        add(attr: string, item: any): this | false;
+        addAll(attr: string, items: any[]): this | false;
+        addAllUnique(attr: string, items: any[]): this | false;
+        addUnique(attr: string, item: any): this | false;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -283,29 +387,40 @@ declare namespace Parse {
         destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr?: string): boolean;
         dirtyKeys(): string[];
+        equals(other: any): boolean;
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
+        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        initialize(): void;
         isNew(): boolean;
+        isPinned(): Promise<boolean>;
         isValid(): boolean;
         op(attr: string): any;
+        pin(): Promise<void>;
+        pinWithName(name: string): Promise<void>;
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): any;
+        remove(attr: string, item: any): this | false;
+        removeAll(attr: string, items: any): this | false;
         revert(): void;
+        revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): boolean;
-        set(attrs: object, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        set(key: string, value: any, options?: Object.SetOptions): this | false;
+        set(attrs: object, options?: Object.SetOptions): this | false;
+        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
+        unPin(): Promise<void>;
+        unPinWithName(name: string): Promise<void>;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -313,21 +428,26 @@ declare namespace Parse {
     namespace Object {
         interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
         }
     }
 
+    class Polygon extends BaseObject {
+        constructor(arg1: GeoPoint[] | number[][]);
+        containsPoint(point: GeoPoint): boolean;
+        equals(other: Polygon | any): boolean;
+    }
     /**
      * Every Parse application installed on a device registered for
      * push notifications has an associated Installation object.
@@ -412,37 +532,46 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new (...args: any[]) => T);
 
+        static and<U extends Object>(...args: Query<U>[]): Query<U>;
+        static fromJSON<U extends Object>(className: string, json: any): Query<U>;
+        static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;
         addAscending(key: string[]): Query<T>;
         addDescending(key: string): Query<T>;
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
+        aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
+        containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
         containsAll(key: string, values: any[]): Query<T>;
+        containsAllStartingWith(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query<T>;
         descending(key: string[]): Query<T>;
         doesNotExist(key: string): Query<T>;
         doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
         doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        distinct(key: string): Query<T>;
+        distinct<V = any>(key: string): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query<T>;
         equalTo(key: string, value: any): Query<T>;
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fromLocalDatastore(): void;
+        fromPin(): void;
+        fromPinWithName(name: string): void;
         fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
         include(key: string): Query<T>;
         include(keys: string[]): Query<T>;
+        includeAll(): Query<T>;
         lessThan(key: string, value: any): Query<T>;
         lessThanOrEqualTo(key: string, value: any): Query<T>;
         limit(n: number): Query<T>;
@@ -452,13 +581,17 @@ declare namespace Parse {
         near(key: string, point: GeoPoint): Query<T>;
         notContainedIn(key: string, values: any[]): Query<T>;
         notEqualTo(key: string, value: any): Query<T>;
+        polygonContains(key: string, point: GeoPoint): Query<T>;
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
+        sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
         subscribe(): LiveQuerySubscription;
+        withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
@@ -471,26 +604,26 @@ declare namespace Parse {
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key:string]: any };
-            match?: {[key: string]: any};
-            project?: {[key: string]: any};
+            group?: { objectId?: string, [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
             limit?: number;
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: {[key: string]: 1|-1};
+            sort?: { [key: string]: 1 | -1 };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-          language?: string;
-          caseSensitive?: boolean;
-          diacriticSensitive?: boolean;
+            language?: string;
+            caseSensitive?: boolean;
+            diacriticSensitive?: boolean;
         }
     }
 
     /**
      * Represents a LiveQuery Subscription.
-     * 
+     *
      * @see https://docs.parseplatform.org/js/guide/#live-queries
      * @see NodeJS.EventEmitter
      *
@@ -556,7 +689,7 @@ subscription.on('close', () => {});
     class LiveQuerySubscription extends NodeJS.EventEmitter {
         /**
          * Creates an instance of LiveQuerySubscription.
-         * 
+         *
          * @param {string} id
          * @param {string} query
          * @param {string} [sessionToken]
@@ -596,6 +729,7 @@ subscription.on('close', () => {});
     class Config extends Object {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
+        static save(attr: any): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;
@@ -618,17 +752,19 @@ subscription.on('close', () => {});
      * uniqueness.</p>
      */
     class User extends Object {
-
+        static allowCustomUserClass(isAllowed: boolean): void;
+        static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
+        static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
-        static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
+        static hydrate(userJSON: any): Promise<User>;
+        static enableUnsafeCurrentUser(): void;
 
-        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
+        signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -641,6 +777,144 @@ subscription.on('close', () => {});
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
+
+        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
+        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
+    }
+
+    /**
+    * A Parse.Schema object is for handling schema data from Parse.
+    * All the schemas methods require MasterKey.
+    *
+    * @param {String} className Parse Class string
+    *
+    * https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Schema.html
+    *
+    * ```
+    * const schema = new Parse.Schema('MyClass');
+    * schema.addString('field');
+    * schema.addIndex('index_name', { field: 1 });
+    * schema.save();
+    * ```
+    */
+    class Schema {
+
+        constructor(className: string)
+
+        /**
+         * Static method to get all schemas
+         * @param options Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         */
+        static all(options?: ScopeOptions): Promise<Schema[]>
+
+        addArray(name: string): this
+        addBoolean(name: string): this
+        addDate(name: string): this
+        addField(name: string, type?: Schema.TYPE): this
+        addFile(name: string): this
+        addGeoPoint(name: string): this
+
+        /**
+         * Adding an Index to Create / Update a Schema
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {Schema.Index} index { 'field': value } `field` should exist in the schema before using addIndex. `value` can be a (String|Number|Boolean|Date|Parse.File|Parse.GeoPoint|Array|Object|Pointer|Parse.Relation)
+         * @return Returns the schema, so you can chain this call.
+         * @example
+         * ```
+         * schema.addIndex('index_name', {'field': 1});
+         * ```
+         */
+        addIndex(name: string, index: Schema.Index): this
+
+        addNumber(name: string): this
+        addObject(name: string): this
+
+        /**
+         * Adding Pointer Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addPointer(name: string, targetClass: string): this
+
+        addPolygon(name: string): this
+
+        /**
+         * Adding Relation Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addRelation(name: string, targetClass: string): this
+
+        addString(name: string): this
+
+        /**
+         * Removing a Schema from Parse Can only be used on Schema without objects
+         * @param options
+         * Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         * @returns {Promise} A promise that is resolved with the result when the query completes.
+         */
+        // @TODO Fix Promise<any>
+        delete(options?: ScopeOptions): Promise<any>
+
+        /**
+         * Deleting a Field to Update on a Schema
+         * @param name Name of the field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteField(name: string): this
+
+        /**
+         * Deleting a Index Field to Update on a Schema
+         * @param name Name of the index field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteIndex(name: string): this
+
+        /**
+         * Get the Schema from Parse
+         */
+        get(options?: ScopeOptions): Promise<Schema>
+
+        /**
+         * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+         */
+        // TODO Fix Promise<any>
+        purge(): Promise<any>
+
+        /**
+         * Create a new Schema on Parse
+         */
+        save(options?: ScopeOptions): Promise<Schema>
+
+        /**
+         * Update a Schema on Parse
+         */
+        update(options?: ScopeOptions): Promise<Schema>
+    }
+
+    namespace Schema {
+
+        type TYPE =
+            | string
+            | number
+            | boolean
+            | Date
+            | File
+            | GeoPoint
+            | Array<any>
+            | object
+            | Pointer
+            | Relation
+    
+        interface Index {
+            [fieldName: string]: TYPE
+        }      
     }
 
 
@@ -692,12 +966,7 @@ subscription.on('close', () => {});
 
         interface JobRequest {
             params: any;
-        }
-
-        interface JobStatus {
-            error?: (response: any) => void;
-            message?: (response: any) => void;
-            success?: (response: any) => void;
+            message: (response: any) => void;
         }
 
         interface FunctionRequest {
@@ -705,12 +974,6 @@ subscription.on('close', () => {});
             master?: boolean;
             params?: any;
             user?: User;
-        }
-
-        interface FunctionResponse {
-            success: (response: any) => void;
-            error (code: number, response: any): void;
-            error (response: any): void;
         }
 
         interface Cookie {
@@ -731,13 +994,13 @@ subscription.on('close', () => {});
             original?: Parse.Object;
         }
 
-        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterSaveRequest extends TriggerRequest {
+            context: object;
+        }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
-        interface BeforeDeleteResponse extends FunctionResponse { }
-        interface BeforeSaveRequest extends TriggerRequest { }
-        interface BeforeSaveResponse extends FunctionResponse {
-            success: () => void;
+        interface BeforeSaveRequest extends TriggerRequest {
+            context: object;
         }
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
@@ -760,21 +1023,39 @@ subscription.on('close', () => {});
             objects: Object[]
         }
 
-        interface AfterFindResponse extends FunctionResponse {
-            success: (objects: Object[]) => void;
-        }
-
-        function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
-        function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
-        function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
-        function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
-        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => void): void;
-        function afterFind(arg1: any, func?: (request: AfterFindRequest, response: AfterFindResponse) => void): void;
-        function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
+        function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
+        function afterSave(arg1: any, func?: (request: AfterSaveRequest) => Promise<void> | void): void;
+        function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest) => Promise<void> | void): void;
+        function beforeSave(arg1: any, func?: (request: BeforeSaveRequest) => Promise<void> | void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<void> | void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
+        function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
+        function beforeLogin(func?: (request: TriggerRequest) => Promise<any> | any): void;
+        function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
+        /**
+         * Gets data for the current set of cloud jobs.
+         * @returns A promise that will be resolved with the result of the function.
+         */
+        function getJobsData(): Promise<Object>;
+        /**
+         * Gets job status by Id
+         * @param jobStatusId The Id of Job Status.
+         * @returns Status of Job.
+         */
+        function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
-        function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
+        function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        /**
+          * Starts a given cloud job, which will process asynchronously.
+          * @param jobName The function name.
+          * @param data The parameters to send to the cloud function.
+          * @returns A promise that will be resolved with the jobStatusId of the job.
+          */
+        function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
+
+
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
@@ -820,76 +1101,67 @@ subscription.on('close', () => {});
         }
     }
 
-
     class Error {
+      static OTHER_CAUSE: ErrorCode.OTHER_CAUSE;
+      static INTERNAL_SERVER_ERROR: ErrorCode.INTERNAL_SERVER_ERROR;
+      static CONNECTION_FAILED: ErrorCode.CONNECTION_FAILED;
+      static OBJECT_NOT_FOUND: ErrorCode.OBJECT_NOT_FOUND;
+      static INVALID_QUERY: ErrorCode.INVALID_QUERY;
+      static INVALID_CLASS_NAME: ErrorCode.INVALID_CLASS_NAME;
+      static MISSING_OBJECT_ID: ErrorCode.MISSING_OBJECT_ID;
+      static INVALID_KEY_NAME: ErrorCode.INVALID_KEY_NAME;
+      static INVALID_POINTER: ErrorCode.INVALID_POINTER;
+      static INVALID_JSON: ErrorCode.INVALID_JSON;
+      static COMMAND_UNAVAILABLE: ErrorCode.COMMAND_UNAVAILABLE;
+      static NOT_INITIALIZED: ErrorCode.NOT_INITIALIZED;
+      static INCORRECT_TYPE: ErrorCode.INCORRECT_TYPE;
+      static INVALID_CHANNEL_NAME: ErrorCode.INVALID_CHANNEL_NAME;
+      static PUSH_MISCONFIGURED: ErrorCode.PUSH_MISCONFIGURED;
+      static OBJECT_TOO_LARGE: ErrorCode.OBJECT_TOO_LARGE;
+      static OPERATION_FORBIDDEN: ErrorCode.OPERATION_FORBIDDEN;
+      static CACHE_MISS: ErrorCode.CACHE_MISS;
+      static INVALID_NESTED_KEY: ErrorCode.INVALID_NESTED_KEY;
+      static INVALID_FILE_NAME: ErrorCode.INVALID_FILE_NAME;
+      static INVALID_ACL: ErrorCode.INVALID_ACL;
+      static TIMEOUT: ErrorCode.TIMEOUT;
+      static INVALID_EMAIL_ADDRESS: ErrorCode.INVALID_EMAIL_ADDRESS;
+      static MISSING_CONTENT_TYPE: ErrorCode.MISSING_CONTENT_TYPE;
+      static MISSING_CONTENT_LENGTH: ErrorCode.MISSING_CONTENT_LENGTH;
+      static INVALID_CONTENT_LENGTH: ErrorCode.INVALID_CONTENT_LENGTH;
+      static FILE_TOO_LARGE: ErrorCode.FILE_TOO_LARGE;
+      static FILE_SAVE_ERROR: ErrorCode.FILE_SAVE_ERROR;
+      static DUPLICATE_VALUE: ErrorCode.DUPLICATE_VALUE;
+      static INVALID_ROLE_NAME: ErrorCode.INVALID_ROLE_NAME;
+      static EXCEEDED_QUOTA: ErrorCode.EXCEEDED_QUOTA;
+      static SCRIPT_FAILED: ErrorCode.SCRIPT_FAILED;
+      static VALIDATION_ERROR: ErrorCode.VALIDATION_ERROR;
+      static INVALID_IMAGE_DATA: ErrorCode.INVALID_IMAGE_DATA;
+      static UNSAVED_FILE_ERROR: ErrorCode.UNSAVED_FILE_ERROR;
+      static INVALID_PUSH_TIME_ERROR: ErrorCode.INVALID_PUSH_TIME_ERROR;
+      static FILE_DELETE_ERROR: ErrorCode.FILE_DELETE_ERROR;
+      static REQUEST_LIMIT_EXCEEDED: ErrorCode.REQUEST_LIMIT_EXCEEDED;
+      static INVALID_EVENT_NAME: ErrorCode.INVALID_EVENT_NAME;
+      static USERNAME_MISSING: ErrorCode.USERNAME_MISSING;
+      static PASSWORD_MISSING: ErrorCode.PASSWORD_MISSING;
+      static USERNAME_TAKEN: ErrorCode.USERNAME_TAKEN;
+      static EMAIL_TAKEN: ErrorCode.EMAIL_TAKEN;
+      static EMAIL_MISSING: ErrorCode.EMAIL_MISSING;
+      static EMAIL_NOT_FOUND: ErrorCode.EMAIL_NOT_FOUND;
+      static SESSION_MISSING: ErrorCode.SESSION_MISSING;
+      static MUST_CREATE_USER_THROUGH_SIGNUP: ErrorCode.MUST_CREATE_USER_THROUGH_SIGNUP;
+      static ACCOUNT_ALREADY_LINKED: ErrorCode.ACCOUNT_ALREADY_LINKED;
+      static INVALID_SESSION_TOKEN: ErrorCode.INVALID_SESSION_TOKEN;
+      static LINKED_ID_MISSING: ErrorCode.LINKED_ID_MISSING;
+      static INVALID_LINKED_SESSION: ErrorCode.INVALID_LINKED_SESSION;
+      static UNSUPPORTED_SERVICE: ErrorCode.UNSUPPORTED_SERVICE;
+      static AGGREGATE_ERROR: ErrorCode.AGGREGATE_ERROR;
+      static FILE_READ_ERROR: ErrorCode.FILE_READ_ERROR;
+      static X_DOMAIN_REQUEST: ErrorCode.X_DOMAIN_REQUEST;
 
-        code: ErrorCode;
-        message: string;
+      code: ErrorCode;
+      message: string;
 
-        constructor(code: ErrorCode, message: string);
-
-    }
-
-    /*
-     * We need to inline the codes in order to make compilation work without this type definition as dependency.
-     */
-    const enum ErrorCode {
-
-        OTHER_CAUSE = -1,
-        INTERNAL_SERVER_ERROR = 1,
-        CONNECTION_FAILED = 100,
-        OBJECT_NOT_FOUND = 101,
-        INVALID_QUERY = 102,
-        INVALID_CLASS_NAME = 103,
-        MISSING_OBJECT_ID = 104,
-        INVALID_KEY_NAME = 105,
-        INVALID_POINTER = 106,
-        INVALID_JSON = 107,
-        COMMAND_UNAVAILABLE = 108,
-        NOT_INITIALIZED = 109,
-        INCORRECT_TYPE = 111,
-        INVALID_CHANNEL_NAME = 112,
-        PUSH_MISCONFIGURED = 115,
-        OBJECT_TOO_LARGE = 116,
-        OPERATION_FORBIDDEN = 119,
-        CACHE_MISS = 120,
-        INVALID_NESTED_KEY = 121,
-        INVALID_FILE_NAME = 122,
-        INVALID_ACL = 123,
-        TIMEOUT = 124,
-        INVALID_EMAIL_ADDRESS = 125,
-        MISSING_CONTENT_TYPE = 126,
-        MISSING_CONTENT_LENGTH = 127,
-        INVALID_CONTENT_LENGTH = 128,
-        FILE_TOO_LARGE = 129,
-        FILE_SAVE_ERROR = 130,
-        DUPLICATE_VALUE = 137,
-        INVALID_ROLE_NAME = 139,
-        EXCEEDED_QUOTA = 140,
-        SCRIPT_FAILED = 141,
-        VALIDATION_ERROR = 142,
-        INVALID_IMAGE_DATA = 150,
-        UNSAVED_FILE_ERROR = 151,
-        INVALID_PUSH_TIME_ERROR = 152,
-        FILE_DELETE_ERROR = 153,
-        REQUEST_LIMIT_EXCEEDED = 155,
-        INVALID_EVENT_NAME = 160,
-        USERNAME_MISSING = 200,
-        PASSWORD_MISSING = 201,
-        USERNAME_TAKEN = 202,
-        EMAIL_TAKEN = 203,
-        EMAIL_MISSING = 204,
-        EMAIL_NOT_FOUND = 205,
-        SESSION_MISSING = 206,
-        MUST_CREATE_USER_THROUGH_SIGNUP = 207,
-        ACCOUNT_ALREADY_LINKED = 208,
-        INVALID_SESSION_TOKEN = 209,
-        LINKED_ID_MISSING = 250,
-        INVALID_LINKED_SESSION = 251,
-        UNSUPPORTED_SERVICE = 252,
-        AGGREGATE_ERROR = 600,
-        FILE_READ_ERROR = 601,
-        X_DOMAIN_REQUEST = 602
+      constructor(code: ErrorCode, message: string);
     }
 
     /**
@@ -953,6 +1225,8 @@ subscription.on('close', () => {});
             badge?: string;
             sound?: string;
             title?: string;
+            notification?: any;
+            content_available?: any;
         }
 
         interface SendOptions extends UseMasterKeyOption {
@@ -976,6 +1250,23 @@ subscription.on('close', () => {});
      */
     function setAsyncStorage(AsyncStorage: any): void;
 
+    /**
+     * Gets all contents from Local Datastore.
+     */
+    function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
+
+    /**
+     * Enable pinning in your application.
+     * This must be called before your application can use pinning.
+     */
+    function enableLocalDatastore(): void;
+
+    /**
+     * Flag that indicates whether Local Datastore is enabled.
+     */
+    function isLocalDatastoreEnabled(): boolean;
+
+    function setLocalDatastoreController(controller: any): void;
 }
 
 declare module "parse/node" {

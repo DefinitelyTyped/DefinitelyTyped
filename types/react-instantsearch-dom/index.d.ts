@@ -1,7 +1,9 @@
 // Type definitions for react-instantsearch 5.2
-// Project: https://community.algolia.com/react-instantsearch/
+// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 Haroen Viaene <https://github.com/haroenv>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -52,24 +54,33 @@ interface CommonWidgetProps {
   translations?: { [key: string]: string | ((...args: any[]) => any) };
 }
 
-export interface InstantSearchProps {
-  apiKey: string;
-  appId: string;
+interface InstantSearchBaseProps {
   indexName: string;
-
-  algoliaClient?: any;
-  searchClient?: any;
   createURL?: (...args: any[]) => any;
   searchState?: any;
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
   resultsState?: any;
+  stalledSearchDelay?: number;
   root?: {
     Root: string | ((...args: any[]) => any);
-    props: any;
+    props?: object;
   };
 }
+
+export interface UsingSearchClientProps extends InstantSearchBaseProps {
+  searchClient: any;
+}
+
+export interface UsingManualInfoProps extends InstantSearchBaseProps {
+  apiKey: string;
+  appId: string;
+  algoliaClient?: any;
+}
+
+export type InstantSearchProps = UsingSearchClientProps | UsingManualInfoProps;
+
 /**
  * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
  *

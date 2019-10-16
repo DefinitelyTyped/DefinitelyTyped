@@ -1,4 +1,4 @@
-// Type definitions for Google Groups Settings API v1 1.0
+// Type definitions for non-npm package Google Groups Settings API v1 1.0
 // Project: https://developers.google.com/google-apps/groups-settings/get_started
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,7 +63,7 @@ declare namespace gapi.client {
              * REPLY_TO_MANAGERS
              */
             replyTo?: string;
-            /** Should the member be notified if his message is denied by owner. */
+            /** Should the member be notified if their message is denied by owner. */
             sendMessageDenyNotification?: string;
             /** Is the group listed in groups directory */
             showInGroupDirectory?: string;

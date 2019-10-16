@@ -2,7 +2,7 @@
 // Project: https://github.com/sindresorhus/gulp-template#readme
 // Definitions by: Peter Safranek <https://github.com/pe8ter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

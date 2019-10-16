@@ -1,13 +1,4 @@
-import {
-    compare,
-    isBlank,
-    isEmpty,
-    isEqual,
-    isNone,
-    isPresent,
-    tryInvoke,
-    typeOf
-} from '@ember/utils';
+import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeOf } from '@ember/utils';
 
 (function() {
     /** isNone */
@@ -16,11 +7,11 @@ import {
         return;
     }
     const anotherString = maybeUndefined + 'another string';
-    isNone();              // $ExpectType boolean
-    isNone(null);          // $ExpectType boolean
-    isNone(undefined);     // $ExpectType boolean
-    isNone('');            // $ExpectType boolean
-    isNone([]);            // $ExpectType boolean
+    isNone(); // $ExpectType boolean
+    isNone(null); // $ExpectType boolean
+    isNone(undefined); // $ExpectType boolean
+    isNone(''); // $ExpectType boolean
+    isNone([]); // $ExpectType boolean
     isNone(function() {}); // $ExpectType boolean
 })();
 
@@ -28,8 +19,8 @@ import {
     /** tryInvoke */
     let d = new Date('03/15/2013');
 
-    tryInvoke(d, 'getTime');              // $ExpectType number
-    tryInvoke(d, 'setFullYear', [2014]);  // $ExpectType number
+    tryInvoke(d, 'getTime'); // $ExpectType number
+    tryInvoke(d, 'setFullYear', [2014]); // $ExpectType number
     tryInvoke(d, 'noSuchMethod', [2014]); // $ExpectType undefined
     tryInvoke(d, 'getTime');
     tryInvoke(d, 'setFullYear', [2014]);
@@ -38,46 +29,47 @@ import {
 
 (function() {
     /** isPresent */
-    isPresent();                // $ExpectType boolean
-    isPresent(null);            // $ExpectType boolean
-    isPresent(undefined);       // $ExpectType boolean
-    isPresent('');              // $ExpectType boolean
-    isPresent('  ');            // $ExpectType boolean
-    isPresent('\n\t');          // $ExpectType boolean
-    isPresent([]);              // $ExpectType boolean
-    isPresent({ length: 0 });   // $ExpectType boolean
-    isPresent(false);           // $ExpectType boolean
-    isPresent(true);            // $ExpectType boolean
-    isPresent('string');        // $ExpectType boolean
-    isPresent(0);               // $ExpectType boolean
-    isPresent(function() {});   // $ExpectType boolean
-    isPresent({});              // $ExpectType boolean
-    isPresent(false);           // $ExpectType boolean
-    isPresent('\n\t Hello');    // $ExpectType boolean
-    isPresent([1, 2, 3]);       // $ExpectType boolean
+    isPresent(); // $ExpectType boolean
+    isPresent(null); // $ExpectType boolean
+    isPresent(undefined); // $ExpectType boolean
+    isPresent(''); // $ExpectType boolean
+    isPresent('  '); // $ExpectType boolean
+    isPresent('\n\t'); // $ExpectType boolean
+    isPresent([]); // $ExpectType boolean
+    isPresent({ length: 0 }); // $ExpectType boolean
+    isPresent(false); // $ExpectType boolean
+    isPresent(true); // $ExpectType boolean
+    isPresent('string'); // $ExpectType boolean
+    isPresent(0); // $ExpectType boolean
+    isPresent(function() {}); // $ExpectType boolean
+    isPresent({}); // $ExpectType boolean
+    isPresent(false); // $ExpectType boolean
+    isPresent('\n\t Hello'); // $ExpectType boolean
+    isPresent([1, 2, 3]); // $ExpectType boolean
 })();
 
 (function() {
     /** typeOf */
-    typeOf(null);                   // $ExpectType "null"
-    typeOf(undefined);              // $ExpectType "undefined"
-    typeOf('michael');              // $ExpectType "string"
+    typeOf(null); // $ExpectType "null"
+    typeOf(undefined); // $ExpectType "undefined"
+    typeOf('michael'); // $ExpectType "string"
     // tslint:disable-next-line:no-construct
-    typeOf(new String('michael'));  // $ExpectType "string"
-    typeOf(101);                    // $ExpectType "number"
+    typeOf(new String('michael')); // $ExpectType "string"
+    typeOf(101); // $ExpectType "number"
     // tslint:disable-next-line:no-construct
-    typeOf(new Number(101));        // $ExpectType "number"
-    typeOf(true);                   // $ExpectType "boolean"
+    typeOf(new Number(101)); // $ExpectType "number"
+    typeOf(true); // $ExpectType "boolean"
     // tslint:disable-next-line:no-construct
-    typeOf(new Boolean(true));      // $ExpectType "boolean"
-    typeOf(() => 4);                // $ExpectType "function"
-    typeOf([1, 2, 90]);             // $ExpectType "array"
-    typeOf(/abc/);                  // $ExpectType "regexp"
-    typeOf(new Date());             // $ExpectType "date"
-    typeOf(new FileList());               // $ExpectType "filelist"
+    typeOf(new Boolean(true)); // $ExpectType "boolean"
+    typeOf(() => 4); // $ExpectType "function"
+    typeOf([1, 2, 90]); // $ExpectType "array"
+    typeOf(/abc/); // $ExpectType "regexp"
+    typeOf(new Date()); // $ExpectType "date"
+    typeOf(new FileList()); // $ExpectType "filelist"
     // typeOf(EmberObject.extend());   // $ExpectType "class"
     // typeOf(EmberObject.create());   // $ExpectType "instance"
-    typeOf(new Error('teamocil'));  // $ExpectType "error"
+    typeOf(new Error('teamocil')); // $ExpectType "error"
+    typeOf({ justAPojo: true }); // $ExpectType "object"
 
     typeOf();
     typeOf(null);

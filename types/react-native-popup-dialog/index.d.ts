@@ -17,7 +17,7 @@ export interface DialogContentProps {
     style?: StyleProp<ViewStyle>;
 }
 
-export interface DialogActionListProps {
+export interface DialogFooterProps {
     bordered?: boolean;
     style?: StyleProp<ViewStyle>;
 }
@@ -70,9 +70,7 @@ export interface DialogProps {
     onDismiss?: () => void;
     onTouchOutside?: () => void;
     onHardwareBackPress?: () => boolean;
-    actions?: any[];
-    actionContainerStyle?: StyleProp<ViewStyle>;
-    actionsBordered?: boolean;
+    footer?: any;
     useNativeDriver?: boolean;
 }
 
@@ -97,7 +95,7 @@ export class SlideAnimation {
 }
 
 export class DialogContent extends React.Component<DialogContentProps, any> { }
-export class DialogActionList extends React.Component<DialogActionListProps, any> { }
+export class DialogFooter extends React.Component<DialogFooterProps, any> { }
 export class DialogButton extends React.Component<DialogButtonProps, any> { }
 export class DialogTitle extends React.Component<DialogTitleProps, any> { }
 export class Overlay extends React.Component<OverlayProps, any> { }

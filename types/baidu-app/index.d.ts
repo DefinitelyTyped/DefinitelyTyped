@@ -1,4 +1,4 @@
-// Type definitions for swan-app 2.2
+// Type definitions for non-npm package swan-app 2.2
 // Project: https://smartprogram.baidu.com/docs/develop/tutorial/codedir/
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -4287,7 +4287,7 @@ declare namespace swan {
 		Methods,
 		Props
 		> = object &
-		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+		ComponentOptions<V, Data, Methods, Props> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
 	interface ComponentRelation<D = any, P = any> {

@@ -36,12 +36,13 @@ import {
     createSwitchNavigator,
     SwitchNavigatorConfig,
     TabBarTop,
-    createTabNavigator,
+    createMaterialTopTabNavigator,
     TabNavigatorConfig,
     Transitioner,
     HeaderBackButton,
     Header,
     NavigationContainer,
+    NavigationContext,
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
@@ -244,7 +245,7 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     },
 };
 
-const BasicTabNavigator = createTabNavigator(
+const BasicTabNavigator = createMaterialTopTabNavigator(
     routeConfigMap,
     tabNavigatorConfig,
 );
@@ -436,7 +437,7 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
             />
         );
     }
-    _render = (props: NavigationTransitionProps, prevProps?: NavigationTransitionProps): React.ReactElement<any> => {
+    _render = (props: NavigationTransitionProps, prevProps?: NavigationTransitionProps): React.ReactElement => {
         return (
             <View />
         );
@@ -680,4 +681,15 @@ const ViewWithNavigationEvents = (
     onWillBlur={console.log}
     onDidBlur={console.log}
   />
+);
+
+// Test NavigationContext
+const componentWithNavigationContext = (
+    <NavigationContext.Consumer>
+        {
+            navigationContext => (
+                <NavigationEvents navigation={navigationContext} />
+            )
+        }
+    </NavigationContext.Consumer>
 );

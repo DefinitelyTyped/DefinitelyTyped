@@ -1,4 +1,4 @@
-import XXH from 'xxhashjs';
+import * as XXH from 'xxhashjs';
 
 // Test data
 const seed = 0xABCD;

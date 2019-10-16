@@ -33,9 +33,9 @@ export interface NavigationBarProps {
     style?: ViewStyle;
     tintColor?: string;
     statusBar?: StatusBar;
-    leftButton?: NavigationBarButton | React.ReactElement<any> | null;
-    rightButton?: NavigationBarButton | React.ReactElement<any> | null;
-    title?: NavigationBarTitle | React.ReactElement<any> | null;
+    leftButton?: NavigationBarButton | React.ReactElement | null;
+    rightButton?: NavigationBarButton | React.ReactElement | null;
+    title?: NavigationBarTitle | React.ReactElement | null;
 }
 
 export default class NavigationBar extends React.Component<NavigationBarProps> {}

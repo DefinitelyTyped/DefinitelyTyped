@@ -148,7 +148,7 @@ declare module "alt/AltContainer" {
     stores?:Array<AltJS.AltStore<any>>;
     inject?:{[key:string]:any};
     actions?:{[key:string]:Object};
-    render?:(...props:Array<any>) => React.ReactElement<any>;
+    render?:(...props:Array<any>) => React.ReactElement;
     flux?:AltJS.Alt;
     transform?:(store:AltJS.AltStore<any>, actions:any) => any;
     shouldComponentUpdate?:(props:any) => boolean;

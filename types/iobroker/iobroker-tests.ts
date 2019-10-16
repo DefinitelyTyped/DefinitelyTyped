@@ -20,6 +20,16 @@ adapter
     ;
 adapter.removeAllListeners();
 
+// Test adapter constructor options
+let adapterOptions: ioBroker.AdapterOptions = {
+    name: "foo",
+    ready: readyHandler,
+    stateChange: stateChangeHandler,
+    objectChange: objectChangeHandler,
+    message: messageHandler,
+    unload: unloadHandler,
+};
+
 function readyHandler() { }
 
 function stateChangeHandler(id: string, state: ioBroker.State | null | undefined) {
@@ -209,8 +219,8 @@ switch (adapter.log.level) {
 
 adapter.sendTo("foo.0", "command", "message");
 adapter.sendTo("foo.0", "message");
-adapter.sendTo("foo.0", "command", {msg: "message"});
-adapter.sendTo("foo.0", {msg: "message"});
+adapter.sendTo("foo.0", "command", { msg: "message" });
+adapter.sendTo("foo.0", { msg: "message" });
 
 function handleMessageResponse(response?: ioBroker.Message) {
     if (!response) return;
@@ -226,28 +236,28 @@ function handleMessageResponse(response?: ioBroker.Message) {
 }
 adapter.sendTo("foo.0", "command", "message", handleMessageResponse);
 adapter.sendTo("foo.0", "message", handleMessageResponse);
-adapter.sendTo("foo.0", "command", {msg: "message"}, handleMessageResponse);
-adapter.sendTo("foo.0", {msg: "message"}, handleMessageResponse);
+adapter.sendTo("foo.0", "command", { msg: "message" }, handleMessageResponse);
+adapter.sendTo("foo.0", { msg: "message" }, handleMessageResponse);
 
 adapter.sendToAsync("foo.0", "command", "message").then(handleMessageResponse);
 adapter.sendToAsync("foo.0", "message").then(handleMessageResponse);
-adapter.sendToAsync("foo.0", "command", {msg: "message"}).then(handleMessageResponse);
-adapter.sendToAsync("foo.0", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToAsync("foo.0", "command", { msg: "message" }).then(handleMessageResponse);
+adapter.sendToAsync("foo.0", { msg: "message" }).then(handleMessageResponse);
 
 adapter.sendToHost("host-foo", "command", "message");
 adapter.sendToHost("host-foo", "message");
-adapter.sendToHost("host-foo", "command", {msg: "message"});
-adapter.sendToHost("host-foo", {msg: "message"});
+adapter.sendToHost("host-foo", "command", { msg: "message" });
+adapter.sendToHost("host-foo", { msg: "message" });
 
 adapter.sendToHost("host-foo", "command", "message", handleMessageResponse);
 adapter.sendToHost("host-foo", "message", handleMessageResponse);
-adapter.sendToHost("host-foo", "command", {msg: "message"}, handleMessageResponse);
-adapter.sendToHost("host-foo", {msg: "message"}, handleMessageResponse);
+adapter.sendToHost("host-foo", "command", { msg: "message" }, handleMessageResponse);
+adapter.sendToHost("host-foo", { msg: "message" }, handleMessageResponse);
 
 adapter.sendToHostAsync("host-foo", "command", "message").then(handleMessageResponse);
 adapter.sendToHostAsync("host-foo", "message").then(handleMessageResponse);
-adapter.sendToHostAsync("host-foo", "command", {msg: "message"}).then(handleMessageResponse);
-adapter.sendToHostAsync("host-foo", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", "command", { msg: "message" }).then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", { msg: "message" }).then(handleMessageResponse);
 
 function handleError(err?: string) { }
 adapter.subscribeStates("*", handleError);
@@ -259,3 +269,69 @@ adapter.subscribeStatesAsync("*").catch(handleError);
 adapter.subscribeForeignStatesAsync("*").catch(handleError);
 adapter.unsubscribeStatesAsync("*").catch(handleError);
 adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
+adapter.subscribeObjectsAsync("*").catch(handleError);
+adapter.subscribeForeignObjectsAsync("*").catch(handleError);
+adapter.unsubscribeObjectsAsync("*").catch(handleError);
+adapter.unsubscribeForeignObjectsAsync("*").catch(handleError);
+
+adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
+
+adapter.terminate();
+adapter.terminate(1);
+adapter.terminate("Reason");
+adapter.terminate("Reason", 4);
+
+// Repro from https://github.com/ioBroker/adapter-core/issues/3
+const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
+    if (!obj || !obj.common) return;
+    if (obj.common.custom) {
+        const test1: ioBroker.StateCommon = obj.common;
+    }
+    obj
+        && obj.common
+        && obj.common.custom
+        && obj.common.custom["adapter.0"]
+        && obj.common.custom["adapter.0"].enabled
+        ;
+};
+
+// Repro from https://github.com/ioBroker/adapter-core/issues/4
+function repro2() {
+    // Prepare custom object
+    const obj = {
+        common: {
+            custom: {
+                "adapter.namespace": { start_day: null as any }
+            }
+        }
+    };
+    adapter.extendForeignObject("obj.id", obj, (err) => { });
+}
+
+// repro from https://github.com/ioBroker/adapter-core/issues/6
+function repro3() {
+    adapter.getDevices((error, deviceList) => {
+        if (deviceList) {
+            deviceList; // $ExpectType DeviceObject[]
+        }
+    });
+    adapter.getDevicesAsync().then(list => {
+        list; // $ExpectType DeviceObject[]
+    });
+    adapter.getChannels((error, channelList) => {
+        if (channelList) {
+            channelList; // $ExpectType ChannelObject[]
+        }
+    });
+    adapter.getChannelsOfAsync().then(list => {
+        list; // $ExpectType ChannelObject[]
+    });
+    adapter.getStatesOf((error, stateList) => {
+        if (stateList) {
+            stateList; // $ExpectType StateObject[]
+        }
+    });
+    adapter.getStatesOfAsync().then(list => {
+        list; // $ExpectType StateObject[]
+    });
+}

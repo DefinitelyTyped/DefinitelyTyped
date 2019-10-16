@@ -2,7 +2,7 @@ import * as Gettext from 'gettext.js';
 
 const json: Gettext.JsonData = {
   "": {
-    locale: "fr",
+    language: "fr",
     "plural-forms": "nplurals=2; plural=n>1;"
   },
   Welcome: "Bienvenue",

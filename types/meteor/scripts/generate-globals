@@ -59,7 +59,7 @@ for (let outFile of configObject.files) {
     let m = /^(test\/)?globals\/(.*)$/.exec(outFile);
     if (m) {
         let inFile = (m[1] || "") + m[2];
-        let inLines = fs.readFileSync(inFile, "UTF-8").split(os.EOL);
+        let inLines = fs.readFileSync(inFile, "UTF-8").split(/\r?\n/);
         let isTest = !!m[1];
         let outLines = inLines.map((l) => {
             if (/^import /.test(l)) return null;

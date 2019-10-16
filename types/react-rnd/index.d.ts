@@ -104,6 +104,10 @@ export interface Options {
   bounds: 'parent' | 'window' | 'body' | string;
   resizeHandleClasses: HandleClasses;
   resizeHandleStyles: HandleStyles;
+  position?: {
+    x: number;
+    y: number;
+  };
 
   lockAspectRatio: boolean;
   enableResizing?: Enable;

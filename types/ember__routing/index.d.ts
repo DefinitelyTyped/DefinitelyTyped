@@ -1,4 +1,4 @@
-// Type definitions for @ember/routing 3.0
+// Type definitions for non-npm package @ember/routing 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Frouting
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -6,6 +6,7 @@ const account = new StellarSdk.Account(sourceKey.publicKey(), '1');
 const transaction = new StellarSdk.TransactionBuilder(account)
     .addOperation(StellarSdk.Operation.accountMerge({destination: destKey.publicKey()}))
     .addMemo(new StellarSdk.Memo(StellarSdk.MemoText, "memo"))
+    .setTimeout(5)
     .build(); // $ExpectType () => Transaction<Memo<MemoType>, Operation[]>
 
 const sig = StellarSdk.xdr.DecoratedSignature.fromXDR(Buffer.of(1, 2)); // $ExpectType DecoratedSignature
@@ -38,3 +39,5 @@ StellarSdk.Operation.fromXDRObject(newSignerXDR2).signer; // $ExpectType Sha256H
 
 const newSignerXDR3 = StellarSdk.Operation.setOptions({signer: {preAuthTx: '', weight: 1}});
 StellarSdk.Operation.fromXDRObject(newSignerXDR3).signer; // $ExpectType PreAuthTx
+
+StellarSdk.TimeoutInfinite; // $ExpectType 0

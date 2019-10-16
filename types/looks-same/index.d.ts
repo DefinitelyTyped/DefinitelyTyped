@@ -1,5 +1,5 @@
 // Type definitions for looks-same 4.0
-// Project: https://github.com/gemini-testing/looks-same/releases
+// Project: https://github.com/gemini-testing/looks-same
 // Definitions by: xcatliu <https://github.com/xcatliu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

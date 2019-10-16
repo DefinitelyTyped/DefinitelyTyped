@@ -305,6 +305,24 @@ declare namespace Dockerode {
     resize(options: {}): Promise<any>;
   }
 
+  class Config {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
+    inspect(callback: Callback<ConfigInfo>): void;
+    inspect(): Promise<ConfigInfo>;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+    update(options?: {}): Promise<any>;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+    remove(options?: {}): Promise<any>;
+  }
+
   interface ImageInfo {
     Id: string;
     ParentId: string;
@@ -333,6 +351,16 @@ declare namespace Dockerode {
     NetworkSettings: {
       Networks: { [networkType: string]: NetworkInfo }
     };
+    Mounts: Array<{
+      Name?: string;
+      Type: string;
+      Source: string;
+      Destination: string;
+      Driver?: string;
+      Mode: string;
+      RW: boolean;
+      Propagation: string;
+    }>;
   }
 
   interface Port {
@@ -357,19 +385,38 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
-  // not complete definition of network inspection
-  // info which is returned by list / inspect
+  // Information returned from inspecting a network
   interface NetworkInspectInfo {
-    Id: string;
     Name: string;
-    Driver: string;
+    Id: string;
     Created: string;
     Scope: string;
+    Driver: string;
     EnableIPv6: boolean;
+    IPAM?: IPAM;
     Internal: boolean;
     Attachable: boolean;
     Ingress: boolean;
+    Containers?: { [id: string]: NetworkContainer };
+    Options?: { [key: string]: string };
+    Labels?: { [key: string]: string };
   }
+
+  interface NetworkContainer {
+    Name: string;
+    EndpointID: string;
+    MacAddress: string;
+    Ipv4Address: string;
+    IPv6Address: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAM {
+    Driver: string;
+    Config?: { [key: string]: string };
+    Options?: Array<{ [key: string]: string }>;
+  }
+  /* tslint:enable:interface-name */
 
   interface VolumeInspectInfo {
     Name: string;
@@ -427,6 +474,7 @@ declare namespace Dockerode {
       }
     };
     Mounts: Array<{
+      Name?: string;
       Source: string;
       Destination: string;
       Mode: string;
@@ -449,7 +497,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [volume: string]: {} };
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any;
       Labels: { [label: string]: string }
     };
@@ -584,60 +632,67 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
-    AutoRemove: boolean;
-    Binds: string[];
-    ContainerIDFile: string;
-    LogConfig: {
+    AutoRemove?: boolean;
+    Binds?: string[];
+    ContainerIDFile?: string;
+    LogConfig?: {
       Type: string;
       Config: any;
     };
-    NetworkMode: string;
+    NetworkMode?: string;
     PortBindings?: any;
-    RestartPolicy: {
-      Name: string;
-      MaximumRetryCount: number;
-    };
-    VolumeDriver: string;
+    RestartPolicy?: RestartPolicy;
+    VolumeDriver?: string;
     VolumesFrom?: any;
+    Mounts?: MountConfig;
     CapAdd?: any;
     CapDrop?: any;
-    Dns: any[];
-    DnsOptions: any[];
-    DnsSearch: any[];
+    Dns?: any[];
+    DnsOptions?: any[];
+    DnsSearch?: any[];
     ExtraHosts?: any;
-    IpcMode: string;
+    GroupAdd?: string[];
+    IpcMode?: string;
+    Cgroup?: string;
     Links?: any;
-    OomScoreAdj: number;
-    PidMode: string;
-    Privileged: boolean;
-    PublishAllPorts: boolean;
-    ReadonlyRootfs: boolean;
+    OomScoreAdj?: number;
+    PidMode?: string;
+    Privileged?: boolean;
+    PublishAllPorts?: boolean;
+    ReadonlyRootfs?: boolean;
     SecurityOpt?: any;
-    UTSMode: string;
-    ShmSize: number;
-    ConsoleSize: number[];
-    Isolation: string;
-    CpuShares: number;
-    CgroupParent: string;
-    BlkioWeight: number;
+    StorageOpt?: { [option: string]: string };
+    Tmpfs?: { [dir: string]: string };
+    UTSMode?: string;
+    UsernsMode?: string;
+    ShmSize?: number;
+    Sysctls?: { [index: string]: string };
+    Runtime?: string;
+    ConsoleSize?: number[];
+    Isolation?: string;
+    MaskedPaths?: string[];
+    ReadonlyPaths?: string[];
+    CpuShares?: number;
+    CgroupParent?: string;
+    BlkioWeight?: number;
     BlkioWeightDevice?: any;
     BlkioDeviceReadBps?: any;
     BlkioDeviceWriteBps?: any;
     BlkioDeviceReadIOps?: any;
     BlkioDeviceWriteIOps?: any;
-    CpuPeriod: number;
-    CpuQuota: number;
-    CpusetCpus: string;
-    CpusetMems: string;
+    CpuPeriod?: number;
+    CpuQuota?: number;
+    CpusetCpus?: string;
+    CpusetMems?: string;
     Devices?: any;
-    DiskQuota: number;
-    KernelMemory: number;
-    Memory: number;
-    MemoryReservation: number;
-    MemorySwap: number;
-    MemorySwappiness: number;
-    OomKillDisable: boolean;
-    PidsLimit: number;
+    DiskQuota?: number;
+    KernelMemory?: number;
+    Memory?: number;
+    MemoryReservation?: number;
+    MemorySwap?: number;
+    MemorySwappiness?: number;
+    OomKillDisable?: boolean;
+    PidsLimit?: number;
     Ulimits?: any;
   }
 
@@ -667,7 +722,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any[];
       Labels: { [label: string]: string }
     };
@@ -691,7 +746,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild: any[];
       Labels: { [label: string]: string }
     };
@@ -810,6 +865,18 @@ declare namespace Dockerode {
     BindOptions ?: {
       Propagation: MountPropagation;
     };
+    VolumeOptions ?: {
+      NoCopy: boolean;
+      Labels: { [label: string]: string };
+      DriverConfig: {
+          Name: string;
+          Options: { [option: string]: string};
+      };
+    };
+    TmpfsOptions ?: {
+      SizeBytes: number;
+      Mode: number;
+    };
   }
 
   type MountConfig = MountSettings[];
@@ -827,7 +894,7 @@ declare namespace Dockerode {
     StdinOnce?: boolean;
     Env?: string[];
     Cmd?: string[];
-    Entrypoint?: string;
+    Entrypoint?: string | string[];
     Image?: string;
     Labels?: { [label: string]: string };
     Volumes?: { [volume: string]: {} };
@@ -836,55 +903,7 @@ declare namespace Dockerode {
     MacAddress?: boolean;
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
-    HostConfig?: {
-      AutoRemove?: boolean;
-      Binds?: string[];
-      Links?: string[];
-      Memory?: number;
-      MemorySwap?: number;
-      MemoryReservation?: number;
-      KernelMemory?: number;
-      CpuPercent?: number;
-      CpuShares?: number;
-      CpuPeriod?: number;
-      CpuQuota?: number;
-      CpusetMems?: string;
-      MaximumIOps?: number;
-      MaxmimumIOBps?: number;
-      BlkioWeightDevice?: Array<{}>;
-      BlkioDeviceReadBps?: Array<{}>;
-      BlkioDeviceReadIOps?: Array<{}>;
-      BlkioDeviceWriteBps?: Array<{}>;
-      BlkioDeviceWriteIOps?: Array<{}>;
-      MemorySwappiness?: number;
-      OomKillDisable?: boolean;
-      OomScoreAdj?: number;
-      PidMode?: string;
-      PidsLimit?: number;
-      PortBindings?: PortMap;
-      PublishAllPorts?: boolean;
-      Privileged?: boolean;
-      ReadonlyRootfs?: boolean;
-      Dns?: string[];
-      DnsOptions?: string[];
-      DnsSearch?: string[];
-      ExtraHosts?: any;
-      VolumesFrom?: string[];
-      Mounts?: MountConfig;
-      CapAdd?: string[];
-      CapDrop?: string[];
-      GroupAdd?: string[];
-      RestartPolicy?: RestartPolicy;
-      NetworkMode?: string;
-      Devices?: DeviceMapping[];
-      Sysctls?: { [index: string]: string };
-      Ulimits?: Array<{}>;
-      LogConfig?: LogConfig;
-      SecurityOpt?: { [index: string]: any };
-      CgroupParent?: string;
-      VolumeDriver?: string;
-      ShmSize?: number;
-    };
+    HostConfig?: HostConfig;
     NetworkingConfig?: {
       EndpointsConfig?: EndpointsConfig;
     };
@@ -922,6 +941,24 @@ declare namespace Dockerode {
     CreatedAt: string;
     UpdatedAt?: string;
     Spec?: ServiceSpec;
+  }
+
+  interface ConfigInfo {
+    ID: string;
+    Version: SecretVersion;
+    CreatedAt: string;
+    UpdatedAt?: string;
+    Spec?: ConfigSpec;
+  }
+
+  interface ConfigSpec {
+    Name: string;
+    Labels: { [label: string]: string };
+    Data: string;
+  }
+
+  interface ConfigVersion {
+    Index: number;
   }
 
   interface PluginInfo {
@@ -1132,6 +1169,8 @@ declare class Dockerode {
 
   getExec(id: string): Dockerode.Exec;
 
+  getConfig(id: string): Dockerode.Config;
+
   listContainers(options: {}, callback: Callback<Dockerode.ContainerInfo[]>): void;
   listContainers(callback: Callback<Dockerode.ContainerInfo[]>): void;
   listContainers(options?: {}): Promise<Dockerode.ContainerInfo[]>;
@@ -1177,8 +1216,15 @@ declare class Dockerode {
   listNetworks(callback: Callback<any[]>): void;
   listNetworks(options?: {}): Promise<any[]>;
 
+  listConfigs(options: {}, callback: Callback<Dockerode.ConfigInfo[]>): void;
+  listConfigs(callback: Callback<Dockerode.ConfigInfo[]>): void;
+  listConfigs(options?: {}): Promise<Dockerode.ConfigInfo[]>;
+
   createSecret(options: {}, callback: Callback<any>): void;
   createSecret(options: {}): Promise<any>;
+
+  createConfig(options: {}, callback: Callback<any>): void;
+  createConfig(options: {}): Promise<any>;
 
   createPlugin(options: {}, callback: Callback<any>): void;
   createPlugin(options: {}): Promise<any>;

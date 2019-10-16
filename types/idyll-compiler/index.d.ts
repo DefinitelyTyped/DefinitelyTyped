@@ -1,40 +1,42 @@
 // Type definitions for idyll-compiler 3.1
-// Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-compiler
+// Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-compiler, https://github.com/idyll-lang/idyll
 // Definitions by: Thanh Ngo <https://github.com/iocat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type PropType = "variable" | "value" | "expression";
-export type PropData = string | number | boolean;
-export type PropKey = string;
-export type PropValue = [PropType, PropData];
-export type Property = [PropKey, PropValue];
-type __RecursiveNode<T> = [string, Property[], T[]];
-export interface TreeNode extends __RecursiveNode<Node> {}
-export type Node = TreeNode | string;
-export type AST = Node[];
+declare namespace compiler {
+    type PropType = "variable" | "value" | "expression";
+    type PropData = string | number | boolean;
+    type PropKey = string;
+    type PropValue = [PropType, PropData];
+    type Property = [PropKey, PropValue];
+    type __RecursiveNode<T> = [string, Property[], T[]];
+    interface TreeNode extends __RecursiveNode<Node> {}
+    type Node = TreeNode | string;
+    type AST = Node[];
 
-export type PostProcessor =
-    | ((ast: AST) => AST)
-    | ((ast: AST, callback: (err: any, value: AST) => void) => void);
+    type PostProcessor =
+        | ((ast: AST) => AST)
+        | ((ast: AST, callback: (err: any, value: AST) => void) => void);
 
-export interface Options {
-    spellcheck?: boolean;
+    interface Options {
+        spellcheck?: boolean;
 
-    smartquotes?: boolean;
+        smartquotes?: boolean;
 
-    /**
-     * If false and there is no postprocessors, compiler returns the AST synchronously
-     * Otherwise, a promise is returned
-     *
-     */
-    async?: boolean;
+        /**
+         * If false and there is no postprocessors, compiler returns the AST synchronously
+         * Otherwise, a promise is returned
+         *
+         */
+        async?: boolean;
 
-    /**
-     * compiler plugins
-     * If provided, compiler always compiles asynchronously
-     */
-    postProcessors?: PostProcessor[];
+        /**
+         * compiler plugins
+         * If provided, compiler always compiles asynchronously
+         */
+        postProcessors?: PostProcessor[];
+    }
 }
 
 /**
@@ -48,8 +50,8 @@ export interface Options {
  */
 declare function compiler(
     input: string,
-    options?: Options,
+    options?: compiler.Options,
     callback?: () => void
-): Promise<AST> | AST;
+): Promise<compiler.AST> | compiler.AST;
 
-export default compiler;
+export = compiler;

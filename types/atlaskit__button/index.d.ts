@@ -42,9 +42,9 @@ export interface ButtonProps {
     /** Provides a url for buttons being used as a link. */
     readonly href?: string;
     /** Places an icon within the button, after the button's text. */
-    readonly iconAfter?: ReactElement<any>;
+    readonly iconAfter?: ReactElement;
     /** Places an icon within the button, before the button's text. */
-    readonly iconBefore?: ReactElement<any>;
+    readonly iconBefore?: ReactElement;
     /** Pass a reference on to the styled component */
     readonly innerRef?: (instance: any) => void;
     /** Provide a unique id to the button. */

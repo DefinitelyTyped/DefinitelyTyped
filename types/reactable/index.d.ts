@@ -1,6 +1,6 @@
 // Type definitions for reactable 0.14
-// Project: https://github.com/glittershark/reactable
-// Definitions by: Christoph Spielmann <https://github.com/spielc>
+// Project: https://github.com/abdulrahman-khankan/reactable
+// Definitions by: Christoph Spielmann <https://github.com/spielc>, Priscila Moneo <https://github.com/priscila-moneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,10 +23,16 @@ export interface TableComponentProperties<T> {
     columns?: ColumnsType[];
     defaultSort?: { column: string, direction: SortDirection };
     id?: string;
-    sortable?: string[];
+    sortable?: string[] | boolean;
+    sortBy?: boolean;
     filterable?: string[];
     filterBy?: string;
     onFilter?: FilterMethodType;
+    itemsPerPage?: number;
+    noDataText?: string;
+    pageButtonLimit?: number;
+    currentPage?: number;
+    hideFilterInput?: boolean;
 }
 
 export interface ThProperties {

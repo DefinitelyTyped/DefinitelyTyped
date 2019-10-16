@@ -2,7 +2,7 @@
 // Project: http://projectfluent.org
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 import * as React from 'react';
 import {
@@ -76,7 +76,7 @@ export type Matching<InjectedProps, DecorationTargetProps> = {
  */
 export type Shared<
     InjectedProps,
-    DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
+    DecorationTargetProps
     > = {
         [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };

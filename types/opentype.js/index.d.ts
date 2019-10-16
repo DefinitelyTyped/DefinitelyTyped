@@ -1,5 +1,5 @@
 // Type definitions for opentype.js 0.7
-// Project: https://github.com/nodebox/opentype.js
+// Project: https://github.com/opentypejs/opentype.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

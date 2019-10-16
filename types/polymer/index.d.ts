@@ -193,8 +193,6 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
       attributeChangedCallback?(name: string):void;
@@ -218,6 +216,10 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+        
+      getEffectiveChildren?(): Node[];
+
+      getEffectiveChildNodes?(): Node[];
     }
 
     // This is the type of a Polymer element after it has gone through the
@@ -277,6 +279,8 @@ declare global {
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
+
+      getEffectiveChildNodes(): Node[];
 
       childNodes:Node[];
 

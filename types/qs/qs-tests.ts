@@ -239,6 +239,11 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
+    var parsedCommaSeparatedArray = qs.parse('?a=b,c', { comma: true });
+    assert.equal(parsedCommaSeparatedArray, { a: ['b', 'c']});
+}
+
+() => {
     var nullsSkipped = qs.stringify({ a: 'b', c: null }, { skipNulls: true });
     assert.equal(nullsSkipped, 'a=b');
 }

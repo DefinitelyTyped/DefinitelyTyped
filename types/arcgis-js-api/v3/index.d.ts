@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.27
+// Type definitions for ArcGIS API for JavaScript 3.30
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2428,10 +2428,6 @@ declare module "esri" {
     customParameters?: any;
     /** A WMTSLayerInfo object that when ResourceInfo options are not specified the map will display the first layer in the WMTS capabilities that matches the properties specified by WMTSLayerInfo. */
     layerInfo?: WMTSLayerInfo;
-    /** When true, tile resampling is enabled. */
-    resampling?: boolean;
-    /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number;
     /** An optional resource info object. */
     resourceInfo?: any;
     /** Specify the service type. */
@@ -3477,19 +3473,19 @@ declare module "esri/basemaps" {
   var basemaps: {
     /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
     gray: any;
-    /** The World Imagery map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
     /** The OpenStreetMap is a community map layer that is designed to be used as a basemap for various maps and applications. */
     osm: any;
-    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world. */
+    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings. */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
     topo: any;
   };
   export = basemaps;
@@ -9227,9 +9223,9 @@ declare module "esri/lang" {
      * A wrapper around dojo.string.substitute that can also handle wildcard substitution.
      * @param data The data object used in the substitution.
      * @param template The template used for the substitution.
-     * @param first When true, returns only the first property found in the data object.
+     * @param options Object containing a format object used in the substitution.
      */
-    substitute(data: any, template?: string, first?: boolean): string;
+    substitute(data: any, template?: string, options?: any): string;
     /**
      * Iterates through the argument array and searches for the identifier to which the argument value matches.
      * @param array The argument array for testing.
@@ -10000,6 +9996,8 @@ declare module "esri/layers/FeatureLayer" {
     displayField: string;
     /** Indicates the field names for the editor fields. */
     editFieldsInfo: any;
+    /** Applicable to ArcGIS Online hosted feature services. */
+    editingInfo: any;
     /** The array of fields in the layer. */
     fields: Field[];
     /** The full extent of the layer. */
@@ -10012,6 +10010,8 @@ declare module "esri/layers/FeatureLayer" {
     globalIdField: string;
     /** Array of features in the layer. */
     graphics: Graphic[];
+    /** Indicates whether the layer displays all features intersecting the current view. */
+    hasAllFeatures: boolean;
     /** True if attachments are enabled on the feature layer. */
     hasAttachments: boolean;
     /** When true, the layer has attribution data. */
@@ -10054,6 +10054,8 @@ declare module "esri/layers/FeatureLayer" {
     supportsAttachmentsByUploadId: boolean;
     /** When true, the layer supports the Calculate REST operation when updating features. */
     supportsCalculate: boolean;
+    /** If true, the layer supports a user-defined field description. */
+    supportsFieldDescription: boolean;
     /** When true, the layer supports statistical functions in query operations. */
     supportsStatistics: boolean;
     /** When true, the layer is suspended. */
@@ -10096,7 +10098,7 @@ declare module "esri/layers/FeatureLayer" {
     addAttachment(objectId: number, formNode: HTMLFormElement, callback?: Function, errback?: Function): any;
     /**
      * Apply edits to the feature layer.
-     * @param adds Array of features to add to the layer in the feature service.
+     * @param adds Array of features to add to the layer.
      * @param updates Array of features whose geometry and/or attributes have changed.
      * @param deletes Array of features to delete.
      * @param callback This function will be called when the operation is complete.
@@ -10468,6 +10470,10 @@ declare module "esri/layers/Field" {
   class Field {
     /** The alias name for the field. */
     alias: string;
+    /** A string that describes the default value set for a field. */
+    defaultValue: string;
+    /** Contains information describing the purpose of each field and the various types of data each field contains. */
+    description: any;
     /** Domain associated with the field. */
     domain: Domain;
     /** Indicates whether the field is editable. */
@@ -12681,506 +12687,6 @@ declare module "esri/map" {
   export = Map;
 }
 
-declare module "esri/opsdashboard/DataSourceProxy" {
-  import Field = require("esri/layers/Field");
-  import FeatureType = require("esri/layers/FeatureType");
-  import Query = require("esri/tasks/query");
-  import Graphic = require("esri/graphic");
-
-  /** (Currently in Mature Support) DataSourceProxy is a proxy class that represents a operations dashboard data source. */
-  class DataSourceProxy {
-    /** Read-only: The name of the display field. */
-    displayFieldName: string;
-    /** Read-only: The collection of fields. */
-    fields: Field[];
-    /** Read-only: The geometry type. */
-    geometryType: string;
-    /** Read-only: The id of the data source. */
-    id: string;
-    /** Read-only: Indicates if the last query failed and the data source is in a broken state. */
-    isBroken: boolean;
-    /** Read-only: The mapWidgetId of the data source. */
-    mapWidgetId: string;
-    /** Read-only: The name of the data source. */
-    name: string;
-    /** Read-only: The name of the object id field. */
-    objectIdFieldName: string;
-    /** Read-only: Indicates if the data source supports selections. */
-    supportsSelection: boolean;
-    /** Read-only: The name of the type id field. */
-    typeIdFieldName: string;
-    /** Read-only: The collection of feature types. */
-    types: FeatureType[];
-    /** Clear the selection. */
-    clearSelection(): void;
-    /**
-     * Executes a query and get the result.
-     * @param query The query object to apply.
-     */
-    executeQuery(query: Query): any;
-    /** An object that contains service level metadata about whether or not the layer supports queries using statistics, order by fields, DISTINCT, pagination, query with distance, and returning queries with extents. */
-    getAdvancedQueryCapabilities(): any;
-    /** Retrieve the associated id of the data source that supports selection. */
-    getAssociatedSelectionDataSourceId(): any;
-    /** Get the associated popupInfo for the data source if any available. */
-    getPopupInfo(): any;
-    /** Get the associated render object for the data source if any available. */
-    getRenderer(): any;
-    /**
-     * Get the feature type from a feature coming from the data source.
-     * @param feature A feature coming from the data source
-     */
-    getTypeFromFeature(feature: Graphic): any;
-    /**
-     * Returns the value corresponding to a field name from a feature coming from the data source.
-     * @param feature A feature coming from the data source
-     * @param fieldName The name of the field for which the value should be returned.
-     */
-    getValueFromFeature(feature: Graphic, fieldName: string): number | string;
-    /**
-     * Select features in the data source using a query.
-     * @param query The query object to apply
-     */
-    selectFeatures(query: Query): void;
-    /**
-     * Select features in the data source using a collection of object ids.
-     * @param objectIds The collection of object ids of the features to select.
-     */
-    selectFeaturesByObjectIds(objectIds: number[]): void;
-  }
-  export = DataSourceProxy;
-}
-
-declare module "esri/opsdashboard/ExtensionBase" {
-  import esri = require("esri");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-
-  /** (Currently in Mature Support) ExtensionBase is a base class used by all the extension proxies. */
-  class ExtensionBase {
-    /** "circle" */
-    static CIRCLE: any;
-    /** "extent" */
-    static EXTENT: any;
-    /** "freehandpolygon" */
-    static FREEHAND_POLYGON: any;
-    /** "freehandpolyline" */
-    static FREEHAND_POLYLINE: any;
-    /** "line" */
-    static LINE: any;
-    /** "point" */
-    static POINT: any;
-    /** "polygon" */
-    static POLYGON: any;
-    /** "polyline" */
-    static POLYLINE: any;
-    /** Read-only: Indicates if the host application is the Windows Operations Dashboard. */
-    isNative: boolean;
-    /** Read-only: It will list all of the Portal helper services. */
-    portalHelperServices: any;
-    /** Read-only: The URL to the ArcGIS.com site or in-house portal that you are currently signed in to. */
-    portalUrl: string;
-    /**
-     * Get the collection of data sources from the host application.
-     * @deprecated
-     */
-    getDataSourceProxies(): any;
-    /**
-     * Get the data source corresponding to the data source id from the host application.
-     * @param dataSourceId The data source id
-     */
-    getDataSourceProxy(dataSourceId: string): any;
-    /** Get the collection of map widgets from the host application. */
-    getMapWidgetProxies(): any;
-    /**
-     * Get the map widget corresponding to the map widget id from the host application.
-     * @param mapWidgetId A map widget id
-     */
-    getMapWidgetProxy(mapWidgetId: string): any;
-    /**
-     * Called when an error occurred during the initialization process with the host application.
-     * @param err The error that occurred.
-     */
-    hostInitializationError(err: Error): void;
-    /** Called by the host application when the relationship has been established with the extension. */
-    hostReady(): void;
-    /**
-     * Called by the host application when a map widget has been added to the current view.
-     * @param mapWidgetProxy A map widget id.
-     */
-    mapWidgetAdded(mapWidgetProxy: MapWidgetProxy): void;
-    /**
-     * Called by the host application when a map widget has been removed from the current view.
-     * @param mapWidgetId A map widget id.
-     */
-    mapWidgetRemoved(mapWidgetId: string): void;
-    /** Event indicating that a new data source has been added into the host operation view. */
-    on(type: "data-source-added", listener: (event: { dataSourceProxy: any; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a data source has been removed from the host operation view. */
-    on(type: "data-source-removed", listener: (event: { dataSourceId: string; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that the initialization process was successful. */
-    on(type: "host-ready", listener: (event: { target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that the initialization process encountered an error. */
-    on(type: "initialization-error", listener: (event: { error: Error; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a new map widget has been added into the host operation view. */
-    on(type: "map-widget-added", listener: (event: { mapWidgetProxy: MapWidgetProxy; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a map widget has been removed from the host operation view. */
-    on(type: "map-widget-removed", listener: (event: { mapWidgetId: string; target: ExtensionBase }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = ExtensionBase;
-}
-
-declare module "esri/opsdashboard/ExtensionConfigurationBase" {
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-
-  /** (Currently in Mature Support) ExtensionConfigurationBase is a base class used by all the extension configuration proxies. */
-  class ExtensionConfigurationBase extends ExtensionBase {
-    /** The object that will store the Widget/MapTool/FeatureAction configuration. */
-    config: any;
-    /**
-     * Indicates if the configuration is ready to be persisted or not.
-     * @param ready Indicates that the configuration is ready to be persisted or not.
-     */
-    readyToPersistConfig(ready: boolean): void;
-  }
-  export = ExtensionConfigurationBase;
-}
-
-declare module "esri/opsdashboard/FeatureActionConfigurationProxy" {
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-
-  /** (Currently in Mature Support) FeatureActionConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension feature action. */
-  class FeatureActionConfigurationProxy extends ExtensionConfigurationBase {
-  }
-  export = FeatureActionConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/FeatureActionFeatures" {
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import Graphic = require("esri/graphic");
-
-  /** (Currently in Mature Support) FeatureActionFeatures is a specialized collection of features used by WidgetProxy to hold the collection of features for the associated feature actions. */
-  class FeatureActionFeatures {
-    /** The DataSourceProxy from which the collection of features belongs to. */
-    dataSourceProxy: DataSourceProxy;
-    /**
-     * Add a feature to the host collection.
-     * @param featureOrObjectId
-     */
-    addFeature(featureOrObjectId: Graphic | number): void;
-    /**
-     * Add a collection of features or collection of object id in the host collection.
-     * @param featuresOrObjectIds
-     */
-    addFeatures(featuresOrObjectIds: Graphic[] | number[]): void;
-    /** Remove all the features from the host collection. */
-    clear(): void;
-    /**
-     * Test if a feature exists in the host collection.
-     * @param featureOrObjectId Feature to test existance for.
-     */
-    contains(featureOrObjectId: Graphic | number): boolean;
-    /**
-     * Returns the index of a feature in the host collection.
-     * @param featureOrObjectId Feature to return index from.
-     */
-    indexOf(featureOrObjectId: Graphic | number): number;
-    /**
-     * Remove a collection of features from the host collection.
-     * @param featureOrObjectId Feature to remove.
-     */
-    removeFeature(featureOrObjectId: Graphic | number): void;
-    /**
-     * Remove a feature from the host collection.
-     * @param featuresOrObjectIds Features to remove.
-     */
-    removeFeatures(featuresOrObjectIds: Graphic[] | number[]): void;
-  }
-  export = FeatureActionFeatures;
-}
-
-declare module "esri/opsdashboard/GraphicsLayerProxy" {
-  import Renderer = require("esri/renderers/Renderer");
-  import Graphic = require("esri/graphic");
-
-  /** (Currently in Mature Support) GraphicsLayerProxy is a proxy class that represents a graphics layer in a map widget in the host application. */
-  class GraphicsLayerProxy {
-    /** Read-only: The current host graphics layer maximum visible scale. */
-    maxScale: number;
-    /** Read-only: The current host graphics layer minimum visible scale. */
-    minScale: number;
-    /** Read-only: The current host graphics layer opacity ratio. */
-    opacity: number;
-    /** Read-only: The current renderer used by the host graphics layer. */
-    renderer: Renderer;
-    /** Read-only: The current host graphics layer visibility. */
-    visible: boolean;
-    /**
-     * Update a graphic in the host graphics layer with a new version.
-     * @param graphic The graphic to update in the host graphics layer.
-     */
-    addOrUpdateGraphic(graphic: Graphic): void;
-    /**
-     * Update graphics in the host graphics layer with a new version.
-     * @param graphics The graphics to update in the host graphics layer.
-     */
-    addOrUpdateGraphics(graphics: Graphic[]): void;
-    /** Removes all the graphics from the host graphics layer. */
-    clear(): void;
-    /**
-     * Removes from the host graphics layer a graphic.
-     * @param graphic The graphic to remove from the host graphics layer.
-     */
-    removeGraphic(graphic: Graphic): void;
-    /**
-     * Sets the host graphics layer maximum scale.
-     * @param maxScale
-     */
-    setMaxScale(maxScale: number): void;
-    /**
-     * Sets the host graphics layer minimum scale.
-     * @param minScale
-     */
-    setMinScale(minScale: number): void;
-    /**
-     * Sets the host graphics layer opacity ratio.
-     * @param opacity An opacity ratio between 0 and 1.
-     */
-    setOpacity(opacity: number): void;
-    /**
-     * Sets the host graphics layer renderer.
-     * @param renderer Since the Windows operations dashboard is built using ArcGIS Runtime SDK for WPF, only renderers supported by the WPF should be used, such as SimpleRenderer, UniqueValueRenderer and ClassBreaksRenderer.
-     */
-    setRenderer(renderer: Renderer): void;
-    /**
-     * Set the visibility of the host graphics layer.
-     * @param visibility The new visibility value.
-     */
-    setVisibility(visibility: boolean): void;
-  }
-  export = GraphicsLayerProxy;
-}
-
-declare module "esri/opsdashboard/MapToolConfigurationProxy" {
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-
-  /** (Currently in Mature Support) MapToolConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension map tool. */
-  class MapToolConfigurationProxy extends ExtensionConfigurationBase {
-  }
-  export = MapToolConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/MapToolProxy" {
-  import esri = require("esri");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-  import Geometry = require("esri/geometry/Geometry");
-
-  /** (Currently in Mature Support) MapToolProxy is a class used to define an operations dashboard extension map tool. */
-  class MapToolProxy {
-    /** Read-only: The available size for the map tool user experience on the host map widget. */
-    availableDisplaySize: number;
-    /** Read-only: The map tool user experience size in pixels. */
-    displaySize: any;
-    /** Read-only: The map widget that is hosting the map tool user experience. */
-    mapWidgetProxy: MapWidgetProxy;
-    /** Read-only: The previous map tool user experience state that was passed the last time the map tool was deactivated. */
-    previousState: any;
-    /**
-     * Activates a drawing activity on the host map widget.
-     * @param options Drawing options.
-     */
-    activateMapDrawing(options: any): void;
-    /**
-     * Called by the host application when the available size for the map tool user experience has changed (user resizes the application or the map widget).
-     * @param availableSize The size available on the host map widget for the map tool user experience.
-     */
-    availableDisplaySizeChanged(availableSize: any): void;
-    /** Deactivates the drawing activity on the host map widget. */
-    deactivateMapDrawing(): void;
-    /**
-     * Deactivate the map tool user experience.
-     * @param state A JSON object that needs to be persisted in the host until the next activation of the map tool user experience.
-     */
-    deactivateMapTool(state: any): void;
-    /**
-     * Called by the host application when the user has completed the drawing activity on the map.
-     * @param geometry The geometry captured by the user during the drawing activity.
-     */
-    mapDrawComplete(geometry: Geometry): void;
-    /**
-     * Change the size of the user experience area in the host application for this map tool user experience.
-     * @param size The new size for the user experience.
-     */
-    setDisplaySize(size: any): any;
-    /** Event indicating that the available display size for the map tool user experience has changed. */
-    on(type: "available-display-size-changed", listener: (event: { size: any; target: MapToolProxy }) => void): esri.Handle;
-    /** Event indicating that a previously activate drawing activity has been completed by the user. */
-    on(type: "draw-complete", listener: (event: { geometry: Geometry; target: MapToolProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = MapToolProxy;
-}
-
-declare module "esri/opsdashboard/MapWidgetProxy" {
-  import esri = require("esri");
-  import SpatialReference = require("esri/SpatialReference");
-  import GraphicsLayerProxy = require("esri/opsdashboard/GraphicsLayerProxy");
-  import Point = require("esri/geometry/Point");
-  import Extent = require("esri/geometry/Extent");
-
-  /** (Currently in Mature Support) MapWidgetProxy is a proxy class that represents a operations dashboard map widget. */
-  class MapWidgetProxy {
-    /** Read-only: The map id. */
-    id: string;
-    /** Read-only: The name of the map. */
-    name: string;
-    /** Read-only: The spatial reference of the map. */
-    spatialReference: SpatialReference;
-    /**
-     * Creates a graphics layer in the host map.
-     * @param options The options for the new graphics layer
-     */
-    createGraphicsLayerProxy(options?: any): any;
-    /**
-     * Destroys in the host map a host graphics layer.
-     * @param graphicsLayerProxy The host graphics layer to destroy.
-     */
-    destroyGraphicsLayerProxy(graphicsLayerProxy: GraphicsLayerProxy): void;
-    /** Gets the current host map extent. */
-    getMapExtent(): any;
-    /**
-     * Pans the map to a new location.
-     * @param mapPoint A new location with the same spatial reference as the host map.
-     */
-    panTo(mapPoint: Point): void;
-    /**
-     * Sets an extent on the host map extent.
-     * @param extent A new map extent.
-     */
-    setExtent(extent: Extent): void;
-    /** Subscribes to the host map events. */
-    subscribeToMapEvents(): void;
-    /** Unsubscribes from the host map events. */
-    unsubscribeFromMapEvents(): void;
-    /** Event indicating that the host map extent has changed. */
-    on(type: "map-extent-change", listener: (event: { extent: Extent; target: MapWidgetProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = MapWidgetProxy;
-}
-
-declare module "esri/opsdashboard/WidgetConfigurationProxy" {
-  import esri = require("esri");
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-
-  /** (Currently in Mature Support) WidgetConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension widget. */
-  class WidgetConfigurationProxy extends ExtensionConfigurationBase {
-    /**
-     * Called by the host application when the user has changed the selected data source in the data source selector.
-     * @param dataSourceProxy The selected data source.
-     * @param dataSourceConfig The associated data source config.
-     */
-    dataSourceSelectionChanged(dataSourceProxy: DataSourceProxy, dataSourceConfig: any): void;
-    /**
-     * Get the data source config for a data source.
-     * @param dataSourceProxyOrDataSourceId A data source or a data source id.
-     */
-    getDataSourceConfig(dataSourceProxyOrDataSourceId: DataSourceProxy | string): any;
-    /**
-     * Called by the host application when the user has changed the selected map widget in the map widget selector.
-     * @param mapWidgetProxy The selected map widget.
-     */
-    mapWidgetSelectionChanged(mapWidgetProxy: MapWidgetProxy): void;
-    /** Event indicating the user has changed the selected data source for the configuration. */
-    on(type: "data-source-selection-changed", listener: (event: { dataSourceConfig: any; dataSourceProxy: DataSourceProxy; target: WidgetConfigurationProxy }) => void): esri.Handle;
-    /** Event indicating the user has changed the selected map widget for the configuration. */
-    on(type: "map-widget-selection-changed", listener: (event: { mapWidgetProxy: MapWidgetProxy; target: WidgetConfigurationProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = WidgetConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/WidgetProxy" {
-  import esri = require("esri");
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-  import FeatureActionFeatures = require("esri/opsdashboard/FeatureActionFeatures");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import Graphic = require("esri/graphic");
-  import Geometry = require("esri/geometry/Geometry");
-
-  /** (Currently in Mature Support) WidgetProxy is a class used to define an operations dashboard extension widget. */
-  class WidgetProxy extends ExtensionBase {
-    /** Read-only: If the widget was configured to consume data sources, the dataSourceConfig array will hold a collection of dataSourceConfig objects. */
-    dataSourceConfigs: any[];
-    /** Read-only: The host collection of features used by the widget feature actions. */
-    featureActionFeatures: FeatureActionFeatures;
-    /** Read-only: Indicates if the widget has a default feature action associated with. */
-    hasDefaultFeatureAction: boolean;
-    /** Read-only: Indicates if the widget has feature actions associated with it. */
-    hasFeatureActions: boolean;
-    /**
-     * Activate a drawing toolbar on a map widget.
-     * @param options
-     * @param mapWidgetProxy The target map widget.
-     */
-    activateDrawingToolbar(options?: any, mapWidgetProxy?: MapWidgetProxy): any;
-    /**
-     * Called by the host application when a data source state has expired.
-     * @param dataSourceProxy
-     * @param associated dataSourceConfig
-     */
-    dataSourceExpired(dataSourceProxy: DataSourceProxy, associated?: any): void;
-    /**
-     * Deactivate the drawing toolbar on the map widget.
-     * @param mapWidgetProxy The target map widget.
-     */
-    deactivateDrawingToolbar(mapWidgetProxy?: MapWidgetProxy): void;
-    /** Called by the host application when the user has canceled the drawing activity. */
-    drawingToolbarDeactivated(): void;
-    /**
-     * Execute the default feature action.
-     * @param featuresOrObjectIds
-     */
-    executeDefaultFeatureAction(featuresOrObjectIds: Graphic[] | number[]): void;
-    /**
-     * Get the data source config for a data source.
-     * @param dataSourceProxyOrDataSourceId A data source or a data source id.
-     */
-    getDataSourceConfig(dataSourceProxyOrDataSourceId: DataSourceProxy | string): any;
-    /**
-     * Called by the host application when the user has finished the drawing activity.
-     * @param geometry
-     */
-    toolbarDrawComplete(geometry: Geometry): void;
-    /** Event indicating that a data source validity has expired. */
-    on(type: "data-source-expired", listener: (event: { dataSourceConfig: any; dataSourceProxy: DataSourceProxy; target: WidgetProxy }) => void): esri.Handle;
-    /** Event indicating that the user has deactivated the previously activated drawing toolbar on the map widget. */
-    on(type: "drawing-toolbar-deactivated", listener: (event: { target: WidgetProxy }) => void): esri.Handle;
-    /** Event indicating the user has finished a drawing activity with the previously activated drawing toolbar. */
-    on(type: "toolbar-draw-complete", listener: (event: { geometry: Geometry; target: WidgetProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = WidgetProxy;
-}
-
-declare module "esri/opsdashboard/featureActionProxy" {
-  import esri = require("esri");
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import FeatureSet = require("esri/tasks/FeatureSet");
-
-  /** (Currently in Mature Support) featureActionProxy is a singleton object that allows implementing an operations dashboard Feature Action extension. */
-  class featureActionProxy extends ExtensionBase {
-    /** Event raised when the feature action should execute for a set of features. */
-    on(type: "execute", listener: (event: { config: any; dataSourceProxy: DataSourceProxy; featureSet: FeatureSet; target: featureActionProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = featureActionProxy;
-}
-
 declare module "esri/plugins/FeatureLayerStatistics" {
   import esri = require("esri");
   import FeatureLayer = require("esri/layers/FeatureLayer");
@@ -14069,6 +13575,108 @@ declare module "esri/request" {
     setRequestPreCallback(callbackFunction: Function): void;
   };
   export = request;
+}
+
+declare module "esri/styles/basic" {
+  /** This module contains a collection of themes suitable for basic visualization of features i.e. */
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = basic;
+}
+
+declare module "esri/styles/choropleth" {
+  /** This module contains a collection of themes suitable for unclassed and classed choropleth mapping. */
+  var choropleth: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = choropleth;
+}
+
+declare module "esri/styles/heatmap" {
+  /** This module contains a collection of themes suitable for visualizing features using a heatmap. */
+  var heatmap: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = heatmap;
+}
+
+declare module "esri/styles/relationship" {
+  /** This module contains a collection of color schemes suitable for creating relationship (or bivariate choropleth) visualizations. */
+  var relationship: {
+    /**
+     * Returns themes available for the given basemap.
+     * @param basemap Specifies the basemap name if you only want themes applicable to a specific basemap, for example: streets, gray, topo,  terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap: string): any[];
+    /**
+     * Returns the primary and secondary color schemes for the given theme, basemap, and geometry type.
+     * @param params See the params Object Specifications table below for a description of the method parameters.
+     */
+    getSchemes(params: any): any;
+  };
+  export = relationship;
+}
+
+declare module "esri/styles/size" {
+  /** This module contains a collection of themes useful for visualizing points and lines by varying their size to show data. */
+  var size: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = size;
+}
+
+declare module "esri/styles/type" {
+  /** This module contains a collection of themes suitable for visualizing features by their type. */
+  var type: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = type;
 }
 
 declare module "esri/support/expressionUtils" {

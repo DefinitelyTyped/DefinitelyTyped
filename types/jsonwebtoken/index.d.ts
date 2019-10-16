@@ -4,7 +4,9 @@
 //                 Daniel Heim <https://github.com/danielheim>,
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
-//                 Daniel Parker <https://github.com/rlgod>
+//                 Daniel Parker <https://github.com/rlgod>,
+//                 Kjell Dießel <https://github.com/kettil>,
+//                 Robert Gajda <https://github.com/RunAge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,9 +19,9 @@ export class JsonWebTokenError extends Error {
 }
 
 export class TokenExpiredError extends JsonWebTokenError {
-    expiredAt: number;
+    expiredAt: Date;
 
-    constructor(message: string, expiredAt: number);
+    constructor(message: string, expiredAt: Date);
 }
 
 export class NotBeforeError extends JsonWebTokenError {
@@ -52,6 +54,7 @@ export interface SignOptions {
     subject?: string;
     issuer?: string;
     jwtid?: string;
+    mutatePayload?: boolean;
     noTimestamp?: boolean;
     header?: object;
     encoding?: string;
@@ -59,13 +62,15 @@ export interface SignOptions {
 
 export interface VerifyOptions {
     algorithms?: string[];
-    audience?: string | string[];
+    audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
+    complete?: boolean;
     issuer?: string | string[];
     ignoreExpiration?: boolean;
     ignoreNotBefore?: boolean;
     jwtid?: string;
+    nonce?: string;
     subject?: string;
     /**
      * @deprecated
@@ -78,7 +83,10 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-export type VerifyErrors= JsonWebTokenError | NotBeforeError | TokenExpiredError;
+export type VerifyErrors =
+    | JsonWebTokenError
+    | NotBeforeError
+    | TokenExpiredError;
 export type VerifyCallback = (
     err: VerifyErrors,
     decoded: object | string,
@@ -107,7 +115,10 @@ export type GetPublicKeyOrSecret = (
     callback: SigningKeyCallback
 ) => void;
 
-export type Secret = string | Buffer | { key: string; passphrase: string };
+export type Secret =
+    | string
+    | Buffer
+    | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -148,11 +159,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -165,12 +172,12 @@ export function verify(
  */
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;

@@ -14,8 +14,14 @@ class SessionService extends Ember.Service {
     currentUser: User;
 }
 
+declare module '@ember/service' {
+    interface Registry {
+        session: SessionService;
+    }
+}
+
 const CurrentUserEmailHelper = Ember.Helper.extend({
-    session: Ember.inject.service() as Ember.ComputedProperty<SessionService>,
+    session: Ember.inject.service('session'),
     onNewUser: Ember.observer('session.currentUser', function(this: Ember.Helper) {
         this.recompute();
     }),

@@ -1,20 +1,27 @@
 declare module "child_process" {
     import * as events from "events";
-    import * as stream from "stream";
     import * as net from "net";
+    import { Writable, Readable, Stream, Pipe } from "stream";
 
     interface ChildProcess extends events.EventEmitter {
-        stdin: stream.Writable;
-        stdout: stream.Readable;
-        stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
-        killed: boolean;
-        pid: number;
+        stdin: Writable | null;
+        stdout: Readable | null;
+        stderr: Readable | null;
+        readonly channel?: Pipe | null;
+        readonly stdio: [
+            Writable | null, // stdin
+            Readable | null, // stdout
+            Readable | null, // stderr
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined // extra
+        ];
+        readonly killed: boolean;
+        readonly pid: number;
+        readonly connected: boolean;
         kill(signal?: string): void;
-        send(message: any, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
-        connected: boolean;
+        send(message: any, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         unref(): void;
         ref(): void;
@@ -71,38 +78,173 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    // return this object when stdio option is undefined or not specified
+    interface ChildProcessWithoutNullStreams extends ChildProcess {
+        stdin: Writable;
+        stdout: Readable;
+        stderr: Readable;
+        readonly stdio: [
+            Writable, // stdin
+            Readable, // stdout
+            Readable, // stderr
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined // extra, no modification
+        ];
+    }
+
+    // return this object when stdio option is a tuple of 3
+    interface ChildProcessByStdio<
+        I extends null | Writable,
+        O extends null | Readable,
+        E extends null | Readable,
+    > extends ChildProcess {
+        stdin: I;
+        stdout: O;
+        stderr: E;
+        readonly stdio: [
+            I,
+            O,
+            E,
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined // extra, no modification
+        ];
+    }
+
     interface MessageOptions {
         keepOpen?: boolean;
     }
 
-    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
+    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
 
-    interface SpawnOptions {
+    interface ProcessEnvOptions {
+        uid?: number;
+        gid?: number;
         cwd?: string;
         env?: NodeJS.ProcessEnv;
+    }
+
+    interface CommonOptions extends ProcessEnvOptions {
+        /**
+         * @default true
+         */
+        windowsHide?: boolean;
+        /**
+         * @default 0
+         */
+        timeout?: number;
+    }
+
+    interface SpawnOptions extends CommonOptions {
         argv0?: string;
         stdio?: StdioOptions;
         detached?: boolean;
-        uid?: number;
-        gid?: number;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
-        windowsHide?: boolean;
     }
 
-    function spawn(command: string, options?: SpawnOptions): ChildProcess;
-    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
+    interface SpawnOptionsWithoutStdio extends SpawnOptions {
+        stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
+    }
 
-    interface ExecOptions {
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
+    type StdioNull = 'inherit' | 'ignore' | Stream;
+    type StdioPipe = undefined | null | 'pipe';
+
+    interface SpawnOptionsWithStdioTuple<
+        Stdin extends StdioNull | StdioPipe,
+        Stdout extends StdioNull | StdioPipe,
+        Stderr extends StdioNull | StdioPipe,
+    > extends SpawnOptions {
+        stdio: [Stdin, Stdout, Stderr];
+    }
+
+    // overloads of spawn without 'args'
+    function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
+
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<Writable, Readable, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<Writable, Readable, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<Writable, null, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<null, Readable, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<Writable, null, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<null, Readable, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<null, null, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<null, null, null>;
+
+    function spawn(command: string, options: SpawnOptions): ChildProcess;
+
+    // overloads of spawn with 'args'
+    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
+
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<Writable, Readable, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<Writable, Readable, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<Writable, null, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<null, Readable, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<Writable, null, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<null, Readable, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<null, null, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<null, null, null>;
+
+    function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
+
+    interface ExecOptions extends CommonOptions {
         shell?: string;
-        timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-        uid?: number;
-        gid?: number;
-        windowsHide?: boolean;
     }
 
     interface ExecOptionsWithStringEncoding extends ExecOptions {
@@ -143,25 +285,24 @@ declare module "child_process" {
         callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
 
-    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace exec {
-        function __promisify__(command: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    interface PromiseWithChild<T> extends Promise<T> {
+        child: ChildProcess;
     }
 
-    interface ExecFileOptions {
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
-        timeout?: number;
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    namespace exec {
+        function __promisify__(command: string): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options: ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    }
+
+    interface ExecFileOptions extends CommonOptions {
         maxBuffer?: number;
         killSignal?: string;
-        uid?: number;
-        gid?: number;
-        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
+        shell?: boolean | string;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -233,52 +374,43 @@ declare module "child_process" {
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace execFile {
-        function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(
             file: string,
             args: string[] | undefined | null,
             options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        ): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions {
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
+    interface ForkOptions extends ProcessEnvOptions {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
         stdio?: StdioOptions;
+        detached?: boolean;
         windowsVerbatimArguments?: boolean;
-        uid?: number;
-        gid?: number;
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
-    interface SpawnSyncOptions {
+    interface SpawnSyncOptions extends CommonOptions {
         argv0?: string; // Not specified in the docs
-        cwd?: string;
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
-        windowsHide?: boolean;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -291,9 +423,9 @@ declare module "child_process" {
         output: string[];
         stdout: T;
         stderr: T;
-        status: number;
-        signal: string;
-        error: Error;
+        status: number | null;
+        signal: string | null;
+        error?: Error;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
@@ -303,19 +435,13 @@ declare module "child_process" {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface ExecSyncOptions {
-        cwd?: string;
-        input?: string | Buffer | Uint8Array;
+    interface ExecSyncOptions extends CommonOptions {
+        input?: string | Uint8Array;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
         shell?: string;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
-        windowsHide?: boolean;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -328,18 +454,12 @@ declare module "child_process" {
     function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-    interface ExecFileSyncOptions {
-        cwd?: string;
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+    interface ExecFileSyncOptions extends CommonOptions {
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
-        windowsHide?: boolean;
         shell?: boolean | string;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
