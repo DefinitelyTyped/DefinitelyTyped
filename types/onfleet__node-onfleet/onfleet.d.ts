@@ -1,4 +1,13 @@
-import * as Resources from './resources';
+import * as Administrators from './resources/Administrators';
+import * as Containers from './resources/Containers';
+import * as Destinations from './resources/Destinations';
+import * as Hubs from './resources/Hubs';
+import * as Organization from './resources/Organization';
+import * as Recipients from './resources/Recipients';
+import * as Tasks from './resources/Tasks';
+import * as Teams from './resources/Teams';
+import * as Webhooks from './resources/Webhooks';
+import * as Workers from './resources/Workers';
 
 declare class Onfleet {
   apiKey: string;
@@ -15,16 +24,16 @@ declare class Onfleet {
   constructor(api_key: string);
   verifyKey(): boolean;
 
-  admins: Resources.Administrators;
-  containers: Resources.Containers;
-  destinations: Resources.Destinations;
-  hubs: Resources.Hubs;
-  organization: Resources.Organization;
-  recipients: Resources.Recipients;
-  tasks: Resources.Tasks;
-  teams: Resources.Teams;
-  webhooks: Resources.Webhooks;
-  workers: Resources.Workers;
+  admins: Administrators;
+  containers: Containers;
+  destinations: Destinations;
+  hubs: Hubs;
+  organization: Organization;
+  recipients: Recipients;
+  tasks: Tasks;
+  teams: Teams;
+  webhooks: Webhooks;
+  workers: Workers;
 }
 
 export = Onfleet;
