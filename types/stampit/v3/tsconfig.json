@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "stampit": [
+                "stampit/v3"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
