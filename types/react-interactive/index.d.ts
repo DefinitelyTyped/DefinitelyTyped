@@ -1,6 +1,6 @@
 // Type definitions for react-interactive 0.9
 // Project: https://github.com/rafrex/react-interactive
-// Definitions by: Daniel <https://github.com/DanudeSandstorm>
+// Definitions by: Daniel Santoro <https://github.com/DanudeSandstorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8,11 +8,11 @@ import { ReactNode, ReactElement, Component, SyntheticEvent, CSSProperties } fro
 
 export {};
 
-export type iState = 'normal' | 'hover' | 'hoverActive' | 'touchActive' | 'keyActive';
-export type focus = false | 'tab' | 'mouse' | 'touch';
-export type clickType = "mouseClick" | "tapClick" | "keyClick";
+export type IState = 'normal' | 'hover' | 'hoverActive' | 'touchActive' | 'keyActive';
+export type Focus = false | 'tab' | 'mouse' | 'touch';
+export type ClickType = "mouseClick" | "tapClick" | "keyClick";
 
-export type State = {focus: focus, iState: iState};
+export type State = {focus: Focus, iState: IState};
 
 type Active = {
     active?: CSSProperties;
@@ -30,7 +30,7 @@ type Focus = {
     focusFromTouch?: CSSProperties;
 };
 
-type InteractiveProps = Focus & Active & {
+export type InteractiveProps = Focus & Active & {
     // as: string | Component | ReactElement;
     as: any;
 
@@ -44,7 +44,7 @@ type InteractiveProps = Focus & Active & {
 
     setStateCallback?: (arg0: {prevState: State, nextState: State}) => void;
 
-    onClick?: (event: SyntheticEvent, clickType: clickType) => void;
+    onClick?: (event: SyntheticEvent, clickType: ClickType) => void;
 
     onTapTwo?: (event: Event) => void;
     onTapThree?: (event: Event) => void;
@@ -79,7 +79,4 @@ type InteractiveProps = Focus & Active & {
     wrapperClassName?: string;
 };
 
-export default class Interactive extends Component<InteractiveProps> {
-    constructor(props: InteractiveProps);
-    render(): any;
-}
+export default class Interactive extends Component<InteractiveProps> {}
