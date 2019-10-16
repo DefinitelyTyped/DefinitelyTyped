@@ -1,9 +1,6 @@
 // Type definitions for NestDb 2.0
 // Project: https://github.com/louischatriot/nestdb
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-//                 Anthony Nichols <https://github.com/anthonynichols>
-//                 Alejandro Fernandez Haro <https://github.com/afharo>
-//                 Alex Anderson <https://github.com/alexanderson1993>
+// Definitions by: Alex Anderson <https://github.com/alexanderson1993>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
