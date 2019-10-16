@@ -48,7 +48,7 @@ declare class Sortable {
      * @param element Any variety of HTMLElement.
      * @param options Sortable options object.
      */
-    static create(element: HTMLElement, options: Sortable.Options): Sortable;
+    static create(element: HTMLElement, options?: Sortable.Options): Sortable;
 
     /**
      * Options getter/setter
