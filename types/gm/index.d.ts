@@ -184,6 +184,7 @@ declare namespace m {
         modulate(b: number, s: number, h: number): State;
         monitor(): State;
         monochrome(): State;
+        montage(otherImg: string): State;
         morph(otherImg: string | string[], outName: string, callback?: WriteCallback): State;
         mosaic(): State;
         motionBlur(radius: number, sigma?: number, angle?: number): State;
