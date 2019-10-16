@@ -1,6 +1,10 @@
 # Installation
 
-> `npm install --save @types/forge-apis`
+```bash
+yarn add --dev @types/forge-apis
+# or
+npm install --save-dev @types/forge-apis
+```
 
 # Summary
 
