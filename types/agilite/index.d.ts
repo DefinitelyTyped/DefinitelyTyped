@@ -1,11 +1,12 @@
-// Type definitions for agilite 7.0
+// Type definitions for agilite 6.4
 // Project: https://www.npmjs.com/package/agilite
 // Definitions by: Armand Smit <https://github.com/ArrieAgilite>
 //                 John Jardin <https://github.com/johnjardin>
 //                 Agilit-e <https://github.com/agilitehub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-declare class Agilite {
+export class Agilite {
   constructor(config: AgiliteConfig);
 
   config: AgiliteConfig;
@@ -30,7 +31,7 @@ declare class Agilite {
   executeCRUDRequest(appName: string, reqType: string, data: any, headers: any): any;
 }
 
-declare class ApiKeys {
+export class ApiKeys {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -43,7 +44,7 @@ declare class ApiKeys {
   enableApiKey(recordId: string): any;
 }
 
-declare class Keywords {
+export class Keywords {
   constructor(config: AgiliteConfig);
 
   sort: sort;
@@ -59,7 +60,7 @@ declare class Keywords {
   getValueByLabel(profileKey: string, label: string, outputFormat: string): any;
 }
 
-declare class Numbering {
+export class Numbering {
   constructor(config: AgiliteConfig);
 
   outputFormat: outputFormat;
@@ -72,7 +73,7 @@ declare class Numbering {
   resetCounters(recordId: string): any;
 }
 
-declare class Connectors {
+export class Connectors {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -82,7 +83,7 @@ declare class Connectors {
   execute(profileKey: string, routeKey: string, data: any): any;
 }
 
-declare class DataMappings {
+export class DataMappings {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -92,7 +93,7 @@ declare class DataMappings {
   execute(profileKey: string, data: any): any;
 }
 
-declare class Templates {
+export class Templates {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -102,7 +103,7 @@ declare class Templates {
   execute(profileKey: string, data: any): any;
 }
 
-declare class BPM {
+export class BPM {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -118,7 +119,7 @@ declare class BPM {
   getActiveUsers(processKey: string): any;
 }
 
-declare class Roles {
+export class Roles {
   constructor(config: AgiliteConfig);
 
   postData(data: any): any;
@@ -132,7 +133,7 @@ declare class Roles {
   reAssignResponsibleUser(recordId: string, responsibleUser: string): any;
 }
 
-declare class Files {
+export class Files {
   constructor(config: AgiliteConfig);
 
   responseType: responseType;
@@ -143,7 +144,7 @@ declare class Files {
   getFileName(recordId: string): any;
 }
 
-declare class Utils {
+export class Utils {
   constructor(config: AgiliteConfig);
 
   responseType: responseType;
@@ -162,7 +163,7 @@ declare class Utils {
   importData(fileId: string): any;
 }
 
-declare class TierStructures {
+export class TierStructures {
   constructor(config: AgiliteConfig);
 
   sort: sort;
@@ -175,54 +176,52 @@ declare class TierStructures {
   getTierByKey(tierKeys: string[], includeValues: boolean, includeMetaData: boolean, includeTierEntries: boolean, sortValues: string, valuesOutputFormat: string): any;
 }
 
-declare interface AgiliteConfig {
+export interface AgiliteConfig {
   apiServerUrl ? : string;
   apiKey ? : string;
   teamId ? : string;
 }
 
-declare interface reqType {
+export interface reqType {
   GET: string,
-    POST: string,
-    PUT: string,
-    DELETE: string
+  POST: string,
+  PUT: string,
+  DELETE: string
 }
 
-declare interface appName {
+export interface appName {
   MODULE_KEY_API_KEYS: string,
-    MODULE_KEY_KEYWORDS: string,
-    MODULE_KEY_NUMBERING: string,
-    MODULE_KEY_CONNECTORS: string,
-    MODULE_KEY_DATA_MAPPING: string,
-    MODULE_KEY_TEMPLATES: string,
-    MODULE_KEY_BPM: string,
-    MODULE_KEY_ROLES: string,
-    MODULE_KEY_BOT_BUILDER: string,
-    MODULE_KEY_FILES: string,
-    MODULE_KEY_UTILS: string,
-    MODULE_KEY_TIER_STRUCTURES: string
+  MODULE_KEY_KEYWORDS: string,
+  MODULE_KEY_NUMBERING: string,
+  MODULE_KEY_CONNECTORS: string,
+  MODULE_KEY_DATA_MAPPING: string,
+  MODULE_KEY_TEMPLATES: string,
+  MODULE_KEY_BPM: string,
+  MODULE_KEY_ROLES: string,
+  MODULE_KEY_BOT_BUILDER: string,
+  MODULE_KEY_FILES: string,
+  MODULE_KEY_UTILS: string,
+  MODULE_KEY_TIER_STRUCTURES: string
 }
 
-declare interface sort {
+export interface sort {
   ASC: string,
-    DESC: string,
-    ASC_VALUE: string,
-    DESC_VALUE: string
+  DESC: string,
+  ASC_VALUE: string,
+  DESC_VALUE: string
 }
 
-declare interface outputFormat {
+export interface outputFormat {
   ARRAY: string,
-    JSON: string,
-    STRING: string
+  JSON: string,
+  STRING: string
 }
 
-declare interface responseType {
+export interface responseType {
   ARRAY_BUFFER: string,
-    BLOB: string,
-    DOCUMENT: string,
-    JSON: string,
-    TEXT: string,
-    STREAM: string
+  BLOB: string,
+  DOCUMENT: string,
+  JSON: string,
+  TEXT: string,
+  STREAM: string
 }
-
-export = Agilite;
