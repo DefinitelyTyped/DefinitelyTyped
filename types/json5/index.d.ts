@@ -46,7 +46,7 @@ type JSONReplacer = (key: string, value: any) => any | (number | string)[] | nul
 
 interface JSON5 {
     // Old JSON methods
-    parse(text: string, reviver?: (key: any, value: any) => any): any;
+    parse(text: string | Buffer, reviver?: (key: any, value: any) => any): any;
     stringify(value: any, replacer?: (key: string, value: any) => any, space?: string | number): string;
     stringify(value: any, replacer?: (number | string)[] | null, space?: string | number): string;
 
