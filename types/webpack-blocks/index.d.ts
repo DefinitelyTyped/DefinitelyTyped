@@ -5,13 +5,13 @@
 // TypeScript Version: 3.0
 
 import { css, url, file } from '@webpack-blocks/assets';
-import babel from '@webpack-blocks/babel';
-import devServer from '@webpack-blocks/dev-server';
-import extractText from '@webpack-blocks/extract-text';
-import postcss from '@webpack-blocks/postcss';
-import sass from '@webpack-blocks/sass';
-import typescript from '@webpack-blocks/typescript';
-import uglify from '@webpack-blocks/uglify';
+import babel = require('@webpack-blocks/babel');
+import devServer = require('@webpack-blocks/dev-server');
+import extractText = require('@webpack-blocks/extract-text');
+import postcss = require('@webpack-blocks/postcss');
+import sass = require('@webpack-blocks/sass');
+import typescript = require('@webpack-blocks/typescript');
+import uglify = require('@webpack-blocks/uglify');
 import {
     Block,
     group,
