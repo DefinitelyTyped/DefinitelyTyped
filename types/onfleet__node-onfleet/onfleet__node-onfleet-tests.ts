@@ -1,4 +1,4 @@
-import Onfleet = require('onfleet__node-onfleet');
+import Onfleet = require('@onfleet/node-onfleet');
 
 const onfleet = new Onfleet('test-api-key');
 const isValid = onfleet.verifyKey();
