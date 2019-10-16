@@ -20,16 +20,16 @@ interface Region {
 
 interface RunTimeSetting {
     barcodeFormatIds: number;
-    binarizationModes: Array<number>;
+    binarizationModes: number[];
     deblurLevel: number;
     expectedBarcodesCount: number;
-    localizationModes: Array<number>;
+    localizationModes: number[];
     minBarcodeTextLength: number;
     minResultConfidence: number;
     region: Region;
     resultCoordinateType: number;
     scaleDownThreshold: number;
-    textResultOrderModes: Array<number>;
+    textResultOrderModes: number[];
     timeout: number;
 }
 
@@ -155,7 +155,6 @@ declare namespace dynamsoft {
         static name: string;
         static length: number;
         static version: string;
-
 
         /** 
          * Append a new template string to current runtime settings.
