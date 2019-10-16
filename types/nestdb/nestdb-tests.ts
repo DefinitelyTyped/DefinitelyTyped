@@ -1,5 +1,5 @@
 /**
- * Created by stefansteinhart on 31.01.15.
+ * Created by alexanderson1993 on 16.10.19.
  */
 
 import * as es6styleimport from 'nestdb';
