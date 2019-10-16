@@ -176,7 +176,7 @@ export type BaseSchema = {
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: Schema;
+  additionalProperties?: Schema | boolean;
   properties?: { [propertyName: string]: Schema };
   discriminator?: string;
   readOnly?: boolean;
