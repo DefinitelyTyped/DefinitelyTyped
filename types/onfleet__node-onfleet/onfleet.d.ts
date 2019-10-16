@@ -1,13 +1,13 @@
-import Administrators = require('./resources/Administrators');
-import Containers = require('./resources/Containers');
-import Destinations = require('./resources/Destinations');
-import Hubs = require('./resources/Hubs');
-import Organization = require('./resources/Organization');
-import Recipients = require('./resources/Recipients');
-import Tasks = require('./resources/Tasks');
-import Teams = require('./resources/Teams');
-import Webhooks = require('./resources/Webhooks');
-import Workers = require('./resources/Workers');
+import Administrators = require('./Resources/Administrators');
+import Containers = require('./Resources/Containers');
+import Destinations = require('./Resources/Destinations');
+import Hubs = require('./Resources/Hubs');
+import Organization = require('./Resources/Organization');
+import Recipients = require('./Resources/Recipients');
+import Tasks = require('./Resources/Tasks');
+import Teams = require('./Resources/Teams');
+import Webhooks = require('./Resources/Webhooks');
+import Workers = require('./Resources/Workers');
 
 declare class Onfleet {
   apiKey: string;
