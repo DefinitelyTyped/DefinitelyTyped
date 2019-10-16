@@ -14,7 +14,7 @@ export type ClickType = "mouseClick" | "tapClick" | "keyClick";
 
 export type State = {focus: Focus, iState: IState};
 
-type Active = {
+type ActiveProps = {
     active?: CSSProperties;
 } | {
     hoverActive?: CSSProperties;
@@ -22,7 +22,7 @@ type Active = {
     keyActive?: CSSProperties;
 };
 
-type Focus = {
+type FocusProps = {
     focus?: CSSProperties;
 } | {
     focusFromTab?: CSSProperties;
@@ -30,7 +30,7 @@ type Focus = {
     focusFromTouch?: CSSProperties;
 };
 
-export type InteractiveProps = Focus & Active & {
+export type InteractiveProps = FocusProps & ActiveProps & {
     // as: string | Component | ReactElement;
     as: any;
 
