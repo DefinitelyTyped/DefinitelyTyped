@@ -707,14 +707,14 @@ async function testDescribe() {
         const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
         const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
         salesforceConnection.describe$.clear();
-         object.fields.forEach(field => {
-             const type: sf.FieldType = field.type;
-             // following should never compile
-             // $ExpectError
-             const fail = type === 'hey';
+        object.fields.forEach(field => {
+            const type: sf.FieldType = field.type;
+            // following should never compile
+            // $ExpectError
+            const fail = type === 'hey';
 
-             const isString = type === 'string';
-         });
+            const isString = type === 'string';
+        });
 
         // following should never compile (if StrictNullChecks is on)
         // $ExpectError

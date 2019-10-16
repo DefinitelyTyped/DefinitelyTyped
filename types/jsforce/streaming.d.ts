@@ -28,6 +28,6 @@ export namespace StreamingExtension {
         constructor(channel: string, replayId: number)
     }
     export class AuthFailure {
-               constructor(failureCallback: () => any);
-           }
+        constructor(failureCallback: () => any);
+    }
 }
