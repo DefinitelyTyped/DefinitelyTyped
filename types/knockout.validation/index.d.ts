@@ -1,6 +1,7 @@
 // Type definitions for Knockout Validation
 // Project: https://github.com/ericmbarnard/Knockout-Validation
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -199,12 +200,12 @@ interface KnockoutValidationStatic {
 
     formatMessage(message: string, params: string): string;
 
-    addRule<T>(observable: ko.Observable<T>, rule: KnockoutValidationRule): ko.Observable<T>;
+    addRule<T, V extends ko.Subscribable<T>>(observable: V, rule: KnockoutValidationRule): V;
 
-    addAnonymousRule(observable: ko.Observable<any>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
+    addAnonymousRule(observable: ko.Subscribable, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
 
     insertValidationMessage(element: Element): Element;
-    parseInputValidationAttributes(element: Element, valueAccessor: () => ko.Observable<any>): void;
+    parseInputValidationAttributes(element: Element, valueAccessor: () => ko.Subscribable): void;
 
     rules: KnockoutValidationRuleDefinitions;
 
@@ -218,7 +219,7 @@ interface KnockoutValidationStatic {
         msgTranslations: KnockoutValidationLocalizationDictionary,
     ): KnockoutValidationLocalizationDictionary;
     locale(newLocale: string): string;
-    validateObservable(observable: ko.Observable<any>): boolean;
+    validateObservable(observable: ko.Subscribable): boolean;
 }
 
 declare namespace ko {

@@ -1,6 +1,7 @@
 // Type definitions for Knockout.Mapper
 // Project: https://github.com/LucasLorentz/knockout.mapper
 // Definitions by: Brandon Meyer <https://github.com/BMeyerKC>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

@@ -1,6 +1,7 @@
 // Type definitions for Knockout-ES5
 // Project: https://github.com/SteveSanderson/knockout-es5
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -35,7 +36,7 @@ declare namespace ko {
     function untrack(obj: any, propertyNames?: Array<string>): void;
     function defineProperty<T>(obj: T, propertyName: string, evaluator: Function): T;
     function defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
-    function getObservable(obj: any, propertyName: string): Subscribable<any>;
+    function getObservable(obj: any, propertyName: string): Subscribable;
     function valueHasMutated(obj: any, propertyName: string): void;
     const es5: KnockoutEs5;
 }

@@ -1,6 +1,7 @@
 // Type definitions for knockout-amd-helpers
 // Project: https://github.com/rniemeyer/knockout-amd-helpers
 // Definitions by: David Sichau <https://github.com/DavidSichau>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

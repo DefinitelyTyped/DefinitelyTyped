@@ -1,6 +1,7 @@
 // Type definitions for knockout-secure-binding
 // Project: https://github.com/brianmhunt/knockout-secure-binding
 // Definitions by: Pine Mizune <https://github.com/pine613>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

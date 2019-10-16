@@ -1,6 +1,7 @@
 // Type definitions for knockout-editables 0.9
 // Project: http://romanych.github.com/ko.editables/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

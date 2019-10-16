@@ -1,6 +1,7 @@
 // Type definitions for knockout.rx 1.0
 // Project: https://github.com/Igorbek/knockout.rx
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -26,10 +27,10 @@ declare namespace ko {
 declare namespace Rx {
     interface Observable<T> {
         toKoSubscribable(): ko.Subscribable<T>;
-        toKoObservable(initialValue?: T): ko.Observable<T>;
+        toKoObservable(initialValue?: T): ko.Subscribable<T>;
     }
 
     interface Subject<T> {
-        toKoObservable(initialValue?: T): ko.Observable<T>;
+        toKoObservable(initialValue?: T): ko.Subscribable<T>;
     }
 }

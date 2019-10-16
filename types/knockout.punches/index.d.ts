@@ -1,6 +1,7 @@
 // Type definitions for knockout.punches 0.5.1
 // Project: https://github.com/mbest/knockout.punches
 // Definitions by: Stephen Lautier <https://github.com/johnnyreilly>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

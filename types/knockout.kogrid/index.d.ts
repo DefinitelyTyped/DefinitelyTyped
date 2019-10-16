@@ -1,6 +1,7 @@
 // Type definitions for ko-grid
 // Project: http://knockout-contrib.github.io/KoGrid/
 // Definitions by: huer12 <https://github.com/huer12>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -135,7 +136,7 @@ declare namespace kg {
       selectAllState?: ko.Subscribable<boolean>;
 
       /** all of the items selected in the grid. In single select mode there will only be one item in the array. */
-      selectedItems?: ko.ObservableArray<any>;
+      selectedItems?: ko.ObservableArray;
 
       /** Disable row selections by clicking on the row and only when the checkbox is clicked. */
       selectWithCheckboxOnly?: boolean;
