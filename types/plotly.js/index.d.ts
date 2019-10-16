@@ -406,6 +406,7 @@ export interface Margin {
 	b: number;
 	l: number;
 	r: number;
+	pad: number;
 }
 
 export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
@@ -575,6 +576,7 @@ export interface PlotData {
 	rotation: number;
 	theta: Datum[];
 	r: Datum[];
+	customdata: Datum[];
 }
 
 /**
