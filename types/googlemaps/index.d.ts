@@ -384,8 +384,6 @@ declare namespace google.maps {
      * Controls that are added first are positioned closer to the edge of the map.
      */
     enum ControlPosition {
-        /** Same as `BOTTOM_CENTER`. */
-        BOTTOM = 11,
         /** Elements are positioned in the center of the bottom row. */
         BOTTOM_CENTER = 11,
         /**
@@ -398,10 +396,6 @@ declare namespace google.maps {
          * Elements are positioned to the left of the copyrights.
          */
         BOTTOM_RIGHT = 12,
-        /** Elements are positioned in the center. */
-        CENTER = 13,
-        /** Same as `LEFT_TOP`. */
-        LEFT = 5,
         /**
          * Elements are positioned on the left, above bottom-left elements, and flow
          * upwards.
@@ -414,8 +408,6 @@ declare namespace google.maps {
          * downwards.
          */
         LEFT_TOP = 5,
-        /** Same as `RIGHT_TOP`. */
-        RIGHT = 7,
         /**
          * Elements are positioned on the right, above bottom-right elements, and
          * flow upwards.
@@ -425,8 +417,6 @@ declare namespace google.maps {
         RIGHT_CENTER = 8,
         /** Elements are positioned on the right, below top-right elements, and flow downwards. */
         RIGHT_TOP = 7,
-        /** Same as `TOP_CENTER`. */
-        TOP = 2,
         /** Elements are positioned in the center of the top row. */
         TOP_CENTER = 2,
         /** Elements are positioned in the top right and flow towards the middle. */
