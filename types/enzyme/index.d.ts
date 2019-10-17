@@ -410,6 +410,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    find<P2>(displayName: string): ShallowWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Removes nodes in the current wrapper that do not match the provided selector.
@@ -430,8 +431,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     children<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
-    children(selector: string): ShallowWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ShallowWrapper<any, any>;
+    children(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    children<P2>(displayName: string): ShallowWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a new wrapper with child at the specified index.
@@ -465,8 +467,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     parents<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
-    parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ShallowWrapper<any, any>;
+    parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    parents<P2>(displayName: string): ShallowWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a wrapper of the first element that matches the selector by traversing up through the current node's
@@ -478,6 +481,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     closest<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     closest(props: EnzymePropSelector): ShallowWrapper<any, any>;
     closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    closest<P2>(displayName: string): ShallowWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a wrapper with the direct parent of the node in the current wrapper.
@@ -543,6 +547,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
+    find<P2>(displayName: string): ReactWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -563,8 +568,9 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     children<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
-    children(selector: string): ReactWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ReactWrapper<any, any>;
+    children(selector: string): ReactWrapper<HTMLAttributes, any>;
+    children<P2>(displayName: string): ReactWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a new wrapper with child at the specified index.
@@ -580,8 +586,9 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     parents<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
-    parents(selector: string): ReactWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ReactWrapper<any, any>;
+    parents(selector: string): ReactWrapper<HTMLAttributes, any>;
+    parents<P2>(displayName: string): ReactWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a wrapper of the first element that matches the selector by traversing up through the current node's
@@ -593,6 +600,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
     closest<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     closest(props: EnzymePropSelector): ReactWrapper<any, any>;
     closest(selector: string): ReactWrapper<HTMLAttributes, any>;
+    closest<P2>(displayName: string): ReactWrapper<P2, any>; // tslint:disable-line unified-signatures
 
     /**
      * Returns a wrapper with the direct parent of the node in the current wrapper.

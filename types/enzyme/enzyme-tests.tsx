@@ -128,6 +128,7 @@ function ShallowWrapperTest() {
     let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ShallowWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ShallowWrapper<AnotherComponentProps, any>;
+    let displayNameWrapper: ShallowWrapper<AnotherComponentProps, any>;
 
     // testStatePropsInstanceFn(shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>));
     function testStatePropsInstance() {
@@ -179,6 +180,7 @@ function ShallowWrapperTest() {
         anotherStatelessWrapper = shallowWrapper.find(AnotherStatelessComponent);
         shallowWrapper = shallowWrapper.find({ prop: 'value' });
         elementWrapper = shallowWrapper.find('.selector');
+        displayNameWrapper = shallowWrapper.find<AnotherComponentProps>('AnotherComponent');
         // Since AnotherComponent does not have a constructor, it cannot match the
         // previous selector overload of ComponentClass { new(props?, contenxt? ) }
         const s1: EnzymeComponentClass<AnotherComponentProps> = AnotherComponent;
@@ -287,6 +289,7 @@ function ShallowWrapperTest() {
         anotherStatelessWrapper = shallowWrapper.children(AnotherStatelessComponent);
         shallowWrapper = shallowWrapper.children({ prop: 'value' });
         elementWrapper = shallowWrapper.children('.selector');
+        displayNameWrapper = shallowWrapper.children<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_childAt() {
@@ -309,6 +312,7 @@ function ShallowWrapperTest() {
         anotherStatelessWrapper = shallowWrapper.parents(AnotherStatelessComponent);
         shallowWrapper = shallowWrapper.parents({ prop: 'myprop' });
         elementWrapper = shallowWrapper.parents('.selector');
+        displayNameWrapper = shallowWrapper.parents<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_parent() {
@@ -320,6 +324,7 @@ function ShallowWrapperTest() {
         anotherStatelessWrapper = shallowWrapper.closest(AnotherStatelessComponent);
         shallowWrapper = shallowWrapper.closest({ prop: 'myprop' });
         elementWrapper = shallowWrapper.closest('.selector');
+        displayNameWrapper = shallowWrapper.closest<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_shallow() {
@@ -402,6 +407,12 @@ function ShallowWrapperTest() {
         const props2: AnotherComponentProps = shallowWrapper.find(AnotherComponent).props();
         const props3: AnotherStatelessProps = shallowWrapper.find(AnotherStatelessComponent).props();
         const props4: HTMLAttributes<any> = shallowWrapper.find('.selector').props();
+        const props5: AnotherComponentProps = shallowWrapper.find<AnotherComponentProps>('AnotherComponent').props();
+    }
+
+    function test_props_component_display_name_selector() {
+        shallowWrapper.find<AnotherComponentProps>('AnotherComponent').props().anotherStringProp; // $ExpectType string | undefined
+        shallowWrapper.find('AnotherComponent').props().anotherStringProp; // $ExpectError
     }
 
     function test_prop() {
@@ -570,6 +581,7 @@ function ReactWrapperTest() {
     let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ReactWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ReactWrapper<AnotherComponentProps, any>;
+    let displayNameWrapper: ReactWrapper<AnotherComponentProps, any>;
 
     function testStatePropsInstance() {
         const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
@@ -643,10 +655,11 @@ function ReactWrapperTest() {
     }
 
     function test_find() {
-        elementWrapper = reactWrapper.find('.selector');
         anotherComponentWrapper = reactWrapper.find(AnotherComponent);
         anotherStatelessWrapper = reactWrapper.find(AnotherStatelessComponent);
         reactWrapper = reactWrapper.find({ prop: 'myprop' });
+        elementWrapper = reactWrapper.find('.selector');
+        displayNameWrapper = reactWrapper.find<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_findWhere() {
@@ -731,6 +744,7 @@ function ReactWrapperTest() {
         anotherStatelessWrapper = reactWrapper.children(AnotherStatelessComponent);
         reactWrapper = reactWrapper.children({ prop: 'myprop' });
         elementWrapper = reactWrapper.children('.selector');
+        displayNameWrapper = reactWrapper.children<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_childAt() {
@@ -753,6 +767,7 @@ function ReactWrapperTest() {
         anotherStatelessWrapper = reactWrapper.parents(AnotherStatelessComponent);
         reactWrapper = reactWrapper.parents({ prop: 'myprop' });
         elementWrapper = reactWrapper.parents('.selector');
+        displayNameWrapper = reactWrapper.parents<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_parent() {
@@ -764,6 +779,7 @@ function ReactWrapperTest() {
         anotherStatelessWrapper = reactWrapper.closest(AnotherStatelessComponent);
         reactWrapper = reactWrapper.closest({ prop: 'myprop' });
         elementWrapper = reactWrapper.closest('.selector');
+        displayNameWrapper = reactWrapper.closest<AnotherComponentProps>('AnotherComponent');
     }
 
     function test_text() {
@@ -838,6 +854,12 @@ function ReactWrapperTest() {
         const props2: AnotherComponentProps = reactWrapper.find(AnotherComponent).props();
         const props3: AnotherStatelessProps = reactWrapper.find(AnotherStatelessComponent).props();
         const props4: HTMLAttributes<any> = reactWrapper.find('.selector').props();
+        const props5: AnotherComponentProps = reactWrapper.find<AnotherComponentProps>('AnotherComponent').props();
+    }
+
+    function test_props_component_display_name_selector() {
+        reactWrapper.find<AnotherComponentProps>('AnotherComponent').props().anotherStringProp; // $ExpectType string | undefined
+        reactWrapper.find('AnotherComponent').props().anotherStringProp; // $ExpectError
     }
 
     function test_prop() {
