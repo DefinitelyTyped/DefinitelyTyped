@@ -12,11 +12,10 @@ var mySubscription = myObservable.subscribe((value) => { /* ... */ });
 mySubscription.deferUpdates = true;
 
 // Turn *off* deferred updates for this computed observable
-myComputed.extend({ deferred: false });
-
+// myComputed.extend({ deferred: false }); no longer working
 
 //
-// Examples 
+// Examples
 //
 
 function nestedComputedNoPlugin() {

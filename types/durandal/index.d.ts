@@ -1,8 +1,9 @@
 // Type definitions for Durandal 2.1.0
 // Project: http://durandaljs.com
 // Definitions by: Blue Spire <https://github.com/BlueSpire>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /**
  * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
@@ -378,12 +379,12 @@ declare module 'durandal/binder' {
 
     /**
      * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
-     * @param {KnockoutBindingContext} bindingContext The current binding context.
+     * @param {ko.BindingContext} bindingContext The current binding context.
      * @param {DOMElement} view The view to bind.
      * @param {object} [obj] The data to bind to, causing the creation of a child binding context if present.
      * @param {string} [dataAlias] An alias for $data if present.
     */
-    export function bindContext(bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any, dataAlias?: string): BindingInstruction;
+    export function bindContext(bindingContext: ko.BindingContext, view: HTMLElement, obj?: any, dataAlias?: string): BindingInstruction;
 
     /**
      * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
@@ -519,7 +520,7 @@ declare module 'durandal/composition' {
         parent: HTMLElement;
         activeView: HTMLElement;
         triggerAttach(): void;
-        bindingContext?: KnockoutBindingContext;
+        bindingContext?: ko.BindingContext;
         cacheViews?: boolean;
         viewElements?: HTMLElement[];
         model?: any;
@@ -560,7 +561,7 @@ declare module 'durandal/composition' {
      * @param {object} [config] The binding handler instance. If none is provided, the name will be used to look up an existing handler which will then be converted to a composition handler.
      * @param {function} [initOptionsFactory] If the registered binding needs to return options from its init call back to knockout, this function will server as a factory for those options. It will receive the same parameters that the init function does.
     */
-    export function addBindingHandler(name: string, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any): void;
+    export function addBindingHandler(name: string, config?: ko.BindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: ko.BindingContext) => any): void;
 
     /**
      * Gets an object keyed with all the elements that are replacable parts, found within the supplied elements. The key will be the part name and the value will be the element itself.
@@ -589,7 +590,7 @@ declare module 'durandal/composition' {
      * @param {object} settings The composition settings.
      * @param {object} [bindingContext] The current binding context.
     */
-    export function compose(element: HTMLElement, settings: CompositionContext, bindingContext: KnockoutBindingContext): void;
+    export function compose(element: HTMLElement, settings: CompositionContext, bindingContext: ko.BindingContext): void;
 }
 
 /**
@@ -958,7 +959,7 @@ declare module 'plugins/http' {
  * @requires knockout
  */
 declare module 'plugins/observable' {
-    function observable(obj: any, property: string): KnockoutObservable<any>;
+    function observable(obj: any, property: string): ko.Observable;
 
     namespace observable {
         /**
@@ -972,18 +973,18 @@ declare module 'plugins/observable' {
          * @param {object} obj The target object on which the property to convert lives.
          * @param {string} propertyName The name of the property to convert.
          * @param {object} [original] The original value of the property. If not specified, it will be retrieved from the object.
-         * @returns {KnockoutObservable} The underlying observable.
+         * @returns {ko.Observable} The underlying observable.
          */
-        export function convertProperty(obj: any, propertyName: string, original?: any): KnockoutObservable<any>;
+        export function convertProperty(obj: any, propertyName: string, original?: any): ko.Observable;
 
         /**
          * Defines a computed property using ES5 getters and setters.
          * @param {object} obj The target object on which to create the property.
          * @param {string} propertyName The name of the property to define.
          * @param {function|object} evaluatorOrOptions The Knockout computed function or computed options object.
-         * @returns {KnockoutComputed} The underlying computed observable.
+         * @returns {ko.Computed} The underlying computed observable.
          */
-        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>): KnockoutComputed<T>;
+        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: ko.ComputedOptions<T>): ko.Computed<T>;
 
         /**
          * Installs the plugin into the view model binder's `beforeBind` hook so that objects are automatically converted before being bound.
@@ -1191,7 +1192,7 @@ declare module 'plugins/widget' {
      * @param {object} settings The widget settings.
      * @param {object} [bindingContext] The current binding context.
     */
-    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext): void;
+    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: ko.BindingContext): void;
 }
 
 /**
@@ -1405,7 +1406,7 @@ interface DurandalActivatorSettings {
     afterDeactivate(oldItem: any, close: boolean, setter: Function): void;
 }
 
-interface DurandalActivator<T> extends KnockoutComputed<T> {
+interface DurandalActivator<T> extends ko.Computed<T> {
     /**
      * The settings for this activator.
     */
@@ -1415,7 +1416,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
      * An observable which indicates whether or not the activator is currently in the process of activating an instance.
      * @returns {boolean}
     */
-    isActivating: KnockoutObservable<boolean>;
+    isActivating: ko.Observable<boolean>;
 
     /**
      * Determines whether or not the specified item can be deactivated.
@@ -1530,7 +1531,7 @@ interface DurandalRouteConfiguration {
     hash?: string;
     route?: string | string[];
     routePattern?: RegExp;
-    isActive?: KnockoutComputed<boolean>;
+    isActive?: ko.Computed<boolean>;
     nav?: any;
     hasChildRoutes?: boolean;
     viewUrl?: string;
@@ -1570,18 +1571,18 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
     /**
      * The route configurations that have been designated as displayable in a nav ui (nav:true).
     */
-    navigationModel: KnockoutObservableArray<DurandalRouteConfiguration>;
+    navigationModel: ko.ObservableArray<DurandalRouteConfiguration>;
 
     /**
      * Indicates that the router (or a child router) is currently in the process of navigating.
     */
-    isNavigating: KnockoutComputed<boolean>;
+    isNavigating: ko.Computed<boolean>;
 
     /**
      * An observable surfacing the active routing instruction that is currently being processed or has recently finished processing.
      * The instruction object has `config`, `fragment`, `queryString`, `params` and `queryParams` properties.
     */
-    activeInstruction: KnockoutObservable<DurandalRouteInstruction>;
+    activeInstruction: ko.Observable<DurandalRouteInstruction>;
 
     /**
      * Parses a query string into an object.

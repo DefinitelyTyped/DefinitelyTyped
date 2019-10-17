@@ -1,46 +1,41 @@
 // Type definitions for Knockout Deferred Updates
 // Project: https://github.com/mbest/knockout-deferred-updates
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
-interface KnockoutDeferredTasks {
-    processImmediate(evaluator: Function, object?: any, args?: any[]): any;
-    processDelayed(evaluator: Function, distinct?: boolean, options?: any[]): boolean;
-    makeProcessedCallback(evaluator: Function): void;
-}
-
 // Knockout global
-interface KnockoutStatic {
-    processAllDeferredBindingUpdates(): void;
-    processAllDeferredUpdates(): void;
-    evaluateAsynchronously(evaluator: Function, timeout?: any): number;
-    ignoreDependencies(callback: Function, callbackTarget: any, callbackArgs?: any[]);
-}
+declare namespace ko {
+    function processAllDeferredBindingUpdates(): void;
+    function processAllDeferredUpdates(): void;
+    function evaluateAsynchronously(evaluator: Function, timeout?: any): number;
+    function ignoreDependencies(callback: Function, callbackTarget: any, callbackArgs?: any[]): any;
 
-// Observables
-interface KnockoutSubscribableFunctions<T> {
-    deferUpdates: boolean;
-}
+    namespace tasks {
+        function processImmediate(evaluator: Function, object?: any, args?: any[]): any;
+        function processDelayed(evaluator: Function, distinct?: boolean, options?: any[]): boolean;
+        function makeProcessedCallback(evaluator: Function): void;
+    }
+    // Observables
+    interface SubscribableFunctions<T> {
+        deferUpdates: boolean;
+    }
 
-// Computed
-interface KnockoutComputedStatic {
-    deferUpdates: boolean;
-}
+    // Computed
+    namespace computed {
+        let deferUpdates: boolean;
+    }
 
-interface KnockoutSubscription {
-    deferUpdates: boolean;
-}
+    interface Subscription {
+        deferUpdates: boolean;
+    }
 
-// Utils
-interface KnockoutUtils {
-    objectForEach(obj: any, action: Function): void;
-    objectMap(source: any, mapping: Function): any;
-}
-
-// Deferred extender
-interface KnockoutExtenders {
-    deferred(target: any, value: boolean): any;
+    // Utils
+    namespace utils {
+        function objectForEach(obj: any, action: Function): void;
+        function objectMap(source: any, mapping: Function): any;
+    }
 }

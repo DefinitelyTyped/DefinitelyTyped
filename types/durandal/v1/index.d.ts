@@ -1,8 +1,9 @@
 // Type definitions for durandal 1.1.1
 // Project: http://durandaljs.com
 // Definitions by: Evan Larsen <http://nouvosoft.com/>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery" />
 /// <reference types="knockout" />
@@ -60,9 +61,9 @@ declare module "durandal/app" {
       */
     export var start: () => JQueryPromise<any>;
     /**
-      * This sets the root view or view model and displays the composed application in the specified application host. 
-      * @param root parameter is required and can be anything that the composition module understands as a view or view model. This includes strings and objects. 
-      * @param transition If you have a splash screen, you may want to specify an optional transition to animate from the splash to your main shell. 
+      * This sets the root view or view model and displays the composed application in the specified application host.
+      * @param root parameter is required and can be anything that the composition module understands as a view or view model. This includes strings and objects.
+      * @param transition If you have a splash screen, you may want to specify an optional transition to animate from the splash to your main shell.
       * @param applicationHost parameter is optional. If provided it should be an element id for the node into which the UI should be composed. If it is not provided the default is to look for an element with an id of "applicationHost".
       */
     export var setRoot: (root: any, transition?: string, applicationHost?: string) => void;
@@ -257,7 +258,7 @@ declare module "durandal/viewModelBinder" {
     /**
       * Applies bindings to a view using a pre-existing bindingContext. This is used by the composition module when a view is supplied without a model. It allows the parent binding context to be preserved. If the optional obj parameter is supplied, a new binding context will be created that is a child of bindingContext with its model set to obj. This is used by the widget framework to provide the widget binding while allowing templated parts to access their surrounding scope.
       */
-    export var bindContext: (bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any) => void;
+    export var bindContext: (bindingContext: ko.BindingContext, view: HTMLElement, obj?: any) => void;
     /**
       * Databinds obj, which can be an arbitrary object, to view which is a dom sub-tree. If obj has a function called setView, then, following binding, this function will be called, providing obj with an opportunity to interact directly with the dom fragment that it is bound to.
       */
@@ -348,10 +349,10 @@ interface IDurandalViewModelActiveItem {
   */
 declare module "durandal/plugins/router" {
     /**
-      * Parameters to the map function. or information on route url patterns, see the SammyJS documentation. But 
-      * basically, you can have simple routes my/route/, parameterized routes customers/:id or Regex routes. If you 
-      * have a parameter in your route, then the activation data passed to your module's activate function will have a 
-      * property for every parameter in the route (rather than the splat array, which is only present for automapped 
+      * Parameters to the map function. or information on route url patterns, see the SammyJS documentation. But
+      * basically, you can have simple routes my/route/, parameterized routes customers/:id or Regex routes. If you
+      * have a parameter in your route, then the activation data passed to your module's activate function will have a
+      * property for every parameter in the route (rather than the splat array, which is only present for automapped
       * routes).
       */
     interface IRouteInfo {
@@ -365,13 +366,13 @@ declare module "durandal/plugins/router" {
         settings: Object;
         hash: string;
         /** only present on visible routes to track if they are active in the nav */
-        isActive?: KnockoutComputed<boolean>;
+        isActive?: ko.Computed<boolean>;
     }
     /**
-      * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation 
-      * happens by stripping parameters from the url and casing where appropriate. You can always explicitly provide 
-      * url, name, moduleId, caption, settings, hash and visible. In 99% of situations, you should not need to provide 
-      * hash; it's just there to simplify databinding for you. Most of the time you may want to teach the router how 
+      * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation
+      * happens by stripping parameters from the url and casing where appropriate. You can always explicitly provide
+      * url, name, moduleId, caption, settings, hash and visible. In 99% of situations, you should not need to provide
+      * hash; it's just there to simplify databinding for you. Most of the time you may want to teach the router how
       * to properly derive the moduleId and name based on a url. If you want to do that, overwrite.
       */
     interface IRouteInfoParameters {
@@ -390,19 +391,19 @@ declare module "durandal/plugins/router" {
     /**
       * observable that is called when the router is ready
       */
-    export var ready: KnockoutObservable<boolean>;
+    export var ready: ko.Observable<boolean>;
     /**
       * An observable array containing all route info objects.
       */
-    export var allRoutes: KnockoutObservableArray<IRouteInfo>;
+    export var allRoutes: ko.ObservableArray<IRouteInfo>;
     /**
       * An observable array containing route info objects configured with visible:true (or by calling the mapNav function).
       */
-    export var visibleRoutes: KnockoutObservableArray<IRouteInfo>;
+    export var visibleRoutes: ko.ObservableArray<IRouteInfo>;
     /**
       * An observable boolean which is true while navigation is in process; false otherwise.
       */
-    export var isNavigating: KnockoutObservable<boolean>;
+    export var isNavigating: ko.Observable<boolean>;
     /**
       * An observable whose value is the currently active item/module/page.
       */
@@ -410,7 +411,7 @@ declare module "durandal/plugins/router" {
     /**
       * An observable whose value is the currently active route.
       */
-    export var activeRoute: KnockoutObservable<IRouteInfo>;
+    export var activeRoute: ko.Observable<IRouteInfo>;
     /**
       * called after an a new module is composed
       */

@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "i18next": ">=17.0.11",
         "knockout": ">=3.5.0"
     }
 }
