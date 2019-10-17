@@ -13936,10 +13936,15 @@ declare namespace Office {
         /**
          * Gets a string that contains a token used to call REST APIs or Exchange Web Services.
          *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The `getCallbackTokenAsync` method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
          *
          * The token is returned as a string in the `asyncResult.value` property.
+         *
+         * To call the `getCallbackTokenAsync` method in read mode, **ReadItem** is the minimum permission level your app can specify in its manifest.
+         * 
+         * If the item has not yet been saved in compose mode, you must call the `saveAsync` method before calling the `getCallbackTokenAsync` method.
+         * To call the `saveAsync` method, **ReadWriteItem** is the minimum permission level your app can specify.
          *
          * *REST Tokens*
          *
@@ -13957,6 +13962,13 @@ declare namespace Office {
          * The token will be limited in scope to accessing the current item.
          *
          * The add-in should use the ewsUrl property to determine the correct URL to use when making EWS calls.
+         *
+         * You can pass the token and an attachment identifier or item identifier to a third-party system. The third-party system uses the token as a
+         * bearer authorization token to call the Exchange Web Services (EWS)
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getattachment-operation | GetAttachment} operation or
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getitem-operation | GetItem} operation to return an
+         * attachment or item. For example, you can create a remote service to
+         * {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
          *
          * **Note**: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible.
          *
@@ -13987,21 +13999,24 @@ declare namespace Office {
         /**
          * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
          *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The `getCallbackTokenAsync` method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
          *
          * The token is returned as a string in the `asyncResult.value` property.
          *
-         * You can pass the token and an attachment identifier or item identifier to a third-party system. 
-         * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
-         * GetItem operation to return an attachment or item. For example, you can create a remote service to get attachments from the selected item.
+         * You can pass the token and an attachment identifier or item identifier to a third-party system. The third-party system uses the token as a
+         * bearer authorization token to call the Exchange Web Services (EWS)
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getattachment-operation | GetAttachment} or
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getitem-operation | GetItem} operation to return an
+         * attachment or item. For example, you can create a remote service to
+         * {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
          *
-         * Your app must have the ReadItem permission specified in its manifest to call the getCallbackTokenAsync method in read mode.
+         * To call the `getCallbackTokenAsync` method in read mode, **ReadItem** is the minimum permission level your app can specify in its manifest.
          *
-         * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
+         * If the item has not yet been saved in compose mode, you must call the `saveAsync` method before calling the `getCallbackTokenAsync` method.
+         * To call the `saveAsync` method, **ReadWriteItem** is the minimum permission level your app can specify.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.0 for Read mode support; 1.3 for Compose mode support]
          *
          * @remarks
          *
