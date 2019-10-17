@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export as namespace naja;
-
 interface FormsHandler {
     netteForms: object;
     initForms(element: Element): void;
@@ -185,3 +183,4 @@ export interface Naja extends NajaEventTarget {
 declare const naja: Naja;
 
 export default naja;
+export as namespace naja;
