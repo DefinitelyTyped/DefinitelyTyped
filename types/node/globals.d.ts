@@ -1137,7 +1137,7 @@ declare namespace NodeJS {
          * @deprecated Deprecated since: v12.2.0. Please use createRequire() instead.
          */
         static createRequireFromPath(path: string): NodeRequireFunction;
-        static createRequire(path: string): NodeRequireFunction;
+        static createRequire(path: string | URL): NodeRequireFunction;
         static builtinModules: string[];
 
         static Module: typeof Module;
