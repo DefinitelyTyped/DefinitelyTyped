@@ -19,7 +19,7 @@ const contains = (param: string): CustomRule =>
 
 const mustBeCool3 = helpers.withParams(
     { type: 'mustBeCool3' },
-    (value) => !helpers.req(value) || value.indexOf('cool') >= 0
+    (value: any) => !helpers.req(value) || value.indexOf('cool') >= 0
 )
 
 const mustBeCool3Result: boolean = mustBeCool3(50)
