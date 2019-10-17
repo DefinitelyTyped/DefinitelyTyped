@@ -15,6 +15,7 @@
 //                 Dave Vedder <https://github.com/veddermatic>
 //                 Konstantin Azizov <https://github.com/g07cha>
 //                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
+//                 Eliot Ball <https://github.com/eliotball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
