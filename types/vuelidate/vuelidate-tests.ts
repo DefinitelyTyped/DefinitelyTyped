@@ -22,6 +22,8 @@ const mustBeCool3 = helpers.withParams(
     (value) => !helpers.req(value) || value.indexOf('cool') >= 0
 )
 
+const mustBeCool3Result: boolean = mustBeCool3(50)
+
 const mustBeCool4 = helpers.regex('mustBeCool4', /^.*cool.*$/)
 
 const mustBeSame = (reference: string) => helpers.withParams(
