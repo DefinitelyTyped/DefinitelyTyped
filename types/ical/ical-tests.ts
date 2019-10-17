@@ -17,5 +17,5 @@ event.categories;
 event.recurrences;
 // $ExpectType FreeBusy | undefined
 event.freebusy;
-// $ExpectType string | ParamList
+// $ExpectType string | ParamList | undefined
 event.sequence;

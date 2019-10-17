@@ -45,7 +45,7 @@ export type CalendarComponent = {
     created?: Date;
     lastmodified?: Date;
     recurrenceid?: Date;
-} & { [prop: string]: string | ParamList };
+} & { [prop: string]: string | ParamList | undefined };
 
 export interface Geo {
     lat: number;
