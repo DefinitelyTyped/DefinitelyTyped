@@ -31,7 +31,7 @@ export interface SelectResponse {
     json(): Promise<SelectBindings & AskResult>;
 }
 
-export default class SparqlHttp<TResponse extends Response = Response> {
+export class SparqlHttp<TResponse extends Response = Response> {
     constructor(options?: SparqlClientOptions);
     updateQuery(query: string, options?: QueryRequestInit): Promise<Response>;
     selectQuery(query: string, options?: QueryRequestInit): Promise<SelectResponse & TResponse>;
