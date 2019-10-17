@@ -2,7 +2,7 @@
 var adaskoUnitqueId: string = ko.utils.uniqueId('adaskothebeast');
 
 class Sample {
-    public property1: KnockoutObservable<string>;
+    public property1: ko.Observable<string>;
 
     constructor() {
         this.property1 = ko.observable('test');
@@ -14,7 +14,7 @@ var sample = new Sample();
 // test unwrap properties
 var unwrappedProperties = ko.utils.unwrapProperties(sample);
 
-var kts: KnockoutTemplateSources;
+var kts: typeof ko.templateSources;
 var stringTemplate = new kts.stringTemplate('string-template');
 var stname = stringTemplate.templateName;
 

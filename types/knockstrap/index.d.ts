@@ -1,37 +1,38 @@
 // Type definitions for Knockstrap
 // Project: http://faulknercs.github.io/Knockstrap/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery" />
 /// <reference types="knockout" />
 
-interface KnockoutUtils {
-    uniqueId(prefix: string): string;
-    unwrapProperties(wrappedProperies: any): any;
+declare namespace ko.utils {
+    function uniqueId(prefix: string): string;
+    function unwrapProperties(wrappedProperies: any): any;
 }
 
-interface KnockoutTemplateSources {
-    stringTemplate: {
+declare namespace ko.templateSources {
+    const stringTemplate: {
         prototype: KnockstrapStringTemplate;
         new (template: string): KnockstrapStringTemplate;
     };
 }
 
-interface KnockstrapStringTemplate extends KnockoutTemplateSourcesDomElement {
+interface KnockstrapStringTemplate extends ko.TemplateSource {
     templateName: string;
 }
 
-interface KnockoutStatic {
-    stringTemplateEngine: {
+declare namespace ko {
+    const stringTemplateEngine: {
         prototype: KnockstrapStringTemplateEngine;
         new (): KnockstrapStringTemplateEngine;
         instance: KnockstrapStringTemplateEngine;
-    }
+    };
 }
 
-interface KnockstrapStringTemplateEngine extends KnockoutNativeTemplateEngine {
+interface KnockstrapStringTemplateEngine extends ko.templateEngine {
     allowTemplateRewriting: boolean;
     makeTemplateSource(template: string): KnockstrapStringTemplate;
     addTemplate(name: string, template: any): void;
@@ -40,36 +41,42 @@ interface KnockstrapStringTemplateEngine extends KnockoutNativeTemplateEngine {
     getTemplate(name: string): any;
 }
 
-interface KnockoutBindingHandlers {
-    alert: AlertKnockoutBindingHandler;
-    carousel: CarouselKnockoutBindingHandler;
-    checkbox: KnockoutBindingHandler;
-    modal: ModalKnockoutBindingHandler;
-    popover: PopoverKnockoutBindingHandler;
-    progress: ProgressKnockoutBindingHandler;
-    radio: KnockoutBindingHandler;
-    toggle: KnockoutBindingHandler;
-    tooltip: KnockoutBindingHandler;
+declare namespace ko {
+    interface BindingHandlers {
+        alert: AlertKnockoutBindingHandler;
+        carousel: CarouselKnockoutBindingHandler;
+        checkbox: BindingHandler;
+        modal: ModalKnockoutBindingHandler;
+        popover: PopoverKnockoutBindingHandler;
+        progress: ProgressKnockoutBindingHandler;
+        radio: BindingHandler;
+        toggle: BindingHandler;
+        tooltip: BindingHandler;
+    }
 }
 
 interface KnockoutControlsDescendantBindings {
     controlsDescendantBindings: boolean;
 }
 
-interface AlertKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+interface AlertKnockoutBindingHandler extends ko.BindingHandler {
+    init?(
+        element: any,
         valueAccessor: () => any,
-        allBindingsAccessor: KnockoutAllBindingsAccessor,
+        allBindingsAccessor: ko.AllBindings,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: ko.BindingContext,
+    ): KnockoutControlsDescendantBindings;
 }
 
-interface CarouselKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+interface CarouselKnockoutBindingHandler extends ko.BindingHandler {
+    init?(
+        element: any,
         valueAccessor: () => any,
-        allBindingsAccessor: KnockoutAllBindingsAccessor,
+        allBindingsAccessor: ko.AllBindings,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: ko.BindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapCarouselDefaults;
 }
 
@@ -87,11 +94,10 @@ interface KnockstrapDefaultsTemplateBase {
 
 interface KnockstrapCarouselDefaultsControlsTemplate extends KnockstrapDefaultsTemplateBase {
     dataConverter(value: any): KnockstrapCarouselDefaultsIdDataConverted;
-
 }
 
 interface KnockstrapCarouselDefaultsIdDataConverted {
-    id: KnockoutComputed<string>;
+    id: ko.Computed<string>;
 }
 
 interface KnockstrapCarouselDefaultsIndicatorsTemplate extends KnockstrapDefaultsTemplateBase {
@@ -106,12 +112,14 @@ interface KnockstrapCarouselDefaultsItemTemplate extends KnockstrapDefaultsTempl
     converter(value: any): any;
 }
 
-interface ModalKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+interface ModalKnockoutBindingHandler extends ko.BindingHandler {
+    init?(
+        element: any,
         valueAccessor: () => any,
-        allBindingsAccessor: KnockoutAllBindingsAccessor,
+        allBindingsAccessor: ko.AllBindings,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: ko.BindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapModalDefaults;
 }
 
@@ -136,20 +144,24 @@ interface KnockstrapModalDefaultsFooterData {
     primaryLabel: string;
 }
 
-interface PopoverKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+interface PopoverKnockoutBindingHandler extends ko.BindingHandler {
+    init?(
+        element: any,
         valueAccessor: () => any,
-        allBindingsAccessor: KnockoutAllBindingsAccessor,
+        allBindingsAccessor: ko.AllBindings,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: ko.BindingContext,
+    ): KnockoutControlsDescendantBindings;
 }
 
-interface ProgressKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+interface ProgressKnockoutBindingHandler extends ko.BindingHandler {
+    init?(
+        element: any,
         valueAccessor: () => any,
-        allBindingsAccessor: KnockoutAllBindingsAccessor,
+        allBindingsAccessor: ko.AllBindings,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: ko.BindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapProgressDefaults;
 }
 
