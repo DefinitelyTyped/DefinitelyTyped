@@ -1,8 +1,9 @@
 // Type definitions for ko.plus v0.0.24
 // Project: https://github.com/stevegreatrex/ko.plus
 // Definitions by: Howard Richards <https://github.com/conficient>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="knockout" />
 
@@ -11,7 +12,7 @@
  * Extensions to KO to provide a command, editable and sortable patterns
  * - available at http://www.nuget.org/packages/ko.plus/
  *
- * (requires TypeScript version 1.4 or higher)
+ * (requires TypeScript version 3.2 or higher)
  *
  * Version 1.0 - initial commit
  *
@@ -20,55 +21,61 @@
  *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
- * 
+ *
  * Version 1.3 - added module declaration so it be used with node, requirejs etc.
  *               removed jquery reference as it is not required
- * 
+ *
  */
 
-//
-// Add methods to the 'ko' Knockout object
-//
-interface KnockoutStatic {
+declare namespace ko {
+    //
+    // Add methods to the 'ko' Knockout object
+    //
+
     // create a command - two overloads
-    command: (param: Function | KoPlus.CommandOptions) => KoPlus.Command;
+    const command: (param: Function | KoPlus.CommandOptions) => KoPlus.Command;
 
-    editable: KoPlus.EditableStatic;
-    editableArray: KoPlus.EditableArrayStatic;
-}
+    const editable: KoPlus.EditableStatic;
+    const editableArray: KoPlus.EditableArrayStatic;
 
-//#region Sortable type extensions
+    //#region Sortable type extensions
 
-//
-// extends the KnockoutObservableArray to add sorting methods
-// see https://github.com/stevegreatrex/ko.plus#properties-and-functions
-//
-interface KnockoutObservableArray<T> {
-    sortKey: KnockoutObservable<string>;
+    //
+    // extends the KnockoutObservableArray to add sorting methods
+    // see https://github.com/stevegreatrex/ko.plus#properties-and-functions
+    //
+    interface ObservableArray<T> {
+        sortKey: Observable<string>;
 
-    sortDescending: KnockoutObservable<boolean>;
+        sortDescending: Observable<boolean>;
 
-    setSourceKey: (key: string) => void;
-}
+        setSourceKey: (key: string) => void;
+    }
 
-//#endregion
+    //#endregion
 
-//
-// declare new binding handlers in ko.plus
-//
-interface KnockoutBindingHandlers {
-    loadingWhen: KnockoutBindingHandler;
+    //
+    // declare new binding handlers in ko.plus
+    //
+    interface BindingHandlers {
+        loadingWhen: BindingHandler;
 
-    command: KnockoutBindingHandler;
+        command: BindingHandler;
 
-    sortBy: KnockoutBindingHandler;
+        sortBy: BindingHandler;
+    }
+
+    interface ExtendersOptions {
+        sortable: boolean | { key: string; descending: boolean };
+
+        editable: true;
+    }
 }
 
 //
 // namespace for ko.plus types
 //
 declare namespace KoPlus {
-
     //#region Command types
 
     //
@@ -81,13 +88,13 @@ declare namespace KoPlus {
         //
         // properties: https://github.com/stevegreatrex/ko.plus#properties
         //
-        isRunning: KnockoutObservable<boolean>;
+        isRunning: ko.Observable<boolean>;
 
-        canExecute: KnockoutComputed<boolean>;
+        canExecute: ko.Computed<boolean>;
 
-        failed: KnockoutObservable<boolean>;
+        failed: ko.Observable<boolean>;
 
-        completed: KnockoutObservable<boolean>;
+        completed: ko.Observable<boolean>;
 
         //
         // functions
@@ -95,7 +102,7 @@ declare namespace KoPlus {
         //
         done: (callback: (data: any) => void) => Command;
 
-        fail: (callback: (response: any, status?: string, statusText?:string) => void) => Command;
+        fail: (callback: (response: any, status?: string, statusText?: string) => void) => Command;
 
         always: (callback: Function) => Command;
 
@@ -121,16 +128,20 @@ declare namespace KoPlus {
 
     //#region Editable types
 
-    export interface EditableStatic extends KnockoutObservableStatic {
+    export interface EditableStatic {
         <T>(value?: T): Editable<T>;
 
         makeEditable(target: any): void;
+
+        fn: ko.ObservableFunctions;
     }
 
-    export interface EditableArrayStatic extends KnockoutObservableArrayStatic {
+    export interface EditableArrayStatic {
         <T>(value?: Array<T>): EditableArray<T>;
 
         makeEditable(target: any): void; //>
+
+        fn: ko.ObservableArrayFunctions;
     }
 
     //
@@ -138,7 +149,7 @@ declare namespace KoPlus {
     // (used by both editable and editableArray
     //
     export interface EditableFunctions {
-        isEditing: KnockoutObservable<boolean>;
+        isEditing: ko.Observable<boolean>;
         beginEdit(): void;
         endEdit(): void;
         cancelEdit(): void;
@@ -148,20 +159,16 @@ declare namespace KoPlus {
     //
     // extend the standard KnockoutObservable to add editable functions
     //
-    export interface Editable<T> extends KnockoutObservable<T>, EditableFunctions {
-    }
+    export interface Editable<T> extends ko.Observable<T>, EditableFunctions {}
 
     //
     // extend the standard KnockoutObservableArray to add editable functions
     //
-    export interface EditableArray<T> extends KnockoutObservableArray<T>, EditableFunctions {
-    }
+    export interface EditableArray<T> extends ko.ObservableArray<T>, EditableFunctions {}
 
     //#endregion
 }
 
-declare var ko: KnockoutStatic;
-
-declare module "ko.plus" {
+declare module 'ko.plus' {
     export = ko;
 }
