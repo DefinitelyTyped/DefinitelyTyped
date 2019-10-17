@@ -1,4 +1,4 @@
-import {Agilite} from 'agilite';
+import Agilite from 'agilite';
 
 const agilite = new Agilite({
   apiKey: '',
