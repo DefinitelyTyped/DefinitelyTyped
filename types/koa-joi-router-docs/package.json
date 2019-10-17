@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "koa": "^2.10.0",
-    "koa-joi-router": "^6.0.0",
-    "koa-joi-router-docs": "^1.0.1"
-  }
-}
