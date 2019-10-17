@@ -19,9 +19,6 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 
-// SDK documentation: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// API documentation: https://forge.autodesk.com/en/docs/data/v2/reference/http
-
 /// <reference types="node" />
 
 /**
