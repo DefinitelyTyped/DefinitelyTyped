@@ -1036,6 +1036,7 @@ export function circle(latlng: LatLngExpression, radius: number, options?: Circl
 
 export interface RendererOptions extends LayerOptions {
     padding?: number;
+    tolerance?: number;
 }
 
 export class Renderer extends Layer {
