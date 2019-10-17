@@ -288,8 +288,8 @@ declare namespace google.maps {
 
     enum MapTypeControlStyle {
         DEFAULT = 0,
-        DROPDOWN_MENU = 1,
-        HORIZONTAL_BAR = 2,
+        HORIZONTAL_BAR = 1,
+        DROPDOWN_MENU = 2,
         INSET = 3,
         INSET_LARGE = 4,
     }
@@ -374,8 +374,8 @@ declare namespace google.maps {
 
     enum ZoomControlStyle {
         DEFAULT = 0,
-        LARGE = 1,
-        SMALL = 2,
+        SMALL = 1,
+        LARGE = 2,
     }
 
     /**
@@ -3376,8 +3376,8 @@ declare namespace google.maps {
         }
 
         enum RankBy {
-            DISTANCE = 1,
             PROMINENCE = 0,
+            DISTANCE = 1,
         }
 
         class SearchBox extends MVCObject {
