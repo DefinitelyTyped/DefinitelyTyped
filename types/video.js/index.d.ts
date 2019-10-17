@@ -6722,5 +6722,5 @@ declare namespace videojs {
     }
 
     export interface VideoJsPlayerPluginOptions {
-        [pluginName:string]: any;
+        [pluginName: string]: any;
     }
