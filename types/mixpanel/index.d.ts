@@ -625,8 +625,8 @@ declare namespace Mixpanel {
          */
         property_blacklist?: string[];
     }
-    
-    export type Query = string | Element | Element[];
+
+    type Query = string | Element | Element[];
 }
 
 declare var mixpanel: Mixpanel;
