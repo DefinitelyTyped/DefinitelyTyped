@@ -68,7 +68,6 @@ declare namespace Autosuggest {
         onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
-        [key: string]: any;
     }
 
     interface SuggestionSelectedEventData<TSuggestion> {

@@ -58,6 +58,7 @@ interface BoxKnownProps
         StyledSystem.AlignSelfProps,
         SxProps {
     variant?: StyledSystem.ResponsiveValue<string>;
+    tx?: string;
 }
 export interface BoxProps
     extends BoxKnownProps,
