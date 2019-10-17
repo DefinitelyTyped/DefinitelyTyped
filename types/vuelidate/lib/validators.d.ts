@@ -14,7 +14,7 @@ export interface ValidationParams {
 
 // const ValidationRule
 export interface ValidationRule {
-    (...params: unknown[]): boolean
+    (...params: any[]): boolean
     $params(): ValidationParams
     $pending(): boolean
 }
