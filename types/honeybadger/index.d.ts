@@ -47,4 +47,3 @@ declare namespace honeybadger {
 }
 declare const honeybadger: honeybadger.HoneyBadgerInstance;
 export = honeybadger;
-export as namespace honeybadger;
