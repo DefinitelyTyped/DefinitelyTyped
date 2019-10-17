@@ -67,14 +67,14 @@ export function setControllerName(name: string, action: string): void;
  *
  * Most recently set value wins.
  */
-export function addCustomAttribute(key: string, value: string | number): void;
+export function addCustomAttribute(key: string, value: string | number | boolean): void;
 
 /**
  * Adds all custom attributes in an object to the current transaction.
  *
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
-export function addCustomAttributes(atts: { [key: string]: string | number }): void;
+export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Tell the tracer whether to ignore the current transaction.
