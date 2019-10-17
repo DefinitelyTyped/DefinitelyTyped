@@ -1,6 +1,6 @@
 // Type definitions for ical 0.6
 // Project: https://github.com/peterbraden/ical.js
-// Definitions by: Nick Clifford <https://github.com/DefinitelyTyped>
+// Definitions by: Nick Clifford <https://github.com/nickbclifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
