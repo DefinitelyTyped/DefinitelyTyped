@@ -1,14 +1,5 @@
 {
-  "name": "koa-joi-router-docs-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "private": true,
   "dependencies": {
     "koa": "^2.10.0",
     "koa-joi-router": "^6.0.0",
