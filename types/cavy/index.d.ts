@@ -29,7 +29,7 @@ export interface TesterProps {
     startDelay?: number;
     clearAsyncStorage?: boolean;
     reporter?: (report: TestReport) => void;
-    
+
     // Deprecated
     sendReport?: boolean;
 }
@@ -61,7 +61,7 @@ export interface TestResult {
 }
 
 export interface TestReport {
-    results: TestResult[];
+    results: ReadonlyArray<TestResult>;
     errorCount: number;
     duration: number;
 }
