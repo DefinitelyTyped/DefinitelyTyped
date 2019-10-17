@@ -45,7 +45,7 @@ export type Scope =
     | 'account:write';
 
 export interface ApiResponse {
-    body: unknown;
+    body: any;
     headers: { [index: string]: string };
     statusCode: number;
 }
@@ -53,7 +53,7 @@ export interface ApiResponse {
 export interface ApiError {
     statusCode: number;
     statusMessage: string;
-    statusBody: unknown;
+    statusBody: object;
 }
 
 /**
