@@ -709,6 +709,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
     > | React.ReactElement;
+    label: string | number | React.ReactElement | RechartsFunction;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
