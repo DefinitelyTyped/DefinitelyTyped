@@ -12,20 +12,20 @@
  * @internal Base type for all `methods`-like metadata.
  * @template This The type to use for `this` within methods.
  */
-interface _methodMap<This> {
+interface MethodMap<This> {
     [s: string]: (this: This, ...args: any[]) => any;
 }
 
 /** @internal A plain old JavaScript object created by a `Stamp`. */
-type _pojo = object; // { [s: string]: any; }
+type Pojo = object; // { [s: string]: any; }
 
 /** @internal Base type for all `properties`-like metadata. */
 // TODO: discriminate Array
-type _propertyMap = object; // { [s: string]: any; }
+type PropertyMap = object; // { [s: string]: any; }
 
 /** @internal Signature common to every `Stamp`s. */
 interface StampSignature {
-    (options?: _propertyMap, ...args: unknown[]): any;
+    (options?: PropertyMap, ...args: unknown[]): any;
     compose: ComposeMethod & stampit.Descriptor<any, any>;
 }
 
@@ -43,7 +43,7 @@ type StampType<Original> = Original extends /* disallowed types */ [] | bigint
     ? Original
     : Original extends stampit.Descriptor<infer Obj, any>
     ? stampit.Stamp<Obj>
-    : Original extends _pojo
+    : Original extends Pojo
     ? stampit.Stamp<Original> /*assume it is the object from a stamp object*/
     : never;
 
@@ -63,7 +63,7 @@ type StampObjectType<Original> = Original extends /* disallowed types */ bigint 
           : any)
     : Original extends stampit.Descriptor<infer Obj, any>
     ? Obj
-    : Original extends _pojo
+    : Original extends Pojo
     ? Original
     : never;
 
@@ -72,7 +72,7 @@ type StampObjectType<Original> = Original extends /* disallowed types */ bigint 
  * @template Obj The object type that the `Stamp` will create.
  */
 interface FactoryFunction<Obj> {
-    (options?: _propertyMap, ...args: any[]): StampObjectType<Obj>;
+    (options?: PropertyMap, ...args: any[]): StampObjectType<Obj>;
 }
 
 /**
@@ -93,31 +93,31 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature> {
      * @param methods Object(s) containing map of method names and bodies for delegation.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    methods<This = Obj>(...methods: Array<_methodMap<This>>): S̤t̤a̤m̤p̤;
+    methods<This = Obj>(...methods: Array<MethodMap<This>>): S̤t̤a̤m̤p̤;
 
     /**
      * Take a variable number of objects and shallow assign them to any future created instance of the Stamp. Creates and returns new Stamp. **Chainable**.
      * @param objects Object(s) to shallow assign for each new object.
      */
-    properties(...objects: _propertyMap[]): S̤t̤a̤m̤p̤;
+    properties(...objects: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take a variable number of objects and shallow assign them to any future created instance of the Stamp. Creates and returns new Stamp. **Chainable**.
      * @param objects Object(s) to shallow assign for each new object.
      */
-    props(...objects: _propertyMap[]): S̤t̤a̤m̤p̤;
+    props(...objects: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take a variable number of objects and deeply merge them to any future created instance of the Stamp. Creates and returns a new Stamp. **Chainable**.
      * @param deepObjects The object(s) to deeply merge for each new object.
      */
-    deepProperties(...deepObjects: _propertyMap[]): S̤t̤a̤m̤p̤;
+    deepProperties(...deepObjects: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take a variable number of objects and deeply merge them to any future created instance of the Stamp. Creates and returns a new Stamp. **Chainable**.
      * @param deepObjects The object(s) to deeply merge for each new object.
      */
-    deepProps(...deepObjects: _propertyMap[]): S̤t̤a̤m̤p̤;
+    deepProps(...deepObjects: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take in a variable number of functions and add them to the initializers prototype as initializers. **Chainable**.
@@ -137,25 +137,25 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature> {
      * Take n objects and add them to a new stamp and any future stamp it composes with. Creates and returns new Stamp. **Chainable**.
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      */
-    staticProperties(...statics: _propertyMap[]): S̤t̤a̤m̤p̤;
+    staticProperties(...statics: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take n objects and add them to a new stamp and any future stamp it composes with. Creates and returns new Stamp. **Chainable**.
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      */
-    statics(...statics: _propertyMap[]): S̤t̤a̤m̤p̤;
+    statics(...statics: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Deeply merge a variable number of objects and add them to a new stamp and any future stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param deepStatics The object(s) containing static properties to be merged.
      */
-    staticDeepProperties(...deepStatics: _propertyMap[]): S̤t̤a̤m̤p̤;
+    staticDeepProperties(...deepStatics: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Deeply merge a variable number of objects and add them to a new stamp and any future stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param deepStatics The object(s) containing static properties to be merged.
      */
-    deepStatics(...deepStatics: _propertyMap[]): S̤t̤a̤m̤p̤;
+    deepStatics(...deepStatics: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Take in a variable number of functions and add them to the composers prototype as composers. **Chainable**.
@@ -168,25 +168,25 @@ interface Chainables<Obj, S̤t̤a̤m̤p̤ extends StampSignature> {
      * Shallowly assign properties of Stamp arbitrary metadata and add them to a new stamp and any future Stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param confs The object(s) containing metadata properties.
      */
-    configuration(...confs: _propertyMap[]): S̤t̤a̤m̤p̤;
+    configuration(...confs: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Shallowly assign properties of Stamp arbitrary metadata and add them to a new stamp and any future Stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param confs The object(s) containing metadata properties.
      */
-    conf(...confs: _propertyMap[]): S̤t̤a̤m̤p̤;
+    conf(...confs: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Deeply merge properties of Stamp arbitrary metadata and add them to a new Stamp and any future Stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param deepConfs The object(s) containing metadata properties.
      */
-    deepConfiguration(...deepConfs: _propertyMap[]): S̤t̤a̤m̤p̤;
+    deepConfiguration(...deepConfs: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Deeply merge properties of Stamp arbitrary metadata and add them to a new Stamp and any future Stamp it composes. Creates and returns a new Stamp. **Chainable**.
      * @param deepConfs The object(s) containing metadata properties.
      */
-    deepConf(...deepConfs: _propertyMap[]): S̤t̤a̤m̤p̤;
+    deepConf(...deepConfs: PropertyMap[]): S̤t̤a̤m̤p̤;
 
     /**
      * Apply ES5 property descriptors to object instances created by the new Stamp returned by the function and any future Stamp it composes. Creates and returns a new stamp. **Chainable**.
@@ -225,25 +225,25 @@ declare namespace stampit {
      */
     interface Descriptor<Obj, S̤t̤a̤m̤p̤ extends StampSignature = Stamp<Obj>> {
         /** A set of methods that will be added to the object's delegate prototype. */
-        methods?: _methodMap<Obj>;
+        methods?: MethodMap<Obj>;
         /** A set of properties that will be added to new object instances by assignment. */
-        properties?: _propertyMap;
+        properties?: PropertyMap;
         /** A set of properties that will be added to new object instances by assignment. */
-        props?: _propertyMap;
+        props?: PropertyMap;
         /** A set of properties that will be added to new object instances by deep property merge. */
-        deepProperties?: _propertyMap;
+        deepProperties?: PropertyMap;
         /** A set of properties that will be added to new object instances by deep property merge. */
-        deepProps?: _propertyMap;
+        deepProps?: PropertyMap;
         /** A set of object property descriptors (`PropertyDescriptor`) used for fine-grained control over object property behaviors. */
         propertyDescriptors?: PropertyDescriptorMap;
         /** A set of static properties that will be copied by assignment to the `Stamp`. */
-        staticProperties?: _propertyMap /* & ThisType<S> */;
+        staticProperties?: PropertyMap /* & ThisType<S> */;
         /** A set of static properties that will be copied by assignment to the `Stamp`. */
-        statics?: _propertyMap /* & ThisType<S> */;
+        statics?: PropertyMap /* & ThisType<S> */;
         /** A set of static properties that will be added to the `Stamp` by deep property merge. */
-        staticDeepProperties?: _propertyMap /* & ThisType<S> */;
+        staticDeepProperties?: PropertyMap /* & ThisType<S> */;
         /** A set of static properties that will be added to the `Stamp` by deep property merge. */
-        deepStatics?: _propertyMap /* & ThisType<S> */;
+        deepStatics?: PropertyMap /* & ThisType<S> */;
         /** A set of object property descriptors (`PropertyDescriptor`) to apply to the `Stamp`. */
         staticPropertyDescriptors?: PropertyDescriptorMap /* & ThisType<S> */;
         /** An array of functions that will run in sequence while creating an object instance from a `Stamp`. `Stamp` details and arguments get passed to initializers. */
@@ -253,13 +253,13 @@ declare namespace stampit {
         /** An array of functions that will run in sequence while creating a new `Stamp` from a list of `Composable`s. The resulting `Stamp` and the `Composable`s get passed to composers. */
         composers?: Array<Composer<S̤t̤a̤m̤p̤>>;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be copied by assignment. */
-        configuration?: _propertyMap /* & ThisType<S> */;
+        configuration?: PropertyMap /* & ThisType<S> */;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be copied by assignment. */
-        conf?: _propertyMap /* & ThisType<S> */;
+        conf?: PropertyMap /* & ThisType<S> */;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be deep merged. */
-        deepConfiguration?: _propertyMap /* & ThisType<S> */;
+        deepConfiguration?: PropertyMap /* & ThisType<S> */;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be deep merged. */
-        deepConf?: _propertyMap /* & ThisType<S> */;
+        deepConf?: PropertyMap /* & ThisType<S> */;
         // TODO: Add description
         name?: string;
     }
@@ -347,7 +347,7 @@ declare namespace stampit {
      * @template This The type to use for `this` within methods.
      * @param methods Object(s) containing map of method names and bodies for delegation.
      */
-    function methods<Obj = any>(this: StampObjectType<Obj>, ...methods: Array<_methodMap<Obj>>): StampType<Obj>;
+    function methods<Obj = any>(this: StampObjectType<Obj>, ...methods: Array<MethodMap<Obj>>): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().properties()
@@ -357,7 +357,7 @@ declare namespace stampit {
      * @param objects Object(s) to shallow assign for each new object.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function properties<Obj = any>(...objects: _propertyMap[]): StampType<Obj>;
+    function properties<Obj = any>(...objects: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().props()
@@ -367,7 +367,7 @@ declare namespace stampit {
      * @param objects Object(s) to shallow assign for each new object.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function props<Obj = any>(...objects: _propertyMap[]): StampType<Obj>;
+    function props<Obj = any>(...objects: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().deepProperties()
@@ -377,7 +377,7 @@ declare namespace stampit {
      * @param deepObjects The object(s) to deeply merge for each new object
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function deepProperties<Obj = any>(...deepObjects: _propertyMap[]): StampType<Obj>;
+    function deepProperties<Obj = any>(...deepObjects: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().deepProps()
@@ -387,7 +387,7 @@ declare namespace stampit {
      * @param deepObjects The object(s) to deeply merge for each new object
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function deepProps<Obj = any>(...deepObjects: _propertyMap[]): StampType<Obj>;
+    function deepProps<Obj = any>(...deepObjects: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().initializers()
@@ -429,7 +429,7 @@ declare namespace stampit {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function staticProperties<Obj = any>(...statics: _propertyMap[]): StampType<Obj>;
+    function staticProperties<Obj = any>(...statics: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().staticProperties()
@@ -439,7 +439,7 @@ declare namespace stampit {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function statics<Obj = any>(...statics: _propertyMap[]): StampType<Obj>;
+    function statics<Obj = any>(...statics: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().staticDeepProperties()
@@ -449,7 +449,7 @@ declare namespace stampit {
      * @param deepStatics The object(s) containing static properties to be merged
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function staticDeepProperties<Obj = any>(...deepStatics: _propertyMap[]): StampType<Obj>;
+    function staticDeepProperties<Obj = any>(...deepStatics: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().deepStatics()
@@ -459,7 +459,7 @@ declare namespace stampit {
      * @param deepStatics The object(s) containing static properties to be merged
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function deepStatics<Obj = any>(...deepStatics: _propertyMap[]): StampType<Obj>;
+    function deepStatics<Obj = any>(...deepStatics: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().composers()
@@ -479,7 +479,7 @@ declare namespace stampit {
      * @param confs The object(s) containing metadata properties
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function configuration<Obj = any>(...confs: _propertyMap[]): StampType<Obj>;
+    function configuration<Obj = any>(...confs: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().conf()
@@ -489,7 +489,7 @@ declare namespace stampit {
      * @param confs The object(s) containing metadata properties
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function conf<Obj = any>(...confs: _propertyMap[]): StampType<Obj>;
+    function conf<Obj = any>(...confs: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().deepConfiguration()
@@ -499,7 +499,7 @@ declare namespace stampit {
      * @param deepConfs The object(s) containing metadata properties
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function deepConfiguration<Obj = any>(...deepConfs: _propertyMap[]): StampType<Obj>;
+    function deepConfiguration<Obj = any>(...deepConfs: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().deepConf()
@@ -509,7 +509,7 @@ declare namespace stampit {
      * @param deepConfs The object(s) containing metadata properties
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    function deepConf<Obj = any>(...deepConfs: _propertyMap[]): StampType<Obj>;
+    function deepConf<Obj = any>(...deepConfs: PropertyMap[]): StampType<Obj>;
 
     /**
      * A shortcut method for stampit().propertyDescriptors()
