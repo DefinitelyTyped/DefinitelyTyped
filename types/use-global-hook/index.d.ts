@@ -4,23 +4,36 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import React = require('react');
-type ReactType = typeof React;
+// Use an interface so that different versions of React can be used
+interface ReactInterface {
+  // tslint:disable-next-line ban-types
+  useEffect: Function;
+  // tslint:disable-next-line ban-types
+  useState: Function;
+  // tslint:disable-next-line ban-types
+  useMemo: Function;
+}
 // to ignore strict-export-declare-modifiers error
 export {};
 
 // Where S is typeof state and A is typeof associated actions
 export interface Store<S, A> {
-    state: S;
-    actions: A;
-    setState(state: S, afterUpdateCallback?: () => void): void;
+  state: S;
+  actions: A;
+  setState(state: S, afterUpdateCallback?: () => void): void;
 }
 
 export type InitializerFunction<S, A> = (store: Store<S, A>) => void;
 
+type UseGlobal<S, A> = (() => [S, A]) &
+  (<NS>(stateFunc: (state: S) => NS) => [NS, A]) &
+  (<NS, NA>(stateFunc: (state: S) => NS, actionsFunc: (state: A) => NA) => [NS, NA]) &
+  // tslint:disable-next-line no-unnecessary-generics
+  (<NS, NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [NS, NA]);
+
 export default function useStore<S, A>(
-    React: ReactType,
-    inititalState: S,
-    actions: object,
-    initializers?: InitializerFunction<S, A>,
-): <NS, NA>(stateFunc?: (state: S) => NS, actionsFunc?: (state: A) => NA) => [NS, NA];
+  React: ReactInterface,
+  inititalState: S,
+  actions: object,
+  initializers?: InitializerFunction<S, A>,
+): UseGlobal<S, A>;
