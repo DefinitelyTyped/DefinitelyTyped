@@ -681,20 +681,20 @@ declare namespace SpotifyApi {
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectSimplified {
-        artists: ArtistObjectSimplified[],
         album_group?: string,
         album_type: string,
+        artists: ArtistObjectSimplified[],
         available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
         images: ImageObject[],
         name: string,
-        type: "album",
-        uri: string,
         release_date: string,
         release_date_precision: string,
-        restrictions?: RestrictionsObject
+        restrictions?: RestrictionsObject,
+        type: "album",
+        uri: string
     }
 
     /**
