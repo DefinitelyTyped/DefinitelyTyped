@@ -9,39 +9,53 @@ import { RRule } from 'rrule';
 
 export type CalendarComponentType = 'VEVENT' | 'VTODO' | 'VJOURNAL' | 'VFREEBUSY' | 'VTIMEZONE' | 'VALARM';
 
-interface Recurrence {
-    rrule: RRule;
+export interface ParamList {
+    params: { [key: string]: string };
+    val: string;
 }
 
-export interface CalendarComponent {
+export type FreeBusyType = 'FREE' | 'BUSY';
+
+export interface FreeBusy {
+    type: FreeBusyType;
+    start: Date;
+    end: Date;
+}
+
+export type CalendarComponent = {
     type: CalendarComponentType;
-    params: [];
-}
-
-export interface Event extends CalendarComponent, Recurrence {
-    type: 'VEVENT';
-    dtstamp: Date;
-    uid: string;
-    dtstart?: string;
-    class?: string;
-    created?: Date;
-    description?: string;
-    geo?: { lat: number, long: number };
-    lastmodified?: Date;
-    location?: string;
-    organizer?: string;
-    priority?: string;
-    sequence?: string;
-    status?: string;
     summary?: string;
-    transp?: string;
+    description?: string;
     url?: string;
+    uid?: string;
+    location?: string;
+    start?: Date;
+    end?: Date;
+    rrule?: RRule;
+    exdate?: { [datestr: string]: Date };
+    recurrences?: CalendarComponent[];
+    class?: string;
+    transparency?: string;
+    geo?: Geo;
+    completion?: string;
+    completed?: Date;
+    categories?: string[];
+    freebusy?: FreeBusy;
+    dtstamp?: Date;
+    created?: Date;
+    lastmodified?: Date;
+    recurrenceid?: Date;
+} & { [prop: string]: string | ParamList };
+
+export interface Geo {
+    lat: number;
+    long: number;
 }
 
-export interface ICSData {
+export interface FullCalendar {
     [uid: string]: CalendarComponent;
 }
 
-export function parseICS(icsData: string): ICSData;
-export function parseFile(filename: string): ICSData;
-export function fromURL(url: string, options: request.CoreOptions, callback: (error: any, data: ICSData) => any): void;
+export function parseICS(icsData: string): FullCalendar;
+export function parseFile(filename: string): FullCalendar;
+export function fromURL(url: string, options: request.CoreOptions, callback: (error: any, data: FullCalendar) => any): void;
