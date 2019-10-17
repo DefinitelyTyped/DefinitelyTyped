@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import * as mung from "express-mung";
+import { Request, Response, ErrorRequestHandler } from "express";
+import mung = require("express-mung");
 
 function redact(body: {}, req: Request, res: Response) {
   return body;
@@ -15,12 +15,6 @@ function redactAsync(body: {}, req: Request, res: Response) {
 mung.jsonAsync(redactAsync);
 mung.jsonAsync(redactAsync, { mungError: true });
 
-function transformHeaders(req: Request, res: Response) {
-  return;
-}
-
-mung.headers(transformHeaders);
-
 function transformHeadersAsync(req: Request, res: Response) {
   return Promise.resolve();
 }
@@ -33,3 +27,6 @@ function transformChunk(chunk: string | Buffer, encoding: string | null, req: Re
 
 mung.write(transformChunk);
 mung.write(transformChunk, { mungError: true });
+
+const errorRequestHandler: ErrorRequestHandler = (error, req, res, next) => {};
+mung.onError = errorRequestHandler;

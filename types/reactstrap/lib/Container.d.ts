@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type ContainerProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
-  fluid?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
-} & T;
+export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
+    [key: string]: any;
+    tag?: string | React.ReactType;
+    fluid?: boolean;
+    className?: string;
+    cssModule?: CSSModule;
+}
 
-declare class Container<T = {[key: string]: any}> extends React.Component<ContainerProps<T>> {}
+declare class Container<T = {[key: string]: any}> extends React.Component<ContainerProps> {}
 export default Container;

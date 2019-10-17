@@ -6,7 +6,7 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -1475,7 +1475,7 @@ declare namespace sequelize {
      * user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture
      * ```
      *
-     * In the example above we have specified that a user belongs to his profile picture. Conceptually, this might
+     * In the example above we have specified that a user belongs to their profile picture. Conceptually, this might
      * not make sense, but since we want to add the foreign key to the user model this is the way to do it.
      *
      * Note how we also specified `constraints: false` for profile picture. This is because we add a foreign key

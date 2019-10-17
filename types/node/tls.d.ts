@@ -64,70 +64,34 @@ declare module "tls" {
         version: string;
     }
 
+    export interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
+        /**
+         * If true the TLS socket will be instantiated in server-mode.
+         * Defaults to false.
+         */
+        isServer?: boolean;
+        /**
+         * An optional net.Server instance.
+         */
+        server?: net.Server;
+
+        /**
+         * An optional Buffer instance containing a TLS session.
+         */
+        session?: Buffer;
+        /**
+         * If true, specifies that the OCSP status request extension will be
+         * added to the client hello and an 'OCSPResponse' event will be
+         * emitted on the socket before establishing a secure communication
+         */
+        requestOCSP?: boolean;
+    }
+
     class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: {
-            /**
-             * An optional TLS context object from tls.createSecureContext()
-             */
-            secureContext?: SecureContext,
-            /**
-             * If true the TLS socket will be instantiated in server-mode.
-             * Defaults to false.
-             */
-            isServer?: boolean,
-            /**
-             * An optional net.Server instance.
-             */
-            server?: net.Server,
-            /**
-             * If true the server will request a certificate from clients that
-             * connect and attempt to verify that certificate. Defaults to
-             * false.
-             */
-            requestCert?: boolean,
-            /**
-             * If true the server will reject any connection which is not
-             * authorized with the list of supplied CAs. This option only has an
-             * effect if requestCert is true. Defaults to false.
-             */
-            rejectUnauthorized?: boolean,
-            /**
-             * An array of strings or a Buffer naming possible NPN protocols.
-             * (Protocols should be ordered by their priority.)
-             */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * An array of strings or a Buffer naming possible ALPN protocols.
-             * (Protocols should be ordered by their priority.) When the server
-             * receives both NPN and ALPN extensions from the client, ALPN takes
-             * precedence over NPN and the server does not send an NPN extension
-             * to the client.
-             */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * SNICallback(servername, cb) <Function> A function that will be
-             * called if the client supports SNI TLS extension. Two arguments
-             * will be passed when called: servername and cb. SNICallback should
-             * invoke cb(null, ctx), where ctx is a SecureContext instance.
-             * (tls.createSecureContext(...) can be used to get a proper
-             * SecureContext.) If SNICallback wasn't provided the default callback
-             * with high-level API will be used (see below).
-             */
-            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
-            /**
-             * An optional Buffer instance containing a TLS session.
-             */
-            session?: Buffer,
-            /**
-             * If true, specifies that the OCSP status request extension will be
-             * added to the client hello and an 'OCSPResponse' event will be
-             * emitted on the socket before establishing a secure communication
-             */
-            requestOCSP?: boolean
-        });
+        constructor(socket: net.Socket, options?: TLSSocketOptions);
 
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
@@ -212,75 +176,116 @@ declare module "tls" {
         setMaxSendFragment(size: number): boolean;
 
         /**
-         * events.EventEmitter
-         * 1. OCSPResponse
-         * 2. secureConnect
+         * When enabled, TLS packet trace information is written to `stderr`. This can be
+         * used to debug TLS connection problems.
+         *
+         * Note: The format of the output is identical to the output of `openssl s_client
+         * -trace` or `openssl s_server -trace`. While it is produced by OpenSSL's
+         * `SSL_trace()` function, the format is undocumented, can change without notice,
+         * and should not be relied on.
          */
+        enableTrace(): void;
+
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
         addListener(event: "session", listener: (session: Buffer) => void): this;
+        addListener(event: "keylog", listener: (line: Buffer) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
         emit(event: "session", session: Buffer): boolean;
+        emit(event: "keylog", line: Buffer): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         on(event: "secureConnect", listener: () => void): this;
         on(event: "session", listener: (session: Buffer) => void): this;
+        on(event: "keylog", listener: (line: Buffer) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         once(event: "secureConnect", listener: () => void): this;
         once(event: "session", listener: (session: Buffer) => void): this;
+        once(event: "keylog", listener: (line: Buffer) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependListener(event: "secureConnect", listener: () => void): this;
         prependListener(event: "session", listener: (session: Buffer) => void): this;
+        prependListener(event: "keylog", listener: (line: Buffer) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependOnceListener(event: "secureConnect", listener: () => void): this;
         prependOnceListener(event: "session", listener: (session: Buffer) => void): this;
+        prependOnceListener(event: "keylog", listener: (line: Buffer) => void): this;
     }
 
-    interface TlsOptions extends SecureContextOptions {
-        handshakeTimeout?: number;
+    interface CommonConnectionOptions {
+        /**
+         * An optional TLS context object from tls.createSecureContext()
+         */
+        secureContext?: SecureContext;
+
+        /**
+         * When enabled, TLS packet trace information is written to `stderr`. This can be
+         * used to debug TLS connection problems.
+         * @default false
+         */
+        enableTrace?: boolean;
+        /**
+         * If true the server will request a certificate from clients that
+         * connect and attempt to verify that certificate. Defaults to
+         * false.
+         */
         requestCert?: boolean;
-        rejectUnauthorized?: boolean;
-        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
-        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        /**
+         * An array of strings or a Buffer naming possible ALPN protocols.
+         * (Protocols should be ordered by their priority.)
+         */
+        ALPNProtocols?: string[] | Uint8Array[] | Uint8Array;
+        /**
+         * SNICallback(servername, cb) <Function> A function that will be
+         * called if the client supports SNI TLS extension. Two arguments
+         * will be passed when called: servername and cb. SNICallback should
+         * invoke cb(null, ctx), where ctx is a SecureContext instance.
+         * (tls.createSecureContext(...) can be used to get a proper
+         * SecureContext.) If SNICallback wasn't provided the default callback
+         * with high-level API will be used (see below).
+         */
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+        /**
+         * If true the server will reject any connection which is not
+         * authorized with the list of supplied CAs. This option only has an
+         * effect if requestCert is true.
+         * @default true
+         */
+        rejectUnauthorized?: boolean;
+    }
+
+    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+        handshakeTimeout?: number;
         sessionTimeout?: number;
         ticketKeys?: Buffer;
     }
 
-    interface ConnectionOptions extends SecureContextOptions {
+    interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
         host?: string;
         port?: number;
         path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
         socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
-        rejectUnauthorized?: boolean; // Defaults to true
-        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
-        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
         checkServerIdentity?: typeof checkServerIdentity;
         servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
-        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
         lookup?: net.LookupFunction;
         timeout?: number;
     }
 
     class Server extends net.Server {
-        addContext(hostName: string, credentials: {
-            key: string;
-            cert: string;
-            ca: string;
-        }): void;
+        addContext(hostName: string, credentials: SecureContextOptions): void;
 
         /**
          * events.EventEmitter
@@ -296,6 +301,7 @@ declare module "tls" {
         addListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
         addListener(event: "resumeSession", listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
         addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        addListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
@@ -303,6 +309,7 @@ declare module "tls" {
         emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void): boolean;
         emit(event: "resumeSession", sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void): boolean;
         emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+        emit(event: "keylog", line: Buffer, tlsSocket: TLSSocket): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
@@ -310,6 +317,7 @@ declare module "tls" {
         on(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
         on(event: "resumeSession", listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
         on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        on(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
@@ -317,6 +325,7 @@ declare module "tls" {
         once(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
         once(event: "resumeSession", listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
         once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        once(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
@@ -324,6 +333,7 @@ declare module "tls" {
         prependListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
         prependListener(event: "resumeSession", listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
         prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
@@ -331,6 +341,7 @@ declare module "tls" {
         prependOnceListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
         prependOnceListener(event: "resumeSession", listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
 
     interface SecurePair {
@@ -338,7 +349,7 @@ declare module "tls" {
         cleartext: TLSSocket;
     }
 
-    type SecureVersion = 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
+    type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
 
     interface SecureContextOptions {
         pfx?: string | Buffer | Array<string | Buffer | Object>;
@@ -357,18 +368,22 @@ declare module "tls" {
         sessionIdContext?: string;
         /**
          * Optionally set the maximum TLS version to allow. One
-         * of `TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
-         * `secureProtocol` option, use one or the other.  **Default:** `'TLSv1.2'`.
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * `secureProtocol` option, use one or the other.
+         * **Default:** `'TLSv1.3'`, unless changed using CLI options. Using
+         * `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using `--tls-max-v1.3` sets the default to
+         * `'TLSv1.3'`. If multiple of the options are provided, the highest maximum is used.
          */
         maxVersion?: SecureVersion;
         /**
          * Optionally set the minimum TLS version to allow. One
-         * of `TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
          * `secureProtocol` option, use one or the other.  It is not recommended to use
          * less than TLSv1.2, but it may be required for interoperability.
          * **Default:** `'TLSv1.2'`, unless changed using CLI options. Using
-         * `--tls-v1.0` changes the default to `'TLSv1'`. Using `--tls-v1.1` changes
-         * the default to `'TLSv1.1'`.
+         * `--tls-v1.0` sets the default to `'TLSv1'`. Using `--tls-v1.1` sets the default to
+         * `'TLSv1.1'`. Using `--tls-min-v1.3` sets the default to
+         * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
          */
         minVersion?: SecureVersion;
     }
@@ -385,6 +400,7 @@ declare module "tls" {
      * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
      */
     function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    function createServer(secureConnectionListener?: (socket: TLSSocket) => void): Server;
     function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     function connect(options: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -397,4 +413,6 @@ declare module "tls" {
     function getCiphers(): string[];
 
     const DEFAULT_ECDH_CURVE: string;
+
+    const rootCertificates: ReadonlyArray<string>;
 }

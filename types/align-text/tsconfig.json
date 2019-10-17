@@ -17,6 +17,7 @@
         "index.d.ts",
         "test/simple.ts",
         "test/center-simple.ts",
-        "test/center-complex.ts"
+        "test/center-complex.ts",
+        "test/array.ts"
     ]
 }

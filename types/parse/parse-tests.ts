@@ -22,6 +22,13 @@ function test_object() {
 
     const game = new Game();
 
+    game.save(null, {
+        useMasterKey: true,
+        sessionToken: 'sometoken',
+        cascadeSave: false,
+      })
+      .then(result => result);
+
     if (!game.isNew()) {
         console.error("Game should be new");
     }
@@ -67,6 +74,16 @@ function test_object() {
     object.equals(gameScore);
     object.fetchWithInclude(['key1', 'key2']);
 
+}
+
+function test_errors() {
+  try {
+    throw new Parse.Error(Parse.Error.INTERNAL_SERVER_ERROR, 'sdfds');
+  } catch (error) {
+    if (error.code !== 1) {
+      console.error('Error code did not match expected number.');
+    }
+  }
 }
 
 function test_query() {
@@ -235,6 +252,9 @@ function test_user() {
     user.set("password", "my pass");
     user.set("email", "email@example.com");
     user.signUp(null, { useMasterKey: true });
+
+    const anotherUser: Parse.User = Parse.User.fromJSON({})
+    anotherUser.set('email', "email@example.com")
 }
 
 async function test_user_currentAsync() {
@@ -283,6 +303,8 @@ function test_user_acl_roles() {
     game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
         // Update game then revert it to the last saved state.
         game.set("score", '20');
+        game.revert('score');
+        game.revert('score', 'ACL');
         game.revert();
     }, function (error) {
         // The save failed
@@ -375,6 +397,9 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.afterSave('MyCustomClass', (request: Parse.Cloud.AfterSaveRequest) => {
+        if(!request.context) {
+            throw new Error('Request context should be defined')
+        }
         // result
     });
 
@@ -390,6 +415,7 @@ function test_cloud_functions() {
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
     Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
+
             if (request.object.isNew()) {
                 if (!request.object.has('immutable')) throw new Error('Field immutable is required')
             } else {
@@ -401,6 +427,9 @@ function test_cloud_functions() {
                 if (original.get('immutable') !== request.object.get('immutable')) {
                     throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
                 }
+            }
+            if(!request.context) {
+                throw new Error('Request context should be defined')
             }
     });
 
@@ -435,6 +464,10 @@ function test_cloud_functions() {
         return new Parse.Object('MyCustomClass');
     });
 
+    Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
+        return 'Some result';
+    });
+
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
@@ -442,6 +475,12 @@ function test_cloud_functions() {
     Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
         request.message('Message to associate with this job run');
     });
+
+    Parse.Cloud.startJob('AJob', {}).then(v => v);
+
+    Parse.Cloud.getJobStatus('AJob').then(v => v);
+
+    Parse.Cloud.getJobsData().then(v => v);
 }
 
 class PlaceObject extends Parse.Object { }
@@ -581,4 +620,62 @@ async function test_local_datastore() {
     query.fromLocalDatastore();
 
     Parse.setLocalDatastoreController({});
+}
+
+async function test_schema() {
+
+    Parse.Schema.all({ useMasterKey: true })
+    Parse.Schema.all({ sessionToken: '' })
+
+    const schema = new Parse.Schema('TestSchema');
+ 
+    schema.addField('defaultFieldString')
+    schema.addString('stringField')
+    schema.addNumber('numberField')
+    schema.addBoolean('booleanField')
+    schema.addDate('dateField')
+    schema.addFile('fileField')
+    schema.addGeoPoint('geoPointField')
+    schema.addPolygon('polygonField')
+    schema.addArray('arrayField')
+    schema.addObject('objectField')
+    schema.addPointer('pointerField', '_User')
+    schema.addRelation('relationField', '_User');
+
+    schema.addIndex('testIndex', { stringField: 1 });
+
+    schema.deleteField('defaultFieldString')
+    schema.deleteIndex('testIndex')
+
+    // Master Key
+    schema.delete({ useMasterKey: true })
+        .then((results) => { });
+
+    schema.get({ useMasterKey: true })
+        .then((results) => { })
+    
+    schema.purge()
+        .then((results) => { })
+        
+    schema.save({ useMasterKey: true })
+        .then((results) => { })
+
+    schema.update({ useMasterKey: true })
+        .then((results) => { })    
+        
+    // Session Token
+    schema.delete({ sessionToken: '' })
+        .then((results) => { });
+
+    schema.get({ sessionToken: '' })
+        .then((results) => { })
+    
+    schema.purge()
+        .then((results) => { })
+        
+    schema.save({ sessionToken: '' })
+        .then((results) => { })
+
+    schema.update({ sessionToken: '' })
+        .then((results) => { })    
 }

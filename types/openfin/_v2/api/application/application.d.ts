@@ -4,9 +4,10 @@ import { _Window } from '../window/window';
 import { Point } from '../system/point';
 import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
-import Bounds from '../window/bounds';
+import { Bounds } from '../../shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
+import { BrowserView } from '../browserview/browserview';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -37,18 +38,26 @@ export interface TrayInfo {
     x: number;
     y: number;
 }
+export interface ManifestInfo {
+    uuid: string;
+    manifestUrl: string;
+}
+export interface RvmLaunchOptions {
+    noUi?: boolean;
+    userAppConfigArgs?: object;
+}
 /**
- * @typedef {object} Application~options
+ * @typedef {object} ApplicationOption
  * @summary Application creation options.
- * @desc This is the options object required by {@link Application.create Application.create}.
+ * @desc This is the options object required by {@link Application.start Application.start}.
  *
  * The following options are required:
- * * `uuid` is required in the app manifest as well as by {@link Application.create Application.create}
- * * `name` is optional in the app manifest but required by {@link Application.create Application.create}
- * * `url` is optional in both the app manifest {@link Application.create Application.create} and  but is usually given
+ * * `uuid` is required in the app manifest as well as by {@link Application.start Application.start}
+ * * `name` is optional in the app manifest but required by {@link Application.start Application.start}
+ * * `url` is optional in both the app manifest {@link Application.start Application.start} and  but is usually given
  * (defaults to `"about:blank"` when omitted).
  *
- * _This jsdoc typedef mirrors the `ApplicationOptions` TypeScript interface in `@types/openfin`._
+ * _This jsdoc typedef mirrors the `ApplicationOption` TypeScript interface in `@types/openfin`._
  *
  * **IMPORTANT NOTE:**
  * This object inherits all the properties of the window creation {@link Window~options options} object,
@@ -116,6 +125,13 @@ export default class ApplicationModule extends Base {
      */
     wrapSync(identity: Identity): Application;
     private _create;
+    /**
+    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+    * @param { ApplicationOption } appOptions
+    * @return {Promise.<Application>}
+    * @tutorial Application.create
+    * @ignore
+    */
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
     * Creates and starts a new Application.
@@ -125,6 +141,16 @@ export default class ApplicationModule extends Base {
     * @static
     */
     start(appOptions: ApplicationOption): Promise<Application>;
+    /**
+     * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
+     * Returns once the RVM is finished attempting to launch the applications.
+     * @param { Array.<ManifestInfo> } applications
+     * @return {Promise.<void>}
+     * @static
+     * @tutorial Application.startManyManifests
+     * @experimental
+     */
+    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
     /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
@@ -142,12 +168,14 @@ export default class ApplicationModule extends Base {
     /**
      * Retrieves application's manifest and returns a running instance of the application.
      * @param {string} manifestUrl - The URL of app's manifest.
+     * @param { rvmLaunchOpts} [opts] - Parameters that the RVM will use.
      * @return {Promise.<Application>}
      * @tutorial Application.startFromManifest
      * @static
      */
-    startFromManifest(manifestUrl: string): Promise<Application>;
+    startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Application>;
     createFromManifest(manifestUrl: string): Promise<Application>;
+    private _createFromManifest;
 }
 /**
  * @classdesc An object representing an application. Allows the developer to create,
@@ -289,6 +317,13 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
+    * Retrieves current application's views.
+    * @experimental
+    * @return {Promise.Array.<BrowserView>}
+    * @tutorial Application.getViews
+    */
+    getViews(): Promise<Array<BrowserView>>;
+    /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
      * @tutorial Application.getZoomLevel
@@ -320,7 +355,15 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @tutorial Application.restart
      */
     restart(): Promise<void>;
+    /**
+     * DEPRECATED method to run the application.
+     * Needed when starting application via {@link Application.create}, but NOT needed when starting via {@link Application.start}.
+     * @return {Promise.<void>}
+     * @tutorial Application.run
+     * @ignore
+     */
     run(): Promise<void>;
+    private _run;
     /**
      * Instructs the RVM to schedule one restart of the application.
      * @return {Promise.<void>}
@@ -342,7 +385,7 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     setTrayIcon(iconUrl: string): Promise<void>;
     /**
-     * Sets new application's shortcut configuration.
+     * Sets new application's shortcut configuration. Windows only.
      * @param { ShortCutConfig } config New application's shortcut configuration.
      * @param { boolean } [config.desktop] - Enable/disable desktop shortcut.
      * @param { boolean } [config.startMenu] - Enable/disable start menu shortcut.

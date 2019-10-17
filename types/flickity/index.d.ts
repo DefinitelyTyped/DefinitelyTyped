@@ -3,6 +3,7 @@
 // Definitions by: Chris McGrath <https://github.com/clmcgrath>
 //                 Michael Wagner <https://github.com/wagich>
 //                 Anthony Heber <https://github.com/aheber>
+//                 Paul Crane <https://github.com/PabloDiablo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -66,7 +67,11 @@ declare namespace Flickity {
         /**
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
-        "bgLazyLoad";
+        "bgLazyLoad" |
+        /**
+         * Triggered after entering or exiting fullscreen view.
+         */
+        "fullscreenChange";
     interface Options {
         /**
          * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
@@ -213,6 +218,12 @@ declare namespace Flickity {
          * default: disabled
          */
         asNavFor?: string | HTMLElement;
+
+        /**
+         * Enables hash navigation to select slides with links and URLs.
+         * default: false
+         */
+        hash?: boolean;
 
         /**
          * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.
@@ -409,6 +420,11 @@ declare class Flickity {
      */
     selectedElements: Element[];
 
+    /**
+     * The slider element
+     */
+    slider: HTMLElement;
+
     // static methods
 
     /**
@@ -558,6 +574,18 @@ declare class Flickity {
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+    /**
+     * bind event listener
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    on(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
+    /**
+     * bind event listener
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    on(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;
 
     /**
      * Remove event listener
@@ -588,6 +616,20 @@ declare class Flickity {
     off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
     /**
+     * Remove event listener
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    off(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
+
+    /**
+     * Remove event listener
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    off(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;
+
+    /**
      * one time event handler
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
@@ -614,4 +656,18 @@ declare class Flickity {
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+
+    /**
+     * one time event handler
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    once(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
+
+    /**
+     * one time event handler
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param callback callback funtion to execute when event fires
+     */
+    once(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;
 }

@@ -8,7 +8,8 @@ import {
     CompressionTypes,
     CompressionCodecs,
     ResourceTypes,
-    PartitionAssigner
+    PartitionAssigner,
+    LoggerMessage
 } from "kafkajs";
 
 const { MemberMetadata, MemberAssignment } = AssignerProtocol;
@@ -17,6 +18,10 @@ const { roundRobin } = PartitionAssigners;
 // COMMON
 const host = "localhost";
 const topic = "topic-test";
+
+const logger = (loggerMessage: LoggerMessage): void => {
+    console.log(`[${loggerMessage.namespace}] ${loggerMessage.log.message}`);
+};
 
 const kafka = new Kafka({
     logLevel: logLevel.INFO,
@@ -31,7 +36,8 @@ const kafka = new Kafka({
         mechanism: "plain",
         username: "test",
         password: "testtest"
-    }
+    },
+    logCreator: () => logger
 });
 
 // CONSUMER

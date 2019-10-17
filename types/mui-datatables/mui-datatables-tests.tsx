@@ -10,26 +10,36 @@ interface Props extends MUIDataTableOptions {
 const MuiCustomTable: React.FC<Props> = (props) => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
     const columns = props.data
-                        .map((entry: any) => Object.keys(entry))
-                        .flat()
-                        .map((title: string) => title.toUpperCase())
-                        .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
+        .map((entry: any) => Object.keys(entry))
+        .flat()
+        .map((title: string) => title.toUpperCase())
+        .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
     const TableOptions: MUIDataTableOptions = {
         filterType: 'checkbox',
-        responsive: 'scroll',
-        selectableRows: false,
+        responsive: 'scrollFullHeight',
+        selectableRows: 'none',
         elevation: 0,
         rowsPerPageOptions: [5, 10, 20, 25, 50, 100],
         downloadOptions: {
             filename: 'filename.csv',
-            separator: ','
+            separator: ',',
         },
         sortFilterList: false,
+        customRowRender: (data, dataIndex, rowIndex) => {
+            const [id, name, amount] = data;
+
+            return (
+                <div>
+                    <span>{id}</span>
+                    <span>{name}</span>
+                    <span>{amount}</span>
+                </div>
+            );
+        },
         customToolbarSelect: (selectedRows, displayData, setSelectedRows) => {
             return (
                 <span>
-                    Custom Selected Toolbar:{' '}
-                    {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}
+                    Custom Selected Toolbar: {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}
                     <button
                         onClick={() => {
                             setSelectedRows([]);
@@ -71,19 +81,19 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                 text: 'rows(s) selected',
                 delete: 'Delete',
                 deleteAria: 'Delete Selected Rows',
-            }
-        }
+            },
+        },
     };
 
-    return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions}/>);
+    return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />);
 };
 
 const TableFruits = [
-    {id: 1, name: "Apple", amount: 1},
-    {id: 2, name: "Pear", amount: 2},
-    {id: 3, name: "Strawberry", amount: 5},
-    {id: 4, name: "Banana", amount: 7},
-    {id: 5, name: "Orange", amount: 9},
+    { id: 1, name: "Apple", amount: 1 },
+    { id: 2, name: "Pear", amount: 2 },
+    { id: 3, name: "Strawberry", amount: 5 },
+    { id: 4, name: "Banana", amount: 7 },
+    { id: 5, name: "Orange", amount: 9 },
 ];
 
-<MuiCustomTable title="Awesome Table" data={TableFruits}/>;
+<MuiCustomTable title="Awesome Table" data={TableFruits} />;

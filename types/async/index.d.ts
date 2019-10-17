@@ -1,4 +1,4 @@
-// Type definitions for Async 2.4
+// Type definitions for Async 3.0
 // Project: https://github.com/caolan/async, https://caolan.github.io/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Arseniy Maximov <https://github.com/kern0>
@@ -6,6 +6,8 @@
 //                 Angus Fenying <https://github.com/fenying>
 //                 Pascal Martin <https://github.com/pascalmartin>
 //                 Dmitri Trofimov <https://github.com/Dmitri1337>
+//                 Etienne Rossignon <https://github.com/erossignon>
+//                 Lifeng Zhu <https://github.com/Juliiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,15 +59,23 @@ export interface AsyncQueue<T> {
     push<R, E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
     unshift<E = Error>(task: T | T[], callback?: ErrorCallback<E>): void;
     remove(filter: (node: DataContainer<T>) => boolean): void;
-    saturated: () => any;
-    empty: () => any;
-    drain: () => any;
+
+    saturated(): Promise<void>;
+    saturated(handler: () => void): void;
+    empty(): Promise<void>;
+    empty(handler: () => void): void;
+    drain(): Promise<void>;
+    drain(handler: () => void): void;
+
     paused: boolean;
     pause(): void;
     resume(): void;
     kill(): void;
     workersList<TWorker extends DataContainer<T>, CallbackContainer>(): TWorker[];
-    error(error: Error, data: any): void;
+
+    error(): Promise<void>;
+    error(handler: (error: Error, task: T) => void): void;
+
     unsaturated(): void;
     buffer: number;
 }
@@ -116,9 +126,11 @@ export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: 
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
 export const mapSeries: typeof map;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
 
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,
@@ -126,8 +138,14 @@ export function mapValuesLimit<T, R, E = Error>(
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
     callback: AsyncResultObjectCallback<R, E>
     ): void;
+export function mapValuesLimit<T, R, E = Error>(
+	obj: Dictionary<T>,
+	limit: number,
+	iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
+): Promise<R>;
 
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
+export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void): Promise<R>;
 export const mapValuesSeries: typeof mapValues;
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
 export const filterSeries: typeof filter;
@@ -197,7 +215,8 @@ export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback
 export function retry<T, E = Error>(
     opts: number | {
         times: number,
-        interval: number | ((retryCount: number) => number)
+        interval: number | ((retryCount: number) => number),
+        errorFilter?: (error: Error) => boolean
     },
     task: (callback: AsyncResultCallback<T, E>, results: any) => void,
     callback: AsyncResultCallback<any, E>
@@ -240,7 +259,7 @@ export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: 
 export function memoize(fn: Function, hasher?: Function): Function;
 export function unmemoize(fn: Function): Function;
 export function ensureAsync(fn: (... argsAndCallback: any[]) => void): Function;
-export function constant(...values: any[]): Function;
+export function constant(...values: any[]): AsyncFunction<any>;
 export function asyncify(fn: Function): (...args: any[]) => any;
 export function wrapSync(fn: Function): Function;
 export function log(fn: Function, ...args: any[]): void;

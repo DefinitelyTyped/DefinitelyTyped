@@ -66,7 +66,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        webpack?: () => number[];
+        webpack?: () => Array<string | number>;
     }
 
     interface OptionsWithoutRender<Props> extends CommonOptions {

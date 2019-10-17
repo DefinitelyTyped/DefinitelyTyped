@@ -12,7 +12,7 @@ declare class Forge {
      * Creates a new instance
      * @returns {Forge} a new instance.
      */
-    new(): Forge;
+    constructor();
 
     /**
      * The bindings mapped to this forge instance.

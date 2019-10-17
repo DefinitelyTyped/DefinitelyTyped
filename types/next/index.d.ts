@@ -32,23 +32,60 @@ declare namespace next {
     // End Deprecated
 
     /**
+     * HTTP request object (server only, non-export mode)
+     */
+    type NextReq<CustomReq = {}> = http.IncomingMessage & CustomReq;
+
+    /**
+     * HTTP request object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{ url?: string }`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `req && req.getHeaderNames ? req.getHeaderNames() : []`.
+     */
+    type NextExportReq<CustomReq = {}> = Partial<NextReq<CustomReq>>;
+
+    /**
+     * HTTP response object (server only, non-export mode)
+     */
+    type NextResponse = http.ServerResponse;
+
+    /**
+     * HTTP response object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{}`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `res && res.getHeaderNames ? res.getHeaderNames() : []`.
+     */
+    type NextExportResponse = Partial<NextResponse>;
+
+    /**
      * Context object used in methods like `getInitialProps()`
      * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L97
      * https://github.com/zeit/next.js/blob/7.0.0/README.md#fetching-data-and-component-lifecycle
      *
      * @template Q Query object schema.
      */
-    interface NextContext<Q extends DefaultQuery = DefaultQuery> {
+    interface NextContext<
+        Q extends DefaultQuery = DefaultQuery,
+        CustomReq = {}
+    > {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
         query: Q;
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
-        /** HTTP request object (server only) */
-        req?: http.IncomingMessage;
-        /** HTTP response object (server only) */
-        res?: http.ServerResponse;
+        /**
+         * HTTP request object (server only)
+         * Note: In `next export` mode, this will consist of only `{ url?: string }`.
+         */
+        req?: NextReq<CustomReq> | NextExportReq<CustomReq>;
+        /**
+         * HTTP response object (server only)
+         * Note: In `next export` mode, this will be empty `{}` object.
+         */
+        res?: NextResponse | NextExportResponse;
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */

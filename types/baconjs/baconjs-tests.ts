@@ -252,19 +252,20 @@ function CombiningMultipleStreamsAndProperties() {
 
     {
         // To calculate the current sum of three numeric Properties, you can do:
-        var property = Bacon.constant(1),
-            stream = Bacon.once(2),
+        // (NOTE: combineWith requires the first type argument to be ErrorEvent, but the constant
+        // and once methods default to unknown, so we're forced to manually specify it)
+        let property = Bacon.constant<ErrorEvent, number>(1),
+            stream = Bacon.once<ErrorEvent, number>(2),
             constant = 3;
-        // NOTE: had to explicitly specify the typing for `x:number, y:number, z:number`
-        Bacon.combineWith((x:number, y:number, z:number) => x + y + z, property, stream, constant);
+        Bacon.combineWith((x, y, z) => x + y + z, property, stream, constant);
     }
 
     {
         // Assuming you've got streams or properties named `password`, `username`, `firstname` and `lastname`, you can do:
-        var password = Bacon.constant("easy"),
-            username = Bacon.constant("juha"),
-            firstname = Bacon.constant("juha"),
-            lastname = Bacon.constant("paananen"),
+        let password = Bacon.constant<ErrorEvent, string>("easy"),
+            username = Bacon.constant<ErrorEvent, string>("juha"),
+            firstname = Bacon.constant<ErrorEvent, string>("juha"),
+            lastname = Bacon.constant<ErrorEvent, string>("paananen"),
         // NOTE: you should provide `combineTemplate` typing explicitly!
             loginInfo = Bacon.combineTemplate<string, {
                 magicNumber:number; userid:string; passwd:string;
@@ -454,7 +455,7 @@ function JoinPatternsAndBaconBus() {
                 }, 1e3);
                 return `philosopher ${i} eating`;
             },
-        // We use Bacon.when to make sure a hungry philosopher can eat only when both his chopsticks are available.
+        // We use Bacon.when to make sure a hungry philosopher can eat only when both their chopsticks are available.
             dining = Bacon.when(
                 [hungry[0], chopsticks[0], chopsticks[1]], eat(0),
                 [hungry[1], chopsticks[1], chopsticks[2]], eat(1),

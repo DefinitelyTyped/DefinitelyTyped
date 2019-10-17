@@ -70,11 +70,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         assert.equal(3, "3", "uses == comparator");
 
-        assert.fail('stuff broke');
+        if (!!true) assert.fail('stuff broke');
 
-        assert.fail('actual', 'expected', 'message');
+        if (!!true) assert.fail('actual', 'expected', 'message');
 
-        assert.fail(1, 2, undefined, '>');
+        if (!!true) assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 
@@ -261,6 +261,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -272,6 +273,23 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
     }
+
+    async function testPromisify() {
+        const rd = util.promisify(fs.readdir);
+        let listS: string[];
+        listS = await rd('path');
+        listS = await rd('path', 'utf8');
+        listS = await rd('path', null);
+        listS = await rd('path', undefined);
+        listS = await rd('path', { encoding: 'utf8' });
+        listS = await rd('path', { encoding: null });
+        listS = await rd('path', { encoding: null, withFileTypes: false });
+        listS = await rd('path', { encoding: 'utf8', withFileTypes: false });
+        const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
+        const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+    }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -429,6 +447,18 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
             recursive: true,
             mode: 0o777,
         });
+    }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
     }
 }
 
@@ -916,8 +946,10 @@ function bufferTests() {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -2154,8 +2186,8 @@ async function asyncStreamPipelineFinished() {
 ////////////////////////////////////////////////////
 
 {
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
+    const rs: tty.ReadStream = new tty.ReadStream(0);
+    const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);
@@ -3278,21 +3310,32 @@ async function asyncStreamPipelineFinished() {
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -4810,7 +4853,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

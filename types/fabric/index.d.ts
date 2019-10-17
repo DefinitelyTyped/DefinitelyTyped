@@ -1,4 +1,4 @@
-// Type definitions for FabricJS 2.6
+// Type definitions for FabricJS 3.4
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic>
 //                 Joseph Livecchi <https://github.com/joewashear007>

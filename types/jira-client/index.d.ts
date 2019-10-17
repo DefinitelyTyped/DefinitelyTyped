@@ -77,6 +77,8 @@ declare class JiraApi {
 
     addWatcher(issueKey: string, username: string): Promise<JiraApi.JsonResponse>;
 
+    getIssueWatchers(issueId: string): Promise<JiraApi.JsonResponse[]>;
+
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
     updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject): Promise<JiraApi.JsonResponse>;
@@ -122,10 +124,12 @@ declare class JiraApi {
     addWorklog(
         issueId: string,
         worklog: JiraApi.WorklogObject,
-        newEstimate: JiraApi.EstimateObject
+        newEstimate?: JiraApi.EstimateObject
     ): Promise<JiraApi.JsonResponse>;
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;
+
+    getIssueWorklogs(issueId: string): Promise<JiraApi.JsonResponse>;
 
     listIssueTypes(): Promise<JiraApi.JsonResponse>;
 
@@ -350,12 +354,7 @@ declare namespace JiraApi {
         startAt?: number;
         maxResults?: number;
         fields?: string[];
-    }
-
-    interface SearchQuery {
-        startAt?: number;
-        maxResults?: number;
-        fields?: string[];
+        expand?: string[];
     }
 
     interface UriOptions {

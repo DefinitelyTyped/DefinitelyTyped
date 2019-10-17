@@ -31,7 +31,7 @@ interface Callback {
         | TransformResult;
 }
 
-declare function align_text(text: string, fn: number | Callback): string;
-declare function align_text(text: string[], fn: number | Callback): string[];
+declare function align_text(text: string, fn?: number | Callback): string;
+declare function align_text(text: any[], fn?: number | Callback): string[];
 
 export = align_text;

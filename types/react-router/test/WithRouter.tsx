@@ -9,6 +9,10 @@ const ComponentFunction = (props: TOwnProps) => (
     <h2>Welcome {props.username}</h2>
 );
 
+const FunctionComponent: React.FunctionComponent<TOwnProps> = props => (
+  <h2>Welcome {props.username}</h2>
+);
+
 class ComponentClass extends React.Component<TOwnProps> {
     render() {
         return <h2>Welcome {this.props.username}</h2>;
@@ -16,12 +20,24 @@ class ComponentClass extends React.Component<TOwnProps> {
 }
 
 const WithRouterComponentFunction = withRouter(ComponentFunction);
+const WithRouterFunctionComponent = withRouter(FunctionComponent);
 const WithRouterComponentClass = withRouter(ComponentClass);
+WithRouterComponentClass.WrappedComponent; // $ExpectType typeof ComponentClass
+
+// Fix introduced in https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38326
+// caused more common use cases with `strictFunctionTypes` to fail
+// declare const Component: React.ComponentType<TOwnProps>;
+// $ExpectError ^3.6.3
+// const WithRouterComponent = withRouter(Component);
 
 const WithRouterTestFunction = () => (
     <WithRouterComponentFunction username="John" />
 );
-const WithRouterTestClass = () => <WithRouterComponentClass username="John" />;
+const OnWrappedRefFn = (ref: ComponentClass | null) => {};
+const WithRouterTestClass = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRefFn} />;
+
+const OnWrappedRef = React.createRef<ComponentClass>();
+const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRef} />;
 
 // union props
 {

@@ -1,3 +1,5 @@
-import * as ol from 'openlayers';
+import Event from '../events/Event';
 
-export default ol.pointer.PointerEvent;
+export default class PointerEvent extends Event {
+    constructor(type: string, originalEvent: Event, opt_eventDict?: { [key: string]: any });
+}

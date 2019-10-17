@@ -113,6 +113,20 @@ flikty2.listener("myCustomEvent", (evt: Event) => {
     // do something
 });
 
+function handleSettle(index: number): void {
+    // do something
+}
+
+flikty2.on("settle", handleSettle);
+flikty2.off("settle", handleSettle);
+
+function handleIsFullScreen(isFullscreen: boolean): void {
+    // do something
+}
+
+flikty2.on("fullscreenChange", handleIsFullScreen);
+flikty2.off("fullscreenChange", handleIsFullScreen);
+
 // static get data methods
 
 let jQdata = jQuery.fn.data("flickity")();
@@ -126,6 +140,7 @@ let selectedIndex: number = flikty2.selectedIndex;
 
 let selectedElement: Element = flikty2.selectedElement;
 let cells: Element[] = flikty2.cells;
+let slider: HTMLElement = flikty2.slider;
 
 // arrow shape tests
 let flikty3: Flickity = new Flickity("#flickity-gallery", {

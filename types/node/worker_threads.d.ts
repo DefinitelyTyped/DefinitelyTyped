@@ -1,4 +1,5 @@
 declare module "worker_threads" {
+    import { Context } from "vm";
     import { EventEmitter } from "events";
     import { Readable, Writable } from "stream";
 
@@ -72,7 +73,34 @@ declare module "worker_threads" {
         postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
         ref(): void;
         unref(): void;
-        terminate(callback?: (err: Error, exitCode: number) => void): void;
+        /**
+         * Stop all JavaScript execution in the worker thread as soon as possible.
+         * Returns a Promise for the exit code that is fulfilled when the `exit` event is emitted.
+         */
+        terminate(): Promise<number>;
+        /**
+         * Transfer a `MessagePort` to a different `vm` Context. The original `port`
+         * object will be rendered unusable, and the returned `MessagePort` instance will
+         * take its place.
+         *
+         * The returned `MessagePort` will be an object in the target context, and will
+         * inherit from its global `Object` class. Objects passed to the
+         * `port.onmessage()` listener will also be created in the target context
+         * and inherit from its global `Object` class.
+         *
+         * However, the created `MessagePort` will no longer inherit from
+         * `EventEmitter`, and only `port.onmessage()` can be used to receive
+         * events using it.
+         */
+        moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+
+        /**
+         * Receive a single message from a given `MessagePort`. If no message is available,
+         * `undefined` is returned, otherwise an object with a single `message` property
+         * that contains the message payload, corresponding to the oldest message in the
+         * `MessagePort`’s queue.
+         */
+        receiveMessageOnPort(port: MessagePort): {} | undefined;
 
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;

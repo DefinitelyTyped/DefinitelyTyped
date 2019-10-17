@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: type.proto
+
 import * as jspb from "../../index";
 import * as google_protobuf_any_pb from "./any_pb";
 import * as google_protobuf_source_context_pb from "./source_context_pb";
@@ -9,17 +12,17 @@ export class Type extends jspb.Message {
   clearFieldsList(): void;
   getFieldsList(): Array<Field>;
   setFieldsList(value: Array<Field>): void;
-  addFields(value?: Field, index?: number): void;
+  addFields(value?: Field, index?: number): Field;
 
   clearOneofsList(): void;
   getOneofsList(): Array<string>;
   setOneofsList(value: Array<string>): void;
-  addOneofs(value: string, index?: number): void;
+  addOneofs(value: string, index?: number): string;
 
   clearOptionsList(): void;
   getOptionsList(): Array<Option>;
   setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  addOptions(value?: Option, index?: number): Option;
 
   hasSourceContext(): boolean;
   clearSourceContext(): void;
@@ -75,7 +78,7 @@ export class Field extends jspb.Message {
   clearOptionsList(): void;
   getOptionsList(): Array<Option>;
   setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  addOptions(value?: Option, index?: number): Option;
 
   getJsonName(): string;
   setJsonName(value: string): void;
@@ -144,12 +147,12 @@ export class Enum extends jspb.Message {
   clearEnumvalueList(): void;
   getEnumvalueList(): Array<EnumValue>;
   setEnumvalueList(value: Array<EnumValue>): void;
-  addEnumvalue(value?: EnumValue, index?: number): void;
+  addEnumvalue(value?: EnumValue, index?: number): EnumValue;
 
   clearOptionsList(): void;
   getOptionsList(): Array<Option>;
   setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  addOptions(value?: Option, index?: number): Option;
 
   hasSourceContext(): boolean;
   clearSourceContext(): void;
@@ -189,7 +192,7 @@ export class EnumValue extends jspb.Message {
   clearOptionsList(): void;
   getOptionsList(): Array<Option>;
   setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  addOptions(value?: Option, index?: number): Option;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnumValue.AsObject;
@@ -239,3 +242,4 @@ export enum Syntax {
   SYNTAX_PROTO2 = 0,
   SYNTAX_PROTO3 = 1,
 }
+

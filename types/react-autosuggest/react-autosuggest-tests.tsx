@@ -91,6 +91,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+                onBlur: (e) => { console.log(e.relatedTarget); }
             }}
             theme={theme}/>;
     }
@@ -557,3 +558,9 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
 
 ReactDOM.render(
    <ReactAutosuggestCustomTest/>, document.getElementById('app'));
+
+const test: Autosuggest.InputProps<{ foo: string }> = {
+    onChange: () => {},
+    value: 'foo',
+    anything: false // $ExpectError
+};

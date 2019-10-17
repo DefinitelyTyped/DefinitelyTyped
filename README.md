@@ -4,14 +4,29 @@
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), and [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), and [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)!*
+
+## Table of Contents
+
+* [Current status](#current-status)
+* [How can I contribute?](#how-can-i-contribute)
+    * [Test](#test)
+    * [Make a pull request](#make-a-pull-request)
+        * [Edit an existing package](#edit-an-existing-package)
+        * [Create a new package](#create-a-new-package)
+        * [Common mistakes](#common-mistakes)
+        * [Removing a package](#removing-a-package)
+        * [Linter](#linter)
+        * [Verifying](#verifying)
+* [FAQ](#faq)
 
 ## Current status
 
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* All packages are [type-checking/linting](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
 * [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
@@ -80,7 +95,7 @@ Add to your `tsconfig.json`:
 
 (You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
-You should now be able import from `"foo"` in your code and it will route to the new type definition.
+You should now be able to import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
@@ -98,7 +113,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
-  If you make breaking changes, do not forget to [update a major version](#i-want-to-update-a-package-to-a-new-major-version).
+  If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 * You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -145,7 +160,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces.
+* Formatting: Use 4 spaces. For new code, this is enforced by Prettier.
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
@@ -169,7 +184,7 @@ When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration
 
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
 - `typingsPackageName`: This is the name of the directory to delete.
-- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 - `sourceRepoURL`: This should point to the repository that contains the typings.
 - `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
@@ -191,7 +206,7 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Lint
+#### Linter
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 ```js
@@ -226,8 +241,11 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Test by running `npm run lint package-name` where `package-name` is the name of your package.
-This script uses [dtslint](https://github.com/Microsoft/dtslint).
+## Verifying
+
+Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+
+This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 
 ## FAQ
@@ -251,10 +269,16 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 #### I notice some packages having a `package.json` here.
 
-Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
-We do not allow other fields, such as `"description"`, to be defined manually.
-Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
+Usually you won't need this.
+Definitely Typed's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+A `package.json` may be included to specify dependencies that are not other `@types` packages.
+[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
+You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+
+In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
+Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
@@ -340,12 +364,12 @@ If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.
 
-#### How do Definitely Typed package versions relate to versions of the corresponding library? 
+#### How do Definitely Typed package versions relate to versions of the corresponding library?
 
 _NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
 
-Each Definitely Typed package is versioned when published to NPM. 
-The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file. 
+Each Definitely Typed package is versioned when published to NPM.
+The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
 For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
 
 ```js
@@ -356,9 +380,9 @@ For example, here are the first few lines of [Node's type declarations](https://
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`. 
+Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`.
 Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
-This is because only the major and minor release numbers are aligned between library packages and type declaration packages. 
+This is because only the major and minor release numbers are aligned between library packages and type declaration packages.
 The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
 
 Sometimes type declaration package versions and library package versions can get out of sync.
@@ -366,7 +390,7 @@ Below are a few common reasons why, in order of how much they inconvenience user
 Only the last case is typically problematic.
 
 * As noted above, the patch version of the type declaration package is unrelated to the library patch version.
-  This allows Definitely Typed to safely update type declarations for the same major/minor version of a library. 
+  This allows Definitely Typed to safely update type declarations for the same major/minor version of a library.
 * If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
   If users make sure versions correspond between JavaScript packages and their respective `@types` packages, then `npm update` should typically just work.
 * It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update Definitely Typed when new library features are released.
@@ -377,22 +401,22 @@ Only the last case is typically problematic.
 
 #### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
 
-[Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.  
-For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.  
-Furthermore, when the library's `4.0.0` release is out, its Definitely Typed type declaration package should also be updated to `4.0.0`, including any breaking changes to the library's API. 
+[Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.
+For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.
+Furthermore, when the library's `4.0.0` release is out, its Definitely Typed type declaration package should also be updated to `4.0.0`, including any breaking changes to the library's API.
 
-Many libraries have a large installed base of developers (including maintainers of other packages using that library as a dependency) who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version. 
-In the meantime, users of old library versions still may want to update type declarations for older versions. 
+Many libraries have a large installed base of developers (including maintainers of other packages using that library as a dependency) who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version.
+In the meantime, users of old library versions still may want to update type declarations for older versions.
 
-If you intend to continue updating the older version of a library's type declarations, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it. 
+If you intend to continue updating the older version of a library's type declarations, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it.
 
 Because the root folder should always contain the type declarations for the latest ("new") version, you'll need to make a few changes to the files in your old-version subdirectory to ensure that relative path references point to the subdirectory, not the root.
 
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  
-Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version. 
+For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
+Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
 At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
 
 ```json
@@ -411,10 +435,10 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 }
 ```
 
-If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version. 
+If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version.
 You will also need to do this recursively for packages depending on packages depending on the old version.
 
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`. 
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`.
 Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was updated to the latest version.
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
@@ -452,5 +476,3 @@ GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-
 This project is licensed under the MIT license.
 
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

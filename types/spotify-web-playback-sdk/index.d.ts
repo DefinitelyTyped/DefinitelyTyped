@@ -9,6 +9,7 @@
 
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;
+    Spotify: typeof Spotify;
 }
 
 declare namespace Spotify {

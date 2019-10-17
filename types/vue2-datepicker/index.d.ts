@@ -1,16 +1,15 @@
-// Type definitions for vue2-datepicker 2.0
+// Type definitions for vue2-datepicker 2.12
 // Project: https://github.com/mengxiong10/vue2-datepicker
 // Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import { Component } from "vue/types/options";
 
 declare namespace Datepicker {
     interface Shortcuts {
         text: string;
-        start: Date;
-        end: Date;
+        onClick: () => any;
     }
 
     interface TimePickerOptions {
@@ -28,12 +27,25 @@ declare namespace Datepicker {
             dateRange: string;
         };
     }
+
+    interface ValueType {
+        date: Date;
+        timestamp: number;
+        format: string;
+    }
+
+    interface TimeSelectOptions {
+        hours: number[];
+        minutes: number[];
+        seconds: number[];
+    }
 }
 
 declare const Datepicker: Component<any, any, any, {
     type?: string;
     range?: boolean;
     format?: string;
+    valueType?: Datepicker.ValueType;
     lang?: string | Datepicker.Lang;
     clearable?: boolean;
     confirm?: boolean;
@@ -41,17 +53,22 @@ declare const Datepicker: Component<any, any, any, {
     disabled?: boolean;
     placeholder?: string;
     width?: number | string;
+    appendToBody?: boolean;
+    defaultValue?: string;
+    popupStyle?: string;
     notBefore?: string | Date;
     notAfter?: string | Date;
     disabledDays?: number[] | string[] | ((date: Date) => Date[]);
     shortcuts?: boolean | Datepicker.Shortcuts[]
     timePickerOptions?: Datepicker.TimePickerOptions[] | (() => Datepicker.TimePickerOptions[]);
+    timeSelectOptions?: Datepicker.TimeSelectOptions;
     minuteStep?: number;
     firstDayOfWeek?: number;
     inputClass?: string;
-    inputName?: string;
+    inputAttr?: string;
     confirmText?: string;
     rangeSeparator?: string;
+    dateFormat?: string;
 }>;
 
 export default Datepicker;

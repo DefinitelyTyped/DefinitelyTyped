@@ -1,3 +1,13 @@
-import * as ol from 'openlayers';
+import TextFeature from './TextFeature';
 
-export default ol.format.IGC;
+export interface Options {
+    altitudeMode?: IGCZ | string;
+}
+export enum IGCZ {
+    BAROMETRIC = 'barometric',
+    GPS = 'gps',
+    NONE = 'none',
+}
+export default class IGC extends TextFeature {
+    constructor(opt_options?: Options);
+}

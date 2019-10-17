@@ -10,7 +10,9 @@ export interface ExternalApplicationInfo {
  */
 export default class ExternalApplicationModule extends Base {
     /**
-     * Asynchronously returns an External Application object that represents an existing external application.
+     * Asynchronously returns an External Application object that represents an external application.
+     * <br>It is possible to wrap a process that does not yet exist, (for example, to listen for startup-related events)
+     * provided its uuid is already known.
      * @param {string} uuid The UUID of the external application to be wrapped
      * @return {Promise.<ExternalApplication>}
      * @tutorial ExternalApplication.wrap
@@ -18,7 +20,9 @@ export default class ExternalApplicationModule extends Base {
      */
     wrap(uuid: string): Promise<ExternalApplication>;
     /**
-     * Synchronously returns an External Application object that represents an existing external application.
+     * Synchronously returns an External Application object that represents an external application.
+     * <br>It is possible to wrap a process that does not yet exist, (for example, to listen for startup-related events)
+     * provided its uuid is already known.
      * @param {string} uuid The UUID of the external application to be wrapped
      * @return {ExternalApplication}
      * @tutorial ExternalApplication.wrapSync
@@ -27,9 +31,14 @@ export default class ExternalApplicationModule extends Base {
     wrapSync(uuid: string): ExternalApplication;
 }
 /**
- * @classdesc An ExternalApplication object representing an application. Allows
- * the developer to create, execute, show and close an external application as
- * well as listen to <a href="tutorial-ExternalApplication.EventEmitter.html">application events</a>.
+ * @classdesc An ExternalApplication object representing native language adapter connections to the runtime. Allows
+ * the developer to listen to <a href="tutorial-ExternalApplication.EventEmitter.html">application events.</a>
+ * Discovery of connections is provided by <a href="tutorial-System.getAllExternalApplications.html">getAllExternalApplications.</a>
+ *
+ * Processes that can be wrapped as `ExternalApplication`s include the following:
+ * - Processes which have connected to an OpenFin runtime via an adapter
+ * - Processes started via `System.launchExternalApplication`
+ * - Processes monitored via `System.monitorExternalProcess`
  * @class
  * @hideconstructor
  */
