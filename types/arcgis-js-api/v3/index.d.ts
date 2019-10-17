@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.29
+// Type definitions for ArcGIS API for JavaScript 3.30
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2428,10 +2428,6 @@ declare module "esri" {
     customParameters?: any;
     /** A WMTSLayerInfo object that when ResourceInfo options are not specified the map will display the first layer in the WMTS capabilities that matches the properties specified by WMTSLayerInfo. */
     layerInfo?: WMTSLayerInfo;
-    /** When true, tile resampling is enabled. */
-    resampling?: boolean;
-    /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number;
     /** An optional resource info object. */
     resourceInfo?: any;
     /** Specify the service type. */

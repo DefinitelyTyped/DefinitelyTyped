@@ -37,6 +37,7 @@ export interface Auth<T = any> {
   fetchUserOnce(): Promise<never>;
   hasScope(scopeName: string): boolean;
   setToken(strategyName: string, token?: string): string;
+  getToken(strategyName: string): string;
   syncToken(strategyName: string): string;
   onError(handler: (error: Error, name: string, endpoint: any) => void): any;
   setUser(user?: Partial<T>): any;

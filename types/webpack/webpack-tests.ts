@@ -989,3 +989,12 @@ webpack.Template.renderChunkModules(
   [],
   'a',
 );
+
+// https://webpack.js.org/configuration/output/#outputfilename
+configuration = {
+    output: {
+        filename: chunkData => {
+            return chunkData.chunk.name === 'main' ? '[name].js' : '[name]/[name].js';
+        },
+    },
+};

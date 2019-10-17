@@ -105,7 +105,7 @@ export function isaHash(input: any): boolean;
 export function isaArray(input: any): boolean;
 
 /**
- * his function returns the number of keys in the specified hash.
+ * This function returns the number of keys in the specified hash.
  * @param hash
  */
 export function numKeys(hash: object): number;

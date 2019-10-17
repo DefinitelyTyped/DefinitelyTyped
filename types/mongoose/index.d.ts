@@ -31,6 +31,7 @@
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 Tom Yam <https://github.com/tomyam1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -97,7 +98,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: ConnectionStates;
+  export var STATES: typeof ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** An array containing all connections associated with this Mongoose instance. */
@@ -309,7 +310,7 @@ declare module "mongoose" {
     readyState: number;
 
     /** mapping of ready states */
-    states: ConnectionStates;
+    states: typeof ConnectionStates;
   }
 
   /**
@@ -411,7 +412,7 @@ declare module "mongoose" {
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
     /** Expose the possible connection states. */
-    static STATES: ConnectionStates;
+    static STATES: typeof ConnectionStates;
   }
 
   export enum ConnectionStates {
@@ -619,7 +620,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  interface QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends Document> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -633,7 +634,7 @@ declare module "mongoose" {
      * @event data Emitted when the stream is flowing and the next doc is ready
      * @event end Emitted when the stream is exhausted
      */
-    constructor(query: Query<T>, options: any): QueryCursor<T>;
+    constructor(query: Query<T>, options: any);
 
     /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
     close(callback?: (error: any, result: any) => void): Promise<any>;
@@ -776,6 +777,21 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      error: mongodb.MongoError, docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => Promise<any>
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;

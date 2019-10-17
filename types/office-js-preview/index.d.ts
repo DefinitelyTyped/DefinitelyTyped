@@ -9162,9 +9162,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9197,9 +9201,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -12433,9 +12441,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -12468,9 +12480,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14618,9 +14634,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14653,9 +14673,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -17193,12 +17217,18 @@ declare namespace Office {
          * Use with targetMailbox to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
+         * 
+         * **Note**: This property name is being transitioned from `restUrl` to `targetRestUrl`.
+         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetRestUrl: string;
         /**
          * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
+         * 
+         * **Note**: The URL property name is being transitioned from `restUrl` to `targetRestUrl`.
+         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetMailbox: string;
         /**
@@ -20585,22 +20615,24 @@ declare namespace Excel {
         calculate(markAllDirty: boolean): void;
         /**
          *
-         * Copy a worksheet and place it at the specified position. Return the copied worksheet.
-         *
+         * Copies a worksheet and places it at the specified position. 
+         * 
          * [Api set: ExcelApi 1.7]
          *
-         * @param positionType Optional.
-         * @param relativeTo Optional.
+         * @param positionType The location in the workbook to place the newly created worksheet. The default value is "None", which inserts the worksheet at the beginning of the worksheet.
+         * @param relativeTo The existing worksheet which determines the newly created worksheet's position. This is only needed if `positionType` is "Before" or "After".
+         * @returns The newly created worksheet.
          */
         copy(positionType?: Excel.WorksheetPositionType, relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
-         * Copy a worksheet and place it at the specified position. Return the copied worksheet.
-         *
+         * Copies a worksheet and places it at the specified position. 
+         * 
          * [Api set: ExcelApi 1.7]
          *
-         * @param positionType Optional.
-         * @param relativeTo Optional.
+         * @param positionType The location in the workbook to place the newly created worksheet. The default value is "None", which inserts the worksheet at the beginning of the worksheet.
+         * @param relativeTo The existing worksheet which determines the newly created worksheet's position. This is only needed if `positionType` is "Before" or "After".
+         * @returns The newly created worksheet.
          */
         copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**

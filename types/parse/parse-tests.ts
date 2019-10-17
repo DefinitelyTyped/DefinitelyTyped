@@ -464,6 +464,10 @@ function test_cloud_functions() {
         return new Parse.Object('MyCustomClass');
     });
 
+    Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
+        return 'Some result';
+    });
+
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
@@ -616,4 +620,62 @@ async function test_local_datastore() {
     query.fromLocalDatastore();
 
     Parse.setLocalDatastoreController({});
+}
+
+async function test_schema() {
+
+    Parse.Schema.all({ useMasterKey: true })
+    Parse.Schema.all({ sessionToken: '' })
+
+    const schema = new Parse.Schema('TestSchema');
+ 
+    schema.addField('defaultFieldString')
+    schema.addString('stringField')
+    schema.addNumber('numberField')
+    schema.addBoolean('booleanField')
+    schema.addDate('dateField')
+    schema.addFile('fileField')
+    schema.addGeoPoint('geoPointField')
+    schema.addPolygon('polygonField')
+    schema.addArray('arrayField')
+    schema.addObject('objectField')
+    schema.addPointer('pointerField', '_User')
+    schema.addRelation('relationField', '_User');
+
+    schema.addIndex('testIndex', { stringField: 1 });
+
+    schema.deleteField('defaultFieldString')
+    schema.deleteIndex('testIndex')
+
+    // Master Key
+    schema.delete({ useMasterKey: true })
+        .then((results) => { });
+
+    schema.get({ useMasterKey: true })
+        .then((results) => { })
+    
+    schema.purge()
+        .then((results) => { })
+        
+    schema.save({ useMasterKey: true })
+        .then((results) => { })
+
+    schema.update({ useMasterKey: true })
+        .then((results) => { })    
+        
+    // Session Token
+    schema.delete({ sessionToken: '' })
+        .then((results) => { });
+
+    schema.get({ sessionToken: '' })
+        .then((results) => { })
+    
+    schema.purge()
+        .then((results) => { })
+        
+    schema.save({ sessionToken: '' })
+        .then((results) => { })
+
+    schema.update({ sessionToken: '' })
+        .then((results) => { })    
 }

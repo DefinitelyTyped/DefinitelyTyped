@@ -455,7 +455,7 @@ function JoinPatternsAndBaconBus() {
                 }, 1e3);
                 return `philosopher ${i} eating`;
             },
-        // We use Bacon.when to make sure a hungry philosopher can eat only when both his chopsticks are available.
+        // We use Bacon.when to make sure a hungry philosopher can eat only when both their chopsticks are available.
             dining = Bacon.when(
                 [hungry[0], chopsticks[0], chopsticks[1]], eat(0),
                 [hungry[1], chopsticks[1], chopsticks[2]], eat(1),

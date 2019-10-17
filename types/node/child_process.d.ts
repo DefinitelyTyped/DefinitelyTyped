@@ -404,7 +404,7 @@ declare module "child_process" {
 
     interface SpawnSyncOptions extends CommonOptions {
         argv0?: string; // Not specified in the docs
-        input?: string | NodeJS.TypedArray | DataView;
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
         killSignal?: string | number;
         maxBuffer?: number;
@@ -455,7 +455,7 @@ declare module "child_process" {
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
     interface ExecFileSyncOptions extends CommonOptions {
-        input?: string | NodeJS.TypedArray | DataView;
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
         killSignal?: string | number;
         maxBuffer?: number;

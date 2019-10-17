@@ -15,6 +15,9 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientId: '',
         clientSecret: '',
     },
+    refreshFn: (conn: sf.Connection, callback?: sf.Callback<sf.UserInfo>): Promise<sf.UserInfo> => {
+        return conn.login('username', 'password', callback);
+    },
 });
 
 async function testSObject(connection: sf.Connection) {

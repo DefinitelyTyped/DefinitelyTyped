@@ -341,7 +341,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * the promise as snapshotted at the time of calling `.reflect()`.
    */
   reflect(): Bluebird<Bluebird.Inspection<R>>;
-  reflect(): Bluebird<Bluebird.Inspection<any>>;
 
   /**
    * This is a convenience method for doing:
