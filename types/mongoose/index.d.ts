@@ -1421,6 +1421,8 @@ declare module "mongoose" {
     isNew: boolean;
     /** The documents schema. */
     schema: Schema;
+    /** Empty object that you can use for storing properties on the document */
+    $locals: { [k: string]: any };
   }
 
   interface MongooseDocumentOptionals {
