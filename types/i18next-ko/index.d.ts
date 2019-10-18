@@ -8,11 +8,9 @@
 import * as ko from 'knockout';
 import * as i18next from 'i18next';
 
-type KnockoutStatic = typeof ko;
-
 export const i18n: i18next.i18n;
 
-export function init(resourceStore: i18nextkoResourceStore, language: string, ko: KnockoutStatic): void;
+export function init(resourceStore: i18nextkoResourceStore, language: string, knockout: typeof ko): void;
 
 export function setLanguage(language: string): void;
 
