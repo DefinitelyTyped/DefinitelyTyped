@@ -4318,6 +4318,18 @@ declare namespace cytoscape {
      */
     interface EventObject extends InputEventObject, LayoutEventObject { }
 
+    interface EventObjectNode extends EventObject {
+        target: NodeSingular;
+    }
+
+    interface EventObjectEdge extends EventObject {
+        target: EdgeSingular;
+    }
+
+    interface EventObjectCore extends EventObject {
+        target: Core;
+    }
+
     /**
      * http://js.cytoscape.org/#events/event-object
      */
@@ -4325,7 +4337,7 @@ declare namespace cytoscape {
         /** a reference to the corresponding core Core */
         cy: Core;
         /** indicates the element or core that first caused the event */
-        target?: any;
+        target: any;
         /** the event type string (e.g. "tap") */
         type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
         /** the event namespace string (e.g. "foo" for "foo.tap") */
