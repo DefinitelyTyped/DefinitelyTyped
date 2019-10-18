@@ -7,6 +7,8 @@ interface FilesizeParserOptions {
     base?: number;
 }
 
-declare function filesizeParser(input: string, options?: FilesizeParserOptions): number;
+type StringLike = { toString(): string };
+
+declare function filesizeParser(input: StringLike, options?: FilesizeParserOptions): number;
 
 export = filesizeParser;
