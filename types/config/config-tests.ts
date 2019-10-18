@@ -1,5 +1,6 @@
 
 import * as config from "config";
+import { deferConfig } from './defer';
 
 var class1: config.IConfig = config;
 
@@ -36,3 +37,11 @@ var configSourceName: string = configSource.name;
 var configSourceOriginal: string | undefined = configSource.original;
 
 var moduleDefaults: any = config.util.setModuleDefaults("moduleName", {});
+
+var deferredValueConfig = {
+  firstName: 'Foo',
+  lastName: 'Bar',
+  fullName: deferConfig(function() {
+    return this.firstName + ' ' + this.lastName;
+  }),
+};
