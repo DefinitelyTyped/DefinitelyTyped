@@ -1,6 +1,7 @@
 
 import * as config from "config";
 import { deferConfig } from './defer';
+import { raw } from './raw';
 
 var class1: config.IConfig = config;
 
@@ -44,4 +45,8 @@ var deferredValueConfig = {
   fullName: deferConfig(function() {
     return this.firstName + ' ' + this.lastName;
   }),
+};
+
+var rawValueConfig = {
+  outputFile: raw(Promise.resolve('foo')),
 };
