@@ -14,16 +14,19 @@ import {
     View
 } from 'react-native';
 
+type ContentInset {
+    top?: number
+    label?: number
+    input?: number
+}
+
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
 
     fontSize?: number;
-    titleFontSize?: number;
     labelFontSize?: number;
-    labelHeight?: number;
-    labelPadding?: number;
-    inputContainerPadding?: number;
-
+    contentInset?: ContentInset;
+    
     style?: StyleProp<TextStyle>;
     labelTextStyle?: StyleProp<TextStyle>;
     titleTextStyle?: StyleProp<TextStyle>;
