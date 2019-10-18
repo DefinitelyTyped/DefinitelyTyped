@@ -2,6 +2,7 @@
 // Project: https://github.com/oracle/oraclejet
 // Definitions by: Naizam Olakara <https://github.com/nolakara>
 //                 Jing Wu <https://github.com/jingxwu>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 import { Model, Collection } from './ojmodel';
