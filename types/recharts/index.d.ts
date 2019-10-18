@@ -836,6 +836,8 @@ export interface Coordinate {
     y: number;
 }
 
+export type AllowEscapeViewBox = { x: boolean } | { y: boolean } | { x: boolean, y: boolean };
+
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
@@ -850,6 +852,7 @@ export interface TooltipPayload {
 export interface TooltipProps extends Animatable {
     content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
+    allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
     separator?: string;
     formatter?: TooltipFormatter;
