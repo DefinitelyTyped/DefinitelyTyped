@@ -1075,7 +1075,7 @@ declare namespace cytoscape {
 
     interface StylesheetStyle {
         selector: string;
-        style: Css.Node | Css.Edge;
+        style: Css.Node | Css.Edge | Css.Core;
     }
 
     /**
@@ -1083,7 +1083,7 @@ declare namespace cytoscape {
      */
     interface StylesheetCSS {
         selector: string;
-        css: Css.Node | Css.Edge;
+        css: Css.Node | Css.Edge | Css.Core;
     }
 
     /**
