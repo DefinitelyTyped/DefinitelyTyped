@@ -15,10 +15,10 @@ import {
 } from 'react-native';
 
 export interface ContentInset {
-    top?: number
-    label?: number
-    input?: number
-};
+    top?: number;
+    label?: number;
+    input?: number;
+}
 
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
