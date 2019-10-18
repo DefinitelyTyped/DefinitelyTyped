@@ -529,7 +529,7 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
-        <T = any>(actual: T): Matchers<T>;
+        <T = any>(actual: T): JestMatchers<T>;
         /**
          * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
@@ -604,7 +604,7 @@ declare namespace jest {
         not: InverseAsymmetricMatchers;
     }
 
-    type Matchers<T> = {
+    type JestMatchers<T> = {
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
@@ -617,7 +617,7 @@ declare namespace jest {
         rejects: JestPromiseMatchers<T>;
     } & JestNonPromiseMatchers<T>;
 
-    type JestMatchersAndNotMatchers<R, T> = JestMatchers<R, T> & NotMatchers<R, T>;
+    type JestMatchersAndNotMatchers<R, T> = Matchers<R, T> & NotMatchers<R, T>;
 
     type JestPromiseMatchers<T> = JestMatchersAndNotMatchers<Promise<void>, T>;
 
@@ -627,10 +627,10 @@ declare namespace jest {
         /**
          * If you know how to test something, `.not` lets you test its opposite.
          */
-        not: JestMatchers<R, T>;
+        not: Matchers<R, T>;
     }
 
-    interface JestMatchers<R, T> {
+    interface Matchers<R, T> {
         /**
          * Ensures the last call to a mock function was provided specific args.
          */
@@ -914,7 +914,7 @@ declare namespace jest {
         }&
 
         (<U>(actual: U) =>
-            Matchers<U>&
+            JestMatchers<U>&
             {[K in keyof T]: CustomThrowingMatcher<T[K]>}&
             {not: {[K in keyof T]: CustomThrowingMatcher<T[K]>}}&
 

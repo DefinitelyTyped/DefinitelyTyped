@@ -80,7 +80,7 @@ export function configureToMatchImageSnapshot(options: MatchImageSnapshotOptions
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             toMatchImageSnapshot(options?: MatchImageSnapshotOptions): R;
         }
     }
