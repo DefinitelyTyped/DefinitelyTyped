@@ -141,7 +141,7 @@ declare module "crypto" {
         digest(encoding: HexBase64Latin1Encoding): string;
     }
 
-    export type KeyObjectType = 'secret' | 'public' | 'private';
+    type KeyObjectType = 'secret' | 'public' | 'private';
 
     interface KeyExportOptions<T extends KeyFormat> {
         type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
@@ -430,8 +430,8 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: string;
 
-    export type KeyType = 'rsa' | 'dsa' | 'ec';
-    export type KeyFormat = 'pem' | 'der';
+    type KeyType = 'rsa' | 'dsa' | 'ec';
+    type KeyFormat = 'pem' | 'der';
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;

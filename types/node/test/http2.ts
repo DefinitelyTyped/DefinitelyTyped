@@ -26,7 +26,6 @@ import {
     getDefaultSettings,
     getPackedSettings,
     getUnpackedSettings,
-    OutgoingHttpHeaders,
     IncomingHttpHeaders,
     createServer,
     constants,
@@ -38,6 +37,7 @@ import { Socket, Server } from "net";
 import { TLSSocket } from "tls";
 import { Duplex, Readable } from "stream";
 import { URL } from 'url';
+import { OutgoingHttpHeaders } from 'http';
 
 // Headers & Settings
 {

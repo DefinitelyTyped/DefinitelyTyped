@@ -9,7 +9,7 @@ declare module "trace_events" {
      * event categories. Calling `tracing.disable()` will remove the categories
      * from the set of enabled trace event categories.
      */
-    export interface Tracing {
+    interface Tracing {
         /**
          * A comma-separated list of the trace event categories covered by this
          * `Tracing` object.
@@ -49,7 +49,7 @@ declare module "trace_events" {
     /**
      * Creates and returns a Tracing object for the given set of categories.
      */
-    export function createTracing(options: CreateTracingOptions): Tracing;
+    function createTracing(options: CreateTracingOptions): Tracing;
 
     /**
      * Returns a comma-separated list of all currently-enabled trace event
@@ -57,5 +57,5 @@ declare module "trace_events" {
      * determined by the union of all currently-enabled `Tracing` objects and
      * any categories enabled using the `--trace-event-categories` flag.
      */
-    export function getEnabledCategories(): string;
+    function getEnabledCategories(): string | undefined;
 }
