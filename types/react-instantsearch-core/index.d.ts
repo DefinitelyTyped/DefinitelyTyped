@@ -6,7 +6,7 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 import { SearchParameters } from 'algoliasearch-helper';
