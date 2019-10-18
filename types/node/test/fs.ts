@@ -297,3 +297,17 @@ async function testPromisify() {
     });
     const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
 }
+
+{
+    fs.opendir('test', async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    const dirEnt: fs.Dirent = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    const dirEntProm: Promise<fs.Dirent> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+    });
+}
