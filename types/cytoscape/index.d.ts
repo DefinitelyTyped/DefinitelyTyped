@@ -1802,6 +1802,14 @@ declare namespace cytoscape {
         includeEdges?: boolean;
         /** A boolean indicating whether to include labels in the bounding box (default true). */
         includeLabels?: boolean;
+        /** A boolean indicating whether to include main (node or edge) labels in the bounding box (default true). */
+        includeMainLabels?: boolean;
+        /** A boolean indicating whether to include (edge) source-labels in the bounding box (default true). */
+        includeSourceLabels?: boolean;
+        /** A boolean indicating whether to include (edge) target-labels in the bounding box (default true). */
+        includeTargetLabels?: boolean;
+        /** A boolean indicating whether to include overlays (such as the one which appears when a node is clicked) in the bounding box (default true). */
+        includeOverlays?: boolean;
     }
     /**
      * http://js.cytoscape.org/#collection/position--dimensions
