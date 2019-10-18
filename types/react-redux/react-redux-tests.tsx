@@ -1402,6 +1402,11 @@ function testCreateHookFunctions() {
     createDispatchHook();
     // $ExpectType <TState, TSelected>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
     createSelectorHook();
+    interface RootState {
+        property: string;
+    }
+    // Should be able to create a version typed for a specific root state.
+    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
     // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
     createStoreHook();
 }
