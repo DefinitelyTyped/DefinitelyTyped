@@ -262,7 +262,7 @@ declare namespace Bull {
          * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
          * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
          */
-        moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+        moveToCompleted(returnValue?: string, ignoreLock?: boolean, notFetch?: boolean): Promise<[any, JobId] | null>;
 
         /**
          * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'

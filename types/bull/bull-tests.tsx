@@ -209,6 +209,7 @@ myQueue.on('active', (job: Queue.Job) => {
             const nextJobId: Queue.JobId = val[1];
         }
     });
+    job.moveToCompleted('returnValue', true, false);
 
     job.moveToFailed({ message: "Call to external service failed!" }, true);
     job.moveToFailed(new Error('test error'), true);
