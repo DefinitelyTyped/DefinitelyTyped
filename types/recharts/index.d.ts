@@ -15,6 +15,7 @@
 //                 Dave Vedder <https://github.com/veddermatic>
 //                 Konstantin Azizov <https://github.com/g07cha>
 //                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
+//                 Eliot Ball <https://github.com/eliotball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -709,6 +710,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
     > | React.ReactElement;
+    label: string | number | React.ReactElement | RechartsFunction;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
