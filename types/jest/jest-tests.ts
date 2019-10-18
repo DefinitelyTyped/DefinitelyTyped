@@ -684,14 +684,8 @@ expect.extend({
         };
     },
 });
-expect.extend({
-    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
-        return {
-            message: JSON.stringify(received),
-            pass: false,
-        };
-    },
-});
+// $ExpectError
+const customMatcherResultMessage: jest.CustomMatcherResult['message'] = 'msg';
 expect.extend({
     async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
         return {
@@ -700,14 +694,7 @@ expect.extend({
         };
     },
 });
-expect.extend({
-    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
-        return {
-            message: JSON.stringify(received),
-            pass: false,
-        };
-    },
-});
+
 expect.extend({
     foo(this: jest.MatcherUtils) {
         const isNot: boolean = this.isNot;
@@ -771,6 +758,16 @@ expect.extend({
 
 describe('', () => {
     it('', () => {
+        /* Corrections of previous typings */
+        // $ExpectError
+        expect('').not.not;
+        // $ExpectError
+        expect('').resolves.resolves;
+        // $ExpectType void
+        expect('').toEqual('');
+        // $ExpectType Promise<void>
+        expect(Promise.resolve('')).resolves.toEqual('');
+
         expect(jest.fn()).lastCalledWith();
         expect(jest.fn()).lastCalledWith('jest');
         expect(jest.fn()).lastCalledWith({}, {});
@@ -969,16 +966,11 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest');
-        expect(Promise.reject({})).rejects.toEqual({});
-        expect(Promise.resolve('jest')).rejects.toEqual('jest');
-        expect(Promise.resolve({})).rejects.toEqual({});
+        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
+        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
 
-        expect(Promise.reject('jest')).resolves.toEqual('jest');
-        expect(Promise.reject({})).resolves.toEqual({});
-        expect(Promise.resolve('jest')).resolves.toEqual('jest');
-        expect(Promise.resolve({})).resolves.toEqual({});
-
+        expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
+        expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
         /* type matchers */
 
         expect({}).toBe(expect.anything());
@@ -1017,6 +1009,50 @@ describe('', () => {
         expect.hasAssertions();
         expect.assertions(0);
         expect.assertions(9001);
+    });
+});
+
+/* Custom matchers and CustomExpect */
+describe('', () => {
+    it('', () => {
+        const customMatcher = (expected: any, actual: {prop: string}, option1: boolean) => {
+            return {pass: true, message: () => ''};
+        };
+        const customMatchers = {customMatcher};
+        expect.extend(customMatchers);
+        const extendedExpect: jest.ExtendedExpect<typeof customMatchers> = expect as any;
+
+        extendedExpect.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        // $ExpectError
+        extendedExpect.customMatcher({prop: {not: 'good'}}, false);
+
+        extendedExpect.not.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        // $ExpectError
+        extendedExpect.not.customMatcher({prop: 'good'}, 'bad').asymmetricMatch({}).valueOf();
+
+        extendedExpect('').customMatcher({prop: 'good'}, true);
+        // $ExpectError
+        extendedExpect('').customMatcher({prop: 'good'}, 'bad');
+
+        extendedExpect('').not.customMatcher({prop: 'good'}, true);
+        // $ExpectError
+        extendedExpect('').not.customMatcher({prop: 'good'}, 'bad');
+
+        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, true).then(() => {});
+        // $ExpectError
+        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, 'bad').then(() => {});
+
+        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, true).then(() => {});
+        // $ExpectError
+        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
+
+        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, true).then(() => {});
+        // $ExpectError
+        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, 'bad').then(() => {});
+
+        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, true).then(() => {});
+        // $ExpectError
+        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
     });
 });
 

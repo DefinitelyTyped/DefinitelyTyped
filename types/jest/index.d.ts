@@ -23,6 +23,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
+//                 Tony Hallett <https://github.com/tonyhallett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -440,7 +441,7 @@ declare namespace jest {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message: string | (() => string);
+        message: () => string;
     }
 
     interface SnapshotSerializerOptions {
@@ -603,7 +604,33 @@ declare namespace jest {
         not: InverseAsymmetricMatchers;
     }
 
-    interface Matchers<R> {
+    type Matchers<T> = {
+        /**
+         * Use resolves to unwrap the value of a fulfilled promise so any other
+         * matcher can be chained. If the promise is rejected the assertion fails.
+         */
+        resolves: JestPromiseMatchers<T>;
+        /**
+         * Unwraps the reason of a rejected promise so any other matcher can be chained.
+         * If the promise is fulfilled the assertion fails.
+         */
+        rejects: JestPromiseMatchers<T>;
+    } & JestNonPromiseMatchers<T>;
+
+    type JestMatchersAndNotMatchers<R, T> = JestMatchers<R, T> & NotMatchers<R, T>;
+
+    type JestPromiseMatchers<T> = JestMatchersAndNotMatchers<Promise<void>, T>;
+
+    type JestNonPromiseMatchers<T> = JestMatchersAndNotMatchers<void, T>;
+
+    interface NotMatchers<R, T> {
+        /**
+         * If you know how to test something, `.not` lets you test its opposite.
+         */
+        not: JestMatchers<R, T>;
+    }
+
+    interface JestMatchers<R, T> {
         /**
          * Ensures the last call to a mock function was provided specific args.
          */
@@ -613,10 +640,6 @@ declare namespace jest {
          */
         lastReturnedWith(value: any): R;
         /**
-         * If you know how to test something, `.not` lets you test its opposite.
-         */
-        not: Matchers<R>;
-        /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          */
         nthCalledWith(nthCall: number, ...params: any[]): R;
@@ -624,16 +647,6 @@ declare namespace jest {
          * Ensure that the nth call to a mock function has returned a specified value.
          */
         nthReturnedWith(n: number, value: any): R;
-        /**
-         * Use resolves to unwrap the value of a fulfilled promise so any other
-         * matcher can be chained. If the promise is rejected the assertion fails.
-         */
-        resolves: Matchers<Promise<R>>;
-        /**
-         * Unwraps the reason of a rejected promise so any other matcher can be chained.
-         * If the promise is fulfilled the assertion fails.
-         */
-        rejects: Matchers<Promise<R>>;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -816,7 +829,7 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -827,7 +840,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
@@ -868,6 +881,46 @@ declare namespace jest {
          */
         toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
+
+    type RemoveFirstFromTuple<T extends any[]> =
+    T['length'] extends 0 ? [] :
+        (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
+
+    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
+
+    interface AsymmetricMatcher {
+        asymmetricMatch(other: unknown): boolean;
+    }
+    type CustomAsymmetricMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => AsymmetricMatcher;
+
+    type CustomThrowingMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => void;
+
+    type CustomResolveRejectMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => Promise<void>;
+
+    type NonAsyncMatchers<T extends ExpectExtendMap> = {
+        [K in keyof T]: ReturnType<T[K]> extends Promise<CustomMatcherResult>? never: K
+    }[keyof T];
+
+    type ExpectProperties= {
+        [K in keyof Expect]: Expect[K]
+    };
+
+    // when have called expect.extend
+    type ExtendedExpect<T extends ExpectExtendMap>=
+        ExpectProperties &
+        {[K in NonAsyncMatchers<T>]: CustomAsymmetricMatcher<T[K]>}&
+        {
+            not: Expect["not"]&{[K in NonAsyncMatchers<T>]: CustomAsymmetricMatcher<T[K]>}
+        }&
+
+        (<U>(actual: U) =>
+            Matchers<U>&
+            {[K in keyof T]: CustomThrowingMatcher<T[K]>}&
+            {not: {[K in keyof T]: CustomThrowingMatcher<T[K]>}}&
+
+            {rejects: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>} & {not: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>}}}&
+            {resolves: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>} & {not: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>}}}
+        );
 
     interface Constructable {
         new (...args: any[]): any;
