@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "immutable": "^4.0.0-rc.12"
+        "immutable": "^3.8.1"
     }
 }
