@@ -3468,7 +3468,9 @@ declare namespace cytoscape {
          */
         type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
             | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon";
+            | "diamond" | "vee" | "rhomboid" | "polygon" | "round-rectangle"
+            | "round-triangle" | "round-diamond" | "round-pentagon" | "round-hexagon"
+            | "round-heptagon" | "round-octagon" | "round-tag";
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
