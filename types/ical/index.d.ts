@@ -22,6 +22,8 @@ export interface FreeBusy {
     end: Date;
 }
 
+// All properties (except type) are optional
+// Typed as string | ParamList by default, exceptions listed below
 export type CalendarComponent = {
     type: CalendarComponentType;
     summary?: string;
