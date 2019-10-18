@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FilesizeParserOptions {
-    base?: number;
+    base?: 2 | 10;
 }
 
 interface StringLike {
