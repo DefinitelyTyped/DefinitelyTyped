@@ -663,7 +663,7 @@ declare namespace cytoscape {
          * Get the HTML DOM element in which the graph is visualised.
          * A null value is returned if the Core is headless.
          */
-        container(): Element | null;
+        container(): HTMLElement | null;
 
         /**
          * Pan the graph to the centre of a collection.
@@ -3467,7 +3467,7 @@ declare namespace cytoscape {
          */
         type MapperFunction<Element, Type> = (ele: Element) => Type;
 
-        type PropertyValue<SingularType extends Singular<unknown, unknown> | cytoscape.Core, Type> = Type | MapperFunction<SingularType, Type>
+        type PropertyValue<SingularType extends NodeSingular | EdgeSingular | cytoscape.Core, Type> = Type | MapperFunction<SingularType, Type>;
         type PropertyValueNode<Type> = PropertyValue<NodeSingular, Type>;
         type PropertyValueEdge<Type> = PropertyValue<EdgeSingular, Type>;
         type PropertyValueCore<Type> = PropertyValue<cytoscape.Core, Type>;
@@ -3648,19 +3648,19 @@ declare namespace cytoscape {
             /**
              * Whether to use the ghost effect; may be yes or no.
              */
-            ghost: PropertyValueNode<"yes" | "no">,
+            ghost: PropertyValueNode<"yes" | "no">;
             /**
              * The horizontal offset used to position the ghost effect.
              */
-            "ghost-offset-x": PropertyValueNode<number>,
+            "ghost-offset-x": PropertyValueNode<number>;
             /**
              * The vertical offset used to position the ghost effect.
              */
-            "ghost-offset-y": PropertyValueNode<number>,
+            "ghost-offset-y": PropertyValueNode<number>;
             /**
              * The opacity of the ghost effect.
              */
-            "ghost-opacity": PropertyValueNode<number>
+            "ghost-opacity": PropertyValueNode<number>;
         }
 
         /**
@@ -3898,12 +3898,12 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/visibility
          */
-        interface Visibility<SingularType extends Singular<unknown, unknown>> {
+        interface Visibility<SingularType extends NodeSingular | EdgeSingular> {
             /**
              * Whether to display the element; may be element for displayed or none for not displayed.
              * Note that a "display: none" bezier edge does not take up space in its bundle.
              */
-            "display": PropertyValue<SingularType, "none" | "displayed">
+            "display": PropertyValue<SingularType, "none" | "displayed">;
             /**
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
@@ -3937,7 +3937,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#style/labels
          */
-        interface Labels<SingularType extends Singular<unknown, unknown>> {
+        interface Labels<SingularType extends NodeSingular | EdgeSingular> {
             /**
              * The text to display for an element’s label.
              */
