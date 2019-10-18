@@ -1812,14 +1812,14 @@ declare namespace cytoscape {
          * @param options An object containing options for the function.
          * http://js.cytoscape.org/#eles.boundingBox
          */
-        boundingBox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
-        boundingbox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
+        boundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        boundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
         /**
          * Get the bounding box of the elements in rendered coordinates.
          * @param options An object containing options for the function.
          */
-        renderedBoundingBox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
-        renderedBoundingbox(options: BoundingBoxOptions): BoundingBox12 | BoundingBoxWH;
+        renderedBoundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        renderedBoundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
     }
 
     /**

@@ -7,6 +7,8 @@
 //   Ben Dixon <https://github.com/bendxn>,
 //   Ziyu <https://github.com/oddui>
 //   Johann Wolf <https://github.com/beta-vulgaris>
+//   Aleksey Chemakin <https://github.com/Dzenly>
+//   thislooksfun <https://github.com/thislooksfun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1391,6 +1393,22 @@ export class Capabilities {
    * @return {!Capabilities} A self reference.
    */
   set(key: string, value: any): Capabilities;
+
+  /**
+   * Sets the name of the target browser.
+   *
+   * @param {(Browser|string)} name the browser name.
+   * @return {!Capabilities} a self reference.
+   */
+  setBrowserName(name: string): Capabilities;
+
+  /**
+   * Sets the desired version of the target browser.
+   *
+   * @param {string} version the desired version.
+   * @return {!Capabilities} a self reference.
+   */
+  setBrowserVersion(version: string): Capabilities;
 
   /**
    * Sets the logging preferences. Preferences may be specified as a

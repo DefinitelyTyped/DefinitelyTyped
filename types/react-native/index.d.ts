@@ -89,8 +89,8 @@ interface EventSubscription {
  * EventSubscriptionVendor stores a set of EventSubscriptions that are
  * subscribed to a particular event type.
  */
-interface EventSubscriptionVendor {
-    constructor(): EventSubscriptionVendor;
+declare class EventSubscriptionVendor {
+    constructor();
 
     /**
      * Adds a subscription keyed by an event type.
@@ -4585,7 +4585,7 @@ export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
     /**
-     * @deprecated Use animationType indead
+     * @deprecated Use animationType instead
      */
     animated?: boolean;
     /**
@@ -6697,7 +6697,7 @@ export interface AccessibilityInfoStatic {
  */
 export interface AlertButton {
     text?: string;
-    onPress?: () => void;
+    onPress?: (value?: string) => void;
     style?: 'default' | 'cancel' | 'destructive';
 }
 
@@ -6748,7 +6748,7 @@ interface AlertOptions {
  */
 export interface AlertStatic {
     alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
-    prompt: (title: string, message?: string, callbackOrButtons?: (text: string) => void | AlertButton[], type?: AlertType, defaultValue?: string, keyboardType?: string) => void;
+    prompt: (title: string, message?: string, callbackOrButtons?: ((text: string) => void) | AlertButton[], type?: AlertType, defaultValue?: string, keyboardType?: string) => void;
 }
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';

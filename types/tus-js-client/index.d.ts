@@ -1,8 +1,9 @@
-// Type definitions for tus-js-client 1.5
+// Type definitions for tus-js-client 1.7
 // Project: https://github.com/tus/tus-js-client/
 // Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins>
 //                 Marius Kleidl <https://github.com/Acconut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 export interface UploadOptions {
     endpoint: string;
@@ -21,12 +22,13 @@ export interface UploadOptions {
     overridePatchMethod?: boolean;
     retryDelays?: number[];
     removeFingerprintOnSuccess?: boolean;
+    uploadLengthDeferred?: boolean;
 }
 
 export class Upload {
-    constructor(file: File | Blob, options: UploadOptions);
+    constructor(file: File | Blob | Pick<ReadableStreamDefaultReader, "read">, options: UploadOptions);
 
-    file: File | Blob;
+    file: File | Blob | Pick<ReadableStreamDefaultReader, "read">;
     options: UploadOptions;
     url: string | null;
 

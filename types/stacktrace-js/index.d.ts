@@ -22,8 +22,8 @@ declare namespace StackTrace {
     offline?:     boolean;
   }
 
-  export interface StackFrame {
-    constructor(functionName: string, args: any, fileName: string, lineNumber: number, columnNumber: number): StackFrame;
+  export class StackFrame {
+    constructor(functionName: string, args: any, fileName: string, lineNumber: number, columnNumber: number);
 
     functionName: string;
     args:         any;

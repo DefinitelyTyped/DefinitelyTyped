@@ -75,7 +75,7 @@ app.use(async (ctx: Koa.ParameterizedContext<MyState, MyContext>, next) => {
 
 const router3 = new Router();
 router3.get('/', (ctx) => {
-    ctx.foo = "bar";
+    ctx.state.foo = 'bar';
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });

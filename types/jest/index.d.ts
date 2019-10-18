@@ -1331,7 +1331,7 @@ declare namespace jest {
     // https://facebook.github.io/jest/docs/en/configuration.html#testresultsprocessor-string
     // const testResultsProcessor: TestResultsProcessor;
 
-    // leave above declarations for referening type-dependencies
+    // leave above declarations for referencing type-dependencies
     // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
 
     // custom

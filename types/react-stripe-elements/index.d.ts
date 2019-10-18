@@ -51,7 +51,7 @@ export namespace ReactStripeElements {
         ): Promise<stripe.PaymentMethodResponse>;
         handleCardPayment(
             clientSecret: string,
-            options?: stripe.HandleCardPaymentOptions,
+            options?: stripe.HandleCardPaymentWithoutElementsOptions,
         ): Promise<stripe.PaymentIntentResponse>;
         handleCardSetup(
             clientSecret: string,
