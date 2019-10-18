@@ -1196,7 +1196,7 @@ declare namespace cytoscape {
         edges: EdgeDefinition[];
     }
 
-    type EventHandler = (event: EventObject) => void;
+    type EventHandler = (event: EventObject, extraParams?: any) => void;
 
     /**
      * The output is a collection of node and edge elements OR single element.
@@ -4324,6 +4324,13 @@ declare namespace cytoscape {
         namespace: string;
         /** Unix epoch time of event in milliseconds */
         timeStamp: number;
+
+        preventDefault: () => void;
+        stopPropagation: () => void;
+        stopImmediatePropagation: () => void;
+        isDefaultPrevented: () => boolean;
+        isPropagationStopped: () => boolean;
+        isImmediatePropagationStopped: () => boolean;
     }
     interface InputEventObject extends AbstractEventObject {
         /** position : indicates the model position of the event */
@@ -4331,7 +4338,7 @@ declare namespace cytoscape {
         /** renderedPosition : indicates the rendered position of the event */
         renderedPosition: Position;
         /** originalEvent : the original user input device event object */
-        originalEvent: EventObject;
+        originalEvent: MouseEvent;
     }
     interface LayoutEventObject extends AbstractEventObject {
         /**
