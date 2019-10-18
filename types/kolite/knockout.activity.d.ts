@@ -1,12 +1,12 @@
 // Type definitions for KoLite 1.1
 // Project: https://github.com/CodeSeven/kolite
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery" />
 /// <reference types="knockout" />
-
 
 // Activity /////////////////////////////////////////////
 
@@ -25,21 +25,23 @@ interface KoLiteActivityOptions {
 interface KoLiteActivity {
     (options: KoLiteActivityOptions): JQuery;
     defaults: KoLiteActivityOptions;
-    getOpacity(options: { steps?: number; segments?: number; opacity?: number; }, i: number): number;
+    getOpacity(options: { steps?: number; segments?: number; opacity?: number }, i: number): number;
 }
 
 interface KoLiteActivityDefaultOptions {
-    activityClass?: string,
-    container?: string,
-    inactiveClass?: string
+    activityClass?: string;
+    container?: string;
+    inactiveClass?: string;
 }
 
-interface KoLiteActivityBindingHandler extends KnockoutBindingHandler {
-    defaultOptions: KoLiteActivityDefaultOptions
+interface KoLiteActivityBindingHandler extends ko.BindingHandler {
+    defaultOptions: KoLiteActivityDefaultOptions;
 }
 
-interface KnockoutBindingHandlers {
-    activity: KoLiteActivityBindingHandler;
+declare namespace ko {
+    interface BindingHandlers {
+        activity: KoLiteActivityBindingHandler;
+    }
 }
 
 interface JQuery {

@@ -41,7 +41,7 @@ declare namespace ko {
     //#region Sortable type extensions
 
     //
-    // extends the KnockoutObservableArray to add sorting methods
+    // extends the ObservableArray to add sorting methods
     // see https://github.com/stevegreatrex/ko.plus#properties-and-functions
     //
     interface ObservableArray<T> {
@@ -157,12 +157,12 @@ declare namespace KoPlus {
     }
 
     //
-    // extend the standard KnockoutObservable to add editable functions
+    // extend the standard Observable to add editable functions
     //
     export interface Editable<T> extends ko.Observable<T>, EditableFunctions {}
 
     //
-    // extend the standard KnockoutObservableArray to add editable functions
+    // extend the standard ObservableArray to add editable functions
     //
     export interface EditableArray<T> extends ko.ObservableArray<T>, EditableFunctions {}
 

@@ -1,8 +1,9 @@
 // Type definitions for KoLite 1.1
 // Project: https://github.com/CodeSeven/kolite
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michael Kriese <https://github.com/viceice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="jquery" />
 /// <reference types="knockout" />
@@ -15,13 +16,13 @@ interface DirtyFlag {
 }
 
 interface DirtyFlagResult {
-    isDirty: KnockoutComputed<boolean>;
+    isDirty: ko.Computed<boolean>;
     reset(): void;
-    forceDirty(): void; 
+    forceDirty(): void;
 }
 
-interface KnockoutStatic {
-    DirtyFlag: DirtyFlag;
+declare namespace ko {
+    const DirtyFlag: DirtyFlag;
 }
 
 interface KnockoutDirtyFlagStatic {

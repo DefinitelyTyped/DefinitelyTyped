@@ -1,4 +1,3 @@
-/// <reference types='knockout'/>
 /// <reference types="knockout" />
-export function createMediaQueryObservable(queryString: string): KnockoutObservable<boolean>;
-export function createScreenRangeObservable(): KnockoutObservable<string>;
+export function createMediaQueryObservable(queryString: string): ko.Observable<boolean>;
+export function createScreenRangeObservable(): ko.Observable<string>;

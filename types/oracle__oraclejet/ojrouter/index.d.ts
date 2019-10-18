@@ -1,5 +1,4 @@
 /// <reference types="knockout" />
-/// <reference types='knockout'/>
 declare class Router {
     readonly currentState: (() => RouterState | undefined);
     readonly currentValue: (() => string | undefined);
@@ -11,7 +10,7 @@ declare class Router {
     };
     readonly direction: string | undefined;
     readonly moduleConfig: {
-        name: KnockoutObservable<string>;
+        name: ko.Observable<string>;
         params: {
             ojRouter: {
                 parentRouter: Router;
@@ -23,7 +22,7 @@ declare class Router {
         };
     };
     readonly name: string;
-    readonly observableModuleConfig: KnockoutObservable<Router.ModuleConfigType>;
+    readonly observableModuleConfig: ko.Observable<Router.ModuleConfigType>;
     readonly parent: Router | undefined;
     static readonly rootInstance: Router;
     readonly stateId: ((param0?: string) => string);
@@ -51,7 +50,7 @@ declare class Router {
 declare namespace Router {
     // tslint:disable-next-line interface-over-type-literal
     type ModuleConfigType = {
-        name: KnockoutObservable<string>;
+        name: ko.Observable<string>;
         params: {
             ojRouter: {
                 parentRouter: Router;
