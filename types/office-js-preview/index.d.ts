@@ -15741,8 +15741,6 @@ declare namespace Office {
         /**
          * Gets all the internet headers for the message as a string.
          * 
-         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
-         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
