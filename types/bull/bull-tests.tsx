@@ -222,6 +222,13 @@ myQueue.on('active', (job: Queue.Job) => {
     job.discard();
 });
 
+// Close queues
+
+myQueue.close();
+
+const doNotWaitForJobs = true;
+myQueue.close(doNotWaitForJobs);
+
 // Get Redis clients
 const clients = myQueue.clients;
 
