@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.7
+// Type definitions for Recharts 1.8.0
 // Project: http://recharts.org/, https://github.com/recharts/recharts
 // Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
