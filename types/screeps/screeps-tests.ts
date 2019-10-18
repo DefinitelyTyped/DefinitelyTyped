@@ -725,9 +725,16 @@ function keys<T>(o: T): Array<keyof T> {
 
     const events = room.getEventLog();
 
-    const event = events[0] as EventItem<EVENT_ATTACK>;
+    const event = events[0];
 
-    event.data.attackType;
+    switch (event.event) {
+        case EVENT_ATTACK:
+            const attackType: EventAttackType = event.data.attackType;
+            break;
+        case EVENT_BUILD:
+            const energySpent: number = event.data.energySpent;
+            break;
+    }
 }
 
 // Room.Terrain
