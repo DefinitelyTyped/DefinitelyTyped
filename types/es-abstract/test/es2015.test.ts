@@ -26,8 +26,8 @@ ES2015.GetIterator(null, generable);
 
 const iteratorYieldResult: IteratorYieldResult<number> = null!;
 const iteratorReturnResult: IteratorReturnResult<string> = null!;
-const iteratorResult = Math.random() < .5 ? iteratorYieldResult : iteratorReturnResult;
-const iteratorNeverUnknownResult: IteratorResult<never, unknown> = (iteratorResult as any);
+const iteratorResult = Math.random() < 0.5 ? iteratorYieldResult : iteratorReturnResult;
+const iteratorNeverUnknownResult: IteratorResult<never, unknown> = iteratorResult as any;
 
 ES2015.IteratorValue(iteratorYieldResult); // $ExpectType number
 ES2015.IteratorValue(iteratorReturnResult); // $ExpectType string

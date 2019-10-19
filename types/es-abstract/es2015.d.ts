@@ -145,8 +145,14 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	GetSubstitution(matched: string, str: string, position: number, captures: string[], replacement: string): string;
 	ToDateString(tv: number): string;
 
-	CreateListFromArrayLike<T>(obj: ArrayLike<T>, types?: Array<'Undefined' | 'Null' | 'Boolean' | 'String' | 'Symbol' | 'Number' | 'Object'>): T[];
-	GetPrototypeFromConstructor<K extends keyof Intrinsics>(constructor: AnyConstructor, intrinsicDefaultProto: K): Intrinsics[K];
+	CreateListFromArrayLike<T>(
+		obj: ArrayLike<T>,
+		types?: Array<'Undefined' | 'Null' | 'Boolean' | 'String' | 'Symbol' | 'Number' | 'Object'>,
+	): T[];
+	GetPrototypeFromConstructor<K extends keyof Intrinsics>(
+		constructor: AnyConstructor,
+		intrinsicDefaultProto: K,
+	): Intrinsics[K];
 	GetPrototypeFromConstructor(constructor: AnyConstructor, intrinsicDefaultProto: string): unknown;
 	SetFunctionName(F: AnyFunction | AnyConstructor, name: string): boolean;
 }
