@@ -89,25 +89,25 @@ declare const CREEP_CLAIM_LIFE_TIME: 600;
 declare const CREEP_CORPSE_RATE: 0.2;
 
 declare const OBSTACLE_OBJECT_TYPES: [
-    "spawn", 
-    "creep", 
-    "powerCreep", 
-    "source", 
-    "mineral", 
-    "deposit", 
-    "controller", 
-    "constructedWall", 
-    "extension", 
-    "link", 
-    "storage", 
-    "tower", 
-    "observer", 
-    "powerSpawn", 
-    "powerBank", 
-    "lab", 
-    "terminal", 
-    "nuker", 
-    "factory", 
+    "spawn",
+    "creep",
+    "powerCreep",
+    "source",
+    "mineral",
+    "deposit",
+    "controller",
+    "constructedWall",
+    "extension",
+    "link",
+    "storage",
+    "tower",
+    "observer",
+    "powerSpawn",
+    "powerBank",
+    "lab",
+    "terminal",
+    "nuker",
+    "factory",
     "invaderCore"
 ];
 
@@ -4981,7 +4981,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
     cooldown: number;
     /**
      * The level of the factory.
-     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory. 
+     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
     level: number;
