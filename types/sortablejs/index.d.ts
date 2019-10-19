@@ -282,7 +282,7 @@ declare namespace Sortable {
          * Remove the clone element when it is not showing,
          * rather than just hiding it
          */
-        removeCloneOnHide?: true;
+        removeCloneOnHide?: boolean;
         /**
          * sorting inside list
          */
