@@ -698,6 +698,26 @@ declare namespace webpack {
         }
     }
 
+    /**
+     * @see https://webpack.js.org/api/logging/
+     * @since 4.39.0
+     */
+    interface Logger {
+        error(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        group(...label: any[]): void;
+        groupEnd(): void;
+        groupCollapsed(...label: any[]): void;
+        status(message?: any, ...optionalParams: any[]): void;
+        clear(): void;
+        profile(label?: string): void;
+        profileEnd(label?: string): void;
+    }
+
     namespace debug {
         interface ProfilingPluginOptions {
             /** A relative path to a custom output file (json) */
@@ -718,6 +738,7 @@ declare namespace webpack {
             constructor(options?: ProfilingPluginOptions);
         }
     }
+
     namespace compilation {
         class Asset {
         }
@@ -1025,6 +1046,7 @@ declare namespace webpack {
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
             applyPlugins(name: string, ...args: any[]): void;
+            getLogger(pluginName: string): Logger;
         }
 
         interface CompilerHooks {
@@ -1142,6 +1164,7 @@ declare namespace webpack {
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
+        getInfrastructureLogger(name: string): Logger;
     }
 
     namespace Compiler {
