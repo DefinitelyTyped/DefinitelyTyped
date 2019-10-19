@@ -12,6 +12,9 @@ interface ES2016 extends ES2015 {
 	IterableToArrayLike<T extends Iterable<unknown> | ArrayLike<unknown>>(
 		items: T,
 	): T extends Iterable<infer I> ? I[] : T;
+
+	OrdinaryGetPrototypeOf(O: object): object | null;
+	OrdinarySetPrototypeOf(O: object, V: object | null): boolean;
 }
 
 declare namespace ES2016 {
