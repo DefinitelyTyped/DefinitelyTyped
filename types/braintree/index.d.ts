@@ -1,9 +1,9 @@
-// Type definitions for braintree 2.20.0
+// Type definitions for braintree 2.20
 // Project: https://github.com/braintree/braintree_node
 // Definitions by: Sam Rubin <https://github.com/smrubin>,
 //                 Mohamed Elsharnouby <https://github.com/sharno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6.3
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 

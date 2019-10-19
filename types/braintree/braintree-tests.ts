@@ -63,14 +63,14 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const response = await gateway.paymentMethod.create(paymentMethodRequest).catch(console.error);
     if (!response) return;
     const { token }: PaymentMethod = response.paymentMethod;
-    const applePayCard = <ApplePayCard>response.paymentMethod;
-    const paypalAccount = <PayPalAccount>response.paymentMethod;
-    const androidPayCard = <AndroidPayCard>response.paymentMethod;
-    const creditCard = <CreditCard>response.paymentMethod;
-    const venmoAccount = <braintree.VenmoAccount>response.paymentMethod;
-    const visaCheckoutCard = <VisaCheckoutCard>response.paymentMethod;
-    const samsungPayCard = <SamsungPayCard>response.paymentMethod;
-    const masterpassCard = <MasterpassCard>response.paymentMethod;
+    const applePayCard = <ApplePayCard> response.paymentMethod;
+    const paypalAccount = <PayPalAccount> response.paymentMethod;
+    const androidPayCard = <AndroidPayCard> response.paymentMethod;
+    const creditCard = <CreditCard> response.paymentMethod;
+    const venmoAccount = <braintree.VenmoAccount> response.paymentMethod;
+    const visaCheckoutCard = <VisaCheckoutCard> response.paymentMethod;
+    const samsungPayCard = <SamsungPayCard> response.paymentMethod;
+    const masterpassCard = <MasterpassCard> response.paymentMethod;
 })();
 
 (async () => {
