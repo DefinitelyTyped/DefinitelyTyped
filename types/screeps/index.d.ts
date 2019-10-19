@@ -89,21 +89,26 @@ declare const CREEP_CLAIM_LIFE_TIME: 600;
 declare const CREEP_CORPSE_RATE: 0.2;
 
 declare const OBSTACLE_OBJECT_TYPES: [
-    "spawn",
-    "creep",
-    "wall",
-    "source",
-    "constructedWall",
-    "extension",
-    "link",
-    "storage",
-    "tower",
-    "observer",
-    "powerSpawn",
-    "powerBank",
-    "lab",
-    "terminal",
-    "nuker"
+    "spawn", 
+    "creep", 
+    "powerCreep", 
+    "source", 
+    "mineral", 
+    "deposit", 
+    "controller", 
+    "constructedWall", 
+    "extension", 
+    "link", 
+    "storage", 
+    "tower", 
+    "observer", 
+    "powerSpawn", 
+    "powerBank", 
+    "lab", 
+    "terminal", 
+    "nuker", 
+    "factory", 
+    "invaderCore"
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -175,6 +180,7 @@ declare const BODYPARTS_ALL: BodyPartConstant[];
 declare const CARRY_CAPACITY: 50;
 declare const HARVEST_POWER: 2;
 declare const HARVEST_MINERAL_POWER: 1;
+declare const HARVEST_DEPOSIT_POWER: 1;
 declare const REPAIR_POWER: 100;
 declare const DISMANTLE_POWER: 50;
 declare const BUILD_POWER: 5;
@@ -412,6 +418,10 @@ declare const DENSITY_LOW: number;
 declare const DENSITY_MODERATE: number;
 declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
+
+declare const DEPOSIT_EXHAUST_MULTIPLY: number;
+declare const DEPOSIT_EXHAUST_POW: number;
+declare const DEPOSIT_DECAY_TIME: number;
 
 declare const TERMINAL_CAPACITY: number;
 declare const TERMINAL_COOLDOWN: number;
@@ -758,6 +768,7 @@ declare const TOMBSTONE_DECAY_PER_PART: 5;
 declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
 
 declare const RUIN_DECAY: 500;
+declare const RUIN_DECAY_STRUCTURES: Record<StructureConstant, number | undefined>;
 
 declare const EVENT_ATTACK: 1;
 declare const EVENT_OBJECT_DESTROYED: 2;
@@ -810,6 +821,19 @@ declare const PWR_OPERATE_POWER: 16;
 declare const PWR_FORTIFY: 17;
 declare const PWR_OPERATE_CONTROLLER: 18;
 declare const PWR_OPERATE_FACTORY: 19;
+
+declare const EFFECT_INVULNERABILITY: 1001;
+declare const EFFECT_COLLAPSE_TIMER: 1002;
+
+declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_CREEP_SPAWN_TIME: {
+    0: 0, 1: 0, 2: 6, 3: 3, 4: 2, 5: 1
+};
+declare const INVADER_CORE_EXPAND_TIME: 15000;
+declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
+declare const STRONGHOLD_RAMPART_HITS: { 0: 0, 1: 50000, 2: 200000, 3: 500000, 4: 1000000, 5: 2000000 };
+declare const STRONGHOLD_DECAY_TICKS: 150000;
 
 declare const POWER_INFO: {
     [powerID: number]: {
@@ -1167,16 +1191,16 @@ interface Creep extends RoomObject {
      */
     getActiveBodyparts(type: BodyPartConstant): number;
     /**
-     * Harvest energy from the source.
+     * Harvest energy from the source or resource from minerals or deposits.
      *
      * Needs the WORK body part.
      *
-     * If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground.
+     * If the creep has an empty CARRY body part, the harvested resource is put into it; otherwise it is dropped on the ground.
      *
      * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
-    harvest(target: Source | Mineral): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
      * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
      *
@@ -1328,7 +1352,7 @@ interface Creep extends RoomObject {
      */
     upgradeController(target: StructureController): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure.
+     * Withdraw resources from a structure, tombstone or ruin.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -1339,7 +1363,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> { }
@@ -4956,7 +4980,9 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      */
     cooldown: number;
     /**
-     * The level of the factory
+     * The level of the factory.
+     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory. 
+     * Once set, the level cannot be changed.
      */
     level: number;
     /**
