@@ -1,8 +1,9 @@
-// Type definitions for braintree 2.16
+// Type definitions for braintree 2.20.0
 // Project: https://github.com/braintree/braintree_node
-// Definitions by: Sam Rubin <https://github.com/smrubin>
+// Definitions by: Sam Rubin <https://github.com/smrubin>,
+//                 Mohamed Elsharnouby <https://github.com/sharno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6.3
 
 /// <reference types="node" />
 
@@ -23,7 +24,7 @@ declare namespace braintree {
     }
 
     export interface GatewayConfig {
-        environment: any;
+        environment: Environment;
         merchantId: string;
         publicKey: string;
         privateKey: string;
