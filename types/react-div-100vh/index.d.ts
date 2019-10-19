@@ -2,6 +2,7 @@
 // Project: https://github.com/mvasin/react-div-100vh
 // Definitions by: Tommy Mönnich <https://github.com/t-moennich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
