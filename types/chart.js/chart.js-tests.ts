@@ -1,4 +1,4 @@
-import { BorderWidth, Chart, ChartColor, ChartData, ChartOptions, Point } from "chart.js";
+import { BorderWidth, Chart, ChartColor, ChartData, ChartOptions, Point } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
