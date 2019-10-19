@@ -2,20 +2,20 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
+Also see the [definitelytyped.org] (http://definitelytyped.org) website, although information in this README is more up-to-date.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), and [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), and [Chinese] (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)!*
 
 ## Table of Contents
 
-* [Current status](#current-status)
-* [How can I contribute?](#how-can-i-contribute)
+* [Current status] (#current-status)
+* [How can I contribute?] (#how-can-i-contribute)
     * [Test](#test)
-    * [Make a pull request](#make-a-pull-request)
-        * [Edit an existing package](#edit-an-existing-package)
-        * [Create a new package](#create-a-new-package)
-        * [Common mistakes](#common-mistakes)
-        * [Removing a package](#removing-a-package)
+    * [Make a pull request] (#make-a-pull-request)
+        * [Edit an existing package] (#edit-an-existing-package)
+        * [Create a new package] (#create-a-new-package)
+        * [Common mistakes] (#common-mistakes)
+        * [Removing a package] (#removing-a-package)
         * [Linter](#linter)
         * [Verifying](#verifying)
 * [FAQ](#faq)
@@ -25,18 +25,18 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
-* All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
-* [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+* Most recent build [type-checked/linted] (https://github.com/Microsoft/dtslint) cleanly: [! [Build Status] (https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)] (https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* All packages are type-checking/linting cleanly on typescript@next: [! [Build Status] (https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)] (https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+* All packages are being [published to npm] (https://github.com/Microsoft/types-publisher) in under an hour: [! [Publish Status] (https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)] (https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+* [typescript-bot] (https://github.com/typescript-bot) has been active on DefinitelyTyped [! [Activity Status] (https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)] (https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
-If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+If anything, here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel] (https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
-[![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[! [Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)] (https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## What are declaration files?
 
-See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+See the [TypeScript handbook] (http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ## How do I get them?
 
@@ -64,7 +64,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
+* ~~[NuGet] (http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -80,7 +80,7 @@ Before you share your improvement with the world, use it yourself.
 
 #### Test editing an existing package
 
-To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
+To add new features, you can use [module augmentation] (http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
 You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
@@ -96,10 +96,10 @@ Add to your `tsconfig.json`:
 (You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able to import from `"foo"` in your code and it will route to the new type definition.
-Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Then build *and* run the code to make sure your type definition corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
-then follow the instructions to [edit an existing package](#edit-an-existing-package) or
-[create a new package](#create-a-new-package).
+then follow the instructions to [edit an existing package] (#edit-an-existing-package) or
+[create a new package] (#create-a-new-package).
 
 
 ### Make a pull request
@@ -113,7 +113,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
-  If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
+  If you make breaking changes, do not forget to [update a major version] (#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 * You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -132,7 +132,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author and your package is written in TypeScript, [bundle the autogenerated declaration files](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) in your package instead of publishing to Definitely Typed.
+If you are the library author and your package is written in TypeScript, [bundle the autogenerated declaration files] (http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) in your package instead of publishing to Definitely Typed.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -148,22 +148,22 @@ Your package should have this structure:
 | tslint.json | Enables linting. |
 
 Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
-See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
+See all options at [dts-gen] (https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
+For a good example package, see [base64-js] (https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
 
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Use 4 spaces. For new code, this is enforced by Prettier.
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
-* `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+* `function sum (nums: number []): number`: Use `ReadonlyArray` if a function does not write to its parameters.
+* `interface Foo {new (): Foo;} `:
+    This defines a type of objects that are new-able. You probably want `declare class Foo {constructor ();} `.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
 * `getMeAT<T>(): T`:
