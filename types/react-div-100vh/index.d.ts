@@ -1,6 +1,6 @@
 // Type definitions for react-div-100vh 0.3
 // Project: https://github.com/mvasin/react-div-100vh
-// Definitions by: Tommy Mönnich <https://github.com/DefinitelyTyped>
+// Definitions by: Tommy Mönnich <https://github.com/t-moennich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from "react";
