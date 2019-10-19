@@ -43,6 +43,12 @@
 		"helpers/regexTester.d.ts",
 		"helpers/setProto.d.ts",
 		"helpers/sign.d.ts",
+		"operations/2015.d.ts",
+		"operations/2016.d.ts",
+		"operations/2017.d.ts",
+		"operations/2018.d.ts",
+		"operations/2019.d.ts",
+		"operations/deltas.d.ts",
 		"index.d.ts",
 		"test/es5.test.ts",
 		"test/es2015.test.ts",
@@ -71,6 +77,12 @@
 		"test/helpers/regexTester.test.ts",
 		"test/helpers/setProto.test.ts",
 		"test/helpers/sign.test.ts",
+		"test/operations/2015.test.ts",
+		"test/operations/2016.test.ts",
+		"test/operations/2017.test.ts",
+		"test/operations/2018.test.ts",
+		"test/operations/2019.test.ts",
+		"test/operations/deltas.test.ts",
 		"test/index.test.ts"
 	]
 }
