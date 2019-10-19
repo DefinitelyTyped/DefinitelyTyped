@@ -2,7 +2,6 @@
     "compilerOptions": {
         "jsx": "react",
         "module": "commonjs",
-        "moduleResolution": "Node",
         "lib": [
             "es6"
         ],
