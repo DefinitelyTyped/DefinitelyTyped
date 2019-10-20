@@ -64,9 +64,22 @@ export interface MatchImageSnapshotOptions {
      */
     failureThresholdType?: 'pixel' | 'percent';
     /**
-     * Updates a snapshot even if it passed the threshold against the existing one, defaults to false.
+     * Updates a snapshot even if it passed the threshold against the existing one.
+     * Defaults to false.
      */
     updatePassedSnapshot?: boolean;
+    /**
+     * Applies Gaussian Blur on compared images, accepts radius in pixels as value. Useful when you have noise after
+     * scaling images per different resolutions on your target website, usually setting it's value to 1-2 should be
+     * enough to solve that problem.
+     * Defaults to 0.
+     */
+    blur?: number;
+    /**
+     * Runs the diff in process without spawning a child process.
+     * Defaults to false.
+     */
+    runInProcess?: boolean;
 }
 
 /**
