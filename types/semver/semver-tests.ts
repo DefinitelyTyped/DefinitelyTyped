@@ -2,9 +2,10 @@ import * as semver from "semver";
 
 let bool: boolean;
 let num: number;
-let str = '';
+// $ExpectType string
+let str = String(Math.random());
 // $ExpectType string | null
-let strn: string | null = Math.random() < 0.5 ? null : String(Math.random());
+let strn: string | null = Math.random() < 0.5 ? null : str;
 let diff: semver.ReleaseType | null;
 const op: semver.Operator = '';
 declare const arr: any[];
@@ -94,9 +95,6 @@ sem = semver.coerce(3, { rtl: true });
 sem = semver.coerce(anyVersion);
 sem = semver.coerce(anyVersion, { rtl: false });
 sem = semver.coerce(anyVersion, { rtl: true });
-
-sem = semver.coerce(false); // $ExpectError
-sem = semver.coerce(anyVersion, true); // $ExpectError
 
 let ver = new semver.SemVer(str, bool);
 str = ver.raw;
