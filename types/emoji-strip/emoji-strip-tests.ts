@@ -1,3 +1,3 @@
 import emojiStrip from 'emoji-strip';
 
-emojiStrip('Smile emoji: 😀');
+const text: string = emojiStrip('Smile emoji: 😀');
