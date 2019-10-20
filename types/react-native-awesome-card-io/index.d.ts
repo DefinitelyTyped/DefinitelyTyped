@@ -62,13 +62,13 @@ export interface CardIOModuleProps extends CardIOCommonProps {
 export type CardIODetectionMode = 'IMAGE_AND_NUMBER' | 'IMAGE' | 'AUTOMATIC';
 
 export namespace CardIOUtilities {
-    export function preload(): void; // iOS only - prepares card.io to launch faster.
-    export var CAN_READ_CARD_WITH_CAMERA: boolean;
-    export var DETECTION_MODE: CardIODetectionMode;
+    function preload(): void; // iOS only - prepares card.io to launch faster.
+    const CAN_READ_CARD_WITH_CAMERA: boolean;
+    const DETECTION_MODE: CardIODetectionMode;
 }
 
-export namespace CardIOUtilities {
-    export function scanCard(config?: CardIOModuleProps): Promise<CardDetails>;
+export namespace CardIOModule {
+    function scanCard(config?: CardIOModuleProps): Promise<CardDetails>;
 }
 
 export class CardIOView extends React.Component<CardIOViewProps> {}
