@@ -39,7 +39,7 @@ declare namespace ROSLIB {
 		constructor(options:{
 			url?: string,
 			groovyCompatibility?: boolean,
-			transportLibrary?: 'websocket' | 'wokersocket' | 'socket.io' | RTCPeerConnection,
+			transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection,
 			transportOptions?: RTCDataChannelInit
 		});
 
