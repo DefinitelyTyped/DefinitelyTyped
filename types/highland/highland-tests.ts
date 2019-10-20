@@ -273,6 +273,10 @@ barStream = fooStream.scan(bar, (memo: Bar, x: Foo) => {
 
 fooStream = fooStream.stopOnError((e: Error) => {});
 
+fooStream = fooStream.split();
+
+fooStream = fooStream.splitBy(str);
+
 fooStream = fooStream.take(num);
 
 fooStream.tap((x: Foo) => {});

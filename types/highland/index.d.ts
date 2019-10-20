@@ -5,6 +5,7 @@
 //                 William Yu <https://github.com/iwllyu>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Jack Wearden <https://github.com/notbobthebuilder>
+//                 Joakim Hasselgren <https://github.com/jhasselgren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -888,8 +889,28 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle an error
 		 * @api public
 		 */
-		stopOnError(f: (err: Error) => void): Stream<R>;
-
+    stopOnError(f: (err: Error) => void): Stream<R>;
+    
+    /**
+		 * [splitBy](splitBy) over newlines.
+		 *
+		 * @id split
+		 * @section Streams
+		 * @name Stream.split(s)
+		 * @api public
+		 */
+    split(): Stream<R>;
+      
+    /**
+		 * Splits the source Stream by a separator and emits the pieces in between, much like splitting a string.
+		 *
+		 * @id splitBy
+		 * @section Streams
+		 * @name Stream.splitBy(sep)
+		 * @param {String|RegExp} sep - String | RegExp - the separator to split on
+		 * @api public
+		 */
+    splitBy(sep: string): Stream<R>;
 		/**
 		 * Creates a new Stream with the first `n` values from the source.
 		 *
