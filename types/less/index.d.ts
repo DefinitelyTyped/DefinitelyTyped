@@ -118,6 +118,8 @@ declare namespace Less {
         modifyVars?: {
           [key: string] : string,
         };
+        /** Read files synchronously in Node.js */
+        syncImport?: boolean;
     }
 
     interface RenderError {
