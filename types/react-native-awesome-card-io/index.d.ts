@@ -3,7 +3,7 @@
 // Definitions by: Onur Var <https://github.com/OnurVar>
 //                 Emlyn Bolton <https://github.com/emlynmac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
@@ -61,14 +61,14 @@ export interface CardIOModuleProps extends CardIOCommonProps {
 
 export type CardIODetectionMode = 'IMAGE_AND_NUMBER' | 'IMAGE' | 'AUTOMATIC';
 
-export const CardIOUtilities: {
-    preload: () => void; // iOS only - prepares card.io to launch faster.
-    CAN_READ_CARD_WITH_CAMERA: boolean;
-    DETECTION_MODE: CardIODetectionMode;
-};
+export namespace CardIOUtilities {
+    export function preload(): void; // iOS only - prepares card.io to launch faster.
+    export var CAN_READ_CARD_WITH_CAMERA: boolean;
+    export var DETECTION_MODE: CardIODetectionMode;
+}
 
-export const CardIOModule: {
-    scanCard: (config?: CardIOModuleProps) => Promise<CardDetails>;
-};
+export namespace CardIOUtilities {
+    export function scanCard(config?: CardIOModuleProps): Promise<CardDetails>;
+}
 
 export class CardIOView extends React.Component<CardIOViewProps> {}
