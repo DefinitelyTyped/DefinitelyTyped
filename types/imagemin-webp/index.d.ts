@@ -3,7 +3,7 @@
 // Definitions by: Brett M <https://github.com/brettm12345>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'imagemin'
+import { Plugin } from 'imagemin';
 
 declare function imageminWebp(options?: imageminWebp.Options): Plugin;
 
@@ -27,15 +27,18 @@ declare namespace imageminWebp {
          * @default default
          */
         preset?: Preset;
-        /** Set quality factor between 0 and 100.
+        /**
+         * Set quality factor between 0 and 100.
          * @default 75
          */
         quality?: number;
-        /** Set transparency-compression quality between 0 and 100.
+        /**
+         * Set transparency-compression quality between 0 and 100.
          * @default 100
          */
         alphaQuality?: number;
-        /** Specify the compression method to use,
+        /**
+         * Specify the compression method to use,
          * between 0 (fastest) and 6 (slowest).
          * This parameter controls the trade off between encoding speed
          * and the compressed file size and quality.
