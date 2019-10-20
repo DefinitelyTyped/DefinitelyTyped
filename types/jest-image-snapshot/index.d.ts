@@ -67,7 +67,7 @@ export interface MatchImageSnapshotOptions {
  *   import { toMatchImageSnapshot } from 'jest-image-snapshot';
  *   expect.extend({ toMatchImageSnapshot });
  */
-export function toMatchImageSnapshot(options?: MatchImageSnapshotOptions): { message(): string; pass: boolean; };
+export function toMatchImageSnapshot(options?: MatchImageSnapshotOptions): { message(): string; pass: boolean };
 
 /**
  * Configurable function that can be passed to jest's expect.extend.
@@ -76,7 +76,9 @@ export function toMatchImageSnapshot(options?: MatchImageSnapshotOptions): { mes
  *   const toMatchImageSnapshot = configureToMatchImageSnapshot({ noColors: true });
  *   expect.extend({ toMatchImageSnapshot });
  */
-export function configureToMatchImageSnapshot(options: MatchImageSnapshotOptions): () => { message(): string; pass: boolean; };
+export function configureToMatchImageSnapshot(
+    options: MatchImageSnapshotOptions,
+): () => { message(): string; pass: boolean };
 
 declare global {
     namespace jest {
