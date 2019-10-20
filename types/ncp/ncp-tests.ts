@@ -13,7 +13,7 @@ const errs = Buffer.alloc(4096);
 const opts$StreamErr = (opts = { errs });
 opts = { filter: /abc/ };
 opts = { filter: (filename: string) => true };
-opts = { transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file) => {
+opts = { transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: ncp.File) => {
 	file; // $ExpectType File
 	file.name; // $ExpectType string
 	file.mode; // $ExpectType number
@@ -68,10 +68,10 @@ ncp.ncp('foo', 'bar', opts, err => {
 });
 
 // $ExpectType (source: string, destination: string, options?: Options | undefined) => Promise<void>
-util.promisify(ncp);
+expectType<(source: string, destination: string, options?: ncp.Options) => Promise<void>>(util.promisify(ncp));
 
 // $ExpectType (source: string, destination: string, options?: Options | undefined) => Promise<void>
-util.promisify(ncp.ncp);
+expectType<(source: string, destination: string, options?: ncp.Options) => Promise<void>>(util.promisify(ncp.ncp));
 
 // Both import forms are identical
 expectType<typeof ncp.ncp>(ncpCB);
