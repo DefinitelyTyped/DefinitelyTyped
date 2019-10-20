@@ -1,6 +1,7 @@
-// Type definitions for jest-image-snapshot 2.8
+// Type definitions for jest-image-snapshot 2.11
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
+//                 erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -31,9 +32,16 @@ export interface MatchImageSnapshotOptions {
      */
     customDiffDir?: string;
     /**
-     * A custom name to give this snapshot. If not provided, one is computed automatically.
+     * A custom name to give this snapshot. If not provided, one is computed automatically. When a function is provided
+     * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
+     * argument. The function must return an identifier to use for the snapshot.
      */
-    customSnapshotIdentifier?: string;
+    customSnapshotIdentifier?: (parameters: {
+        testPath: string;
+        currentTestName: string;
+        counter: number;
+        defaultIdentifier: string;
+    }) => string | string;
     /**
      * Changes diff image layout direction, default is horizontal.
      */
