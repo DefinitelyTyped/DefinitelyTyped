@@ -3,7 +3,8 @@ import * as semver from "semver";
 let bool: boolean;
 let num: number;
 let str = '';
-let strn: string | null = '';
+// $ExpectType string | null
+let strn: string | null = Math.random() < 0.5 ? null : String(Math.random());
 let diff: semver.ReleaseType | null;
 const op: semver.Operator = '';
 declare const arr: any[];
@@ -19,10 +20,14 @@ const v2 = '';
 const version = '';
 const versions: string[] = [];
 const loose = true;
-let sem: semver.SemVer | null = new semver.SemVer(str, {});
+// $ExpectType SemVer | null
+let sem: semver.SemVer | null = Math.random() < 0.5 ? new semver.SemVer(str, {}) : null;
 
-sem = new semver.SemVer(str, {includePrerelease: false});
-sem = new semver.SemVer(str, {loose: true});
+// $ExpectType string | SemVer | null | undefined
+const anyVersion = Math.random() < 0.5 ? undefined : Math.random() < 0.5 ? strn : sem;
+
+sem = new semver.SemVer(str, { includePrerelease: false });
+sem = new semver.SemVer(str, { loose: true });
 
 sem = semver.parse(str);
 strn = semver.valid(str);
@@ -73,6 +78,25 @@ sem = semver.minVersion(str, loose);
 
 // Coercion
 sem = semver.coerce(str);
+
+sem = semver.coerce(strn);
+sem = semver.coerce(strn, { rtl: false });
+sem = semver.coerce(strn, { rtl: true });
+
+sem = semver.coerce(sem);
+sem = semver.coerce(sem, { rtl: false });
+sem = semver.coerce(sem, { rtl: true });
+
+sem = semver.coerce(1);
+sem = semver.coerce(2, { rtl: false });
+sem = semver.coerce(3, { rtl: true });
+
+sem = semver.coerce(anyVersion);
+sem = semver.coerce(anyVersion, { rtl: false });
+sem = semver.coerce(anyVersion, { rtl: true });
+
+sem = semver.coerce(false); // $ExpectError
+sem = semver.coerce(anyVersion, true); // $ExpectError
 
 let ver = new semver.SemVer(str, bool);
 str = ver.raw;
