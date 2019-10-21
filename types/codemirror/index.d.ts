@@ -161,7 +161,9 @@ declare namespace CodeMirror {
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 
-    interface Editor {
+    /** Methods prefixed with doc. can, unless otherwise specified, be called both on CodeMirror (editor) instances and
+    CodeMirror.Doc instances. Thus, the Editor interface extends Doc. **/
+    interface Editor extends Doc {
 
         /** Tells you whether the editor currently has focus. */
         hasFocus(): boolean;

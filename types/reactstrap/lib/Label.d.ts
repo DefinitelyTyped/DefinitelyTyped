@@ -10,7 +10,7 @@ export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> 
   disabled?: boolean;
   size?: string;
   for?: string;
-  tag?: string;
+  tag?: string | React.ReactType;
   className?: string;
   cssModule?: CSSModule;
   xs?: ColumnProps;

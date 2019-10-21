@@ -540,7 +540,12 @@ declare namespace Application {
     /**
      * This interface can be augmented by users to add types to Koa's default context
      */
-    interface DefaultContext extends DefaultContextExtends {}
+    interface DefaultContext extends DefaultContextExtends {
+        /**
+         * Custom properties.
+         */
+        [key: string]: any;
+    }
 
     type Middleware<
         StateT = DefaultState,
@@ -680,10 +685,6 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
-        /**
-         * Custom properties.
-         */
-        [key: string]: any;
     }
 
     interface Request extends BaseRequest {

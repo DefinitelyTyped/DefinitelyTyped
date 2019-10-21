@@ -558,3 +558,9 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
 
 ReactDOM.render(
    <ReactAutosuggestCustomTest/>, document.getElementById('app'));
+
+const test: Autosuggest.InputProps<{ foo: string }> = {
+    onChange: () => {},
+    value: 'foo',
+    anything: false // $ExpectError
+};

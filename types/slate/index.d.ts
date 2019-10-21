@@ -12,17 +12,18 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
+//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
-export class Data extends Immutable.Record({}) {
-    [key: string]: any;
+export interface Data extends Immutable.Map<any, any> {}
 
-    static create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
-    static fromJSON(object: { [key: string]: any }): Data;
-    static fromJS(object: { [key: string]: any }): Data;
+export namespace Data {
+    function create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
+    function fromJSON(object: { [key: string]: any }): Data;
+    function fromJS(object: { [key: string]: any }): Data;
 }
 
 export interface RulesByNodeType {

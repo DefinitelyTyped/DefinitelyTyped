@@ -40,12 +40,6 @@ declare class Vec2 {
     zero(): Vec2;
 
     /**
-     * Returns a clone of this vector.
-     * _Note_: this does not clone observers
-     */
-    zero(): Vec2;
-
-    /**
      * Negate the `x` and `y` coords of this vector.  If `returnNew` is truthy, a new vector with the negated coordinates will be returned.
      */
     negate(returnNew?: boolean): Vec2;

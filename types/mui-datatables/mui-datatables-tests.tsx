@@ -1,4 +1,4 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, SelectableRows } from 'mui-datatables';
+import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
