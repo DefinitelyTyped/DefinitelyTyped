@@ -24,7 +24,9 @@ const config: lib.GlobalConfig = {
         ["@qiwi/semantic-release-gh-pages-plugin", {
             msg: "updated",
             branch: "docs"
-        }]]
+        }]],
+    dryRun: false,
+    ci: true
 };
 
 const context = {

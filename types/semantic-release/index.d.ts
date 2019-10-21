@@ -24,6 +24,11 @@ export interface GlobalConfig {
 	 * Configuration options for each plugin can be defined by wrapping the
 	 * name and an options object in an array. */
 	plugins: ReadonlyArray<PluginSpec>;
+	/** Dry-run mode, skip publishing, print next version and release notes. */
+	dryRun?: boolean;
+	/** Set to false to skip Continuous Integration environment verifications.
+	 * This allows for making releases from a local machine. */
+	ci?: boolean;
 }
 
 /** Specifies a plugin to use.
