@@ -8360,6 +8360,12 @@ declare namespace Stripe {
              * Using this flag requires contacting Stripe support in order to have the account whitelisted.
              */
             pay_immediately?: boolean;
+
+            /**
+             * The tax rates that will apply to the subscription.
+             */
+
+            default_tax_rates?: Array<string>
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
