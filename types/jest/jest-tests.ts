@@ -699,7 +699,7 @@ const expectExtendMap: jest.ExpectExtendMap = {};
 expect.extend(expectExtendMap);
 expect.extend({});
 expect.extend({
-    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+    foo(this: jest.MatcherContext, received: {}, ...actual: Array<{}>) {
         return {
             message: () => JSON.stringify(received),
             pass: false,
@@ -709,7 +709,7 @@ expect.extend({
 // $ExpectError
 const customMatcherResultMessage: jest.CustomMatcherResult['message'] = 'msg';
 expect.extend({
-    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+    async foo(this: jest.MatcherContext, received: {}, ...actual: Array<{}>) {
         return {
             message: () => JSON.stringify(received),
             pass: false,
@@ -718,7 +718,7 @@ expect.extend({
 });
 
 expect.extend({
-    foo(this: jest.MatcherUtils&Readonly<jest.MatcherState>) {
+    foo(this: jest.MatcherContext) {
         const isNot: boolean = this.isNot;
         const expand: boolean = this.expand;
 

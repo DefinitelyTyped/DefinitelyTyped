@@ -435,8 +435,9 @@ declare namespace jest {
         [key: string]: CustomMatcher;
     }
 
+    type MatcherContext = MatcherUtils & Readonly<MatcherState>;
     type CustomMatcher = (
-        this: MatcherUtils&Readonly<MatcherState>,
+        this: MatcherContext,
         received: any,
         ...actual: any[]
     ) => CustomMatcherResult | Promise<CustomMatcherResult>;
