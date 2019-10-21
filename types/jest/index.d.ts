@@ -397,8 +397,9 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
-        readonly expand: boolean;
         readonly isNot: boolean;
+        readonly dontThrow: () => void;
+        readonly promise: string;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
             readonly RECEIVED_COLOR: (text: string) => string;
@@ -427,6 +428,7 @@ declare namespace jest {
          *  This is a deep-equality function that will return true if two objects have the same values (recursively).
          */
         equals(a: any, b: any): boolean;
+        [other: string]: any;
     }
 
     interface ExpectExtendMap {
@@ -434,7 +436,7 @@ declare namespace jest {
     }
 
     type CustomMatcher = (
-        this: MatcherUtils,
+        this: MatcherUtils&Readonly<MatcherState>,
         received: any,
         ...actual: any[]
     ) => CustomMatcherResult | Promise<CustomMatcherResult>;
@@ -517,7 +519,15 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-
+    interface MatcherState {
+        assertionCalls: number;
+        currentTestName: string;
+        expand: boolean;
+        expectedAssertionsNumber: number;
+        isExpectingAssertions?: boolean;
+        suppressedErrors: Error[];
+        testPath: string;
+    }
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -602,34 +612,29 @@ declare namespace jest {
         stringContaining(str: string): any;
 
         not: InverseAsymmetricMatchers;
+
+        setState(state: object): void;
+        getState(): MatcherState & Record<string, any>;
     }
 
-    type JestMatchers<T> = {
+    type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, T>>;
+
+    type JestMatchersShape<TNonPromise extends {} = {}, TPromise extends {} = {}> = {
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
          */
-        resolves: JestPromiseMatchers<T>;
+        resolves: AndNot<TPromise>,
         /**
          * Unwraps the reason of a rejected promise so any other matcher can be chained.
          * If the promise is fulfilled the assertion fails.
          */
-        rejects: JestPromiseMatchers<T>;
-    } & JestNonPromiseMatchers<T>;
-
-    type JestMatchersAndNotMatchers<R, T> = Matchers<R, T> & NotMatchers<R, T>;
-
-    type JestPromiseMatchers<T> = JestMatchersAndNotMatchers<Promise<void>, T>;
-
-    type JestNonPromiseMatchers<T> = JestMatchersAndNotMatchers<void, T>;
-
-    interface NotMatchers<R, T> {
-        /**
-         * If you know how to test something, `.not` lets you test its opposite.
-         */
-        not: Matchers<R, T>;
-    }
-
+        rejects: AndNot<TPromise>
+    } & AndNot<TNonPromise>;
+    type AndNot<T> = T & {
+        not: T
+    };
+    // should be R extends void|Promise<void> but getting dtslint error
     interface Matchers<R, T> {
         /**
          * Ensures the last call to a mock function was provided specific args.
@@ -891,36 +896,37 @@ declare namespace jest {
     interface AsymmetricMatcher {
         asymmetricMatch(other: unknown): boolean;
     }
-    type CustomAsymmetricMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => AsymmetricMatcher;
+    type NonAsyncMatchers<TMatchers extends ExpectExtendMap> = {
+        [K in keyof TMatchers]: ReturnType<TMatchers[K]> extends Promise<CustomMatcherResult>? never: K
+    }[keyof TMatchers];
+    type CustomAsyncMatchers<TMatchers extends ExpectExtendMap> = {[K in NonAsyncMatchers<TMatchers>]: CustomAsymmetricMatcher<TMatchers[K]>};
+    type CustomAsymmetricMatcher<TMatcher extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => AsymmetricMatcher;
 
-    type CustomThrowingMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => void;
-
-    type CustomResolveRejectMatcher<T extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<T>>) => Promise<void>;
-
-    type NonAsyncMatchers<T extends ExpectExtendMap> = {
-        [K in keyof T]: ReturnType<T[K]> extends Promise<CustomMatcherResult>? never: K
-    }[keyof T];
+    // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
+    type CustomJestMatcher<TMatcher extends (...args: any[]) => any, TMatcherReturn> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => TMatcherReturn;
 
     type ExpectProperties= {
         [K in keyof Expect]: Expect[K]
     };
+    // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
+    // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
+    // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
+    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<TMatcherReturn, TActual> & {[K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn>};
+    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
 
     // when have called expect.extend
-    type ExtendedExpect<T extends ExpectExtendMap>=
-        ExpectProperties &
-        {[K in NonAsyncMatchers<T>]: CustomAsymmetricMatcher<T[K]>}&
-        {
-            not: Expect["not"]&{[K in NonAsyncMatchers<T>]: CustomAsymmetricMatcher<T[K]>}
-        }&
+    type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(actual: TActual) => JestExtendedMatchers<TMatchers, TActual>;
 
-        (<U>(actual: U) =>
-            JestMatchers<U>&
-            {[K in keyof T]: CustomThrowingMatcher<T[K]>}&
-            {not: {[K in keyof T]: CustomThrowingMatcher<T[K]>}}&
-
-            {rejects: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>} & {not: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>}}}&
-            {resolves: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>} & {not: {[K in keyof T]: CustomResolveRejectMatcher<T[K]>}}}
-        );
+    type ExtendedExpect<TMatchers extends ExpectExtendMap>=
+    ExpectProperties &
+    AndNot<CustomAsyncMatchers<TMatchers>> &
+    ExtendedExpectFunction<TMatchers>;
+    /**
+     * Construct a type with the properties of T except for those in type K.
+     */
+    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+    type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, 'resolves' | 'rejects' | 'not'>;
+    type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
 
     interface Constructable {
         new (...args: any[]): any;
