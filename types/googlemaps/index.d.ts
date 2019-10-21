@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.38
+// Type definitions for Google Maps JavaScript API 3.39
 // Project: https://developers.google.com/maps/
 // Definitions by: Chris Wrench <https://github.com/cgwrench>,
 //                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>,
@@ -13,6 +13,7 @@
 //                 Dmitry Demensky <https://github.com/demensky>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Simon Haenisch <https://github.com/simonhaenisch>
+//                 Stephan Zharkov <https://github.com/sdzharkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.7
