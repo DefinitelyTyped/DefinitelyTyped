@@ -1,4 +1,4 @@
-// Type definitions for hapi-pino 6.2
+// Type definitions for hapi-pino 6.3
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Todd Bealmear <https://github.com/todd>
@@ -23,19 +23,24 @@ declare module '@hapi/hapi' {
 }
 
 declare namespace HapiPino {
+    interface Serializers {
+        [key: string]: pino.SerializerFn;
+    }
+
     interface Options {
         logPayload?: boolean;
         logRouteTags?: boolean;
+        logRequestStart?: boolean;
         stream?: NodeJS.WriteStream;
         prettyPrint?: boolean | pino.PrettyOptions;
         tags?: { [key in pino.Level]?: string };
         allTags?: pino.Level;
-        serializers?: { [key: string]: pino.SerializerFn };
+        serializers?: Serializers;
         getChildBindings?: (
             req: Request,
         ) => {
             level?: pino.Level | string;
-            serializers?: Options['serializers'];
+            serializers?: Serializers;
             [key: string]: any;
         };
         instance?: pino.Logger;

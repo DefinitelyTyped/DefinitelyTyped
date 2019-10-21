@@ -57,6 +57,7 @@ function example2() {
                 paths: ['test.property', 'another.property'],
                 remove: true,
             },
+            logRequestStart: true,
             prettyPrint: {
                 levelFirst: true,
                 colorize: true,
