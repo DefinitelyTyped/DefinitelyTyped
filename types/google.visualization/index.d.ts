@@ -41,7 +41,6 @@ declare namespace google {
         }
 
         //#region ChartWrapper
-
         // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
         export class ChartWrapper {
             constructor(spec?: ChartSpecs);
@@ -70,10 +69,25 @@ declare namespace google {
             setOptions(options: Object): void;
             setView(view_spec: string): void;
         }
-
         //#endregion
+        
+        //#region data
+        export class data {
+            static group(data: DataTable, keys: any[], columns: any[]): DataTable;
+            static group(data: DataView, keys: any[], columns: any[]): DataTable;
+            
+            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            
+            static sum(values: number[]): number;
+            static avg(values: number[]): number;
+            static min(values: number[]): number;
+            static max(values: number[]): number;
+            static count(values: number[]): number;
+        }
+        //#endregion
+        
         //#region DataTable
-
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
         export class DataTable {
             constructor(data?: any, version?: any);
