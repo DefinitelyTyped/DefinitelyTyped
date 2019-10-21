@@ -18,6 +18,9 @@ declare namespace google {
     // https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
 
+        export function dataTableToCsv(data: DataTable): string;
+        export function dataTableToCsv(data: DataView): string;
+        
         export interface ChartSpecs {
             chartType: string;
             container?: HTMLElement;
@@ -98,7 +101,7 @@ declare namespace google {
             getProperty(rowIndex: number, columnIndex: number, name: string): any;
             getProperties(rowIndex: number, columnIndex: number): Properties;
             getRowProperties(rowIndex: number): Properties;
-            getRowProperty(rowIndex: number, name: string): Properties;
+            getRowProperty(rowIndex: number, name: string): any;
             getSortedRows(sortColumn: number): number[];
             getSortedRows(sortColumn: SortByColumn): number[];
             getSortedRows(sortColumns: number[]): number[];
@@ -261,7 +264,7 @@ declare namespace google {
             getTableColumnIndex(viewColumnIndex: number): number;
             getTableRowIndex(viewRowIndex: number): number;
             getViewColumnIndex(tableColumnIndex: number): number;
-            getViewColumns(): number[];
+            getViewColumns(): any[];
             getViewRowIndex(tableRowIndex: number): number;
             getViewRows(): number[];
 
@@ -280,8 +283,8 @@ declare namespace google {
         }
 
         export interface ColumnSpec {
-            calc: (dataTable: DataTable, row: number) => any;
-            type: string;
+            calc?: (dataTable: DataTable, row: number) => any;
+            type?: string;
             label?: string;
             id?: string;
             sourceColumn?: number;
