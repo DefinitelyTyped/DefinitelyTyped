@@ -1,0 +1,8 @@
+# This package uses tabs
+[*]
+indent_style = tab
+
+# Tests use two spaces for indentation due to legacy reasons.
+[test/**]
+indent_size = 2
+indent_style = space

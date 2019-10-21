@@ -1,13 +1,16 @@
+// tslint:disable: semicolon only-arrow-functions space-before-function-paren no-var-keyword prefer-const
+
 import assert = require('assert')
-import fs = require('mz/fs')
 
 // Stub mocha functions
-const {describe, it, before, after, beforeEach, afterEach} = null as any as {
-  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+const { describe, it, before, after, beforeEach, afterEach } = (null as any) as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) &
+    ((cb: (done: any) => void) => void) & { only: any; skip: any };
 };
 
-describe('fs', function () {
+import fs = require('mz/fs')
 
+describe('fs', function () {
   it('.stat()', function (done) {
     fs.stat(__filename).then(function (stats) {
       assert.equal(typeof stats.size, 'number')
@@ -52,12 +55,13 @@ describe('fs', function () {
 })
 
 import cp = require('mz/child_process')
+
 describe('child_process', function () {
-
-
   it('.exec().then()', function (done) {
-    cp.exec('node --version').then(function (params) {
-      assert.equal(params[0].toString('utf8')[0], 'v')
+    cp.exec('node --version', {
+      encoding: String(Math.random() < 0.5 ? 'utf-8' : 'buffer')
+    }).then(function (params: [string | Buffer, string | Buffer]) {
+      assert.equal((params[0] as Buffer).toString('utf8')[0], 'v')
       done()
     })
   })
@@ -85,10 +89,9 @@ describe('child_process', function () {
   })
 })
 
-import * as crypto from "mz/crypto";
+import crypto = require('mz/crypto')
 
 describe('crypto', function () {
-
   it('.randomBytes().then()', function (done) {
     crypto.randomBytes(8).then(function (buf) {
       assert.equal(buf.length, 8)
@@ -111,12 +114,10 @@ import stream = require('stream')
 import readline = require('mz/readline')
 
 describe('readline', function () {
-
-
   it('.question().then()', function (done) {
     var input = new stream.PassThrough()
     var output = new stream.PassThrough()
-    var rl = readline.createInterface({ input: input, output: output })
+    var rl = readline.createInterface({ input, output })
 
     rl.question('a').then(function (answer) {
       assert.equal(answer, 'b')
@@ -128,7 +129,7 @@ describe('readline', function () {
   })
 
   it('completer support', function (done) {
-    function completer (line:string) {
+    function completer (line: string) {
       assert.equal(line, 'b')
       return Promise.resolve([['bTESTSTRING'], line])
     }
@@ -136,14 +137,14 @@ describe('readline', function () {
     var input = new stream.PassThrough()
     var output = new stream.PassThrough()
     var bufferedOutput = ''
-    var rl = readline.createInterface( input, output, completer as readline.Completer, true )
+    var rl = readline.createInterface(input, output, completer as readline.Completer, true)
 
     rl.question('a').then(function (answer: string) {
       assert.equal(answer, 'bTESTSTRING')
       done()
     })
 
-    function onOutputData (data: Buffer | String) {
+    function onOutputData (data: Buffer | string) {
       bufferedOutput += data.toString()
 
       if (bufferedOutput.match(/TESTSTRING/)) {
@@ -160,7 +161,7 @@ describe('readline', function () {
     it('.question()', function (done) {
       var input = new stream.PassThrough()
       var output = new stream.PassThrough()
-      var rl = readline.createInterface({ input: input, output: output })
+      var rl = readline.createInterface({ input, output })
 
       rl.question('a', function (answer) {
         assert.equal(answer, 'b')
@@ -197,7 +198,7 @@ describe('readline', function () {
 
       var input = new stream.PassThrough()
       var output = new stream.PassThrough()
-      var rl = readline.createInterface(input, output, completer as readline.Completer, true )
+      var rl = readline.createInterface(input, output, completer as readline.Completer, true)
 
       rl.question('a').then(function (answer) {
         assert.ok(output.read().toString().match(/TESTSTRING/))
@@ -212,7 +213,6 @@ describe('readline', function () {
 import zlib = require('mz/zlib')
 
 describe('zlib', function () {
-
   it('.gzip().then().gunzip()', function (done) {
     var buf = new Buffer("lol", 'utf-8');
     zlib.gzip(buf).then(function (res) {
