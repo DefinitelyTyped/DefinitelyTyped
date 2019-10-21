@@ -43,4 +43,8 @@ export interface Context {
 		log: (message: string, ...vars: any[]) => void,
 		error: (message: string, ...vars: any[]) => void,
 	};
+	/** Environment variables. */
+	env: {
+		[key: string]: string;
+	};
 }
