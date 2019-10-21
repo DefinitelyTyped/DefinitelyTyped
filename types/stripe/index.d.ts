@@ -2803,7 +2803,7 @@ declare namespace Stripe {
                  * Value of the tax ID.
                  */
                 value: string;
-            };
+            }[];
 
             /**
              * @deprecated
