@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "html-webpack-tags-plugin-tests.ts"
+        "html-webpack-plugin-tests.ts"
     ]
 }
