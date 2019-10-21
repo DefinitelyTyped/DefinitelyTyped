@@ -299,6 +299,9 @@ async function testPromisify() {
 }
 
 (async () => {
-    await fs.promises.rmdir('/path/to/dir');
-    await fs.promises.rmdir('/path/to/dir', { recursive: true });
+    try {
+        await fs.promises.rmdir('some/test/path');
+        await fs.promises.rmdir('some/test/path', { recursive: true });
+    }
+    catch (e) {}
 })();
