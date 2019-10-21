@@ -49,7 +49,14 @@ interface AuthorizeOptions {
      *
      */
     state?: string;
+    scope_data?: AuthorizeScopeData;
 }
+
+type AuthorizeScopeData = {
+    [scope in AuthorizationScopeOptions]?: {
+        essential: boolean;
+    }
+};
 
 /**
  *
