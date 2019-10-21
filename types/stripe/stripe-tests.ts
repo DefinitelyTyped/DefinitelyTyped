@@ -453,7 +453,7 @@ stripe.customers.create(
     },
     (err, customer) => {
         // asynchronously called
-    }
+    },
 );
 stripe.customers
     .create({
