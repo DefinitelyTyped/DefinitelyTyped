@@ -654,6 +654,11 @@ declare namespace google {
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
             series?: any;
+            domainAxis?: { type: string };
+            trendlines?: any;
+            pointShape?: any;
+            intervals?: { style: string };
+            interval?: any;
             theme?: string;
             title?: string;
             titlePosition?: string;
