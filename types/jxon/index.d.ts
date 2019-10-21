@@ -1,8 +1,12 @@
 // Type definitions for jxon 2.0
 // Project: https://www.npmjs.com/package/jxon
-// Definitions by: Definitions by: Max Uetrecht <https://github.com/phenomax>
+// Definitions by: Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
+//                                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+export type FunctionType = (arg: any) => {};
+export type VerbosityType = 0 | 1 | 2 | 3;
 
 export interface ConfigOptions {
     attrKey?: string;
@@ -15,34 +19,31 @@ export interface ConfigOptions {
     valueKey?: string;
 }
 
+export function config(cfg: ConfigOptions): void;
+
+export function stringToJs(str: string): object;
+
+export function jsToString(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+export function stringify(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+
+export function xmlToJs(
+    xmlDocument: any,
+    verbosity?: VerbosityType,
+    freeze?: boolean,
+    nestedAttributes?: boolean
+): object;
 export function build(
-    xMLParent: object,
-    nverbosity?: number,
+    xMLParent: any,
+    verbosity?: VerbosityType,
     freeze?: boolean,
     nesteAttributes?: boolean
 ): object;
 
-export type FunctionType = (arg: any) => {};
-
-export function config(cfg: ConfigOptions): void;
-
-export function each(arr: any, func: FunctionType, thisArg: any): void;
-
-export function jsToString(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
-
 export function jsToXml(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): any;
-
-export function stringToJs(str: string): object;
+export function unbuild(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): any;
 
 export function stringToXml(xmlStr: string): any;
 
-export function stringify(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+export function xmlToString(xmlObj: any): string;
 
-export function unbuild(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): object;
-
-export function xmlToJs(
-    xmlDocument: any,
-    verbosity?: number,
-    freeze?: boolean,
-    nestedAttributes?: boolean
-): object;
+export function each(obj: any, func: FunctionType, thisArg: any): void;
