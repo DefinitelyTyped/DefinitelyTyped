@@ -1,5 +1,5 @@
 // Type definitions for storybook-addon-jsx 7.0
-// Project: https://github.com/storybooks/addon-jsx
+// Project: https://github.com/storybookjs/addon-jsx
 // Definitions by: James Newell <https://github.com/jameslnewell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
