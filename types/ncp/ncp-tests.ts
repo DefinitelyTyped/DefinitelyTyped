@@ -13,13 +13,15 @@ const errs = Buffer.alloc(4096);
 const opts$StreamErr = (opts = { errs });
 opts = { filter: /abc/ };
 opts = { filter: (filename: string) => true };
-opts = { transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: ncp.File) => {
-	file; // $ExpectType File
-	file.name; // $ExpectType string
-	file.mode; // $ExpectType number
-	file.atime; // $ExpectType Date
-	file.mtime; // $ExpectType Date
-}};
+opts = {
+	transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: ncp.File) => {
+		file; // $ExpectType File
+		file.name; // $ExpectType string
+		file.mode; // $ExpectType number
+		file.atime; // $ExpectType Date
+		file.mtime; // $ExpectType Date
+	},
+};
 opts = { clobber: false };
 opts = { dereference: false };
 opts = { stopOnErr: false };

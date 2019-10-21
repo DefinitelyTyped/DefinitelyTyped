@@ -14,7 +14,7 @@ declare namespace ncp {
 		mode: number;
 
 		/** Accessed time */
-        atime: Date;
+		atime: Date;
 
 		/** Modified time */
 		mtime: Date;
