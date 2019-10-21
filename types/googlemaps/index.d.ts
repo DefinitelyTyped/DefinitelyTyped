@@ -1656,6 +1656,7 @@ declare namespace google.maps {
 
     /***** Services *****/
     class Geocoder {
+        constructor();
         geocode(request: GeocoderRequest, callback: (results: GeocoderResult[], status: GeocoderStatus) => void): void;
     }
 
