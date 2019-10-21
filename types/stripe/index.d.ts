@@ -8365,7 +8365,7 @@ declare namespace Stripe {
              * The tax rates that will apply to the subscription.
              */
 
-            default_tax_rates?: Array<string>
+            default_tax_rates?: string[];
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
