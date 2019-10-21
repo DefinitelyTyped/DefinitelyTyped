@@ -77,6 +77,14 @@ export namespace Options {
          * Default value: '/'
          */
         vhost?: string;
+       /**
+        * Set the connection name for use in the management UI.
+        *
+        * Default value: '?'
+        */
+        client_properties?: {
+            connection_name?: string;
+        }
     }
 
     interface AssertQueue {
