@@ -1324,11 +1324,8 @@ export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: S
  */
 export function watch(
 	filename: PathLike,
-	options:
-		| { encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean }
-		| BufferEncoding
-		| undefined
-		| null,
+	// prettier-ignore
+	options: { encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } | BufferEncoding | undefined | null,
 	listener?: (event: string, filename: string) => void
 ): FSWatcher;
 

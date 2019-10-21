@@ -2,7 +2,6 @@
 // Project: https://github.com/normalize/mz
 // Definitions by: Thomas Hickman <https://github.com/ThomasHickman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 // Modified from the node.js definitions.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts
