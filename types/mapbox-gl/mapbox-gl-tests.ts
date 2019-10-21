@@ -225,10 +225,11 @@ map.flyTo({
 });
 
 // QueryRenderedFeatures
-map.queryRenderedFeatures(
+const features = map.queryRenderedFeatures(
 	[0, 0],
 	{ layers: ['custom' ], validate: false }
-);  // $ExpectType mapboxgl.MapboxGeoJSONFeature[]
+);
+features // $ExpectType MapboxGeoJSONFeature[]
 
 /**
  * GeoJSONSource
@@ -663,9 +664,9 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 new mapboxgl.MercatorCoordinate(0, 0);
 new mapboxgl.MercatorCoordinate(0, 0, 0);
 mercatorcoordinate.toAltitude();  // $ExpectType number
-mercatorcoordinate.toLngLat();  // $ExpectType mapboxgl.LngLat
-mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike);  // $ExpectType mapboxgl.MercatorCoordinate
-mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0); // $ExpectType mapboxgl.MercatorCoordinate
+mercatorcoordinate.toLngLat();  // $ExpectType LngLat
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike);  // $ExpectType MercatorCoordinate
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0); // $ExpectType MercatorCoordinate
 mercatorcoordinate.meterInMercatorCoordinateUnits();  // $ExpectType number
 
 /*
