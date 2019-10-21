@@ -54,3 +54,4 @@ yarn.lock
 
 # pnpm
 shrinkwrap.yaml
+pnpm-lock.yaml

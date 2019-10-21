@@ -5384,6 +5384,12 @@ declare namespace Stripe {
              * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success. [Expandable]
              */
             destination: string | bankAccounts.IBankAccount | cards.ICardHash | accounts.IAccountCreationOptions;
+
+            /**
+             * The amount that will be transferred automatically when a charge succeeds. The amount is capped at the total transaction amount and if no amount is set, the full amount is transferred.
+             * If you intend to collect a fee and you need a more robust reporting experience, using application_fee_amount might be a better fit for your integration.
+             */
+            amount?: number;
         }
 
         interface IPaymentIntentNextActionRedirectToUrl {
@@ -5455,6 +5461,11 @@ declare namespace Stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
+
+            /**
+             * The parameters used to automatically create a Transfer when the payment succeeds.
+             */
+            transfer_data?: IPaymentIntentTransferData;
         }
 
         interface IPaymentIntentUpdateOptions {
@@ -5530,6 +5541,17 @@ declare namespace Stripe {
              * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
              */
             statement_descriptor_suffix?: string;
+
+            /**
+             * The parameters used to automatically create a Transfer when the payment succeeds.
+             */
+            transfer_data?: {
+                /**
+                 * The amount that will be transferred automatically when a charge succeeds. The amount is capped at the total transaction amount and if no amount is set, the full amount is transferred.
+                 * If you intend to collect a fee and you need a more robust reporting experience, using application_fee_amount might be a better fit for your integration.
+                 */
+                amount?: number;
+            };
 
             /**
              * A string that identifies the resulting payment as part of a group.

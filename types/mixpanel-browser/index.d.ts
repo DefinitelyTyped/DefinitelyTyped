@@ -9,6 +9,8 @@ export type Persistence = 'cookie' | 'localStorage';
 
 export type PushItem = Array<string | Dict>;
 
+export type Query = string | Element | Element[];
+
 export interface Dict {[key: string]: any; }
 
 export interface XhrHeadersDef {[header: string]: any; }
@@ -123,7 +125,7 @@ export function reset(): void;
 export function set_config(config: Partial<Config>): void;
 export function time_event(event_name: string): void;
 export function track(event_name: string, properties?: Dict, callback?: () => void): void;
-export function track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-export function track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;
 export const people: People;

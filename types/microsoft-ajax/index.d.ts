@@ -627,7 +627,7 @@ declare namespace Sys {
 
         //#region Constructors
 
-        constructor(): void;
+        new(): void;
 
         //#endregion
 
@@ -2505,8 +2505,7 @@ declare namespace Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb383800(v=vs.100).aspx}
         */
         class ProfileService {
-
-            new(): ProfileService;
+            constructor();
 
             //#region Fields
 
@@ -2525,24 +2524,29 @@ declare namespace Sys {
             //#region Methods
 
             /**
-            * Loads the specified profile properties.
-            *
-            * If propertyNames is not supplied, all profile properties enabled for read access are loaded from the server.
-            * The loaded profile can then be accessed directly from the properties field.
-            * This enables your application to access the profile properties by using simple field syntax, as shown in the following example:
-            * @example
-            *      Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
-            *
-            * @param propertyName
-            *      A string array that contains the profile properties to load.
-            * @param loadCompletedCallback
-            *      The function that is called when loading has completed. The default is null.
-            * @param failedCallback
-            *      The function that is called when loading has failed. The default is null.
-            * @param userContext
-            *      User context information passed to the callback functions.
-            */
-            static load(propertyNames: string[], loadCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+             * Loads the specified profile properties.
+             *
+             * If propertyNames is not supplied, all profile properties enabled for read access are loaded from the server.
+             * The loaded profile can then be accessed directly from the properties field.
+             * This enables your application to access the profile properties by using simple field syntax, as shown in the following example:
+             * @example
+             *      Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
+             *
+             * @param propertyName
+             *      A string array that contains the profile properties to load.
+             * @param loadCompletedCallback
+             *      The function that is called when loading has completed. The default is null.
+             * @param failedCallback
+             *      The function that is called when loading has failed. The default is null.
+             * @param userContext
+             *      User context information passed to the callback functions.
+             */
+            static load(
+                propertyNames: string[],
+                loadCompletedCallback: Function,
+                failedCallback: Function,
+                userContext: any,
+            ): void;
             /**
              * @param propertyNames
              *          A string array that contains the profile properties to save.
@@ -2553,7 +2557,12 @@ declare namespace Sys {
              * @param userContext
              *      User context information passed to the callback functions.
              */
-            static save(propertyNames: string[], saveCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+            static save(
+                propertyNames: string[],
+                saveCompletedCallback: Function,
+                failedCallback: Function,
+                userContext: any,
+            ): void;
 
             //#endregion
 

@@ -182,3 +182,8 @@ const pos1: CodeMirror.Position = CodeMirror.changeEnd({
     origin: "test",
 });
 const column: number = CodeMirror.countColumn("test", 0, 0);
+
+let stringStream = new CodeMirror.StringStream("var myEditor;");
+
+// Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
+myCodeMirror.getCursor();

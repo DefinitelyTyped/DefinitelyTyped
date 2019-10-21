@@ -52,8 +52,8 @@ declare namespace gapi.drive.realtime {
 		// use the permissionId property.
 		userId : string;
 
-		new (sessionId:string, userId:string, displayName:string, color:string, isMe:boolean, isAnonymous:boolean,
-		     photoUrl:string, permissionId:string) : Collaborator;
+		constructor (sessionId:string, userId:string, displayName:string, color:string, isMe:boolean, isAnonymous:boolean,
+		     photoUrl:string, permissionId:string);
 	}
 
 	// Complete

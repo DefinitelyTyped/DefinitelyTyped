@@ -259,7 +259,7 @@ export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: 
 export function memoize(fn: Function, hasher?: Function): Function;
 export function unmemoize(fn: Function): Function;
 export function ensureAsync(fn: (... argsAndCallback: any[]) => void): Function;
-export function constant(...values: any[]): Function;
+export function constant(...values: any[]): AsyncFunction<any>;
 export function asyncify(fn: Function): (...args: any[]) => any;
 export function wrapSync(fn: Function): Function;
 export function log(fn: Function, ...args: any[]): void;
