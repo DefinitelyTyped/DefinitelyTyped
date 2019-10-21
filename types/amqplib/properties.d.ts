@@ -82,7 +82,7 @@ export namespace Options {
         *
         * Default value: '?'
         */
-        client_properties?: {
+        clientProperties?: {
             connection_name?: string;
         }
     }
