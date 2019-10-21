@@ -73,17 +73,18 @@ declare namespace google {
         
         //#region data
         export class data {
+            // https://developers.google.com/chart/interactive/docs/reference#group
             static group(data: DataTable, keys: any[], columns: any[]): DataTable;
             static group(data: DataView, keys: any[], columns: any[]): DataTable;
-            
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
             
             static sum(values: number[]): number;
             static avg(values: number[]): number;
             static min(values: number[]): number;
             static max(values: number[]): number;
             static count(values: number[]): number;
+            
+            // https://developers.google.com/chart/interactive/docs/reference#join
+            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
         }
         //#endregion
         
