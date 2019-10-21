@@ -15,7 +15,24 @@ export interface GlobalConfig {
 	repositoryUrl: string;
 	/** The Git tag format used by semantic-release to identify releases. */
 	tagFormat: string;
+	/** Specifies the list of plugins to use. Plugins will run in series, in
+	 * the order specified.
+	 * 
+	 * If this option is not specified, then semantic-release will use a
+	 * default list of plugins.
+	 * 
+	 * Configuration options for each plugin can be defined by wrapping the
+	 * name and an options object in an array. */
+	plugins: ReadonlyArray<PluginSpec>;
 }
+
+/** Specifies a plugin to use.
+ * 
+ * The plugin is specified by its module name.
+ * 
+ * To pass options to a plugin, specify an array containing the plugin module
+ * name and an options object. */
+export type PluginSpec = string | [string, any];
 
 export interface LastRelease {
 	/** The version name of the release */

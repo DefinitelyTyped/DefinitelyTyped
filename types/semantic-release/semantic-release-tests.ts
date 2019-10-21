@@ -11,6 +11,22 @@ function publish(pluginConfig: any, context: lib.Context) {
     context.logger.log(`New version ${version}`);
 }
 
+const config: lib.GlobalConfig = {
+    branch: "master",
+    repositoryUrl: "https://github.com/semantic-release/semantic-release.git",
+    // Lint check disabled for the following line because this is the actual
+    // format used by semantic-release. This is not a broken template string.
+    tagFormat: "v${version}", // tslint:disable-line: no-invalid-template-strings
+    plugins: ["@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/npm",
+        "@semantic-release/github",
+        ["@qiwi/semantic-release-gh-pages-plugin", {
+            msg: "updated",
+            branch: "docs"
+        }]]
+};
+
 const context = {
     nextRelease: {
         version: '1.0.0',
