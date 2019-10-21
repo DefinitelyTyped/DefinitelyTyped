@@ -23,21 +23,21 @@ export function config(cfg: ConfigOptions): void;
 
 export function stringToJs(str: string): object;
 
-export function jsToString(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+export function jsToString(
+    objTree: object,
+    namespaceURI?: string,
+    qualifiedName?: string,
+    documentType?: object,
+): string;
 export function stringify(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
 
 export function xmlToJs(
     xmlDocument: any,
     verbosity?: VerbosityType,
     freeze?: boolean,
-    nestedAttributes?: boolean
+    nestedAttributes?: boolean,
 ): object;
-export function build(
-    xMLParent: any,
-    verbosity?: VerbosityType,
-    freeze?: boolean,
-    nesteAttributes?: boolean
-): object;
+export function build(xMLParent: any, verbosity?: VerbosityType, freeze?: boolean, nesteAttributes?: boolean): object;
 
 export function jsToXml(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): any;
 export function unbuild(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): any;

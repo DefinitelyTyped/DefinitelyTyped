@@ -5,9 +5,9 @@ import { DOMParser } from 'xmldom';
 const defaultConfig = {
     valueKey: 'keyValue',
     attrPrefix: '_',
-    parseValues: true
+    parseValues: true,
 };
-const xmlString = "<root></root>";
+const xmlString = '<root></root>';
 const parser = new DOMParser();
 const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
 
@@ -31,4 +31,4 @@ JXON.unbuild({}, '', '', {});
 
 JXON.xmlToString(xmlDoc);
 
-JXON.each({}, (arg) => arg, '');
+JXON.each({}, arg => arg, '');
