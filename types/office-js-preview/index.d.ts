@@ -20976,6 +20976,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
+         * 
+         * **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20990,6 +20992,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
+         * 
+         * **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
