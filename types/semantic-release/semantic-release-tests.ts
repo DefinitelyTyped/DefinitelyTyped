@@ -65,4 +65,54 @@ const config: lib.Config = {
     stderr: process.stderr
 };
 
-semanticRelease(options, config);
+const result: Promise<lib.Result> = semanticRelease(options, config);
+
+const result2: lib.Result = {
+    lastRelease: {
+        version: "1.1.0",
+        gitTag: "v1.1.0",
+        gitHead: "ce5e4bb0624ffaf1deec298b6c79962efec7dd3b"
+    },
+    commits: [{
+        commit: {
+            long: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+            short: "a018aff"
+        },
+        tree: {
+            long: "c8d47c8f9026337f780299eddcd6bbf69aec5db6",
+            short: "c8d47c8"
+        },
+        author: {
+            name: "Lillian Devold",
+            email: "lillian.devold@example.org",
+            short: "2019-10-22"
+        },
+        committer: {
+            name: "Lillian Devold",
+            email: "lillian.devold@example.org",
+            short: "2019-10-22"
+        },
+        subject: "fix: encode text to HTML",
+        body: "This closes a potential script injection vector.",
+        message: "fix: encode text to HTML\n\nThis closes a potential script injection vector.",
+        hash: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+        committerDate: "2019-10-22"
+    }],
+    nextRelease: {
+        type: "minor",
+        version: "1.2.0",
+        gitTag: "v1.2.0",
+        gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+        notes: ""
+    },
+    releases: [{
+        name: "example-lib",
+        url: "https://www.npmjs.com/package/example-lib",
+        type: "minor",
+        version: "1.2.0",
+        gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+        gitTag: "v1.2.0",
+        notes: "",
+        pluginName: "@semantic"
+    }]
+};
