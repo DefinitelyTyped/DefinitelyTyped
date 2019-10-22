@@ -1,4 +1,5 @@
 import * as lib from 'semantic-release';
+import semanticRelease = require('semantic-release');
 
 function verify(pluginConfig: any, context: lib.Context) {
     if (!("AWS_ACCESS_KEY_ID" in context.env)) {
@@ -11,7 +12,7 @@ function publish(pluginConfig: any, context: lib.Context) {
     context.logger.log(`New version ${version}`);
 }
 
-const config: lib.GlobalConfig = {
+const options: lib.GlobalConfig = {
     branch: "master",
     repositoryUrl: "https://github.com/semantic-release/semantic-release.git",
     // Lint check disabled for the following line because this is the actual
@@ -35,8 +36,9 @@ const config: lib.GlobalConfig = {
     ]
 };
 
-const context = {
+const context: lib.Context = {
     nextRelease: {
+        type: "major",
         version: '1.0.0',
         gitTag: '1.0.0',
         gitHead: 'f1eed296d2ffe184fb15f52b1c5ad778f5c87645',
@@ -51,3 +53,16 @@ const context = {
 };
 verify({}, context);
 publish({}, context);
+
+const config: lib.Config = {
+    cwd: "/home/example/code/semantic-release",
+    env: {
+        AWS_ACCESS_KEY_ID: "12345",
+        SHELL: "/bin/bash",
+        PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    },
+    stdout: process.stdout,
+    stderr: process.stderr
+};
+
+semanticRelease(options, config);
