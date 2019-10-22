@@ -280,6 +280,7 @@ export interface Layout {
 	bargap: number;
 	bargroupgap: number;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
+	hiddenlabels: string[];
 }
 
 export interface Legend extends Label {
