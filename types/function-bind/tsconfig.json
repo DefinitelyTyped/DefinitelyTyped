@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["esnext"],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"function-bind-tests.ts",
+		"implementation.d.ts",
+		"index.d.ts"
+	]
+}
