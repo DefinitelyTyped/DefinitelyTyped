@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.7
+// Type definitions for Recharts 1.8
 // Project: http://recharts.org/, https://github.com/recharts/recharts
 // Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
@@ -15,6 +15,7 @@
 //                 Dave Vedder <https://github.com/veddermatic>
 //                 Konstantin Azizov <https://github.com/g07cha>
 //                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
+//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 Eliot Ball <https://github.com/eliotball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -836,6 +837,8 @@ export interface Coordinate {
     y: number;
 }
 
+export type AllowEscapeViewBox = { x: boolean } | { y: boolean } | { x: boolean, y: boolean };
+
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
@@ -850,6 +853,7 @@ export interface TooltipPayload {
 export interface TooltipProps extends Animatable {
     content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
+    allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
     separator?: string;
     formatter?: TooltipFormatter;
