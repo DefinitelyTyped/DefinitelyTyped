@@ -24,6 +24,7 @@ declare namespace HtmlValidator {
         ignore?: string | string[];
         isLocal?: boolean;
         isFragment?: boolean;
+        headers?: Record<string, string>;
     }
 
     interface OptionsForHtmlFileAsValidationTarget extends BasicOptions {
