@@ -27,11 +27,10 @@ store(); // $ExpectType [stateType, associatedActionsType]
 store((state: stateType) => state.value); // $ExpectType [string, associatedActionsType]
 store<string>((state: stateType) => state.value); // $ExpectType [string, associatedActionsType]
 
-// works when using action filter, however if no state filter is set, will return unknown for state
-store(undefined, (action: associatedActionsType) => action.setValue); // $ExpectType [unknown, setFunc]
-// The above can be mitigated by adding a state filter, or passing the expected types
-store((state) => state, (action: associatedActionsType) => action.setValue); // $ExpectType [stateType, setFunc]
-store<stateType, setFunc>(undefined, (action: associatedActionsType) => action.setValue); // $ExpectType [stateType, setFunc]
+// works without passing expected type when using only action filter
+store(undefined, (action: associatedActionsType) => action.setValue); // $ExpectType [stateType, setFunc]
+// returns expected type if passed types
+store<setFunc>(undefined, (action: associatedActionsType) => action.setValue); // $ExpectType [stateType, setFunc]
 
 // works without passing expected type when using both state and action filters
 store((state: stateType) => state.value, (actions: associatedActionsType) => actions.setValue); // $ExpectType [string, setFunc]

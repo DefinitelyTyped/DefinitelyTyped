@@ -29,7 +29,7 @@ type UseGlobal<S, A> = (() => [S, A]) &
   (<NS>(stateFunc: (state: S) => NS) => [NS, A]) &
   (<NS, NA>(stateFunc: (state: S) => NS, actionsFunc: (state: A) => NA) => [NS, NA]) &
   // tslint:disable-next-line no-unnecessary-generics
-  (<NS, NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [NS, NA]);
+  (<NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [S, NA]);
 
 export default function useStore<S, A>(
   React: ReactInterface,
