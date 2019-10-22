@@ -2,6 +2,7 @@
 // Project: https://github.com/manuelmhtr/countries-and-timezones#readme
 // Definitions by: David Bird <https://github.com/zero51>
 //                 Piotr Okoński <https://github.com/pokonski>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Country {
@@ -22,7 +23,7 @@ export interface Timezone {
 
 export function getCountry(id: string): Country;
 export function getTimezone(name: string): Timezone;
-export function getAllCountries(): Country[];
-export function getAllTimezones(): Timezone[];
+export function getAllCountries(): { [id: string]: Country };
+export function getAllTimezones(): { [name: string]: Timezone };
 export function getCountryForTimezone(name: string): Country;
 export function getTimezonesForCountry(id: string): Timezone[];
