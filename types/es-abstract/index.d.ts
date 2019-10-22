@@ -1,6 +1,7 @@
 // Type definitions for es-abstract 1.16
 // Project: https://github.com/ljharb/es-abstract#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
