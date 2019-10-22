@@ -535,7 +535,7 @@ declare namespace Chai {
         isBelow(valueToCheck: number, valueToBeBelow: number, message?: string): void;
 
         /**
-         * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtMost.
+         * Asserts valueToCheck is less than or equal to (<=) valueToBeAtMost.
          *
          * @param valueToCheck   Actual value.
          * @param valueToBeAtMost   Minimum Potential expected value.
