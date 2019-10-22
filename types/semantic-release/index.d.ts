@@ -7,8 +7,6 @@
  * The semantic release configuration itself.
  */
 export interface GlobalConfig {
-	/** The full prepare step configuration. */
-	prepare?: any;
 	/** The branch on which releases should happen. */
 	branch: string;
 	/** The Git repository URL, in any supported format. */
@@ -29,6 +27,8 @@ export interface GlobalConfig {
 	/** Set to false to skip Continuous Integration environment verifications.
 	 * This allows for making releases from a local machine. */
 	ci?: boolean;
+	/** Any other options supported by plugins. */
+	[name: string]: any;
 }
 
 /** Specifies a plugin to use.

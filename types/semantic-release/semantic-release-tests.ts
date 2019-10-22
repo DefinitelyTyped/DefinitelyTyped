@@ -26,7 +26,13 @@ const config: lib.GlobalConfig = {
             branch: "docs"
         }]],
     dryRun: false,
-    ci: true
+    ci: true,
+    // Example of extended options supported by plugins.
+    assets: [
+        {
+            path: "app.zip"
+        }
+    ]
 };
 
 const context = {
