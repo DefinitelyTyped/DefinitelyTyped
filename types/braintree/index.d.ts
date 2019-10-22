@@ -1185,7 +1185,7 @@ declare namespace braintree {
             email?: string;
             fax?: string;
             firstName?: string;
-            id: string;
+            id?: string;
             lastName?: string;
             phone?: string;
             website?: string;
