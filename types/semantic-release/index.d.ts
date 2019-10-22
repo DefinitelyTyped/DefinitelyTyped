@@ -14,13 +14,56 @@ declare namespace SemanticRelease {
 	 * Each option will take precedence over options configured in the
 	 * configuration file and shareable configurations.
 	 */
-	type Options = Partial<GlobalConfig>;
+	interface Options {
+		/**
+		 * The branch on which releases should happen.
+		 */
+		branch?: string;
+
+		/**
+		 * The Git repository URL, in any supported format.
+		 */
+		repositoryUrl?: string;
+
+		/**
+		 * The Git tag format used by semantic-release to identify releases.
+		 */
+		tagFormat?: string;
+
+		/**
+		 * Specifies the list of plugins to use. Plugins will run in series, in
+		 * the order specified.
+		 *
+		 * If this option is not specified, then semantic-release will use a
+		 * default list of plugins.
+		 *
+		 * Configuration options for each plugin can be defined by wrapping the
+		 * name and an options object in an array.
+		 */
+		plugins?: ReadonlyArray<PluginSpec>;
+
+		/**
+		 * Dry-run mode, skip publishing, print next version and release notes.
+		 */
+		dryRun?: boolean;
+
+		/**
+		 * Set to false to skip Continuous Integration environment verifications.
+		 * This allows for making releases from a local machine.
+		 */
+		ci?: boolean;
+
+		/**
+		 * Any other options supported by plugins.
+		 */
+		[name: string]: any;
+	}
 
 	/**
 	 * semantic-release options, after normalization and defaults have been
 	 * applied.
 	 */
-	interface GlobalConfig {
+	interface GlobalConfig extends Options {
 		/**
 		 * The branch on which releases should happen.
 		 */
@@ -47,22 +90,6 @@ declare namespace SemanticRelease {
 		 * name and an options object in an array.
 		 */
 		plugins: ReadonlyArray<PluginSpec>;
-
-		/**
-		 * Dry-run mode, skip publishing, print next version and release notes.
-		 */
-		dryRun?: boolean;
-
-		/**
-		 * Set to false to skip Continuous Integration environment verifications.
-		 * This allows for making releases from a local machine.
-		 */
-		ci?: boolean;
-
-		/**
-		 * Any other options supported by plugins.
-		 */
-		[name: string]: any;
 	}
 
 	/**
