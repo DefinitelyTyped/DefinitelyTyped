@@ -1306,6 +1306,49 @@ stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', 'http://localhost:3000'
     const created: number = loginLink.created;
     const url: string = loginLink.url;
 });
+
+//#endregion
+
+//#region Connect Account Person tests
+// ##################################################################################
+
+stripe.accounts.createPerson('acct_17wV8KBoqMA9o2xk', {
+    email: 'test@example.com',
+    relationship: {
+        executive: true
+    }
+}).then((person) => {
+    const email: string = person.email;
+});
+stripe.accounts.updatePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37', {
+    first_name: 'John',
+    last_name: 'Doe',
+    phone: '15551234567',
+}).then((person) => {
+    const first_name: string = person.first_name;
+    const last_name: string = person.last_name;
+});
+
+stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
+    const email: string = person.email;
+});
+
+stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
+    const email: string = person.email;
+});
+
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }, { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then((persons) => {
+    const email: string = persons.data[0].email;
+});
 //#endregion
 
 //#region Application Fee Refunds tests
