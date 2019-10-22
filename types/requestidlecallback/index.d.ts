@@ -5,6 +5,7 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>,
 //                 Teramoto Daiki <https://github.com/teramotodaiki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference lib="dom" />
 
