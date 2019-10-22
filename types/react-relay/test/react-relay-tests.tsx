@@ -2,22 +2,30 @@
 // tslint:disable:use-default-type-parameter
 
 import * as React from 'react';
-import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
+import {
+    Environment,
+    Network,
+    RecordSource,
+    Store,
+    ConnectionHandler,
+    _FragmentRefs,
+    FragmentRefs,
+} from 'relay-runtime';
 
 import {
-  commitMutation,
-  createFragmentContainer,
-  createPaginationContainer,
-  createRefetchContainer,
-  FragmentOrRegularProp,
-  graphql,
-  QueryRenderer,
-  ReactRelayContext,
-  readInlineData,
-  RelayPaginationProp,
-  RelayProp,
-  RelayRefetchProp,
-  requestSubscription,
+    commitMutation,
+    createFragmentContainer,
+    createPaginationContainer,
+    createRefetchContainer,
+    FragmentRef,
+    graphql,
+    QueryRenderer,
+    ReactRelayContext,
+    readInlineData,
+    RelayPaginationProp,
+    RelayProp,
+    RelayRefetchProp,
+    requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -100,13 +108,11 @@ const MyEmptyQueryRenderer = () => (
 type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _Story_story$ref: unique symbol;
-type Story_story$ref = typeof _Story_story$ref;
 type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
-    readonly ' $refType': Story_story$ref;
+    readonly ' $refType': 'Story_story';
 };
 
 const Story = (() => {
@@ -138,7 +144,7 @@ const Story = (() => {
                 error => {
                     this.setState({ isLoading: false });
                 },
-                { force: true }
+                { force: true },
             );
         }
 
@@ -171,25 +177,25 @@ const Story = (() => {
                     ...Story_story
                 }
             }
-        `
+        `,
     );
 
     function requiresTheRightProps() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} />;
     }
 
     function requiresTheCorrectFragmentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         // $ExpectError
         <StoryRefetchContainer story={feed} onLike={onLike} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         const relayProp: RelayRefetchProp = {} as any;
         // $ExpectError
         <StoryRefetchContainer story={story} onLike={onLike} relay={relayProp} />;
@@ -222,7 +228,7 @@ const Story = (() => {
 
     function canTakeComponentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
     }
 
@@ -234,23 +240,19 @@ const Story = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _FeedStories_feed$ref: unique symbol;
-type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
-declare const _FeedStory_edges$ref: unique symbol;
-type FeedStory_edges$ref = typeof _FeedStory_edges$ref;
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly ' $fragmentRefs': Story_story$ref & FeedStories_feed$ref;
+            readonly ' $fragmentRefs': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
         };
-        readonly ' $fragmentRefs': FeedStory_edges$ref;
+        readonly ' $fragmentRefs': FragmentRefs<'FeedStory_edges'>;
     }>;
-    readonly ' $refType': FeedStories_feed$ref;
+    readonly ' $refType': 'FeedStories_feed';
 };
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
-    readonly ' $refType': FeedStory_edges$ref;
+    readonly ' $refType': 'FeedStory_edges';
 }>;
 
 const Feed = (() => {
@@ -304,20 +306,20 @@ const Feed = (() => {
 
     function requiresTheRightProps() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
     }
 
     function requiresTheCorrectFragmentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         // $ExpectError
         <FeedFragmentContainer feed={story} onStoryLike={onStoryLike} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         const relayProp: RelayProp = {} as any;
         // $ExpectError
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
@@ -343,7 +345,7 @@ const Feed = (() => {
 
     function canTakeComponentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
     }
 
@@ -355,17 +357,15 @@ const Feed = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _UserFeed_user$ref: unique symbol;
-type UserFeed_user$ref = typeof _UserFeed_user$ref;
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
             readonly endCursor?: string | null;
             readonly hasNextPage: boolean;
         };
-        readonly ' $fragmentRefs': FeedStories_feed$ref;
+        readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
     };
-    readonly ' $refType': UserFeed_user$ref;
+    readonly ' $refType': 'UserFeed_user';
 };
 () => {
     interface Props {
@@ -395,7 +395,7 @@ type UserFeed_user = {
                 10, // Fetch the next 10 feed items
                 e => {
                     console.log(e);
-                }
+                },
             );
         }
     }
@@ -447,22 +447,22 @@ type UserFeed_user = {
                     }
                 }
             `,
-        }
+        },
     );
 
     function requiresTheRightProps() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
 
     function requiresTheCorrectFragmentRef() {
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         // $ExpectError
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={story} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         const relayProp: RelayPaginationProp = {} as any;
         // $ExpectError
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} relay={relayProp} />;
@@ -494,7 +494,7 @@ type UserFeed_user = {
     }
 
     function canTakeComponentRef() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
     }
 };
@@ -609,13 +609,12 @@ const storyFragment = graphql`
     }
 `;
 
-function functionWithInline(
-    storyRef: FragmentOrRegularProp<Story_story>,
-): Story_story {
+function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
     return readInlineData<Story_story>(storyFragment, storyRef);
 }
 
-functionWithInline({ ' $fragmentRefs': _Story_story$ref });
+const inlineData: _FragmentRefs<'Story_story'> = {} as any;
+functionWithInline(inlineData).isPublished;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
@@ -647,16 +646,16 @@ requestSubscription(
             const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
             const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
+            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
             const edge = ConnectionHandler.createEdge(
                 store,
                 notifications!,
                 notification!,
-                '<TypeOfNotificationsEdge>'
+                '<TypeOfNotificationsEdge>',
             );
             ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
-    }
+    },
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~

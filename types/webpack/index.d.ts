@@ -17,6 +17,7 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Grgur Grisogono <https://github.com/grgur>
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
+//                 Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -153,7 +154,7 @@ declare namespace webpack {
         /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
         auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
-        filename?: string;
+        filename?: string | ((chunkData: ChunkData) => string);
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
         /** Number of milliseconds before chunk request expires, defaults to 120,000. */
@@ -233,6 +234,10 @@ declare namespace webpack {
     type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
+
+    interface ChunkData {
+        chunk: compilation.Chunk;
+    }
 
     interface Module {
         /** A array of applied pre loaders. */
@@ -693,6 +698,26 @@ declare namespace webpack {
         }
     }
 
+    /**
+     * @see https://webpack.js.org/api/logging/
+     * @since 4.39.0
+     */
+    interface Logger {
+        error(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        group(...label: any[]): void;
+        groupEnd(): void;
+        groupCollapsed(...label: any[]): void;
+        status(message?: any, ...optionalParams: any[]): void;
+        clear(): void;
+        profile(label?: string): void;
+        profileEnd(label?: string): void;
+    }
+
     namespace debug {
         interface ProfilingPluginOptions {
             /** A relative path to a custom output file (json) */
@@ -713,6 +738,7 @@ declare namespace webpack {
             constructor(options?: ProfilingPluginOptions);
         }
     }
+
     namespace compilation {
         class Asset {
         }
@@ -1020,6 +1046,7 @@ declare namespace webpack {
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
             applyPlugins(name: string, ...args: any[]): void;
+            getLogger(pluginName: string): Logger;
         }
 
         interface CompilerHooks {
@@ -1137,6 +1164,7 @@ declare namespace webpack {
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
+        getInfrastructureLogger(name: string): Logger;
     }
 
     namespace Compiler {
@@ -1400,14 +1428,14 @@ declare namespace webpack {
                 childrenByOrder: Record<string, number[]>;
                 entry: boolean;
                 files: string[];
-                filteredModules?: boolean;
-                hash: string | undefined;
+                filteredModules?: number;
+                hash?: string;
                 id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
                 origins?: Array<{
-                    moduleId: string | number | undefined;
+                    moduleId?: string | number;
                     module: string;
                     moduleIdentifier: string;
                     moduleName: string;
@@ -1416,8 +1444,8 @@ declare namespace webpack {
                     reasons: string[];
                 }>;
                 parents: number[];
-                reason: string | undefined;
-                recorded: undefined;
+                reason?: string;
+                recorded?: boolean;
                 rendered: boolean;
                 size: number;
                 siblings: number[];

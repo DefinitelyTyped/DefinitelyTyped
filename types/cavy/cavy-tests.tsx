@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-import { hook, TestScope, WithTestHook, Tester, useCavy } from 'cavy';
+import { hook, TestScope, WithTestHook, Tester, TestHookStore, useCavy, TestReport } from 'cavy';
 
 type Props = WithTestHook<{
   foo: string;
@@ -50,11 +50,23 @@ function sampleSpec(spec: TestScope) {
       spec.pause(1000); // $ExpectType Promise<void>
       spec.exists('View.Sample'); // $ExpectType Promise<true>
       spec.notExists('View.MissingSample'); // $ExpectType Promise<true>
+      spec.containsText('Input.Sample', "hello"); // $ExpectType Promise<void>
     });
   });
 }
 
-<Tester specs={[sampleSpec]} waitTime={42}>
+function sampleReporter(_report: TestReport) {}
+
+const testHookStore = new TestHookStore();
+
+<Tester
+  specs={[sampleSpec]}
+  store={testHookStore}
+  waitTime={42}
+  startDelay={42}
+  clearAsyncStorage={true}
+  reporter={sampleReporter}
+>
   <HookedSampleComponent foo="test" />
   <SampleFunctionComponent/>
 </Tester>;

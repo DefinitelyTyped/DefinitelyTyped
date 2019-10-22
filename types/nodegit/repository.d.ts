@@ -47,6 +47,7 @@ export class Repository {
     static wrapOdb(odb: Odb): Promise<Repository>;
 
     cleanup(): void;
+    commondir(): string;
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
     detachHead(): number;
