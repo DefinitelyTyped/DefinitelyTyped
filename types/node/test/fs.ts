@@ -297,3 +297,10 @@ async function testPromisify() {
     });
     const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
 }
+
+(async () => {
+    try {
+        await fs.promises.rmdir('some/test/path');
+        await fs.promises.rmdir('some/test/path', { recursive: true });
+    } catch (e) {}
+})();
