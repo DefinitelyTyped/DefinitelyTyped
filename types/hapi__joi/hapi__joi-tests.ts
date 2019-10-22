@@ -110,6 +110,7 @@ uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
 uriOpts = { scheme: strArr };
 uriOpts = { scheme: expArr };
+uriOpts = { domain: domainOpts };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
