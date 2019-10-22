@@ -6753,6 +6753,14 @@ declare namespace echarts {
                     0?: {
 
                         /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markLine.data.0.name
+                         */
+                        name?: string;
+
+                        /**
                          * X position according to container, in pixel.
                          *
                          *
@@ -7269,6 +7277,14 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markLine.data.1
                      */
                     1?: {
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markLine.data.1.name
+                         */
+                        name?: string;
 
                         /**
                          * X position according to container, in pixel.
@@ -9669,6 +9685,14 @@ declare namespace echarts {
                     0?: {
 
                         /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markArea.data.0.name
+                         */
+                        name?: string;
+
+                        /**
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
@@ -11488,6 +11512,14 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markArea.data.1
                      */
                     1?: {
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-funnel.markArea.data.1.name
+                         */
+                        name?: string;
 
                         /**
                          * x value on screen coordinate system, can be pixel
