@@ -314,7 +314,31 @@ stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] })
 
 //#region Checkout with connect tests
 // ##################################################################################
-// With destination
+// Direct charges
+stripe.checkout.sessions.create(
+    {
+        payment_method_types: ['card'],
+        line_items: [{
+            name: "Cucumber from Roger's Farm",
+            amount: 200,
+            currency: 'usd',
+            quantity: 10,
+        }],
+        payment_intent_data: {
+            application_fee_amount: 200,
+        },
+        success_url: 'https://example.com/success',
+        cancel_url: 'https://example.com/cancel',
+    },
+    {
+        stripe_account: '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
+    },
+    (err, session) => {
+        // asynchronously called
+    }
+);
+
+// Destination charges with destination
 stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
@@ -340,7 +364,7 @@ stripe.checkout.sessions.create(
     },
 );
 
-// With on_behalf_of
+// Destination charges with on_behalf_of
 stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
@@ -367,6 +391,26 @@ stripe.checkout.sessions.create(
     },
 );
 
+// Subscriptions
+stripe.checkout.sessions.create(
+    {
+        payment_method_types: ['card'],
+        subscription_data: {
+            items: [{
+                plan: 'plan_123',
+            }],
+            application_fee_percent: 10,
+        },
+        success_url: 'https://example.com/success',
+        cancel_url: 'https://example.com/cancel',
+    },
+    {
+        stripe_account: '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
+    },
+    (err, session) => {
+        // asynchronously called
+    }
+);
 //#endregion
 
 //#region CreditNotes tests
