@@ -2793,7 +2793,7 @@ declare namespace Stripe {
             /**
              * The customer’s tax IDs.
              */
-            tax_id_data?: {
+            tax_id_data?: Array<{
                 /**
                  * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, or nz_gst.
                  */
@@ -2803,7 +2803,7 @@ declare namespace Stripe {
                  * Value of the tax ID.
                  */
                 value: string;
-            };
+            }>;
 
             /**
              * @deprecated
@@ -8360,6 +8360,12 @@ declare namespace Stripe {
              * Using this flag requires contacting Stripe support in order to have the account whitelisted.
              */
             pay_immediately?: boolean;
+
+            /**
+             * The tax rates that will apply to the subscription.
+             */
+
+            default_tax_rates?: string[];
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
