@@ -9,7 +9,6 @@
 
 import * as AWS from "aws-sdk";
 
-
 declare namespace MulterS3 {
     interface File {
         /** Field name specified in the form */
@@ -32,7 +31,7 @@ declare namespace MulterS3 {
         buffer: Buffer;
     }
 
-    export interface Options<R> {
+    interface Options<R> {
         s3: AWS.S3;
         bucket: ((req: R, file: File, callback: (error: any, bucket?: string) => void) => void) | string;
         key?(req: R, file: File, callback: (error: any, key?: string) => void): void;
@@ -43,14 +42,16 @@ declare namespace MulterS3 {
         serverSideEncryption?: ((req: R, file: File, callback: (error: any, serverSideEncryption?: string) => void) => void) | string;
     }
 
-    export interface S3Storage {
-        <E,R>(options?: Options<R>): E;
-
+    interface S3Storage {
+        // tslint:disable-next-line:no-unnecessary-generics
+        <E, R>(options?: Options<R>): E;
         AUTO_CONTENT_TYPE<R>(
+            // tslint:disable-next-line:no-unnecessary-generics
             req: R,
             file: File,
             callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
         DEFAULT_CONTENT_TYPE<R>(
+            // tslint:disable-next-line:no-unnecessary-generics
             req: R,
             file: File,
             callback: (error: any, mime?: string) => void): void;
