@@ -59,8 +59,7 @@ export class Strategy implements Strategy {
   name: string;
   authenticate: (req: Request, options?: object) => void;
 
-  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequestAndParams);
-  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest | VerifyFunctionWithRequestAndParams);
   constructor(options: StrategyOptions, verify: VerifyFunction);
   constructor(verify: VerifyFunction);
 }
