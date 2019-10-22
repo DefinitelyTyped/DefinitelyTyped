@@ -11,9 +11,6 @@ export interface BBox {
     maxY: number;
 }
 
-// Suppress lint errors of the following form:
-// "The types for rbush specify 'export default' but the source does not mention 'default' anywhere."
-// tslint:disable-next-line:npm-naming
 export default class RBush<T> {
     /**
      * Constructs an `RBush`, a high-performance 2D spatial index for points and
