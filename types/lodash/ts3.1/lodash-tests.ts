@@ -3553,6 +3553,8 @@ fp.now(); // $ExpectType number
     _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
     fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
 
+    _.negate(() => 'foo'); // $ExpectError
+
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType FunctionChain<(a1: number, a2: number) => boolean>

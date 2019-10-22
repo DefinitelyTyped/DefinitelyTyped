@@ -5,6 +5,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Weyert de Boer <https://github.com/weyert>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Daniel Afonso <https://github.com/danieljcafonso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -16,7 +17,7 @@ export * from '@testing-library/dom';
 export type RenderResult<Q extends Queries = typeof queries> = {
     container: HTMLElement;
     baseElement: HTMLElement;
-    debug: (baseElement?: HTMLElement | DocumentFragment) => void;
+    debug: (baseElement?: HTMLElement | DocumentFragment | Array<HTMLElement | DocumentFragment>) => void;
     rerender: (ui: React.ReactElement) => void;
     unmount: () => boolean;
     asFragment: () => DocumentFragment;

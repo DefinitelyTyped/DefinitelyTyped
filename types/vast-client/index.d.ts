@@ -298,7 +298,7 @@ export interface VastResponse {
 
 export interface VastError {
     /**
-     * Whenever an error occurs during the VAST parsing, the parser will call on his own all related tracking error URLs. Reported errors are:
+     * Whenever an error occurs during the VAST parsing, the parser will call on its own all related tracking error URLs. Reported errors are:
      *      no_ad: The VAST document is empty
      *      VAST error 101: VAST schema validation error.
      *      VAST error 301: Timeout of VAST URI provided in Wrapper element.
@@ -328,7 +328,7 @@ export interface VastCreativeLinear extends VastCreative {
     skipDelay: number | null;
     videoClickThroughURLTemplate: string | null;
     videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTempaltes: string[];
+    videoCustomClickURLTemplates: string[];
 }
 
 export interface VastCreativeNonLinear extends VastCreative {

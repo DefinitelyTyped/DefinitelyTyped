@@ -5,7 +5,7 @@ const app = express();
 
 app.use(session({
   secret: 'keyboard cat',
-  cookie: { secure: 'auto' }
+  cookie: { secure: true }
 }));
 app.use(session({
   secret: 'keyboard cat',

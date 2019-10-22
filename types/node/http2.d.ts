@@ -277,12 +277,12 @@ declare module "http2" {
         destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
         readonly encrypted?: boolean;
-        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView | NodeJS.TypedArray): void;
+        goaway(code?: number, lastStreamID?: number, opaqueData?: NodeJS.ArrayBufferView): void;
         readonly localSettings: Settings;
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
         ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
-        ping(payload: Buffer | DataView | NodeJS.TypedArray , callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(payload: NodeJS.ArrayBufferView, callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
         readonly remoteSettings: Settings;
         setTimeout(msecs: number, callback?: () => void): void;

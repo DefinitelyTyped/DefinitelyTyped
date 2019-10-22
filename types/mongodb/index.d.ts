@@ -25,8 +25,9 @@
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
+//                 Alberto Silva <https://github.com/albertossilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
@@ -34,8 +35,8 @@
 
 import { Binary, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
-import { Readable, Writable } from "stream";
-import { checkServerIdentity } from "tls";
+import { Readable, Writable } from 'stream';
+import { checkServerIdentity } from 'tls';
 
 // This line can be removed after minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -415,7 +416,7 @@ export class ReadPreference {
         /**
          * Max Secondary Read Stalleness in Seconds
          */
-        maxStalenessSeconds?: number
+        maxStalenessSeconds?: number;
     };
     static PRIMARY: string;
     static PRIMARY_PREFERRED: string;
@@ -859,10 +860,11 @@ type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
 
 type ExtractIdType<TSchema> =
     TSchema extends { _id: infer U } // user has defined a type for _id
-    ? ({} extends U ? Exclude<U, {}> : U) // Exclude is used here to fix typescript 2 bug when TSchema is "any"
+    ? {} extends U ? Exclude<U, {}> :
+      unknown extends U ? ObjectId : U
     : ObjectId; // user has not defined _id on schema
 
-// this adds _id as required property
+// this adds _id as a required property
 type WithId<TSchema> =
     Omit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 
@@ -1073,46 +1075,169 @@ export interface Collection<TSchema = Default> {
     save(doc: TSchema, options: CommonOptions, callback: MongoCallback<WriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#stats */
     stats(callback: MongoCallback<CollStats>): void;
-    stats(options?: { scale: number, session?: ClientSession }): Promise<CollStats>;
-    stats(options: { scale: number, session?: ClientSession }, callback: MongoCallback<CollStats>): void;
+    stats(options?: { scale: number; session?: ClientSession }): Promise<CollStats>;
+    stats(options: { scale: number; session?: ClientSession }, callback: MongoCallback<CollStats>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#update */
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<WriteOpResult>): void;
+    update(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        callback: MongoCallback<WriteOpResult>,
+    ): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
+    update(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options?: UpdateOneOptions & { multi?: boolean },
+    ): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
+    update(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options: UpdateOneOptions & { multi?: boolean },
+        callback: MongoCallback<WriteOpResult>,
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateManyOptions): Promise<UpdateWriteOpResult>;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateManyOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        callback: MongoCallback<UpdateWriteOpResult>,
+    ): void;
+    updateMany(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options?: UpdateManyOptions,
+    ): Promise<UpdateWriteOpResult>;
+    updateMany(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options: UpdateManyOptions,
+        callback: MongoCallback<UpdateWriteOpResult>,
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateOneOptions): Promise<UpdateWriteOpResult>;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        callback: MongoCallback<UpdateWriteOpResult>,
+    ): void;
+    updateOne(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options?: UpdateOneOptions,
+    ): Promise<UpdateWriteOpResult>;
+    updateOne(
+        filter: FilterQuery<TSchema>,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
+        options: UpdateOneOptions,
+        callback: MongoCallback<UpdateWriteOpResult>,
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
+    watch(
+        pipeline?: object[],
+        options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp; session?: ClientSession },
+    ): ChangeStream;
 }
 
+/** Update Query */
+type KeysOfAType<TSchema, Type> = { [key in keyof TSchema]: TSchema[key] extends Type ? key : never }[keyof TSchema];
+type KeysOfOtherType<TSchema, Type> = {
+    [key in keyof TSchema]: TSchema[key] extends Type ? never : key;
+}[keyof TSchema];
+
+type AcceptedFields<TSchema, FieldType, AssignableType> = {
+    readonly [key in KeysOfAType<TSchema, FieldType>]?: AssignableType;
+};
+
+/** It avoid uses fields of non Type */
+type NotAcceptedFields<TSchema, FieldType> = {
+    readonly [key in KeysOfOtherType<TSchema, FieldType>]?: never;
+};
+
+type DotAndArrayNotation<AssignableType> = {
+    readonly [key: string]: AssignableType;
+};
+
+type ReadonlyPartial<TSchema> = {
+    readonly [key in keyof TSchema]?: TSchema[key];
+};
+
+export type OnlyFieldsOfType<TSchema, FieldType = any, AssignableType = FieldType> = AcceptedFields<
+    TSchema,
+    FieldType,
+    AssignableType
+> &
+    NotAcceptedFields<TSchema, FieldType> &
+    DotAndArrayNotation<AssignableType>;
+
+export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArrayNotation<any>;
+
+type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
+
+export type SortValues = -1 | 1;
+
+export type AddToSetOperators<Type> = {
+    $each: Type;
+};
+
+export type ArrayOperator<Type> = {
+    $each: Type;
+    $slice?: number;
+    $position?: number;
+    $sort?: SortValues | Record<string, SortValues>;
+};
+
+export type SetFields<TSchema> = ({
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
+} &
+    NotAcceptedFields<TSchema, any[]>) & {
+    readonly [key: string]: AddToSetOperators<any> | any;
+};
+
+export type PushOperator<TSchema> = ({
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | ArrayOperator<TSchema[key]>;
+} &
+    NotAcceptedFields<TSchema, any[]>) & {
+    readonly [key: string]: ArrayOperator<any> | any;
+};
+
+export type PullOperator<TSchema> = ({
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | QuerySelector<Unpacked<TSchema[key]>>;
+} &
+    NotAcceptedFields<TSchema, any[]>) & {
+    readonly [key: string]: QuerySelector<any> | any;
+};
+
+export type PullAllOperator<TSchema> = ({
+    readonly [key in KeysOfAType<TSchema, any[]>]?: TSchema[key];
+} &
+    NotAcceptedFields<TSchema, any[]>) & {
+    readonly [key: string]: any[];
+};
 
 /** https://docs.mongodb.com/manual/reference/operator/update */
-export type UpdateQuery<T> = {
-    $inc?: { [P in keyof T]?: number } | { [key: string]: number };
-    $min?: { [P in keyof T]?: number } | { [key: string]: number };
-    $max?: { [P in keyof T]?: number } | { [key: string]: number };
-    $mul?: { [P in keyof T]?: number } | { [key: string]: number };
-    $set?: Partial<T> | { [key: string]: any };
-    $setOnInsert?: Partial<T> | { [key: string]: any };
-    $unset?: { [P in keyof T]?: '' } | { [key: string]: '' };
-    $rename?: { [key: string]: keyof T } | { [key: string]: string };
-    $currentDate?: { [P in keyof T]?: (true | { $type: 'date' | 'timestamp' }) } | { [key: string]: (true | { $type: 'date' | 'timestamp' }) };
-    $addToSet?: { [P in keyof T]?: any } | { [key: string]: any };
-    $pop?: { [P in keyof T]?: -1 | 1 } | { [key: string]: -1 | 1 };
-    $pull?: { [P in keyof T]?: any } | { [key: string]: any };
-    $push?: Partial<T> | { [key: string]: any };
-    $pushAll?: Partial<T> | { [key: string]: any[] };
-    $each?: Partial<T> | { [key: string]: any[] };
-    $bit?: { [P in keyof T]?: any } | { [key: string]: any };
+export type UpdateQuery<TSchema> = {
+    /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
+    $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
+    $inc?: OnlyFieldsOfType<TSchema, number>;
+    $min?: MatchKeysAndValues<TSchema>;
+    $max?: MatchKeysAndValues<TSchema>;
+    $mul?: OnlyFieldsOfType<TSchema, number>;
+    $rename?: { [key: string]: string };
+    $set?: MatchKeysAndValues<TSchema>;
+    $setOnInsert?: MatchKeysAndValues<TSchema>;
+    $unset?: OnlyFieldsOfType<TSchema, any, ''>;
+
+    /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
+    $addToSet?: SetFields<TSchema>;
+    $pop?: OnlyFieldsOfType<TSchema, any[], 1 | -1>;
+    $pull?: PullOperator<TSchema>;
+    $push?: PushOperator<TSchema>;
+    $pullAll?: PullAllOperator<TSchema>;
+
+    /** https://docs.mongodb.com/manual/reference/operator/update-bitwise/ */
+    $bit?: {
+        [key: string]: { [key in 'and' | 'or' | 'xor']?: number };
+    };
 };
 
 /** https://docs.mongodb.com/manual/reference/operator/query/type/#available-types */
@@ -1233,10 +1358,12 @@ export type RootQuerySelector<T> = {
     [key: string]: any;
 };
 
-export type FilterQuery<T> = {
-  [P in keyof T]?: MongoAltQuery<T[P]> | QuerySelector<MongoAltQuery<T[P]>>;
-} & RootQuerySelector<T>;
+export type Condition<T> = MongoAltQuery<T> | QuerySelector<MongoAltQuery<T>>;
 
+export type FilterQuery<T> = {
+    [P in keyof T]?: Condition<T[P]>;
+} &
+    RootQuerySelector<T>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {
@@ -1310,7 +1437,7 @@ export interface CollStats {
 
 export interface WiredTigerData {
     LSM: {
-        'bloom filter false positives': number,
+        'bloom filter false positives': number;
         'bloom filter hits': number;
         'bloom filter misses': number;
         'bloom filter pages evicted from cache': number;
@@ -1478,7 +1605,6 @@ export interface CollectionAggregationOptions {
     collation?: CollationDocument;
     comment?: string;
     session?: ClientSession;
-
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertMany */
@@ -1613,7 +1739,7 @@ export interface GeoHaystackSearchOptions {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Code.html */
 export class Code {
-    constructor(code: string | Function, scope?: object)
+    constructor(code: string | Function, scope?: object);
     code: string | Function;
     scope: any;
 }
@@ -1744,7 +1870,7 @@ export interface InsertWriteOpResult<TSchema extends Record<string, any>> {
     ops: TSchema[];
     insertedIds: { [key: number]: TSchema['_id'] };
     connection: any;
-    result: { ok: number, n: number };
+    result: { ok: number; n: number };
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
@@ -1765,7 +1891,7 @@ export interface InsertOneWriteOpResult<TSchema extends Record<string, any>> {
     ops: TSchema[];
     insertedId: TSchema['_id'];
     connection: any;
-    result: { ok: number, n: number };
+    result: { ok: number; n: number };
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#parallelCollectionScan */
@@ -1796,7 +1922,7 @@ export interface UpdateManyOptions extends CommonOptions {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~updateWriteOpResult */
 export interface UpdateWriteOpResult {
-    result: { ok: number, n: number, nModified: number };
+    result: { ok: number; n: number; nModified: number };
     connection: any;
     matchedCount: number;
     modifiedCount: number;
@@ -1843,7 +1969,6 @@ type Default = any;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html */
 export class Cursor<T = Default> extends Readable {
-
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
@@ -2252,7 +2377,6 @@ export interface CollationDocument {
     maxVariable?: string;
     backwards?: boolean;
     normalization?: boolean;
-
 }
 
 /** https://docs.mongodb.com/manual/reference/command/createIndexes/ */

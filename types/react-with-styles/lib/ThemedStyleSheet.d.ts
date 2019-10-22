@@ -1,7 +1,7 @@
-interface ThemedStyleSheet {
+declare const ThemedStyleSheet: {
   registerTheme: (theme: any) => void;
   registerInterface: (registerInterface: any) => void;
-  create: (makeFromTheme: any, createWithDirection: any) => any;
+  create: (makeFromTheme: any) => any;
   createLTR: (makeFromTheme: any) => any;
   createRTL: (makeFromTheme: any) => any;
   get: () => any;
@@ -9,6 +9,7 @@ interface ThemedStyleSheet {
   resolveLTR: () => any;
   resolveRTL: () => any;
   flush: () => void;
-}
+};
 
+export type ThemedStyleSheet = typeof ThemedStyleSheet;
 export default ThemedStyleSheet;
