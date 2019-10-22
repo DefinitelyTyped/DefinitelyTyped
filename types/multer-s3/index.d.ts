@@ -8,22 +8,18 @@
 // TypeScript Version: 2.6
 
 import * as AWS from "aws-sdk";
-import { IncomingMessage } from "http";
-import { StorageEngine } from "multer";
-import { StorageEngine as KoaStorageEngine } from "koa-multer";
 
-type MulterRequest = Express.Request | IncomingMessage;
 type MulterFile = Express.Multer.File;
 
-interface Options {
+interface Options<R> {
     s3: AWS.S3;
-    bucket: ((req: MulterRequest, file: MulterFile, callback: (error: any, bucket?: string) => void) => void) | string;
-    key?(req: MulterRequest, file: MulterFile, callback: (error: any, key?: string) => void): void;
-    acl?: ((req: MulterRequest, file: MulterFile, callback: (error: any, acl?: string) => void) => void) | string;
-    contentType?(req: MulterRequest, file: MulterFile, callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
-    metadata?(req: MulterRequest, file: MulterFile, callback: (error: any, metadata?: any) => void): void;
-    cacheControl?: ((req: MulterRequest, file: MulterFile, callback: (error: any, cacheControl?: string) => void) => void) | string;
-    serverSideEncryption?: ((req: MulterRequest, file: MulterFile, callback: (error: any, serverSideEncryption?: string) => void) => void) | string;
+    bucket: ((req: R, file: MulterFile, callback: (error: any, bucket?: string) => void) => void) | string;
+    key?(req: R, file: MulterFile, callback: (error: any, key?: string) => void): void;
+    acl?: ((req: R, file: MulterFile, callback: (error: any, acl?: string) => void) => void) | string;
+    contentType?(req: R, file: MulterFile, callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
+    metadata?(req: R, file: MulterFile, callback: (error: any, metadata?: any) => void): void;
+    cacheControl?: ((req: R, file: MulterFile, callback: (error: any, cacheControl?: string) => void) => void) | string;
+    serverSideEncryption?: ((req: R, file: MulterFile, callback: (error: any, serverSideEncryption?: string) => void) => void) | string;
 }
 
 declare global {
@@ -45,18 +41,17 @@ declare global {
     }
 }
 
-interface S3Storage {
-    (options?: Options): StorageEngine & KoaStorageEngine;
+interface S3Storage<E,R> {
+    (options?: Options<R>): E;
 
     AUTO_CONTENT_TYPE(
-        req: MulterRequest,
+        req: R,
         file: MulterFile,
         callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
     DEFAULT_CONTENT_TYPE(
-        req: MulterRequest,
+        req: R,
         file: MulterFile,
         callback: (error: any, mime?: string) => void): void;
 }
 
-declare const s3Storage: S3Storage;
-export = s3Storage;
+export = S3Storage;
