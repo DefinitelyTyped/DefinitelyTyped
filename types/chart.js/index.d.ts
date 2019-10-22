@@ -249,7 +249,7 @@ declare namespace Chart {
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
         scale?: RadialLinearScale;
-        scales?: ChartScales;
+        scales?: ChartScales | LinearScale | LogarithmicScale | TimeScale;
         showLines?: boolean;
         spanGaps?: boolean;
         cutoutPercentage?: number;
