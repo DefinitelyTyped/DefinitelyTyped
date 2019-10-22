@@ -28,7 +28,7 @@ declare namespace JQueryUI {
     }
 
     interface AccordionEvent {
-        (event: Event, ui: AccordionUIParams): void;
+        (event: JQuery.Event, ui: AccordionUIParams): void;
     }
 
     interface AccordionEvents {
@@ -68,7 +68,7 @@ declare namespace JQueryUI {
     }
 
     interface AutocompleteEvent {
-        (event: Event, ui: AutocompleteUIParams): void;
+        (event: JQuery.Event, ui: AutocompleteUIParams): void;
     }
 
     interface AutocompleteEvents {
@@ -418,7 +418,7 @@ declare namespace JQueryUI {
     }
 
     interface DialogEvent {
-        (event: Event, ui: DialogUIParams): void;
+        (event: JQuery.Event, ui: DialogUIParams): void;
     }
 
     interface DialogEvents {
@@ -448,7 +448,7 @@ declare namespace JQueryUI {
     }
 
     interface DraggableEvent {
-        (event: Event, ui: DraggableEventUIParams): void;
+        (event: JQuery.Event, ui: DraggableEventUIParams): void;
     }
 
     interface DraggableOptions extends DraggableEvents {
@@ -503,7 +503,7 @@ declare namespace JQueryUI {
     }
 
     interface DroppableEvent {
-        (event: Event, ui: DroppableEventUIParam): void;
+        (event: JQuery.Event, ui: DroppableEventUIParam): void;
     }
 
     interface DroppableOptions extends DroppableEvents {
@@ -544,7 +544,7 @@ declare namespace JQueryUI {
     }
 
     interface MenuEvent {
-        (event: Event, ui: MenuUIParams): void;
+        (event: JQuery.Event, ui: MenuUIParams): void;
     }
 
     interface MenuEvents {
@@ -570,7 +570,7 @@ declare namespace JQueryUI {
     }
 
     interface ProgressbarEvent {
-        (event: Event, ui: ProgressbarUIParams): void;
+        (event: JQuery.Event, ui: ProgressbarUIParams): void;
     }
 
     interface ProgressbarEvents {
@@ -618,7 +618,7 @@ declare namespace JQueryUI {
     }
 
     interface ResizableEvent {
-        (event: Event, ui: ResizableUIParams): void;
+        (event: JQuery.Event, ui: ResizableUIParams): void;
     }
 
     interface ResizableEvents {
@@ -645,12 +645,12 @@ declare namespace JQueryUI {
     }
 
     interface SelectableEvents {
-        selected? (event: Event, ui: { selected?: Element; }): void;
-        selecting? (event: Event, ui: { selecting?: Element; }): void;
-        start? (event: Event, ui: any): void;
-        stop? (event: Event, ui: any): void;
-        unselected? (event: Event, ui: { unselected: Element; }): void;
-        unselecting? (event: Event, ui: { unselecting: Element; }): void;
+        selected? (event: JQuery.Event, ui: { selected?: Element; }): void;
+        selecting? (event: JQuery.Event, ui: { selecting?: Element; }): void;
+        start? (event: JQuery.Event, ui: any): void;
+        stop? (event: JQuery.Event, ui: any): void;
+        unselected? (event: JQuery.Event, ui: { unselected: Element; }): void;
+        unselecting? (event: JQuery.Event, ui: { unselecting: Element; }): void;
     }
 
     interface Selectable extends Widget, SelectableOptions {
@@ -671,7 +671,7 @@ declare namespace JQueryUI {
     }
 
     interface SelectMenuEvent {
-        (event: Event, ui: SelectMenuUIParams): void;
+        (event: JQuery.Event, ui: SelectMenuUIParams): void;
     }
 
     interface SelectMenuEvents {
@@ -719,7 +719,7 @@ declare namespace JQueryUI {
     }
 
     interface SliderEvent {
-        (event: Event, ui: SliderUIParams): void;
+        (event: JQuery.Event, ui: SliderUIParams): void;
     }
 
     interface SliderEvents {
@@ -752,7 +752,7 @@ declare namespace JQueryUI {
         forceHelperSize?: boolean;
         forcePlaceholderSize?: boolean;
         grid?: number[];
-        helper?: string | ((event: Event, element: Sortable) => Element);
+        helper?: string | ((event: JQuery.Event, element: Sortable) => Element);
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number;
@@ -817,7 +817,7 @@ declare namespace JQueryUI {
     }
 
     interface SpinnerEvent<T> {
-        (event: Event, ui: T): void;
+        (event: JQuery.Event, ui: T): void;
     }
 
     interface SpinnerEvents {
@@ -876,7 +876,7 @@ declare namespace JQueryUI {
     }
 
     interface TabsEvent<UI> {
-        (event: Event, ui: UI): void;
+        (event: JQuery.Event, ui: UI): void;
     }
 
     interface TabsEvents {
@@ -908,7 +908,7 @@ declare namespace JQueryUI {
     }
 
     interface TooltipEvent {
-        (event: Event, ui: TooltipUIParams): void;
+        (event: JQuery.Event, ui: TooltipUIParams): void;
     }
 
     interface TooltipEvents {
