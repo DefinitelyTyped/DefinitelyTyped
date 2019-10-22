@@ -1,6 +1,7 @@
 // Type definitions for semantic-release 15.13
 // Project: https://github.com/semantic-release/semantic-release#readme
 // Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
