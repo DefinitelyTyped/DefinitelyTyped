@@ -11855,7 +11855,7 @@ declare namespace Office {
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
      * 
      * @beta
      */
@@ -11872,7 +11872,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
          * @param names - The names of the internet headers to be returned.
          * @param options - Optional. An object literal that contains one or more of the following properties:
@@ -11895,7 +11895,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
          * @param names - The names of the internet headers to be returned.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -15430,22 +15430,6 @@ declare namespace Office {
          */
         from: EmailAddressDetails;
         /**
-         * Gets or sets the custom internet headers of a message.
-         * 
-         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         * 
-         * @beta
-         */
-        internetHeaders: InternetHeaders;
-        /**
          * Gets the Internet message identifier for an email message.
          *
          * [Api set: Mailbox 1.0]
@@ -15754,6 +15738,28 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          */
         displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets all the internet headers for the message as a string.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         * 
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         *                On success, the internet headers data is provided in the asyncResult.value property as a string. 
+         *                Refer to {@link https://tools.ietf.org/html/rfc2183 | RFC 2183} for the formatting information of the returned string value. 
+         *                If the call fails, the asyncResult.error property will contain an error code with the reason for the failure.
+         *
+         * @beta
+         */
+        getAllInternetHeadersAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
