@@ -482,6 +482,9 @@ declare global {
             tspan: Mithril.Attributes;
             use: Mithril.Attributes;
             view: Mithril.Attributes;
+
+            // Special Mithril types
+            '[': Mithril.Attributes;
         }
     }
 }
