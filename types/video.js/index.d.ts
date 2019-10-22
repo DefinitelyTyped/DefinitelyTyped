@@ -139,7 +139,7 @@ declare namespace videojs {
 	 *
 	 * @return	The created players
 	 */
-	function getPlayers(): { [key: string]: Player };
+	function getPlayers(): {[key: string]: Player};
 
 	/**
 	 * Gets a plugin by name if it exists.
@@ -494,7 +494,7 @@ declare namespace videojs {
 		 *        If this track is the one that is currently playing. If this track is part of
 		 *        an {@link AudioTrackList}, only one {@link AudioTrack} will be enabled.
 		 */
-		new(options?: AudioTrackOptions): Track;
+		new (options?: AudioTrackOptions): Track;
 	};
 
 	/**
@@ -670,7 +670,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): BigPlayButton;
+		new (player: Player, options?: ComponentOptions): BigPlayButton;
 	};
 
 	interface Browser {
@@ -771,7 +771,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): Button;
+		new (player: Player, options?: ComponentOptions): Button;
 	};
 
 	/**
@@ -815,7 +815,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        The function to call when this function is ready.
 		 */
-		new(player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): CaptionsButton;
+		new (player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): CaptionsButton;
 	};
 
 	/**
@@ -941,7 +941,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        The function to call when this function is ready.
 		 */
-		new(player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): ChaptersButton;
+		new (player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): ChaptersButton;
 	};
 
 	/**
@@ -988,7 +988,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ChaptersTrackMenuItemOptions): ChaptersTrackMenuItem;
+		new (player: Player, options?: ChaptersTrackMenuItemOptions): ChaptersTrackMenuItem;
 	};
 
 	interface ChaptersTrackMenuItemOptions extends MenuItemOptions {
@@ -1139,7 +1139,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): ClickableComponent;
+		new (player: Player, options?: ComponentOptions): ClickableComponent;
 	};
 
 	/**
@@ -1184,7 +1184,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: CloseButtonOptions): CloseButton;
+		new (player: Player, options?: CloseButtonOptions): CloseButton;
 	};
 
 	interface CloseButtonOptions extends ComponentOptions {
@@ -1858,7 +1858,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        Function that gets called when the `Component` is ready.
 		 */
-		new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Component;
+		new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Component;
 
 		/**
 		 * Get a `Component` based on the name it was registered with.
@@ -1960,7 +1960,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ControlBarOptions): ControlBar;
+		new (player: Player, options?: ControlBarOptions): ControlBar;
 	};
 
 	interface ControlBarOptions extends ComponentOptions {
@@ -2051,7 +2051,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        Function that gets called when the `Component` is ready.
 		 */
-		new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): CustomControlSpacer;
+		new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): CustomControlSpacer;
 	};
 
 	/**
@@ -2175,7 +2175,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: ModalDialogOptions): ErrorDisplay;
+		new (player: Player, options?: ModalDialogOptions): ErrorDisplay;
 	};
 
 	interface Dom {
@@ -2808,7 +2808,7 @@ declare namespace videojs {
 	const EventTarget: {
 		prototype: EventTarget;
 
-		new(): EventTarget;
+		new (): EventTarget;
 	};
 
 	namespace EventTarget {
@@ -2880,7 +2880,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): FullscreenToggle;
+		new (player: Player, options?: ComponentOptions): FullscreenToggle;
 	};
 
 	/**
@@ -2904,7 +2904,7 @@ declare namespace videojs {
 		 * @param [tracks=[]]
 		 *        A list of `HtmlTrackElement` to instantiate the list with.
 		 */
-		new(tracks?: HTMLTrackElement[]): HTMLTrackElementList;
+		new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
 	};
 
 	interface LanguageTranslations {
@@ -3110,7 +3110,7 @@ declare namespace videojs {
 		 *        - `MediaError` (video.js): will return itself if it's already a
 		 *          video.js `MediaError` object.
 		 */
-		new(value: number | string | { [key: string]: any } | MediaError): MediaError;
+		new (value: number | string | { [key: string]: any } | MediaError): MediaError;
 
 		/**
 		 * The default `MediaError` messages based on the {@link MediaError.errorTypes}.
@@ -3236,7 +3236,7 @@ declare namespace videojs {
 		 *        Object of option names and values
 		 *
 		 */
-		new(player: Player, options?: MenuOptions): Menu;
+		new (player: Player, options?: MenuOptions): Menu;
 	};
 
 	interface MenuOptions extends ComponentOptions {
@@ -3407,7 +3407,7 @@ declare namespace videojs {
 		 * @param [options={}]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: MenuButtonOptions): MenuButton;
+		new (player: Player, options?: MenuButtonOptions): MenuButton;
 	};
 
 	interface MenuButtonOptions extends ComponentOptions {
@@ -3472,7 +3472,7 @@ declare namespace videojs {
 		 *        The key/value store of player options.
 		 *
 		 */
-		new(player: Player, options?: MenuItemOptions): MenuItem;
+		new (player: Player, options?: MenuItemOptions): MenuItem;
 	};
 
 	interface MenuItemOptions extends ComponentOptions {
@@ -3644,7 +3644,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ModalDialogOptions): ModalDialog;
+		new (player: Player, options?: ModalDialogOptions): ModalDialog;
 	};
 
 	/**
@@ -3722,7 +3722,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): MouseTimeDisplay
+		new (player: Player, options?: ComponentOptions): MouseTimeDisplay
 	};
 
 	enum ReadyState {
@@ -3858,7 +3858,7 @@ declare namespace videojs {
 		 * @param player
 		 *        A Video.js player instance.
 		 */
-		new(player: Player): Plugin;
+		new (player: Player): Plugin;
 
 		/**
 		 * De-register a Video.js plugin.
@@ -4031,7 +4031,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): ProgressControl;
+		new (player: Player, options?: ComponentOptions): ProgressControl;
 	};
 
 	interface Representation {
@@ -4168,7 +4168,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: SliderOptions): SeekBar;
+		new (player: Player, options?: SliderOptions): SeekBar;
 	};
 
 	/**
@@ -4327,7 +4327,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: SliderOptions): Slider;
+		new (player: Player, options?: SliderOptions): Slider;
 	};
 
 	interface SliderOptions extends ComponentOptions {
@@ -4377,7 +4377,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        Function that gets called when the `Component` is ready.
 		 */
-		new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Spacer;
+		new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Spacer;
 	};
 
 	interface Tech extends Component {
@@ -4797,7 +4797,7 @@ declare namespace videojs {
 		 * @param ready
 		 *        Callback function to call when the `HTML5` Tech is ready.
 		 */
-		new(options?: any, ready?: Component.ReadyCallback): Tech;
+		new (options?: any, ready?: Component.ReadyCallback): Tech;
 
 		/**
 		 * Check if the tech can support the given source
@@ -4919,7 +4919,7 @@ declare namespace videojs {
 		 * @param [options={}]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: TrackButtonOptions): TextTrackButton;
+		new (player: Player, options?: TrackButtonOptions): TextTrackButton;
 	};
 
 	/**
@@ -4960,7 +4960,7 @@ declare namespace videojs {
 		 * @param cues
 		 *        A list of cues to be initialized with
 		 */
-		new(cues: TextTrackCueList.TextTrackCue[]): TextTrackCueList;
+		new (cues: TextTrackCueList.TextTrackCue[]): TextTrackCueList;
 	};
 
 	namespace TextTrackCueList {
@@ -5043,7 +5043,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: TextTrackMenuItemOptions): TextTrackMenuItem;
+		new (player: Player, options?: TextTrackMenuItemOptions): TextTrackMenuItem;
 	};
 
 	interface TextTrackMenuItemOptions extends MenuItemOptions {
@@ -5135,7 +5135,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options: TextTrackSettingsOptions): TextTrackSettings
+		new (player: Player, options: TextTrackSettingsOptions): TextTrackSettings
 	};
 
 	interface TextTrackSettingsOptions extends ModalDialogOptions {
@@ -5253,7 +5253,7 @@ declare namespace videojs {
 		 * @param [options.default]
 		 *        If this track should default to on or off.
 		 */
-		new(options: TextTrackOptions): TextTrack;
+		new (options: TextTrackOptions): TextTrack;
 	};
 
 	interface TextTrackOptions extends TrackOptions {
@@ -5299,7 +5299,7 @@ declare namespace videojs {
 		 * @param tracks
 		 *        A list of tracks to initialize the list with.
 		 */
-		new(tracks?: TextTrack[]): TextTrackList;
+		new (tracks?: TextTrack[]): TextTrackList;
 	};
 
 	/**
@@ -5375,7 +5375,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): TimeDisplay;
+		new (player: Player, options?: ComponentOptions): TimeDisplay;
 	};
 
 	/**
@@ -5416,7 +5416,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: ComponentOptions): TimeToolTip;
+		new (player: Player, options?: ComponentOptions): TimeToolTip;
 	};
 
 	/**
@@ -5470,7 +5470,7 @@ declare namespace videojs {
 		 * @param [options.language='']
 		 *        A valid two character language code.
 		 */
-		new(options?: TrackOptions): Track;
+		new (options?: TrackOptions): Track;
 	};
 
 	interface TrackOptions {
@@ -5495,7 +5495,7 @@ declare namespace videojs {
 		 * @param [options]
 		 *         The key/value store of player options.
 		 */
-		new(player: Player, options?: TrackButtonOptions): MenuButton;
+		new (player: Player, options?: TrackButtonOptions): MenuButton;
 	};
 
 	interface TrackButtonOptions extends MenuButtonOptions {
@@ -5544,7 +5544,7 @@ declare namespace videojs {
 		 * @param tracks
 		 *        A list of tracks to initialize the list with.
 		 */
-		new(tracks?: Track[]): TrackList;
+		new (tracks?: Track[]): TrackList;
 	};
 
 	/**
@@ -5713,7 +5713,7 @@ declare namespace videojs {
 		 * @param [ready]
 		 *        Function that gets called when the `Component` is ready.
 		 */
-		new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): VolumeLevel;
+		new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): VolumeLevel;
 	};
 
 	/**
@@ -5741,7 +5741,7 @@ declare namespace videojs {
 		 * @param [options={}]
 		 *        The key/value store of player options.
 		 */
-		new(player: Player, options?: VolumePanel): VolumePanel;
+		new (player: Player, options?: VolumePanel): VolumePanel;
 	};
 
 	interface VolumePanelOptions extends ComponentOptions {
@@ -5827,300 +5827,6 @@ declare namespace videojs {
 	}
 }
 
-/**
- * An instance of the `Player` class is created when any of the Video.js setup methods
- * are used to initialize a video.
- *
- * After an instance has been created it can be accessed globally in two ways:
- * 1. By calling `videojs('example_video_1');`
- * 2. By using it directly via  `videojs.players.example_video_1;`
- */
-export interface VideoJsPlayer extends videojs.Component {
-	bigPlayButton: videojs.Button;
-
-	controlBar: videojs.ControlBar;
-
-	errorDisplay: videojs.ModalDialog;
-
-	loadingSpinner: videojs.Component;
-
-	options_: videojs.PlayerOptions;
-
-	userActivity_: boolean;
-
-	userActive_: boolean;
-
-	/**
-	 * A getter/setter for the `Player`'s aspect ratio.
-	 *
-	 * @param [ratio]
-	 *        The value to set the `Player's aspect ratio to.
-	 *
-	 * @return - The current aspect ratio of the `Player` when getting.
-	 *         - undefined when setting
-	 */
-	aspectRatio(ratio: string): void;
-
-	aspectRatio(): string;
-
-	/**
-	 * Get or set the autoplay option. When this is a boolean it will
-	 * modify the attribute on the tech. When this is a string the attribute on
-	 * the tech will be removed and `Player` will handle autoplay on loadstarts.
-	 *
-	 * @param [value]
-	 *        - true: autoplay using the browser behavior
-	 *        - false: do not autoplay
-	 *        - 'play': call play() on every loadstart
-	 *        - 'muted': call muted() then play() on every loadstart
-	 *        - 'any': call play() on every loadstart. if that fails call muted() then play().
-	 *        - *: values other than those listed here will be set `autoplay` to true
-	 *
-	 * @return The current value of autoplay when getting
-	 */
-	autoplay(value?: boolean | string): void;
-
-	autoplay(): boolean | string;
-
-	/**
-	 * Get the remote {@link TextTrackList}
-	 * @return The current remote text track list
-	 */
-	textTracks(): TextTrackList;
-
-	/**
-	 * Get the remote {@link TextTrackList}
-	 * @return The current remote text track list
-	 */
-	remoteTextTracks(): TextTrackList;
-
-	/**
-	 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
-	 * automatically removed from the video element whenever the source changes, unless
-	 * manualCleanup is set to false.
-	 *
-	 * @param options
-	 *        Options to pass to {@link HTMLTrackElement} during creation. See
-	 *        {@link HTMLTrackElement} for object properties that you should use.
-	 *
-	 * @param [manualCleanup=true] if set to false, the TextTrack will be
-	 *
-	 * @return the HTMLTrackElement that was created and added
-	 *         to the HtmlTrackElementList and the remote
-	 *         TextTrackList
-	 */
-	addRemoteTextTrack(options: videojs.TextTrackOptions, manualCleanup: boolean): HTMLTrackElement;
-
-	/**
-	 * A helper method for adding a {@link TextTrack} to our
-	 * {@link TextTrackList}.
-	 *
-	 * In addition to the W3C settings we allow adding additional info through options.
-	 *
-	 * @see http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack
-	 *
-	 * @param [kind]
-	 *        the kind of TextTrack you are adding
-	 *
-	 * @param [label]
-	 *        the label to give the TextTrack label
-	 *
-	 * @param [language]
-	 *        the language to set on the TextTrack
-	 *
-	 * @return the TextTrack that was added or undefined
-	 *         if there is no tech
-	 */
-	addTextTrack(kind?: string, label?: string, language?: string): void;
-
-	/**
-	 * Get a TimeRange object with an array of the times of the video
-	 * that have been downloaded. If you just want the percent of the
-	 * video that's been downloaded, use bufferedPercent.
-	 *
-	 * @see [Buffered Spec]{@link http://dev.w3.org/html5/spec/video.html#dom-media-buffered}
-	 *
-	 * @return A mock TimeRange object (following HTML spec)
-	 */
-	buffered(): videojs.TimeRange;
-
-	/**
-	 * Get the ending time of the last buffered time range
-	 * This is used in the progress bar to encapsulate all time ranges.
-	 *
-	 * @return The end of the last buffered time range
-	 */
-	bufferedEnd(): number;
-
-	/**
-	 * Get the percent (as a decimal) of the video that's been downloaded.
-	 * This method is not a part of the native HTML video API.
-	 *
-	 * @return A decimal between 0 and 1 representing the percent
-	 *         that is buffered 0 being 0% and 1 being 100%
-	 */
-	bufferedPercent(): number;
-
-	/**
-	 * Check whether the player can play a given mimetype
-	 *
-	 * @see https://www.w3.org/TR/2011/WD-html5-20110113/video.html#dom-navigator-canplaytype
-	 *
-	 * @param type
-	 *        The mimetype to check
-	 *
-	 * @return 'probably', 'maybe', or '' (empty string)
-	 */
-	canPlayType(type: string): 'probably' | 'maybe' | '';
-
-	cancelFullScreen(): videojs.Player;
-
-	/**
-	 * Get or set whether or not the controls are showing.
-	 *
-	 * @fires Player#controlsenabled
-	 *
-	 * @param [bool]
-	 *        - true to turn controls on
-	 *        - false to turn controls off
-	 *
-	 * @return The current value of controls when getting
-	 */
-	controls(bool?: boolean): void;
-
-	controls(): boolean;
-
-	/**
-	 * Create the `Player`'s DOM element.
-	 *
-	 * @return The DOM element that gets created.
-	 */
-	createEl(): Element;
-
-	/**
-	 * Creates a simple modal dialog (an instance of the {@link ModalDialog}
-	 * component) that immediately overlays the player with arbitrary
-	 * content and removes itself when closed.
-	 *
-	 * @param content
-	 *        Same as {@link ModalDialog#content}'s param of the same name.
-	 *        The most straight-forward usage is to provide a string or DOM
-	 *        element.
-	 *
-	 * @param [options]
-	 *        Extra options which will be passed on to the {@link ModalDialog}.
-	 * @check
-	 * @return the {@link ModalDialog} that was created
-	 */
-	createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
-
-	/**
-	 * Returns the current source object.
-	 *
-	 * @return The current source object
-	 */
-	currentSource(): videojs.Tech.SourceObject;
-
-	/**
-	 * Returns all of the current source objects.
-	 *
-	 * @return The current source objects
-	 */
-	currentSources(): videojs.Tech.SourceObject[];
-
-	/**
-	 * Returns the fully qualified URL of the current source value e.g. http://mysite.com/video.mp4
-	 * Can be used in conjunction with `currentType` to assist in rebuilding the current source object.
-	 *
-	 * @return The current source
-	 */
-	currentSrc(): string;
-
-	/**
-	 * Get or set the current time (in seconds)
-	 *
-	 * @param [seconds]
-	 *        The time to seek to in seconds
-	 *
-	 * @return - the current time in seconds when getting
-	 */
-	currentTime(seconds: number): void;
-
-	currentTime(): number;
-
-	/**
-	 * Get the current source type e.g. video/mp4
-	 * This can allow you rebuild the current source object so that you could load the same
-	 * source and tech later
-	 *
-	 * @return The source MIME type
-	 */
-	currentType(): string;
-
-	/**
-	 * Get the current defaultMuted state, or turn defaultMuted on or off. defaultMuted
-	 * indicates the state of muted on initial playback.
-	 *
-	 * ```js
-	 *   var myPlayer = videojs('some-player-id');
-	 *
-	 *   myPlayer.src("http://www.example.com/path/to/video.mp4");
-	 *
-	 *   // get, should be false
-	 *   console.log(myPlayer.defaultMuted());
-	 *   // set to true
-	 *   myPlayer.defaultMuted(true);
-	 *   // get should be true
-	 *   console.log(myPlayer.defaultMuted());
-	 * ```
-	 *
-	 * @param [defaultMuted]
-	 *        - true to mute
-	 *        - false to unmute
-	 *
-	 * @return - true if defaultMuted is on and getting
-	 *         - false if defaultMuted is off and getting
-	 *         - A reference to the current player when setting
-	 */
-	defaultMuted(defaultMuted: boolean): void;
-
-	defaultMuted(): boolean;
-
-	/**
-	 * Gets or sets the current default playback rate. A default playback rate of
-	 * 1.0 represents normal speed and 0.5 would indicate half-speed playback, for instance.
-	 * defaultPlaybackRate will only represent what the initial playbackRate of a video was, not
-	 * not the current playbackRate.
-	 *
-	 * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-defaultplaybackrate
-	 *
-	 * @param [rate]
-	 *       New default playback rate to set.
-	 *
-	 * @return - The default playback rate when getting or 1.0
-	 *         - the player when setting
-	 */
-	defaultPlaybackRate(rate: number): videojs.Player;
-
-	defaultPlaybackRate(): boolean;
-
-	/**
-	 * A getter/setter for the `Player`'s width & height.
-	 *
-	 * @param dimension
-	 *        This string can be:
-	 *        - 'width'
-	 *        - 'height'
-	 *
-	 * @param [value]
-	 *        Value for dimension specified in the first argument.
-	 *
-	 * @return The dimension arguments value when getting (width/height).
-	 */
-	dimension(dimension: 'width' | 'height', value: number): void;
-
-	dimension(dimension: 'width' | 'height'): number;
-
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -6129,604 +5835,898 @@ export interface VideoJsPlayer extends videojs.Component {
 	 * 1. By calling `videojs('example_video_1');`
 	 * 2. By using it directly via  `videojs.players.example_video_1;`
 	 */
-	dispose(): void;
-
-	/**
-	 * Normally gets the length in time of the video in seconds;
-	 * in all but the rarest use cases an argument will NOT be passed to the method
-	 *
-	 * > **NOTE**: The video must have started loading before the duration can be
-	 * known, and in the case of Flash, may not be known until the video starts
-	 * playing.
-	 *
-	 *
-	 * @fires Player#durationchange
-	 *
-	 * @param [seconds]
-	 *        The duration of the video to set in seconds
-	 *
-	 * @return - The duration of the video in seconds when getting
-	 */
-	duration(seconds: number): void;
-
-	duration(): number;
-
-	/**
-	 * A getter/setter/toggler for the vjs-fluid `className` on the `Player`.
-	 *
-	 * @param [bool]
-	 *        - A value of true adds the class.
-	 *        - A value of false removes the class.
-	 *        - No value will toggle the fluid class.
-	 *
-	 * @return - The value of fluid when getting.
-	 *         - `undefined` when setting.
-	 */
-	fluid(bool: boolean): void;
-
-	fluid(): boolean;
-
-	/**
-	 * Get object for cached values.
-	 *
-	 * @return get the current object cache
-	 */
-	getCache(): any;
-
-	/**
-	 * Gets available media playback quality metrics as specified by the W3C's Media
-	 * Playback Quality API.
-	 *
-	 * @see [Spec]{@link https://wicg.github.io/media-playback-quality}
-	 *
-	 * @return An object with supported media playback quality metrics or undefined if there
-	 *         is no tech or the tech does not support it.
-	 */
-	getVideoPlaybackQuality(): any;
-
-	/**
-	 * Get the value of `ended` from the media element. `ended` indicates whether
-	 * the media has reached the end or not.
-	 *
-	 * @return - The value of `ended` from the media element.
-	 *         - True indicates that the media has ended.
-	 *         - False indicates that the media has not ended.
-	 *
-	 * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-ended}
-	 */
-	ended(): boolean;
-
-	/**
-	 * When fullscreen isn't supported we can stretch the
-	 * video container to as wide as the browser will let us.
-	 *
-	 * @fires Player#enterFullWindow
-	 */
-	enterFullWindow(): void;
-
-	/**
-	 * Set or get the current MediaError
-	 *
-	 * @fires Player#error
-	 *
-	 * @param [err]
-	 *         A MediaError or a string/number to be turned
-	 *         into a MediaError
-	 *
-	 * @return The current MediaError when getting (or null)
-	 */
-	error(err: MediaError | string | number | null): void;
-
-	error(): MediaError | null;
-
-	/**
-	 * Return the video to its normal size after having been in full screen mode
-	 *
-	 * @fires Player#fullscreenchange //noinspection JSUnresolvedVariable
-	 */
-	exitFullscreen(): videojs.Player;
-
-	/**
-	 * Exit full window
-	 *
-	 * @fires Player#exitFullWindow
-	 */
-	exitFullWindow(): void;
-
-	/**
-	 * Reports whether or not a player has a plugin available.
-	 *
-	 * This does not report whether or not the plugin has ever been initialized
-	 * on this player. For that, [usingPlugin]{@link Player#usingPlugin}.
-	 *
-	 * @param name
-	 *         The name of a plugin.
-	 *
-	 * @return Whether or not this player has the requested plugin available.
-	 */
-	hasPlugin(name: string): boolean;
-
-	/**
-	 * Add/remove the vjs-has-started class
-	 *
-	 * @fires Player#firstplay
-	 *
-	 * @param request
-	 *        - true: adds the class
-	 *        - false: remove the class
-	 *
-	 * @return the boolean value of hasStarted_
-	 */
-	hasStarted(request: boolean): void;
-
-	hasStarted(): boolean;
-
-	/**
-	 * A getter/setter for the `Player`'s height. Returns the player's configured value.
-	 * To get the current height use `currentheight()`.
-	 *
-	 * @param [value]
-	 *        The value to set the `Player`'s heigth to.
-	 *
-	 * @return The current height of the `Player` when getting.
-	 */
-	height(value: number): void;
-
-	height(): number;
-
-	/**
-	 * Gets or sets the audio flag
-	 *
-	 * @param bool
-	 *        - true signals that this is an audio player
-	 *        - false signals that this is not an audio player
-	 *
-	 * @return The current value of isAudio when getting
-	 */
-	isAudio(bool: boolean): void;
-
-	isAudio(): boolean;
-
-	/**
-	 * Check if the player is in fullscreen mode or tell the player that it
-	 * is or is not in fullscreen mode.
-	 *
-	 * > NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official
-	 * property and instead document.fullscreenElement is used. But isFullscreen is
-	 * still a valuable property for internal player workings.
-	 *
-	 * @param [isFS]
-	 *         Set the players current fullscreen state
-	 *
-	 * @return - true if fullscreen is on and getting
-	 *         - false if fullscreen is off and getting
-	 */
-	isFullscreen(isFS: boolean): void;
-
-	isFullscreen(): boolean;
-
-	/**
-	 * The player's language code
-	 * NOTE: The language should be set in the player options if you want the
-	 * the controls to be built with a specific language. Changing the language
-	 * later will not update controls text.
-	 *
-	 * @param [code]
-	 *        the language code to set the player to
-	 *
-	 * @return The current language code when getting
-	 */
-	language(code: string): void;
-
-	language(): string;
-
-	/**
-	 * Get the player's language dictionary
-	 * Merge every time, because a newly added plugin might call videojs.addLanguage() at any time
-	 * Languages specified directly in the player options have precedence
-	 *
-	 * @return An array of of supported languages
-	 */
-	languages(): string[];
-
-	languageSwitch(options: any): void;
-
-	/**
-	 * Begin loading the src data.
-	 */
-	load(): void;
-
-	/**
-	 * Get or set the loop attribute on the video element.
-	 *
-	 * @param [value]
-	 *        - true means that we should loop the video
-	 *        - false means that we should not loop the video
-	 *
-	 * @return The current value of loop when getting
-	 */
-	loop(value?: boolean): void;
-
-	loop(): boolean;
-
-	/**
-	 * Get the current muted state, or turn mute on or off
-	 *
-	 * @param [muted]
-	 *        - true to mute
-	 *        - false to unmute
-	 *
-	 * @return - true if mute is on and getting
-	 *         - false if mute is off and getting
-	 */
-	muted(muted: boolean): void;
-
-	muted(): boolean;
-
-	/**
-	 * Returns the current state of network activity for the element
-	 *
-	 * @return The current network state
-	 */
-	networkState(): videojs.NetworkState;
-
-	/**
-	 * Pause the video playback
-	 * @check
-	 * @return A reference to the player object this function was called on
-	 */
-	pause(): videojs.Player;
-
-	/**
-	 * Check if the player is paused or has yet to play
-	 *
-	 * @return - false: if the media is currently playing
-	 *         - true: if media is not currently playing
-	 */
-	paused(): boolean;
-
-	/**
-	 * Attempt to begin playback at the first opportunity.
-	 * @check
-	 * @return Returns a `Promise` only if the browser returns one and the player
-	 *         is ready to begin playback. For some browsers and all non-ready
-	 *         situations, this will return `undefined`.
-	 */
-	play(): Promise<void> | undefined;
-
-	/**
-	 * Gets or sets the current playback rate. A playback rate of
-	 * 1.0 represents normal speed and 0.5 would indicate half-speed
-	 * playback, for instance.
-	 *
-	 * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-playbackrate
-	 *
-	 * @param [rate]
-	 *       New playback rate to set.
-	 *
-	 * @return The current playback rate when getting or 1.0
-	 */
-	playbackRate(rate: number): void;
-
-	playbackRate(): number;
-
-	/**
-	 * Get a TimeRange object representing the current ranges of time that the user
-	 * has played.
-	 * @check
-	 * @return A time range object that represents all the increments of time that have
-	 *         been played.
-	 */
-	played(): any;
-
-	/**
-	 * Set or unset the playsinline attribute.
-	 * Playsinline tells the browser that non-fullscreen playback is preferred.
-	 *
-	 * @param [value]
-	 *        - true means that we should try to play inline by default
-	 *        - false means that we should use the browser's default playback mode,
-	 *          which in most cases is inline. iOS Safari is a notable exception
-	 *          and plays fullscreen by default.
-	 *
-	 * @return - the current value of playsinline
-	 *         - the player when setting
-	 *
-	 * @see [Spec]{@link https://html.spec.whatwg.org/#attr-video-playsinline}
-	 */
-	playsinline(value: boolean): videojs.Player;
-
-	playsinline(): string;
-
-	/**
-	 * Get or set the poster image source url
-	 *
-	 * @fires Player#posterchange
-	 *
-	 * @param [src]
-	 *        Poster image source URL
-	 *
-	 * @return The current value of poster when getting
-	 */
-	poster(src: string): void;
-
-	poster(): string;
-
-	/**
-	 * Get or set the preload attribute
-	 *
-	 * @param [value]
-	 *        - true means that we should preload
-	 *        - false means that we should not preload
-	 *
-	 * @return The preload attribute value when getting
-	 */
-	preload(value?: boolean): string;
-
-	/**
-	 * Returns a value that expresses the current state of the element
-	 * with respect to rendering the current playback position.
-	 */
-	readyState(): videojs.ReadyState;
-
-	/**
-	 * Calculates how much time is left in the video. Not part
-	 * of the native video API.
-	 *
-	 * @return The time remaining in seconds
-	 */
-	remainingTime(): number;
-
-	/**
-	 * A remaining time function that is intented to be used when
-	 * the time is to be displayed directly to the user.
-	 *
-	 * @return The rounded time remaining in seconds
-	 */
-	remainingTimeDisplay(): number;
-
-	/**
-	 * Remove a remote {@link TextTrack} from the respective
-	 * {@link TextTrackList} and {@link HtmlTrackElementList}.
-	 *
-	 * @param track
-	 *        Remote {@link TextTrack} to remove
-	 *
-	 * @return does not return anything
-	 */
-	removeRemoteTextTrack(track: HTMLTrackElement): void;
-
-	/**
-	 * Increase the size of the video to full screen
-	 * In some browsers, full screen is not supported natively, so it enters
-	 * "full window mode", where the video fills the browser window.
-	 * In browsers and devices that support native full screen, sometimes the
-	 * browser's default controls will be shown, and not the Video.js custom skin.
-	 * This includes most mobile devices (iOS, Android) and older versions of
-	 * Safari.
-	 *
-	 * @fires Player#fullscreenchange
-	 */
-	requestFullscreen(): videojs.Player;
-
-	/**
-	 * Report user activity
-	 *
-	 * @param event
-	 *        Event object
-	 */
-	reportUserActivity(event: any): void;
-
-	/**
-	 * Reset the player. Loads the first tech in the techOrder,
-	 * and calls `reset` on the tech`.
-	 */
-	reset(): void;
-
-	/**
-	 * Returns whether or not the player is in the "seeking" state.
-	 *
-	 * @return boolean True if the player is in the seeking state, false if not.
-	 */
-	seeking(): boolean;
-
-	/**
-	 * Returns the TimeRanges of the media that are currently available for seeking to.
-	 *
-	 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
-	 */
-	seekable(): TimeRanges;
-
-	/**
-	 * Select source based on tech-order or source-order
-	 * Uses source-order selection if `options.sourceOrder` is truthy. Otherwise,
-	 * defaults to tech-order selection
-	 *
-	 * @param sources
-	 *        The sources for a media asset
-	 *
-	 * @return Object of source and tech order or false
-	 */
-	selectSource(sources: any[]): any;
-
-	/**
-	 * Returns whether or not the user is "scrubbing". Scrubbing is
-	 * when the user has clicked the progress bar handle and is
-	 * dragging it along the progress bar.
-	 *
-	 * @param [isScrubbing]
-	 *        whether the user is or is not scrubbing
-	 *
-	 * @return The value of scrubbing when getting
-	 */
-	scrubbing(isScrubbing: boolean): void;
-
-	scrubbing(): boolean;
-
-	/**
-	 * Get or set the video source.
-	 *
-	 * @param [source]
-	 *        A SourceObject, an array of SourceObjects, or a string referencing
-	 *        a URL to a media source. It is _highly recommended_ that an object
-	 *        or array of objects is used here, so that source selection
-	 *        algorithms can take the `type` into account.
-	 *
-	 *        If not provided, this method acts as a getter.
-	 *
-	 * @return If the `source` argument is missing, returns the current source
-	 *         URL. Otherwise, returns nothing/undefined.
-	 */
-	src(source: string | videojs.Tech.SourceObject | videojs.Tech.SourceObject[]): void;
-
-	src(): string;
-
-	/**
-	 * Check if current tech can support native fullscreen
-	 * (e.g. with built in controls like iOS, so not our flash swf)
-	 *
-	 * @return if native fullscreen is supported
-	 */
-	supportsFullScreen(): boolean;
-
-	/**
-	 * Return a reference to the current {@link Tech}.
-	 * It will print a warning by default about the danger of using the tech directly
-	 * but any argument that is passed in will silence the warning.
-	 *
-	 * @param [safety]
-	 *        Anything passed in to silence the warning
-	 *
-	 * @return The Tech
-	 */
-	tech(safety?: any): videojs.Tech;
-
-	/**
-	 * returns a JavaScript object reperesenting the current track
-	 * information. **DOES not return it as JSON**
-	 *
-	 * @return Object representing the current of track info
-	 */
-	toJSON(): any;
-
-	/**
-	 * Get/set if user is active
-	 *
-	 * @fires Player#useractive
-	 * @fires Player#userinactive
-	 *
-	 * @param [bool]
-	 *        - true if the user is active
-	 *        - false if the user is inactive
-	 *
-	 * @return The current value of userActive when getting
-	 */
-	userActive(bool: boolean): void;
-
-	userActive(): boolean;
-
-	/**
-	 * Toggle native controls on/off. Native controls are the controls built into
-	 * devices (e.g. default iPhone controls), Flash, or other techs
-	 * (e.g. Vimeo Controls)
-	 * **This should only be set by the current tech, because only the tech knows
-	 * if it can support native controls**
-	 *
-	 * @fires Player#usingnativecontrols
-	 * @fires Player#usingcustomcontrols
-	 *
-	 * @param [bool]
-	 *        - true to turn native controls on
-	 *        - false to turn native controls off
-	 *
-	 * @return The current value of native controls when getting
-	 */
-	usingNativeControls(bool: boolean): void;
-
-	usingNativeControls(): boolean;
-
-	/**
-	 * Reports whether or not a player is using a plugin by name.
-	 *
-	 * For basic plugins, this only reports whether the plugin has _ever_ been
-	 * initialized on this player.
-	 *
-	 * @param name
-	 *         The name of a plugin.
-	 *
-	 * @return Whether or not this player is using the requested plugin.
-	 */
-	usingPlugin(name: string): boolean;
-
-	/**
-	 * Get video height
-	 *
-	 * @return current video height
-	 */
-	videoHeight(): number;
-
-	/**
-	 * Get video width
-	 *
-	 * @return current video width
-	 */
-	videoWidth(): number;
-
-	/**
-	 * Get or set the current volume of the media
-	 *
-	 * @param [percentAsDecimal]
-	 *         The new volume as a decimal percent:
-	 *         - 0 is muted/0%/off
-	 *         - 1.0 is 100%/full
-	 *         - 0.5 is half volume or 50%
-	 *
-	 * @return The current volume as a percent when getting
-	 */
-	volume(percentAsDecimal: number): videojs.TimeRange;
-
-	volume(): number;
-
-	/**
-	 * A getter/setter for the `Player`'s width. Returns the player's configured value.
-	 * To get the current width use `currentWidth()`.
-	 *
-	 * @param [value]
-	 *        The value to set the `Player`'s width to.
-	 *
-	 * @return The current width of the `Player` when getting.
-	 */
-	width(value: number): void;
-
-	width(): number;
-}
-
-export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
-	aspectRatio?: string;
-	autoplay?: boolean | string;
-	controlBar?: videojs.ControlBarOptions | false;
-	textTrackSettings?: videojs.TextTrackSettingsOptions;
-	controls?: boolean;
-	defaultVolume?: number;
-	fluid?: boolean;
-	height?: number;
-	html5?: any;
-	inactivityTimeout?: number;
-	language?: string;
-	languages?: { [code: string]: videojs.LanguageTranslations };
-	liveui?: boolean;
-	loop?: boolean;
-	muted?: boolean;
-	nativeControlsForTouch?: boolean;
-	notSupportedMessage?: string;
-	playbackRates?: number[];
-	plugins?: any;
-	poster?: string;
-	preload?: string;
-	sourceOrder?: boolean;
-	sources?: videojs.Tech.SourceObject[];
-	src?: string;
-	techOrder?: string[];
-	tracks?: videojs.TextTrackOptions[];
-	width?: number;
-}
+	export interface VideoJsPlayer extends videojs.Component {
+        bigPlayButton: videojs.Button;
+
+        controlBar: videojs.ControlBar;
+
+        errorDisplay: videojs.ModalDialog;
+
+        loadingSpinner: videojs.Component;
+
+        options_: videojs.PlayerOptions;
+
+        userActivity_: boolean;
+
+        userActive_: boolean;
+
+        /**
+         * A getter/setter for the `Player`'s aspect ratio.
+         *
+         * @param [ratio]
+         *        The value to set the `Player's aspect ratio to.
+         *
+         * @return - The current aspect ratio of the `Player` when getting.
+         *         - undefined when setting
+         */
+        aspectRatio(ratio: string): void;
+
+        aspectRatio(): string;
+
+        /**
+         * Get or set the autoplay option. When this is a boolean it will
+         * modify the attribute on the tech. When this is a string the attribute on
+         * the tech will be removed and `Player` will handle autoplay on loadstarts.
+         *
+         * @param [value]
+         *        - true: autoplay using the browser behavior
+         *        - false: do not autoplay
+         *        - 'play': call play() on every loadstart
+         *        - 'muted': call muted() then play() on every loadstart
+         *        - 'any': call play() on every loadstart. if that fails call muted() then play().
+         *        - *: values other than those listed here will be set `autoplay` to true
+         *
+         * @return The current value of autoplay when getting
+         */
+        autoplay(value?: boolean | string): void;
+
+        autoplay(): boolean | string;
+
+        /**
+         * Get the remote {@link TextTrackList}
+         * @return The current remote text track list
+         */
+        textTracks(): TextTrackList;
+
+        /**
+         * Get the remote {@link TextTrackList}
+         * @return The current remote text track list
+         */
+        remoteTextTracks(): TextTrackList;
+
+        /**
+         * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
+         * automatically removed from the video element whenever the source changes, unless
+         * manualCleanup is set to false.
+         *
+         * @param options
+         *        Options to pass to {@link HTMLTrackElement} during creation. See
+         *        {@link HTMLTrackElement} for object properties that you should use.
+         *
+         * @param [manualCleanup=true] if set to false, the TextTrack will be
+         *
+         * @return the HTMLTrackElement that was created and added
+         *         to the HtmlTrackElementList and the remote
+         *         TextTrackList
+         */
+        addRemoteTextTrack(options: videojs.TextTrackOptions, manualCleanup: boolean): HTMLTrackElement;
+
+        /**
+         * A helper method for adding a {@link TextTrack} to our
+         * {@link TextTrackList}.
+         *
+         * In addition to the W3C settings we allow adding additional info through options.
+         *
+         * @see http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack
+         *
+         * @param [kind]
+         *        the kind of TextTrack you are adding
+         *
+         * @param [label]
+         *        the label to give the TextTrack label
+         *
+         * @param [language]
+         *        the language to set on the TextTrack
+         *
+         * @return the TextTrack that was added or undefined
+         *         if there is no tech
+         */
+        addTextTrack(kind?: string, label?: string, language?: string): void;
+
+        /**
+         * Get a TimeRange object with an array of the times of the video
+         * that have been downloaded. If you just want the percent of the
+         * video that's been downloaded, use bufferedPercent.
+         *
+         * @see [Buffered Spec]{@link http://dev.w3.org/html5/spec/video.html#dom-media-buffered}
+         *
+         * @return A mock TimeRange object (following HTML spec)
+         */
+        buffered(): videojs.TimeRange;
+
+        /**
+         * Get the ending time of the last buffered time range
+         * This is used in the progress bar to encapsulate all time ranges.
+         *
+         * @return The end of the last buffered time range
+         */
+        bufferedEnd(): number;
+
+        /**
+         * Get the percent (as a decimal) of the video that's been downloaded.
+         * This method is not a part of the native HTML video API.
+         *
+         * @return A decimal between 0 and 1 representing the percent
+         *         that is buffered 0 being 0% and 1 being 100%
+         */
+        bufferedPercent(): number;
+
+        /**
+         * Check whether the player can play a given mimetype
+         *
+         * @see https://www.w3.org/TR/2011/WD-html5-20110113/video.html#dom-navigator-canplaytype
+         *
+         * @param type
+         *        The mimetype to check
+         *
+         * @return 'probably', 'maybe', or '' (empty string)
+         */
+        canPlayType(type: string): 'probably' | 'maybe' | '';
+
+        cancelFullScreen(): videojs.Player;
+
+        /**
+         * Get or set whether or not the controls are showing.
+         *
+         * @fires Player#controlsenabled
+         *
+         * @param [bool]
+         *        - true to turn controls on
+         *        - false to turn controls off
+         *
+         * @return The current value of controls when getting
+         */
+        controls(bool?: boolean): void;
+
+        controls(): boolean;
+
+        /**
+         * Create the `Player`'s DOM element.
+         *
+         * @return The DOM element that gets created.
+         */
+        createEl(): Element;
+
+        /**
+         * Creates a simple modal dialog (an instance of the {@link ModalDialog}
+         * component) that immediately overlays the player with arbitrary
+         * content and removes itself when closed.
+         *
+         * @param content
+         *        Same as {@link ModalDialog#content}'s param of the same name.
+         *        The most straight-forward usage is to provide a string or DOM
+         *        element.
+         *
+         * @param [options]
+         *        Extra options which will be passed on to the {@link ModalDialog}.
+         * @check
+         * @return the {@link ModalDialog} that was created
+         */
+        createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
+
+        /**
+         * Returns the current source object.
+         *
+         * @return The current source object
+         */
+        currentSource(): videojs.Tech.SourceObject;
+
+        /**
+         * Returns all of the current source objects.
+         *
+         * @return The current source objects
+         */
+        currentSources(): videojs.Tech.SourceObject[];
+
+        /**
+         * Returns the fully qualified URL of the current source value e.g. http://mysite.com/video.mp4
+         * Can be used in conjunction with `currentType` to assist in rebuilding the current source object.
+         *
+         * @return The current source
+         */
+        currentSrc(): string;
+
+        /**
+         * Get or set the current time (in seconds)
+         *
+         * @param [seconds]
+         *        The time to seek to in seconds
+         *
+         * @return - the current time in seconds when getting
+         */
+        currentTime(seconds: number): void;
+
+        currentTime(): number;
+
+        /**
+         * Get the current source type e.g. video/mp4
+         * This can allow you rebuild the current source object so that you could load the same
+         * source and tech later
+         *
+         * @return The source MIME type
+         */
+        currentType(): string;
+
+        /**
+         * Get the current defaultMuted state, or turn defaultMuted on or off. defaultMuted
+         * indicates the state of muted on initial playback.
+         *
+         * ```js
+         *   var myPlayer = videojs('some-player-id');
+         *
+         *   myPlayer.src("http://www.example.com/path/to/video.mp4");
+         *
+         *   // get, should be false
+         *   console.log(myPlayer.defaultMuted());
+         *   // set to true
+         *   myPlayer.defaultMuted(true);
+         *   // get should be true
+         *   console.log(myPlayer.defaultMuted());
+         * ```
+         *
+         * @param [defaultMuted]
+         *        - true to mute
+         *        - false to unmute
+         *
+         * @return - true if defaultMuted is on and getting
+         *         - false if defaultMuted is off and getting
+         *         - A reference to the current player when setting
+         */
+        defaultMuted(defaultMuted: boolean): void;
+
+        defaultMuted(): boolean;
+
+        /**
+         * Gets or sets the current default playback rate. A default playback rate of
+         * 1.0 represents normal speed and 0.5 would indicate half-speed playback, for instance.
+         * defaultPlaybackRate will only represent what the initial playbackRate of a video was, not
+         * not the current playbackRate.
+         *
+         * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-defaultplaybackrate
+         *
+         * @param [rate]
+         *       New default playback rate to set.
+         *
+         * @return - The default playback rate when getting or 1.0
+         *         - the player when setting
+         */
+        defaultPlaybackRate(rate: number): videojs.Player;
+
+        defaultPlaybackRate(): boolean;
+
+        /**
+         * A getter/setter for the `Player`'s width & height.
+         *
+         * @param dimension
+         *        This string can be:
+         *        - 'width'
+         *        - 'height'
+         *
+         * @param [value]
+         *        Value for dimension specified in the first argument.
+         *
+         * @return The dimension arguments value when getting (width/height).
+         */
+        dimension(dimension: 'width' | 'height', value: number): void;
+
+        dimension(dimension: 'width' | 'height'): number;
+
+        /**
+         * An instance of the `Player` class is created when any of the Video.js setup methods
+         * are used to initialize a video.
+         *
+         * After an instance has been created it can be accessed globally in two ways:
+         * 1. By calling `videojs('example_video_1');`
+         * 2. By using it directly via  `videojs.players.example_video_1;`
+         */
+        dispose(): void;
+
+        /**
+         * Normally gets the length in time of the video in seconds;
+         * in all but the rarest use cases an argument will NOT be passed to the method
+         *
+         * > **NOTE**: The video must have started loading before the duration can be
+         * known, and in the case of Flash, may not be known until the video starts
+         * playing.
+         *
+         *
+         * @fires Player#durationchange
+         *
+         * @param [seconds]
+         *        The duration of the video to set in seconds
+         *
+         * @return - The duration of the video in seconds when getting
+         */
+        duration(seconds: number): void;
+
+        duration(): number;
+
+        /**
+         * A getter/setter/toggler for the vjs-fluid `className` on the `Player`.
+         *
+         * @param [bool]
+         *        - A value of true adds the class.
+         *        - A value of false removes the class.
+         *        - No value will toggle the fluid class.
+         *
+         * @return - The value of fluid when getting.
+         *         - `undefined` when setting.
+         */
+        fluid(bool: boolean): void;
+
+        fluid(): boolean;
+
+        /**
+         * Get object for cached values.
+         *
+         * @return get the current object cache
+         */
+        getCache(): any;
+
+        /**
+         * Gets available media playback quality metrics as specified by the W3C's Media
+         * Playback Quality API.
+         *
+         * @see [Spec]{@link https://wicg.github.io/media-playback-quality}
+         *
+         * @return An object with supported media playback quality metrics or undefined if there
+         *         is no tech or the tech does not support it.
+         */
+        getVideoPlaybackQuality(): any;
+
+        /**
+         * Get the value of `ended` from the media element. `ended` indicates whether
+         * the media has reached the end or not.
+         *
+         * @return - The value of `ended` from the media element.
+         *         - True indicates that the media has ended.
+         *         - False indicates that the media has not ended.
+         *
+         * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-ended}
+         */
+        ended(): boolean;
+
+        /**
+         * When fullscreen isn't supported we can stretch the
+         * video container to as wide as the browser will let us.
+         *
+         * @fires Player#enterFullWindow
+         */
+        enterFullWindow(): void;
+
+        /**
+         * Set or get the current MediaError
+         *
+         * @fires Player#error
+         *
+         * @param [err]
+         *         A MediaError or a string/number to be turned
+         *         into a MediaError
+         *
+         * @return The current MediaError when getting (or null)
+         */
+        error(err: MediaError | string | number | null): void;
+
+        error(): MediaError | null;
+
+        /**
+         * Return the video to its normal size after having been in full screen mode
+         *
+         * @fires Player#fullscreenchange //noinspection JSUnresolvedVariable
+         */
+        exitFullscreen(): videojs.Player;
+
+        /**
+         * Exit full window
+         *
+         * @fires Player#exitFullWindow
+         */
+        exitFullWindow(): void;
+
+        /**
+         * Reports whether or not a player has a plugin available.
+         *
+         * This does not report whether or not the plugin has ever been initialized
+         * on this player. For that, [usingPlugin]{@link Player#usingPlugin}.
+         *
+         * @param name
+         *         The name of a plugin.
+         *
+         * @return Whether or not this player has the requested plugin available.
+         */
+        hasPlugin(name: string): boolean;
+
+        /**
+         * Add/remove the vjs-has-started class
+         *
+         * @fires Player#firstplay
+         *
+         * @param request
+         *        - true: adds the class
+         *        - false: remove the class
+         *
+         * @return the boolean value of hasStarted_
+         */
+        hasStarted(request: boolean): void;
+
+        hasStarted(): boolean;
+
+        /**
+         * A getter/setter for the `Player`'s height. Returns the player's configured value.
+         * To get the current height use `currentheight()`.
+         *
+         * @param [value]
+         *        The value to set the `Player`'s heigth to.
+         *
+         * @return The current height of the `Player` when getting.
+         */
+        height(value: number): void;
+
+        height(): number;
+
+        /**
+         * Gets or sets the audio flag
+         *
+         * @param bool
+         *        - true signals that this is an audio player
+         *        - false signals that this is not an audio player
+         *
+         * @return The current value of isAudio when getting
+         */
+        isAudio(bool: boolean): void;
+
+        isAudio(): boolean;
+
+        /**
+         * Check if the player is in fullscreen mode or tell the player that it
+         * is or is not in fullscreen mode.
+         *
+         * > NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official
+         * property and instead document.fullscreenElement is used. But isFullscreen is
+         * still a valuable property for internal player workings.
+         *
+         * @param [isFS]
+         *         Set the players current fullscreen state
+         *
+         * @return - true if fullscreen is on and getting
+         *         - false if fullscreen is off and getting
+         */
+        isFullscreen(isFS: boolean): void;
+
+        isFullscreen(): boolean;
+
+        /**
+         * The player's language code
+         * NOTE: The language should be set in the player options if you want the
+         * the controls to be built with a specific language. Changing the language
+         * later will not update controls text.
+         *
+         * @param [code]
+         *        the language code to set the player to
+         *
+         * @return The current language code when getting
+         */
+        language(code: string): void;
+
+        language(): string;
+
+        /**
+         * Get the player's language dictionary
+         * Merge every time, because a newly added plugin might call videojs.addLanguage() at any time
+         * Languages specified directly in the player options have precedence
+         *
+         * @return An array of of supported languages
+         */
+        languages(): string[];
+
+        languageSwitch(options: any): void;
+
+        /**
+         * Begin loading the src data.
+         */
+        load(): void;
+
+        /**
+         * Get or set the loop attribute on the video element.
+         *
+         * @param [value]
+         *        - true means that we should loop the video
+         *        - false means that we should not loop the video
+         *
+         * @return The current value of loop when getting
+         */
+        loop(value?: boolean): void;
+
+        loop(): boolean;
+
+        /**
+         * Get the current muted state, or turn mute on or off
+         *
+         * @param [muted]
+         *        - true to mute
+         *        - false to unmute
+         *
+         * @return - true if mute is on and getting
+         *         - false if mute is off and getting
+         */
+        muted(muted: boolean): void;
+
+        muted(): boolean;
+
+        /**
+         * Returns the current state of network activity for the element
+         *
+         * @return The current network state
+         */
+        networkState(): videojs.NetworkState;
+
+        /**
+         * Pause the video playback
+         * @check
+         * @return A reference to the player object this function was called on
+         */
+        pause(): videojs.Player;
+
+        /**
+         * Check if the player is paused or has yet to play
+         *
+         * @return - false: if the media is currently playing
+         *         - true: if media is not currently playing
+         */
+        paused(): boolean;
+
+        /**
+         * Attempt to begin playback at the first opportunity.
+         * @check
+         * @return Returns a `Promise` only if the browser returns one and the player
+         *         is ready to begin playback. For some browsers and all non-ready
+         *         situations, this will return `undefined`.
+         */
+        play(): Promise<void> | undefined;
+
+		/**
+		 * Gets or sets the current playback rate. A playback rate of
+		 * 1.0 represents normal speed and 0.5 would indicate half-speed
+		 * playback, for instance.
+		 *
+		 * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-playbackrate
+		 *
+		 * @param [rate]
+		 *       New playback rate to set.
+		 *
+		 * @return The current playback rate when getting or 1.0
+		 */
+		playbackRate(rate: number): void;
+
+        playbackRate(): number;
+
+        /**
+         * Get a TimeRange object representing the current ranges of time that the user
+         * has played.
+         * @check
+         * @return A time range object that represents all the increments of time that have
+         *         been played.
+         */
+        played(): any;
+
+        /**
+         * Set or unset the playsinline attribute.
+         * Playsinline tells the browser that non-fullscreen playback is preferred.
+         *
+         * @param [value]
+         *        - true means that we should try to play inline by default
+         *        - false means that we should use the browser's default playback mode,
+         *          which in most cases is inline. iOS Safari is a notable exception
+         *          and plays fullscreen by default.
+         *
+         * @return - the current value of playsinline
+         *         - the player when setting
+         *
+         * @see [Spec]{@link https://html.spec.whatwg.org/#attr-video-playsinline}
+         */
+        playsinline(value: boolean): videojs.Player;
+
+        playsinline(): string;
+
+        /**
+         * Get or set the poster image source url
+         *
+         * @fires Player#posterchange
+         *
+         * @param [src]
+         *        Poster image source URL
+         *
+         * @return The current value of poster when getting
+         */
+        poster(src: string): void;
+
+        poster(): string;
+
+        /**
+         * Get or set the preload attribute
+         *
+         * @param [value]
+         *        - true means that we should preload
+         *        - false means that we should not preload
+         *
+         * @return The preload attribute value when getting
+         */
+        preload(value?: boolean): string;
+
+        /**
+         * Returns a value that expresses the current state of the element
+         * with respect to rendering the current playback position.
+         */
+        readyState(): videojs.ReadyState;
+
+        /**
+         * Calculates how much time is left in the video. Not part
+         * of the native video API.
+         *
+         * @return The time remaining in seconds
+         */
+        remainingTime(): number;
+
+        /**
+         * A remaining time function that is intented to be used when
+         * the time is to be displayed directly to the user.
+         *
+         * @return The rounded time remaining in seconds
+         */
+        remainingTimeDisplay(): number;
+
+        /**
+         * Remove a remote {@link TextTrack} from the respective
+         * {@link TextTrackList} and {@link HtmlTrackElementList}.
+         *
+         * @param track
+         *        Remote {@link TextTrack} to remove
+         *
+         * @return does not return anything
+         */
+        removeRemoteTextTrack(track: HTMLTrackElement): void;
+
+        /**
+         * Increase the size of the video to full screen
+         * In some browsers, full screen is not supported natively, so it enters
+         * "full window mode", where the video fills the browser window.
+         * In browsers and devices that support native full screen, sometimes the
+         * browser's default controls will be shown, and not the Video.js custom skin.
+         * This includes most mobile devices (iOS, Android) and older versions of
+         * Safari.
+         *
+         * @fires Player#fullscreenchange
+         */
+        requestFullscreen(): videojs.Player;
+
+        /**
+         * Report user activity
+         *
+         * @param event
+         *        Event object
+         */
+        reportUserActivity(event: any): void;
+
+        /**
+         * Reset the player. Loads the first tech in the techOrder,
+         * and calls `reset` on the tech`.
+         */
+        reset(): void;
+
+        /**
+         * Returns whether or not the player is in the "seeking" state.
+         *
+         * @return boolean True if the player is in the seeking state, false if not.
+         */
+        seeking(): boolean;
+
+        /**
+         * Returns the TimeRanges of the media that are currently available for seeking to.
+         *
+         * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+         */
+        seekable(): TimeRanges;
+
+        /**
+         * Select source based on tech-order or source-order
+         * Uses source-order selection if `options.sourceOrder` is truthy. Otherwise,
+         * defaults to tech-order selection
+         *
+         * @param sources
+         *        The sources for a media asset
+         *
+         * @return Object of source and tech order or false
+         */
+        selectSource(sources: any[]): any;
+
+        /**
+         * Returns whether or not the user is "scrubbing". Scrubbing is
+         * when the user has clicked the progress bar handle and is
+         * dragging it along the progress bar.
+         *
+         * @param [isScrubbing]
+         *        whether the user is or is not scrubbing
+         *
+         * @return The value of scrubbing when getting
+         */
+        scrubbing(isScrubbing: boolean): void;
+
+        scrubbing(): boolean;
+
+        /**
+         * Get or set the video source.
+         *
+         * @param [source]
+         *        A SourceObject, an array of SourceObjects, or a string referencing
+         *        a URL to a media source. It is _highly recommended_ that an object
+         *        or array of objects is used here, so that source selection
+         *        algorithms can take the `type` into account.
+         *
+         *        If not provided, this method acts as a getter.
+         *
+         * @return If the `source` argument is missing, returns the current source
+         *         URL. Otherwise, returns nothing/undefined.
+         */
+        src(source: string | videojs.Tech.SourceObject | videojs.Tech.SourceObject[]): void;
+
+        src(): string;
+
+        /**
+         * Check if current tech can support native fullscreen
+         * (e.g. with built in controls like iOS, so not our flash swf)
+         *
+         * @return if native fullscreen is supported
+         */
+        supportsFullScreen(): boolean;
+
+        /**
+         * Return a reference to the current {@link Tech}.
+         * It will print a warning by default about the danger of using the tech directly
+         * but any argument that is passed in will silence the warning.
+         *
+         * @param [safety]
+         *        Anything passed in to silence the warning
+         *
+         * @return The Tech
+         */
+        tech(safety?: any): videojs.Tech;
+
+        /**
+         * returns a JavaScript object reperesenting the current track
+         * information. **DOES not return it as JSON**
+         *
+         * @return Object representing the current of track info
+         */
+        toJSON(): any;
+
+        /**
+         * Get/set if user is active
+         *
+         * @fires Player#useractive
+         * @fires Player#userinactive
+         *
+         * @param [bool]
+         *        - true if the user is active
+         *        - false if the user is inactive
+         *
+         * @return The current value of userActive when getting
+         */
+        userActive(bool: boolean): void;
+
+        userActive(): boolean;
+
+        /**
+         * Toggle native controls on/off. Native controls are the controls built into
+         * devices (e.g. default iPhone controls), Flash, or other techs
+         * (e.g. Vimeo Controls)
+         * **This should only be set by the current tech, because only the tech knows
+         * if it can support native controls**
+         *
+         * @fires Player#usingnativecontrols
+         * @fires Player#usingcustomcontrols
+         *
+         * @param [bool]
+         *        - true to turn native controls on
+         *        - false to turn native controls off
+         *
+         * @return The current value of native controls when getting
+         */
+        usingNativeControls(bool: boolean): void;
+
+        usingNativeControls(): boolean;
+
+        /**
+         * Reports whether or not a player is using a plugin by name.
+         *
+         * For basic plugins, this only reports whether the plugin has _ever_ been
+         * initialized on this player.
+         *
+         * @param name
+         *         The name of a plugin.
+         *
+         * @return Whether or not this player is using the requested plugin.
+         */
+        usingPlugin(name: string): boolean;
+
+        /**
+         * Get video height
+         *
+         * @return current video height
+         */
+        videoHeight(): number;
+
+        /**
+         * Get video width
+         *
+         * @return current video width
+         */
+        videoWidth(): number;
+
+        /**
+         * Get or set the current volume of the media
+         *
+         * @param [percentAsDecimal]
+         *         The new volume as a decimal percent:
+         *         - 0 is muted/0%/off
+         *         - 1.0 is 100%/full
+         *         - 0.5 is half volume or 50%
+         *
+         * @return The current volume as a percent when getting
+         */
+        volume(percentAsDecimal: number): videojs.TimeRange;
+
+        volume(): number;
+
+        /**
+         * A getter/setter for the `Player`'s width. Returns the player's configured value.
+         * To get the current width use `currentWidth()`.
+         *
+         * @param [value]
+         *        The value to set the `Player`'s width to.
+         *
+         * @return The current width of the `Player` when getting.
+         */
+        width(value: number): void;
+
+        width(): number;
+    }
+
+    export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
+        aspectRatio?: string;
+        autoplay?: boolean | string;
+        controlBar?: videojs.ControlBarOptions | false;
+        textTrackSettings?: videojs.TextTrackSettingsOptions;
+        controls?: boolean;
+        defaultVolume?: number;
+        fluid?: boolean;
+        height?: number;
+        html5?: any;
+        inactivityTimeout?: number;
+        language?: string;
+        languages?: { [code: string]: videojs.LanguageTranslations };
+        liveui?: boolean;
+        loop?: boolean;
+        muted?: boolean;
+        nativeControlsForTouch?: boolean;
+        notSupportedMessage?: string;
+        playbackRates?: number[];
+        plugins?: any;
+        poster?: string;
+        preload?: string;
+        sourceOrder?: boolean;
+        sources?: videojs.Tech.SourceObject[];
+        src?: string;
+        techOrder?: string[];
+        tracks?: videojs.TextTrackOptions[];
+        width?: number;
+    }
