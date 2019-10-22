@@ -7,7 +7,9 @@
 import * as Restler from "restler";
 import * as http from "http";
 
-export interface RestlerResult {
+export {};
+
+interface RestlerResult {
     on(eventName: string, listener: (data?: any, response?: http.ServerResponse) => void): RestlerResult;
 }
 
