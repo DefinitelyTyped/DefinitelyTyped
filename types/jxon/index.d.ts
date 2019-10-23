@@ -3,7 +3,7 @@
 // Definitions by: Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 export type FunctionType = (arg: unknown) => void;
 export type VerbosityType = 0 | 1 | 2 | 3;
