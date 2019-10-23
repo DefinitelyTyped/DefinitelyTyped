@@ -48,7 +48,7 @@ const foo = c(); // we won't throw this one away...
 foo.getA(); // "a"
 foo.getB(); // "b"
 
-// Here's a mixin with public methods, and some refs:
+// Here's a mixin with public methods, and some props:
 const membership = stampit({
     methods: {
         // members: {},
@@ -59,11 +59,14 @@ const membership = stampit({
         getMember(name: any) {
             return this.members[name];
         }
+    },
+    props: {
+        members: {}
     }
 });
 
 // Let's set some defaults:
-const defaults = stampit().conf({
+const defaults = stampit().props({
     name: 'The Saloon',
     specials: 'Whisky, Gin, Tequila'
 });
@@ -71,7 +74,7 @@ const defaults = stampit().conf({
 // Classical inheritance has nothing on this. No parent/child coupling. No deep inheritance hierarchies.
 // Just good, clean code reusability.
 const bar = stampit.compose(defaults, membership);
-// Note that you can override refs on instantiation:
+// Note that you can override props on instantiation:
 const myBar = bar({ name: 'Moe\'s' });
 // Silly, but proves that everything is as it should be.
 myBar.add({ name: 'Homer' }).open().getMember('Homer');
@@ -92,10 +95,10 @@ const myStamp = stampit().methods({
     }
 });
 
-myStamp.props({
+myStamp.deepProps({
     foo: { bar: 'bar' },
     refsOverride: false
-}).conf({
+}).props({
     bar: 'bar',
     refsOverride: true
 });
@@ -117,7 +120,7 @@ myStamp.init(function() {
 let obj = myStamp.create();
 obj.getSecret && obj.a && obj.b && obj.c; // true
 
-const newStamp = stampit({ conf: { defaultNum: 1 } }).compose(myStamp);
+const newStamp = stampit({ props: { defaultNum: 1 } }).compose(myStamp);
 
 const obj1 = stampit().methods({
     a() {
@@ -129,7 +132,7 @@ const obj1 = stampit().methods({
     }
 }).create();
 
-const obj2 = stampit().conf({
+const obj2 = stampit().props({
     a: 'a'
 }, {
     b: 'b'
@@ -186,7 +189,7 @@ const SomeStamp = stampit<SomeStamp>()
 SomeStamp({ a: 1, b: false }); // $ExpectType SomeStampInstance
 SomeStamp({ a: 1, b: false }).a; // $ExpectType string
 
-const d: stampit.Descriptor<{}> = {
+const d: stampit.ExtendedDescriptor<{}> = {
   methods: {},
   properties: {},
   deepProperties: {},
@@ -244,8 +247,8 @@ stampObject0(); // $ExpectType Object0
 const stampObject1 = compose<Object1>(); // $ExpectType Stamp<Object1>
 stampObject1(); // $ExpectType Object1
 
-// Define a typed Descriptor and benefit is properly typed `this` in `methods`
-const descriptor0: stampit.Descriptor<Object0> = {
+// Define a typed ExtendedDescriptor and benefit its properly typed `this` in `methods`
+const descriptor0: stampit.ExtendedDescriptor<Object0> = {
   methods: {
     logLocalThis() { this; }, // this: I_Object0
   },
@@ -274,11 +277,11 @@ stampDescriptor0(); // $ExpectType Object0
 
 // check typed stamps... with untyped descriptor (`this` isn't typed in `methods`)
 // inline type assertion is still possible though
-const stampUntypedDescriptor0 = compose<Object0>(/* <stampit.Descriptor<Object0>> */ {
+const stampUntypedDescriptor0 = compose<Object0>(/* <stampit.ExtendedDescriptor<Object0>> */ {
   methods: {
     logLocalThis() { this; }, // this: any
   },
-} /* as stampit.Descriptor<Object0> */);
+} /* as stampit.ExtendedDescriptor<Object0> */);
 stampUntypedDescriptor0; // $ExpectType Stamp<Object0>
 stampUntypedDescriptor0(); // $ExpectType Object0
 
