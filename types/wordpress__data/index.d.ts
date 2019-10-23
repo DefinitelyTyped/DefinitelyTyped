@@ -77,8 +77,9 @@ export const RegistryProvider: Provider<DataRegistry>;
 //
 export function useRegistry(): DataRegistry;
 export function useSelect<T>(mapSelect: (s: typeof select) => T, deps?: readonly any[]): T;
-export function useDispatch(storeName: string): DispatcherMap;
-export function useDispatch(): typeof dispatch;
+export const useDispatch: typeof dispatch & {
+    (): typeof dispatch;
+};
 
 //
 // React HOCs
