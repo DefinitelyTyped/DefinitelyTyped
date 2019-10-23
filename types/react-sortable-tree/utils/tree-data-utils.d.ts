@@ -68,11 +68,12 @@ export function getFlatDataFromTree(
         ignoreCollapsed?: boolean,
     },
 ): FlatDataItem[];
-// tslint:disable-next-line:no-unnecessary-generics
 export function getTreeFromFlatData<T, K extends keyof T, P extends keyof T, I extends string | number>(
     data: {
-        flatData: T[] | I extends string ? { [key: string] : T } : { [key: number] : T },
+        flatData: T[] | I extends string ? { [key: string]: T } : { [key: number]: T },
+        // tslint:disable-next-line:no-unnecessary-generics
         getKey?: (item: T) => T[K],
+        // tslint:disable-next-line:no-unnecessary-generics
         getParentKey?: (item: T) => T[P],
         rootKey?: I,
     },
