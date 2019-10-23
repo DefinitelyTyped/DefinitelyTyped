@@ -3910,7 +3910,7 @@ declare namespace Office {
          * <table>
          *   <tr>
          *     <td>`Office.CoercionType.XmlSvg`</td>
-         *     <td>There is a 64KB size limitation for SVG insertions.</td>
+         *     <td>As of Excel build 16.0.11526.10000, there is a 64KB size limitation for SVG insertions.</td>
          *   </tr>
          * </table>
          * 
@@ -4109,7 +4109,7 @@ declare namespace Office {
          * <table>
          *   <tr>
          *     <td>`Office.CoercionType.XmlSvg`</td>
-         *     <td>There is a 64KB size limitation for SVG insertions.</td>
+         *     <td>As of Excel build 16.0.11526.10000, there is a 64KB size limitation for SVG insertions.</td>
          *   </tr>
          * </table>
          * 
