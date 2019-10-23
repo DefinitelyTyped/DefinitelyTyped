@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "otplib-tests.ts"
+        "jxon-tests.ts"
     ]
 }

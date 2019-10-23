@@ -1721,8 +1721,13 @@ MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
-MongoModel.syncIndexes({});
-MongoModel.syncIndexes({}, cb);
+MongoModel.syncIndexes().then(() => {});
+MongoModel.syncIndexes({}).then(() => {});
+MongoModel.syncIndexes(null).then(() => {});
+MongoModel.syncIndexes(undefined).then(() => {});
+MongoModel.syncIndexes({}, err => {});
+MongoModel.syncIndexes(null, err => {});
+MongoModel.syncIndexes(undefined, err => {});
 MongoModel.listIndexes();
 MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);

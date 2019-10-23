@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 3.1
+// Type definitions for webpack-dev-server 3.4
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -7,6 +7,7 @@
 //                 Artur Androsovych <https://github.com/arturovt>
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Katsuya Hino <https://github.com/dobogo>
+//                 Billy Le <https://github.com/billy-le>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,11 +37,11 @@ declare namespace WebpackDevServer {
 
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
-        after?: (app: express.Application, server: WebpackDevServer) => void;
+        after?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
         /** This option allows you to whitelist services that are allowed to access the dev server. */
         allowedHosts?: string[];
         /** Provides the ability to execute custom middleware prior to all other middleware internally within the server. */
-        before?: (app: express.Application, server: WebpackDevServer) => void;
+        before?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
         /** This option broadcasts the server via ZeroConf networking on start. */
         bonjour?: boolean;
         /**
@@ -78,10 +79,27 @@ declare namespace WebpackDevServer {
         hot?: boolean;
         /** Enables Hot Module Replacement (see devServer.hot) without page refresh as fallback in case of build failures. */
         hotOnly?: boolean;
+        /**
+         * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0 and above,
+         * as spdy is broken for those versions. The dev server will migrate over to Node's
+         * built-in HTTP/2 once Express supports it.
+         */
+        http2?: boolean;
         /** By default dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. */
         https?: boolean | https.ServerOptions;
         /** The filename that is considered the index file. */
         index?: string;
+        /**
+         * Tells devServer to inject a client. Setting devServer.injectClient to true will result
+         * in always injecting a client. It is possible to provide a function to inject conditionally
+         */
+        injectClient?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
+        /**
+         * Tells devServer to inject a Hot Module Replacement. Setting devServer.injectHot
+         * to true will result in always injecting. It is possible to provide a function to
+         * inject conditionally
+         */
+        injectHot?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
         /**
          * Toggle between the dev-server's two different modes.
          * By default the application will be served with inline mode enabled.
@@ -94,6 +112,24 @@ declare namespace WebpackDevServer {
          * This means that webpack will not watch any file changes.
          */
         lazy?: boolean;
+        /**
+         * By default, the dev-server will reload/refresh the page when file changes are detected.
+         */
+        liveReload?: boolean;
+        /**
+         * Allows dev-server to register custom mime types.
+         */
+        mimeTypes?:
+            | {
+                  [key: string]: string[];
+              }
+            | {
+                  typeMap?: {
+                      [key: string]: string[];
+                  } & {
+                      force: boolean;
+                  };
+              };
         /**
          * With noInfo enabled, messages like the webpack bundle information that is shown
          * when starting up and after each save,will be hidden.
@@ -135,10 +171,18 @@ declare namespace WebpackDevServer {
          * This also means that errors or warnings from webpack are not visible.
          */
         quiet?: boolean;
+        /**
+         * Tells dev-server to use serveIndex middleware when enabled.
+         */
+        serveIndex?: boolean;
         /** @deprecated Here you can access the Express app object and add your own custom middleware to it. */
         setup?: (app: express.Application, server: WebpackDevServer) => void;
         /** The Unix socket to listen to (instead of a host). */
         socket?: string;
+        /**
+         * Tells clients connected to devServer to use provided socket host.
+         */
+        sockHost?: string;
         /** The path at which to connect to the reloading socket. */
         sockPath?: string;
         /** It is possible to configure advanced options for serving static files from contentBase. */
@@ -172,7 +216,7 @@ declare class WebpackDevServer {
     static addDevServerEntrypoints(
         webpackOptions: webpack.Configuration | webpack.Configuration[],
         config: WebpackDevServer.Configuration,
-        listeningApp?: WebpackDevServer.ListeningApp
+        listeningApp?: WebpackDevServer.ListeningApp,
     ): void;
 
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;

@@ -1,4 +1,4 @@
-import { BorderWidth, Chart, ChartData, Point, ChartColor } from 'chart.js';
+import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -239,5 +239,43 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
                 return { top: 1, right: 1, bottom: 0, left: 1 };
             }
         }],
+    }
+});
+
+// linear scale
+const linearScaleChart: Chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            backgroundColor: '#000',
+            borderColor: '#f00',
+            data: [],
+            type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            displayFormats: {
+                month: 'MMM YYYY',
+            },
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Closing price ($)'
+                }
+            }]
+        },
+        tooltips: {
+            intersect: false,
+            mode: 'index',
+        }
     }
 });

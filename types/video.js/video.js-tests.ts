@@ -122,6 +122,12 @@ function testPlugin(player: videojs.Player, options: {}) {
 
 function testAugmentation(player: videojs.Player) {
 	player.somePluginDefinedInAugmentation();
+	videojs("example_video_2", {
+		plugins: {
+			somePluginDefinedInAugmentation: {},
+			someOtherPluginNotTyped: {}
+		}
+	});
 }
 
 function testLogger() {

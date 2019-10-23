@@ -22,11 +22,11 @@ import {
   UniqueIntegrityConstraintViolationError,
   SqlTaggedTemplateType
 } from 'slonik';
-import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
+import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
 // make sure symbols are unique
 // $ExpectError
-const badSymbolAssignment: typeof ArrayTokenSymbol = TupleListTokenSymbol;
+const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
 const VALUE = 'foo';
 
@@ -267,6 +267,23 @@ createTimestampWithTimeZoneTypeParser();
   const query0 = sql`SELECT ${'foo'} FROM bar`;
   // ExpectType SqlSqlTokenType
   const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
+
+  await connection.query(sql`
+    SELECT ${sql.identifier(['foo', 'a'])}
+    FROM (
+      VALUES
+      (
+        ${sql.join(
+          [
+            sql.join(['a1', 'b1', 'c1'], sql`, `),
+            sql.join(['a2', 'b2', 'c2'], sql`, `)
+          ],
+          sql`), (`
+        )}
+      )
+    ) foo(a, b, c)
+    WHERE foo.b IN (${sql.join(['c1', 'a2'], sql`, `)})
+  `);
 
   await connection.query(sql`
       SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})

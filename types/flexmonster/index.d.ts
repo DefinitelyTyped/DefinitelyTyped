@@ -37,6 +37,7 @@ declare namespace Flexmonster {
         beforetoolbarcreated?: (toolbar: Toolbar) => void;
         cellclick?: (cell: CellData) => void;
         celldoubleclick?: (cell: CellData) => void;
+        chartclick?: (data: ChartData) => void;
         datachanged?: (param: object) => void;
         dataerror?: (param: object) => void;
         datafilecancelled?: () => void;
@@ -63,6 +64,7 @@ declare namespace Flexmonster {
         ready?: () => void;
         reportchange?: () => void;
         reportcomplete?: () => void;
+        reportfileloaded?: () => void;
         reportfilecancelled?: () => void;
         reportfileerror?: () => void;
         runningquery?: () => void;
@@ -116,7 +118,7 @@ declare namespace Flexmonster {
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
-        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: {uniqueName: string, isRemoved: boolean}) => void) | string): void;
+        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: { uniqueName: string, isRemoved: boolean }) => void) | string): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;
@@ -181,7 +183,7 @@ declare namespace Flexmonster {
     }
 
     interface DataSource {
-    	type?: string;
+        type?: string;
         dataSourceType?: string;
         browseForFile?: boolean;
         catalog?: string;
@@ -553,11 +555,12 @@ declare namespace Flexmonster {
     }
 
     interface ChartData {
-        columnTuple?: number[];
+        element: any;
+        columns?: object[];
         id?: string;
         label?: string;
         measure?: MeasureObject;
-        rawTuple?: number[];
+        rows?: object[];
         value?: number;
     }
 

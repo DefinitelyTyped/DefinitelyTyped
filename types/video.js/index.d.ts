@@ -6719,7 +6719,7 @@ declare namespace videojs {
         nativeControlsForTouch?: boolean;
         notSupportedMessage?: string;
         playbackRates?: number[];
-        plugins?: any;
+        plugins?: VideoJsPlayerPluginOptions;
         poster?: string;
         preload?: string;
         sourceOrder?: boolean;
@@ -6728,4 +6728,8 @@ declare namespace videojs {
         techOrder?: string[];
         tracks?: videojs.TextTrackOptions[];
         width?: number;
+    }
+
+    export interface VideoJsPlayerPluginOptions {
+        [pluginName: string]: any;
     }

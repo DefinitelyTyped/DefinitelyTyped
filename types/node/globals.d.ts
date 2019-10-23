@@ -185,9 +185,6 @@ declare namespace setImmediate {
 }
 declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
-/**
- * @experimental
- */
 declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
@@ -704,7 +701,8 @@ declare namespace NodeJS {
         | 'openbsd'
         | 'sunos'
         | 'win32'
-        | 'cygwin';
+        | 'cygwin'
+        | 'netbsd';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
