@@ -82,14 +82,14 @@ declare namespace marked {
      *
      * @param options Hash of options
      */
-    function options(options: MarkedOptions): typeof marked
+    function options(options: MarkedOptions): typeof marked;
 
     /**
      * Gets the default options.
      */
-    function getDefaults(): MarkedOptions
+    function getDefaults(): MarkedOptions;
 
-    const defaults: MarkedOptions
+    const defaults: MarkedOptions;
 
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);
