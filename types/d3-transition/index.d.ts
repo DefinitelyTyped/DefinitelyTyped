@@ -456,6 +456,11 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      */
     on(type: string, listener: ValueFn<GElement, Datum, void>): this;
 
+    /**
+     * Returns a promise that resolves when every selected element finishes transitioning. If any element’s transition is cancelled or interrupted, the promise rejects.
+     */
+    end(): Promise<void>;
+
     // Control Flow ----------------------
 
     /**
