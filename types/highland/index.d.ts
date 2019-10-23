@@ -889,9 +889,9 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle an error
 		 * @api public
 		 */
-    stopOnError(f: (err: Error) => void): Stream<R>;
-    
-    /**
+		stopOnError(f: (err: Error) => void): Stream<R>;
+		
+		/**
 		 * [splitBy](splitBy) over newlines.
 		 *
 		 * @id split
