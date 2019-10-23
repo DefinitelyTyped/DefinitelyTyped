@@ -279,3 +279,17 @@ const linearScaleChart: Chart = new Chart(ctx, {
         }
     }
 });
+
+// custom tooltips
+const customTooltipsPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {},
+    options: {
+        tooltips: {
+            enabled: false,
+            custom: (tooltipModel) => {
+                // do whatever
+            },
+        },
+    },
+});
