@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type FunctionType = (arg: any) => {};
+export type FunctionType = (arg: unknown) => void;
 export type VerbosityType = 0 | 1 | 2 | 3;
 
 export interface ConfigOptions {
