@@ -899,6 +899,7 @@ declare namespace Highland {
 		 * @name Stream.split(s)
 		 * @api public
 		 */
+
     split(): Stream<R>;
       
     /**
@@ -910,7 +911,7 @@ declare namespace Highland {
 		 * @param {String|RegExp} sep - String | RegExp - the separator to split on
 		 * @api public
 		 */
-    splitBy(sep: string): Stream<R>;
+        splitBy(sep: string): Stream<R>;
 		/**
 		 * Creates a new Stream with the first `n` values from the source.
 		 *
@@ -920,6 +921,7 @@ declare namespace Highland {
 		 * @param {Number} n - integer representing number of values to read from source
 		 * @api public
 		 */
+
 		take(n: number): Stream<R>;
 
 		/**
