@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "mock-fs-tests.ts",
+        "lib/directory.d.ts",
+        "lib/file.d.ts",
+        "lib/filesystem.d.ts",
+        "lib/index.d.ts",
+        "lib/item.d.ts",
+        "lib/symlink.d.ts"
+    ]
+}

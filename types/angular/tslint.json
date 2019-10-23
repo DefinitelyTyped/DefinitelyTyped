@@ -1,0 +1,23 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "class-name": true,
+        "indent": [true, "spaces"],
+        "quotemark": [true, "single"],
+        "variable-name": [true, "check-format"],
+
+        // Below are all TODOs
+        "callable-types": false,
+        "ban-types": false,
+        "interface-name": false,
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-empty-interface": false,
+        "no-namespace": false,
+        "no-unnecessary-generics": false,
+        "no-unnecessary-qualifier": false,
+        "no-void-expression": false,
+        "unified-signatures": false,
+        "void-return": false
+    }
+}

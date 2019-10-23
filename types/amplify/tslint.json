@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "unified-signatures": false,
+        "npm-naming": false
+    }
+}
