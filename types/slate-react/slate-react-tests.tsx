@@ -32,8 +32,30 @@ class MyPlugin implements Plugin {
     }
 }
 
+const eventPlugin: Plugin = {
+    onBeforeInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onBlur: (event, editor, next) => {[event.nativeEvent, ]; },
+    onClick: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
+    onCompositionEnd: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onCompositionStart: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onCopy: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onCut: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onDragEnd: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragEnter: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragExit: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragLeave: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragOver: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragStart: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDrop: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onFocus: (event, editor, next) => {[event.nativeEvent, ]; },
+    onInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onKeyDown: (event, editor, next) => {[event.nativeEvent, event.key, ]; },
+    onPaste: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onSelect: (event, editor, next) => {[event.nativeEvent, ]; },
+};
+
 const myPlugin = new MyPlugin();
-const plugins = [myPlugin, [myPlugin, [myPlugin]]];
+const plugins = [myPlugin, [myPlugin, [myPlugin]], eventPlugin];
 
 interface MyEditorState {
     value: Value;

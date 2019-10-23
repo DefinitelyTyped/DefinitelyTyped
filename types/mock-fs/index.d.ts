@@ -1,56 +1,54 @@
-// Type definitions for mock-fs 3.6.0
+// Type definitions for mock-fs 4.10
 // Project: https://github.com/tschaub/mock-fs
-// Definitions by: Wim Looman <https://github.com/Nemo157>, Qubo <https://github.com/tkqubo>
+// Definitions by: Wim Looman <https://github.com/Nemo157>,
+//                 Qubo <https://github.com/tkqubo>,
+//                 Porama Ruengrairatanaroj <https://github.com/Seally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-
-import nodefs = require("fs");
-
-declare function mock(config?: mock.Config, options?: mock.Options): void;
-
-declare namespace mock {
-    function file(config: FileConfig): File;
-    function directory(config: DirectoryConfig): Directory;
-    function symlink(config: SymlinkConfig): Symlink;
-
-    function restore(): void;
-
-    function fs(config?: Config, options?: Options): typeof nodefs;
-
-    interface Config {
-        [path: string]: string | Buffer | File | Directory | Symlink | Config;
-    }
-
-    interface Options {
-        createCwd?: boolean;
-        createTmp?: boolean;
-    }
-
-    interface CommonConfig {
-        mode?: number;
-        uid?: number;
-        git?: number;
-        atime?: Date;
-        ctime?: Date;
-        mtime?: Date;
-        birthtime?: Date;
-    }
-
-    interface FileConfig extends CommonConfig {
-        content: string | Buffer;
-    }
-    interface DirectoryConfig extends CommonConfig {
-        items: Config;
-    }
-    interface SymlinkConfig extends CommonConfig {
-        path: string;
-    }
-
-    class File { private _file: any; }
-    class Directory { private _directory: any; }
-    class Symlink { private _symlink: any; }
-}
+import FileSystem = require('./lib/filesystem');
+import File = require('./lib/file');
+import Directory = require('./lib/directory');
+import SymbolicLink = require('./lib/symlink');
 
 export = mock;
+
+/**
+ * Swap out the fs bindings for a mock file system.
+ *
+ * _Note:_ Import this file _before_ any other modules that import the `fs`
+ * module.
+ *
+ * @param config Mock file system configuration.
+ * @param options Any filesystem options.
+ * @param options.createCwd Create a directory for `process.cwd()` (defaults to
+ *                          `true`).
+ * @param options.createTmp Create a directory for `os.tmpdir()` (defaults to
+ *                          `true`).
+ */
+declare function mock(config?: FileSystem.DirectoryItems, options?: FileSystem.Options): void;
+
+declare namespace mock {
+    /**
+     * Get hold of the mocked filesystem's 'root'
+     * If fs hasn't currently been replaced, this will return an empty object
+     */
+    function getMockRoot(): Directory | {};
+
+    /**
+     * Restore the fs bindings for the real file system.
+     */
+    function restore(): void;
+
+    /**
+     * Create a file factory.
+     */
+    function file(config?: FileSystem.FileOptions): () => File;
+    /**
+     * Create a directory factory.
+     */
+    function directory(config?: FileSystem.DirectoryOptions): () => Directory;
+    /**
+     * Create a symbolic link factory.
+     */
+    function symlink(config: FileSystem.SymlinkOptions): () => SymbolicLink;
+}

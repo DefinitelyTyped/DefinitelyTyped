@@ -2329,6 +2329,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "otplib",
+            "typingsPackageName": "otplib",
+            "sourceRepoURL": "https://github.com/yeojz/otplib",
+            "asOfVersion": "10.0.0"
+        },
+        {
             "libraryName": "p-all",
             "typingsPackageName": "p-all",
             "sourceRepoURL": "https://github.com/sindresorhus/p-all",
@@ -2998,6 +3004,12 @@
             "libraryName": "react-native-navigation",
             "typingsPackageName": "react-native-navigation",
             "sourceRepoURL": "https://github.com/wix/react-native-navigation",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-navigation-material-bottom-tabs",
+            "typingsPackageName": "react-navigation-material-bottom-tabs",
+            "sourceRepoURL": "https://github.com/react-navigation/material-bottom-tabs",
             "asOfVersion": "2.0.0"
         },
         {
