@@ -6,5 +6,7 @@
 
 export namespace RomanNumeral {
     constructor(value: number): void
-    constructor(value: string): void
+    constructor(value: String): void
+    toInt(): number
+    toString(): String
 }
