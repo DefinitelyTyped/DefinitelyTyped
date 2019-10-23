@@ -182,7 +182,7 @@ interface SomeStamp extends stampit.Stamp<SomeStampInstance> {
 
 const SomeStamp = stampit<SomeStamp>()
     .init(function(params: { a: number; b: boolean}) {
-        this.a = '' + a;
+        this.a = '' + a; // this SomeStampInstance
         this.b = '' + b;
     });
 
@@ -213,7 +213,7 @@ const d: stampit.ExtendedDescriptor<{}> = {
 };
 
 // The `.compose()` method
-const compose = stampit.compose;
+const compose = stampit.compose; // $ExpectType typeof stampit
 
 const stampUntyped = compose(); // $ExpectType Stamp<any>
 stampUntyped(); // $ExpectType any
@@ -250,7 +250,9 @@ stampObject1(); // $ExpectType Object1
 // Define a typed ExtendedDescriptor and benefit its properly typed `this` in `methods`
 const descriptor0: stampit.ExtendedDescriptor<Object0> = {
   methods: {
-    logLocalThis() { this; }, // this: I_Object0
+    logLocalThis() {
+        this; // $ExpectType Object0
+    },
   },
   properties: {},
   deepProperties: {},
@@ -259,7 +261,8 @@ const descriptor0: stampit.ExtendedDescriptor<Object0> = {
   staticDeepProperties: {},
   staticPropertyDescriptors: {},
   initializers: [
-    (options, context) => {
+    function(options, context) {
+      this; // $ExpectType Object0
       return context.instance;
     }
   ],
@@ -279,7 +282,9 @@ stampDescriptor0(); // $ExpectType Object0
 // inline type assertion is still possible though
 const stampUntypedDescriptor0 = compose<Object0>(/* <stampit.ExtendedDescriptor<Object0>> */ {
   methods: {
-    logLocalThis() { this; }, // this: any
+    logLocalThis() {
+        this; // $ExpectType any
+    },
   },
 } /* as stampit.ExtendedDescriptor<Object0> */);
 stampUntypedDescriptor0; // $ExpectType Stamp<Object0>
