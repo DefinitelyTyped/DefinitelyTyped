@@ -57,6 +57,7 @@ declare namespace soundmanager {
     interface SoundManagerAudioFormat {
         type: string[];
         required: boolean;
+        related?: string[];
     }
 
     interface SoundManagerProps {
