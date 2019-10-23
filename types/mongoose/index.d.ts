@@ -405,9 +405,10 @@ declare module "mongoose" {
     /**
      * Switches to a different database using the same connection pool.
      * @param name The database name
+     * @param [options] [options.useCache=false] «Boolean» If true, cache results so calling useDb() multiple times with the same name only creates 1 connection object.
      * @returns New Connection Object
      */
-    useDb(name: string): Connection;
+    useDb(name: string, options = { useCache: false }): Connection;
 
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
