@@ -1,4 +1,4 @@
-// Type definitions for Video.js 7.2
+// Type definitions for Video.js 7.3
 // Project: https://github.com/videojs/video.js, https://videojs.com
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
@@ -10,6 +10,7 @@
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
+//                 KuanYu Chu <https://github.com/ckybonist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -2927,8 +2928,6 @@ declare namespace videojs {
 		 * It takes a name and gives you back a log object like videojs.log
 		 *
 		 * @param label
-		 *
-		 * Definitions by: KuanYu Chu <https://github.com/ckybonist>
 		 */
 		createLogger: (label: string) => Log;
 
