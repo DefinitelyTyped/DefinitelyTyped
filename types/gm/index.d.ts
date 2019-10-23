@@ -15,6 +15,7 @@ declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
     interface ClassOptions {
+        appPath?: string;
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
     }
