@@ -1,7 +1,6 @@
 declare module "tty" {
     import * as net from "net";
 
-
     function isatty(fd: number): boolean;
     class ReadStream extends net.Socket {
         constructor(fd: number, options?: net.SocketConstructorOpts);
