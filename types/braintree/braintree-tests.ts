@@ -1,15 +1,26 @@
 import braintree = require('braintree');
-import { BraintreeGateway, Address, AddressCreateRequest,
-    CreditCard, Customer, PayPalAccount, ApplePayCard, AndroidPayCard,
-    VisaCheckoutCard, SamsungPayCard, MasterpassCard, PaymentMethod,
-    PaymentMethodNonce, Transaction
+import {
+    BraintreeGateway,
+    Address,
+    AddressCreateRequest,
+    CreditCard,
+    Customer,
+    PayPalAccount,
+    ApplePayCard,
+    AndroidPayCard,
+    VisaCheckoutCard,
+    SamsungPayCard,
+    MasterpassCard,
+    PaymentMethod,
+    PaymentMethodNonce,
+    Transaction,
 } from 'braintree';
 
 /**
  * Gateway
  */
 const gateway: BraintreeGateway = new braintree.BraintreeGateway({
-    environment: 'Sandbox',
+    environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',
     privateKey: 'xyz789',
@@ -23,7 +34,8 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         customerId: '123456',
         streetAddress: '222 Oak Street',
     };
-    const response = await gateway.address.create(addressRequest);
+    const response = await gateway.address.create(addressRequest).catch(console.error);
+    if (!response) return;
     const { id, customerId }: Address = response.address;
 })();
 
@@ -32,13 +44,15 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         cardholderName: 'Johnny Dogood',
         cvv: '123',
     };
-    const response = await gateway.creditCard.update('abcdef', creditCardRequest);
+    const response = await gateway.creditCard.update('abcdef', creditCardRequest).catch(console.error);
+    if (!response) return;
     const { bin, maskedNumber, last4 }: CreditCard = response.creditCard;
 })();
 
 (async () => {
-    const response: Customer = await gateway.customer.find('abcdef');
-    const { id, paymentMethods } = response;
+    const response = await gateway.customer.find('abcdef').catch(console.error);
+    if (!response) return;
+    const { id, paymentMethods }: Customer = response;
 })();
 
 (async () => {
@@ -46,7 +60,8 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         customerId: '123456',
         paymentMethodNonce: 'i-am-a-nonce',
     };
-    const response = await gateway.paymentMethod.create(paymentMethodRequest);
+    const response = await gateway.paymentMethod.create(paymentMethodRequest).catch(console.error);
+    if (!response) return;
     const { token }: PaymentMethod = response.paymentMethod;
     const applePayCard = <ApplePayCard> response.paymentMethod;
     const paypalAccount = <PayPalAccount> response.paymentMethod;
@@ -59,21 +74,24 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 })();
 
 (async () => {
-  const response = await gateway.paymentMethodNonce.create('token');
-  const nonce = response.paymentMethodNonce.nonce;
+    const response = await gateway.paymentMethodNonce.create('token').catch(console.error);
+    if (!response) return;
+    const nonce: PaymentMethodNonce = response.paymentMethodNonce;
 })();
 
 (async () => {
     const transactionRequest = {
         amount: '128.00',
     };
-    const response = await gateway.transaction.sale(transactionRequest);
+    const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
+    if (!response) return;
     const { amount, billing, id }: Transaction = response.transaction;
 
     // Cannot assign to var
-    await gateway.transaction.cloneTransaction(id, { amount: '100.00' , options: {submitForSettlement: true }});
+    await gateway.transaction
+        .cloneTransaction(id, { amount: '100.00', options: { submitForSettlement: true } })
+        .catch(console.error);
 
-    const transactions: Transaction[] = await gateway.transaction.search(() => {
-        return;
-    });
+    const transactions: Transaction[] = [];
+    gateway.transaction.search(() => true).on('data', transactions.push);
 })();

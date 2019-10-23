@@ -648,9 +648,14 @@ import { promisify } from 'util';
 }
 
 {
-    const buf: Buffer = crypto.publicEncrypt({
+    const key = {
         key: 'test',
         oaepHash: 'sha1',
         oaepLabel: Buffer.from('asd'),
-    }, Buffer.from([]));
+    };
+    const buf: Buffer = crypto.publicEncrypt(key, Buffer.from([]));
+    const dec: Buffer = crypto.publicDecrypt(key, buf);
+
+    const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
+    const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }

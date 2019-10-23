@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +18,12 @@
     },
     "files": [
         "index.d.ts",
-        "mock-fs-tests.ts"
+        "mock-fs-tests.ts",
+        "lib/directory.d.ts",
+        "lib/file.d.ts",
+        "lib/filesystem.d.ts",
+        "lib/index.d.ts",
+        "lib/item.d.ts",
+        "lib/symlink.d.ts"
     ]
 }

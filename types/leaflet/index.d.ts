@@ -987,6 +987,7 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
     addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
+    closestLayerPoint(p: Point): Point;
 
     feature?: geojson.Feature<T, P>;
     options: PolylineOptions;
@@ -1036,6 +1037,7 @@ export function circle(latlng: LatLngExpression, radius: number, options?: Circl
 
 export interface RendererOptions extends LayerOptions {
     padding?: number;
+    tolerance?: number;
 }
 
 export class Renderer extends Layer {

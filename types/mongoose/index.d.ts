@@ -1421,6 +1421,8 @@ declare module "mongoose" {
     isNew: boolean;
     /** The documents schema. */
     schema: Schema;
+    /** Empty object that you can use for storing properties on the document */
+    $locals: { [k: string]: any };
   }
 
   interface MongooseDocumentOptionals {
@@ -3013,8 +3015,8 @@ declare module "mongoose" {
      * @param callback optional callback
      * @return Returns `undefined` if callback is specified, returns a promise if no callback.
      */
-    syncIndexes(options: object, callback?: (err: any) => void): void;
-    syncIndexes(options: object): Promise<void>;
+    syncIndexes(options: object | null | undefined, callback: (err: any) => void): void;
+    syncIndexes(options?: object | null): Promise<void>;
 
     /**
      * Lists the indexes currently defined in MongoDB. This may or may not be
