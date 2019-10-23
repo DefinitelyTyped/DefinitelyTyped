@@ -6,12 +6,9 @@
 
 // Use an interface so that different versions of React can be used
 interface ReactInterface {
-  // tslint:disable-next-line ban-types
-  useEffect: Function;
-  // tslint:disable-next-line ban-types
-  useState: Function;
-  // tslint:disable-next-line ban-types
-  useMemo: Function;
+  useEffect: (...args: any[]) => any;
+  useState: (...args: any[]) => any;
+  useMemo: (...args: any[]) => any;
 }
 // to ignore strict-export-declare-modifiers error
 export {};
@@ -28,7 +25,6 @@ export type InitializerFunction<S, A> = (store: Store<S, A>) => void;
 type UseGlobal<S, A> = (() => [S, A]) &
   (<NS>(stateFunc: (state: S) => NS) => [NS, A]) &
   (<NS, NA>(stateFunc: (state: S) => NS, actionsFunc: (state: A) => NA) => [NS, NA]) &
-  // tslint:disable-next-line no-unnecessary-generics
   (<NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [S, NA]);
 
 export default function useStore<S, A>(
