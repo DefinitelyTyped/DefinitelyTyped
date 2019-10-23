@@ -491,6 +491,7 @@ cli = new CLIEngine({ ignorePattern: 'foo' });
 cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
+cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
 cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
