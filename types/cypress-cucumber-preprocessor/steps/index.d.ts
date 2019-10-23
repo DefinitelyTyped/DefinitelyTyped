@@ -12,3 +12,5 @@ export function When(expression: RegExp | string, implementation: (...args: any[
 export function Then(expression: RegExp | string, implementation: (...args: any[]) => void): void;
 export function And(expression: RegExp | string, implementation: (...args: any[]) => void): void;
 export function But(expression: RegExp | string, implementation: (...args: any[]) => void): void;
+export function Before(args_0: object | ((...args: any[]) => void), args_1?: (...args: any[]) => void): void;
+export function After(args_0: object | ((...args: any[]) => void), args_1?: (...args: any[]) => void): void;
