@@ -19,6 +19,7 @@ var anyArr: any[];
 var strArr: string[];
 var numArr: string[];
 var funcArr: Function[];
+var regExp = /a/
 
 var readable: NodeJS.ReadableStream;
 var readwritable: NodeJS.ReadWriteStream;
@@ -276,6 +277,8 @@ fooStream = fooStream.stopOnError((e: Error) => {});
 fooStream = fooStream.split();
 
 fooStream = fooStream.splitBy(str);
+
+fooStream = fooStream.splitBy(regExp)
 
 fooStream = fooStream.take(num);
 
