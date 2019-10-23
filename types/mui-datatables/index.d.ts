@@ -28,9 +28,15 @@ interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
+    columns: MUIDataTableColumnState[];
+    // TODO count is also returned
+    // TODO data
+    // TODO displayData
     expandedRows: MUIDataTableStateRows;
+    // TODO filterData
     filterList: string[][];
     page: number;
+    // TODO previousSelectedRow
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
@@ -109,6 +115,11 @@ export interface MUIDataTableFilterOptions {
     logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
+export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
+    name: string;
+    label?: string;
+}
+
 export interface MUIDataTableColumnOptions {
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
@@ -116,6 +127,7 @@ export interface MUIDataTableColumnOptions {
     download?: boolean;
     empty?: boolean;
     filter?: boolean;
+    filterType?: FilterType;
     filterList?: string[];
     filterOptions?: MUIDataTableFilterOptions;
     hint?: string;
@@ -123,7 +135,7 @@ export interface MUIDataTableColumnOptions {
     searchable?: boolean;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
-    sortDirection?: 'asc' | 'desc';
+    sortDirection?: 'asc' | 'desc' | 'none'; // TODO why 'none' might be on this field in practice? it should be just undefined. and it should reuse SortDirection type
     viewColumns?: boolean;
 }
 
@@ -174,7 +186,7 @@ export interface MUIDataTableOptions {
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
     filter?: boolean;
-    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+    filterType?: FilterType;
     fixedHeader?: boolean;
     isRowExpandable?: (dataIndex: number, expandedRows?: MUIDataTableIsRowCheck) => boolean;
     isRowSelectable?: (dataIndex: number, selectedRows?: MUIDataTableIsRowCheck) => boolean;
