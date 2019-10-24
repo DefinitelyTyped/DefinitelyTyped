@@ -30,6 +30,8 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
 declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
 
 declare namespace marked {
+    const defaults: MarkedOptions;
+
     /**
      * @param src String of markdown source to be compiled
      * @param options Hash of options
@@ -75,7 +77,19 @@ declare namespace marked {
      *
      * @param options Hash of options
      */
+    function options(options: MarkedOptions): typeof marked;
+
+    /**
+     * Sets the default options.
+     *
+     * @param options Hash of options
+     */
     function setOptions(options: MarkedOptions): typeof marked;
+
+    /**
+     * Gets the original marked default options.
+     */
+    function getDefaults(): MarkedOptions;
 
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);

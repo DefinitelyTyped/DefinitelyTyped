@@ -1,6 +1,6 @@
 import * as marked from 'marked';
 
-const options: marked.MarkedOptions = {
+let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,
     tables: true,
@@ -17,12 +17,16 @@ const options: marked.MarkedOptions = {
     renderer: new marked.Renderer()
 };
 
+options = marked.getDefaults();
+options = marked.defaults;
+
 function callback(err: string, markdown: string) {
     console.log("Callback called!");
     return markdown;
 }
 
-const myOldMarked: typeof marked = marked.setOptions(options);
+let myOldMarked: typeof marked = marked.options(options);
+myOldMarked = marked.setOptions(options);
 
 console.log(marked('1) I am using __markdown__.'));
 console.log(marked('2) I am using __markdown__.', options));
