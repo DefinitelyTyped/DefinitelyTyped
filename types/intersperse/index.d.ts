@@ -5,4 +5,4 @@
 
 declare function intersperse(items: any[], separator: any): any[];
 
-export default intersperse;
+export = intersperse;
