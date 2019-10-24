@@ -1,12 +1,12 @@
-System.import('./hi.js').then((hi: SystemJS.Module) => {
+System.import('./hi.js').then((hi) => {
     hi.someProperty();
 });
 
-System.import<Hi>('./hi.js').then(hi => {
+System.delete<Hi>('./hi.js').then(hi => {
     hi.someExport();
 });
 
-System.import('./hi.js', 'https://example.com/base/');
+System.delete('./hi.js', 'https://example.com/base/');
 
 System.register(['foo', 'bar'], (_export, _context) => {
     let foo;
@@ -37,25 +37,27 @@ System.register(['foo', 'bar'], (_export, _context) => {
 // named register
 System.register('name', [], () => ({}));
 
-const update = System.delete('https://example.com/a.js');
-if (update) {
-    update();
-} else {
-    const expected: false = update;
-}
+// const update = System.delete('https://example.com/a.js');
+// if (update) {
+//     update();
+// } else {
+//     const expected: false = update;
+// }
 
 const a = System.get('https://example.com/a.js');
 if (a) {
     a.doThing();
 } else {
-    const expected: null = a;
+    // $ExpectType null
+    a;
 }
 
 const b = System.get<ModuleB>('https://example.com/b.js');
 if (b) {
     b.theBThing();
 } else {
-    const expected: null = b;
+    // $ExpectType null
+    b;
 }
 
 const hasC: boolean = System.has('https://example.com/c.js');
@@ -65,8 +67,9 @@ System.set('https://example.com/d.js', {
 });
 
 for (const entry of System.entries()) {
-    const moduleId: string = entry[0];
-    const module: SystemJS.Module = entry[1];
+    // $ExpectType: string
+    const moduleId = entry[0];
+    const module = entry[1];
 }
 
 interface ModuleB {
