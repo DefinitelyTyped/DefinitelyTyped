@@ -32,5 +32,6 @@ export interface ValidatorComponentProps {
     withRequiredValidator?: boolean;
     [key: string]: any;
 }
+export class ValidatorComponent extends React.Component<ValidatorComponentProps> {}
 export class TextValidator extends React.Component<ValidatorComponentProps & TextFieldProps> {}
 export class SelectValidator extends React.Component<ValidatorComponentProps & SelectFieldProps> {}
