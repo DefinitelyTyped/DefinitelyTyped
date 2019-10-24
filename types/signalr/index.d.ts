@@ -333,7 +333,7 @@ declare namespace SignalR {
     }
 }
 
-interface SignalR {
+export interface SignalR {
     /**
     * Creates a new SignalR connection for the given url
     *
@@ -360,7 +360,7 @@ interface SignalR {
     version: string;
 }
 
-interface JQueryStatic {
+export interface JQueryStatic {
     signalR: SignalR;
     connection: SignalR;
     hubConnection: SignalR.Hub.HubCreator;
