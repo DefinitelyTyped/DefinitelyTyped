@@ -1,4 +1,4 @@
-// Type definitions for qs 6.9.0
+// Type definitions for qs 6.9
 // Project: https://github.com/ljharb/qs
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Leon Yu <https://github.com/leonyu>
@@ -7,22 +7,21 @@
 //                 Arturs Vonda <https://github.com/artursvonda>
 //                 Carlos Bonetti <https://github.com/CarlosBonetti>
 //                 Dan Smith <https://github.com/dpsmith3>
-//                 Hunter Perrin <https://github.com/hperrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
 export as namespace qs;
 
 declare namespace QueryString {
-    function defaultEncoder(str: any, defaultEncoder?: any, charset?: string): string;
-    function defaultDecoder(str: string, decoder?: any, charset?: string): string;
-    
+    type defaultEncoder = (str: any, defaultEncoder?: any, charset?: string) => string;
+    type defaultDecoder = (str: string, decoder?: any, charset?: string) => string;
+
     interface IStringifyOptions {
         delimiter?: string;
         strictNullHandling?: boolean;
         skipNulls?: boolean;
         encode?: boolean;
-        encoder?: (str: any, defaultEncoder?: defaultEncoder, charset?: string, type?: 'key' | 'value') => string;
+        encoder?: (str: any, defaultEncoder: defaultEncoder, charset: string, type: 'key' | 'value') => string;
         filter?: Array<string | number> | ((prefix: string, value: any) => any);
         arrayFormat?: 'indices' | 'brackets' | 'repeat' | 'comma';
         indices?: boolean;
@@ -39,8 +38,8 @@ declare namespace QueryString {
     interface IParseOptions {
         comma?: boolean;
         delimiter?: string | RegExp;
-        depth?: number;
-        decoder?: (str: string, defaultDecoder?: defaultDecoder, charset?: string, type?: 'key' | 'value') => any;
+        depth?: number | false;
+        decoder?: (str: string, defaultDecoder: defaultDecoder, charset: string, type: 'key' | 'value') => any;
         arrayLimit?: number;
         parseArrays?: boolean;
         allowDots?: boolean;
