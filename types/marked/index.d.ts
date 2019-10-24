@@ -93,6 +93,10 @@ declare namespace marked {
 
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);
+        options: MarkedOptions;
+        links: string[];
+        rules: Rules;
+        renderer: Renderer;
         static rules: Rules;
         static output(src: string, links: string[], options?: MarkedOptions): string;
         output(src: string): string;
@@ -104,6 +108,7 @@ declare namespace marked {
 
     class Renderer {
         constructor(options?: MarkedOptions);
+        options: MarkedOptions;
         code(code: string, language: string, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
@@ -141,6 +146,11 @@ declare namespace marked {
 
     class Parser {
         constructor(options?: MarkedOptions);
+        tokens: TokensList;
+        token: Token|null;
+        options: MarkedOptions;
+        renderer: Renderer;
+        slugger: Slugger;
         static parse(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
         next(): Token;
@@ -151,6 +161,9 @@ declare namespace marked {
 
     class Lexer {
         constructor(options?: MarkedOptions);
+        tokens: TokensList;
+        options: MarkedOptions;
+        rules: Rules;
         static rules: Rules;
         static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
@@ -158,6 +171,7 @@ declare namespace marked {
     }
 
     class Slugger {
+        seen: {[slugValue: string]: number};
         slug(value: string): string;
     }
 
