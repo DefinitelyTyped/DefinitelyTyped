@@ -957,6 +957,7 @@ declare module "cluster" {
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
+        /** @deprecated since v6.0.0 - use `worker.exitedAfterDisconnect` instead. */
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;

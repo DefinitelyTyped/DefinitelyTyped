@@ -1265,7 +1265,6 @@ declare module "cluster" {
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
-        suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
