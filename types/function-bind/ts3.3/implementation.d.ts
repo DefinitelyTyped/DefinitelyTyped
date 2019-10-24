@@ -5,7 +5,7 @@
  * @param thisArg The object to be used as the this object.
  * @param args Arguments to bind to the parameters of the function.
  */
-declare function bind<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T): (...args: A) => R;
+declare function bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
 declare function bind<T, A0, A extends any[], R>(
 	this: (this: T, arg0: A0, ...args: A) => R,
 	thisArg: T,
