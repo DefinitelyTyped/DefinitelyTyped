@@ -7,6 +7,7 @@
 //                 Arturs Vonda <https://github.com/artursvonda>
 //                 Carlos Bonetti <https://github.com/CarlosBonetti>
 //                 Dan Smith <https://github.com/dpsmith3>
+//                 Hunter Perrin <https://github.com/hperrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
