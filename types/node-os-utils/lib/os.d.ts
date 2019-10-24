@@ -23,3 +23,5 @@ type Platform = 'aix'
     | 'sunos'
     | 'win32'
     | 'cygwin';
+
+export {};
