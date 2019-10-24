@@ -6,50 +6,53 @@
 export = LightSDK;
 export as namespace LightSDK;
 
-
 interface IInfo {
     error_code: string;
     error_message: string;
 }
 
-interface IBridgeResponse {
-    info: IInfo;
-    data: any;
+interface IData {
+	data?: any;	
 }
 
-interface Native {
+interface ICallbackResult {
+    info: IInfo; 
+}
+
+interface INative {
     /**
      * 通过网页js获取客户端基本信息
      *
      * @param {Object} params - 接口入参
      * @param {callback} cb 功能处理后的回调函数
      */
-    getSystemInfo(params: any, cb: any): void;
+    getSystemInfo(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js接口获取当前网络状态
      * @param {Object} params - 接口入参
      * @param {callback} cb 功能处理后的回调函数
      */
-    getNetworkStatus(params: any, cb: any): void;
+    getNetworkStatus(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 获取设备唯一标识码
      * @param {Object} params - 接口入参
      * @param {callback} cb 功能处理后的回调函数
      */
-    getUDID(params: any, cb: any): void;
+    getUDID(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过网页js获取客户端版本信息
      *
      * @param {Object} params - 接口入参
      * @param {callback} cb 功能处理后的回调函数
      */
-    getVersion(params: any, cb: any): void;
+    getVersion(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 打开native系统特殊的外部链接 如电话，邮箱，短信，网页，其他APP等。
      * @param {Object} params - 接口入参
+     * @param {string} url - 电话: tel:10086 邮箱: mailto:abc@163.com 短信: sms:10086 网页:https://www.baidu.com App: weixin://
      * @param {callback} cb 功能处理后的回调函数
      */
-    openURL(params: any, cb: any): void;
+    openURL(params: any, cb: () => void): void;
     /**
      * 打印日志
      * @param {Object} params - 接口入参
@@ -57,7 +60,7 @@ interface Native {
      * @param {string} params.content -日志内容
      * @param {callback} cb 功能处理后的回调函数
      */
-    log(params: any, cb: any): void;
+    log(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js添加导航栏按钮，目前允许在左右两边各加一个扩展按钮
      * @param {Object} params - 接口入参
@@ -73,7 +76,7 @@ interface Native {
      * @param {Object} params.position            若为“left”，按钮添加在左侧，若为“right”，按钮添加在右侧，默认为“right”
      * @param {callback} cb 功能处理后的回调函数
      */
-    addButton(params: any, cb: any): void;
+    addButton(params: any, cb: () => void): void;
     /**
      * 控制导航栏红点按钮是否隐藏
      * @param {Object} params - 接口入参
@@ -81,35 +84,35 @@ interface Native {
      * @param {string} params.badgeId    -红点Id,供查询红点信息使用。注意:要跟你创建导航栏红点时Id保持一致。
      * @param {callback} cb 功能处理后的回调函数
      */
-    showNativeBadge(params: any, cb: any): void;
+    showNativeBadge(params: any, cb: () => void): void;
     /**
      * 修改导航栏透明度
      * @param {Object} params - 接口入参
      * @param {Object} params.alpha -设置透明度，透明度设置越小越透明
      * @param {callback} cb 功能处理后的回调函数
      */
-    headSetAlpha(params: any, cb: any): void;
+    headSetAlpha(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js删除已添加的导航栏按钮
      * @param {Object} params - 接口入参
      * @param {Object} params.position    -若为“left”，则删除左侧按钮，若为“right”，则删除右侧按钮，默认为“right”
      * @param {callback} cb 功能处理后的回调函数
      */
-    removeButton(params: any, cb: any): void;
+    removeButton(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js修改导航栏背景色
      * @param {Object} params - 接口入参
      * @param {Object} params.color    -颜色，格式为 #ffffff
      * @param {callback} cb 功能处理后的回调函数
      */
-    setBackgroundColor(params: any, cb: any): void;
+    setBackgroundColor(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 设置标题栏标题接口
      * @param {Object} params - 接口入参
      * @param {Object} params.title    -标题
      * @param {callback} cb 功能处理后的回调函数
      */
-    setTitle(params: any, cb: any): void;
+    setTitle(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js修改导航栏背景色
      * @param {Object} params - 接口入参
@@ -117,27 +120,29 @@ interface Native {
      * @param {Object} params.subtitle    -副标题
      * @param {callback} cb 功能处理后的回调函数
      */
-    setSubtitle(params: any, cb: any): void;
+    setSubtitle(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 设置导航栏搜索视图
+     * 通过js设置导航栏搜索视图
      * @param {Object} params - 接口入参
-     * @param {Object} params.prod_code -产品代码,关键字，如：prod_code=00570 表示查询含 00570 的证券代码
-     * @param {Object} params.en_finance_mic -交易所识别码集合,多个交易所识别码,逗号(,)分割。如："finance_mic":["SS","SZ"]，且按照参数的先后顺序优先查找
-     * @param {Object} params.data_count -数据个数,不指定默认返回50个代码
+     * @param {string} params.icon -搜索框图标的文件名，native/res/icon目录下的本地文件，相对路径且不包括文件后缀，如使用图片native/res/icon/test.png， 则次此参数为test
+     * @param {string} params.backgroundColor -搜索框背景颜色，格式为 #ffffff，默认为白色
+     * @param {string} params.placeholderText -搜索框文字，默认为空
+     * @param {string} params.type -搜索框的输入类型，若type为input则为可以输入文字，否则只执行touch 跳转事件
+     * @param {string} params.placeholderTextColor -搜索框文字颜色，格式为 #ffffff，默认灰色
      * @param {callback} cb 功能处理后的回调函数
      */
-    headSetSearchView(params: any, cb: any): void;
+    headSetSearchView(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js调用web返回事件
      * @param {Object} params - 接口入参
      * @param {string} params.number - 返回的页数
      * @param {callback} cb 功能处理后的回调函数
      */
-    back(params: any, cb: any): void;
+    back(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 通过js调用web返回事件
+     * 通过js调用关闭页面
      */
-    close(): void;
+    close(params: null, cb: (res: ICallbackResult) => void): void;
     /**
      * 通过js接口在网页中切换底部tab
      *
@@ -145,7 +150,7 @@ interface Native {
      * @param {string} params.index - 切换至下标为index位置的tab
      * @param {callback} cb 功能处理后的回调函数
      */
-    switchTab(params: any, cb: any): void;
+    switchTab(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 设置首页tab小红点
      * @param {Object} params - 接口入参
@@ -612,7 +617,7 @@ interface Native {
 declare namespace LightSDK {
     function register(options: any): void;
     const config: any;
-    const native: Native;
+    const native: INative;
     const net: any;
     const openAPI: any;
 }
