@@ -1,4 +1,4 @@
-// Type definitions for google-apps-script
+// Type definitions for google-apps-script 1.0
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
