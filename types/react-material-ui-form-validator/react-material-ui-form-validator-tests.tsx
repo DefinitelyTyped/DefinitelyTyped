@@ -1,12 +1,8 @@
 import * as React from 'react';
 
-import {
-    SelectValidator,
-    TextValidator,
-    ValidatorForm
-} from 'react-material-ui-form-validator';
+import { SelectValidator, TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
-import { MenuItem } from 'material-ui'
+import { MenuItem } from 'material-ui';
 
 class Test extends React.Component {
     onSubmitted = (event: React.FormEvent) => {
@@ -25,12 +21,7 @@ class Test extends React.Component {
 
     render() {
         return (
-            <ValidatorForm
-                instantValidate={true}
-                debounceTime={10}
-                onSubmit={this.onSubmitted}
-                onError={this.onError}
-            >
+            <ValidatorForm instantValidate={true} debounceTime={10} onSubmit={this.onSubmitted} onError={this.onError}>
                 <SelectValidator
                     errorMessages={['Field is required']}
                     validators={['required']}
@@ -39,9 +30,9 @@ class Test extends React.Component {
                     validatorListener={this.onValidate}
                     withRequiredValidator={true}
                 >
-                     <MenuItem value='option1'>Option1</MenuItem>
-                     <MenuItem value='option2'>Option2</MenuItem>
-                     <MenuItem value='option3'>Option3</MenuItem>
+                    <MenuItem value="option1">Option1</MenuItem>
+                    <MenuItem value="option2">Option2</MenuItem>
+                    <MenuItem value="option3">Option3</MenuItem>
                 </SelectValidator>
                 <TextValidator
                     name="textValidator"
