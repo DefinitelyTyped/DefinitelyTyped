@@ -209,6 +209,7 @@ declare namespace marked {
 
         interface Code {
             type: 'code';
+            codeBlockStyle?: 'indented';
             lang?: string;
             text: string;
         }
