@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,7 +14,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "target": "es6",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
