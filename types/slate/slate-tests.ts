@@ -31,12 +31,12 @@ data['foo'];
 
 const value = Value.create({ data });
 
-const node: BlockJSON = {
-	object: "block",
-	type: "paragraph",
-	nodes: [
-		{
-			object: "text",
+const nodeJSON: BlockJSON = {
+    object: "block",
+    type: "paragraph",
+    nodes: [
+        {
+            object: "text",
             key: "a",
             text: "example",
             marks: [{
@@ -44,15 +44,25 @@ const node: BlockJSON = {
                 type: "mark",
                 object: "mark"
             }]
-		}
-	]
+        }
+    ]
 };
 
 const doc = Document.fromJSON({
-	object: "document",
-	data: {},
-	nodes: [node]
+    object: "document",
+    data: {},
+    nodes: [nodeJSON]
 });
+
+const node = new Block(nodeJSON);
+
+doc.findDescendant();
+doc.findDescendant(node => node.object === 'block' && node.type === 'paragraph');
+doc.findDescendant((node, path) => true);
+
+node.findDescendant();
+node.findDescendant(node => node.object === 'block');
+node.findDescendant((node, path) => false);
 
 const schema: SchemaProperties = {
     document: {
@@ -168,13 +178,13 @@ editor
 .flush()
 .focus()
 .insertBlock({
-	type: "image",
-	key: "b",
-	data: {
-		src: "http://placekitten.com/200/300",
-		alt: "Kittens",
-		className: "img-responsive"
-	}
+    type: "image",
+    key: "b",
+    data: {
+        src: "http://placekitten.com/200/300",
+        alt: "Kittens",
+        className: "img-responsive"
+    }
 })
 .insertBlockAtRange(range, "text")
 .insertFragment(doc)
