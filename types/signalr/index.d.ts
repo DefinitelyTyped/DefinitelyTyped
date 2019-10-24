@@ -8,7 +8,7 @@
 /// <reference types="jquery" />
 
 
-declare namespace SignalR {
+export namespace SignalR {
     
     const enum ConnectionState {
         Connecting = 0,
@@ -360,7 +360,7 @@ interface SignalR {
     version: string;
 }
 
-interface JQueryStatic {
+export interface JQueryStatic {
     signalR: SignalR;
     connection: SignalR;
     hubConnection: SignalR.Hub.HubCreator;
