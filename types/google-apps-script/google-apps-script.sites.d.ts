@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,9 +30,9 @@ declare namespace GoogleAppsScript {
       getAttachmentType(): AttachmentType;
       getBlob(): Base.Blob;
       getContentType(): string;
-      getDatePublished(): Date;
+      getDatePublished(): Base.Date;
       getDescription(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       getTitle(): string;
       getUrl(): string;
@@ -79,8 +79,8 @@ declare namespace GoogleAppsScript {
       getAuthorEmail(): string;
       getAuthorName(): string;
       getContent(): string;
-      getDatePublished(): Date;
-      getLastUpdated(): Date;
+      getDatePublished(): Base.Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       setContent(content: string): Comment;
       setParent(parent: Page): Comment;
@@ -95,8 +95,8 @@ declare namespace GoogleAppsScript {
      */
     export interface ListItem {
       deleteListItem(): void;
-      getDatePublished(): Date;
-      getLastUpdated(): Date;
+      getDatePublished(): Base.Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       getValueByIndex(index: Integer): string;
       getValueByName(name: string): string;
@@ -151,11 +151,11 @@ declare namespace GoogleAppsScript {
       getChildren(): Page[];
       getChildren(options: PageAdvancedParameters): Page[];
       getColumns(): Column[];
-      getDatePublished(): Date;
+      getDatePublished(): Base.Date;
       getHtmlContent(): string;
       getIsDraft(): boolean;
-      getLastEdited(): Date;
-      getLastUpdated(): Date;
+      getLastEdited(): Base.Date;
+      getLastUpdated(): Base.Date;
       getListItems(): ListItem[];
       getListItems(optOptions: { start?: Integer; max?: Integer}): ListItem[];
       getName(): string;

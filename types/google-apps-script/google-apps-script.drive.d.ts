@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -159,12 +159,12 @@ declare namespace GoogleAppsScript {
       getAccess(user: Base.User): Permission;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getDownloadUrl(): string;
       getEditors(): User[];
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getMimeType(): string;
       getName(): string;
       getOwner(): User;
@@ -253,7 +253,7 @@ declare namespace GoogleAppsScript {
       createFolder(name: string): Folder;
       getAccess(email: string): Permission;
       getAccess(user: Base.User): Permission;
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getEditors(): User[];
       getFiles(): FileIterator;
@@ -262,7 +262,7 @@ declare namespace GoogleAppsScript {
       getFolders(): FolderIterator;
       getFoldersByName(name: string): FolderIterator;
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
@@ -354,6 +354,7 @@ declare namespace GoogleAppsScript {
        */
       getUserLoginId(): string;
     }
+
   }
 }
 

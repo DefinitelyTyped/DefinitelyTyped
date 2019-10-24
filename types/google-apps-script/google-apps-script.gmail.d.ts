@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -238,7 +238,7 @@ declare namespace GoogleAppsScript {
       getBcc(): string;
       getBody(): string;
       getCc(): string;
-      getDate(): Date;
+      getDate(): Base.Date;
       getFrom(): string;
       getHeader(name: string): string;
       getId(): string;
@@ -279,7 +279,7 @@ declare namespace GoogleAppsScript {
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
-      getLastMessageDate(): Date;
+      getLastMessageDate(): Base.Date;
       getMessageCount(): Integer;
       getMessages(): GmailMessage[];
       getPermalink(): string;
@@ -306,6 +306,7 @@ declare namespace GoogleAppsScript {
       replyAll(body: string): GmailThread;
       replyAll(body: string, options: GmailAdvancedOptions): GmailThread;
     }
+
   }
 }
 

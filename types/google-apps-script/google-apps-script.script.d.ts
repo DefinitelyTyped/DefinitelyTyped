@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -74,7 +74,7 @@ declare namespace GoogleAppsScript {
      */
     export interface ClockTriggerBuilder {
       after(durationMilliseconds: Integer): ClockTriggerBuilder;
-      at(date: Date): ClockTriggerBuilder;
+      at(date: Base.Date): ClockTriggerBuilder;
       atDate(year: Integer, month: Integer, day: Integer): ClockTriggerBuilder;
       atHour(hour: Integer): ClockTriggerBuilder;
       create(): Trigger;
@@ -142,17 +142,18 @@ declare namespace GoogleAppsScript {
       newTrigger(functionName: string): TriggerBuilder;
       /** @deprecated DO NOT USE */
       getProjectKey(): string;
-       /** @deprecated DO NOT USE */
-       getScriptTriggers(): Trigger[];
+      /** @deprecated DO NOT USE */
+      getScriptTriggers(): Trigger[];
     }
 
     /**
      * Access and manipulate script publishing.
      */
     export interface Service {
-      disable(): void;
       getUrl(): string;
       isEnabled(): boolean;
+      /** @deprecated DO NOT USE */
+      disable(): void;
     }
 
     /**

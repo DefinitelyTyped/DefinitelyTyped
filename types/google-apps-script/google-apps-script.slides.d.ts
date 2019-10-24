@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-07-30
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -106,9 +106,9 @@ declare namespace GoogleAppsScript {
      * An opaque color
      */
     export interface Color {
-      asRgbColor(): RgbColor;
+      asRgbColor(): Base.RgbColor;
       asThemeColor(): ThemeColor;
-      getColorType(): ColorType;
+      getColorType(): Base.ColorType;
     }
 
     /**
@@ -122,11 +122,6 @@ declare namespace GoogleAppsScript {
       setConcreteColor(type: ThemeColorType, red: Integer, green: Integer, blue: Integer): ColorScheme;
       setConcreteColor(type: ThemeColorType, hexColor: string): ColorScheme;
     }
-
-    /**
-     * The types of Colors
-     */
-    export enum ColorType { UNSUPPORTED, RGB, THEME }
 
     /**
      * The connection site on a PageElement that can connect to a connector.
@@ -922,17 +917,6 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A color defined by red, green, blue color channels.
-     */
-    export interface RgbColor {
-      asHexString(): string;
-      getBlue(): Integer;
-      getColorType(): ColorType;
-      getGreen(): Integer;
-      getRed(): Integer;
-    }
-
-    /**
      * The user's selection in the active presentation.
      *
      *     var selection = SlidesApp.getActivePresentation().getSelection();
@@ -1180,7 +1164,7 @@ declare namespace GoogleAppsScript {
       ArrowStyle: typeof ArrowStyle;
       AutoTextType: typeof AutoTextType;
       CellMergeState: typeof CellMergeState;
-      ColorType: typeof ColorType;
+      ColorType: typeof Base.ColorType;
       ContentAlignment: typeof ContentAlignment;
       DashStyle: typeof DashStyle;
       FillType: typeof FillType;
@@ -1428,7 +1412,7 @@ declare namespace GoogleAppsScript {
      * A color that refers to an entry in the page's ColorScheme.
      */
     export interface ThemeColor {
-      getColorType(): ColorType;
+      getColorType(): Base.ColorType;
       getThemeColorType(): ThemeColorType;
     }
 

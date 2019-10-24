@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-08-09
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,6 +30,7 @@ declare namespace GoogleAppsScript {
       getGroups(): Group[];
       getRole(email: string): Role;
       getRole(user: Base.User): Role;
+      getRoles(users: Base.User[]): Role[];
       getUsers(): Base.User[];
       hasGroup(group: Group): boolean;
       hasGroup(email: string): boolean;

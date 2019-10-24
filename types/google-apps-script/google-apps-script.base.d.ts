@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
      *
      * BlobA data interchange object for Apps Script services.
      *
-     * ChartA Chart object, which can be embedded into documents, UI elements, or used as a static image.
+     * ChartA Chart object, which can be converted to a static image.
      *
      * DocumentA document, containing rich text and elements such as tables and lists.
      *
@@ -130,6 +130,11 @@ declare namespace GoogleAppsScript {
     export enum ButtonSet { OK, OK_CANCEL, YES_NO, YES_NO_CANCEL }
 
     /**
+     * The types of Colors
+     */
+    export enum ColorType { UNSUPPORTED, RGB, THEME }
+
+    /**
      * This class allows the developer to write out text to the debugging logs.
      */
     export interface Logger {
@@ -212,6 +217,17 @@ declare namespace GoogleAppsScript {
     export interface PromptResponse {
       getResponseText(): string;
       getSelectedButton(): Button;
+    }
+
+    /**
+     * A color defined by red, green, blue color channels.
+     */
+    export interface RgbColor {
+      asHexString(): string;
+      getBlue(): Integer;
+      getColorType(): ColorType;
+      getGreen(): Integer;
+      getRed(): Integer;
     }
 
     /**

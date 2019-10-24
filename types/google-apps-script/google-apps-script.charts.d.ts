@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -117,44 +117,13 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A builder for category filter controls.
-     *
-     * A category filter is a picker to choose one or more between a set of defined values. Given a
-     * column of type string, this control filters out the rows that don't match any of the picked
-     * values.
-     *
-     * For more details, see the Gviz
-     * documentation.
-     */
-    export interface CategoryFilterBuilder {
-      build(): Control;
-      setAllowMultiple(allowMultiple: boolean): CategoryFilterBuilder;
-      setAllowNone(allowNone: boolean): CategoryFilterBuilder;
-      setAllowTyping(allowTyping: boolean): CategoryFilterBuilder;
-      setCaption(caption: string): CategoryFilterBuilder;
-      setDataTable(tableBuilder: DataTableBuilder): CategoryFilterBuilder;
-      setDataTable(table: DataTableSource): CategoryFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): CategoryFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): CategoryFilterBuilder;
-      setLabel(label: string): CategoryFilterBuilder;
-      setLabelSeparator(labelSeparator: string): CategoryFilterBuilder;
-      setLabelStacking(orientation: Orientation): CategoryFilterBuilder;
-      setSelectedValuesLayout(layout: PickerValuesLayout): CategoryFilterBuilder;
-      setSortValues(sortValues: boolean): CategoryFilterBuilder;
-      setValues(values: string[]): CategoryFilterBuilder;
-    }
-
-    /**
-     * A Chart object, which can be embedded into documents, UI elements, or used as a static image. For
-     * charts embedded in spreadsheets, see EmbeddedChart.
+     * A Chart object, which can be converted to a static image. For charts embedded in spreadsheets,
+     * see EmbeddedChart.
      */
     export interface Chart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getId(): string;
       getOptions(): ChartOptions;
-      getType(): string;
-      setId(id: string): Chart;
     }
 
     /**
@@ -224,23 +193,16 @@ declare namespace GoogleAppsScript {
       ChartType: typeof ChartType;
       ColumnType: typeof ColumnType;
       CurveStyle: typeof CurveStyle;
-      MatchType: typeof MatchType;
-      Orientation: typeof Orientation;
-      PickerValuesLayout: typeof PickerValuesLayout;
       PointStyle: typeof PointStyle;
       Position: typeof Position;
       newAreaChart(): AreaChartBuilder;
       newBarChart(): BarChartBuilder;
-      newCategoryFilter(): CategoryFilterBuilder;
       newColumnChart(): ColumnChartBuilder;
-      newDashboardPanel(): DashboardPanelBuilder;
       newDataTable(): DataTableBuilder;
       newDataViewDefinition(): DataViewDefinitionBuilder;
       newLineChart(): LineChartBuilder;
-      newNumberRangeFilter(): NumberRangeFilterBuilder;
       newPieChart(): PieChartBuilder;
       newScatterChart(): ScatterChartBuilder;
-      newStringFilter(): StringFilterBuilder;
       newTableChart(): TableChartBuilder;
       newTextStyle(): TextStyleBuilder;
     }
@@ -305,67 +267,9 @@ declare namespace GoogleAppsScript {
     export enum ColumnType { DATE, NUMBER, STRING }
 
     /**
-     * A user interface control object, that drives the data displayed by a DashboardPanel.
-     *
-     * A control can be embedded in a UI application. Controls are user interface widgets (category
-     * pickers, range sliders, autocompleters, etc.) users interact with in order to drive the data
-     * managed by a dashboard and the charts that are part of it. Controls collect user input and use
-     * the information to decide which of the data the dashboard is managing should be made available to
-     * the charts that are part of it. Given a data table, a control filters out the data that doesn't
-     * comply with the conditions implied by its current state, and exposes the filtered data table as
-     * an output.
-     *
-     * For more details, see the Gviz documentation.
-     */
-    export interface Control {
-      getId(): string;
-      getType(): string;
-      setId(id: string): Control;
-    }
-
-    /**
      * An enumeration of the styles for curves in a chart.
      */
     export enum CurveStyle { NORMAL, SMOOTH }
-
-    /**
-     * A dashboard is a visual structure that enables the organization and management of multiple charts
-     * that share the same underlying data.
-     *
-     * Controls are user interface widgets (category pickers, range sliders, autocompleters, etc.)
-     * users interact with in order to drive the data managed by a dashboard and the charts that are
-     * part of it. For example, a string filter control is a simple text input field that lets the user
-     * filter data via string matching. Given a column and matching options, the control filters out the
-     * rows that don't match the term that's in the input field.
-     *
-     * The Gviz API defines a dashboard as a set of charts and controls bound together. The bindings
-     * between the different components define the data flow, the state of the controls filters views of
-     * the data which propagate in the dashboard and are eventually visualized with charts. For more
-     * details, see the Gviz documentation.
-     *
-     * The dashboard panel has two purposes, one is being a container for the charts and controls
-     * objects that compose the dashboard, and the other is holding the data and use as an interface for
-     * binding controls to charts.
-     */
-    export interface DashboardPanel {
-      getId(): string;
-      getType(): string;
-      setId(id: string): DashboardPanel;
-    }
-
-    /**
-     * A builder for a dashboard panel object. For an example of how to use DashboardPanelBuilder, refer to DashboardPanel.
-     *
-     * For more details, see the Gviz
-     * documentation.
-     */
-    export interface DashboardPanelBuilder {
-      bind(control: Control, chart: Chart, controls: Control[], charts: Chart[]): DashboardPanelBuilder;
-      bind(control: Control, chart: Chart, controls: Control[], charts: Chart[]): DashboardPanelBuilder;
-      build(): DashboardPanel;
-      setDataTable(tableBuilder: DataTableBuilder): DashboardPanelBuilder;
-      setDataTable(source: DataTableSource): DashboardPanelBuilder;
-    }
 
     /**
      * A Data Table to be used in charts. A DataTable can come from sources such as Google
@@ -544,14 +448,6 @@ declare namespace GoogleAppsScript {
      * documentation.
      */
     export interface NumberRangeFilterBuilder {
-      build(): Control;
-      setDataTable(tableBuilder: DataTableBuilder): NumberRangeFilterBuilder;
-      setDataTable(table: DataTableSource): NumberRangeFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): NumberRangeFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): NumberRangeFilterBuilder;
-      setLabel(label: string): NumberRangeFilterBuilder;
-      setLabelSeparator(labelSeparator: string): NumberRangeFilterBuilder;
-      setLabelStacking(orientation: Orientation): NumberRangeFilterBuilder;
       setMaxValue(maxValue: Integer): NumberRangeFilterBuilder;
       setMinValue(minValue: Integer): NumberRangeFilterBuilder;
       setOrientation(orientation: Orientation): NumberRangeFilterBuilder;
@@ -671,15 +567,7 @@ declare namespace GoogleAppsScript {
      * documentation.
      */
     export interface StringFilterBuilder {
-      build(): Control;
       setCaseSensitive(caseSensitive: boolean): StringFilterBuilder;
-      setDataTable(tableBuilder: DataTableBuilder): StringFilterBuilder;
-      setDataTable(table: DataTableSource): StringFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): StringFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): StringFilterBuilder;
-      setLabel(label: string): StringFilterBuilder;
-      setLabelSeparator(labelSeparator: string): StringFilterBuilder;
-      setLabelStacking(orientation: Orientation): StringFilterBuilder;
       setMatchType(matchType: MatchType): StringFilterBuilder;
       setRealtimeTrigger(realtimeTrigger: boolean): StringFilterBuilder;
     }

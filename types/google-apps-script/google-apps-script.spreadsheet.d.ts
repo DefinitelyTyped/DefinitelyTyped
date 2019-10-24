@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -641,15 +641,12 @@ declare namespace GoogleAppsScript {
       getChartId(): Integer | null;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
-      getId(): string;
       getMergeStrategy(): Charts.ChartMergeStrategy;
       getNumHeaders(): Integer;
       getOptions(): Charts.ChartOptions;
       getRanges(): Range[];
       getTransposeRowsAndColumns(): boolean;
-      getType(): string;
       modify(): EmbeddedChartBuilder;
-      setId(id: string): Charts.Chart;
     }
 
     /**
@@ -1329,7 +1326,6 @@ declare namespace GoogleAppsScript {
       removeEditor(emailAddress: string): Protection;
       removeEditor(user: Base.User): Protection;
       removeEditors(emailAddresses: string[]): Protection;
-      removeEditors(user: Base.User[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
       setNamedRange(namedRange: NamedRange): Protection;

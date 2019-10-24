@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -151,10 +151,10 @@ declare namespace GoogleAppsScript {
      *     checkBoxItem.setValidation(checkBoxValidation);
      */
     export interface CheckboxValidation {
-      requireSelectAtLeast(number: Integer): CheckboxValidation;
-      requireSelectAtMost(number: Integer): CheckboxValidation;
-      requireSelectExactly(number: Integer): CheckboxValidation;
-    }
+        requireSelectAtLeast(number: Integer): CheckboxValidation;
+        requireSelectAtMost(number: Integer): CheckboxValidation;
+        requireSelectExactly(number: Integer): CheckboxValidation;
+      }
 
     /**
      * A DataValidationBuilder for a CheckboxValidation.
@@ -652,7 +652,7 @@ declare namespace GoogleAppsScript {
     export interface ItemResponse {
       getFeedback(): QuizFeedback;
       getItem(): Item;
-      getResponse(): string[][]|string[]|string;
+      getResponse(): string[][] | string[] | string;
       getScore(): number;
       setFeedback(feedback: any): ItemResponse;
       setScore(score: any): ItemResponse;

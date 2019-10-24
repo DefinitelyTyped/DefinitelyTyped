@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ declare namespace GoogleAppsScript {
       computeRsaSha256Signature(value: string, key: string, charset: Charset): Byte[];
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string): Byte[];
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string, charset: Charset): Byte[];
-      formatDate(date: Date, timeZone: string, format: string): string;
+      formatDate(date: Base.Date, timeZone: string, format: string): string;
       formatString(template: string, ...args: any[]): string;
       getUuid(): string;
       gzip(blob: Base.BlobSource): Base.Blob;
