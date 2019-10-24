@@ -10,8 +10,8 @@ export interface WanakanaOptions {
     upcaseKatakana?: boolean;
     IMEMode?: IMEModes;
     romanization?: "hepburn";
-    customKanaMapping?: object;
-    customRomajiMapping?: object;
+    customKanaMapping?: Record<string, string>;
+    customRomajiMapping?: Record<string, string>;
 }
 
 export interface StripOkuriganaOptions {
