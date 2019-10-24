@@ -3,11 +3,10 @@
 // Definitions by: Gary King <https://github.com/garyking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function filesizeParser(size: string): number;
 declare function filesizeParser(size: string, options?: Options): number;
 
 interface Options {
     base: 2 | 10;
 }
 
-export default filesizeParser;
+export = filesizeParser;
