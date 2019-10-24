@@ -30,6 +30,7 @@
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Juan Carbonel <https://github.com/juancarbonel>
 //                 Peter McIntyre <https://github.com/pwmcintyre>
+//                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -242,15 +243,54 @@ export interface S3EventRecord {
             key: string;
             size: number;
             eTag: string;
-            versionId: string;
+            versionId?: string;
             sequencer: string;
         };
     };
 }
 
+export interface GlacierRestoreEventData {
+    lifecycleRestorationExpiryTime: string;
+    lifecycleRestoreStorageClass: string;
+}
+
+export interface GlacierEventData {
+    restoreEventData: GlacierRestoreEventData;
+}
+
+export interface S3Data1 {
+    s3SchemaVersion: '1.0';
+    configurationId: string;
+    bucket: {
+        name: string;
+        ownerIdentity: {
+            principalId: string;
+        };
+        arn: string;
+    };
+    object: {
+        key: string;
+        size: number;
+        eTag: string;
+        versionId?: string;
+        sequencer: string;
+    };
+}
+
+export interface S3EventRecord21 extends S3EventRecord {
+    eventVersion: '2.1';
+    s3: S3Data1;
+    glacierEventData?: GlacierEventData;
+}
+
 export interface S3Event {
     Records: S3EventRecord[];
 }
+
+export interface S3Event21 extends S3Event {
+    Records: S3EventRecord21[];
+}
+
 export type S3CreateEvent = S3Event; // old name
 
 /**
