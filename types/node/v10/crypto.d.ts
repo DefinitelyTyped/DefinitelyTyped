@@ -23,7 +23,9 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
     function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;

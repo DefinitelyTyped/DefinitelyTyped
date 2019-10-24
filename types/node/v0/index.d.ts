@@ -1698,7 +1698,9 @@ declare module "crypto" {
         crl: any;   //string | string array
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     export interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string): Hmac;
