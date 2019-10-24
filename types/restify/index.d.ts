@@ -71,7 +71,7 @@ export interface ServerOptions {
 
     ignoreTrailingSlash?: boolean;
 
-    maxParamlength?: number;
+    maxParamLength?: number;
 }
 
 export interface AddressInterface {
