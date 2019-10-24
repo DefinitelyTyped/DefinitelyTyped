@@ -2,11 +2,11 @@ System.import('./hi.js').then((hi) => {
     hi.someProperty();
 });
 
-System.delete<Hi>('./hi.js').then(hi => {
+System.import<Hi>('./hi.js').then(hi => {
     hi.someExport();
 });
 
-System.delete('./hi.js', 'https://example.com/base/');
+System.import('./hi.js', 'https://example.com/base/');
 
 System.register(['foo', 'bar'], (_export, _context) => {
     let foo;
@@ -37,12 +37,12 @@ System.register(['foo', 'bar'], (_export, _context) => {
 // named register
 System.register('name', [], () => ({}));
 
-// const update = System.delete('https://example.com/a.js');
-// if (update) {
-//     update();
-// } else {
-//     const expected: false = update;
-// }
+const update = System.delete('https://example.com/a.js');
+if (update) {
+    update();
+} else {
+    const expected: false = update;
+}
 
 const a = System.get('https://example.com/a.js');
 if (a) {
