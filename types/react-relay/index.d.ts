@@ -7,6 +7,7 @@
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 //                 Matt Krick <https://github.com/mattkrick>
+//                 Jared Kass <https://github.com/jdk243>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -106,9 +107,7 @@ export {
 
 export type FetchPolicy = 'store-and-network' | 'network-only';
 
-declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
-    cacheConfig?: CacheConfig | null;
-    fetchPolicy?: FetchPolicy;
+interface QueryRendererProps<TOperation extends OperationType> {
     environment: Environment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
@@ -117,8 +116,15 @@ declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends 
         retry: (() => void) | null;
     }) => React.ReactNode;
     variables: TOperation['variables'];
-}> {}
+}
+declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
+    cacheConfig?: CacheConfig | null;
+    fetchPolicy?: FetchPolicy;
+} & QueryRendererProps<TOperation>> {}
 export { ReactRelayQueryRenderer as QueryRenderer };
+
+declare class ReactRelayLocalQueryRenderer<TOperation extends OperationType> extends React.Component<QueryRendererProps<TOperation>> {}
+export { ReactRelayLocalQueryRenderer as LocalQueryRenderer };
 
 export const ReactRelayContext: React.Context<RelayContext | null>;
 
