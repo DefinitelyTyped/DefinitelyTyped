@@ -1,4 +1,4 @@
-// Type definitions for Marked 0.6
+// Type definitions for Marked 0.7
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
