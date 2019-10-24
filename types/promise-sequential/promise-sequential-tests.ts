@@ -1,9 +1,9 @@
 import promiseSequential = require('promise-sequential');
 
 const promiseFunctions = [
-    async (): Promise<string> => await 'a',
-    async (): Promise<string> => await 'b',
-    async (): Promise<string> => await 'c',
+    async (): Promise<string> => new Promise((resolve, reject) => 'a'),
+    async (): Promise<string> => new Promise((resolve, reject) => 'b'),
+    async (): Promise<string> => new Promise((resolve, reject) => 'c'),
 ];
 
 async function main(): Promise<void> {
