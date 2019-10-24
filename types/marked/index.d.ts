@@ -154,7 +154,7 @@ declare namespace marked {
         static parse(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
         next(): Token;
-        peek(): Token | number;
+        peek(): Token | 0;
         parseText(): string;
         tok(): string;
     }
