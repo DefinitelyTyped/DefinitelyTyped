@@ -11,12 +11,13 @@ interface IInfo {
     error_message: string;
 }
 
-interface IData {
-	data?: any;	
+interface ICallbackResultNoData {
+	info: IInfo; 
 }
 
 interface ICallbackResult {
-    info: IInfo; 
+	info: IInfo; 
+	data: any;	
 }
 
 interface INative {
@@ -34,7 +35,7 @@ interface INative {
      */
     getNetworkStatus(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 获取设备唯一标识码
+     * 通过js接口获取设备唯一标识码
      * @param {Object} params - 接口入参
      * @param {callback} cb 功能处理后的回调函数
      */
@@ -54,26 +55,31 @@ interface INative {
      */
     openURL(params: any, cb: () => void): void;
     /**
-     * 打印日志
+     * 通过js接口记录日志信息
      * @param {Object} params - 接口入参
      * @param {string} params.level -日志级别，取值有info,error,debug,warn,verbose
      * @param {string} params.content -日志内容
      * @param {callback} cb 功能处理后的回调函数
      */
-    log(params: any, cb: (res: ICallbackResult) => void): void;
+    log(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
-     * 通过js添加导航栏按钮，目前允许在左右两边各加一个扩展按钮
+     * 通过js添加导航栏按钮，目前允许在左右两边各加两个扩展按钮
      * @param {Object} params - 接口入参
-     * @param {Object} params.title            文本按钮标题
-     * @param {Object} params.icon            "图片按钮的图标，可支持格式：
+     * @param {string} params.title            文本按钮标题
+     * @param {string} params.icon            "图片按钮的图标，可支持格式：
      * 1. 远程图片url，必须以http://或https://开头
      * 2. 图片Base64编码，以base64://开头
      * 3. gmu／gmu_icon目录下的本地文件，相对路径且不包括文件后缀，如使用图片gmu/gmu_icon/test.png, 则次此参数为test"
-     * @param {Object} params.action            "用户点击按钮触发的事件，可支持格式：
+     * @param {string | function} params.action            "用户点击按钮触发的事件，可支持格式：
      * 1. 标准http或https url
      * 2. 标准gmu协议url
      * 3. JavaScript，以javascript：开头"
-     * @param {Object} params.position            若为“left”，按钮添加在左侧，若为“right”，按钮添加在右侧，默认为“right”
+     * @param {string} params.position            若为“left”，按钮添加在左侧，若为“right”，按钮添加在右侧，默认为“right”
+     * @param {string} params.tag           导航栏按钮红点的标识位，用于控制是否隐藏红点，注意：使用红点功能时该字段为必选字段
+     * @param {json对象} params.badges           红点json数据，如{ type: “num”, badge: 12,backgroundColor:”#ff6c00”}
+	 * 1. type字段{string}，分为num，dot两种，num为红点数据类型，dot为单纯小红点类型，即右上角就只有红色的圆点；num红点数据类型：右上角有红色的圆点且圆点中有数字显示
+	 * 2. badge字段{number}：红点显示的数字
+	 * 3. backgroundColor字段 {string} ：设置红点的背景颜色
      * @param {callback} cb 功能处理后的回调函数
      */
     addButton(params: any, cb: () => void): void;
@@ -88,39 +94,39 @@ interface INative {
     /**
      * 修改导航栏透明度
      * @param {Object} params - 接口入参
-     * @param {Object} params.alpha -设置透明度，透明度设置越小越透明
+     * @param {string} params.alpha -设置透明度，透明度设置越小越透明
      * @param {callback} cb 功能处理后的回调函数
      */
-    headSetAlpha(params: any, cb: (res: ICallbackResult) => void): void;
+    headSetAlpha(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 通过js删除已添加的导航栏按钮
      * @param {Object} params - 接口入参
-     * @param {Object} params.position    -若为“left”，则删除左侧按钮，若为“right”，则删除右侧按钮，默认为“right”
+     * @param {Object} params.string    -若为“left”，则删除左侧按钮，若为“right”，则删除右侧按钮，默认为“right”
      * @param {callback} cb 功能处理后的回调函数
      */
-    removeButton(params: any, cb: (res: ICallbackResult) => void): void;
+    removeButton(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 通过js修改导航栏背景色
      * @param {Object} params - 接口入参
-     * @param {Object} params.color    -颜色，格式为 #ffffff
+     * @param {string} params.color    -颜色，格式为 #ffffff
      * @param {callback} cb 功能处理后的回调函数
      */
-    setBackgroundColor(params: any, cb: (res: ICallbackResult) => void): void;
+    setBackgroundColor(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
-     * 设置标题栏标题接口
+     * 通过js接口控制导航栏标题
      * @param {Object} params - 接口入参
-     * @param {Object} params.title    -标题
+     * @param {string} params.title    -标题
      * @param {callback} cb 功能处理后的回调函数
      */
-    setTitle(params: any, cb: (res: ICallbackResult) => void): void;
+    setTitle(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
-     * 通过js修改导航栏背景色
+     * 通过js接口设置导航栏上下标题样式
      * @param {Object} params - 接口入参
-     * @param {Object} params.title    -标题
-     * @param {Object} params.subtitle    -副标题
+     * @param {string} params.title    -标题
+     * @param {string} params.subtitle    -副标题
      * @param {callback} cb 功能处理后的回调函数
      */
-    setSubtitle(params: any, cb: (res: ICallbackResult) => void): void;
+    setSubtitle(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 通过js设置导航栏搜索视图
      * @param {Object} params - 接口入参
@@ -133,24 +139,24 @@ interface INative {
      */
     headSetSearchView(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 通过js调用web返回事件
+     * 通过js调用页面返回事件
      * @param {Object} params - 接口入参
-     * @param {string} params.number - 返回的页数
+     * @param {string | number} params.number - 返回的层数。如为1，则返回上一层。大于等于页面栈数量，则返回首页，小于等于0，则无效。不配置该字段，则默认返回上一层
      * @param {callback} cb 功能处理后的回调函数
      */
-    back(params: any, cb: (res: ICallbackResult) => void): void;
+    back(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 通过js调用关闭页面
      */
-    close(params: null, cb: (res: ICallbackResult) => void): void;
+    close(params: null, cb: (res: ICallbackResultNoData) => void): void;
     /**
-     * 通过js接口在网页中切换底部tab
+     * 通过js接口在网页或JsNative页面中切换底部tab
      *
      * @param {Object} params - 接口入参
-     * @param {string} params.index - 切换至下标为index位置的tab
+     * @param {string | number} params.index - 切换至下标为index位置的tab
      * @param {callback} cb 功能处理后的回调函数
      */
-    switchTab(params: any, cb: (res: ICallbackResult) => void): void;
+    switchTab(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 设置首页tab小红点
      * @param {Object} params - 接口入参
@@ -159,62 +165,62 @@ interface INative {
      * @param {string} params.value -type为0时，忽略value字段值为""以外的所有值。若value为"",则清除红点。type为1时，value为必须字段，显示在红点中心的文本,若value为"",则清除文本
      * @param {callback} cb 功能处理后的回调函数
      */
-    setTabBarBadge(params: any, cb: any): void;
+    setTabBarBadge(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 通过JS发送统计分析埋点事件
      * @param {Object} params - 接口入参
-     * @param {string} params.event -事件ID，被统计事件的唯一标识
+     * @param {string} params.event -事件ID，被统计事件的唯一标识（用户需要先在行为分析网站后台注册事件ID ，然后客户端采集的事件才能在网站后台展示）
      * @param {object} params.attributes -事件附加属性，用户可根据业务需求为事件添加附加属性，默认值为{}
      * @param {number} params.duration -事件时长（毫秒），该字段可以为持续性事件标识事件持续的时长，默认值为0
      * @param {callback} cb 功能处理后的回调函数
      */
-    analyticsSendEvent(params: any, cb: any): void;
+    analyticsSendEvent(params: any, cb: () => void): void;
     /**
      * 通过js接口获得当前框架页面堆栈信息
      * @param params
      * @param cb
      */
-    getCurrentPages(params: any, cb: any): void;
+    getCurrentPages(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 用于实现网络请求
      * @param {Object} params - 接口入参
-     * @param {Object} params.url - 请求的 URL
-     * @param {Object} params.method - HTTP 方法 GET 或 POST ，默认GET
-     * @param {Object} params.headers - HTTP 请求头
-     * @param {Object} params.type - 响应类型， json，text 或是 jsonp （在原生实现中其实与 json 相同）
-     * @param {Object} params.body - HTTP 请求体
-     * @param {Object} params.timeout - 请求超时时间，单位ms,默认30000ms
+     * @param {string} params.url - 请求的 URL
+     * @param {string} params.method - HTTP 方法 GET 或 POST ，默认GET
+     * @param {jsonObject} params.headers - HTTP 请求头
+     * @param {string} params.type - 响应类型， json，text 或是 jsonp （在原生实现中其实与 json 相同）
+     * @param {string} params.body - HTTP 请求体
+     * @param {number} params.timeout - 请求超时时间，单位ms,默认30000ms
      */
-    streamFetch(params: any, cb: any): void;
+    streamFetch(params: any, cb: (res: ICallbackResult) => void): void;
     /**
      * 显示蒙层
      * @param {Object} params - 接口入参
-     * @param {Number} params.data - 加载到蒙层WebView中页面数据，可以是字符串格式的HTML或URL（URL为远程地址或本地www下的HTML）
-     * @param {StringArray} params.dataType -data的类型 strh5 或 url ，默认strh5 （strh5: 加载字符串格式HTML, url: 远程地址或本地www下的HTML）
-     * @param {StringArray} params.callbackDataType - 返回的data字段类型 json 或 text，默认是text
+     * @param {string} params.data - 加载到蒙层WebView中页面数据，可以是字符串格式的HTML或URL（URL为远程地址或本地www下的HTML）
+     * @param {string} params.dataType -data的类型 strh5 或 url ，默认strh5 （strh5: 加载字符串格式HTML, url: 远程地址或本地www下的HTML）
+     * @param {string} params.callbackDataType - 返回的data字段类型 json 或 text，默认是text
      */
-    showOverlay(params: any, cb: any): void;
+    showOverlay(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 设置屏幕方向
+     * 通过js接口设置屏幕方向
      * @param {Object} params - 接口入参
-     * @param {Object} params.screenOrientation    -    landscape_left:左横屏  landscape_right：右横屏 portrait：竖屏
+     * @param {string} params.screenOrientation    -    landscape_left:左横屏  landscape_right：右横屏 portrait：竖屏
      * @param {callback} cb 功能处理后的回调函数
      */
-    setScreenOrientation(params: any, cb: any): void;
+    setScreenOrientation(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
-     * 设置屏幕方向
+     * 通过js接口设置屏幕可旋转方向
      * @param {Object} params - 接口入参
-     * @param {Object} params.supportScreenOrientation    -    以数组形式，添加可设置方向。
+     * @param {array} params.supportScreenOrientation    -    以数组形式，添加可设置方向。
      * @param {callback} cb 功能处理后的回调函数
      */
-    setSupportScreenOrientation(params: any, cb: any): void;
+    setSupportScreenOrientation(params: any, cb: (res: ICallbackResult) => void): void;
     /**
-     * 通过js控制是否隐藏状态栏
+     * 通过js接口控制是否隐藏状态栏
      * @param {Object} params - 接口入参
-     * @param {Object} params.hidden    -是否隐藏
+     * @param {boolean} params.hidden    -是否隐藏
      * @param {callback} cb 功能处理后的回调函数
      */
-    setSystemStatusBar(params: any, cb: any): void;
+    setSystemStatusBar(params: any, cb: (res: ICallbackResultNoData) => void): void;
     /**
      * 获取App的顶部状态栏高度
      * @param {Object} params - 接口入参
