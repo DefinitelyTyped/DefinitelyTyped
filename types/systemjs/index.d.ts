@@ -44,6 +44,7 @@ declare namespace SystemJS {
      * the registry, null is returned.
      */
     get(moduleId: string): Module | null;
+    // tslint:disable-next-line no-unnecessary-generics
     get<T>(moduleId: string): T | null;
 
     /**
@@ -64,6 +65,7 @@ declare namespace SystemJS {
     entries(): Iterable<typeof ModuleEntry>;
   }
 
+  // tslint:disable-next-line no-unnecessary-generics
   function ImportFn<T extends Module>(moduleId: string, parentUrl?: string): Promise<T>;
 
   function DeclareFn(_export: typeof ExportFn, _context: Context): Declare;
@@ -80,6 +82,7 @@ declare namespace SystemJS {
   function UpdateModuleFn(): void;
 
   function GetFn(moduleId: string): Module;
+  // tslint:disable-next-line no-unnecessary-generics
   function GetFn<T>(moduleId: string): T;
 
   interface Context {
