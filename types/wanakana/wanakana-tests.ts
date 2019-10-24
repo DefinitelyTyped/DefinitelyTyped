@@ -12,21 +12,15 @@ wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' }}); //
 
 wanakana.toHiragana('toukyou, オオサカ'); // $ExpectType string
 wanakana.toHiragana('only カナ', { passRomaji: true }); // $ExpectType string
-wanakana.toHiragana('wi', { useObsoleteKana: true }); // $ExpectType string
 
 wanakana.toKatakana('toukyou, おおさか'); // $ExpectType string
 wanakana.toKatakana('only かな', { passRomaji: true }); // $ExpectType string
-wanakana.toKatakana('wi', { useObsoleteKana: true }); // $ExpectType string
 
 wanakana.toRomaji('ひらがな　カタカナ'); // $ExpectType string
 wanakana.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true }); // $ExpectType string
-wanakana.toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }}); // $ExpectType string
 
 wanakana.stripOkurigana('お祝い'); // $ExpectType string
 wanakana.stripOkurigana('お腹', { leading: true }); // $ExpectType string
-wanakana.stripOkurigana('ふみこむ', { matchKanji: '踏み込む' }); // $ExpectType string
-wanakana.stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true }); // $ExpectType string
 
 wanakana.tokenize('ふふフフ'); // $ExpectType string[]
-wanakana.tokenize('hello 田中さん'); // $ExpectType string[]
 wanakana.tokenize('I said 私はすごく悲しい', { compact: true }); // $ExpectType string[]
