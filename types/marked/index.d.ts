@@ -116,6 +116,7 @@ declare namespace marked {
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
+        checkbox(checked: boolean): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
         tablerow(content: string): string;

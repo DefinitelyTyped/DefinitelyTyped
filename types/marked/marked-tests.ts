@@ -56,6 +56,9 @@ renderer.heading = (text, level, raw, slugger) => {
 renderer.hr = () => {
     return `<hr${renderer.options.xhtml ? '/' : ''}>\n`;
 };
+renderer.checkbox = (checked) => {
+    return checked ? 'CHECKED' : 'UNCHECKED';
+};
 const rendererOptions: marked.MarkedOptions = renderer.options;
 
 const textRenderer = new marked.TextRenderer();
