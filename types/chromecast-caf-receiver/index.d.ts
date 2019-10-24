@@ -46,7 +46,7 @@ declare global {
 
     type EventHandler = (event: Event) => void;
     type Id3EventHandler = (event: Id3Event) => void;
-    type ErrorEventHandler = (event: ErrorEvent) => void;
+    // type ErrorEventHandler = (event: ErrorEvent) => void;
     type MediaElementEventHandler = (event: MediaElementEvent) => void;
     type PauseEventHandler = (event: MediaPauseEvent) => void;
     type BitrateChangedEventHandler = (event: BitrateChangedEvent) => void;
