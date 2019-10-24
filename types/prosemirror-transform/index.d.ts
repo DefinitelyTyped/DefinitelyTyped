@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-transform 1.1.5
+// Type definitions for prosemirror-transform 1.1
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
