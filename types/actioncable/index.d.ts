@@ -25,9 +25,9 @@ declare module ActionCable {
   }
 
   interface CreateMixin {
-    connected(): void;
-    disconnected(): void;
-    received(obj: any): void;
+    connected?(): void;
+    disconnected?(): void;
+    received?(obj: any): void;
     [key: string]: Function;
   }
 

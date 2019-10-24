@@ -20,6 +20,7 @@ import {
     FragmentRef,
     graphql,
     QueryRenderer,
+    LocalQueryRenderer,
     ReactRelayContext,
     readInlineData,
     RelayPaginationProp,
@@ -88,6 +89,55 @@ const MyEmptyQueryRenderer = () => (
     <QueryRenderer
         environment={modernEnvironment}
         // NOTE: let's intentionally leave out `query`
+        query={undefined}
+        variables={{}}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                throw new Error('This code path should never be hit');
+            }
+            return <div>Loading</div>;
+        }}
+    />
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// LocalQueryRenderer
+// ~~~~~~~~~~~~~~~~~~~~~
+// should behave the same as QueryRenderer less the two optional props, cacheConfig and fetchPolicy
+
+const MyLocalQueryRenderer = (props: { name: string; show: boolean }) => (
+    <LocalQueryRenderer<MyQuery>
+        environment={modernEnvironment}
+        query={
+            props.show
+                ? graphql`
+                      query ExampleQuery($pageID: ID!) {
+                          page(id: $pageID) {
+                              name
+                          }
+                      }
+                  `
+                : null
+        }
+        variables={{
+            pageID: '110798995619330',
+        }}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                return <div>{props.name} is great!</div>;
+            }
+            return <div>Loading</div>;
+        }}
+    />
+);
+
+const MyEmptyLocalQueryRenderer = () => (
+    <LocalQueryRenderer
+        environment={modernEnvironment}
         query={undefined}
         variables={{}}
         render={({ error, props }) => {

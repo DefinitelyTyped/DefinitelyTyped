@@ -1698,7 +1698,9 @@ declare module "crypto" {
         crl: any;   //string | string array
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     export interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string): Hmac;
@@ -1919,6 +1921,7 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
+        /** @deprecated since v0.11.7 - recover from failed I/O actions explicitly via error event handlers set on the domain instead. */
         dispose(): void;
     }
 
