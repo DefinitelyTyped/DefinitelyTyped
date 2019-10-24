@@ -21,7 +21,7 @@ declare namespace rimraf {
     let BUSYTRIES_MAX: number;
     interface Options {
         maxBusyTries?: number;
-        emfileWait?: boolean;
+        emfileWait?: number;
         disableGlob?: boolean;
         glob?: glob.IOptions | false;
 
