@@ -150,6 +150,45 @@ const config_3: DataTables.ButtonsSettings = {
     }
 };
 
+const config_4: DataTables.Settings = {
+    // Buttons change text
+    buttons: [{
+        extend: 'excel',
+        text: 'Excel',
+        className: 'class',
+        filename: "exported_file.csv",
+        exportOptions: {
+            columns: ':visible'
+        }
+    },
+    {
+        extend: 'excel',
+        text: 'Excel',
+        className: 'class',
+        filename: "exported_file.csv",
+        exportOptions: {
+            columns: [1, 6, 2, 3, 4]
+        }
+    },
+    {
+        action(e, dt, node, config) { },
+        available(dt, config) { return true; },
+        destroy(dt, node, config) { },
+        enabled: true,
+        init(dt, node, config) { },
+        key: 'a',
+        name: 'name',
+        namespace: 'namespace',
+        titleAttr: 'title',
+        title: 'title'
+    }],
+    language: {
+        buttons: {
+            excel: 'this is excel button'
+        }
+    },
+};
+
 // Statics
 const buttons = new $.fn.dataTable.Buttons($("selector").DataTable(), config_3);
 const version = $.fn.dataTable.Buttons.version;
