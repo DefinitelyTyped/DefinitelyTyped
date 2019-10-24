@@ -2,6 +2,7 @@
 // Project: https://github.com/WaniKani/WanaKana
 // Definitions by: Ross Hendry <https://github.com/chooban>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 export type IMEModes = true|false|"toHiragana"|"toKatakana";
 
 export interface WanakanaOptions {
