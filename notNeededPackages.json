@@ -229,6 +229,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "baconjs",
+            "typingsPackageName": "baconjs",
+            "sourceRepoURL": "https://baconjs.github.io/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "base64url",
             "typingsPackageName": "base64url",
             "sourceRepoURL": "https://github.com/brianloveswords/base64url",
