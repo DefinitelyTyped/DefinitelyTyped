@@ -3031,6 +3031,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-toastify",
+            "typingsPackageName": "react-toastify",
+            "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "react-webcam",
             "typingsPackageName": "react-webcam",
             "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
