@@ -1,4 +1,4 @@
-// Type definitions for honeybadger 1.3.1
+// Type definitions for honeybadger 1.3
 // Project: https://github.com/honeybadger-io/honeybadger-node
 // Definitions by: Ryan Skrzypek <https://github.com/rskrz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
