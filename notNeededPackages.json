@@ -619,6 +619,12 @@
             "asOfVersion": "1.2.2"
         },
         {
+            "libraryName": "cucumber-html-reporter",
+            "typingsPackageName": "cucumber-html-reporter",
+            "sourceRepoURL": "https://github.com/gkushang/cucumber-html-reporter",
+            "asOfVersion": "5.0.1"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",
