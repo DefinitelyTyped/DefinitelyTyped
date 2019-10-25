@@ -34,22 +34,21 @@ import ReactDOM = require('.');
 export {};
 
 declare module '.' {
-    interface Work {
-        then(onCommit?: () => void): void;
+    // enableSuspenseServerRenderer feature
+    interface HydrationOptions {
+        onHydrated?(suspenseInstance: Comment): void;
+        onDeleted?(suspenseInstance: Comment): void;
     }
 
-    interface Batch {
-        commit(): void;
-        render(children: React.ReactChild | React.ReactNodeArray): Work;
-        then(onComplete?: () => void): void;
-    }
+    // exposeConcurrentModeAPIs features
 
     interface RootOptions {
         hydrate?: boolean;
+        hydrationOptions?: HydrationOptions;
     }
 
-    interface BlockingRoot {
-        render(children: React.ReactChild | React.ReactNodeArray, callback?: () => void): Work;
+    interface Root {
+        render(children: React.ReactChild | React.ReactNodeArray, callback?: () => void): void;
         unmount(callback?: () => void): void;
     }
 
@@ -68,11 +67,7 @@ declare module '.' {
     function createBlockingRoot(
         container: Element | Document | DocumentFragment | Comment,
         options?: RootOptions,
-    ): BlockingRoot;
-
-    interface Root extends BlockingRoot {
-        createBatch(): Batch;
-    }
+    ): Root;
 
     /**
      * Replaces `ReactDOM.render` when the `.render` method is called and enables Concurrent Mode.
@@ -98,5 +93,10 @@ declare module '.' {
 
     function unstable_flushControlled(callback: () => void): void;
 
+    // enableSelectiveHydration feature
+
+    /**
+     * @see https://github.com/facebook/react/commit/3a2b5f148d450c69aab67f055fc441d294c23518
+     */
     function unstable_scheduleHydration(target: Element | Document | DocumentFragment | Comment): void;
 }

@@ -10,21 +10,6 @@ function createRoot() {
 
     root.render(<div>initial render</div>, () => {
         console.log('callback');
-    }).then(() => {
-        console.log('onCommit');
-        const batch = root.createBatch();
-
-        batch.render(<div>Batch 1</div>).then(() => {
-            console.log('committed first batch');
-        });
-        batch.render(<div>Batch 2</div>).then(() => {
-            console.log('committed second batch');
-        });
-
-        batch.then(() => {
-            console.log('batch completed');
-            batch.commit();
-        });
     });
 }
 
@@ -35,12 +20,6 @@ function createBlockingRoot() {
 
     root.render(<div>initial render</div>, () => {
         console.log('callback');
-    }).then(() => {
-        console.log('onCommit');
-        // $ExpectError
-        const batch = root.createBatch();
-
-        root.unmount(() => console.log('unmounted'));
     });
 }
 
