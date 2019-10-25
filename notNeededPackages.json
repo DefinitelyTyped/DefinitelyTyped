@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "actions-on-google",
+            "typingsPackageName": "actions-on-google",
+            "sourceRepoURL": "https://github.com/actions-on-google/actions-on-google-nodejs",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "active-win",
             "typingsPackageName": "active-win",
             "sourceRepoURL": "https://github.com/sindresorhus/active-win",
