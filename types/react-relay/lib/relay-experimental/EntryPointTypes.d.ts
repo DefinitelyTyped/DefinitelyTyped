@@ -18,11 +18,8 @@ export interface PreloadOptions {
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
-// eslint-disable-next-line no-unused-vars
-export interface PreloadableConcreteRequest<TQuery extends OperationType> {
-    getModuleIfRequired: () => ConcreteRequest | null;
-    params: RequestParameters;
-}
+// tslint:disable-next-line interface-over-type-literal
+export type PreloadableConcreteRequest<TQuery extends OperationType> = {};
 
 export interface EnvironmentProviderOptions {
     [key: string]: unknown;

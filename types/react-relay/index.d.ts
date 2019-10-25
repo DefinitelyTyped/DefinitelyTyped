@@ -8,6 +8,7 @@
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 //                 Matt Krick <https://github.com/mattkrick>
 //                 Jared Kass <https://github.com/jdk243>
+//                 Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -177,26 +178,3 @@ export function createRefetchContainer<Props>(
     fragmentSpec: Record<string, GraphQLTaggedNode>,
     refetchQuery: GraphQLTaggedNode,
 ): Container<Props>;
-
-export * from './lib/relay-experimental/EntryPointTypes';
-
-export { RelayEnvironmentProvider } from './lib/relay-experimental/RelayEnvironmentProvider';
-export { useRelayEnvironment } from './lib/relay-experimental/useRelayEnvironment';
-export { Direction, LoadMoreFn } from './lib/relay-experimental/useLoadMoreFunction';
-export { RefetchFn } from './lib/relay-experimental/useRefetchableFragmentNode';
-
-export { preloadQuery } from './lib/relay-experimental/preloadQuery';
-export { prepareEntryPoint } from './lib/relay-experimental/prepareEntryPoint';
-
-export { EntryPointContainer } from './lib/relay-experimental/EntryPointContainer';
-export { LazyLoadEntryPointContainer } from './lib/relay-experimental/LazyLoadEntryPointContainer';
-
-export { useBlockingPaginationFragment } from './lib/relay-experimental/useBlockingPaginationFragment';
-export { useLazyLoadQuery } from './lib/relay-experimental/useLazyLoadQuery';
-export { useFragment } from './lib/relay-experimental/useFragment';
-export { useRefetchableFragment } from './lib/relay-experimental/useRefetchableFragment';
-export {
-    useLegacyPaginationFragment as usePaginationFragment,
-} from './lib/relay-experimental/useLegacyPaginationFragment';
-export { useLegacyPaginationFragment } from './lib/relay-experimental/useLegacyPaginationFragment';
-export { usePreloadedQuery } from './lib/relay-experimental/usePreloadedQuery';

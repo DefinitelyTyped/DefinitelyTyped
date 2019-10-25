@@ -1,7 +1,7 @@
 import { GraphQLResponse, IEnvironment, OperationType, Subscription } from 'relay-runtime';
 import { PreloadableConcreteRequest, PreloadedQuery, PreloadFetchPolicy, PreloadOptions } from './EntryPointTypes';
 
-export function preloadQuery<TQuery extends OperationType, TEnvironmentProviderOptions>(
+export function preloadQuery<TQuery extends OperationType, TEnvironmentProviderOptions = any>(
     environment: IEnvironment,
     preloadableRequest: PreloadableConcreteRequest<TQuery>,
     variables: TQuery['variables'],
