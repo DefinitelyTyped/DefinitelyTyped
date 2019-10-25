@@ -4,7 +4,9 @@
 //                 Thomas Thiebaud <https://github.com/thomasthiebaud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = AnalyticsNode.Analytics;
+declare module 'analytics-node' {
+  export = AnalyticsNode;
+}
 
 declare namespace AnalyticsNode {
   interface Message {
