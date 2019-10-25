@@ -2839,6 +2839,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ractive",
+            "typingsPackageName": "ractive",
+            "sourceRepoURL": "https://ractive.js.org",
+            "asOfVersion": "0.10.0"
+        },
+        {
             "libraryName": "random-float",
             "typingsPackageName": "random-float",
             "sourceRepoURL": "https://github.com/sindresorhus/random-float",
