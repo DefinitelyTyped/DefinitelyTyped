@@ -1783,6 +1783,12 @@
             "asOfVersion": "0.2.29"
         },
         {
+            "libraryName": "jQuery mmenu",
+            "typingsPackageName": "jquery.mmenu",
+            "sourceRepoURL": "http://mmenu.frebsite.nl/",
+            "asOfVersion": "7.2.0"
+        },
+        {
             "libraryName": "js-data",
             "typingsPackageName": "js-data",
             "sourceRepoURL": "https://github.com/js-data/js-data",
