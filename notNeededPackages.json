@@ -2839,6 +2839,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "qunit-dom",
+            "typingsPackageName": "qunit-dom",
+            "sourceRepoURL": "https://github.com/simplabs/qunit-dom#readme",
+            "asOfVersion": "0.7.0"
+        },
+        {
             "libraryName": "random-float",
             "typingsPackageName": "random-float",
             "sourceRepoURL": "https://github.com/sindresorhus/random-float",
