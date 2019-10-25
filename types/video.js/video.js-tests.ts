@@ -125,8 +125,8 @@ function testAugmentation(player: videojs.Player) {
 	videojs('example_video_2', {
         plugins: {
             somePluginDefinedInAugmentation: {
-				someRequiredProperty: true
-			},
+                someRequiredProperty: true
+            },
             someOtherPluginNotTyped: {},
         },
     });
