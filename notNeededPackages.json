@@ -1363,6 +1363,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "http-status",
+            "typingsPackageName": "http-status",
+            "sourceRepoURL": "https://github.com/wdavidw/node-http-status",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "http-status-codes",
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
