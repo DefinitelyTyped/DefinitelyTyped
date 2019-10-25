@@ -1915,6 +1915,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "libra-core",
+            "typingsPackageName": "libra-core",
+            "sourceRepoURL": "https://github.com/perfectmak/libra-core#readme",
+            "asOfVersion": "1.0.5"
+        },
+        {
             "libraryName": "line-column-path",
             "typingsPackageName": "line-column-path",
             "sourceRepoURL": "https://github.com/sindresorhus/line-column-path",
