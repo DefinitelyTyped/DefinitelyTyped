@@ -3403,6 +3403,12 @@
             "asOfVersion": "0.12.0"
         },
         {
+            "libraryName": "skatejs",
+            "typingsPackageName": "skatejs",
+            "sourceRepoURL": "https://github.com/skatejs/skatejs",
+            "asOfVersion": "4.0.6"
+        },
+        {
             "libraryName": "skin-tone",
             "typingsPackageName": "skin-tone",
             "sourceRepoURL": "https://github.com/sindresorhus/skin-tone",
