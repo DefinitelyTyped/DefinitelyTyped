@@ -3931,6 +3931,12 @@
             "asOfVersion": "2.33.0"
         },
         {
+            "libraryName": "use-dark-mode",
+            "typingsPackageName": "use-dark-mode",
+            "sourceRepoURL": "https://github.com/donavon/use-dark-mode#readme",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "UUID.js",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
