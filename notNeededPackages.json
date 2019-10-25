@@ -877,6 +877,12 @@
             "asOfVersion": "1.0.6"
         },
         {
+            "libraryName": "emoji-regex",
+            "typingsPackageName": "emoji-regex",
+            "sourceRepoURL": "https://github.com/mathiasbynens/emoji-regex",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "empty-trash",
             "typingsPackageName": "empty-trash",
             "sourceRepoURL": "https://github.com/sindresorhus/empty-trash",
