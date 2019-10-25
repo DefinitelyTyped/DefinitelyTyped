@@ -2287,6 +2287,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "onoff",
+            "typingsPackageName": "onoff",
+            "sourceRepoURL": "https://github.com/fivdi/onoff",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "Onsen UI",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
