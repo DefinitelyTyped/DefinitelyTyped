@@ -3013,6 +3013,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-navigation",
+            "typingsPackageName": "react-navigation",
+            "sourceRepoURL": "https://github.com/react-navigation/react-navigation",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "react-navigation-material-bottom-tabs",
             "typingsPackageName": "react-navigation-material-bottom-tabs",
             "sourceRepoURL": "https://github.com/react-navigation/material-bottom-tabs",

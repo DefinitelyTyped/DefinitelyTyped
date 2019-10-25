@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "react-navigation": "^3.4.0"
+    }
+}
