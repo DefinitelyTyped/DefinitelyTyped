@@ -4165,6 +4165,12 @@
             "asOfVersion": "3.1.2"
         },
         {
+            "libraryName": "zipkin-transport-http",
+            "typingsPackageName": "zipkin-transport-http",
+            "sourceRepoURL": "https://github.com/openzipkin/zipkin-js#readme",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "Zone.js",
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
