@@ -187,6 +187,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "autolinker",
+            "typingsPackageName": "autolinker",
+            "sourceRepoURL": "https://github.com/gregjacobs/Autolinker.js",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
