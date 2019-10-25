@@ -187,6 +187,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "aws-lambda-mock-context",
+            "typingsPackageName": "aws-lambda-mock-context",
+            "sourceRepoURL": "https://github.com/moskalyk/typed-aws-lambda-mock-context",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
