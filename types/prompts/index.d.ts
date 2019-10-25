@@ -50,7 +50,7 @@ declare namespace prompts {
 
     interface Choice {
         title: string;
-        value: string;
+        value: any;
         disable?: boolean;
     }
 

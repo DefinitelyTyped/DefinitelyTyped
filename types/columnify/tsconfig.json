@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,11 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "assistant-app.d.ts",
-        "actions-sdk-app.d.ts",
-        "dialogflow-app.d.ts",
-        "response-builder.d.ts",
-        "transactions.d.ts",
-        "actions-on-google-tests.ts"
+        "columnify-tests.ts"
     ]
 }
