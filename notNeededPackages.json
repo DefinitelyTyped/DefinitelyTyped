@@ -2983,6 +2983,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-fs",
+            "typingsPackageName": "react-native-fs",
+            "sourceRepoURL": "https://github.com/itinance/react-native-fs",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "react-native-goby",
             "typingsPackageName": "react-native-goby",
             "sourceRepoURL": "https://gitlab.com/MessageDream/react-native-goby",
