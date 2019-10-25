@@ -131,45 +131,6 @@ declare module '.' {
     }
 
     /**
-     * **NOTE: passing a function value causes it to be treated like a `useState` initializer**
-     *
-     * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
-     *
-     * This is commonly used to keep the interface responsive when you have something that renders immediately
-     * based on user input and something that needs to wait for a data fetch.
-     *
-     * A good example of this is a text input.
-     *
-     * @param value The value that is going to be deferred
-     * @param config An optional object with `timeoutMs`
-     *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
-     */
-    export function useDeferredValue<T extends (...args: any[]) => any>(
-        value: T,
-        config?: TimeoutConfig | null,
-    ): ReturnType<T>;
-    /**
-     * **NOTE: passing a constructor will crash at runtime**
-     *
-     * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
-     *
-     * This is commonly used to keep the interface responsive when you have something that renders immediately
-     * based on user input and something that needs to wait for a data fetch.
-     *
-     * A good example of this is a text input.
-     *
-     * @param value The value that is going to be deferred
-     * @param config An optional object with `timeoutMs`
-     *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
-     */
-    // if it's constructible but not callable, it will _crash_ at runtime
-    export function useDeferredValue<T extends new (...args: any[]) => any>(
-        value: T,
-        config?: TimeoutConfig | null,
-    ): never;
-    /**
      * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately

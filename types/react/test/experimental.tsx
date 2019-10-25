@@ -14,20 +14,17 @@ function useExperimentalHooks() {
 
     const [func] = React.useState(() => () => 0);
 
-    // if the overload is working correctly, it should produce the function's return type instead of the function
-    // this is very not nice, but it's the only way I've found to make the code "obviously wrong"
-    // without access to negation types
-
     // $ExpectType () => number
     func;
-    // $ExpectType number
+    // $ExpectType () => number
     const deferredFunc = React.useDeferredValue(func);
 
-    // $ExpectType never
-    const willCrash = React.useDeferredValue(class {});
+    class Constructor {}
+    // $ExpectType typeof Constructor
+    const deferredConstructor = React.useDeferredValue(Constructor);
 
-    // $ExpectType string
-    const noCrashButInvalidToo = React.useDeferredValue(Constructible);
+    // $ExpectType () => string
+    const deferredConstructible = React.useDeferredValue(Constructible);
 
     return () => {
         startTransition(() => {
