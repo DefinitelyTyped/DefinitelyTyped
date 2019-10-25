@@ -1273,6 +1273,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "gulp-pug",
+            "typingsPackageName": "gulp-pug",
+            "sourceRepoURL": "https://github.com/gulp-community/gulp-pug",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "gulp-tslint",
             "typingsPackageName": "gulp-tslint",
             "sourceRepoURL": "https://github.com/panuhorsmalahti/gulp-tslint",
