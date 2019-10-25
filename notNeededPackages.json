@@ -2965,6 +2965,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-jss",
+            "typingsPackageName": "react-jss",
+            "sourceRepoURL": "https://github.com/cssinjs/react-jss#readme",
+            "asOfVersion": "10.0.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
