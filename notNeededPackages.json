@@ -295,6 +295,12 @@
             "asOfVersion": "3.0.1"
         },
         {
+            "libraryName": "braft-editor",
+            "typingsPackageName": "braft-editor",
+            "sourceRepoURL": "https://github.com/margox/braft#readme",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
