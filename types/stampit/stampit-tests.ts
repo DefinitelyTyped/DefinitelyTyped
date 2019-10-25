@@ -51,7 +51,9 @@ foo.getB(); // "b"
 // Here's a mixin with public methods, and some props:
 const membership = stampit({
     methods: {
-        // members: {},
+        members: {
+            itCanBe: "anything",
+        },
         add(member: any) {
             this.members[member.name] = member;
             return this;

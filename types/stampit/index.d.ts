@@ -13,7 +13,7 @@
  * @template This The type to use for `this` within methods.
  */
 interface MethodMap<This> {
-    [s: string]: (this: This, ...args: any[]) => any;
+    [s: string]: ((this: This, ...args: any[]) => any) | {};
 }
 
 /** @internal A plain old JavaScript object created by a `Stamp`. */
@@ -314,7 +314,7 @@ declare namespace stampit {
      * @template S̤t̤a̤m̤p̤ The type of the `Stamp` produced by the `.compose()` method.
      */
     interface Composer<S̤t̤a̤m̤p̤ extends StampSignature> {
-        (parameters: ComposerParameters<S̤t̤a̤m̤p̤>): void | S̤t̤a̤m̤p̤ ;
+        (parameters: ComposerParameters<S̤t̤a̤m̤p̤>): void | S̤t̤a̤m̤p̤;
     }
 
     /**
