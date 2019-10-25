@@ -109,6 +109,12 @@
             "asOfVersion": "2.1.1"
         },
         {
+            "libraryName": "aphrodite",
+            "typingsPackageName": "aphrodite",
+            "sourceRepoURL": "https://github.com/Khan/aphrodite",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "apn",
             "typingsPackageName": "apn",
             "sourceRepoURL": "https://github.com/node-apn/node-apn",
