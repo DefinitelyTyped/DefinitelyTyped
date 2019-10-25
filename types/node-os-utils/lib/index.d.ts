@@ -20,10 +20,9 @@ export const users: Users;
 
 export let options: { NOT_SUPPORTED_VALUE: string, INTERVAL: number };
 
-export function exec(command: string): () => Promise<string>;
-
 export * from './cpu';
 export * from './drive';
+export * from './exec';
 export * from './mem';
 export * from './netstat';
 export * from './openfiles';
