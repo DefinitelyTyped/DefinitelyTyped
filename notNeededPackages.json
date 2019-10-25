@@ -2017,6 +2017,12 @@
             "asOfVersion": "1.6.2"
         },
         {
+            "libraryName": "lorem-ipsum",
+            "typingsPackageName": "lorem-ipsum",
+            "sourceRepoURL": "https://github.com/knicklabs/node-lorem-ipsum",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "loud-rejection",
             "typingsPackageName": "loud-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
