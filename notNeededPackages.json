@@ -2131,6 +2131,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "Moment-range.js",
+            "typingsPackageName": "moment-range",
+            "sourceRepoURL": "https://github.com/rotaready/moment-range",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "Monk",
             "typingsPackageName": "monk",
             "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
