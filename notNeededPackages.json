@@ -2125,6 +2125,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mocha-steps",
+            "typingsPackageName": "mocha-steps",
+            "sourceRepoURL": "https://github.com/rprieto/mocha-steps",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
