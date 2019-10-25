@@ -27,6 +27,12 @@
 // See https://github.com/facebook/react/blob/master/packages/react/src/React.js to see how the exports are declared,
 // and https://github.com/facebook/react/blob/master/packages/shared/ReactFeatureFlags.js to verify which APIs are
 // flagged experimental or not. Experimental APIs will be tagged with `__EXPERIMENTAL__`.
+//
+// For the inputs of types exported as simply a fiber tag, the `beginWork` function of ReactFiberBeginWork.js
+// is a good place to start looking for details; it generally calls prop validation functions or delegates
+// all tasks done as part of the render phase (the concurrent part of the React update cycle).
+//
+// Suspense-related handling can be found in ReactFiberThrow.js.
 
 import React = require('.');
 

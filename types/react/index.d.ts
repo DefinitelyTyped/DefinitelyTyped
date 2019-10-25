@@ -359,6 +359,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
+        /**
+         * Tells React whether to “skip” revealing this boundary during the initial load.
+         * This API will likely be removed in a future release.
+         */
+        // NOTE: this is unflagged and is respected even in stable builds
+        unstable_avoidThisFallback?: boolean;
     }
     /**
      * This feature is not yet available for server-side rendering.
