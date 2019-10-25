@@ -73,6 +73,12 @@
             "asOfVersion": "0.0.11"
         },
         {
+            "libraryName": "ansi-colors",
+            "typingsPackageName": "ansi-colors",
+            "sourceRepoURL": "https://github.com/doowb/ansi-colors",
+            "asOfVersion": "3.2.1"
+        },
+        {
             "libraryName": "ansi-escapes",
             "typingsPackageName": "ansi-escapes",
             "sourceRepoURL": "https://github.com/sindresorhus/ansi-escapes",
