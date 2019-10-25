@@ -220,6 +220,7 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
