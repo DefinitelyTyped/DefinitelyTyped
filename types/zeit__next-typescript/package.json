@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "next": "^9.0.0"
+    }
+}
