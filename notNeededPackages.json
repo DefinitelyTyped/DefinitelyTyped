@@ -2167,6 +2167,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "hemera",
+            "typingsPackageName": "nats-hemera",
+            "sourceRepoURL": "https://github.com/hemerajs/hemera",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "navigator-permissions",
             "sourceRepoURL": "https://developer.mozilla.org/en-US/docs/Web/API/Permissions",
