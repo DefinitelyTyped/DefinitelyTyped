@@ -490,6 +490,9 @@ declare namespace InboxSDK {
     interface ContentPanelView {
       isActive(): boolean;
 
+      /**
+       * Undocumented method, no guarantee it will always work.
+       */
       open(): void;
 
       close(): void;
