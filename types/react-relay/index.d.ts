@@ -1,4 +1,4 @@
-// Type definitions for react-relay 6.0
+// Type definitions for react-relay 7.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
