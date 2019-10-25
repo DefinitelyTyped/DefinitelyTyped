@@ -3019,6 +3019,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-sortable-pane",
+            "typingsPackageName": "react-sortable-pane",
+            "sourceRepoURL": "https://github.com/bokuweb/react-sortable-pane",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
