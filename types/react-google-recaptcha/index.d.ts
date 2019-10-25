@@ -4,6 +4,7 @@
 //                 Tom Sturge <https://github.com/tomsturge>
 //                 Max Bo <https://github.com/MaxwellBo>
 //                 Meir Keller <https://github.com/meirkl>
+//                 Florian Roher <https://github.com/RohrerF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
