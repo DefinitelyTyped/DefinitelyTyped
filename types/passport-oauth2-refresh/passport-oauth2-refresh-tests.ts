@@ -1,5 +1,5 @@
-import  { Strategy as OAuth2Strategy , StrategyOptions,  VerifyCallback } from 'passport-oauth2';
-import { use, requestNewAccessToken }  from 'passport-oauth2-refresh';
+import { Strategy as OAuth2Strategy, StrategyOptions, VerifyCallback } from 'passport-oauth2';
+import { use, requestNewAccessToken } from 'passport-oauth2-refresh';
 
 const strategyOptions1: StrategyOptions = {
     authorizationURL: 'http://www.example.com/auth',
@@ -17,4 +17,4 @@ const strategy1: OAuth2Strategy = new OAuth2Strategy(strategyOptions1, verifyFun
 
 use('strategy1', strategy1);
 
-requestNewAccessToken('strategy1','exampleRefreshToken', {}, function() {})
+requestNewAccessToken('strategy1', 'exampleRefreshToken', {}, () => {});
