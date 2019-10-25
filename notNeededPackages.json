@@ -3001,6 +3001,12 @@
             "asOfVersion": "2.4.0"
         },
         {
+            "libraryName": "@mauron85/react-native-background-geolocation",
+            "typingsPackageName": "react-native-mauron85-background-geolocation",
+            "sourceRepoURL": "https://github.com/mauron85/react-native-background-geolocation#readme",
+            "asOfVersion": "0.5.3"
+        },
+        {
             "libraryName": "react-native-modal",
             "typingsPackageName": "react-native-modal",
             "sourceRepoURL": "https://github.com/react-native-community/react-native-modal",
