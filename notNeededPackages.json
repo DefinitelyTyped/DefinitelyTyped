@@ -3943,6 +3943,12 @@
             "asOfVersion": "0.11.0"
         },
         {
+            "libraryName": "vec2",
+            "typingsPackageName": "vec2",
+            "sourceRepoURL": "https://github.com/tmpvar/vec2.js",
+            "asOfVersion": "1.6.1"
+        },
+        {
             "libraryName": "vega",
             "typingsPackageName": "vega",
             "sourceRepoURL": "https://github.com/vega/vega",
