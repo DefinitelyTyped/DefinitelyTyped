@@ -6719,7 +6719,7 @@ declare namespace videojs {
         nativeControlsForTouch?: boolean;
         notSupportedMessage?: string;
         playbackRates?: number[];
-        plugins?: VideoJsPlayerPluginOptions;
+        plugins?: Partial<VideoJsPlayerPluginOptions>;
         poster?: string;
         preload?: string;
         sourceOrder?: boolean;
