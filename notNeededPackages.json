@@ -4165,6 +4165,12 @@
             "asOfVersion": "3.1.2"
         },
         {
+            "libraryName": "zipkin-instrumentation-express",
+            "typingsPackageName": "zipkin-instrumentation-express",
+            "sourceRepoURL": "https://github.com/openzipkin/zipkin-js#readme",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "Zone.js",
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
