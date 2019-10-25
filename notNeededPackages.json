@@ -3805,6 +3805,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ts-nameof",
+            "typingsPackageName": "ts-nameof",
+            "sourceRepoURL": "https://github.com/dsherret/ts-nameof#readme",
+            "asOfVersion": "4.0.1"
+        },
+        {
             "libraryName": "ts3-nodejs-library",
             "typingsPackageName": "ts3-nodejs-library",
             "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
