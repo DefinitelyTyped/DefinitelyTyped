@@ -601,6 +601,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "cropperjs",
+            "typingsPackageName": "cropperjs",
+            "sourceRepoURL": "https://github.com/fengyuanchen/cropperjs",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "crypto-hash",
             "typingsPackageName": "crypto-hash",
             "sourceRepoURL": "https://github.com/sindresorhus/crypto-hash",
