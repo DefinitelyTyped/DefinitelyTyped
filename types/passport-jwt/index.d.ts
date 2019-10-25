@@ -7,7 +7,7 @@
 //                 Byungjin Kim <https://github.com/jindev>
 //                 Svyatoslav Bychkov <https://github.com/stbychkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';

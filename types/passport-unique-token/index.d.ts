@@ -3,7 +3,7 @@
 // Definitions by: briman0094 <https://github.com/briman0094>
 //                 Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require('passport');
 import express = require('express');

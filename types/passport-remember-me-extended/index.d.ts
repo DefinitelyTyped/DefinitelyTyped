@@ -2,7 +2,7 @@
 // Project: https://github.com/dereklakin/passport-remember-me
 // Definitions by: AylaJK <https://github.com/AylaJK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require('passport');
 import express = require('express');

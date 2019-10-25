@@ -5,7 +5,7 @@
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Ryan Cannon <https://github.com/ry7n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -53,12 +53,14 @@ declare global {
 
 declare function session(options?: session.SessionOptions): express.RequestHandler;
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 declare namespace session {
   interface SessionOptions {
     secret: string | string[];
     name?: string;
     store?: Store | MemoryStore;
-    cookie?: express.CookieOptions;
+    cookie?: Omit<express.CookieOptions, 'secure'> & { secure?: boolean | 'auto' };
     genid?(req: express.Request): string;
     rolling?: boolean;
     resave?: boolean;

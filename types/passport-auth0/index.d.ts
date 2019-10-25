@@ -4,7 +4,7 @@
 //                 Vishnu Sankar <https://github.com/iamvishnusankar>
 //                 Duncan Hall <https://github.com/duncanhall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require('passport');
 import express = require('express');

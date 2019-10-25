@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-anonymous
 // Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as passport from "passport";
 

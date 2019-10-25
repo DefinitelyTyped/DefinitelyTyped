@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/passport-windowsauth#readme
 // Definitions by: Emily Marigold Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as express from 'express';
 import * as passport from 'passport';

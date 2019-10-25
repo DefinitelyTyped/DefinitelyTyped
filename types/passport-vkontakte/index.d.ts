@@ -2,7 +2,7 @@
 // Project: https://github.com/stevebest/passport-vkontakte#readme
 // Definitions by: Anton Lobashev <https://github.com/soulthreads>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as passport from 'passport';
 import * as express from 'express';

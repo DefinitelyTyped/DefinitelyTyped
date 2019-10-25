@@ -2,7 +2,7 @@
 // Project: https://github.com/kndt84/passport-cognito
 // Definitions by: Maksym Butsykin <https://github.com/mbutsykin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require('passport');
 import express = require('express');

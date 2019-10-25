@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/passport-linkedin-oauth2
 // Definitions by: Andrew Vetovitz <https://github.com/andrewvetovitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Profile as passportProfile, AuthenticateOptions as PassportAuthenticateOptions, Strategy as passportStrategy } from 'passport';
 import { Request } from 'express';
