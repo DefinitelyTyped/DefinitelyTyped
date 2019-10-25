@@ -1831,6 +1831,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "kafkajs",
+            "typingsPackageName": "kafkajs",
+            "sourceRepoURL": "https://github.com/tulios/kafkajs",
+            "asOfVersion": "1.9.0"
+        },
+        {
             "libraryName": "keycloak-js",
             "typingsPackageName": "keycloak-js",
             "sourceRepoURL": "https://github.com/keycloak/keycloak",
