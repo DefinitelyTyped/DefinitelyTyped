@@ -1,4 +1,4 @@
-import ReCAPTCHA, {ReCAPTCHA as ReCAPTCHA2} from 'react-google-recaptcha';
+import ReCAPTCHA, { ReCAPTCHA as ReCAPTCHA2 } from 'react-google-recaptcha';
 import * as React from 'react';
 
 const basicRecapchta = <ReCAPTCHA sitekey="xxx" onChange={a => a}/>;
