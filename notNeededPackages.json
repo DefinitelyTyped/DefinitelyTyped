@@ -1831,6 +1831,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "jwt-simple",
+            "typingsPackageName": "jwt-simple",
+            "sourceRepoURL": "https://github.com/hokaccha/node-jwt-simple",
+            "asOfVersion": "0.5.4"
+        },
+        {
             "libraryName": "keycloak-js",
             "typingsPackageName": "keycloak-js",
             "sourceRepoURL": "https://github.com/keycloak/keycloak",
