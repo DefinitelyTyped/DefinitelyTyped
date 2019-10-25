@@ -4045,6 +4045,12 @@
             "asOfVersion": "3.2.1"
         },
         {
+            "libraryName": "wikidata-sdk",
+            "typingsPackageName": "wikidata-sdk",
+            "sourceRepoURL": "https://github.com/maxlath/wikidata-sdk",
+            "asOfVersion": "6.1.0"
+        },
+        {
             "libraryName": "winston",
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
