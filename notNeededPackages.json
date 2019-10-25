@@ -973,6 +973,12 @@
             "asOfVersion": "0.9.0"
         },
         {
+            "libraryName": "express-openapi",
+            "typingsPackageName": "express-openapi",
+            "sourceRepoURL": "https://github.com/kogosoftwarellc/express-openapi",
+            "asOfVersion": "1.9.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
