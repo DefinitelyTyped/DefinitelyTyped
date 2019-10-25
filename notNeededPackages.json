@@ -229,6 +229,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "badgen",
+            "typingsPackageName": "badgen",
+            "sourceRepoURL": "https://github.com/amio/badgen",
+            "asOfVersion": "2.7.1"
+        },
+        {
             "libraryName": "base64url",
             "typingsPackageName": "base64url",
             "sourceRepoURL": "https://github.com/brianloveswords/base64url",
