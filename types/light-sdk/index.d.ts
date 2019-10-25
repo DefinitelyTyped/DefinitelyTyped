@@ -1,6 +1,5 @@
 // Type definitions for light-sdk 1.0.62
 // Project: https://www.npmjs.com/package/light-sdk
-// Document: http://document.lightyy.com/zh-cn/api/light-sdk/index.html
 // Definitions by: cklwblove <https://github.com/cklwblove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
