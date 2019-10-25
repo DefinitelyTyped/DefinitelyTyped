@@ -1807,6 +1807,12 @@
             "asOfVersion": "2.17.2"
         },
         {
+            "libraryName": "json-rules-engine",
+            "typingsPackageName": "json-rules-engine",
+            "sourceRepoURL": "https://github.com/cachecontrol/json-rules-engine",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
