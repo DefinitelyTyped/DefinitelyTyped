@@ -2065,6 +2065,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "material-components-web",
+            "typingsPackageName": "material-components-web",
+            "sourceRepoURL": "https://material.io/components",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "maxmind",
             "typingsPackageName": "maxmind",
             "sourceRepoURL": "https://github.com/runk/node-maxmind",
