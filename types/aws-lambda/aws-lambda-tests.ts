@@ -37,11 +37,11 @@ declare let snsMsg: AWSLambda.SNSMessage;
 declare let snsMsgAttr: AWSLambda.SNSMessageAttribute;
 declare let snsMsgAttrs: AWSLambda.SNSMessageAttributes;
 const S3EvtRec: AWSLambda.S3EventRecord = {
-    eventVersion: '2.0',
+    eventVersion: '2.1',
     eventSource: 'aws:s3',
     awsRegion: 'us-east-1',
     eventTime: '1970-01-01T00:00:00.000Z',
-    eventName: 'ObjectCreated:Put',
+    eventName: 'ObjectRestore:Completed',
     userIdentity: {
         principalId: 'AIDAJDPLRKLG7UEXAMPLE',
     },
@@ -70,45 +70,6 @@ const S3EvtRec: AWSLambda.S3EventRecord = {
             sequencer: '0055AED6DCD90281E5',
         },
     },
-};
-
-const S3CreateEvent: AWSLambda.S3CreateEvent = {
-    Records: [S3EvtRec],
-};
-
-const S3EvtRec21: AWSLambda.S3EventRecord21 = {
-    eventVersion: '2.1',
-    eventSource: 'aws:s3',
-    awsRegion: 'us-east-1',
-    eventTime: '1970-01-01T00:00:00.000Z',
-    eventName: 'ObjectCreated:Put',
-    userIdentity: {
-        principalId: 'AIDAJDPLRKLG7UEXAMPLE',
-    },
-    requestParameters: {
-        sourceIPAddress: '127.0.0.1',
-    },
-    responseElements: {
-        'x-amz-request-id': 'C3D13FE58DE4C810',
-        'x-amz-id-2': 'FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD',
-    },
-    s3: {
-        s3SchemaVersion: '1.0',
-        configurationId: 'testConfigRule',
-        bucket: {
-            name: 'mybucket',
-            ownerIdentity: {
-                principalId: 'A3NL1KOZZKExample',
-            },
-            arn: 'arn:aws:s3:::mybucket',
-        },
-        object: {
-            key: 'HappyFace.jpg',
-            size: 1024,
-            eTag: 'd41d8cd98f00b204e9800998ecf8427e',
-            sequencer: '0055AED6DCD90281E5',
-        },
-    },
     glacierEventData: {
         restoreEventData: {
             lifecycleRestorationExpiryTime: '1970-01-01T00:00:00.000Z',
@@ -117,16 +78,9 @@ const S3EvtRec21: AWSLambda.S3EventRecord21 = {
     },
 };
 
-const S3CreateEvent21: AWSLambda.S3Event21 = {
-    Records: [S3EvtRec21],
-};
-
-const rawEvent = {
+const S3CreateEvent: AWSLambda.S3CreateEvent = {
     Records: [S3EvtRec],
 };
-
-// $ExpectError
-const S3CreateEvent21With20Data: AWSLambda.S3Event21 = rawEvent;
 
 declare const cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 declare const cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;

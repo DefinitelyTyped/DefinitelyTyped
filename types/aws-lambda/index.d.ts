@@ -213,6 +213,16 @@ export interface SNSEvent {
  * S3Create event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html
  */
+
+export interface S3EventRecordGlacierRestoreEventData {
+    lifecycleRestorationExpiryTime: string;
+    lifecycleRestoreStorageClass: string;
+}
+
+export interface S3EventRecordGlacierEventData {
+    restoreEventData: S3EventRecordGlacierRestoreEventData;
+}
+
 export interface S3EventRecord {
     eventVersion: string;
     eventSource: string;
@@ -247,48 +257,11 @@ export interface S3EventRecord {
             sequencer: string;
         };
     };
-}
-
-export interface GlacierRestoreEventData {
-    lifecycleRestorationExpiryTime: string;
-    lifecycleRestoreStorageClass: string;
-}
-
-export interface GlacierEventData {
-    restoreEventData: GlacierRestoreEventData;
-}
-
-export interface S3Data1 {
-    s3SchemaVersion: '1.0';
-    configurationId: string;
-    bucket: {
-        name: string;
-        ownerIdentity: {
-            principalId: string;
-        };
-        arn: string;
-    };
-    object: {
-        key: string;
-        size: number;
-        eTag: string;
-        versionId?: string;
-        sequencer: string;
-    };
-}
-
-export interface S3EventRecord21 extends S3EventRecord {
-    eventVersion: '2.1';
-    s3: S3Data1;
-    glacierEventData?: GlacierEventData;
+    glacierEventData?: S3EventRecordGlacierEventData;
 }
 
 export interface S3Event {
     Records: S3EventRecord[];
-}
-
-export interface S3Event21 extends S3Event {
-    Records: S3EventRecord21[];
 }
 
 export type S3CreateEvent = S3Event; // old name
