@@ -3487,6 +3487,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "stellar-base",
+            "typingsPackageName": "stellar-base",
+            "sourceRepoURL": "https://github.com/stellar/js-stellar-base",
+            "asOfVersion": "0.13.2"
+        },
+        {
             "libraryName": "@storybook/addon-a11y",
             "typingsPackageName": "storybook__addon-a11y",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
