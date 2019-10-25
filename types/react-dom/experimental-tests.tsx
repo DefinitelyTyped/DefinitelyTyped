@@ -46,7 +46,7 @@ function createBlockingRoot() {
 
 function updates() {
     // $ExpectType 0
-    ReactDOM.unstable_discreteUpdates(() => 0 as const);
+    ReactDOM.unstable_discreteUpdates((): 0 => 0);
     // $ExpectType number
     ReactDOM.unstable_discreteUpdates((foo: number) => foo, 1);
     // $ExpectError
