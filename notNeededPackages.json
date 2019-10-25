@@ -271,6 +271,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bitcoinjs-lib",
+            "typingsPackageName": "bitcoinjs-lib",
+            "sourceRepoURL": "https://github.com/bitcoinjs/bitcoinjs-lib",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "bitwise",
             "typingsPackageName": "bitwise",
             "sourceRepoURL": "https://github.com/dodekeract/bitwise",
