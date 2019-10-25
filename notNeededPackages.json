@@ -2173,6 +2173,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "neffos.js",
+            "typingsPackageName": "neffos.js",
+            "sourceRepoURL": "https://github.com/kataras/neffos.js",
+            "asOfVersion": "0.1.2"
+        },
+        {
             "libraryName": "negative-array",
             "typingsPackageName": "negative-array",
             "sourceRepoURL": "https://github.com/sindresorhus/negative-array",
