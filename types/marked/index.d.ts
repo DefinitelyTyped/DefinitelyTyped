@@ -343,11 +343,6 @@ declare namespace marked {
         smartypants?: boolean;
 
         /**
-         * Enable GFM tables. This option requires the gfm option to be true.
-         */
-        tables?: boolean;
-
-        /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */
         xhtml?: boolean;
