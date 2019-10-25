@@ -2785,6 +2785,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "prosemirror-tables",
+            "typingsPackageName": "prosemirror-tables",
+            "sourceRepoURL": "https://github.com/ProseMirror/prosemirror-tables",
+            "asOfVersion": "0.9.1"
+        },
+        {
             "libraryName": "ProtoBuf.js",
             "typingsPackageName": "protobufjs",
             "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
