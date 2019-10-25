@@ -1453,6 +1453,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "ink",
+            "typingsPackageName": "ink",
+            "sourceRepoURL": "https://github.com/vadimdemedes/ink#readme",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "interactjs",
             "typingsPackageName": "interact.js",
             "sourceRepoURL": "https://github.com/taye/interact.js",
