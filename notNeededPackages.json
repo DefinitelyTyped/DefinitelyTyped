@@ -433,6 +433,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "composer-concerto",
+            "typingsPackageName": "composer-concerto",
+            "sourceRepoURL": "https://github.com/hyperledger/composer-concerto#readme",
+            "asOfVersion": "0.71.1"
+        },
+        {
             "libraryName": "condense-whitespace",
             "typingsPackageName": "condense-whitespace",
             "sourceRepoURL": "https://github.com/sindresorhus/condense-whitespace",
