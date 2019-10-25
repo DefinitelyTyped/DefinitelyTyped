@@ -4033,6 +4033,12 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "webmidi",
+            "typingsPackageName": "webmidi",
+            "sourceRepoURL": "http://www.w3.org/TR/webmidi/",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "webpack-chain",
             "typingsPackageName": "webpack-chain",
             "sourceRepoURL": "https://github.com/neutrinojs/webpack-chain",
