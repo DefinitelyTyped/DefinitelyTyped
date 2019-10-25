@@ -3949,6 +3949,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "vexdb",
+            "typingsPackageName": "vexdb",
+            "sourceRepoURL": "https://github.com/MayorMonty/vexdb#readme",
+            "asOfVersion": "1.7.1"
+        },
+        {
             "libraryName": "vso-node-api",
             "typingsPackageName": "vso-node-api",
             "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
