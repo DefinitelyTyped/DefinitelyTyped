@@ -32,6 +32,7 @@
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 //                 Tom Yam <https://github.com/tomyam1>
+//                 Tim Welter <https://github.com/TimWelter/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2274,6 +2275,8 @@ declare module "mongoose" {
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
     /** if true, return the modified document rather than the original. defaults to false (changed in 4.0) */
     new?: boolean;
+    /** When added, allows for filtering of deep nested arrays. */
+    arrayFilters: any[]
     /** creates the object if it doesn't exist. defaults to false. */
     upsert?: boolean;
     /** if true, runs update validators on this command. Update validators validate the update operation against the model's schema. */
