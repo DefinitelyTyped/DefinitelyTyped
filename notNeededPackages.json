@@ -3319,6 +3319,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "sequelize",
+            "typingsPackageName": "sequelize",
+            "sourceRepoURL": "http://sequelizejs.com",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "serialize-error",
             "typingsPackageName": "serialize-error",
             "sourceRepoURL": "https://github.com/sindresorhus/serialize-error",

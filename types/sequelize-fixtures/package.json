@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+      "sequelize": "^5.1.0"
+    }
+}
