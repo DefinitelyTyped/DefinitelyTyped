@@ -2276,7 +2276,7 @@ declare module "mongoose" {
     /** if true, return the modified document rather than the original. defaults to false (changed in 4.0) */
     new?: boolean;
     /** When added, allows for filtering of deep nested arrays. */
-    arrayFilters: any[]
+    arrayFilters?: any[];
     /** creates the object if it doesn't exist. defaults to false. */
     upsert?: boolean;
     /** if true, runs update validators on this command. Update validators validate the update operation against the model's schema. */
