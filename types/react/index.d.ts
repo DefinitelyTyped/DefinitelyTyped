@@ -24,6 +24,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
+
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
@@ -355,6 +359,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
+        /**
+         * Tells React whether to “skip” revealing this boundary during the initial load.
+         * This API will likely be removed in a future release.
+         */
+        // NOTE: this is unflagged and is respected even in stable builds
+        unstable_avoidThisFallback?: boolean;
     }
     /**
      * This feature is not yet available for server-side rendering.
