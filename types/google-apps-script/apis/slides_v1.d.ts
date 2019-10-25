@@ -8,7 +8,7 @@ declare namespace GoogleAppsScript {
   namespace Slides {
     namespace Collection {
       namespace Presentations {
-        export interface PagesCollection {
+        interface PagesCollection {
           // Gets the latest version of the specified page in the presentation.
           get(presentationId: string, pageObjectId: string): Slides.Schema.Page;
           // Generates a thumbnail of the latest version of the specified page in the
@@ -23,7 +23,7 @@ declare namespace GoogleAppsScript {
           getThumbnail(presentationId: string, pageObjectId: string, optionalArgs: object): Slides.Schema.Thumbnail;
         }
       }
-      export interface PresentationsCollection {
+      interface PresentationsCollection {
         Pages?: Slides.Collection.Presentations.PagesCollection;
         // Applies one or more updates to the presentation.
         // Each request is validated before
@@ -54,7 +54,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AffineTransform {
+      interface AffineTransform {
         scaleX?: number;
         scaleY?: number;
         shearX?: number;
@@ -63,157 +63,157 @@ declare namespace GoogleAppsScript {
         translateY?: number;
         unit?: string;
       }
-      export interface AutoText {
+      interface AutoText {
         content?: string;
         style?: Slides.Schema.TextStyle;
         type?: string;
       }
-      export interface BatchUpdatePresentationRequest {
+      interface BatchUpdatePresentationRequest {
         requests?: Slides.Schema.Request[];
         writeControl?: Slides.Schema.WriteControl;
       }
-      export interface BatchUpdatePresentationResponse {
+      interface BatchUpdatePresentationResponse {
         presentationId?: string;
         replies?: Slides.Schema.Response[];
         writeControl?: Slides.Schema.WriteControl;
       }
-      export interface Bullet {
+      interface Bullet {
         bulletStyle?: Slides.Schema.TextStyle;
         glyph?: string;
         listId?: string;
         nestingLevel?: number;
       }
-      export interface ColorScheme {
+      interface ColorScheme {
         colors?: Slides.Schema.ThemeColorPair[];
       }
-      export interface ColorStop {
+      interface ColorStop {
         alpha?: number;
         color?: Slides.Schema.OpaqueColor;
         position?: number;
       }
-      export interface CreateImageRequest {
+      interface CreateImageRequest {
         elementProperties?: Slides.Schema.PageElementProperties;
         objectId?: string;
         url?: string;
       }
-      export interface CreateImageResponse {
+      interface CreateImageResponse {
         objectId?: string;
       }
-      export interface CreateLineRequest {
+      interface CreateLineRequest {
         category?: string;
         elementProperties?: Slides.Schema.PageElementProperties;
         lineCategory?: string;
         objectId?: string;
       }
-      export interface CreateLineResponse {
+      interface CreateLineResponse {
         objectId?: string;
       }
-      export interface CreateParagraphBulletsRequest {
+      interface CreateParagraphBulletsRequest {
         bulletPreset?: string;
         cellLocation?: Slides.Schema.TableCellLocation;
         objectId?: string;
         textRange?: Slides.Schema.Range;
       }
-      export interface CreateShapeRequest {
+      interface CreateShapeRequest {
         elementProperties?: Slides.Schema.PageElementProperties;
         objectId?: string;
         shapeType?: string;
       }
-      export interface CreateShapeResponse {
+      interface CreateShapeResponse {
         objectId?: string;
       }
-      export interface CreateSheetsChartRequest {
+      interface CreateSheetsChartRequest {
         chartId?: number;
         elementProperties?: Slides.Schema.PageElementProperties;
         linkingMode?: string;
         objectId?: string;
         spreadsheetId?: string;
       }
-      export interface CreateSheetsChartResponse {
+      interface CreateSheetsChartResponse {
         objectId?: string;
       }
-      export interface CreateSlideRequest {
+      interface CreateSlideRequest {
         insertionIndex?: number;
         objectId?: string;
         placeholderIdMappings?: Slides.Schema.LayoutPlaceholderIdMapping[];
         slideLayoutReference?: Slides.Schema.LayoutReference;
       }
-      export interface CreateSlideResponse {
+      interface CreateSlideResponse {
         objectId?: string;
       }
-      export interface CreateTableRequest {
+      interface CreateTableRequest {
         columns?: number;
         elementProperties?: Slides.Schema.PageElementProperties;
         objectId?: string;
         rows?: number;
       }
-      export interface CreateTableResponse {
+      interface CreateTableResponse {
         objectId?: string;
       }
-      export interface CreateVideoRequest {
+      interface CreateVideoRequest {
         elementProperties?: Slides.Schema.PageElementProperties;
         id?: string;
         objectId?: string;
         source?: string;
       }
-      export interface CreateVideoResponse {
+      interface CreateVideoResponse {
         objectId?: string;
       }
-      export interface CropProperties {
+      interface CropProperties {
         angle?: number;
         bottomOffset?: number;
         leftOffset?: number;
         rightOffset?: number;
         topOffset?: number;
       }
-      export interface DeleteObjectRequest {
+      interface DeleteObjectRequest {
         objectId?: string;
       }
-      export interface DeleteParagraphBulletsRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        objectId?: string;
-        textRange?: Slides.Schema.Range;
-      }
-      export interface DeleteTableColumnRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        tableObjectId?: string;
-      }
-      export interface DeleteTableRowRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        tableObjectId?: string;
-      }
-      export interface DeleteTextRequest {
+      interface DeleteParagraphBulletsRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         objectId?: string;
         textRange?: Slides.Schema.Range;
       }
-      export interface Dimension {
+      interface DeleteTableColumnRequest {
+        cellLocation?: Slides.Schema.TableCellLocation;
+        tableObjectId?: string;
+      }
+      interface DeleteTableRowRequest {
+        cellLocation?: Slides.Schema.TableCellLocation;
+        tableObjectId?: string;
+      }
+      interface DeleteTextRequest {
+        cellLocation?: Slides.Schema.TableCellLocation;
+        objectId?: string;
+        textRange?: Slides.Schema.Range;
+      }
+      interface Dimension {
         magnitude?: number;
         unit?: string;
       }
-      export interface DuplicateObjectRequest {
+      interface DuplicateObjectRequest {
         objectId?: string;
         objectIds?: object;
       }
-      export interface DuplicateObjectResponse {
+      interface DuplicateObjectResponse {
         objectId?: string;
       }
-      export interface Group {
+      interface Group {
         children?: Slides.Schema.PageElement[];
       }
-      export interface GroupObjectsRequest {
+      interface GroupObjectsRequest {
         childrenObjectIds?: string[];
         groupObjectId?: string;
       }
-      export interface GroupObjectsResponse {
+      interface GroupObjectsResponse {
         objectId?: string;
       }
-      export interface Image {
+      interface Image {
         contentUrl?: string;
         imageProperties?: Slides.Schema.ImageProperties;
         sourceUrl?: string;
       }
-      export interface ImageProperties {
+      interface ImageProperties {
         brightness?: number;
         contrast?: number;
         cropProperties?: Slides.Schema.CropProperties;
@@ -223,51 +223,51 @@ declare namespace GoogleAppsScript {
         shadow?: Slides.Schema.Shadow;
         transparency?: number;
       }
-      export interface InsertTableColumnsRequest {
+      interface InsertTableColumnsRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         insertRight?: boolean;
         number?: number;
         tableObjectId?: string;
       }
-      export interface InsertTableRowsRequest {
+      interface InsertTableRowsRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         insertBelow?: boolean;
         number?: number;
         tableObjectId?: string;
       }
-      export interface InsertTextRequest {
+      interface InsertTextRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         insertionIndex?: number;
         objectId?: string;
         text?: string;
       }
-      export interface LayoutPlaceholderIdMapping {
+      interface LayoutPlaceholderIdMapping {
         layoutPlaceholder?: Slides.Schema.Placeholder;
         layoutPlaceholderObjectId?: string;
         objectId?: string;
       }
-      export interface LayoutProperties {
+      interface LayoutProperties {
         displayName?: string;
         masterObjectId?: string;
         name?: string;
       }
-      export interface LayoutReference {
+      interface LayoutReference {
         layoutId?: string;
         predefinedLayout?: string;
       }
-      export interface Line {
+      interface Line {
         lineCategory?: string;
         lineProperties?: Slides.Schema.LineProperties;
         lineType?: string;
       }
-      export interface LineConnection {
+      interface LineConnection {
         connectedObjectId?: string;
         connectionSiteIndex?: number;
       }
-      export interface LineFill {
+      interface LineFill {
         solidFill?: Slides.Schema.SolidFill;
       }
-      export interface LineProperties {
+      interface LineProperties {
         dashStyle?: string;
         endArrow?: string;
         endConnection?: Slides.Schema.LineConnection;
@@ -277,46 +277,46 @@ declare namespace GoogleAppsScript {
         startConnection?: Slides.Schema.LineConnection;
         weight?: Slides.Schema.Dimension;
       }
-      export interface Link {
+      interface Link {
         pageObjectId?: string;
         relativeLink?: string;
         slideIndex?: number;
         url?: string;
       }
-      export interface List {
+      interface List {
         listId?: string;
         nestingLevel?: object;
       }
-      export interface MasterProperties {
+      interface MasterProperties {
         displayName?: string;
       }
-      export interface MergeTableCellsRequest {
+      interface MergeTableCellsRequest {
         objectId?: string;
         tableRange?: Slides.Schema.TableRange;
       }
-      export interface NestingLevel {
+      interface NestingLevel {
         bulletStyle?: Slides.Schema.TextStyle;
       }
-      export interface NotesProperties {
+      interface NotesProperties {
         speakerNotesObjectId?: string;
       }
-      export interface OpaqueColor {
+      interface OpaqueColor {
         rgbColor?: Slides.Schema.RgbColor;
         themeColor?: string;
       }
-      export interface OptionalColor {
+      interface OptionalColor {
         opaqueColor?: Slides.Schema.OpaqueColor;
       }
-      export interface Outline {
+      interface Outline {
         dashStyle?: string;
         outlineFill?: Slides.Schema.OutlineFill;
         propertyState?: string;
         weight?: Slides.Schema.Dimension;
       }
-      export interface OutlineFill {
+      interface OutlineFill {
         solidFill?: Slides.Schema.SolidFill;
       }
-      export interface Page {
+      interface Page {
         layoutProperties?: Slides.Schema.LayoutProperties;
         masterProperties?: Slides.Schema.MasterProperties;
         notesProperties?: Slides.Schema.NotesProperties;
@@ -327,12 +327,12 @@ declare namespace GoogleAppsScript {
         revisionId?: string;
         slideProperties?: Slides.Schema.SlideProperties;
       }
-      export interface PageBackgroundFill {
+      interface PageBackgroundFill {
         propertyState?: string;
         solidFill?: Slides.Schema.SolidFill;
         stretchedPictureFill?: Slides.Schema.StretchedPictureFill;
       }
-      export interface PageElement {
+      interface PageElement {
         description?: string;
         elementGroup?: Slides.Schema.Group;
         image?: Slides.Schema.Image;
@@ -347,20 +347,20 @@ declare namespace GoogleAppsScript {
         video?: Slides.Schema.Video;
         wordArt?: Slides.Schema.WordArt;
       }
-      export interface PageElementProperties {
+      interface PageElementProperties {
         pageObjectId?: string;
         size?: Slides.Schema.Size;
         transform?: Slides.Schema.AffineTransform;
       }
-      export interface PageProperties {
+      interface PageProperties {
         colorScheme?: Slides.Schema.ColorScheme;
         pageBackgroundFill?: Slides.Schema.PageBackgroundFill;
       }
-      export interface ParagraphMarker {
+      interface ParagraphMarker {
         bullet?: Slides.Schema.Bullet;
         style?: Slides.Schema.ParagraphStyle;
       }
-      export interface ParagraphStyle {
+      interface ParagraphStyle {
         alignment?: string;
         direction?: string;
         indentEnd?: Slides.Schema.Dimension;
@@ -371,12 +371,12 @@ declare namespace GoogleAppsScript {
         spaceBelow?: Slides.Schema.Dimension;
         spacingMode?: string;
       }
-      export interface Placeholder {
+      interface Placeholder {
         index?: number;
         parentObjectId?: string;
         type?: string;
       }
-      export interface Presentation {
+      interface Presentation {
         layouts?: Slides.Schema.Page[];
         locale?: string;
         masters?: Slides.Schema.Page[];
@@ -387,52 +387,52 @@ declare namespace GoogleAppsScript {
         slides?: Slides.Schema.Page[];
         title?: string;
       }
-      export interface Range {
+      interface Range {
         endIndex?: number;
         startIndex?: number;
         type?: string;
       }
-      export interface Recolor {
+      interface Recolor {
         name?: string;
         recolorStops?: Slides.Schema.ColorStop[];
       }
-      export interface RefreshSheetsChartRequest {
+      interface RefreshSheetsChartRequest {
         objectId?: string;
       }
-      export interface ReplaceAllShapesWithImageRequest {
+      interface ReplaceAllShapesWithImageRequest {
         containsText?: Slides.Schema.SubstringMatchCriteria;
         imageReplaceMethod?: string;
         imageUrl?: string;
         pageObjectIds?: string[];
         replaceMethod?: string;
       }
-      export interface ReplaceAllShapesWithImageResponse {
+      interface ReplaceAllShapesWithImageResponse {
         occurrencesChanged?: number;
       }
-      export interface ReplaceAllShapesWithSheetsChartRequest {
+      interface ReplaceAllShapesWithSheetsChartRequest {
         chartId?: number;
         containsText?: Slides.Schema.SubstringMatchCriteria;
         linkingMode?: string;
         pageObjectIds?: string[];
         spreadsheetId?: string;
       }
-      export interface ReplaceAllShapesWithSheetsChartResponse {
+      interface ReplaceAllShapesWithSheetsChartResponse {
         occurrencesChanged?: number;
       }
-      export interface ReplaceAllTextRequest {
+      interface ReplaceAllTextRequest {
         containsText?: Slides.Schema.SubstringMatchCriteria;
         pageObjectIds?: string[];
         replaceText?: string;
       }
-      export interface ReplaceAllTextResponse {
+      interface ReplaceAllTextResponse {
         occurrencesChanged?: number;
       }
-      export interface ReplaceImageRequest {
+      interface ReplaceImageRequest {
         imageObjectId?: string;
         imageReplaceMethod?: string;
         url?: string;
       }
-      export interface Request {
+      interface Request {
         createImage?: Slides.Schema.CreateImageRequest;
         createLine?: Slides.Schema.CreateLineRequest;
         createParagraphBullets?: Slides.Schema.CreateParagraphBulletsRequest;
@@ -477,10 +477,10 @@ declare namespace GoogleAppsScript {
         updateTextStyle?: Slides.Schema.UpdateTextStyleRequest;
         updateVideoProperties?: Slides.Schema.UpdateVideoPropertiesRequest;
       }
-      export interface RerouteLineRequest {
+      interface RerouteLineRequest {
         objectId?: string;
       }
-      export interface Response {
+      interface Response {
         createImage?: Slides.Schema.CreateImageResponse;
         createLine?: Slides.Schema.CreateLineResponse;
         createShape?: Slides.Schema.CreateShapeResponse;
@@ -494,12 +494,12 @@ declare namespace GoogleAppsScript {
         replaceAllShapesWithSheetsChart?: Slides.Schema.ReplaceAllShapesWithSheetsChartResponse;
         replaceAllText?: Slides.Schema.ReplaceAllTextResponse;
       }
-      export interface RgbColor {
+      interface RgbColor {
         blue?: number;
         green?: number;
         red?: number;
       }
-      export interface Shadow {
+      interface Shadow {
         alignment?: string;
         alpha?: number;
         blurRadius?: Slides.Schema.Dimension;
@@ -509,54 +509,54 @@ declare namespace GoogleAppsScript {
         transform?: Slides.Schema.AffineTransform;
         type?: string;
       }
-      export interface Shape {
+      interface Shape {
         placeholder?: Slides.Schema.Placeholder;
         shapeProperties?: Slides.Schema.ShapeProperties;
         shapeType?: string;
         text?: Slides.Schema.TextContent;
       }
-      export interface ShapeBackgroundFill {
+      interface ShapeBackgroundFill {
         propertyState?: string;
         solidFill?: Slides.Schema.SolidFill;
       }
-      export interface ShapeProperties {
+      interface ShapeProperties {
         contentAlignment?: string;
         link?: Slides.Schema.Link;
         outline?: Slides.Schema.Outline;
         shadow?: Slides.Schema.Shadow;
         shapeBackgroundFill?: Slides.Schema.ShapeBackgroundFill;
       }
-      export interface SheetsChart {
+      interface SheetsChart {
         chartId?: number;
         contentUrl?: string;
         sheetsChartProperties?: Slides.Schema.SheetsChartProperties;
         spreadsheetId?: string;
       }
-      export interface SheetsChartProperties {
+      interface SheetsChartProperties {
         chartImageProperties?: Slides.Schema.ImageProperties;
       }
-      export interface Size {
+      interface Size {
         height?: Slides.Schema.Dimension;
         width?: Slides.Schema.Dimension;
       }
-      export interface SlideProperties {
+      interface SlideProperties {
         layoutObjectId?: string;
         masterObjectId?: string;
         notesPage?: Slides.Schema.Page;
       }
-      export interface SolidFill {
+      interface SolidFill {
         alpha?: number;
         color?: Slides.Schema.OpaqueColor;
       }
-      export interface StretchedPictureFill {
+      interface StretchedPictureFill {
         contentUrl?: string;
         size?: Slides.Schema.Size;
       }
-      export interface SubstringMatchCriteria {
+      interface SubstringMatchCriteria {
         matchCase?: boolean;
         text?: string;
       }
-      export interface Table {
+      interface Table {
         columns?: number;
         horizontalBorderRows?: Slides.Schema.TableBorderRow[];
         rows?: number;
@@ -564,72 +564,72 @@ declare namespace GoogleAppsScript {
         tableRows?: Slides.Schema.TableRow[];
         verticalBorderRows?: Slides.Schema.TableBorderRow[];
       }
-      export interface TableBorderCell {
+      interface TableBorderCell {
         location?: Slides.Schema.TableCellLocation;
         tableBorderProperties?: Slides.Schema.TableBorderProperties;
       }
-      export interface TableBorderFill {
+      interface TableBorderFill {
         solidFill?: Slides.Schema.SolidFill;
       }
-      export interface TableBorderProperties {
+      interface TableBorderProperties {
         dashStyle?: string;
         tableBorderFill?: Slides.Schema.TableBorderFill;
         weight?: Slides.Schema.Dimension;
       }
-      export interface TableBorderRow {
+      interface TableBorderRow {
         tableBorderCells?: Slides.Schema.TableBorderCell[];
       }
-      export interface TableCell {
+      interface TableCell {
         columnSpan?: number;
         location?: Slides.Schema.TableCellLocation;
         rowSpan?: number;
         tableCellProperties?: Slides.Schema.TableCellProperties;
         text?: Slides.Schema.TextContent;
       }
-      export interface TableCellBackgroundFill {
+      interface TableCellBackgroundFill {
         propertyState?: string;
         solidFill?: Slides.Schema.SolidFill;
       }
-      export interface TableCellLocation {
+      interface TableCellLocation {
         columnIndex?: number;
         rowIndex?: number;
       }
-      export interface TableCellProperties {
+      interface TableCellProperties {
         contentAlignment?: string;
         tableCellBackgroundFill?: Slides.Schema.TableCellBackgroundFill;
       }
-      export interface TableColumnProperties {
+      interface TableColumnProperties {
         columnWidth?: Slides.Schema.Dimension;
       }
-      export interface TableRange {
+      interface TableRange {
         columnSpan?: number;
         location?: Slides.Schema.TableCellLocation;
         rowSpan?: number;
       }
-      export interface TableRow {
+      interface TableRow {
         rowHeight?: Slides.Schema.Dimension;
         tableCells?: Slides.Schema.TableCell[];
         tableRowProperties?: Slides.Schema.TableRowProperties;
       }
-      export interface TableRowProperties {
+      interface TableRowProperties {
         minRowHeight?: Slides.Schema.Dimension;
       }
-      export interface TextContent {
+      interface TextContent {
         lists?: object;
         textElements?: Slides.Schema.TextElement[];
       }
-      export interface TextElement {
+      interface TextElement {
         autoText?: Slides.Schema.AutoText;
         endIndex?: number;
         paragraphMarker?: Slides.Schema.ParagraphMarker;
         startIndex?: number;
         textRun?: Slides.Schema.TextRun;
       }
-      export interface TextRun {
+      interface TextRun {
         content?: string;
         style?: Slides.Schema.TextStyle;
       }
-      export interface TextStyle {
+      interface TextStyle {
         backgroundColor?: Slides.Schema.OptionalColor;
         baselineOffset?: string;
         bold?: boolean;
@@ -643,134 +643,134 @@ declare namespace GoogleAppsScript {
         underline?: boolean;
         weightedFontFamily?: Slides.Schema.WeightedFontFamily;
       }
-      export interface ThemeColorPair {
+      interface ThemeColorPair {
         color?: Slides.Schema.RgbColor;
         type?: string;
       }
-      export interface Thumbnail {
+      interface Thumbnail {
         contentUrl?: string;
         height?: number;
         width?: number;
       }
-      export interface UngroupObjectsRequest {
+      interface UngroupObjectsRequest {
         objectIds?: string[];
       }
-      export interface UnmergeTableCellsRequest {
+      interface UnmergeTableCellsRequest {
         objectId?: string;
         tableRange?: Slides.Schema.TableRange;
       }
-      export interface UpdateImagePropertiesRequest {
+      interface UpdateImagePropertiesRequest {
         fields?: string;
         imageProperties?: Slides.Schema.ImageProperties;
         objectId?: string;
       }
-      export interface UpdateLineCategoryRequest {
+      interface UpdateLineCategoryRequest {
         lineCategory?: string;
         objectId?: string;
       }
-      export interface UpdateLinePropertiesRequest {
+      interface UpdateLinePropertiesRequest {
         fields?: string;
         lineProperties?: Slides.Schema.LineProperties;
         objectId?: string;
       }
-      export interface UpdatePageElementAltTextRequest {
+      interface UpdatePageElementAltTextRequest {
         description?: string;
         objectId?: string;
         title?: string;
       }
-      export interface UpdatePageElementTransformRequest {
+      interface UpdatePageElementTransformRequest {
         applyMode?: string;
         objectId?: string;
         transform?: Slides.Schema.AffineTransform;
       }
-      export interface UpdatePageElementsZOrderRequest {
+      interface UpdatePageElementsZOrderRequest {
         operation?: string;
         pageElementObjectIds?: string[];
       }
-      export interface UpdatePagePropertiesRequest {
+      interface UpdatePagePropertiesRequest {
         fields?: string;
         objectId?: string;
         pageProperties?: Slides.Schema.PageProperties;
       }
-      export interface UpdateParagraphStyleRequest {
+      interface UpdateParagraphStyleRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         fields?: string;
         objectId?: string;
         style?: Slides.Schema.ParagraphStyle;
         textRange?: Slides.Schema.Range;
       }
-      export interface UpdateShapePropertiesRequest {
+      interface UpdateShapePropertiesRequest {
         fields?: string;
         objectId?: string;
         shapeProperties?: Slides.Schema.ShapeProperties;
       }
-      export interface UpdateSlidesPositionRequest {
+      interface UpdateSlidesPositionRequest {
         insertionIndex?: number;
         slideObjectIds?: string[];
       }
-      export interface UpdateTableBorderPropertiesRequest {
+      interface UpdateTableBorderPropertiesRequest {
         borderPosition?: string;
         fields?: string;
         objectId?: string;
         tableBorderProperties?: Slides.Schema.TableBorderProperties;
         tableRange?: Slides.Schema.TableRange;
       }
-      export interface UpdateTableCellPropertiesRequest {
+      interface UpdateTableCellPropertiesRequest {
         fields?: string;
         objectId?: string;
         tableCellProperties?: Slides.Schema.TableCellProperties;
         tableRange?: Slides.Schema.TableRange;
       }
-      export interface UpdateTableColumnPropertiesRequest {
+      interface UpdateTableColumnPropertiesRequest {
         columnIndices?: number[];
         fields?: string;
         objectId?: string;
         tableColumnProperties?: Slides.Schema.TableColumnProperties;
       }
-      export interface UpdateTableRowPropertiesRequest {
+      interface UpdateTableRowPropertiesRequest {
         fields?: string;
         objectId?: string;
         rowIndices?: number[];
         tableRowProperties?: Slides.Schema.TableRowProperties;
       }
-      export interface UpdateTextStyleRequest {
+      interface UpdateTextStyleRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
         fields?: string;
         objectId?: string;
         style?: Slides.Schema.TextStyle;
         textRange?: Slides.Schema.Range;
       }
-      export interface UpdateVideoPropertiesRequest {
+      interface UpdateVideoPropertiesRequest {
         fields?: string;
         objectId?: string;
         videoProperties?: Slides.Schema.VideoProperties;
       }
-      export interface Video {
+      interface Video {
         id?: string;
         source?: string;
         url?: string;
         videoProperties?: Slides.Schema.VideoProperties;
       }
-      export interface VideoProperties {
+      interface VideoProperties {
         autoPlay?: boolean;
         end?: number;
         mute?: boolean;
         outline?: Slides.Schema.Outline;
         start?: number;
       }
-      export interface WeightedFontFamily {
+      interface WeightedFontFamily {
         fontFamily?: string;
         weight?: number;
       }
-      export interface WordArt {
+      interface WordArt {
         renderedText?: string;
       }
-      export interface WriteControl {
+      interface WriteControl {
         requiredRevisionId?: string;
       }
     }
   }
-  export interface Slides {
+  interface Slides {
     Presentations?: Slides.Collection.PresentationsCollection;
     // Create a new instance of AffineTransform
     newAffineTransform(): Slides.Schema.AffineTransform;

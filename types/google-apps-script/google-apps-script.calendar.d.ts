@@ -7,11 +7,11 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Calendar {
+  namespace Calendar {
     /**
      * Represents a calendar that the user owns or is subscribed to.
      */
-    export interface Calendar {
+    interface Calendar {
       createAllDayEvent(title: string, date: Base.Date): CalendarEvent;
       createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date): CalendarEvent;
       createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date, options: { [key: string]: any }): CalendarEvent;
@@ -53,7 +53,7 @@ declare namespace GoogleAppsScript {
      * to the user's default calendar, as well as the ability to retrieve additional calendars that the
      * user owns or is subscribed to.
      */
-    export interface CalendarApp {
+    interface CalendarApp {
       Color: typeof Color;
       EventColor: typeof EventColor;
       GuestStatus: typeof GuestStatus;
@@ -109,7 +109,7 @@ declare namespace GoogleAppsScript {
     /**
      * Represents a single calendar event.
      */
-    export interface CalendarEvent {
+    interface CalendarEvent {
       addEmailReminder(minutesBefore: Integer): CalendarEvent;
       addGuest(email: string): CalendarEvent;
       addPopupReminder(minutesBefore: Integer): CalendarEvent;
@@ -169,7 +169,7 @@ declare namespace GoogleAppsScript {
     /**
      * Represents a series of events (a recurring event).
      */
-    export interface CalendarEventSeries {
+    interface CalendarEventSeries {
       addEmailReminder(minutesBefore: Integer): CalendarEventSeries;
       addGuest(email: string): CalendarEventSeries;
       addPopupReminder(minutesBefore: Integer): CalendarEventSeries;
@@ -221,17 +221,17 @@ declare namespace GoogleAppsScript {
     /**
      * An enum representing the named colors available in the Calendar service.
      */
-    export enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
+    enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
 
     /**
      * An enum representing the named event colors available in the Calendar service.
      */
-    export enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
+    enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
 
     /**
      * Represents a guest of an event.
      */
-    export interface EventGuest {
+    interface EventGuest {
       getAdditionalGuests(): Integer;
       getEmail(): string;
       getGuestStatus(): GuestStatus;
@@ -243,7 +243,7 @@ declare namespace GoogleAppsScript {
     /**
      * Represents the recurrence settings for an event series.
      */
-    export interface EventRecurrence {
+    interface EventRecurrence {
       addDailyExclusion(): RecurrenceRule;
       addDailyRule(): RecurrenceRule;
       addDate(date: Base.Date): EventRecurrence;
@@ -260,7 +260,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enum representing the statuses a guest can have for an event.
      */
-    export enum GuestStatus { INVITED, MAYBE, NO, OWNER, YES }
+    enum GuestStatus { INVITED, MAYBE, NO, OWNER, YES }
 
     /**
      * Represents a recurrence rule for an event series.
@@ -273,7 +273,7 @@ declare namespace GoogleAppsScript {
      * times(times)
      * interval(interval)
      */
-    export interface RecurrenceRule {
+    interface RecurrenceRule {
       addDailyExclusion(): RecurrenceRule;
       addDailyRule(): RecurrenceRule;
       addDate(date: Base.Date): EventRecurrence;
@@ -304,8 +304,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enum representing the visibility of an event.
      */
-    export enum Visibility { CONFIDENTIAL, DEFAULT, PRIVATE, PUBLIC }
-
+    enum Visibility { CONFIDENTIAL, DEFAULT, PRIVATE, PUBLIC }
   }
 }
 

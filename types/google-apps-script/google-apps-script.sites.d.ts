@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Sites {
+  namespace Sites {
     /**
      * A Sites Attachment such as a file attached to a page.
      *
@@ -24,7 +24,7 @@ declare namespace GoogleAppsScript {
      *     // just pass it directly to that method
      *     var file = DocsList.createFile(attachments[0]);
      */
-    export interface Attachment {
+    interface Attachment {
       deleteAttachment(): void;
       getAs(contentType: string): Base.Blob;
       getAttachmentType(): AttachmentType;
@@ -51,7 +51,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export enum AttachmentType { WEB, HOSTED }
+    enum AttachmentType { WEB, HOSTED }
 
     /**
      * A Sites Column - a column from a Sites List page.
@@ -60,7 +60,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Column {
+    interface Column {
       deleteColumn(): void;
       getName(): string;
       getParent(): Page;
@@ -74,7 +74,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Comment {
+    interface Comment {
       deleteComment(): void;
       getAuthorEmail(): string;
       getAuthorName(): string;
@@ -93,7 +93,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface ListItem {
+    interface ListItem {
       deleteListItem(): void;
       getDatePublished(): Base.Date;
       getLastUpdated(): Base.Date;
@@ -105,19 +105,19 @@ declare namespace GoogleAppsScript {
       setValueByName(name: string, value: string): ListItem;
     }
 
-    export type PageAdvancedParameters = {
+    interface PageAdvancedParameters {
       /** only get pages of this type */
-      type?: PageType[]
+      type?: PageType[];
       /** start the results here */
-      start?: Integer
+      start?: Integer;
       /** the max number of results (default 200) */
-      max?: Integer
+      max?: Integer;
       /** whether to include draft pages (default false) */
-      includeDrafts?: boolean
+      includeDrafts?: boolean;
       /** whether to include deleted pages (default false) */
-      includeDeleted?: boolean
+      includeDeleted?: boolean;
       /** only return pages matching this query */
-      search?: string
+      search?: string;
     }
     /**
      * A Page on a Google Site.
@@ -126,7 +126,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Page {
+    interface Page {
       addColumn(name: string): Column;
       addHostedAttachment(blob: Base.BlobSource): Attachment;
       addHostedAttachment(blob: Base.BlobSource, description: string): Attachment;
@@ -193,7 +193,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
+    enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
 
     /**
      * An object representing a Google Site.
@@ -202,7 +202,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Site {
+    interface Site {
       addEditor(emailAddress: string): Site;
       addEditor(user: Base.User): Site;
       addEditors(emailAddresses: string[]): Site;
@@ -292,7 +292,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface SitesApp {
+    interface SitesApp {
       AttachmentType: typeof AttachmentType;
       PageType: typeof PageType;
       copySite(domain: string, name: string, title: string, summary: string, site: Site): Site;
@@ -310,7 +310,6 @@ declare namespace GoogleAppsScript {
       getSites(domain: string): Site[];
       getSites(domain: string, start: Integer, max: Integer): Site[];
     }
-
   }
 }
 

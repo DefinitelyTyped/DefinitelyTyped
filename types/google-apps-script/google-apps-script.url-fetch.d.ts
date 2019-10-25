@@ -8,14 +8,14 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module URL_Fetch {
+  namespace URL_Fetch {
     /**
      * This class allows users to access specific information on HTTP responses.
      * See also
      *
      * UrlFetchApp
      */
-    export interface HTTPResponse {
+    interface HTTPResponse {
       getAllHeaders(): object;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
@@ -26,10 +26,10 @@ declare namespace GoogleAppsScript {
       getResponseCode(): Integer;
     }
 
-    export interface URLFetchRequest extends URLFetchRequestOptions {
+    interface URLFetchRequest extends URLFetchRequestOptions {
       url: string;
     }
-    export interface URLFetchRequestOptions {
+    interface URLFetchRequestOptions {
         /**
          * the content type (defaults to 'application/x-www-form-urlencoded'). Another example of content
          * type is 'application/xml; charset=utf-8'.
@@ -104,17 +104,18 @@ declare namespace GoogleAppsScript {
      *
      * Setting explicit scopes
      */
-    export interface UrlFetchApp {
+    interface UrlFetchApp {
       fetch(url: string): HTTPResponse;
       fetch(url: string, params: URLFetchRequestOptions): HTTPResponse;
       fetchAll(requests: (URLFetchRequest | string)[]): HTTPResponse[];
       getRequest(url: string): URLFetchRequest;
       getRequest(url: string, params: URLFetchRequestOptions): URLFetchRequest;
     }
-    type HttpHeaders = {[key: string]: string};
+    interface HttpHeaders {
+        [key: string]: string;
+    }
     type HttpMethod = 'get' | 'delete' | 'patch' | 'post' | 'put';
     type Payload = string | { [key: string]: any } | Base.Blob;
-
   }
 }
 

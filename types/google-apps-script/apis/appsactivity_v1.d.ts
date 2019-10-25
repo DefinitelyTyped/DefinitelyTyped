@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace Appsactivity {
     namespace Collection {
-      export interface ActivitiesCollection {
+      interface ActivitiesCollection {
         // Returns a list of activities visible to the current logged in user. Visible activities are determined by the visiblity settings of the object that was acted on, e.g. Drive files a user can see. An activity is a record of past events. Multiple events may be merged if they are similar. A request is scoped to activities from a given Google service using the source parameter.
         list(): Appsactivity.Schema.ListActivitiesResponse;
         // Returns a list of activities visible to the current logged in user. Visible activities are determined by the visiblity settings of the object that was acted on, e.g. Drive files a user can see. An activity is a record of past events. Multiple events may be merged if they are similar. A request is scoped to activities from a given Google service using the source parameter.
@@ -15,11 +15,11 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Activity {
+      interface Activity {
         combinedEvent?: Appsactivity.Schema.Event;
         singleEvents?: Appsactivity.Schema.Event[];
       }
-      export interface Event {
+      interface Event {
         additionalEventTypes?: string[];
         eventTimeMillis?: string;
         fromUserDeletion?: boolean;
@@ -30,20 +30,20 @@ declare namespace GoogleAppsScript {
         target?: Appsactivity.Schema.Target;
         user?: Appsactivity.Schema.User;
       }
-      export interface ListActivitiesResponse {
+      interface ListActivitiesResponse {
         activities?: Appsactivity.Schema.Activity[];
         nextPageToken?: string;
       }
-      export interface Move {
+      interface Move {
         addedParents?: Appsactivity.Schema.Parent[];
         removedParents?: Appsactivity.Schema.Parent[];
       }
-      export interface Parent {
+      interface Parent {
         id?: string;
         isRoot?: boolean;
         title?: string;
       }
-      export interface Permission {
+      interface Permission {
         name?: string;
         permissionId?: string;
         role?: string;
@@ -51,23 +51,23 @@ declare namespace GoogleAppsScript {
         user?: Appsactivity.Schema.User;
         withLink?: boolean;
       }
-      export interface PermissionChange {
+      interface PermissionChange {
         addedPermissions?: Appsactivity.Schema.Permission[];
         removedPermissions?: Appsactivity.Schema.Permission[];
       }
-      export interface Photo {
+      interface Photo {
         url?: string;
       }
-      export interface Rename {
+      interface Rename {
         newTitle?: string;
         oldTitle?: string;
       }
-      export interface Target {
+      interface Target {
         id?: string;
         mimeType?: string;
         name?: string;
       }
-      export interface User {
+      interface User {
         isDeleted?: boolean;
         isMe?: boolean;
         name?: string;
@@ -76,7 +76,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Appsactivity {
+  interface Appsactivity {
     Activities?: Appsactivity.Collection.ActivitiesCollection;
   }
 }

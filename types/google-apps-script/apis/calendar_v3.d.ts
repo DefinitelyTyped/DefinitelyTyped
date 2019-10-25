@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace Calendar {
     namespace Collection {
-      export interface AclCollection {
+      interface AclCollection {
         // Returns an access control rule.
         get(calendarId: string, ruleId: string): Calendar.Schema.AclRule;
         // Returns an access control rule.
@@ -47,7 +47,7 @@ declare namespace GoogleAppsScript {
         // Watch for changes to ACL resources.
         watch(resource: Schema.Channel, calendarId: string, optionalArgs: object, headers: object): Calendar.Schema.Channel;
       }
-      export interface CalendarListCollection {
+      interface CalendarListCollection {
         // Returns a calendar from the user's calendar list.
         get(calendarId: string): Calendar.Schema.CalendarListEntry;
         // Returns a calendar from the user's calendar list.
@@ -87,7 +87,7 @@ declare namespace GoogleAppsScript {
         // Watch for changes to CalendarList resources.
         watch(resource: Schema.Channel, optionalArgs: object, headers: object): Calendar.Schema.Channel;
       }
-      export interface CalendarsCollection {
+      interface CalendarsCollection {
         // Clears a primary calendar. This operation deletes all events associated with the primary calendar of an account.
         clear(calendarId: string): void;
         // Clears a primary calendar. This operation deletes all events associated with the primary calendar of an account.
@@ -113,19 +113,19 @@ declare namespace GoogleAppsScript {
         // Updates metadata for a calendar.
         update(resource: Schema.Calendar, calendarId: string, optionalArgs: object, headers: object): Calendar.Schema.Calendar;
       }
-      export interface ChannelsCollection {
+      interface ChannelsCollection {
         // Stop watching resources through this channel
         stop(resource: Schema.Channel): void;
         // Stop watching resources through this channel
         stop(resource: Schema.Channel, optionalArgs: object, headers: object): void;
       }
-      export interface ColorsCollection {
+      interface ColorsCollection {
         // Returns the color definitions for calendars and events.
         get(): Calendar.Schema.Colors;
         // Returns the color definitions for calendars and events.
         get(optionalArgs: object, headers: object): Calendar.Schema.Colors;
       }
-      export interface EventsCollection {
+      interface EventsCollection {
         // Returns an event.
         get(calendarId: string, eventId: string): Calendar.Schema.Event;
         // Returns an event.
@@ -193,13 +193,13 @@ declare namespace GoogleAppsScript {
         // Watch for changes to Events resources.
         watch(resource: Schema.Channel, calendarId: string, optionalArgs: object, headers: object): Calendar.Schema.Channel;
       }
-      export interface FreebusyCollection {
+      interface FreebusyCollection {
         // Returns free/busy information for a set of calendars.
         query(resource: Schema.FreeBusyRequest): Calendar.Schema.FreeBusyResponse;
         // Returns free/busy information for a set of calendars.
         query(resource: Schema.FreeBusyRequest, optionalArgs: object, headers: object): Calendar.Schema.FreeBusyResponse;
       }
-      export interface SettingsCollection {
+      interface SettingsCollection {
         // Returns a single user setting.
         get(setting: string): Calendar.Schema.Setting;
         // Returns a single user setting.
@@ -219,25 +219,25 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Acl {
+      interface Acl {
         etag?: string;
         items?: Calendar.Schema.AclRule[];
         kind?: string;
         nextPageToken?: string;
         nextSyncToken?: string;
       }
-      export interface AclRule {
+      interface AclRule {
         etag?: string;
         id?: string;
         kind?: string;
         role?: string;
         scope?: Calendar.Schema.AclRuleScope;
       }
-      export interface AclRuleScope {
+      interface AclRuleScope {
         type?: string;
         value?: string;
       }
-      export interface Calendar {
+      interface Calendar {
         conferenceProperties?: Calendar.Schema.ConferenceProperties;
         description?: string;
         etag?: string;
@@ -247,14 +247,14 @@ declare namespace GoogleAppsScript {
         summary?: string;
         timeZone?: string;
       }
-      export interface CalendarList {
+      interface CalendarList {
         etag?: string;
         items?: Calendar.Schema.CalendarListEntry[];
         kind?: string;
         nextPageToken?: string;
         nextSyncToken?: string;
       }
-      export interface CalendarListEntry {
+      interface CalendarListEntry {
         accessRole?: string;
         backgroundColor?: string;
         colorId?: string;
@@ -275,14 +275,14 @@ declare namespace GoogleAppsScript {
         summaryOverride?: string;
         timeZone?: string;
       }
-      export interface CalendarListEntryNotificationSettings {
+      interface CalendarListEntryNotificationSettings {
         notifications?: Calendar.Schema.CalendarNotification[];
       }
-      export interface CalendarNotification {
+      interface CalendarNotification {
         method?: string;
         type?: string;
       }
-      export interface Channel {
+      interface Channel {
         address?: string;
         expiration?: string;
         id?: string;
@@ -294,17 +294,17 @@ declare namespace GoogleAppsScript {
         token?: string;
         type?: string;
       }
-      export interface ColorDefinition {
+      interface ColorDefinition {
         background?: string;
         foreground?: string;
       }
-      export interface Colors {
+      interface Colors {
         calendar?: object;
         event?: object;
         kind?: string;
         updated?: string;
       }
-      export interface ConferenceData {
+      interface ConferenceData {
         conferenceId?: string;
         conferenceSolution?: Calendar.Schema.ConferenceSolution;
         createRequest?: Calendar.Schema.CreateConferenceRequest;
@@ -313,32 +313,32 @@ declare namespace GoogleAppsScript {
         parameters?: Calendar.Schema.ConferenceParameters;
         signature?: string;
       }
-      export interface ConferenceParameters {
+      interface ConferenceParameters {
         addOnParameters?: Calendar.Schema.ConferenceParametersAddOnParameters;
       }
-      export interface ConferenceParametersAddOnParameters {
+      interface ConferenceParametersAddOnParameters {
         parameters?: object;
       }
-      export interface ConferenceProperties {
+      interface ConferenceProperties {
         allowedConferenceSolutionTypes?: string[];
       }
-      export interface ConferenceRequestStatus {
+      interface ConferenceRequestStatus {
         statusCode?: string;
       }
-      export interface ConferenceSolution {
+      interface ConferenceSolution {
         iconUri?: string;
         key?: Calendar.Schema.ConferenceSolutionKey;
         name?: string;
       }
-      export interface ConferenceSolutionKey {
+      interface ConferenceSolutionKey {
         type?: string;
       }
-      export interface CreateConferenceRequest {
+      interface CreateConferenceRequest {
         conferenceSolutionKey?: Calendar.Schema.ConferenceSolutionKey;
         requestId?: string;
         status?: Calendar.Schema.ConferenceRequestStatus;
       }
-      export interface EntryPoint {
+      interface EntryPoint {
         accessCode?: string;
         entryPointFeatures?: string[];
         entryPointType?: string;
@@ -350,11 +350,11 @@ declare namespace GoogleAppsScript {
         regionCode?: string;
         uri?: string;
       }
-      export interface Error {
+      interface Error {
         domain?: string;
         reason?: string;
       }
-      export interface Event {
+      interface Event {
         anyoneCanAddSelf?: boolean;
         attachments?: Calendar.Schema.EventAttachment[];
         attendees?: Calendar.Schema.EventAttendee[];
@@ -394,14 +394,14 @@ declare namespace GoogleAppsScript {
         updated?: string;
         visibility?: string;
       }
-      export interface EventAttachment {
+      interface EventAttachment {
         fileId?: string;
         fileUrl?: string;
         iconLink?: string;
         mimeType?: string;
         title?: string;
       }
-      export interface EventAttendee {
+      interface EventAttendee {
         additionalGuests?: number;
         comment?: string;
         displayName?: string;
@@ -413,22 +413,22 @@ declare namespace GoogleAppsScript {
         responseStatus?: string;
         self?: boolean;
       }
-      export interface EventCreator {
+      interface EventCreator {
         displayName?: string;
         email?: string;
         id?: string;
         self?: boolean;
       }
-      export interface EventDateTime {
+      interface EventDateTime {
         date?: string;
         dateTime?: string;
         timeZone?: string;
       }
-      export interface EventExtendedProperties {
+      interface EventExtendedProperties {
         private?: object;
         shared?: object;
       }
-      export interface EventGadget {
+      interface EventGadget {
         display?: string;
         height?: number;
         iconLink?: string;
@@ -438,25 +438,25 @@ declare namespace GoogleAppsScript {
         type?: string;
         width?: number;
       }
-      export interface EventOrganizer {
+      interface EventOrganizer {
         displayName?: string;
         email?: string;
         id?: string;
         self?: boolean;
       }
-      export interface EventReminder {
+      interface EventReminder {
         method?: string;
         minutes?: number;
       }
-      export interface EventReminders {
+      interface EventReminders {
         overrides?: Calendar.Schema.EventReminder[];
         useDefault?: boolean;
       }
-      export interface EventSource {
+      interface EventSource {
         title?: string;
         url?: string;
       }
-      export interface Events {
+      interface Events {
         accessRole?: string;
         defaultReminders?: Calendar.Schema.EventReminder[];
         description?: string;
@@ -469,15 +469,15 @@ declare namespace GoogleAppsScript {
         timeZone?: string;
         updated?: string;
       }
-      export interface FreeBusyCalendar {
+      interface FreeBusyCalendar {
         busy?: Calendar.Schema.TimePeriod[];
         errors?: Calendar.Schema.Error[];
       }
-      export interface FreeBusyGroup {
+      interface FreeBusyGroup {
         calendars?: string[];
         errors?: Calendar.Schema.Error[];
       }
-      export interface FreeBusyRequest {
+      interface FreeBusyRequest {
         calendarExpansionMax?: number;
         groupExpansionMax?: number;
         items?: Calendar.Schema.FreeBusyRequestItem[];
@@ -485,36 +485,36 @@ declare namespace GoogleAppsScript {
         timeMin?: string;
         timeZone?: string;
       }
-      export interface FreeBusyRequestItem {
+      interface FreeBusyRequestItem {
         id?: string;
       }
-      export interface FreeBusyResponse {
+      interface FreeBusyResponse {
         calendars?: object;
         groups?: object;
         kind?: string;
         timeMax?: string;
         timeMin?: string;
       }
-      export interface Setting {
+      interface Setting {
         etag?: string;
         id?: string;
         kind?: string;
         value?: string;
       }
-      export interface Settings {
+      interface Settings {
         etag?: string;
         items?: Calendar.Schema.Setting[];
         kind?: string;
         nextPageToken?: string;
         nextSyncToken?: string;
       }
-      export interface TimePeriod {
+      interface TimePeriod {
         end?: string;
         start?: string;
       }
     }
   }
-  export interface Calendar {
+  interface Calendar {
     Acl?: Calendar.Collection.AclCollection;
     CalendarList?: Calendar.Collection.CalendarListCollection;
     Calendars?: Calendar.Collection.CalendarsCollection;

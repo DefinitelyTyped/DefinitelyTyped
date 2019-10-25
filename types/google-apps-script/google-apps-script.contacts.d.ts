@@ -7,11 +7,11 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Contacts {
+  namespace Contacts {
     /**
      * Address field in a contact.
      */
-    export interface AddressField {
+    interface AddressField {
       deleteAddressField(): void;
       getAddress(): string;
       getLabel(): Field | ExtendedField | string;
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
     /**
      * Company field in a Contact.
      */
-    export interface CompanyField {
+    interface CompanyField {
       deleteCompanyField(): void;
       getCompanyName(): string;
       getJobTitle(): string;
@@ -38,7 +38,7 @@ declare namespace GoogleAppsScript {
     /**
      * A Contact contains the name, address, and various contact details of a contact.
      */
-    export interface Contact {
+    interface Contact {
       addAddress(label: typeof ContactsApp.Field | string, address: string): AddressField;
       addCompany(company: string, title: string): CompanyField;
       addCustomField(label: typeof ContactsApp.ExtendedField | string, content: any): CustomField;
@@ -140,7 +140,7 @@ declare namespace GoogleAppsScript {
     /**
      * A ContactGroup is is a group of contacts.
      */
-    export interface ContactGroup {
+    interface ContactGroup {
       addContact(contact: Contact): ContactGroup;
       deleteGroup(): void;
       getContacts(): Contact[];
@@ -159,7 +159,7 @@ declare namespace GoogleAppsScript {
      * This class allows users to access their own Google Contacts and create, remove, and update
      * contacts listed therein.
      */
-    export interface ContactsApp {
+    interface ContactsApp {
       ExtendedField: typeof ExtendedField;
       Field: typeof Field;
       Gender: typeof Gender;
@@ -213,7 +213,7 @@ declare namespace GoogleAppsScript {
     /**
      * A custom field in a Contact.
      */
-    export interface CustomField {
+    interface CustomField {
       deleteCustomField(): void;
       getLabel(): Field | ExtendedField | string;
       getValue(): any;
@@ -229,7 +229,7 @@ declare namespace GoogleAppsScript {
      * JavaScript's standard
      * Date object.
      */
-    export interface DateField {
+    interface DateField {
       deleteDateField(): void;
       getDay(): Integer;
       getLabel(): Field | ExtendedField | string;
@@ -244,7 +244,7 @@ declare namespace GoogleAppsScript {
     /**
      * An email field in a Contact.
      */
-    export interface EmailField {
+    interface EmailField {
       deleteEmailField(): void;
       getAddress(): string;
       getDisplayName(): string;
@@ -260,22 +260,23 @@ declare namespace GoogleAppsScript {
     /**
      * An enum for extended contacts fields.
      */
-    export enum ExtendedField { HOBBY, MILEAGE, LANGUAGE, GENDER, BILLING_INFORMATION, DIRECTORY_SERVER, SENSITIVITY, PRIORITY, HOME, WORK, USER, OTHER }
+    enum ExtendedField { HOBBY, MILEAGE, LANGUAGE, GENDER, BILLING_INFORMATION, DIRECTORY_SERVER, SENSITIVITY, PRIORITY, HOME, WORK, USER, OTHER }
 
     /**
      * An enum for contacts fields.
      */
-    export enum Field { FULL_NAME, GIVEN_NAME, MIDDLE_NAME, FAMILY_NAME, MAIDEN_NAME, NICKNAME, SHORT_NAME, INITIALS, PREFIX, SUFFIX, HOME_EMAIL, WORK_EMAIL, BIRTHDAY, ANNIVERSARY, HOME_ADDRESS, WORK_ADDRESS, ASSISTANT_PHONE, CALLBACK_PHONE, MAIN_PHONE, PAGER, HOME_FAX, WORK_FAX, HOME_PHONE, WORK_PHONE, MOBILE_PHONE, GOOGLE_VOICE, NOTES, GOOGLE_TALK, AIM, YAHOO, SKYPE, QQ, MSN, ICQ, JABBER, BLOG, FTP, PROFILE, HOME_PAGE, WORK_WEBSITE, HOME_WEBSITE, JOB_TITLE, COMPANY }
+    enum Field { FULL_NAME, GIVEN_NAME, MIDDLE_NAME, FAMILY_NAME, MAIDEN_NAME, NICKNAME, SHORT_NAME, INITIALS, PREFIX, SUFFIX, HOME_EMAIL, WORK_EMAIL, BIRTHDAY, ANNIVERSARY, HOME_ADDRESS, WORK_ADDRESS, ASSISTANT_PHONE, CALLBACK_PHONE, MAIN_PHONE, PAGER, HOME_FAX, WORK_FAX, HOME_PHONE, WORK_PHONE, MOBILE_PHONE, GOOGLE_VOICE, NOTES, GOOGLE_TALK, AIM, YAHOO, SKYPE, QQ, MSN, ICQ, JABBER, BLOG, FTP, PROFILE, HOME_PAGE, WORK_WEBSITE, HOME_WEBSITE, JOB_TITLE, COMPANY }
 
     /**
      * An enum for contact gender.
      */
-    export enum Gender { MALE, FEMALE }
+    enum Gender { MALE, FEMALE }
 
     /**
      * An instant messaging field in a Contact.
      */
-    export interface IMField {
+    // tslint:disable-next-line: interface-name
+    interface IMField {
       deleteIMField(): void;
       getAddress(): string;
       getLabel(): Field | ExtendedField | string;
@@ -289,7 +290,7 @@ declare namespace GoogleAppsScript {
     /**
      * A phone number field in a Contact.
      */
-    export interface PhoneField {
+    interface PhoneField {
       deletePhoneField(): void;
       getLabel(): Field | ExtendedField | string;
       getPhoneNumber(): string;
@@ -303,17 +304,17 @@ declare namespace GoogleAppsScript {
     /**
      * An enum for contact priority.
      */
-    export enum Priority { HIGH, LOW, NORMAL }
+    enum Priority { HIGH, LOW, NORMAL }
 
     /**
      * An enum for contact sensitivity.
      */
-    export enum Sensitivity { CONFIDENTIAL, NORMAL, PERSONAL, PRIVATE }
+    enum Sensitivity { CONFIDENTIAL, NORMAL, PERSONAL, PRIVATE }
 
     /**
      * A URL field in a Contact.
      */
-    export interface UrlField {
+    interface UrlField {
       deleteUrlField(): void;
       getAddress(): string;
       getLabel(): Field | ExtendedField | string;
@@ -323,7 +324,6 @@ declare namespace GoogleAppsScript {
       setLabel(field: Field): UrlField;
       setLabel(label: string): UrlField;
     }
-
   }
 }
 

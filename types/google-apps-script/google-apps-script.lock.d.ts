@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Lock {
+  namespace Lock {
     /**
      * A representation of a mutual-exclusion lock.
      *
@@ -37,7 +37,7 @@ declare namespace GoogleAppsScript {
      * lastTicketNumber
      * ScriptProperties
      */
-    export interface Lock {
+    interface Lock {
       hasLock(): boolean;
       releaseLock(): void;
       tryLock(timeoutInMillis: Integer): boolean;
@@ -48,12 +48,11 @@ declare namespace GoogleAppsScript {
      * Prevents concurrent access to sections of code. This can be useful when you have multiple users
      * or processes modifying a shared resource and want to prevent collisions.
      */
-    export interface LockService {
+    interface LockService {
       getDocumentLock(): Lock;
       getScriptLock(): Lock;
       getUserLock(): Lock;
     }
-
   }
 }
 

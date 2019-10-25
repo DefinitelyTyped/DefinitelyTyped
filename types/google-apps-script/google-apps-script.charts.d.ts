@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Charts {
+  namespace Charts {
     /**
      * Builder for area charts. For more details, see the Google Charts documentation.
      *
@@ -42,7 +42,7 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    export interface AreaChartBuilder {
+    interface AreaChartBuilder {
       build(): Chart;
       reverseCategories(): AreaChartBuilder;
       setBackgroundColor(cssValue: string): AreaChartBuilder;
@@ -89,7 +89,7 @@ declare namespace GoogleAppsScript {
      *
      *      var chart = chartBuilder.build();
      */
-    export interface BarChartBuilder {
+    interface BarChartBuilder {
       build(): Chart;
       reverseCategories(): BarChartBuilder;
       reverseDirection(): BarChartBuilder;
@@ -120,7 +120,7 @@ declare namespace GoogleAppsScript {
      * A Chart object, which can be converted to a static image. For charts embedded in spreadsheets,
      * see EmbeddedChart.
      */
-    export interface Chart {
+    interface Chart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getOptions(): ChartOptions;
@@ -129,12 +129,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of how hidden dimensions in a source are expressed in a chart.
      */
-    export enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
+    enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
 
     /**
      * An enumeration of how multiple ranges in the source are expressed in a chart.
      */
-    export enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
+    enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
 
     /**
      * Exposes options currently configured for a Chart, such as height, color, etc.
@@ -145,14 +145,14 @@ declare namespace GoogleAppsScript {
      *
      * These options are immutable.
      */
-    export interface ChartOptions {
+    interface ChartOptions {
       get(option: string): any;
     }
 
     /**
      * Chart types supported by the Charts service.
      */
-    export enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
+    enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
 
     /**
      * Entry point for creating Charts in scripts.
@@ -187,7 +187,7 @@ declare namespace GoogleAppsScript {
      *        return htmlOutput;
      *     }
      */
-    export interface Charts {
+    interface Charts {
       ChartHiddenDimensionStrategy: typeof ChartHiddenDimensionStrategy;
       ChartMergeStrategy: typeof ChartMergeStrategy;
       ChartType: typeof ChartType;
@@ -235,7 +235,7 @@ declare namespace GoogleAppsScript {
      *         .setDataTable(sampleData)
      *         .build();
      */
-    export interface ColumnChartBuilder {
+    interface ColumnChartBuilder {
       build(): Chart;
       reverseCategories(): ColumnChartBuilder;
       setBackgroundColor(cssValue: string): ColumnChartBuilder;
@@ -264,19 +264,21 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of the valid data types for columns in a DataTable.
      */
-    export enum ColumnType { DATE, NUMBER, STRING }
+    enum ColumnType { DATE, NUMBER, STRING }
 
     /**
      * An enumeration of the styles for curves in a chart.
      */
-    export enum CurveStyle { NORMAL, SMOOTH }
+    enum CurveStyle { NORMAL, SMOOTH }
 
     /**
      * A Data Table to be used in charts. A DataTable can come from sources such as Google
      * Sheets or specified data-table URLs, or can be filled in by hand. This class intentionally has no
      * methods: a DataTable can be passed around, but not manipulated directly.
      */
-    export interface DataTable {
+    // tslint:disable-next-line: no-empty-interface
+    interface DataTable {
+      // tslint:disable-next-line: no-empty-interface
     }
 
     /**
@@ -294,7 +296,7 @@ declare namespace GoogleAppsScript {
      *         .addRow(["May", 30, 4])
      *         .build();
      */
-    export interface DataTableBuilder {
+    interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
       addRow(values: any[]): DataTableBuilder;
       build(): DataTable;
@@ -311,7 +313,7 @@ declare namespace GoogleAppsScript {
      *
      * RangeAccess and modify spreadsheet ranges.
      */
-    export interface DataTableSource {
+    interface DataTableSource {
       getDataTable(): DataTable;
     }
 
@@ -324,7 +326,9 @@ declare namespace GoogleAppsScript {
      * consideration when drawing the chart. See DataViewDefinitionBuilder for an example on how
      * to define and use a DataViewDefinition.
      */
-    export interface DataViewDefinition {
+    // tslint:disable-next-line: no-empty-interface
+    interface DataViewDefinition {
+      // tslint:disable-next-line: no-empty-interface
     }
 
     /**
@@ -368,7 +372,7 @@ declare namespace GoogleAppsScript {
      *       return htmlOutput;
      *     }
      */
-    export interface DataViewDefinitionBuilder {
+    interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
       setColumns(columns: any[]): DataViewDefinitionBuilder;
     }
@@ -393,7 +397,7 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    export interface LineChartBuilder {
+    interface LineChartBuilder {
       build(): Chart;
       reverseCategories(): LineChartBuilder;
       setBackgroundColor(cssValue: string): LineChartBuilder;
@@ -435,7 +439,7 @@ declare namespace GoogleAppsScript {
      * of the data table. Given a column to filter on, leave only the rows that match the value entered
      * in the filter input box, using one of the above matching types.
      */
-    export enum MatchType { EXACT, PREFIX, ANY }
+    enum MatchType { EXACT, PREFIX, ANY }
 
     /**
      * A builder for number range filter controls.
@@ -447,7 +451,7 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    export interface NumberRangeFilterBuilder {
+    interface NumberRangeFilterBuilder {
       setMaxValue(maxValue: Integer): NumberRangeFilterBuilder;
       setMinValue(minValue: Integer): NumberRangeFilterBuilder;
       setOrientation(orientation: Orientation): NumberRangeFilterBuilder;
@@ -458,12 +462,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of the orientation of an object.
      */
-    export enum Orientation { HORIZONTAL, VERTICAL }
+    enum Orientation { HORIZONTAL, VERTICAL }
 
     /**
      * An enumeration of how to display selected values in picker widget.
      */
-    export enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
+    enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
 
     /**
      * A builder for pie charts. For more details, see the Google Charts documentation.
@@ -482,7 +486,7 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    export interface PieChartBuilder {
+    interface PieChartBuilder {
       build(): Chart;
       reverseCategories(): PieChartBuilder;
       set3D(): PieChartBuilder;
@@ -503,12 +507,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of the styles of points in a line.
      */
-    export enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
+    enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
 
     /**
      * An enumeration of legend positions within a chart.
      */
-    export enum Position { TOP, RIGHT, BOTTOM, NONE }
+    enum Position { TOP, RIGHT, BOTTOM, NONE }
 
     /**
      * Builder for scatter charts. For more details, see the Google Charts documentation.
@@ -529,7 +533,7 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    export interface ScatterChartBuilder {
+    interface ScatterChartBuilder {
       build(): Chart;
       setBackgroundColor(cssValue: string): ScatterChartBuilder;
       setColors(cssValues: string[]): ScatterChartBuilder;
@@ -566,7 +570,7 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    export interface StringFilterBuilder {
+    interface StringFilterBuilder {
       setCaseSensitive(caseSensitive: boolean): StringFilterBuilder;
       setMatchType(matchType: MatchType): StringFilterBuilder;
       setRealtimeTrigger(realtimeTrigger: boolean): StringFilterBuilder;
@@ -588,7 +592,7 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    export interface TableChartBuilder {
+    interface TableChartBuilder {
       build(): Chart;
       enablePaging(enablePaging: boolean): TableChartBuilder;
       enablePaging(pageSize: Integer): TableChartBuilder;
@@ -639,7 +643,7 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    export interface TextStyle {
+    interface TextStyle {
       getColor(): string;
       getFontName(): string;
       getFontSize(): number;
@@ -657,13 +661,12 @@ declare namespace GoogleAppsScript {
      *         .setColor('#0000FF').setFontName('Ariel').setFontSize(26);
      *     var style = textStyleBuilder.build();
      */
-    export interface TextStyleBuilder {
+    interface TextStyleBuilder {
       build(): TextStyle;
       setColor(cssValue: string): TextStyleBuilder;
       setFontName(fontName: string): TextStyleBuilder;
       setFontSize(fontSize: number): TextStyleBuilder;
     }
-
   }
 }
 

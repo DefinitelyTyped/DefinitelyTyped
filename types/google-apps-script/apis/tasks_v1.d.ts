@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace Tasks {
     namespace Collection {
-      export interface TasklistsCollection {
+      interface TasklistsCollection {
         // Returns the authenticated user's specified task list.
         get(tasklist: string): Tasks.Schema.TaskList;
         // Creates a new task list and adds it to the authenticated user's task lists.
@@ -23,7 +23,7 @@ declare namespace GoogleAppsScript {
         // Updates the authenticated user's specified task list.
         update(resource: Schema.TaskList, tasklist: string): Tasks.Schema.TaskList;
       }
-      export interface TasksCollection {
+      interface TasksCollection {
         // Clears all completed tasks from the specified task list. The affected tasks will be marked as 'hidden' and no longer be returned by default when retrieving all tasks for a task list.
         clear(tasklist: string): void;
         // Returns the specified task.
@@ -49,7 +49,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Task {
+      interface Task {
         completed?: string;
         deleted?: boolean;
         due?: string;
@@ -66,12 +66,12 @@ declare namespace GoogleAppsScript {
         title?: string;
         updated?: string;
       }
-      export interface TaskLinks {
+      interface TaskLinks {
         description?: string;
         link?: string;
         type?: string;
       }
-      export interface TaskList {
+      interface TaskList {
         etag?: string;
         id?: string;
         kind?: string;
@@ -79,13 +79,13 @@ declare namespace GoogleAppsScript {
         title?: string;
         updated?: string;
       }
-      export interface TaskLists {
+      interface TaskLists {
         etag?: string;
         items?: Tasks.Schema.TaskList[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Tasks {
+      interface Tasks {
         etag?: string;
         items?: Tasks.Schema.Task[];
         kind?: string;
@@ -93,7 +93,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Tasks {
+  interface Tasks {
     Tasklists?: Tasks.Collection.TasklistsCollection;
     Tasks?: Tasks.Collection.TasksCollection;
     // Create a new instance of Task

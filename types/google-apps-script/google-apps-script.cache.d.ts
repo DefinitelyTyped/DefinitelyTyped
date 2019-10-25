@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Cache {
+  namespace Cache {
     /**
      * A reference to a particular cache.
      *
@@ -27,7 +27,7 @@ declare namespace GoogleAppsScript {
      *       return contents;
      *     }
      */
-    export interface Cache {
+    interface Cache {
       get(key: string): string | null;
       getAll(keys: string[]): { [key: string]: any };
       put(key: string, value: string): void;
@@ -48,12 +48,11 @@ declare namespace GoogleAppsScript {
      * The data you write to the cache is not guaranteed to persist until its expiration time. You
      * must be prepared to get back null from all reads.
      */
-    export interface CacheService {
+    interface CacheService {
       getDocumentCache(): Cache | null;
       getScriptCache(): Cache | null;
       getUserCache(): Cache | null;
     }
-
   }
 }
 

@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Groups {
+  namespace Groups {
     /**
      * A group object whose members and those members' roles within the group can be queried.
      *
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(str);
      *     }
      */
-    export interface Group {
+    interface Group {
       getEmail(): string;
       getGroups(): Group[];
       getRole(email: string): Role;
@@ -47,7 +47,7 @@ declare namespace GoogleAppsScript {
      *     var groups = GroupsApp.getGroups();
      *     Logger.log('You belong to ' + groups.length + ' groups.');
      */
-    export interface GroupsApp {
+    interface GroupsApp {
       Role: typeof Role;
       getGroupByEmail(email: string): Group;
       getGroups(): Group[];
@@ -60,8 +60,7 @@ declare namespace GoogleAppsScript {
      *
      * Group.getRole(email)
      */
-    export enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
-
+    enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
   }
 }
 
