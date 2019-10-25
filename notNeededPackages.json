@@ -1867,6 +1867,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "koa-useragent",
+            "typingsPackageName": "koa-useragent",
+            "sourceRepoURL": "https://github.com/rvboris/koa-useragent",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "lambda-phi",
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
