@@ -31,7 +31,7 @@ interface ExphbsCallback {
 }
 
 interface Exphbs {
-    engine: Function;
+    engine: (path: string, options: object, callback: (e: any, rendered: string) => void) => void;
     extname: string;
     compiled: Object;
     precompiled: Object;
