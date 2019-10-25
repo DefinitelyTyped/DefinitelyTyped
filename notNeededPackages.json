@@ -43,6 +43,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "akumina-core",
+            "typingsPackageName": "akumina-core",
+            "sourceRepoURL": "https://github.com/akumina/AkuminaDev",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "all-keys",
             "typingsPackageName": "all-keys",
             "sourceRepoURL": "https://github.com/sindresorhus/all-keys",
