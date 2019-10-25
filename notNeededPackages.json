@@ -277,6 +277,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "bootstrap-table",
+            "typingsPackageName": "bootstrap-table",
+            "sourceRepoURL": "http://bootstrap-table.wenzhixin.net.cn/",
+            "asOfVersion": "1.12.0"
+        },
+        {
             "libraryName": "botvs",
             "typingsPackageName": "botvs",
             "sourceRepoURL": "https://www.botvs.com/",
