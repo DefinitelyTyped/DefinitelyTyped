@@ -2275,6 +2275,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "o.js",
+            "typingsPackageName": "o.js",
+            "sourceRepoURL": "https://github.com/janhommes/o.js",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "on-change",
             "typingsPackageName": "on-change",
             "sourceRepoURL": "https://github.com/sindresorhus/on-change",
