@@ -24,6 +24,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
+
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
