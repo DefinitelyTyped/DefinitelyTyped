@@ -3013,6 +3013,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-tab-view",
+            "typingsPackageName": "react-native-tab-view",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-tab-view",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-navigation-material-bottom-tabs",
             "typingsPackageName": "react-navigation-material-bottom-tabs",
             "sourceRepoURL": "https://github.com/react-navigation/material-bottom-tabs",
