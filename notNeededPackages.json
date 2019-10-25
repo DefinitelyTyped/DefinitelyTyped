@@ -3487,6 +3487,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "stacktrace-js",
+            "typingsPackageName": "stacktrace-js",
+            "sourceRepoURL": "https://github.com/stacktracejs/stacktrace.js",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "@storybook/addon-a11y",
             "typingsPackageName": "storybook__addon-a11y",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
