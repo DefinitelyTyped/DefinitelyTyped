@@ -36,48 +36,48 @@ declare namespace merger {
     }
     interface Resolvers<Schema extends JSONSchema = JSONSchema> {
         $id(
-            values: Extract<Schema, { $id?: any }>['$id'][],
+            values: Array<Extract<Schema, { $id?: any }>['$id']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options,
         ): Extract<Schema, { $id?: any }>['$id'];
-        $ref(values: Schema['$ref'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['$ref'];
-        $schema(values: Schema['$schema'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['$schema'];
-        additionalItems(values: Schema['additionalItems'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['additionalItems'];
-        additionalProperties(values: Schema['additionalProperties'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['additionalProperties'];
-        anyOf(values: Schema['anyOf'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['anyOf'];
+        $ref(values: Array<Schema['$ref']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['$ref'];
+        $schema(values: Array<Schema['$schema']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['$schema'];
+        additionalItems(values: Array<Schema['additionalItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['additionalItems'];
+        additionalProperties(values: Array<Schema['additionalProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['additionalProperties'];
+        anyOf(values: Array<Schema['anyOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['anyOf'];
         contains(
-            values: Extract<Schema, { contains?: any }>['contains'][],
+            values: Array<Extract<Schema, { contains?: any }>['contains']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options,
         ): Extract<Schema, { contains?: any }>['contains'];
-        default(values: Schema['default'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['default'];
-        definitions(values: Schema['definitions'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['definitions'];
-        dependencies(values: Schema['dependencies'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['dependencies'];
-        description(values: Schema['description'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['description'];
-        enum(values: Schema['enum'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['enum'];
+        default(values: Array<Schema['default']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['default'];
+        definitions(values: Array<Schema['definitions']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['definitions'];
+        dependencies(values: Array<Schema['dependencies']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['dependencies'];
+        description(values: Array<Schema['description']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['description'];
+        enum(values: Array<Schema['enum']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['enum'];
         examples(
-            values: Extract<Schema, { examples?: any }>['examples'][],
+            values: Array<Extract<Schema, { examples?: any }>['examples']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options,
         ): Extract<Schema, { examples?: any }>['examples'];
-        exclusiveMaximum(values: Schema['exclusiveMaximum'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['exclusiveMaximum'];
-        exclusiveMinimum(values: Schema['exclusiveMinimum'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['exclusiveMinimum'];
-        items(values: Schema['items'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['items'];
-        maxItems(values: Schema['maxItems'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxItems'];
-        maxLength(values: Schema['maxLength'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxLength'];
-        maxProperties(values: Schema['maxProperties'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxProperties'];
-        maximum(values: Schema['maximum'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maximum'];
-        minItems(values: Schema['minItems'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minItems'];
-        minLength(values: Schema['minLength'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minLength'];
-        minProperties(values: Schema['minProperties'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minProperties'];
-        minimum(values: Schema['minimum'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minimum'];
-        multipleOf(values: Schema['multipleOf'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['multipleOf'];
-        not(values: Schema['not'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['not'];
-        oneOf(values: Schema['oneOf'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['oneOf'];
-        pattern(values: Schema['pattern'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['pattern'];
+        exclusiveMaximum(values: Array<Schema['exclusiveMaximum']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['exclusiveMaximum'];
+        exclusiveMinimum(values: Array<Schema['exclusiveMinimum']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['exclusiveMinimum'];
+        items(values: Array<Schema['items']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['items'];
+        maxItems(values: Array<Schema['maxItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxItems'];
+        maxLength(values: Array<Schema['maxLength']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxLength'];
+        maxProperties(values: Array<Schema['maxProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maxProperties'];
+        maximum(values: Array<Schema['maximum']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['maximum'];
+        minItems(values: Array<Schema['minItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minItems'];
+        minLength(values: Array<Schema['minLength']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minLength'];
+        minProperties(values: Array<Schema['minProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minProperties'];
+        minimum(values: Array<Schema['minimum']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['minimum'];
+        multipleOf(values: Array<Schema['multipleOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['multipleOf'];
+        not(values: Array<Schema['not']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['not'];
+        oneOf(values: Array<Schema['oneOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['oneOf'];
+        pattern(values: Array<Schema['pattern']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['pattern'];
         properties(
             values: Schema[],
             path: string[],
@@ -89,20 +89,20 @@ declare namespace merger {
             options: Options,
         ): Schema;
         propertyNames(
-            values: Extract<Schema, { propertyNames?: any }>['propertyNames'][],
+            values: Array<Extract<Schema, { propertyNames?: any }>['propertyNames']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options,
         ): Extract<Schema, { propertyNames?: any }>['propertyNames'];
         required(
-            values: Schema['required'][],
+            values: Array<Schema['required']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options,
         ): Schema['required'];
-        title(values: Schema['title'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['title'];
-        type(values: Schema['type'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['type'];
-        uniqueItems(values: Schema['uniqueItems'][], path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['uniqueItems'];
+        title(values: Array<Schema['title']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['title'];
+        type(values: Array<Schema['type']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['type'];
+        uniqueItems(values: Array<Schema['uniqueItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options): Schema['uniqueItems'];
     }
     const options: {
         resolvers: Resolvers;
