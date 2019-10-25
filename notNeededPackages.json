@@ -271,6 +271,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bip39",
+            "typingsPackageName": "bip39",
+            "sourceRepoURL": "https://github.com/bitcoinjs/bip39",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "bitwise",
             "typingsPackageName": "bitwise",
             "sourceRepoURL": "https://github.com/dodekeract/bitwise",
