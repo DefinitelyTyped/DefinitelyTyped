@@ -2,11 +2,12 @@
 // Project: https://github.com/timoxley/columnify
 // Definitions by: Gary King <https://github.com/garyking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare function columnify(data: Record<string, any> | any[], options?: columnify.GlobalOptions): string;
 
 declare namespace columnify {
-    export interface Options {
+    interface Options {
         align?: 'left' | 'center' | 'centre' | 'right';
         dataTransform?: (data: string) => string;
         headingTransform?: (data: string) => string;
@@ -18,7 +19,7 @@ declare namespace columnify {
         truncateMarker?: string;
     }
 
-    export interface GlobalOptions extends Options {
+    interface GlobalOptions extends Options {
         columns?: string[];
         columnSplitter?: string;
         config?: {

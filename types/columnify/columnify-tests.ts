@@ -183,14 +183,14 @@ columnify(
         },
     ],
     {
-        dataTransform: function(data) {
+        dataTransform(data) {
             return data.toLowerCase();
         },
         config: {
             name: {
-                headingTransform: function(heading) {
+                headingTransform(heading) {
                     heading = 'module ' + heading;
-                    return '*' + heading.toUpperCase() + '*';
+                    return `*${heading.toUpperCase()}*`;
                 },
             },
         },
