@@ -2965,6 +2965,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-json-pretty",
+            "typingsPackageName": "react-json-pretty",
+            "sourceRepoURL": "https://github.com/chenckang/react-json-pretty",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
