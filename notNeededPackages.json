@@ -2095,6 +2095,12 @@
             "asOfVersion": "4.0.5"
         },
         {
+            "libraryName": "mixpanel",
+            "typingsPackageName": "mixpanel",
+            "sourceRepoURL": "https://mixpanel.com/",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "mnemonic-words",
             "typingsPackageName": "mnemonic-words",
             "sourceRepoURL": "https://github.com/sindresorhus/mnemonic-words",
