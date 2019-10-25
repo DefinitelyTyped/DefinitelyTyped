@@ -247,6 +247,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "bem-cn",
+            "typingsPackageName": "bem-cn",
+            "sourceRepoURL": "https://github.com/albburtsev/bem-cn",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
