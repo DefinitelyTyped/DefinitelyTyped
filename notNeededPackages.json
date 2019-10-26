@@ -3973,6 +3973,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "Visual Studio Code",
+            "typingsPackageName": "vscode",
+            "sourceRepoURL": "https://github.com/microsoft/vscode",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "vso-node-api",
             "typingsPackageName": "vso-node-api",
             "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
