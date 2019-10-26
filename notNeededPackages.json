@@ -1867,6 +1867,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "ladda",
+            "typingsPackageName": "ladda",
+            "sourceRepoURL": "https://github.com/hakimel/Ladda",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "lambda-phi",
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
