@@ -2053,6 +2053,12 @@
             "asOfVersion": "0.9.2"
         },
         {
+            "libraryName": "mali",
+            "typingsPackageName": "mali-compose",
+            "sourceRepoURL": "https://github.com/malijs/mali-compose",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "map-obj",
             "typingsPackageName": "map-obj",
             "sourceRepoURL": "https://github.com/sindresorhus/map-obj",
