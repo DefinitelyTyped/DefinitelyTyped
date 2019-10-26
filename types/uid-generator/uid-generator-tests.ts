@@ -6,13 +6,19 @@ let generator = new UIDGenerator('abc'); // $ExpectType UIDGenerator
 generator.generateSync(); // $ExpectType string
 generator.generate((error, uid) => {
   if (error)
-  { throw error; }
+  {
+    throw error;
+  }
   else
-  { uid; } // $ExpectType string
+  {
+    uid;
+  } // $ExpectType string
 });
 generator.generate().then(uid => {
   uid; // $ExpectType string
-}).catch(e => { throw e; });
+}).catch(e => {
+  throw e;
+});
 
 generator.bitSize; // $ExpectType number
 generator.uidLength; // $ExpectType number
