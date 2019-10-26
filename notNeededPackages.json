@@ -2089,6 +2089,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "menubar",
+            "typingsPackageName": "menubar",
+            "sourceRepoURL": "https://github.com/maxogden/menubar",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "metisMenu",
             "typingsPackageName": "metismenu",
             "sourceRepoURL": "https://github.com/onokumus/metisMenu",
