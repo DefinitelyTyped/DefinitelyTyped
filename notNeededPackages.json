@@ -3781,6 +3781,12 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "theming",
+            "typingsPackageName": "theming",
+            "sourceRepoURL": "https://github.com/cssinjs/theming",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "three",
             "typingsPackageName": "three",
             "sourceRepoURL": "https://github.com/mrdoob/three.js",
