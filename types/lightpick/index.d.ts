@@ -1,4 +1,4 @@
-// Type definitions for Lightpick 1.3
+// Type definitions for Lightpick 1.4
 // Project: https://wakirin.github.io/Lightpick
 // Definitions by: Adam Kwiatek <https://github.com/akwiatek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,6 +240,12 @@ declare namespace Lightpick {
         inline?: boolean;
 
         /**
+         * Determines the weekday display style.
+         * Two weekdays may have the same narrow style for some locales (e.g. Tuesday's narrow style is also T).
+         */
+        weekdayStyle?: Options.WeekdayStyle;
+
+        /**
          * Dropdown selections for years, months. Can be false for disable both dropdowns.
          */
         dropdowns?: boolean | Options.Dropdowns;
@@ -262,32 +268,35 @@ declare namespace Lightpick {
         onClose?: Options.OnCloseFn;
 
         onError?: Options.OnErrorFn;
+
+        /**
+         * Triggered when the months select is changed.
+         */
+        onMonthsChange?: Options.OnMonthsChangeFn;
+
+        /**
+         * Triggered when the years select is changed.
+         */
+        onYearsChange?: Options.OnYearsChangeFn;
     }
 
     namespace Options {
         type Field = Element & { value: string };
 
-        enum DayOfWeek {
-            Monday = 1,
-            Tuesday,
-            Wednesday,
-            Thursday,
-            Friday,
-            Saturday,
-            Sunday,
-        }
+        type DayOfWeek = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
-        enum Orientation {
-            Auto = 'auto',
-            Left = 'left',
-            Right = 'right',
-            Top = 'top',
-            Bottom = 'bottom',
-            TopLeft = 'top left',
-            TopRight = 'top right',
-            BottomLeft = 'bottom left',
-            BottomRight = 'bottom right',
-        }
+        type Orientation =
+            | 'auto'
+            | 'left'
+            | 'right'
+            | 'top'
+            | 'bottom'
+            | 'top left'
+            | 'top right'
+            | 'bottom left'
+            | 'bottom right';
+
+        type WeekdayStyle = 'long' | 'short' | 'narrow';
 
         interface Dropdowns {
             /**
@@ -380,6 +389,20 @@ declare namespace Lightpick {
 
         interface OnErrorFn {
             (this: Lightpick, message: string): void;
+        }
+
+        /**
+         * Callback function for when the months select is changed.
+         */
+        interface OnMonthsChangeFn {
+            (this: Lightpick, month: number): void;
+        }
+
+        /**
+         * Callback function for when the years select is changed.
+         */
+        interface OnYearsChangeFn {
+            (this: Lightpick, year: number): void;
         }
     }
 }
