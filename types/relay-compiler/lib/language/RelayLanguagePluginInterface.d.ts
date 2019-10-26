@@ -2,6 +2,7 @@ import { Root, Fragment, GeneratedDefinition } from '../core/GraphQLIR';
 import { IRTransform } from '../core/GraphQLCompilerContext';
 import { GeneratedNode, RelayConcreteNode } from 'relay-runtime';
 import { ScalarTypeMapping } from './javascript/RelayFlowTypeTransformers';
+import { Schema } from '../core/GraphQLIRVisitor';
 
 /**
  * A language plugin allows relay-compiler to both read and write files for any
@@ -224,32 +225,6 @@ export interface TypeGeneratorOptions {
      */
     readonly normalizationIR?: Root;
 }
-
-export type EnumTypeID = any;
-export type FieldID = any;
-export type ScalarTypeID = any;
-export type TypeID = any;
-
-export interface Schema {
-    expectStringType: () => ScalarTypeID;
-    getEnumValues: (type: EnumTypeID) => string[];
-    getFieldName: (field: FieldID) => string;
-    getFields: (type: TypeID) => FieldID[];
-    getFieldType: (field: FieldID) => TypeID;
-    getListItemType: (type: TypeID) => TypeID;
-    getNullableType: (type: TypeID) => TypeID;
-    getTypeString: (type: TypeID) => string;
-    isAbstractType: (type: TypeID) => boolean;
-    isEnum: (type: TypeID) => boolean;
-    isInputObject: (type: TypeID) => boolean;
-    isInterface: (type: TypeID) => boolean;
-    isList: (type: TypeID) => boolean;
-    isNonNull: (type: TypeID) => boolean;
-    isObject: (type: TypeID) => boolean;
-    isScalar: (type: TypeID) => boolean;
-    isUnion: (type: TypeID) => boolean;
-}
-
 
 /**
  * This object should hold the implementation required to generate types for the
