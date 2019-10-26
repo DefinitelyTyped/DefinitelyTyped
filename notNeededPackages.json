@@ -229,6 +229,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "base-x",
+            "typingsPackageName": "base-x",
+            "sourceRepoURL": "https://github.com/cryptocoinjs/base-x",
+            "asOfVersion": "3.0.6"
+        },
+        {
             "libraryName": "base64url",
             "typingsPackageName": "base64url",
             "sourceRepoURL": "https://github.com/brianloveswords/base64url",
