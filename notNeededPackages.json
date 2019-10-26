@@ -1747,6 +1747,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-validate",
+            "typingsPackageName": "jest-validate",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-validate",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
