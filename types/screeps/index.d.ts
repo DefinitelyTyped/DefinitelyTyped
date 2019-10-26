@@ -2593,7 +2593,7 @@ interface Memory {
     spawns: {[name: string]: SpawnMemory};
 }
 
-interface AnyMemory { [key: string]: any }
+interface AnyMemory { [key: string]: any; }
 interface CreepMemory extends AnyMemory {}
 interface FlagMemory extends AnyMemory {}
 interface PowerCreepMemory extends AnyMemory {}
