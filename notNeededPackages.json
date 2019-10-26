@@ -2017,6 +2017,12 @@
             "asOfVersion": "1.6.2"
         },
         {
+            "libraryName": "looks-same",
+            "typingsPackageName": "looks-same",
+            "sourceRepoURL": "https://github.com/gemini-testing/looks-same",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "loud-rejection",
             "typingsPackageName": "loud-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
