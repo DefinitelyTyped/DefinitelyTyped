@@ -3259,6 +3259,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "rword",
+            "typingsPackageName": "rword",
+            "sourceRepoURL": "https://github.com/Xyfir/rword#readme",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "samchon",
             "typingsPackageName": "samchon",
             "sourceRepoURL": "https://github.com/samchon/framework",
