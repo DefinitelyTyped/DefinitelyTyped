@@ -7,7 +7,7 @@ generator.generateSync(); // $ExpectType string
 
 generator.generate(
   (error, uid) => {
-    error;  // $ExpectType null
+    error;  // $ExpectType Error | null
     uid; // $ExpectType string | undefined
   }
 );
