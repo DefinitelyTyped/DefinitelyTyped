@@ -1837,6 +1837,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "keycloak-connect",
+            "typingsPackageName": "keycloak-connect",
+            "sourceRepoURL": "https://github.com/keycloak/keycloak-nodejs-connect",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "keycloak-js",
             "typingsPackageName": "keycloak-js",
             "sourceRepoURL": "https://github.com/keycloak/keycloak",
