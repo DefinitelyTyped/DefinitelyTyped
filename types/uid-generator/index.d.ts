@@ -1,9 +1,10 @@
 // Type definitions for uid-generator 2.0
 // Project: https://github.com/nwoltman/node-uid-generator
 // Definitions by: TheEmrio <https://github.com/TheEmrio>
+//                 Kyle Chine <https://github.com/kylechine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface UIDGenerator {
+declare interface UIDGenerator {
   readonly bitSize: number;
   readonly uidLength: number;
   readonly baseEncoding: string;
@@ -13,7 +14,7 @@ export interface UIDGenerator {
   generate(cb: (uid: string) => any): void;
 }
 
-export interface UIDGeneratorConstructor {
+declare interface UIDGeneratorConstructor {
   new (bitSize?: number, baseEncoding?: string): UIDGenerator;
   new (baseEncoding?: string): UIDGenerator;
   readonly BASE16: '0123456789abcdef';
@@ -25,4 +26,6 @@ export interface UIDGeneratorConstructor {
   readonly BASE94: "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 }
 
-export const UIDGenerator: UIDGeneratorConstructor;
+declare const UIDGenerator: UIDGeneratorConstructor;
+
+export = UIDGenerator;

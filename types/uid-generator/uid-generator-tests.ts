@@ -1,4 +1,4 @@
-import { UIDGenerator } from 'uid-generator';
+import * as UIDGenerator from 'uid-generator';
 
 new UIDGenerator('abc'); // $ExpectType UIDGenerator
 const generator = new UIDGenerator(128, 'abc'); // $ExpectType UIDGenerator
