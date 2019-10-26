@@ -967,6 +967,12 @@
             "asOfVersion": "33.0.0"
         },
         {
+            "libraryName": "expo-localization",
+            "typingsPackageName": "expo-localization",
+            "sourceRepoURL": "https://docs.expo.io/versions/latest/sdk/localization",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "expr-eval",
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
