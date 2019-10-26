@@ -15,8 +15,8 @@ export interface LineProps {
 }
 
 export interface RectProps {
-    rx: number;
-    ry: number;
+    rx?: number;
+    ry?: number;
     x: number;
     y: number;
     width: number;
