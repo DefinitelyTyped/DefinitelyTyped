@@ -4,7 +4,7 @@
 //                 Kyle Chine <https://github.com/kylechine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface UIDGenerator {
+interface UIDGenerator {
   readonly bitSize: number;
   readonly uidLength: number;
   readonly baseEncoding: string;
@@ -14,7 +14,7 @@ declare interface UIDGenerator {
   generate(cb: (uid: string) => any): void;
 }
 
-declare interface UIDGeneratorConstructor {
+interface UIDGeneratorConstructor {
   new (bitSize?: number, baseEncoding?: string): UIDGenerator;
   new (baseEncoding?: string): UIDGenerator;
   readonly BASE16: '0123456789abcdef';

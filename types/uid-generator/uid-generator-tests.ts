@@ -1,12 +1,8 @@
 import * as UIDGenerator from 'uid-generator';
 
-new UIDGenerator('abc'); // $ExpectType UIDGenerator
-const generator = new UIDGenerator(128, 'abc'); // $ExpectType UIDGenerator
+const generator = new UIDGenerator(128, UIDGenerator.BASE58); // $ExpectType UIDGenerator
 
 generator.generateSync(); // $ExpectType string
-generator.generate(uid => {
-  uid; // $ExpectType string
-});
 generator.generate().then(uid => {
   uid; // $ExpectType string
 });
