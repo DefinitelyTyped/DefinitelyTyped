@@ -2131,6 +2131,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mobx-task",
+            "typingsPackageName": "mobx-task",
+            "sourceRepoURL": "https://github.com/jeffijoe/mobx-task#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "mockingoose",
             "typingsPackageName": "mockingoose",
             "sourceRepoURL": "https://github.com/alonronin/mockingoose#readme",
