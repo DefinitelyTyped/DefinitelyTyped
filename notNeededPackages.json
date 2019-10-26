@@ -2179,6 +2179,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "Navigation",
+            "typingsPackageName": "navigation",
+            "sourceRepoURL": "http://grahammendick.github.io/navigation/",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "navigator-permissions",
             "sourceRepoURL": "https://developer.mozilla.org/en-US/docs/Web/API/Permissions",
