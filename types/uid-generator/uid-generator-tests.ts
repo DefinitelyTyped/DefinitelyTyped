@@ -1,4 +1,4 @@
-import { default as UIDGenerator } from 'uid-generator';
+import { default as UIDGenerator, UIDGeneratorClass, UIDGeneratorInstance } from 'uid-generator';
 
 let generator = new UIDGenerator('abc'); // $ExpectType UIDGenerator
     generator = new UIDGenerator(128, UIDGenerator.BASE58); // $ExpectType UIDGenerator
