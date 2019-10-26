@@ -779,7 +779,10 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-doc.validateSync(['path1', 'path2']).stack;
+var validationError = doc.validateSync(['path1', 'path2']);
+if (validationError) {
+    validationError.stack
+}
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {

@@ -1411,7 +1411,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns ValidationError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error.ValidationError;
+    validateSync(pathsToValidate?: string | string[]): Error.ValidationError | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;
