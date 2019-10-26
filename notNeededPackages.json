@@ -2917,6 +2917,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "react-daum-postcode",
+            "typingsPackageName": "react-daum-postcode",
+            "sourceRepoURL": "https://github.com/kimminsik-bernard/react-daum-postcode",
+            "asOfVersion": "1.6.1"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
