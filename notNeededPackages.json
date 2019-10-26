@@ -4099,6 +4099,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "word-wrap",
+            "typingsPackageName": "word-wrap",
+            "sourceRepoURL": "https://github.com/jonschlinkert/word-wrap",
+            "asOfVersion": "1.2.1"
+        },
+        {
             "libraryName": "write-json-file",
             "typingsPackageName": "write-json-file",
             "sourceRepoURL": "https://github.com/sindresorhus/write-json-file",
