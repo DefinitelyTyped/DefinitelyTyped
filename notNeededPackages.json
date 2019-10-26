@@ -2359,6 +2359,12 @@
             "asOfVersion": "10.0.0"
         },
         {
+            "libraryName": "overwatch-api",
+            "typingsPackageName": "overwatch-api",
+            "sourceRepoURL": "https://github.com/alfg/overwatch-api",
+            "asOfVersion": "0.7.1"
+        },
+        {
             "libraryName": "p-all",
             "typingsPackageName": "p-all",
             "sourceRepoURL": "https://github.com/sindresorhus/p-all",
