@@ -1,4 +1,4 @@
-// Type definitions for hirestime 3.2
+// Type definitions for hirestime 4.0
 // Project: https://github.com/seriousManual/hirestime
 // Definitions by: Junxiao Shi <https://github.com/yoursunny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,12 +6,14 @@
 
 export = hirestime;
 
-declare namespace hirestime {
-    const S = "s";
-    const MS = "ms";
-    const NS = "ns";
+interface getElapsed {
+    (): number;
+    s(): number;
+    seconds(): number;
+    ms(): number;
+    milliseconds(): number;
+    ns(): number;
+    nanoseconds(): number;
 }
 
-type returnedFunction = (unit?: "s"|"ms"|"ns") => number;
-
-declare function hirestime(): returnedFunction;
+declare function hirestime(): getElapsed;
