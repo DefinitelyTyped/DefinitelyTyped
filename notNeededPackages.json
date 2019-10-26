@@ -961,6 +961,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "expo",
+            "typingsPackageName": "expo",
+            "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
+            "asOfVersion": "33.0.0"
+        },
+        {
             "libraryName": "expr-eval",
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
@@ -2125,6 +2131,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mockingoose",
+            "typingsPackageName": "mockingoose",
+            "sourceRepoURL": "https://github.com/alonronin/mockingoose#readme",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -2278,6 +2290,12 @@
             "libraryName": "odata",
             "typingsPackageName": "odata",
             "sourceRepoURL": "https://github.com/janhommes/odata",
+            "asOfVersion": "1.0.3"
+        },
+        {
+            "libraryName": "o.js",
+            "typingsPackageName": "o.js",
+            "sourceRepoURL": "https://github.com/janhommes/o.js",
             "asOfVersion": "1.0.3"
         },
         {
@@ -3251,6 +3269,12 @@
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "rword",
+            "typingsPackageName": "rword",
+            "sourceRepoURL": "https://github.com/Xyfir/rword#readme",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "samchon",
