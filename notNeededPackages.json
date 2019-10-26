@@ -1345,6 +1345,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "headroom.js",
+            "typingsPackageName": "headroom",
+            "sourceRepoURL": "http://wicky.nillia.ms/headroom.js/",
+            "asOfVersion": "0.2.0"
+        },
+        {
             "libraryName": "hex-rgb",
             "typingsPackageName": "hex-rgb",
             "sourceRepoURL": "https://github.com/sindresorhus/hex-rgb",
