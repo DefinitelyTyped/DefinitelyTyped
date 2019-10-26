@@ -1747,6 +1747,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-cli",
+            "typingsPackageName": "jest-cli",
+            "sourceRepoURL": "https://jestjs.io/",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
