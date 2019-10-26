@@ -2,7 +2,7 @@
 // Project: https://github.com/effektif/svg-intersections#readme
 // Definitions by: xWiiLLz <https://github.com/xWiiLLz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.8
 
 export type SvgElements = 'line' | 'rect' | 'circle' | 'ellipse' | 'polygon' | 'polyline' | 'path';
 
@@ -40,7 +40,7 @@ export interface PolygonProps {
     points: string;
 }
 
-export interface PolylineProps extends PolygonProps {}
+export type PolylineProps = PolygonProps;
 
 export interface PathProps {
     d: string;
@@ -55,7 +55,6 @@ export type SvgProperties<T extends SvgElements> =
     T extends 'polyline' ? PolylineProps :
     T extends 'path' ? PathProps :
     never;
-
 
 export interface Shape {
     type: string;
@@ -82,6 +81,7 @@ export interface Intersection {
     points: Point2D[];
 }
 
+// tslint:disable-next-line: no-unnecessary-generics - Necessary for typeguard of svgProps based on svgElementName's value
 export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<typeof svgElementName>): Shape;
 
 export function intersect(shape1: Shape, shape2: Shape, m1?: Matrix2D, m2?: Matrix2D): Intersection;
