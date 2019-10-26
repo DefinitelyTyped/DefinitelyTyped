@@ -12,7 +12,7 @@ generator.generate((error, uid)=>{
 });
 generator.generate().then(uid => {
   uid; // $ExpectType string
-});
+}).catch( e=>{throw e;} );
 
 generator.bitSize; // $ExpectType number
 generator.uidLength; // $ExpectType number
