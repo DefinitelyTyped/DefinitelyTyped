@@ -3049,6 +3049,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-swipeable",
+            "typingsPackageName": "react-swipeable",
+            "sourceRepoURL": "https://github.com/dogfessional/react-swipeable",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "react-webcam",
             "typingsPackageName": "react-webcam",
             "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
