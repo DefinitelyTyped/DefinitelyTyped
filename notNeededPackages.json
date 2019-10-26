@@ -3037,6 +3037,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-owl-carousel",
+            "typingsPackageName": "react-owl-carousel",
+            "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
