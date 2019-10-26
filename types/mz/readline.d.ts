@@ -3,6 +3,7 @@
 
 import * as readline from "readline";
 export * from "readline";
+export { Completer as SyncCompleter } from "readline";
 
 export class Interface extends readline.Interface {
 	question(query: string, callback: (answer: string) => void): void;
@@ -12,11 +13,12 @@ export class Interface extends readline.Interface {
 // type forwarded for backwards compatibility
 export type ReadLine = Interface;
 
-export interface Completer {
-	(line: string, callback: (err: any, result: [string[], string]) => void): void;
-	(line: string): Promise<[string[], string]> | [string[], string];
-}
-export { Completer as AsyncCompleter };
+// Needed to maintain compatibility with TypeScript 2.0:
+// prettier-ignore
+export type AsyncCompleter =
+	((line: string, callback: (err?: null | Error, result?: readline.CompleterResult) => void) => void) |
+	((line: string) => Promise<readline.CompleterResult>);
+export type Completer = AsyncCompleter | readline.Completer;
 
 export interface ReadLineOptions extends readline.ReadLineOptions {
 	completer?: Completer;

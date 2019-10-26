@@ -1324,8 +1324,13 @@ export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: S
  */
 export function watch(
 	filename: PathLike,
+	// Needed to maintain compatibility with TypeScript 2.0:
 	// prettier-ignore
-	options: { encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } | BufferEncoding | undefined | null,
+	options:
+		{ encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } |
+		BufferEncoding |
+		undefined |
+		null,
 	listener?: (event: string, filename: string) => void
 ): FSWatcher;
 
@@ -1373,7 +1378,7 @@ export function watch(filename: PathLike, listener?: (event: string, filename: s
  * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
  * URL support is _experimental_.
  */
-export function exists(path: PathLike, callback: (err: NodeJS.ErrnoException, exists: boolean) => void): void;
+export function exists(path: PathLike, callback: (err: NodeJS.ErrnoException | null, exists: boolean) => void): void;
 
 /**
  * Test whether or not the given path exists by checking with the file system.

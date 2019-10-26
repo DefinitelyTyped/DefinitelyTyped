@@ -13,13 +13,18 @@
 		"forceConsistentCasingInFileNames": true
 	},
 	"files": [
-		"fs.d.ts",
-		"dns.d.ts",
-		"crypto.d.ts",
 		"child_process.d.ts",
-		"zlib.d.ts",
+		"crypto.d.ts",
+		"dns.d.ts",
+		"fs.d.ts",
 		"readline.d.ts",
+		"zlib.d.ts",
 		"index.d.ts",
-		"test/mz.test.ts"
+		"test/child_process.test.ts",
+		"test/crypto.test.ts",
+		"test/fs.test.ts",
+		"test/readline.test.ts",
+		"test/zlib.test.ts",
+		"test/index.test.ts"
 	]
 }
