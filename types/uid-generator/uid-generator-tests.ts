@@ -9,11 +9,11 @@ generator.generate(
   (error, uid) => {
     if (error === null)
     {
-      error;  // $ExpectType Error or null
+      error;  // $ExpectType <Error | null>
     }
     else
     {
-      uid; // $ExpectType string or undefined
+      uid; // $ExpectType <string | undefined>
     }
   }
 );
