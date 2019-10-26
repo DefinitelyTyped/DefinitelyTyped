@@ -2593,11 +2593,12 @@ interface Memory {
     spawns: {[name: string]: SpawnMemory};
 }
 
-interface CreepMemory {}
-interface FlagMemory {}
-interface PowerCreepMemory {}
-interface RoomMemory {}
-interface SpawnMemory {}
+interface AnyMemory { [key: string]: any }
+interface CreepMemory extends AnyMemory {}
+interface FlagMemory extends AnyMemory {}
+interface PowerCreepMemory extends AnyMemory {}
+interface RoomMemory extends AnyMemory {}
+interface SpawnMemory extends AnyMemory {}
 
 declare const Memory: Memory;
 /**
