@@ -2647,6 +2647,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "passport-unique-token",
+            "typingsPackageName": "passport-unique-token",
+            "sourceRepoURL": "https://github.com/Lughino/passport-unique-token",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
             "sourceRepoURL": "https://github.com/blakeembrey/path-case",
