@@ -121,6 +121,12 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "ArcGIS API for JavaScript",
+            "typingsPackageName": "arcgis-js-api",
+            "sourceRepoURL": "http://js.arcgis.com",
+            "asOfVersion": "4.13.0"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
