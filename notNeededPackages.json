@@ -2143,6 +2143,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "mongodb-memory-server",
+            "typingsPackageName": "mongodb-memory-server",
+            "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "Monk",
             "typingsPackageName": "monk",
             "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
