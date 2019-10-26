@@ -4,20 +4,24 @@ let generator = new UIDGenerator('abc'); // $ExpectType UIDGeneratorInstance
     generator = new UIDGenerator(128, UIDGenerator.BASE58); // $ExpectType UIDGeneratorInstance
 
 generator.generateSync(); // $ExpectType string
-generator.generate((error, uid) => {
-  if (error === null)
-  {
-    error;  // $ExpectType Error
+
+generator.generate(
+  (error, uid) => {
+    if (error === null)
+    {
+      error;  // $ExpectType Error | null
+    }
+    else
+    {
+      uid; // $ExpectType string | undefined
+    }
   }
-  else
-  {
-    uid; // $ExpectType string|undefined
-  }
-});
+);
+
 generator.generate().then(uid => {
   uid; // $ExpectType string
 }).catch(e => {
-  e; // $ExpectType Error
+  e; // $ExpectType Error | null
 });
 
 generator.bitSize; // $ExpectType number
