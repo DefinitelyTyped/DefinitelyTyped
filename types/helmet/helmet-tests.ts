@@ -18,6 +18,16 @@ function helmetTest() {
         action: 'deny'
       }
     }));
+    app.use(helmet({
+      featurePolicy: {
+        features: {
+          fullscreen: ["'self'"],
+          vibrate: ["'none'"],
+          payment: ['example.com'],
+          syncXhr: ["'none'"]
+        }
+      }
+    }))
 }
 
 /**
@@ -244,3 +254,18 @@ function permittedCrossDomainPoliciesTest() {
     app.use(helmet.permittedCrossDomainPolicies({}));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }
+
+/**
+ * @summary Test for {@see helmet#featurePolicy} function.
+ */
+function featurePolicyTest() {
+  app.use(helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  }));
+}
+
