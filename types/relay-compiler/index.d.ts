@@ -1,4 +1,4 @@
-// Type definitions for relay-compiler 6.0
+// Type definitions for relay-compiler 7.0
 // Project: https://relay.dev
 // Definitions by: n1ru4l <https://github.com/n1ru4l>
 //                 Eloy Durán <https://github.com/alloy>
