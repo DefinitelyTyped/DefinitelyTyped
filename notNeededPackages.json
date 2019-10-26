@@ -2875,6 +2875,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "random-js",
+            "typingsPackageName": "random-js",
+            "sourceRepoURL": "https://github.com/ckknight/random-js",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "random-obj-key",
             "typingsPackageName": "random-obj-key",
             "sourceRepoURL": "https://github.com/sindresorhus/random-obj-key",
