@@ -739,6 +739,12 @@
             "asOfVersion": "1.0.3"
         },
         {
+            "libraryName": "dom-helpers",
+            "typingsPackageName": "dom-helpers",
+            "sourceRepoURL": "https://github.com/react-bootstrap/dom-helpers",
+            "asOfVersion": "5.0.1"
+        },
+        {
             "libraryName": "dom-loaded",
             "typingsPackageName": "dom-loaded",
             "sourceRepoURL": "https://github.com/sindresorhus/dom-loaded",
