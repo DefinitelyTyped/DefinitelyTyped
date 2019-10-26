@@ -961,6 +961,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "expo",
+            "typingsPackageName": "expo",
+            "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
+            "asOfVersion": "33.0.0"
+        },
+        {
             "libraryName": "expr-eval",
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
