@@ -3031,6 +3031,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-swipe-gestures",
+            "typingsPackageName": "react-native-swipe-gestures",
+            "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
+            "asOfVersion": "1.0.4"
+        },
+        {
             "libraryName": "react-navigation-material-bottom-tabs",
             "typingsPackageName": "react-navigation-material-bottom-tabs",
             "sourceRepoURL": "https://github.com/react-navigation/material-bottom-tabs",
