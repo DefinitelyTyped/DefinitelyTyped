@@ -961,6 +961,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "Expect",
+            "typingsPackageName": "expect",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "expo",
             "typingsPackageName": "expo",
             "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
