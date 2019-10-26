@@ -57,5 +57,11 @@ export type SvgProperties<T extends SvgElements> =
     never;
 
 
-export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<typeof svgElementName>): any;
+export interface Shape {
+    type: string;
+    meta: object;
+    params: object;
+}
+
+export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<typeof svgElementName>): Shape;
 
