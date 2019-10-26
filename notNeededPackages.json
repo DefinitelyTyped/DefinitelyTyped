@@ -1843,6 +1843,12 @@
             "asOfVersion": "3.4.1"
         },
         {
+            "libraryName": "keytar",
+            "typingsPackageName": "keytar",
+            "sourceRepoURL": "http://atom.github.io/node-keytar/",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "knex",
             "typingsPackageName": "knex",
             "sourceRepoURL": "https://github.com/tgriesser/knex",
