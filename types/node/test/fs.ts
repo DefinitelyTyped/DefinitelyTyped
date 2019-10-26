@@ -119,6 +119,10 @@ async function testPromisify() {
     const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
     const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
     const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+
+    const ln = util.promisify(fs.link);
+    // $ExpectType Promise<void>
+    ln("abc", "def");
 }
 
 {
