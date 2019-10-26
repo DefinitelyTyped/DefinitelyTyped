@@ -2965,6 +2965,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-hot-loader",
+            "typingsPackageName": "react-hot-loader",
+            "sourceRepoURL": "https://github.com/gaearon/react-hot-loader",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "react-i18next",
             "typingsPackageName": "react-i18next",
             "sourceRepoURL": "https://github.com/i18next/react-i18next",
