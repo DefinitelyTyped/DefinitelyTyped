@@ -433,6 +433,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "commons-validator-js",
+            "typingsPackageName": "commons-validator-js",
+            "sourceRepoURL": "https://github.com/wix/commons-validator-js",
+            "asOfVersion": "1.0.1266"
+        },
+        {
             "libraryName": "condense-whitespace",
             "typingsPackageName": "condense-whitespace",
             "sourceRepoURL": "https://github.com/sindresorhus/condense-whitespace",
