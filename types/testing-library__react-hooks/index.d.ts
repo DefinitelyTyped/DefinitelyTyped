@@ -24,4 +24,12 @@ export interface RenderHookResult<P, R> {
     readonly rerender: (newProps?: P) => void;
 }
 
+/**
+ * Renders a test component that will call the provided `callback`, including any hooks it calls, every time it renders.
+ */
 export function renderHook<P, R>(callback: (props: P) => R, options?: RenderHookOptions<P>): RenderHookResult<P, R>;
+
+/**
+ * Unmounts any rendered hooks rendered with `renderHook`, ensuring all effects have been flushed.
+ */
+export function cleanup(): Promise<void>;

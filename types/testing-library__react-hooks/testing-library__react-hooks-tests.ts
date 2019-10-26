@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act, cleanup } from '@testing-library/react-hooks';
 
 const useHook = (initialValue: number) => {
     const [value, setValue] = useState(initialValue);
@@ -68,4 +68,8 @@ function checkTypesWithVoidResult() {
 
 function checkTypesWithPromiseResult() {
     act(() => Promise.resolve());
+}
+
+function checkTypesForCleanup() {
+    cleanup(); // $ExpectType Promise<void>
 }
