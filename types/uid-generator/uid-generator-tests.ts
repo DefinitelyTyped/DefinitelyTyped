@@ -1,8 +1,15 @@
-import * as UIDGenerator from 'uid-generator';
+import {default as UIDGenerator} from 'uid-generator';
 
-const generator = new UIDGenerator(128, UIDGenerator.BASE58); // $ExpectType UIDGenerator
+let generator = new UIDGenerator('abc'); // $ExpectType UIDGenerator
+    generator = new UIDGenerator(128, UIDGenerator.BASE58); // $ExpectType UIDGenerator
 
 generator.generateSync(); // $ExpectType string
+generator.generate((error, uid)=>{
+  if (error)
+    { throw error; }
+  else
+    { uid; } // $ExpectType string
+});
 generator.generate().then(uid => {
   uid; // $ExpectType string
 });
