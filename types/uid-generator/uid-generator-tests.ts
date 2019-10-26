@@ -9,11 +9,11 @@ generator.generate(
   (error, uid) => {
     if (error === null)
     {
-      error;  // $ExpectType Error | null
+      error;  // $ExpectType Error or null
     }
     else
     {
-      uid; // $ExpectType string | undefined
+      uid; // $ExpectType string or undefined
     }
   }
 );
@@ -21,7 +21,7 @@ generator.generate(
 generator.generate().then(uid => {
   uid; // $ExpectType string
 }).catch(e => {
-  e; // $ExpectType Error | null
+  e;
 });
 
 generator.bitSize; // $ExpectType number
