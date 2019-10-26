@@ -63,16 +63,25 @@ export interface Shape {
     params: object;
 }
 
+export interface Matrix2D {
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    e: number;
+    f: number;
+}
+
 export interface Point2D {
     x: number;
     y: number;
 }
 
-export class Intersection {
+export interface Intersection {
     status: string;
     points: Point2D[];
 }
 
 export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<typeof svgElementName>): Shape;
 
-export function intersect(shape1: Shape, shape2: Shape, m1?: any, m2?: any): Intersection;
+export function intersect(shape1: Shape, shape2: Shape, m1?: Matrix2D, m2?: Matrix2D): Intersection;
