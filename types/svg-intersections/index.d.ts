@@ -29,10 +29,31 @@ export interface CircleProps {
     r: number;
 }
 
+export interface EllipseProps {
+    cx: number;
+    cy: number;
+    rx: number;
+    ry: number;
+}
+
+export interface PolygonProps {
+    points: string;
+}
+
+export interface PolylineProps extends PolygonProps {}
+
+export interface PathProps {
+    d: string;
+}
+
 export type SvgProperties<T extends SvgElements> =
     T extends 'line' ? LineProps :
     T extends 'rect' ? RectProps :
     T extends 'circle' ? CircleProps :
+    T extends 'ellipse' ? EllipseProps :
+    T extends 'polygon' ? PolygonProps :
+    T extends 'polyline' ? PolylineProps :
+    T extends 'path' ? PathProps :
     never;
 
 
