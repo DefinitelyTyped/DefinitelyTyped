@@ -3085,6 +3085,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "redom",
+            "typingsPackageName": "redom",
+            "sourceRepoURL": "https://github.com/redom/redom/",
+            "asOfVersion": "3.23.0"
+        },
+        {
             "libraryName": "Redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
