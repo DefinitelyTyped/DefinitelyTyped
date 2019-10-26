@@ -269,5 +269,5 @@ export interface TypeGenerator {
      * for e.g. the selections made. It can, however, also generate any other
      * content such as importing other files, including other artifacts.
      */
-    generate: (node: Root | Fragment, options: TypeGeneratorOptions) => string;
+    generate: (schema: Schema, node: Root | Fragment, options: TypeGeneratorOptions) => string;
 }
