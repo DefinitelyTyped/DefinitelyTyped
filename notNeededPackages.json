@@ -2293,6 +2293,12 @@
             "asOfVersion": "1.0.3"
         },
         {
+            "libraryName": "odata",
+            "typingsPackageName": "odata",
+            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "on-change",
             "typingsPackageName": "on-change",
             "sourceRepoURL": "https://github.com/sindresorhus/on-change",
