@@ -7,3 +7,5 @@ const circle = shape('circle', {cx: 0, cy: 0, r: 100});
 const ellipse = shape('ellipse', {rx: 100, ry: 150, cx: 0, cy: 0});
 const polygon = shape('polygon', {points: '-5,0 0,10 5,0 0,-10'});
 const path = shape('path', {d: 'M 10 10 h 80 v 80 h -80 Z'});
+
+const intersections = intersect(line, rect);
