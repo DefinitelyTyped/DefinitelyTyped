@@ -2,6 +2,7 @@
 // Project: https://kazzkiq.github.io/CodeFlask/
 // Definitions by: Joachim Holwech <https://github.com/holwech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Languages } from 'prismjs';
 
