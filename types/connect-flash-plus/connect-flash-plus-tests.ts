@@ -12,5 +12,6 @@ app.use((req: Express.Request, res: Express.Response, next: () => void) => {
     req.flash('flashType');
     req.flash('flashType', 'flashMessage');
     req.flash('flashType', ['multipleMessages', 'oneOfMessages']);
+    req.flash('info', 'Hello %s', 'Jared');
     req.flash();
 });

@@ -9,7 +9,7 @@
 declare namespace Express {
     interface Request {
         flash(): { [key: string]: string[] };
-        flash(message: string, event?: string | string[]): any;
+        flash(type?: string, msg?: string | string[], ...args: string[]): any;
     }
 }
 
