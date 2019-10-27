@@ -19,10 +19,10 @@ declare function bent(type: 'buffer', ...args: bent.Options[]): bent.RequestFunc
 declare function bent(type: 'json', ...args: bent.Options[]): bent.RequestFunction<bent.Json>;
 
 // Method or url first
-declare function bent(baseUrl: HttpMethod | string, type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
-declare function bent(baseUrl: HttpMethod | string, type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
-declare function bent(baseUrl: HttpMethod | string, type: 'json', ...args: bent.Options[]): bent.RequestFunction<bent.Json>;
-declare function bent(baseUrl: HttpMethod | string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
+declare function bent(baseUrl: string, type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(baseUrl: string, type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
+declare function bent(baseUrl: string, type: 'json', ...args: bent.Options[]): bent.RequestFunction<bent.Json>;
+declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
 declare function bent(...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
