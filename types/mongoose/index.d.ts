@@ -32,6 +32,7 @@
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 //                 Tom Yam <https://github.com/tomyam1>
+//                 Thomas Pischulski <https://github.com/nephix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
