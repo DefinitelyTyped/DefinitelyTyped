@@ -11,22 +11,29 @@ import { PassThrough, Stream } from 'stream';
 type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH' | 'HEAD' | 'OPTIONS' | 'CONNECT' | 'TRACE';
 type StatusCode = number;
 type BaseUrl = string;
-interface Headers { [x: string]: any; }
+interface Headers { [key: string]: any; }
 
-type Json = {[x: string]: any} | any[];
-type ValidResponse = bent.BentResponse | string | Buffer | ArrayBuffer | Json;
+// Type first
+declare function bent(type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
+declare function bent(type: 'json', ...args: bent.Options[]): bent.RequestFunction<bent.Json>;
 
-declare function bent(...args: bent.Options[]): bent.RequestFunction;
+// Method or url first
+declare function bent(baseUrl: HttpMethod | string, type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(baseUrl: HttpMethod | string, type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
+declare function bent(baseUrl: HttpMethod | string, type: 'json', ...args: bent.Options[]): bent.RequestFunction<bent.Json>;
+declare function bent(baseUrl: HttpMethod | string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
-// Can't use these until we get some sort of pattern checking for strings, ala https://github.com/microsoft/TypeScript/issues/6579
-// Otherwise, `string` from BaseUrl just eats up the extra string literals here, meaning it ends up defaulting to the first type.
+declare function bent(...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
+
+// If we get some sort of custom nominal types, or regex literals, we might be able to simplify to something similar to
 // declare function bent(...args: bent.Options[]): bent.RequestFunction<bent.BentResponse>;
 // declare function bent(...args: (bent.Options | 'string')[]): bent.RequestFunction<string>;
 // declare function bent(...args: (bent.Options | 'buffer')[]): bent.RequestFunction<Buffer | ArrayBuffer>;
 // declare function bent(...args: (bent.Options | 'json')[]): bent.RequestFunction<Json>;
 
 declare namespace bent {
-    type RequestFunction = (url: string, body?: RequestBody) => Promise<ValidResponse>;
+    type RequestFunction<T extends ValidResponse> = (url: string, body?: RequestBody) => Promise<T>;
     type Options = HttpMethod | StatusCode | Headers | BaseUrl;
     type RequestBody = string | Stream | Buffer | ArrayBuffer | Json;
     type NodeResponse = PassThrough & {
@@ -36,6 +43,9 @@ declare namespace bent {
     };
     type FetchResponse = Response & {statusCode: number};
     type BentResponse = NodeResponse | FetchResponse;
+
+    type Json = { [key: string]: any; [key: number]: any; } | any[];
+    type ValidResponse = BentResponse | string | Buffer | ArrayBuffer | Json;
 }
 
 export = bent;
