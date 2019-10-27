@@ -7,15 +7,7 @@
 
 import { PathLike, WriteFileOptions, RmDirAsyncOptions, MakeDirectoryOptions, Dirent, Stats } from "fs";
 
-export {
-    PathLike, StatsBase, Stats, Dirent, FSWatcher, ReadStream, WriteStream, renameSync, truncateSync,
-    ftruncateSync, chownSync, fchownSync, lchownSync, chmodSync, fchmodSync, lchmodSync, statSync,
-    fstatSync, lstatSync, linkSync, symlinkSync, readlinkSync, realpathSync, unlinkSync, RmDirOptions,
-    RmDirAsyncOptions, rmdirSync, MakeDirectoryOptions, mkdirSync, mkdtempSync, readdirSync, closeSync,
-    openSync, utimesSync, futimesSync, fsyncSync, writeSync, readSync, readFileSync, WriteFileOptions,
-    writeFileSync, appendFileSync, watchFile, unwatchFile, watch, existsSync, constants, accessSync,
-    createReadStream, createWriteStream, fdatasyncSync, copyFileSync, writevSync
-} from "fs";
+export * from "fs";
 
 /**
  * Asynchronously tests a user's permissions for the file specified by path.
