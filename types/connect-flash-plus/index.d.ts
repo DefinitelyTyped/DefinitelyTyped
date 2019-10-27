@@ -9,11 +9,11 @@
 declare namespace Express {
     interface Request {
         flash(): { [key: string]: string[] };
-        flash(message: string, event?: string): any;
+        flash(message: string, event?: string | string[]): any;
     }
 }
 
-// tslint:disable-next-line [no-declare-current-package, no-single-declare-module]
+// tslint:disable-next-line:no-declare-current-package no-single-declare-module
 declare module "connect-flash-plus" {
     import express = require('express');
     interface FlashOptions {
