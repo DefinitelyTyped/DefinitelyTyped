@@ -793,7 +793,7 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)} })
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
