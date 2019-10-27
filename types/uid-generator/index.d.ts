@@ -1,7 +1,7 @@
 // Type definitions for uid-generator 2.0
 // Project: https://github.com/nwoltman/node-uid-generator
 // Definitions by: TheEmrio <https://github.com/TheEmrio>
-//                 Kyle Chine <https://github.com/kylechine>
+//                 KyleChine <https://github.com/kylechine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface UIDGeneratorInstance {
@@ -28,4 +28,4 @@ interface UIDGeneratorClass {
 
 declare const UIDGenerator: UIDGeneratorClass;
 
-export { UIDGenerator as default, UIDGeneratorClass, UIDGeneratorInstance };
+export {UIDGenerator as default, UIDGeneratorClass, UIDGeneratorInstance};
