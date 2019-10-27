@@ -1,3 +1,4 @@
+/** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
 declare module "constants" {
     const E2BIG: number;
     const EACCES: number;
@@ -133,15 +134,25 @@ declare module "constants" {
     const WSA_E_NO_MORE: number;
     const WSA_E_CANCELLED: number;
     const WSAEREFUSED: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGHUP` instead. */
     const SIGHUP: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGINT` instead. */
     const SIGINT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGILL` instead. */
     const SIGILL: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGABRT` instead. */
     const SIGABRT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGFPE` instead. */
     const SIGFPE: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGKILL` instead. */
     const SIGKILL: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSEGV` instead. */
     const SIGSEGV: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTERM` instead. */
     const SIGTERM: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBREAK` instead. */
     const SIGBREAK: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGWINCH` instead. */
     const SIGWINCH: number;
     const SSL_OP_ALL: number;
     const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
@@ -246,30 +257,55 @@ declare module "constants" {
     const COPYFILE_FICLONE: number;
     const COPYFILE_FICLONE_FORCE: number;
     const UV_UDP_REUSEADDR: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGQUIT` instead. */
     const SIGQUIT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTRAP` instead. */
     const SIGTRAP: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIOT` instead. */
     const SIGIOT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBUS` instead. */
     const SIGBUS: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR1` instead. */
     const SIGUSR1: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR2` instead. */
     const SIGUSR2: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPIPE` instead. */
     const SIGPIPE: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGALRM` instead. */
     const SIGALRM: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCHLD` instead. */
     const SIGCHLD: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTKFLT` instead. */
     const SIGSTKFLT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCONT` instead. */
     const SIGCONT: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTOP` instead. */
     const SIGSTOP: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTSTP` instead. */
     const SIGTSTP: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTIN` instead. */
     const SIGTTIN: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTOU` instead. */
     const SIGTTOU: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGURG` instead. */
     const SIGURG: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXCPU` instead. */
     const SIGXCPU: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXFSZ` instead. */
     const SIGXFSZ: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGVTALRM` instead. */
     const SIGVTALRM: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPROF` instead. */
     const SIGPROF: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIO` instead. */
     const SIGIO: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPOLL` instead. */
     const SIGPOLL: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPWR` instead. */
     const SIGPWR: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSYS` instead. */
     const SIGSYS: number;
+    /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUNUSED` instead. */
     const SIGUNUSED: number;
     const defaultCoreCipherList: string;
     const defaultCipherList: string;
