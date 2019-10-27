@@ -81,7 +81,5 @@ export interface Intersection {
     points: Point2D[];
 }
 
-// tslint:disable-next-line: no-unnecessary-generics - Necessary for typeguard of svgProps based on svgElementName's value
-export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<typeof svgElementName>): Shape;
-
+export function shape<T extends SvgElements>(svgElementName: T, svgProps: SvgProperties<T>): Shape;
 export function intersect(shape1: Shape, shape2: Shape, m1?: Matrix2D, m2?: Matrix2D): Intersection;
