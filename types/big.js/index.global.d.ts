@@ -1,10 +1,3 @@
-// Type definitions for big.js 4.0
-// Project: https://github.com/MikeMcl/big.js/
-// Definitions by: Steve Ognibene <https://github.com/nycdotnet>
-//                 Miika Hänninen <https://github.com/googol>
-//                 Ricardo Mello <https://github.com/ricardo-mello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type BigSource = number | string | Big;
 
 export const enum Comparison {
@@ -310,4 +303,46 @@ export interface Big {
 
 export const Big: BigConstructor;
 
+// Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
+export type Big_ = Big;
+export type BigConstructor_ = BigConstructor;
+export type BigSource_ = BigSource;
 export default Big;
+
+declare global {
+    namespace BigJs {
+        type Big = Big_;
+        type BigConstructor = BigConstructor_;
+        type BigSource = BigSource_;
+
+        const enum Comparison {
+            GT = 1,
+            EQ = 0,
+            LT = -1,
+        }
+
+        const enum RoundingMode {
+            /**
+             * Rounds towards zero.
+             * I.e. truncate, no rounding.
+             */
+            RoundDown = 0,
+            /**
+             * Rounds towards nearest neighbour.
+             * If equidistant, rounds away from zero.
+             */
+            RoundHalfUp = 1,
+            /**
+             * Rounds towards nearest neighbour.
+             * If equidistant, rounds towards even neighbour.
+             */
+            RoundHalfEven = 2,
+            /**
+             * Rounds away from zero.
+             */
+            RoundUp = 3,
+        }
+    }
+
+    const Big: BigJs.BigConstructor;
+}
