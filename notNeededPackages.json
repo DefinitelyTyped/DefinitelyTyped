@@ -757,6 +757,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "dotenv",
+            "typingsPackageName": "dotenv",
+            "sourceRepoURL": "https://github.com/motdotla/dotenv",
+            "asOfVersion": "8.2.0"
+        },
+        {
             "libraryName": "dva",
             "typingsPackageName": "dva",
             "sourceRepoURL": "https://github.com/dvajs/dva",
@@ -959,6 +965,12 @@
             "typingsPackageName": "exit-hook",
             "sourceRepoURL": "https://github.com/sindresorhus/exit-hook",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "expo",
+            "typingsPackageName": "expo",
+            "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
+            "asOfVersion": "33.0.0"
         },
         {
             "libraryName": "expr-eval",
@@ -2125,6 +2137,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mockingoose",
+            "typingsPackageName": "mockingoose",
+            "sourceRepoURL": "https://github.com/alonronin/mockingoose#readme",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -2273,6 +2291,12 @@
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
             "asOfVersion": "1.9.3"
+        },
+        {
+            "libraryName": "o.js",
+            "typingsPackageName": "o.js",
+            "sourceRepoURL": "https://github.com/janhommes/o.js",
+            "asOfVersion": "1.0.3"
         },
         {
             "libraryName": "on-change",
@@ -3245,6 +3269,12 @@
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "rword",
+            "typingsPackageName": "rword",
+            "sourceRepoURL": "https://github.com/Xyfir/rword#readme",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "samchon",
