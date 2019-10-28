@@ -44,8 +44,8 @@ declare namespace Dropzone {
     }
 
     export interface DropzoneOptions {
-        url?: string;
-        method?: string;
+        url?: ((files: ReadonlyArray<DropzoneFile>) => string) | string;
+        method?: ((files: ReadonlyArray<DropzoneFile>) => string) | string;
         withCredentials?: boolean;
         timeout?: number;
         parallelUploads?: number;
@@ -62,12 +62,12 @@ declare namespace Dropzone {
         maxThumbnailFilesize?: number;
         thumbnailWidth?: number;
         thumbnailHeight?: number;
-        thumbnailMethod?: string;
+        thumbnailMethod?: 'contain' | 'crop';
         resizeWidth?: number;
         resizeHeight?: number;
         resizeMimeType?: string;
         resizeQuality?: number;
-        resizeMethod?: string;
+        resizeMethod?: 'contain' | 'crop';
         filesizeBase?: number;
         maxFiles?: number;
         params?: {};
