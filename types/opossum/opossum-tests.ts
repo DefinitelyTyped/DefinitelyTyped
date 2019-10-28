@@ -5,6 +5,8 @@ import { promisify } from "util";
 let breaker: CircuitBreaker;
 const callbackNoArgs = async () => console.log("foo");
 
+CircuitBreaker.isOurError(new Error()); // $ExpectType boolean
+
 breaker = new CircuitBreaker(async () => true, {
   timeout: 1000,
   maxFailures: 50,

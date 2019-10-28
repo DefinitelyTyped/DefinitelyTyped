@@ -11,6 +11,8 @@
 import { EventEmitter } from "events";
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
+    static isOurError(error: any): boolean;
+
     constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options);
 
     readonly name: string;
