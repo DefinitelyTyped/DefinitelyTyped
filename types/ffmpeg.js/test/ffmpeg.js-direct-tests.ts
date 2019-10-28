@@ -1,5 +1,4 @@
-import ffmpeg from 'ffmpeg-mp4';
-import Worker from 'ffmpeg-worker-webm';
+import { ffmpeg, Worker } from 'ffmpeg.js';
 
 // test data
 let stdout = "";
