@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 declare module "meteor/mongo" {
-    // This line can be removed after minimum required TypeScript Version is above 3.5
-    // It should be replaced with Omit<T, K>
-    type PropOmit<T, K> = Pick<T, Exclude<keyof T, K>>;
+    // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
+    type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
     module Mongo {
 
@@ -121,7 +120,7 @@ declare module "meteor/mongo" {
             $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
         }
 
-        type OptionalId<TSchema> = PropOmit<TSchema, '_id'> & { _id?: any };
+        type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
         interface SortSpecifier { }
         interface FieldSpecifier {
