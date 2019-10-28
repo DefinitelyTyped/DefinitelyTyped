@@ -3025,6 +3025,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "react-circular-progressbar",
+            "typingsPackageName": "react-circular-progressbar",
+            "sourceRepoURL": "https://github.com/kevinsqi/react-circular-progressbar#readme",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
