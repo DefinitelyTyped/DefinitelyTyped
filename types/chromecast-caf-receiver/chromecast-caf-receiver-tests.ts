@@ -1,4 +1,4 @@
-import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
+import { MediaMetadata, LoadRequestData } from 'chromecast-caf-receiver/cast.framework.messages';
 import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
 import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
@@ -34,9 +34,8 @@ pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 pManager.addEventListener(
-  EventType.MEDIA_FINISHED,
-  (event: cast.framework.events.MediaFinishedEvent) =>
-    `${event.currentMediaTime} ${event.endedReason}`,
+    EventType.MEDIA_FINISHED,
+    (event: cast.framework.events.MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
 );
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
@@ -134,4 +133,14 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => '¡hola!',
 );
 
-const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, "Loading failed!");
+const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
+
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new Promise((resolve, reject) => {}));
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new LoadRequestData());
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, null);
