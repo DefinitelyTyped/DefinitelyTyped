@@ -13,7 +13,10 @@
             "../"
         ],
         "allowSyntheticDefaultImports": true,
-        "types": []
+        "types": [],
+        "lib": [
+            "es6"
+        ]
     },
     "files": [
         "index.d.ts", "adhan-tests.ts"
