@@ -48,7 +48,7 @@ getLanguagePlugin(() => ({
     outputExtension: 'bar',
     typeGenerator: {
         transforms: [RelayApplyFragmentArgumentTransform.transform],
-        generate: (node, options) => {
+        generate: (schema, node, options) => {
             visit(node, {
                 Fragment(fragment) {
                     return {

@@ -757,6 +757,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "dotenv",
+            "typingsPackageName": "dotenv",
+            "sourceRepoURL": "https://github.com/motdotla/dotenv",
+            "asOfVersion": "8.2.0"
+        },
+        {
             "libraryName": "dva",
             "typingsPackageName": "dva",
             "sourceRepoURL": "https://github.com/dvajs/dva",
@@ -959,6 +965,12 @@
             "typingsPackageName": "exit-hook",
             "sourceRepoURL": "https://github.com/sindresorhus/exit-hook",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "expo",
+            "typingsPackageName": "expo",
+            "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
+            "asOfVersion": "33.0.0"
         },
         {
             "libraryName": "expr-eval",
@@ -1831,6 +1843,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "kafkajs",
+            "typingsPackageName": "kafkajs",
+            "sourceRepoURL": "https://github.com/tulios/kafkajs",
+            "asOfVersion": "1.9.0"
+        },
+        {
             "libraryName": "keycloak-js",
             "typingsPackageName": "keycloak-js",
             "sourceRepoURL": "https://github.com/keycloak/keycloak",
@@ -1865,6 +1883,18 @@
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
             "asOfVersion": "3.3.0"
+        },
+        {
+            "libraryName": "koa-useragent",
+            "typingsPackageName": "koa-useragent",
+            "sourceRepoURL": "https://github.com/rvboris/koa-useragent",
+            "asOfVersion": "2.1.1"
+        },
+        {
+            "libraryName": "koa-pug",
+            "typingsPackageName": "koa-pug",
+            "sourceRepoURL": "https://github.com/chrisyip/koa-pug",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "lambda-phi",
@@ -2011,10 +2041,22 @@
             "asOfVersion": "2.3.5"
         },
         {
+            "libraryName": "logform",
+            "typingsPackageName": "logform",
+            "sourceRepoURL": "https://github.com/winstonjs/logform",
+            "asOfVersion": "1.10.0"
+        },
+        {
             "libraryName": "loglevel",
             "typingsPackageName": "loglevel",
             "sourceRepoURL": "https://github.com/pimterry/loglevel/",
             "asOfVersion": "1.6.2"
+        },
+        {
+            "libraryName": "lorem-ipsum",
+            "typingsPackageName": "lorem-ipsum",
+            "sourceRepoURL": "https://github.com/knicklabs/node-lorem-ipsum",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "loud-rejection",
@@ -2077,10 +2119,22 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "memoize-one",
+            "typingsPackageName": "memoize-one",
+            "sourceRepoURL": "https://github.com/alexreardon/memoize-one#readme",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "mendixmodelsdk",
             "typingsPackageName": "mendixmodelsdk",
             "sourceRepoURL": "http://www.mendix.com",
             "asOfVersion": "0.8.1"
+        },
+        {
+            "libraryName": "menubar",
+            "typingsPackageName": "menubar",
+            "sourceRepoURL": "https://github.com/maxogden/menubar",
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "metisMenu",
@@ -2125,10 +2179,28 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mobx-task",
+            "typingsPackageName": "mobx-task",
+            "sourceRepoURL": "https://github.com/jeffijoe/mobx-task#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "mockingoose",
+            "typingsPackageName": "mockingoose",
+            "sourceRepoURL": "https://github.com/alonronin/mockingoose#readme",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "mongodb-memory-server",
+            "typingsPackageName": "mongodb-memory-server",
+            "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
+            "asOfVersion": "2.3.0"
         },
         {
             "libraryName": "Monk",
@@ -2141,6 +2213,12 @@
             "typingsPackageName": "month-days",
             "sourceRepoURL": "https://github.com/sindresorhus/month-days",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "morphdom",
+            "typingsPackageName": "morphdom",
+            "sourceRepoURL": "https://github.com/patrick-steele-idem/morphdom",
+            "asOfVersion": "2.4.0"
         },
         {
             "libraryName": "move-file",
@@ -2165,6 +2243,12 @@
             "typingsPackageName": "nano",
             "sourceRepoURL": "https://github.com/apache/couchdb-nano",
             "asOfVersion": "7.0.0"
+        },
+        {
+            "libraryName": "natsort",
+            "typingsPackageName": "natsort",
+            "sourceRepoURL": "https://github.com/netop/natsort",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "typescript",
@@ -2213,6 +2297,12 @@
             "typingsPackageName": "node-pg-migrate",
             "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
             "asOfVersion": "2.15.0"
+        },
+        {
+            "libraryName": "node-sql-parser",
+            "typingsPackageName": "node-sql-parser",
+            "sourceRepoURL": "https://github.com/taozhi8833998/node-sql-parser#readme",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "node-waves",
@@ -2273,6 +2363,18 @@
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
             "asOfVersion": "1.9.3"
+        },
+        {
+            "libraryName": "odata",
+            "typingsPackageName": "odata",
+            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "asOfVersion": "1.0.3"
+        },
+        {
+            "libraryName": "o.js",
+            "typingsPackageName": "o.js",
+            "sourceRepoURL": "https://github.com/janhommes/o.js",
+            "asOfVersion": "1.0.3"
         },
         {
             "libraryName": "on-change",
@@ -2339,6 +2441,12 @@
             "typingsPackageName": "otplib",
             "sourceRepoURL": "https://github.com/yeojz/otplib",
             "asOfVersion": "10.0.0"
+        },
+        {
+            "libraryName": "overwatch-api",
+            "typingsPackageName": "overwatch-api",
+            "sourceRepoURL": "https://github.com/alfg/overwatch-api",
+            "asOfVersion": "0.7.1"
         },
         {
             "libraryName": "p-all",
@@ -2677,6 +2785,12 @@
             "asOfVersion": "5.4.3"
         },
         {
+            "libraryName": "phin",
+            "typingsPackageName": "phin",
+            "sourceRepoURL": "https://github.com/ethanent/phin",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "phonegap-plugin-push",
             "typingsPackageName": "phonegap-plugin-push",
             "sourceRepoURL": "https://github.com/phonegap/phonegap-plugin-push",
@@ -2839,6 +2953,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "qunit-dom",
+            "typingsPackageName": "qunit-dom",
+            "sourceRepoURL": "https://github.com/simplabs/qunit-dom#readme",
+            "asOfVersion": "0.7.0"
+        },
+        {
             "libraryName": "random-float",
             "typingsPackageName": "random-float",
             "sourceRepoURL": "https://github.com/sindresorhus/random-float",
@@ -2854,6 +2974,12 @@
             "libraryName": "random-item",
             "typingsPackageName": "random-item",
             "sourceRepoURL": "https://github.com/sindresorhus/random-item",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "random-js",
+            "typingsPackageName": "random-js",
+            "sourceRepoURL": "https://github.com/ckknight/random-js",
             "asOfVersion": "2.0.0"
         },
         {
@@ -2897,6 +3023,12 @@
             "typingsPackageName": "react-chartjs-2",
             "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
             "asOfVersion": "2.5.7"
+        },
+        {
+            "libraryName": "react-circular-progressbar",
+            "typingsPackageName": "react-circular-progressbar",
+            "sourceRepoURL": "https://github.com/kevinsqi/react-circular-progressbar#readme",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "react-content-loader",
@@ -3251,6 +3383,12 @@
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "rword",
+            "typingsPackageName": "rword",
+            "sourceRepoURL": "https://github.com/Xyfir/rword#readme",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "samchon",
