@@ -460,7 +460,7 @@ export interface Request<P extends Params = ParamsDictionary> extends http.Incom
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: { [key: sting]: string | undefined };
+    body: { [key: string]: string | undefined };
 
     //cookies: { string; remember: boolean; };
     cookies: any;
