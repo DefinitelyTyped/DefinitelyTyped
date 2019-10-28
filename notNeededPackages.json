@@ -2365,6 +2365,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "odata",
+            "typingsPackageName": "odata",
+            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "o.js",
             "typingsPackageName": "o.js",
             "sourceRepoURL": "https://github.com/janhommes/o.js",
