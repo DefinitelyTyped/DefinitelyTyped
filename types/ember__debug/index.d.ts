@@ -7,7 +7,7 @@
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
-export function assert(desc: string, test?: boolean): void | never;
+export function assert(desc: string, test?: any): void | never;
 /**
  * Display a debug notice.
  */
