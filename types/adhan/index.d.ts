@@ -7,7 +7,7 @@
 // declare module 'adhan' { export = Adhan }
 declare namespace Adhan {
   class PrayerTimes {
-    constructor(coordinates: number, date: Date, params: Paramater);
+    constructor(coordinates: Coordinates, date: Date, params: Paramater);
 
     fajr: Date;
     sunrise: Date;
@@ -17,7 +17,11 @@ declare namespace Adhan {
     isha: Date;
   }
 
-  function Coordinates(longitude: number, latitude: number): number;
+  class Coordinates {
+    constructor(longitude: number, latitude: number);
+    longitude: number;
+    latitude: number;
+  }
 
   let CalculationMethod: AdhanCalculationMethod;
 
