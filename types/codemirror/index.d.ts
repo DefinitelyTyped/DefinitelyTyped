@@ -482,12 +482,12 @@ declare namespace CodeMirror {
         off(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: MouseEvent) => void ): void;
 
         /** Fires whenever the editor is focused. */
-        on(eventName: 'focus', handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: 'focus', handler: (instance: CodeMirror.Editor) => void ): void;
+        on(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void ): void;
+        off(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void ): void;
 
         /** Fires whenever the editor is unfocused. */
-        on(eventName: 'blur', handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: 'blur', handler: (instance: CodeMirror.Editor) => void ): void;
+        on(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void ): void;
+        off(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void ): void;
 
         /** Fires when the editor is scrolled. */
         on(eventName: 'scroll', handler: (instance: CodeMirror.Editor) => void ): void;
