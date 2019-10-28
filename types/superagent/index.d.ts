@@ -9,6 +9,7 @@
 //                 Lukas Elmer <https://github.com/lukaselmer>
 //                 Jesse Rogers <https://github.com/theQuazz>
 //                 Chris Arnesen <https://github.com/carnesen>
+//                 Anders Kindberg <https://github.com/ghostganz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -16,7 +17,7 @@
 /// <reference lib="dom" />
 
 import * as fs from 'fs';
-import * as https from 'https';
+import * as http from 'http';
 import * as stream from 'stream';
 import * as cookiejar from 'cookiejar';
 
@@ -38,7 +39,7 @@ declare const request: request.SuperAgentStatic;
 
 declare namespace request {
     interface SuperAgentRequest extends Request {
-        agent(agent?: https.Agent): this;
+        agent(agent?: http.Agent): this;
 
         cookies: string;
         method: string;
