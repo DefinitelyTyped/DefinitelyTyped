@@ -2035,6 +2035,12 @@
             "asOfVersion": "2.3.5"
         },
         {
+            "libraryName": "logform",
+            "typingsPackageName": "logform",
+            "sourceRepoURL": "https://github.com/winstonjs/logform",
+            "asOfVersion": "1.10.0"
+        },
+        {
             "libraryName": "loglevel",
             "typingsPackageName": "loglevel",
             "sourceRepoURL": "https://github.com/pimterry/loglevel/",
