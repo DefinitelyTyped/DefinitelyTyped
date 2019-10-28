@@ -113,7 +113,7 @@ export interface OAuthClient<ClientIdName extends string = 'client_id'> {
         ): string,
 
         /** Returns the Access Token object */
-        getToken(params: AuthorizationTokenConfig): Promise<Token>;
+        getToken(params: AuthorizationTokenConfig, httpOptions?: any): Promise<Token>;
     };
 
     ownerPassword: {
