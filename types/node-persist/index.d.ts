@@ -104,6 +104,8 @@ declare namespace NodePersist {
     export function create(options?: InitOptions): LocalStorage;
     export function init(options?: InitOptions): Promise<InitOptions>;
 
+    export const defaultInstance: LocalStorage | undefined;
+
     export function setOptions(options?: InitOptions): void;
 
     export function data(): Promise<Datum[]>;
