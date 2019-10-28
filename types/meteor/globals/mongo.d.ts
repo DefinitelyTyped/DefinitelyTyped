@@ -1,3 +1,7 @@
+// This line can be removed after minimum required TypeScript Version is above 3.5
+// It should be replaced with Omit<T, K>
+declare type PropOmit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
 declare module Mongo {
 
     type BsonType = 1 | "double" |
@@ -115,7 +119,7 @@ declare module Mongo {
         $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
     }
 
-    type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
+    type OptionalId<TSchema> = PropOmit<TSchema, '_id'> & { _id?: any };
 
     interface SortSpecifier { }
     interface FieldSpecifier {
