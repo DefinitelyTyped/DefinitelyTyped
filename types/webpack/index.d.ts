@@ -1214,7 +1214,7 @@ declare namespace webpack {
         hash?: string;
         startTime?: number;
         endTime?: number;
-        /** Retuns the default options object from the stats preset **/
+        /** Returns the default options object from the stats preset. **/
         static presetToOptions( preset?: Stats.Preset ): Stats.ToJsonOptionsObject;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
