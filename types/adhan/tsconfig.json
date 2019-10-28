@@ -7,6 +7,6 @@
         "esModuleInterop": true
     },
     "files": [
-        "index.d.ts", "test.ts"
+        "index.d.ts", "adhan-tests.ts"
     ]
 }
