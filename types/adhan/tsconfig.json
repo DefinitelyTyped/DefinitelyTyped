@@ -5,5 +5,8 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true
-    }
+    },
+    "files": [
+        "index.d.ts", "test.ts"
+    ]
 }
