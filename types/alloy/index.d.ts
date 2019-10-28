@@ -1,4 +1,4 @@
-// Type definitions for npm package Alloy
+// Type definitions for npm package Alloy 1.14
 // Project: https://github.com/appcelerator/alloy
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Mathias Lorenzen <https://github.com/ffMathy>
