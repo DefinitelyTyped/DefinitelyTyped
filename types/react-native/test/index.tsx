@@ -87,6 +87,7 @@ import {
     Platform,
     ProgressBarAndroid,
     PushNotificationIOS,
+    AccessibilityInfo,
 } from "react-native";
 
 declare module "react-native" {
@@ -791,6 +792,8 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
