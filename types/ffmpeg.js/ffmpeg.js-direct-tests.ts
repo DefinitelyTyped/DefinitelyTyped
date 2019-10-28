@@ -1,0 +1,48 @@
+import ffmpeg from 'ffmpeg-mp4';
+import Worker from 'ffmpeg-worker-webm';
+
+// test data
+let stdout = "";
+let stderr = "";
+const worker = new Worker();
+const testData = new Uint8Array(0);
+
+// test cases
+ffmpeg({
+    arguments: ["-version"],
+    print: (data: string) => { stdout += data + "\n"; },
+    printErr: (data: string) => { stderr += data + "\n"; },
+    onExit: (code: unknown) => {},
+});
+
+ffmpeg({
+    MEMFS: [{name: "test.webm", data: testData}],
+    arguments: ["-i", "test.webm", "-c:v", "libvpx", "-an", "out.webm"],
+    // Ignore stdin read requests.
+    stdin: () => {},
+});
+
+ffmpeg({
+    // Mount /data inside application to the current directory.
+    mounts: [{type: "NODEFS", opts: {root: "."}, mountpoint: "/data"}],
+    arguments: ["-i", "/data/test.webm", "-c:v", "libvpx", "-an", "/data/out.webm"],
+    stdin: () => {},
+});
+
+worker.onmessage = (e: any) => {
+    const msg = e.data;
+    switch (msg.type) {
+        case "ready":
+            worker.postMessage({type: "run", arguments: ["-version"]});
+            break;
+        case "stdout":
+            stdout += msg.data + "\n";
+            break;
+        case "stderr":
+            stderr += msg.data + "\n";
+            break;
+        case "exit":
+            worker.terminate();
+            break;
+    }
+};
