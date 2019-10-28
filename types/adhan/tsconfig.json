@@ -5,7 +5,8 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true,
-        "module": "commonjs"
+        "module": "commonjs",
+        "noEmit": true
     },
     "files": [
         "index.d.ts", "adhan-tests.ts"
