@@ -4,7 +4,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "module": "commonjs"
     },
     "files": [
         "index.d.ts", "adhan-tests.ts"
