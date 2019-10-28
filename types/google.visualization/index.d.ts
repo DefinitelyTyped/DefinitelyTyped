@@ -673,7 +673,7 @@ declare namespace google {
             selectionMode?: string // single / multiple
             series?: any;
             domainAxis?: { type: string };
-            trendlines?: any;
+            trendlines?: { [key: number]: any; };
             pointShape?: string;
             intervals?: { style: string };
             interval?: any;
