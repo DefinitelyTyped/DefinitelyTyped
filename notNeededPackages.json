@@ -1885,6 +1885,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "koa-useragent",
+            "typingsPackageName": "koa-useragent",
+            "sourceRepoURL": "https://github.com/rvboris/koa-useragent",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "koa-pug",
             "typingsPackageName": "koa-pug",
             "sourceRepoURL": "https://github.com/chrisyip/koa-pug",
