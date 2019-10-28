@@ -1218,7 +1218,7 @@ declare namespace webpack {
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
          */
-         static presetToOptions( preset?: Stats.Preset ): Stats.ToJsonOptionsObject;
+        static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
