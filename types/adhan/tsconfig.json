@@ -7,7 +7,12 @@
         "esModuleInterop": true,
         "module": "commonjs",
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts", "adhan-tests.ts"
