@@ -28,6 +28,16 @@ ffmpeg({
     stdin: () => {},
 });
 
+const result = ffmpeg({
+    MEMFS: [{name: "test.webm", data: testData}],
+    TOTAL_MEMORY: 512 * 1024 * 1024,
+    arguments: ['-framerate', '-i'],
+    stdin: () => {},
+    print: () => {},
+    printErr: () => {},
+    onExit: (c: number) => {}
+}).MEMFS[0];
+
 worker.onmessage = (e: any) => {
     const msg = e.data;
     switch (msg.type) {

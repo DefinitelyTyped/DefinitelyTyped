@@ -5,38 +5,37 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare namespace ffmpeg {
-    interface Options {
-        arguments: string[];
-        MEMFS?: Video[];
-        print?(data: any): void;
-        printErr?(data: any): void;
-        onExit?(code: unknown): void;
-        stdin?(data: any): void;
-        mounts?: Mount[];
-    }
-
-    interface Opts {
-        root: string;
-    }
-
-    interface Mount {
-        type: string;
-        opts: Opts;
-        mountpoint: string;
-    }
-
-    interface Result {
-        MEMFS: Video[];
-    }
-
-    interface Video {
-        data: Uint8Array;
-        name: string;
-    }
+export interface Options {
+    arguments: string[];
+    MEMFS?: Video[];
+    print?(data: any): void;
+    printErr?(data: any): void;
+    onExit?(code: unknown): void;
+    stdin?(data: any): void;
+    mounts?: Mount[];
+    TOTAL_MEMORY?: number;
 }
 
-declare namespace Worker {
+export interface Opts {
+    root: string;
+}
+
+export interface Mount {
+    type: string;
+    opts: Opts;
+    mountpoint: string;
+}
+
+export interface Result {
+    MEMFS: Video[];
+}
+
+export interface Video {
+    data: Uint8Array;
+    name: string;
+}
+
+export namespace Worker {
     interface Data {
         type: string;
         data: string;
@@ -52,14 +51,12 @@ declare namespace Worker {
     }
 }
 
-declare module 'ffmpeg.js' {
-    function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
+export function ffmpeg(opts: Options): Result;
 
-    class Worker {
-        constructor(someParam?: string);
+export class Worker {
+    constructor(someParam?: string);
 
-        onmessage(opts: Worker.OnMessageOptions): void;
-        postMessage(opts: Worker.PostMessageOptions): void;
-        terminate(): void;
-    }
+    onmessage(opts: Worker.OnMessageOptions): void;
+    postMessage(opts: Worker.PostMessageOptions): void;
+    terminate(): void;
 }
