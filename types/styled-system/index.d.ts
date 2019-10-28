@@ -632,9 +632,13 @@ export interface FlexGrowProps {
     flexGrow?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
+export const flexGrow: styleFn;
+
 export interface FlexShrinkProps {
     flexShrink?: ResponsiveValue<CSS.GlobalsNumber>;
 }
+
+export const flexShrink: styleFn;
 
 /**
  * A convenience style group containing props related to flexbox.
