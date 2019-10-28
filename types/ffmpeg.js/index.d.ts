@@ -52,40 +52,6 @@ declare namespace Worker {
     }
 }
 
-declare module 'ffmpeg.js/ffmpeg-mp4' {
-    function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
-    export = ffmpeg;
-}
-
-declare module 'ffmpeg.js/ffmpeg-webm' {
-    class Worker {
-        constructor(someParam?: string);
-
-        onmessage(opts: Worker.OnMessageOptions): void;
-        postMessage(opts: Worker.PostMessageOptions): void;
-        terminate(): void;
-    }
-
-    export = Worker;
-}
-
-declare module 'ffmpeg.js/ffmpeg-worker-mp4' {
-    function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
-    export = ffmpeg;
-}
-
-declare module 'ffmpeg.js/ffmpeg-worker-webm' {
-    class Worker {
-        constructor(someParam?: string);
-
-        onmessage(opts: Worker.OnMessageOptions): void;
-        postMessage(opts: Worker.PostMessageOptions): void;
-        terminate(): void;
-    }
-
-    export = Worker;
-}
-
 declare module 'ffmpeg-mp4' {
     function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
     export = ffmpeg;
