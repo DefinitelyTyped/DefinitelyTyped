@@ -1,13 +1,7 @@
-// Type definitions for light-sdk 1.0.62
+// Type definitions for light-sdk 1.0
 // Project: https://www.npmjs.com/package/light-sdk
 // Definitions by: cklwblove <https://github.com/cklwblove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Support for painless dependency injection
-export as namespace LightSDK;
-
-// Support AMD require
-export = LightSDK;
 
 declare namespace LightSDK {
     interface Info {
@@ -637,3 +631,9 @@ declare namespace LightSDK {
     const net: any;
     const openAPI: any;
 }
+
+// Support AMD require
+export = LightSDK;
+
+// Support for painless dependency injection
+export as namespace LightSDK;
