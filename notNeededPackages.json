@@ -3187,6 +3187,12 @@
             "asOfVersion": "0.1.67"
         },
         {
+            "libraryName": "react-sticky-box",
+            "typingsPackageName": "react-sticky-box",
+            "sourceRepoURL": "https://github.com/codecks-io/react-sticky-box",
+            "asOfVersion": "0.8.0"
+        },
+        {
             "libraryName": "react-svg",
             "typingsPackageName": "react-svg",
             "sourceRepoURL": "https://github.com/tanem/react-svg",
