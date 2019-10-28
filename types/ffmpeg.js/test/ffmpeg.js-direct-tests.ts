@@ -17,12 +17,10 @@ ffmpeg({
 ffmpeg({
     MEMFS: [{name: "test.webm", data: testData}],
     arguments: ["-i", "test.webm", "-c:v", "libvpx", "-an", "out.webm"],
-    // Ignore stdin read requests.
     stdin: () => {},
 });
 
 ffmpeg({
-    // Mount /data inside application to the current directory.
     mounts: [{type: "NODEFS", opts: {root: "."}, mountpoint: "/data"}],
     arguments: ["-i", "/data/test.webm", "-c:v", "libvpx", "-an", "/data/out.webm"],
     stdin: () => {},
