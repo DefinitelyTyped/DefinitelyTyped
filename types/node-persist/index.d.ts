@@ -59,7 +59,7 @@ declare namespace NodePersist {
         values(filter?: FilterFunction<Datum>): Promise<any[]>;
         length(filter?: FilterFunction<Datum>): Promise<number>;
 
-        forEach(callback?: (data: Datum) => Promise<void> | void): Promise<void>;
+        forEach(callback: (data: Datum) => Promise<void> | void): Promise<void>;
 
         valuesWithKeyMatch(match?: RegExp | string): Promise<any[]>;
 
