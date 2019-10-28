@@ -51,7 +51,13 @@ export interface ReCAPTCHAProps {
 	 * 	It will also be called with null, when captcha expires
 	 *  @param token string or null
 	 */
-	onChange?: (token: string|null) => void;
+    onChange?: (token: string|null) => void;
+
+    /**
+     *  if you are using the barebone component you need to provide access  to the google grecaptcha object.
+     */
+    grecaptcha?: object
+
 	/**
 	 *  Optional light or dark theme of the widget
 	 *  @default "light"
