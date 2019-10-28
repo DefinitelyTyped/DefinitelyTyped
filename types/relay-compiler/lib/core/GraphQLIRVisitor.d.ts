@@ -134,4 +134,4 @@ export interface Schema {
     isUnion: (type: TypeID) => boolean;
 }
 
-export function visit(schema: Schema, root: VisitNode, visitor: NodeVisitor): any;
+export function visit(root: VisitNode, visitor: NodeVisitor): any;

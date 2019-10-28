@@ -49,7 +49,7 @@ getLanguagePlugin(() => ({
     typeGenerator: {
         transforms: [RelayApplyFragmentArgumentTransform.transform],
         generate: (schema, node, options) => {
-            visit(schema, node, {
+            visit(node, {
                 Fragment(fragment) {
                     return {
                         ...fragment,
