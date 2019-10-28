@@ -3031,6 +3031,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "react-content-loader",
+            "typingsPackageName": "react-content-loader",
+            "sourceRepoURL": "https://github.com/danilowoz/react-content-loader",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
