@@ -5,6 +5,7 @@
 //                 Pr1st0n <https://github.com/Pr1st0n>
 //                 rileymiller <https://github.com/rileymiller>
 //                 toddself <https://github.com/toddself>
+//                 ysulyma <https://github.com/ysulyma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
