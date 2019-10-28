@@ -1,4 +1,4 @@
-// Type definitions for styled-system 5.1.3
+// Type definitions for styled-system 5.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
