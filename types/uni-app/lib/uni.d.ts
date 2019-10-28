@@ -191,6 +191,12 @@ declare class Uni {
      */
     createVideoContext(videoId?: string, currentComponent?: any): VideoContext;
     /**
+     * 创建并返回 camera 组件的上下文 cameraContext 对象
+     *
+     * 参考: [http://uniapp.dcloud.io/api/media/camera-context](http://uniapp.dcloud.io/api/media/camera-context)
+     */
+    createCameraContext(): CameraContext;
+    /**
      * 保存文件到本地
      *
      * 参考: [http://uniapp.dcloud.io/api/file/file?id=savefile](http://uniapp.dcloud.io/api/file/file?id=savefile)
@@ -693,6 +699,12 @@ declare class Uni {
      */
     hideTabBarRedDot(options?: HideTabBarRedDotOptions): void;
     /**
+     * 监听中间按钮的点击事件
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/tabbar?id=ontabbarmidbuttontap](http://uniapp.dcloud.io/api/ui/tabbar?id=ontabbarmidbuttontap)
+     */
+    onTabBarMidButtonTap(callback?: () => void): void;
+    /**
      * 保留当前页面，跳转到应用内的某个页面
      *
      * 参考: [http://uniapp.dcloud.io/api/router?id=navigateto](http://uniapp.dcloud.io/api/router?id=navigateto)
@@ -938,6 +950,12 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
      */
     loadFontFace(options?: LoadFontFaceOptions): void;
+    /**
+     * 获取小程序下该菜单按钮的布局位置信息
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/menuButton?id=getmenubuttonboundingclientrect](http://uniapp.dcloud.io/api/ui/menuButton?id=getmenubuttonboundingclientrect)
+     */
+    getMenuButtonBoundingClientRect(): GetMenuButtonBoundingClientRectRes;
 }
 
 interface GeneralCallbackResult {
@@ -2198,17 +2216,24 @@ interface CameraContext {
      * 结束录像，成功则返回封面与视频
      */
     stopRecord(options?: CameraContextStopRecordOptions): void;
+    /**
+     * 结束录像，成功则返回封面与视频
+     */
+    onCameraFrame(callback?: (result: CameraFrame) => void): void;
 }
 
 interface CameraContextTakePhotoOptions {
     /**
      * 成像质量，值为high, normal, low，默认normal
+     * - normal: 普通质量
+     * - high: 高质量
+     * - low: 低质量
      */
-    quality?: string;
+    quality?: 'normal' | 'high' | 'low';
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: CameraContextTakePhotoResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2219,11 +2244,18 @@ interface CameraContextTakePhotoOptions {
     complete?: () => void;
 }
 
+interface CameraContextTakePhotoResult {
+    /**
+     * 照片文件的临时路径，安卓是jpg图片格式，ios是png
+     */
+    tempImagePath?: string;
+}
+
 interface CameraContextStartRecordOptions {
     /**
-     * 超过30s或页面onHide时会结束录像，res = { tempThumbPath, tempVideoPath }
+     * 超过30s或页面onHide时会结束录像
      */
-    timeoutCallback?: () => void;
+    timeoutCallback?: (result: CameraContextStopRecordResult) => void;
     /**
      * 接口调用成功的回调函数
      */
@@ -2240,9 +2272,9 @@ interface CameraContextStartRecordOptions {
 
 interface CameraContextStopRecordOptions {
     /**
-     * 接口调用成功的回调函数 ，res = { tempThumbPath, tempVideoPath }
+     * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: CameraContextStopRecordResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2251,6 +2283,32 @@ interface CameraContextStopRecordOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface CameraContextStopRecordResult {
+    /**
+     * 封面图片文件的临时路径
+     */
+    tempThumbPath?: string;
+    /**
+     * 视频的文件的临时路径
+     */
+    tempVideoPath?: string;
+}
+
+interface CameraFrame {
+    /**
+     * 图像数据矩形的宽度
+     */
+    width?: number;
+    /**
+     * 图像数据矩形的高度
+     */
+    height?: number;
+    /**
+     * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
+     */
+    data?: ArrayBuffer;
 }
 
 interface SaveFileOptions {
@@ -5848,6 +5906,33 @@ interface GetExtConfigSyncRes {
      * 第三方平台自定义的数据
      */
     extConfig?: any;
+}
+
+interface GetMenuButtonBoundingClientRectRes {
+    /**
+     * 小程序胶囊菜单按钮的宽度
+     */
+    width?: number;
+    /**
+     * 小程序胶囊菜单按钮的高度
+     */
+    height?: number;
+    /**
+     * 小程序胶囊菜单按钮的上边界坐标
+     */
+    top?: number;
+    /**
+     * 小程序胶囊菜单按钮的右边界坐标
+     */
+    right?: number;
+    /**
+     * 小程序胶囊菜单按钮的下边界坐标
+     */
+    bottom?: number;
+    /**
+     * 小程序胶囊菜单按钮的左边界坐标
+     */
+    left?: number;
 }
 
 interface GetProviderOptions {

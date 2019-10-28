@@ -1,6 +1,7 @@
-// Type definitions for force-graph 1.15
+// Type definitions for force-graph 1.21
 // Project: https://github.com/vasturiano/force-graph
 // Definitions by: Peter Kimberley <https://github.com/p-kimberley>
+//                 Noah Santschi-Cooney <https://github.com/Strum355>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function ForceGraph(): ForceGraph.ForceGraphInstance;
@@ -20,8 +21,8 @@ declare namespace ForceGraph {
     }
 
     interface GraphNode extends GraphEntity {
-        name: string;
-        val: any;
+        name?: string;
+        val?: any;
     }
 
     interface GraphNodeObject extends GraphNode {
@@ -39,15 +40,6 @@ declare namespace ForceGraph {
     interface GraphLinkObject extends GraphLink {
         source: GraphNode;
         target: GraphNode;
-    }
-
-    /**
-     * Enums
-     */
-
-    enum LinkCurvatureType {
-        Straight = 0,
-        HalfLineLength = 1
     }
 
     /**
@@ -107,7 +99,7 @@ declare namespace ForceGraph {
         linkColor(color?: string | LinkAccessorFn<string>): ForceGraphInstance & (string | LinkAccessorFn<string>);
         linkAutoColorBy(attribute?: string | LinkAccessorFn<string>): ForceGraphInstance & (string | LinkAccessorFn<string>);
         linkWidth(width?: number | string | LinkAccessorFn<number>): ForceGraphInstance & (number | string | LinkAccessorFn<number>);
-        linkCurvature(curvature?: LinkCurvatureType | string | LinkAccessorFn<LinkCurvatureType>): ForceGraphInstance;
+        linkCurvature(curvature?: number | string | LinkAccessorFn<number>): ForceGraphInstance;
         linkCanvasObject(callback?: LinkCanvasCallbackFn): ForceGraphInstance & LinkCanvasCallbackFn;
         linkDirectionalArrowLength(length?: number | string | LinkAccessorFn<number>): ForceGraphInstance & (number | string | LinkAccessorFn<number>);
         linkDirectionalArrowColor(color?: string | LinkAccessorFn<string>): ForceGraphInstance & (string | LinkAccessorFn<string>);

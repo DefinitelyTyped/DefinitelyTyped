@@ -368,10 +368,10 @@ interface IObjectAnimation<T> {
 	/**
 	 * Animates object's properties
 	 * object.animate({ left: ..., top: ... }, { duration: ... });
-	 * @param properties Properties to animate
-	 * @param value Options object
+	 * @param properties Properties to animate with values to animate to
+	 * @param options The animation options
 	 */
-	animate(properties: any, options?: IAnimationOptions): Object;
+	animate(properties: {[key: string]: number | string}, options?: IAnimationOptions): Object;
 }
 interface IAnimationOptions {
 	/**
@@ -3506,8 +3506,19 @@ export class Object {
 	intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Animates object's properties
+	 * object.animate('left', ..., {duration: ...});
+	 * @param property Property to animate
+	 * @param value Value to animate property
+	 * @param options The animation options
 	 */
-	animate(): Object;
+	animate(property: string, value: number | string, options?: IAnimationOptions): Object;
+	/**
+	 * Animates object's properties
+	 * object.animate({ left: ..., top: ... }, { duration: ... });
+	 * @param properties Properties to animate with values to animate to
+	 * @param options The animation options
+	 */
+	animate(properties: {[key: string]: number | string}, options?: IAnimationOptions): Object;
 	/**
 	 * Calculate and returns the .coords of an object.
 	 * @return {Object} Object with tl, tr, br, bl ....

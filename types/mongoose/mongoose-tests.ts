@@ -65,6 +65,9 @@ mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
 mongoose.set('debug', function(collectionName: any, methodName: any, arg1: any, arg2: any) {});
 mongoose.STATES.hasOwnProperty('');
+mongoose.STATES.disconnected === 0;
+mongoose.STATES.connected === 1;
+
 mongoose.connection.on('error', cb);
 new mongoose.mongo.MongoError('error').stack;
 mongoose.SchemaTypes.String;
@@ -146,6 +149,9 @@ conn1.collections['coll'].$format(999);
 conn1.readyState.toFixed();
 conn1.useDb('myDb').useDb('');
 mongoose.Connection.STATES.hasOwnProperty('');
+mongoose.Connection.STATES.disconnected === 0;
+mongoose.Connection.STATES.connected === 1;
+
 /* inherited properties */
 conn1.on('data', cb);
 conn1.addListener('close', cb);
@@ -497,6 +503,22 @@ schema
 .post('save', function (doc: mongoose.Document) {
   doc.model;
 });
+
+schema.post('insertMany', function(docs: mongoose.Document[], next: () => void) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    next();
+});
+
+schema.post('insertMany', function(error, docs: mongoose.Document[], next) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    next();
+});
+
+schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<void> {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    return;
+});
+
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
@@ -710,6 +732,7 @@ mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', time
  */
 var doc = <mongoose.MongooseDocument> {};
 doc.$isDefault('path').valueOf();
+doc.$locals.field = 'value';
 const docDotDepopulate: mongoose.MongooseDocument = doc.depopulate('path');
 doc.equals(doc).valueOf();
 doc.execPopulate().then(function (arg) {
@@ -1698,8 +1721,13 @@ MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
-MongoModel.syncIndexes({});
-MongoModel.syncIndexes({}, cb);
+MongoModel.syncIndexes().then(() => {});
+MongoModel.syncIndexes({}).then(() => {});
+MongoModel.syncIndexes(null).then(() => {});
+MongoModel.syncIndexes(undefined).then(() => {});
+MongoModel.syncIndexes({}, err => {});
+MongoModel.syncIndexes(null, err => {});
+MongoModel.syncIndexes(undefined, err => {});
 MongoModel.listIndexes();
 MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);
@@ -2068,6 +2096,9 @@ mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): v
 
 const db = mongoose.connection;
 const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+db.states.disconnected === 0;
+db.states.connected === 1;
 
 let session: mongoose.ClientSession;
 mongoose.connection.createCollection('users').

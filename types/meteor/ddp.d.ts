@@ -28,12 +28,24 @@ declare module "meteor/ddp" {
     }
 
     module DDPCommon {
+        interface MethodInvocationOptions {
+            userId: string | null;
+            setUserId?: (newUserId: string) => void;
+            isSimulation: boolean;
+            connection: Meteor.Connection;
+            randomSeed: string;
+        }
+
         interface MethodInvocation {
-            new(options: {}): MethodInvocation;
+            new(options: MethodInvocationOptions): MethodInvocation;
 
             unblock(): void;
 
-            setUserId(userId: number): void;
+            setUserId(userId: string): void;
+
+            userId: string | null;
+            isSimulation: boolean;
+            connection: Meteor.Connection;
         }
     }
 }

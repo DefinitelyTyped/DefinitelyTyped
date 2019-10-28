@@ -238,6 +238,10 @@ declare namespace Fancytree {
         span: HTMLElement;
         /** Outer element of single nodes for table extension */
         tr: HTMLTableRowElement;
+        unselectable?: boolean;
+        unselectableIgnore?: boolean;
+        unselectableStatus?: boolean;
+
         //#endregion
 
         //#region Methods

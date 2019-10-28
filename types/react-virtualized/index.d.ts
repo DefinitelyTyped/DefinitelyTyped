@@ -8,6 +8,7 @@
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Brandon Hall <https://github.com/brandonhall>
 //                 Sebastian Busch <https://github.com/sbusch>
+//                 Adam Zmenak <https://github.com/azmenak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

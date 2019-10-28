@@ -18,7 +18,7 @@ export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLEleme
 }
 
 export interface TooltipProps extends UncontrolledTooltipProps {
-  toggle?: () => void;
+  toggle?: React.MouseEventHandler<any> | (() => void);
   isOpen?: boolean;
 }
 

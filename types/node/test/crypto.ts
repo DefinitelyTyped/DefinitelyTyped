@@ -4,7 +4,8 @@ import { promisify } from 'util';
 
 {
     // crypto_hash_string_test
-    const hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');
 }
 
 {
@@ -644,4 +645,17 @@ import { promisify } from 'util';
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
     const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
+}
+
+{
+    const key = {
+        key: 'test',
+        oaepHash: 'sha1',
+        oaepLabel: Buffer.from('asd'),
+    };
+    const buf: Buffer = crypto.publicEncrypt(key, Buffer.from([]));
+    const dec: Buffer = crypto.publicDecrypt(key, buf);
+
+    const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
+    const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }

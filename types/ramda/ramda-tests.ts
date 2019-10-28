@@ -106,7 +106,7 @@ class F2 {
 
 () => {
     // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.isArrayLike, R.of);
+    const coerceArray = R.unless(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1);         // => [1]
 };
@@ -297,13 +297,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-})();
-
-(() => {
     const numbers = [1, 2, 3];
     R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
@@ -475,6 +468,29 @@ interface Obj {
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
     R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
+};
+
+() => {
+    const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+    R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+    R.move<string>(-1, 0, sampleList); // => ['f', 'a', 'b', 'c', 'd', 'e'] list rotation
+
+    const moveCurried1 = R.move(0, 2);
+    moveCurried1<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried2 = R.move(0);
+    moveCurried2<string>(2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried3 = R.move(0);
+    const moveCurried4 = moveCurried3(2);
+    moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+};
+
+() => {
+    R.none(Number.isNaN, [1, 2, 3]); // => true
+    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
+    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
 };
 
 () => {
@@ -955,6 +971,18 @@ type Pair = KeyValuePair<string, number>;
 
     const out: { must: Array<{ match_phrase: string }> } =
               matchPhrases(["foo", "bar", "baz"]);
+};
+
+() => {
+    const classyGreeting = (name: { last: string; first: string }) =>
+      `The name's ${name.last}, ${name.first} ${name.last}`;
+    const yellGreeting = R.o(R.toUpper, classyGreeting);
+    const str: string = yellGreeting({ first: 'James', last: 'Bond' });
+
+    const num: number = R.o(R.multiply(10), R.add(10))(-4);
+    const num2: number = R.o(R.multiply(10))(R.add(10))(-4);
+    const num3: number = R.o(R.multiply(10))(R.add(10), -4);
+    const num4: number = R.o(R.multiply(10), R.add(10), -4);
 };
 
 () => {

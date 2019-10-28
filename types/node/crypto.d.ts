@@ -4,7 +4,7 @@ declare module "crypto" {
     interface Certificate {
         exportChallenge(spkac: BinaryLike): Buffer;
         exportPublicKey(spkac: BinaryLike): Buffer;
-        verifySpkac(spkac: Binary): boolean;
+        verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     const Certificate: {
         new(): Certificate;
@@ -106,10 +106,18 @@ declare module "crypto" {
         const defaultCipherList: string;
     }
 
+    interface HashOptions extends stream.TransformOptions {
+        /**
+         * For XOF hash functions such as `shake256`, the
+         * outputLength option can be used to specify the desired output length in bytes.
+         */
+        outputLength?: number;
+    }
+
     /** @deprecated since v10.0.0 */
     const fips: boolean;
 
-    function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
+    function createHash(algorithm: string, options?: HashOptions): Hash;
     function createHmac(algorithm: string, key: BinaryLike, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
@@ -159,8 +167,7 @@ declare module "crypto" {
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
 
-    type Binary = NodeJS.TypedArray | DataView;
-    type BinaryLike = string | Binary;
+    type BinaryLike = string | NodeJS.ArrayBufferView;
 
     type CipherKey = BinaryLike | KeyObject;
 
@@ -197,7 +204,7 @@ declare module "crypto" {
         private constructor();
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Binary, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding | undefined, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -236,23 +243,23 @@ declare module "crypto" {
 
     class Decipher extends stream.Transform {
         private constructor();
-        update(data: Binary): Buffer;
+        update(data: NodeJS.ArrayBufferView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Binary, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        // setAuthTag(tag: Binary): this;
-        // setAAD(buffer: Binary): this;
+        // setAuthTag(tag: NodeJS.ArrayBufferView): this;
+        // setAAD(buffer: NodeJS.ArrayBufferView): this;
     }
     interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: Binary): this;
-        setAAD(buffer: Binary, options: { plaintextLength: number }): this;
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
     }
     interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: Binary): this;
-        setAAD(buffer: Binary, options?: { plaintextLength: number }): this;
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
     }
 
     interface PrivateKeyInput {
@@ -302,23 +309,23 @@ declare module "crypto" {
 
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: Object | KeyLike, signature: Binary): boolean;
+        verify(object: Object | KeyLike, signature: NodeJS.ArrayBufferView): boolean;
         verify(object: Object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
-    function createDiffieHellman(prime_length: number, generator?: number | Binary): DiffieHellman;
-    function createDiffieHellman(prime: Binary): DiffieHellman;
+    function createDiffieHellman(prime_length: number, generator?: number | NodeJS.ArrayBufferView): DiffieHellman;
+    function createDiffieHellman(prime: NodeJS.ArrayBufferView): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Binary): DiffieHellman;
+    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | NodeJS.ArrayBufferView): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
     class DiffieHellman {
         private constructor();
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
-        computeSecret(other_public_key: Binary): Buffer;
+        computeSecret(other_public_key: NodeJS.ArrayBufferView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: Binary, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: NodeJS.ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrime(): Buffer;
         getPrime(encoding: HexBase64Latin1Encoding): string;
@@ -328,9 +335,9 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
-        setPublicKey(public_key: Binary): void;
+        setPublicKey(public_key: NodeJS.ArrayBufferView): void;
         setPublicKey(public_key: string, encoding: string): void;
-        setPrivateKey(private_key: Binary): void;
+        setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
         setPrivateKey(private_key: string, encoding: string): void;
         verifyError: number;
     }
@@ -350,10 +357,10 @@ declare module "crypto" {
     function pseudoRandomBytes(size: number): Buffer;
     function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    function randomFillSync<T extends Binary>(buffer: T, offset?: number, size?: number): T;
-    function randomFill<T extends Binary>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Binary>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Binary>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
+    function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
+    function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     interface ScryptOptions {
         N?: number;
@@ -382,12 +389,17 @@ declare module "crypto" {
     interface RsaPrivateKey {
         key: KeyLike;
         passphrase?: string;
+        /**
+         * @default 'sha1'
+         */
+        oaepHash?: string;
+        oaepLabel?: NodeJS.TypedArray;
         padding?: number;
     }
-    function publicEncrypt(public_key: RsaPublicKey | KeyLike, buffer: Binary): Buffer;
-    function privateDecrypt(private_key: RsaPrivateKey | KeyLike, buffer: Binary): Buffer;
-    function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: Binary): Buffer;
-    function publicDecrypt(public_key: RsaPublicKey | KeyLike, buffer: Binary): Buffer;
+    function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
     function getHashes(): string[];
@@ -402,19 +414,19 @@ declare module "crypto" {
         ): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        computeSecret(other_public_key: Binary): Buffer;
+        computeSecret(other_public_key: NodeJS.ArrayBufferView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: Binary, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: NodeJS.ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
         getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        setPrivateKey(private_key: Binary): void;
+        setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     function createECDH(curve_name: string): ECDH;
-    function timingSafeEqual(a: Binary, b: Binary): boolean;
+    function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: string;
 
@@ -585,7 +597,7 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPrivateKey()`][].
      */
-    function sign(algorithm: string | null | undefined, data: Binary, key: KeyLike | SignPrivateKeyInput): Buffer;
+    function sign(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | SignPrivateKeyInput): Buffer;
 
     interface VerifyKeyWithOptions extends KeyObject, SigningOptions {
     }
@@ -598,5 +610,5 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPublicKey()`][].
      */
-    function verify(algorithm: string | null | undefined, data: Binary, key: KeyLike | VerifyKeyWithOptions, signature: Binary): Buffer;
+    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): Buffer;
 }

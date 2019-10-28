@@ -127,7 +127,7 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 // Omit taken from https://github.com/Microsoft/TypeScript/issues/28339#issuecomment-467220238
 export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
-export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
+export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | string[] | RouteProps, parent?: match<Params> | null): match<Params> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean | undefined }): string;
 
@@ -156,5 +156,5 @@ export function useLocation<S = H.LocationState>(): H.Location<S>;
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: string };
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
-    path?: string | RouteProps,
+    path?: string | string[] | RouteProps,
 ): match<Params> | null;

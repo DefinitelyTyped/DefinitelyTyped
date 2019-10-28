@@ -221,6 +221,10 @@ fs.write(0, new Buffer(""), 0, 0, null).then(x => {
 	const a = x.buffer;
 	const b = x.bytesWritten;
 });
+fs.write(0, new Buffer("")).then(x => {
+	const a = x.buffer;
+	const b = x.bytesWritten;
+});
 
 // $ExpectType Promise<void>
 fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });

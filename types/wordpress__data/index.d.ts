@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
 import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
@@ -34,7 +34,7 @@ export interface GenericStoreConfig {
 export interface StoreConfig<S> {
     reducer: Reducer<S>;
     actions?: {
-        [k: string]: (...args: readonly any[]) => Action | IterableIterator<any>;
+        [k: string]: (...args: readonly any[]) => Action | Generator<any>;
     };
     selectors?: {
         [k: string]: (state: S, ...args: readonly any[]) => any;
@@ -77,18 +77,19 @@ export const RegistryProvider: Provider<DataRegistry>;
 //
 export function useRegistry(): DataRegistry;
 export function useSelect<T>(mapSelect: (s: typeof select) => T, deps?: readonly any[]): T;
-export function useDispatch(storeName: string): DispatcherMap;
-export function useDispatch(): typeof dispatch;
+export const useDispatch: typeof dispatch & {
+    (): typeof dispatch;
+};
 
 //
 // React HOCs
 //
 export function withDispatch<DP, P = {}, IP = {}>(
-    mapDispatchToProps: (disp: typeof dispatch, ownProps: P & IP, registry: { select: typeof select }) => DP
+    mapDispatchToProps: (disp: typeof dispatch, ownProps: P & IP, registry: { select: typeof select }) => DP,
 ): (component: ComponentType<P & IP & DP>) => ComponentType<P>;
 
 export function withSelect<SP, P = {}, IP = {}>(
-    mapSelectToProps: (sel: typeof select, ownProps: P & IP) => SP
+    mapSelectToProps: (sel: typeof select, ownProps: P & IP) => SP,
 ): (component: ComponentType<P & IP & SP>) => ComponentType<P>;
 
 export function withRegistry<P = {}>(component: ComponentType<P>): ComponentType<P & { registry: DataRegistry }>;
@@ -112,10 +113,10 @@ export function use<T>(plugin: Plugin<T>, options: T): DataRegistry;
 //
 // TODO: This is probably not completely accurate. Someone else can fix this if they need it. It's not used very much.
 export function createRegistrySelector<S extends typeof select, T>(
-    registrySelector: (select: S) => (state: any, ...args: any[]) => T
+    registrySelector: (select: S) => (state: any, ...args: any[]) => T,
 ): S;
 
 // TODO: This is probably not completely accurate. Someone else can fix this if they need it. It's not used very much.
 export function createRegistryControl<R extends DataRegistry, T>(
-    registryControl: (registry: R) => (args: { [k: string]: any }) => T
+    registryControl: (registry: R) => (args: { [k: string]: any }) => T,
 ): R;
