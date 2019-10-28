@@ -64,3 +64,11 @@ export {
     SplitOperation,
     Variable,
 } from './lib/core/GraphQLIR';
+
+export {
+    EnumTypeID,
+    FieldID,
+    ScalarTypeID,
+    Schema,
+    TypeID,
+} from './lib/core/Schema';
