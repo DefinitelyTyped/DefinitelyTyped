@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "adal-node": "^0.1.28"
+    }
+}

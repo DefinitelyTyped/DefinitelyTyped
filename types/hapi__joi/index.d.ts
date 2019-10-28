@@ -351,7 +351,7 @@ declare namespace Joi {
         /**
          * Validate the domain component using the options specified in `string.domain()`.
          */
-        domain?: boolean;
+        domain?: DomainOptions;
     }
 
     interface DataUriOptions {

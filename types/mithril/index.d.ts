@@ -1,6 +1,6 @@
 // Type definitions for Mithril 2.0
 // Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
-// Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
+// Definitions by: Mike Linkovich <https://github.com/spacejack>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -292,6 +292,201 @@ declare namespace Mithril {
 		/** Any other virtual element properties, including attributes and event handlers. */
 		[property: string]: any;
 	}
+}
+
+declare global {
+    namespace JSX {
+        // tslint:disable-next-line:no-empty-interface
+        interface Element extends Mithril.Vnode { }
+
+        // tslint:disable-next-line:no-empty-interface
+        interface IntrinsicAttributes extends Mithril.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
+        interface IntrinsicClassAttributes extends Mithril.Attributes { }
+
+        interface IntrinsicElements {
+            // HTML
+            a: Mithril.Attributes;
+            abbr: Mithril.Attributes;
+            address: Mithril.Attributes;
+            area: Mithril.Attributes;
+            article: Mithril.Attributes;
+            aside: Mithril.Attributes;
+            audio: Mithril.Attributes;
+            b: Mithril.Attributes;
+            base: Mithril.Attributes;
+            bdi: Mithril.Attributes;
+            bdo: Mithril.Attributes;
+            big: Mithril.Attributes;
+            blockquote: Mithril.Attributes;
+            body: Mithril.Attributes;
+            br: Mithril.Attributes;
+            button: Mithril.Attributes;
+            canvas: Mithril.Attributes;
+            caption: Mithril.Attributes;
+            cite: Mithril.Attributes;
+            code: Mithril.Attributes;
+            col: Mithril.Attributes;
+            colgroup: Mithril.Attributes;
+            data: Mithril.Attributes;
+            datalist: Mithril.Attributes;
+            dd: Mithril.Attributes;
+            del: Mithril.Attributes;
+            details: Mithril.Attributes;
+            dfn: Mithril.Attributes;
+            dialog: Mithril.Attributes;
+            div: Mithril.Attributes;
+            dl: Mithril.Attributes;
+            dt: Mithril.Attributes;
+            em: Mithril.Attributes;
+            embed: Mithril.Attributes;
+            fieldset: Mithril.Attributes;
+            figcaption: Mithril.Attributes;
+            figure: Mithril.Attributes;
+            footer: Mithril.Attributes;
+            form: Mithril.Attributes;
+            h1: Mithril.Attributes;
+            h2: Mithril.Attributes;
+            h3: Mithril.Attributes;
+            h4: Mithril.Attributes;
+            h5: Mithril.Attributes;
+            h6: Mithril.Attributes;
+            head: Mithril.Attributes;
+            header: Mithril.Attributes;
+            hgroup: Mithril.Attributes;
+            hr: Mithril.Attributes;
+            html: Mithril.Attributes;
+            i: Mithril.Attributes;
+            iframe: Mithril.Attributes;
+            img: Mithril.Attributes;
+            input: Mithril.Attributes;
+            ins: Mithril.Attributes;
+            kbd: Mithril.Attributes;
+            keygen: Mithril.Attributes;
+            label: Mithril.Attributes;
+            legend: Mithril.Attributes;
+            li: Mithril.Attributes;
+            link: Mithril.Attributes;
+            main: Mithril.Attributes;
+            map: Mithril.Attributes;
+            mark: Mithril.Attributes;
+            menu: Mithril.Attributes;
+            menuitem: Mithril.Attributes;
+            meta: Mithril.Attributes;
+            meter: Mithril.Attributes;
+            nav: Mithril.Attributes;
+            noindex: Mithril.Attributes;
+            noscript: Mithril.Attributes;
+            object: Mithril.Attributes;
+            ol: Mithril.Attributes;
+            optgroup: Mithril.Attributes;
+            option: Mithril.Attributes;
+            output: Mithril.Attributes;
+            p: Mithril.Attributes;
+            param: Mithril.Attributes;
+            picture: Mithril.Attributes;
+            pre: Mithril.Attributes;
+            progress: Mithril.Attributes;
+            q: Mithril.Attributes;
+            rp: Mithril.Attributes;
+            rt: Mithril.Attributes;
+            ruby: Mithril.Attributes;
+            s: Mithril.Attributes;
+            samp: Mithril.Attributes;
+            script: Mithril.Attributes;
+            section: Mithril.Attributes;
+            select: Mithril.Attributes;
+            small: Mithril.Attributes;
+            source: Mithril.Attributes;
+            span: Mithril.Attributes;
+            strong: Mithril.Attributes;
+            style: Mithril.Attributes;
+            sub: Mithril.Attributes;
+            summary: Mithril.Attributes;
+            sup: Mithril.Attributes;
+            table: Mithril.Attributes;
+            template: Mithril.Attributes;
+            tbody: Mithril.Attributes;
+            td: Mithril.Attributes;
+            textarea: Mithril.Attributes;
+            tfoot: Mithril.Attributes;
+            th: Mithril.Attributes;
+            thead: Mithril.Attributes;
+            time: Mithril.Attributes;
+            title: Mithril.Attributes;
+            tr: Mithril.Attributes;
+            track: Mithril.Attributes;
+            u: Mithril.Attributes;
+            ul: Mithril.Attributes;
+            "var": Mithril.Attributes;
+            video: Mithril.Attributes;
+            wbr: Mithril.Attributes;
+            webview: Mithril.Attributes;
+
+            // SVG
+            svg: Mithril.Attributes;
+            animate: Mithril.Attributes;
+            animateMotion: Mithril.Attributes;
+            animateTransform: Mithril.Attributes;
+            circle: Mithril.Attributes;
+            clipPath: Mithril.Attributes;
+            defs: Mithril.Attributes;
+            desc: Mithril.Attributes;
+            ellipse: Mithril.Attributes;
+            feBlend: Mithril.Attributes;
+            feColorMatrix: Mithril.Attributes;
+            feComponentTransfer: Mithril.Attributes;
+            feComposite: Mithril.Attributes;
+            feConvolveMatrix: Mithril.Attributes;
+            feDiffuseLighting: Mithril.Attributes;
+            feDisplacementMap: Mithril.Attributes;
+            feDistantLight: Mithril.Attributes;
+            feDropShadow: Mithril.Attributes;
+            feFlood: Mithril.Attributes;
+            feFuncA: Mithril.Attributes;
+            feFuncB: Mithril.Attributes;
+            feFuncG: Mithril.Attributes;
+            feFuncR: Mithril.Attributes;
+            feGaussianBlur: Mithril.Attributes;
+            feImage: Mithril.Attributes;
+            feMerge: Mithril.Attributes;
+            feMergeNode: Mithril.Attributes;
+            feMorphology: Mithril.Attributes;
+            feOffset: Mithril.Attributes;
+            fePointLight: Mithril.Attributes;
+            feSpecularLighting: Mithril.Attributes;
+            feSpotLight: Mithril.Attributes;
+            feTile: Mithril.Attributes;
+            feTurbulence: Mithril.Attributes;
+            filter: Mithril.Attributes;
+            foreignObject: Mithril.Attributes;
+            g: Mithril.Attributes;
+            image: Mithril.Attributes;
+            line: Mithril.Attributes;
+            linearGradient: Mithril.Attributes;
+            marker: Mithril.Attributes;
+            mask: Mithril.Attributes;
+            metadata: Mithril.Attributes;
+            mpath: Mithril.Attributes;
+            path: Mithril.Attributes;
+            pattern: Mithril.Attributes;
+            polygon: Mithril.Attributes;
+            polyline: Mithril.Attributes;
+            radialGradient: Mithril.Attributes;
+            rect: Mithril.Attributes;
+            stop: Mithril.Attributes;
+            switch: Mithril.Attributes;
+            symbol: Mithril.Attributes;
+            text: Mithril.Attributes;
+            textPath: Mithril.Attributes;
+            tspan: Mithril.Attributes;
+            use: Mithril.Attributes;
+            view: Mithril.Attributes;
+
+            // Special Mithril types
+            '[': Mithril.Attributes;
+        }
+    }
 }
 
 declare const Mithril: Mithril.Static;

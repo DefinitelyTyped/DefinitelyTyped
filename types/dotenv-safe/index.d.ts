@@ -2,6 +2,7 @@
 // Project: https://github.com/rolodato/dotenv-safe
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import env = require("dotenv")
 

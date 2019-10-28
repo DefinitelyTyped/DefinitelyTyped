@@ -1434,6 +1434,8 @@ declare namespace mapboxgl {
         touchcancel: MapLayerTouchEvent;
     }
 
+    export type AnyLayout = BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+
     export interface Layer {
         id: string;
         type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
@@ -1451,7 +1453,7 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
-        layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+        layout?: AnyLayout;
         paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
     }
 
@@ -1535,8 +1537,13 @@ declare namespace mapboxgl {
         'colorSpace'?: 'rgb' | 'lab' | 'hcl';
     }
 
-    export interface BackgroundLayout {
-        visibility?: 'visible' | 'none';
+    type Visibility = 'visible' | 'none';
+
+    export interface Layout {
+        visibility?: Visibility;
+    }
+
+    export interface BackgroundLayout extends Layout {
     }
 
     export interface BackgroundPaint {
@@ -1548,8 +1555,7 @@ declare namespace mapboxgl {
         'background-opacity-transition'?: Transition;
     }
 
-    export interface FillLayout {
-        visibility?: 'visible' | 'none';
+    export interface FillLayout extends Layout {
     }
 
     export interface FillPaint {
@@ -1567,8 +1573,7 @@ declare namespace mapboxgl {
         'fill-pattern-transition'?: Transition;
     }
 
-    export interface FillExtrusionLayout {
-        visibility?: 'visible' | 'none';
+    export interface FillExtrusionLayout extends Layout {
     }
 
     export interface FillExtrusionPaint {
@@ -1588,9 +1593,7 @@ declare namespace mapboxgl {
         'fill-extrusion-vertical-gradient'?: boolean;
     }
 
-    export interface LineLayout {
-        visibility?: 'visible' | 'none';
-
+    export interface LineLayout extends Layout {
         'line-cap'?: 'butt' | 'round' | 'square';
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
@@ -1620,9 +1623,7 @@ declare namespace mapboxgl {
         'line-gradient'?: Expression;
     }
 
-    export interface SymbolLayout {
-        visibility?: 'visible' | 'none';
-
+    export interface SymbolLayout extends Layout {
         'symbol-placement'?: 'point' | 'line' | 'line-center';
         'symbol-spacing'?: number | Expression;
         'symbol-avoid-edges'?: boolean;
@@ -1691,8 +1692,7 @@ declare namespace mapboxgl {
         'text-translate-anchor'?: 'map' | 'viewport';
     }
 
-    export interface RasterLayout {
-        visibility?: 'visible' | 'none';
+    export interface RasterLayout extends Layout {
     }
 
     export interface RasterPaint {
@@ -1712,8 +1712,7 @@ declare namespace mapboxgl {
         'raster-resample'?: 'linear' | 'nearest';
     }
 
-    export interface CircleLayout {
-        visibility?: 'visible' | 'none';
+    export interface CircleLayout extends Layout {
     }
 
     export interface CirclePaint {
@@ -1738,8 +1737,7 @@ declare namespace mapboxgl {
         'circle-stroke-opacity-transition'?: Transition;
     }
 
-    export interface HeatmapLayout {
-        visibility?: 'visible' | 'none';
+    export interface HeatmapLayout extends Layout {
     }
 
     export interface HeatmapPaint {
@@ -1753,8 +1751,7 @@ declare namespace mapboxgl {
         'heatmap-opacity-transition'?: Transition;
     }
 
-    export interface HillshadeLayout {
-        visibility?: 'visible' | 'none';
+    export interface HillshadeLayout extends Layout {
     }
 
     export interface HillshadePaint {

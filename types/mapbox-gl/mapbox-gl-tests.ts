@@ -1018,3 +1018,16 @@ expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'prope
  */
 expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
 expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
+
+/*
+ * Visibility
+ */
+expectType<mapboxgl.Visibility>('visible');
+expectType<mapboxgl.Visibility>('none');
+
+/*
+ * AnyLayout
+*/
+expectType<mapboxgl.AnyLayout>({visibility: 'none'});
+expectType<mapboxgl.AnyLayout>({visibility: 'none', 'line-cap': 'round' });
+expectType<mapboxgl.AnyLayout>({visibility: 'visible', 'icon-allow-overlap': true });

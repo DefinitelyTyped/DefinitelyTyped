@@ -1,4 +1,4 @@
-// Type definitions for react-native-material-textfield 0.12
+// Type definitions for react-native-material-textfield 0.15
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
@@ -14,15 +14,18 @@ import {
     View
 } from 'react-native';
 
+export interface ContentInset {
+    top?: number;
+    label?: number;
+    input?: number;
+}
+
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
 
     fontSize?: number;
-    titleFontSize?: number;
     labelFontSize?: number;
-    labelHeight?: number;
-    labelPadding?: number;
-    inputContainerPadding?: number;
+    contentInset?: ContentInset;
 
     style?: StyleProp<TextStyle>;
     labelTextStyle?: StyleProp<TextStyle>;

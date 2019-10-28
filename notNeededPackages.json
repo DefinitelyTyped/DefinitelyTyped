@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "actions-on-google",
+            "typingsPackageName": "actions-on-google",
+            "sourceRepoURL": "https://github.com/actions-on-google/actions-on-google-nodejs",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "active-win",
             "typingsPackageName": "active-win",
             "sourceRepoURL": "https://github.com/sindresorhus/active-win",
@@ -751,6 +757,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "dotenv",
+            "typingsPackageName": "dotenv",
+            "sourceRepoURL": "https://github.com/motdotla/dotenv",
+            "asOfVersion": "8.2.0"
+        },
+        {
             "libraryName": "dva",
             "typingsPackageName": "dva",
             "sourceRepoURL": "https://github.com/dvajs/dva",
@@ -953,6 +965,12 @@
             "typingsPackageName": "exit-hook",
             "sourceRepoURL": "https://github.com/sindresorhus/exit-hook",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "expo",
+            "typingsPackageName": "expo",
+            "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
+            "asOfVersion": "33.0.0"
         },
         {
             "libraryName": "expr-eval",
@@ -2119,6 +2137,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mockingoose",
+            "typingsPackageName": "mockingoose",
+            "sourceRepoURL": "https://github.com/alonronin/mockingoose#readme",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -2269,6 +2293,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "o.js",
+            "typingsPackageName": "o.js",
+            "sourceRepoURL": "https://github.com/janhommes/o.js",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "on-change",
             "typingsPackageName": "on-change",
             "sourceRepoURL": "https://github.com/sindresorhus/on-change",
@@ -2327,6 +2357,12 @@
             "typingsPackageName": "os-name",
             "sourceRepoURL": "https://github.com/sindresorhus/os-name",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "otplib",
+            "typingsPackageName": "otplib",
+            "sourceRepoURL": "https://github.com/yeojz/otplib",
+            "asOfVersion": "10.0.0"
         },
         {
             "libraryName": "p-all",
@@ -3001,6 +3037,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-navigation-material-bottom-tabs",
+            "typingsPackageName": "react-navigation-material-bottom-tabs",
+            "sourceRepoURL": "https://github.com/react-navigation/material-bottom-tabs",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
@@ -3227,6 +3269,12 @@
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "rword",
+            "typingsPackageName": "rword",
+            "sourceRepoURL": "https://github.com/Xyfir/rword#readme",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "samchon",

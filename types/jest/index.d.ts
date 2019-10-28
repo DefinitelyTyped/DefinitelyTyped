@@ -23,6 +23,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
+//                 Tony Hallett <https://github.com/tonyhallett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -396,8 +397,9 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
-        readonly expand: boolean;
         readonly isNot: boolean;
+        readonly dontThrow: () => void;
+        readonly promise: string;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
             readonly RECEIVED_COLOR: (text: string) => string;
@@ -426,21 +428,23 @@ declare namespace jest {
          *  This is a deep-equality function that will return true if two objects have the same values (recursively).
          */
         equals(a: any, b: any): boolean;
+        [other: string]: any;
     }
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
     }
 
+    type MatcherContext = MatcherUtils & Readonly<MatcherState>;
     type CustomMatcher = (
-        this: MatcherUtils,
+        this: MatcherContext,
         received: any,
         ...actual: any[]
     ) => CustomMatcherResult | Promise<CustomMatcherResult>;
 
     interface CustomMatcherResult {
         pass: boolean;
-        message: string | (() => string);
+        message: () => string;
     }
 
     interface SnapshotSerializerOptions {
@@ -516,7 +520,15 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-
+    interface MatcherState {
+        assertionCalls: number;
+        currentTestName: string;
+        expand: boolean;
+        expectedAssertionsNumber: number;
+        isExpectingAssertions?: boolean;
+        suppressedErrors: Error[];
+        testPath: string;
+    }
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -528,7 +540,7 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
-        <T = any>(actual: T): Matchers<T>;
+        <T = any>(actual: T): JestMatchers<T>;
         /**
          * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
@@ -601,9 +613,30 @@ declare namespace jest {
         stringContaining(str: string): any;
 
         not: InverseAsymmetricMatchers;
+
+        setState(state: object): void;
+        getState(): MatcherState & Record<string, any>;
     }
 
-    interface Matchers<R> {
+    type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, T>>;
+
+    type JestMatchersShape<TNonPromise extends {} = {}, TPromise extends {} = {}> = {
+        /**
+         * Use resolves to unwrap the value of a fulfilled promise so any other
+         * matcher can be chained. If the promise is rejected the assertion fails.
+         */
+        resolves: AndNot<TPromise>,
+        /**
+         * Unwraps the reason of a rejected promise so any other matcher can be chained.
+         * If the promise is fulfilled the assertion fails.
+         */
+        rejects: AndNot<TPromise>
+    } & AndNot<TNonPromise>;
+    type AndNot<T> = T & {
+        not: T
+    };
+    // should be R extends void|Promise<void> but getting dtslint error
+    interface Matchers<R, T> {
         /**
          * Ensures the last call to a mock function was provided specific args.
          */
@@ -613,10 +646,6 @@ declare namespace jest {
          */
         lastReturnedWith(value: any): R;
         /**
-         * If you know how to test something, `.not` lets you test its opposite.
-         */
-        not: Matchers<R>;
-        /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          */
         nthCalledWith(nthCall: number, ...params: any[]): R;
@@ -624,16 +653,6 @@ declare namespace jest {
          * Ensure that the nth call to a mock function has returned a specified value.
          */
         nthReturnedWith(n: number, value: any): R;
-        /**
-         * Use resolves to unwrap the value of a fulfilled promise so any other
-         * matcher can be chained. If the promise is rejected the assertion fails.
-         */
-        resolves: Matchers<Promise<R>>;
-        /**
-         * Unwraps the reason of a rejected promise so any other matcher can be chained.
-         * If the promise is fulfilled the assertion fails.
-         */
-        rejects: Matchers<Promise<R>>;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -816,7 +835,7 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -827,7 +846,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
@@ -868,6 +887,47 @@ declare namespace jest {
          */
         toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
+
+    type RemoveFirstFromTuple<T extends any[]> =
+    T['length'] extends 0 ? [] :
+        (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
+
+    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
+
+    interface AsymmetricMatcher {
+        asymmetricMatch(other: unknown): boolean;
+    }
+    type NonAsyncMatchers<TMatchers extends ExpectExtendMap> = {
+        [K in keyof TMatchers]: ReturnType<TMatchers[K]> extends Promise<CustomMatcherResult>? never: K
+    }[keyof TMatchers];
+    type CustomAsyncMatchers<TMatchers extends ExpectExtendMap> = {[K in NonAsyncMatchers<TMatchers>]: CustomAsymmetricMatcher<TMatchers[K]>};
+    type CustomAsymmetricMatcher<TMatcher extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => AsymmetricMatcher;
+
+    // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
+    type CustomJestMatcher<TMatcher extends (...args: any[]) => any, TMatcherReturn> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => TMatcherReturn;
+
+    type ExpectProperties= {
+        [K in keyof Expect]: Expect[K]
+    };
+    // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
+    // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
+    // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
+    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<TMatcherReturn, TActual> & {[K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn>};
+    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
+
+    // when have called expect.extend
+    type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(actual: TActual) => JestExtendedMatchers<TMatchers, TActual>;
+
+    type ExtendedExpect<TMatchers extends ExpectExtendMap>=
+    ExpectProperties &
+    AndNot<CustomAsyncMatchers<TMatchers>> &
+    ExtendedExpectFunction<TMatchers>;
+    /**
+     * Construct a type with the properties of T except for those in type K.
+     */
+    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+    type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, 'resolves' | 'rejects' | 'not'>;
+    type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
 
     interface Constructable {
         new (...args: any[]): any;

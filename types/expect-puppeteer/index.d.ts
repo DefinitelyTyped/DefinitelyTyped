@@ -51,7 +51,7 @@ interface ExpectPuppeteer {
 declare global {
     namespace jest {
         // tslint:disable-next-line no-empty-interface
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             // These must all match the ExpectPuppeteer interface above.
             // We can't extend from it directly because some method names conflict in type-incompatible ways.
             toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;

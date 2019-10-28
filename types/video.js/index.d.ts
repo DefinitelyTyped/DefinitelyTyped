@@ -1,4 +1,4 @@
-// Type definitions for Video.js 7.2
+// Type definitions for Video.js 7.3
 // Project: https://github.com/videojs/video.js, https://videojs.com
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
@@ -10,6 +10,7 @@
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
+//                 KuanYu Chu <https://github.com/ckybonist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -2921,6 +2922,14 @@ declare namespace videojs {
 		 *           One or more messages or objects that should be logged.
 		 */
 		(...args: any[]): void;
+
+		/**
+		 * Make a new module or plugin and log messages with a label.
+		 * It takes a name and gives you back a log object like videojs.log
+		 *
+		 * @param label
+		 */
+		createLogger: (label: string) => Log;
 
 		/**
 		 * Logs debug messages. Similar to `console.debug`, but may also act as a comparable
@@ -6710,7 +6719,7 @@ declare namespace videojs {
         nativeControlsForTouch?: boolean;
         notSupportedMessage?: string;
         playbackRates?: number[];
-        plugins?: any;
+        plugins?: Partial<VideoJsPlayerPluginOptions>;
         poster?: string;
         preload?: string;
         sourceOrder?: boolean;
@@ -6719,4 +6728,8 @@ declare namespace videojs {
         techOrder?: string[];
         tracks?: videojs.TextTrackOptions[];
         width?: number;
+    }
+
+    export interface VideoJsPlayerPluginOptions {
+        [pluginName: string]: any;
     }
