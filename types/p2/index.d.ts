@@ -1,6 +1,6 @@
 // Type definitions for p2.js v0.7.1
 // Project: https://github.com/schteppe/p2.js/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Janne Ramstedt <https://github.com/jramstedt>
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Janne Ramstedt <https://github.com/jramstedt>, Alex Brown <https://github.com/JellyAlex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = p2;
@@ -161,7 +161,7 @@ declare namespace p2 {
 
     export class DistanceConstraint extends Constraint {
 
-        constructor(bodyA: Body, bodyB: Body, type: number, options?: DistanceConstraintOptions);
+        constructor(bodyA: Body, bodyB: Body, options?: DistanceConstraintOptions);
 
         localAnchorA: [number, number];
         localAnchorB: [number, number];
@@ -210,7 +210,7 @@ declare namespace p2 {
 
     export class LockConstraint extends Constraint {
 
-        constructor(bodyA: Body, bodyB: Body, type: number, options?: LockConstraintOptions);
+        constructor(bodyA: Body, bodyB: Body, options?: LockConstraintOptions);
 
         setMaxForce(force: number): void;
         getMaxForce(): number;
@@ -267,7 +267,7 @@ declare namespace p2 {
 
     export class RevoluteConstraint extends Constraint {
 
-        constructor(bodyA: Body, bodyB: Body, type: number, options?: RevoluteConstraintOptions);
+        constructor(bodyA: Body, bodyB: Body, options?: RevoluteConstraintOptions);
 
         angle: number;
         lowerLimitEnabled: boolean;
@@ -308,7 +308,7 @@ declare namespace p2 {
         constructor(bodyA: Body, bodyB: Body, type: number, options?: ConstraintOptions);
 
         type: number;
-        equeations: Equation[];
+        equations: Equation[];
         bodyA: Body;
         bodyB: Body;
         collideConnected: boolean;
