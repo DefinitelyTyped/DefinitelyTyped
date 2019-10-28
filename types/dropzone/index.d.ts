@@ -1,4 +1,4 @@
-// Type definitions for Dropzone 5.0.0
+// Type definitions for Dropzone 5.5.0
 // Project: http://www.dropzonejs.com/
 // Definitions by: Natan Vivo <https://github.com/nvivo>
 //                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
@@ -8,6 +8,7 @@
 //                 Ted Bicknell <https://github.com/tedbcsgpro>
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
 //                 PikachuEXE <https://github.com/PikachuEXE>
+//                 Arne Deruwe <https://github.com/arnederuwe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

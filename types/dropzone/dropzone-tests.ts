@@ -1,6 +1,6 @@
 const dropzoneFromString = new Dropzone('.test');
 const dropzoneFromElement = new Dropzone(document.getElementById('test'));
-const dropzoneRenameFunction = function(name: string): string {
+const dropzoneRenameFunction = (name: string): string => {
     return name + 'new';
 };
 
@@ -164,7 +164,7 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 });
 
 dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile, response: Object) => console.log(file, response),
+    success: (file: Dropzone.DropzoneFile, response: object) => console.log(file, response),
 });
 dropzoneWithOptionsVariations = new Dropzone('.test', {
     success: (file: Dropzone.DropzoneFile, response: string) => console.log(file, response),
@@ -281,7 +281,7 @@ dropzone.resizeImage(firstFile);
 dropzone.resizeImage(firstFile, 120);
 dropzone.resizeImage(firstFile, 120, 120);
 dropzone.resizeImage(firstFile, 120, 120, 'contain');
-dropzone.resizeImage(firstFile, 120, 120, 'contain', function() {});
+dropzone.resizeImage(firstFile, 120, 120, 'contain', () => {});
 
 document.createElement('div').dropzone;
 
