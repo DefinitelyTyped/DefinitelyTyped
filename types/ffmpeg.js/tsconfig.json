@@ -20,7 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "ffmpeg.js-tests.ts",
-        "ffmpeg.js-direct-tests.ts"
+        "test/ffmpeg.js-tests.ts",
+        "test/ffmpeg.js-direct-tests.ts"
     ]
 }
