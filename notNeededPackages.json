@@ -2215,6 +2215,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "morphdom",
+            "typingsPackageName": "morphdom",
+            "sourceRepoURL": "https://github.com/patrick-steele-idem/morphdom",
+            "asOfVersion": "2.4.0"
+        },
+        {
             "libraryName": "move-file",
             "typingsPackageName": "move-file",
             "sourceRepoURL": "https://github.com/sindresorhus/move-file",
