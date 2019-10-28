@@ -443,8 +443,8 @@ declare namespace CodeMirror {
         off(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** Fired after a key is handled through a key map. name is the name of the handled key (for example "Ctrl-X" or "'q'"), and event is the DOM keydown or keypress event. */
-        on(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: Event) => void ): void;
-        off(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: Event) => void ): void;
+        on(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: KeyboardEvent) => void ): void;
+        off(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: KeyboardEvent) => void ): void;
 
         /** Fired whenever new input is read from the hidden textarea (typed or pasted by the user). */
         on(eventName: 'inputRead', handler: (instance: CodeMirror.Editor, changeObj: EditorChange) => void ): void;
@@ -471,15 +471,15 @@ declare namespace CodeMirror {
         /** Fires when the editor gutter (the line-number area) is clicked. Will pass the editor instance as first argument,
         the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
         and the raw mousedown event object as fourth argument. */
-        on(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: Event) => void ): void;
-        off(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: Event) => void ): void;
+        on(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: MouseEvent) => void ): void;
+        off(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: MouseEvent) => void ): void;
 
         /** Fires when the editor gutter (the line-number area) receives a contextmenu event. Will pass the editor instance as first argument,
         the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
         and the raw contextmenu mouse event object as fourth argument. You can preventDefault the event, to signal that CodeMirror should do no
         further handling. */
-        on(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: Event) => void ): void;
-        off(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: Event) => void ): void;
+        on(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: MouseEvent) => void ): void;
+        off(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: MouseEvent) => void ): void;
 
         /** Fires whenever the editor is focused. */
         on(eventName: 'focus', handler: (instance: CodeMirror.Editor) => void ): void;
@@ -985,7 +985,7 @@ declare namespace CodeMirror {
         /** When given , this will be called when the editor is handling a dragenter , dragover , or drop event.
         It will be passed the editor instance and the event object as arguments.
         The callback can choose to handle the event itself , in which case it should return true to indicate that CodeMirror should not do anything further. */
-        onDragEvent?: (instance: CodeMirror.Editor, event: Event) => boolean;
+        onDragEvent?: (instance: CodeMirror.Editor, event: DragEvent) => boolean;
 
         /** This provides a rather low - level hook into CodeMirror's key handling.
         If provided, this function will be called on every keydown, keyup, and keypress event that CodeMirror captures.
@@ -997,7 +997,7 @@ declare namespace CodeMirror {
         Be wary that, on some browsers, stopping a keydown does not stop the keypress from firing, whereas on others it does.
         If you respond to an event, you should probably inspect its type property and only do something when it is keydown
         (or keypress for actions that need character data). */
-        onKeyEvent?: (instance: CodeMirror.Editor, event: Event) => boolean;
+        onKeyEvent?: (instance: CodeMirror.Editor, event: KeyboardEvent) => boolean;
 
         /** Half - period in milliseconds used for cursor blinking. The default blink rate is 530ms. */
         cursorBlinkRate?: number;
