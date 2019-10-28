@@ -76,6 +76,8 @@ export interface AuthorizationTokenConfig {
     code: AuthorizationCode;
     /** A string that represents the callback uri */
     redirect_uri: string;
+    /** also can be an array of multiple scopes, ex. ['<scope1>, '<scope2>', '...'] **/
+    scope: string;
 }
 
 export interface PasswordTokenConfig {
