@@ -94,6 +94,29 @@ export interface ClientCredentialTokenConfig {
     scope?: string | string[];
 }
 
+interface WreckHttpOptions {
+    baseUrl?: string;
+    socketPath? : string;
+    payload?: any;
+    headers?: { [key: string]: any };
+    redirects?: number;
+    redirect303?: boolean;
+    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
+    redirected?: (statusCode: number, location: string, req: http.ClientRequest) => void;
+    timeout?: number;
+    maxBytes?: number;
+    rejectUnauthorized?: boolean;
+    downstreamRes?: any;
+    agent?: WreckObject["agents"] | false;
+    secureProtocol?: string;
+    ciphers?: string;
+    events?: boolean;
+    timeout?: number;
+    json?: true | "strict" | "force";
+    gunzip?: boolean | "force";
+    maxBytes?: number;
+}
+
 export interface OAuthClient<ClientIdName extends string = 'client_id'> {
     authorizationCode: {
         /**
@@ -115,21 +138,21 @@ export interface OAuthClient<ClientIdName extends string = 'client_id'> {
         ): string,
 
         /** Returns the Access Token object */
-        getToken(params: AuthorizationTokenConfig, httpOptions?: any): Promise<Token>;
+        getToken(params: AuthorizationTokenConfig, httpOptions?: WreckHttpOptions): Promise<Token>;
     };
 
     ownerPassword: {
         /** Returns the Access Token Object */
-        getToken(params: PasswordTokenConfig): Promise<Token>;
+        getToken(params: PasswordTokenConfig, httpOptions?: WreckHttpOptions): Promise<Token>;
     };
 
     clientCredentials: {
         /** Returns the Access Token Object */
-        getToken(params: ClientCredentialTokenConfig): Promise<Token>;
+        getToken(params: ClientCredentialTokenConfig, httpOptions?: WreckHttpOptions): Promise<Token>;
     };
 
     accessToken: {
         /** Creates an OAuth2.AccessToken instance */
-        create(tokenToUse: Token): AccessToken;
+        create(tokenToUse: Token, httpOptions?: WreckHttpOptions): AccessToken;
     };
 }
