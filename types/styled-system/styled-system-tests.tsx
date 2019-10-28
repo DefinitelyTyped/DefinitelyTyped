@@ -260,7 +260,7 @@ const test = () => (
         <Flex flexWrap={{ sm: 'wrap' }} />
         // flexShrink
         <Flex flexShrink={0} />
-        // flexShrink
+        // flexGrow
         <Flex flexGrow={0} />
         // flexBasis
         <Flex flexBasis="auto" />
