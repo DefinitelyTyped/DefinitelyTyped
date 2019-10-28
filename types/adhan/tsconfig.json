@@ -6,7 +6,8 @@
         "strictFunctionTypes": true,
         "esModuleInterop": true,
         "module": "commonjs",
-        "noEmit": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts", "adhan-tests.ts"
