@@ -1,7 +1,7 @@
 // import adhan from 'adhan';
 
 // Get coordinates
-const coordinates = Adhan.Coordinates(35.78056, -78.6389);
+const coordinates = new Adhan.Coordinates(35.78056, -78.6389);
 // Get date right now
 const date = new Date();
 // Calculation paramaters
