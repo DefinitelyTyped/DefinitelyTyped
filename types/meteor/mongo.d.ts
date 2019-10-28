@@ -117,6 +117,7 @@ declare module "meteor/mongo" {
             $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
         }
 
+        type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
 
         interface SortSpecifier { }
         interface FieldSpecifier {
@@ -161,7 +162,7 @@ declare module "meteor/mongo" {
                 reactive?: boolean;
                 transform?: Function | null;
             }): T | undefined;
-            insert(doc: T, callback?: Function): string;
+            insert(doc: OptionalId<T>, callback?: Function): string;
             rawCollection(): any;
             rawDatabase(): any;
             remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
