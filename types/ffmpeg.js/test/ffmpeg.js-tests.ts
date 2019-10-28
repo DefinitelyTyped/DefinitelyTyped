@@ -13,7 +13,7 @@ ffmpeg({
     arguments: ["-version"],
     print: (data: string) => { stdout += data + "\n"; },
     printErr: (data: string) => { stderr += data + "\n"; },
-    onExit: (code: unknown) => {},
+    onExit: () => {},
 });
 
 ffmpeg({
