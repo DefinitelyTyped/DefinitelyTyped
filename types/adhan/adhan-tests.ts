@@ -14,4 +14,4 @@ param.adjustments.dhuhr = 4;
 // Get prayertimes
 const prayerTimes = new adhan.PrayerTimes(coordinates, date, param);
 adhan.Date.formattedTime(prayerTimes.fajr);
-adhan.Date.formattedTime(prayerTimes.asr, 20, '24h')
+adhan.Date.formattedTime(prayerTimes.asr, 20, '24h');
