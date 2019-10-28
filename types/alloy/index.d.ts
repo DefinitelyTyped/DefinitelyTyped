@@ -8,10 +8,6 @@
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
-type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
-type Dictionary<T> = Partial<NonFunctionProperties<T>>;
-
 interface JQueryStatic extends AlloyController {
 }
 
@@ -25,7 +21,7 @@ interface AlloyController extends Backbone.Model {
    * @param classes Array or space-separated list of classes to apply.
    * @param opts Dictionary of properties to apply after classes have been added.
    */
-  addClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Dictionary<T>): void;
+  addClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
   /**
    * Adds a tracked event listeners to a view proxy object. By default, any event listener declared in XML is tracked by Alloy.
@@ -43,7 +39,7 @@ interface AlloyController extends Backbone.Model {
    * @param opts Dictionary of styles to apply.
    * @returns Dictionary of properties that can be passed to a view factory function or applyProperties().
    */
-  createStyle<T extends Titanium.Proxy>(opts: any): Dictionary<T>;
+  createStyle<T extends Titanium.Proxy>(opts: any): Partial<T>;
 
   destroy(): void;
 
@@ -72,7 +68,7 @@ interface AlloyController extends Backbone.Model {
    * @param classes Array or space-separated list of classes to remove.
    * @param opts Dictionary of properties to apply after the class removal.
    */
-  removeClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Dictionary<T>): void;
+  removeClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
   /**
    * Removes all tracked event listeners or only the ones specified by the parameters.
@@ -94,7 +90,7 @@ interface AlloyController extends Backbone.Model {
    * @param classes Array or space-separated list of classes to apply after the reset.
    * @param opts Dictionary of properties to apply after the reset.
    */
-  resetClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Dictionary<T>): void;
+  resetClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
   /**
    * Applies a set of properties to view elements associated with this controller.
