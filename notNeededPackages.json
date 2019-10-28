@@ -1885,6 +1885,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "koa-pug",
+            "typingsPackageName": "koa-pug",
+            "sourceRepoURL": "https://github.com/chrisyip/koa-pug",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "lambda-phi",
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
