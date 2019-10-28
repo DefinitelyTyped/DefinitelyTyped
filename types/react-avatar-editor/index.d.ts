@@ -36,6 +36,7 @@ export interface AvatarEditorProps {
     position?: Position;
     rotate?: number;
     crossOrigin?: string;
+    disableBoundaryChecks?: boolean;
     disableDrop?: boolean;
     onDropFile?(event: DragEvent): void;
     onLoadFailure?(event: Event): void;
