@@ -43,7 +43,7 @@ interface AlloyController extends Backbone.Model {
    * @param opts Dictionary of styles to apply.
    * @returns Dictionary of properties that can be passed to a view factory function or applyProperties().
    */
-  createStyle<T extends Titanium.Proxy>(opts: any): Dictionary<T>
+  createStyle<T extends Titanium.Proxy>(opts: any): Dictionary<T>;
 
   destroy(): void;
 
@@ -139,7 +139,7 @@ interface AlloyInterface {
   /**
    * true if the current device is a tablet.
    */
-  isTabled: boolean
+  isTablet: boolean;
 
   /**
    * Factory method for instantiating a Backbone collection of model objects. Creates and returns a collection for holding the named type of model objects.
