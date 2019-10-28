@@ -2803,6 +2803,12 @@
             "asOfVersion": "1.4.2"
         },
         {
+            "libraryName": "pixi.js",
+            "typingsPackageName": "pixi.js",
+            "sourceRepoURL": "https://github.com/pixijs/pixi.js/tree/v4.x",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "pkcs11js",
             "typingsPackageName": "pkcs11js",
             "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
