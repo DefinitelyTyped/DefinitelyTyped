@@ -56,7 +56,7 @@ export interface ReCAPTCHAProps {
     /**
      *  if you are using the barebone component you need to provide access  to the google grecaptcha object.
      */
-    grecaptcha?: object
+    grecaptcha?: object;
 
 	/**
 	 *  Optional light or dark theme of the widget
