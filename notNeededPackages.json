@@ -2299,6 +2299,12 @@
             "asOfVersion": "2.15.0"
         },
         {
+            "libraryName": "node-sql-parser",
+            "typingsPackageName": "node-sql-parser",
+            "sourceRepoURL": "https://github.com/taozhi8833998/node-sql-parser#readme",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
