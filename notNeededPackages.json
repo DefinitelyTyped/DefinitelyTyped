@@ -3091,6 +3091,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-inlinesvg",
+            "typingsPackageName": "react-inlinesvg",
+            "sourceRepoURL": "https://github.com/gilbarbara/react-inlinesvg#readme",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "react-intl",
             "typingsPackageName": "react-intl",
             "sourceRepoURL": "https://github.com/formatjs/react-intl",
