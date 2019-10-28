@@ -853,7 +853,7 @@ export interface ToastProps {
     color?: "darkGray" | "orange" | "red";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
-    thumbnail?: React.ReactNode;
+    thumbnail?: React.ReactElement;
 }
 
 /*
