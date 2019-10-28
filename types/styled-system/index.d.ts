@@ -16,6 +16,7 @@
 //                 Elliot Bonneville <https://github.com/elliotbonneville>
 //                 Jack Caldwell <https://github.com/jackcaldwell>
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
+//                 Craig Michael Thompson <https://github.com/craga89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
