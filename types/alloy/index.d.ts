@@ -12,13 +12,13 @@ type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? nev
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 type Dictionary<T> = Partial<NonFunctionProperties<T>>;
 
-declare interface JQueryStatic extends AlloyController {
+interface JQueryStatic extends AlloyController {
 }
 
 /**
  * The base class for Alloy controllers.
  */
-declare interface AlloyController extends Backbone.Model {
+interface AlloyController extends Backbone.Model {
   /**
    *
    * @param proxy View object to which to add class(es).
@@ -107,7 +107,7 @@ declare interface AlloyController extends Backbone.Model {
 /**
  * Top-level module for Alloy functions.
  */
-declare interface AlloyInterface {
+interface AlloyInterface {
   /**
    * An object that stores Alloy configuration values as defined in your app's app/config.json file
    */
