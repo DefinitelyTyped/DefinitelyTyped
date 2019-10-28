@@ -39,7 +39,7 @@ interface AlloyController extends Backbone.Model {
    * @param opts Dictionary of styles to apply.
    * @returns Dictionary of properties that can be passed to a view factory function or applyProperties().
    */
-  createStyle<T extends Titanium.Proxy>(opts: any): Partial<T>;
+  createStyle(opts: any): Partial<Titanium.Proxy>;
 
   destroy(): void;
 
