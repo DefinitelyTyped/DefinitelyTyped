@@ -310,6 +310,6 @@ export namespace iframeResizer {
     x: number;
     y: number;
   }
-}
 
-export function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
+  function iframeResizer(options: IFrameOptions, target: string | HTMLElement): IFrameComponent[];
+}
