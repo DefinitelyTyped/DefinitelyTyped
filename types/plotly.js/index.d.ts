@@ -501,7 +501,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
 	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface';
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -531,6 +531,10 @@ export interface PlotData {
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
+	'marker.pad.t': number;
+	'marker.pad.b': number;
+	'marker.pad.l': number;
+	'marker.pad.r': number;
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
 	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
@@ -554,6 +558,7 @@ export interface PlotData {
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
+	parents: string[];
 	name: string;
 	stackgroup: string;
 	connectgaps: boolean;
