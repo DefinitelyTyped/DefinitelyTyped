@@ -61,8 +61,8 @@ export namespace EurekaClient {
         };
     }
     interface EurekaClientConfig {
-        host: string;
-        port: number;
+        host?: string;
+        port?: number;
         heartbeatInterval?: number;
         registryFetchInterval?: number;
         maxRetries?: number;
@@ -78,6 +78,9 @@ export namespace EurekaClient {
         registerWithEureka?: boolean;
         useLocalMetadata?: boolean;
         preferIpAddress?: boolean;
+        serviceUrls?: {
+            [index: string]: string[];
+        };
     }
     interface EurekaYmlConfig {
         cwd: string;
