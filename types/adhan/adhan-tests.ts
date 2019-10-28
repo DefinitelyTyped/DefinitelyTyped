@@ -1,4 +1,4 @@
-import adhan from 'adhan';
+// import adhan from 'adhan';
 
 // Get coordinates
 const coordinates = new adhan.Coordinates(35.78056, -78.6389);

@@ -1,4 +1,4 @@
-// Type definitions for adhan-js 3.0.0
+// Type definitions for adhan-js 3.0
 // Project: https://github.com/batoulapps/adhan-js
 // Definitions by: Ikramullah <https://github.com/skymunn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ declare namespace Adhan {
     isha: Date;
   }
 
-  class Coordinates {
+  class Coordinates extends DDate{
     constructor(longitude: number, latitude: number);
   }
 
@@ -37,6 +37,8 @@ declare namespace Adhan {
 }
 
 // Start Interface
+const DDate = Date
+
 interface AdhanCalculationMethod {
   Dubai(): Paramater;
   Egyptian(): Paramater;
@@ -65,7 +67,7 @@ interface Paramater {
     asr: number;
     maghrib: number;
     isha: number;
-  }
+  };
 }
 
 interface AdhanDate {
