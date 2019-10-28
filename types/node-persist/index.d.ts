@@ -1,6 +1,6 @@
 // Type definitions for node-persist 3.0
 // Project: https://github.com/simonlast/node-persist
-// Definitions by: Spencer Williams <http://spencerwi.com/>,
+// Definitions by: Spencer Williams <https://github.com/spencerwi>,
 //                 Samuel Elliott <https://github.com/samuelthomas2774>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -101,58 +101,59 @@ declare namespace NodePersist {
         calcTTL(ttl: number | null | undefined): number | undefined;
     }
 
-    export function create(options?: InitOptions): LocalStorage;
-    export function init(options?: InitOptions): Promise<InitOptions>;
+    function create(options?: InitOptions): LocalStorage;
+    function init(options?: InitOptions): Promise<InitOptions>;
 
-    export const defaultInstance: LocalStorage | undefined;
+    const defaultInstance: LocalStorage | undefined;
 
-    export function setOptions(options?: InitOptions): void;
+    function setOptions(options?: InitOptions): void;
 
-    export function data(): Promise<Datum[]>;
-    export function keys(filter?: FilterFunction<Datum>): Promise<string[]>;
-    export function values(filter?: FilterFunction<Datum>): Promise<any[]>;
-    export function length(filter?: FilterFunction<Datum>): Promise<number>;
+    function data(): Promise<Datum[]>;
+    function keys(filter?: FilterFunction<Datum>): Promise<string[]>;
+    function values(filter?: FilterFunction<Datum>): Promise<any[]>;
+    function length(filter?: FilterFunction<Datum>): Promise<number>;
 
-    export function forEach(callback: (data: Datum) => Promise<void> | void): Promise<void>;
+    function forEach(callback: (data: Datum) => Promise<void> | void): Promise<void>;
 
-    export function valuesWithKeyMatch(match?: RegExp | string): Promise<any[]>;
+    function valuesWithKeyMatch(match?: RegExp | string): Promise<any[]>;
 
-    export function set(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
-    export function setItem(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
+    function set(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
+    function setItem(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
 
-    export function update(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
-    export function updateItem(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
+    function update(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
+    function updateItem(key: string, value: any, options?: DatumOptions): Promise<WriteFileResult>;
 
-    export function get(key: string): Promise<any>;
-    export function getItem(key: string): Promise<any>;
+    function get(key: string): Promise<any>;
+    function getItem(key: string): Promise<any>;
 
-    export function getDatum(key: string): Datum | void;
-    export function getRawDatum(key: string): string | void;
-    export function getDatumValue(key: string): Datum | void;
-    export function getDatumPath(key: string): string;
+    function getDatum(key: string): Datum | void;
+    function getRawDatum(key: string): string | void;
+    function getDatumValue(key: string): Datum | void;
+    function getDatumPath(key: string): string;
 
-    export function del(key: string): Promise<DeleteFileResult>;
-    export function rm(key: string): Promise<DeleteFileResult>;
-    export function removeItem(key: string): Promise<DeleteFileResult>;
+    function del(key: string): Promise<DeleteFileResult>;
+    function rm(key: string): Promise<DeleteFileResult>;
+    function removeItem(key: string): Promise<DeleteFileResult>;
 
-    export function removeExpiredItems(): Promise<void>;
-    export function clear(): Promise<void>;
+    function removeExpiredItems(): Promise<void>;
+    function clear(): Promise<void>;
 
-    export function ensureDirectory(dir: string): Promise<EnsureDirectoryResult>;
-    export function readDirectory(dir: string): Promise<Datum[]>;
-    export function readFile(file: string, options?: DatumOptions): Promise<Datum | string>;
-    export function writeFile(file: string, content: Datum): Promise<WriteFileResult>;
+    function ensureDirectory(dir: string): Promise<EnsureDirectoryResult>;
+    function readDirectory(dir: string): Promise<Datum[]>;
+    function readFile(file: string, options?: DatumOptions): Promise<Datum | string>;
+    function writeFile(file: string, content: Datum): Promise<WriteFileResult>;
 
-    export function stringify(obj: any): string;
-    export function parse(str: string | null): any;
-    export function copy(value: any): any;
+    function stringify(obj: any): string;
+    function parse(str: string | null): any;
+    function copy(value: any): any;
 
-    export function startExpiredKeysInterval(): void;
-    export function stopExpiredKeysInterval(): void;
+    function startExpiredKeysInterval(): void;
+    function stopExpiredKeysInterval(): void;
 
-    export function log(...args: any[]): void;
+    function log(...args: any[]): void;
 
-    export function calcTTL(ttl: number | null | undefined): number | undefined;
+    function calcTTL(ttl: number | null | undefined): number | undefined;
 }
 
+// tslint:disable-next-line export-just-namespace
 export = NodePersist;

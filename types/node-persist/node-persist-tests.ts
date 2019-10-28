@@ -1,4 +1,3 @@
-
 // node-persist tests
 // compile with --module=common
 
@@ -32,15 +31,15 @@ import nodePersist = require("node-persist");
     }
 
     await storage.clear();
-    var testObject: TestObject = {foo: "bar", two: 2};
+    let testObject: TestObject = {foo: "bar", two: 2};
     await storage.setItem("someObject", testObject);
     testObject = await storage.getItem("someObject");
     await storage.removeItem("someObject");
 
-    var values: Array<any> = await storage.values();
-    var valuesWithKeyMatch: Array<any> = await storage.valuesWithKeyMatch("some");
-    var keys: Array<string> = await storage.keys();
-    var size: number = await storage.length();
+    const values: any[] = await storage.values();
+    const valuesWithKeyMatch: any[] = await storage.valuesWithKeyMatch("some");
+    const keys: string[] = await storage.keys();
+    const size: number = await storage.length();
 
     await storage.forEach((val) => {});
 
