@@ -3234,6 +3234,69 @@ async function asyncStreamPipelineFinished() {
         result = os.constants.errno.EXDEV;
     }
 
+    if (os.platform() === 'win32') {
+        let result: number;
+
+        result = os.constants.errno.WSAEINTR;
+        result = os.constants.errno.WSAEBADF;
+        result = os.constants.errno.WSAEACCES;
+        result = os.constants.errno.WSAEFAULT;
+        result = os.constants.errno.WSAEINVAL;
+        result = os.constants.errno.WSAEMFILE;
+        result = os.constants.errno.WSAEWOULDBLOCK;
+        result = os.constants.errno.WSAEINPROGRESS;
+        result = os.constants.errno.WSAEALREADY;
+        result = os.constants.errno.WSAENOTSOCK;
+        result = os.constants.errno.WSAEDESTADDRREQ;
+        result = os.constants.errno.WSAEMSGSIZE;
+        result = os.constants.errno.WSAEPROTOTYPE;
+        result = os.constants.errno.WSAENOPROTOOPT;
+        result = os.constants.errno.WSAEPROTONOSUPPORT;
+        result = os.constants.errno.WSAESOCKTNOSUPPORT;
+        result = os.constants.errno.WSAEOPNOTSUPP;
+        result = os.constants.errno.WSAEPFNOSUPPORT;
+        result = os.constants.errno.WSAEAFNOSUPPORT;
+        result = os.constants.errno.WSAEADDRINUSE;
+        result = os.constants.errno.WSAEADDRNOTAVAIL;
+        result = os.constants.errno.WSAENETDOWN;
+        result = os.constants.errno.WSAENETUNREACH;
+        result = os.constants.errno.WSAENETRESET;
+        result = os.constants.errno.WSAECONNABORTED;
+        result = os.constants.errno.WSAECONNRESET;
+        result = os.constants.errno.WSAENOBUFS;
+        result = os.constants.errno.WSAEISCONN;
+        result = os.constants.errno.WSAENOTCONN;
+        result = os.constants.errno.WSAESHUTDOWN;
+        result = os.constants.errno.WSAETOOMANYREFS;
+        result = os.constants.errno.WSAETIMEDOUT;
+        result = os.constants.errno.WSAECONNREFUSED;
+        result = os.constants.errno.WSAELOOP;
+        result = os.constants.errno.WSAENAMETOOLONG;
+        result = os.constants.errno.WSAEHOSTDOWN;
+        result = os.constants.errno.WSAEHOSTUNREACH;
+        result = os.constants.errno.WSAENOTEMPTY;
+        result = os.constants.errno.WSAEPROCLIM;
+        result = os.constants.errno.WSAEUSERS;
+        result = os.constants.errno.WSAEDQUOT;
+        result = os.constants.errno.WSAESTALE;
+        result = os.constants.errno.WSAEREMOTE;
+        result = os.constants.errno.WSASYSNOTREADY;
+        result = os.constants.errno.WSAVERNOTSUPPORTED;
+        result = os.constants.errno.WSANOTINITIALISED;
+        result = os.constants.errno.WSAEDISCON;
+        result = os.constants.errno.WSAENOMORE;
+        result = os.constants.errno.WSAECANCELLED;
+        result = os.constants.errno.WSAEINVALIDPROCTABLE;
+        result = os.constants.errno.WSAEINVALIDPROVIDER;
+        result = os.constants.errno.WSAEPROVIDERFAILEDINIT;
+        result = os.constants.errno.WSASYSCALLFAILURE;
+        result = os.constants.errno.WSASERVICE_NOT_FOUND;
+        result = os.constants.errno.WSATYPE_NOT_FOUND;
+        result = os.constants.errno.WSA_E_NO_MORE;
+        result = os.constants.errno.WSA_E_CANCELLED;
+        result = os.constants.errno.WSAEREFUSED;
+    }
+
     {
         const prio = os.getPriority();
         os.setPriority(prio + 1);
