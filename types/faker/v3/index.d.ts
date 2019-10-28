@@ -167,6 +167,7 @@ declare namespace Faker {
 			number(options?: { min?: number, max?: number, precision?: number }): number;
 			arrayElement(): string;
 			arrayElement<T>(array: T[]): T;
+			arrayElement<T>(array: ReadonlyArray<T>): T;
 			objectElement(object?: { [key: string]: any }, field?: "key"): string;
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;

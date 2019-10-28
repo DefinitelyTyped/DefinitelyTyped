@@ -207,6 +207,7 @@ resultNum = faker.random.float({
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
