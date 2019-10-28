@@ -3,8 +3,8 @@ import ifr = require("iframe-resizer");
 
 function testOne(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
-  const options: iframeResizer.IFrameOptions = {log: true};
-  const components: iframeResizer.IFrameComponent[] = iframeResizer.iframeResizer(options, iframe);
+  const options: iframeResizer.IFrameOptions = { log: true };
+  const components: iframeResizer.IFrameComponent[] = iframeResizer(options, iframe);
   if (components) {
     components.forEach(component => console.log(component.iFrameResizer));
   } else {
@@ -14,7 +14,7 @@ function testOne(): void {
 
 function testTwo(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
-  const components: iframeResizer.IFrameComponent[] = iframeResizer.iframeResizer({
+  const components: iframeResizer.IFrameComponent[] = iframeResizer({
     initCallback: () => {
       console.log('Init');
     },
@@ -30,13 +30,13 @@ function testTwo(): void {
 }
 
 function testThree(): void {
-  iframeResizer.iframeResizer({}, '.my-iframe');
+  iframeResizer({}, '.my-iframe');
 }
 
 function testOneRequire(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
-  const options: ifr.iframeResizer.IFrameOptions = {log: true};
-  const components: ifr.iframeResizer.IFrameComponent[] = ifr.iframeResizer.iframeResizer(options, iframe);
+  const options: ifr.IFrameOptions = { log: true };
+  const components: ifr.IFrameComponent[] = ifr(options, iframe);
   if (components) {
     components.forEach(component => console.log(component.iFrameResizer));
   } else {
@@ -46,7 +46,7 @@ function testOneRequire(): void {
 
 function testTwoRequire(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
-  const components: ifr.iframeResizer.IFrameComponent[] = ifr.iframeResizer.iframeResizer({
+  const components: ifr.IFrameComponent[] = ifr({
     initCallback: () => {
       console.log('Init');
     },
@@ -62,7 +62,7 @@ function testTwoRequire(): void {
 }
 
 function testThreeRequire(): void {
-  ifr.iframeResizer.iframeResizer({}, '.my-iframe');
+  ifr({}, '.my-iframe');
 }
 
 testOne();
