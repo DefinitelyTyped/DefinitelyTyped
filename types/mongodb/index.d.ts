@@ -72,7 +72,7 @@ export class MongoClient extends EventEmitter {
     logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
-    /** http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#watch */
     watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
@@ -681,7 +681,7 @@ export class Db extends EventEmitter {
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch */
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#watch */
     watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
@@ -1134,7 +1134,7 @@ export interface Collection<TSchema = Default> {
         options: UpdateOneOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
     watch(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
