@@ -1477,6 +1477,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "instabug-reactnative",
+            "typingsPackageName": "instabug-reactnative",
+            "sourceRepoURL": "https://github.com/Instabug/instabug-reactnative#readme",
+            "asOfVersion": "8.1.0"
+        },
+        {
             "libraryName": "interactjs",
             "typingsPackageName": "interact.js",
             "sourceRepoURL": "https://github.com/taye/interact.js",
