@@ -3625,6 +3625,12 @@
             "asOfVersion": "1.19.0"
         },
         {
+            "libraryName": "snowboy",
+            "typingsPackageName": "snowboy",
+            "sourceRepoURL": "https://github.com/Kitt-AI/snowboy",
+            "asOfVersion": "1.3.1"
+        },
+        {
             "libraryName": "soap",
             "typingsPackageName": "soap",
             "sourceRepoURL": "https://www.npmjs.com/package/soap",
