@@ -2260,6 +2260,8 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html */
 export class ChangeStream extends Readable {
+    resumeToken: ResumeToken;
+
     constructor(changeDomain: Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#close */
@@ -2279,6 +2281,10 @@ export class ChangeStream extends Readable {
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#stream */
     stream(options?: { transform?: Function }): Cursor;
+}
+
+export interface ResumeToken {
+    _data: string;
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
