@@ -997,6 +997,12 @@
             "asOfVersion": "0.9.0"
         },
         {
+            "libraryName": "express-promise-router",
+            "typingsPackageName": "express-promise-router",
+            "sourceRepoURL": "https://github.com/express-promise-router/express-promise-router",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
