@@ -3355,6 +3355,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-safe-area",
+            "typingsPackageName": "react-native-safe-area",
+            "sourceRepoURL": "https://github.com/miyabi/react-native-safe-area#readme",
+            "asOfVersion": "0.5.1"
+        },
+        {
             "libraryName": "react-native-permissions",
             "typingsPackageName": "react-native-permissions",
             "sourceRepoURL": "https://github.com/yonahforst/react-native-permissions",
