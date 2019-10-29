@@ -326,6 +326,7 @@ declare namespace jest {
 
     interface Each {
         // Exclusively arrays.
+        <T extends any[]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
         <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (name: string, fn: (...args: ExtractEachCallbackArgs<T>) => any, timeout?: number) => void;
         // Not arrays.
         <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;

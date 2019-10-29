@@ -1499,13 +1499,9 @@ test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
 );
 
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
-test.each(constCases)('%s + %s', (s1, s2, expected) => {
-    // $ExpectType "a" | "d"
-    s1;
-    // $ExpectType 2 | "b"
-    s2;
-    // $ExpectType "ab" | "d2"
-    expected;
+test.each(constCases)('%s + %s', (...args) => {
+    // $ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
+    args;
 });
 
 declare const constCasesWithMoreThanTen: [
@@ -1514,8 +1510,7 @@ declare const constCasesWithMoreThanTen: [
 ];
 
 test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
-    // following assertion cannot pass because order changes arbitrarily (https://github.com/microsoft/dtslint/issues/191)
-    // _$ExpectType (1 | 5 | 3 | 2 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 910 | 911)[]
+    // $ExpectType [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] | [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
     args;
 });
 
