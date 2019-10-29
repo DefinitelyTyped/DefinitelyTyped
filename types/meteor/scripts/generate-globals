@@ -67,7 +67,7 @@ for (let outFile of configObject.files) {
                 return l;
             } else {
                 let m2;
-                // Capture any liine with a comment
+                // Capture any line with a comment
                 if ((m2 = /^    (\/\/.*)$/.exec(l)) != null) return m2[1];
                 
                 if ((m2 = /^    ([^} ].*)$/.exec(l)) != null) return "declare " + m2[1];
