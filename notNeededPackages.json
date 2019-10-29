@@ -289,6 +289,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "blob-util",
+            "typingsPackageName": "blob-util",
+            "sourceRepoURL": "https://github.com/nolanlawson/blob-util#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "botvs",
             "typingsPackageName": "botvs",
             "sourceRepoURL": "https://www.botvs.com/",
