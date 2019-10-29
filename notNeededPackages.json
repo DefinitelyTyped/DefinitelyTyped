@@ -1849,6 +1849,12 @@
             "asOfVersion": "3.8.1"
         },
         {
+            "libraryName": "javascript-obfuscator",
+            "typingsPackageName": "javascript-obfuscator",
+            "sourceRepoURL": "https://github.com/sanex3339/javascript-obfuscator",
+            "asOfVersion": "0.17.0"
+        },
+        {
             "libraryName": "jdenticon",
             "typingsPackageName": "jdenticon",
             "sourceRepoURL": "https://github.com/dmester/jdenticon",
