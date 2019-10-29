@@ -6,14 +6,19 @@
 //                 Kok Sam <https://github.com/sammkj>
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
+//                 Justin Hall <https://github.com/wKovacs64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
-type HtmlProps = JSX.IntrinsicElements['html'];
+type HtmlProps = JSX.IntrinsicElements['html'] & {
+    [key: string]: string;
+};
 
-type BodyProps = JSX.IntrinsicElements['body'];
+type BodyProps = JSX.IntrinsicElements['body'] & {
+    [key: string]: string;
+};
 
 type LinkProps = JSX.IntrinsicElements['link'];
 
