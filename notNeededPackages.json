@@ -3385,6 +3385,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "reduce-reducers",
+            "typingsPackageName": "reduce-reducers",
+            "sourceRepoURL": "https://github.com/redux-utilities/reduce-reducers",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "Redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
