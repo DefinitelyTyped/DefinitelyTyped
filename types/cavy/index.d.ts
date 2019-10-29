@@ -12,15 +12,18 @@ export {};
 type RefCallback = (element: React.ReactNode | null) => void;
 
 type TestHookGeneratorWithRefCallback = (label: string, ref?: RefCallback) => RefCallback;
+
 type TestHookGeneratorWithRefObject = (label: string, ref?: React.RefObject<any>) => React.RefObject<any>;
 
 export type TestHookGenerator = TestHookGeneratorWithRefCallback & TestHookGeneratorWithRefObject;
 
-export type WithTestHook<T extends {}> = T & { generateTestHook: TestHookGenerator };
+export type WithTestHook<P extends {}> = P & { generateTestHook: TestHookGenerator };
 
-export function hook<T extends {}>(component: React.ComponentClass<WithTestHook<T>>): React.ComponentClass<T>;
+export function hook<P extends {}>(WrappedComponent: React.ComponentClass<WithTestHook<P>>): React.ComponentClass<P>;
 
 export function useCavy(): TestHookGenerator;
+
+export function wrap<P extends {}>(WrappedComponent: {} | React.FunctionComponent<P>): React.ComponentClass<P>;
 
 export interface TesterProps {
     store: TestHookStore;
@@ -43,7 +46,7 @@ export class TestHookStore {}
 
 export class TestScope {
     component: Tester;
-    findComponent(identifier: string): Promise<React.Component>;
+    findComponent<P = {}, S = {}>(identifier: string): Promise<React.Component<P, S>>;
     describe(label: string, fn: () => void): void;
     it(label: string, fn: () => void): void;
     beforeEach(fn: () => void): void;
