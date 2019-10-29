@@ -64,7 +64,7 @@ declare module "tls" {
         version: string;
     }
 
-    export interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
         /**
          * If true the TLS socket will be instantiated in server-mode.
          * Defaults to false.
