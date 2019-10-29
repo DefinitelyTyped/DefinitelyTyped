@@ -2,6 +2,7 @@
 // Project: https://www.inboxsdk.com/
 // Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -490,6 +491,11 @@ declare namespace InboxSDK {
       isActive(): boolean;
 
       open(): void;
+
+      /**
+       * Undocumented method, no guarantee it will always work.
+       */
+      close(): void;
 
       remove(): void;
 
@@ -1193,7 +1199,7 @@ declare namespace InboxSDK {
 
   export namespace Global {
     interface GlobalInstance {
-      addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Conversations.ContentPanelView;
+      addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Promise<Conversations.ContentPanelView>;
     }
   }
 }
