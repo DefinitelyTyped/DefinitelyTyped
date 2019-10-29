@@ -9,6 +9,8 @@ declare module 'video.js' {
     }
 
     interface VideoJsPlayerPluginOptions {
-        somePluginDefinedInAugmentation: {};
+        somePluginDefinedInAugmentation: {
+            someRequiredProperty: boolean;
+        };
     }
 }
