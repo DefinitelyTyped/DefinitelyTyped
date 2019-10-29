@@ -1843,6 +1843,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "karma-viewport",
+            "typingsPackageName": "karma-viewport",
+            "sourceRepoURL": "https://github.com/squidfunk/karma-viewport",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "kafkajs",
             "typingsPackageName": "kafkajs",
             "sourceRepoURL": "https://github.com/tulios/kafkajs",
