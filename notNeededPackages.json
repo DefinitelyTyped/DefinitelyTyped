@@ -307,6 +307,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "bunyan-bugsnag",
+            "typingsPackageName": "bunyan-bugsnag",
+            "sourceRepoURL": "https://github.com/marnusw/bunyan-bugsnag",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "CacheFactory",
             "typingsPackageName": "cachefactory",
             "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
