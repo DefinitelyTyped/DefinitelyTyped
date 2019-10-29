@@ -803,6 +803,13 @@ declare namespace Stripe {
             url: string;
         }
 
+        interface ILoginLinkOptions {
+            /**
+             * Where to redirect the user after they log out of their dashboard.
+             */
+            redirect_url: string
+        }
+
         interface ICompanyShared {
             /**
              * The company’s primary address.
@@ -9755,7 +9762,7 @@ declare namespace Stripe {
             createLoginLink(accId: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
             createLoginLink(
                 accId: string,
-                redirectUrl?: string,
+                options?: accounts.ILoginLinkOptions,
                 response?: IResponseFn<accounts.ILoginLink>,
             ): Promise<accounts.ILoginLink>;
 
