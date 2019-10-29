@@ -3205,6 +3205,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "react-collapsible",
+            "typingsPackageName": "react-collapsible",
+            "sourceRepoURL": "https://github.com/glennflanagan/react-collapsible#readme",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-circular-progressbar",
             "typingsPackageName": "react-circular-progressbar",
             "sourceRepoURL": "https://github.com/kevinsqi/react-circular-progressbar#readme",
