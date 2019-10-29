@@ -1891,6 +1891,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-each",
+            "typingsPackageName": "jest-each",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
