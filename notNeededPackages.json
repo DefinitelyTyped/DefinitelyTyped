@@ -4633,6 +4633,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "z-schema",
+            "typingsPackageName": "z-schema",
+            "sourceRepoURL": "https://github.com/zaggino/z-schema",
+            "asOfVersion": "3.24.0"
+        },
+        {
             "libraryName": "zapier-platform-core",
             "typingsPackageName": "zapier-platform-core",
             "sourceRepoURL": "https://github.com/zapier/zapier-platform-core",
