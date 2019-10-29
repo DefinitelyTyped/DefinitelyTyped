@@ -499,6 +499,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "consola",
+            "typingsPackageName": "consola",
+            "sourceRepoURL": "https://github.com/nuxt/consola",
+            "asOfVersion": "2.2.5"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
