@@ -757,6 +757,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "delegated-events",
+            "typingsPackageName": "delegated-events",
+            "sourceRepoURL": "https://github.com/dgraham/delegated-events#readme",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "detect-browser",
             "typingsPackageName": "detect-browser",
             "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
