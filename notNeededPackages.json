@@ -355,6 +355,12 @@
             "asOfVersion": "5.1.0"
         },
         {
+            "libraryName": "camljs",
+            "typingsPackageName": "camljs",
+            "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
+            "asOfVersion": "2.8.1"
+        },
+        {
             "libraryName": "catalog",
             "typingsPackageName": "catalog",
             "sourceRepoURL": "https://github.com/interactivethings/catalog",
