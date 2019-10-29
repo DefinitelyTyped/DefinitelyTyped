@@ -8662,15 +8662,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 export const ART: ARTStatic;
 export type ART = ARTStatic;
 
-export const ImagePickerIOS: ImagePickerIOSStatic;
-export type ImagePickerIOS = ImagePickerIOSStatic;
-
-export const LayoutAnimation: LayoutAnimationStatic;
-export type LayoutAnimation = LayoutAnimationStatic;
-
-export const Systrace: SystraceStatic;
-export type Systrace = SystraceStatic;
-
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
 export type ActionSheetIOS = ActionSheetIOSStatic;
