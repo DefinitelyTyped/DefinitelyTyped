@@ -181,6 +181,6 @@ declare namespace BMap {
         fontsize?: string;
         weight?: string;
     }
-    type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string }
+    type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string };
 }
 declare const BMAP_API_VERSION: BMap.APIVersion;
