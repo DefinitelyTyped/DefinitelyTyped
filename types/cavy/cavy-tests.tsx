@@ -16,14 +16,16 @@ type Props = WithTestHook<{
   foo: string;
 }>;
 
-const SampleFunctionComponent: React.FunctionComponent = () => {
-  const generateTestHook = useCavy();
-  const ref = React.createRef();
-  return <View ref={generateTestHook('FunctionView', ref)}></View>;
-};
+interface FCProps {
+  text: string
+}
+
+const FunctionComponent: React.FunctionComponent<FCProps> = (props)  => {
+  return <Text>{props.text}</Text>
+}
 
 const WrappedText = wrap(Text);
-const WrappedFunctionComponent = wrap(SampleFunctionComponent);
+const WrappedFunctionComponent = wrap(FunctionComponent);
 
 class SampleComponent extends React.Component<Props> {
   textInputRef: React.ReactNode | null;
@@ -43,6 +45,7 @@ class SampleComponent extends React.Component<Props> {
       <View ref={generateTestHook('View')}>
         <WrappedFunctionComponent
           ref={generateTestHook('WrappedFunctionComponent')}
+          text='text'
         />
 
         <WrappedText ref={generateTestHook('WrappedText')}>
@@ -58,6 +61,12 @@ class SampleComponent extends React.Component<Props> {
 }
 
 const HookedSampleComponent = hook(SampleComponent); // $ExpectType ComponentClass<{ foo: string; }, any>
+
+const SampleFunctionComponent: React.FunctionComponent = () => {
+  const generateTestHook = useCavy();
+  const ref = React.createRef();
+  return <View ref={generateTestHook('FunctionView', ref)}></View>;
+};
 
 function sampleSpec(spec: TestScope) {
   spec.describe('it has a name and callback', () => {
