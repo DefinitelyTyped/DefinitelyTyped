@@ -451,6 +451,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "connect-mongo",
+            "typingsPackageName": "connect-mongo",
+            "sourceRepoURL": "https://github.com/jdesboeufs/connect-mongo",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
