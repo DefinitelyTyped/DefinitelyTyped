@@ -893,6 +893,8 @@ declare namespace IORedis {
         xrevrange(key: KeyType, end: string, start: string, ...args: any[]): Pipeline;
 
         xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: any[]): Pipeline;
+        
+        unlink(...keys: KeyType[]): Pipeline;
     }
 
     interface NodeConfiguration {
