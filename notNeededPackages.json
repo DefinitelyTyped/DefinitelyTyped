@@ -4261,6 +4261,12 @@
             "asOfVersion": "0.11.0"
         },
         {
+            "libraryName": "vanilla-tilt",
+            "typingsPackageName": "vanilla-tilt",
+            "sourceRepoURL": "https://github.com/micku7zu/vanilla-tilt.js",
+            "asOfVersion": "1.6.2"
+        },
+        {
             "libraryName": "vega",
             "typingsPackageName": "vega",
             "sourceRepoURL": "https://github.com/vega/vega",
