@@ -991,6 +991,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "express-winston",
+            "typingsPackageName": "express-winston",
+            "sourceRepoURL": "https://github.com/bithavoc/express-winston#readme",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "extended-listbox",
             "typingsPackageName": "extended-listbox",
             "sourceRepoURL": "https://github.com/code-chris/extended-listbox",
