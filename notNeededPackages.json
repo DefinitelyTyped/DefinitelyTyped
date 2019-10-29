@@ -1231,6 +1231,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "forge-di",
+            "typingsPackageName": "forge-di",
+            "sourceRepoURL": "https://github.com/nkohari/forge",
+            "asOfVersion": "12.0.2"
+        },
+        {
             "libraryName": "fork-ts-checker-webpack-plugin",
             "typingsPackageName": "fork-ts-checker-webpack-plugin",
             "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
