@@ -1,6 +1,6 @@
-// Type definitions for node-resque 5.4
+// Type definitions for node-resque 5.5.7
 // Project: http://github.com/taskrabbit/node-resque
-// Definitions by: Gordey Doronin <https://github.com/gordey4doronin>
+// Definitions by: Gordey Doronin <https://github.com/gordey4doronin>, Pete Nykänen <https://github.com/petetnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -36,14 +36,46 @@ export interface QueueOptions {
     connection?: ConnectionOptions;
 }
 
+type WorkerStatus = {
+    run_at: string,
+    queue: string,
+    payload: {
+        class: string,
+        queue: string,
+        args: ReadonlyArray<any>,
+    },
+    worker: string
+ }
+
 export class Queue extends NodeJS.EventEmitter {
     constructor(options: QueueOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
-    enqueue(queue: string, jobName: string, args: ReadonlyArray<any>): Promise<void>;
-    enqueueIn(milliseconds: number, queue: string, jobName: string, args: ReadonlyArray<any>): Promise<void>;
     end(): Promise<void>;
-
+    encode(queue: string, jobName: string, args?: ReadonlyArray<any>): string;
+    enqueue(queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<void>;
+    enqueueAt(timestamp: number, queue: string, jobName: string, args?: ReadonlyArray<any> ): Promise<void>;
+    enqueueIn(milliseconds: number, queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<void>;
+    queues(): Promise<string[]>;
+    delQueue(queue: string): Promise<void>;
+    length(queue: string): Promise<number>;
+    del(queue: string, jobName: string, args?: ReadonlyArray<any>, count?: number): Promise<number>;
+    delDelayed(queue: string, jobName: string, args?: ReadonlyArray<any>, count?: number): Promise<number[]>;
+    scheduledAt(queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<number[]>;
+    timestamps(): Promise<number[]>;
+    delayedAt(timestamp: number): Promise<{ tasks: Job<any>[], rTimestamp: number }>;
+    queued(queue: string, start: number, stop: number): Promise<Job<any>[]>;
+    locks(): Promise<{ [lockName: string]: string }>;
+    delLock(lockName: string): Promise<number>;
+    workers(): Promise<{ [hash: string]: string }>;
+    workingOn(workerName: string, queues: string): Promise<WorkerStatus>;
+    allWorkingOn(): Promise<{ [hashName: string]: WorkerStatus }>
+    forceCleanWorker(workerName: string): Promise<ErrorPayload | void>;
+    cleanOldWorkers(age: number): Promise<{ [workerName: string] : ErrorPayload} | {}>;
+    failedCount(): Promise<number>;
+    failed(start: number, stop: number): Promise<ErrorPayload[]>;
+    retryAndRemoveFailed(failedJob: ErrorPayload): Promise<void>;
+    stats(): Promise<any>; 
     on(event: 'error', cb: (error: Error, queue: string) => void): this;
     once(event: 'error', cb: (error: Error, queue: string) => void): this;
 }
