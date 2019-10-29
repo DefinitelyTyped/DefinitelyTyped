@@ -4357,6 +4357,12 @@
             "asOfVersion": "3.2.1"
         },
         {
+            "libraryName": "which-pm",
+            "typingsPackageName": "which-pm",
+            "sourceRepoURL": "https://github.com/zkochan/which-pm#readme",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "winston",
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
