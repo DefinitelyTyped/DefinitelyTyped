@@ -289,6 +289,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bitcoinjs-lib",
+            "typingsPackageName": "bitcoinjs-lib",
+            "sourceRepoURL": "https://github.com/bitcoinjs/bitcoinjs-lib",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "bip32",
             "typingsPackageName": "bip32",
             "sourceRepoURL": "https://github.com/bitcoinjs/bip32#readme",
