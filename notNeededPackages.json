@@ -1291,6 +1291,12 @@
             "asOfVersion": "6.4.3"
         },
         {
+            "libraryName": "fs-promise",
+            "typingsPackageName": "fs-promise",
+            "sourceRepoURL": "https://github.com/kevinbeaty/fs-promise",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "FullCalendar",
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
