@@ -54,6 +54,10 @@ const membership = stampit({
         members: {
             itCanBe: "anything",
         },
+        myMembers: {},
+        dbConnString: "pgs://data.local",
+        MY_LIMIT: 100,
+        myRegExp: /foobar/g,
         add(member: any) {
             this.members[member.name] = member;
             return this;
@@ -87,14 +91,22 @@ const myStamp = stampit().methods({
     },
     methodOverride() {
         return false;
-    }
+    },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
 }).methods({
     bar() {
         return 'bar';
     },
     methodOverride() {
         return true;
-    }
+    },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
 });
 
 myStamp.deepProps({
@@ -127,11 +139,19 @@ const newStamp = stampit({ props: { defaultNum: 1 } }).compose(myStamp);
 const obj1 = stampit().methods({
     a() {
         return 'a';
-    }
+    },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
 }, {
     b() {
         return 'b';
-    }
+    },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
 }).create();
 
 const obj2 = stampit().props({
@@ -154,7 +174,11 @@ Constructor.prototype.foo = function foo() {
 const newskool = stampit().methods({
     bar: function bar() {
         return 'bar';
-    }
+    },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
     // your methods here...
 }).init(function() {
     this.baz = 'baz';
@@ -255,6 +279,10 @@ const descriptor0: stampit.ExtendedDescriptor<Object0> = {
     logLocalThis() {
         this; // $ExpectType Object0
     },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
   },
   properties: {},
   deepProperties: {},
@@ -287,6 +315,10 @@ const stampUntypedDescriptor0 = compose<Object0>(/* <stampit.ExtendedDescriptor<
     logLocalThis() {
         this; // $ExpectType any
     },
+    myMembers: {},
+    dbConnString: "pgs://data.local",
+    MY_LIMIT: 100,
+    myRegExp: /foobar/g,
   },
 } /* as stampit.ExtendedDescriptor<Object0> */);
 stampUntypedDescriptor0; // $ExpectType Stamp<Object0>
