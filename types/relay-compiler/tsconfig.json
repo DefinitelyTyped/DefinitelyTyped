@@ -24,7 +24,7 @@
         "lib/transforms/ConnectionFieldTransform.d.ts",
         "lib/transforms/FlattenTransform.d.ts",
         "lib/transforms/InlineFragmentsTransform.d.ts",
-        "lib/transforms/RelayApplyFragmentArgumentTransform.d.ts",
+        "lib/transforms/ApplyFragmentArgumentTransform.d.ts",
         "lib/transforms/SkipRedundantNodesTransform.d.ts",
         "lib/transforms/MaskTransform.d.ts",
         "lib/transforms/MatchTransform.d.ts",
