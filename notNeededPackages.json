@@ -3198,6 +3198,7 @@
             "sourceRepoURL": "https://github.com/kimminsik-bernard/react-daum-postcode",
             "asOfVersion": "1.6.1"
         },
+        {
             "libraryName": "react-circular-progressbar",
             "typingsPackageName": "react-circular-progressbar",
             "sourceRepoURL": "https://github.com/kevinsqi/react-circular-progressbar#readme",
