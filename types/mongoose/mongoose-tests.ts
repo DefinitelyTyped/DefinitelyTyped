@@ -1037,6 +1037,8 @@ query.batchSize(100).batchSize(100);
 var lowerLeft = [40.73083, -73.99756]
 var upperRight = [40.741404,  -73.988135]
 query.where('loc').within().box(lowerLeft, upperRight)
+query.where('loc').wtimeout()
+query.where('loc').wtimeout(10)
 query.box({ ll : lowerLeft, ur : upperRight }).box({});
 var queryModel = mongoose.model('QModel')
 query.cast(new queryModel(), {}).hasOwnProperty('');

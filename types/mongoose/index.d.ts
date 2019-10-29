@@ -2244,6 +2244,8 @@ declare module "mongoose" {
     within(val?: any): this;
     within(coordinate: number[], ...coordinatePairs: number[][]): this;
 
+    wtimeout(ms?: number): this;
+
     /** Flag to opt out of using $geoWithin. */
     static use$geoWithin: boolean;
   }
