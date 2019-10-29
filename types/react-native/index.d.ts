@@ -25,6 +25,7 @@
 //                 Eli White <https://github.com/TheSavior>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
+//                 Jesse Katsumata <https://github.com/Naturalclar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -6657,7 +6658,7 @@ export interface AccessibilityInfoStatic {
      *
      * @deprecated use isScreenReaderChanged instead
      */
-    fetch(): () => Promise<boolean>;
+    fetch: () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:
