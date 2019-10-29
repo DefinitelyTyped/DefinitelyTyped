@@ -48,7 +48,7 @@ declare namespace GoogleAppsScript {
      *     var xml = XmlService.getPrettyFormat().format(document);
      *     Logger.log(xml);
      */
-    export interface Cdata {
+    export interface Cdata extends Content {
       append(text: string): Text;
       detach(): Content;
       getParentElement(): Element;
@@ -60,7 +60,7 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML Comment node.
      */
-    export interface Comment {
+    export interface Comment extends Content {
       detach(): Content;
       getParentElement(): Element;
       getText(): string;
@@ -110,7 +110,7 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML DocumentType node.
      */
-    export interface DocType {
+    export interface DocType extends Content {
       detach(): Content;
       getElementName(): string;
       getInternalSubset(): string;
@@ -167,7 +167,7 @@ declare namespace GoogleAppsScript {
      *     xml = XmlService.getPrettyFormat().format(document);
      *     Logger.log(xml);
      */
-    export interface Element {
+    export interface Element extends Content {
       addContent(content: Content): Element;
       addContent(index: Integer, content: Content): Element;
       cloneContent(): Content[];
@@ -213,7 +213,7 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML EntityReference node.
      */
-    export interface EntityRef {
+    export interface EntityRef extends Content {
       detach(): Content;
       getName(): string;
       getParentElement(): Element;
@@ -260,7 +260,7 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML ProcessingInstruction node.
      */
-    export interface ProcessingInstruction {
+    export interface ProcessingInstruction extends Content {
       detach(): Content;
       getData(): string;
       getParentElement(): Element;
@@ -271,7 +271,7 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML Text node.
      */
-    export interface Text {
+    export interface Text extends Content {
       append(text: string): Text;
       detach(): Content;
       getParentElement(): Element;

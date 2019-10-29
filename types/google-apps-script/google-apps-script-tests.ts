@@ -146,3 +146,9 @@ const request : GoogleAppsScript.Data_Studio.Request<any> = {
     ]
   ]
 }
+
+XmlService.createElement("")
+  .addContent(XmlService.createCdata(""))
+  .addContent(XmlService.createComment(""))
+  .addContent(XmlService.createDocType(""))
+  .addContent(XmlService.createText(""));
