@@ -3505,6 +3505,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "rot-js",
+            "typingsPackageName": "rot-js",
+            "sourceRepoURL": "https://github.com/ondras/rot.js",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "round-to",
             "typingsPackageName": "round-to",
             "sourceRepoURL": "https://github.com/sindresorhus/round-to",
