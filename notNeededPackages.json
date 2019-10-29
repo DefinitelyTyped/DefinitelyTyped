@@ -4399,6 +4399,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "vue-resource",
+            "typingsPackageName": "vue-resource",
+            "sourceRepoURL": "https://github.com/vuejs/vue-resource",
+            "asOfVersion": "1.3.6"
+        },
+        {
             "libraryName": "vue-router",
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
