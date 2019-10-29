@@ -253,6 +253,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "bezier-easing",
+            "typingsPackageName": "bezier-easing",
+            "sourceRepoURL": "https://github.com/gre/bezier-easing",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "bem-cn",
             "typingsPackageName": "bem-cn",
             "sourceRepoURL": "https://github.com/albburtsev/bem-cn",
