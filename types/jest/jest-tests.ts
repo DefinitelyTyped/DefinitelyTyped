@@ -1498,30 +1498,45 @@ test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
     5000
 );
 
-const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']] = [['a', 'b', 'ab'], ['d', 2, 'd2']];
+declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (s1, s2, expected) => {
-    expect(s1 + s2).toBe(expected);
+    // $ExpectType 'a' | 'd'
+    s1;
+    // $ExpectType 'b' | 2
+    s2;
+    // $ExpectType 'ab' | 'd2'
+    expected;
 });
 
-const constCasesWithMoreThanTen: [
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-  [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
-] = [
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-  [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+declare const constCasesWithMoreThanTen: [
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
 ];
-test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11) => {
-  expect(n1).toBeDefined();
-  expect(n2).toBeDefined();
-  expect(n3).toBeDefined();
-  expect(n4).toBeDefined();
-  expect(n5).toBeDefined();
-  expect(n6).toBeDefined();
-  expect(n7).toBeDefined();
-  expect(n8).toBeDefined();
-  expect(n9).toBeDefined();
-  expect(n10).toBeDefined();
-  expect(n11).toBeDefined();
+
+test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
+    const [n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11] = args;
+    // $ExpectType number
+    n1;
+    // $ExpectType number
+    n2;
+    // $ExpectType number
+    n3;
+    // $ExpectType number
+    n4;
+    // $ExpectType number
+    n5;
+    // $ExpectType number
+    n6;
+    // $ExpectType number
+    n7;
+    // $ExpectType number
+    n8;
+    // $ExpectType number
+    n9;
+    // $ExpectType number
+    n10;
+    // $ExpectType number
+    n11;
 });
 
 test.each`
