@@ -2,25 +2,24 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6","dom"
+            "dom",
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "esModuleInterop": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "future.d.ts",
-        "test/fibers.ts",
-        "test/futures.ts"
+        "bent-tests.ts"
     ]
 }
