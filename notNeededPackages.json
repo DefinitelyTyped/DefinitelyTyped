@@ -3877,6 +3877,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "stacktrace-js",
+            "typingsPackageName": "stacktrace-js",
+            "sourceRepoURL": "https://github.com/stacktracejs/stacktrace.js",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "stellar-sdk",
             "typingsPackageName": "stellar-sdk",
             "sourceRepoURL": "https://github.com/stellar/js-stellar-sdk",
