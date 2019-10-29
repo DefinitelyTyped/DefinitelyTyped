@@ -4411,6 +4411,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "wouter",
+            "typingsPackageName": "wouter",
+            "sourceRepoURL": "https://github.com/molefrog/wouter#readme",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "write-json-file",
             "typingsPackageName": "write-json-file",
             "sourceRepoURL": "https://github.com/sindresorhus/write-json-file",
