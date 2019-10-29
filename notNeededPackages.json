@@ -2017,6 +2017,12 @@
             "asOfVersion": "3.4.1"
         },
         {
+            "libraryName": "keytar",
+            "typingsPackageName": "keytar",
+            "sourceRepoURL": "http://atom.github.io/node-keytar/",
+            "asOfVersion": "4.4.2"
+        },
+        {
             "libraryName": "knex",
             "typingsPackageName": "knex",
             "sourceRepoURL": "https://github.com/tgriesser/knex",
