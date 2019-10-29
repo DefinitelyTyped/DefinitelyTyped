@@ -385,6 +385,12 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "chai-webdriverio",
+            "typingsPackageName": "chai-webdriverio",
+            "sourceRepoURL": "https://github.com/marcodejongh/chai-webdriverio",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
