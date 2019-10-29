@@ -1033,6 +1033,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "expo-localization",
+            "typingsPackageName": "expo-localization",
+            "sourceRepoURL": "https://docs.expo.io/versions/latest/sdk/localization",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "expo",
             "typingsPackageName": "expo",
             "sourceRepoURL": "https://github.com/expo/expo/tree/master/packages/expo",
