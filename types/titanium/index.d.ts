@@ -2,6 +2,7 @@
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 declare const Ti: typeof Titanium;
