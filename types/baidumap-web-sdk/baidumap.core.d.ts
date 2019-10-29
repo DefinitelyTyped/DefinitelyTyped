@@ -56,7 +56,8 @@ declare namespace BMap {
 		getDraggingCursor(): string;
 		setMinZoom(zoom: number): void;
 		setMaxZoom(zoom: number): void;
-		setMapStyle(mapStyle: MapStyle): void;
+        setMapStyle(mapStyle: MapStyle): void;
+        setMapStyle2(style: MapStyleV2): void;
 		setPanorama(pano: Panorama): void;
 		disable3DBuilding(): void;
 		getBounds(): Bounds;
@@ -135,7 +136,9 @@ declare namespace BMap {
 		ontouchstart: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
 		ontouchmove: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
 		ontouchend: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-		onlongpress: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
+        onlongpress: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
+        addEventListener(event: string, handler: Callback): void;
+        removeEventListener(event: string, handler: Callback): void;
 	}
 	interface PanOptions {
 		noAnimation?: boolean;
@@ -162,6 +165,22 @@ declare namespace BMap {
 	interface MapStyle {
 		features: any[];
 		style: string;
-	}
+    }
+    interface MapStyleItem {
+        featureType?: string;
+        elementType?: string;
+        stylers: MapStyleItemStylers;
+    }
+    interface MapStyleItemStylers {
+        [k: string]: string | undefined;
+        color?: string;
+        visibility?: string;
+        level?: string;
+        curZoomRegionId?: string;
+        curZoomRegion?: string;
+        fontsize?: string;
+        weight?: string;
+    }
+    type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string }
 }
 declare const BMAP_API_VERSION: BMap.APIVersion;
