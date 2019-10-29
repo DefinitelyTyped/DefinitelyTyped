@@ -88,7 +88,7 @@ export interface ChromeOptions {
     /**
      * Flag to activate W3C WebDriver API. Chromedriver (as of version 2.41 at least) simply does not support the W3C WebDriver API.
      */
-    w3c: boolean;
+    w3c?: boolean;
 }
 
 export interface NightwatchDesiredCapabilities {
