@@ -3385,6 +3385,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "riot",
+            "typingsPackageName": "riot",
+            "sourceRepoURL": "https://github.com/riot/riot",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "rollup",
             "typingsPackageName": "rollup",
             "sourceRepoURL": "https://github.com/rollup/rollup",
