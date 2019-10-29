@@ -2065,6 +2065,12 @@
             "asOfVersion": "1.6.2"
         },
         {
+            "libraryName": "looks-same",
+            "typingsPackageName": "looks-same",
+            "sourceRepoURL": "https://github.com/gemini-testing/looks-same",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "lorem-ipsum",
             "typingsPackageName": "lorem-ipsum",
             "sourceRepoURL": "https://github.com/knicklabs/node-lorem-ipsum",
