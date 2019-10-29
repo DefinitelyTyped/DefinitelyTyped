@@ -9,11 +9,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 type HtmlProps = JSX.IntrinsicElements['html'];
 
-type BodyProps = JSX.IntrinsicElements['body']
+type BodyProps = JSX.IntrinsicElements['body'];
 
 type LinkProps = JSX.IntrinsicElements['link'];
 
@@ -36,11 +36,7 @@ export interface HelmetProps {
     defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: HtmlProps;
-    onChangeClientState?: (
-        newState: any,
-        addedTags: HelmetTags,
-        removedTags: HelmetTags,
-    ) => void;
+    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
     link?: LinkProps[];
     meta?: MetaProps[];
     noscript?: Array<any>;
