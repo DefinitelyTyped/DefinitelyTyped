@@ -4159,6 +4159,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "transliteration",
+            "typingsPackageName": "transliteration",
+            "sourceRepoURL": "https://github.com/dzcpy/transliteration",
+            "asOfVersion": "1.6.6"
+        },
+        {
             "libraryName": "trash",
             "typingsPackageName": "trash",
             "sourceRepoURL": "https://github.com/sindresorhus/trash",
