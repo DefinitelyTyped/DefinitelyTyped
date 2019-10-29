@@ -301,6 +301,12 @@
             "asOfVersion": "3.0.1"
         },
         {
+            "libraryName": "broccoli-plugin",
+            "typingsPackageName": "broccoli-plugin",
+            "sourceRepoURL": "https://github.com/broccolijs/broccoli-plugin",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
