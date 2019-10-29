@@ -168,6 +168,7 @@ interface AlloyInterface {
    * @param name Name of the view within the widget to instantiate ('widget' by default)
    * @param args Arguments to pass to the widget.
    */
+  createWidget(id: string, args?: any): AlloyController;
   createWidget(id: string, name?: string, args?: any): AlloyController;
 }
 
