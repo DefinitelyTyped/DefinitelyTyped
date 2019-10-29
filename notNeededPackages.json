@@ -3799,6 +3799,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "stellar-sdk",
+            "typingsPackageName": "stellar-sdk",
+            "sourceRepoURL": "https://github.com/stellar/js-stellar-sdk",
+            "asOfVersion": "0.15.1"
+        },
+        {
             "libraryName": "@storybook/addon-a11y",
             "typingsPackageName": "storybook__addon-a11y",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
