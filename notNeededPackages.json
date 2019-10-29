@@ -991,6 +991,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "exceljs",
+            "typingsPackageName": "exceljs",
+            "sourceRepoURL": "https://github.com/exceljs/exceljs",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "execa",
             "typingsPackageName": "execa",
             "sourceRepoURL": "https://github.com/sindresorhus/execa",
