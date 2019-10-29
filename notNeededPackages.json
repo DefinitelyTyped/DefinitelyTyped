@@ -3343,6 +3343,12 @@
             "asOfVersion": "6.0.0"
         },
         {
+            "libraryName": "readdir-enhanced",
+            "typingsPackageName": "readdir-enhanced",
+            "sourceRepoURL": "https://github.com/bigstickcarpet/readdir-enhanced",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
