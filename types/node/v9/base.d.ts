@@ -629,7 +629,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -1265,7 +1265,6 @@ declare module "cluster" {
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
-        suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
@@ -5652,7 +5651,9 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     export interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string | Buffer): Hmac;
@@ -7213,7 +7214,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends stream.Stream {
         private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;

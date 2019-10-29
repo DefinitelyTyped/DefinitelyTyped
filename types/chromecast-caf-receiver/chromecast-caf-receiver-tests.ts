@@ -1,4 +1,6 @@
 import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
+import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
+import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -10,7 +12,7 @@ mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
 // conforms exactly to the CAF documentation.
 
 // tslint:disable-next-line
-const breaksEvent = new cast.framework.events.BreaksEvent('BREAK_STARTED');
+const breaksEvent = new cast.framework.events.BreaksEvent(EventType.BREAK_STARTED);
 breaksEvent.breakId = 'some-break-id';
 breaksEvent.breakClipId = 'some-break-clip-id';
 
@@ -21,16 +23,21 @@ const breakClip = new cast.framework.messages.BreakClip('id');
 // tslint:disable-next-line
 const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
 // tslint:disable-next-line
-const rEvent = new cast.framework.events.RequestEvent('BITRATE_CHANGED', {
+const rEvent = new cast.framework.events.RequestEvent(EventType.BITRATE_CHANGED, {
     requestId: 2,
 });
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
-pManager.addEventListener('STALLED', () => {});
+pManager.addEventListener(EventType.STALLED, () => {});
 pManager.addEventListener(cast.framework.events.category.CORE, () => {});
 pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
+pManager.addEventListener(
+  EventType.MEDIA_FINISHED,
+  (event: cast.framework.events.MediaFinishedEvent) =>
+    `${event.currentMediaTime} ${event.endedReason}`,
+);
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
 // tslint:disable-next-line
@@ -104,7 +111,7 @@ pData.nextThumbnailUrl = 'url';
 pData.nextTitle = 'title';
 pData.numberBreakClips = 3;
 pData.preloadingNext = false;
-pData.state = 'paused';
+pData.state = cast.framework.ui.State.PAUSED;
 pData.thumbnailUrl = 'url';
 pData.title = 'title';
 pData.whenSkippable = 321;
@@ -121,3 +128,10 @@ const supportedCommands: number =
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+
+cast.framework.CastReceiverContext.getInstance().addEventListener(
+    [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
+    () => '¡hola!',
+);
+
+const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, "Loading failed!");

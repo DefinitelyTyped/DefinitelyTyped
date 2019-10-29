@@ -5,6 +5,7 @@
 //                 David Ng <https://github.com/davidNHK/>
 //                 Carlos Eduardo Scheffer <https://github.com/carlosscheffer/>
 //                 Byungjin Kim <https://github.com/jindev>
+//                 Svyatoslav Bychkov <https://github.com/stbychkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,7 +43,7 @@ export interface VerifiedCallback {
 }
 
 export interface JwtFromRequestFunction {
-    (req: Request): string;
+    (req: Request): string | null;
 }
 
 export declare namespace ExtractJwt {

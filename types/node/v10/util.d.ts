@@ -55,7 +55,7 @@ declare module "util" {
     function isSymbol(object: any): object is symbol;
     /** @deprecated since v4.0.0 - use `value === undefined` instead. */
     function isUndefined(object: any): object is undefined;
-    function deprecate<T extends Function>(fn: T, message: string): T;
+    function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
     function isDeepStrictEqual(val1: any, val2: any): boolean;
 
     interface CustomPromisify<TCustom extends Function> extends Function {

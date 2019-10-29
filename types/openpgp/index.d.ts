@@ -6,6 +6,7 @@
 //                 Carlos Villavicencio <https://github.com/po5i>
 //                 Eric Camellini <https://github.com/ecamellini>
 //                 SardineFish <https://github.com/SardineFish>
+//                 Ryo Ota <https://github.com/nwtgck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 import BN = require("bn.js");
@@ -2898,7 +2899,7 @@ export namespace packet {
          * class instance.
          * @returns A Uint8Array containing valid openpgp packets.
          */
-        write(): Uint8Array;
+        write(): Uint8Array | ReadableStream<Uint8Array>;
 
         /**
          * Adds a packet to the list. This is the only supported method of doing so;

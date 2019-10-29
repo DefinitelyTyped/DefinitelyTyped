@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 import { ChildProcess } from "child_process";
+import { EventEmitter } from "events";
 
 declare namespace recluster {
   interface LogOptions {
@@ -35,7 +36,7 @@ declare namespace recluster {
     logger?: Logger;
   }
 
-  class Balancer {
+  class Balancer extends EventEmitter {
     constructor(file: string, options: BalancerOptions);
     run(): void;
     reload(cb?: () => void): void;

@@ -28,6 +28,9 @@ const request = amazon.Login.authorize({
     response_type: "code",
     state: "my-state",
     scope: "profile",
+    scope_data: {
+        postal_code: { essential: true },
+    },
 });
 
 request.onComplete("my://redirect.url");

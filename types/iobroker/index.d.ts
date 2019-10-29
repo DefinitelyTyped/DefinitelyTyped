@@ -243,7 +243,7 @@ declare global {
         // Maybe this should extend Record<string, any>,
         // but the extra properties aren't defined anywhere,
         // so I'd rather force the user to explicitly state
-        // he knows what he's doing by casting to any
+        // they know what they're doing by casting to any
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -521,7 +521,7 @@ declare global {
         /** Provides low-level access to the ioBroker objects db */
         interface Objects {
             /**
-             * For a given user, returns the groups he belongs to, and his access rights
+             * For a given user, returns the groups they belong to, and their access rights
              * @param user Name of the user. Has to start with "system.user."
              * @param callback The callback function to be invoked with the return values
              */

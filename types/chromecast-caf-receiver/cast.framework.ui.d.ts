@@ -10,7 +10,17 @@ import { CastReceiverContext } from './cast.framework';
 export as namespace ui;
 export type ContentType = 'video' | 'audio' | 'image';
 
-export type State = 'launching' | 'idle' | 'loading' | 'buffering' | 'paused' | 'playing';
+/**
+ * UI state of receiver application.
+ */
+export enum State {
+    LAUNCHING = 'launching',
+    IDLE = 'idle',
+    LOADING = 'loading',
+    BUFFERING = 'buffering',
+    PAUSED = 'paused',
+    PLAYING = 'playing'
+}
 
 export enum PlayerDataEventType {
     ACTIVE_TRACK_IDS_CHANGED = 'activeTrackIdsChanged',

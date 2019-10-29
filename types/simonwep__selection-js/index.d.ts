@@ -1,4 +1,4 @@
-// Type definitions for simonwep__selection-js 0.2
+// Type definitions for simonwep__selection-js 1.2
 // Project: https://github.com/Simonwep/selection
 // Definitions by: Mitsuka Hanakura a.k.a. ragg <https://github.com/ra-gg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,25 +8,14 @@ type ElementList = Element | readonly Element[] | NodeList | HTMLCollection;
 
 declare namespace Selection {
     interface SelectionEvent {
-        selection: Selection;
-        eventName: string;
-        areaElement: readonly Element[];
-        originalEvent: MouseEvent | TouchEvent;
-        selectedElements: readonly Element[];
-        changedElements: {
+        oe: MouseEvent | TouchEvent;
+        inst: Selection;
+        area: Element;
+        selected: readonly Element[];
+        changed: {
             added: readonly Element[];
             removed: readonly Element[];
         };
-    }
-
-    interface SingleSelectionEvent extends SelectionEvent {
-        target: Element;
-    }
-
-    interface SelectionFilterEvent {
-        eventName: 'selectionFilter';
-        element: Element;
-        selection: Selection;
     }
 
     type Mode = 'touch' | 'center' | 'cover';
@@ -42,12 +31,6 @@ declare namespace Selection {
         startareas?: ReadonlyArray<string>;
         boundaries?: ReadonlyArray<string>;
         selectionAreaContainer?: string | HTMLElement | ReadonlyArray<string | HTMLElement>;
-        validateStart?(evt: MouseEvent | TouchEvent): boolean;
-        onStart?(evt: SelectionEvent): void;
-        onSelect?(evt: SingleSelectionEvent): void;
-        onMove?(evt: SelectionEvent): void;
-        onStop?(evt: SelectionEvent): void;
-        selectionFilter?(evt: SelectionFilterEvent): boolean;
     }
 
     interface SelectionUtils {
@@ -72,12 +55,21 @@ declare namespace Selection {
     }
 }
 
+interface SelectionEvents {
+    beforestart: (e: Selection.SelectionEvent) => boolean;
+    start: (e: Selection.SelectionEvent) => void;
+    move: (e: Selection.SelectionEvent) => void;
+    stop: (e: Selection.SelectionEvent) => void;
+}
+
 declare class Selection {
     static create(options: Selection.SelectionOptions): Selection;
     static utils: Selection.SelectionUtils;
     static version: string;
 
     constructor(options: Selection.SelectionOptions);
+    on<E extends keyof SelectionEvents>(ev: E, cb: SelectionEvents[E]): this;
+    off<E extends keyof SelectionEvents>(ev: E, cb: SelectionEvents[E]): this;
     resolveSelectables(): void;
     keepSelection(): void;
     clearSelection(): void;

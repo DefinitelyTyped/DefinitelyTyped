@@ -39,7 +39,7 @@ result.errno;
 
 Interceptor.attach(puts, {
     onEnter(args) {
-        // $ExpectType NativePointer[]
+        // $ExpectType NativePointer[] || InvocationArguments
         args;
     },
     onLeave(retval) {

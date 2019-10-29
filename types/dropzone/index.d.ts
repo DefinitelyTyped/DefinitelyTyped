@@ -215,8 +215,6 @@ declare class Dropzone {
 
 	accept(file: Dropzone.DropzoneFile, done: (error?: string | Error) => void): void;
 
-	getActiveFiles(): Dropzone.DropzoneFile[];
-
 	getFilesWithStatus(status: string): Dropzone.DropzoneFile[];
 
 	enqueueFile(file: Dropzone.DropzoneFile): void;

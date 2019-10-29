@@ -49,7 +49,14 @@ interface AuthorizeOptions {
      *
      */
     state?: string;
+    scope_data?: AuthorizeScopeData;
 }
+
+type AuthorizeScopeData = {
+    [scope in AuthorizationScopeOptions]?: {
+        essential: boolean;
+    }
+};
 
 /**
  *
@@ -213,6 +220,10 @@ declare namespace amazon {
             options: CodeAuthorizeOptions,
             next?: string | NextCallback<CodeRequest>
         ): CodeRequest;
+        function authorize(
+            options: AuthorizeOptions,
+            next?: string | NextCallback<AuthorizeRequest>
+        ): AuthorizeRequest;
 
         /**
          * Retrieves the customer profile and passes it to a callback function.

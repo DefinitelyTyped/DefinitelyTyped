@@ -198,7 +198,7 @@ declare module "pdfmake/build/pdfmake" {
         ) => boolean;
         pageMargins?: Margins;
         pageOrientation?: PageOrientation;
-        pageSize?: PageSize;
+        pageSize?: PageSize | { width: number; height: number };
         styles?: Style;
     }
 

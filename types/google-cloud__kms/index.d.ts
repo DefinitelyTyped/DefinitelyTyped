@@ -1,6 +1,7 @@
-// Type definitions for @google-cloud/kms 0.2
+// Type definitions for @google-cloud/kms 1.3
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
+//                 Caian Ertl <https://github.com/caiertl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -178,7 +179,7 @@ export namespace v1 {
 
         interface EncryptRequest {
             name: string;
-            plaintext: string;
+            plaintext: Buffer;
             additionalAuthenticatedData?: string;
         }
         interface EncryptResponse {
@@ -189,7 +190,7 @@ export namespace v1 {
 
         interface DecryptRequest {
             name: string;
-            ciphertext: string;
+            ciphertext: Buffer;
             additionalAuthenticatedData?: string;
         }
         interface DecryptResponse {

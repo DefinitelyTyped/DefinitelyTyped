@@ -10,7 +10,7 @@ import { TextFieldProps } from "material-ui";
 
 export interface ValidatorFormProps {
     className?: string;
-    onSubmit: (event: React.FormEventHandler) => void;
+    onSubmit: (event: React.FormEvent) => void;
     instantValidate?: boolean;
     onError?: (errors: any[]) => void;
     debounceTime?: number;
@@ -18,7 +18,8 @@ export interface ValidatorFormProps {
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
     static addValidationRule(name: string, callback: (value: any) => boolean): void;
-    isFormValid(dryRun: boolean): boolean;
+    static removeValidationRule(name: string): void;
+    isFormValid(dryRun: boolean): Promise<boolean>;
     resetValidations(): void;
 }
 

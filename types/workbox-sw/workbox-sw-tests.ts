@@ -8,3 +8,9 @@ WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $E
 WorkboxSW.precaching.precacheAndRoute(/foo/);
 
 WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], {directoryIndex: "/"}); // $ExpectType void
+
+new WorkboxSW.backgroundSync.Queue('queue-name', {
+    onSync: ({ queue }) => {
+        queue; // $ExpectType Queue
+    },
+});

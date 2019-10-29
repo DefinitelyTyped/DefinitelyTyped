@@ -1,8 +1,9 @@
-// Type definitions for dialogflow 0.9
+// Type definitions for dialogflow 0.11
 // Project: https://github.com/googleapis/nodejs-dialogflow
 // Definitions by: Daniel Dyla <https://github.com/dyladan>
 //                 Tom Carrio <https://github.com/tcarrio>
 //                 Khalil Choudhry <https://github.com/khalilchoudhry>
+//                 Joseph Thibeault <https://github.com/jrthib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -17,23 +18,63 @@ export namespace v2 {
     getProjectId(): Promise<string>;
     getProjectId(callback?: (error: Error, id: string) => string): void;
 
+    setAgent(
+      request: SetAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
+    setAgent(
+      request: SetAgentRequest,
+      options?: gax.CallOptions,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
+
+    deleteAgent(
+      request: DeleteAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<void>;
+    deleteAgent(
+      request: DeleteAgentRequest,
+      options?: gax.CallOptions,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<void>;
+
+    getAgent(
+      request: GetAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
     getAgent(
       request: GetAgentRequest,
       options?: gax.CallOptions,
       cb?: (err: Error, agent: Agent) => void
     ): Promise<[Agent]>;
+
+    searchAgents(
+      request: SearchAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<Agent[]>;
     searchAgents(
       request: SearchAgentRequest,
       options?: gax.CallOptions,
       cb?: (err: Error, agents: Agent[], arg3: any, response: any) => void
     ): Promise<Agent[]>;
+
     searchAgentsStream(
       request: SearchAgentRequest,
       options?: gax.CallOptions
     ): any;
+
+    trainAgent(
+      request: TrainAgentRequest,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
     trainAgent(
       request: TrainAgentRequest,
       options?: gax.CallOptions,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
+
+    exportAgent(
+      request: ExportAgentRequest,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
     exportAgent(
@@ -41,9 +82,19 @@ export namespace v2 {
       options?: gax.CallOptions,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
+
+    importAgent(
+      request: ImportAgentRequest,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
     importAgent(
       request: ImportAgentRequest,
       options?: gax.CallOptions,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
+
+    restoreAgent(
+      request: RestoreAgentRequest,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
     restoreAgent(
@@ -51,6 +102,10 @@ export namespace v2 {
       options?: gax.CallOptions,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
+
+    projectPath(project: string): string;
+
+    matchProjectFromProjectName(projectName: string): string;
   }
 
   class ContextsClient {
@@ -446,6 +501,15 @@ export namespace longrunning {
     message: string;
     details: any[];
   }
+}
+
+export interface SetAgentRequest {
+  agent: Agent;
+  updateMask?: any;
+}
+
+export interface DeleteAgentRequest {
+  parent: string;
 }
 
 export interface GetAgentRequest {
@@ -859,6 +923,8 @@ export interface Agent {
   enableLogging?: boolean;
   matchMode?: MatchMode;
   classificationThreshold?: number;
+  apiVersion?: ApiVersion;
+  tier?: Tier;
 }
 
 export interface Context {
@@ -891,6 +957,20 @@ export type MatchMode =
   | "MATCH_MODE_UNSPECIFIED"
   | "MATCH_MODE_HYBRID"
   | "MATCH_MODE_ML_ONLY";
+
+// API version for the agent.
+export type ApiVersion =
+  | "API_VERSION_UNSPECIFIED"
+  | "API_VERSION_V1"
+  | "API_VERSION_V2"
+  | "API_VERSION_V2_BETA_1";
+
+// Represents the agent tier.
+export type Tier =
+  | "TIER_UNSPECIFIED"
+  | "TIER_STANDARD"
+  | "TIER_ENTERPRISE"
+  | "TIER_ENTERPRISE_PLUS";
 
 export interface Credentials {
   client_email: string;

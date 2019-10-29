@@ -168,14 +168,14 @@ declare namespace ValidatorJS {
     // check if the string matches to a valid MIME type (https://en.wikipedia.org/wiki/Media_type) format
     isMimeType(str: string): boolean;
 
-    // check if the string is a mobile phone number, (locale is one of
+    // check if the string is a mobile phone number, (locale is either an array of locales or one of
     // ['ar-AE', ar-DZ', 'ar-EG', 'ar-JO', 'ar-SA', 'ar-SY', 'be-BY', 'bg-BG', 'cs-CZ', 'de-DE',
     // 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-KE', 'en-NG', 'en-NZ', 'en-UG',
     // 'en-RW', 'en-SG', 'en-TZ', 'en-PK', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR',
     // 'fi-FI', 'fo-FO', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'kk-KZ', 'kl-GL',
     // 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK',
-    // 'sr-RS', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
-    isMobilePhone(str: string, locale: MobilePhoneLocale, options?: IsMobilePhoneOptions): boolean;
+    // 'sr-RS', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'] or defaults to 'any').
+    isMobilePhone(str: string, locale?: MobilePhoneLocale | MobilePhoneLocale[], options?: IsMobilePhoneOptions): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).

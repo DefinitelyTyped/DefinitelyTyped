@@ -50,6 +50,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     proxyUrl?: string;
     redirectUri?: string;
     refreshToken?: string;
+    refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
     serverUrl?: string;
     sessionId?: string;
     signedRequest?: string | Object;

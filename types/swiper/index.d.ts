@@ -926,7 +926,7 @@ export interface LazyOptions {
  */
 
 export interface FadeEffectOptions {
-    crossfade?: boolean;
+    crossFade?: boolean;
 }
 
 export interface CoverflowEffectOptions {
@@ -1242,7 +1242,7 @@ export default class Swiper {
     /**
      * Index number of last clicked slide
      */
-    clickedIdex: number;
+    clickedIndex: number;
 
     /**
      * Link to last clicked slide (HTMLElement)

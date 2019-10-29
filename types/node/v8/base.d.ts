@@ -431,6 +431,7 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
+        /** @deprecated since v0.11.7 - recover from failed I/O actions explicitly via error event handlers set on the domain instead. */
         dispose(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
@@ -492,7 +493,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = () => void;
@@ -1182,6 +1183,7 @@ declare module "cluster" {
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
+        /** @deprecated since v6.0.0 - use `worker.exitedAfterDisconnect` instead. */
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;
@@ -5229,6 +5231,7 @@ declare module "tls" {
 }
 
 declare module "crypto" {
+    import * as stream from "stream";
     export interface Certificate {
         exportChallenge(spkac: string | Buffer): Buffer;
         exportPublicKey(spkac: string | Buffer): Buffer;
@@ -5250,7 +5253,9 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     export interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string | Buffer): Hmac;
@@ -5261,13 +5266,13 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    export interface Hash extends NodeJS.ReadWriteStream {
+    export interface Hash extends stream.Transform {
         update(data: string | Buffer | DataView): Hash;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    export interface Hmac extends NodeJS.ReadWriteStream {
+    export interface Hmac extends stream.Transform {
         update(data: string | Buffer | DataView): Hmac;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
@@ -5275,7 +5280,7 @@ declare module "crypto" {
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
-    export interface Cipher extends NodeJS.ReadWriteStream {
+    export interface Cipher extends stream.Transform {
         update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
         update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
@@ -5288,7 +5293,7 @@ declare module "crypto" {
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
-    export interface Decipher extends NodeJS.ReadWriteStream {
+    export interface Decipher extends stream.Transform {
         update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
         update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
@@ -5657,7 +5662,7 @@ declare module "util" {
     export function isString(object: any): object is string;
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
-    export function deprecate<T extends Function>(fn: T, message: string): T;
+    export function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
 
     export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;
@@ -5792,6 +5797,7 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
+        /** @deprecated since v0.11.7 - recover from failed I/O actions explicitly via error event handlers set on the domain instead. */
         dispose(): void;
         members: any[];
         enter(): void;
@@ -6791,7 +6797,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends stream.Stream {
         private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;

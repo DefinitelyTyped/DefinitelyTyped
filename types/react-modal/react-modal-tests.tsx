@@ -50,7 +50,8 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     const customAriaVariables = {
       labelledby: 'labelledby',
-      describedby: 'describedby'
+      describedby: 'describedby',
+      modal: true,
     };
     const customDataVariables = {
       dataOne: 'one',

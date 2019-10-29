@@ -25,8 +25,7 @@ export interface Options {
 export default class Icon extends ImageStyle {
     constructor(opt_options?: Options);
     clone(): Icon;
-    clone(): ImageStyle;
     getColor(): Color;
-    getSrc(): string;
+    getSrc(): string | undefined;
     setAnchor(anchor: number[]): void;
 }

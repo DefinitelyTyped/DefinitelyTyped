@@ -9,6 +9,7 @@ faker.locale = 'en';
 
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
+resultStr = faker.address.zipCodeByState('AL');
 resultStr = faker.address.city();
 resultStr = faker.address.city(0);
 resultStr = faker.address.cityPrefix();
@@ -77,6 +78,7 @@ resultStr = faker.date.weekday({
 resultStr = faker.finance.account();
 resultStr = faker.finance.account(0);
 resultStr = faker.finance.accountName();
+resultStr = faker.finance.routingNumber();
 resultStr = faker.finance.mask();
 resultStr = faker.finance.mask(0, false, false);
 resultStr = faker.finance.amount();
@@ -86,10 +88,20 @@ resultStr = faker.finance.currencyCode();
 resultStr = faker.finance.currencyName();
 resultStr = faker.finance.currencySymbol();
 resultStr = faker.finance.bitcoinAddress();
+resultStr = faker.finance.creditCardNumber();
+resultStr = faker.finance.creditCardNumber('visa');
+resultStr = faker.finance.creditCardCVV();
 resultStr = faker.finance.ethereumAddress();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
 resultStr = faker.finance.bic();
+
+resultStr = faker.git.branch();
+resultStr = faker.git.commitEntry();
+resultStr = faker.git.commitEntry({ merge: true });
+resultStr = faker.git.commitMessage();
+resultStr = faker.git.commitSha();
+resultStr = faker.git.shortSha();
 
 resultStr = faker.hacker.abbreviation();
 resultStr = faker.hacker.adjective();
@@ -104,6 +116,11 @@ resultStr = faker.helpers.randomize(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.slugify('foo bar quux');
 resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
 resultStr = faker.helpers.replaceSymbols('foo# bar? quux#');
+resultStr = faker.helpers.replaceCreditCardSymbols('6453-####-####-####-###L');
+resultStr = faker.helpers.replaceCreditCardSymbols('6453-****-****-****-***L', '*');
+resultStr = faker.helpers.repeatString('a');
+resultStr = faker.helpers.repeatString('a', 10);
+resultStr = faker.helpers.regexpStyleStringParse('#{3}test[1-5]');
 resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
 
@@ -160,6 +177,7 @@ resultStr = faker.name.lastName(0);
 resultStr = faker.name.findName();
 resultStr = faker.name.findName('', '', 0);
 resultStr = faker.name.jobTitle();
+resultStr = faker.name.gender();
 resultStr = faker.name.prefix();
 resultStr = faker.name.suffix();
 resultStr = faker.name.title();
@@ -179,6 +197,13 @@ resultNum = faker.random.number({
 	min: 0,
 	max: 0,
 	precision: 0
+});
+resultNum = faker.random.float();
+resultNum = faker.random.float(0.001);
+resultNum = faker.random.float({
+  min: 0,
+  max: 0,
+  precision: 0.001
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
@@ -207,6 +232,14 @@ resultStr = faker.system.fileExt("foo");
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
+
+resultStr = faker.vehicle.vehicle();
+resultStr = faker.vehicle.manufacturer();
+resultStr = faker.vehicle.model();
+resultStr = faker.vehicle.type();
+resultStr = faker.vehicle.fuel();
+resultStr = faker.vehicle.vin();
+resultStr = faker.vehicle.color();
 
 import fakerAz = require('faker/locale/az');
 resultStr = fakerAz.name.firstName();

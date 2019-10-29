@@ -2,7 +2,9 @@
 // Project: http://github.com/soldair/node-qrcode
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Michael Nahkies <https://github.com/mnahkies>
+//                 Rémi Sormain <https://github.com/Marchelune>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -199,7 +201,7 @@ export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCod
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<any>;
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<string>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -212,7 +214,7 @@ export function toDataURL(text: string | QRCodeSegment[], callback: (error: Erro
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<any>;
+export function toDataURL(text: string | QRCodeSegment[], options?: QRCodeToDataURLOptions): Promise<string>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -227,7 +229,7 @@ export function toString(text: string | QRCodeSegment[], callback: (error: Error
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
  */
-export function toString(text: string | QRCodeSegment[], options?: QRCodeToStringOptions): Promise<any>;
+export function toString(text: string | QRCodeSegment[], options?: QRCodeToStringOptions): Promise<string>;
 /**
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.

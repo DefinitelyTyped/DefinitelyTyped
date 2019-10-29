@@ -205,10 +205,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
-  WebView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.WebView,
-    T
-  >;
 }
 
 export interface ReactNativeThemedStyledComponentsModule<

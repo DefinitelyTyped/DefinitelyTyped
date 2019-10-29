@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-05-06
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -102,11 +102,17 @@ declare namespace GoogleAppsScript {
       setPageWidth(pageWidth: number): Body;
       setText(text: string): Body;
       setTextAlignment(textAlignment: TextAlignment): Body;
+      /** @deprecated DO NOT USE */
       getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */
       getLinkUrl(): string;
+      /** @deprecated DO NOT USE */
       getNextSibling(): Element;
+      /** @deprecated DO NOT USE */
       getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */
       isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */
       setLinkUrl(url: string): Body;
     }
 
@@ -235,6 +241,7 @@ declare namespace GoogleAppsScript {
     export interface DocumentApp {
       Attribute: typeof Attribute;
       ElementType: typeof ElementType;
+      /** @deprecated DO NOT USE */
       FontFamily: typeof FontFamily;
       GlyphType: typeof GlyphType;
       HorizontalAlignment: typeof HorizontalAlignment;
@@ -324,7 +331,7 @@ declare namespace GoogleAppsScript {
       asTableRow(): TableRow;
       asText(): Text;
       copy(): Element;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -332,7 +339,7 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): Element;
       removeFromParent(): Element;
-      setAttributes(attributes: object): Element;
+      setAttributes(attributes: any): Element;
     }
 
     /**
@@ -361,7 +368,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -376,7 +383,7 @@ declare namespace GoogleAppsScript {
       merge(): Equation;
       removeFromParent(): Equation;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): Equation;
+      setAttributes(attributes: any): Equation;
       setLinkUrl(url: string): Equation;
       setTextAlignment(textAlignment: TextAlignment): Equation;
     }
@@ -393,7 +400,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getCode(): string;
@@ -409,7 +416,7 @@ declare namespace GoogleAppsScript {
       merge(): EquationFunction;
       removeFromParent(): EquationFunction;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): EquationFunction;
+      setAttributes(attributes: any): EquationFunction;
       setLinkUrl(url: string): EquationFunction;
       setTextAlignment(textAlignment: TextAlignment): EquationFunction;
     }
@@ -421,7 +428,7 @@ declare namespace GoogleAppsScript {
      */
     export interface EquationFunctionArgumentSeparator {
       copy(): EquationFunctionArgumentSeparator;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -429,7 +436,7 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): EquationFunctionArgumentSeparator;
       removeFromParent(): EquationFunctionArgumentSeparator;
-      setAttributes(attributes: object): EquationFunctionArgumentSeparator;
+      setAttributes(attributes: any): EquationFunctionArgumentSeparator;
     }
 
     /**
@@ -438,7 +445,7 @@ declare namespace GoogleAppsScript {
      */
     export interface EquationSymbol {
       copy(): EquationSymbol;
-      getAttributes(): object;
+      getAttributes(): any;
       getCode(): string;
       getNextSibling(): Element;
       getParent(): ContainerElement;
@@ -447,7 +454,7 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): EquationSymbol;
       removeFromParent(): EquationSymbol;
-      setAttributes(attributes: object): EquationSymbol;
+      setAttributes(attributes: any): EquationSymbol;
     }
 
     /**
@@ -501,7 +508,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getImages(): InlineImage[];
@@ -526,14 +533,20 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): FooterSection;
       removeFromParent(): FooterSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): FooterSection;
+      setAttributes(attributes: any): FooterSection;
       setText(text: string): FooterSection;
       setTextAlignment(textAlignment: TextAlignment): FooterSection;
+      /** @deprecated DO NOT USE */
       getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */
       getLinkUrl(): string;
+      /** @deprecated DO NOT USE */
       getNextSibling(): Element;
+      /** @deprecated DO NOT USE */
       getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */
       isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */
       setLinkUrl(url: string): FooterSection;
     }
 
@@ -546,7 +559,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Footnote {
       copy(): Footnote;
-      getAttributes(): object;
+      getAttributes(): any;
       getFootnoteContents(): FootnoteSection;
       getNextSibling(): Element;
       getParent(): ContainerElement;
@@ -554,7 +567,7 @@ declare namespace GoogleAppsScript {
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): Footnote;
-      setAttributes(attributes: object): Footnote;
+      setAttributes(attributes: any): Footnote;
     }
 
     /**
@@ -572,7 +585,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getNextSibling(): Element;
@@ -588,12 +601,16 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): FootnoteSection;
       removeFromParent(): FootnoteSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): FootnoteSection;
+      setAttributes(attributes: any): FootnoteSection;
       setText(text: string): FootnoteSection;
       setTextAlignment(textAlignment: TextAlignment): FootnoteSection;
+      /** @deprecated DO NOT USE */
       getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */
       getLinkUrl(): string;
+      /** @deprecated DO NOT USE */
       isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */
       setLinkUrl(url: string): FootnoteSection;
     }
 
@@ -636,7 +653,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getImages(): InlineImage[];
@@ -661,14 +678,20 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): HeaderSection;
       removeFromParent(): HeaderSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): HeaderSection;
+      setAttributes(attributes: any): HeaderSection;
       setText(text: string): HeaderSection;
       setTextAlignment(textAlignment: TextAlignment): HeaderSection;
+      /** @deprecated DO NOT USE */
       getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */
       getLinkUrl(): string;
+      /** @deprecated DO NOT USE */
       getNextSibling(): Element;
+      /** @deprecated DO NOT USE */
       getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */
       isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */
       setLinkUrl(url: string): HeaderSection;
     }
 
@@ -703,14 +726,14 @@ declare namespace GoogleAppsScript {
      */
     export interface HorizontalRule {
       copy(): HorizontalRule;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): HorizontalRule;
-      setAttributes(attributes: object): HorizontalRule;
+      setAttributes(attributes: any): HorizontalRule;
     }
 
     /**
@@ -723,7 +746,7 @@ declare namespace GoogleAppsScript {
       copy(): InlineDrawing;
       getAltDescription(): string;
       getAltTitle(): string;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -733,7 +756,7 @@ declare namespace GoogleAppsScript {
       removeFromParent(): InlineDrawing;
       setAltDescription(description: string): InlineDrawing;
       setAltTitle(title: string): InlineDrawing;
-      setAttributes(attributes: object): InlineDrawing;
+      setAttributes(attributes: any): InlineDrawing;
     }
 
     /**
@@ -747,7 +770,7 @@ declare namespace GoogleAppsScript {
       getAltDescription(): string;
       getAltTitle(): string;
       getAs(contentType: string): Base.Blob;
-      getAttributes(): object;
+      getAttributes(): any;
       getBlob(): Base.Blob;
       getHeight(): Integer;
       getLinkUrl(): string;
@@ -761,7 +784,7 @@ declare namespace GoogleAppsScript {
       removeFromParent(): InlineImage;
       setAltDescription(description: string): InlineImage;
       setAltTitle(title: string): InlineImage;
-      setAttributes(attributes: object): InlineImage;
+      setAttributes(attributes: any): InlineImage;
       setHeight(height: Integer): InlineImage;
       setLinkUrl(url: string): InlineImage;
       setWidth(width: Integer): InlineImage;
@@ -815,7 +838,7 @@ declare namespace GoogleAppsScript {
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
       getAlignment(): HorizontalAlignment;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getGlyphType(): GlyphType;
@@ -853,7 +876,7 @@ declare namespace GoogleAppsScript {
       removePositionedImage(id: string): boolean;
       replaceText(searchPattern: string, replacement: string): Element;
       setAlignment(alignment: HorizontalAlignment): ListItem;
-      setAttributes(attributes: object): ListItem;
+      setAttributes(attributes: any): ListItem;
       setGlyphType(glyphType: GlyphType): ListItem;
       setHeading(heading: ParagraphHeading): ListItem;
       setIndentEnd(indentEnd: number): ListItem;
@@ -903,14 +926,14 @@ declare namespace GoogleAppsScript {
      */
     export interface PageBreak {
       copy(): PageBreak;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): PageBreak;
-      setAttributes(attributes: object): PageBreak;
+      setAttributes(attributes: any): PageBreak;
     }
 
     /**
@@ -950,7 +973,7 @@ declare namespace GoogleAppsScript {
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
       getAlignment(): HorizontalAlignment;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getHeading(): ParagraphHeading;
@@ -985,7 +1008,7 @@ declare namespace GoogleAppsScript {
       removePositionedImage(id: string): boolean;
       replaceText(searchPattern: string, replacement: string): Element;
       setAlignment(alignment: HorizontalAlignment): Paragraph;
-      setAttributes(attributes: object): Paragraph;
+      setAttributes(attributes: any): Paragraph;
       setHeading(heading: ParagraphHeading): Paragraph;
       setIndentEnd(indentEnd: number): Paragraph;
       setIndentFirstLine(indentFirstLine: number): Paragraph;
@@ -1121,6 +1144,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Range {
       getRangeElements(): RangeElement[];
+      /** @deprecated DO NOT USE */
       getSelectedElements(): RangeElement[];
     }
 
@@ -1144,6 +1168,7 @@ declare namespace GoogleAppsScript {
       addRange(range: Range): RangeBuilder;
       build(): Range;
       getRangeElements(): RangeElement[];
+      /** @deprecated DO NOT USE */
       getSelectedElements(): RangeElement[];
     }
 
@@ -1187,7 +1212,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getBorderColor(): string;
       getBorderWidth(): number;
       getCell(rowIndex: Integer, cellIndex: Integer): TableCell;
@@ -1211,7 +1236,7 @@ declare namespace GoogleAppsScript {
       removeFromParent(): Table;
       removeRow(rowIndex: Integer): TableRow;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): Table;
+      setAttributes(attributes: any): Table;
       setBorderColor(color: string): Table;
       setBorderWidth(width: number): Table;
       setColumnWidth(columnIndex: Integer, width: number): Table;
@@ -1241,7 +1266,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getBackgroundColor(): string;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
@@ -1278,7 +1303,7 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): TableCell;
       removeFromParent(): TableCell;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): TableCell;
+      setAttributes(attributes: any): TableCell;
       setBackgroundColor(color: string): TableCell;
       setLinkUrl(url: string): TableCell;
       setPaddingBottom(paddingBottom: number): TableCell;
@@ -1304,7 +1329,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -1318,7 +1343,7 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       removeFromParent(): TableOfContents;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): TableOfContents;
+      setAttributes(attributes: any): TableOfContents;
       setLinkUrl(url: string): TableOfContents;
       setTextAlignment(textAlignment: TextAlignment): TableOfContents;
     }
@@ -1339,7 +1364,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getCell(cellIndex: Integer): TableCell;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
@@ -1363,7 +1388,7 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): TableRow;
       removeFromParent(): TableRow;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): TableRow;
+      setAttributes(attributes: any): TableRow;
       setLinkUrl(url: string): TableRow;
       setMinimumHeight(minHeight: Integer): TableRow;
       setTextAlignment(textAlignment: TextAlignment): TableRow;
@@ -1397,8 +1422,8 @@ declare namespace GoogleAppsScript {
       editAsText(): Text;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
-      getAttributes(offset: Integer): object;
+      getAttributes(): any;
+      getAttributes(offset: Integer): any;
       getBackgroundColor(): string;
       getBackgroundColor(offset: Integer): string;
       getFontFamily(): string;
@@ -1430,8 +1455,8 @@ declare namespace GoogleAppsScript {
       merge(): Text;
       removeFromParent(): Text;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(startOffset: Integer, endOffsetInclusive: Integer, attributes: object): Text;
-      setAttributes(attributes: object): Text;
+      setAttributes(startOffset: Integer, endOffsetInclusive: Integer, attributes: any): Text;
+      setAttributes(attributes: any): Text;
       setBackgroundColor(startOffset: Integer, endOffsetInclusive: Integer, color: string): Text;
       setBackgroundColor(color: string): Text;
       setBold(bold: boolean): Text;
@@ -1470,7 +1495,7 @@ declare namespace GoogleAppsScript {
      */
     export interface UnsupportedElement {
       copy(): UnsupportedElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -1478,7 +1503,7 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): UnsupportedElement;
       removeFromParent(): UnsupportedElement;
-      setAttributes(attributes: object): UnsupportedElement;
+      setAttributes(attributes: any): UnsupportedElement;
     }
 
     /**

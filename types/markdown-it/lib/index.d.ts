@@ -98,7 +98,7 @@ declare module MarkdownIt {
     interface RulerInline extends Ruler<StateInline> {}
     interface RulerBlock extends Ruler<StateBlock> {}
 
-    type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
+    type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => string;
 
     interface Delimiter {
         close: boolean;

@@ -7,7 +7,8 @@ var Engine = Matter.Engine,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
 	Query = Matter.Query,
-    Plugin = Matter.Plugin;
+    Plugin = Matter.Plugin,
+    Render = Matter.Render;
     
 
 Matter.use('matter-attractors');
@@ -59,3 +60,18 @@ Events.on(engine, "beforeTick", (e:Matter.IEventTimestamped<Matter.Engine>)=>{
 
 
 Engine.run(engine);
+
+//Renderer
+var render = Render.create({
+	engine: engine,
+	bounds: {
+		min: {
+			x: -500,
+			y: -500
+		},
+		max: {
+			x: 500,
+			y: 500
+		}
+	}
+})

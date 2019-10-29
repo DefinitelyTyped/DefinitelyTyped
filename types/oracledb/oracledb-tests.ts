@@ -143,7 +143,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
             SELECT 2 FROM DUAL
             UNION
             SELECT 3 FROM DUAL`,
-        {},
+        {
+            test: undefined,
+        },
         {
             resultSet: true,
         },
@@ -298,6 +300,10 @@ const runPromiseTests = async (): Promise<void> => {
     }
 };
 
+interface One {
+    one: string;
+}
+
 const version4Tests = async () => {
     console.log(oracledb.OUT_FORMAT_ARRAY, oracledb.OUT_FORMAT_OBJECT);
 
@@ -305,15 +311,21 @@ const version4Tests = async () => {
 
     const connection = await pool.getConnection();
 
-    const implicitResults = (await connection.execute('SELECT 1 FROM DUAL')).implicitResults as oracledb.ResultSet[];
+    const implicitResults = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as oracledb.ResultSet<One>[];
+
+    (await implicitResults[0].getRow()).one;
 
     await implicitResults[0].close()
 
-    const implicitResults2 = (await connection.execute('SELECT 1 FROM DUAL')).implicitResults as oracledb.Row[][];
+    const implicitResults2 = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as One[][];
 
-    const results = implicitResults2[0][0] as any[];
+    const results = implicitResults2[0][0];
 
-    console.log(results[0]);
+    console.log(results.one);
 
     const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
     
@@ -407,14 +419,14 @@ const version4Tests = async () => {
     result = await connection.execute(plsql, [], { resultSet: true });
 
     for (let i = 0; i < result.implicitResults.length; i++) {
-        console.log(" Implicit Result Set", i + 1);
-        const rs = result.implicitResults[i] as oracledb.ResultSet;  // get the next ResultSet
-        let row;
-    while ((row = await rs.getRow())) {
-        console.log("  ", row);
-    }
-    
-    await rs.close();
+      console.log(' Implicit Result Set', i + 1);
+      const rs = result.implicitResults[i] as oracledb.ResultSet<One>; // get the next ResultSet
+      let row;
+      while ((row = await rs.getRow())) {
+        console.log('  ', row);
+      }
+
+      await rs.close();
     }
 
     const queueName = "DEMO_RAW_QUEUE";
@@ -442,4 +454,33 @@ const version4Tests = async () => {
         await connection.commit();
 }
 
-runPromiseTests();
+interface MyTableRow {
+    firstColumn: string;
+    secondColumn: number;
+}
+
+const testGenerics = async () => {
+    const connection = await oracledb.getConnection({
+        user: 'test'
+    });
+
+    const result = await connection.execute<MyTableRow>('SELECT 1 FROM DUAL');
+
+    console.log(result.rows[0].firstColumn);
+    console.log(result.rows[0].secondColumn);
+
+    const result2 = await connection.execute<{test: string}>(' BEGIN DO_SOMETHING END;', {
+        test: {
+            dir: oracledb.BIND_OUT,
+            val: 'something'
+        }
+    })
+
+    console.log(result2.outBinds.test);
+
+    const sql = `SELECT FIRST_COLUMN, SECOND_COLUMN FROM SOMEWHERE`;
+
+    const result3 = await connection.executeMany<MyTableRow>(sql, 5);
+
+    console.log(result3.outBinds[0].firstColumn);
+}

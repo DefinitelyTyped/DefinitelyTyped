@@ -74,14 +74,10 @@ export interface Config {
     withRef: boolean;
 }
 
-export type WrappedComponentFactory<P> = (props: P) => JSX.Element;
+export function SortableContainer<P>(wrappedComponent: React.ComponentType<P>, config?: Config): React.ComponentClass<P & SortableContainerProps>;
 
-export type WrappedComponent<P> = React.ComponentClass<P> | WrappedComponentFactory<P>;
+export function SortableElement<P>(wrappedComponent: React.ComponentType<P>, config?: Config): React.ComponentClass<P & SortableElementProps>;
 
-export function SortableContainer<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableContainerProps>;
-
-export function SortableElement<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableElementProps>;
-
-export function SortableHandle<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P>;
+export function SortableHandle<P>(wrappedComponent: React.ComponentType<P>, config?: Config): React.ComponentClass<P>;
 
 export function arrayMove<T>(collection: T[], previousIndex: number, newIndex: number): T[];

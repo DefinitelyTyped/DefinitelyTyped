@@ -28,7 +28,7 @@ const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
 // Input arguments
 const tag = process.argv[2] || process.version;
 
-const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol.json`;
+const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol-1.3.json`;
 const NODE_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/src/inspector/node_protocol.pdl`;
 const INSPECTOR_PROTOCOL_REMOTE = `https://chromium.googlesource.com/deps/inspector_protocol`;
 const INSPECTOR_PROTOCOL_LOCAL_DIR = "/tmp/inspector_protocol";
@@ -51,7 +51,7 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
     const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
-    
+
     const inspectorDts = substitute(template, substituteArgs).split("\n")
         .map(line => trimRight(line))
         .join("\n");

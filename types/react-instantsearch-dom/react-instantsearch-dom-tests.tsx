@@ -5,10 +5,19 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 // DOM
 // https://community.algolia.com/react-instantsearch/Getting_started.html
 () => {
-  const App = () => (
+  const App1 = () => (
     <InstantSearch
       appId="latency"
       apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+      indexName="bestbuy"
+    >
+      <Search />
+    </InstantSearch>
+  );
+
+  const App2 = () => (
+    <InstantSearch
+      searchClient={{}}
       indexName="bestbuy"
     >
       <Search />

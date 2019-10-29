@@ -16,6 +16,7 @@
 //                 Silas Rech <https://github.com/lenovouser>
 //                 DoYoung Ha <https://github.com/hados99>
 //                 Borys Kupar <https://github.com/borys-kupar>
+//                 Remko Klein <https://github.com/remko79>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,7 +51,7 @@ declare namespace Bull {
     /**
      * Options passed directly to the `ioredis` constructor
      */
-    redis?: Redis.RedisOptions;
+    redis?: Redis.RedisOptions | string;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -257,7 +258,7 @@ declare namespace Bull {
      * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
      * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
      */
-    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean, notFetch?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
@@ -439,6 +440,7 @@ declare namespace Bull {
     endDate?: number;
     tz?: string;
     cron: string;
+    every: number;
     next: number;
   }
 
@@ -609,7 +611,7 @@ declare namespace Bull {
      * `close` can be called from anywhere, with one caveat:
      * if called from within a job handler the queue won't close until after the job has been processed
      */
-    close(): Promise<void>;
+    close(doNotWaitJobs?: boolean): Promise<void>;
 
     /**
      * Returns a promise that will return the job instance associated with the jobId parameter.

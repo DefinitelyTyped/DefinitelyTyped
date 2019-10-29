@@ -16,4 +16,4 @@ import Style from '../style/Style';
 export function defaultOrder(feature1: FeatureLike, feature2: FeatureLike): number;
 export function getSquaredTolerance(resolution: number, pixelRatio: number): number;
 export function getTolerance(resolution: number, pixelRatio: number): number;
-export function renderFeature<T>(replayGroup: ReplayGroup, feature: FeatureLike, style: Style, squaredTolerance: number, listener: ((this: T, p0: Event) => void), thisArg: T): boolean;
+export function renderFeature<T>(replayGroup: ReplayGroup, feature: FeatureLike, style: Style, squaredTolerance: number, listener: (this: T, p0: Event) => void, thisArg: T): boolean;

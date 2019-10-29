@@ -30,3 +30,5 @@ export function publish(
     basePath: string,
     config: PublishOptions,
     callback?: (err: any) => void): void;
+
+export function clean(): void;

@@ -7,6 +7,7 @@
 //                 Matthew Bull <https://github.com/wingsbob>
 //                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 //                 Paul Hawxby <https://github.com/phawxby>
+//                 Ivy Witter <https://github.com/ivywit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -145,6 +146,7 @@ declare namespace got {
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
+        beforeError?: BeforeErrorHook[];
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
 
@@ -169,6 +171,8 @@ declare namespace got {
      * @param retryCount Number of retry.
      */
     type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
+
+    type BeforeErrorHook = (error: GotError) => Error | Promise<Error>;
 
     /**
      * @param response Response object.
@@ -282,10 +286,33 @@ declare namespace got {
         delete(key: string): any;
     }
 
+    interface GotTimingsPhases {
+        wait: number;
+        dns: number;
+        tcp: number;
+        request: number;
+        fistByte: number;
+        download: number;
+        total: number;
+    }
+
+    interface GotTimings {
+        start: number;
+        socket: number;
+        lookup: number;
+        connect: number;
+        upload: number;
+        response: number;
+        end: number;
+        error: number;
+        phases: GotTimingsPhases;
+    }
+
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;
         url: string;
         requestUrl: string;
+        timings: GotTimings;
         fromCache: boolean;
         redirectUrls?: string[];
         retryCount: number;

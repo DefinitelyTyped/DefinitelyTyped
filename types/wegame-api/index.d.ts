@@ -288,7 +288,7 @@ declare class DownloadTask {
      * @param res.totalBytesWritten 已经下载的数据长度，单位 Bytes
      * @param res.totalBytesExpectedToWrite 预期需要下载的数据总长度，单位 Bytes
      */
-    onProgressUpdate(callback: { res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number } }): void;
+    onProgressUpdate(callback: (res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number }) => void): void;
 }
 
 declare class RequestTask {
@@ -1355,7 +1355,7 @@ declare namespace wx {
              * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
              * res.statusCode 开发者服务器返回的 HTTP 状态码
              */
-            success?: (res: { tempFilePath: string, statusCode: number }) => void;
+            success?: (res: { tempFilePath?: string, statusCode: number }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }

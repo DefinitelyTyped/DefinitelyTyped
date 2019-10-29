@@ -1,15 +1,4 @@
-import {
-    Feature,
-    FeatureSet,
-    Geometry,
-    HasZM,
-    Multipoint,
-    Point,
-    Polygon,
-    Polyline,
-    Position,
-    SpatialReferenceWkid
-} from 'arcgis-rest-api';
+import { Feature, FeatureSet, Geometry, HasZM, Multipoint, Point, Polygon, Polyline, Position, SpatialReferenceWkid } from 'arcgis-rest-api';
 import Geometry_1 from '../geom/Geometry';
 import GeometryLayout from '../geom/GeometryLayout';
 import SimpleGeometry from '../geom/SimpleGeometry';

@@ -333,7 +333,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: number | string;
 
                 /**
                  * font family

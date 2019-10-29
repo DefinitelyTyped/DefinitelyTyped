@@ -8,5 +8,6 @@ export interface Environment {
     createChildWindow(options: any): Promise<any>;
     isWindowExists(uuid: string, name: string): boolean;
     getWebWindow(identity: Identity): Window;
+    getCurrentEntityIdentity(): Identity;
 }
 export declare const notImplementedEnvErrorMsg = "Not implemented in this environment";
