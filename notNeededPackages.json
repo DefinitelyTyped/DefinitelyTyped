@@ -715,6 +715,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "deep-freeze-es6",
+            "typingsPackageName": "deep-freeze-es6",
+            "sourceRepoURL": "https://github.com/christophehurpeau/deep-freeze-es6",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "deepmerge",
             "typingsPackageName": "deepmerge",
             "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
