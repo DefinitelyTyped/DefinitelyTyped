@@ -823,6 +823,12 @@
             "asOfVersion": "1.0.3"
         },
         {
+            "libraryName": "document-promises",
+            "typingsPackageName": "document-promises",
+            "sourceRepoURL": "https://github.com/jonathantneal/document-promises#readme",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "dom-helpers",
             "typingsPackageName": "dom-helpers",
             "sourceRepoURL": "https://github.com/react-bootstrap/dom-helpers",
