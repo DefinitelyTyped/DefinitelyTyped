@@ -661,6 +661,12 @@
             "asOfVersion": "1.2.2"
         },
         {
+            "libraryName": "csv-stringify",
+            "typingsPackageName": "csv-stringify",
+            "sourceRepoURL": "https://github.com/wdavidw/node-csv-stringify",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",
