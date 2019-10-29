@@ -8,7 +8,7 @@ export namespace HookRouter {
 	type InterceptedPath = string | null;
 	interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> { href: string; }
 	interface QueryParams { [key: string]: any; }
-	interface RouteObject { [key: string]: (params: QueryParams) => any; }
+	interface RouteObject { [key: string]: (params: QueryParams & string) => any; }
 }
 export function setLinkProps(props: HookRouter.AProps): HookRouter.AProps;
 export function A(props: HookRouter.AProps): React.ReactHTMLElement<HTMLAnchorElement>;
