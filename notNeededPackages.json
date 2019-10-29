@@ -3073,6 +3073,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "printf",
+            "typingsPackageName": "printf",
+            "sourceRepoURL": "https://github.com/adaltas/node-printf",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "ProtoBuf.js",
             "typingsPackageName": "protobufjs",
             "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
