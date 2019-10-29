@@ -3853,6 +3853,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "solidity-parser-antlr",
+            "typingsPackageName": "solidity-parser-antlr",
+            "sourceRepoURL": "https://github.com/federicobond/solidity-parser-antlr",
+            "asOfVersion": "0.4.2"
+        },
+        {
             "libraryName": "source-map",
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
