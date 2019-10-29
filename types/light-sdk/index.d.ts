@@ -3,21 +3,21 @@
 // Definitions by: cklwblove <https://github.com/cklwblove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Info {
+export interface Info {
     error_code: string;
     error_message: string;
 }
 
-interface CallbackResultNoData {
+export interface CallbackResultNoData {
     info: Info;
 }
 
-interface CallbackResult {
+export interface CallbackResult {
     info: Info;
     data: any;
 }
 
-interface Native {
+export interface Native {
     /**
      * 通过网页js获取客户端基本信息
      *
@@ -629,5 +629,3 @@ export const config: any;
 export const native: Native;
 export const net: any;
 export const openAPI: any;
-
-export {};
