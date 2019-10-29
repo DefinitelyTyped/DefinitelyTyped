@@ -1183,6 +1183,12 @@
             "asOfVersion": "0.1.1"
         },
         {
+            "libraryName": "find-java-home",
+            "typingsPackageName": "find-java-home",
+            "sourceRepoURL": "https://github.com/jsdevel/node-find-java-home",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "find-up",
             "typingsPackageName": "find-up",
             "sourceRepoURL": "https://github.com/sindresorhus/find-up",
