@@ -1435,6 +1435,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "html-webpack-tags-plugin",
+            "typingsPackageName": "html-webpack-tags-plugin",
+            "sourceRepoURL": "https://github.com/jharris4/html-webpack-tags-plugin",
+            "asOfVersion": "2.0.16"
+        },
+        {
             "libraryName": "http-status-codes",
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
