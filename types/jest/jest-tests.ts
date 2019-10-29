@@ -1534,3 +1534,16 @@ test.only.each`
 });
 
 expect('').toHaveProperty('path.to.thing');
+
+declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
+test.each(constCases)('%s + %s', (...args) => {
+    args; // $ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
+});
+
+declare const constCasesWithMoreThanTen: [
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+];
+test.each(constCasesWithMoreThanTen)('should work fine with more than 10 args', (...args) => {
+    args; // $ExpectType [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] | [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+});
