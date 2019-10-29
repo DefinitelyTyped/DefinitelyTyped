@@ -3913,6 +3913,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "string-argv",
+            "typingsPackageName": "string-argv",
+            "sourceRepoURL": "https://github.com/mccormicka/string-argv",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "string-length",
             "typingsPackageName": "string-length",
             "sourceRepoURL": "https://github.com/sindresorhus/string-length",
