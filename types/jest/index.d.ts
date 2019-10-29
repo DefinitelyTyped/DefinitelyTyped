@@ -24,6 +24,7 @@
 //                 Alex Bolenok <https://github.com/quassnoi>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
+//                 Jason Yu <https://github.com/ycmjason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
