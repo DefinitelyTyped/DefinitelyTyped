@@ -4363,6 +4363,12 @@
             "asOfVersion": "3.0.1"
         },
         {
+            "libraryName": "web3",
+            "typingsPackageName": "web3",
+            "sourceRepoURL": "https://github.com/ethereum/web3.js",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "webassembly-js-api",
             "sourceRepoURL": "https://github.com/winksaville/test-webassembly-js-ts",
