@@ -739,6 +739,7 @@ doc.execPopulate().then(function (arg) {
   arg.execPopulate();
 }).catch(function (err) {});
 doc.get('path', Number);
+doc.get('path', Number, { virtuals: true, getters: false });
 doc.init(doc).init(doc, {});
 doc.inspect();
 doc.invalidate('path', new Error('hi')).toString();

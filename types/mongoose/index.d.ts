@@ -32,6 +32,7 @@
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 //                 Tom Yam <https://github.com/tomyam1>
+//                 Thomas Pischulski <https://github.com/nephix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1273,8 +1274,14 @@ declare module "mongoose" {
     /**
      * Returns the value of a path.
      * @param type optionally specify a type for on-the-fly attributes
+     * @param options
+     * @param options.virtuals apply virtuals before getting this path
+     * @param options.getters if false, skip applying getters and just get the raw value
      */
-    get(path: string, type?: any): any;
+    get(path: string, type?: any, options?: {
+      virtuals?: boolean;
+      getters?: boolean;
+    }): any;
 
     /**
      * Initializes the document without setters or marking anything modified.
