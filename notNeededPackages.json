@@ -1255,6 +1255,12 @@
             "asOfVersion": "9.1.0"
         },
         {
+            "libraryName": "getopts",
+            "typingsPackageName": "getopts",
+            "sourceRepoURL": "https://github.com/jorgebucaran/getopts",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "git-remote-origin-url",
             "typingsPackageName": "git-remote-origin-url",
             "sourceRepoURL": "https://github.com/sindresorhus/git-remote-origin-url",
