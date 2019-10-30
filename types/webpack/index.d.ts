@@ -44,13 +44,23 @@ import { ConcatSource } from 'webpack-sources';
 export = webpack;
 
 declare function webpack(
-    options: webpack.Configuration,
-    handler: webpack.Compiler.Handler
+    options:
+        | webpack.Configuration
+        | ((
+              env: string | Record<string, boolean | number | string>,
+              args: Record<string, string>,
+          ) => webpack.Configuration | Promise<webpack.Configuration>),
+    handler: webpack.Compiler.Handler,
 ): webpack.Compiler.Watching | webpack.Compiler;
 declare function webpack(options?: webpack.Configuration): webpack.Compiler;
 
 declare function webpack(
-    options: webpack.Configuration[],
+    options:
+        | webpack.Configuration[]
+        | ((
+              env: string | Record<string, boolean | number | string>,
+              args: Record<string, string>,
+          ) => webpack.Configuration[] | Promise<webpack.Configuration[]>),
     handler: webpack.MultiCompiler.Handler
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
