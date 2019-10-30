@@ -709,7 +709,7 @@ declare namespace Office {
              * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
-             * Mailbox 1.3 does not have the `options` parameter while Mailbox 1.8 does have support for `options` parameter.
+             * The `options` parameter was introduced in Mailbox 1.8.
              * 
              * @param options Optional. An object that specifies behavior options for when the event is completed.
              */
@@ -11956,7 +11956,8 @@ declare namespace Office {
      * The item namespace is used to access the currently selected message, meeting request, or appointment. 
      * You can determine the type of the item by using the `itemType` property.
      *
-     * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
+     * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+     *
      * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
      * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
      * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
@@ -13572,7 +13573,8 @@ declare namespace Office {
         ewsUrl: string;
         /**
          * The mailbox item. Depending on the context in which the add-in opened, the item may be of any number of types.
-         * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
+         * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+         *
          * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
          * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
          * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
