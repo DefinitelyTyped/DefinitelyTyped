@@ -143,7 +143,8 @@ export abstract class BaseConnection extends EventEmitter {
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     // we want any object to be accepted if the user doesn't decide to give an explicit type
     sobject<T = object>(resource: string): SObject<T>;
-    recent(param?: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
     recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
 }
 
