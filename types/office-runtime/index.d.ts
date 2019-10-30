@@ -25,13 +25,6 @@ declare namespace OfficeRuntime {
   const storage: Storage;
 
   /**
-   * Contains authorization related APIs.
-   * @beta
-   */
-  const auth: Auth;
-
-
-  /**
    * Asynchronous, global, and persistent key-value storage.
    * @remarks
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
@@ -117,7 +110,11 @@ declare namespace OfficeRuntime {
      */
     onRuntimeError?: (error: Error, dialog?: Dialog) => void;
   }
-
+  /**
+   * Contains authorization related APIs.
+   * @beta
+   */
+  const auth: Auth;
   /**
    * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
    */
@@ -185,4 +182,22 @@ declare namespace OfficeRuntime {
      */
     getAccessToken(options?: AuthOptions): Promise<string>;
   }
+
+  /**
+   * Provides information about what Requirement Sets are supported in current environment.
+   */
+  const apiInformation: ApiInformation;
+
+  /**
+   * Interface that contains functions for checking API requirement-set support. 
+   */
+  interface ApiInformation {
+    /**
+    * Check if the specified requirement set is supported by the host Office application.
+    * @param name - Set name; e.g., "MatrixBindings".
+    * @param minVersion - The minimum required version; e.g., "1.4". 
+    */
+    isSetSupported(name: string, minVersion?: string): boolean;
+  }
 }
+
