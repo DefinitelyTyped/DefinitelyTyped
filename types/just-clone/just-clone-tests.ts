@@ -3,7 +3,11 @@ import clone = require('just-clone');
 const array: string[] = [];
 const object: object = {};
 
-// Correct Objects
+const arr = [1, 2, 3];
+const subObj = { aa: 1 };
+const obj = { a: 3, b: 5, c: arr, d: subObj };
+clone(obj); // $ExpectType { a: number; b: number; c: number[]; d: { aa: number; }; }
+
 clone(object); // $ExpectType object
 clone(array); // $ExpectType string[]
 clone(() => array); // $ExpectType () => string[]
