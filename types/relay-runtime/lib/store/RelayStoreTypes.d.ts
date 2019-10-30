@@ -294,27 +294,44 @@ export interface Store {
  */
 export type Scheduler = (callback: () => void) => void;
 
+type MaybeNull<T> = null extends T ? null : never;
+type Unarray<T> = T extends Array<infer U> ? U : T;
+type NullableRecord<T> = RecordProxy<NonNullable<T>> | MaybeNull<T>;
+type DeepNullable<T> = {
+    [P in keyof T]: T[P] extends Array<infer U>
+        ? Array<DeepNullable<U>> | null
+        : T[P] extends ReadonlyArray<infer U>
+            ? ReadonlyArray<DeepNullable<U>> | null
+            : DeepNullable<T[P]> | null
+};
+
 /**
  * An interface for imperatively getting/setting properties of a `Record`. This interface
  * is designed to allow the appearance of direct Record manipulation while
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
-export interface RecordProxy {
+export interface RecordProxy<T = { [key: string]: any }> {
     copyFieldsFrom(source: RecordProxy): void;
     getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
-    getLinkedRecords(name: string, args?: Variables | null): Array<RecordProxy | null | undefined> | null | undefined;
+    getLinkedRecord<H extends unknown = unknown, K extends keyof T = any>(
+      name: K,
+      args?: Variables | null,
+    ): RecordProxy<H extends unknown ? NonNullable<T[K]> : H> | MaybeNull<T[K]>;
+    getLinkedRecords<H extends unknown = unknown, K extends keyof T = any>(
+      name: K,
+      args?: Variables,
+    ): MaybeNull<T[K]> | Array<NullableRecord<H extends unknown ? Unarray<NonNullable<T[K]>> : H>>;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy;
     getType(): string;
-    getValue(name: string, args?: Variables | null): unknown;
-    setLinkedRecord(record: RecordProxy, name: string, args?: Variables | null): RecordProxy;
-    setLinkedRecords(
-        records: Array<RecordProxy | null | undefined>,
-        name: string,
-        args?: Variables | null,
+    getValue<K extends keyof T>(name: K, args?: Variables): T[K];
+    setLinkedRecord<K extends keyof T>(record: RecordProxy<T[K]> | null, name: K, args?: Variables | null): RecordProxy;
+    setLinkedRecords<K extends keyof T = any>(
+      records: Array<RecordProxy<Unarray<T[K]>> | null> | null | undefined,
+      name: K,
+      args?: Variables | null,
     ): RecordProxy;
-    setValue(value: unknown, name: string, args?: Variables | null): RecordProxy;
+    setValue<K extends keyof T>(value: any, name: K, args?: Variables | null): RecordProxy;
 }
 
 export interface ReadOnlyRecordProxy {
@@ -331,10 +348,11 @@ export interface ReadOnlyRecordProxy {
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
+
 export interface RecordSourceProxy {
-    create(dataID: DataID, typeName: string): RecordProxy;
+    create<K = any>(dataID: DataID, typeName: string): RecordProxy<K>;
     delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null | undefined;
+    get<K = { [key: string]: any }>(dataID: DataID): RecordProxy<K> | null | undefined;
     getRoot(): RecordProxy;
 }
 
@@ -347,9 +365,9 @@ export interface ReadOnlyRecordSourceProxy {
  * Extends the RecordSourceProxy interface with methods for accessing the root
  * fields of a Selector.
  */
-export interface RecordSourceSelectorProxy extends RecordSourceProxy {
-    getRootField(fieldName: string): RecordProxy | null | undefined;
-    getPluralRootField(fieldName: string): Array<RecordProxy | null | undefined> | null | undefined;
+export interface RecordSourceSelectorProxy<T = { [key: string]: any }> extends RecordSourceProxy {
+    getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>> | MaybeNull<T[K]>
+    getPluralRootField(fieldName: string): RecordProxy[] | null
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
@@ -639,11 +657,11 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type SelectorStoreUpdater = (
-    store: RecordSourceSelectorProxy,
+export type SelectorStoreUpdater<T = any> = (
+    store: RecordSourceSelectorProxy<T>,
     // Actually SelectorData, but mixed is inconvenient to access deeply in
     // product code.
-    data: any,
+    data: T,
 ) => void;
 
 /**
