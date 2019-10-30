@@ -184,7 +184,7 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
-export { getRelayHandleKey } from './lib/util/getRelayHandleKey'
+export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';

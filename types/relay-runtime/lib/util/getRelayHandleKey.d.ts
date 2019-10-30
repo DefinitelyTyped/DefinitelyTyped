@@ -1,1 +1,1 @@
-export function getRelayHandleKey(handleName: string, key?: string | undefined | null, fieldName?: string | undefined | null): string
+export function getRelayHandleKey(handleName: string, key?: string | null, fieldName?: string | null): string;

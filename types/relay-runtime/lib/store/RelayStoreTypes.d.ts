@@ -294,10 +294,10 @@ export interface Store {
  */
 export type Scheduler = (callback: () => void) => void;
 
-type MaybeNull<T> = null extends T ? null : never;
-type Unarray<T> = T extends Array<infer U> ? U : T;
-type NullableRecord<T> = RecordProxy<NonNullable<T>> | MaybeNull<T>;
-type DeepNullable<T> = {
+export type MaybeNull<T> = null extends T ? null : never;
+export type Unarray<T> = T extends Array<infer U> ? U : T;
+export type NullableRecord<T> = RecordProxy<NonNullable<T>> | MaybeNull<T>;
+export type DeepNullable<T> = {
     [P in keyof T]: T[P] extends Array<infer U>
         ? Array<DeepNullable<U>> | null
         : T[P] extends ReadonlyArray<infer U>
@@ -331,7 +331,7 @@ export interface RecordProxy<T = { [key: string]: any }> {
       name: K,
       args?: Variables | null,
     ): RecordProxy;
-    setValue<K extends keyof T>(value: any, name: K, args?: Variables | null): RecordProxy;
+    setValue(value: any, name: keyof T, args?: Variables | null): RecordProxy;
 }
 
 export interface ReadOnlyRecordProxy {
@@ -350,9 +350,9 @@ export interface ReadOnlyRecordProxy {
  */
 
 export interface RecordSourceProxy {
-    create<K = any>(dataID: DataID, typeName: string): RecordProxy<K>;
+    create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get<K = { [key: string]: any }>(dataID: DataID): RecordProxy<K> | null | undefined;
+    get(dataID: DataID): RecordProxy | null | undefined;
     getRoot(): RecordProxy;
 }
 
@@ -366,8 +366,8 @@ export interface ReadOnlyRecordSourceProxy {
  * fields of a Selector.
  */
 export interface RecordSourceSelectorProxy<T = { [key: string]: any }> extends RecordSourceProxy {
-    getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>> | MaybeNull<T[K]>
-    getPluralRootField(fieldName: string): RecordProxy[] | null
+    getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>> | MaybeNull<T[K]>;
+    getPluralRootField(fieldName: string): RecordProxy[] | null;
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
