@@ -188,6 +188,10 @@ declare namespace Recipe {
         rotation?: number;
         rotationOrigin?: number[];
     }
+    
+    interface PageInfo {
+        pages: number;
+    }
 
     type EndPDFCallback1 = () => any;
     type EndPDFCallback2 = (buffer: Buffer) => any;
@@ -198,6 +202,8 @@ declare class Recipe {
     constructor(src: string, output: string, options?: Recipe.RecipeOptions);
 
     constructor(buffer: Buffer, options?: Recipe.RecipeOptions);
+    
+    metadata: PageInfo;
 
     comment(
         text: string,
