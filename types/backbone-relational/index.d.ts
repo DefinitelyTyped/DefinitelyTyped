@@ -162,8 +162,11 @@ export class Store extends EventsMixin implements Events {
 
     update(model:Model):void;
 
-    unregister(model:Model, collection:Collection<BModel>, options:any):void;
+    // tslint:disable-next-line use-default-type-parameter
+    unregister(type: Model | Collection<Model> | typeof Model): void;
 
     reset():void;
 
 }
+
+export const store: Store;

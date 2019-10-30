@@ -12,6 +12,7 @@
 //                 Arthur Gunn <https://github.com/gunn>
 //                 alesn <https://github.com/alesn>
 //                 Per Bergland <https://github.com/perbergland>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

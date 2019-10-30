@@ -1,7 +1,7 @@
 import { FALSE, TRUE } from '../functions';
 import MapBrowserEvent from '../MapBrowserEvent';
 
-export type Condition = ((this: any, p0: MapBrowserEvent) => boolean);
+export type Condition = (this: any, p0: MapBrowserEvent) => boolean;
 export const always: typeof TRUE;
 export const never: typeof FALSE;
 export function altKeyOnly(mapBrowserEvent: MapBrowserEvent): boolean;

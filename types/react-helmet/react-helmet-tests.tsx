@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Helmet, HelmetData } from "react-helmet";
+import HelmetDefaultExport from "react-helmet";
 
 const Application = () =>
     <div className="application">
@@ -103,6 +104,14 @@ function HTML() {
     `}</style>
 </Helmet>;
 
+<HelmetDefaultExport>
+    <html lang="en" />
+</HelmetDefaultExport>;
+
+// $ExpectError
+<Helmet htmlAttributes={{ invalidProp: 'foo' }} />;
+// $ExpectError
+<Helmet bodyAttributes={{ invalidProp: 'foo' }} />;
 // $ExpectError
 <Helmet link={[ invalidProp: 'foo' ]} />;
 // $ExpectError

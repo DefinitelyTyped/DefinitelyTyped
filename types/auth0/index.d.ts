@@ -5,6 +5,7 @@
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -235,7 +236,7 @@ export interface Client {
     // The algorithm used to sign the JsonWebToken
     alg?: 'HS256' | 'RS256';
   };
-  /** 
+  /**
    * A set of grant types that the client is authorized to use
    */
   grant_types?: Grant[];
@@ -443,6 +444,7 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
@@ -553,6 +555,11 @@ export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+}
+
+export interface AuthorizationCodeGrantOptions {
+  code: string;
+  redirect_uri: string;
 }
 
 export interface ObjectWithId {
@@ -1017,6 +1024,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
 
 
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
+
+
   // Providers
   getEmailProvider(): Promise<any>;
   getEmailProvider(cb?: (err: Error, data: any) => void): void;
@@ -1122,6 +1140,9 @@ export class OAuthAuthenticator {
 
   socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
   socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 }
 
 export class PasswordlessAuthenticator {

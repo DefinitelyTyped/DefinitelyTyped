@@ -3725,7 +3725,6 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-    state: any;
     private element: HTMLElement;
 
     refFn(r: HTMLElement | null) {
@@ -3899,7 +3898,7 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
-    <UncontrolledCollapse ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any} toggler="#foobar"/>;
 }
 
 function Example118() {
@@ -4073,7 +4072,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }
@@ -4244,7 +4243,7 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }
@@ -4324,6 +4323,10 @@ class Example119 extends React.Component<any, any> {
             <option>Value 4</option>
             <option>Value 5</option>
           </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomRange">Custom Range</Label>
+          <CustomInput type="range" id="exampleCustomRange" name="customRange" />
         </FormGroup>
         <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser</Label>
@@ -4527,4 +4530,67 @@ function Example127() {
             </Toast>
         </div>
     );
+}
+
+function Example128() {
+  return (
+    <Form>
+      <Row form>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="exampleEmail">Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="exampleEmail"
+              placeholder="with a placeholder"
+            />
+          </FormGroup>
+        </Col>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="examplePassword">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              id="examplePassword"
+              placeholder="password placeholder"
+            />
+          </FormGroup>
+        </Col>
+      </Row>
+    </Form>
+  );
+}
+
+class Example129 extends React.Component<any, any> {
+    constructor(props: any) {
+      super(props);
+
+      this.toggle = this.toggle.bind(this);
+      this.state = {
+        dropdownOpen: false,
+      };
+    }
+
+    toggle() {
+      this.setState({
+        dropdownOpen: !this.state.dropdownOpen,
+      });
+    }
+
+    render() {
+      return (
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <DropdownToggle caret>Dropdown</DropdownToggle>
+          <DropdownMenu persist positionFixed>
+            <DropdownItem header>Header</DropdownItem>
+            <DropdownItem disabled>Action</DropdownItem>
+            <DropdownItem>Another Action</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>Another Action</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      );
+    }
 }

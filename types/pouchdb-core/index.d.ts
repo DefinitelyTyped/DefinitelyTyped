@@ -297,6 +297,11 @@ declare namespace PouchDB {
              * Causes poor performance on IndexedDB and LevelDB.
              */
             skip?: number;
+            /**
+             * Include an update_seq value indicating which sequence id
+             * of the underlying database the view reflects.
+             */
+            update_seq?: boolean;
         }
         interface AllDocsWithKeyOptions extends AllDocsOptions {
             /** Constrain results to documents matching this key. */
@@ -328,6 +333,7 @@ declare namespace PouchDB {
             /** The `skip` if provided, or in CouchDB the actual offset */
             offset: number;
             total_rows: number;
+            update_seq?: number | string;
             rows: Array<{
                 /** Only present if `include_docs` was `true`. */
                 doc?: ExistingDocument<Content & AllDocsMeta>;

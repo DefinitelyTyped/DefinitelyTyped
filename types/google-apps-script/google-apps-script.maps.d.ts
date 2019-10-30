@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,12 +58,16 @@ declare namespace GoogleAppsScript {
      *
      *     // Send the map in an email.
      *     var toAddress = Session.getActiveUser().getEmail();
-     *     MailApp.sendEmail(toAddress, 'Directions', 'Please open: ' + map.getMapUrl(), {
-     *       htmlBody: 'See below.<br/><img src="cid:mapImage">',
-     *       inlineImages: {
-     *         mapImage: Utilities.newBlob(map.getMapImage(), 'image/png')
+     *     MailApp.sendEmail(
+     *       toAddress,
+     *       'Directions',
+     *       'Please open: ' + map.getMapUrl() + '&key=YOUR_API_KEY', {
+     *         htmlBody: 'See below.<br/><img src="cid:mapImage">',
+     *         inlineImages: {
+     *           mapImage: Utilities.newBlob(map.getMapImage(), 'image/png')
+     *         }
      *       }
-     *     });
+     *     );
      *
      * See also
      *
@@ -223,6 +227,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * Allows for the creation and decoration of static map images.
+     *
      * The example below shows how you can use this class to create a map of New York City's Theatre
      * District, including nearby train stations, and display it in a simple web app.
      *
@@ -248,7 +253,8 @@ declare namespace GoogleAppsScript {
      *     for (var i = 0; i < corners.length; i++) {
      *       map.addAddress(corners[i]);
      *     }
-     *     var url = map.getMapUrl();
+     *     // All static map URLs require an API key.
+     *     var url = map.getMapUrl() + "&key=YOUR_API_KEY";
      *
      * See also
      *

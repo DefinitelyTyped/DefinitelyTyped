@@ -9,6 +9,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Paul Brabban <https://github.com/brabster>
 //                 Budi Irawan <https://github.com/deerawan>
+//                 Yonatan Kiron <https://github.com/YonatanKiron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -899,6 +900,7 @@ export interface CatSegmentsParams extends GenericParams {
 
 export interface CatShardsParams extends CatCommonParams {
     index?: NameList;
+    bytes?: CatBytes;
 }
 
 export interface CatSnapshotsParams extends GenericParams {

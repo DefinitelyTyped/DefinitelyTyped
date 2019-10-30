@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-import { Azure } from 'azure-sb';
-import Dictionary = Azure.ServiceBus.Dictionary;
+import { Azure as Az } from 'azure-sb';
+import Dictionary = Az.ServiceBus.Dictionary;
 
 export namespace Azure.ServiceBus.Results {
     export interface AcsTokenResponse extends Dictionary<string | Dictionary<string>> {

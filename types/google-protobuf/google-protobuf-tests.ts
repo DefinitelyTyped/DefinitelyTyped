@@ -534,3 +534,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 15) != null;
   }
 };
+
+// ensures messages are cloneable without a redundant cast
+const myMessage: MySimple = new MySimple();
+const myClonedMessage: MySimple = myMessage.clone();
+const myClonedMessage2: MySimple = myMessage.cloneMessage()

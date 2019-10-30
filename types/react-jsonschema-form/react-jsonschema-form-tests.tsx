@@ -1,5 +1,14 @@
 import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema, withTheme } from 'react-jsonschema-form';
+import Form, {
+  UiSchema,
+  ErrorListProps,
+  WidgetProps,
+  ErrorSchema,
+  withTheme,
+} from 'react-jsonschema-form';
+import SchemaField, {
+  SchemaFieldProps,
+} from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from "json-schema";
 
 import { ADDITIONAL_PROPERTY_FLAG } from 'react-jsonschema-form/lib/utils';
@@ -111,6 +120,16 @@ export class Example extends React.Component<any, IExampleState> {
     }
 }
 
+export class ExampleSchemaField extends React.Component<SchemaFieldProps> {
+    constructor(props: SchemaFieldProps) {
+        super(props);
+    }
+
+    public render() {
+        return <SchemaField {...this.props} />;
+    }
+}
+
 interface FuncExampleProps {
     formData: object;
     onError: (e: ErrorSchema) => void;
@@ -172,4 +191,16 @@ export const withThemeExample = () => {
 
 export const additionalPropertyFlagExample = () => {
     return ADDITIONAL_PROPERTY_FLAG;
+};
+
+export const ExternalFormSubmissionExample = () => {
+  const formRef = React.useRef<Form<any>>(null);
+
+  return (
+    <Form schema={schema} ref={formRef}>
+      <button onClick={formRef.current ? formRef.current.submit : undefined}>
+        FancySubmitButton
+      </button>
+    </Form>
+  );
 };

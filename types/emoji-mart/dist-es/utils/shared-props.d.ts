@@ -32,7 +32,18 @@ export interface EmojiProps {
     /** data is omitted here as it should be used for NimbleEmoji only - not emoji */
 }
 
-export type CategoryName = 'search' | 'recent' | 'people' | 'nature' | 'foods' | 'activity' | 'places' | 'objects' | 'symbols' | 'flags' | 'custom';
+export type CategoryName =
+    | 'search'
+    | 'recent'
+    | 'people'
+    | 'nature'
+    | 'foods'
+    | 'activity'
+    | 'places'
+    | 'objects'
+    | 'symbols'
+    | 'flags'
+    | 'custom';
 
 // tslint:disable-next-line interface-name
 export interface I18n {

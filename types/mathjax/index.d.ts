@@ -552,6 +552,8 @@ declare namespace MathJax {
 
         mpContext?: boolean;
         mpMouse?: boolean;
+
+        readonly renderer?: "HTML-CSS" | "CommonHTML" | "PreviewHTML" | "NativeMML" | "SVG" | "PlainSource";
     }
 
     export interface ErrorSettings {

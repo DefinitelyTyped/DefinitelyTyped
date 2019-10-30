@@ -34,7 +34,7 @@ interface WorkboxWaitingEvent extends WorkboxUpdatableEvent {
 
 interface WokerboxEventMap {
     message: WorkboxMessageEvent;
-    installed: WorkboxEvent;
+    installed: WorkboxUpdatableEvent;
     waiting: WorkboxWaitingEvent;
     controlling: WorkboxEvent;
     activated: WorkboxUpdatableEvent;

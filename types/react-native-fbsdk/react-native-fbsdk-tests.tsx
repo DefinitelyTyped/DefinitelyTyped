@@ -19,7 +19,7 @@ export class Login extends React.Component {
         return (
             <View>
                 <LoginButton
-                    publishPermissions={["publish_actions"]}
+                    permissions={["publish_actions"]}
                     onLoginFinished={
                         (error, result) => {
                             if (error) {

@@ -3,7 +3,7 @@
 // Definitions by: Daniel Grove <https://github.com/drGrove>
 //                 Neil Bryson Cargamento <https://github.com/neilbryson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 

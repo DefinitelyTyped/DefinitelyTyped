@@ -20,7 +20,7 @@ import RenderFeature from './Feature';
 export default class VectorContext {
     constructor();
     drawCircle(circleGeometry: Circle, feature: Feature): void;
-    drawCustom(geometry: SimpleGeometry, feature: Feature | RenderFeature, renderer: (() => void)): void;
+    drawCustom(geometry: SimpleGeometry, feature: Feature | RenderFeature, renderer: () => void): void;
     drawFeature(feature: Feature, style: Style): void;
     drawGeometry(geometry: Geometry): void;
     drawGeometryCollection(geometryCollectionGeometry: GeometryCollection, feature: Feature): void;

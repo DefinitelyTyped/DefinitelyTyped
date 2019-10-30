@@ -142,7 +142,7 @@ declare namespace CodeMirror {
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
 
-    type CoordsMode = 'window' | 'page' | 'local';
+    type CoordsMode = 'window' | 'page' | 'local' | 'div';
 
     interface Token {
         /** The character(on the given line) at which the token starts. */
@@ -161,7 +161,9 @@ declare namespace CodeMirror {
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 
-    interface Editor {
+    /** Methods prefixed with doc. can, unless otherwise specified, be called both on CodeMirror (editor) instances and
+    CodeMirror.Doc instances. Thus, the Editor interface extends Doc. **/
+    interface Editor extends Doc {
 
         /** Tells you whether the editor currently has focus. */
         hasFocus(): boolean;
@@ -181,10 +183,10 @@ declare namespace CodeMirror {
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
-        setOption(option: string, value: any): void;
+        setOption<K extends keyof EditorConfiguration>(option: K, value: EditorConfiguration[K]): void;
 
         /** Retrieves the current value of the given option for this editor instance. */
-        getOption(option: string): any;
+        getOption<K extends keyof EditorConfiguration>(option: K): EditorConfiguration[K];
 
         /** Attach an additional keymap to the editor.
         This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
@@ -219,6 +221,16 @@ declare namespace CodeMirror {
 
         /** Set the content of the current editor document. */
         setValue(content: string): void;
+
+        /** start is a an optional string indicating which end of the selection to return.
+        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
+        getCursor(start?: string): CodeMirror.Position;
+
+        /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
+        Will replace all selections with a single, empty selection at the given position.
+        The supported options are the same as for setSelection */
+        setCursor(pos: CodeMirror.Position | number, ch?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
@@ -407,14 +419,6 @@ declare namespace CodeMirror {
         /** Fetches the DOM node that contains the editor gutters. */
         getGutterElement(): HTMLElement;
 
-
-
-        /** Events are registered with the on method (and removed with the off method).
-        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
-        The instance argument always refers to the editor instance. */
-        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-
         /** Fires every time the content of the editor is changed. */
         on(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
         off(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
@@ -476,11 +480,17 @@ declare namespace CodeMirror {
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
 
         /** Fires when one of the DOM events fires. */
-        on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
-        off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        on<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(eventName: K, handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void ): void;
+        off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(eventName: K, handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void ): void;
 
         /** Fires when the overwrite flag is flipped. */
         on(eventName: "overwriteToggle", handler: (instance: CodeMirror.Editor, overwrite: boolean) => void): void;
+
+        /** Events are registered with the on method (and removed with the off method).
+        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
+        The instance argument always refers to the editor instance. */
+        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
+        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
@@ -579,8 +589,8 @@ declare namespace CodeMirror {
         replaceSelection(replacement: string, collapse?: string): void;
 
         /** start is a an optional string indicating which end of the selection to return.
-        It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
-        or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
+        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
         getCursor(start?: string): CodeMirror.Position;
 
         /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).

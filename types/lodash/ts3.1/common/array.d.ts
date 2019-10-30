@@ -488,6 +488,9 @@ declare module "../index" {
          */
         flatten(): T extends Many<infer U> ? CollectionChain<U> : CollectionChain<T>;
     }
+
+    type Flat<T> = T extends string ? T : (T extends List<any> ? never : T);
+
     interface LoDashStatic {
         /**
          * Recursively flattens a nested array.
@@ -495,19 +498,19 @@ declare module "../index" {
          * @param array The array to recursively flatten.
          * @return Returns the new flattened array.
          */
-        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
+        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): Array<Flat<T>>;
     }
     interface Collection<T> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep(): Collection<T>;
+        flattenDeep(): T extends ListOfRecursiveArraysOrValues<infer U> ? Collection<Flat<U>> : Collection<T>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep(): CollectionChain<T>;
+        flattenDeep(): T extends ListOfRecursiveArraysOrValues<infer U> ? CollectionChain<Flat<U>> : CollectionChain<T>;
     }
     interface LoDashStatic {
         /**

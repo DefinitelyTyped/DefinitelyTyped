@@ -5,6 +5,7 @@
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 //                 Emma Krantz <https://github.com/KeyboardSounds>
+//                 Wing Ho <https://github.com/soyarsauce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1605,6 +1606,13 @@ declare namespace Cesium {
         addInterval(interval: TimeInterval, dataComparer?: TimeInterval.DataComparer): void;
         removeInterval(interval: TimeInterval): void;
         intersect(other: TimeIntervalCollection, dataComparer?: TimeInterval.DataComparer, mergeCallback?: TimeInterval.MergeCallback): TimeIntervalCollection;
+    }
+
+    namespace TrustedServers {
+        function add(host: string, port: number): void;
+        function remove(host: string, port: number): void;
+        function contains(contains: string): boolean;
+        function clear(): void;
     }
 
     class VRTheWorldTerrainProvider extends TerrainProvider {
@@ -4175,15 +4183,15 @@ declare namespace Cesium {
         resolutionScale: number;
         constructor(container: Element | string, options?: {
             clock?: Clock;
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             sceneMode?: SceneMode;
             scene3DOnly?: boolean;
             orderIndependentTranslucency?: boolean;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
             showRenderLoopErrors?: boolean;
@@ -4507,10 +4515,10 @@ declare namespace Cesium {
             imageryProviderViewModels?: ProviderViewModel[];
             selectedTerrainProviderViewModel?: ProviderViewModel;
             terrainProviderViewModels?: ProviderViewModel[];
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             fullscreenElement?: Element | string;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
@@ -4519,7 +4527,7 @@ declare namespace Cesium {
             contextOptions?: any;
             sceneMode?: SceneMode;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             orderIndependentTranslucency?: boolean;
             creditContainer?: Element | string;
             creditViewport?: Element | string;

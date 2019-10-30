@@ -26,8 +26,8 @@ import {
     getDefaultSettings,
     getPackedSettings,
     getUnpackedSettings,
-    OutgoingHttpHeaders,
     IncomingHttpHeaders,
+    OutgoingHttpHeaders,
     createServer,
     constants,
     ServerOptions
@@ -382,6 +382,44 @@ import { URL } from 'url';
     const packet: Buffer = getPackedSettings(settings);
     settings = getUnpackedSettings(Buffer.from([]));
     settings = getUnpackedSettings(Uint8Array.from([]));
+}
+
+// Http2ServerRequest, Http2ServerResponse,
+{
+    class MyHttp2ServerRequest extends Http2ServerRequest {
+        foo: number;
+    }
+
+    class MyHttp2ServerResponse extends Http2ServerResponse {
+        bar: string;
+    }
+
+    function reqListener(req: Http2ServerRequest, res: Http2ServerResponse): void {}
+
+    let server: Http2Server;
+
+    server = createServer({
+        Http2ServerRequest: MyHttp2ServerRequest,
+        Http2ServerResponse: MyHttp2ServerResponse
+    });
+    server = createServer({
+        Http2ServerRequest: MyHttp2ServerRequest,
+        Http2ServerResponse: MyHttp2ServerResponse
+    }, reqListener);
+
+    server = createServer({ Http2ServerRequest: MyHttp2ServerRequest });
+    server = createServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
+
+    server = createSecureServer({
+        Http2ServerRequest: MyHttp2ServerRequest,
+        Http2ServerResponse: MyHttp2ServerResponse
+    });
+    server = createSecureServer({
+        Http2ServerRequest: MyHttp2ServerRequest,
+        Http2ServerResponse: MyHttp2ServerResponse
+    }, reqListener);
+    server = createSecureServer({ Http2ServerRequest: MyHttp2ServerRequest });
+    server = createSecureServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
 }
 
 // constants

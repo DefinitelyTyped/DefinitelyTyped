@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
+        "defer.d.ts",
+        "raw.d.ts",
         "config-tests.ts"
     ]
 }

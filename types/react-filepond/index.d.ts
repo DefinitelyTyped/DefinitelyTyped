@@ -193,7 +193,7 @@ type FetchServerConfigFunction = (
     headers: (headersString: string) => void,
 ) => void;
 
-interface FilePondServerConfigProps {
+export interface FilePondServerConfigProps {
     instantUpload?: boolean;
     server?: string | {
         process?: string | ServerUrl | ProcessServerConfigFunction;
@@ -204,7 +204,7 @@ interface FilePondServerConfigProps {
     };
 }
 
-interface FilePondDragDropProps {
+export interface FilePondDragDropProps {
     /** FilePond will catch all files dropped on the webpage */
     dropOnPage?: boolean;
     /** Require drop on the FilePond element itself to catch the file. */
@@ -221,7 +221,7 @@ interface FilePondDragDropProps {
     ignoredFiles?: string[];
 }
 
-interface FilePondLabelProps {
+export interface FilePondLabelProps {
     /**
      * The decimal separator used to render numbers.
      * By default this is determined automatically.
@@ -276,7 +276,7 @@ interface FilePondLabelProps {
     labelButtonProcessItem?: string;
 }
 
-interface FilePondSvgIconProps {
+export interface FilePondSvgIconProps {
     iconRemove?: string;
     iconProcess?: string;
     iconRetry?: string;
@@ -293,7 +293,7 @@ interface FilePondErrorDescription {
  * always give the error as the second prop, with the file as
  * the first prop.    This is contradictory to the current docs.
  */
-interface FilePondCallbackProps {
+export interface FilePondCallbackProps {
     /** FilePond instance has been created and is ready. */
     oninit?: () => void;
     /**
@@ -336,11 +336,11 @@ interface FilePondCallbackProps {
     onupdatefiles?: (fileItems: File[]) => void;
 }
 
-interface FilePondHookProps {
+export interface FilePondHookProps {
     beforeRemoveFile?: (file: File) => boolean;
 }
 
-interface FilePondBaseProps {
+export interface FilePondBaseProps {
     children?: React.ReactElement<File> | Array<React.ReactElement<File>>;
     id?: string;
     name?: string;
@@ -368,6 +368,8 @@ interface FilePondBaseProps {
     maxFiles?: number;
     /** The maximum number of files that can be uploaded in parallel */
     maxParallelUploads?: number;
+    /** List of files for controlled usage */
+    files?: File[];
     acceptedFileTypes?: string[];
     metadata?: {[key: string]: any};
 }

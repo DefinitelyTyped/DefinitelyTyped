@@ -1,6 +1,5 @@
 import { ComponentClass, StatelessComponent } from 'react';
 import { I18n } from '@lingui/core';
-import { withI18nProps } from './withI18n';
 
 export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
 

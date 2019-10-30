@@ -44,6 +44,23 @@ redis.exists('foo', ((err, data) => data * 1));
 redis.set(Buffer.from('key'), '100');
 redis.setBuffer(Buffer.from('key'), '100', 'NX', 'EX', 10);
 
+const listData = ['foo', 'bar', 'baz'];
+listData.forEach(value => {
+    redis.rpushBuffer('bufferlist', Buffer.from(value));
+});
+redis.lpopBuffer('bufferlist', (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
+    results.forEach((value, index) => {
+        if (value.toString() !== listData[index + 1]) {
+            console.log(value.toString());
+        }
+    });
+});
+
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380
 new Redis(6379, '192.168.1.1');       // 192.168.1.1:6379
@@ -68,7 +85,7 @@ redis.subscribe('news', 'music', (err: any, count: any) => {
     // `count` represents the number of channels we are currently subscribed to.
 
     pub.publish('news', 'Hello world!');
-    pub.publish('music', 'Hello again!');
+    pub.publishBuffer('music', Buffer.from('Hello again!'));
 });
 
 redis.on('message', (channel: any, message: any) => {
@@ -255,3 +272,7 @@ const defineCommandResult = cluster.defineCommand('defineCommand', {
 });
 console.log(defineCommandResult);
 cluster.sendCommand();
+
+redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
+    // sorted set 'foo' now has score 'foo1' containing barBuffer
+});

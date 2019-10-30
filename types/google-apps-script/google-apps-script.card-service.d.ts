@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-05-20
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,8 @@ declare namespace GoogleAppsScript {
     export interface Action {
       setFunctionName(functionName: string): Action;
       setLoadIndicator(loadIndicator: LoadIndicator): Action;
-      setParameters(parameters: object): Action;
+      setParameters(parameters: { [key: string]: string }): Action;
+      /** @deprecated DO NOT USE */
       setMethodName(functionName: string): Action;
     }
 

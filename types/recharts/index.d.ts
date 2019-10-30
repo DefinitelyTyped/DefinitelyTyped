@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.1
+// Type definitions for Recharts 1.8
 // Project: http://recharts.org/, https://github.com/recharts/recharts
 // Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
@@ -14,6 +14,9 @@
 //                 Leon Ng <https://github.com/iflp>
 //                 Dave Vedder <https://github.com/veddermatic>
 //                 Konstantin Azizov <https://github.com/g07cha>
+//                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
+//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
+//                 Eliot Ball <https://github.com/eliotball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -28,7 +31,7 @@ export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
 export type TooltipFormatter = (value: string | number | Array<string | number>, name: string,
-                                entry: TooltipPayload, index: number) => React.ReactNode;
+    entry: TooltipPayload, index: number) => React.ReactNode;
 export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
 export type DataKey = string | number | ((dataObject: any) => string | number | [number, number] | null);
@@ -41,7 +44,7 @@ export type ScaleType =
     'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' |
     'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
 export type PositionType =
-    'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
+    'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
     'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
@@ -148,7 +151,7 @@ export interface PresentationAttributes<X = number, Y = number> extends Pick<CSS
     fontSize: number | string;
     fontSizeAdjust: number | string;
     fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter' |
-        100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'inherit';
+    100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'inherit';
     imageRendering: 'auto' | 'optimizeSpeed' | 'optimizeQuality' | 'inherit';
     kerning: number | string;
     opacity: number | string;
@@ -192,6 +195,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     baseLine?: number | any[];
     isRange?: boolean;
     points?: Point[];
+    id?: string;
 }
 
 export class Area extends React.Component<AreaProps> { }
@@ -233,6 +237,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
     label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    id?: string;
 }
 
 export class Bar extends React.Component<BarProps> { }
@@ -260,6 +265,8 @@ export interface BrushProps {
     children?: React.ReactNode;
     onChange?: RechartsFunction;
     updateId?: string | number;
+    gap?: number;
+    leaveTimeOut?: number;
 }
 
 export class Brush extends React.Component<BrushProps> { }
@@ -409,7 +416,7 @@ export interface LegendProps {
     onBBoxUpdate?: BBoxUpdateCallback;
 }
 
-export class Legend extends React.Component<LegendProps, BoxSize> {}
+export class Legend extends React.Component<LegendProps, BoxSize> { }
 
 export interface LineProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -434,6 +441,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement | ContentRenderer<any>;
     points?: Point[];
+    id?: string;
 }
 
 export class Line extends React.Component<LineProps> { }
@@ -703,6 +711,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
     > | React.ReactElement;
+    label: string | number | React.ReactElement | RechartsFunction;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
@@ -742,7 +751,7 @@ export interface ResponsiveContainerProps {
     className?: string | number;
 }
 
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> {}
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> { }
 
 export interface ScatterPoint {
     cx?: number;
@@ -770,7 +779,9 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     points?: ScatterPoint[];
     hide?: boolean;
     data?: ReadonlyArray<object>;
+    dataKey?: DataKey;
     name?: string | number;
+    id?: string;
 }
 
 export class Scatter extends React.Component<ScatterProps> { }
@@ -826,6 +837,8 @@ export interface Coordinate {
     y: number;
 }
 
+export type AllowEscapeViewBox = { x: boolean } | { y: boolean } | { x: boolean, y: boolean };
+
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
@@ -840,12 +853,14 @@ export interface TooltipPayload {
 export interface TooltipProps extends Animatable {
     content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
+    allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
     separator?: string;
     formatter?: TooltipFormatter;
     offset?: number;
     itemStyle?: object;
     labelStyle?: object;
+    contentStyle?: object;
     wrapperStyle?: object;
     cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
     coordinate?: Coordinate;
@@ -858,7 +873,7 @@ export interface TooltipProps extends Animatable {
     useTranslate3d?: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps, BoxSize> {}
+export class Tooltip extends React.Component<TooltipProps, BoxSize> { }
 
 export interface TreemapProps extends EventAttributes, Animatable {
     width?: number;
@@ -935,6 +950,12 @@ export interface XAxisProps extends EventAttributes {
     width?: number;
     // The height of axis, which need to be set by user
     height?: number;
+    // Rotation of tick labels
+    angle?: number;
+    // X offset of tick label
+    dx?: number;
+    // Y offset of tick label
+    dy?: number;
     mirror?: boolean;
     // The orientation of axis
     orientation?: 'top' | 'bottom';
@@ -990,6 +1011,12 @@ export interface YAxisProps extends EventAttributes {
     ticks?: any[];
     // The count of ticks
     tickCount?: number;
+    // Rotation of tick labels
+    angle?: number;
+    // X offset of tick label
+    dx?: number;
+    // Y offset of tick label
+    dy?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
     // The width of axis, which need to be set by user

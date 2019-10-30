@@ -34,3 +34,5 @@ xmlRequest.addEventListener("load", (ev) => {
     console.log(ev.loaded)
     console.log(ev.total)
 });
+
+const test = new URLSearchParams();

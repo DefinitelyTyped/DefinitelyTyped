@@ -1,9 +1,11 @@
-// Type definitions for React Router 4.3
+// Type definitions for React Router 5.1
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Daniel Nixon <https://github.com/danielnixon>
+//                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,7 +29,11 @@ export {
     match,
     matchPath,
     withRouter,
-    RouterChildContext
+    RouterChildContext,
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch,
 } from 'react-router';
 
 export interface BrowserRouterProps {
@@ -45,19 +51,30 @@ export interface HashRouterProps {
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    to: H.LocationDescriptor;
+export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
+    component?: React.ComponentType<any>;
+    to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
 }
-export class Link extends React.Component<LinkProps, any> {}
+export class Link<S = H.LocationState> extends React.Component<
+  LinkProps<S>,
+  any
+> {}
 
-export interface NavLinkProps extends LinkProps {
-    activeClassName?: string;
-    activeStyle?: React.CSSProperties;
-    exact?: boolean;
-    strict?: boolean;
-    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params>, location: H.Location): boolean;
-    location?: H.Location;
+export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
+  activeClassName?: string;
+  activeStyle?: React.CSSProperties;
+  exact?: boolean;
+  strict?: boolean;
+  isActive?<Params extends { [K in keyof Params]?: string }>(
+    match: match<Params>,
+    location: H.Location<S>,
+  ): boolean;
+  location?: H.Location<S>;
 }
-export class NavLink extends React.Component<NavLinkProps, any> {}
+export class NavLink<S = H.LocationState> extends React.Component<
+  NavLinkProps<S>,
+  any
+> {}

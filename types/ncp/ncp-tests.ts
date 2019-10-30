@@ -26,6 +26,9 @@ opts = {
 opts = {
 	errs: new stream.Writable()
 };
+opts = {
+	limit: 512
+};
 
 ncp.ncp('foo', 'bar', (err: Error) => {
 

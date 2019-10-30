@@ -3,6 +3,7 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Thomas Chia <https://github.com/thchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

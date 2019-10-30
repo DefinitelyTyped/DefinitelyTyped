@@ -1,3 +1,5 @@
+import { Tracker } from 'meteor/tracker';
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/blaze" {
     module Blaze {
         var View: ViewStatic;

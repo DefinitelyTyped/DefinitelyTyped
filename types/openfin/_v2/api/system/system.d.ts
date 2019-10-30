@@ -175,6 +175,12 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the application
  */
 /**
+* InstalledRuntimes interface
+* @typedef { object } InstalledRuntimes
+* @property { string } action The name of action: "get-installed-runtimes"
+* @property { Array<string> } runtimes The version numbers of each installed runtime
+*/
+/**
  * LogInfo interface
  * @typedef { object } LogInfo
  * @property { string } name The filename of the log
@@ -567,6 +573,12 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getFocusedExternalWindow(): Promise<Identity>;
     /**
+     * Returns an array of all the installed runtime versions in an object.
+     * @return {Promise.<string[]>}
+     * @tutorial System.getInstalledRuntimes
+     */
+    getInstalledRuntimes(): Promise<string[]>;
+    /**
      * Retrieves the contents of the log with the specified filename.
      * @param { GetLogRequestType } options A object that id defined by the GetLogRequestType interface
      * @return {Promise.<string>}
@@ -637,14 +649,18 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getHostSpecs(): Promise<HostSpecs>;
     /**
-     * Runs an executable or batch file.
+     * Runs an executable or batch file. A path to the file must be included in options.
+     * <br> A uuid may be optionally provided. If not provided, OpenFin will create a uuid for the new process.
+     * <br> Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { ExternalProcessRequestType } options A object that is defined in the ExternalProcessRequestType interface
      * @return {Promise.<Identity>}
      * @tutorial System.launchExternalProcess
      */
     launchExternalProcess(options: ExternalProcessRequestType): Promise<Identity>;
     /**
-     * Monitors a running process.
+     * Monitors a running process. A pid for the process must be included in options.
+     * <br> A uuid may be optionally provided. If not provided, OpenFin will create a uuid for the new process.
      * @param { ExternalProcessInfo } options See tutorial for more details
      * @return {Promise.<Identity>}
      * @tutorial System.monitorExternalProcess
@@ -682,7 +698,9 @@ export default class System extends EmitterBase<SystemEvents> {
     showDeveloperTools(identity: Identity): Promise<void>;
     /**
      * Attempt to close an external process. The process will be terminated if it
-     * has not closed after the elapsed timeout in milliseconds.
+     * has not closed after the elapsed timeout in milliseconds.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { TerminateExternalRequestType } options A object defined in the TerminateExternalRequestType interface
      * @return {Promise.<void>}
      * @tutorial System.terminateExternalProcess
@@ -696,7 +714,9 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     updateProxySettings(options: ProxyConfig): Promise<void>;
     /**
-     * Downloads the given application asset
+     * Downloads the given application asset<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { AppAssetInfo } appAsset App asset object
      * @return {Promise.<void>}
      * @tutorial System.downloadAsset
@@ -725,7 +745,9 @@ export default class System extends EmitterBase<SystemEvents> {
     getAllExternalApplications(): Promise<Array<Identity>>;
     /**
      * Retrieves an array of objects representing information about currently
-     * running user-friendly native windows on the system.
+     * running user-friendly native windows on the system.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @return {Promise.Array.<Identity>}
      * @experimental
      */
@@ -767,7 +789,9 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     executeOnRemote(requestingIdentity: Identity, data: any): Promise<any>;
     /**
-     * Reads the specifed value from the registry.
+     * Reads the specifed value from the registry.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { string } rootKey - The registry root key.
      * @param { string } subkey - The registry key.
      * @param { string } value - The registry value name.

@@ -1,6 +1,7 @@
 // Type definitions for ncp v2.0.0
 // Project: https://github.com/AvianFlu/ncp
 // Definitions by: Bart van der Schoor <https://github.com/bartvds>
+//                 Benoit Lemaire <https://github.com/belemaire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,4 +16,5 @@ interface Options {
     dereference?: boolean;
     stopOnErr?: boolean;
     errs?: NodeJS.WritableStream;
+    limit?: number;
 }

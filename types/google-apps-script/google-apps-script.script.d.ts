@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -140,8 +140,10 @@ declare namespace GoogleAppsScript {
       invalidateAuth(): void;
       newStateToken(): StateTokenBuilder;
       newTrigger(functionName: string): TriggerBuilder;
+      /** @deprecated DO NOT USE */
       getProjectKey(): string;
-      getScriptTriggers(): Trigger[];
+       /** @deprecated DO NOT USE */
+       getScriptTriggers(): Trigger[];
     }
 
     /**

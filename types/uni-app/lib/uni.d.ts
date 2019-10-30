@@ -189,7 +189,13 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/media/video-context?id=createvideocontext](http://uniapp.dcloud.io/api/media/video-context?id=createvideocontext)
      */
-    createVideoContext(): VideoContext;
+    createVideoContext(videoId?: string, currentComponent?: any): VideoContext;
+    /**
+     * 创建并返回 camera 组件的上下文 cameraContext 对象
+     *
+     * 参考: [http://uniapp.dcloud.io/api/media/camera-context](http://uniapp.dcloud.io/api/media/camera-context)
+     */
+    createCameraContext(): CameraContext;
     /**
      * 保存文件到本地
      *
@@ -307,7 +313,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/location/map?id=createmapcontext](http://uniapp.dcloud.io/api/location/map?id=createmapcontext)
      */
-    createMapContext(): MapContext;
+    createMapContext(mapId?: string, currentComponent?: any): MapContext;
     /**
      * 异步获取系统信息
      *
@@ -319,7 +325,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync](http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync)
      */
-    getSystemInfoSync(): GetSystemInfoSuccess;
+    getSystemInfoSync(): GetSystemInfoResult;
     /**
      * 判断uni-app的API，回调，参数，组件等是否在当前版本可用
      *
@@ -401,9 +407,15 @@ declare class Uni {
     /**
      * 隐藏软键盘
      *
-     * 参考: [http://uniapp.dcloud.io/api/keyboard?id=hidekeyboard](http://uniapp.dcloud.io/api/keyboard?id=hidekeyboard)
+     * 参考: [http://uniapp.dcloud.io/api/key?id=hidekeyboard](http://uniapp.dcloud.io/api/key?id=hidekeyboard)
      */
     hideKeyboard(): void;
+    /**
+     * 监听键盘高度变化
+     *
+     * 参考: [http://uniapp.dcloud.io/api/key?id=onkeyboardheightchange](http://uniapp.dcloud.io/api/key?id=onkeyboardheightchange)
+     */
+    onKeyboardHeightChange(callback?: (result: OnKeyboardHeightChangeResult) => void): void;
     /**
      * 设置屏幕亮度
      *
@@ -687,6 +699,12 @@ declare class Uni {
      */
     hideTabBarRedDot(options?: HideTabBarRedDotOptions): void;
     /**
+     * 监听中间按钮的点击事件
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/tabbar?id=ontabbarmidbuttontap](http://uniapp.dcloud.io/api/ui/tabbar?id=ontabbarmidbuttontap)
+     */
+    onTabBarMidButtonTap(callback?: () => void): void;
+    /**
      * 保留当前页面，跳转到应用内的某个页面
      *
      * 参考: [http://uniapp.dcloud.io/api/router?id=navigateto](http://uniapp.dcloud.io/api/router?id=navigateto)
@@ -800,6 +818,12 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/plugins/login?id=login](http://uniapp.dcloud.io/api/plugins/login?id=login)
      */
     login(options?: LoginOptions): void;
+    /**
+     * 登录
+     *
+     * 参考: [http://uniapp.dcloud.io/api/plugins/login?id=unichecksession](http://uniapp.dcloud.io/api/plugins/login?id=unichecksession)
+     */
+    checkSession(options?: CheckSessionOptions): void;
     /**
      * 获取用户信息
      *
@@ -926,6 +950,12 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
      */
     loadFontFace(options?: LoadFontFaceOptions): void;
+    /**
+     * 获取小程序下该菜单按钮的布局位置信息
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/menuButton?id=getmenubuttonboundingclientrect](http://uniapp.dcloud.io/api/ui/menuButton?id=getmenubuttonboundingclientrect)
+     */
+    getMenuButtonBoundingClientRect(): GetMenuButtonBoundingClientRectRes;
 }
 
 interface GeneralCallbackResult {
@@ -2186,17 +2216,24 @@ interface CameraContext {
      * 结束录像，成功则返回封面与视频
      */
     stopRecord(options?: CameraContextStopRecordOptions): void;
+    /**
+     * 结束录像，成功则返回封面与视频
+     */
+    onCameraFrame(callback?: (result: CameraFrame) => void): void;
 }
 
 interface CameraContextTakePhotoOptions {
     /**
      * 成像质量，值为high, normal, low，默认normal
+     * - normal: 普通质量
+     * - high: 高质量
+     * - low: 低质量
      */
-    quality?: string;
+    quality?: 'normal' | 'high' | 'low';
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: CameraContextTakePhotoResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2207,11 +2244,18 @@ interface CameraContextTakePhotoOptions {
     complete?: () => void;
 }
 
+interface CameraContextTakePhotoResult {
+    /**
+     * 照片文件的临时路径，安卓是jpg图片格式，ios是png
+     */
+    tempImagePath?: string;
+}
+
 interface CameraContextStartRecordOptions {
     /**
-     * 超过30s或页面onHide时会结束录像，res = { tempThumbPath, tempVideoPath }
+     * 超过30s或页面onHide时会结束录像
      */
-    timeoutCallback?: () => void;
+    timeoutCallback?: (result: CameraContextStopRecordResult) => void;
     /**
      * 接口调用成功的回调函数
      */
@@ -2228,9 +2272,9 @@ interface CameraContextStartRecordOptions {
 
 interface CameraContextStopRecordOptions {
     /**
-     * 接口调用成功的回调函数 ，res = { tempThumbPath, tempVideoPath }
+     * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: CameraContextStopRecordResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2239,6 +2283,32 @@ interface CameraContextStopRecordOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface CameraContextStopRecordResult {
+    /**
+     * 封面图片文件的临时路径
+     */
+    tempThumbPath?: string;
+    /**
+     * 视频的文件的临时路径
+     */
+    tempVideoPath?: string;
+}
+
+interface CameraFrame {
+    /**
+     * 图像数据矩形的宽度
+     */
+    width?: number;
+    /**
+     * 图像数据矩形的高度
+     */
+    height?: number;
+    /**
+     * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
+     */
+    data?: ArrayBuffer;
 }
 
 interface SaveFileOptions {
@@ -2562,6 +2632,10 @@ interface GetLocationSuccess {
 
 interface ChooseLocationOptions {
     /**
+     * 搜索关键字
+     */
+    keyword?: string;
+    /**
      * 接口调用成功的回调函数
      */
     success?: (result: ChooseLocationSuccess) => void;
@@ -2664,7 +2738,7 @@ interface MapContextGetCenterLocationOptions {
     /**
      * 接口调用成功的回调函数 ，res = { longitude: "经度", latitude: "纬度"}
      */
-    success?: (result: MapContextGetLocationSuccess) => void;
+    success?: (result: LocationObject) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2675,7 +2749,7 @@ interface MapContextGetCenterLocationOptions {
     complete?: () => void;
 }
 
-interface MapContextGetLocationSuccess {
+interface LocationObject {
     /**
      * 纬度，浮点数，范围为-90~90，负数表示南纬
      */
@@ -2694,7 +2768,7 @@ interface MapContextTranslateMarkerOptions {
     /**
      * 指定marker移动到的目标点
      */
-    destination?: any;
+    destination?: LocationObject;
     /**
      * 移动过程中是否自动旋转marker
      */
@@ -2721,18 +2795,18 @@ interface MapContextIncludePointsOptions {
     /**
      * 要显示在可视区域内的坐标点列表，[{latitude, longitude}]
      */
-    points?: any [];
+    points?: LocationObject [];
     /**
      * 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
      */
-    padding?: any [];
+    padding?: number [];
 }
 
 interface MapContextGetRegionOptions {
     /**
      * 接口调用成功的回调函数，res = {southwest, northeast}，西南角与东北角的经纬度
      */
-    success?: () => void;
+    success?: (result: MapContextGetRegionResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2741,13 +2815,24 @@ interface MapContextGetRegionOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface MapContextGetRegionResult {
+    /**
+     * 西南角的经纬度
+     */
+    southwest?: LocationObject;
+    /**
+     * 东北角的经纬度
+     */
+    northeast?: LocationObject;
 }
 
 interface MapContextGetScaleOptions {
     /**
      * 接口调用成功的回调函数，res = {scale}
      */
-    success?: () => void;
+    success?: (result: MapContextGetScaleResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2756,13 +2841,20 @@ interface MapContextGetScaleOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface MapContextGetScaleResult {
+    /**
+     * 地图缩放级别
+     */
+    scale?: number;
 }
 
 interface GetSystemInfoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetSystemInfoSuccess) => void;
+    success?: (result: GetSystemInfoResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2773,7 +2865,7 @@ interface GetSystemInfoOptions {
     complete?: () => void;
 }
 
-interface GetSystemInfoSuccess {
+interface GetSystemInfoResult {
     /**
      * 手机品牌
      */
@@ -2785,7 +2877,7 @@ interface GetSystemInfoSuccess {
     /**
      * 设备像素比
      */
-    pixelRatio?: string;
+    pixelRatio?: number;
     /**
      * 屏幕宽度
      */
@@ -2807,13 +2899,53 @@ interface GetSystemInfoSuccess {
      */
     statusBarHeight?: number;
     /**
+     * 导航栏的高度
+     */
+    navigationBarHeight?: number;
+    /**
+     * 标题栏高度
+     */
+    titleBarHeight?: number;
+    /**
      * 程序设置的语言
      */
     language?: string;
     /**
-     * 5+版本号
+     * 引擎版本号
      */
     version?: number;
+    /**
+     * 设备磁盘容量
+     */
+    storage?: string;
+    /**
+     * 当前电量百分比
+     */
+    currentBattery?: string;
+    /**
+     * 宿主APP名称
+     */
+    appName?: string;
+    /**
+     * App平台
+     */
+    AppPlatform?: string;
+    /**
+     * 宿主平台
+     */
+    host?: string;
+    /**
+     * 当前运行的客户端
+     */
+    app?: string;
+    /**
+     * 客户端基础库版本
+     */
+    SDKVersion?: string;
+    /**
+     * 宿主平台版本号
+     */
+    swanNativeVersion?: string;
     /**
      * 操作系统版本
      */
@@ -2826,6 +2958,93 @@ interface GetSystemInfoSuccess {
      * 用户字体大小设置
      */
     fontSizeSetting?: number;
+    /**
+     * 可使用窗口的顶部位置
+     */
+    windowTop?: number;
+    /**
+     * 可使用窗口的底部位置
+     */
+    windowBottom?: number;
+    /**
+     * 允许微信使用相册的开关（仅 iOS 有效）
+     */
+    albumAuthorized?: boolean;
+    /**
+     * 允许微信使用摄像头的开关
+     */
+    cameraAuthorized?: boolean;
+    /**
+     * 允许微信使用定位的开关
+     */
+    locationAuthorized?: boolean;
+    /**
+     * 允许微信使用麦克风的开关
+     */
+    microphoneAuthorized?: boolean;
+    /**
+     * 允许微信通知的开关
+     */
+    notificationAuthorized?: boolean;
+    /**
+     * 允许微信通知带有提醒的开关（仅 iOS 有效）
+     */
+    notificationAlertAuthorized?: boolean;
+    /**
+     * 允许微信通知带有标记的开关（仅 iOS 有效）
+     */
+    notificationBadgeAuthorized?: boolean;
+    /**
+     * 允许微信通知带有声音的开关（仅 iOS 有效）
+     */
+    notificationSoundAuthorized?: boolean;
+    /**
+     * 蓝牙的系统开关
+     */
+    bluetoothEnabled?: boolean;
+    /**
+     * 地理位置的系统开关
+     */
+    locationEnabled?: boolean;
+    /**
+     * Wi-Fi 的系统开关
+     */
+    wifiEnabled?: boolean;
+    /**
+     * 在竖屏正方向下的安全区域
+     */
+    safeArea?: SafeAreaResult;
+    /**
+     * 上一次缓存的位置信息
+     */
+    cacheLocation?: any;
+}
+
+interface SafeAreaResult {
+    /**
+     * 安全区域左上角横坐标
+     */
+    left?: number;
+    /**
+     * 安全区域右下角横坐标
+     */
+    right?: number;
+    /**
+     * 安全区域左上角纵坐标
+     */
+    top?: number;
+    /**
+     * 安全区域右下角纵坐标
+     */
+    bottom?: number;
+    /**
+     * 安全区域的宽度，单位逻辑像素
+     */
+    width?: number;
+    /**
+     * 安全区域的高度，单位逻辑像素
+     */
+    height?: number;
 }
 
 interface GetNetworkTypeOptions {
@@ -2859,6 +3078,13 @@ interface OnNetworkStatusChangeSuccess {
      * 网络类型
      */
     networkType?: string;
+}
+
+interface OnKeyboardHeightChangeResult {
+    /**
+     * 键盘高度
+     */
+    height?: number;
 }
 
 interface OnAccelerometerChangeSuccess {
@@ -4565,7 +4791,7 @@ interface NodesRef {
     /**
      * 添加节点的布局位置的查询请求，相对于显示区域，以像素为单位
      */
-    boundingClientRect(callback?: (result: NodeInfo) => void): void;
+    boundingClientRect(callback?: (result: NodeInfo) => void): SelectorQuery;
     /**
      * 添加节点的滚动位置查询请求，以像素为单位
      */
@@ -5680,6 +5906,33 @@ interface GetExtConfigSyncRes {
      * 第三方平台自定义的数据
      */
     extConfig?: any;
+}
+
+interface GetMenuButtonBoundingClientRectRes {
+    /**
+     * 小程序胶囊菜单按钮的宽度
+     */
+    width?: number;
+    /**
+     * 小程序胶囊菜单按钮的高度
+     */
+    height?: number;
+    /**
+     * 小程序胶囊菜单按钮的上边界坐标
+     */
+    top?: number;
+    /**
+     * 小程序胶囊菜单按钮的右边界坐标
+     */
+    right?: number;
+    /**
+     * 小程序胶囊菜单按钮的下边界坐标
+     */
+    bottom?: number;
+    /**
+     * 小程序胶囊菜单按钮的左边界坐标
+     */
+    left?: number;
 }
 
 interface GetProviderOptions {

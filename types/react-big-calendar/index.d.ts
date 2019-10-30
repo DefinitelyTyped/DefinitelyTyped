@@ -14,6 +14,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Jan Michalak <https://github.com/michalak111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -26,11 +27,11 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewsProps = View[] | {
-    work_week?: boolean | React.SFC | React.Component,
-    day?: boolean | React.SFC | React.Component,
-    agenda?: boolean | React.SFC | React.Component,
-    month?: boolean | React.SFC | React.Component,
-    week?: boolean | React.SFC | React.Component
+    work_week?: boolean | React.ComponentType<any> & ViewStatic,
+    day?: boolean | React.ComponentType<any> & ViewStatic,
+    agenda?: boolean | React.ComponentType<any> & ViewStatic,
+    month?: boolean | React.ComponentType<any> & ViewStatic,
+    week?: boolean | React.ComponentType<any> & ViewStatic
 };
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
@@ -137,7 +138,6 @@ export interface Components<TEvent extends object = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -301,7 +301,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceAccessor?: keyof TEvent | ((event: TEvent) => any);
     resources?: TResource[];
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any);
-    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => string);
+    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
@@ -309,8 +309,15 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onShowMore?: (events: TEvent[], date: Date) => void;
 }
 
+export interface TitleOptions {
+    formats: DateFormat[];
+    culture?: string;
+    [propName: string]: any;
+}
+
 export interface ViewStatic {
     navigate(date: Date, action: NavigateAction, props: any): Date;
+    title(date: Date, options: TitleOptions): string;
 }
 
 export interface MoveOptions {
@@ -326,7 +333,6 @@ export class Calendar<
 
 export interface components {
     dateCellWrapper: React.ComponentType;
-    dayWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;

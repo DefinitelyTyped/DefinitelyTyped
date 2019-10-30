@@ -8,6 +8,7 @@ declare namespace Gtag {
   interface Gtag {
     (command: 'config', targetId: string, config?: ControlParams | EventParams | CustomParams): void;
     (command: 'set', config: CustomParams): void;
+    (command: 'js', config: Date): void;
     (command: 'event', eventName: EventNames | string, eventParams?: ControlParams |  EventParams | CustomParams): void;
   }
 
@@ -23,7 +24,6 @@ declare namespace Gtag {
   }
 
   type EventNames = 'add_payment_info'
-    | 'add_payment_info'
     | 'add_to_cart'
     | 'add_to_wishlist'
     | 'begin_checkout'
@@ -67,7 +67,7 @@ declare namespace Gtag {
     transaction_id?: string;
     value?: number;
     event_label?: string;
-    event_category: string;
+    event_category?: string;
   }
 
   type Currency = string | number;

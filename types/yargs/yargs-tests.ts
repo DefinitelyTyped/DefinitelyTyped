@@ -307,6 +307,19 @@ function Argv$command() {
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
 }
 
 function Argv$commandModule() {
@@ -385,6 +398,35 @@ function Argv$commandModule() {
     const builder2: yargs.CommandBuilder = builder;
     const commandArgs2: yargs.Arguments = builder(yargs).argv;
     const commandArgs3: yargs.Arguments = builder2(yargs).argv;
+}
+
+function Argv$completion_hide() {
+    // no func
+    yargs.completion('completion', false).argv;
+
+    // sync func
+    yargs.completion('complation', false, (current, argv) => {
+        // 'current' is the current command being completed.
+        // 'argv' is the parsed arguments so far.
+        // simply return an array of completions.
+        return ['foo', 'bar'];
+    }).argv;
+
+    // async func
+    yargs.completion('complation', false, (current: string, argv: any, done: (completion: string[]) => void) => {
+        setTimeout(() => {
+            done(['apple', 'banana']);
+        }, 500);
+    }).argv;
+
+    // promise func
+    yargs.completion('complation', false, (current: string, argv: any) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(['apple', 'banana']);
+            }, 10);
+        });
+    }).argv;
 }
 
 function Argv$completion_sync() {
@@ -1027,10 +1069,10 @@ function Argv$inferArrayOptionTypes() {
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToArray<string | undefined>
     yargs.string("a").array("a").argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToString<(string | number)[] | undefined>
     yargs.array("a").string("a").argv.a;
 
     // $ExpectType string[]

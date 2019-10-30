@@ -68,6 +68,10 @@ videojs("example_video_1").ready(function() {
 	testComponents(this);
 
 	testPlugin(this, {});
+
+	testAugmentation(this);
+
+	testLogger();
 });
 
 function testEvents(player: videojs.Player) {
@@ -114,4 +118,28 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+}
+
+function testAugmentation(player: videojs.Player) {
+	player.somePluginDefinedInAugmentation();
+	videojs('example_video_2', {
+        plugins: {
+            somePluginDefinedInAugmentation: {
+                someRequiredProperty: true
+            },
+            someOtherPluginNotTyped: {},
+        },
+    });
+	videojs('example_video_3', {
+        plugins: {}
+    });
+}
+
+function testLogger() {
+	const mylogger = videojs.log.createLogger('mylogger');
+	const anotherlogger = mylogger.createLogger('anotherlogger');
+
+	videojs.log('hello');
+	mylogger('how are you');
+	anotherlogger('today');
 }

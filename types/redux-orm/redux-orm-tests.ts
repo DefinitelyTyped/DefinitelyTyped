@@ -44,6 +44,7 @@ class Book extends Model<typeof Book, BookFields> {
     static options = {
         idAttribute: 'title' as const
     };
+
     static reducer(action: RootAction, Book: ModelType<Book>) {
         switch (action.type) {
             case 'CREATE_BOOK':
@@ -260,10 +261,10 @@ const sessionFixture = () => {
 (() => {
     type ExtractId<M extends Model> = [IdKey<M>, IdType<M>];
 
-    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number]
-    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number]
-    type CustomType = ExtractId<Person>; // $ExpectType ["id", string]
-    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string]
+    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number] || ExtractId<Authorship>
+    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number] || ExtractId<Publisher>
+    type CustomType = ExtractId<Person>; // $ExpectType ["id", string] || ExtractId<Person>
+    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string] || ExtractId<Book>
 })();
 
 // Model#create result retains custom properties supplied during call
@@ -380,11 +381,7 @@ const sessionFixture = () => {
 
     type TestSelector = (state: RootState) => Ref<Book>;
 
-    const selector0 = createOrmSelector(
-        orm,
-        s => s.db,
-        session => session.Book.first()!.ref
-    ) as TestSelector;
+    const selector0 = createOrmSelector(orm, s => s.db, session => session.Book.first()!.ref) as TestSelector;
 
     const selector1 = createOrmSelector(
         orm,
@@ -504,3 +501,6 @@ const sessionFixture = () => {
     Book.create({ title: 'foo', publisher: 'error' }); // $ExpectError
     Book.create({ title: 'foo', publisher, coverArt: 'bar', authors: [3, author] }); // $ExpectError
 })();
+
+// redux-orm-types#18
+(() => many({ to: 'Bar', relatedName: 'foos', through: 'FooBar', throughFields: ['foo', 'bar'] }))();

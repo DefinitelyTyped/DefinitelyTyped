@@ -3449,7 +3449,10 @@ export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.Progr
 export function program(options?: Widgets.IScreenOptions): BlessedProgram;
 export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
-export function escape(item: any): any;
+export function escape(text: string): string;
+export function stripTags(text: string): string;
+export function cleanTags(text: string): string;
+export function generateTags(style: any, text: string): string;
 
 export const colors: {
     match(hexColor: string): string;

@@ -44,6 +44,7 @@ export interface TableUserConfig {
     border?: JoinStruct;
     columnDefault?: ColumnConfig;
     columnCount?: number;
+    singleLine?: boolean;
 }
 
 export function table(data: any[], userConfig?: TableUserConfig): string;

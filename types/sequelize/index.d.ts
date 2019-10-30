@@ -1520,7 +1520,7 @@ declare namespace sequelize {
      * user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture
      * ```
      *
-     * In the example above we have specified that a user belongs to his profile picture. Conceptually, this might
+     * In the example above we have specified that a user belongs to their profile picture. Conceptually, this might
      * not make sense, but since we want to add the foreign key to the user model this is the way to do it.
      *
      * Note how we also specified `constraints: false` for profile picture. This is because we add a foreign key
@@ -4110,7 +4110,7 @@ declare namespace sequelize {
          *
          * @param records List of objects (key/value pairs) to create instances from
          */
-        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
+        bulkCreate(records: TCreationAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
 
         /**
          * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).

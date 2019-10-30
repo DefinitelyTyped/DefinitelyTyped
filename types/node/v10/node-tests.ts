@@ -70,11 +70,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         assert.equal(3, "3", "uses == comparator");
 
-        assert.fail('stuff broke');
+        if (!!true) assert.fail('stuff broke');
 
-        assert.fail('actual', 'expected', 'message');
+        if (!!true) assert.fail('actual', 'expected', 'message');
 
-        assert.fail(1, 2, undefined, '>');
+        if (!!true) assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 
@@ -946,8 +946,10 @@ function bufferTests() {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -2184,8 +2186,8 @@ async function asyncStreamPipelineFinished() {
 ////////////////////////////////////////////////////
 
 {
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
+    const rs: tty.ReadStream = new tty.ReadStream(0);
+    const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);

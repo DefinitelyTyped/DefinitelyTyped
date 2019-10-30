@@ -31,6 +31,7 @@ let map = new mapboxgl.Map({
 	boxZoom: true,
 	dragRotate: false,
 	dragPan: true,
+	antialias: true,
 });
 
 /**
@@ -169,8 +170,44 @@ map.on('load', function() {
 		},
 		"paint": {
 			"line-color": "#888",
-			"line-width": 8
+			"line-width": 8,
+            "line-dasharray": [
+                "step",
+                [
+                    "zoom"
+                ],
+                [
+                    "literal",
+                    [
+                        1,
+                        0
+                    ]
+                ],
+                15,
+                [
+                    "literal",
+                    [
+                        1.75,
+                        1
+                    ]
+                ]
+            ]
 		}
+	});
+
+	// Add a custom layer
+	map.addLayer({
+		id: 'custom',
+		type: 'custom',
+		renderingMode: '3d',
+		onRemove: function(map, gl) {
+			map;  // $ExpectType Map
+			gl;  // $ExpectType WebGLRenderingContext
+		},
+		render: function(gl, matrix) {
+			gl;  // $ExpectType WebGLRenderingContext
+			matrix;  // $ExpectType number[]
+		},
 	});
 });
 
@@ -186,6 +223,13 @@ map.flyTo({
 	},
 	maxDuration: 1
 });
+
+// QueryRenderedFeatures
+const features = map.queryRenderedFeatures(
+	[0, 0],
+	{ layers: ['custom' ], validate: false }
+);
+features // $ExpectType MapboxGeoJSONFeature[]
 
 /**
  * GeoJSONSource
@@ -289,10 +333,26 @@ map.removeFeatureState(featureIdentifier);
 /**
  * Popup
  */
-var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]}, className: 'custom-class' })
+const popupOptions = {
+	closeOnClick: false,
+	closeButton: true,
+	anchor: 'top-right' as mapboxgl.Anchor,
+	offset: {
+		'top': [0,0] as [number, number],
+		'bottom': [25,-50] as [number, number]
+	},
+	className: 'custom-class',
+	maxWidth: '400px'
+};
+expectType<mapboxgl.PopupOptions>(popupOptions);
+const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
+	.trackPointer()
 	.setHTML('<h1>Hello World!</h1>')
+	.setMaxWidth('none')
 	.addTo(map);
+popup.getMaxWidth();
+popup.getElement();  // $ExpectType HTMLElement
 
 /**
  * Add an image
@@ -369,7 +429,75 @@ var mapStyle = {
 			"layout": {
 				"text-transform": "uppercase",
 				"text-field": "{name_en}",
-				"text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                "text-font": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "literal",
+                        [
+                            "DIN Offc Pro Regular",
+                            "Arial Unicode MS Regular"
+                        ]
+                    ],
+                    8,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Medium",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ],
+                        11,
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Regular",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ]
+                    ]
+                ],
+                "text-justify": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        [
+                            "bottom",
+                            "top"
+                        ],
+                        "center",
+                        [
+                            "left",
+                            "bottom-left",
+                            "top-left"
+                        ],
+                        "left",
+                        [
+                            "right",
+                            "bottom-right",
+                            "top-right"
+                        ],
+                        "right",
+                        "center"
+                    ],
+                    8,
+                    "center"
+                ],
 				"text-letter-spacing": 0.15,
 				"text-max-width": 7,
 				"text-size": {"stops": [[4, 10], [6, 14]]}
@@ -535,10 +663,11 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 new mapboxgl.MercatorCoordinate(0, 0);
 new mapboxgl.MercatorCoordinate(0, 0, 0);
-expectType<number>(mercatorcoordinate.toAltitude());
-expectType<mapboxgl.LngLat>(mercatorcoordinate.toLngLat());
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike));
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0));
+mercatorcoordinate.toAltitude();  // $ExpectType number
+mercatorcoordinate.toLngLat();  // $ExpectType LngLat
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike);  // $ExpectType MercatorCoordinate
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0); // $ExpectType MercatorCoordinate
+mercatorcoordinate.meterInMercatorCoordinateUnits();  // $ExpectType number
 
 /*
  * TransformRequestFunction
@@ -883,3 +1012,22 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
 expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+
+/*
+ *	ScrollZoomHandler
+ */
+expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
+expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
+
+/*
+ * Visibility
+ */
+expectType<mapboxgl.Visibility>('visible');
+expectType<mapboxgl.Visibility>('none');
+
+/*
+ * AnyLayout
+*/
+expectType<mapboxgl.AnyLayout>({visibility: 'none'});
+expectType<mapboxgl.AnyLayout>({visibility: 'none', 'line-cap': 'round' });
+expectType<mapboxgl.AnyLayout>({visibility: 'visible', 'icon-allow-overlap': true });

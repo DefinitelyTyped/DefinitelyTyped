@@ -49,6 +49,18 @@ export interface TextState {
     padding?: number[];
 }
 export const labelCache: LRUCache<HTMLCanvasElement>;
-export function drawImage(context: CanvasRenderingContext2D, transform: Transform, opacity: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, originX: number, originY: number, w: number, h: number, x: number, y: number, scale: number): void;
+export function drawImage(
+    context: CanvasRenderingContext2D,
+    transform: Transform | null,
+    opacity: number,
+    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+    originX: number,
+    originY: number,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    scale: number
+): void;
 export function measureTextWidth(font: string, text: string): number;
 export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;

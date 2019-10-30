@@ -120,6 +120,9 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
+  Devices.forEach(device => console.log(device.name));
+  puppeteer.devices.forEach(device => console.log(device.name));
+
   await page.emulateMedia("screen");
   await page.emulate(Devices['test']);
   await page.emulate(puppeteer.devices['test']);
@@ -306,6 +309,7 @@ puppeteer.launch().then(async browser => {
 
   // evaluateHandle example
   const aHandle = await page.evaluateHandle(() => document.body);
+  await page.evaluateHandle('document.body');
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();
@@ -663,3 +667,23 @@ puppeteer.launch().then(async browser => {
   const isMultiple: boolean = fileChooser.isMultiple();
   await fileChooser.accept(['/foo/bar']);
 });
+
+// .evaluate and .evaluateHandle on ElementHandle and JSHandle, and elementHandle.select
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const elementHandle = (await page.$('.something')) as puppeteer.ElementHandle<HTMLDivElement>;
+  elementHandle.evaluate(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+  elementHandle.evaluateHandle(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+
+  const jsHandle = await page.evaluateHandle(() => 'something');
+  jsHandle.evaluate(obj => {});
+  jsHandle.evaluateHandle(handle => {});
+
+  const selected: string[] = await elementHandle.select('a', 'b', 'c');
+})();

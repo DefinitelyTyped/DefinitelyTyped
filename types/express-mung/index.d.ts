@@ -9,16 +9,18 @@
 
 import { Request, Response, RequestHandler, ErrorRequestHandler } from "express";
 
-// Shut off automatic exporting, strict-export-declare-modifiers lint rule
-export {};
+export type Transform = (body: {}, request: Request, response: Response) => any;
+export type TransformAsync = (body: {}, request: Request, response: Response) => PromiseLike<any>;
+export type TransformHeader = (request: Request, response: Response) => any;
+export type TransformHeaderAsync = (request: Request, response: Response) => PromiseLike<any>;
+export type TransformChunk = (
+    chunk: string | Buffer,
+    encoding: string | null,
+    request: Request,
+    response: Response
+) => string | Buffer;
 
-type Transform = (body: {}, request: Request, response: Response) => any;
-type TransformAsync = (body: {}, request: Request, response: Response) => PromiseLike<any>;
-type TransformHeader = (request: Request, response: Response) => any;
-type TransformHeaderAsync = (request: Request, response: Response) => PromiseLike<any>;
-type TransformChunk = (chunk: string | Buffer, encoding: string | null, request: Request, response: Response) => string | Buffer;
-
-interface Options {
+export interface Options {
     mungError: boolean;
 }
 

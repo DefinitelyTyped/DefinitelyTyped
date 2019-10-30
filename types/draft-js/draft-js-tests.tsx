@@ -172,6 +172,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
                     <Editor
                         blockStyleFn={getBlockStyle}
                         customStyleMap={styleMap}
+                        editorKey="test-key"
                         editorState={this.state.editorState}
                         keyBindingFn={this.keyBindingFn}
                         handleKeyCommand={this.handleKeyCommand}

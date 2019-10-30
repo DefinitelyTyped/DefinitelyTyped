@@ -79,7 +79,7 @@ const featureWithPolygon: Feature<Polygon> = {
 featureWithPolygon.type;  // $ExpectType "Feature"
 featureWithPolygon.geometry;  // $ExpectType Polygon
 featureWithPolygon.geometry.type;  // $ExpectType "Polygon"
-featureWithPolygon.geometry.coordinates;  // $ExpectType number[][][]
+featureWithPolygon.geometry.coordinates;  // $ExpectType number[][][] || Position[][]
 
 const point: Point = {
     type: "Point",

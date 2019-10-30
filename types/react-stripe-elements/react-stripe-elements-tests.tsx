@@ -241,3 +241,83 @@ const TestStripeProviderProps4: React.SFC<{
  * See: https://stripe.com/docs/stripe-js/reference#stripe-function for options.
  */
 const TestStripeProviderOptions: React.SFC = () => <StripeProvider apiKey="" stripeAccount="" />;
+
+class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
+    testCreatePaymentMethod = () => {
+        this.props
+            .stripe!.createPaymentMethod('card')
+            .then((response) => response.paymentMethod);
+    }
+
+    testCreatePaymentMethodWithData = () => {
+        this.props
+            .stripe!.createPaymentMethod('card', {
+                billing_details: {
+                    name: 'John Doe',
+                },
+                metadata: {
+                    foo: 'bar',
+                }
+            })
+            .then((response) => response.paymentMethod);
+    }
+
+    testCreatePaymentMethodWithError = () => {
+        this.props
+            .stripe!.createPaymentMethod('card')
+            .then((response) => response.error);
+    }
+}
+
+class HandleCardPayment extends React.Component<InjectedStripeProps> {
+    testHandleCardPayment = () => {
+        this.props
+            .stripe!.handleCardPayment('clientSecret')
+            .then((response) => response.paymentIntent);
+    }
+
+    testHandleCardPaymentWithOptions = () => {
+        this.props
+            .stripe!.handleCardPayment('clientSecret', {
+                payment_method_data: {
+                    billing_details: {
+                      name: 'John Doe'
+                    }
+                },
+                receipt_email: 'john@doe.com',
+            })
+            .then((response) => response.paymentIntent);
+    }
+
+    testHandleCardPaymentWithError = () => {
+        this.props
+            .stripe!.handleCardPayment('clientSecret')
+            .then((response) => response.error);
+    }
+}
+
+class HandleCardSetup extends React.Component<InjectedStripeProps> {
+    testHandleCardSetup = () => {
+        this.props
+            .stripe!.handleCardSetup('clientSecret')
+            .then((response) => response.setupIntent);
+    }
+
+    testHandleCardSetupWithData = () => {
+        this.props
+            .stripe!.handleCardSetup('clientSecret', {
+                payment_method_data: {
+                    billing_details: {
+                      name: 'John Doe'
+                    }
+                },
+            })
+            .then((response) => response.setupIntent);
+    }
+
+    testHandleCardSetupWithError = () => {
+        this.props
+            .stripe!.handleCardSetup('clientSecret')
+            .then((response) => response.error);
+    }
+}

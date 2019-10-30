@@ -12,6 +12,7 @@
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Ben Salili-James <https://github.com/benhjames>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -76,10 +77,19 @@ declare namespace Draft {
                 // regardless of input characters.
                 textAlignment?: DraftTextAlignment;
 
+                // Specify whether text directionality should be forced in a direction
+                // regardless of input characters.
+                textDirectionality?: DraftTextDirectionality;
+
                 // For a given `ContentBlock` object, return an object that specifies
                 // a custom block component and/or props. If no object is returned,
                 // the default `TextEditorBlock` is used.
                 blockRendererFn?(block: ContentBlock): any;
+
+                // Provide a map of block rendering configurations. Each block type maps to
+                // an element tag and an optional react element wrapper. This configuration
+                // is used for both rendering and paste processing.
+                blockRenderMap?: DraftBlockRenderMap
 
                 // Function that allows to define class names to apply to the given block when it is rendered.
                 blockStyleFn?(block: ContentBlock): string;
@@ -130,6 +140,10 @@ declare namespace Draft {
 
                 webDriverTestID?: string;
 
+                // If using server-side rendering, this prop is required to be set to
+                // avoid client/server mismatches.
+                editorKey?: string;
+
                 /**
                  * Cancelable event handlers, handled from the top level down. A handler
                  * that returns `handled` will be the last handler to execute for that event.
@@ -172,14 +186,11 @@ declare namespace Draft {
 
                 onBlur?(e: SyntheticEvent): void,
                 onFocus?(e: SyntheticEvent): void,
-
-                // Provide a map of block rendering configurations. Each block type maps to
-                // an element tag and an optional react element wrapper. This configuration
-                // is used for both rendering and paste processing.
-                blockRenderMap?: DraftBlockRenderMap
             }
 
             type DraftTextAlignment = "left" | "center" | "right";
+
+            type DraftTextDirectionality = "LTR" | "RTL" | "NEUTRAL";
         }
 
         namespace Components {
@@ -742,7 +753,6 @@ declare namespace Draft {
                 getKey(): string;
 
                 getType(): DraftBlockType;
-                getType(): string;
 
                 getText(): string;
                 getCharacterList(): Immutable.List<CharacterMetadata>;
@@ -924,7 +934,7 @@ declare namespace Draft {
                 static getCurrentBlockType(editorState: EditorState): string;
                 static getDataObjectForLinkURL(uri: URI): Object;
 
-                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState | null;
                 static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
@@ -933,8 +943,8 @@ declare namespace Draft {
                  * For collapsed selections at the start of styled blocks, backspace should
                  * just remove the existing style.
                  */
-                static onBackspace(editorState: EditorState): EditorState;
-                static onDelete(editorState: EditorState): EditorState;
+                static onBackspace(editorState: EditorState): EditorState | null;
+                static onDelete(editorState: EditorState): EditorState | null;
                 static onTab(event: SyntheticKeyboardEvent, editorState: EditorState, maxDepth: number): EditorState;
 
                 static toggleBlockType(editorState: EditorState, blockType: DraftBlockType): EditorState;
@@ -957,7 +967,7 @@ declare namespace Draft {
                  * certain key commands (newline, backspace) to simply change the
                  * style of the block instead of the default behavior.
                  */
-                static tryToRemoveBlockStyle(editorState: EditorState): ContentState;
+                static tryToRemoveBlockStyle(editorState: EditorState): ContentState | null;
             }
         }
     }

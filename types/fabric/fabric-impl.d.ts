@@ -368,10 +368,10 @@ interface IObjectAnimation<T> {
 	/**
 	 * Animates object's properties
 	 * object.animate({ left: ..., top: ... }, { duration: ... });
-	 * @param properties Properties to animate
-	 * @param value Options object
+	 * @param properties Properties to animate with values to animate to
+	 * @param options The animation options
 	 */
-	animate(properties: any, options?: IAnimationOptions): Object;
+	animate(properties: {[key: string]: number | string}, options?: IAnimationOptions): Object;
 }
 interface IAnimationOptions {
 	/**
@@ -2259,23 +2259,23 @@ interface Image extends Object, IImageOptions { }
 export class Image {
 	/**
 	 * Constructor
-	 * @param element Image element
+	 * @param element Image or Video element
 	 * @param [options] Options object
 	 */
-	constructor(element?: string | HTMLImageElement, options?: IImageOptions);
+	constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
 	/**
-	 * Returns image element which this instance if based on
-	 * @return Image element
+	 * Returns image or video element which this instance is based on
+	 * @return Image or Video element
 	 */
-	getElement(): HTMLImageElement;
+	getElement(): HTMLImageElement | HTMLVideoElement;
 	/**
-	 * Sets image element for this instance to a specified one.
+	 * Sets image or video element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
 	 * @param element image element
 	 * @param [options] Options object
 	 */
-	setElement(element: HTMLImageElement, options?: IImageOptions): Image;
+	setElement(element: HTMLImageElement | HTMLVideoElement, options?: IImageOptions): Image;
 	/**
 	 * Delete a single texture if in webgl mode
 	 */
@@ -3506,8 +3506,19 @@ export class Object {
 	intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Animates object's properties
+	 * object.animate('left', ..., {duration: ...});
+	 * @param property Property to animate
+	 * @param value Value to animate property
+	 * @param options The animation options
 	 */
-	animate(): Object;
+	animate(property: string, value: number | string, options?: IAnimationOptions): Object;
+	/**
+	 * Animates object's properties
+	 * object.animate({ left: ..., top: ... }, { duration: ... });
+	 * @param properties Properties to animate with values to animate to
+	 * @param options The animation options
+	 */
+	animate(properties: {[key: string]: number | string}, options?: IAnimationOptions): Object;
 	/**
 	 * Calculate and returns the .coords of an object.
 	 * @return {Object} Object with tl, tr, br, bl ....
@@ -5570,7 +5581,7 @@ interface IUtilDomMisc {
 	 * Returns offset for a given element
 	 * @param element Element to get offset for
 	 */
-	getElementOffset(element: HTMLElement): { left: number; right: number; };
+	getElementOffset(element: HTMLElement): { left: number; top: number; };
 	/**
 	 * Returns style attribute value of a given element
 	 * @param element Element to get style attribute for

@@ -10,6 +10,13 @@ function replaceWithFooTransform(fileInfo: FileInfo, api: API) {
         .toSource();
 }
 
+// Type-force parameter for .map is optional
+function mapSignature(fileInfo: FileInfo, api: API) {
+    return api.jscodeshift(fileInfo.source)
+        .map(p => p)
+        .toSource();
+}
+
 // Can define transform with arrow function, using `Transform` type.
 const reverseIdentifiersTransform: Transform = (file, api) => {
     const j = api.jscodeshift;
