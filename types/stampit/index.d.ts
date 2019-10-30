@@ -216,7 +216,7 @@ declare function stampit<Obj = any>(...composables: stampit.Composable[]): Stamp
 
 declare namespace stampit {
     /** A composable object (either a `Stamp` or a `ExtendedDescriptor`.) */
-    type Composable = StampSignature | ExtendedDescriptor<any, StampSignature>;
+    type Composable = StampSignature | ExtendedDescriptor<any, any>;
 
     /**
      * A `Stamp`'s metadata.
