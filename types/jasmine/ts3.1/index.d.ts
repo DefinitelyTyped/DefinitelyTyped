@@ -556,6 +556,7 @@ declare namespace jasmine {
         toThrowMatching(predicate: (thrown: any) => boolean): boolean;
         toBeNegativeInfinity(expectationFailOutput?: any): boolean;
         toBePositiveInfinity(expectationFailOutput?: any): boolean;
+        toBeInstanceOf(expected: any): boolean;
 
         /**
          * Expect the actual value to be a DOM element that has the expected class.
