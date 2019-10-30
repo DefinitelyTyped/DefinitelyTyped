@@ -13,6 +13,7 @@ export interface ConnectionOptions {
     namespace?: string;
     looping?: boolean;
     options?: any;
+    redis?: any;
 }
 
 export class Connection extends NodeJS.EventEmitter {
@@ -42,6 +43,7 @@ export class Queue extends NodeJS.EventEmitter {
     connect(): Promise<void>;
     enqueue(queue: string, jobName: string, args: ReadonlyArray<any>): Promise<void>;
     enqueueIn(milliseconds: number, queue: string, jobName: string, args: ReadonlyArray<any>): Promise<void>;
+    enqueueAt(msSinceEpoch: number, queue: string, jobName: string, args: ReadonlyArray<any>): Promise<void>;
     end(): Promise<void>;
 
     on(event: 'error', cb: (error: Error, queue: string) => void): this;
