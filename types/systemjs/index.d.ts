@@ -68,7 +68,7 @@ declare const System: {
 // tslint:disable-next-line no-unnecessary-generics
 type ImportFn = <T extends Module>(moduleId: string, parentUrl?: string) => Promise<T>;
 
-type DeclareFn = (_export: typeof ExportFn, _context: Context) => Declare;
+type DeclareFn = (_export: ExportFn, _context: Context) => Declare;
 interface Declare {
   setters?: SetterFn[];
   execute?(): any;
@@ -76,8 +76,10 @@ interface Declare {
 type SetterFn = (moduleValue: Module) => any;
 type ExecuteFn = () => any;
 
-declare function ExportFn(exportName: string, value: any): void;
-declare function ExportFn(exports: object): void;
+interface ExportFn {
+  (exportName: string, value: any): void;
+  (exports: object): void;
+}
 
 type UpdateModuleFn = () => void;
 
