@@ -305,7 +305,7 @@ const descriptor0: stampit.ExtendedDescriptor<Object0> = {
   deepConfiguration: {}
 };
 
-const stampDescriptor0 = compose<typeof descriptor0>(); // $ExpectType Stamp<Object0>
+const stampDescriptor0 = compose<typeof descriptor0>(descriptor0); // $ExpectType Stamp<Object0>
 stampDescriptor0(); // $ExpectType Object0
 
 // check typed stamps... with untyped descriptor (`this` isn't typed in `methods`)
