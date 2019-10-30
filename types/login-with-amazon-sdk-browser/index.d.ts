@@ -96,10 +96,6 @@ interface AccessTokenRequest extends AuthorizeRequestBase<AccessTokenRequest> {
      * The number of seconds until the access token expires.
      */
     expires_in: number;
-    /**
-     * The scope granted by the authorization server for the access token.
-     */
-    scope: AuthorizationScopeOptions | AuthorizationScopeOptions[];
 }
 
 /**
