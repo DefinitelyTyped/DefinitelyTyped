@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
      *     body.appendParagraph("A paragraph.");
      *     body.appendPageBreak();
      */
-    export interface Body {
+    export interface Body extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -135,7 +135,7 @@ declare namespace GoogleAppsScript {
      * A generic element that may contain other elements. All elements that may contain child elements,
      * such as Paragraph, inherit from ContainerElement.
      */
-    export interface ContainerElement {
+    export interface ContainerElement extends Element {
       asBody(): Body;
       asEquation(): Equation;
       asFooterSection(): FooterSection;
@@ -360,7 +360,7 @@ declare namespace GoogleAppsScript {
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface Equation {
+    export interface Equation extends Element {
       clear(): Equation;
       copy(): Equation;
       editAsText(): Text;
@@ -392,7 +392,7 @@ declare namespace GoogleAppsScript {
      * An element representing a function in a mathematical Equation. An EquationFunction may contain EquationFunction, EquationFunctionArgumentSeparator, EquationSymbol, and Text elements. For more
      * information on document structure, see the guide to extending Google Docs.
      */
-    export interface EquationFunction {
+    export interface EquationFunction extends Element {
       clear(): EquationFunction;
       copy(): EquationFunction;
       editAsText(): Text;
@@ -426,7 +426,7 @@ declare namespace GoogleAppsScript {
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface EquationFunctionArgumentSeparator {
+    export interface EquationFunctionArgumentSeparator extends Element {
       copy(): EquationFunctionArgumentSeparator;
       getAttributes(): any;
       getNextSibling(): Element;
@@ -443,7 +443,7 @@ declare namespace GoogleAppsScript {
      * An element representing a symbol in a mathematical Equation. An EquationSymbol
      * cannot contain any other element. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface EquationSymbol {
+    export interface EquationSymbol extends Element {
       copy(): EquationSymbol;
       getAttributes(): any;
       getCode(): string;
@@ -490,7 +490,7 @@ declare namespace GoogleAppsScript {
      * An element representing a footer section. A Document typically contains at most one FooterSection. The FooterSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface FooterSection {
+    export interface FooterSection extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -557,7 +557,7 @@ declare namespace GoogleAppsScript {
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface Footnote {
+    export interface Footnote extends Element {
       copy(): Footnote;
       getAttributes(): any;
       getFootnoteContents(): FootnoteSection;
@@ -575,7 +575,7 @@ declare namespace GoogleAppsScript {
      * corresponds to a Footnote. The FootnoteSection may contain ListItem or
      * Paragraph elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface FootnoteSection {
+    export interface FootnoteSection extends Element {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       clear(): FootnoteSection;
@@ -635,7 +635,7 @@ declare namespace GoogleAppsScript {
      * An element representing a header section. A Document typically contains at most one HeaderSection. The HeaderSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface HeaderSection {
+    export interface HeaderSection extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -724,7 +724,7 @@ declare namespace GoogleAppsScript {
      * ListItem or Paragraph, but cannot itself contain any other element. For more
      * information on document structure, see the guide to extending Google Docs.
      */
-    export interface HorizontalRule {
+    export interface HorizontalRule extends Element {
       copy(): HorizontalRule;
       getAttributes(): any;
       getNextSibling(): Element;
@@ -742,7 +742,7 @@ declare namespace GoogleAppsScript {
      * a FootnoteSection. An InlineDrawing cannot itself contain any other element. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface InlineDrawing {
+    export interface InlineDrawing extends Element {
       copy(): InlineDrawing;
       getAltDescription(): string;
       getAltTitle(): string;
@@ -765,7 +765,7 @@ declare namespace GoogleAppsScript {
      * a FootnoteSection. An InlineImage cannot itself contain any other element. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface InlineImage {
+    export interface InlineImage extends Element {
       copy(): InlineImage;
       getAltDescription(): string;
       getAltTitle(): string;
@@ -821,7 +821,7 @@ declare namespace GoogleAppsScript {
      *     var item2 = body.appendListItem('Item 2');
      *     item2.setListId(item1);
      */
-    export interface ListItem {
+    export interface ListItem extends Element {
       addPositionedImage(image: Base.BlobSource): PositionedImage;
       appendHorizontalRule(): HorizontalRule;
       appendInlineImage(image: Base.BlobSource): InlineImage;
@@ -924,7 +924,7 @@ declare namespace GoogleAppsScript {
      * see the guide to extending Google
      * Docs.
      */
-    export interface PageBreak {
+    export interface PageBreak extends Element {
       copy(): PageBreak;
       getAttributes(): any;
       getNextSibling(): Element;
@@ -956,7 +956,7 @@ declare namespace GoogleAppsScript {
      *     // Append a regular paragraph.
      *     body.appendParagraph("This is a typical paragraph.");
      */
-    export interface Paragraph {
+    export interface Paragraph extends Element {
       addPositionedImage(image: Base.BlobSource): PositionedImage;
       appendHorizontalRule(): HorizontalRule;
       appendInlineImage(image: Base.BlobSource): InlineImage;
@@ -1202,7 +1202,7 @@ declare namespace GoogleAppsScript {
      *     // Build a table from the array.
      *     body.appendTable(cells);
      */
-    export interface Table {
+    export interface Table extends Element {
       appendTableRow(): TableRow;
       appendTableRow(tableRow: TableRow): TableRow;
       clear(): Table;
@@ -1248,7 +1248,7 @@ declare namespace GoogleAppsScript {
      * An element representing a table cell. A TableCell is always contained within a TableRow and may contain ListItem, Paragraph, or Table elements. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface TableCell {
+    export interface TableCell extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -1321,7 +1321,7 @@ declare namespace GoogleAppsScript {
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface TableOfContents {
+    export interface TableOfContents extends Element {
       clear(): TableOfContents;
       copy(): TableOfContents;
       editAsText(): Text;
@@ -1353,7 +1353,7 @@ declare namespace GoogleAppsScript {
      * structure, see the guide to extending
      * Google Docs.
      */
-    export interface TableRow {
+    export interface TableRow extends Element {
       appendTableCell(): TableCell;
       appendTableCell(textContents: string): TableCell;
       appendTableCell(tableCell: TableCell): TableCell;
@@ -1415,7 +1415,7 @@ declare namespace GoogleAppsScript {
      *     // Make the first half of the document blue.
      *     text.setForegroundColor(0, text.getText().length / 2, '#00FFFF');
      */
-    export interface Text {
+    export interface Text extends Element {
       appendText(text: string): Text;
       copy(): Text;
       deleteText(startOffset: Integer, endOffsetInclusive: Integer): Text;
@@ -1493,7 +1493,7 @@ declare namespace GoogleAppsScript {
      * An element representing a region that is unknown or cannot be affected by a script, such as a
      * page number.
      */
-    export interface UnsupportedElement {
+    export interface UnsupportedElement extends Element {
       copy(): UnsupportedElement;
       getAttributes(): any;
       getNextSibling(): Element;
