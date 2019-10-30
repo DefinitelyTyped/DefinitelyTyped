@@ -174,6 +174,7 @@ stripe.charges.update(
     'ch_15fvyXEe31JkLCeQOo0SwFk9',
     {
         description: 'Charge for test@example.com',
+        transfer_group: "Transfer group for this charge",
     },
     (err, charge) => {
         // asynchronously called
