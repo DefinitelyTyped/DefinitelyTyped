@@ -26,7 +26,7 @@ export type DeletePatch = undefined;
  * and the merge function as the second. The return value will be the replacement.
  * The value you return will bypass merging logic and simply overwrite the property.
  */
-export type FunctionPatch<T> = (val: Exclude<T, undefined>, merge: Merge<T extends object ? T : never>) => T;
+export type FunctionPatch<T> = (val: T, merge: Merge<T extends object ? T : never>) => T;
 
 /**
  * If you want to replace a array specify new array as the value.
