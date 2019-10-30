@@ -1,4 +1,4 @@
-// Type definitions for react-tooltip 3.9
+// Type definitions for react-tooltip 3.11.1
 // Project: https://github.com/wwayne/react-tooltip
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>,
 //                 Vijayasingam <https://github.com/Vijayasingam>
