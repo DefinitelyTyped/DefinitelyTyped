@@ -1,12 +1,15 @@
 import clone = require('just-clone');
 
+const array: string[] = [];
+const object: object = {};
+
 // Correct Objects
-clone({}); // $ExpectType object
-clone([]); // $ExpectType object
-clone(() => []); // $ExpectType () => []
-clone(() => {}); // $ExpectType () => {}
-clone({ a: [] }); // $ExpectType object
-clone([{ a: '' }]); // $ExpectType object
+clone(object); // $ExpectType object
+clone(array); // $ExpectType string[]
+clone(() => array); // $ExpectType () => string[]
+clone(() => {}); // $ExpectType () => void
+clone({ a: array }); // $ExpectType { a: string[]; }
+clone([{ a: '' }]); // $ExpectType { a: string; }[]
 
 // Incorrect types
 clone(); // $ExpectError
