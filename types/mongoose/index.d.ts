@@ -833,7 +833,7 @@ declare module "mongoose" {
       errorCb?: HookErrorCallback
     ): this;
     pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
-      method: string,
+      method: string | RegExp,
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
