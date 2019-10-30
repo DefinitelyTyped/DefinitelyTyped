@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "webworker"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,6 +19,12 @@
     },
     "files": [
         "index.d.ts",
+        "cacheNames.d.ts",
+        "clientsClaim.d.ts",
+        "registerQuotaErrorCallback.d.ts",
+        "setCacheNameDetails.d.ts",
+        "skipWaiting.d.ts",
+        "types.d.ts",
         "workbox-core-tests.ts"
     ]
 }
