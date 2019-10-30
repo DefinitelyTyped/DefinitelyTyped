@@ -7,13 +7,12 @@ declare module "http2" {
     import * as url from "url";
 
     import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders, IncomingMessage, ServerResponse } from "http";
-    export { OutgoingHttpHeaders } from "http";
 
-    export interface IncomingHttpStatusHeader {
+    interface IncomingHttpStatusHeader {
         ":status"?: number;
     }
 
-    export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
+    interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
         ":path"?: string;
         ":method"?: string;
         ":authority"?: string;
@@ -22,14 +21,14 @@ declare module "http2" {
 
     // Http2Stream
 
-    export interface StreamPriorityOptions {
+    interface StreamPriorityOptions {
         exclusive?: boolean;
         parent?: number;
         weight?: number;
         silent?: boolean;
     }
 
-    export interface StreamState {
+    interface StreamState {
         localWindowSize?: number;
         state?: number;
         localClose?: number;
@@ -38,30 +37,28 @@ declare module "http2" {
         weight?: number;
     }
 
-    export interface ServerStreamResponseOptions {
+    interface ServerStreamResponseOptions {
         endStream?: boolean;
         waitForTrailers?: boolean;
     }
 
-    export interface StatOptions {
+    interface StatOptions {
         offset: number;
         length: number;
     }
 
-    export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void | boolean;
+    interface ServerStreamFileResponseOptions {
+        statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
         waitForTrailers?: boolean;
         offset?: number;
         length?: number;
     }
 
-    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
-        onError?: (err: NodeJS.ErrnoException) => void;
+    interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+        onError?(err: NodeJS.ErrnoException): void;
     }
 
-    export class Http2Stream extends stream.Duplex {
-        protected constructor();
-
+    interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
         readonly bufferSize: number;
         readonly closed: boolean;
@@ -182,9 +179,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class ClientHttp2Stream extends Http2Stream {
-        private constructor();
-
+    interface ClientHttp2Stream extends Http2Stream {
         addListener(event: "continue", listener: () => {}): this;
         addListener(event: "headers", listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
         addListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -222,22 +217,20 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class ServerHttp2Stream extends Http2Stream {
-        private constructor();
-
-        additionalHeaders(headers: OutgoingHttpHeaders): void;
+    interface ServerHttp2Stream extends Http2Stream {
         readonly headersSent: boolean;
         readonly pushAllowed: boolean;
+        additionalHeaders(headers: OutgoingHttpHeaders): void;
         pushStream(headers: OutgoingHttpHeaders, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
         pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
         respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
-        respondWithFD(fd: number, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFD(fd: number | fs.promises.FileHandle, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
         respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
     }
 
     // Http2Session
 
-    export interface Settings {
+    interface Settings {
         headerTableSize?: number;
         enablePush?: boolean;
         initialWindowSize?: number;
@@ -247,7 +240,7 @@ declare module "http2" {
         enableConnectProtocol?: boolean;
     }
 
-    export interface ClientSessionRequestOptions {
+    interface ClientSessionRequestOptions {
         endStream?: boolean;
         exclusive?: boolean;
         parent?: number;
@@ -255,7 +248,7 @@ declare module "http2" {
         waitForTrailers?: boolean;
     }
 
-    export interface SessionState {
+    interface SessionState {
         effectiveLocalWindowSize?: number;
         effectiveRecvDataLength?: number;
         nextStreamID?: number;
@@ -267,29 +260,28 @@ declare module "http2" {
         inflateDynamicTableSize?: number;
     }
 
-    export class Http2Session extends events.EventEmitter {
-        protected constructor();
-
+    interface Http2Session extends events.EventEmitter {
         readonly alpnProtocol?: string;
-        close(callback?: () => void): void;
         readonly closed: boolean;
         readonly connecting: boolean;
-        destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
         readonly encrypted?: boolean;
-        goaway(code?: number, lastStreamID?: number, opaqueData?: NodeJS.ArrayBufferView): void;
         readonly localSettings: Settings;
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
+        readonly remoteSettings: Settings;
+        readonly socket: net.Socket | tls.TLSSocket;
+        readonly state: SessionState;
+        readonly type: number;
+
+        close(callback?: () => void): void;
+        destroy(error?: Error, code?: number): void;
+        goaway(code?: number, lastStreamID?: number, opaqueData?: NodeJS.ArrayBufferView): void;
         ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ping(payload: NodeJS.ArrayBufferView, callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
-        readonly remoteSettings: Settings;
         setTimeout(msecs: number, callback?: () => void): void;
-        readonly socket: net.Socket | tls.TLSSocket;
-        readonly state: SessionState;
         settings(settings: Settings): void;
-        readonly type: number;
         unref(): void;
 
         addListener(event: "close", listener: () => void): this;
@@ -353,9 +345,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class ClientHttp2Session extends Http2Session {
-        private constructor();
-
+    interface ClientHttp2Session extends Http2Session {
         request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
 
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
@@ -395,16 +385,15 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export interface AlternativeServiceOptions {
+    interface AlternativeServiceOptions {
         origin: number | string | url.URL;
     }
 
-    export class ServerHttp2Session extends Http2Session {
-        private constructor();
+    interface ServerHttp2Session extends Http2Session {
+        readonly server: Http2Server | Http2SecureServer;
 
         altsvc(alt: string, originOrStream: number | string | url.URL | AlternativeServiceOptions): void;
         origin(...args: Array<string | url.URL | { origin: string }>): void;
-        readonly server: Http2Server | Http2SecureServer;
 
         addListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -433,7 +422,7 @@ declare module "http2" {
 
     // Http2Server
 
-    export interface SessionOptions {
+    interface SessionOptions {
         maxDeflateDynamicTableSize?: number;
         maxSessionMemory?: number;
         maxHeaderListPairs?: number;
@@ -441,36 +430,35 @@ declare module "http2" {
         maxSendHeaderBlockLength?: number;
         paddingStrategy?: number;
         peerMaxConcurrentStreams?: number;
-        selectPadding?: (frameLen: number, maxFrameLen: number) => number;
         settings?: Settings;
-        createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
+
+        selectPadding?(frameLen: number, maxFrameLen: number): number;
+        createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
     }
 
-    export interface ClientSessionOptions extends SessionOptions {
+    interface ClientSessionOptions extends SessionOptions {
         maxReservedRemoteStreams?: number;
         createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
     }
 
-    export interface ServerSessionOptions extends SessionOptions {
+    interface ServerSessionOptions extends SessionOptions {
         Http1IncomingMessage?: typeof IncomingMessage;
         Http1ServerResponse?: typeof ServerResponse;
         Http2ServerRequest?: typeof Http2ServerRequest;
         Http2ServerResponse?: typeof Http2ServerResponse;
     }
 
-    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
+    interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
+    interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
-    export interface ServerOptions extends ServerSessionOptions { }
+    interface ServerOptions extends ServerSessionOptions { }
 
-    export interface SecureServerOptions extends SecureServerSessionOptions {
+    interface SecureServerOptions extends SecureServerSessionOptions {
         allowHTTP1?: boolean;
         origins?: string[];
     }
 
-    export class Http2Server extends net.Server {
-        private constructor();
-
+    interface Http2Server extends net.Server {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -522,9 +510,7 @@ declare module "http2" {
         setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export class Http2SecureServer extends tls.Server {
-        private constructor();
-
+    interface Http2SecureServer extends tls.Server {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -582,7 +568,7 @@ declare module "http2" {
         setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export class Http2ServerRequest extends stream.Readable {
+    class Http2ServerRequest extends stream.Readable {
         constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
 
         readonly aborted: boolean;
@@ -593,12 +579,12 @@ declare module "http2" {
         readonly rawHeaders: string[];
         readonly rawTrailers: string[];
         readonly scheme: string;
-        setTimeout(msecs: number, callback?: () => void): void;
         readonly socket: net.Socket | tls.TLSSocket;
         readonly stream: ServerHttp2Stream;
         readonly trailers: IncomingHttpHeaders;
         readonly url: string;
 
+        setTimeout(msecs: number, callback?: () => void): void;
         read(size?: number): Buffer | string | null;
 
         addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
@@ -650,28 +636,28 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    class Http2ServerResponse extends stream.Stream {
         constructor(stream: ServerHttp2Stream);
 
-        addTrailers(trailers: OutgoingHttpHeaders): void;
         readonly connection: net.Socket | tls.TLSSocket;
+        readonly finished: boolean;
+        readonly headersSent: boolean;
+        readonly socket: net.Socket | tls.TLSSocket;
+        readonly stream: ServerHttp2Stream;
+        sendDate: boolean;
+        statusCode: number;
+        statusMessage: '';
+        addTrailers(trailers: OutgoingHttpHeaders): void;
         end(callback?: () => void): void;
         end(data: string | Uint8Array, callback?: () => void): void;
         end(data: string | Uint8Array, encoding: string, callback?: () => void): void;
-        readonly finished: boolean;
         getHeader(name: string): string;
         getHeaderNames(): string[];
         getHeaders(): OutgoingHttpHeaders;
         hasHeader(name: string): boolean;
-        readonly headersSent: boolean;
         removeHeader(name: string): void;
-        sendDate: boolean;
         setHeader(name: string, value: number | string | string[]): void;
         setTimeout(msecs: number, callback?: () => void): void;
-        readonly socket: net.Socket | tls.TLSSocket;
-        statusCode: number;
-        statusMessage: '';
-        readonly stream: ServerHttp2Stream;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
         write(chunk: string | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
@@ -730,7 +716,7 @@ declare module "http2" {
 
     // Public API
 
-    export namespace constants {
+    namespace constants {
         const NGHTTP2_SESSION_SERVER: number;
         const NGHTTP2_SESSION_CLIENT: number;
         const NGHTTP2_STREAM_STATE_IDLE: number;
@@ -941,18 +927,18 @@ declare module "http2" {
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
 
-    export function getDefaultSettings(): Settings;
-    export function getPackedSettings(settings: Settings): Buffer;
-    export function getUnpackedSettings(buf: Uint8Array): Settings;
+    function getDefaultSettings(): Settings;
+    function getPackedSettings(settings: Settings): Buffer;
+    function getUnpackedSettings(buf: Uint8Array): Settings;
 
-    export function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
-    export function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
+    function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
+    function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
 
-    export function createSecureServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
-    export function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
+    function createSecureServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
+    function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
 
-    export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
-    export function connect(
+    function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+    function connect(
         authority: string | url.URL,
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void,

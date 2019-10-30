@@ -1052,8 +1052,7 @@ function unionTest() {
         font-size: ${props => props.kind === 'book' ? 16 : 14}
     `;
 
-    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
-    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="book" author="Hejlsberg" />;
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 
