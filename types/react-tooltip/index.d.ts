@@ -1,6 +1,8 @@
 // Type definitions for react-tooltip 3.9
 // Project: https://github.com/wwayne/react-tooltip
-// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Vijayasingam <https://github.com/Vijayasingam>
+// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>,
+//                 Vijayasingam <https://github.com/Vijayasingam>
+//                 Alec Brunelle <https://github.com/aleccool213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -109,6 +111,16 @@ declare namespace ReactTooltip {
         watchWindow?: boolean;
         sanitizeHtmlOptions?: SanitizeHtmlOptions;
         clickable?: boolean;
+        overridePosition?: (
+            position: { left: number; top: number },
+            currentEvent: Event,
+            currentTarget: Element,
+            node: any,
+            place: Place,
+            desiredPlace: Place,
+            effect: Effect,
+            offset: Offset,
+        ) => { left: number; top: number };
     }
 }
 
