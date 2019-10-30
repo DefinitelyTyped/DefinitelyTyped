@@ -30,7 +30,7 @@ interface BasicToastrOptions {
     timeOut?: number;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
-    getState?:(state: ToastrState)=>ToastrState;
+    getState?: (state: ToastrState) => ToastrState;
 }
 
 interface LightToastrOptions {
