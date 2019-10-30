@@ -9,7 +9,6 @@ declare const System: {
    * Loads a javascript module from either a url or bare specifier that is in an import map.
    * You may optionally provide a parentUrl that will be used for resolving relative urls.
    */
-  // tslint:disable-next-line no-unnecessary-generics
   import: System.ImportFn;
 
   /**
