@@ -116,18 +116,20 @@ declare namespace OfficeRuntime {
    */
   const auth: Auth;
   /**
-   * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
+   * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessToken method.
+   * @beta
    */
   interface AuthOptions {
     /**
-     * Allows Office to get an access token silectly or through interactive consent, if one is required
-     * If set to false, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error
-     * If set to true, Office will show an interactive consent UI after it fails to silently get an access token
+     * Allows Office to get an access token silectly or through interactive consent, if one is required.
+     * If set to false, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+     * If set to true, Office will show an interactive consent UI after it fails to silently get an access token.
+     * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
      */
     allowConsentPrompt?: boolean;
     /**
-     * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user
-     * If set to false, office will silently try to get an access token. If it fails to do so, Office will return a descriptive error
+     * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user.
+     * If set to false, office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
      * If set to true, Office will show an interactive sign-in UI after it fails to silently get an access token.
      */
     allowSignInPrompt?: boolean;
@@ -141,7 +143,7 @@ declare namespace OfficeRuntime {
      * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
      * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
      * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
-     * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+     * call of getAccessToken after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
      * be used with the authChallenge option.
      */
     authChallenge?: string;
@@ -150,7 +152,7 @@ declare namespace OfficeRuntime {
      */
     asyncContext?: any;
     /**
-     * Causes Office to return descriptive error when the add-in wants to access MS Graph and the user/admin has not granted consent to MS Graph scopes 
+     * Causes Office to return descriptive error when the add-in wants to access MS Graph and the user/admin has not granted consent to MS Graph scopes. 
      * Office only supports consent to graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development. 
      * Setting this option to true will allow Office to inform your add-in beforehand if MS graph access will fail by returning back a descriptive error.  
      */
@@ -173,7 +175,7 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * 
-     * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+     * **Hosts**: Excel, PowerPoint, Word
      * 
      * @beta
      *
