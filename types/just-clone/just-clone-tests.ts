@@ -6,8 +6,8 @@ const object: object = {};
 const arr = [1, 2, 3];
 const subObj = { aa: 1 };
 const obj = { a: 3, b: 5, c: arr, d: subObj };
-clone(obj); // $ExpectType { a: number; b: number; c: number[]; d: { aa: number; }; }
 
+clone(obj); // $ExpectType { a: number; b: number; c: number[]; d: { aa: number; }; }
 clone(object); // $ExpectType object
 clone(array); // $ExpectType string[]
 clone(() => array); // $ExpectType () => string[]
