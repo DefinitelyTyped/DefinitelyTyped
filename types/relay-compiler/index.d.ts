@@ -3,7 +3,7 @@
 // Definitions by: n1ru4l <https://github.com/n1ru4l>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.6
 
 import * as ASTConvert from './lib/core/ASTConvert';
 import * as Parser from './lib/core/RelayParser';

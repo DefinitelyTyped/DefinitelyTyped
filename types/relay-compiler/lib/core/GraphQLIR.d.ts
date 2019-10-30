@@ -7,7 +7,6 @@ import {
     GraphQLList,
     GraphQLNonNull,
 } from 'graphql';
-import * as ts from 'typescript';
 
 export type Metadata = { [key: string]: unknown } | undefined;
 
@@ -57,7 +56,7 @@ export interface Condition {
 export interface Connection {
     key: string;
     conditional: boolean;
-    value: ts.TypeReferenceNode;
+    value: any;
 }
 
 export interface Directive {

@@ -5,7 +5,7 @@ export type ScalarTypeID = any;
 export type TypeID = any;
 
 export interface Schema {
-    assertEnumType: (type: TypeID)=> EnumTypeID;
+    assertEnumType: (type: TypeID) => EnumTypeID;
     assertInputObjectType: (type: TypeID) => InputObjectTypeID;
     expectStringType: () => ScalarTypeID;
     getEnumValues: (type: EnumTypeID) => string[];
