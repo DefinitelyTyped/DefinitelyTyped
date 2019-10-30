@@ -10,7 +10,7 @@ declare const System: {
    * You may optionally provide a parentUrl that will be used for resolving relative urls.
    */
   // tslint:disable-next-line no-unnecessary-generics
-  import: ImportFn;
+  import: System.ImportFn;
 
   /**
    * Inserts a new module into the SystemJS module registry. The System.register format is
@@ -19,8 +19,8 @@ declare const System: {
    * Register may be called with a name argument if you are using the named-register extra. (See
    * https://github.com/systemjs/systemjs#extras).
    */
-  register(dependencies: string[], declare: DeclareFn): void;
-  register(name: string, dependencies: string[], declare: DeclareFn): void;
+  register(dependencies: string[], declare: System.DeclareFn): void;
+  register(name: string, dependencies: string[], declare: System.DeclareFn): void;
 
   /**
    * Resolve any moduleId to its full URL. For a moduleId that is in the import map, this will resolve
@@ -36,14 +36,14 @@ declare const System: {
    * The returned function is intended for use after re-importing the module. Calling the function
    * will re-bind all the exports of the re-imported module to every module that depends on the module.
    */
-  delete(moduleId: string): false | UpdateModuleFn;
+  delete(moduleId: string): false | System.UpdateModuleFn;
 
   /**
    * Get a module from the SystemJS module registry. Note that the moduleId almost always must be a full url
    * and that you might need to call System.resolve() to obtain the moduleId. If the module does not exist in
    * the registry, null is returned.
    */
-  get(moduleId: string): Module | null;
+  get(moduleId: string): System.Module | null;
   // tslint:disable-next-line no-unnecessary-generics
   get<T>(moduleId: string): T | null;
 
@@ -57,45 +57,47 @@ declare const System: {
    * An alternative to System.register(), this allows you to insert a module into the module registry. Note that
    * the moduleId you provide will go straight into the registry without being resolved first.
    */
-  set(moduleId: string, module: Module): void;
+  set(moduleId: string, module: System.Module): void;
 
   /**
    * Use for (let entry of System.entries()) to access all of the modules in the SystemJS registry.
    */
-  entries(): Iterable<[string, Module]>;
+  entries(): Iterable<[string, System.Module]>;
 };
 
-// tslint:disable-next-line no-unnecessary-generics
-type ImportFn = <T extends Module>(moduleId: string, parentUrl?: string) => Promise<T>;
+declare namespace System {
+  // tslint:disable-next-line no-unnecessary-generics
+  type ImportFn = <T extends Module>(moduleId: string, parentUrl?: string) => Promise<T>;
 
-type DeclareFn = (_export: ExportFn, _context: Context) => Declare;
-interface Declare {
-  setters?: SetterFn[];
-  execute?(): any;
-}
-type SetterFn = (moduleValue: Module) => any;
-type ExecuteFn = () => any;
+  type DeclareFn = (_export: ExportFn, _context: Context) => Declare;
+  interface Declare {
+    setters?: SetterFn[];
+    execute?(): any;
+  }
+  type SetterFn = (moduleValue: Module) => any;
+  type ExecuteFn = () => any;
 
-interface ExportFn {
-  (exportName: string, value: any): void;
-  (exports: object): void;
-}
+  interface ExportFn {
+    (exportName: string, value: any): void;
+    (exports: object): void;
+  }
 
-type UpdateModuleFn = () => void;
+  type UpdateModuleFn = () => void;
 
-type GetFn = GetFnModule | GetFnGeneric;
-type GetFnModule = (moduleId: string) => Module;
-// tslint:disable-next-line no-unnecessary-generics
-type GetFnGeneric = <T>(moduleId: string) => T;
+  type GetFn = GetFnModule | GetFnGeneric;
+  type GetFnModule = (moduleId: string) => Module;
+  // tslint:disable-next-line no-unnecessary-generics
+  type GetFnGeneric = <T>(moduleId: string) => T;
 
-interface Context {
-  import: ImportFn;
-  meta: {
-    url: string;
-  };
-}
+  interface Context {
+    import: ImportFn;
+    meta: {
+      url: string;
+    };
+  }
 
-interface Module {
-  default?: any;
-  [exportName: string]: any;
+  interface Module {
+    default?: any;
+    [exportName: string]: any;
+  }
 }
