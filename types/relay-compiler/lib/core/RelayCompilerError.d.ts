@@ -5,6 +5,6 @@ export type UserError = GraphQLError;
 
 export function createUserError(
   message: string,
-  locations?: readonly Location[],
-  nodes?: readonly ASTNode[],
+  locations?: ReadonlyArray<Location>,
+  nodes?: ReadonlyArray<ASTNode>,
 ): UserError;
