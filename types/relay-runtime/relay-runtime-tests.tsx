@@ -10,7 +10,7 @@ import {
     ROOT_ID,
     RelayNetworkLoggerTransaction,
     createRelayNetworkLogger,
-    RecordSourceSelectorProxy,
+    RecordSourceSelectorProxy, RecordProxy,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -76,16 +76,24 @@ function storeUpdater(store: RecordSourceSelectorProxy) {
     }
 }
 
+interface MessageEdge {
+    readonly id: string;
+}
+
 interface SendConversationMessageMutationResponse {
     readonly sendConversationMessage: {
-        readonly messageEdge: {
-            readonly id: string;
-        };
+        readonly messageEdge: MessageEdge & {
+            error: string
+        }
     };
 }
 
 interface TConversation {
     id: string;
+}
+
+function passToHelper(edge: RecordProxy<MessageEdge>) {
+    edge.getValue('id');
 }
 
 function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
@@ -97,6 +105,7 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
     }
+    passToHelper(newMessageEdge);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
