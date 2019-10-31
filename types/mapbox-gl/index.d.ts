@@ -1,10 +1,11 @@
-// Type definitions for Mapbox GL JS v1.3.0
+// Type definitions for Mapbox GL JS v1.5.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,9 +19,32 @@ declare namespace mapboxgl {
     let version: string;
     let baseApiUrl: string;
 
+    /**
+     * Number of web workers instantiated on a page with GL JS maps.
+     * By default, it is set to half the number of CPU cores (capped at 6).
+     */
+    let workerCount: number;
+
+    /**
+     * Maximum number of images (raster tiles, sprites, icons) to load in parallel, which affects performance in raster-heavy maps.
+     * 16 by default.
+    */
+    let maxParallelImageRequests: number;
+
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
+    /**
+     * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
+     * Tiles may still be cached by the browser in some cases.
+     */
+    export function clearStorage(callback?: (err?: Error) => void): void;
+
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
+
+    /**
+     * Gets the map's RTL text plugin status.
+    */
+    export function getRTLTextPluginStatus(): 'unavailable' | 'loading' | 'loaded' | 'error';
 
     type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
@@ -354,8 +378,8 @@ declare namespace mapboxgl {
         /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
         doubleClickZoom?: boolean;
 
-        /** If true, the map will track and update the page URL according to map position */
-        hash?: boolean;
+        /** If true, the map will track and update the page URL according to map position. An additional string may optionally be provided to indicate a parameter-styled hash. */
+        hash?: boolean | string;
 
         /**
          * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
