@@ -1,6 +1,5 @@
 import Koa = require('koa');
 import multer = require('@koa/multer');
-import Router = require('koa-router');
 
 const upload = multer({
     dest: 'uploads/',
