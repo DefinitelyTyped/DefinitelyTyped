@@ -16,7 +16,7 @@ interface HumaneOptions extends HumaneMessageOptions {
 }
 
 type completionCallback = () => void;
-type logMessage = string | ReadonlyArray<string>
+type logMessage = string | ReadonlyArray<string>;
 
 interface SpawnLogFunction {
     (message: logMessage, options?: HumaneMessageOptions): Humane;
