@@ -2,6 +2,7 @@
 // Project: http://github.com/taskrabbit/node-resque
 // Definitions by: Gordey Doronin <https://github.com/gordey4doronin>, Pete Nykänen <https://github.com/petetnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -65,15 +66,17 @@ export class Queue extends NodeJS.EventEmitter {
     timestamps(): Promise<number[]>;
     delayedAt(timestamp: number): Promise<{ tasks: Array<Job<any>>, rTimestamp: number }>;
     queued(queue: string, start: number, stop: number): Promise<Array<Job<any>>>;
+    allDelayed(): Promise<number[]>;
     locks(): Promise<{ [lockName: string]: string }>;
     delLock(lockName: string): Promise<number>;
     workers(): Promise<{ [hash: string]: string }>;
-    workingOn(workerName: string, queues: string): Promise<WorkerStatus>;
+    workingOn(workerName: string, queues: string[]): Promise<WorkerStatus>;
     allWorkingOn(): Promise<{[hashName: string]: WorkerStatus }>;
     forceCleanWorker(workerName: string): Promise<ErrorPayload[]> | Promise<void>;
     cleanOldWorkers(age: number): Promise<{[workerName: string]: ErrorPayload} | {}>;
     failedCount(): Promise<number>;
     failed(start: number, stop: number): Promise<ErrorPayload[]>;
+    removeFailed(failedJob: ErrorPayload): Promise<void>;
     retryAndRemoveFailed(failedJob: ErrorPayload): Promise<void>;
     stats(): Promise<any>;
     on(event: 'error', cb: (error: Error, queue: string) => void): this;
@@ -158,6 +161,6 @@ export interface ErrorPayload {
     payload: any;
     exception: string;
     error: string;
-    backtrace: string[];
+    backtrace: string[] | null;
     failed_at: string;
 }

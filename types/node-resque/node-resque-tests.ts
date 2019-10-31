@@ -64,9 +64,41 @@ worker.connect().then(() => worker.start());
 // start scheduler
 scheduler.connect().then(() => scheduler.start());
 
-queue.connect().then(() => {
+queue.connect().then(async () => {
     queue.enqueue('math', 'add', [1, 2]);
     queue.enqueue('math', 'add', [1, 2]);
     queue.enqueue('math', 'add', [2, 3]);
     queue.enqueueIn(3000, 'math', 'subtract', [2, 1]);
+    queue.enqueueAt(3000, 'math', 'substract', [2, 1]);
+
+    const stats = queue.stats();
+    const queues = queue.queues();
+    await queue.delQueue('math');
+
+    const length = await queue.length('math');
+    const numberOfJobsDeleted = await queue.del('math', 'add', undefined, 6);
+    const timestamps = await queue.delDelayed('math', 'add', [1, 2]);
+    const scheduledAt = await queue.scheduledAt('math', 'add', [1, 2]);
+
+    const timestamps2 = await queue.timestamps();
+    const jobsEnqueuedForThisTimestamp = await queue.delayedAt(timestamps2[0]);
+    const jobs = queue.allDelayed();
+
+    const workers = await queue.workers();
+    const workerStatus = await queue.workingOn('math', ['foo', 'bar']);
+    const details = await queue.allWorkingOn();
+    const failedCount = await queue.failedCount();
+
+    const failedJob = {
+        worker: 'busted-worker-3',
+        queue: 'busted-queue',
+        payload: { class: 'busted_job', queue: 'busted-queue', args: [ 1, 2, 3 ] },
+        exception: 'ERROR_NAME',
+        error: 'I broke',
+        failed_at: 'Sun Apr 26 2015 14:00:44 GMT+0100 (BST)',
+        backtrace: ['killed by', 'queue#forceCleanWorker'],
+    };
+
+    await queue.removeFailed(failedJob);
+    await queue.retryAndRemoveFailed(failedJob);
 });
