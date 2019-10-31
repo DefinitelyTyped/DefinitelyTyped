@@ -1488,7 +1488,7 @@ declare namespace echarts {
                     show?: boolean;
                     precision?: number | string;
                     formatter?: string | Function;
-                    margin?: boolean;
+                    margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
                     fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
