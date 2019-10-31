@@ -836,24 +836,24 @@ declare namespace jasmine {
         /** By chaining the spy with calls.count(), will return the number of times the spy was called */
         count(): number;
         /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index */
-        argsFor(index: number): any[];
+        argsFor<T = any>(index: number): T[];
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls */
-        allArgs(): any[];
+        allArgs<T = any>(): T[];
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls */
-        all(): CallInfo[];
+        all<T = any>(): CallInfo<T>[];
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call */
-        mostRecent(): CallInfo;
+        mostRecent<T = any>(): CallInfo<T>;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call */
-        first(): CallInfo;
+        first<T = any>(): CallInfo<T>;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy */
         reset(): void;
     }
 
-    interface CallInfo {
+    interface CallInfo<T = any> {
         /** The context (the this) for the call */
         object: any;
         /** All arguments passed to the call */
-        args: any[];
+        args: T[];
         /** The return value of the call */
         returnValue: any;
     }
