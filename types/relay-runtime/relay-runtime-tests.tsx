@@ -76,6 +76,29 @@ function storeUpdater(store: RecordSourceSelectorProxy) {
     }
 }
 
+interface SendConversationMessageMutationResponse {
+    readonly sendConversationMessage: {
+        readonly messageEdge: {
+            readonly id: string;
+        };
+    };
+}
+
+interface TConversation {
+    id: string;
+}
+
+function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    const mutationPayload = store.getRootField('sendConversationMessage');
+    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const id = newMessageEdge.getValue('id');
+    const conversationStore = store.get<TConversation>(id);
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
+    if (connection) {
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
+    }
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~
 // Source
 // ~~~~~~~~~~~~~~~~~~~~~
