@@ -26,8 +26,8 @@ import {
     getDefaultSettings,
     getPackedSettings,
     getUnpackedSettings,
-    OutgoingHttpHeaders,
     IncomingHttpHeaders,
+    OutgoingHttpHeaders,
     createServer,
     constants,
     ServerOptions

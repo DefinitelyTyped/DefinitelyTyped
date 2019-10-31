@@ -174,6 +174,7 @@ stripe.charges.update(
     'ch_15fvyXEe31JkLCeQOo0SwFk9',
     {
         description: 'Charge for test@example.com',
+        transfer_group: "Transfer group for this charge",
     },
     (err, charge) => {
         // asynchronously called
@@ -1301,7 +1302,7 @@ stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk').then(loginLink => {
     const created: number = loginLink.created;
     const url: string = loginLink.url;
 });
-stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', 'http://localhost:3000').then(loginLink => {
+stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', { redirect_url: 'http://localhost:3000' }).then(loginLink => {
     const object: string = loginLink.object;
     const created: number = loginLink.created;
     const url: string = loginLink.url;
