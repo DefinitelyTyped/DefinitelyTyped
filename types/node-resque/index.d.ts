@@ -14,6 +14,7 @@ export interface ConnectionOptions {
     namespace?: string;
     looping?: boolean;
     options?: any;
+    redis?: any;
 }
 
 export class Connection extends NodeJS.EventEmitter {
