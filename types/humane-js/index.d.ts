@@ -1,39 +1,46 @@
-// Type definitions for Humane 3.0
+// Type definitions for Humane 3.2
 // Project: http://wavded.github.com/humane-js/
-// Definitions by: jmvrbanac <https://github.com/jmvrbanac>
+// Definitions by: jmvrbanac <https://github.com/jmvrbanac>, stof <https://github.com/stof>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-interface HumaneOptions {
-    queue?: string[];
-    baseCls?: string;
+interface HumaneMessageOptions {
     addnCls?: string;
     timeout?: number;
     waitForMove?: boolean;
     clickToClose?: boolean;
-    forceNew?: boolean;
+}
+
+interface HumaneOptions extends HumaneMessageOptions {
+    baseCls?: string;
+    container?: Element;
+}
+
+type completionCallback = () => void;
+type logMessage = string | ReadonlyArray<string>
+
+interface SpawnLogFunction {
+    (message: logMessage, options?: HumaneMessageOptions): Humane;
+    (message: logMessage, callback?: completionCallback, options?: HumaneMessageOptions): Humane;
 }
 
 interface Humane {
     queue: string[];
     baseCls: string;
+    container: Element;
     addnCls: string;
     timeout: number;
     waitForMove: boolean;
     clickToClose: boolean;
-    forceNew: boolean;
 
     create(options?: HumaneOptions): Humane;
-    info: Function;
-    error: Function;
-    spawn(options: HumaneOptions): Function;
-    remove(x: any): void;
-    log(message: string): Humane;
-    log(message: string, callback: Function): Humane;
-    log(message: string, options: HumaneOptions): Humane;
-    log(message: string, callback: Function, options: HumaneOptions): Humane;
-
-    log(listOfMessages: any[]): Humane;
+    info?: SpawnLogFunction;
+    error?: SpawnLogFunction;
+    spawn(options: HumaneMessageOptions): SpawnLogFunction;
+    remove(cb?: completionCallback): void;
+    log(message: logMessage, options?: HumaneMessageOptions): Humane;
+    log(message: logMessage, callback?: completionCallback, options?: HumaneMessageOptions): Humane;
 }
 
 declare var humane: Humane;
+
+export = humane;

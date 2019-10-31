@@ -1,4 +1,4 @@
-
+import humane = require('humane-js');
 
 humane.log("Welcome Back");
 humane.log(["List","of","Items"]);
