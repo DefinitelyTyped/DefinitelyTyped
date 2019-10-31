@@ -1,5 +1,6 @@
 import Koa = require('koa');
 import multer = require('@koa/multer');
+import Router = require('koa-router');
 
 const upload = multer({
     dest: 'uploads/',
@@ -13,6 +14,12 @@ const app = new Koa();
 app.use(upload.single('avatar'));
 
 app.use(upload.array('photos', 12));
+app.use(async (ctx, next) => {
+    for (const file of ctx.request.files) {
+        console.info(`Received file: ${file.filename}`);
+    }
+    await next();
+});
 
 const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }]);
 app.use(cpUpload);
