@@ -4,7 +4,7 @@
         "lib": [
             "es6"
         ],
-        "target":            "ES2015",
+        "target": "ES2015",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
