@@ -11,7 +11,7 @@ interface UIDGeneratorInstance {
   readonly base: number;
   generateSync(): string;
   generate(): Promise<string>;
-  generate(cb: (error: Error|null, uid?: string) => any): void;
+  generate(cb: (error: Error|null, uid: string) => any): void;
 }
 
 interface UIDGeneratorClass {
