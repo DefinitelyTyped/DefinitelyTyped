@@ -841,7 +841,7 @@ export interface ExecOptions extends child.ExecOptions {
 	 * @default false
 	 */
 	fatal?: boolean;
-	
+
 	/**
 	 * Asynchronous execution.
 	 *
