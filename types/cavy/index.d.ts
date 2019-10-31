@@ -3,10 +3,11 @@
 // Definitions by: Tyler Hoffman <https://github.com/tyler-hoffman>
 //                 Abigail McPhillips <https://github.com/AbigailMcP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 
+// Turn off automatic exporting by exporting {}.
 export {};
 
 type RefCallback = (element: React.ReactNode | null) => void;
@@ -46,7 +47,7 @@ export class TestHookStore {}
 
 export class TestScope {
     component: Tester;
-    findComponent<P = {}, S = {}>(identifier: string): Promise<React.Component<P, S>>;
+    findComponent(identifier: string): Promise<React.Component>;
     describe(label: string, fn: () => void): void;
     it(label: string, fn: () => void): void;
     beforeEach(fn: () => void): void;

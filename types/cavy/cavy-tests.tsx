@@ -17,12 +17,12 @@ type Props = WithTestHook<{
 }>;
 
 interface FCProps {
-  text: string
+  text: string;
 }
 
-const FunctionComponent: React.FunctionComponent<FCProps> = (props)  => {
-  return <Text>{props.text}</Text>
-}
+const FunctionComponent: React.FunctionComponent<FCProps> = ({ text })  => {
+  return <Text>{text}</Text>;
+};
 
 const WrappedText = wrap(Text);
 const WrappedFunctionComponent = wrap(FunctionComponent);
@@ -84,6 +84,11 @@ function sampleSpec(spec: TestScope) {
       spec.containsText('Input', 'hello'); // $ExpectType Promise<void>
       // Test wrapped object like Text
       spec.containsText('WrappedText', 'Wrapped text');
+      // Test wrapped function component, access to props
+      const functionComponent = await spec.findComponent('WrappedFunctionComponent') as React.Component<FCProps>;
+      if (functionComponent.props.text !== 'text') {
+        throw new Error();
+      }
     });
   });
 }
