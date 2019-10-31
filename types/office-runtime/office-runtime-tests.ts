@@ -27,4 +27,7 @@ OfficeRuntime.displayWebDialog("https://localhost:3000", {
 // Check for the support of the requirement-set (note that it only accepts strings.)
 const supported = OfficeRuntime.apiInformation.isSetSupported("ExcelApi", "1.9");
 
-// For SSO auth API, refer to the public documentation at the site: https://docs.microsoft.com/en-us/office/dev/add-ins/?view=excel-js-preview
+// For SSO auth API, refer to the public documentation at the site: https://github.com/OfficeDev/Office-Add-in-NodeJS-SSO
+OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true, forMSGraphAccess: true }).then(token => {
+    console.log(token);
+})
