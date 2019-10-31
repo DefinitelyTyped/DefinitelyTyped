@@ -26,7 +26,22 @@ var box2 = Bodies.rectangle(400,610,810,60, {
 	isStatic: true
 });
 
-var circle1 = Bodies.circle(100,100,50);
+var circle1 = Bodies.circle(100,100,50, {
+	plugin: {
+		wrap: {
+			min: {
+				x: 0,
+				y: 0
+			},
+			max: {
+				x: 1024,
+				y: 1024
+			}
+		}
+	}
+});
+var radius = circle1.circleRadius;
+Body.setCentre(circle1, Matter.Vector.create(10, 10), true)
 
 World.addBody(engine.world, box1);
 World.add(engine.world, [box2, circle1]);
