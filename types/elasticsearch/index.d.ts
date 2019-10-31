@@ -10,6 +10,7 @@
 //                 Paul Brabban <https://github.com/brabster>
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Yonatan Kiron <https://github.com/YonatanKiron>
+//                 Jani Šumak <https://github.com/dasdachs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1293,6 +1294,7 @@ export interface IndicesPutMappingParams extends GenericParams {
     updateAllTypes?: boolean;
     index: NameList;
     type: string;
+    includeTypeName?: boolean;
     body: any;
 }
 
