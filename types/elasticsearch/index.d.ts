@@ -1286,16 +1286,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    updateAllTypes?: boolean;
-    index: NameList;
-    type: string;
-    includeTypeName?: boolean;
-    body: any;
+  timeout?: TimeSpan;
+  masterTimeout?: TimeSpan;
+  ignoreUnavailable?: boolean;
+  allowNoIndices?: boolean;
+  expandWildcards?: ExpandWildcards;
+  updateAllTypes?: boolean;
+  index: NameList;
+  type: string;
+  includeTypeName?: boolean;
+  body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
