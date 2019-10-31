@@ -98,7 +98,7 @@ const output3 = version3.stdout;
 
 // $ExpectType ShellString
 const version4 = shell.exec("node --version", {async: false, fatal: true});
-const output4 = version3.stdout;
+const output4 = version4.stdout;
 
 // $ExpectType ChildProcess
 const asyncVersion3 = shell.exec("node --version", {async: true});
