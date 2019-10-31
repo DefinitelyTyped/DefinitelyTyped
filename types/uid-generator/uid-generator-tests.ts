@@ -4,7 +4,7 @@ new UIDGenerator('abc'); // $ExpectType UIDGeneratorInstance
 const generator = new UIDGenerator(128, 'abc'); // $ExpectType UIDGeneratorInstance
 
 generator.generateSync(); // $ExpectType string
-generator.generate((err, uid?) => {
+generator.generate((err, uid) => {
   err; // $ExpectType Error | null
   uid; // $ExpectType string
 });
