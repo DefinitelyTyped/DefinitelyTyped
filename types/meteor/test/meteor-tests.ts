@@ -23,6 +23,8 @@ import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 
+import './userAugment'
+
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 
@@ -532,7 +534,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any, dexterity: number }) {
+Accounts.onCreateUser(function (options: { profile: any }, user) {
     var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
@@ -546,7 +548,7 @@ Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any,
  */
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
-Accounts.emailTemplates.enrollAccount.subject = function (user: { profile: { name: string } }) {
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Welcome to Awesome Town, " + user.profile.name;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {
