@@ -76,7 +76,7 @@ const co6 = Ember.CoreObject.extend({
         this.init; // $ExpectType () => void
         // this includes stuff from this extend-arg
         // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-        this.foo; // $ExpectType string & number
+        this.foo;
         // this includes stuff from earlier extend-args
         this.bar; // $ExpectType number
     }
@@ -110,7 +110,7 @@ const co7 = Ember.CoreObject.extend({
         this.init; // $ExpectType () => void
         // this includes stuff from this extend-arg
         // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-        this.foo; // $ExpectType string & number
+        this.foo;
         // this includes stuff from earlier extend-args
         this.bar; // $ExpectType number
     }
@@ -156,7 +156,7 @@ const co8 = Ember.CoreObject.extend({
         this.init; // $ExpectType () => void
         // this includes stuff from this extend-arg
         // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-        this.foo; // $ExpectType string & number
+        this.foo;
         // this includes stuff from earlier extend-args
         this.bar; // $ExpectType number
         // this does not include stuff from later extend args

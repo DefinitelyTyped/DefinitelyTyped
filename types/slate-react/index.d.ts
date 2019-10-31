@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.21
+// Type definitions for slate-react 0.22
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -9,101 +9,153 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
+//                 Kay Delaney <https://github.com/kaydelaney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
     Document,
     Editor as CoreEditor,
     Mark,
-    Node,
+    Node as SlateNode,
     Block,
     Inline,
-    Operations,
+    Operation,
     SchemaProperties,
     Value,
-    Operation,
     MarkProperties,
     BlockProperties,
     InlineProperties,
     Path,
     RangeProperties,
     NodeProperties,
-    Range,
-    Controller
-} from "slate";
-import * as Immutable from "immutable";
-import * as React from "react";
+    Controller,
+    Plugin as CorePlugin,
+    Range as SlateRange,
+    Selection as SlateSelection,
+    RangeType,
+    Annotation,
+    Decoration,
+    PointProperties,
+    PointJSON,
+    Point,
+    RangeTypeJSON,
+    RangeTypeProperties,
+} from 'slate';
+import * as Immutable from 'immutable';
+import * as React from 'react';
 
 // Values prefixed with "data-..." (Used for spellchecking according to docs)
 export interface RenderAttributes {
     [key: string]: any;
 }
 
-export interface RenderMarkProps {
+export interface RenderProps {
     attributes: RenderAttributes;
-    children: React.ReactNode;
-    editor: CoreEditor;
-    mark: Mark;
+    editor: Editor;
     marks: Immutable.Set<Mark>;
-    node: Node;
+    annotations: Immutable.List<Annotation> | ReadonlyArray<Annotation>;
+    decorations: Immutable.List<Decoration> | ReadonlyArray<Annotation>;
+    node: SlateNode;
     offset: number;
     text: string;
 }
 
+export interface RenderMarkProps extends RenderProps {
+    mark: Mark;
+    children: React.ReactNode;
+}
+
+export interface RenderAnnotationProps extends RenderProps {
+    annotation: Annotation;
+    children: React.ReactNode;
+}
+
+export interface RenderDecorationProps extends RenderProps {
+    decoration: Decoration;
+    children: React.ReactNode;
+}
+
 export interface RenderNodeProps {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: CoreEditor;
-  isFocused: boolean;
-  isSelected: boolean;
-  key: string;
-  node: Block | Inline;
-  parent: Node;
-  readOnly: boolean;
+    attributes: RenderAttributes;
+    children: React.ReactNode;
+    editor: Editor;
+    isFocused: boolean;
+    isSelected: boolean;
+    key: string;
+    parent: SlateNode;
+    readOnly: boolean;
 }
 
-export type EventHook = (
-    event: Event,
-    editor: CoreEditor,
-    next: () => any
-) => any;
+export interface RenderBlockProps extends RenderNodeProps {
+    node: Block;
+}
 
-export interface Plugin {
-    decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
+export interface RenderDocumentProps extends RenderNodeProps {
+    node: Document;
+}
+
+export interface RenderInlineProps extends RenderNodeProps {
+    node: Inline;
+}
+
+export type EventHook<T = Event> = (event: T, editor: CoreEditor, next: () => any) => any;
+
+export interface Plugin extends CorePlugin {
+    decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
+    renderAnnotation?: (props: RenderAnnotationProps, editor: CoreEditor, next: () => any) => any;
+    renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
+    renderDecoration?: (props: RenderDecorationProps, editor: CoreEditor, next: () => any) => any;
+    renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
+    renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
-    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
-    onBeforeInput?: EventHook;
-    onBlur?: EventHook;
-    onClick?: EventHook;
-    onCompositionEnd?: EventHook;
-    onCompositionStart?: EventHook;
-    onCopy?: EventHook;
-    onCut?: EventHook;
-    onDragEnd?: EventHook;
-    onDragEnter?: EventHook;
-    onDragExit?: EventHook;
-    onDragLeave?: EventHook;
-    onDragOver?: EventHook;
-    onDragStart?: EventHook;
-    onDrop?: EventHook;
-    onFocus?: EventHook;
-    onInput?: EventHook;
-    onKeyDown?: EventHook;
-    onPaste?: EventHook;
-    onSelect?: EventHook;
+    shouldNodeComponentUpdate?: (
+        previousProps: RenderNodeProps,
+        props: RenderNodeProps,
+        editor: CoreEditor,
+        next: () => any
+    ) => any;
+
+    onBeforeInput?: EventHook<React.FormEvent>;
+    onBlur?: EventHook<React.FocusEvent>;
+    onClick?: EventHook<React.MouseEvent>;
+    onCompositionEnd?: EventHook<React.CompositionEvent>;
+    onCompositionStart?: EventHook<React.CompositionEvent>;
+    onCopy?: EventHook<React.ClipboardEvent>;
+    onCut?: EventHook<React.ClipboardEvent>;
+    onDragEnd?: EventHook<React.DragEvent>;
+    onDragEnter?: EventHook<React.DragEvent>;
+    onDragExit?: EventHook<React.DragEvent>;
+    onDragLeave?: EventHook<React.DragEvent>;
+    onDragOver?: EventHook<React.DragEvent>;
+    onDragStart?: EventHook<React.DragEvent>;
+    onDrop?: EventHook<React.DragEvent>;
+    onFocus?: EventHook<React.FocusEvent>;
+    onInput?: EventHook<React.FormEvent>;
+    onKeyDown?: EventHook<React.KeyboardEvent>;
+    onPaste?: EventHook<React.ClipboardEvent>;
+    onSelect?: EventHook<React.SyntheticEvent>;
 }
+
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
+
+export interface OnChangeParam {
+    operations: Immutable.List<Operation>;
+    value: Value;
+}
+export type OnChangeFn = (change: OnChangeParam) => any;
 
 export interface BasicEditorProps {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: OnChangeFn;
     placeholder?: any;
-    plugins?: Plugin[];
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;
@@ -130,16 +182,30 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     resolveController(plugins: Plugin[], schema: SchemaProperties, commands: any[], queries: any[]): void;
 
     // Controller
+    addAnnotation: CoreEditor['addAnnotation'];
     addMark: CoreEditor['addMark'];
+    addMarks: CoreEditor['addMarks'];
     delete: CoreEditor['delete'];
     deleteBackward: CoreEditor['deleteBackward'];
+    deleteCharBackward: CoreEditor['deleteCharBackward'];
+    deleteCharForward: CoreEditor['deleteCharForward'];
     deleteForward: CoreEditor['deleteForward'];
+    deleteLineBackward: CoreEditor['deleteLineBackward'];
+    deleteLineForward: CoreEditor['deleteLineForward'];
+    deleteWordBackward: CoreEditor['deleteWordBackward'];
+    deleteWordForward: CoreEditor['deleteWordForward'];
     insertBlock: CoreEditor['insertBlock'];
     insertFragment: CoreEditor['insertFragment'];
     insertInline: CoreEditor['insertInline'];
     insertText: CoreEditor['insertText'];
+    setAnchor: CoreEditor['setAnchor'];
+    setAnnotation: CoreEditor['setAnnotation'];
     setBlocks: CoreEditor['setBlocks'];
+    setData: CoreEditor['setData'];
+    setEnd: CoreEditor['setEnd'];
+    setFocus: CoreEditor['setFocus'];
     setInlines: CoreEditor['setInlines'];
+    setStart: CoreEditor['setStart'];
     splitBlock: CoreEditor['splitBlock'];
     splitInline: CoreEditor['splitInline'];
     removeMark: CoreEditor['removeMark'];
@@ -154,6 +220,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     deselect: CoreEditor['deselect'];
     flip: CoreEditor['flip'];
     focus: CoreEditor['focus'];
+
     moveAnchorBackward: CoreEditor['moveAnchorBackward'];
     moveAnchorForward: CoreEditor['moveAnchorForward'];
     moveAnchorTo: CoreEditor['moveAnchorTo'];
@@ -163,7 +230,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveAnchorToEndOfNextBlock: CoreEditor['moveAnchorToEndOfNextBlock'];
     moveAnchorToEndOfNextInline: CoreEditor['moveAnchorToEndOfNextInline'];
     moveAnchorToEndOfNextText: CoreEditor['moveAnchorToEndOfNextText'];
-    moveAnchorEndOfNode: CoreEditor['moveAnchorEndOfNode'];
+    moveAnchorToEndOfNode: CoreEditor['moveAnchorToEndOfNode'];
     moveAnchorToEndOfPreviousBlock: CoreEditor['moveAnchorToEndOfPreviousBlock'];
     moveAnchorToEndOfPreviousInline: CoreEditor['moveAnchorToEndOfPreviousInline'];
     moveAnchorToEndOfPreviousText: CoreEditor['moveAnchorToEndOfPreviousText'];
@@ -179,6 +246,9 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveAnchorToStartOfPreviousInline: CoreEditor['moveAnchorToStartOfPreviousInline'];
     moveAnchorToStartOfPreviousText: CoreEditor['moveAnchorToStartOfPreviousText'];
     moveAnchorToStartOfText: CoreEditor['moveAnchorToStartOfText'];
+    moveAnchorWordBackward: CoreEditor['moveAnchorWordBackward'];
+    moveAnchorWordForward: CoreEditor['moveAnchorWordForward'];
+    moveBackward: CoreEditor['moveBackward'];
     moveEndBackward: CoreEditor['moveEndBackward'];
     moveEndForward: CoreEditor['moveEndForward'];
     moveEndTo: CoreEditor['moveEndTo'];
@@ -204,6 +274,8 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveEndToStartOfPreviousInline: CoreEditor['moveEndToStartOfPreviousInline'];
     moveEndToStartOfPreviousText: CoreEditor['moveEndToStartOfPreviousText'];
     moveEndToStartOfText: CoreEditor['moveEndToStartOfText'];
+    moveEndWordBackward: CoreEditor['moveEndWordBackward'];
+    moveEndWordForward: CoreEditor['moveEndWordForward'];
     moveFocusBackward: CoreEditor['moveFocusBackward'];
     moveFocusForward: CoreEditor['moveFocusForward'];
     moveFocusTo: CoreEditor['moveFocusTo'];
@@ -229,6 +301,9 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveFocusToStartOfPreviousInline: CoreEditor['moveFocusToStartOfPreviousInline'];
     moveFocusToStartOfPreviousText: CoreEditor['moveFocusToStartOfPreviousText'];
     moveFocusToStartOfText: CoreEditor['moveFocusToStartOfText'];
+    moveFocusWordBackward: CoreEditor['moveFocusWordBackward'];
+    moveFocusWordForward: CoreEditor['moveFocusWordForward'];
+    moveForward: CoreEditor['moveForward'];
     moveStartForward: CoreEditor['moveStartForward'];
     moveStartBackward: CoreEditor['moveStartBackward'];
     moveStartTo: CoreEditor['moveStartTo'];
@@ -254,12 +329,10 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveStartToStartOfPreviousInline: CoreEditor['moveStartToStartOfPreviousInline'];
     moveStartToStartOfPreviousText: CoreEditor['moveStartToStartOfPreviousText'];
     moveStartToStartOfText: CoreEditor['moveStartToStartOfText'];
-    moveBackward: CoreEditor['moveBackward'];
-    moveForward: CoreEditor['moveForward'];
+    moveStartWordBackward: CoreEditor['moveStartWordBackward'];
+    moveStartWordForward: CoreEditor['moveStartWordForward'];
     moveTo: CoreEditor['moveTo'];
     moveToAnchor: CoreEditor['moveToAnchor'];
-    moveToFocus: CoreEditor['moveToFocus'];
-    moveToStart: CoreEditor['moveToStart'];
     moveToEnd: CoreEditor['moveToEnd'];
     moveToEndOfBlock: CoreEditor['moveToEndOfBlock'];
     moveToEndOfDocument: CoreEditor['moveToEndOfDocument'];
@@ -272,6 +345,10 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToEndOfPreviousInline: CoreEditor['moveToEndOfPreviousInline'];
     moveToEndOfPreviousText: CoreEditor['moveToEndOfPreviousText'];
     moveToEndOfText: CoreEditor['moveToEndOfText'];
+    moveToFocus: CoreEditor['moveToFocus'];
+    moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
+    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
+    moveToStart: CoreEditor['moveToStart'];
     moveToStartOfBlock: CoreEditor['moveToStartOfBlock'];
     moveToStartOfDocument: CoreEditor['moveToStartOfDocument'];
     moveToStartOfInline: CoreEditor['moveToStartOfInline'];
@@ -283,36 +360,41 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToStartOfPreviousInline: CoreEditor['moveToStartOfPreviousInline'];
     moveToStartOfPreviousText: CoreEditor['moveToStartOfPreviousText'];
     moveToStartOfText: CoreEditor['moveToStartOfText'];
-    moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
-    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
+    moveWordBackward: CoreEditor['moveWordBackward'];
+    moveWordForward: CoreEditor['moveWordForward'];
+    save: CoreEditor['save'];
     select: CoreEditor['select'];
+
     addMarkAtRange: CoreEditor['addMarkAtRange'];
+    addMarksAtRange: CoreEditor['addMarksAtRange'];
     deleteAtRange: CoreEditor['deleteAtRange'];
-    deleteCharBackwardAtRange: CoreEditor['deleteCharBackwardAtRange'];
-    deleteLineBackwardAtRange: CoreEditor['deleteLineBackwardAtRange'];
-    deleteWordBackwardAtRange: CoreEditor['deleteWordBackwardAtRange'];
     deleteBackwardAtRange: CoreEditor['deleteBackwardAtRange'];
+    deleteCharBackwardAtRange: CoreEditor['deleteCharBackwardAtRange'];
     deleteCharForwardAtRange: CoreEditor['deleteCharForwardAtRange'];
-    deleteLineForwardAtRange: CoreEditor['deleteLineForwardAtRange'];
-    deleteWordForwardAtRange: CoreEditor['deleteWordForwardAtRange'];
     deleteForwardAtRange: CoreEditor['deleteForwardAtRange'];
+    deleteLineBackwardAtRange: CoreEditor['deleteLineBackwardAtRange'];
+    deleteLineForwardAtRange: CoreEditor['deleteLineForwardAtRange'];
+    deleteWordBackwardAtRange: CoreEditor['deleteWordBackwardAtRange'];
+    deleteWordForwardAtRange: CoreEditor['deleteWordForwardAtRange'];
     insertBlockAtRange: CoreEditor['insertBlockAtRange'];
     insertFragmentAtRange: CoreEditor['insertFragmentAtRange'];
     insertInlineAtRange: CoreEditor['insertInlineAtRange'];
     insertTextAtRange: CoreEditor['insertTextAtRange'];
+    removeMarkAtRange: CoreEditor['removeMarkAtRange'];
     setBlocksAtRange: CoreEditor['setBlocksAtRange'];
     setInlinesAtRange: CoreEditor['setInlinesAtRange'];
     splitBlockAtRange: CoreEditor['splitBlockAtRange'];
     splitInlineAtRange: CoreEditor['splitInlineAtRange'];
-    removeMarkAtRange: CoreEditor['removeMarkAtRange'];
     toggleMarkAtRange: CoreEditor['toggleMarkAtRange'];
     unwrapBlockAtRange: CoreEditor['unwrapBlockAtRange'];
     unwrapInlineAtRange: CoreEditor['unwrapInlineAtRange'];
     wrapBlockAtRange: CoreEditor['wrapBlockAtRange'];
     wrapInlineAtRange: CoreEditor['wrapInlineAtRange'];
     wrapTextAtRange: CoreEditor['wrapTextAtRange'];
+
     addMarkByKey: CoreEditor['addMarkByKey'];
     addMarkByPath: CoreEditor['addMarkByPath'];
+    addMarksByPath: CoreEditor['addMarksByPath'];
     insertNodeByKey: CoreEditor['insertNodeByKey'];
     insertNodeByPath: CoreEditor['insertNodeByPath'];
     insertFragmentByKey: CoreEditor['insertFragmentByKey'];
@@ -323,32 +405,44 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     mergeNodeByPath: CoreEditor['mergeNodeByPath'];
     moveNodeByKey: CoreEditor['moveNodeByKey'];
     moveNodeByPath: CoreEditor['moveNodeByPath'];
+    removeAllMarksByKey: CoreEditor['removeAllMarksByKey'];
+    removeAllMarksByPath: CoreEditor['removeAllMarksByPath'];
     removeMarkByKey: CoreEditor['removeMarkByKey'];
     removeMarkByPath: CoreEditor['removeMarkByPath'];
+    removeMarksByPath: CoreEditor['removeMarksByPath'];
     removeNodeByKey: CoreEditor['removeNodeByKey'];
     removeNodeByPath: CoreEditor['removeNodeByPath'];
-    replaceNodeByKey: CoreEditor['replaceNodeByKey'];
-    replaceNodeByPath: CoreEditor['replaceNodeByPath'];
     removeTextByKey: CoreEditor['removeTextByKey'];
     removeTextByPath: CoreEditor['removeTextByPath'];
+    replaceNodeByKey: CoreEditor['replaceNodeByKey'];
+    replaceNodeByPath: CoreEditor['replaceNodeByPath'];
+    replaceTextByKey: CoreEditor['replaceTextByKey'];
+    replaceTextByPath: CoreEditor['replaceTextByPath'];
     setMarkByKey: CoreEditor['setMarkByKey'];
-    setMarksByPath: CoreEditor['setMarksByPath'];
+    setMarkByPath: CoreEditor['setMarkByPath'];
     setNodeByKey: CoreEditor['setNodeByKey'];
     setNodeByPath: CoreEditor['setNodeByPath'];
+    setTextByKey: CoreEditor['setTextByKey'];
+    setTextByPath: CoreEditor['setTextByPath'];
+    splitDescendantsByKey: CoreEditor['splitDescendantsByKey'];
+    splitDescendantsByPath: CoreEditor['splitDescendantsByPath'];
     splitNodeByKey: CoreEditor['splitNodeByKey'];
     splitNodeByPath: CoreEditor['splitNodeByPath'];
-    unwrapInlineByKey: CoreEditor['unwrapInlineByKey'];
-    unwrapInlineByPath: CoreEditor['unwrapInlineByPath'];
     unwrapBlockByKey: CoreEditor['unwrapBlockByKey'];
     unwrapBlockByPath: CoreEditor['unwrapBlockByPath'];
+    unwrapChildrenByKey: CoreEditor['unwrapChildrenByKey'];
+    unwrapChildrenByPath: CoreEditor['unwrapChildrenByPath'];
+    unwrapInlineByKey: CoreEditor['unwrapInlineByKey'];
+    unwrapInlineByPath: CoreEditor['unwrapInlineByPath'];
     unwrapNodeByKey: CoreEditor['unwrapNodeByKey'];
     unwrapNodeByPath: CoreEditor['unwrapNodeByPath'];
-    wrapInlineByKey: CoreEditor['wrapInlineByKey'];
-    wrapInlineByPath: CoreEditor['wrapInlineByPath'];
     wrapBlockByKey: CoreEditor['wrapBlockByKey'];
     wrapBlockByPath: CoreEditor['wrapBlockByPath'];
+    wrapInlineByKey: CoreEditor['wrapInlineByKey'];
+    wrapInlineByPath: CoreEditor['wrapInlineByPath'];
     wrapNodeByKey: CoreEditor['wrapNodeByKey'];
     wrapNodeByPath: CoreEditor['wrapNodeByPath'];
+
     normalize: CoreEditor['normalize'];
     withoutNormalizing: CoreEditor['withoutNormalizing'];
     withoutSaving: CoreEditor['withoutSaving'];
@@ -362,21 +456,32 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     registerQuery: CoreEditor['registerQuery'];
     applyOperation: CoreEditor['applyOperation'];
     run: CoreEditor['run'];
+    removeAnnotation: CoreEditor['removeAnnotation'];
+
+    findDOMNode: (path: Immutable.List<number> | number[]) => React.ReactNode | null;
+    findDOMPoint: (point: PointProperties | PointJSON | Point) => { node: Node; offset: number } | null;
+    findDOMRange: (range: RangeTypeProperties | RangeTypeJSON | RangeType) => Range | null;
+    findNode: (element: Element) => SlateNode | null;
+    findEventRange: (event: Event | React.SyntheticEvent) => SlateRange | null;
+    findPath: (element: Element) => Immutable.List<number> | null;
+    findPoint: (nativeNode: Element, nativeOffset: number) => Point | null;
+    findRange: (domRange: Range | Selection) => SlateRange | null;
+    findSelection: (domSelection: Selection) => SlateSelection | null;
 }
 
-export type SlateType =
-    | "fragment"
-    | "html"
-    | "node"
-    | "rich"
-    | "text"
-    | "files";
+export type SlateType = 'fragment' | 'html' | 'node' | 'rich' | 'text' | 'files';
 
+// Utilities
 export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreEditor, callback?: () => void): void;
-export function findDOMNode(node: Node, win?: Window): Element;
-export function findDOMRange(range: Range, win?: Window): Range;
-export function findNode(element: Element, editor: CoreEditor): Node;
-export function findRange(selection: Selection | Range, editor: CoreEditor): Range;
-export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): Range;
-export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: Node };
+export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: SlateNode };
 export function setEventTransfer(event: Event | React.SyntheticEvent, type: SlateType, data: any): void;
+
+// Deprecated
+export function findDOMNode(node: SlateNode | string, win?: Window): Element;
+export function findDOMPoint(point: Point, win?: Window): { node: Node; offset: number } | null;
+export function findDOMRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, win?: Window): Range | null;
+export function findNode(element: Element, editor: CoreEditor): SlateNode;
+export function findPath(element: Element, editor: CoreEditor): Immutable.List<number> | null;
+export function findPoint(nativeNode: Element, nativeOffset: number, editor: CoreEditor): Point | null;
+export function findRange(domRange: Range | Selection, editor: CoreEditor): SlateRange | null;
+export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): SlateRange | null;

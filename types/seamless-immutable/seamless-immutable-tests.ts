@@ -15,6 +15,13 @@ interface ExtendedUser extends User {
     address: Address;
 }
 
+// A result type for asMutable({ deep: false } | undefined)
+interface NonDeepMutableExtendedUser {
+    firstName: string;
+    lastName: string;
+    address: Immutable.Immutable<Address>;
+}
+
 //
 // Constructors
 // ---------------------------------------------------------------
@@ -89,6 +96,27 @@ interface ExtendedUser extends User {
 {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
+    const immutableElement: Immutable.Immutable<User> = array[0];
+    // $ExpectError
+    immutableElement.firstName = 'Krusty';
+
+    const asMutableDefault: Array<Immutable.Immutable<User>> = array.asMutable();
+    // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
+    // $ExpectError
+    asMutableDefault[0].firstName = 'Krusty';
+
+    const asMutableNotDeep: Array<Immutable.Immutable<User>> = array.asMutable({ deep: false });
+    // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
+    // $ExpectError
+    asMutableNotDeep[0].firstName = 'Krusty';
+
+    // Can mutate at any depth
+    const asMutableDeep: User[] = array.asMutable({ deep: true });
+    asMutableDeep[0].firstName = 'Krusty';
+
+    const opaqueMutableParam = { deep: true };
+    const asMutableOpaque: Array<User | Immutable.Immutable<User>> = array.asMutable(opaqueMutableParam);
+
     // keys. Call the mutable array's 'keys' to ensure compatability
     const mutableKeys = array.asMutable().keys();
     const keys: typeof mutableKeys = array.keys();
@@ -96,6 +124,14 @@ interface ExtendedUser extends User {
     // map. Call the mutable array's 'map' with the same function to ensure compatability. Make sure the output array is immutable.
     interface FirstName { firstNameOnly: string; }
     array.asMutable().map((value: User) => ({ firstNameOnly: value.firstName }));
+    array
+      .asMutable()
+      .map((value: User, index) => ({ firstNameOnly: value.firstName, index }));
+    array.asMutable().map((value: User, index, allUsers: User[]) => ({
+      firstNameOnly: value.firstName,
+      index,
+      allUsers,
+    }));
     const map: Immutable.Immutable<FirstName[]> = array.map((value: User) => ({ firstNameOnly: value.firstName }));
     map.asMutable();
 
@@ -119,9 +155,20 @@ interface ExtendedUser extends User {
     slice4.asMutable();
 
     // concat. Call the mutable array's 'concat' with the same args to ensure compatability. Make sure the output array is immutable.
-    array.asMutable().concat({ firstName: 'Happy', lastName: 'Cat' });
-    const concat: Immutable.Immutable<User[]> = array.concat({ firstName: 'Happy', lastName: 'Cat' });
+    array.asMutable().concat(Immutable({ firstName: 'Happy', lastName: 'Cat' }));
+    const concat: Immutable.Immutable<User[]> = array
+        .concat({ firstName: 'Happy', lastName: 'Cat' }, { firstName: 'Silly', lastName: 'Cat' })
+        .concat([{firstName: 'saucy', lastName: 'Cat'}], {firstName: 'Fussy', lastName: 'Cat'})
+        .concat([
+            {firstName: 'Fancy', lastName: 'Cat'},
+            {firstName: 'Sassy', lastName: 'Cat'}],
+            [{firstName: 'Bossy', lastName: 'Cat'}
+        ]);
     concat.asMutable();
+
+    Immutable.from([1, 2, 3])
+        .concat(Immutable.from([4, 5, 6])
+        .concat([7, 8, 9]));
 
     // reduce. Call the mutable array's 'reduce' with the same function to ensure compatability. Make sure the output array is immutable.
     array.asMutable().reduce((previous, current) => ({ ...previous, lastName: current.lastName }));
@@ -193,8 +240,25 @@ interface ExtendedUser extends User {
     const updatedUser12: Immutable.Immutable<ExtendedUser> = immutableUserEx.setIn([ data.propertyId, 'line1' ], 'Small house');
 
     // asMutable
-    const mutableUser21: User = immutableUser.asMutable();
-    const mutableUser22: User = immutableUser.asMutable({ deep: true });
+    // Can't mutate beyond 1 level deep
+    const mutableUser21 = immutableUserEx.asMutable();
+    mutableUser21.firstName = 'Krusty';
+    // $ExpectError
+    mutableUser21.address.line1 = 'Example';
+
+    // Can't mutate beyond 1 level deep
+    const mutableUser22 = immutableUserEx.asMutable({ deep: false });
+    mutableUser22.firstName = 'Krusty';
+    // $ExpectError
+    mutableUser22.address.line1 = 'Example';
+
+    // Can mutate at any depth
+    const mutableUser23: ExtendedUser = immutableUserEx.asMutable({ deep: true });
+    mutableUser23.firstName = 'Krusty';
+    mutableUser23.address.line1 = 'Example';
+
+    const opaqueMutableParam = { deep: true }; // treats as { deep: boolean }
+    const mutableUser24: ExtendedUser | NonDeepMutableExtendedUser = immutableUserEx.asMutable(opaqueMutableParam);
 
     // merge: merged part is strongly checked as a deeply partial object
     const mergedUser: Immutable.Immutable<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });

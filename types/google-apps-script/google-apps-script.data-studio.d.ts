@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-02-27
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,12 +10,42 @@ declare namespace GoogleAppsScript {
     /**
      * An enum that defines the aggregation types that can be set for a Field.
      */
-    export enum AggregationType { NO_AGGREGATION, AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM }
+    export enum AggregationType { AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM, AUTO, NO_AGGREGATION }
 
     /**
      * An enum that defines the authentication types that can be set for a connector.
      */
     export enum AuthType { NONE, OAUTH2, USER_PASS, KEY, USER_TOKEN }
+
+    /**
+     * A configuration object for a native BigQuery connector. Return this object from getData()
+     * for Data Studio to query BigQuery for the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *     var types = cc.BigQueryParameterType;
+     *
+     *     var bqConfig = cc.newBigQueryConfig()
+     *       .setBillingProjectId('billingProjectId')
+     *       .setQuery('queryString')
+     *       .setUseStandardSql(true)
+     *       .setAccessToken('accessToken')
+     *       .addQueryParameter('dob', types.STRING, '01011990')
+     *       .build();
+     */
+    export interface BigQueryConfig {
+      addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
+      build(): Config;
+      printJson(): string;
+      setAccessToken(accessToken: string): BigQueryConfig;
+      setBillingProjectId(billingProjectId: string): BigQueryConfig;
+      setQuery(query: string): BigQueryConfig;
+      setUseStandardSql(useStandardSql: boolean): BigQueryConfig;
+    }
+
+    /**
+     * An enum that defines the BigQuery parameter types that you can set.
+     */
+    export enum BigQueryParameterType { STRING, INT64, BOOL, FLOAT64 }
 
     /**
      * Contains checkbox information for the config. Its properties determine how the checkbox is
@@ -48,15 +78,17 @@ declare namespace GoogleAppsScript {
      *
      *     fields.newMetric()
      *       .setAggregation(aggregationType.AVG)
-     *       .setFieldType(fieldType.CURRENCY_USD);
+     *       .setType(fieldType.CURRENCY_USD);
      */
     export interface CommunityConnector {
       AggregationType: typeof AggregationType;
       AuthType: typeof AuthType;
+      BigQueryParameterType: typeof BigQueryParameterType;
       FieldType: typeof FieldType;
       getConfig(): Config;
       getFields(): Fields;
       newAuthTypeResponse(): GetAuthTypeResponse;
+      newBigQueryConfig(): BigQueryConfig;
       newDebugError(): DebugError;
       newUserError(): UserError;
     }
@@ -73,7 +105,7 @@ declare namespace GoogleAppsScript {
      *       .setHelpText("This connector can connect to multiple data endpoints.");
      */
     export interface Config {
-      build(): Object;
+      build(): Config;
       newCheckbox(): Checkbox;
       newInfo(): Info;
       newOptionBuilder(): OptionBuilder;
@@ -148,7 +180,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enum that defines the types that can be set for a Field.
      */
-    export enum FieldType { YEAR, YEAR_QUARTER, YEAR_MONTH, YEAR_WEEK, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, QUARTER, MONTH, WEEK, MONTH_DAY, DAY_OF_WEEK, DAY, HOUR, MINUTE, DURATION, COUNTRY, COUNTRY_CODE, CONTINENT, CONTINENT_CODE, SUB_CONTINENT, SUB_CONTINENT_CODE, REGION, REGION_CODE, CITY, CITY_CODE, METRO, METRO_CODE, LATITUDE_LONGITUDE, NUMBER, PERCENT, TEXT, BOOLEAN, URL, CURRENCY_AED, CURRENCY_ALL, CURRENCY_ARS, CURRENCY_AUD, CURRENCY_BDT, CURRENCY_BGN, CURRENCY_BOB, CURRENCY_BRL, CURRENCY_CAD, CURRENCY_CDF, CURRENCY_CHF, CURRENCY_CLP, CURRENCY_CNY, CURRENCY_COP, CURRENCY_CRC, CURRENCY_CZK, CURRENCY_DKK, CURRENCY_DOP, CURRENCY_EGP, CURRENCY_ETB, CURRENCY_EUR, CURRENCY_GBP, CURRENCY_HKD, CURRENCY_HRK, CURRENCY_HUF, CURRENCY_IDR, CURRENCY_ILS, CURRENCY_INR, CURRENCY_IRR, CURRENCY_ISK, CURRENCY_JMD, CURRENCY_JPY, CURRENCY_KRW, CURRENCY_LKR, CURRENCY_LTL, CURRENCY_MNT, CURRENCY_MVR, CURRENCY_MXN, CURRENCY_MYR, CURRENCY_NOK, CURRENCY_NZD, CURRENCY_PAB, CURRENCY_PEN, CURRENCY_PHP, CURRENCY_PKR, CURRENCY_PLN, CURRENCY_RON, CURRENCY_RSD, CURRENCY_RUB, CURRENCY_SAR, CURRENCY_SEK, CURRENCY_SGD, CURRENCY_THB, CURRENCY_TRY, CURRENCY_TWD, CURRENCY_TZS, CURRENCY_UAH, CURRENCY_USD, CURRENCY_UYU, CURRENCY_VEF, CURRENCY_VND, CURRENCY_YER, CURRENCY_ZAR }
+    export enum FieldType { YEAR, YEAR_QUARTER, YEAR_MONTH, YEAR_WEEK, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, QUARTER, MONTH, WEEK, MONTH_DAY, DAY_OF_WEEK, DAY, HOUR, MINUTE, DURATION, COUNTRY, COUNTRY_CODE, CONTINENT, CONTINENT_CODE, SUB_CONTINENT, SUB_CONTINENT_CODE, REGION, REGION_CODE, CITY, CITY_CODE, METRO, METRO_CODE, LATITUDE_LONGITUDE, NUMBER, PERCENT, TEXT, BOOLEAN, URL, HYPERLINK, IMAGE, IMAGE_LINK, CURRENCY_AED, CURRENCY_ALL, CURRENCY_ARS, CURRENCY_AUD, CURRENCY_BDT, CURRENCY_BGN, CURRENCY_BOB, CURRENCY_BRL, CURRENCY_CAD, CURRENCY_CDF, CURRENCY_CHF, CURRENCY_CLP, CURRENCY_CNY, CURRENCY_COP, CURRENCY_CRC, CURRENCY_CZK, CURRENCY_DKK, CURRENCY_DOP, CURRENCY_EGP, CURRENCY_ETB, CURRENCY_EUR, CURRENCY_GBP, CURRENCY_HKD, CURRENCY_HRK, CURRENCY_HUF, CURRENCY_IDR, CURRENCY_ILS, CURRENCY_INR, CURRENCY_IRR, CURRENCY_ISK, CURRENCY_JMD, CURRENCY_JPY, CURRENCY_KRW, CURRENCY_LKR, CURRENCY_LTL, CURRENCY_MNT, CURRENCY_MVR, CURRENCY_MXN, CURRENCY_MYR, CURRENCY_NOK, CURRENCY_NZD, CURRENCY_PAB, CURRENCY_PEN, CURRENCY_PHP, CURRENCY_PKR, CURRENCY_PLN, CURRENCY_RON, CURRENCY_RSD, CURRENCY_RUB, CURRENCY_SAR, CURRENCY_SEK, CURRENCY_SGD, CURRENCY_THB, CURRENCY_TRY, CURRENCY_TWD, CURRENCY_TZS, CURRENCY_UAH, CURRENCY_USD, CURRENCY_UYU, CURRENCY_VEF, CURRENCY_VND, CURRENCY_YER, CURRENCY_ZAR }
 
     /**
      * Contains a set of Fields for a community connector. This set of fields define which
@@ -164,7 +196,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Fields {
       asArray(): Field[];
-      build(): Object[];
+      build(): any[];
       forIds(ids: string[]): Fields;
       getDefaultDimension(): Field;
       getDefaultMetric(): Field;
@@ -189,7 +221,7 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface GetAuthTypeResponse {
-      build(): Object;
+      build(): GetAuthTypeResponse;
       printJson(): string;
       setAuthType(authType: AuthType): GetAuthTypeResponse;
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;
@@ -279,7 +311,7 @@ declare namespace GoogleAppsScript {
      *       .setLabel("second option label")
      *       .setValue("option_value_2");
      *
-     *     var info1 = config.newSelectMultiple()
+     *     var info1 = config.newSelectSingle()
      *       .setId("api_endpoint")
      *       .setName("Data Type")
      *       .setHelpText("Select the data type you're interested in.")
@@ -358,6 +390,58 @@ declare namespace GoogleAppsScript {
       throwException(): void;
     }
 
+    /**
+     * function getData(request: GoogleAppsScript.Data_Studio.Request<YourConnectorParams>)
+     * 
+     * See https://developers.google.com/datastudio/connector/reference#getdata
+     */
+    export interface Request<T> {
+      /** An object containing the user provided values for the config parameters defined by the connector. */
+      configParams: T;
+      /** An object containing information relevant to connector execution. */
+      scriptParams: ScriptParams;
+      /**
+       * By default, the date range provided will be the last 28 days excluding today.
+       * If a user applies a date range filter for a report, then the date range provided will reflect the user selection.
+       * When sampleExtraction is set to true, the date two days earlier than today is given as both the start and end date.
+       */
+      dateRange: DateRange;
+      /** The names of the requested fields. */
+      fields: { name: string }[];
+      /**
+       * A nested array of the user selected filters.
+       * The innermost arrays should be ORed together, the outermost arrays should be ANDed together.
+       */
+      dimensionsFilters: DimensionsFilters[][];
+    }
+
+    export interface DateRange {
+      /** The start date for filtering the data. Applies only if dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
+      startDate: string;
+      /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
+      endDate: string;
+    }
+
+    export interface ScriptParams {
+      /** If true, the getData() request is for automatic semantic type detection. */
+      sampleExtraction?: boolean;
+      /** A timestamp that marks the most recent request for a refresh of data. */
+      lastRefresh: string;
+    }
+    
+    type RegexpOperator = "REGEXP_PARTIAL_MATCH" | "REGEXP_EXACT_MATCH";
+    type NumericOperator = "NUMERIC_GREATER_THAN"  |  "NUMERIC_GREATER_THAN_OR_EQUAL" |  "NUMERIC_LESS_THAN"  | "NUMERIC_LESS_THAN_OR_EQUAL";
+      
+    export interface DimensionsFilters {
+      /** The name of the field to be filtered */
+      fieldName: string;
+      /** An array of values to use for the operator. */
+      values: string[];
+      /** Whether data matching this filter should be included or excluded from the getData() response. */
+      type: "INCLUDE" | "EXCLUDE";
+      /** The operator to apply. */
+      operator: "EQUALS" | "CONTAINS" | RegexpOperator | "IN_LIST" | "IS_NULL" | "BETWEEN" | NumericOperator;
+    }
   }
 }
 

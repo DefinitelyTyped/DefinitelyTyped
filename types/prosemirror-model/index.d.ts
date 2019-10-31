@@ -1035,7 +1035,7 @@ export class NodeType<S extends Schema = any> {
    * set of marks.
    */
   create(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1045,7 +1045,7 @@ export class NodeType<S extends Schema = any> {
    * if it doesn't match.
    */
   createChecked(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1058,7 +1058,7 @@ export class NodeType<S extends Schema = any> {
    * `Fragment.empty` as content.
    */
   createAndFill(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S> | null | undefined;
@@ -1245,6 +1245,10 @@ export interface NodeSpec {
    * to a string representation for debugging (e.g. in error messages).
    */
   toDebugString?: ((node: ProsemirrorNode) => string) | null;
+  /**
+   * Allow specifying arbitrary fields on a NodeSpec.
+   */
+  [key: string]: any;
 }
 export interface MarkSpec {
   /**
@@ -1293,6 +1297,10 @@ export interface MarkSpec {
    * `mark` field in the rules is implied.
    */
   parseDOM?: ParseRule[] | null;
+  /**
+   * Allow specifying arbitrary fields on a MarkSpec.
+   */
+  [key: string]: any;
 }
 /**
  * Used to [define](#model.NodeSpec.attrs) attributes on nodes or

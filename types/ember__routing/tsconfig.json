@@ -44,6 +44,7 @@
         "router.d.ts",
         "types.d.ts",
         "-private/router-dsl.d.ts",
+        "-private/route-info.d.ts",
         "-private/transition.d.ts",
         "test/lib/assert.ts",
         "test/route.ts",

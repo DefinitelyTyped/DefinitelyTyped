@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -105,6 +105,20 @@ declare namespace GoogleAppsScript {
       setValueByName(name: string, value: string): ListItem;
     }
 
+    export type PageAdvancedParameters = {
+      /** only get pages of this type */
+      type?: PageType[]
+      /** start the results here */
+      start?: Integer
+      /** the max number of results (default 200) */
+      max?: Integer
+      /** whether to include draft pages (default false) */
+      includeDrafts?: boolean
+      /** whether to include deleted pages (default false) */
+      includeDeleted?: boolean
+      /** only return pages matching this query */
+      search?: string
+    }
     /**
      * A Page on a Google Site.
      * A rebuilt
@@ -127,15 +141,15 @@ declare namespace GoogleAppsScript {
       createWebPage(title: string, name: string, html: string): Page;
       deletePage(): void;
       getAllDescendants(): Page[];
-      getAllDescendants(options: Object): Page[];
+      getAllDescendants(options: PageAdvancedParameters): Page[];
       getAnnouncements(): Page[];
-      getAnnouncements(optOptions: Object): Page[];
+      getAnnouncements(optOptions: PageAdvancedParameters): Page[];
       getAttachments(): Attachment[];
-      getAttachments(optOptions: Object): Attachment[];
+      getAttachments(optOptions: { start?: Integer; max?: Integer}): Attachment[];
       getAuthors(): string[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
-      getChildren(options: Object): Page[];
+      getChildren(options: PageAdvancedParameters): Page[];
       getColumns(): Column[];
       getDatePublished(): Date;
       getHtmlContent(): string;
@@ -143,7 +157,7 @@ declare namespace GoogleAppsScript {
       getLastEdited(): Date;
       getLastUpdated(): Date;
       getListItems(): ListItem[];
-      getListItems(optOptions: Object): ListItem[];
+      getListItems(optOptions: { start?: Integer; max?: Integer}): ListItem[];
       getName(): string;
       getPageType(): PageType;
       getParent(): Page;
@@ -154,16 +168,21 @@ declare namespace GoogleAppsScript {
       isTemplate(): boolean;
       publishAsTemplate(name: string): Page;
       search(query: string): Page[];
-      search(query: string, options: Object): Page[];
+      search(query: string, options: PageAdvancedParameters): Page[];
       setHtmlContent(html: string): Page;
       setIsDraft(draft: boolean): Page;
       setName(name: string): Page;
       setParent(parent: Page): Page;
       setTitle(title: string): Page;
+      /** @deprecated DO NOT USE */
       addComment(content: string): Comment;
+      /** @deprecated DO NOT USE */
       getComments(): Comment[];
-      getComments(optOptions: Object): Comment[];
+      /** @deprecated DO NOT USE */
+      getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
+      /** @deprecated DO NOT USE */
       getPageName(): string;
+      /** @deprecated DO NOT USE */
       getSelfLink(): string;
     }
 
@@ -198,10 +217,10 @@ declare namespace GoogleAppsScript {
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       getAllDescendants(): Page[];
-      getAllDescendants(options: Object): Page[];
+      getAllDescendants(options: PageAdvancedParameters): Page[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
-      getChildren(options: Object): Page[];
+      getChildren(options: PageAdvancedParameters): Page[];
       getEditors(): Base.User[];
       getName(): string;
       getOwners(): Base.User[];
@@ -218,30 +237,51 @@ declare namespace GoogleAppsScript {
       removeViewer(emailAddress: string): Site;
       removeViewer(user: Base.User): Site;
       search(query: string): Page[];
-      search(query: string, options: Object): Page[];
+      search(query: string, options: PageAdvancedParameters): Page[];
       setSummary(summary: string): Site;
       setTheme(theme: string): Site;
       setTitle(title: string): Site;
+      /** @deprecated DO NOT USE */
       addCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */
       addCollaborator(user: Base.User): Site;
+      /** @deprecated DO NOT USE */
       createAnnouncement(title: string, html: string, parent: Page): Page;
+      /** @deprecated DO NOT USE */
       createComment(inReplyTo: string, html: string, parent: Page): Comment;
+      /** @deprecated DO NOT USE */
       createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
+      /** @deprecated DO NOT USE */
       createWebAttachment(title: string, url: string, parent: Page): Attachment;
+      /** @deprecated DO NOT USE */
       deleteSite(): void;
+      /** @deprecated DO NOT USE */
       getAnnouncements(): Page[];
+      /** @deprecated DO NOT USE */
       getAnnouncementsPages(): Page[];
+      /** @deprecated DO NOT USE */
       getAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */
       getCollaborators(): Base.User[];
+      /** @deprecated DO NOT USE */
       getComments(): Comment[];
+      /** @deprecated DO NOT USE */
       getFileCabinetPages(): Page[];
+      /** @deprecated DO NOT USE */
       getListItems(): ListItem[];
+      /** @deprecated DO NOT USE */
       getListPages(): Page[];
+      /** @deprecated DO NOT USE */
       getSelfLink(): string;
+      /** @deprecated DO NOT USE */
       getSiteName(): string;
+      /** @deprecated DO NOT USE */
       getWebAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */
       getWebPages(): Page[];
+      /** @deprecated DO NOT USE */
       removeCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */
       removeCollaborator(user: Base.User): Site;
     }
 

@@ -1,14 +1,17 @@
-// Type definitions for prosemirror-tables 0.1
+// Type definitions for prosemirror-tables 0.8
 // Project: https://github.com/ProseMirror/prosemirror-tables
 // Definitions by: Oscar Wallhult <https://github.com/superchu>
 //                 Eduard Shvedai <https://github.com/eshvedai>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
 import { EditorState, Plugin, SelectionRange, Transaction, PluginKey } from 'prosemirror-state';
 import { Node as ProsemirrorNode, NodeSpec, Slice, ResolvedPos, Schema } from 'prosemirror-model';
 import { NodeView } from 'prosemirror-view';
+
+export interface TableEditingOptions {
+  allowTableNodeSelection?: boolean;
+}
 
 export interface TableNodesOptions {
   tableGroup?: string;
@@ -109,7 +112,7 @@ export class TableMap {
   static get(table: ProsemirrorNode): TableMap;
 }
 
-export function tableEditing(): Plugin;
+export function tableEditing(options?: TableEditingOptions): Plugin;
 
 export function deleteTable<S extends Schema = any>(
   state: EditorState<S>,
@@ -134,6 +137,18 @@ export function toggleHeaderRow<S extends Schema = any>(
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void
 ): boolean;
+
+/**
+ * Toggles between row/column header and normal cells (Only applies to first row/column).
+ * For deprecated behavior pass useDeprecatedLogic in options with true.
+ */
+export function toggleHeader<S extends Schema = any>(
+  type: 'column' | 'row',
+  options?: { useDeprecatedLogic?: boolean }
+): (
+  state: EditorState<S>,
+  dispatch?: (tr: Transaction<S>) => void
+) => boolean;
 
 export function setCellAttr<S extends Schema = any>(
   name: string,

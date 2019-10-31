@@ -1,15 +1,17 @@
-// Type definitions for jsPDF 1.2
+// Type definitions for jsPDF 1.3
 // Project: https://github.com/MrRio/jsPDF
 // Definitions by: Amber Schühmacher <https://github.com/amberjs>
 //                 Kevin Gonnord <https://github.com/lleios>
 //                 Jackie Weng <https://github.com/jemerald>
+//                 Frank Brullo <https://github.com/frankbrullo>
+//                 Leon Montealegre <https://github.com/leonmontealegre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'jspdf' {
     class jsPDF {
         constructor(orientation?:any,
                     unit?:string,
-                    format?:string,
+                    format?:string|Array<Number>,
                     compressPdf?:number);
 
         CapJoinStyles:any;
@@ -76,7 +78,8 @@ declare module 'jspdf' {
         setLineCap(style:string|number):jsPDF;
         setLineJoin(style:string|number):jsPDF;
         output(type?:string, options?:any):any;
-        save(filename:string):jsPDF;
+        save(filename:string): void;
+        save(filename:string, options: {returnPromise: boolean}): Promise<any>;
 
         /**
          * jsPDF plugins below:
@@ -184,7 +187,7 @@ declare module 'jspdf' {
             stroke():void;
             fill():void;
             translate(x:number, y:number):void;
-            measureText(text:string):number;
+            measureText(text:string):{ width: number };
         };
 
         // jsPDF plugin: fromHTML

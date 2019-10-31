@@ -1,8 +1,9 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "semicolon": [
-      false
-    ]
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "semicolon": [
+            false
+        ],
+        "npm-naming": false
+    }
 }

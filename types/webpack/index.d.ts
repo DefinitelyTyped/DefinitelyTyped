@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.4
+// Type definitions for webpack 4.39
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -16,33 +16,59 @@
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Grgur Grisogono <https://github.com/grgur>
+//                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
+//                 Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
-import { Tapable, HookMap,
-         SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
-         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
+import {
+  Tapable,
+  HookMap,
+  SyncBailHook,
+  SyncHook,
+  SyncLoopHook,
+  SyncWaterfallHook,
+  AsyncParallelBailHook,
+  AsyncParallelHook,
+  AsyncSeriesBailHook,
+  AsyncSeriesHook,
+  AsyncSeriesWaterfallHook,
+} from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
+import { ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
 declare function webpack(
-    options: webpack.Configuration,
-    handler: webpack.Compiler.Handler
+    options:
+        | webpack.Configuration
+        | ((
+              env: string | Record<string, boolean | number | string>,
+              args: Record<string, string>,
+          ) => webpack.Configuration | Promise<webpack.Configuration>),
+    handler: webpack.Compiler.Handler,
 ): webpack.Compiler.Watching | webpack.Compiler;
 declare function webpack(options?: webpack.Configuration): webpack.Compiler;
 
 declare function webpack(
-    options: webpack.Configuration[],
+    options:
+        | webpack.Configuration[]
+        | ((
+              env: string | Record<string, boolean | number | string>,
+              args: Record<string, string>,
+          ) => webpack.Configuration[] | Promise<webpack.Configuration[]>),
     handler: webpack.MultiCompiler.Handler
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
 
 declare namespace webpack {
+    /** Webpack package version. */
+    const version: string | undefined;
+
     interface Configuration {
         /** Enable production optimizations or development hints. */
         mode?: "development" | "production" | "none";
@@ -138,7 +164,7 @@ declare namespace webpack {
         /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
         auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
-        filename?: string;
+        filename?: string | ((chunkData: ChunkData) => string);
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
         /** Number of milliseconds before chunk request expires, defaults to 120,000. */
@@ -169,7 +195,7 @@ declare namespace webpack {
         /** The filename of the Hot Update Main File. It is inside the output.path directory. */
         hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string | string[];
+        library?: string | string[] | {[key: string]: string};
         /**
          * Which format to export the library:
          * - "var" - Export by setting a variable: var Library = xxx (default)
@@ -207,11 +233,21 @@ declare namespace webpack {
         hashSalt?: string;
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
+        /**
+         * Use the future version of asset emitting logic, which allows freeing memory of assets after emitting.
+         * It could break plugins which assume that assets are still readable after they were emitted.
+         * @deprecated - will be removed in webpack v5.0.0 and this behaviour will become the new default.
+         */
+        futureEmitAssets?: boolean;
     }
 
     type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
+
+    interface ChunkData {
+        chunk: compilation.Chunk;
+    }
 
     interface Module {
         /** A array of applied pre loaders. */
@@ -657,6 +693,10 @@ declare namespace webpack {
             namedModules?: boolean;
             /** Instead of numeric ids, give chunks readable names for better debugging. */
             namedChunks?: boolean;
+            /** Tells webpack which algorithm to use when choosing module ids. Default false. */
+            moduleIds?: boolean | "natural" | "named" | "hashed" | "size" | "total-size";
+            /** Tells webpack which algorithm to use when choosing chunk ids. Default false. */
+            chunkIds?: boolean | "natural" | "named" | "size" | "total-size";
             /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
             nodeEnv?: string | false;
             /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
@@ -666,6 +706,26 @@ declare namespace webpack {
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
         }
+    }
+
+    /**
+     * @see https://webpack.js.org/api/logging/
+     * @since 4.39.0
+     */
+    interface Logger {
+        error(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        group(...label: any[]): void;
+        groupEnd(): void;
+        groupCollapsed(...label: any[]): void;
+        status(message?: any, ...optionalParams: any[]): void;
+        clear(): void;
+        profile(label?: string): void;
+        profileEnd(label?: string): void;
     }
 
     namespace debug {
@@ -688,6 +748,7 @@ declare namespace webpack {
             constructor(options?: ProfilingPluginOptions);
         }
     }
+
     namespace compilation {
         class Asset {
         }
@@ -907,7 +968,14 @@ declare namespace webpack {
             dependencies: boolean;
         }
 
-        class MainTemplate extends Tapable {}
+        class MainTemplate extends Tapable {
+          hooks: {
+            jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+          };
+          outputOptions: Output;
+          requireFn: string;
+        }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
         class RuntimeTemplate {}
@@ -945,6 +1013,10 @@ declare namespace webpack {
                 javascript: ModuleTemplate;
                 webassembly: ModuleTemplate;
             };
+
+            isChild(): boolean;
+            context: string;
+            outputPath: string;
 
             entries: any[];
             _preparedEntrypoints: any[];
@@ -984,6 +1056,7 @@ declare namespace webpack {
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
             applyPlugins(name: string, ...args: any[]): void;
+            getLogger(pluginName: string): Logger;
         }
 
         interface CompilerHooks {
@@ -1011,6 +1084,19 @@ declare namespace webpack {
             afterPlugins: SyncHook<Compiler>;
             afterResolvers: SyncHook<Compiler>;
             entryOption: SyncBailHook;
+        }
+
+        interface MultiStats {
+            stats: Stats[];
+            hash: string;
+        }
+
+        interface MultiCompilerHooks {
+            done: SyncHook<MultiStats>;
+            invalid: SyncHook<string, Date>;
+            run: AsyncSeriesHook<Compiler>;
+            watchClose: SyncHook;
+            watchRun: AsyncSeriesHook<Compiler>;
         }
     }
     // tslint:disable-next-line:interface-name
@@ -1078,6 +1164,9 @@ declare namespace webpack {
         _pluginCompat: SyncBailHook<compilation.Compilation>;
 
         name: string;
+        isChild(): boolean;
+        context: string;
+        outputPath: string;
         options: Configuration;
         inputFileSystem: InputFileSystem;
         outputFileSystem: OutputFileSystem;
@@ -1085,6 +1174,7 @@ declare namespace webpack {
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
+        getInfrastructureLogger(name: string): Logger;
     }
 
     namespace Compiler {
@@ -1106,6 +1196,7 @@ declare namespace webpack {
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
         compilers: Compiler[];
+        hooks: compilation.MultiCompilerHooks;
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -1131,14 +1222,19 @@ declare namespace webpack {
     abstract class Stats {
         compilation: compilation.Compilation;
         hash?: string;
-        startTime?: Date;
-        endTime?: Date;
+        startTime?: number;
+        endTime?: number;
+        /**
+         * Returns the default json options from the stats preset.
+         * @param preset The preset to be transformed into json options.
+         */
+        static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
         hasWarnings(): boolean;
         /** Returns compilation information as a JSON object. */
-        toJson(options?: Stats.ToJsonOptions): any;
+        toJson(options?: Stats.ToJsonOptions, forToString?: boolean): Stats.ToJsonOutput;
         /** Returns a formatted string of the compilation information (similar to CLI output). */
         toString(options?: Stats.ToStringOptions): string;
     }
@@ -1147,6 +1243,7 @@ declare namespace webpack {
         type Preset
             = boolean
             | 'errors-only'
+            | 'errors-warnings'
             | 'minimal'
             | 'none'
             | 'normal'
@@ -1226,6 +1323,163 @@ declare namespace webpack {
         }
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        interface ChunkGroup {
+            assets: string[];
+            chunks: Array<number | string>;
+            children: Record<string, {
+                assets: string[];
+                chunks: Array<number | string>;
+                name: string;
+            }>;
+            childAssets: Record<string, string[]>;
+            isOverSizeLimit?: boolean;
+        }
+
+        type ReasonType
+            = 'amd define'
+            | 'amd require array'
+            | 'amd require context'
+            | 'amd require'
+            | 'cjs require context'
+            | 'cjs require'
+            | 'context element'
+            | 'delegated exports'
+            | 'delegated source'
+            | 'dll entry'
+            | 'accepted harmony modules'
+            | 'harmony accept'
+            | 'harmony export expression'
+            | 'harmony export header'
+            | 'harmony export imported specifier'
+            | 'harmony export specifier'
+            | 'harmony import specifier'
+            | 'harmony side effect evaluation'
+            | 'harmony init'
+            | 'import() context development'
+            | 'import() context production'
+            | 'import() eager'
+            | 'import() weak'
+            | 'import()'
+            | 'json exports'
+            | 'loader'
+            | 'module.hot.accept'
+            | 'module.hot.decline'
+            | 'multi entry'
+            | 'null'
+            | 'prefetch'
+            | 'require.context'
+            | 'require.ensure'
+            | 'require.ensure item'
+            | 'require.include'
+            | 'require.resolve'
+            | 'single entry'
+            | 'wasm export import'
+            | 'wasm import';
+
+        interface Reason {
+            moduleId: number | string | null;
+            moduleIdentifier: string | null;
+            module: string | null;
+            moduleName: string | null;
+            type: ReasonType;
+            explanation?: string;
+            userRequest: string;
+            loc: string;
+        }
+
+        interface FnModules {
+            assets?: string[];
+            built: boolean;
+            cacheable: boolean;
+            chunks: Array<number | string>;
+            depth?: number;
+            errors: number;
+            failed: boolean;
+            filteredModules?: boolean;
+            id: number | string;
+            identifier: string;
+            index: number;
+            index2: number;
+            issuer: string | undefined;
+            issuerId: number | string | undefined;
+            issuerName: string | undefined;
+            issuerPath: Array<{
+                id: number | string;
+                identifier: string;
+                name: string;
+                profile: any; // TODO
+            }>;
+            modules: FnModules[];
+            name: string;
+            optimizationBailout?: string;
+            optional: boolean;
+            prefetched: boolean;
+            profile: any; // TODO
+            providedExports?: any; // TODO
+            reasons: Reason[];
+            size: number;
+            source?: string;
+            usedExports?: boolean;
+            warnings: number;
+        }
+
+        interface ToJsonOutput {
+            _showErrors: boolean;
+            _showWarnings: boolean;
+            assets?: Array<{
+                chunks: Array<number | string>;
+                chunkNames: string[];
+                emitted: boolean;
+                isOverSizeLimit?: boolean;
+                name: string;
+                size: number;
+            }>;
+            assetsByChunkName?: Record<string, Record<string, string[]>>;
+            builtAt?: number;
+            children?: Array<ToJsonOutput & { name?: string }>;
+            chunks?: Array<{
+                children: number[];
+                childrenByOrder: Record<string, number[]>;
+                entry: boolean;
+                files: string[];
+                filteredModules?: number;
+                hash?: string;
+                id: number | string;
+                initial: boolean;
+                modules?: FnModules[];
+                names: string[];
+                origins?: Array<{
+                    moduleId?: string | number;
+                    module: string;
+                    moduleIdentifier: string;
+                    moduleName: string;
+                    loc: string;
+                    request: string;
+                    reasons: string[];
+                }>;
+                parents: number[];
+                reason?: string;
+                recorded?: boolean;
+                rendered: boolean;
+                size: number;
+                siblings: number[];
+            }>;
+            entrypoints?: Record<string, ChunkGroup>;
+            errors: string[];
+            env?: Record<string, any>;
+            filteredAssets?: number;
+            filteredModules?: boolean;
+            hash?: string;
+            modules?: FnModules[];
+            namedChunkGroups?: Record<string, ChunkGroup>;
+            needAdditionalPass?: boolean;
+            outputPath?: string;
+            publicPath?: string;
+            time?: number;
+            version?: string;
+            warnings: string[];
+        }
 
         type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
 
@@ -1445,6 +1699,7 @@ declare namespace webpack {
             module?: boolean;
             moduleFilenameTemplate?: string;
             noSources?: boolean;
+            publicPath?: string;
             sourceRoot?: null | string;
             test?: Condition | Condition[];
         }
@@ -1628,8 +1883,9 @@ declare namespace webpack {
             cacheable(flag?: boolean): void;
 
             /**
-             * loaders = [{request: string, path: string, query: string, module: function}]
              * An array of all the loaders. It is writeable in the pitch phase.
+             * loaders = [{request: string, path: string, query: string, module: function}]
+             *
              * In the example:
              * [
              *   { request: "/abc/loader1.js?xyz",
@@ -1783,6 +2039,11 @@ declare namespace webpack {
             fs: any;
 
             /**
+             * Which mode is webpack running.
+             */
+            mode: 'production' | 'development' | 'none';
+
+            /**
              * Hacky access to the Compilation object of webpack.
              */
             _compilation: any;
@@ -1800,6 +2061,38 @@ declare namespace webpack {
             /** Flag if HMR is enabled */
             hot: boolean;
         }
+    }
+
+    namespace Template {
+        function getFunctionContent(fn: (...args: any[]) => any): string;
+
+        function toIdentifier(str: string): string;
+
+        function toComment(str: string): string;
+
+        function toNormalComment(str: string): string;
+
+        function toPath(str: string): string;
+
+        function numberToIdentifer(n: number): string;
+
+        function indent(s: string | string[]): string;
+
+        function prefix(s: string | string[], prefix: string): string;
+
+        function asString(str: string | string[]): string;
+
+        function getModulesArrayBounds(modules: ReadonlyArray<{
+            id: string | number;
+        }>): [number, number] | false;
+
+        function renderChunkModules(
+            chunk: compilation.Chunk,
+            filterFn: (module: compilation.Module, num: number) => boolean,
+            moduleTemplate: compilation.ModuleTemplate,
+            dependencyTemplates: any,
+            prefix?: string,
+        ): ConcatSource;
     }
 
     /** @deprecated */

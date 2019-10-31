@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.11
+// Type definitions for luxon 1.15
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -6,6 +6,8 @@
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Jason Yu <https://github.com/ycmjason>
+//                 Miklos Danka <https://github.com/mdanka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,20 +22,20 @@ export interface ZoneOptions {
 }
 
 export type ToRelativeUnit =
-    | "year"
-    | "quarter"
-    | "month"
-    | "week"
-    | "day"
-    | "hour"
-    | "minute"
-    | "second";
+    | 'years'
+    | 'quarters'
+    | 'months'
+    | 'weeks'
+    | 'days'
+    | 'hours'
+    | 'minutes'
+    | 'seconds';
 
 export interface ToRelativeOptions {
     /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
     base?: DateTime;
     locale?: string;
-    style?: "long" | "short" | "narrow";
+    style?: StringUnitLength;
     /** If omitted, the method will pick the unit. */
     unit?: ToRelativeUnit;
     /** Defaults to `true`. */
@@ -45,7 +47,7 @@ export interface ToRelativeOptions {
      */
     padding?: number;
     /** The Intl system may choose not to honor this */
-    numberingSystem?: string;
+    numberingSystem?: NumberingSystem;
 }
 
 export interface ToRelativeCalendarOptions {
@@ -55,7 +57,7 @@ export interface ToRelativeCalendarOptions {
     /** If omitted, the method will pick the unit. */
     unit?: ToRelativeUnit;
     /** The Intl system may choose not to honor this. */
-    numberingSystem?: string;
+    numberingSystem?: NumberingSystem;
 }
 
 export interface ToSQLOptions {
@@ -74,8 +76,8 @@ export type ISOTimeOptions = ToISOTimeOptions;
 
 export interface LocaleOptions {
     locale?: string;
-    outputCalendar?: string;
-    numberingSystem?: string;
+    outputCalendar?: CalendarSystem;
+    numberingSystem?: NumberingSystem;
 }
 
 export interface DateTimeOptions extends LocaleOptions {
@@ -105,8 +107,10 @@ export interface DateObject extends DateObjectUnits, LocaleOptions {
     zone?: string | Zone;
 }
 
+export type ConversionAccuracy = 'casual' | 'longterm';
+
 export interface DiffOptions {
-    conversionAccuracy?: string;
+    conversionAccuracy?: ConversionAccuracy;
 }
 
 export interface ExplainedFormat {
@@ -149,31 +153,19 @@ export class DateTime {
     static fromRFC2822(text: string, options?: DateTimeOptions): DateTime;
     static fromSeconds(seconds: number, options?: DateTimeOptions): DateTime;
     static fromSQL(text: string, options?: DateTimeOptions): DateTime;
-    static fromFormat(
-        text: string,
-        format: string,
-        opts?: DateTimeOptions
-    ): DateTime;
-    static fromFormatExplain(
-        text: string,
-        format: string,
-        opts?: DateTimeOptions
-    ): ExplainedFormat;
+    static fromFormat(text: string, format: string, opts?: DateTimeOptions): DateTime;
+    static fromFormatExplain(text: string, format: string, opts?: DateTimeOptions): ExplainedFormat;
     /**
      * @deprecated since 0.3.0. Use fromFormat instead
      */
-    static fromString(
-        text: string,
-        format: string,
-        options?: DateTimeOptions
-    ): DateTime;
+    static fromString(text: string, format: string, options?: DateTimeOptions): DateTime;
     /**
      * @deprecated 0.3.0. Use fromFormatExplain instead
      */
     static fromStringExplain(
         text: string,
         format: string,
-        options?: DateTimeOptions
+        options?: DateTimeOptions,
     ): ExplainedFormat;
     static invalid(reason: any): DateTime;
     static isDateTime(o: any): o is DateTime;
@@ -184,7 +176,7 @@ export class DateTime {
         hour?: number,
         minute?: number,
         second?: number,
-        millisecond?: number
+        millisecond?: number,
     ): DateTime;
     static max(): undefined;
     static max(...dateTimes: DateTime[]): DateTime;
@@ -197,7 +189,7 @@ export class DateTime {
         hour?: number,
         minute?: number,
         second?: number,
-        millisecond?: number
+        millisecond?: number,
     ): DateTime;
     day: number;
     daysInMonth: number;
@@ -232,15 +224,8 @@ export class DateTime {
     year: number;
     zoneName: string;
     zone: Zone;
-    diff(
-        other: DateTime,
-        unit?: DurationUnit | DurationUnit[],
-        options?: DiffOptions
-    ): Duration;
-    diffNow(
-        unit?: DurationUnit | DurationUnit[],
-        options?: DiffOptions
-    ): Duration;
+    diff(other: DateTime, unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+    diffNow(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
     endOf(unit: DurationUnit): DateTime;
     equals(other: DateTime): boolean;
     get(unit: keyof DateTime): number;
@@ -248,9 +233,7 @@ export class DateTime {
     minus(duration: Duration | number | DurationObject): DateTime;
     plus(duration: Duration | number | DurationObject): DateTime;
     reconfigure(properties: LocaleOptions): DateTime;
-    resolvedLocaleOpts(
-        options?: DateTimeFormatOptions
-    ): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOpts(options?: DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
     set(values: DateObjectUnits): DateTime;
     setLocale(locale: string): DateTime;
     setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
@@ -284,8 +267,8 @@ export class DateTime {
 
 export interface DurationOptions {
     locale?: string;
-    numberingSystem?: string;
-    conversionAccuracy?: string;
+    numberingSystem?: NumberingSystem;
+    conversionAccuracy?: ConversionAccuracy;
 }
 
 export interface DurationObjectUnits {
@@ -356,15 +339,68 @@ export class Duration {
     valueOf(): number;
 }
 
-export type EraLength = "short" | "long";
-export type UnitLength = EraLength | "numeric" | "2-digit" | "narrow";
-export interface UnitOptions extends InfoOptions {
-    numberingSystem?: string;
-    outputCalendar?: string;
-}
+// @deprecated
+export type EraLength = StringUnitLength;
+
+export type NumberingSystem =
+    | 'arab'
+    | 'arabext'
+    | 'bali'
+    | 'beng'
+    | 'deva'
+    | 'fullwide'
+    | 'gujr'
+    | 'guru'
+    | 'hanidec'
+    | 'khmr'
+    | 'knda'
+    | 'laoo'
+    | 'latn'
+    | 'limb'
+    | 'mlym'
+    | 'mong'
+    | 'mymr'
+    | 'orya'
+    | 'tamldec'
+    | 'telu'
+    | 'thai'
+    | 'tibt';
+
+export type CalendarSystem =
+    | 'buddhist'
+    | 'chinese'
+    | 'coptic'
+    | 'ethioaa'
+    | 'ethiopic'
+    | 'gregory'
+    | 'hebrew'
+    | 'indian'
+    | 'islamic'
+    | 'islamicc'
+    | 'iso8601'
+    | 'japanese'
+    | 'persian'
+    | 'roc';
+
+export type HourCycle = 'h11' | 'h12' | 'h23' | 'h24';
+
+export type StringUnitLength = 'narrow' | 'short' | 'long';
+export type NumberUnitLength = 'numeric' | '2-digit';
+export type UnitLength = StringUnitLength | NumberUnitLength;
 
 export interface InfoOptions {
     locale?: string;
+}
+
+export interface InfoUnitOptions extends InfoOptions {
+    numberingSystem?: NumberingSystem;
+}
+
+// @deprecated
+export type UnitOptions = InfoUnitOptions;
+
+export interface InfoCalendarOptions extends InfoUnitOptions {
+    outputCalendar?: CalendarSystem;
 }
 
 export interface Features {
@@ -374,19 +410,16 @@ export interface Features {
 }
 
 export namespace Info {
-    function eras(length?: EraLength, options?: InfoOptions): string[];
+    function eras(length?: StringUnitLength, options?: InfoOptions): string[];
     function features(): Features;
     function hasDST(zone: string | Zone): boolean;
     function isValidIANAZone(zone: string): boolean;
     function normalizeZone(input?: number | string | Zone): Zone;
     function meridiems(options?: InfoOptions): string[];
-    function months(length?: UnitLength, options?: UnitOptions): string[];
-    function monthsFormat(length?: UnitLength, options?: UnitOptions): string[];
-    function weekdays(length?: UnitLength, options?: UnitOptions): string[];
-    function weekdaysFormat(
-        length?: UnitLength,
-        options?: UnitOptions
-    ): string[];
+    function months(length?: UnitLength, options?: InfoCalendarOptions): string[];
+    function monthsFormat(length?: UnitLength, options?: InfoCalendarOptions): string[];
+    function weekdays(length?: StringUnitLength, options?: InfoUnitOptions): string[];
+    function weekdaysFormat(length?: StringUnitLength, options?: InfoUnitOptions): string[];
 }
 
 export interface IntervalObject {
@@ -397,15 +430,15 @@ export interface IntervalObject {
 export class Interval {
     static after(
         start: DateTime | DateObject | Date,
-        duration: Duration | number | DurationObject
+        duration: Duration | number | DurationObject,
     ): Interval;
     static before(
         end: DateTime | DateObject | Date,
-        duration: Duration | number | DurationObject
+        duration: Duration | number | DurationObject,
     ): Interval;
     static fromDateTimes(
         start: DateTime | DateObject | Date,
-        end: DateTime | DateObject | Date
+        end: DateTime | DateObject | Date,
     ): Interval;
     static fromISO(string: string, options?: DateTimeOptions): Interval;
     static invalid(reason?: string): Interval;
@@ -435,15 +468,12 @@ export class Interval {
     set(values: IntervalObject): Interval;
     splitAt(...dateTimes: DateTime[]): Interval[];
     splitBy(duration: Duration | DurationObject | number): Interval[];
-    toDuration(
-        unit?: DurationUnit | DurationUnit[],
-        options?: DiffOptions
-    ): Duration;
+    toDuration(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
     toFormat(
         dateFormat: string,
         options?: {
             separator?: string;
-        }
+        },
     ): string;
     toISO(options?: ToISOTimeOptions): string;
     toString(): string;
@@ -463,12 +493,15 @@ export namespace Settings {
 }
 
 export interface ZoneOffsetOptions {
-    format?: "short" | "long";
-    localeCode?: string;
+    format?: 'short' | 'long';
+    locale?: string;
 }
 
+export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+
 export class Zone {
-    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    offsetName(ts: number, options: ZoneOffsetOptions): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string;
     isValid: boolean;
     name: string;
     type: string;
@@ -479,4 +512,18 @@ export class Zone {
 
 export class IANAZone extends Zone {
     constructor(ianaString: string);
+    static create(name: string): IANAZone;
+    static isValidSpecifier(s: string): boolean;
+    static isValidZone(zone: string): boolean;
+    static resetCache(): void;
 }
+
+export class FixedOffsetZone extends Zone {
+    static utcInstance: string;
+    static instance(offset: number): FixedOffsetZone;
+    static parseSpecifier(s: string): FixedOffsetZone;
+}
+
+export class InvalidZone extends Zone { }
+
+export class LocalZone extends Zone { }

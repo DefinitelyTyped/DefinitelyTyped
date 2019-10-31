@@ -4,7 +4,8 @@ import { promisify } from 'util';
 
 {
     // crypto_hash_string_test
-    const hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');
 }
 
 {
@@ -337,6 +338,21 @@ import { promisify } from 'util';
         },
     });
 
+    const rsaResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -355,6 +371,22 @@ import { promisify } from 'util';
         },
     });
 
+    const dsaResNoPassphrase: {
+        publicKey: string;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('dsa', {
+        modulusLength: 123,
+        divisorLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
     const ecRes: {
         publicKey: string;
         privateKey: string;
@@ -368,6 +400,21 @@ import { promisify } from 'util';
             cipher: 'some-cipher',
             format: 'pem',
             passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const ecResNoPassphrase: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('ec', {
+        namedCurve: 'curve',
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
             type: 'pkcs8',
         },
     });
@@ -487,6 +534,42 @@ import { promisify } from 'util';
 }
 
 {
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
+        namedCurve: 'sect239k1'
+    });
+
+    const sign: crypto.Signer = crypto.createSign('SHA256');
+    sign.write('some data to sign');
+    sign.end();
+    const signature: string = sign.sign(privateKey, 'hex');
+
+    const verify: crypto.Verify = crypto.createVerify('SHA256');
+    verify.write('some data to sign');
+    verify.end();
+    verify.verify(publicKey, signature);    // $ExpectType boolean
+
+    // ensure that instanceof works
+    verify instanceof crypto.Verify;
+    sign instanceof crypto.Signer;
+}
+
+{
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 2048,
+    });
+
+    const sign: crypto.Signer = crypto.createSign('SHA256');
+    sign.update('some data to sign');
+    sign.end();
+    const signature: Buffer = sign.sign(privateKey);
+
+    const verify: crypto.Verify = crypto.createVerify('SHA256');
+    verify.update('some data to sign');
+    verify.end();
+    verify.verify(publicKey, signature);    // $ExpectType boolean
+}
+
+{
     // crypto_constants_test
     let num: number;
     let str: string;
@@ -557,4 +640,22 @@ import { promisify } from 'util';
 
     str = crypto.constants.defaultCoreCipherList;
     str = crypto.constants.defaultCipherList;
+}
+
+{
+    const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
+}
+
+{
+    const key = {
+        key: 'test',
+        oaepHash: 'sha1',
+        oaepLabel: Buffer.from('asd'),
+    };
+    const buf: Buffer = crypto.publicEncrypt(key, Buffer.from([]));
+    const dec: Buffer = crypto.publicDecrypt(key, buf);
+
+    const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
+    const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }

@@ -1,29 +1,39 @@
 import * as React from "react";
 import {
-    ViewState,
     InteractiveMap,
     CanvasOverlay,
     SVGOverlay,
     HTMLOverlay,
+    FullscreenControl,
+    GeolocateControl,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
     SVGRedrawOptions,
-    StaticMap
+    StaticMap,
+    ViewportProps
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
 
 interface State {
-    viewState: ViewState;
+    viewport: ViewportProps;
 }
 
 class MyMap extends React.Component<{}, State> {
     readonly state: State = {
-        viewState: {
+        viewport: {
+            width: 400,
+            height: 400,
             bearing: 0,
             latitude: 0,
             longitude: 0,
             zoom: 3,
-        }
+            pitch: 0,
+            altitude: 1.5,
+            maxZoom: 20,
+            minZoom: 0,
+            maxPitch: 60,
+            minPitch: 0,
+        },
     };
     private map: MapboxGL.Map;
 
@@ -31,12 +41,14 @@ class MyMap extends React.Component<{}, State> {
         return (
             <div>
                 <InteractiveMap
-                    {...this.state.viewState}
+                    {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
-                    height={400}
-                    width={400}
                     ref={this.setRefInteractive}
+                    onViewportChange={viewport => this.setState({ viewport })}
+                    onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
+                    <FullscreenControl className="test-class" container={document.querySelector('body')} />
+                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
                     <CanvasOverlay
                         redraw={opts => {
                             const {
@@ -98,7 +110,7 @@ class MyMap extends React.Component<{}, State> {
                     />
                 </InteractiveMap>
                 <StaticMap
-                    {...this.state.viewState}
+                    {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
                     height={400}
                     width={400}

@@ -20,6 +20,7 @@
         "index.d.ts",
         "cometd-tests.ts",
         "AckExtension/index.d.ts",
+        "BinaryExtension/index.d.ts",
     	"TimeSyncExtension/index.d.ts"
     ]
 }

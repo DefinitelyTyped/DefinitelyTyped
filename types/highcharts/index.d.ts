@@ -5,6 +5,10 @@
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 //                 Johns Gresham <https://github.com/jgresham>
+//                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
+//                 Dolan Miu <https://github.com/dolanmiu>
+//                 Jack Siman <https://github.com/jjsiman>
+//                 Matthew Wills <https://github.com/mdotwills>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -79,7 +83,7 @@ declare namespace Highcharts {
          * @default [-45]
          * @since 4.1.0
          */
-        autoRotation?: number[];
+        autoRotation?: number[] | boolean;
         /**
          * When each category width is more than this many pixels, we don't apply auto rotation. Instead, we lay out the
          * axis label with word wrap. A lower limit makes sense when the label contains multiple short words that don't
@@ -1004,6 +1008,11 @@ declare namespace Highcharts {
          * @default 0
          */
         gridLineWidth?: number;
+        /**
+         * Polar charts only. Whether the grid lines should draw as a polygon with straight lines between categories, or as circles.
+         * @default undefined
+         */
+        gridLineInterpolation?: string;
         /**
          * The Z index of the grid lines.
          * @default 1
@@ -4458,7 +4467,10 @@ declare namespace Highcharts {
          * @default 'Solid'
          */
         dashStyle?: string;
-        dataLabels?: DataLabels;
+        /**
+         * Gantt charts use one or more data labels for each series, for showing multiple date periods.
+         */
+        dataLabels?: DataLabels | DataLabels[];
         /**
          * Enable or disable the mouse tracking for a specific series. This includes point tooltips and click events on
          * graphs and points. For large datasets it improves performance.
@@ -5899,14 +5911,18 @@ declare namespace Highcharts {
          *            [3, 7, 8]
          *
          */
-        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
+        data?: Array<number | null | [number, number] | [number, null] | [string, number] | [string, number, number] | [number, number, number] | DataPoint | null>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
          * @default undefined
          */
         description?: string;
-
+        /**
+         * The dash style for the series. See series.dashStyle for possible values. Defaults to Solid.
+         * @since 4.1
+         */
+        dashStyle?: string; // Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
@@ -5965,6 +5981,10 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        /**
+         * When using any indicators, Define the indicators name like 'candlesticksss'.
+         */
+        linkedTo?: string;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
@@ -5980,6 +6000,7 @@ declare namespace Highcharts {
     interface ColumnRangeChartSeriesOptions extends IndividualSeriesOptions, ColumnRangeChart { }
     interface ErrorBarChartSeriesOptions extends IndividualSeriesOptions, ErrorBarChart { }
     interface FunnelChartSeriesOptions extends IndividualSeriesOptions, FunnelChart { }
+    interface GanttChartSeriesOptions extends IndividualSeriesOptions, SeriesChart { }
     interface GaugeChartSeriesOptions extends IndividualSeriesOptions, GaugeChart { }
     interface HeatMapSeriesOptions extends IndividualSeriesOptions, HeatMapChart { }
     interface LineChartSeriesOptions extends IndividualSeriesOptions, LineChart { }
@@ -6019,11 +6040,11 @@ declare namespace Highcharts {
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
          */
-				drilldown?: string;
-				/**
-				 * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
-				 */
-				end?: number;
+        drilldown?: string;
+        /**
+         * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
+         */
+		end?: number;
         /**
          * Individual point events
          */
@@ -6102,11 +6123,11 @@ declare namespace Highcharts {
          * Whether to display a slice offset from the center.
          * @default false
          */
-				sliced?: boolean;
-				/**
-				 * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
-				 */
-				start?: number;
+        sliced?: boolean;
+        /**
+         * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
+         */
+        start?: number;
         /**
          * The value of the point, resulting in a relative area of the point in the treemap.
          */
@@ -6118,7 +6139,7 @@ declare namespace Highcharts {
         /**
          * The y value of the point.
          */
-        y?: number;
+        y?: number | null;
         /**
          * The size value for each bubble. The bubbles' diameters are computed based on the z, and controlled by series
          * options like minSize, maxSize, sizeBy, zMin and zMax.
@@ -6680,6 +6701,16 @@ declare namespace Highcharts {
          * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
          */
         yAxis?: AxisOptions[] | AxisOptions;
+    }
+
+    /**
+     * The Gantt chart uses different plot options than the base Highcharts chart Options.
+     */
+    interface GanttOptions extends Options {
+        /**
+         * The specific Gantt Series to append the GanttChart.
+         */
+        series?: GanttChartSeriesOptions[];
     }
 
     interface GlobalOptions extends Options {
@@ -7265,11 +7296,11 @@ declare namespace Highcharts {
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-				chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
-				/**
-				 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
-				 */
-				ganttChart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		/**
+		 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
+		 */
+		ganttChart(renderTo: string | HTMLElement, options: GanttOptions, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * An array containing the current chart objects in the page. A chart's position in the array is preserved
          * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
@@ -7490,7 +7521,7 @@ declare namespace Highcharts {
          * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(options: number | [number, number] | [number, number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0

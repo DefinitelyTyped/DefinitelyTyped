@@ -8,6 +8,7 @@
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
-        "only-arrow-functions": false
+        "only-arrow-functions": false,
+        "await-promise": [true, "PromiseLike"]
     }
 }

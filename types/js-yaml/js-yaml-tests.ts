@@ -23,7 +23,7 @@ const typeConstructorOptions: TypeConstructorOptions = {
 	resolve: fn,
 	construct: fn,
 	instanceOf: obj,
-	predicate: str,
+	predicate: (obj) => false,
 	represent: fn,
 	defaultStyle: str,
 	styleAliases: map
@@ -104,7 +104,7 @@ type.resolve;
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
-// $ExpectType string | null
+// $ExpectType ((data: object) => boolean) | null
 type.predicate;
 // $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
 type.represent;

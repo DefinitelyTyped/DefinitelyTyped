@@ -13,6 +13,8 @@ otherModule.otherMethod();
 let context = require.context('./somePath', true);
 let contextModule = context<SomeModule>('./someModule');
 
+const contextId: string = require.context('./somePath').id;
+
 require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
 
 });
@@ -82,5 +84,14 @@ if (module.hot) {
     module.hot.removeStatusHandler(statusHandler);
 }
 
+require.ensure([], (require) => {
+    require("some/module");
+});
 
+require.ensure([], (require) => {
+    require("some/module");
+}, (e) => {}, 'chunkWithErrorHandling')
 
+require.ensure([], (require) => {
+    require("some/module");
+}, 'chunkWithoutErrorHandling');

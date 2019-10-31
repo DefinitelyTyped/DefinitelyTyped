@@ -16,11 +16,9 @@ import * as React from "react";
 import {
     Alert,
     AppState,
-    AppStateIOS,
-    AlertIOS,
-    BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -78,7 +76,6 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
-    WebView,
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
@@ -86,6 +83,11 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
+    PermissionsAndroid,
+    Platform,
+    ProgressBarAndroid,
+    PushNotificationIOS,
+    AccessibilityInfo,
 } from "react-native";
 
 declare module "react-native" {
@@ -116,8 +118,6 @@ function testDimensions() {
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
-
-BackAndroid.addEventListener("hardwareBackPress", () => {});
 
 interface LocalStyles {
     container: ViewStyle;
@@ -177,10 +177,14 @@ const textStyle: StyleProp<TextStyle> = {
 const imageStyle: StyleProp<ImageStyle> = {
     resizeMode: "contain",
 };
+const fontVariantStyle: StyleProp<TextStyle> = {
+    fontVariant: ['tabular-nums']
+}
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
 const s = StyleSheet.create({
     shouldWork: {
@@ -229,8 +233,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -300,11 +305,6 @@ function appStateTest() {
     AppState.addEventListener("change", appStateListener);
 }
 
-function appStateIOSTest() {
-    console.log("Current state: " + AppStateIOS.currentState);
-    AppStateIOS.addEventListener("change", appStateListener);
-}
-
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
@@ -359,7 +359,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
@@ -524,6 +526,32 @@ class AlertTest extends React.Component {
     }
 }
 
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
+
 class MaskedViewTest extends React.Component {
     render() {
         return (
@@ -533,6 +561,16 @@ class MaskedViewTest extends React.Component {
         );
     }
 }
+
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
 
 class InputAccessoryViewTest extends React.Component {
     render() {
@@ -626,6 +664,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
+                    autoCompleteType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -648,7 +687,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput contextMenuHidden={true} />
+                <TextInput contextMenuHidden={true} textAlignVertical="top"/>
             </View>
         );
     }
@@ -664,27 +703,19 @@ class StatusBarTest extends React.Component {
     }
 }
 
-class WebViewTest extends React.Component {
-    render() {
-        return (
-            <WebView
-                nativeConfig={{ component: "test", props: {}, viewManager: {} }}
-                onShouldStartLoadWithRequest={event => event.navigationType !== "formresubmit"}
-                originWhitelist={["https://origin.test"]}
-                saveFormDataDisabled={false}
-                useWebKit={true}
-                allowFileAccess={true}
-            />
-        );
-    }
-}
-
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png",
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -750,6 +781,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
@@ -761,28 +793,9 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
-const AlertIOSTest = () => {
-    AlertIOS.prompt(
-        "My Prompt",
-        "Enter your email",
-        [
-            {
-                text: "Cancel",
-                style: "cancel",
-            },
-            {
-                text: "Add",
-                onPress: (value: string) => {
-                    console.log(value);
-                },
-            },
-        ],
-        "default",
-        "email-address"
-    );
-};
+const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
@@ -839,7 +852,7 @@ const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Te
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
-        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" }
     );
     Share.share({ title: "title", url: "url" });
     Share.share({ message: "message" }).then(result => {
@@ -853,4 +866,88 @@ const ShareTest = () => {
 const KeyboardTest = () => {
     const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
     subscriber.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
 }

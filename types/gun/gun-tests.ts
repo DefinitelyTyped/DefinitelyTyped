@@ -28,7 +28,9 @@ interface AppState {
     object: {
         num: number;
         str: string;
+        /** Comment test */
         bool: boolean;
+        specstr: 'a' | 'b';
         obj: {
             arr2: Array<{ foo: number; bar: string }>;
         };
@@ -47,6 +49,9 @@ app.get('object')
     .get('obj')
     .get('arr2')
     .set({ foo: 1, bar: '2' });
+app.get('object').put({
+    bool: true
+});
 
 app.get('object')
     .get('bool')
@@ -70,3 +75,40 @@ app.get('chatRoom').time!(msg => {
 }, 20);
 // $ExpectError
 app.get('object').time!({ a: 1 });
+
+class X {
+    val: string;
+    b() {}
+}
+interface BadState {
+    // Top level primitives
+    a: 1;
+    b: {
+        // Ban functions
+        c: () => void;
+        // Ban class
+        d: typeof X;
+        // Recursive check for banned types
+        e: {
+            f: () => void;
+        };
+    };
+    // Filter, remove functions on prototype.
+    c: X;
+}
+const bad = new Gun<BadState>();
+// $ExpectError
+bad.get('a').put(1);
+bad.get('b')
+    .get('c')
+    // $ExpectError
+    .put(() => {});
+bad.get('b')
+    .get('d')
+    // $ExpectError
+    .put(X);
+
+// $ExpectError
+bad.get('b').put({ c: () => {}, d: X, e: { f: () => {} } });
+// $ExpectError
+bad.get('c').put(new X());

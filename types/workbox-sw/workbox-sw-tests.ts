@@ -1,7 +1,6 @@
 import WorkboxSW = require("workbox-sw");
 
-// $ExpectError
-WorkboxSW.core.setLogLevel(5); // $ExpectType void
+WorkboxSW.routing.registerRoute("/", new WorkboxSW.strategies.NetworkFirst()); // $ExpectType Route
 
 WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $ExpectType Route
 
@@ -9,3 +8,9 @@ WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $E
 WorkboxSW.precaching.precacheAndRoute(/foo/);
 
 WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], {directoryIndex: "/"}); // $ExpectType void
+
+new WorkboxSW.backgroundSync.Queue('queue-name', {
+    onSync: ({ queue }) => {
+        queue; // $ExpectType Queue
+    },
+});

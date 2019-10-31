@@ -412,6 +412,6 @@ interface Window {
     Raygun: RaygunStatic;
 }
 
-export { RaygunStatic, RaygunV2 };
+export { RaygunStatic, RaygunV2, RaygunV2UserDetails, RaygunOptions };
 
 export default rg4js;

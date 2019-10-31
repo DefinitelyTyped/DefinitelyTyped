@@ -1,10 +1,11 @@
-// Type definitions for prompts 1.2
+// Type definitions for prompts 2.0
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
+//                 theweirdone <https://github.com/theweirdone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 export = prompts;
 
@@ -28,6 +29,8 @@ declare namespace prompts {
 
         function confirm(args: PromptObject): void;
 
+        function date(args: PromptObject): any;
+
         function invisible(args: PromptObject): any;
 
         function list(args: PromptObject): any;
@@ -47,7 +50,7 @@ declare namespace prompts {
 
     interface Choice {
         title: string;
-        value: string;
+        value: any;
         disable?: boolean;
     }
 
@@ -57,13 +60,13 @@ declare namespace prompts {
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<PromptType> | Falsy;
+        type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string | number | boolean;
+        initial?: string | number | boolean | Date;
         style?: string;
         format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, boolean | string>;
         onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
@@ -77,6 +80,7 @@ declare namespace prompts {
         hint?: string;
         suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
         limit?: number;
+        mask?: string;
     }
 
     type Answers<T extends string> = { [id in T]: any };
@@ -89,7 +93,7 @@ declare namespace prompts {
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete";
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

@@ -1,7 +1,12 @@
 import Listr = require("listr");
 import * as fs from "fs";
 
-const tasks = new Listr([
+interface Context {
+    foo: string;
+    yarn?: boolean;
+}
+
+const tasks = new Listr<Context>([
     {
         title: 'Git',
         task: () => {
@@ -165,3 +170,36 @@ tasks.run({
 }).then(ctx => {
     console.log(ctx);
 });
+
+class CustomRenderer {
+    constructor(tasks: ReadonlyArray<Listr.ListrTask<Context>>, options: Listr.ListrOptions<Context>) {}
+
+    static nonTTY = true;
+
+    render() {}
+    end(err: Listr.ListrError<Context>) {}
+}
+
+const tasks8 = new Listr<Context>(
+    [
+        {
+            title: 'Success',
+            task: () => 'Foo',
+        },
+    ],
+    {
+        renderer: CustomRenderer,
+    }
+);
+
+const tasks9 = new Listr(
+    [
+        {
+            title: 'Success',
+            task: () => 'Foo',
+        },
+    ],
+    {
+        renderer: 'default',
+    }
+);

@@ -1,17 +1,15 @@
-// Type definitions for depcheck 0.6
+// Type definitions for depcheck 0.8
 // Project: https://github.com/depcheck/depcheck
 // Definitions by: ark120202 <https://github.com/ark120202>
+//                 jrnail23 <https://github.com/jrnail23>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function depcheck(
-    rootDir: string,
-    options: depcheck.Options,
-): Promise<depcheck.Results>;
+declare function depcheck(rootDir: string, options: depcheck.Options): Promise<depcheck.Results>;
 
 declare function depcheck<T>(
     rootDir: string,
     options: depcheck.Options,
-    callback: (results: depcheck.Results) => T,
+    callback: (results: depcheck.Results) => T
 ): Promise<T>;
 
 declare namespace depcheck {
@@ -19,12 +17,7 @@ declare namespace depcheck {
         [key: string]: any;
     }
 
-    type Parser = (
-        content: string,
-        filePath: string,
-        deps: ReadonlyArray<string>,
-        rootDir: string,
-    ) => Node;
+    type Parser = (content: string, filePath: string, deps: ReadonlyArray<string>, rootDir: string) => Node;
 
     type Detector = (node: Node) => ReadonlyArray<string> | string;
 
@@ -43,10 +36,18 @@ declare namespace depcheck {
     interface Results {
         dependencies: string[];
         devDependencies: string[];
-        missing: string[];
-        using: string[];
-        invalidFiles: string[];
-        invalidDirs: string[];
+        using: {
+            [dependencyName: string]: string[];
+        };
+        missing: {
+            [dependencyName: string]: string[];
+        };
+        invalidFiles: {
+            [filePath: string]: any;
+        };
+        invalidDirs: {
+            [filePath: string]: any;
+        };
     }
 
     const parser: {

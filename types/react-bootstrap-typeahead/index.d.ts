@@ -1,5 +1,5 @@
 // Type definitions for react-bootstrap-typeahead 3.4
-// Project: https://github.com/ericgio/react-bootstrap-typeahead
+// Project: https://github.com/ericgio/react-bootstrap-typeahead, http://ericgio.github.io/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
@@ -334,7 +334,7 @@ export class TypeaheadInputMulti<T extends TypeaheadModel> extends React.Compone
 --------------------------------------------------------------------------- */
 export interface HighligherProps {
     children: React.ReactNode;
-    search: string;
+    search?: string;
 }
 
 export class Highlighter extends React.PureComponent<HighligherProps> { }

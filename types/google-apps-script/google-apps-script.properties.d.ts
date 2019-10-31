@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,10 +18,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): Properties;
       deleteProperty(key: string): Properties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): { [key: string]: string };
       getProperty(key: string): string | null;
-      setProperties(properties: Object): Properties;
-      setProperties(properties: Object, deleteAllOthers: boolean): Properties;
+      setProperties(properties: { [key: string]: string }): Properties;
+      setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): Properties;
       setProperty(key: string, value: string): Properties;
     }
 
@@ -55,10 +55,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): ScriptProperties;
       deleteProperty(key: string): ScriptProperties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): { [key: string]: string };
       getProperty(key: string): string | null;
-      setProperties(properties: Object): ScriptProperties;
-      setProperties(properties: Object, deleteAllOthers: boolean): ScriptProperties;
+      setProperties(properties: { [key: string]: string }): ScriptProperties;
+      setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): ScriptProperties;
       setProperty(key: string, value: string): ScriptProperties;
     }
 
@@ -72,10 +72,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): UserProperties;
       deleteProperty(key: string): UserProperties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): { [key: string]: string };
       getProperty(key: string): string | null;
-      setProperties(properties: Object): UserProperties;
-      setProperties(properties: Object, deleteAllOthers: boolean): UserProperties;
+      setProperties(properties: { [key: string]: string }): UserProperties;
+      setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
       setProperty(key: string, value: string): UserProperties;
     }
 

@@ -1,18 +1,24 @@
-// Type definitions for node-fetch 2.1
+// Type definitions for node-fetch 2.5
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
 //                 Vinay Bedre <https://github.com/vinaybedre>
 //                 Antonio Román <https://github.com/kyranet>
+//                 Andrew Leedham <https://github.com/AndrewLeedham>
+//                 Jason Li <https://github.com/JasonLi914>
+//                 Brandon Wilson <https://github.com/wilsonianb>
+//                 Steve Faulkner <https://github.com/southpolesteve>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import { Agent } from "http";
-import { URLSearchParams } from "url";
+import { URLSearchParams, URL } from "url";
+import { AbortSignal } from "./externals";
 
 export class Request extends Body {
-    constructor(input: string | { href: string } | Request, init?: RequestInit);
+    constructor(input: RequestInfo, init?: RequestInit);
     clone(): Request;
     context: RequestContext;
     headers: Headers;
@@ -22,7 +28,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent;
+    agent?: Agent | ((parsedUrl: URL) => Agent);
     compress: boolean;
     counter: number;
     follow: number;
@@ -36,12 +42,13 @@ export class Request extends Body {
 export interface RequestInit {
     // whatwg/fetch standard options
     body?: BodyInit;
-    headers?: HeaderInit | { [index: string]: string };
+    headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal | null;
 
     // node-fetch extensions
-    agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: Agent | ((parsedUrl: URL) => Agent); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean; // =true support gzip/deflate content encoding. false to disable
     follow?: number; // =20 maximum redirect count. 0 to not follow redirect
     size?: number; // =0 maximum response body size in bytes. 0 to disable
@@ -97,7 +104,7 @@ export type RequestCache =
     | "reload";
 
 export class Headers implements Iterable<[string, string]> {
-    constructor(init?: Headers | { [k: string]: string });
+    constructor(init?: HeadersInit);
     forEach(callback: (value: string, name: string) => void): void;
     append(name: string, value: string): void;
     delete(name: string): void;
@@ -114,9 +121,17 @@ export class Headers implements Iterable<[string, string]> {
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
+type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
+
+interface BlobOptions {
+    type?: string;
+    endings?: "transparent" | "native";
+}
+
 export class Blob {
-    type: string;
-    size: number;
+    constructor(blobParts?: BlobPart[], options?: BlobOptions);
+    readonly type: string;
+    readonly size: number;
     slice(start?: number, end?: number): Blob;
 }
 
@@ -128,13 +143,15 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
+    size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
+    timeout: number;
 }
 
 export class FetchError extends Error {
     name: "FetchError";
-    constructor(message: string, type: string, systemError: string);
+    constructor(message: string, type: string, systemError?: string);
     type: string;
     code?: string;
     errno?: string;
@@ -147,10 +164,9 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
-    size: number;
+    redirected: boolean;
     status: number;
     statusText: string;
-    timeout: number;
     type: ResponseType;
     url: string;
 }
@@ -164,17 +180,31 @@ export type ResponseType =
     | "opaqueredirect";
 
 export interface ResponseInit {
-    headers?: HeaderInit;
-    status: number;
+    headers?: HeadersInit;
+    size?: number;
+    status?: number;
     statusText?: string;
+    timeout?: number;
+    url?: string;
 }
 
-export type HeaderInit = Headers | string[];
-export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
-export type RequestInfo = string | Request;
+interface URLLike {
+    href: string;
+}
+
+export type HeadersInit = Headers | string[][] | { [key: string]: string };
+// HeaderInit is exported to support backwards compatibility. See PR #34382
+export type HeaderInit = HeadersInit;
+export type BodyInit =
+    ArrayBuffer
+    | ArrayBufferView
+    | NodeJS.ReadableStream
+    | string
+    | URLSearchParams;
+export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
-    url: string | Request,
+    url: RequestInfo,
     init?: RequestInit
 ): Promise<Response>;
 

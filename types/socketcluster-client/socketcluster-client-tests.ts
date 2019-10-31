@@ -1,7 +1,9 @@
 // Adapted from README
 
 import { create, destroy } from "socketcluster-client";
-import { ClientOptions } from "socketcluster-client/lib/scclientsocket";
+import { ClientOptions, SubscribeStateChangeData } from "socketcluster-client/lib/scclientsocket";
+import { SCChannelOptions } from "sc-channel";
+import WebSocket = require("ws");
 
 const secureClientOptions: ClientOptions = {
     hostname: "securedomain.com",
@@ -48,28 +50,50 @@ const options: ClientOptions = {
 };
 socket = create(options);
 
-socket.on("subscribe", channelname => {
+// Check some of the standard events, with normal subscription,
+// one-time subscription and unsubscription.
+const subscribeListener: (channelName: string, subscriptionOptions: SCChannelOptions) => void = channelname => {
     console.log("subscribe:" + channelname);
-});
+};
+socket.on("subscribe", subscribeListener);
+socket.once("subscribe", subscribeListener);
+socket.off("subscribe", subscribeListener);
+socket.off("subscribe");
 
-socket.on("subscribeFail", channelname => {
+const subscribeFailListener: (err: Error, channelName: string, subscriptionOptions: SCChannelOptions) => void = channelname => {
     console.log("subscribeFail:" + channelname);
-});
+};
+socket.on("subscribeFail", subscribeFailListener);
+socket.once("subscribeFail", subscribeFailListener);
+socket.off("subscribeFail", subscribeFailListener);
+socket.off("subscribeFail");
 
-socket.on("unsubscribe", channelname => {
+const unsubscribeListener: (channelName: string) => void = channelname => {
     console.log("unsubscribe:" + channelname);
-});
+};
+socket.on("unsubscribe", unsubscribeListener);
+socket.once("unsubscribe", unsubscribeListener);
+socket.off("unsubscribe", unsubscribeListener);
+socket.off("unsubscribe");
 
-socket.on("subscribeStateChange", data => {
+const subscribeStateChangeListener: (stateChangeData: SubscribeStateChangeData) => void = data => {
     console.log("subscribeStateChange:" + JSON.stringify(data));
-});
+};
+socket.on("subscribeStateChange", subscribeStateChangeListener);
+socket.once("subscribeStateChange", subscribeStateChangeListener);
+socket.off("subscribeStateChange", subscribeStateChangeListener);
+socket.off("subscribeStateChange");
 
-socket.on("message", data => {
+const messageListener: (message: WebSocket.Data) => void = data => {
     console.log("message:" + data);
-});
+};
+socket.on("message", messageListener);
+socket.once("message", messageListener);
+socket.off("message", messageListener);
+socket.off("message");
 
 const channels = socket.channels;
 const testChannel = channels["test"];
-const state = testChannel.getState();
+const channelState = testChannel.getState();
 
 destroy(socket);

@@ -101,7 +101,7 @@ declare namespace Isotope {
         /**
          * Sorts items according to which property of getSortData. The value of sortBy needs to match a key name in getSortData.
          */
-        sortBy?: string;
+        sortBy?: string | string[];
         /**
          * Staggers item transitions, so items transition incrementally after one another. Set as a CSS time format, '0.03s', or as a number in milliseconds, 30.
          */

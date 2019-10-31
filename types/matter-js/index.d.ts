@@ -1082,17 +1082,16 @@ declare namespace Matter {
 
     }
 
-    export interface IBound {
-        min: { x: number, y: number }
-        max: { x: number, y: number }
-    }
-
     /**
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
+
+        min: Vector;
+        max: Vector;
+
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create

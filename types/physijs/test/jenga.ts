@@ -158,7 +158,6 @@ createTower = (function() {
 
 initEventHandling = (function() {
     var _vector = new THREE.Vector3,
-        projector = new THREE.Projector(),
         handleMouseDown, handleMouseMove, handleMouseUp;
 
     handleMouseDown = function( evt ) {
@@ -170,7 +169,7 @@ initEventHandling = (function() {
             1
         );
 
-        projector.unprojectVector( _vector, camera );
+        _vector.unproject( camera );
 
         ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
         intersections = ray.intersectObjects( blocks );
@@ -203,7 +202,7 @@ initEventHandling = (function() {
                 -( evt.clientY / window.innerHeight ) * 2 + 1,
                 1
             );
-            projector.unprojectVector( _vector, camera );
+            _vector.unproject( camera );
 
             ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
             intersection = ray.intersectObject( intersect_plane );

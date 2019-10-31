@@ -2397,6 +2397,12 @@ function test_AxisOptions() {
             ['minute', [1, 2, 5, 10, 15, 30]]],
         visible: true
     };
+
+    const labelsOptionUnions: Highcharts.AxisOptions = {
+        labels: {
+            autoRotation: false
+        }
+    };
 }
 
 function test_AxisObject() {
@@ -2883,6 +2889,49 @@ function test_GanttChart() {
 					end: Date.UTC(2014, 12, 20)
 				},
 			],
+		}],
+	});
+}
+
+// Tests DataLabels types for Highcharts.ganttChart, which uses the Gantt module
+function test_GanttChartDataLabels() {
+	Highcharts.ganttChart('ganttChartContainer', {
+		xAxis: {
+			min: Date.UTC(2014, 9, 18),
+			max: Date.UTC(2014, 12, 20)
+		},
+		series: [{
+			name: 'Project 1',
+			data: [
+				{
+					name: 'Lemon Tea',
+					start: Date.UTC(2014, 10, 18),
+					end: Date.UTC(2014, 11, 20)
+				},
+				{
+					name: 'Stapler',
+					start: Date.UTC(2014, 11, 18),
+					end: Date.UTC(2014, 12, 20)
+				},
+				{
+					name: 'Sierra',
+					start: Date.UTC(2014, 12, 18),
+					end: Date.UTC(2014, 12, 20)
+				},
+            ],
+            dataLabels: [{
+                enabled: true,
+                format: '<span>Data Label Left</span>',
+                useHTML: true,
+                align: 'left',
+                allowOverlap: true,
+              }, {
+                enabled: true,
+                format: '<span>Data Label Right</span>',
+                useHTML: true,
+                align: 'right',
+                allowOverlap: true,
+              }]
 		}],
 	});
 }

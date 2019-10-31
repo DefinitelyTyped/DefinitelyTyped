@@ -1,9 +1,13 @@
-// Type definitions for rdflib 0.17
+// Type definitions for rdflib 0.20
 // Project: http://github.com/linkeddata/rdflib.js
 // Definitions by: Cénotélie <https://github.com/cenotelie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 // Acknowledgements: This work has been financed by Logilab SA, FRANCE, logilab.fr
 
+export interface Bindings {
+    [id: string]: Node;
+}
 /**
  * Class orders
  */
@@ -38,7 +42,7 @@ export class Node {
      * Gets the substituted node for this one, according to the specified bindings
      * @param bindings Bindings of identifiers to nodes
      */
-    substitute(bindings: { [id: string]: Node }): Node;
+    substitute(bindings: Bindings): Node;
     /**
      * Compares this node with another
      * @param term The other node
@@ -213,7 +217,7 @@ export class Literal extends Node {
      * @param language The language for the literal
      * @param datatype The literal's datatype as a named node
      */
-    constructor(value: string, language: string, datatype: NamedNode);
+    constructor(value: string, language?: string, datatype?: NamedNode);
     /**
      * Gets a copy of this literal
      */
@@ -260,7 +264,7 @@ export class Variable extends Node {
      * Initializes this variable
      * @param name The variable's name
      */
-    constructor(name: string);
+    constructor(name?: string);
     static termType: string;
 }
 /**
@@ -384,7 +388,7 @@ export class Statement {
      * Gets this statement with the bindings substituted
      * @param bindings The bindings
      */
-    substitute(bindings: { [id: string]: Node }): Statement;
+    substitute(bindings: Bindings): Statement;
     /**
      * Gets the canonical string representation of this statement
      */
@@ -448,12 +452,22 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    add(s: ValueType, p: ValueType, o: ValueType, g: ValueType): number;
+    add(s: Node, p: NamedNode, o: Node, g: NamedNode): number;
     /**
      * Adds a statement to this formula
      * @param st The statement to add
      */
     addStatement(st: Statement): number;
+    /**
+     * Gets a blank node
+     * @param id The node's identifier
+     */
+    bnode(id: string): BlankNode;
+    /**
+     * Adds all the statements to this formula
+     * @param statements A collection of statements
+     */
+    addAll(statements: Iterable<Statement>): void;
     /**
      * Gets a node that matches the specified pattern
      * @param s The subject
@@ -461,12 +475,66 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    any(s: ValueType, p: ValueType, o: ValueType, g: ValueType): Node;
+    any(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): Node | null;
     /**
-     * Gets a blank node
-     * @param id The node's identifier
+     * Gets the value of a node that matches the specified pattern
+     * @param s The subject
+     * @param p The predicate
+     * @param o The object
+     * @param g The graph that contains the statement
      */
-    bnode(id: string): BlankNode;
+    anyValue(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): string;
+    /**
+     * Gets the first JavaScript object equivalent to a node based on the specified pattern
+     * @param s The subject
+     * @param p The predicate
+     * @param o The object
+     * @param g The graph that contains the statement
+     */
+    anyJS(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): any;
+    /**
+     * Gets the first statement that matches the specified pattern
+     * @param subj The subject
+     * @param pred The predicate
+     * @param obj The object
+     * @param why The graph that contains the statement
+     */
+    anyStatementMatching(
+        subj?: Node | null,
+        pred?: Node | null,
+        obj?: Node | null,
+        why?: Node | null
+    ): Statement;
+    /**
+     * Gets the statements matching the specified pattern
+     * @param subj The subject
+     * @param pred The predicate
+     * @param obj The object
+     * @param why The graph that contains the statement
+     * @param justOne Whether to only get one statement
+     */
+    statementsMatching(
+        subj?: Node | null,
+        pred?: Node | null,
+        obj?: Node | null,
+        why?: Node | null,
+        justOne?: boolean
+    ): Statement[];
     /**
      * Finds the types in the list which have no *stored* subtypes
      * These are a set of classes which provide by themselves complete
@@ -490,7 +558,12 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    each(s: ValueType, p: ValueType, o: ValueType, g: ValueType): Node[];
+    each(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): Node[];
     /**
      * Gets whether this formula is equals to the other one
      * @param other The other formula
@@ -594,14 +667,9 @@ export class Formula extends Node {
         excludePredicateURIs: ReadonlyArray<string>
     ): Statement[];
     /**
-     * Creates a new empty formula
+     * Creates a new empty formula - features not applicable, but necessary for typing to pass
      */
-    formula(): Formula;
-    /**
-     * Creates a new empty indexed formulat
-     * @param features The list of features
-     */
-    formula(features: ReadonlyArray<string>): IndexedFormula;
+    formula(features?: ReadonlyArray<string>): Formula;
     /**
      * Transforms an NTriples string format into a Node.
      * The bnode bit should not be used on program-external values; designed
@@ -617,12 +685,12 @@ export class Formula extends Node {
      * @param o An object
      * @param g A containing graph
      */
-    holds(s: ValueType, p: ValueType, o: ValueType, g: ValueType): boolean;
-    /**
-     * Gets whether this formula holds the specified statement
-     * @param s A statement
-     */
-    holds(s: Statement | ReadonlyArray<Statement>): boolean;
+    holds(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): boolean;
     /**
      * Gets whether this formula holds the specified statement
      * @param st A statement
@@ -661,7 +729,7 @@ export class Formula extends Node {
      * Gets a new formula with the substituting bindings applied
      * @param bindings The bindings to substitute
      */
-    substitute(bindings: { [id: string]: Node }): Formula;
+    substitute(bindings: Bindings): Formula;
     /**
      * Gets an named node for an URI
      * @param uri The URI
@@ -674,7 +742,12 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    the(s: ValueType, p: ValueType, o: ValueType, g: ValueType): Node;
+    the(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): Node;
     /**
      * RDFS Inference
      * These are hand-written implementations of a backward-chaining reasoner
@@ -710,7 +783,12 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    whether(s: ValueType, p: ValueType, o: ValueType, g: ValueType): number;
+    whether(
+        s?: Node | null,
+        p?: Node | null,
+        o?: Node | null,
+        g?: Node | null
+    ): number;
     /**
      * Serializes this formulat to a string
      */
@@ -727,6 +805,14 @@ export class Formula extends Node {
     variable(name: string): Variable;
     static termType: string;
 }
+
+export class Query {
+           pat: IndexedFormula;
+           name: string;
+           id?: string;
+           constructor(name: string, id?: any);
+       }
+
 /**
  * A formula (set of triples) which indexes by predicate, subject and object.
  * It "smushes"  (merges into a single node) things which are identical
@@ -735,46 +821,55 @@ export class Formula extends Node {
  */
 export class IndexedFormula extends Formula {
     /**
-     * The number of statements in this formula
+     * An UpdateManager initialised to this store
      */
-    length: number;
+    updater?: UpdateManager;
     /**
      * Creates a new formula
      * @param features The list of features to support
      */
     constructor(features: ReadonlyArray<string>);
     /**
+     * Dictionary of namespace prefixes
+     */
+    namespaces: {[key: string]: string};
+    /**
      * Gets the URI of the default graph
      */
     static defaultGraphURI(): string;
     /**
-     * Gets the statements matching the specified pattern
-     * @param subj The subject
-     * @param pred The predicate
-     * @param obj The object
-     * @param why The graph that contains the statement
-     * @param justOne Whether to only get one statement
+     * Gets this graph with the bindings substituted
+     * @param bindings The bindings
      */
-    statementsMatching(
-        subj: Node,
-        pred: Node,
-        obj: Node,
-        why: Node,
-        justOne: boolean
-    ): Statement[];
+    substitute(bindings: Bindings): IndexedFormula;
+
     /**
-     * Adds all the statements to this formula
-     * @param statements A collection of statements
+     * Apply a set of statements to be deleted and to be inserted
+     *
+     * @param patch The set of statements to be deleted and to be inserted
+     * @param target The name of the document to patch
+     * @param patchCallback Callback to be called when patching is complete
      */
-    addAll(statements: Iterable<Statement>): void;
+    applyPatch(
+        patch: {
+            delete?: ReadonlyArray<Statement>,
+            patch?: ReadonlyArray<Statement>
+        },
+        target: NamedNode,
+        patchCallback: () => void
+    ): void;
+
     /**
-     * Gets the value of a node that matches the specified pattern
-     * @param s The subject
-     * @param p The predicate
-     * @param o The object
-     * @param g The graph that contains the statement
+     * N3 allows for declaring blank nodes, this function enables that support
+     *
+     * @param x The blank node to be declared, supported in N3
      */
-    anyValue(s: ValueType, p: ValueType, o: ValueType, g: ValueType): string;
+    declareExistential(x: Node): Node;
+
+    /**
+     * @param features
+     */
+    initPropertyActions(features: Array<('sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty')>): boolean;
     /**
      * Returns the symbol with canonical URI as smushed
      * @param term A RDF node
@@ -795,12 +890,35 @@ export class IndexedFormula extends Formula {
      */
     close(): IndexedFormula;
     /**
+     * replaces @template with @target and add appropriate triples
+     * removes no triples by default and is a one-direction replication
+     * @param template node to copy
+     * @param target node to copy to
+     * @param flags Whether or not to do a two-directional copy and/or delete triples
+     *
+     */
+    copyTo(
+        template: Node,
+        target: Node,
+        flags?: Array<('two-direction' | 'delete')>
+    ): void;
+    /**
      * Simplify graph in store when we realize two identifiers are equivalent
      * We replace the bigger with the smaller.
      * @param u1 The first node
      * @param u2 The second node
      */
     equate(u1: Node, u2: Node): boolean;
+    /**
+     * Creates a new empty indexed formula
+     * Only applicable for IndexedFormula, but TypeScript won't allow a subclass to override a property
+     * @param features The list of features
+     */
+    formula(features: ReadonlyArray<string>): IndexedFormula;
+    /**
+     * The number of statements in this formula
+     */
+    length: number;
     /**
      * eturns any quads matching the given arguments.
      * Standard RDFJS Taskforce method for Source objects, implemented as an
@@ -826,6 +944,13 @@ export class IndexedFormula extends Formula {
      * @param uri An URI
      */
     newExistential(uri: string): Node;
+
+    /**
+     * Adds a new property action
+     * @param pred the predicate that the function should be triggered on
+     * @param action the function that should trigger
+     */
+    newPropertyAction(pred: Node, action: (store: IndexedFormula, subject: NamedNode, object: NamedNode) => boolean): boolean;
     /**
      * Creates a new universal node
      * Universals are Variables
@@ -838,6 +963,27 @@ export class IndexedFormula extends Formula {
      * @param doc A document named node
      */
     nextSymbol(doc: NamedNode): NamedNode;
+
+    /**
+     * Query this store asynchronously, return bindings in callback
+     *
+     * @param myQuery The query to be run
+     * @param callback Function to call when bindings
+     * @param dummy OBSOLETE - do not use this
+     * @param onDone OBSOLETE - do not use this
+     */
+    query(
+        myQuery: Query,
+        callback: (bindings: Bindings) => void,
+        dummy?: null,
+        onDone?: () => void
+    ): void;
+    /**
+     * Query this store synchronously and return bindings
+     *
+     * @param myQuery The query to be run
+     */
+    querySync(myQuery: Query): Bindings[];
     /**
      * Removes a statement from this formula
      * @param st A statement to remove
@@ -857,11 +1003,11 @@ export class IndexedFormula extends Formula {
      * @param limit The number of statements to remove
      */
     removeMany(
-        subj: Node,
-        pred: Node,
-        obj: Node,
-        why: Node,
-        limit: number
+        subj?: Node | null,
+        pred?: Node | null,
+        obj?: Node | null,
+        why?: Node | null,
+        limit?: number
     ): void;
     /**
      * Remove all matching statements
@@ -871,10 +1017,10 @@ export class IndexedFormula extends Formula {
      * @param graph The graph that contains the statement
      */
     removeMatches(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
+        subject?: Node | null,
+        predicate?: Node | null,
+        object?: Node | null,
+        graph?: Node | null
     ): void;
     /**
      * Removes a statement
@@ -934,7 +1080,7 @@ export namespace DataFactory {
      * @param lang The language
      * @param dt The datatype
      */
-    function lit(val: string, lang: string, dt: NamedNode): Literal;
+    function lit(val: string, lang?: string, dt?: NamedNode): Literal;
     /**
      * Creates a new literal node
      * @param value The lexical value
@@ -942,7 +1088,7 @@ export namespace DataFactory {
      */
     function literal(
         value: string,
-        languageOrDatatype: string | NamedNode
+        languageOrDatatype?: string | NamedNode
     ): Literal;
     /**
      * Creates a new named node
@@ -986,7 +1132,7 @@ export namespace DataFactory {
      * Creates a new variable
      * @param name The name for the variable
      */
-    function variable(name: string): Variable;
+    function variable(name?: string): Variable;
 }
 export namespace Util {
     /**
@@ -1019,6 +1165,46 @@ export interface Handler {
     response: any;
     dom: any;
 }
+export interface FetchOptions {
+    fetch?: typeof fetch;
+    /**
+     * The resource which referred to this (for tracking bad links).
+     */
+    referringTerm?: NamedNode;
+    /**
+     * Provided content type (for writes).
+     */
+    contentType?: string;
+    /**
+     * Override the incoming header to force the data to be treated as this content-type (for reads).
+     */
+    forceContentType?: string;
+    /**
+     * Load the data even if loaded before. Also sets the `Cache-Control:` header to `no-cache`.
+     */
+    force?: boolean;
+    /**
+     * Original uri to preserve through proxying etc (`xhr.original`).
+     */
+    baseUri?: Node | string;
+    /**
+     * Whether this request is a retry via a proxy (generally done from an error handler).
+     */
+    proxyUsed?: boolean;
+    /**
+     * Flag for XHR/CORS etc
+     */
+    withCredentials?: boolean;
+    /**
+     * Before we parse new data, clear old, but only on status 200 responses.
+     */
+    clearPreviousData?: boolean;
+    /**
+     * Prevents the addition of various metadata triples (about the fetch request) to the store.
+     */
+    noMeta?: boolean;
+    noRDFa?: boolean;
+}
 /**
  * Responsible for fetching RDF data
  */
@@ -1043,6 +1229,11 @@ export class Fetcher {
     static CONTENT_TYPE_BY_EXT: {
         [ext: string]: string;
     };
+    /**
+     * Loads a web resource or resources into the store.
+     * @param uri Resource to load, provided either as a NamedNode object or a plain URL. If multiple resources are passed as an array, they will be fetched in parallel.
+     */
+    load: (uri: ReadonlyArray<NamedNode> | ReadonlyArray<string> | NamedNode | string, options?: FetchOptions) => Promise<Response>;
 }
 /**
  * Gets a node for the specified input
@@ -1087,9 +1278,9 @@ export function lit(val: string, lang: string, dt: NamedNode): Literal;
  * @param graph The containing graph
  */
 export function st(
-    subject: Node,
+    subject: Node | Date | string,
     predicate: Node,
-    object: Node,
+    object: Node | Date | string,
     graph: Node
 ): Statement;
 /**
@@ -1167,3 +1358,43 @@ export function parse(
  * Get the next available unique identifier
  */
 export let NextId: number;
+
+/**
+ * The update manager is a helper object for a store.
+ * Just as a Fetcher provides the store with the ability to read and write, the Update Manager provides functionality for making small patches in real time,
+ * and also looking out for concurrent updates from other agents.
+ */
+export class UpdateManager {
+    /**
+     * @param store The quadstore to store data and metadata. Created if not passed.
+     */
+    constructor(store?: IndexedFormula)
+
+    /**
+     * This is suitable for an initial creation of a document.
+     * @param document
+     * @param data
+     * @param contentType
+     * @param callback
+     */
+    put(
+        document: Node,
+        data: string | ReadonlyArray<Statement>,
+        contentType: string,
+        callback: (uri: string, ok: boolean, errorMessage: string, response?: unknown) => void,
+    ): Promise<void>;
+
+    /**
+     * This high-level function updates the local store iff the web is changed successfully.
+     * Deletions, insertions may be undefined or single statements or lists or formulae (may contain bnodes which can be indirectly identified by a where clause).
+     * The `why` property of each statement must be the same and give the web document to be updated.
+     * @param statementsToDelete Statement or statements to be deleted.
+     * @param statementsToAdd Statement or statements to be inserted.
+     * @param callback
+     */
+    update(
+        statementsToDelete: ReadonlyArray<Statement>,
+        statementsToAdd: ReadonlyArray<Statement>,
+        callback: (uri: string | undefined, success: boolean, errorBody?: string) => void
+    ): void;
+}

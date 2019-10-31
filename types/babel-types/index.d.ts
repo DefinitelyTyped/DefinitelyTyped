@@ -1509,7 +1509,7 @@ export function TSTypeParameterDeclaration(params: TSTypeParameter[]): TSTypePar
 export function TSTypeParameterInstantiation(params: TSType[]): TSTypeParameterInstantiation;
 export function TSTypePredicate(parameterName: Identifier | TSThisType, typeAnnotation: TSTypeAnnotation): TSTypePredicate;
 export function TSTypeQuery(exprName: TSEntityName): TSTypeQuery;
-export function TSTypeReference(typeName: TSEntityName, typeParameters?: TypeParameterInstantiation): TSTypeReference;
+export function TSTypeReference(typeName: TSEntityName, typeParameters?: TSTypeParameterInstantiation): TSTypeReference;
 export function TSUndefinedKeyword(): TSUndefinedKeyword;
 export function TSUnionType(types: TSType[]): TSUnionType;
 export function TSVoidKeyword(): TSVoidKeyword;

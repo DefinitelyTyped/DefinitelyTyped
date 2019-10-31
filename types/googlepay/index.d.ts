@@ -3,6 +3,7 @@
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
 //                 Filip Stanis <https://github.com/fstanis>
+//                 Alexandre Couret <https://github.com/ozotek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -72,7 +73,7 @@ declare namespace google.payments.api {
     }
 
     type AllowedAuthMethod = 'PAN_ONLY' | 'CRYPTOGRAM_3DS';
-    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
+    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA' | 'INTERAC';
 
     interface CardParameters {
         allowedAuthMethods: AllowedAuthMethod[];

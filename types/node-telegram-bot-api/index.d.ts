@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.30
+// Type definitions for node-telegram-bot-api 0.31
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -78,9 +78,9 @@ declare namespace TelegramBot {
     interface WebHookOptions {
         host?: string;
         port?: number;
-        key: string;
-        cert: string;
-        pfx: string;
+        key?: string;
+        cert?: string;
+        pfx?: string;
         autoOpen?: boolean;
         https?: ServerOptions;
         healthEndpoint?: string;
@@ -366,6 +366,7 @@ declare namespace TelegramBot {
         pinned_message?: Message;
         invoice?: Invoice;
         successful_payment?: SuccessfulPayment;
+        reply_markup?: InlineKeyboardMarkup;
     }
 
     interface MessageEntity {

@@ -181,7 +181,7 @@ declare namespace wx {
         /**
          * 分享图标
          */
-        imageUrl?: string;
+        imgUrl?: string;
 
         success?: () => void;
     }

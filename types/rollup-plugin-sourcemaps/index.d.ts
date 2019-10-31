@@ -8,7 +8,7 @@
 import { Plugin } from 'rollup';
 
 declare namespace sourcemaps {
-    type ReadFileCallback = (err: NodeJS.ErrnoException, data: string) => void;
+    type ReadFileCallback = (err: NodeJS.ErrnoException | null, data: string) => void;
     type ReadFileFunction = (file: string | Buffer | number, encoding: string, callback: ReadFileCallback) => void;
 
     interface Options {

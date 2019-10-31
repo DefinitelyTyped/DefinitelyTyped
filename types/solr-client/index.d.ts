@@ -10,14 +10,14 @@ import { ClientRequest } from "http";
 export function createClient(options?: Options): Client;
 
 export interface Options {
-    host?: string;
-    port?: number;
-    core?: string;
-    path?: string;
-    agent?: string;
-    secure?: string;
-    bigint?: string;
-    solrVersion?: string;
+  host?: string;
+  port?: number;
+  core?: string;
+  path?: string;
+  agent?: string;
+  secure?: boolean;
+  bigint?: string;
+  solrVersion?: string;
 }
 
 export interface RangeFilterOption {
@@ -160,6 +160,7 @@ export interface Client {
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     escapeSpecialChars(s: string): string;
     query(): Query;
+    atomicUpdate(doc: object, callback?: (err: Error, data: object) => void): ClientRequest;
 }
 
 export as namespace Solr;

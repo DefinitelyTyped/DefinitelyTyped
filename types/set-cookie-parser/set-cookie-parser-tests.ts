@@ -97,7 +97,7 @@ var decodedValueCookies = setCookie.parse('user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%9
 assert.equal(decodedValueCookies[0].value, 'Илья Зайцев');
 
 // Use map=true option
-var expectedCookiesMap = {
+var expectedCookiesMap: setCookie.CookieMap = {
     foo: {
         name: 'foo',
         value: 'bar',

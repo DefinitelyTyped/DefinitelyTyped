@@ -2,6 +2,7 @@
 // Project: https://github.com/chaijs/chai-json-schema/, http://chaijs.com
 // Definitions by: Ulrich Heiniger <https://github.com/ulrichheiniger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 // <reference types="node"/>
 // <reference types="chai" />
@@ -24,6 +25,6 @@ declare global {
 	}
 }
 
-declare function chaiJsonSchema(chai: any, utils: any): void;
+declare const chaiJsonSchema: Chai.ChaiPlugin;
 declare namespace chaiJsonSchema { }
 export = chaiJsonSchema;

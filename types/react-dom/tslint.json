@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "dt-header": false,
+        "npm-naming": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false
     }

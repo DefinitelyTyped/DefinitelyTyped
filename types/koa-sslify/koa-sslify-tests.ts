@@ -1,24 +1,24 @@
 import Koa = require('koa');
-import sslify = require('koa-sslify');
+import sslify, { xForwardedProtoResolver, azureResolver, customProtoHeaderResolver, forwardedResolver } from 'koa-sslify';
 
 new Koa().use(sslify());
 
 new Koa().use(sslify({}));
 
 new Koa().use(sslify({
-    resolver: sslify.xForwardedProtoResolver,
+    resolver: xForwardedProtoResolver,
 }));
 
 new Koa().use(sslify({
-    resolver: sslify.azureResolver,
+    resolver: azureResolver,
 }));
 
 new Koa().use(sslify({
-    resolver: sslify.customProtoHeaderResolver('x-protocol'),
+    resolver: customProtoHeaderResolver('x-protocol'),
 }));
 
 new Koa().use(sslify({
-    resolver: sslify.forwardedResolver,
+    resolver: forwardedResolver,
 }));
 
 new Koa().use(sslify({

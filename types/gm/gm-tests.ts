@@ -66,6 +66,7 @@ declare const defineValue: string;
 declare const customCommand: string;
 declare const customInArguments: string[];
 declare const customOutArguments: string[];
+declare const customFormat: string;
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -177,6 +178,7 @@ gm(src)
 	.modulate(b, s, h)
 	.monitor()
 	.monochrome()
+	.montage(src)
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
 	})
@@ -308,6 +310,8 @@ gm(src)
 	.format({ bufferStream: true }, (err, format) => {
 	})
 	.identify((err, info) => {
+	})
+	.identify(customFormat, (err, info) => {
 	})
 	.identify({ bufferStream: true }, (err, info) => {
 	})

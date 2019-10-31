@@ -1,6 +1,9 @@
 import * as React from "react";
 import linkifyHtml from "linkifyjs/html";
 import Linkify from "linkifyjs/react";
+import linkifyStr from "linkifyjs/string";
+import linkifyElement from "linkifyjs/element";
+import { LinkifyOptions } from "linkifyjs";
 
 declare function describe(desc: string, f: () => void): void;
 
@@ -103,7 +106,7 @@ describe("linkifyjs/html", () => {
     linkifyHtml(
         // tslint:disable-next-line:prefer-template
         'Please ignore <script>var a = {}; a.com = "Hi";</script> \n' +
-            "but do <span>b.ca</span>",
+        "but do <span>b.ca</span>",
         {
             ignoreTags: ["script", "style"]
         }
@@ -224,4 +227,26 @@ describe("linkifyjs/react", () => {
             <span>{content}</span>
         </Linkify>;
     }
+});
+
+describe("linkifyjs/string", () => {
+    /**
+     * The following tests were based on the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/linkify-string.html
+     */
+    const options: LinkifyOptions = {};
+    const str = '<p>For help with GitHub.com, please email support@github.com</p>';
+    const result1: string = linkifyStr(str, options);
+    const result2: string = linkifyStr(str);
+});
+
+describe("linkifyjs/element", () => {
+    /**
+     * The following tests were based on the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/linkify-element.html
+     */
+    const options: LinkifyOptions = {};
+    const result1: HTMLElement = linkifyElement(document.body, options, document);
+    const result2: HTMLElement = linkifyElement(document.body, options);
+    const result3: HTMLElement = linkifyElement(document.body);
 });

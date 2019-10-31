@@ -12,9 +12,9 @@ function FuncComp() {
     return null;
 }
 
-// $ExpectType Requireable<number | null>
+// $ExpectType Requireable<number | null | undefined>
 AirbnbPropTypes.and([PropTypes.number]);
-// $ExpectType Requireable<number | null>
+// $ExpectType Requireable<number | null | undefined>
 AirbnbPropTypes.and([PropTypes.number, AirbnbPropTypes.nonNegativeInteger]);
 // $ExpectType Validator<number>
 AirbnbPropTypes.and([PropTypes.number, AirbnbPropTypes.integer()], 'foo').isRequired;
@@ -87,7 +87,7 @@ interface ForbidShape {
     baz?: boolean | null;
 }
 
-// $ExpectType ValidationMap<{ foo: string | null; bar: number; baz: boolean | null; }>
+// $ExpectType ValidationMap<{ foo: string | null | undefined; bar: number; baz: boolean | null | undefined; }>
 AirbnbPropTypes.forbidExtraProps({
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired,
@@ -104,12 +104,13 @@ AirbnbPropTypes.forbidExtraProps<ForbidShape>({
 // $ExpectType Requireable<number>
 AirbnbPropTypes.integer();
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.number);
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.number, 'foo');
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.oneOf(['foo', 'bar']));
+const top = (<T>(x?: T): T => x!)();
+type Top = typeof top;
+declare function validateRequireableTop(x: React.Requireable<Top>): void;
+
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.number));
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.number, 'foo'));
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.oneOf(['foo', 'bar'])));
 
 // $ExpectType Requireable<number>
 AirbnbPropTypes.mutuallyExclusiveProps(PropTypes.number);
@@ -137,8 +138,8 @@ AirbnbPropTypes.nonNegativeNumber();
 // $ExpectType Requireable<string>
 AirbnbPropTypes.numericString();
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.object();
+// $ExpectType Requireable<object>
+const props: PropTypes.Requireable<object> = AirbnbPropTypes.object();
 // $ExpectType Requireable<{ foo: string; }>
 AirbnbPropTypes.object<{ foo: string }>();
 
@@ -151,39 +152,36 @@ AirbnbPropTypes.range(0, 10);
 // $ExpectType Requireable<5>
 AirbnbPropTypes.range<5>(0, 10);
 
-// $ExpectType Requireable<string | null>
+// $ExpectType Requireable<ReactLegacyRefLike<HTMLElement>>
+AirbnbPropTypes.ref();
+
+// $ExpectType Requireable<string | null | undefined>
 AirbnbPropTypes.requiredBy('foo', PropTypes.string);
 // $ExpectType Validator<number>
 AirbnbPropTypes.requiredBy('bar', PropTypes.number, 42).isRequired;
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp();
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp(() => 'Error');
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp(() => new Error('Error'));
+validateRequireableTop(AirbnbPropTypes.restrictedProp());
+validateRequireableTop(AirbnbPropTypes.restrictedProp(() => 'Error'));
+validateRequireableTop(AirbnbPropTypes.restrictedProp(() => new Error('Error')));
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf({ validator: PropTypes.number });
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string });
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf(
+validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }));
+validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string }));
+validateRequireableTop(AirbnbPropTypes.sequenceOf(
     { validator: PropTypes.number, min: 0, max: 10 },
     { validator: PropTypes.string },
     { validator: PropTypes.bool },
-);
+));
 
 interface ShapeShape {
     foo: string;
     bar?: number | null;
 }
 
-// $ExpectType Requireable<{ foo: string | null; }>
+// $ExpectType Requireable<{ foo: string | null | undefined; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
 });
-// $ExpectType Requireable<{ foo: string | null; bar: number | null; }>
+// $ExpectType Requireable<{ foo: string | null | undefined; bar: number | null | undefined; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
     bar: PropTypes.number,
@@ -202,5 +200,5 @@ AirbnbPropTypes.uniqueArray();
 // $ExpectType Requireable<string[]>
 AirbnbPropTypes.uniqueArray<string>();
 
-// $ExpectType Requireable<{ [key: string]: number | null; }>
+// $ExpectType Requireable<{ [key: string]: number | null | undefined; }>
 AirbnbPropTypes.valuesOf(PropTypes.number);

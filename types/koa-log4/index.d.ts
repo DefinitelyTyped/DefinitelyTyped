@@ -11,7 +11,7 @@ export function koaLogger(logger4js: Log4js.Logger, optionsOrFormat?: Options | 
 
 export interface Options {
     format?: string;
-    level?: Log4js.Level;
+    level?: Log4js.Level | 'auto';
 }
 
 export * from 'log4js';

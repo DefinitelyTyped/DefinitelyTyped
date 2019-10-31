@@ -1,6 +1,7 @@
 // Type definitions for react-native-material-dropdown 0.11
 // Project: https://github.com/n4kz/react-native-material-dropdown
 // Definitions by: Jaydeep <https://github.com/jaydeep987>
+//                 Michael <https://github.com/mchappell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,6 +46,8 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   animationDuration?: number;
   /** Set font size of dropdown items (default: 16) */
   fontSize?: number;
+  /** Set font size of label (default: 12) */
+  labelFontSize?: number;
   /** Set Text color (default: rgba(0, 0, 0, .87)) */
   textColor?: string;
   /** Set Item color (default: rgba(0, 0, 0, .54)) */
@@ -63,6 +66,8 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   itemPadding?: number;
   /** Set container styles */
   containerStyle?: StyleProp<ViewStyle>;
+  /** Set input container styles */
+  inputContainerStyle?: StyleProp<ViewStyle>;
   /** Set overlay styles */
   overlayStyle?: StyleProp<ViewStyle>;
   /** Set picker styles */
@@ -88,7 +93,7 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   /** Event: When focus lost from dropdown */
   onBlur?(): void;
   /** Event: When change selected item */
-  onChangeText?(value: string, index: number, data: DropDownData): void;
+  onChangeText?(value: string, index: number, data: DropDownData[]): void;
 
   /** Render base component */
   renderBase?(props: RenderBaseProps): JSX.Element;

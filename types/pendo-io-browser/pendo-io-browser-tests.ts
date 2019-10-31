@@ -31,6 +31,17 @@ pendo.identify({
     }
 });
 
+pendo.updateOptions({
+    visitor: {
+        id: 'foo'
+    },
+    account: {
+        id: 'bar',
+        TypeOfBusiness: 'brokers',
+        dollarPerStop: 'true'
+    }
+});
+
 pendo.debugging.getEventCache();
 
 pendo.events

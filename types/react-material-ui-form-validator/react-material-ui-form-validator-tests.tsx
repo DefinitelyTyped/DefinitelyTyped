@@ -6,9 +6,19 @@ import {
 } from 'react-material-ui-form-validator';
 
 class Test extends React.Component {
-    onSubmitted = (event: React.FormEventHandler) => {};
+    onSubmitted = (event: React.FormEvent) => {
+        event.preventDefault(); // Actually preventDefault() is called by ValidatorForm
+    }
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
+
+    componentDidMount() {
+        ValidatorForm.addValidationRule('isTruthy', value => value);
+    }
+
+    componentWillUnmount() {
+        ValidatorForm.removeValidationRule('isTruthy');
+    }
 
     render() {
         return (

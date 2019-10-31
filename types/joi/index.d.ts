@@ -209,6 +209,10 @@ export interface StringRegexOptions {
     invert?: boolean;
 }
 
+export interface ArrayUniqueOptions {
+    ignoreUndefined?: boolean;
+}
+
 export interface JoiObject {
     isJoi: boolean;
 }
@@ -762,7 +766,7 @@ export interface ArraySchema extends AnySchema {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(comparator?: string): this;
+    unique(comparator?: string, options?: ArrayUniqueOptions): this;
     unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
 }
 

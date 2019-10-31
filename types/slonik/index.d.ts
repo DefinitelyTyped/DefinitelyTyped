@@ -1,8 +1,13 @@
-// Type definitions for slonik 15.4
+// Type definitions for slonik 19.0
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
+//                 Misha Kaletsky <https://github.com/mmkal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
+
+/// <reference types="node" />
+
+import { Readable } from 'stream';
 import * as SlonikSymbol from './symbols';
 
 //
@@ -12,58 +17,99 @@ import * as SlonikSymbol from './symbols';
 export type LoggerType = (...args: string[]) => never;
 export type MaybePromiseType<T> = T | Promise<T>;
 
+export type StreamHandlerType = (stream: Readable) => void;
+
+export type ComparisonOperatorType = '<' | '>' | '<=' | '>=' | '=' | '<>' | '!=';
+export type LogicalBooleanOperatorType = 'AND' | 'OR';
+
 //
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
-export type PrimitiveValueExpressionType = string | number | boolean | null;
 
-export type ValueExpressionType =
-    | PrimitiveValueExpressionType
-    | IdentifierTokenType
-    | RawSqlTokenType
-    | SqlSqlTokenType
-    | TupleListSqlTokenType
-    | TupleSqlTokenType
-    | UnnestSqlTokenType
-    | ValueListSqlTokenType;
+export type TypeNameIdentifierType =
+  'bool' |
+  'bytea' |
+  'float4' |
+  'float8' |
+  'int2' |
+  'int4' |
+  'json' |
+  'text' |
+  'timestamptz';
 
-export interface IdentifierTokenType {
+export type SerializableValueType =
+    | string
+    | number
+    | boolean
+    | null
+    | object
+    | SerializableValueObject
+    | SerializableValueArray;
+
+export interface SerializableValueObject {
+  [x: string]: SerializableValueType;
+}
+
+export interface SerializableValueArray
+  extends ReadonlyArray<SerializableValueType> {}
+
+export type PositionalParameterValuesType = ReadonlyArray<ValueExpressionType>;
+
+export type NamedParameterValuesType = Record<string, ValueExpressionType>;
+
+export interface ArraySqlTokenType {
+    memberType: TypeNameIdentifierType | SqlTokenType;
+    type: typeof SlonikSymbol.ArrayTokenSymbol;
+    values: PositionalParameterValuesType;
+}
+
+export interface BinarySqlTokenType {
+    data: Buffer;
+    type: typeof SlonikSymbol.BinaryTokenSymbol;
+}
+
+export interface IdentifierSqlTokenType {
     names: ReadonlyArray<string>;
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
 }
 
-export interface SqlSqlTokenType {
-    sql: string;
-    type: typeof SlonikSymbol.SqlTokenSymbol;
-    values: PrimitiveValueExpressionType[];
+export interface ListSqlTokenType {
+    glue: SqlTokenType;
+    members: ReadonlyArray<SqlTokenType>;
+    type: typeof SlonikSymbol.ListTokenSymbol;
 }
 
-export interface RawSqlTokenType {
-    sql: string;
-    type: typeof SlonikSymbol.RawSqlTokenSymbol;
-    values: PrimitiveValueExpressionType[];
+export interface JsonSqlTokenType {
+    value: SerializableValueType;
+    type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
-export interface ValueListSqlTokenType {
-    values: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.ValueListTokenSymbol;
-}
-
-export interface TupleSqlTokenType {
-    values: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.TupleTokenSymbol;
-}
-
-export interface TupleListSqlTokenType {
-    tuples: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.TupleListTokenSymbol;
-}
+export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
 
 export interface UnnestSqlTokenType {
-    columnTypes: string[];
-    tuples: PrimitiveValueExpressionType[][];
+    columnTypes: ReadonlyArray<string>;
+    tuples: ReadonlyArray<PositionalParameterValuesType>;
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
+
+export type PrimitiveValueExpressionType = string | number | boolean | null | PrimitiveValueExpressionTypeArray;
+
+export interface PrimitiveValueExpressionTypeArray extends Array<PrimitiveValueExpressionType> {}
+
+export type SqlTokenType =
+    ArraySqlTokenType |
+    BinarySqlTokenType |
+    IdentifierSqlTokenType |
+    JsonSqlTokenType |
+    ListSqlTokenType |
+    SqlSqlTokenType<any> |
+    UnnestSqlTokenType;
+
+export type ValueExpressionType =
+    SqlTokenType |
+    PrimitiveValueExpressionType;
+
+export type NamedAssignmentType = Record<string, ValueExpressionType>;
 
 //
 // DATABASE
@@ -79,18 +125,20 @@ export interface FieldType {
 }
 
 export type DatabaseTransactionConnectionType = CommonQueryMethodsType & {
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
 export type DatabasePoolConnectionType = CommonQueryMethodsType & {
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
-export type ConnectionRoutineType = (connection: DatabasePoolConnectionType) => Promise<unknown>;
+export type ConnectionRoutineType<T> = (connection: DatabasePoolConnectionType) => Promise<T>;
 
 export type DatabasePoolType = CommonQueryMethodsType & {
-    connect: (connectionRoutine: ConnectionRoutineType) => Promise<unknown>;
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    connect: <T>(connectionRoutine: ConnectionRoutineType<T>) => Promise<T>;
+    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
 export type DatabaseConfigurationType =
@@ -138,10 +186,11 @@ export interface QueryType {
     values?: ReadonlyArray<PrimitiveValueExpressionType>;
 }
 
-export type QueryMethodType<R> = (
-    sql: TaggedTemplateLiteralInvocationType,
+export type QueryMethodType<RowType, Result> = (
+    sql: TaggedTemplateLiteralInvocationType<RowType>,
     values?: PrimitiveValueExpressionType[]
-) => Promise<R>;
+) => Promise<Result>;
+export type QueryMethodParams<T> = Parameters<QueryMethodType<T, never>>;
 
 export interface NoticeType {
     code: string;
@@ -152,31 +201,30 @@ export interface NoticeType {
     where: string;
 }
 
-export type QueryResultType<T> = Readonly<{
+export interface QueryResultType<T> {
     command: 'DELETE' | 'INSERT' | 'SELECT' | 'UPDATE';
     fields: ReadonlyArray<FieldType>;
-    notices: ReadonlyArray<NoticeType>,
+    notices: ReadonlyArray<NoticeType>;
     oid: number | null;
     rowAsArray: boolean;
     rowCount: number;
     rows: ReadonlyArray<T>;
-}>;
+}
 
 export type QueryResultRowColumnType = string | number;
 export type QueryResultRowType<ColumnName extends string = string> = {
-    [name in  ColumnName]: QueryResultRowColumnType;
+    [name in ColumnName]: QueryResultRowColumnType;
 };
 
-// TODO: Infer column names via generic
-export type QueryAnyFirstFunctionType       = QueryMethodType<QueryResultRowColumnType[]>;
-export type QueryAnyFunctionType            = QueryMethodType<QueryResultRowType[]>;
-export type QueryFunctionType               = QueryMethodType<QueryResultRowType>;
-export type QueryManyFirstFunctionType      = QueryMethodType<QueryResultRowColumnType[]>;
-export type QueryManyFunctionType           = QueryMethodType<QueryResultRowType[]>;
-export type QueryMaybeOneFirstFunctionType  = QueryMethodType<QueryResultRowColumnType>;
-export type QueryMaybeOneFunctionType       = QueryMethodType<QueryResultRowType | null>;
-export type QueryOneFirstFunctionType       = QueryMethodType<QueryResultRowColumnType>;
-export type QueryOneFunctionType            = QueryMethodType<QueryResultRowType>;
+export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<Array<T[keyof T]>>;
+export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[]>;
+export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
+export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
+export type QueryManyFunctionType = QueryAnyFunctionType;
+export type QueryMaybeOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T] | null>;
+export type QueryMaybeOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T | null>;
+export type QueryOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T]>;
+export type QueryOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T>;
 
 export interface CommonQueryMethodsType {
     any: QueryAnyFunctionType;
@@ -231,7 +279,7 @@ export interface QueryContextType {
 //
 // SQL (TAGGED TEMPLATE)
 // ----------------------------------------------------------------------
-export interface TaggedTemplateLiteralInvocationType {
+export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType> {
     sql: string;
     type: typeof SlonikSymbol.SqlTokenSymbol;
     values: ValueExpressionType[];
@@ -239,14 +287,42 @@ export interface TaggedTemplateLiteralInvocationType {
 
 export const sql: SqlTaggedTemplateType;
 
+export type IdentifierNormalizerType = (identifierName: string) => string;
+
+export interface SqlTagConfigurationType {
+    normalizeIdentifier?: IdentifierNormalizerType;
+}
+
+export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
+
 export interface SqlTaggedTemplateType {
-    (template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType;
-    identifier: (names: string[]) => IdentifierTokenType;
-    raw: (rawSql: string, values?: PrimitiveValueExpressionType[]) => RawSqlTokenType;
-    tuple: (values: PrimitiveValueExpressionType[]) => TupleSqlTokenType;
-    tupleList: (tuples: PrimitiveValueExpressionType[][]) => TupleListSqlTokenType;
-    unnest: (tuples: PrimitiveValueExpressionType[][], columnTypes: string[]) => UnnestSqlTokenType;
-    valueList: (values: PrimitiveValueExpressionType[]) => ValueListSqlTokenType;
+    // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
+    <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
+    array: (
+        values: PrimitiveValueExpressionType[],
+        memberType: string
+    ) => ArraySqlTokenType;
+    identifier: (
+        names: string[]
+    ) => IdentifierSqlTokenType;
+    json: (
+        value: SerializableValueType
+    ) => JsonSqlTokenType;
+    join: (
+      members: ReadonlyArray<ValueExpressionType>,
+      glue: SqlTokenType,
+    ) => ListSqlTokenType;
+    raw: (
+        rawSql: string,
+        values?: ReadonlyArray<PrimitiveValueExpressionType>
+    ) => SqlTokenType;
+    unnest: (
+        // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
+        // or it can be infinitely nested array, e.g.
+        // https://github.com/gajus/slonik/issues/44
+        tuples: ReadonlyArray<ReadonlyArray<any>>,
+        columnTypes: ReadonlyArray<string>
+    ) => UnnestSqlTokenType;
 }
 
 export interface SqlFragmentType {
@@ -280,9 +356,9 @@ export function createPool(
 //
 // TRANSACTION
 // ----------------------------------------------------------------------
-export type TransactionFunctionType = (
+export type TransactionFunctionType<T> = (
     connection: DatabaseTransactionConnectionType
-) => Promise<unknown>;
+) => Promise<T>;
 
 //
 // INTERCEPTOR
@@ -308,10 +384,21 @@ export interface InterceptorType {
         queryContext: QueryContextType,
         query: QueryType
     ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    queryExecutionError?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        error: SlonikError
+    ) => MaybePromiseType<void>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryType>;
+    ) => QueryType;
+    transformRow?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        row: QueryResultRowType,
+        fields: FieldType[]
+    ) => QueryResultRowType;
 }
 
 /**
@@ -361,7 +448,21 @@ export function createTypeParserPreset(): TypeParserType[];
 // CLIENT
 // ----------------------------------------------------------------------
 export interface ClientConfigurationType {
+    /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
     captureStackTrace?: boolean;
+
+    /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
+    connectionTimeout?: number;
+
+    /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
+    idleTimeout?: number;
+
+    /** Do not allow more than this many connections. (Default: 10) */
+    maximumPoolSize?: number;
+
+    /** Add more server connections to pool if below this number. (Default: 1) */
+    minimumPoolSize?: number;
+
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
      */
@@ -372,24 +473,31 @@ export interface ClientConfigurationType {
     typeParsers?: TypeParserType[];
 }
 
-export interface ClientUserConfigurationType<T = unknown> {
-    /**
-     * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
-     */
-    interceptors?: InterceptorType[];
-    /**
-     * An array of [Slonik type parsers](https://github.com/gajus/slonik#slonik-type-parsers)
-     */
-    typeParsers?: TypeParserType[];
-}
+// tslint:disable-next-line no-empty-interface
+export interface ClientUserConfigurationType extends ClientConfigurationType {}
 
 //
 // ERRORS
 // ----------------------------------------------------------------------
 export class SlonikError extends Error {}
+export class InvalidInputError extends SlonikError {}
+export class UnexpectedStateError extends SlonikError {}
+export class ConnectionError extends SlonikError {}
+export class QueryCancelledError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error);
+}
+export class BackendTerminatedError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error)
+}
 export class NotFoundError extends SlonikError {}
 export class DataIntegrityError extends SlonikError {}
-export class IntegrityConstraintViolationError extends SlonikError {}
+export class IntegrityConstraintViolationError extends SlonikError {
+  constraint: string;
+  originalError: Error;
+  constructor(error: Error, constraint: string);
+}
 export class NotNullIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class ForeignKeyIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class UniqueIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}

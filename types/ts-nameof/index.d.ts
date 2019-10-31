@@ -1,4 +1,4 @@
-// Type definitions for ts-nameof 2.0
+// Type definitions for ts-nameof 4.0
 // Project: https://github.com/dsherret/ts-nameof#readme
 // Definitions by: David Sherret <https://github.com/dsherret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,4 +12,8 @@ declare namespace nameof {
     // tslint:disable-next-line no-unnecessary-generics
     function full<T>(func: (obj: T) => void, periodIndex?: number): string;
     function full(obj: any, periodIndex?: number): string;
+    // tslint:disable-next-line no-unnecessary-generics
+    function toArray<T>(func: (obj: T) => any[]): string[];
+    function toArray(...args: any[]): string[];
+    function interpolate<T>(value: T): T;
 }

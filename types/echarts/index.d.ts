@@ -1,5 +1,5 @@
-// Type definitions for echarts 4.1.0
-// Project: http://echarts.baidu.com/
+// Type definitions for ECharts 4.4.0
+// Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
 //                 Liveangela <https://github.com/liveangela>
@@ -7,6 +7,8 @@
 //                 Roman <https://github.com/iRON5>
 //                 Bilal <https://github.com/bilalucar>
 //                 TMTron <https://github.com/tmtron>
+//                 dwhitney <https://github.com/dwhitney>
+//                 Ruixuel <https://github.com/ruixuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -477,7 +479,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#legend
          */
-        legend?: object,
+        legend?: EChartOption.Legend,
 
         /**
          * Drawing grid in rectangular coordinate.
@@ -490,7 +492,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#grid
          */
-        grid?: object,
+        grid?: EChartOption.Grid | EChartOption.Grid[],
 
         /**
          * The x axis in cartesian(rectangular) coordinate.
@@ -610,7 +612,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap
          */
-        visualMap?: object[],
+        visualMap?: EChartOption.VisualMap[],
 
         /**
          * Tooltip component.
@@ -695,7 +697,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#singleAxis
          */
-        singleAxis?: object,
+        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[],
 
         /**
          * `timeline` component, which provides functions like switching and playing
@@ -725,12 +727,12 @@ declare namespace echarts {
 
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#calendar
          */
-        calendar?: object,
+        calendar?: EChartOption.Calendar | EChartOption.Calendar[],
 
         /**
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset
          */
-        dataset?: object,
+        dataset?: EChartOption.Dataset | EChartOption.Dataset[],
 
         /**
          * `dataset` component is published since ECharts 4.
@@ -776,7 +778,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#textStyle
          */
-        textStyle?: EChartOption.TextStyle,
+        textStyle?: EChartOption.BaseTextStyle,
 
         /**
          * Whether to enable animation.
@@ -966,22 +968,26 @@ declare namespace echarts {
         text?: string;
         link?: string,
         target?: string,
-        textStyle?: object,
+        textStyle?: EChartOption.TextStyleWithRich,
         subtext?: string,
         sublink?: string,
         subtarget?: string,
-        subtextStyle?: object,
+        subtextStyle?: EChartOption.TextStyleWithRich,
+        textAlign?: string,
+        textVerticalAlign?: string,
+        triggerEvent?: boolean,
         padding?: number,
         itemGap?: number,
         zlevel?: number,
         z?: number,
-        left?: string,
-        top?: string,
-        right?: string,
-        bottom?: string,
+        left?: string | number,
+        top?: string | number,
+        right?: string | number,
+        bottom?: string | number,
         backgroundColor?: string,
         borderColor?: string,
         borderWidth?: number,
+        borderRadius?: number | number[],
         shadowBlur?: number,
         shadowColor?: number,
         shadowOffsetX?: number,
@@ -1057,16 +1063,7 @@ declare namespace echarts {
                 symbol?: string | string[];
                 symbolSize?: number[];
                 symbolOffset?: number[];
-                lineStyle?: {
-                    color?: string;
-                    width?: number;
-                    type?: 'solid' | 'dashed' | 'dotted';
-                    shadowBlur?: number;
-                    shadowColor?: string;
-                    shadowOffsetX?: number;
-                    shadowOffsetY?: number;
-                    opacity?: number;
-                };
+                lineStyle?: LineStyle;
             }
 
             interface CartesianAxis {
@@ -1117,7 +1114,7 @@ declare namespace echarts {
                  *
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.nameTextStyle
                  */
-                nameTextStyle?: CartesianAxis.TextStyle;
+                nameTextStyle?: TextStyleWithRich;
 
                 /**
                  * Gap between axis name and axis line.
@@ -1173,9 +1170,9 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.min
+                 * @see https://echarts.apache.org/option.html#yAxis.min
                  */
-                min?: number | string;
+                min?: number | string | ((value: { min: number, max: number }) => number);
 
                 /**
                  * The maximum value of axis.
@@ -1190,9 +1187,9 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.max
+                 * @see https://echarts.apache.org/option.html#yAxis.max
                  */
-                max?: number | string;
+                 max?: number | string | ((value: { min: number, max: number } ) => number);
 
                 /**
                  * It is available only in numerical axis, i.e., type: `'value'`.
@@ -1352,7 +1349,7 @@ declare namespace echarts {
                  *
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
                  */
-                data?: (string | CartesianAxis.DataObject)[];
+                data?: (string | number | CartesianAxis.DataObject)[];
 
                 /**
                  * axisPointer settings on the axis.
@@ -1396,74 +1393,19 @@ declare namespace echarts {
                 /**
                  * @todo describe
                  */
-                interface Style {
-                    color?: string;
-                    fontStyle?: 'normal' | 'italic' | 'oblique';
-                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
-                                    | '100' | '200' | '300' | '400';
-                    fontFamily?: string;
-                    fontSize?: number;
-                    align?: string;
-                    verticalAlign?: string;
-                    lineHeight?: number;
-                    backgroundColor?: string | object;
-                    borderColor?: string;
-                    borderWidth?: number;
-                    borderRadius?: number;
-                    padding?: number | number[];
-                    shadowColor?: string;
-                    shadowBlur?: number;
-                    shadowOffsetX?: number;
-                    shadowOffsetY?: number;
-                    width?: number | string;
-                    height?: number | string;
-                    textBorderColor?: string;
-                    textBorderWidth?: number;
-                    textShadowColor?: string;
-                    textShadowBlur?: number;
-                    textShadowOffsetX?: number;
-                    textShadowOffsetY?: number;
-                }
-
-                /**
-                 * @todo describe
-                 */
-                interface RichStyle {
-                    [userStyleName: string]: Style;
-                }
-
-                interface TextStyle extends Style {
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data.textStyle.rich
-                     */
-                    rich?: RichStyle;
-                }
-
-                /**
-                 * @todo describe
-                 */
                 interface Tick {
                     show?: boolean;
                     alignWithLabel?: boolean;
                     interval?: number | Function;
                     inside?: boolean;
                     length?: number;
-                    lineStyle?: {
-                        color?: string;
-                        width?: number;
-                        type?: 'solid' | 'dashed' | 'dotted';
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                 }
 
                 /**
                  * @todo describe
                  */
-                interface Label extends TextStyle {
+                interface Label extends TextStyleWithRich {
                     show?: boolean;
                     interval?: number | Function;
                     inside?: boolean;
@@ -1480,16 +1422,7 @@ declare namespace echarts {
                 interface SplitLine {
                     show?: boolean;
                     interval?: number | Function;
-                    lineStyle?: {
-                        color?: string | string[];
-                        width?: number;
-                        type?: 'solid' | 'dashed' | 'dotted';
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                 }
 
                 /**
@@ -1512,8 +1445,8 @@ declare namespace echarts {
                  * @todo describe
                  */
                 interface DataObject {
-                    value?: string;
-                    textStyle?: TextStyle;
+                    value?: string | number;
+                    textStyle?: TextStyleWithRich;
                 }
 
                 /**
@@ -1525,16 +1458,7 @@ declare namespace echarts {
                     snap?: boolean;
                     z?: number;
                     label?: PointerLabel;
-                    lineStyle?: {
-                        color?: string;
-                        width?: number;
-                        type?: string;
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                     shadowStyle?: {
                         color?: string;
                         shadowBlur?: number;
@@ -1564,7 +1488,7 @@ declare namespace echarts {
                     show?: boolean;
                     precision?: number | string;
                     formatter?: string | Function;
-                    margin?: boolean;
+                    margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
                     fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'

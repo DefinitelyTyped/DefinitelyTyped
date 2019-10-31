@@ -662,7 +662,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   getParam<T extends keyof P>(param: T): P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
+    eventName: EventType,
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -972,6 +972,7 @@ export interface TabViewConfig {
     activeBackgroundColor?: string;
     inactiveTintColor?: string;
     inactiveBackgroundColor?: string;
+    keyboardHidesTabBar?: boolean;
     showLabel?: boolean;
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
@@ -1002,6 +1003,7 @@ export interface BottomTabNavigatorConfig
   extends NavigationBottomTabRouterConfig,
   TabViewConfig {
   lazy?: boolean;
+  resetOnBlur?: boolean;
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }

@@ -67,7 +67,11 @@ declare namespace Rellax {
         /**
          * By default, the position of parallax elements is determined via the scroll position of the body. Passing in the wrapper property will tell Rellax to watch that element instead
          */
-        wrapper?: string;
+        wrapper?: string | HTMLElement;
+        /**
+         * Do we want rellax element to be relative to the mentioned wrapper.
+         */
+        relativeToWrapper?: boolean;
     }
 }
 

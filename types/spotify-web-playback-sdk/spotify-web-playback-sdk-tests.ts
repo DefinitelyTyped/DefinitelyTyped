@@ -3,7 +3,7 @@
  * © 2017 Spotify AB
  */
 
-const player = new Spotify.Player({
+const player = new window.Spotify.Player({
     name: "Carly Rae Jepsen Player",
     getOAuthToken: (callback: (t: string) => void) => {
         // Run code to get a fresh access token

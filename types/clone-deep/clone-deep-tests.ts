@@ -1,4 +1,4 @@
-import cloneDeep from 'clone-deep';
+import cloneDeep = require('clone-deep');
 
 cloneDeep<object>(Object.create(null)); // $ExpectType object
 cloneDeep<object>({}); // $ExpectType object

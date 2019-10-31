@@ -36,6 +36,7 @@ module Amplitude.Tests {
         amplitude.setGroup('orgId', '15');
         amplitude.setGroup('orgId', ['15', '16']);
         amplitude.setUserId('joe@gmail.com');
+        amplitude.setUserId(null);
         amplitude.setUserProperties({ 'gender': 'female', 'sign_up_complete': true })
         amplitude.setVersionName('1.12.3');
         amplitude.isNewSession();
@@ -107,6 +108,9 @@ module Amplitude.Tests {
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setEventProperties({ 'city': 'San Francisco' });
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setQuantity(5);
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setRevenueType('purchase');
+
+        identify = new client.Identify()
+        revenue = new client.Revenue()
     }
 
 }

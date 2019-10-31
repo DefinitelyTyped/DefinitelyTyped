@@ -250,7 +250,7 @@ export interface BackEasingFactory {
 export const easeBack: BackEasingFactory;
 
 /**
- * Anticipatory easing, like a dancer bending his knees before jumping off the floor.
+ * Anticipatory easing, like a dancer bending their knees before jumping off the floor.
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
 export const easeBackIn: BackEasingFactory;

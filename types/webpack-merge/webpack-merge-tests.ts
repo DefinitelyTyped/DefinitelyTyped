@@ -10,7 +10,7 @@ const b: Configuration = {
 
 const c: Configuration = webpackMerge(a, b);
 const d: Configuration = webpackMerge.smart(a, b);
-const e: Configuration = webpackMerge.multiple(a, b);
+const e: Configuration[] = webpackMerge.multiple({a, b});
 const f: Configuration = webpackMerge(
     {
         customizeArray(x: any[], y: any[], key: string): any[] | undefined {

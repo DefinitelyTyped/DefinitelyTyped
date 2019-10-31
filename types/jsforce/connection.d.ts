@@ -50,6 +50,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     proxyUrl?: string;
     redirectUri?: string;
     refreshToken?: string;
+    refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
     serverUrl?: string;
     sessionId?: string;
     signedRequest?: string | Object;
@@ -108,13 +109,19 @@ export abstract class BaseConnection extends EventEmitter {
     queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
+    create<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     retrieve<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
     update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
+    update<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
     upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
+    upsert<T>(records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     del<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;

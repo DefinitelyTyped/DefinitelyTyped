@@ -1,8 +1,10 @@
-// Type definitions for Mapbox GL JS v0.51.0
+// Type definitions for Mapbox GL JS v1.3.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
+//                 Dmytro Gokun <https://github.com/dmytro-gokun>
+//                 Liam Clarke <https://github.com/LiamAttClarke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -14,6 +16,7 @@ export as namespace mapboxgl;
 declare namespace mapboxgl {
     let accessToken: string;
     let version: string;
+    let baseApiUrl: string;
 
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
@@ -32,7 +35,7 @@ declare namespace mapboxgl {
         // Lookup
         | 'at' | 'get' | 'has' | 'length'
         // Decision
-        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match' | 'coalesce'
         // Ramps, scales, curves
         | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
         // Variable binding
@@ -91,9 +94,48 @@ declare namespace mapboxgl {
 
         isRotating(): boolean;
 
-        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], parameters?: { layers?: string[], filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing visible features that satisfy the query parameters.
+         *
+         * The properties value of each returned feature object contains the properties of its source feature. For GeoJSON sources, only string and numeric property values are supported (i.e. null, Array, and Object values are not supported).
+         *
+         * Each feature includes top-level layer, source, and sourceLayer properties. The layer property is an object representing the style layer to which the feature belongs. Layout and paint properties in this object contain values which are fully evaluated for the given zoom level and feature.
+         *
+         * Only features that are currently rendered are included. Some features will not be included, like:
+         *
+         * - Features from layers whose visibility property is "none".
+         * - Features from layers whose zoom range excludes the current zoom level.
+         * - Symbol features that have been hidden due to text or icon collision.
+         *
+         * Features from all other layers are included, including features that may have no visible contribution to the rendered result; for example, because the layer's opacity or color alpha component is set to 0.
+         *
+         * The topmost rendered feature appears first in the returned array, and subsequent features are sorted by descending z-order. Features that are rendered multiple times (due to wrapping across the antimeridian at low zoom levels) are returned only once (though subject to the following caveat).
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param pointOrBox The geometry of the query region: either a single point or southwest and northeast points describing a bounding box. Omitting this parameter (i.e. calling Map#queryRenderedFeatures with zero arguments, or with only a  options argument) is equivalent to passing a bounding box encompassing the entire map viewport.
+         * @param options
+         */
+        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], options?: { layers?: string[], filter?: any[], validate?: boolean }): MapboxGeoJSONFeature[];
 
-        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing features within the specified vector tile or GeoJSON source that satisfy the query parameters.
+         *
+         * In contrast to Map#queryRenderedFeatures, this function returns all features matching the query parameters, whether or not they are rendered by the current style (i.e. visible). The domain of the query includes all currently-loaded vector tiles and GeoJSON source tiles: this function does not check tiles outside the currently visible viewport.
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param sourceID The ID of the vector tile or GeoJSON source to query.
+         * @param parameters
+         */
+        querySourceFeatures(
+            sourceID: string,
+            parameters?: {
+                sourceLayer?: string;
+                filter?: any[];
+                validate?: boolean;
+            }
+        ): MapboxGeoJSONFeature[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean, localIdeographFontFamily?: string }): this;
 
@@ -121,7 +163,7 @@ declare namespace mapboxgl {
 
         listImages(): string[];
 
-        addLayer(layer: mapboxgl.Layer, before?: string): this;
+        addLayer(layer: mapboxgl.Layer | mapboxgl.CustomLayerInterface, before?: string): this;
 
         moveLayer(id: string, beforeId?: string): this;
 
@@ -147,9 +189,11 @@ declare namespace mapboxgl {
 
         getLight(): mapboxgl.Light;
 
-        setFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
+        setFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
 
-        getFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
+        getFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
+
+        removeFeatureState(target: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature, key?: string): void;
 
         getContainer(): HTMLElement;
 
@@ -160,6 +204,8 @@ declare namespace mapboxgl {
         loaded(): boolean;
 
         remove(): void;
+
+        triggerRepaint(): void;
 
         showTileBoundaries: boolean;
 
@@ -199,7 +245,7 @@ declare namespace mapboxgl {
 
         setPitch(pitch: number, eventData?: EventData): this;
 
-        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraOptions | undefined;
+        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraForBoundsResult | undefined;
 
         fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
@@ -207,7 +253,7 @@ declare namespace mapboxgl {
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-        easeTo(options: mapboxgl.CameraOptions & mapboxgl.AnimationOptions & {delayEndEvents?: number}, eventData?: mapboxgl.EventData): this;
+        easeTo(options: mapboxgl.EaseToOptions, eventData?: mapboxgl.EventData): this;
 
         flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
@@ -243,6 +289,12 @@ declare namespace mapboxgl {
     }
 
     export interface MapboxOptions {
+        /**
+         * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
+         * This is false by default as a performance optimization.
+         */
+        antialias?: boolean;
+
         /** If true, an attribution control will be added to the map. */
         attributionControl?: boolean;
 
@@ -250,6 +302,9 @@ declare namespace mapboxgl {
 
         /** Snap to north threshold in degrees. */
         bearingSnap?: number;
+
+        /** The initial bounds of the map. If bounds is specified, it overrides center and zoom constructor options. */
+        bounds?: LngLatBoundsLike;
 
         /** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
         boxZoom?: boolean;
@@ -313,6 +368,9 @@ declare namespace mapboxgl {
 
         /** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
         failIfMajorPerformanceCaveat?: boolean;
+
+        /** A fitBounds options object to use only when setting the bounds option. */
+        fitBoundsOptions?: FitBoundsOptions;
 
         /** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
         interactive?: boolean;
@@ -451,6 +509,12 @@ declare namespace mapboxgl {
         right: number;
     }
 
+    export interface FeatureIdentifier {
+        id?: string | number,
+        source: string
+        sourceLayer?: string
+    }
+
     /**
      * BoxZoomHandler
      */
@@ -477,6 +541,10 @@ declare namespace mapboxgl {
         enable(): void;
 
         disable(): void;
+
+        setZoomRate(zoomRate: number): void;
+
+        setWheelZoomRate(wheelZoomRate: number): void;
     }
 
     /**
@@ -570,7 +638,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
+		constructor(options?: {
+            showCompass?: boolean;
+            showZoom?: boolean;
+            visualizePitch?: boolean;
+        });
     }
 
     export class PositionOptions {
@@ -604,10 +676,18 @@ declare namespace mapboxgl {
     }
 
     /**
-     * Fullscreen
+     * FullscreenControl
      */
     export class FullscreenControl extends Control {
-        constructor();
+        constructor(options?: FullscreenControlOptions | null);
+    }
+
+    export interface FullscreenControlOptions {
+        /**
+         * A compatible DOM element which should be made full screen.
+         * By default, the map container element will be made full screen.
+         */
+        container?: HTMLElement | null;
     }
 
     /**
@@ -624,13 +704,31 @@ declare namespace mapboxgl {
 
         getLngLat(): mapboxgl.LngLat;
 
+        /**
+         * Sets the geographical location of the popup's anchor, and moves the popup to it. Replaces trackPointer() behavior.
+         *
+         * @param lnglat The geographical location to set as the popup's anchor.
+         */
         setLngLat(lnglat: LngLatLike): this;
+
+        /**
+         * Tracks the popup anchor to the cursor position, on screens with a pointer device (will be hidden on touchscreens). Replaces the setLngLat behavior.
+         * For most use cases, `closeOnClick` and `closeButton` should also be set to `false` here.
+         */
+        trackPointer(): this;
+
+        /** Returns the `Popup`'s HTML element. */
+        getElement(): HTMLElement;
 
         setText(text: string): this;
 
         setHTML(html: string): this;
 
         setDOMContent(htmlNode: Node): this;
+
+        getMaxWidth(): string;
+
+        setMaxWidth(maxWidth: string): this;
     }
 
     export interface PopupOptions {
@@ -643,6 +741,8 @@ declare namespace mapboxgl {
         offset?: number | PointLike | { [key: string]: PointLike; };
 
         className?: string;
+
+        maxWidth?: string;
     }
 
     export interface Style {
@@ -766,6 +866,8 @@ declare namespace mapboxgl {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
+
+        updateImage(options: ImageSourceOptions): this;
 
         setCoordinates(coordinates: number[][]): this;
     }
@@ -969,6 +1071,43 @@ declare namespace mapboxgl {
         angleWithSep(x: number, y: number): number;
 
         static convert(a: PointLike): Point;
+    }
+
+    /**
+     * MercatorCoordinate
+     */
+    export class MercatorCoordinate {
+        /** The x component of the position. */
+        x: number;
+
+        /** The y component of the position. */
+        y: number;
+
+        /**
+         * The z component of the position.
+         *
+         * @default 0
+         */
+        z?: number;
+
+        constructor(x: number, y: number, z?: number);
+
+        /** Returns the altitude in meters of the coordinate. */
+        toAltitude(): number;
+
+        /** Returns the LngLat for the coordinate. */
+        toLngLat(): LngLat;
+
+        /**
+         * Returns the distance of 1 meter in MercatorCoordinate units at this latitude.
+         *
+         * For coordinates in real world units using meters, this naturally provides the
+         * scale to transform into MercatorCoordinates.
+         */
+        meterInMercatorCoordinateUnits(): number;
+
+        /** Project a LngLat to a MercatorCoordinate. */
+        static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
     }
 
     /**
@@ -1182,6 +1321,13 @@ declare namespace mapboxgl {
         maxZoom?: number;
     }
 
+    // The Mapbox docs say that if the result is defined, it will have zoom, center and bearing set.
+    // In practice center is always a {lat, lng} object.
+    export type CameraForBoundsResult = Required<Pick<CameraOptions, 'zoom' | 'bearing'>> & {
+        /** Map center */
+        center: {lng: number; lat: number};
+    };
+
     /**
      * FlyToOptions
      */
@@ -1191,6 +1337,13 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         maxDuration?: number;
+    }
+
+    /**
+     * EaseToOptions
+     */
+    export interface EaseToOptions extends AnimationOptions, CameraOptions {
+        delayEndEvents?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
@@ -1281,6 +1434,8 @@ declare namespace mapboxgl {
         touchcancel: MapLayerTouchEvent;
     }
 
+    export type AnyLayout = BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+
     export interface Layer {
         id: string;
         type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
@@ -1298,8 +1453,79 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
-        layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+        layout?: AnyLayout;
         paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+    }
+
+    // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
+    export interface CustomLayerInterface {
+        /** A unique layer id. */
+        id: string;
+
+        /* The layer's type. Must be "custom". */
+        type: 'custom';
+
+        /* Either "2d" or "3d". Defaults to  "2d". */
+        renderingMode?: '2d' | '3d';
+
+        /**
+         * Optional method called when the layer has been removed from the Map with Map#removeLayer.
+         * This gives the layer a chance to clean up gl resources and event listeners.
+         * @param map The Map this custom layer was just added to.
+         * @param gl The gl context for the map.
+         */
+        onRemove?(map: mapboxgl.Map, gl: WebGLRenderingContext): void;
+
+        /**
+         * Optional method called when the layer has been added to the Map with Map#addLayer.
+         * This gives the layer a chance to initialize gl resources and register event listeners.
+         * @param map The Map this custom layer was just added to.
+         * @param gl The gl context for the map.
+         */
+        onAdd?(map: mapboxgl.Map, gl: WebGLRenderingContext): void;
+
+        /**
+         * Optional method called during a render frame to allow a layer to prepare resources
+         * or render into a texture.
+         *
+         * The layer cannot make any assumptions about the current GL state and must bind a framebuffer
+         * before rendering.
+         * @param gl The map's gl context.
+         * @param matrix The map's camera matrix. It projects spherical mercator coordinates to gl
+         *               coordinates. The mercator coordinate  [0, 0] represents the top left corner of
+         *               the mercator world and  [1, 1] represents the bottom right corner. When the
+         *               renderingMode is  "3d" , the z coordinate is conformal. A box with identical
+         *               x, y, and z lengths in mercator units would be rendered as a cube.
+         *               MercatorCoordinate .fromLatLng can be used to project a  LngLat to a mercator
+         *               coordinate.
+         */
+        prerender?(gl: WebGLRenderingContext, matrix: number[]): void;
+
+        /**
+         * Called during a render frame allowing the layer to draw into the GL context.
+         *
+         * The layer can assume blending and depth state is set to allow the layer to properly blend
+         * and clip other layers. The layer cannot make any other assumptions about the current GL state.
+         *
+         * If the layer needs to render to a texture, it should implement the prerender method to do this
+         * and only use the render method for drawing directly into the main framebuffer.
+         *
+         * The blend function is set to gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA). This expects
+         * colors to be provided in premultiplied alpha form where the r, g and b values are already
+         * multiplied by the a value. If you are unable to provide colors in premultiplied form you may
+         * want to change the blend function to
+         * gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA).
+         *
+         * @param gl The map's gl context.
+         * @param matrix The map's camera matrix. It projects spherical mercator coordinates to gl
+         *               coordinates. The mercator coordinate  [0, 0] represents the top left corner of
+         *               the mercator world and  [1, 1] represents the bottom right corner. When the
+         *               renderingMode is  "3d" , the z coordinate is conformal. A box with identical
+         *               x, y, and z lengths in mercator units would be rendered as a cube.
+         *               MercatorCoordinate .fromLatLng can be used to project a  LngLat to a mercator
+         *               coordinate.
+         */
+        render(gl: WebGLRenderingContext, matrix: number[]): void;
     }
 
     export interface StyleFunction {
@@ -1311,8 +1537,13 @@ declare namespace mapboxgl {
         'colorSpace'?: 'rgb' | 'lab' | 'hcl';
     }
 
-    export interface BackgroundLayout {
-        visibility?: 'visible' | 'none';
+    type Visibility = 'visible' | 'none';
+
+    export interface Layout {
+        visibility?: Visibility;
+    }
+
+    export interface BackgroundLayout extends Layout {
     }
 
     export interface BackgroundPaint {
@@ -1324,8 +1555,7 @@ declare namespace mapboxgl {
         'background-opacity-transition'?: Transition;
     }
 
-    export interface FillLayout {
-        visibility?: 'visible' | 'none';
+    export interface FillLayout extends Layout {
     }
 
     export interface FillPaint {
@@ -1343,8 +1573,7 @@ declare namespace mapboxgl {
         'fill-pattern-transition'?: Transition;
     }
 
-    export interface FillExtrusionLayout {
-        visibility?: 'visible' | 'none';
+    export interface FillExtrusionLayout extends Layout {
     }
 
     export interface FillExtrusionPaint {
@@ -1364,9 +1593,7 @@ declare namespace mapboxgl {
         'fill-extrusion-vertical-gradient'?: boolean;
     }
 
-    export interface LineLayout {
-        visibility?: 'visible' | 'none';
-
+    export interface LineLayout extends Layout {
         'line-cap'?: 'butt' | 'round' | 'square';
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
@@ -1389,16 +1616,14 @@ declare namespace mapboxgl {
         'line-offset-transition'?: Transition;
         'line-blur'?: number | StyleFunction | Expression;
         'line-blur-transition'?: Transition;
-        'line-dasharray'?: number[];
+        'line-dasharray'?: number[] | Expression;
         'line-dasharray-transition'?: Transition;
         'line-pattern'?: string | Expression;
         'line-pattern-transition'?: Transition;
         'line-gradient'?: Expression;
     }
 
-    export interface SymbolLayout {
-        visibility?: 'visible' | 'none';
-
+    export interface SymbolLayout extends Layout {
         'symbol-placement'?: 'point' | 'line' | 'line-center';
         'symbol-spacing'?: number | Expression;
         'symbol-avoid-edges'?: boolean;
@@ -1420,12 +1645,12 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
         'text-field'?: string | StyleFunction | Expression;
-        'text-font'?: string | string[];
+        'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
         'text-max-width'?: number | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
-        'text-justify'?: 'left' | 'center' | 'right';
+        'text-justify'?: 'left' | 'center' | 'right' | Expression;
         'text-anchor'?: Anchor | StyleFunction | Expression;
         'text-max-angle'?: number | Expression;
         'text-rotate'?: number | StyleFunction | Expression;
@@ -1467,8 +1692,7 @@ declare namespace mapboxgl {
         'text-translate-anchor'?: 'map' | 'viewport';
     }
 
-    export interface RasterLayout {
-        visibility?: 'visible' | 'none';
+    export interface RasterLayout extends Layout {
     }
 
     export interface RasterPaint {
@@ -1488,8 +1712,7 @@ declare namespace mapboxgl {
         'raster-resample'?: 'linear' | 'nearest';
     }
 
-    export interface CircleLayout {
-        visibility?: 'visible' | 'none';
+    export interface CircleLayout extends Layout {
     }
 
     export interface CirclePaint {
@@ -1514,8 +1737,7 @@ declare namespace mapboxgl {
         'circle-stroke-opacity-transition'?: Transition;
     }
 
-    export interface HeatmapLayout {
-        visibility?: 'visible' | 'none';
+    export interface HeatmapLayout extends Layout {
     }
 
     export interface HeatmapPaint {
@@ -1529,8 +1751,7 @@ declare namespace mapboxgl {
         'heatmap-opacity-transition'?: Transition;
     }
 
-    export interface HillshadeLayout {
-        visibility?: 'visible' | 'none';
+    export interface HillshadeLayout extends Layout {
     }
 
     export interface HillshadePaint {

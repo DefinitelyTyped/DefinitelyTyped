@@ -29,30 +29,33 @@ declare namespace createRouter {
     interface NestedHandler extends ReadonlyArray<Handler> {}
     type Handler = FullHandler | NestedHandler;
 
-    type Method = (path: string|RegExp, handlerOrConfig: Handler | object, ...handlers: Handler[]) => Router;
+    type Method = (path: string|RegExp, handlerOrConfig: Handler | Config, ...handlers: Handler[]) => Router;
 
     type OutputValidation = { body: Joi.SchemaLike } | { headers: Joi.SchemaLike };
 
-    interface Spec {
+    interface Config {
+      pre?: Handler;
+      validate?: {
+          header?: Joi.SchemaLike;
+          query?: Joi.SchemaLike;
+          params?: Joi.SchemaLike;
+          body?: Joi.SchemaLike;
+          maxBody?: number;
+          failure?: number;
+          type?: 'form'|'json'|'multipart';
+          formOptions?: CoBody.Options;
+          jsonOptions?: CoBody.Options;
+          multipartOptions?: CoBody.Options;
+          output?: {[status: string]: OutputValidation};
+          continueOnError?: boolean;
+      };
+      meta?: any;
+    }
+
+    interface Spec extends Config {
         method: string|string[];
         path: string|RegExp;
         handler: Handler;
-        pre?: Handler;
-        validate?: {
-            header?: Joi.SchemaLike;
-            query?: Joi.SchemaLike;
-            params?: Joi.SchemaLike;
-            body?: Joi.SchemaLike;
-            maxBody?: number;
-            failure?: number;
-            type?: 'form'|'json'|'multipart';
-            formOptions?: CoBody.Options;
-            jsonOptions?: CoBody.Options;
-            multipartOptions?: CoBody.Options;
-            output?: {[status: string]: OutputValidation};
-            continueOnError?: boolean;
-        };
-        meta?: any;
     }
 
     interface Router {

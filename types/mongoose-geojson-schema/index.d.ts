@@ -2,7 +2,7 @@
 // Project: https://github.com/rideamigoscorp/mongoose-geojson-schema#readme
 // Definitions by: Bond <https://github.com/bondz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import mongoose = require('mongoose');
 

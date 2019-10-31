@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NextContext } from ".";
+import { GetInitialProps, NextContext } from ".";
 
 /**
  * Initial props returned from base Error class.
@@ -10,5 +10,5 @@ export interface DefaultErrorIProps {
 }
 
 export default class Error<P = {}> extends React.Component<P & DefaultErrorIProps> {
-    static getInitialProps(context: NextContext): Promise<DefaultErrorIProps> | DefaultErrorIProps;
+    static getInitialProps: GetInitialProps<DefaultErrorIProps, NextContext>;
 }

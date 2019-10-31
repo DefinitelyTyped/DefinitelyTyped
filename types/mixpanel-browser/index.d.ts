@@ -1,12 +1,15 @@
 // Type definitions for mixpanel-browser 2.23
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
+//                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export type Persistence = 'cookie' | 'localStorage';
 
 export type PushItem = Array<string | Dict>;
+
+export type Query = string | Element | Element[];
 
 export interface Dict {[key: string]: any; }
 
@@ -55,6 +58,7 @@ export interface Config {
   upgrade: boolean;
   disable_persistence: boolean;
   disable_cookie: boolean;
+  disable_notifications: boolean;
   secure_cookie: boolean;
   ip: boolean;
   property_blacklist: string[];
@@ -121,7 +125,7 @@ export function reset(): void;
 export function set_config(config: Partial<Config>): void;
 export function time_event(event_name: string): void;
 export function track(event_name: string, properties?: Dict, callback?: () => void): void;
-export function track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-export function track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;
 export const people: People;

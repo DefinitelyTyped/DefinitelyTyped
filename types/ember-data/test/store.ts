@@ -24,6 +24,7 @@ let post = store.createRecord('post', {
 });
 
 post.save(); // => POST to '/posts'
+post.save({ adapterOptions: { makeItSo: 'number one ' } });
 post.save().then(saved => {
     assertType<Post>(saved);
 });

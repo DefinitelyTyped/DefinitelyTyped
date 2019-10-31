@@ -1,4 +1,4 @@
-// Type definitions for react-native-material-textfield 0.12
+// Type definitions for react-native-material-textfield 0.15
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
@@ -14,15 +14,18 @@ import {
     View
 } from 'react-native';
 
+export interface ContentInset {
+    top?: number;
+    label?: number;
+    input?: number;
+}
+
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
 
     fontSize?: number;
-    titleFontSize?: number;
     labelFontSize?: number;
-    labelHeight?: number;
-    labelPadding?: number;
-    inputContainerPadding?: number;
+    contentInset?: ContentInset;
 
     style?: StyleProp<TextStyle>;
     labelTextStyle?: StyleProp<TextStyle>;
@@ -66,4 +69,29 @@ export interface TextFieldProps extends TextInputProps {
  * Material Style Text Field
  * @see https://github.com/n4kz/react-native-material-textfield/blob/master/src/components/field/index.js
  */
-export class TextField extends React.Component<TextFieldProps, any> {}
+export class TextField extends React.Component<TextFieldProps, any> {
+    /*
+     * Acquire focus
+     */
+    focus(): void;
+    /*
+     * Release focus
+     */
+    blur(): void;
+    /*
+     * Clear text field
+     */
+    clear(): void;
+    /*
+     * Get current value
+     */
+    value(): string;
+    /*
+     * Get current focus state
+     */
+    isFocused(): boolean;
+    /*
+     * Get current restriction state
+     */
+    isRestricted(): boolean;
+}

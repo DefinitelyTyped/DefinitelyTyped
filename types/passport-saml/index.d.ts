@@ -1,10 +1,11 @@
-// Type definitions for passport-saml 1.0
+// Type definitions for passport-saml 1.1
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
 //                 Karol Samborski <https://github.com/ksamborski>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import passport = require('passport');
 import express = require('express');
@@ -24,13 +25,13 @@ export type VerifiedCallback = (err: Error | null, user?: object, info?: object)
 
 export type VerifyWithRequest = (req: express.Request, profile: Profile, done: VerifiedCallback) => void;
 
-export type VerifyWithoutRequest = (profile: object, done: VerifiedCallback) => void;
+export type VerifyWithoutRequest = (profile: Profile, done: VerifiedCallback) => void;
 
 export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
-    logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;
-    generateServiceProviderMetadata(decryptionCert?: string, signingCert?: string): string;
+    logout(req: express.Request, callback: (err: Error | null, url?: string) => void): void;
+    generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): string;
 }
 
 export type CertCallback = (callback: (err: Error | null, cert?: string | string[]) => void) => void;
@@ -59,6 +60,11 @@ export interface SamlConfig {
     forceAuthn?: boolean;
     skipRequestCompression?: boolean;
     authnRequestBinding?: string;
+    RACComparison?: 'exact' | 'minimum' | 'maximum' | 'better';
+    providerName?: string;
+    passive?: boolean;
+    idpIssuer?: string;
+    audience?: string;
 
     // InResponseTo Validation
     validateInResponseTo?: boolean;
@@ -84,18 +90,18 @@ export interface AuthorizeOptions extends AuthenticateOptions {
 }
 
 export type Profile = {
-	issuer?: string;
-	sessionIndex?: string;
-	nameID?: string;
-	nameIDFormat?: string;
-	nameQualifier?: string;
-	spNameQualifier?: string;
-	ID?: string;
-	mail?: string;  // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
-	email?: string;  // `mail` if not present in the assertion
-	getAssertionXml(): string;  // get the raw assertion XML
-	getAssertion(): object;  // get the assertion XML parsed as a JavaScript object
-	getSamlResponseXml(): string; // get the raw SAML response XML
+  issuer?: string;
+  sessionIndex?: string;
+  nameID?: string;
+  nameIDFormat?: string;
+  nameQualifier?: string;
+  spNameQualifier?: string;
+  ID?: string;
+  mail?: string; // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
+  email?: string; // `mail` if not present in the assertion
+  getAssertionXml(): string; // get the raw assertion XML
+  getAssertion(): object; // get the assertion XML parsed as a JavaScript object
+  getSamlResponseXml(): string; // get the raw SAML response XML
 } & {
-	[attributeName: string]: string;  // arbitrary `AttributeValue`s
+  [attributeName: string]: unknown; // arbitrary `AttributeValue`s
 };

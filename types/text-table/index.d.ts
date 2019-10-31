@@ -20,7 +20,7 @@ declare namespace table {
         hsep?: string;
 
         /** An array of alignment types for each column, default ['l','l',...]. */
-        align?: Array<'l' | 'r' | 'c' | '.'>;
+        align?: Array<'l' | 'r' | 'c' | '.' | null | undefined>;
 
         /** A callback function to use when calculating the string length. */
         stringLength?(str: string): number;

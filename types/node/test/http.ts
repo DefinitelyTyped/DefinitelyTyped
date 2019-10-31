@@ -43,6 +43,7 @@ import * as net from 'net';
     const incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
 
     incoming.setEncoding('utf8');
+    incoming.setTimeout(1000).setTimeout(100, () => {});
 
     // stream
     incoming.pause();

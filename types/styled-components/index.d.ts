@@ -7,6 +7,7 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
+//                 Matthew Wagerfield <https://github.com/wagerfield>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -21,17 +22,14 @@ declare global {
 import * as CSS from "csstype";
 import * as React from "react";
 
-export type CSSObject = CSS.Properties<string | number> &
-    // Index type to allow selector nesting
-    // This is "[key in string]" and not "[key: string]" to allow CSSObject to be self-referential
-    {
-        // we need the CSS.Properties in here too to ensure the index signature doesn't create impossible values
-        [key in string]:
-            | CSS.Properties<string | number>[keyof CSS.Properties<
-                  string | number
-              >]
-            | CSSObject
-    };
+export type CSSProperties = CSS.Properties<string | number>;
+
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject };
+
+export interface CSSObject extends CSSProperties, CSSPseudos {
+    [key: string]: CSSObject | string | number | undefined;
+}
+
 export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {
@@ -47,9 +45,9 @@ export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
-        & PickU<P, Exclude<keyof P, keyof D>>
-        & Partial<PickU<P, Extract<keyof P, keyof D>>>
-        & Partial<PickU<D, Exclude<keyof D, keyof P>>>
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
@@ -65,16 +63,16 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any
-> = WithOptionalTheme<
-    OmitU<
-        ReactDefaultizedProps<
-            C,
-            React.ComponentPropsWithRef<C>
-        > & O,
-        A
-    > & Partial<PickU<React.ComponentPropsWithRef<C> & O, A>>,
-    T
-> & WithChildrenIfReactComponentClass<C>;
+> =
+    // Distribute O if O is a union type
+    O extends object
+    ? WithOptionalTheme<
+          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
+              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+          T
+      > &
+          WithChildrenIfReactComponentClass<C>
+    : never;
 
 // Because of React typing quirks, when getting props from a React.ComponentClass,
 // we need to manually add a `children` field.
@@ -214,6 +212,7 @@ export interface ThemedStyledFunctionBase<
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
         first:
             | TemplateStringsArray
@@ -347,10 +346,8 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 >;
 
 // Helper type operators
-// Pick that distributes over union types
-export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
-export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
-type WithOptionalTheme<P extends { theme?: T }, T> = OmitU<P, "theme"> & {
+type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
+type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -511,6 +508,7 @@ export class StyleSheetManager extends React.Component<
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
+    | CSSObject
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

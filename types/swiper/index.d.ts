@@ -6,6 +6,7 @@
 //                 Luiz M. <https://github.com/odahcam>
 //                 Justin Abene <https://github.com/jmca>
 //                 Asif Rahman <https://github.com/daem0ndev>
+//                 Liad Idan <https://github.com/LiadIdan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -428,13 +429,13 @@ export interface SwiperOptions {
     containerModifierClass?: string;
     slideClass?: string;
     slideActiveClass?: string;
-    slideDuplicatedActiveClass?: string;
+    slideDuplicateActiveClass?: string;
     slideVisibleClass?: string;
     slideDuplicateClass?: string;
     slideNextClass?: string;
-    slideDuplicatedNextClass?: string;
+    slideDuplicateNextClass?: string;
     slidePrevClass?: string;
-    slideDuplicatedPrevClass?: string;
+    slideDuplicatePrevClass?: string;
     wrapperClass?: string;
 
     // Components
@@ -448,6 +449,7 @@ export interface SwiperOptions {
     coverflowEffect?: CoverflowEffectOptions;
     flipEffect?: FlipEffectOptions;
     cubeEffect?: CubeEffectOptions;
+    thumbs?: ThumbsOptions;
     zoom?: ZoomOptions | boolean;
     keyboard?: KeyboardOptions | boolean;
     mousewheel?: MousewheelOptions | boolean;
@@ -924,7 +926,7 @@ export interface LazyOptions {
  */
 
 export interface FadeEffectOptions {
-    crossfade?: boolean;
+    crossFade?: boolean;
 }
 
 export interface CoverflowEffectOptions {
@@ -945,6 +947,12 @@ export interface CubeEffectOptions {
     shadow?: boolean;
     shadowOffset?: number;
     shadowScale?: number;
+}
+
+export interface ThumbsOptions {
+    swiper?: Swiper;
+    slideThumbActiveClass?: string;
+    thumbsContainerClass?: string;
 }
 
 export interface ZoomOptions {
@@ -971,6 +979,8 @@ export interface MousewheelOptions {
 export interface VirtualOptions {
     slides?: any[];
     cache?: boolean;
+    addSlidesBefore?: number;
+    addSlidesAfter?: number;
     renderSlide?: (slide: any, index: any) => any;
     renderExternal?: (data: any) => any;
 }
@@ -1116,7 +1126,7 @@ import {
     EffectCube,
     EffectFlip,
     EffectCoverflow
-} from './dist/js/swiper.esm';
+} from './js/swiper.esm';
 
 /**
  * Core module
@@ -1232,7 +1242,7 @@ export default class Swiper {
     /**
      * Index number of last clicked slide
      */
-    clickedIdex: number;
+    clickedIndex: number;
 
     /**
      * Link to last clicked slide (HTMLElement)
@@ -1551,6 +1561,11 @@ export default class Swiper {
      * Swiper CubeEffect module.
      */
     cubeEffect?: EffectCube;
+
+    /**
+     * Swiper Thumbs module.
+     */
+    thumbs?: object;
 
     /**
      * Swiper Zoom module.

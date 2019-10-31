@@ -51,13 +51,13 @@ const someNextTask = () => {
 gulp.task(someTask);
 
 const foo: gulp.TaskFunction = () => { };
-foo.name === 'foo'; // true
+foo.displayName === 'foo'; // true
 
 const bar: gulp.TaskFunction = () => { };
-bar.name === ''; // true
+bar.displayName === ''; // true
 
-bar.name = 'bar';
-bar.name === ''; // true
+bar.displayName = 'bar';
+bar.displayName === ''; // true
 
 const test: gulp.TaskFunction = (done) => {
     done();

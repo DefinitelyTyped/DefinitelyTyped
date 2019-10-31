@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-06
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,12 +23,12 @@ declare namespace GoogleAppsScript {
      *     y2 = scaleY * y1 + shearY * x1 + translateY
      */
     export interface AffineTransform {
-      getScaleX(): Number;
-      getScaleY(): Number;
-      getShearX(): Number;
-      getShearY(): Number;
-      getTranslateX(): Number;
-      getTranslateY(): Number;
+      getScaleX(): number;
+      getScaleY(): number;
+      getShearX(): number;
+      getShearY(): number;
+      getTranslateX(): number;
+      getTranslateY(): number;
       toBuilder(): AffineTransformBuilder;
     }
 
@@ -47,12 +47,12 @@ declare namespace GoogleAppsScript {
      */
     export interface AffineTransformBuilder {
       build(): AffineTransform;
-      setScaleX(scaleX: Number): AffineTransformBuilder;
-      setScaleY(scaleY: Number): AffineTransformBuilder;
-      setShearX(shearX: Number): AffineTransformBuilder;
-      setShearY(shearY: Number): AffineTransformBuilder;
-      setTranslateX(translateX: Number): AffineTransformBuilder;
-      setTranslateY(translateY: Number): AffineTransformBuilder;
+      setScaleX(scaleX: number): AffineTransformBuilder;
+      setScaleY(scaleY: number): AffineTransformBuilder;
+      setShearX(shearX: number): AffineTransformBuilder;
+      setShearY(shearY: number): AffineTransformBuilder;
+      setTranslateX(translateX: number): AffineTransformBuilder;
+      setTranslateY(translateY: number): AffineTransformBuilder;
     }
 
     /**
@@ -90,11 +90,11 @@ declare namespace GoogleAppsScript {
     export interface Border {
       getDashStyle(): DashStyle;
       getLineFill(): LineFill;
-      getWeight(): Number;
+      getWeight(): number;
       isVisible(): boolean;
       setDashStyle(style: DashStyle): Border;
       setTransparent(): Border;
-      setWeight(points: Number): Border;
+      setWeight(points: number): Border;
     }
 
     /**
@@ -118,6 +118,9 @@ declare namespace GoogleAppsScript {
     export interface ColorScheme {
       getConcreteColor(theme: ThemeColorType): Color;
       getThemeColors(): ThemeColorType[];
+      setConcreteColor(type: ThemeColorType, color: Color): ColorScheme;
+      setConcreteColor(type: ThemeColorType, red: Integer, green: Integer, blue: Integer): ColorScheme;
+      setConcreteColor(type: ThemeColorType, hexColor: string): ColorScheme;
     }
 
     /**
@@ -160,13 +163,13 @@ declare namespace GoogleAppsScript {
       getType(): FillType;
       isVisible(): boolean;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
 
@@ -186,35 +189,35 @@ declare namespace GoogleAppsScript {
       getChildren(): PageElement[];
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Group;
       remove(): void;
-      scaleHeight(ratio: Number): Group;
-      scaleWidth(ratio: Number): Group;
+      scaleHeight(ratio: number): Group;
+      scaleWidth(ratio: number): Group;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Group;
       sendToBack(): Group;
       setDescription(description: string): Group;
-      setHeight(height: Number): Group;
-      setLeft(left: Number): Group;
-      setRotation(angle: Number): Group;
+      setHeight(height: number): Group;
+      setLeft(left: number): Group;
+      setRotation(angle: number): Group;
       setTitle(title: string): Group;
-      setTop(top: Number): Group;
+      setTop(top: number): Group;
       setTransform(transform: AffineTransform): Group;
-      setWidth(width: Number): Group;
+      setWidth(width: number): Group;
       ungroup(): void;
     }
 
@@ -232,21 +235,21 @@ declare namespace GoogleAppsScript {
       getConnectionSites(): ConnectionSite[];
       getContentUrl(): string;
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSourceUrl(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Image;
       remove(): void;
       removeLink(): void;
@@ -254,24 +257,24 @@ declare namespace GoogleAppsScript {
       replace(blobSource: Base.BlobSource, crop: boolean): Image;
       replace(imageUrl: string): Image;
       replace(imageUrl: string, crop: boolean): Image;
-      scaleHeight(ratio: Number): Image;
-      scaleWidth(ratio: Number): Image;
+      scaleHeight(ratio: number): Image;
+      scaleWidth(ratio: number): Image;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Image;
       sendToBack(): Image;
       setDescription(description: string): Image;
-      setHeight(height: Number): Image;
-      setLeft(left: Number): Image;
+      setHeight(height: number): Image;
+      setLeft(left: number): Image;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Image;
+      setRotation(angle: number): Image;
       setTitle(title: string): Image;
-      setTop(top: Number): Image;
+      setTop(top: number): Image;
       setTransform(transform: AffineTransform): Image;
-      setWidth(width: Number): Image;
+      setWidth(width: number): Image;
     }
 
     /**
@@ -303,29 +306,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
       insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
       insertTextBox(text: string): Shape;
-      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -348,10 +351,10 @@ declare namespace GoogleAppsScript {
       getEnd(): Point;
       getEndArrow(): ArrowStyle;
       getEndConnection(): ConnectionSite;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLineCategory(): LineCategory;
       getLineFill(): LineFill;
       getLineType(): LineType;
@@ -360,49 +363,49 @@ declare namespace GoogleAppsScript {
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getStart(): Point;
       getStartArrow(): ArrowStyle;
       getStartConnection(): ConnectionSite;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWeight(): Number;
-      getWidth(): Number;
+      getWeight(): number;
+      getWidth(): number;
       isConnector(): boolean;
       preconcatenateTransform(transform: AffineTransform): Line;
       remove(): void;
       removeLink(): void;
       reroute(): Line;
-      scaleHeight(ratio: Number): Line;
-      scaleWidth(ratio: Number): Line;
+      scaleHeight(ratio: number): Line;
+      scaleWidth(ratio: number): Line;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Line;
       sendToBack(): Line;
       setDashStyle(style: DashStyle): Line;
       setDescription(description: string): Line;
-      setEnd(left: Number, top: Number): Line;
+      setEnd(left: number, top: number): Line;
       setEnd(point: Point): Line;
       setEndArrow(style: ArrowStyle): Line;
       setEndConnection(connectionSite: ConnectionSite): Line;
-      setHeight(height: Number): Line;
-      setLeft(left: Number): Line;
+      setHeight(height: number): Line;
+      setLeft(left: number): Line;
       setLineCategory(lineCategory: LineCategory): Line;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Line;
-      setStart(left: Number, top: Number): Line;
+      setRotation(angle: number): Line;
+      setStart(left: number, top: number): Line;
       setStart(point: Point): Line;
       setStartArrow(style: ArrowStyle): Line;
       setStartConnection(connectionSite: ConnectionSite): Line;
       setTitle(title: string): Line;
-      setTop(top: Number): Line;
+      setTop(top: number): Line;
       setTransform(transform: AffineTransform): Line;
-      setWeight(points: Number): Line;
-      setWidth(width: Number): Line;
+      setWeight(points: number): Line;
+      setWidth(width: number): Line;
     }
 
     /**
@@ -420,13 +423,13 @@ declare namespace GoogleAppsScript {
       getFillType(): LineFillType;
       getSolidFill(): SolidFill;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
     }
 
     /**
@@ -559,29 +562,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
       insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
       insertTextBox(text: string): Shape;
-      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -667,29 +670,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
       insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
       insertTextBox(text: string): Shape;
-      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -709,13 +712,13 @@ declare namespace GoogleAppsScript {
       setPictureFill(blobSource: Base.BlobSource): void;
       setPictureFill(imageUrl: string): void;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
 
@@ -742,35 +745,35 @@ declare namespace GoogleAppsScript {
       duplicate(): PageElement;
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): PageElement;
       remove(): void;
-      scaleHeight(ratio: Number): PageElement;
-      scaleWidth(ratio: Number): PageElement;
+      scaleHeight(ratio: number): PageElement;
+      scaleWidth(ratio: number): PageElement;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): PageElement;
       sendToBack(): PageElement;
       setDescription(description: string): PageElement;
-      setHeight(height: Number): PageElement;
-      setLeft(left: Number): PageElement;
-      setRotation(angle: Number): PageElement;
+      setHeight(height: number): PageElement;
+      setLeft(left: number): PageElement;
+      setRotation(angle: number): PageElement;
       setTitle(title: string): PageElement;
-      setTop(top: Number): PageElement;
+      setTop(top: number): PageElement;
       setTransform(transform: AffineTransform): PageElement;
-      setWidth(width: Number): PageElement;
+      setWidth(width: number): PageElement;
     }
 
     /**
@@ -818,22 +821,22 @@ declare namespace GoogleAppsScript {
      * To avoid this, query for paragraph styles using the TextRange returned by the Paragraph.getRange() method.
      */
     export interface ParagraphStyle {
-      getIndentEnd(): Number;
-      getIndentFirstLine(): Number;
-      getIndentStart(): Number;
-      getLineSpacing(): Number;
+      getIndentEnd(): number;
+      getIndentFirstLine(): number;
+      getIndentStart(): number;
+      getLineSpacing(): number;
       getParagraphAlignment(): ParagraphAlignment;
-      getSpaceAbove(): Number;
-      getSpaceBelow(): Number;
+      getSpaceAbove(): number;
+      getSpaceBelow(): number;
       getSpacingMode(): SpacingMode;
       getTextDirection(): TextDirection;
-      setIndentEnd(indent: Number): ParagraphStyle;
-      setIndentFirstLine(indent: Number): ParagraphStyle;
-      setIndentStart(indent: Number): ParagraphStyle;
-      setLineSpacing(spacing: Number): ParagraphStyle;
+      setIndentEnd(indent: number): ParagraphStyle;
+      setIndentFirstLine(indent: number): ParagraphStyle;
+      setIndentStart(indent: number): ParagraphStyle;
+      setLineSpacing(spacing: number): ParagraphStyle;
       setParagraphAlignment(alignment: ParagraphAlignment): ParagraphStyle;
-      setSpaceAbove(space: Number): ParagraphStyle;
-      setSpaceBelow(space: Number): ParagraphStyle;
+      setSpaceAbove(space: number): ParagraphStyle;
+      setSpaceBelow(space: number): ParagraphStyle;
       setSpacingMode(mode: SpacingMode): ParagraphStyle;
       setTextDirection(direction: TextDirection): ParagraphStyle;
     }
@@ -861,8 +864,8 @@ declare namespace GoogleAppsScript {
      * A point representing a location.
      */
     export interface Point {
-      getX(): Number;
-      getY(): Number;
+      getX(): number;
+      getY(): number;
     }
 
     /**
@@ -893,11 +896,11 @@ declare namespace GoogleAppsScript {
       getMasters(): Master[];
       getName(): string;
       getNotesMaster(): NotesMaster;
-      getNotesPageHeight(): Number;
-      getNotesPageWidth(): Number;
+      getNotesPageHeight(): number;
+      getNotesPageWidth(): number;
       getPageElementById(id: string): PageElement;
-      getPageHeight(): Number;
-      getPageWidth(): Number;
+      getPageHeight(): number;
+      getPageWidth(): number;
       getSelection(): Selection;
       getSlideById(id: string): Slide;
       getSlides(): Slide[];
@@ -971,10 +974,10 @@ declare namespace GoogleAppsScript {
       getContentAlignment(): ContentAlignment;
       getDescription(): string;
       getFill(): Fill;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
@@ -983,13 +986,13 @@ declare namespace GoogleAppsScript {
       getParentPlaceholder(): PageElement;
       getPlaceholderIndex(): Integer;
       getPlaceholderType(): PlaceholderType;
-      getRotation(): Number;
+      getRotation(): number;
       getShapeType(): ShapeType;
       getText(): TextRange;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Shape;
       remove(): void;
       removeLink(): void;
@@ -999,25 +1002,25 @@ declare namespace GoogleAppsScript {
       replaceWithImage(imageUrl: string, crop: boolean): Image;
       replaceWithSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
       replaceWithSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      scaleHeight(ratio: Number): Shape;
-      scaleWidth(ratio: Number): Shape;
+      scaleHeight(ratio: number): Shape;
+      scaleWidth(ratio: number): Shape;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Shape;
       sendToBack(): Shape;
       setContentAlignment(contentAlignment: ContentAlignment): Shape;
       setDescription(description: string): Shape;
-      setHeight(height: Number): Shape;
-      setLeft(left: Number): Shape;
+      setHeight(height: number): Shape;
+      setLeft(left: number): Shape;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Shape;
+      setRotation(angle: number): Shape;
       setTitle(title: string): Shape;
-      setTop(top: Number): Shape;
+      setTop(top: number): Shape;
       setTransform(transform: AffineTransform): Shape;
-      setWidth(width: Number): Shape;
+      setWidth(width: number): Shape;
     }
 
     /**
@@ -1042,43 +1045,43 @@ declare namespace GoogleAppsScript {
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getEmbedType(): SheetsChartEmbedType;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSpreadsheetId(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): SheetsChart;
       refresh(): void;
       remove(): void;
       removeLink(): void;
-      scaleHeight(ratio: Number): SheetsChart;
-      scaleWidth(ratio: Number): SheetsChart;
+      scaleHeight(ratio: number): SheetsChart;
+      scaleWidth(ratio: number): SheetsChart;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): SheetsChart;
       sendToBack(): SheetsChart;
       setDescription(description: string): SheetsChart;
-      setHeight(height: Number): SheetsChart;
-      setLeft(left: Number): SheetsChart;
+      setHeight(height: number): SheetsChart;
+      setLeft(left: number): SheetsChart;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): SheetsChart;
+      setRotation(angle: number): SheetsChart;
       setTitle(title: string): SheetsChart;
-      setTop(top: Number): SheetsChart;
+      setTop(top: number): SheetsChart;
       setTransform(transform: AffineTransform): SheetsChart;
-      setWidth(width: Number): SheetsChart;
+      setWidth(width: number): SheetsChart;
     }
 
     /**
@@ -1119,29 +1122,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
       insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
       insertTextBox(text: string): Shape;
-      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       move(index: Integer): void;
@@ -1195,6 +1198,7 @@ declare namespace GoogleAppsScript {
       SelectionType: typeof SelectionType;
       ShapeType: typeof ShapeType;
       SheetsChartEmbedType: typeof SheetsChartEmbedType;
+      SlideLinkingMode: typeof SlideLinkingMode;
       SlidePosition: typeof SlidePosition;
       SpacingMode: typeof SpacingMode;
       TextBaselineOffset: typeof TextBaselineOffset;
@@ -1216,7 +1220,7 @@ declare namespace GoogleAppsScript {
      * they have been created.
      */
     export interface SolidFill {
-      getAlpha(): Number;
+      getAlpha(): number;
       getColor(): Color;
     }
 
@@ -1239,40 +1243,40 @@ declare namespace GoogleAppsScript {
       getColumn(columnIndex: Integer): TableColumn;
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getNumColumns(): Integer;
       getNumRows(): Integer;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getRow(rowIndex: Integer): TableRow;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       insertColumn(index: Integer): TableColumn;
       insertRow(index: Integer): TableRow;
       preconcatenateTransform(transform: AffineTransform): Table;
       remove(): void;
-      scaleHeight(ratio: Number): Table;
-      scaleWidth(ratio: Number): Table;
+      scaleHeight(ratio: number): Table;
+      scaleWidth(ratio: number): Table;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Table;
       sendToBack(): Table;
       setDescription(description: string): Table;
-      setHeight(height: Number): Table;
-      setLeft(left: Number): Table;
-      setRotation(angle: Number): Table;
+      setHeight(height: number): Table;
+      setLeft(left: number): Table;
+      setRotation(angle: number): Table;
       setTitle(title: string): Table;
-      setTop(top: Number): Table;
+      setTop(top: number): Table;
       setTransform(transform: AffineTransform): Table;
-      setWidth(width: Number): Table;
+      setWidth(width: number): Table;
     }
 
     /**
@@ -1310,7 +1314,7 @@ declare namespace GoogleAppsScript {
       getIndex(): Integer;
       getNumCells(): Integer;
       getParentTable(): Table;
-      getWidth(): Number;
+      getWidth(): number;
       remove(): void;
     }
 
@@ -1320,7 +1324,7 @@ declare namespace GoogleAppsScript {
     export interface TableRow {
       getCell(cellIndex: Integer): TableCell;
       getIndex(): Integer;
-      getMinimumHeight(): Number;
+      getMinimumHeight(): number;
       getNumCells(): Integer;
       getParentTable(): Table;
       remove(): void;
@@ -1384,7 +1388,7 @@ declare namespace GoogleAppsScript {
       getBackgroundColor(): Color;
       getBaselineOffset(): TextBaselineOffset;
       getFontFamily(): string;
-      getFontSize(): Number;
+      getFontSize(): number;
       getFontWeight(): Integer;
       getForegroundColor(): Color;
       getLink(): Link;
@@ -1405,7 +1409,7 @@ declare namespace GoogleAppsScript {
       setBold(bold: boolean): TextStyle;
       setFontFamily(fontFamily: string): TextStyle;
       setFontFamilyAndWeight(fontFamily: string, fontWeight: Integer): TextStyle;
-      setFontSize(fontSize: Number): TextStyle;
+      setFontSize(fontSize: number): TextStyle;
       setForegroundColor(foregroundColor: Color): TextStyle;
       setForegroundColor(red: Integer, green: Integer, blue: Integer): TextStyle;
       setForegroundColor(hexColor: string): TextStyle;
@@ -1444,39 +1448,39 @@ declare namespace GoogleAppsScript {
       getBorder(): Border;
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSource(): VideoSourceType;
       getThumbnailUrl(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
       getUrl(): string;
       getVideoId(): string;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Video;
       remove(): void;
-      scaleHeight(ratio: Number): Video;
-      scaleWidth(ratio: Number): Video;
+      scaleHeight(ratio: number): Video;
+      scaleWidth(ratio: number): Video;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): Video;
       sendToBack(): Video;
       setDescription(description: string): Video;
-      setHeight(height: Number): Video;
-      setLeft(left: Number): Video;
-      setRotation(angle: Number): Video;
+      setHeight(height: number): Video;
+      setLeft(left: number): Video;
+      setRotation(angle: number): Video;
       setTitle(title: string): Video;
-      setTop(top: Number): Video;
+      setTop(top: number): Video;
       setTransform(transform: AffineTransform): Video;
-      setWidth(width: Number): Video;
+      setWidth(width: number): Video;
     }
 
     /**
@@ -1494,42 +1498,42 @@ declare namespace GoogleAppsScript {
       duplicate(): PageElement;
       getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
       getRenderedText(): string;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): WordArt;
       remove(): void;
       removeLink(): void;
-      scaleHeight(ratio: Number): WordArt;
-      scaleWidth(ratio: Number): WordArt;
+      scaleHeight(ratio: number): WordArt;
+      scaleWidth(ratio: number): WordArt;
       select(): void;
       select(replace: boolean): void;
       sendBackward(): WordArt;
       sendToBack(): WordArt;
       setDescription(description: string): WordArt;
-      setHeight(height: Number): WordArt;
-      setLeft(left: Number): WordArt;
+      setHeight(height: number): WordArt;
+      setLeft(left: number): WordArt;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): WordArt;
+      setRotation(angle: number): WordArt;
       setTitle(title: string): WordArt;
-      setTop(top: Number): WordArt;
+      setTop(top: number): WordArt;
       setTransform(transform: AffineTransform): WordArt;
-      setWidth(width: Number): WordArt;
+      setWidth(width: number): WordArt;
     }
 
   }

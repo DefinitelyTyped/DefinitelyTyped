@@ -704,12 +704,12 @@ declare namespace DataTables {
         /**
          * Get the footer th / td cell for the selected column.
          */
-        footer(): any;
+        footer(): HTMLElement;
 
         /**
          * Get the header th / td cell for a column.
          */
-        header(): Node;
+        header(): HTMLElement;
 
         /**
          * Order the table, in the direction specified, by the column selected by the column()DT selector.
@@ -766,12 +766,12 @@ declare namespace DataTables {
          *
          * @param t Specify if you want to get the column data index (default) or the visible index (visible).
          */
-        index(t?: string): Api;
+        index(t?: string): number;
 
         /**
          * Obtain the th / td nodes for the selected column
          */
-        nodes(): Api[];
+        nodes(): Api;
     }
 
     interface ColumnsMethodsModel {
@@ -1784,6 +1784,7 @@ declare namespace DataTables {
         infoEmpty?: string;
         infoFiltered?: string;
         infoPostFix?: string;
+        decimal?: string;
         thousands?: string;
         lengthMenu?: string;
         loadingRecords?: string;

@@ -25,12 +25,12 @@ interface ReductionContext {
 
 declare class BN {
     constructor(
-        number: number | string | number[] | Buffer | BN,
+        number: number | string | number[] | Uint8Array | Buffer | BN,
         base?: number | 'hex',
         endian?: Endianness
     );
     constructor(
-        number: number | string | number[] | Buffer | BN,
+        number: number | string | number[] | Uint8Array | Buffer | BN,
         endian?: Endianness
     )
 

@@ -6,9 +6,11 @@ export type CustomInputType =
   | 'file'
   | 'radio'
   | 'checkbox'
-  | 'switch';
+  | 'switch'
+  | 'range';
 
-export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
+export interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  [key: string]: any;
   type: CustomInputType;
   label?: React.ReactNode;
   inline?: boolean;
@@ -17,7 +19,8 @@ export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElemen
   invalid?: boolean;
   className?: string;
   cssModule?: CSSModule;
-} & T;
+  htmlFor?: string;
+}
 
-declare class CustomInput<T = {[key: string]: any}> extends React.Component<CustomInputProps<T>> {}
+declare class CustomInput<T = {[key: string]: any}> extends React.Component<CustomInputProps> {}
 export default CustomInput;
