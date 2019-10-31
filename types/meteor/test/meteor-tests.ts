@@ -23,8 +23,6 @@ import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 
-import './userAugment'
-
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 

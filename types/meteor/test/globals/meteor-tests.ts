@@ -520,7 +520,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function (options, user) {
+Accounts.onCreateUser(function (options: { profile: any }, user) {
     var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
