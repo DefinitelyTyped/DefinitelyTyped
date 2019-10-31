@@ -95,7 +95,7 @@ interface ReduxToastrProps {
     };
     newestOnTop?: boolean;
     options?: any; // This is currently not used, waiting for response from the package author to remove
-    position?: positionType
+    position?: positionType;
     preventDuplicates?: boolean;
     progressBar?: boolean;
     timeOut?: number;
