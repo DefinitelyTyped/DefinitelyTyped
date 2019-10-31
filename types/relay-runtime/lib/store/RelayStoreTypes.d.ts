@@ -321,7 +321,7 @@ export interface RecordProxy<T = {}> {
         NonNullable<H> extends Array<infer U> ?
             Array<RecordProxy<U>> | (H extends null ? null : never) :
             never;
-    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy<T>;
+    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
     getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
     getValue(name: string, args?: Variables | null): Primitive | Primitive[];
@@ -334,12 +334,12 @@ export interface RecordProxy<T = {}> {
         name: string,
         args?: Variables | null): RecordProxy;
     setLinkedRecords<K extends keyof T>(
-        records: Array<RecordProxy<Unarray<T[K]>> | null> | null,
+        records: Array<RecordProxy<Unarray<T[K]>> | null> | null | undefined,
         name: K,
         args?: Variables | null,
     ): RecordProxy<T>;
     setLinkedRecords(
-        records: Array<RecordProxy | null> | null,
+        records: Array<RecordProxy | null> | null | undefined,
         name: string,
         args?: Variables | null,
     ): RecordProxy<T>;
@@ -379,10 +379,10 @@ export interface ReadOnlyRecordSourceProxy {
  * fields of a Selector.
  */
 
-export interface RecordSourceSelectorProxy<T = object> extends RecordSourceProxy {
+export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>>;
     getRootField(fieldName: string): RecordProxy | null;
-    getPluralRootField(fieldName: string): Array<RecordProxy<T>> | null;
+    getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
@@ -503,12 +503,12 @@ export interface Environment {
      * environment.executeMutation({...}).subscribe({...}).
      */
     executeMutation({
-                        operation,
-                        optimisticUpdater,
-                        optimisticResponse,
-                        updater,
-                        uploadables,
-                    }: {
+        operation,
+        optimisticUpdater,
+        optimisticResponse,
+        updater,
+        uploadables,
+    }: {
         operation: OperationDescriptor;
         optimisticUpdater?: SelectorStoreUpdater | null;
         optimisticResponse?: { [key: string]: any } | null;
@@ -526,9 +526,9 @@ export interface Environment {
      * environment.executeWithSource({...}).subscribe({...}).
      */
     executeWithSource({
-                          operation,
-                          source,
-                      }: {
+        operation,
+        source,
+    }: {
         operation: OperationDescriptor;
         source: RelayObservable<GraphQLResponse>;
     }): RelayObservable<GraphQLResponse>;
@@ -707,32 +707,32 @@ export interface OptimisticResponseConfig {
  */
 export type MissingFieldHandler =
     | {
-    kind: 'scalar';
-    handle: (
-        field: NormalizationScalarField,
-        record: Record | null | undefined,
-        args: Variables,
-        store: ReadOnlyRecordSourceProxy,
-    ) => unknown;
-}
+          kind: 'scalar';
+          handle: (
+              field: NormalizationScalarField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadOnlyRecordSourceProxy,
+          ) => unknown;
+      }
     | {
-    kind: 'linked';
-    handle: (
-        field: NormalizationLinkedField,
-        record: Record | null | undefined,
-        args: Variables,
-        store: ReadOnlyRecordSourceProxy,
-    ) => DataID | null | undefined;
-}
+          kind: 'linked';
+          handle: (
+              field: NormalizationLinkedField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadOnlyRecordSourceProxy,
+          ) => DataID | null | undefined;
+      }
     | {
-    kind: 'pluralLinked';
-    handle: (
-        field: NormalizationLinkedField,
-        record: Record | null | undefined,
-        args: Variables,
-        store: ReadOnlyRecordSourceProxy,
-    ) => Array<DataID | null | undefined> | null | undefined;
-};
+          kind: 'pluralLinked';
+          handle: (
+              field: NormalizationLinkedField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadOnlyRecordSourceProxy,
+          ) => Array<DataID | null | undefined> | null | undefined;
+      };
 
 /**
  * The results of normalizing a query.
