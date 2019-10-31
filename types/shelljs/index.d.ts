@@ -836,7 +836,7 @@ export interface ExecOptions extends child.ExecOptions {
 	silent?: boolean;
 
 	/**
-	 * Exit when command return code is non-zero
+	 * Exit when command return code is non-zero.
 	 *
 	 * @default false
 	 */
