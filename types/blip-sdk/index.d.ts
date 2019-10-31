@@ -1,15 +1,11 @@
-// Type definitions for blip-sdk 7
+// Type definitions for blip-sdk 7.x
 // Project: https://github.com/takenet/blip-sdk-js#readme
 // Definitions by: Henrique Torquato <https://github.com/henriquetorquato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-export as namespace BlipSdk;
-export = BlipSdk;
-
-declare namespace BlipSdk.Extensions {
-
-    interface IArtificialIntelligence {
-
+export namespace BlipSdk.Extensions {
+    interface ArtificialIntelligence {
         // Analysis
 
         getAnalysis(skip?: number, take?: number, ascending?: boolean, filter?: string): Promise<object[]>;
@@ -71,7 +67,5 @@ declare namespace BlipSdk.Extensions {
         setWordSet(wordSet: object): Promise<object>;
         deleteWordSet(id: string): Promise<object>;
         analyseWordSet(analysis: object): Promise<object>;
-
     }
-
 }

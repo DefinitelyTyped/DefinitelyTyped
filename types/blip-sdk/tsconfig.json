@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "blip-sdk-tests.ts"
+        "index.d.ts"
     ]
 }
