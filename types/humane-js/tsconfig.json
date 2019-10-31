@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "humane-tests.ts"
+        "humane-js-tests.ts"
     ]
 }
