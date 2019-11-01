@@ -92,6 +92,14 @@ const version = shell.exec("node --version").stdout;
 const version2 = shell.exec("node --version", {async: false});
 const output = version2.stdout;
 
+// $ExpectType ShellString
+const version3 = shell.exec("node --version", {async: false, fatal: false});
+const output3 = version3.stdout;
+
+// $ExpectType ShellString
+const version4 = shell.exec("node --version", {async: false, fatal: true});
+const output4 = version4.stdout;
+
 // $ExpectType ChildProcess
 const asyncVersion3 = shell.exec("node --version", {async: true});
 let pid = asyncVersion3.pid;
