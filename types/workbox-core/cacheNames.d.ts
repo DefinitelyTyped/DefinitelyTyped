@@ -1,3 +1,5 @@
+export const cacheNames: CacheNames;
+
 export interface CacheNames {
     readonly googleAnalytics: string;
     readonly precache: string;
@@ -5,5 +7,3 @@ export interface CacheNames {
     readonly runtime: string;
     readonly suffix: string;
 }
-
-export const cacheNames: CacheNames;

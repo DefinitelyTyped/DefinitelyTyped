@@ -9,7 +9,7 @@ export interface WorkboxPlugin {
 }
 
 export interface CacheDidUpdateCallback {
-    (param: CacheDidUpdateCallbackParam): Promise<void | null | undefined>;
+    (param: CacheDidUpdateCallbackParam): Promise<void>;
 }
 
 export interface CacheDidUpdateCallbackParam {
@@ -30,7 +30,7 @@ export interface CacheKeyWillBeUsedCallbackParam {
 }
 
 export interface CacheWillUpdateCallback {
-    (param: CacheWillUpdateCallbackParamParam): Promise<Response | void | null | undefined>;
+    (param: CacheWillUpdateCallbackParamParam): Promise<Response | undefined>;
 }
 
 export interface CacheWillUpdateCallbackParamParam {
@@ -40,7 +40,7 @@ export interface CacheWillUpdateCallbackParamParam {
 }
 
 export interface CachedResponseWillBeUsedCallback {
-    (param: CachedResponseWillBeUsedCallbackParam): Promise<Response | void | null | undefined>;
+    (param: CachedResponseWillBeUsedCallbackParam): Promise<Response | undefined>;
 }
 
 export interface CachedResponseWillBeUsedCallbackParam {
@@ -52,7 +52,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
 }
 
 export interface FetchDidFailCallback {
-    (param: FetchDidFailCallbackParam): Promise<void | null | undefined>;
+    (param: FetchDidFailCallbackParam): Promise<void>;
 }
 
 export interface FetchDidFailCallbackParam {
@@ -63,7 +63,7 @@ export interface FetchDidFailCallbackParam {
 }
 
 export interface FetchDidSucceedCallback {
-    (param: FetchDidSucceedCallbackParam): Promise<Response>
+    (param: FetchDidSucceedCallbackParam): Promise<Response>;
 }
 
 export interface FetchDidSucceedCallbackParam {
@@ -72,7 +72,7 @@ export interface FetchDidSucceedCallbackParam {
 }
 
 export interface RequestWillFetchCallback {
-    (param: RequestWillFetchCallbackParam): Promise<Request | void | null | undefined>
+    (param: RequestWillFetchCallbackParam): Promise<Request | undefined>;
 }
 
 export interface RequestWillFetchCallbackParam {
