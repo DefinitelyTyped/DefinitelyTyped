@@ -2,6 +2,7 @@ import {
     Argument,
     ClientExtension,
     Condition,
+    Connection,
     Defer,
     ConnectionField,
     Directive,
@@ -28,6 +29,7 @@ export type VisitNode =
     | Condition
     | Defer
     | ConnectionField
+    | Connection
     | Directive
     | Fragment
     | FragmentSpread
@@ -67,6 +69,7 @@ export type NodeVisitor =
           Argument?: VisitFn<Argument>;
           ClientExtension?: VisitFn<ClientExtension>;
           Condition?: VisitFn<Condition>;
+          Connection?: VisitFn<Connection>;
           Defer?: VisitFn<Defer>;
           ConnectionField?: VisitFn<ConnectionField>;
           Directive?: VisitFn<Directive>;
@@ -89,6 +92,7 @@ export type NodeVisitor =
           Argument?: NodeVisitorObject<Argument>;
           ClientExtension?: VisitFn<ClientExtension>;
           Condition?: NodeVisitorObject<Condition>;
+          Connection?: NodeVisitorObject<Connection>;
           Defer?: NodeVisitorObject<Defer>;
           ConnectionField?: NodeVisitorObject<ConnectionField>;
           Directive?: NodeVisitorObject<Directive>;
