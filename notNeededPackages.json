@@ -2275,6 +2275,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "oembed-parser",
+            "typingsPackageName": "oembed-parser",
+            "sourceRepoURL": "https://www.npmjs.com/package/oembed-parser",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "on-change",
             "typingsPackageName": "on-change",
             "sourceRepoURL": "https://github.com/sindresorhus/on-change",
