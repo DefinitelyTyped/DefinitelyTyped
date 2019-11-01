@@ -5,35 +5,37 @@
 
 /// <reference types="node"/>
 
-export default function Factory(): Struct;
-export class Struct {
-    word8(name: string): Struct;
-    word8Sle(name: string): Struct;
-    word8Sbe(name: string): Struct;
-    word16Sle(name: string): Struct;
-    word16Sbe(name: string): Struct;
-    word16Ule(name: string): Struct;
-    word16Ube(name: string): Struct;
-    word32Sle(name: string): Struct;
-    word32Sbe(name: string): Struct;
-    word32Ule(name: string): Struct;
-    word32Ube(name: string): Struct;
-    word64Sle(name: string): Struct;
-    word64Sbe(name: string): Struct;
-    word64Ule(name: string): Struct;
-    word64Ube(name: string): Struct;
-    floatle(name: string): Struct;
-    floatbe(name: string): Struct;
-    doublele(name: string): Struct;
-    doublebe(name: string): Struct;
-    chars(name: string, length: number, encoding?: string): Struct;
-    charsnt(name: string, length: number, encoding?: string): Struct;
-    array(name: string, length: number, type?: string | Struct): Struct;
-    struct(name: string, struct: Struct): Struct;
+// tslint:disable-next-line
+export default function Factory<T>(): Struct<T>;
+
+export class Struct<T> {
+    word8(name: string): Struct<T>;
+    word8Sle(name: string): Struct<T>;
+    word8Sbe(name: string): Struct<T>;
+    word16Sle(name: string): Struct<T>;
+    word16Sbe(name: string): Struct<T>;
+    word16Ule(name: string): Struct<T>;
+    word16Ube(name: string): Struct<T>;
+    word32Sle(name: string): Struct<T>;
+    word32Sbe(name: string): Struct<T>;
+    word32Ule(name: string): Struct<T>;
+    word32Ube(name: string): Struct<T>;
+    word64Sle(name: string): Struct<T>;
+    word64Sbe(name: string): Struct<T>;
+    word64Ule(name: string): Struct<T>;
+    word64Ube(name: string): Struct<T>;
+    floatle(name: string): Struct<T>;
+    floatbe(name: string): Struct<T>;
+    doublele(name: string): Struct<T>;
+    doublebe(name: string): Struct<T>;
+    chars(name: string, length: number, encoding?: string): Struct<T>;
+    charsnt(name: string, length: number, encoding?: string): Struct<T>;
+    array(name: string, length: number, type?: string | Struct<T>): Struct<T>;
+    struct(name: string, struct: Struct<T>): Struct<T>;
     get(fieldName: string): any;
     set(fieldName: string, value: any): void;
-    allocate(): Struct;
+    allocate(): Struct<T>;
     setBuffer(buffer: Buffer, buffLength?: number): void;
     buffer(): Buffer;
-    fields: { [key: string]: any };
+    fields: T;
 }
