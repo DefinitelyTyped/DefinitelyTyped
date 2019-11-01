@@ -73,6 +73,14 @@ declare namespace google {
         
         //#region data
         // https://developers.google.com/chart/interactive/docs/reference#google_visualization_data_group
+        export interface GroupKeyOptions {
+            column: number;
+            type: string;
+            modifier?: (value: any) => any;
+            label?: string;
+            id?: any;
+        }
+
         export interface GroupColumnOptions {
             column: number;
             aggregation: (values: any[]) => any;
@@ -83,8 +91,7 @@ declare namespace google {
         
         export class data {
             // https://developers.google.com/chart/interactive/docs/reference#group
-            static group(data: DataTable, keys: any[], columns?: GroupColumnOptions[]): DataTable;
-            static group(data: DataView, keys: any[], columns?: GroupColumnOptions[]): DataTable;
+            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
             
             static sum(values: number[] | string[] | Date[]): number;
             static avg(values: number[] | string[] | Date[]): number;
