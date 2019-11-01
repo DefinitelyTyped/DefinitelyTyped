@@ -2449,6 +2449,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "navigation-react",
+            "typingsPackageName": "navigation-react",
+            "sourceRepoURL": "http://grahammendick.github.io/navigation/",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "natsort",
             "typingsPackageName": "natsort",
             "sourceRepoURL": "https://github.com/netop/natsort",
