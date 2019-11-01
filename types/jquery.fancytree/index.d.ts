@@ -63,6 +63,9 @@ declare namespace Fancytree {
         /** Write to browser console if debugLevel >= 2 (prepending tree name)  */
         debug(msg: any): void;
 
+        /** Expand (or collapse) all parent nodes. */
+        expandAll(flag?: boolean, options?: Object): void;
+
         /** [ext-filter] Dimm or hide whole branches.
          * @returns {integer} count
          */
@@ -837,7 +840,7 @@ declare namespace Fancytree {
         /** Add tabindex='0' to node title span, so it can receive keyboard focus */
         titlesTabbable?: boolean;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
-        toggleEffect?: JQueryUI.EffectOptions;
+        toggleEffect?: false | JQueryUI.EffectOptions;
         /** Tooltips */
         tooltip?: boolean;
 
@@ -863,19 +866,19 @@ declare namespace Fancytree {
         /**
          * "Loading..."  // &#8230; would be escaped when escapeTitles is true
          */
-        loading: string;
+        loading?: string;
         /**
          * "Load error!"
          */
-        loadError: string;
+        loadError?: string;
         /**
          * "More..."
          */
-        moreData: string;
+        moreData?: string;
         /**
          * "No data."
          */
-        noData: string;
+        noData?: string;
     }
 
     namespace Extensions {
@@ -970,43 +973,43 @@ declare namespace Fancytree {
             /**
              * Re-apply last filter if lazy data is loaded
              */
-            autoApply: boolean;
+            autoApply?: boolean;
             /**
              * Expand all branches that contain matches while filtered
              */
-            autoExpand: boolean;
+            autoExpand?: boolean;
             /**
              * Show a badge with number of matching child nodes near parent icons
              */
-            counter: boolean;
+            counter?: boolean;
             /**
              * Match single characters in order, e.g. 'fb' will match 'FooBar'
              */
-            fuzzy: boolean;
+            fuzzy?: boolean;
             /**
              * Hide counter badge if parent is expanded
              */
-            hideExpandedCounter: boolean;
+            hideExpandedCounter?: boolean;
             /**
              * Hide expanders if all child nodes are hidden by filter
              */
-            hideExpanders: boolean;
+            hideExpanders?: boolean;
             /**
              * Highlight matches by wrapping inside <mark> tags
              */
-            highlight: boolean;
+            highlight?: boolean;
             /**
              * Match end nodes only
              */
-            leavesOnly: boolean;
+            leavesOnly?: boolean;
             /**
              * Display a 'no data' status node if result is empty
              */
-            nodata: boolean;
+            nodata?: boolean;
             /**
              * Grayout unmatched nodes (pass "hide" to remove unmatched node instead); default 'dimm'
              */
-            mode: 'dimm' | 'string';
+            mode?: 'dimm' | 'hide';
             /**
              * Support misc options
              */
