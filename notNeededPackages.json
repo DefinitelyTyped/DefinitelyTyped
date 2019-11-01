@@ -2545,6 +2545,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "nblas",
+            "typingsPackageName": "nblas",
+            "sourceRepoURL": "https://github.com/mateogianolio/nblas",
+            "asOfVersion": "2.1.6"
+        },
+        {
             "libraryName": "negative-array",
             "typingsPackageName": "negative-array",
             "sourceRepoURL": "https://github.com/sindresorhus/negative-array",
