@@ -1,6 +1,7 @@
 // Type definitions for jump.js 1.0
 // Project: https://github.com/callmecavs/jump.js
 // Definitions by: rhysd <https://rhysd.github.io>
+//                 jcharlesworthuk <https://github.com/jcharlesworthuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = jump;
@@ -10,7 +11,7 @@ declare function jump(target: string | Element | number, opts?: jump.Options): v
 declare namespace jump {
     type TransitionFunc = (t: number, b: number, c: number, d: number) => number;
     interface Options {
-        duration?: number;
+        duration?: number | ((distance: number) => number);
         offset?: number;
         callback?(): void;
         easing?: TransitionFunc;
