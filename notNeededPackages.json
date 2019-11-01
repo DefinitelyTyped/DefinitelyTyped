@@ -1951,6 +1951,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ismobilejs",
+            "typingsPackageName": "ismobilejs",
+            "sourceRepoURL": "https://github.com/kaimallea/isMobile",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "issue-regex",
             "typingsPackageName": "issue-regex",
             "sourceRepoURL": "https://github.com/sindresorhus/issue-regex",
