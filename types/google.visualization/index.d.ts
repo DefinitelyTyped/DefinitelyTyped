@@ -707,7 +707,7 @@ declare namespace google {
             selectionMode?: string // single / multiple
             series?: any;
             domainAxis?: { type: string };
-            trendlines?: { [key: number]: LineChartTrendlineOptions; };
+            trendlines?: Record<number, LineChartTrendlineOptions>;
             pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
             intervals?: { style: string };
             interval?: any;
