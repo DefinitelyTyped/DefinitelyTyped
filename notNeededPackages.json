@@ -3361,6 +3361,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "rc-progress",
+            "typingsPackageName": "rc-progress",
+            "sourceRepoURL": "http://github.com/react-component/progress",
+            "asOfVersion": "2.4.0"
+        },
+        {
             "libraryName": "re2",
             "typingsPackageName": "re2",
             "sourceRepoURL": "https://github.com/uhop/node-re2",
