@@ -84,7 +84,7 @@ declare namespace google {
             static count(values: number[]): number;
             
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: string, keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
         }
         //#endregion
         
