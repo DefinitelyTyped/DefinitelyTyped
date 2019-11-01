@@ -7,6 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+import ConnectionInterface from './lib/handlers/connection/RelayConnectionInterface';
+export { ConnectionInterface };
 export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
 export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
 export {
@@ -184,6 +186,7 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
+export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
