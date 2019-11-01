@@ -1063,6 +1063,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ethereumjs-tx",
+            "typingsPackageName": "ethereumjs-tx",
+            "sourceRepoURL": "https://github.com/ethereumjs/ethereumjs-tx",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
