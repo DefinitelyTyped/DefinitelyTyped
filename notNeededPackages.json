@@ -2461,6 +2461,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "navigation",
+            "typingsPackageName": "navigation",
+            "sourceRepoURL": "http://grahammendick.github.io/navigation/",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "navigation-react",
             "typingsPackageName": "navigation-react",
             "sourceRepoURL": "http://grahammendick.github.io/navigation/",
