@@ -139,12 +139,12 @@ declare namespace webpack {
     type ConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
         args: Record<string, string>,
-    ) => webpack.Configuration | Promise<webpack.Configuration>);
+    ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
         args: Record<string, string>,
-    ) => webpack.Configuration[] | Promise<webpack.Configuration[]>);
+    ) => Configuration[] | Promise<Configuration[]>);
 
     interface Entry {
         [name: string]: string | string[];
