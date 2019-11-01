@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-      "stellar-base": "^0.13.2"
-    }
-}
