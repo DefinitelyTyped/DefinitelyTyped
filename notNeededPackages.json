@@ -3709,6 +3709,12 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "redux-promise-middleware",
+            "typingsPackageName": "redux-promise-middleware",
+            "sourceRepoURL": "https://github.com/pburtchaell/redux-promise-middleware",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "redux-saga",
             "typingsPackageName": "redux-saga",
             "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
