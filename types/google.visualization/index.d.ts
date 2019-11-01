@@ -279,7 +279,8 @@ declare namespace google {
             getTableColumnIndex(viewColumnIndex: number): number;
             getTableRowIndex(viewRowIndex: number): number;
             getViewColumnIndex(tableColumnIndex: number): number;
-            getViewColumns(): any[];
+            getViewColumns(): number[];
+            getViewColumns(): ColumnSpec[];
             getViewRowIndex(tableRowIndex: number): number;
             getViewRows(): number[];
 
