@@ -3361,6 +3361,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-joyride",
+            "typingsPackageName": "react-joyride",
+            "sourceRepoURL": "https://github.com/gilbarbara/react-joyride",
+            "asOfVersion": "2.0.3"
+        },
+        {
             "libraryName": "react-jss",
             "typingsPackageName": "react-jss",
             "sourceRepoURL": "https://github.com/cssinjs/react-jss#readme",
