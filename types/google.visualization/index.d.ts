@@ -90,15 +90,18 @@ declare namespace google {
         }
         
         export class data {
-            // https://developers.google.com/chart/interactive/docs/reference#group
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+            // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
+            static month(value: Date): number;
             
+            // https://developers.google.com/chart/interactive/docs/reference#group
             static sum(values: number[] | string[] | Date[]): number;
             static avg(values: number[] | string[] | Date[]): number;
             static min(values: number[] | string[] | Date[]): number | string | Date;
             static max(values: number[] | string[] | Date[]): number | string | Date;
             static count(values: any[]): number;
-            
+
+            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+                        
             // https://developers.google.com/chart/interactive/docs/reference#join
             static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
         }
