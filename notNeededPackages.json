@@ -4363,6 +4363,12 @@
             "asOfVersion": "2.0.4"
         },
         {
+            "libraryName": "systeminformation",
+            "typingsPackageName": "systeminformation",
+            "sourceRepoURL": "https://github.com/sebhildebrandt/systeminformation",
+            "asOfVersion": "3.54.0"
+        },
+        {
             "libraryName": "Tabris.js",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
