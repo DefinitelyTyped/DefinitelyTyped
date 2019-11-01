@@ -25,6 +25,8 @@
         "setCacheNameDetails.d.ts",
         "skipWaiting.d.ts",
         "types.d.ts",
+        "types/RouteHandler.d.ts",
+        "types/WorkboxPlugin.d.ts",
         "workbox-core-tests.ts"
     ]
 }
