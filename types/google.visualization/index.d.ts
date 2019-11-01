@@ -2,7 +2,6 @@
 // Project: https://developers.google.com/chart/
 // Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 declare namespace google {
 
@@ -708,7 +707,7 @@ declare namespace google {
             selectionMode?: string // single / multiple
             series?: any;
             domainAxis?: { type: string };
-            trendlines?: Record<number, LineChartTrendlineOptions>;
+            trendlines?: { [key: number]: LineChartTrendlineOptions; };
             pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
             intervals?: { style: string };
             interval?: any;
