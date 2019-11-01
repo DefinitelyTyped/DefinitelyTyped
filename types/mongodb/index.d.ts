@@ -2288,7 +2288,7 @@ export class ChangeStream extends Readable {
 }
 
 export interface ResumeToken {
-    _data: string;
+    _data: string | Binary;
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
