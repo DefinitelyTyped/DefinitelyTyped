@@ -10904,13 +10904,13 @@ declare namespace Office {
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * For each such attachment, gets a subset of {@link Office.AttachmentDetails | AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
          * 
          * [Api set: Mailbox Preview]
          */
         attachmentDetails: object[];
         /**
-         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details.
+         * Gets whether the attachments were added or removed. See {@link Office.MailboxEnums.AttachmentStatus | MailboxEnums.AttachmentStatus} for details.
          * 
          * [Api set: Mailbox Preview]
          */ 

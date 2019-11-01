@@ -11,7 +11,7 @@ import * as React from 'react';
 
 export type Display = 'true' | 'false' | 'excluded';
 export type SortDirection = 'asc' | 'desc';
-export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
+export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom' | 'chip' | 'reset';
 export type Responsive = 'stacked' | 'scrollMaxHeight' | 'scrollFullHeight';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
@@ -192,7 +192,7 @@ export interface MUIDataTableOptions {
         columns: any,
         data: any
     ) => BlobPart;
-    onFilterChange?: (changedColumn: string, filterList: any[]) => void;
+    onFilterChange?: (changedColumn: string, filterList: any[], type: FilterType) => void;
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
