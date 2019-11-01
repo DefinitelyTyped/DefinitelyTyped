@@ -2262,7 +2262,7 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     disableMD5?: boolean;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html */
+/** http://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
 export class ChangeStream extends Readable {
     resumeToken: ResumeToken;
 
