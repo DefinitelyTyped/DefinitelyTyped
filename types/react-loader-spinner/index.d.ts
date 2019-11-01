@@ -26,7 +26,7 @@ type Types =
     | 'None'
     | 'NotSpecified';
 
-interface ILoaderProps {
+interface LoaderProps {
     type?: Types;
     color?: string;
     timeout?: number; // in milliseconds
@@ -35,5 +35,5 @@ interface ILoaderProps {
     visible?: boolean | string;
 }
 
-declare const Loader: FC<ILoaderProps>;
+declare const Loader: FC<LoaderProps>;
 export default Loader;
