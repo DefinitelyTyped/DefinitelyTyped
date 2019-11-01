@@ -3211,6 +3211,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "postmark",
+            "typingsPackageName": "postmark",
+            "sourceRepoURL": "http://wildbit.github.io/postmark.js",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
