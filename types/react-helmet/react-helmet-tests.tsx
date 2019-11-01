@@ -109,10 +109,6 @@ function HTML() {
 </HelmetDefaultExport>;
 
 // $ExpectError
-<Helmet htmlAttributes={{ invalidProp: 'foo' }} />;
-// $ExpectError
-<Helmet bodyAttributes={{ invalidProp: 'foo' }} />;
-// $ExpectError
 <Helmet link={[ invalidProp: 'foo' ]} />;
 // $ExpectError
 <Helmet meta={[ invalidProp: 'foo' ]} />;

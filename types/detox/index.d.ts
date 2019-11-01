@@ -4,6 +4,7 @@
 //                 Steve Chun <https://github.com/stevechun>
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 pera <https://github.com/santiagofm>
+//                 Max Komarychev <https://github.com/maxkomarychev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
@@ -170,7 +171,7 @@ declare global {
              *
              * > NOTE: At the moment, taking screenshots on-demand in --take-screenshots failing mode is not yet implemented.
              */
-            takeScreenShot(name: string): Promise<void>;
+            takeScreenshot(name: string): Promise<void>;
             /**
              * Simulate shake (iOS Only)
              */

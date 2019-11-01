@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "rxjs": "~5.5.0"
-    }
-}

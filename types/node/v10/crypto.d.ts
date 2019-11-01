@@ -112,7 +112,7 @@ declare module "crypto" {
     interface Decipher extends stream.Transform {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
