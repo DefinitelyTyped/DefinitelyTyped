@@ -3019,6 +3019,12 @@
             "asOfVersion": "6.1.0"
         },
         {
+            "libraryName": "pad",
+            "typingsPackageName": "pad",
+            "sourceRepoURL": "https://github.com/adaltas/node-pad",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "paper",
             "typingsPackageName": "paper",
             "sourceRepoURL": "https://github.com/paperjs/paper.js",
