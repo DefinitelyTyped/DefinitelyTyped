@@ -1321,6 +1321,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "format-number",
+            "typingsPackageName": "format-number",
+            "sourceRepoURL": "https://github.com/componitable/format-number",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Foundation Sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
