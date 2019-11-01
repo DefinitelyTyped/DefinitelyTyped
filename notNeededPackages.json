@@ -3517,6 +3517,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-fabric",
+            "typingsPackageName": "react-native-fabric",
+            "sourceRepoURL": "https://github.com/corymsmith/react-native-fabric",
+            "asOfVersion": "0.5.2"
+        },
+        {
             "libraryName": "react-native-goby",
             "typingsPackageName": "react-native-goby",
             "sourceRepoURL": "https://gitlab.com/MessageDream/react-native-goby",
