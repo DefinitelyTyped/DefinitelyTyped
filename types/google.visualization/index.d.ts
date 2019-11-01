@@ -675,7 +675,7 @@ declare namespace google {
             series?: any;
             domainAxis?: { type: string };
             trendlines?: { [key: number]: any; };
-            pointShape?: string;
+            pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
             intervals?: { style: string };
             interval?: any;
             theme?: string;
