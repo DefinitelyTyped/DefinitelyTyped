@@ -499,6 +499,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "compare-versions",
+            "typingsPackageName": "compare-versions",
+            "sourceRepoURL": "https://github.com/omichelsen/compare-versions",
+            "asOfVersion": "3.3.0"
+        },
+        {
             "libraryName": "condense-whitespace",
             "typingsPackageName": "condense-whitespace",
             "sourceRepoURL": "https://github.com/sindresorhus/condense-whitespace",
