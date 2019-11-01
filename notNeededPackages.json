@@ -3253,6 +3253,12 @@
             "asOfVersion": "1.10.3"
         },
         {
+            "libraryName": "react-alice-carousel",
+            "typingsPackageName": "react-alice-carousel",
+            "sourceRepoURL": "https://github.com/maxmarinich/react-alice-carousel",
+            "asOfVersion": "1.15.3"
+        },
+        {
             "libraryName": "react-chartjs-2",
             "typingsPackageName": "react-chartjs-2",
             "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
