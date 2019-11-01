@@ -2,7 +2,7 @@
 // Project: https://github.com/mhnpd/react-loader-spinner
 // Definitions by: Rayhan Wirjowerdojo <https://github.com/rayhanw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6.4
+// TypeScript Version: 3.6
 
 import { FC } from 'react';
 
