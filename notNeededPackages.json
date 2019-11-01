@@ -1489,6 +1489,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "gulp-shell",
+            "typingsPackageName": "gulp-shell",
+            "sourceRepoURL": "https://github.com/sun-zheng-an/gulp-shell",
+            "asOfVersion": "0.7.0"
+        },
+        {
             "libraryName": "gulp-tslint",
             "typingsPackageName": "gulp-tslint",
             "sourceRepoURL": "https://github.com/panuhorsmalahti/gulp-tslint",
