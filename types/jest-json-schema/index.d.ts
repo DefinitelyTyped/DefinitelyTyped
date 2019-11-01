@@ -10,7 +10,7 @@ import * as ajv from 'ajv';
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             toBeValidSchema(): R;
             toMatchSchema(schema: object): R;
         }

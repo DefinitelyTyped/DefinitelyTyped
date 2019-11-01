@@ -1,6 +1,35 @@
 declare namespace echarts {
     namespace EChartOption {
         /**
+         * Color type for itemStyle / areaStyle etc.
+         * [Color](https://echarts.apache.org/zh/option.html#series-line.areaStyle)
+         * + Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.
+         * + Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.
+         * + Fill with texture
+         */
+        type Color = string | {
+            type: 'linear';
+            x: number;
+            y: number;
+            x2: number;
+            y2: number;
+            colorStops: Array<{offset: number; color: string}>;
+            global?: boolean
+        } | {
+            type: 'radial';
+            x: number;
+            y: number;
+            r: number;
+            colorStops: Array<{offset: number, color: string}>;
+            global?: boolean;
+        } | {
+            /**
+             * HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported
+             */
+            image: HTMLImageElement | HTMLCanvasElement,
+            repeat?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat' // 是否平铺, 可以是 'repeat-x', 'repeat-y', 'no-repeat'
+        }
+        /**
          * **broken line chart**
          *
          * Broken line chart relates all the data points
@@ -7000,7 +7029,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-line.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: Color;
 
                     /**
                      * line width.
@@ -7488,7 +7517,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-line.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: Color;
 
                             /**
                              * line width.
@@ -8103,7 +8132,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-line.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: Color;
 
                             /**
                              * line width.
