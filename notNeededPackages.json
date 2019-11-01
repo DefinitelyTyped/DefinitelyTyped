@@ -373,6 +373,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "camaro",
+            "typingsPackageName": "camaro",
+            "sourceRepoURL": "https://github.com/tuananh/camaro",
+            "asOfVersion": "2.2.4"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
