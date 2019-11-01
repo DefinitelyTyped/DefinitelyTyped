@@ -2503,6 +2503,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "msportalfx-test",
+            "typingsPackageName": "msportalfx-test",
+            "sourceRepoURL": "https://msazure.visualstudio.com/DefaultCollection/AzureUX/_git/portalfx-msportalfx-test",
+            "asOfVersion": "0.7.2"
+        },
+        {
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "sourceRepoURL": "https://github.com/sindresorhus/multimatch",
