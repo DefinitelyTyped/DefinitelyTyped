@@ -24,6 +24,7 @@ declare namespace depcheck {
     interface Options {
         withoutDev?: boolean;
         ignoreBinPackage?: boolean;
+        skipMissing?: boolean;
         ignoreDirs?: ReadonlyArray<string>;
         ignoreMatches?: ReadonlyArray<string>;
         parsers?: {
@@ -57,14 +58,18 @@ declare namespace depcheck {
         jsx: Parser;
         sass: Parser;
         typescript: Parser;
+        vue: Parser;
     };
 
     const detector: {
+        exportDeclaration: Detector;
         expressViewEngine: Detector;
         gruntLoadTaskCallExpression: Detector;
+        importCallExpression: Detector;
         importDeclaration: Detector;
         requireCallExpression: Detector;
         requireResolveCallExpression: Detector;
+        typescriptImportEqualsDeclaration: Detector;
     };
 
     const special: {
@@ -73,8 +78,12 @@ declare namespace depcheck {
         commitizen: Parser;
         eslint: Parser;
         'feross-standard': Parser;
+        gatsby: Parser;
         'gulp-load-plugins': Parser;
+        jest: Parser;
+        karma: Parser;
         mocha: Parser;
+        tslint: Parser;
         webpack: Parser;
     };
 }
