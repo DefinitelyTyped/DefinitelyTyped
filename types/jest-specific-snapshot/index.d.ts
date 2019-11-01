@@ -8,7 +8,7 @@
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             toMatchSpecificSnapshot(snapshotFilename: string): R;
         }
     }
