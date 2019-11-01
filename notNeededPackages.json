@@ -961,6 +961,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "expect",
+            "typingsPackageName": "expect",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "expr-eval",
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
