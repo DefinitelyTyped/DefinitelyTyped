@@ -3,7 +3,7 @@
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
-// Last Update  : 19-09-2019
+// Last Update  : 02-11-2019
 // Developed in www.nowcando.com
 
 /// <reference types="node" />
@@ -76,7 +76,7 @@ declare namespace orientjs {
             name: string;
             server: OServer;
             db: ODB;
-            
+
             up(): Promise<any>;
             down(): Promise<any>;
         }
@@ -270,7 +270,6 @@ declare namespace orientjs {
             fields?: CustomField[]
         };
 
-        
         reload(): Promise<OClassProperty>;
         list(): Promise<OClassProperty[]>;
         /**
@@ -321,7 +320,7 @@ declare namespace orientjs {
          * Configure the class instance.
          * @param  config The configuration object.
          */
-        
+
         /**
          * Retreive a list of classes from the database.
          *
@@ -429,7 +428,7 @@ declare namespace orientjs {
          * Configure the sequence instance.
          * @param  config The configuration object.
          */
-        
+
         /**
          * Retreive a list of sequences from the database.
          *
@@ -786,7 +785,7 @@ declare namespace orientjs {
          * @promise {Db}  The database with reloaded configuration.
          */
         reload(): Promise<ODB>;
-        
+
         /**
          * Execute an SQL query against the database and retreive the raw, parsed response.
          *
@@ -1162,7 +1161,7 @@ declare namespace orientjs {
     class ODatabaseSession extends ODatabase {
         constructor(client?: OrientDBClient, options?: ODatabaseSessionOptions);
 
-        pool: ODatabaseSessionPool
+        pool: ODatabaseSessionPool;
         sessionManager: OSessionManager;
         /**
          * Get the current transaction
@@ -1252,7 +1251,6 @@ declare namespace orientjs {
          * @return                          The results of transaction
          */
         runInTransaction(txWork: any, times?: number): Promise<any>;
-
     }
 
     class OResult<R> extends Readable {
