@@ -6,18 +6,21 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "systemjs": ["systemjs/v0"]
+        }
     },
     "files": [
         "index.d.ts",
-        "notyf-tests.ts"
+        "systemjs-tests.ts"
     ]
 }

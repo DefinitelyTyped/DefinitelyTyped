@@ -1126,7 +1126,7 @@ import {
     EffectCube,
     EffectFlip,
     EffectCoverflow
-} from './js/swiper.esm';
+} from './dist/js/swiper.esm';
 
 /**
  * Core module
