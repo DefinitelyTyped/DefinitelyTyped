@@ -41,7 +41,7 @@ var circle1 = Bodies.circle(100,100,50, {
 	}
 });
 var radius = circle1.circleRadius;
-Body.setCentre(circle1, Matter.Vector.create(10, 10), true)
+Body.setCentre(circle1, Matter.Vector.create(10, 10), true);
 
 World.addBody(engine.world, box1);
 World.add(engine.world, [box2, circle1]);

@@ -2,7 +2,8 @@
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus> 
+//                 Piotr Pietrzak <https://github.com/hasparus>,
+//                 Dale Whinham <https://github.com/dwhinham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -681,9 +682,9 @@ declare namespace Matter {
          * This is equal to moving `body.position` but not the `body.vertices`.
          * Invalid if the `centre` falls outside the body's convex hull.
          * @method setCentre
-         * @param {body} body
-         * @param {vector} centre
-         * @param {bool} relative
+         * @param body
+         * @param centre
+         * @param relative
          */
         static setCentre(body: Body, centre: Vector, relative?: boolean): void;
         /**
@@ -810,7 +811,6 @@ declare namespace Matter {
          * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
          *
          * @property circleRadius
-         * @type number
          * @default 0
          */
         circleRadius?: number;
@@ -1074,7 +1074,6 @@ declare namespace Matter {
          * An object reserved for storing plugin-specific properties.
          *
          * @property plugin
-         * @type {}
          */
         plugin: any;
         /**
