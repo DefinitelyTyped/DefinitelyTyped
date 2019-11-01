@@ -17,10 +17,7 @@
         ],
         "paths": {
             "puppeteer": [
-                "puppeteer/v0"
-            ],
-            "puppeteer/*": [
-                "puppeteer/v0/*"
+                "puppeteer/v1"
             ]
         },
         "types": [],
@@ -28,6 +25,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "Errors.d.ts",
+        "DeviceDescriptors.d.ts",
         "index.d.ts",
         "puppeteer-tests.ts"
     ]
