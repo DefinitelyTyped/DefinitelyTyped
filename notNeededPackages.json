@@ -2581,6 +2581,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "oembed-parser",
+            "typingsPackageName": "oembed-parser",
+            "sourceRepoURL": "https://www.npmjs.com/package/oembed-parser",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "odata",
             "typingsPackageName": "odata",
             "sourceRepoURL": "https://github.com/janhommes/odata",
