@@ -5,6 +5,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
+//                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -51,6 +52,7 @@ export interface HashRouterProps {
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
 export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
     component?: React.ComponentType<any>;
     to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
     replace?: boolean;
