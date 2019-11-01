@@ -2611,6 +2611,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "nookies",
+            "typingsPackageName": "nookies",
+            "sourceRepoURL": "https://github.com/maticzav/nookies#readme",
+            "asOfVersion": "2.0.3"
+        },
+        {
             "libraryName": "normalize-url",
             "typingsPackageName": "normalize-url",
             "sourceRepoURL": "https://github.com/sindresorhus/normalize-url",
