@@ -424,33 +424,83 @@ declare namespace jest {
         each: Each;
     }
 
+    type PrintLabel = (string: string) => string;
+
+    type MatcherHintColor = (arg: string) => string;
+
+    interface MatcherHintOptions {
+        comment?: string;
+        expectedColor?: MatcherHintColor;
+        isDirectExpectCall?: boolean;
+        isNot?: boolean;
+        promise?: string;
+        receivedColor?: MatcherHintColor;
+        secondArgument?: string;
+        secondArgumentColor?: MatcherHintColor;
+    }
+
+    interface ChalkFunction {
+        (text: TemplateStringsArray, ...placeholders: any[]): string;
+        (...text: any[]): string;
+    }
+
+    interface ChalkColorSupport {
+        level: 0 | 1 | 2 | 3;
+        hasBasic: boolean;
+        has256: boolean;
+        has16m: boolean;
+    }
+
+    type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
+
     interface MatcherUtils {
         readonly isNot: boolean;
         readonly dontThrow: () => void;
         readonly promise: string;
+        readonly assertionCalls: number;
+        readonly expectedAssertionsNumber: number | null;
+        readonly isExpectingAssertions: boolean;
+        readonly suppressedErrors: any[];
+        readonly expand: boolean;
+        readonly testPath: string;
+        readonly currentTestName: string;
         utils: {
-            readonly EXPECTED_COLOR: (text: string) => string;
-            readonly RECEIVED_COLOR: (text: string) => string;
-            diff: typeof import('jest-diff');
-            ensureActualIsNumber(actual: any, matcherName?: string): void;
-            ensureExpectedIsNumber(actual: any, matcherName?: string): void;
-            ensureNoExpected(actual: any, matcherName?: string): void;
-            ensureNumbers(actual: any, expected: any, matcherName?: string): void;
-            /**
-             * get the type of a value with handling of edge cases like `typeof []` and `typeof null`
-             */
-            getType(value: any): string;
+            readonly EXPECTED_COLOR: MatcherColorFn;
+            readonly RECEIVED_COLOR: MatcherColorFn;
+            readonly INVERTED_COLOR: MatcherColorFn;
+            readonly BOLD_WEIGHT: MatcherColorFn;
+            readonly DIM_COLOR: MatcherColorFn;
+            readonly SUGGEST_TO_CONTAIN_EQUAL: string;
+            diff(a: any, b: any, options?: import("jest-diff").DiffOptions): string | null;
+            ensureActualIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureExpectedIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureNoExpected(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureNumbers(actual: any, expected: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureExpectedIsNonNegativeInteger(expected: any, matcherName: string, options?: MatcherHintOptions): void;
             matcherHint(
                 matcherName: string,
                 received?: string,
                 expected?: string,
-                options?: { secondArgument?: string; isDirectExpectCall?: boolean }
+                options?: MatcherHintOptions
+            ): string;
+            matcherErrorMessage(
+              hint: string,
+              generic: string,
+              specific: string
             ): string;
             pluralize(word: string, count: number): string;
+            printReceived(object: any): string;
             printExpected(value: any): string;
-            printReceived(value: any): string;
-            printWithType(name: string, received: any, print: (value: any) => string): string;
+            printWithType(name: string, value: any, print: (value: any) => string): string;
             stringify(object: {}, maxDepth?: number): string;
+            highlightTrailingWhitespace(text: string): string;
+
+            printDiffOrStringify(expected: any, received: any, expectedLabel: string, receivedLabel: string, expand: boolean): string;
+
+            getLabelPrinter(...strings: string[]): PrintLabel;
+
+            iterableEquality: any;
+            subsetEquality: any;
         };
         /**
          *  This is a deep-equality function that will return true if two objects have the same values (recursively).
