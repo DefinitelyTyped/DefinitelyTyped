@@ -4693,6 +4693,12 @@
             "asOfVersion": "2.17.1"
         },
         {
+            "libraryName": "vuex-i18n",
+            "typingsPackageName": "vuex-i18n",
+            "sourceRepoURL": "https://github.com/dkfbasel/vuex-i18n",
+            "asOfVersion": "1.13.0"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "w3c-permissions",
             "sourceRepoURL": "https://www.w3.org/TR/permissions/",
