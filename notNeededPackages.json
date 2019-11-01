@@ -2533,6 +2533,12 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "notyf",
+            "typingsPackageName": "notyf",
+            "sourceRepoURL": "https://github.com/caroso1222/notyf",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "npm-email",
             "typingsPackageName": "npm-email",
             "sourceRepoURL": "https://github.com/sindresorhus/npm-email",
