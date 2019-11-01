@@ -1,4 +1,4 @@
-// Type definitions for react-loader-spinner
+// Type definitions for react-loader-spinner 3.1
 // Project: https://github.com/mhnpd/react-loader-spinner
 // Definitions by: Rayhan Wirjowerdojo <https://github.com/rayhanw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
