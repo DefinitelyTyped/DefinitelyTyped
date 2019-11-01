@@ -3433,6 +3433,12 @@
             "asOfVersion": "0.5.0"
         },
         {
+            "libraryName": "react-dotdotdot",
+            "typingsPackageName": "react-dotdotdot",
+            "sourceRepoURL": "https://github.com/CezaryDanielNowak/React-dotdotdot",
+            "asOfVersion": "1.2.4"
+        },
+        {
             "libraryName": "react-dropzone",
             "typingsPackageName": "react-dropzone",
             "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
