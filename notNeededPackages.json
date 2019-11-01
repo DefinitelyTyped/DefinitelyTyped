@@ -4321,6 +4321,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "superstruct",
+            "typingsPackageName": "superstruct",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/superstruct#readme",
+            "asOfVersion": "0.8.0"
+        },
+        {
             "libraryName": "survey-knockout",
             "typingsPackageName": "survey-knockout",
             "sourceRepoURL": "http://surveyjs.org/",
