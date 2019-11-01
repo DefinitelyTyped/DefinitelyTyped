@@ -2465,7 +2465,7 @@
             "typingsPackageName": "nats-hemera",
             "sourceRepoURL": "https://github.com/hemerajs/hemera",
             "asOfVersion": "5.0.0"
-        }
+        },
         {
             "libraryName": "navigation-react",
             "typingsPackageName": "navigation-react",
