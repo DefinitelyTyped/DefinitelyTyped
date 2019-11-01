@@ -2,7 +2,8 @@
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus> 
+//                 Piotr Pietrzak <https://github.com/hasparus>,
+//                 Dale Whinham <https://github.com/dwhinham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -324,6 +325,13 @@ declare namespace Matter {
         * @default 0
         */
         motion?: number;
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         * @type {}
+         */
+        plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
@@ -668,6 +676,18 @@ declare namespace Matter {
          */
         static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
+         * Set the centre of mass of the body.
+         * The `centre` is a vector in world-space unless `relative` is set, in which case it is a translation.
+         * The centre of mass is the point the body rotates about and can be used to simulate non-uniform density.
+         * This is equal to moving `body.position` but not the `body.vertices`.
+         * Invalid if the `centre` falls outside the body's convex hull.
+         * @method setCentre
+         * @param body
+         * @param centre
+         * @param relative
+         */
+        static setCentre(body: Body, centre: Vector, relative?: boolean): void;
+        /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
          * @param {body} body
@@ -786,6 +806,14 @@ declare namespace Matter {
         * @type bounds
         */
         bounds: Bounds;
+        /**
+         * A `Number` that is set to the radius of the object if the body was constructed using `Bodies.circle`.
+         * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
+         *
+         * @property circleRadius
+         * @default 0
+         */
+        circleRadius?: number;
         /**
          * A `Number` that defines the density of the body, that is its mass per unit area.
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
@@ -1042,6 +1070,12 @@ declare namespace Matter {
         * @type body
         */
         parent: Body;
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         */
+        plugin: any;
         /**
          * A `Number` that defines the static friction of the body (in the Coulomb friction model).
          * A value of `0` means the body will never 'stick' when it is nearly stationary and only dynamic `friction` is used.
