@@ -1843,6 +1843,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "is-mobile",
+            "typingsPackageName": "is-mobile",
+            "sourceRepoURL": "https://github.com/juliangruber/is-mobile",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "is-obj",
             "typingsPackageName": "is-obj",
             "sourceRepoURL": "https://github.com/sindresorhus/is-obj",
