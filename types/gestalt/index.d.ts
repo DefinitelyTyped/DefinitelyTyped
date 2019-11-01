@@ -60,6 +60,7 @@ export interface BoxProps {
         | "purple"
         | "red"
         | "transparent"
+        | "transparentDarkGray"
         | "watermelon"
         | "white";
     column?: UnsignedUpTo12;
@@ -232,7 +233,7 @@ export interface FlyoutProps {
     anchor: React.RefObject<any>;
     onDismiss: () => void;
     children?: React.ReactNode;
-    color?: "blue" | "orange" | "white";
+    color?: "blue" | "orange" | "red" | "white" | "darkGray";
     idealDirection?: "up" | "right" | "down" | "left";
     positionRelativeToAnchor?: boolean;
     size?: "xs" | "sm" | "md" | "lg" | "xl" | number;
@@ -465,10 +466,12 @@ https://pinterest.github.io/gestalt/#/IconButton
 
 export interface IconButtonProps {
     accessibilityLabel: string;
-    icon: Icons;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
-    bgColor?: "transparent" | "lightGray" | "white";
+    bgColor?: "transparent" | "transparentDarkGray" | "gray" | "lightGray" | "white" | "blue";
+    dangerouslySetSvgPath?: { __path: string};
+    disabled?: boolean;
+    icon: Icons;
     iconColor?: "blue" | "darkGray" | "gray" | "red" | "white";
     onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
     size?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -766,6 +769,7 @@ export interface TextProps {
         | "white";
     inline?: boolean;
     italic?: boolean;
+    leading?: "short" | "tall";
     overflow?: "normal" | "breakWord";
     size?: "xs" | "sm" | "md" | "lg" | "xl";
     smSize?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -846,7 +850,7 @@ https://pinterest.github.io/gestalt/#/Toast
 */
 
 export interface ToastProps {
-    color?: "darkGray" | "orange";
+    color?: "darkGray" | "orange" | "red";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
     thumbnail?: React.ReactElement;
