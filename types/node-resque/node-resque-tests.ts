@@ -22,6 +22,7 @@ class SubtractJob implements Job<number> {
 }
 
 const connection: ConnectionOptions = { host: 'localhost', port: 6379 };
+const connectionWithCustomRedis: ConnectionOptions = { redis: "fake_redis_client" };
 const queues = ['math', 'otherQueue'];
 const jobs: JobsHash = {
     add: new AddJob(),
