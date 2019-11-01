@@ -3469,6 +3469,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-toastify",
+            "typingsPackageName": "react-toastify",
+            "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "react-tether",
             "typingsPackageName": "react-tether",
             "sourceRepoURL": "https://github.com/danreeves/react-tether",
