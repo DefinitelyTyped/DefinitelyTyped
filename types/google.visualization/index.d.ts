@@ -645,6 +645,19 @@ declare namespace google {
             draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
 
+        // https://developers.google.com/chart/interactive/docs/gallery/trendlines
+        export interface LineChartTrendlineOptions {
+            type?: 'linear' | 'exponential' | 'polynomial';
+            degree?: number;
+            color?: string;
+            lineWidth?: number;
+            opacity?: number;
+            pointsVisible?: boolean;
+            labelInLegend?: string;
+            visibleInLegend?: boolean;
+            showR2?: boolean
+        }
+        
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -674,7 +687,7 @@ declare namespace google {
             selectionMode?: string // single / multiple
             series?: any;
             domainAxis?: { type: string };
-            trendlines?: { [key: number]: any; };
+            trendlines?: { [key: number]: LineChartTrendlineOptions; };
             pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
             intervals?: { style: string };
             interval?: any;
