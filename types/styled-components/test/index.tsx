@@ -728,7 +728,7 @@ async function typedThemes() {
         ${({ ok }: { ok: boolean }) =>
             ok &&
             css`
-                color: ${({ theme: { color } }: { theme: typeof theme }) => color};
+                color: ${({ theme: { color } }) => color};
             `}
     `;
 
