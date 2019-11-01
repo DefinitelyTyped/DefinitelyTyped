@@ -1465,6 +1465,12 @@
             "asOfVersion": "14.5.0"
         },
         {
+            "libraryName": "graphql-query-complexity",
+            "typingsPackageName": "graphql-query-complexity",
+            "sourceRepoURL": "https://github.com/slicknode/graphql-query-complexity",
+            "asOfVersion": "0.2.0"
+        },
+        {
             "libraryName": "gravatar-url",
             "typingsPackageName": "gravatar-url",
             "sourceRepoURL": "https://github.com/sindresorhus/gravatar-url",
