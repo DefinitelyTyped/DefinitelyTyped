@@ -1363,6 +1363,12 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "ganache-core",
+            "typingsPackageName": "ganache-core",
+            "sourceRepoURL": "https://github.com/trufflesuite/ganache-core#readme",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "geolib",
             "typingsPackageName": "geolib",
             "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
