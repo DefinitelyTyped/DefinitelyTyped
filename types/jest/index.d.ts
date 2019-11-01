@@ -24,6 +24,7 @@
 //                 Alex Bolenok <https://github.com/quassnoi>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
+//                 Jason Yu <https://github.com/ycmjason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -43,6 +44,32 @@ declare var test: jest.It;
 declare var xtest: jest.It;
 
 declare const expect: jest.Expect;
+
+type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
+    1: [T[0]],
+    2: [T[0], T[1]],
+    3: [T[0], T[1], T[2]],
+    4: [T[0], T[1], T[2], T[3]],
+    5: [T[0], T[1], T[2], T[3], T[4]],
+    6: [T[0], T[1], T[2], T[3], T[4], T[5]],
+    7: [T[0], T[1], T[2], T[3], T[4], T[5], T[6]],
+    8: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7]],
+    9: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8]],
+    10: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9]],
+    'fallback': Array<(T extends ReadonlyArray<infer U>? U: any)>
+}[
+    T extends Readonly<[any]> ? 1
+        : T extends Readonly<[any, any]> ? 2
+        : T extends Readonly<[any, any, any]> ? 3
+        : T extends Readonly<[any, any, any, any]> ? 4
+        : T extends Readonly<[any, any, any, any, any]> ? 5
+        : T extends Readonly<[any, any, any, any, any, any]> ? 6
+        : T extends Readonly<[any, any, any, any, any, any, any]> ? 7
+        : T extends Readonly<[any, any, any, any, any, any, any, any]> ? 8
+        : T extends Readonly<[any, any, any, any, any, any, any, any, any]> ? 9
+        : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
+        : 'fallback'
+];
 
 interface NodeRequire {
     /**
@@ -301,6 +328,7 @@ declare namespace jest {
     interface Each {
         // Exclusively arrays.
         <T extends any[]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
+        <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (name: string, fn: (...args: ExtractEachCallbackArgs<T>) => any, timeout?: number) => void;
         // Not arrays.
         <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
         (cases: ReadonlyArray<ReadonlyArray<any>>): (
