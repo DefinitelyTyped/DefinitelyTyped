@@ -525,10 +525,10 @@ declare module "node-forge" {
 
         interface Pkcs12Pfx {
             version: string;
-            safeContents: [{
+            safeContents: {
                 encrypted: boolean;
                 safeBags: Bag[];
-            }];
+            }[];
             getBags: (filter: BagsFilter) => {
                 [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[];
