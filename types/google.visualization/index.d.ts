@@ -661,6 +661,7 @@ declare namespace google {
             color?: string;
             lineWidth?: number;
             opacity?: number;
+            pointSize?: number;
             pointsVisible?: boolean;
             labelInLegend?: string;
             visibleInLegend?: boolean;
