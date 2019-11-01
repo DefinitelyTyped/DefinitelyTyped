@@ -3325,6 +3325,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-helmet-async",
+            "typingsPackageName": "react-helmet-async",
+            "sourceRepoURL": "https://github.com/staylor/react-helmet-async",
+            "asOfVersion": "1.0.2"
+        },
+        {
             "libraryName": "react-i18next",
             "typingsPackageName": "react-i18next",
             "sourceRepoURL": "https://github.com/i18next/react-i18next",
