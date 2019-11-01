@@ -13,6 +13,12 @@ mapboxgl.accessToken = 'foo';
 mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
+ * Get RTL Text Plugin Status
+ */
+expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
+
+
+/**
  * Display a Map
  */
 let map = new mapboxgl.Map({
@@ -569,6 +575,11 @@ map = new mapboxgl.Map({
 	bearing: -96,
 	style: videoStyle,
 	hash: false
+});
+
+map = new mapboxgl.Map({
+    container: 'map',
+	hash: 'customHash'
 });
 
 /**
