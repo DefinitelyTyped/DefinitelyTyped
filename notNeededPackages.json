@@ -2071,6 +2071,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "koa-requestid",
+            "typingsPackageName": "koa-requestid",
+            "sourceRepoURL": "https://github.com/seegno/koa-requestid/",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "koa-useragent",
             "typingsPackageName": "koa-useragent",
             "sourceRepoURL": "https://github.com/rvboris/koa-useragent",
