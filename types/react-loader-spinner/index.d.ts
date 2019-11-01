@@ -6,28 +6,6 @@
 
 import { FC } from 'react';
 
-/**
- * Possible Types:
- * Audio
- * BallTriangle
- * Bars
- * Circles
- * Grid
- * Hearts
- * Oval
- * Puff
- * Rings
- * TailSpin
- * ThreeDots
- * Watch
- * RevolvingDot
- * Triangle
- * Plane
- * MutatingDots
- * None (Will default to Audio)
- * NotSpecified (Will default to Audio)
- **/
-
 type Types =
     | 'Audio'
     | 'BallTriangle'
