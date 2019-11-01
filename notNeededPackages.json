@@ -2047,6 +2047,12 @@
             "asOfVersion": "2.17.2"
         },
         {
+            "libraryName": "jsonata",
+            "typingsPackageName": "jsonata",
+            "sourceRepoURL": "https://github.com/jsonata-js/jsonata",
+            "asOfVersion": "1.5.0"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
