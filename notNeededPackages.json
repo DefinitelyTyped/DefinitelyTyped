@@ -3895,6 +3895,12 @@
             "asOfVersion": "1.6.3"
         },
         {
+            "libraryName": "sauronjs",
+            "typingsPackageName": "sauronjs",
+            "sourceRepoURL": "https://github.com/Fullscript/sauronjs",
+            "asOfVersion": "0.1.3"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
