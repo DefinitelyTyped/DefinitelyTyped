@@ -803,6 +803,13 @@ declare namespace Stripe {
             url: string;
         }
 
+        interface ILoginLinkOptions {
+            /**
+             * Where to redirect the user after they log out of their dashboard.
+             */
+            redirect_url: string;
+        }
+
         interface ICompanyShared {
             /**
              * The company’s primary address.
@@ -2083,6 +2090,14 @@ declare namespace Stripe {
              * physical goods.
              */
             shipping?: IShippingInformation;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            transfer_group?: string;
         }
 
         interface IChargeListOptions extends IListOptionsCreated {
@@ -9755,7 +9770,7 @@ declare namespace Stripe {
             createLoginLink(accId: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
             createLoginLink(
                 accId: string,
-                redirectUrl?: string,
+                options?: accounts.ILoginLinkOptions,
                 response?: IResponseFn<accounts.ILoginLink>,
             ): Promise<accounts.ILoginLink>;
 
