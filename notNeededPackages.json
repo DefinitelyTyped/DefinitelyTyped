@@ -4471,6 +4471,12 @@
             "asOfVersion": "3.6.0"
         },
         {
+            "libraryName": "uuidv4",
+            "typingsPackageName": "uuidv4",
+            "sourceRepoURL": "https://github.com/thenativeweb/uuidv4#readme",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "Validate.js",
             "typingsPackageName": "validate.js",
             "sourceRepoURL": "https://github.com/ansman/validate.js",
