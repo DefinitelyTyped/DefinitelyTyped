@@ -679,6 +679,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "cson-parser",
+            "typingsPackageName": "cson-parser",
+            "sourceRepoURL": "https://github.com/groupon/cson-parser",
+            "asOfVersion": "4.0.3"
+        },
+        {
             "libraryName": "csv-parse",
             "typingsPackageName": "csv-parse",
             "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
