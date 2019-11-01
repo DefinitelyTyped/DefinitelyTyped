@@ -2119,6 +2119,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "koa-better-body",
+            "typingsPackageName": "koa-better-body",
+            "sourceRepoURL": "https://github.com/tunnckoCore/koa-better-body",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "koa-jwt",
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
