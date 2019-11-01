@@ -153,6 +153,7 @@
         "test/none-tests.ts",
         "test/not-tests.ts",
         "test/nth-tests.ts",
-        "test/nthArg-tests.ts"
+        "test/nthArg-tests.ts",
+        "test/o-tests.ts"
     ]
 }
