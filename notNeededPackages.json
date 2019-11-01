@@ -661,6 +661,12 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "countup.js",
+            "typingsPackageName": "countup.js",
+            "sourceRepoURL": "https://github.com/inorganik/CountUp.js",
+            "asOfVersion": "2.0.3"
+        },
+        {
             "libraryName": "cp-file",
             "typingsPackageName": "cp-file",
             "sourceRepoURL": "https://github.com/sindresorhus/cp-file",
