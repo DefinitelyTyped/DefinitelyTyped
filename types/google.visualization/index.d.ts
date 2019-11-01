@@ -77,11 +77,11 @@ declare namespace google {
             static group(data: DataTable, keys: any[], columns: any[]): DataTable;
             static group(data: DataView, keys: any[], columns: any[]): DataTable;
             
-            static sum(values: number[]): number;
-            static avg(values: number[]): number;
-            static min(values: number[]): number;
-            static max(values: number[]): number;
-            static count(values: number[]): number;
+            static sum(values: number[] | string[] | Date[]): number;
+            static avg(values: number[] | string[] | Date[]): number;
+            static min(values: number[] | string[] | Date[]): number | string | Date;
+            static max(values: number[] | string[] | Date[]): number | string | Date;
+            static count(values: any[]): number;
             
             // https://developers.google.com/chart/interactive/docs/reference#join
             static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
