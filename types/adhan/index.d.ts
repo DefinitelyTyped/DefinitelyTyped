@@ -39,7 +39,7 @@ export const Date: AdhanDate;
 export const Math: AdhanMath;
 
 // Declare Interface privately
-interface AdhanCalculationMethod {
+export interface AdhanCalculationMethod {
   Dubai(): Paramater;
   Egyptian(): Paramater;
   Karachi(): Paramater;
@@ -53,7 +53,7 @@ interface AdhanCalculationMethod {
   UmmAlQura(): Paramater;
 }
 
-interface Paramater {
+export interface Paramater {
   readonly method: string;
   fajrAngle: number;
   ishaAngle: number;
@@ -70,7 +70,7 @@ interface Paramater {
   };
 }
 
-interface AdhanDate {
+export interface AdhanDate {
   formattedTime(prayerTime: Date, offset?: number, style?: TimeMode): string;
   dateByAddingDays(date: Date, days: number): string;
   dateByAddingHours(date: Date, hours: number): string;
@@ -81,7 +81,7 @@ interface AdhanDate {
   roundedMinute(date: Date): string;
 }
 
-interface AdhanMath {
+export interface AdhanMath {
   degreesToRadians(degrees: number): number;
   normalizeToScale(number: number, max: number): number;
   quadrantShiftAngle(angle: number): number;
@@ -91,4 +91,4 @@ interface AdhanMath {
 }
 
 // Declare type
-type TimeMode = '12h' | '24h';
+export type TimeMode = '12h' | '24h';
