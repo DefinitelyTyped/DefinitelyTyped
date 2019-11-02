@@ -525,16 +525,21 @@ declare namespace jest {
          * does not contain all of the elements in the expected array. That is,
          * the expected array is not a subset of the received array. It is the
          * inverse of `expect.arrayContaining`.
+         *
+         * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining(arr: any[]): any;
+        arrayContaining<E>(arr: E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
          * expected object is not a subset of the received object. Therefore,
          * it matches a received object which contains properties that are not
          * in the expected object. It is the inverse of `expect.objectContaining`.
+         *
+         * Optionally, you can provide a type for the object via a generic.
+         * This ensures that the object contains the desired structure.
          */
-        objectContaining(obj: {}): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
          * string that does not match the expected regexp. It is the inverse of
@@ -604,8 +609,10 @@ declare namespace jest {
         /**
          * Matches any array made up entirely of elements in the provided array.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         *
+         * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining(arr: any[]): any;
+        arrayContaining<E>(arr: E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -629,8 +636,11 @@ declare namespace jest {
         /**
          * Matches any object that recursively matches the provided keys.
          * This is often handy in conjunction with other asymmetric matchers.
+         *
+         * Optionally, you can provide a type for the object via a generic.
+         * This ensures that the object contains the desired structure.
          */
-        objectContaining(obj: {}): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * Matches any string that contains the exact provided string
          */
@@ -667,25 +677,40 @@ declare namespace jest {
     interface Matchers<R, T> {
         /**
          * Ensures the last call to a mock function was provided specific args.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        lastCalledWith(...args: any[]): R;
+        lastCalledWith<E extends any[]>(...args: E): R;
         /**
          * Ensure that the last call to a mock function has returned a specified value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        lastReturnedWith(value: any): R;
+        lastReturnedWith<E>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        nthCalledWith(nthCall: number, ...params: any[]): R;
+        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        nthReturnedWith(n: number, value: any): R;
+        nthReturnedWith<E>(n: number, value: E): R;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBe(expected: any): R;
+        toBe<E>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -696,8 +721,11 @@ declare namespace jest {
         toBeCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toBeCalledWith(...args: any[]): R;
+        toBeCalledWith<E extends any[]>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -724,8 +752,11 @@ declare namespace jest {
         /**
          * Ensure that an object is an instance of a class.
          * This matcher uses `instanceof` underneath.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBeInstanceOf(expected: any): R;
+        toBeInstanceOf<E>(expected: E): R;
         /**
          * For comparing floating point numbers.
          */
@@ -756,19 +787,28 @@ declare namespace jest {
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContain(expected: any): R;
+        toContain<E>(expected: E): R;
         /**
          * Used when you want to check that an item is in a list.
-         * For testing the items in the list, this  matcher recursively checks the
+         * For testing the items in the list, this matcher recursively checks the
          * equality of all fields, rather than checking for object identity.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContainEqual(expected: any): R;
+        toContainEqual<E>(expected: E): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toEqual(expected: any): R;
+        toEqual<E>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -779,23 +819,35 @@ declare namespace jest {
         toHaveBeenCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenCalledWith(...params: any[]): R;
+        toHaveBeenCalledWith<E extends any[]>(...params: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
+        toHaveBeenNthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenLastCalledWith(...params: any[]): R;
+        toHaveBeenLastCalledWith<E extends any[]>(...params: E): R;
         /**
          * Use to test the specific value that a mock function last returned.
          * If the last call to the mock function threw an error, then this matcher will fail
          * no matter what value you provided as the expected return value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveLastReturnedWith(expected: any): R;
+        toHaveLastReturnedWith<E>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -805,8 +857,11 @@ declare namespace jest {
          * Use to test the specific value that a mock function returned for the nth call.
          * If the nth call to the mock function threw an error, then this matcher will fail
          * no matter what value you provided as the expected return value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveNthReturnedWith(nthCall: number, expected: any): R;
+        toHaveNthReturnedWith<E>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -820,7 +875,7 @@ declare namespace jest {
          *
          * expect(houseForSale).toHaveProperty('kitchen.area', 20);
          */
-        toHaveProperty(propertyPath: string | any[], value?: any): R;
+        toHaveProperty<E>(propertyPath: string | any[], value?: E): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
          */
@@ -832,8 +887,11 @@ declare namespace jest {
         toHaveReturnedTimes(expected: number): R;
         /**
          * Use to ensure that a mock function returned a specific value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveReturnedWith(expected: any): R;
+        toHaveReturnedWith<E>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -891,12 +949,18 @@ declare namespace jest {
         toReturnTimes(count: number): R;
         /**
          * Ensure that a mock function has returned a specified value at least once.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toReturnWith(value: any): R;
+        toReturnWith<E>(value: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toStrictEqual(expected: {}): R;
+        toStrictEqual<E>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
