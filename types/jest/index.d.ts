@@ -528,7 +528,7 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining<E>(arr: E[]): any;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
