@@ -38,7 +38,7 @@ export const Date: AdhanDate;
 
 export const Math: AdhanMath;
 
-// Declare Interface privately
+// Declare Interface
 export interface AdhanCalculationMethod {
   Dubai(): Paramater;
   Egyptian(): Paramater;
