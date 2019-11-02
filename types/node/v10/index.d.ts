@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.14
+// Type definitions for Node.js 10.17
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -22,6 +22,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Simon Schick <https://github.com/SimonSchick>

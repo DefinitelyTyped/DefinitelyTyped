@@ -946,8 +946,10 @@ function bufferTests() {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -1384,6 +1386,33 @@ async function asyncStreamPipelineFinished() {
             plaintextLength: ciphertext.length
         });
         const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key: string | null = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, 'binary', 'utf8');
         decipher.final();
     }
 

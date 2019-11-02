@@ -5,7 +5,6 @@
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 FaithForHumans <https://github.com/FaithForHumans>
 //                 Tim Chen <https://github.com/timc13>
-//                 Pat Gaffney <https://github.com/patrickrgaffney>
 //                 Prabodh Tiwari <https://github.com/prabodht>
 //                 Georg Steinmetz <https://github.com/georg94>
 //                 Kyle Tsang <https://github.com/kyletsang>

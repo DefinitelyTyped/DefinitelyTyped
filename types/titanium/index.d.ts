@@ -34432,7 +34432,7 @@ declare namespace Titanium {
 				const BAR: number;
 
 				/**
-				 * he standard progress-view style. This is the default.
+				 * The standard progress-view style. This is the default.
 				 */
 				const DEFAULT: number;
 
@@ -37489,7 +37489,7 @@ declare namespace Titanium {
 				const BAR: number;
 
 				/**
-				 * he standard progress-view style. This is the default.
+				 * The standard progress-view style. This is the default.
 				 */
 				const DEFAULT: number;
 

@@ -106,7 +106,7 @@ class F2 {
 
 () => {
     // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.isArrayLike, R.of);
+    const coerceArray = R.unless(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1);         // => [1]
 };
@@ -294,13 +294,6 @@ R.times(i, 5);
     addOneOnce(addOneOnce(50)); // => 11
 
     const str = R.once<string>(() => 'test')();
-})();
-
-(() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
 })();
 
 (() => {
@@ -978,6 +971,18 @@ type Pair = KeyValuePair<string, number>;
 
     const out: { must: Array<{ match_phrase: string }> } =
               matchPhrases(["foo", "bar", "baz"]);
+};
+
+() => {
+    const classyGreeting = (name: { last: string; first: string }) =>
+      `The name's ${name.last}, ${name.first} ${name.last}`;
+    const yellGreeting = R.o(R.toUpper, classyGreeting);
+    const str: string = yellGreeting({ first: 'James', last: 'Bond' });
+
+    const num: number = R.o(R.multiply(10), R.add(10))(-4);
+    const num2: number = R.o(R.multiply(10))(R.add(10))(-4);
+    const num3: number = R.o(R.multiply(10))(R.add(10), -4);
+    const num4: number = R.o(R.multiply(10), R.add(10), -4);
 };
 
 () => {

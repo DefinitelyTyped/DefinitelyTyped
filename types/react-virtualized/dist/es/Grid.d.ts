@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent } from 'react';
+import { Validator, Requireable, PureComponent, Component } from 'react';
 import { List } from './List';
 import { Table } from './Table';
 import { CellMeasurerCache, MeasuredCellParent } from './CellMeasurer';
@@ -20,7 +20,7 @@ export type GridCellProps = {
     isScrolling: boolean;
     isVisible: boolean;
     key: string;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     rowIndex: number;
     style: React.CSSProperties;
 };
@@ -133,6 +133,7 @@ export type GridCellRangeProps = {
     columnStartIndex: number;
     columnStopIndex: number;
     isScrolling: boolean;
+    isScrollingOptOut: boolean;
     rowSizeAndPositionManager: CellSizeAndPositionManager;
     rowStartIndex: number;
     rowStopIndex: number;
@@ -140,7 +141,7 @@ export type GridCellRangeProps = {
     scrollTop: number;
     deferredMeasurementCache: CellMeasurerCache;
     horizontalOffsetAdjustment: number;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     styleCache: Map<React.CSSProperties>;
     verticalOffsetAdjustment: number;
     visibleColumnIndices: VisibleCellRange;

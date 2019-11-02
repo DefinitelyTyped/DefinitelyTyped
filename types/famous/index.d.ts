@@ -34,7 +34,6 @@ declare module "famous/core" {
 		removeChild(node: Node): boolean;
 		getParent(): Node;
 		
-		isMounted(): boolean;
 		mount(): void;
 		dismount(): void;
 		

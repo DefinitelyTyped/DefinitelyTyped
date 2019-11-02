@@ -51,6 +51,7 @@ function test_droppable() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         drop: (event, ui) => {
+            console.log(`${event.screenX}, ${event.screenY}`);
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")

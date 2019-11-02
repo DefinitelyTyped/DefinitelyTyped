@@ -17,7 +17,7 @@ declare namespace ForceGraph {
     }
 
     interface GraphEntity {
-        id?: string;
+        id: string;
     }
 
     interface GraphNode extends GraphEntity {

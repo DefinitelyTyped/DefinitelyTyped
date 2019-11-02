@@ -44,13 +44,17 @@ import { ConcatSource } from 'webpack-sources';
 export = webpack;
 
 declare function webpack(
-    options: webpack.Configuration,
-    handler: webpack.Compiler.Handler
+    options:
+        | webpack.Configuration
+        | webpack.ConfigurationFactory,
+    handler: webpack.Compiler.Handler,
 ): webpack.Compiler.Watching | webpack.Compiler;
 declare function webpack(options?: webpack.Configuration): webpack.Compiler;
 
 declare function webpack(
-    options: webpack.Configuration[],
+    options:
+        | webpack.Configuration[]
+        | webpack.MultiConfigurationFactory,
     handler: webpack.MultiCompiler.Handler
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
@@ -131,6 +135,16 @@ declare namespace webpack {
         /** Optimization options */
         optimization?: Options.Optimization;
     }
+
+    type ConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: Record<string, string>,
+    ) => Configuration | Promise<Configuration>);
+
+    type MultiConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: Record<string, string>,
+    ) => Configuration[] | Promise<Configuration[]>);
 
     interface Entry {
         [name: string]: string | string[];
@@ -698,6 +712,26 @@ declare namespace webpack {
         }
     }
 
+    /**
+     * @see https://webpack.js.org/api/logging/
+     * @since 4.39.0
+     */
+    interface Logger {
+        error(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        group(...label: any[]): void;
+        groupEnd(): void;
+        groupCollapsed(...label: any[]): void;
+        status(message?: any, ...optionalParams: any[]): void;
+        clear(): void;
+        profile(label?: string): void;
+        profileEnd(label?: string): void;
+    }
+
     namespace debug {
         interface ProfilingPluginOptions {
             /** A relative path to a custom output file (json) */
@@ -718,6 +752,7 @@ declare namespace webpack {
             constructor(options?: ProfilingPluginOptions);
         }
     }
+
     namespace compilation {
         class Asset {
         }
@@ -1025,6 +1060,7 @@ declare namespace webpack {
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
             applyPlugins(name: string, ...args: any[]): void;
+            getLogger(pluginName: string): Logger;
         }
 
         interface CompilerHooks {
@@ -1142,6 +1178,7 @@ declare namespace webpack {
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
+        getInfrastructureLogger(name: string): Logger;
     }
 
     namespace Compiler {
@@ -1191,6 +1228,11 @@ declare namespace webpack {
         hash?: string;
         startTime?: number;
         endTime?: number;
+        /**
+         * Returns the default json options from the stats preset.
+         * @param preset The preset to be transformed into json options.
+         */
+        static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -1405,14 +1447,14 @@ declare namespace webpack {
                 childrenByOrder: Record<string, number[]>;
                 entry: boolean;
                 files: string[];
-                filteredModules?: boolean;
-                hash: string | undefined;
+                filteredModules?: number;
+                hash?: string;
                 id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
                 origins?: Array<{
-                    moduleId: string | number | undefined;
+                    moduleId?: string | number;
                     module: string;
                     moduleIdentifier: string;
                     moduleName: string;
@@ -1421,8 +1463,8 @@ declare namespace webpack {
                     reasons: string[];
                 }>;
                 parents: number[];
-                reason: string | undefined;
-                recorded: undefined;
+                reason?: string;
+                recorded?: boolean;
                 rendered: boolean;
                 size: number;
                 siblings: number[];

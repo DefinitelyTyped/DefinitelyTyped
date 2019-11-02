@@ -116,36 +116,38 @@ export interface ChangeEventValue {
 }
 
 export interface Props {
-  bootstrapURLKeys?: BootstrapURLKeys;
-  defaultCenter?: Coords;
-  center?: Coords;
-  defaultZoom?: number;
-  zoom?: number;
-  hoverDistance?: number;
-  options?: MapOptions | ((maps: Maps) => MapOptions);
-  margin?: any[];
-  debounced?: boolean;
-  draggable?: boolean;
-  layerTypes?: string[];
-  onClick?(value: ClickEventValue): any;
-  onChange?(value: ChangeEventValue): any;
-  resetBoundsOnResize?: boolean;
-  onChildClick?(hoverKey: any, childProps: any): void;
-  onChildMouseEnter?(hoverKey: any, childProps: any): void;
-  onChildMouseLeave?(hoverKey: any, childProps: any): void;
-  onChildMouseDown?(childKey: any, childProps: any, mouse: any): void;
-  onChildMouseUp?(childKey: any, childProps: any, mouse: any): void;
-  onChildMouseMove?(childKey: any, childProps: any, mouse: any): void;
-  onDrag?(args: any): void;
-  onZoomAnimationStart?(args: any): void;
-  onZoomAnimationEnd?(args: any): void;
-  onMapTypeIdChange?(args: any): void;
-  distanceToMouse?(pt: Point, mousePos: Point, markerProps?: object): number;
-  googleMapLoader?(bootstrapURLKeys: any): void;
-  onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
-  onTilesLoaded?(): void;
-  yesIWantToUseGoogleMapApiInternals?: boolean;
-  style?: React.HTMLProps<HTMLDivElement>;
+    bootstrapURLKeys?: BootstrapURLKeys;
+    defaultCenter?: Coords;
+    center?: Coords;
+    defaultZoom?: number;
+    zoom?: number;
+    hoverDistance?: number;
+    options?: MapOptions | ((maps: Maps) => MapOptions);
+    margin?: any[];
+    debounced?: boolean;
+    draggable?: boolean;
+    layerTypes?: string[];
+    onClick?(value: ClickEventValue): any;
+    onChange?(value: ChangeEventValue): any;
+    resetBoundsOnResize?: boolean;
+    onChildClick?(hoverKey: any, childProps: any): void;
+    onChildMouseEnter?(hoverKey: any, childProps: any): void;
+    onChildMouseLeave?(hoverKey: any, childProps: any): void;
+    onChildMouseDown?(childKey: any, childProps: any, mouse: any): void;
+    onChildMouseUp?(childKey: any, childProps: any, mouse: any): void;
+    onChildMouseMove?(childKey: any, childProps: any, mouse: any): void;
+    onDrag?(map: any): void;
+    onDragEnd?(map: any): void;
+    onZoomAnimationStart?(args: any): void;
+    onZoomAnimationEnd?(args: any): void;
+    onMapTypeIdChange?(args: any): void;
+    distanceToMouse?(pt: Point, mousePos: Point, markerProps?: object): number;
+    googleMapLoader?(bootstrapURLKeys: any): void;
+    onGoogleApiLoaded?(maps: { map: any; maps: any, ref: Element | null }): void;
+    onTilesLoaded?(): void;
+    yesIWantToUseGoogleMapApiInternals?: boolean;
+    style?: React.HTMLProps<HTMLDivElement>;
+    shouldUnregisterMapOnUnmount?: boolean;
 }
 
 export default class GoogleMapReact extends React.Component<Props> {}

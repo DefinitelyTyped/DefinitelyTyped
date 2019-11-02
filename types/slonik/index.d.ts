@@ -26,6 +26,17 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
 
+export type TypeNameIdentifierType =
+  'bool' |
+  'bytea' |
+  'float4' |
+  'float8' |
+  'int2' |
+  'int4' |
+  'json' |
+  'text' |
+  'timestamptz';
+
 export type SerializableValueType =
     | string
     | number
@@ -42,23 +53,30 @@ export interface SerializableValueObject {
 export interface SerializableValueArray
   extends ReadonlyArray<SerializableValueType> {}
 
-export interface IdentifierTokenType {
+export type PositionalParameterValuesType = ReadonlyArray<ValueExpressionType>;
+
+export type NamedParameterValuesType = Record<string, ValueExpressionType>;
+
+export interface ArraySqlTokenType {
+    memberType: TypeNameIdentifierType | SqlTokenType;
+    type: typeof SlonikSymbol.ArrayTokenSymbol;
+    values: PositionalParameterValuesType;
+}
+
+export interface BinarySqlTokenType {
+    data: Buffer;
+    type: typeof SlonikSymbol.BinaryTokenSymbol;
+}
+
+export interface IdentifierSqlTokenType {
     names: ReadonlyArray<string>;
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
 }
 
-export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
-
-export interface RawSqlTokenType {
-    sql: string;
-    type: typeof SlonikSymbol.RawSqlTokenSymbol;
-    values: PrimitiveValueExpressionType[];
-}
-
-export interface ArraySqlTokenType {
-    memberType: string;
-    type: typeof SlonikSymbol.ArrayTokenSymbol;
-    values: PrimitiveValueExpressionType[];
+export interface ListSqlTokenType {
+    glue: SqlTokenType;
+    members: ReadonlyArray<SqlTokenType>;
+    type: typeof SlonikSymbol.ListTokenSymbol;
 }
 
 export interface JsonSqlTokenType {
@@ -66,19 +84,24 @@ export interface JsonSqlTokenType {
     type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
+export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
+
 export interface UnnestSqlTokenType {
-    columnTypes: string[];
-    tuples: PrimitiveValueExpressionType[][];
+    columnTypes: ReadonlyArray<string>;
+    tuples: ReadonlyArray<PositionalParameterValuesType>;
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
-export type PrimitiveValueExpressionType = string | number | boolean | null;
+export type PrimitiveValueExpressionType = string | number | boolean | null | PrimitiveValueExpressionTypeArray;
+
+export interface PrimitiveValueExpressionTypeArray extends Array<PrimitiveValueExpressionType> {}
 
 export type SqlTokenType =
     ArraySqlTokenType |
-    IdentifierTokenType |
+    BinarySqlTokenType |
+    IdentifierSqlTokenType |
     JsonSqlTokenType |
-    RawSqlTokenType |
+    ListSqlTokenType |
     SqlSqlTokenType<any> |
     UnnestSqlTokenType;
 
@@ -281,20 +304,24 @@ export interface SqlTaggedTemplateType {
     ) => ArraySqlTokenType;
     identifier: (
         names: string[]
-    ) => IdentifierTokenType;
+    ) => IdentifierSqlTokenType;
     json: (
         value: SerializableValueType
     ) => JsonSqlTokenType;
+    join: (
+      members: ReadonlyArray<ValueExpressionType>,
+      glue: SqlTokenType,
+    ) => ListSqlTokenType;
     raw: (
         rawSql: string,
-        values?: PrimitiveValueExpressionType[]
-    ) => RawSqlTokenType;
+        values?: ReadonlyArray<PrimitiveValueExpressionType>
+    ) => SqlTokenType;
     unnest: (
-        // Value might be PrimitiveValueExpressionType[],
+        // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
         // https://github.com/gajus/slonik/issues/44
-        tuples: any[][],
-        columnTypes: string[]
+        tuples: ReadonlyArray<ReadonlyArray<any>>,
+        columnTypes: ReadonlyArray<string>
     ) => UnnestSqlTokenType;
 }
 

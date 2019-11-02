@@ -732,12 +732,14 @@ mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', time
  */
 var doc = <mongoose.MongooseDocument> {};
 doc.$isDefault('path').valueOf();
+doc.$locals.field = 'value';
 const docDotDepopulate: mongoose.MongooseDocument = doc.depopulate('path');
 doc.equals(doc).valueOf();
 doc.execPopulate().then(function (arg) {
   arg.execPopulate();
 }).catch(function (err) {});
 doc.get('path', Number);
+doc.get('path', Number, { virtuals: true, getters: false });
 doc.init(doc).init(doc, {});
 doc.inspect();
 doc.invalidate('path', new Error('hi')).toString();
@@ -778,7 +780,10 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-doc.validateSync(['path1', 'path2']).stack;
+var validationError = doc.validateSync(['path1', 'path2']);
+if (validationError) {
+    validationError.stack
+}
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
@@ -1036,6 +1041,8 @@ query.batchSize(100).batchSize(100);
 var lowerLeft = [40.73083, -73.99756]
 var upperRight = [40.741404,  -73.988135]
 query.where('loc').within().box(lowerLeft, upperRight)
+query.where('loc').wtimeout()
+query.where('loc').wtimeout(10)
 query.box({ ll : lowerLeft, ur : upperRight }).box({});
 var queryModel = mongoose.model('QModel')
 query.cast(new queryModel(), {}).hasOwnProperty('');
@@ -1720,8 +1727,13 @@ MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
-MongoModel.syncIndexes({});
-MongoModel.syncIndexes({}, cb);
+MongoModel.syncIndexes().then(() => {});
+MongoModel.syncIndexes({}).then(() => {});
+MongoModel.syncIndexes(null).then(() => {});
+MongoModel.syncIndexes(undefined).then(() => {});
+MongoModel.syncIndexes({}, err => {});
+MongoModel.syncIndexes(null, err => {});
+MongoModel.syncIndexes(undefined, err => {});
 MongoModel.listIndexes();
 MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);

@@ -174,6 +174,7 @@ stripe.charges.update(
     'ch_15fvyXEe31JkLCeQOo0SwFk9',
     {
         description: 'Charge for test@example.com',
+        transfer_group: "Transfer group for this charge",
     },
     (err, charge) => {
         // asynchronously called
@@ -314,7 +315,31 @@ stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] })
 
 //#region Checkout with connect tests
 // ##################################################################################
-// With destination
+// Direct charges
+stripe.checkout.sessions.create(
+    {
+        payment_method_types: ['card'],
+        line_items: [{
+            name: "Cucumber from Roger's Farm",
+            amount: 200,
+            currency: 'usd',
+            quantity: 10,
+        }],
+        payment_intent_data: {
+            application_fee_amount: 200,
+        },
+        success_url: 'https://example.com/success',
+        cancel_url: 'https://example.com/cancel',
+    },
+    {
+        stripe_account: '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
+    },
+    (err, session) => {
+        // asynchronously called
+    }
+);
+
+// Destination charges with destination
 stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
@@ -340,7 +365,7 @@ stripe.checkout.sessions.create(
     },
 );
 
-// With on_behalf_of
+// Destination charges with on_behalf_of
 stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
@@ -367,6 +392,26 @@ stripe.checkout.sessions.create(
     },
 );
 
+// Subscriptions
+stripe.checkout.sessions.create(
+    {
+        payment_method_types: ['card'],
+        subscription_data: {
+            items: [{
+                plan: 'plan_123',
+            }],
+            application_fee_percent: 10,
+        },
+        success_url: 'https://example.com/success',
+        cancel_url: 'https://example.com/cancel',
+    },
+    {
+        stripe_account: '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
+    },
+    (err, session) => {
+        // asynchronously called
+    }
+);
 //#endregion
 
 //#region CreditNotes tests
@@ -443,7 +488,13 @@ stripe.customers.create(
         phone: '15551234567',
         description: 'Customer for test@example.com',
         source: 'tok_15V2YhEe31JkLCeQy9iUgsJX', // obtained with Stripe.js
-        metadata: { test: '123', test2: 123 }, // IOptionsMetadata test
+        metadata: { test: '123', test2: 123 }, // IOptionsMetadata test,
+        tax_id_data: [
+            {
+                type: 'eu_vat',
+                value: 'DE123456789'
+            }
+        ]
     },
     (err, customer) => {
         // asynchronously called
@@ -1251,10 +1302,53 @@ stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk').then(loginLink => {
     const created: number = loginLink.created;
     const url: string = loginLink.url;
 });
-stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', 'http://localhost:3000').then(loginLink => {
+stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', { redirect_url: 'http://localhost:3000' }).then(loginLink => {
     const object: string = loginLink.object;
     const created: number = loginLink.created;
     const url: string = loginLink.url;
+});
+
+//#endregion
+
+//#region Connect Account Person tests
+// ##################################################################################
+
+stripe.accounts.createPerson('acct_17wV8KBoqMA9o2xk', {
+    email: 'test@example.com',
+    relationship: {
+        executive: true
+    }
+}).then((person) => {
+    const email: string = person.email;
+});
+stripe.accounts.updatePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37', {
+    first_name: 'John',
+    last_name: 'Doe',
+    phone: '15551234567',
+}).then((person) => {
+    const first_name: string = person.first_name;
+    const last_name: string = person.last_name;
+});
+
+stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
+    const email: string = person.email;
+});
+
+stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
+    const email: string = person.email;
+});
+
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }, { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
+    const email: string = persons.data[0].email;
+});
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then((persons) => {
+    const email: string = persons.data[0].email;
 });
 //#endregion
 
@@ -2064,6 +2158,30 @@ stripe.charges
     .catch(err => {
         if (err instanceof Stripe.errors.StripeCardError) {
             const type = err.type;
+        }
+
+        if (err instanceof Stripe.errors.StripeError) {
+            if (err.charge) {
+                const charge: string = err.charge;
+            }
+            if (err.payment_intent) {
+                const payment_intent: Stripe.paymentIntents.IPaymentIntent = err.payment_intent;
+            }
+            if (err.payment_method) {
+                const payment_method: Stripe.paymentMethods.IPaymentMethod = err.payment_method;
+            }
+            if (err.setup_intent) {
+                const setup_intent: Stripe.setupIntents.ISetupIntent = err.setup_intent;
+            }
+            if (err.source) {
+                const source: Stripe.sources.ISource = err.source;
+            }
+            if (err.decline_code) {
+                const decline_code: string = err.decline_code;
+            }
+            if (err.statusCode) {
+                const statusCode: number = err.statusCode;
+            }
         }
     });
 

@@ -25,6 +25,7 @@
 //                 Eli White <https://github.com/TheSavior>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
+//                 Jesse Katsumata <https://github.com/Naturalclar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -89,8 +90,8 @@ interface EventSubscription {
  * EventSubscriptionVendor stores a set of EventSubscriptions that are
  * subscribed to a particular event type.
  */
-interface EventSubscriptionVendor {
-    constructor(): EventSubscriptionVendor;
+declare class EventSubscriptionVendor {
+    constructor();
 
     /**
      * Adds a subscription keyed by an event type.
@@ -4585,7 +4586,7 @@ export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
     /**
-     * @deprecated Use animationType indead
+     * @deprecated Use animationType instead
      */
     animated?: boolean;
     /**
@@ -6657,7 +6658,7 @@ export interface AccessibilityInfoStatic {
      *
      * @deprecated use isScreenReaderChanged instead
      */
-    fetch(): () => Promise<boolean>;
+    fetch: () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:
