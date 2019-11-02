@@ -13,8 +13,8 @@ declare namespace ReactSlider {
         max?: number;
         step?: number;
         minDistance?: number;
-        defaultValue?: S
-        value?: S
+        defaultValue?: S;
+        value?: S;
         orientation?: 'horizontal' | 'vertical';
         className?: string;
         handleClassName?: string;
