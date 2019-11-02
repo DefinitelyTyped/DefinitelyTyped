@@ -4684,7 +4684,7 @@
             "libraryName": "vfile-message",
             "typingsPackageName": "vfile-message",
             "sourceRepoURL": "https://github.com/vfile/vfile-message#readme",
-            "asOfVersion": "1.1.0"
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "viewerjs",

@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "vfile-message": "^1.1.0"
+        "vfile-message": "^2.0.0"
     }
 }
