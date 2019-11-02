@@ -725,7 +725,7 @@ expect.extend({
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
 
-        const diff: string = this.utils.diff({}, {});
+        const diff: string | null = this.utils.diff({}, {});
 
         this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, 'matcher');
