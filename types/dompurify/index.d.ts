@@ -1,6 +1,6 @@
-// Type definitions for DOM Purify 2.0.1
+// Type definitions for DOM Purify 2.0
 // Project: https://github.com/cure53/DOMPurify
-// Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>, FlowCrypt <https://github.com/FlowCrypt>
+// Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>, FlowCrypt <https://github.com/FlowCrypt>, Exigerr <https://github.com/Exigerr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 /// <reference types="trusted-types"/>
