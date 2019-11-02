@@ -612,7 +612,7 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining<E>(arr: E[]): any;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -688,7 +688,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        lastReturnedWith<E>(value: E): R;
+        lastReturnedWith<E = any>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -702,7 +702,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        nthReturnedWith<E>(n: number, value: E): R;
+        nthReturnedWith<E = any>(n: number, value: E): R;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -710,7 +710,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBe<E>(expected: E): R;
+        toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -756,7 +756,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBeInstanceOf<E>(expected: E): R;
+        toBeInstanceOf<E = any>(expected: E): R;
         /**
          * For comparing floating point numbers.
          */
@@ -791,7 +791,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContain<E>(expected: E): R;
+        toContain<E = any>(expected: E): R;
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this matcher recursively checks the
@@ -800,7 +800,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContainEqual<E>(expected: E): R;
+        toContainEqual<E = any>(expected: E): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
@@ -808,7 +808,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toEqual<E>(expected: E): R;
+        toEqual<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -847,7 +847,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveLastReturnedWith<E>(expected: E): R;
+        toHaveLastReturnedWith<E = any>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -861,7 +861,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveNthReturnedWith<E>(nthCall: number, expected: E): R;
+        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -875,7 +875,7 @@ declare namespace jest {
          *
          * expect(houseForSale).toHaveProperty('kitchen.area', 20);
          */
-        toHaveProperty<E>(propertyPath: string | any[], value?: E): R;
+        toHaveProperty<E = any>(propertyPath: string | any[], value?: E): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
          */
@@ -891,7 +891,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveReturnedWith<E>(expected: E): R;
+        toHaveReturnedWith<E = any>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -953,14 +953,14 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toReturnWith<E>(value: E): R;
+        toReturnWith<E = any>(value: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toStrictEqual<E>(expected: E): R;
+        toStrictEqual<E = any>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
