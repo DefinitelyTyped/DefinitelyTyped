@@ -3,41 +3,42 @@
 // Definitions by: Ikramullah <https://github.com/skymunn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Start declare module
-// declare module 'adhan' { export = Adhan }
-declare namespace Adhan {
-  class PrayerTimes {
-    constructor(coordinates: Coordinates, date: Date, params: Paramater);
+// UMD Module
+export as namespace adhan;
 
-    fajr: Date;
-    sunrise: Date;
-    dhuhr: Date;
-    asr: Date;
-    maghrib: Date;
-    isha: Date;
-  }
+// Declare method/property
+export class PrayerTimes {
+  constructor(coordinates: Coordinates, date: Date, params: Paramater);
 
-  class Coordinates {
-    constructor(longitude: number, latitude: number);
-    longitude: number;
-    latitude: number;
-  }
-
-  let CalculationMethod: AdhanCalculationMethod;
-
-  enum Madhab {
-    Hanafi, Shafi
-  }
-
-  enum HighLatitudeRule {
-    MiddleOfTheNight, SeventhOfTheNight, TwilightAngle
-  }
-
-  let Date: AdhanDate;
-
-  let Math: AdhanMath;
+  fajr: Date;
+  sunrise: Date;
+  dhuhr: Date;
+  asr: Date;
+  maghrib: Date;
+  isha: Date;
 }
 
+export class Coordinates {
+  constructor(longitude: number, latitude: number);
+  longitude: number;
+  latitude: number;
+}
+
+export const CalculationMethod: AdhanCalculationMethod;
+
+export enum Madhab {
+  Hanafi, Shafi
+}
+
+export enum HighLatitudeRule {
+  MiddleOfTheNight, SeventhOfTheNight, TwilightAngle
+}
+
+export const Date: AdhanDate;
+
+export const Math: AdhanMath;
+
+// Declare Interface privately
 interface AdhanCalculationMethod {
   Dubai(): Paramater;
   Egyptian(): Paramater;
@@ -57,8 +58,8 @@ interface Paramater {
   fajrAngle: number;
   ishaAngle: number;
   ishaInterval: number;
-  madhab: Adhan.Madhab;
-  highLatitudeRule: Adhan.HighLatitudeRule;
+  madhab: Madhab;
+  highLatitudeRule: HighLatitudeRule;
   adjustments: {
     fajr: number;
     sunrise: number;
@@ -89,5 +90,5 @@ interface AdhanMath {
   unwindAngle(angle: number): number;
 }
 
-// Start Type
+// Declare type
 type TimeMode = '12h' | '24h';
