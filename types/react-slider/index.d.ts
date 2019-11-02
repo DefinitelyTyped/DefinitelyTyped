@@ -8,13 +8,13 @@ import * as React from 'react';
 import * as motion from 'react-motion';
 
 declare namespace ReactSlider {
-    interface ReactSliderProps {
+    interface ReactSliderProps<S extends number | number[]> {
         min?: number;
         max?: number;
         step?: number;
         minDistance?: number;
-        defaultValue?: number | number[];
-        value?: number | number[];
+        defaultValue?: S
+        value?: S
         orientation?: 'horizontal' | 'vertical';
         className?: string;
         handleClassName?: string;
@@ -25,12 +25,18 @@ declare namespace ReactSlider {
         disabled?: boolean;
         snapDragDisabled?: boolean;
         invert?: boolean;
-        onBeforeChange?: (value: number | number[] | undefined | null) => void;
-        onChange?: (value: number | number[] | undefined | null) => void;
-        onAfterChange?: (value: number | number[] | undefined | null) => void;
+        onBeforeChange?: (value: S) => void;
+        onChange?: (value: S) => void;
+        onAfterChange?: (value: S) => void;
         onSliderClick?: (value: number) => void;
+        renderTrack?: Render<S>;
+        renderThumb?: Render<S>;
     }
 }
 
-declare const ReactSlider: React.ComponentClass<ReactSlider.ReactSliderProps>;
+interface Render<S extends number | number[]> {
+    (props: ReactSlider.ReactSliderProps<S>, state: S): React.ReactElement;
+}
+
+declare const ReactSlider: React.ComponentClass<ReactSlider.ReactSliderProps<any>>;
 export = ReactSlider;
