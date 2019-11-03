@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 4.0
+// Type definitions for cucumber-js 6.0
 // Project: http://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
