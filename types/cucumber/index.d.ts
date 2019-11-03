@@ -7,6 +7,7 @@
 //                 ErikSchierboom <https://github.com/ErikSchierboom>
 //                 Peter Morlion <https://github.com/petermorlion>
 //                 Don Jayamanne <https://github.com/DonJayamanne>
+//                 David Goss <https://github.com/davidjgoss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -97,6 +98,7 @@ export interface SourceLocation {
 export interface ScenarioResult {
     duration: number;
     status: Status;
+    exception?: Error;
 }
 
 export namespace pickle {
