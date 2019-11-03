@@ -8,6 +8,7 @@ export * from "./CleanupResult";
 export * from "./PrecacheEntry";
 export * from "./URLManipulation";
 
+export * from "./addPlugins";
 export { addRoute } from "./addRoute";
 export * from "./cleanupOutdatedCaches";
 export * from "./getCacheKeyForURL";

@@ -3,6 +3,9 @@
 import * as WorkboxPrecaching from "workbox-precaching";
 
 // $ExpectType void
+WorkboxPrecaching.addPlugins([]);
+
+// $ExpectType void
 WorkboxPrecaching.addRoute();
 
 // $ExpectType void
