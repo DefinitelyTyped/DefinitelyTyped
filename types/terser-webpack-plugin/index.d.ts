@@ -49,6 +49,6 @@ declare namespace TerserPlugin {
         | RegExp
         | ExtractCommentFn
         | ExtractCommentOptions;
-        warningsFilter?: (warning: string, source: string, file: string) => boolean;
+        warningsFilter?: (warning: string, source: string | undefined, file: string) => boolean;
     }
 }
