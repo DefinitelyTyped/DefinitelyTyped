@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es2015",
+            "webworker"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "CleanupResult.d.ts",
+        "InstallResult.d.ts",
+        "PrecacheEntry.d.ts",
+        "URLManipulation.d.ts",
+        "addPlugins.d.ts",
+        "addRoute.d.ts",
+        "cleanupOutdatedCaches.d.ts",
+        "getCacheKeyForURL.d.ts",
+        "precache.d.ts",
+        "precacheAndRoute.d.ts",
+        "types/FetchListenerOptions.d.ts",
+        "workbox-precaching-tests.ts"
+    ]
+}
