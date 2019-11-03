@@ -453,6 +453,8 @@ declare namespace jest {
 
     type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
 
+    type EqualityTester = (a: any, b: any) => boolean | undefined;
+
     interface MatcherUtils {
         readonly isNot: boolean;
         readonly dontThrow: () => void;
@@ -499,13 +501,13 @@ declare namespace jest {
 
             getLabelPrinter(...strings: string[]): PrintLabel;
 
-            iterableEquality: any;
-            subsetEquality: any;
+            iterableEquality: EqualityTester;
+            subsetEquality: EqualityTester;
         };
         /**
          *  This is a deep-equality function that will return true if two objects have the same values (recursively).
          */
-        equals(a: any, b: any): boolean;
+        equals(a: any, b: any, customTesters?: EqualityTester[], strictCheck?: boolean): boolean;
         [other: string]: any;
     }
 
