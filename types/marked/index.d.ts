@@ -107,7 +107,7 @@ declare namespace marked {
         code(code: string, language: string, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
-        heading(text: string, level: number, raw: string, slugger: Slugger): string;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
