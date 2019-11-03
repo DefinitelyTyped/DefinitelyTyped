@@ -255,8 +255,10 @@ export namespace events {
 }
 
 export interface StepDefinition {
-    // tslint:disable-next-line ban-types
+    // tslint:disable:ban-types
     code: Function;
+    unwrappedCode?: Function;
+    // tslint:enable:ban-types
     line: number;
     options: {};
     pattern: any;
