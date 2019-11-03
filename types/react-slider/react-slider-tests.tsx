@@ -3,16 +3,16 @@ import ReactSlider from 'react-slider';
 
 class Slider extends React.Component<ReactSlider.ReactSliderProps<number>> {
     render() {
-        return <ReactSlider snapDragDisabled trackClassName="classnameForBar" withTracks={false} {...this.props} />;
+        return <ReactSlider {...this.props} />;
     }
 }
 
-function SingleValueSlider(props: React.PropsWithChildren<ReactSlider.ReactSliderProps<number>>) {
+function SingleValueSlider() {
     const [state, setState] = React.useState(0);
-    return <ReactSlider {...props} value={state} onChange={setState} />;
+    return <ReactSlider value={state} onChange={setState} ariaLabel={''} />;
 }
 
-function MultiValueSlider(props: React.PropsWithChildren<ReactSlider.ReactSliderProps<number[]>>) {
+function MultiValueSlider() {
     const [state, setState] = React.useState([0, 6, 9]);
     return <ReactSlider value={state} onChange={setState} ariaLabel={[]} />;
 }
