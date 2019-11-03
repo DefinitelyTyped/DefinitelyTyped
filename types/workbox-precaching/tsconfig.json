@@ -19,17 +19,17 @@
     },
     "files": [
         "index.d.ts",
-        "CleanupResult.d.ts",
-        "InstallResult.d.ts",
-        "PrecacheEntry.d.ts",
-        "URLManipulation.d.ts",
         "addPlugins.d.ts",
         "addRoute.d.ts",
         "cleanupOutdatedCaches.d.ts",
         "getCacheKeyForURL.d.ts",
         "precache.d.ts",
         "precacheAndRoute.d.ts",
+        "types/CleanupResult.d.ts",
         "types/FetchListenerOptions.d.ts",
+        "types/InstallResult.d.ts",
+        "types/PrecacheEntry.d.ts",
+        "types/URLManipulation.d.ts",
         "workbox-precaching-tests.ts"
     ]
 }

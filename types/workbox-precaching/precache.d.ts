@@ -1,5 +1,5 @@
-import { PrecacheEntry } from "./PrecacheEntry";
+import { PrecacheEntry } from "./types/PrecacheEntry";
 
 export function precache(entries: Array<PrecacheEntry | string>): void;
 
-export * from "./PrecacheEntry";
+export * from "./types/PrecacheEntry";

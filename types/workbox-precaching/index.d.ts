@@ -4,10 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export * from "./CleanupResult";
-export * from "./PrecacheEntry";
-export * from "./URLManipulation";
-
 export * from "./addPlugins";
 export { addRoute } from "./addRoute";
 export * from "./cleanupOutdatedCaches";
@@ -15,4 +11,7 @@ export * from "./getCacheKeyForURL";
 export { precache } from "./precache";
 export { precacheAndRoute } from "./precacheAndRoute";
 
+export * from "./types/CleanupResult";
 export * from "./types/FetchListenerOptions";
+export * from "./types/PrecacheEntry";
+export * from "./types/URLManipulation";

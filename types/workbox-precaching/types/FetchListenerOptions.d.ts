@@ -1,4 +1,4 @@
-import { URLManipulation } from "../URLManipulation";
+import { URLManipulation } from "./URLManipulation";
 
 export interface FetchListenerOptions {
     cleanURLs?: boolean;
