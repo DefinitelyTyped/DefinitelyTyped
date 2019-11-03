@@ -1,5 +1,5 @@
-export interface RouteMatchCallback {
-    (options: RouteMatchCallbackOptions): any;
+export interface RouteMatchCallback<R = void> {
+    (options: RouteMatchCallbackOptions): R;
 }
 
 export interface RouteMatchCallbackOptions {
