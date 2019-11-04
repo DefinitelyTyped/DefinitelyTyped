@@ -23,4 +23,4 @@ const codeList: { [code: string]: string } = getCodeList();
 
 const data: Array<{ code: string; description: string }> = getData();
 
-const overwrit: void = overwrite([{ code: '1234', description: '' }]);
+overwrite([{ code: '1234', description: '' }]);
