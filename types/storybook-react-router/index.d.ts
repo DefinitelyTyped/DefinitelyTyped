@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+import { DecoratorFunction, StoryApi } from '@storybook/addons';
+import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
 import { ComponentType } from 'react';
 import { MemoryRouterProps } from 'react-router';
-import { DecoratorFunction, StoryApi } from '@storybook/addons';
 
 export const StoryRouter: ComponentType<{
   story: StoryApi;
@@ -14,6 +15,9 @@ export const StoryRouter: ComponentType<{
   routerProps: MemoryRouterProps;
 }>;
 
-declare function storyRouterDecorator(links?: object, routerProps?: MemoryRouterProps): DecoratorFunction;
+declare function storyRouterDecorator(
+    links?: object,
+    routerProps?: MemoryRouterProps
+): DecoratorFunction<StoryFnReactReturnType>;
 
 export default storyRouterDecorator;
