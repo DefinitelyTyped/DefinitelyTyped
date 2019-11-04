@@ -4,17 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+import { DecoratorFunction, StoryFn } from '@storybook/addons';
+import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
 import { ComponentType, ReactNode } from 'react';
 
 // Shared Types
 export type Renderable = ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable | Renderable[];
+export type RenderFunction = StoryFn<StoryFnReactReturnType>;
 export type Readme = string | string[];
 
-export type DecoratorPattern = (
-  story: RenderFunction,
-  context: { kind: string; story: string }
-) => Renderable | null;
+export type DecoratorPattern = DecoratorFunction<StoryFnReactReturnType>;
 
 export type HOCPattern = (story: RenderFunction) => Renderable | null;
 
