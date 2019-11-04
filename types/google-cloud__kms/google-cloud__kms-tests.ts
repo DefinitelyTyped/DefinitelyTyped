@@ -44,6 +44,29 @@ async function exampleCreateKeyRing() {
     });
 }
 
+async function exampleListKeyRings() {
+    const locationPath = kmsClient.locationPath('[PROJECT_ID]', '[LOCATION]');
+    const [ asyncKeyRings ] = await kmsClient.listKeyRings({parent: locationPath});
+    if  (asyncKeyRings.length > 0) {
+        const keyRing = asyncKeyRings[ 0 ];
+        console.log(`KeyRing: ${keyRing.name}`);
+    }
+
+    kmsClient.listKeyRings({parent: locationPath}, (err, [ callbackKeyRings ]) => {
+        if  (callbackKeyRings.length > 0) {
+            const keyRing = callbackKeyRings[ 0 ];
+            console.log(`KeyRing: ${keyRing.name}`);
+        }
+    });
+
+    kmsClient.listKeyRings({parent: locationPath}, { timeout: 1000 }, (err, [ callbackWithOptionsKeyRings ]) => {
+        if  (callbackWithOptionsKeyRings.length > 0) {
+            const keyRing = callbackWithOptionsKeyRings[ 0 ];
+            console.log(`KeyRing: ${keyRing.name}`);
+        }
+    });
+}
+
 async function exampleCreateCryptoKey() {
     const formattedParent = kmsClient.keyRingPath('[PROJECT]', '[LOCATION]', '[KEY_RING]');
     const cryptoKeyId = 'my-app-key';
@@ -78,29 +101,6 @@ async function exampleCreateCryptoKey() {
 
     kmsClient.createCryptoKey(request, { timeout: 1000 }, (err, [response]) => {
         console.log(`Created CryptoKey: ${response.name}`);
-    });
-}
-
-async function exampleListKeyRings() {
-    const locationPath = kmsClient.locationPath('[PROJECT_ID]', '[LOCATION]');
-    const [ asyncKeyRings ] = await kmsClient.listKeyRings({parent: locationPath});
-    if  (asyncKeyRings.length > 0) {
-        const keyRing = asyncKeyRings[ 0 ];
-        console.log(`KeyRing: ${keyRing.name}`);
-    }
-
-    kmsClient.listKeyRings({parent: locationPath}, (err, [ callbackKeyRings ]) => {
-        if  (callbackKeyRings.length > 0) {
-            const keyRing = callbackKeyRings[ 0 ];
-            console.log(`KeyRing: ${keyRing.name}`);
-        }
-    });
-
-    kmsClient.listKeyRings({parent: locationPath}, { timeout: 1000 }, (err, [ callbackWithOptionsKeyRings ]) => {
-        if  (callbackWithOptionsKeyRings.length > 0) {
-            const keyRing = callbackWithOptionsKeyRings[ 0 ];
-            console.log(`KeyRing: ${keyRing.name}`);
-        }
     });
 }
 
