@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { JSONSchema4, JSONSchema6, JSONSchema7 } from 'json-schema';
+import { JSONSchema4, JSONSchema6, JSONSchema7, JSONSchema6Definition, JSONSchema7Definition } from 'json-schema';
 
 export = compare;
 
-type JSONSchema = JSONSchema4 | JSONSchema6 | JSONSchema7;
+type JSONSchemaComparee = JSONSchema4 | JSONSchema6Definition | JSONSchema7Definition | undefined;
 type KnownKeys<T> = {
     [K in keyof T]: string extends K ? never : K
 } extends { [_ in keyof T]: infer U } ? U : never;
@@ -39,4 +39,4 @@ interface Options {
  * - For minLength, minItems and minProperties `undefined` and `0` are equal
  * - For uniqueItems, `undefined` and `false` are equal
  */
-declare function compare(a: JSONSchema, b: JSONSchema, options?: Options): boolean;
+declare function compare(a: JSONSchemaComparee, b: JSONSchemaComparee, options?: Options): boolean;
