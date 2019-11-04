@@ -889,6 +889,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "domelementtype",
+            "typingsPackageName": "domelementtype",
+            "sourceRepoURL": "https://github.com/fb55/domelementtype#readme",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
             "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
