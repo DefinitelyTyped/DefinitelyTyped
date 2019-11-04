@@ -3865,6 +3865,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "rfc4648",
+            "typingsPackageName": "rfc4648",
+            "sourceRepoURL": "https://github.com/swansontec/rfc4648",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "rgb-hex",
             "typingsPackageName": "rgb-hex",
             "sourceRepoURL": "https://github.com/sindresorhus/rgb-hex",
