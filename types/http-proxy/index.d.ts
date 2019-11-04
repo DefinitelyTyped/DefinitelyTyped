@@ -15,7 +15,7 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
-type ProxyTargetUrl = string | url.Url;
+type ProxyTargetUrl = string | Partial<url.Url>;
 
 type ErrorCallback = (
   err: Error,

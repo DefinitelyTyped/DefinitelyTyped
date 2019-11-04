@@ -10,7 +10,7 @@ import { Agent } from 'http';
 import { Url } from 'url';
 
 declare class HttpProxyAgent extends Agent {
-    constructor(options: string | Url);
+    constructor(options: string | Partial<Url>);
 
     proxy: Url;
     secureProxy: boolean;
