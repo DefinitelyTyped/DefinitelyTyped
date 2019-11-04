@@ -1591,6 +1591,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "http-graceful-shutdown",
+            "typingsPackageName": "http-graceful-shutdown",
+            "sourceRepoURL": "https://github.com/sebhildebrandt/http-graceful-shutdown",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "http-status",
             "typingsPackageName": "http-status",
             "sourceRepoURL": "https://github.com/wdavidw/node-http-status",
