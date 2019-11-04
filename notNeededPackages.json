@@ -2479,6 +2479,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "mobx-devtools-mst",
+            "typingsPackageName": "mobx-devtools-mst",
+            "sourceRepoURL": "https://mobxjs.github.io/mobx",
+            "asOfVersion": "0.9.7"
+        },
+        {
             "libraryName": "mobx-task",
             "typingsPackageName": "mobx-task",
             "sourceRepoURL": "https://github.com/jeffijoe/mobx-task#readme",
