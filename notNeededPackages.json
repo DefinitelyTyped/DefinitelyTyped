@@ -1375,6 +1375,12 @@
             "asOfVersion": "6.4.3"
         },
         {
+            "libraryName": "fromnow",
+            "typingsPackageName": "fromnow",
+            "sourceRepoURL": "https://github.com/lukeed/fromNow",
+            "asOfVersion": "3.0.1"
+        },
+        {
             "libraryName": "fs-promise",
             "typingsPackageName": "fs-promise",
             "sourceRepoURL": "https://github.com/kevinbeaty/fs-promise",
