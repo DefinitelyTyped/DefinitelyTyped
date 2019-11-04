@@ -295,6 +295,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bip39",
+            "typingsPackageName": "bip39",
+            "sourceRepoURL": "https://github.com/bitcoinjs/bip39",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "bitcoinjs-lib",
             "typingsPackageName": "bitcoinjs-lib",
             "sourceRepoURL": "https://github.com/bitcoinjs/bitcoinjs-lib",
