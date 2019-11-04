@@ -1,9 +1,21 @@
-// Type definitions for Sortable.js 1.7
+// Type definitions for Sortable.js 1.10
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
+//                 Wayne Van Son <https://github.com/waynevanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+import {
+    AutoScrollOptions,
+    MultiDragOptions,
+    OnSpillOptions,
+    SwapOptions,
+    AutoScrollPlugin,
+    MultiDragPlugin,
+    OnSpillPlugin,
+    SwapPlugin,
+    SortablePlugin,
+} from './plugins';
 
 export = Sortable;
 
@@ -22,11 +34,21 @@ declare class Sortable {
     static utils: Sortable.Utils;
 
     /**
+     * Mounts a plugin to Sortable
+     * @param sortablePlugin a sortable plugin.
+     * 
+     * @example
+     * 
+     * Sortable.mount(new MultiDrag(), new AutoScroll())
+     */
+    static mount(...sortablePlugins: SortablePlugin[]): void;
+
+    /**
      * Creation of new instances.
      * @param element Any variety of HTMLElement.
      * @param options Sortable options object.
      */
-    static create(element: HTMLElement, options: Sortable.Options): Sortable;
+    static create(element: HTMLElement, options?: Sortable.Options): Sortable;
 
     /**
      * Options getter/setter
@@ -66,6 +88,18 @@ declare class Sortable {
 }
 
 declare namespace Sortable {
+    export interface Options
+        extends SortableOptions,
+            AutoScrollOptions,
+            MultiDragOptions,
+            OnSpillOptions,
+            SwapOptions {}
+
+    export class MultiDrag extends MultiDragPlugin {}
+    export class AutoScroll extends AutoScrollPlugin {}
+    export class Swap extends SwapPlugin {}
+    export class OnSpill extends OnSpillPlugin {}
+
     export interface SortableEvent extends Event {
         clone: HTMLElement;
         /**
@@ -104,6 +138,8 @@ declare namespace Sortable {
         willInsertAfter?: boolean;
     }
 
+    type PullResult = ReadonlyArray<string> | boolean | 'clone';
+    type PutResult = ReadonlyArray<string> | boolean;
     export interface GroupOptions {
         /**
          * group name
@@ -112,18 +148,18 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: boolean | 'clone' | ((to: Sortable, from: Sortable) => boolean | string);
+        pull?: PullResult | ((to: Sortable, from: Sortable) => PullResult);
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: boolean | string | ReadonlyArray<string> | ((to: Sortable) => boolean);
+        put?: ((to: Sortable) => PutResult) | PutResult;
         /**
          * revert cloned element to initial position after moving to a another list.
          */
         revertClone?: boolean;
     }
-
-    export interface Options {
+    type Direction = 'vertical' | 'horizontal';
+    export interface SortableOptions {
         /**
          * ms, animation speed moving items when sorting, `0` — without animation
          */
@@ -137,6 +173,15 @@ declare namespace Sortable {
          * time in milliseconds to define when the sorting should start
          */
         delay?: number;
+        /**
+         * Only delay if user is using touch
+         */
+        delayOnTouchOnly?: boolean;
+        /**
+         * Direction of Sortable
+         * (will be detected automatically if not given)
+         */
+        direction?: ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction) | Direction;
         /**
          * Disables the sortable if set to true.
          */
@@ -152,6 +197,38 @@ declare namespace Sortable {
         dragoverBubble?: boolean;
         dropBubble?: boolean;
         /**
+         * distance mouse must be from empty sortable
+         * to insert drag element into it
+         */
+        emptyInsertThreshold?: number;
+
+        /**
+         * Easing for animation. Defaults to null.
+         *
+         * See https://easings.net/ for examples.
+         *
+         * For other possible values, see
+         * https://www.w3schools.com/cssref/css3_pr_animation-timing-function.asp
+         *
+         * @example
+         *
+         * // CSS functions
+         * | 'steps(int, start | end)'
+         * | 'cubic-bezier(n, n, n, n)'
+         *
+         * // CSS values
+         * | 'linear'
+         * | 'ease'
+         * | 'ease-in'
+         * | 'ease-out'
+         * | 'ease-in-out'
+         * | 'step-start'
+         * | 'step-end'
+         * | 'initial'
+         * | 'inherit'
+         */
+        easing?: string;
+        /**
          * Class name for the cloned DOM Element when using forceFallback
          */
         fallbackClass?: string;
@@ -163,11 +240,13 @@ declare namespace Sortable {
          * Specify in pixels how far the mouse should move before it's considered as a drag.
          */
         fallbackTolerance?: number;
-        fallbackOffset?: { x: number, y: number };
+        fallbackOffset?: { x: number; y: number };
         /**
          * Selectors that do not lead to dragging (String or Function)
          */
-        filter?: string | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
+        filter?:
+            | string
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -187,22 +266,23 @@ declare namespace Sortable {
         handle?: string;
         ignore?: string;
         /**
+         * Will always use inverted swap zone if set to true
+         */
+        invertSwap?: boolean;
+        /**
+         * Threshold of the inverted swap zone
+         * (will be set to `swapThreshold` value by default)
+         */
+        invertedSwapThreshold?: number;
+        /**
          * Call `event.preventDefault()` when triggered `filter`
          */
         preventOnFilter?: boolean;
-        scroll?: boolean;
         /**
-         * if you have custom scrollbar scrollFn may be used for autoscrolling
+         * Remove the clone element when it is not showing,
+         * rather than just hiding it
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
-        /**
-         * px, how near the mouse must be to an edge to start scrolling.
-         */
-        scrollSensitivity?: number;
-        /**
-         * px
-         */
-        scrollSpeed?: number;
+        removeCloneOnHide?: boolean;
         /**
          * sorting inside list
          */
@@ -211,6 +291,16 @@ declare namespace Sortable {
             get: (sortable: Sortable) => string[];
             set: (sortable: Sortable) => void;
         };
+        /**
+         * Threshold of the swap zone.
+         * Defaults to `1`
+         */
+        swapThreshold?: number;
+        /**
+         * How many *pixels* the point should move before cancelling a delayed drag event
+         */
+        touchStartThreshold?: number;
+
         setData?: (dataTransfer: DataTransfer, draggedElement: HTMLElement) => void;
         /**
          * Element dragging started
@@ -254,11 +344,12 @@ declare namespace Sortable {
         onFilter?: (event: SortableEvent) => void;
         /**
          * Event when you move an item in the list or between lists
-         * return false; for cancel
-         * return -1; insert before target
-         * return 1; insert after target
          */
-        onMove?: (event: MoveEvent, originalEvent: MouseEvent) => false | -1 | 1;
+        onMove?: (evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1;
+        /**
+         * Called when dragging element changes position
+         */
+        onChange?: (evt: SortableEvent) => void;
     }
 
     interface Utils {
@@ -305,7 +396,11 @@ declare namespace Sortable {
          * @param tagName A tag name.
          * @param iterator An iterator.
          */
-        find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
+        find(
+            context: HTMLElement,
+            tagName: string,
+            iterator?: (value: HTMLElement, index: number) => void,
+        ): NodeListOf<HTMLElement>;
 
         /**
          * Check the current matched set of elements against a selector.

@@ -5,6 +5,7 @@
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
 //                 Alexandre Moraes <https://github.com/alcmoraes>
+//                 Quinn Langille <https://github.com/quinnlangille>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -69,6 +70,8 @@ export interface ServerOptions {
     strictNext?: boolean;
 
     ignoreTrailingSlash?: boolean;
+
+    maxParamLength?: number;
 }
 
 export interface AddressInterface {

@@ -1,9 +1,10 @@
-// Type definitions for react-leaflet 2.4
+// Type definitions for react-leaflet 2.5
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
 //                 Jeroen Claassens <https://github.com/favna>
+//                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -279,6 +280,14 @@ export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOp
     zIndex?: number;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
+export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
+    children?: Children;
+}
+export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }

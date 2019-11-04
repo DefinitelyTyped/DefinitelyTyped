@@ -1,5 +1,5 @@
-// Type definitions for echarts 4.1.0
-// Project: http://echarts.baidu.com/
+// Type definitions for ECharts 4.4.0
+// Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
 //                 Liveangela <https://github.com/liveangela>
@@ -1488,7 +1488,7 @@ declare namespace echarts {
                     show?: boolean;
                     precision?: number | string;
                     formatter?: string | Function;
-                    margin?: boolean;
+                    margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
                     fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'

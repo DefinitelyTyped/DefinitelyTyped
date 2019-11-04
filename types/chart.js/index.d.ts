@@ -19,6 +19,7 @@
 //                 Martin Trobäck <https://github.com/lekoaf>
 //                 Elian Cordoba <https://github.com/ElianCordoba>
 //                 Takuya Uehara <https://github.com/indigolain>
+//                 Ricardo Mello <https://github.com/ricardo-mello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -249,7 +250,7 @@ declare namespace Chart {
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
         scale?: RadialLinearScale;
-        scales?: ChartScales;
+        scales?: ChartScales | LinearScale | LogarithmicScale | TimeScale;
         showLines?: boolean;
         spanGaps?: boolean;
         cutoutPercentage?: number;
@@ -302,7 +303,7 @@ declare namespace Chart {
 
     interface ChartTooltipOptions {
         enabled?: boolean;
-        custom?(a: any): void;
+        custom?: (tooltipModel: ChartTooltipModel) => void;
         mode?: InteractionMode;
         intersect?: boolean;
         backgroundColor?: ChartColor;
@@ -339,6 +340,47 @@ declare namespace Chart {
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
+    }
+
+    interface ChartTooltipModel {
+        backgroundColor: string;
+        bodyFontColor: string;
+        bodyFontSize: number;
+        bodySpacing: number;
+        borderColor: string;
+        borderWidth: number;
+        caretSize: number;
+        caretX: number;
+        caretY: number;
+        cornerRadius: number;
+        displayColors: boolean;
+        footerFontColor: string;
+        footerFontSize: number;
+        footerMarginTop: number;
+        footerSpacing: number;
+        height: number;
+        legendColorBackground: string;
+        opacity: number;
+        titleFontColor: string;
+        titleFontSize: number;
+        titleMarginBottom: number;
+        titleSpacing: number;
+        width: number;
+        x: number;
+        xAlign: string;
+        xPadding: number;
+        y: number;
+        yAlign: string;
+        yPadding: number;
+        _bodyAlign: string;
+        _bodyFontFamily: string;
+        _bodyFontStyle: string;
+        _footerAlign: string;
+        _footerFontFamily: string;
+        _footerFontStyle: string;
+        _titleAlign: string;
+        _titleFontFamily: string;
+        _titleFontStyle: string;
     }
 
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
@@ -598,7 +640,7 @@ declare namespace Chart {
     interface CommonAxe {
         bounds?: string;
         type?: ScaleType | string;
-        display?: boolean;
+        display?: boolean | string;
         id?: string;
         stacked?: boolean;
         position?: string;

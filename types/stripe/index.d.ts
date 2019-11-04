@@ -803,6 +803,13 @@ declare namespace Stripe {
             url: string;
         }
 
+        interface ILoginLinkOptions {
+            /**
+             * Where to redirect the user after they log out of their dashboard.
+             */
+            redirect_url: string;
+        }
+
         interface ICompanyShared {
             /**
              * The company’s primary address.
@@ -1044,6 +1051,337 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             ssn_last_4?: string;
+        }
+
+        interface IPersonDocumentCreateUpdateOptions {
+            /**
+             * The back of an ID returned by a file upload with a purpose value of identity_document.
+             * The uploaded file needs to be a color image (smaller than 8,000px by 8,000px),
+             * in JPG or PNG format, and less than 10 MB in size.
+             */
+            back?: string;
+
+            /**
+             * The front of an ID returned by a file upload with a purpose value of identity_document.
+             * The uploaded file needs to be a color image (smaller than 8,000px by 8,000px),
+             * in JPG or PNG format, and less than 10 MB in size.
+             */
+            front?: string;
+        }
+
+        interface IPersonDocument extends IPersonDocumentCreateUpdateOptions {
+            /**
+             * A user-displayable string describing the verification state of this document.
+             * For example, if a document is uploaded and the picture is too fuzzy, this may
+             * say “Identity document is too unclear to read”.
+             */
+            details?: string;
+
+            /**
+             * One of document_corrupt, document_country_not_supported, document_expired, document_failed_copy,
+             * document_failed_other, document_failed_test_mode, document_fraudulent, document_failed_greyscale,
+             * document_incomplete, document_invalid, document_manipulated, document_missing_back, document_missing_front,
+             * document_not_readable, document_not_uploaded, document_photo_mismatch, document_too_large, or document_type_not_supported.
+             * A machine-readable code specifying the verification state for this document.
+             */
+            details_code?: string;
+        }
+
+        interface IPersonShared {
+            /**
+             * The account the person is associated with.
+             */
+            account?: string;
+
+            /**
+             * The person’s address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the person’s address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the person’s address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * The person’s date of birth.
+             */
+            dob?: {
+                /**
+                 * The day of birth, between 1 and 31.
+                 */
+                day: number;
+                /**
+                 * The month of birth, between 1 and 12.
+                 */
+                month: number;
+                /**
+                 * The four-digit year of birth.
+                 */
+                year: number;
+            };
+
+            /**
+             * The person’s email address.
+             */
+            email?: string;
+
+            /**
+             * The person’s first name.
+             */
+            first_name?: string;
+
+            /**
+             * The Kana variation of the the person’s first name (Japan only).
+             */
+            first_name_kana?: string;
+
+            /**
+             * The Kanji variation of the person’s first name (Japan only).
+             */
+            first_name_kanji?: string;
+
+            /**
+             * The person’s gender (International regulations require either “male” or “female”).
+             */
+            gender?: 'male' | 'female';
+
+            /**
+             * The person’s last name.
+             */
+            last_name?: string;
+
+            /**
+             * The Kana variation of the person’s last name (Japan only).
+             */
+            last_name_kana?: string;
+
+            /**
+             * The Kanji variation of the person’s last name (Japan only).
+             */
+            last_name_kanji?: string;
+
+            /**
+             * The person’s maiden name.
+             */
+            maiden_name?: string;
+
+            /**
+             * The person’s phone number.
+             */
+            phone?: string;
+
+            /**
+             * Describes the person’s relationship to the account.
+             */
+            relationship?: {
+                /**
+                 * Whether the person is a director of the account’s legal entity. Currently only required for accounts in the EU.
+                 * Directors are typically members of the governing board of the company, or responsible for ensuring the
+                 * company meets its regulatory obligations.
+                 */
+                director?: boolean;
+
+                /**
+                 * Whether the person has significant responsibility to control, manage, or direct the organization.
+                 */
+                executive?: boolean;
+
+                /**
+                 * Whether the person is an owner of the account’s legal entity.
+                 */
+                owner?: boolean;
+
+                /**
+                 * The percent owned by the person of the account’s legal entity.
+                 */
+                percent_ownership?: number;
+
+                /**
+                 * Whether the person is authorized as the primary representative of the account.
+                 * This is the person nominated by the business to provide information about themselves,
+                 * and general information about the account. There can only be one representative at any given time.
+                 * At the time the account is created, this person should be set to the person responsible for opening the account.
+                 */
+                representative?: boolean;
+
+                /**
+                 * The person’s title (e.g., CEO, Support Engineer).
+                 */
+                title?: string;
+            };
+        }
+
+        interface IPerson extends IPersonShared {
+            /**
+             * Unique identifier for the object.
+             */
+            id: string;
+
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: "person";
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * Whether the person’s personal ID number was provided.
+             */
+            id_number_provided: boolean;
+
+            /**
+             * Information about the requirements for this person, including what information needs to be collected, and by when.
+             */
+            requirements: {
+                /**
+                 * Fields that need to be collected to keep the person’s account enabled.
+                 * If not collected by the account’s current_deadline, these fields appear in past_due as well, and the account is disabled.
+                 */
+                currently_due: string[];
+
+                /**
+                 * Fields that need to be collected assuming all volume thresholds are reached.
+                 * As fields are needed, they are moved to currently_due and the account’s current_deadline is set.
+                 */
+                eventually_due: string[];
+
+                /**
+                 * Fields that weren’t collected by the account’s current_deadline.
+                 * These fields need to be collected to enable payouts for the person’s account.
+                 */
+                past_due: string[];
+
+                /**
+                 * Fields that may become required depending on the results of verification or review.
+                 * An empty array unless an asynchronous verification is pending.
+                 * If verification fails, the fields in this array become required and move to currently_due or past_due.
+                 */
+                pending_verification: string[];
+            };
+
+            /**
+             * Whether the person’s last 4 SSN digits was provided.
+             */
+            ssn_last_4_provided: boolean;
+
+            /**
+             * The person’s verification document information.
+             */
+            verification: {
+                /**
+                 * A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+                 */
+                additional_document: IPersonDocument;
+
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code: string;
+
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document: IPersonDocument;
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status: string;
+            };
+        }
+
+        interface IPersonCreateUpdateOptions extends IPersonShared {
+            /**
+             * The person’s ID number, as appropriate for their country. For example, a social security number
+             * in the U.S., social insurance number in Canada, etc. Instead of the number itself,
+             * you can also provide a PII token provided by Stripe.js.
+             */
+            id_number?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them.
+             * All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * A person token, used to securely provide details to the person.
+             */
+            person_token?: string;
+
+            /**
+             * The last four digits of the person’s Social Security Number (U.S. only).
+             */
+            ssn_last_4?: string;
+
+            /**
+             * The person’s verification document information.
+             */
+            verification?: {
+                /**
+                 * A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+                 */
+                additional_document?: IPersonDocumentCreateUpdateOptions;
+
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document?: IPersonDocumentCreateUpdateOptions;
+            };
+        }
+
+        interface IPersonListOptions extends IListOptions {
+            relationship: {
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * directors of the account’s company.
+                 */
+                director?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * executives of the account’s company.
+                 */
+                executive?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * owners of the account’s company.
+                 */
+                owner?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * the representative of the account’s company.
+                 */
+                representative?: boolean;
+            };
         }
     }
 
@@ -1752,6 +2090,14 @@ declare namespace Stripe {
              * physical goods.
              */
             shipping?: IShippingInformation;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            transfer_group?: string;
         }
 
         interface IChargeListOptions extends IListOptionsCreated {
@@ -2793,7 +3139,7 @@ declare namespace Stripe {
             /**
              * The customer’s tax IDs.
              */
-            tax_id_data?: {
+            tax_id_data?: Array<{
                 /**
                  * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, or nz_gst.
                  */
@@ -2803,7 +3149,7 @@ declare namespace Stripe {
                  * Value of the tax ID.
                  */
                 value: string;
-            };
+            }>;
 
             /**
              * @deprecated
@@ -8360,6 +8706,12 @@ declare namespace Stripe {
              * Using this flag requires contacting Stripe support in order to have the account whitelisted.
              */
             pay_immediately?: boolean;
+
+            /**
+             * The tax rates that will apply to the subscription.
+             */
+
+            default_tax_rates?: string[];
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -9418,9 +9770,111 @@ declare namespace Stripe {
             createLoginLink(accId: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
             createLoginLink(
                 accId: string,
-                redirectUrl?: string,
+                options?: accounts.ILoginLinkOptions,
                 response?: IResponseFn<accounts.ILoginLink>,
             ): Promise<accounts.ILoginLink>;
+
+            /**
+             * Creates a new person.
+             */
+            createPerson(
+                accId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            createPerson(
+                accId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Updates an existing person.
+             */
+            updatePerson(
+                accId: string,
+                personId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            updatePerson(
+                accId: string,
+                personId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Retrieves an existing person.
+             */
+            retrievePerson(
+                accId: string,
+                personId: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                data: IDataOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account
+             * can be deleted through the API, except if the person is the account_opener.
+             * If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+             */
+            deletePerson(
+                accId: string,
+                personId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            deletePerson(
+                accId: string,
+                personId: string,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Returns a list of people associated with the account’s legal entity.
+             * The people are returned sorted by creation date, with the most recent people appearing first.
+             */
+            listPersons(
+                accId: string,
+                data: accounts.IPersonListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(
+                accId: string,
+                data: accounts.IPersonListOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(
+                accId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(
+                accId: string,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
         }
 
         class ApplicationFees extends StripeResource {
@@ -9814,6 +10268,11 @@ declare namespace Stripe {
         }
 
         class Sessions extends StripeResource {
+            create(
+                data: checkouts.sessions.ICheckoutCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
+            ): Promise<checkouts.sessions.ICheckoutSession>;
             create(
                 data: checkouts.sessions.ICheckoutCreationOptions,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,

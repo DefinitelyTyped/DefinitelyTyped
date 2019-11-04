@@ -13,6 +13,7 @@
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
 //                 Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                 Kamil Kamiński <https://github.com/0ctothorp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -491,7 +492,7 @@ declare class BaseNode extends Immutable.Record({}) {
     createSelection(properties: SelectionProperties | SelectionJSON | Selection | Range): Selection;
     descendants(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     filterDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Immutable.List<Node>;
-    findDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
+    findDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     forEachDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): void;
     getActiveMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;

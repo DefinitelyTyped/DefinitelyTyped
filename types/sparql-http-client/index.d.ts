@@ -5,36 +5,42 @@
 // TypeScript Version: 2.3
 
 import { Term } from 'rdf-js';
-import fetch, { Response, RequestInit } from 'node-fetch';
 import { URL } from 'url';
 
-export interface SparqlHttpOptions {
-    endpointUrl?: string;
-    updateUrl?: string;
+declare namespace SparqlHttp {
+  interface SparqlHttpOptions {
+      endpointUrl?: string;
+      updateUrl?: string;
+  }
+
+  interface SparqlClientOptions extends SparqlHttpOptions {
+        fetch?: typeof fetch;
+        URL?: typeof URL;
+  }
+
+  interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
+
+  interface SelectBindings {
+      results: { bindings: ReadonlyArray<Record<string, Term>> };
+  }
+
+  interface AskResult {
+        boolean: boolean;
+  }
+
+  interface SelectResponse {
+        json(): Promise<SelectBindings & AskResult>;
+  }
 }
 
-export interface SparqlClientOptions extends SparqlHttpOptions {
-    fetch: typeof fetch;
-    URL: typeof URL;
+declare class SparqlHttp<TResponse extends Response = Response> {
+    constructor(options?: SparqlHttp.SparqlClientOptions);
+
+    updateQuery(query: string, options?: SparqlHttp.QueryRequestInit): Promise<Response>;
+
+    selectQuery(query: string, options?: SparqlHttp.QueryRequestInit): Promise<SparqlHttp.SelectResponse & TResponse>;
+
+    constructQuery(query: string, options?: SparqlHttp.QueryRequestInit): Promise<TResponse>;
 }
 
-export interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
-
-export interface SelectBindings {
-    results: { bindings: ReadonlyArray<Record<string, Term>> };
-}
-
-export interface AskResult {
-    boolean: boolean;
-}
-
-export interface SelectResponse {
-    json(): Promise<SelectBindings & AskResult>;
-}
-
-export class SparqlHttp<TResponse extends Response = Response> {
-    constructor(options?: SparqlHttpOptions);
-    updateQuery(query: string, options?: QueryRequestInit): Promise<Response>;
-    selectQuery(query: string, options?: QueryRequestInit): Promise<SelectResponse & TResponse>;
-    constructQuery(query: string, options?: QueryRequestInit): Promise<TResponse>;
-}
+export = SparqlHttp;

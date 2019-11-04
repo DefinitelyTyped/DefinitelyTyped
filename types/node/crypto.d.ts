@@ -141,7 +141,7 @@ declare module "crypto" {
         digest(encoding: HexBase64Latin1Encoding): string;
     }
 
-    export type KeyObjectType = 'secret' | 'public' | 'private';
+    type KeyObjectType = 'secret' | 'public' | 'private';
 
     interface KeyExportOptions<T extends KeyFormat> {
         type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
@@ -245,7 +245,7 @@ declare module "crypto" {
         private constructor();
         update(data: NodeJS.ArrayBufferView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: NodeJS.ArrayBufferView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -398,6 +398,8 @@ declare module "crypto" {
     }
     function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
     function getHashes(): string[];
@@ -428,8 +430,8 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: string;
 
-    export type KeyType = 'rsa' | 'dsa' | 'ec';
-    export type KeyFormat = 'pem' | 'der';
+    type KeyType = 'rsa' | 'dsa' | 'ec';
+    type KeyFormat = 'pem' | 'der';
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;

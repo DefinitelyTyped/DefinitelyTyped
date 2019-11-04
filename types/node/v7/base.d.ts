@@ -383,6 +383,7 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
+        /** @deprecated since v0.11.7 - recover from failed I/O actions explicitly via error event handlers set on the domain instead. */
         dispose(): void;
 
         addListener(event: string, listener: Function): this;
@@ -960,6 +961,7 @@ declare module "cluster" {
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
+        /** @deprecated since v6.0.0 - use `worker.exitedAfterDisconnect` instead. */
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;
@@ -3574,7 +3576,9 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     export interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string | Buffer): Hmac;
@@ -4020,6 +4024,7 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
+        /** @deprecated since v0.11.7 - recover from failed I/O actions explicitly via error event handlers set on the domain instead. */
         dispose(): void;
         members: any[];
         enter(): void;
@@ -4029,6 +4034,7 @@ declare module "domain" {
     export function create(): Domain;
 }
 
+/** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
 declare module "constants" {
     export var E2BIG: number;
     export var EACCES: number;
@@ -4164,15 +4170,25 @@ declare module "constants" {
     export var WSA_E_NO_MORE: number;
     export var WSA_E_CANCELLED: number;
     export var WSAEREFUSED: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGHUP` instead. */
     export var SIGHUP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGINT` instead. */
     export var SIGINT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGILL` instead. */
     export var SIGILL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGABRT` instead. */
     export var SIGABRT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGFPE` instead. */
     export var SIGFPE: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGKILL` instead. */
     export var SIGKILL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSEGV` instead. */
     export var SIGSEGV: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTERM` instead. */
     export var SIGTERM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBREAK` instead. */
     export var SIGBREAK: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGWINCH` instead. */
     export var SIGWINCH: number;
     export var SSL_OP_ALL: number;
     export var SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
@@ -4274,30 +4290,55 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGQUIT` instead. */
     export var SIGQUIT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTRAP` instead. */
     export var SIGTRAP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIOT` instead. */
     export var SIGIOT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBUS` instead. */
     export var SIGBUS: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR1` instead. */
     export var SIGUSR1: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR2` instead. */
     export var SIGUSR2: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPIPE` instead. */
     export var SIGPIPE: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGALRM` instead. */
     export var SIGALRM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCHLD` instead. */
     export var SIGCHLD: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTKFLT` instead. */
     export var SIGSTKFLT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCONT` instead. */
     export var SIGCONT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTOP` instead. */
     export var SIGSTOP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTSTP` instead. */
     export var SIGTSTP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTIN` instead. */
     export var SIGTTIN: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTOU` instead. */
     export var SIGTTOU: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGURG` instead. */
     export var SIGURG: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXCPU` instead. */
     export var SIGXCPU: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXFSZ` instead. */
     export var SIGXFSZ: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGVTALRM` instead. */
     export var SIGVTALRM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPROF` instead. */
     export var SIGPROF: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIO` instead. */
     export var SIGIO: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPOLL` instead. */
     export var SIGPOLL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPWR` instead. */
     export var SIGPWR: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSYS` instead. */
     export var SIGSYS: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUNUSED` instead. */
     export var SIGUNUSED: number;
     export var defaultCoreCipherList: string;
     export var defaultCipherList: string;

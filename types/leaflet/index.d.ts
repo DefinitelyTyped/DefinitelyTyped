@@ -987,6 +987,7 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
     addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
+    closestLayerPoint(p: Point): Point;
 
     feature?: geojson.Feature<T, P>;
     options: PolylineOptions;

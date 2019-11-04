@@ -119,6 +119,10 @@ async function testPromisify() {
     const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
     const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
     const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+
+    const ln = util.promisify(fs.link);
+    // $ExpectType Promise<void>
+    ln("abc", "def");
 }
 
 {
@@ -296,4 +300,31 @@ async function testPromisify() {
     fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
     const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+}
+
+(async () => {
+    try {
+        await fs.promises.rmdir('some/test/path');
+        await fs.promises.rmdir('some/test/path', { recursive: true });
+    } catch (e) {}
+})();
+
+{
+    fs.opendir('test', async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    const dir: fs.Dir = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    // Pending lib upgrade
+    // (async () => {
+    //     for await (const thing of dir) {
+    //     }
+    // });
+
+    const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+    });
 }
