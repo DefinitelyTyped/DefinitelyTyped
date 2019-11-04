@@ -5,6 +5,7 @@
 //                 Daniel Schmidt <https://github.com/DanielMSchmidt>
 //                 Jordan Abreu <https://github.com/jabreu610>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 

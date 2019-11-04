@@ -3,6 +3,7 @@
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 //                 steprescott <https://github.com/steprescott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node"/>
 
