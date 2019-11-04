@@ -331,7 +331,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart
         export class GeoChart extends ChartBase {
-            draw(data: DataTable, options: GeoChartOptions): void;
+            draw(data: DataTable | DataView, options: GeoChartOptions): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
