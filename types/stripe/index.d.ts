@@ -41,121 +41,116 @@
 import { Agent } from 'http';
 
 interface RequestEvent {
-  api_version: string;
-  account?: string;
-  idempotency_key?: string;
-  method: string;
-  path: string;
-  request_start_time: number;
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    request_start_time: number;
 }
 
 interface ResponseEvent {
-  api_version: string;
-  account?: string;
-  idempotency_key?: string;
-  method: string;
-  path: string;
-  status: number;
-  request_id: string;
-  elapsed: number;
-  request_start_time: number;
-  request_end_time: number;
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    status: number;
+    request_id: string;
+    elapsed: number;
+    request_start_time: number;
+    request_end_time: number;
 }
 
 declare class Stripe {
-  DEFAULT_HOST: string;
-  DEFAULT_PORT: string;
-  DEFAULT_BASE_PATH: string;
-  DEFAULT_API_VERSION: string;
-  DEFAULT_TIMEOUT: number;
-  PACKAGE_VERSION: string;
-  USER_AGENT: {
-    bindings_version: string;
-    lang: string;
-    lang_version: string;
-    platform: string;
-    publisher: string;
-    uname: string;
-  };
-  USER_AGENT_SERIALIZED: string;
+    DEFAULT_HOST: string;
+    DEFAULT_PORT: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_API_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: {
+        bindings_version: string;
+        lang: string;
+        lang_version: string;
+        platform: string;
+        publisher: string;
+        uname: string;
+    };
+    USER_AGENT_SERIALIZED: string;
 
-  resources: typeof Stripe.resources;
-  StripeResource: typeof Stripe.StripeResource;
+    resources: typeof Stripe.resources;
+    StripeResource: typeof Stripe.StripeResource;
 
-  constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, version?: string);
 
-  accounts: Stripe.resources.Accounts;
-  balance: Stripe.resources.Balance;
-  balanceTransactions: Stripe.resources.BalanceTransaction;
-  charges: Stripe.resources.Charges;
-  checkout: Stripe.resources.Checkout;
-  coupons: Stripe.resources.Coupons;
-  creditNotes: Stripe.resources.CreditNotes;
-  customers: Stripe.resources.Customers;
-  disputes: Stripe.resources.Disputes;
-  events: Stripe.resources.Events;
-  invoices: Stripe.resources.Invoices;
-  invoiceItems: Stripe.resources.InvoiceItems;
-  paymentIntents: Stripe.resources.PaymentIntents;
-  paymentMethods: Stripe.resources.PaymentMethods;
-  payouts: Stripe.resources.Payouts;
-  plans: Stripe.resources.Plans;
-  /**
-   * @deprecated
-   */
-  recipientCards: Stripe.resources.RecipientCards;
-  /**
-   * @deprecated
-   */
-  recipients: Stripe.resources.Recipients;
-  subscriptions: Stripe.resources.Subscriptions;
-  subscriptionItems: Stripe.resources.SubscriptionItems;
-  tokens: Stripe.resources.Tokens;
-  transfers: Stripe.resources.Transfers;
-  applicationFees: Stripe.resources.ApplicationFees;
-  files: Stripe.resources.Files;
-  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-  refunds: Stripe.resources.Refunds;
-  countrySpecs: Stripe.resources.CountrySpecs;
-  orders: Stripe.resources.Orders;
-  products: Stripe.resources.Products;
-  setupIntents: Stripe.resources.SetupIntents;
-  skus: Stripe.resources.SKUs;
-  webhooks: Stripe.resources.WebHooks;
-  ephemeralKeys: Stripe.resources.EphemeralKeys;
-  usageRecords: Stripe.resources.UsageRecords;
-  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-  sources: Stripe.resources.Sources;
+    accounts: Stripe.resources.Accounts;
+    balance: Stripe.resources.Balance;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
+    charges: Stripe.resources.Charges;
+    checkout: Stripe.resources.Checkout;
+    coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
+    customers: Stripe.resources.Customers;
+    disputes: Stripe.resources.Disputes;
+    events: Stripe.resources.Events;
+    invoices: Stripe.resources.Invoices;
+    invoiceItems: Stripe.resources.InvoiceItems;
+    paymentIntents: Stripe.resources.PaymentIntents;
+    paymentMethods: Stripe.resources.PaymentMethods;
+    payouts: Stripe.resources.Payouts;
+    plans: Stripe.resources.Plans;
+    /**
+     * @deprecated
+     */
+    recipientCards: Stripe.resources.RecipientCards;
+    /**
+     * @deprecated
+     */
+    recipients: Stripe.resources.Recipients;
+    subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
+    tokens: Stripe.resources.Tokens;
+    transfers: Stripe.resources.Transfers;
+    applicationFees: Stripe.resources.ApplicationFees;
+    files: Stripe.resources.Files;
+    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+    refunds: Stripe.resources.Refunds;
+    countrySpecs: Stripe.resources.CountrySpecs;
+    orders: Stripe.resources.Orders;
+    products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
+    skus: Stripe.resources.SKUs;
+    webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
+    usageRecords: Stripe.resources.UsageRecords;
+    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+    sources: Stripe.resources.Sources;
 
-  setHost(host: string): void;
-  setHost(host: string, port: string | number): void;
-  setHost(host: string, port: string | number, protocol: string): void;
+    setHost(host: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
-  setProtocol(protocol: string): void;
-  setPort(port: string | number): void;
-  setApiVersion(version?: string): void;
-  setApiKey(key?: string): void;
-  setAppInfo(info?: {
-    partner_id?: string;
-    name: string;
-    url?: string;
-    version?: string;
-  }): void;
-  setTimeout(timeout?: number): void;
-  setMaxNetworkRetries(maxNetworkRetries: number): void;
-  setTelemetryEnabled(enabled: boolean): void;
-  setHttpAgent(agent: Agent): void;
-  getConstant(c: string): any;
-  getMaxNetworkRetries(): number;
-  getTelemetryEnabled(): boolean;
-  getClientUserAgent(response: (userAgent: string) => void): void;
+    setProtocol(protocol: string): void;
+    setPort(port: string | number): void;
+    setApiVersion(version?: string): void;
+    setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
+    setTimeout(timeout?: number): void;
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
+    setHttpAgent(agent: Agent): void;
+    getConstant(c: string): any;
+    getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
+    getClientUserAgent(response: (userAgent: string) => void): void;
 
-  on(event: 'request', handler: (event: RequestEvent) => void): void;
-  on(event: 'response', handler: (event: ResponseEvent) => void): void;
-  once(event: 'request', handler: (event: RequestEvent) => void): void;
-  once(event: 'response', handler: (event: ResponseEvent) => void): void;
-  off(event: 'request', handler: (event: RequestEvent) => void): void;
-  off(event: 'response', handler: (event: ResponseEvent) => void): void;
+    on(event: 'request', handler: (event: RequestEvent) => void): void;
+    on(event: 'response', handler: (event: ResponseEvent) => void): void;
+    once(event: 'request', handler: (event: RequestEvent) => void): void;
+    once(event: 'response', handler: (event: ResponseEvent) => void): void;
+    off(event: 'request', handler: (event: RequestEvent) => void): void;
+    off(event: 'response', handler: (event: ResponseEvent) => void): void;
 }
 
 export = Stripe;
@@ -1226,7 +1221,7 @@ declare namespace Stripe {
             /**
              * String representing the object’s type. Objects of the same type share the same value.
              */
-            object: "person";
+            object: 'person';
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -1492,8 +1487,7 @@ declare namespace Stripe {
             metadata: IMetadata;
         }
 
-        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {
-        }
+        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {}
 
         interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -2173,8 +2167,7 @@ declare namespace Stripe {
             seller_message: string;
         }
 
-        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {
-        }
+        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {}
 
         type IPaymentMethodDetails =
             | IAchCreditTransferPaymentMethodDetails
@@ -3042,8 +3035,7 @@ declare namespace Stripe {
             tax_info_verification?: any;
         }
 
-        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {
-        }
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -3879,7 +3871,7 @@ declare namespace Stripe {
              * @deprecated Stripe API Version 2019-03-14 changed the name of this property
              * @see application_fee_amount
              */
-            application_fee: number;
+            application_fee?: number;
 
             /**
              * The fee in pence that will be applied to the invoice and transferred to the application owner’s
@@ -3973,7 +3965,7 @@ declare namespace Stripe {
             /**
              * Custom fields displayed on the invoice.
              */
-            custom_fields: ICustomField[];
+            custom_fields: ICustomField[] | null;
 
             customer: string | customers.ICustomer;
 
@@ -3987,31 +3979,31 @@ declare namespace Stripe {
              * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_email: string;
+            customer_email: string | null;
 
             /**
              * The customer’s name. Until the invoice is finalized, this field will equal customer.name.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_name: string;
+            customer_name: string | null;
 
             /**
              * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_phone: string;
+            customer_phone: string | null;
 
             /**
              * The customer’s shipping information. Until the invoice is finalized, this field will equal customer.shipping.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_shipping: IShippingInformation;
+            customer_shipping: IShippingInformation | null;
 
             /**
              * The customer’s tax exempt status. Until the invoice is finalized, this field will equal customer.tax_exempt.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_tax_exempt: string;
+            customer_tax_exempt: string | null;
 
             /**
              * The customer’s tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as customer.tax_ids.
@@ -4029,14 +4021,14 @@ declare namespace Stripe {
              * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
              * the customer’s invoice settings.
              */
-            default_payment_method: string;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the invoice. It must belong to the customer
              * associated with the invoice and be in a chargeable state. If not set, defaults to
              * the subscription’s default source, if any, or to the customer’s default source.
              */
-            default_source: string;
+            default_source: string | null;
 
             /**
              * The tax rates applied to this invoice, if any.
@@ -4047,7 +4039,7 @@ declare namespace Stripe {
              * An arbitrary string attached to the object. Often useful for displaying to users.
              * Referenced as ‘memo’ in the Dashboard.
              */
-            description: string;
+            description: string | null;
 
             discount: coupons.IDiscount | null;
 
@@ -4066,7 +4058,7 @@ declare namespace Stripe {
             /**
              * Footer displayed on the invoice.
              */
-            footer: string;
+            footer: string | null;
 
             /**
              * @deprecated Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
@@ -4125,7 +4117,7 @@ declare namespace Stripe {
              * The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized,
              * and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. [Expandable]
              */
-            payment_intent: paymentIntents.IPaymentIntent | null;
+            payment_intent: paymentIntents.IPaymentIntent | string | null;
 
             /**
              * End of the usage period during which invoice items were added to this invoice
@@ -4150,7 +4142,7 @@ declare namespace Stripe {
             /**
              * This is the transaction number that appears on email receipts sent for this invoice.
              */
-            receipt_number: string;
+            receipt_number: string | null;
 
             /**
              * Starting customer balance before attempting to pay invoice. If the invoice has not been attempted yet,
@@ -4161,7 +4153,7 @@ declare namespace Stripe {
             /**
              * Extra information about an invoice for the customer's credit card statement.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`.
@@ -4181,7 +4173,7 @@ declare namespace Stripe {
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
              */
-            subscription_proration_date: number;
+            subscription_proration_date?: number | null;
 
             /**
              * Total of all subscriptions, invoice items, and prorations on the invoice before any discount is applied
@@ -4205,7 +4197,7 @@ declare namespace Stripe {
              * If `billing_reason` is set to `subscription_threshold` this returns more information
              * on which threshold rules triggered the invoice.
              */
-            threshold_reason: IThresholdReason;
+            threshold_reason?: IThresholdReason;
 
             /**
              * Total after discount
@@ -4215,22 +4207,7 @@ declare namespace Stripe {
             /**
              * The aggregate amounts calculated per tax rate for all line items.
              */
-            total_tax_amounts: {
-                /**
-                 * The amount, in pence, of the tax.
-                 */
-                amount: number;
-
-                /**
-                 * Whether this tax amount is inclusive or exclusive.
-                 */
-                inclusive: boolean;
-
-                /**
-                 * The tax rate that was applied to get this tax amount.
-                 */
-                tax_rate: string;
-            };
+            total_tax_amounts: taxRates.ITaxAmount[] | null;
 
             /**
              * The time at which webhooks for this invoice were successfully delivered (if the invoice had no webhooks to
@@ -4806,19 +4783,19 @@ declare namespace Stripe {
             /**
              * The time that the invoice draft was finalized.
              */
-            finalized_at: number;
+            finalized_at: number | null;
             /**
              * The time that the invoice was marked uncollectible.
              */
-            marked_uncollectible_at: number;
+            marked_uncollectible_at: number | null;
             /**
              * The time that the invoice was paid.
              */
-            paid_at: number;
+            paid_at: number | null;
             /**
              * The time that the invoice was voided.
              */
-            voided_at: number;
+            voided_at: number | null;
         }
 
         interface IThresholdReason {
@@ -5551,7 +5528,11 @@ declare namespace Stripe {
             transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
-        type PaymentIntentUserProvidedCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'abandoned';
+        type PaymentIntentUserProvidedCancellationReason =
+            | 'duplicate'
+            | 'fraudulent'
+            | 'requested_by_customer'
+            | 'abandoned';
         type PaymentIntentStripeProvidedCancellationReason = 'failed_invoice' | 'void_invoice' | 'automatic';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
@@ -5596,7 +5577,10 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancellation_reason: PaymentIntentUserProvidedCancellationReason | PaymentIntentStripeProvidedCancellationReason | null;
+            cancellation_reason:
+                | PaymentIntentUserProvidedCancellationReason
+                | PaymentIntentStripeProvidedCancellationReason
+                | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -6397,6 +6381,20 @@ declare namespace Stripe {
     }
 
     namespace taxRates {
+        interface ITaxAmount {
+            /**
+             * The amount, in cents, of the tax.
+             */
+            amount: number;
+            /**
+             * Whether this tax amount is inclusive or exclusive.
+             */
+            inclusive: boolean;
+            /**
+             * The tax rate that was applied to get this tax amount.
+             */
+            tax_rate: string | ITaxRate;
+        }
         /**
          * Tax rates can be applied to invoices and subscriptions to collect tax.
          */
@@ -6414,17 +6412,17 @@ declare namespace Stripe {
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            created: number;
+            created: number | null;
 
             /**
              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
              */
-            description: string;
+            description: string | null;
 
             /**
              * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
              */
-            display_name: string;
+            display_name: string | null;
 
             /**
              * This specifies if the tax rate is inclusive or exclusive.
@@ -6434,7 +6432,7 @@ declare namespace Stripe {
             /**
              * The jurisdiction for the tax rate.
              */
-            jurisdiction: string;
+            jurisdiction: string | null;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
@@ -6450,6 +6448,91 @@ declare namespace Stripe {
              * This represents the tax rate percent out of 100.
              */
             percentage: number | null;
+        }
+
+        interface ITaxRateCreationOptions {
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name: string;
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number;
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IMetadata;
+        }
+
+        interface ITaxRateUpdateOptions {
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name?: string;
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IMetadata;
+        }
+
+        interface ItaxRateSearchOptions {
+            /**
+             * Optional flag to filter by tax rates that are either active or not active (archived)
+             */
+            active?: boolean;
+            /**
+             * A filter on the list based on the object created field.
+             */
+            created?: string | IDateFilter;
+            /**
+             * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make
+             * a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in
+             * order to fetch the previous page of the list.
+             */
+            ending_before?: string;
+            /**
+             * Optional flag to filter by tax rates that are inclusive (or those that are not inclusive)
+             */
+            inclusive?: boolean;
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit: number;
+            /**
+             * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+             */
+            starting_after?: string;
         }
     }
     namespace paymentMethods {
@@ -6664,14 +6747,14 @@ declare namespace Stripe {
              */
             card?:
                 | {
-                exp_month: number;
-                exp_year: number;
-                number: string;
-                cvc?: string;
-            }
+                      exp_month: number;
+                      exp_year: number;
+                      number: string;
+                      cvc?: string;
+                  }
                 | {
-                token: string;
-            };
+                      token: string;
+                  };
 
             /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: IMetadata;
@@ -6760,6 +6843,11 @@ declare namespace Stripe {
              * The amount in cents to be charged on the interval specified
              */
             amount: number | null;
+
+            /**
+             * Same as amount, but contains a decimal value with at most 12 decimal places.
+             */
+            amount_decimal: string | null;
 
             /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -7247,13 +7335,11 @@ declare namespace Stripe {
         type ProductType = 'service' | 'good';
     }
 
-    namespace recipientCards {
-    }
+    namespace recipientCards {}
 
     namespace recipients {
         // tslint:disable-next-line:no-empty-interface
-        interface IRecipient extends IResourceObject {
-        }
+        interface IRecipient extends IResourceObject {}
     }
 
     namespace skus {
@@ -7477,8 +7563,7 @@ declare namespace Stripe {
     }
 
     namespace tokens {
-        interface IToken extends ICardToken, IBankAccountToken {
-        }
+        interface IToken extends ICardToken, IBankAccountToken {}
 
         interface ICardToken extends ITokenBase {
             /**
@@ -7674,8 +7759,7 @@ declare namespace Stripe {
             type: 'card' | 'bank_account' | 'stripe_account';
         }
 
-        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {
-        }
+        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {}
 
         interface ITransferCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -8505,7 +8589,7 @@ declare namespace Stripe {
              * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription.
              * If not set, invoices will use the default payment method in the customer’s invoice settings. [Expandable]
              */
-            default_payment_method: string | null;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the subscription.
@@ -8513,7 +8597,11 @@ declare namespace Stripe {
              * If not set, defaults to the customer’s default source. [Expandable]
              */
             default_source: string | null;
-
+            /**
+             * The tax rates that will apply to any subscription item that does not have tax_rates set.
+             * Invoices created will have their default_tax_rates populated from the subscription.
+             */
+            default_tax_rates: taxRates.ITaxRate[];
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
@@ -9871,10 +9959,7 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<accounts.IPerson>,
             ): IListPromise<accounts.IPerson>;
-            listPersons(
-                accId: string,
-                response?: IResponseFn<accounts.IPerson>,
-            ): IListPromise<accounts.IPerson>;
+            listPersons(accId: string, response?: IResponseFn<accounts.IPerson>): IListPromise<accounts.IPerson>;
         }
 
         class ApplicationFees extends StripeResource {
@@ -10287,6 +10372,51 @@ declare namespace Stripe {
                 data: string,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+        }
+
+        class TaxRates extends StripeResource {
+            /** Create TaxRate: https://stripe.com/docs/api/tax_rates/create */
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /** Update TaxRate: https://stripe.com/docs/api/tax_rates/update */
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /** Retieve a TaxRate: https://stripe.com/docs/api/tax_rates/retrieve */
+            retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /** https://stripe.com/docs/api/tax_rates/list */
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
         }
 
         class Charges extends StripeResource {
@@ -14003,26 +14133,26 @@ declare namespace Stripe {
     type IDateFilter =
         | string
         | {
-        /**
-         * Return values where the created field is after this timestamp.
-         */
-        gt?: string;
+              /**
+               * Return values where the created field is after this timestamp.
+               */
+              gt?: string;
 
-        /**
-         * Return values where the created field is after or equal to this timestamp.
-         */
-        gte?: string;
+              /**
+               * Return values where the created field is after or equal to this timestamp.
+               */
+              gte?: string;
 
-        /**
-         * Return values where the created field is before this timestamp.
-         */
-        lt?: string;
+              /**
+               * Return values where the created field is before this timestamp.
+               */
+              lt?: string;
 
-        /**
-         * Return values where the created field is before or equal to this timestamp.
-         */
-        lte?: string;
-    };
+              /**
+               * Return values where the created field is before or equal to this timestamp.
+               */
+              lte?: string;
+          };
 
     /**
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
@@ -14303,8 +14433,7 @@ declare namespace Stripe {
             readonly message: string;
         }
 
-        namespace _Error {
-        }
+        namespace _Error {}
 
         type RawType = 'card_error' | 'invalid_request_error' | 'api_error' | 'idempotency_error';
 
