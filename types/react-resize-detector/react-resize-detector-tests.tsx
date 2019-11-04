@@ -52,7 +52,7 @@ class App extends React.PureComponent {
     private readonly handleResize = (width: number, height: number) => {
         console.log(`width = ${width}`);
         console.log(`height = ${height}`);
-    };
+    }
 
     private readonly resizeRef: React.RefObject<any>;
 }
