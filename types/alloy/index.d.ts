@@ -8,9 +8,6 @@
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 
-interface JQueryStatic extends AlloyController {
-}
-
 /**
  * The base class for Alloy controllers.
  */
