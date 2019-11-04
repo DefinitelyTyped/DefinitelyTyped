@@ -442,13 +442,13 @@ declare namespace google {
         }
 
         export interface ChartStroke {
-            stroke: string;
-            strokeWidth: number;
-            fill: string;
+            stroke?: string;
+            strokeWidth?: number;
+            fill?: string;
         }
 
         export interface ChartArea {
-            backgroundColor?: string | { stroke?: string; strokeWidth?: number; fill?: string };
+            backgroundColor?: string | ChartStroke;
             top?: number | string;
             left?: number | string;
             right?: number | string;
@@ -536,6 +536,20 @@ declare namespace google {
             colors?: string[];
             legend?: ChartLegend;
         }
+        
+        export type ChartPointShape = 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
+        
+        export interface ChartSeriesOptions {
+            annotations?: ChartAnnotations;
+            color?: string;
+            pointShape?: ChartPointShape;
+            pointSize?: number;
+            pointsVisible?: boolean;
+            lineDashStyle?: number[];
+            visibleInLegend?: boolean;
+            labelInLegend?: string;
+            targetAxisIndex?: number;
+        }
 
         export interface ChartLayoutInterface {
             getBoundingBox(id: string): ChartBoundingBox;
@@ -609,7 +623,7 @@ declare namespace google {
             lineWidth?: number;
             pointSize?: number;
             selectionMode?: ChartSelectionMode;
-            series?: any;
+            series?: ChartSeriesOptions[] | { [key: number]: ChartSeriesOptions; };
             theme?: string;
             title?: string;
             titlePosition?: string;
@@ -666,7 +680,7 @@ declare namespace google {
         export class LineChart extends CoreChartBase {
             draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
-
+       
         // https://developers.google.com/chart/interactive/docs/gallery/trendlines
         export interface LineChartTrendlineOptions {
             type?: 'linear' | 'exponential' | 'polynomial';
@@ -705,13 +719,14 @@ declare namespace google {
             lineWidth?: number;
             min?: number;
             orientation?: string;
-            pointSize?: number;
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
-            series?: any;
+            series?: ChartSeriesOptions[] | { [key: number]: ChartSeriesOptions; };
             domainAxis?: { type: string };
             trendlines?: { [key: number]: LineChartTrendlineOptions; };
-            pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
+            pointShape?: ChartPointShape;
+            pointSize?: number;
+            pointsVisible?: boolean;
             intervals?: { style: string };
             interval?: any;
             theme?: string;
@@ -748,7 +763,7 @@ declare namespace google {
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
-            series?: any;
+            series?: ChartSeriesOptions[] | { [key: number]: ChartSeriesOptions; };
             theme?: string;
             title?: string;
             titlePosition?: string;
@@ -1209,7 +1224,7 @@ declare namespace google {
             lineDashStyle?: number[];
             lineWidth?: number;
             orientation?: string;
-            pointShape?: string;
+            pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
             reverseCategories?: boolean;
