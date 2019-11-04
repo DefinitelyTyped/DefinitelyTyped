@@ -32,7 +32,10 @@ player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
     if (playbackState) {
         const { current_track, next_tracks } = playbackState.track_window;
         const repeatMode: 0 | 1 | 2 = playbackState.repeat_mode;
-        const { 0: { height, width } } = current_track.album.images;
+        const images = current_track.album.images;
+        if (images.length) {
+            const { 0: { height, width } } = images;
+        }
 
         console.log("Currently Playing", current_track);
         console.log("Playing Next", next_tracks[0]);

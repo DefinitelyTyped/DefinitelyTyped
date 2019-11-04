@@ -34,9 +34,9 @@ declare namespace Spotify {
     type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
 
     interface Image {
-        height: number;
+        height?: number | null;
         url: string;
-        width: number;
+        width?: number | null;
     }
 
     interface PlaybackContext {
