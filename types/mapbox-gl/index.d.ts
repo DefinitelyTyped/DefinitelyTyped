@@ -44,11 +44,6 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    /**
-     * Gets the map's RTL text plugin status.
-    */
-    export function getRTLTextPluginStatus(): 'unavailable' | 'loading' | 'loaded' | 'error';
-
     type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
     type PointLike = Point | [number, number];
