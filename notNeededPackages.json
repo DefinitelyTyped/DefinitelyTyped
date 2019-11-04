@@ -241,6 +241,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "baconjs",
+            "typingsPackageName": "baconjs",
+            "sourceRepoURL": "https://baconjs.github.io/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "badgen",
             "typingsPackageName": "badgen",
             "sourceRepoURL": "https://github.com/amio/badgen",
