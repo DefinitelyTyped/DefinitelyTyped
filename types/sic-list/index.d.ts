@@ -1,4 +1,4 @@
-// Type definitions for sic-list 0.5.1
+// Type definitions for sic-list 0.5
 // Project: https://github.com/596050/sic
 // Definitions by: TP <https://github.com/596050>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
