@@ -1,4 +1,4 @@
-// Type definitions for simple-oauth2 2.5.2
+// Type definitions for simple-oauth2 2.5
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
@@ -94,9 +94,9 @@ export interface ClientCredentialTokenConfig {
     scope?: string | string[];
 }
 
-interface WreckHttpOptions {
+export interface WreckHttpOptions {
 	baseUrl?: string;
-	socketPath? : string;
+	socketPath?: string;
 	payload?: any;
 	headers?: { [key: string]: any };
 	redirects?: number;
@@ -107,7 +107,7 @@ interface WreckHttpOptions {
 	maxBytes?: number;
 	rejectUnauthorized?: boolean;
 	downstreamRes?: any;
-	agent?: any | false;
+	agent?: any;
 	secureProtocol?: string;
 	ciphers?: string;
 	events?: boolean;
