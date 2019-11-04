@@ -3277,6 +3277,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "prosemirror-tables",
+            "typingsPackageName": "prosemirror-tables",
+            "sourceRepoURL": "https://github.com/ProseMirror/prosemirror-tables",
+            "asOfVersion": "0.9.1"
+        },
+        {
             "libraryName": "printf",
             "typingsPackageName": "printf",
             "sourceRepoURL": "https://github.com/adaltas/node-printf",
