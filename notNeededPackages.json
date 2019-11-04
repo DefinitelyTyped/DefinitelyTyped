@@ -4825,6 +4825,12 @@
             "asOfVersion": "3.2.1"
         },
         {
+            "libraryName": "wikidata-sdk",
+            "typingsPackageName": "wikidata-sdk",
+            "sourceRepoURL": "https://github.com/maxlath/wikidata-sdk",
+            "asOfVersion": "6.1.0"
+        },
+        {
             "libraryName": "which-pm",
             "typingsPackageName": "which-pm",
             "sourceRepoURL": "https://github.com/zkochan/which-pm#readme",
