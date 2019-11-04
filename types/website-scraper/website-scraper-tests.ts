@@ -13,7 +13,7 @@ scraper({
         { directory: 'css', extensions: ['.css'] },
     ],
     sources: [
-        { selector: 'img', attr: 'src' },
+        { selector: 'img' },
         { selector: 'link[rel="stylesheet"]', attr: 'href' },
         { selector: 'script', attr: 'src' },
     ],
