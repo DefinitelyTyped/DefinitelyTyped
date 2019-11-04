@@ -661,6 +661,12 @@
             "asOfVersion": "2.1.4"
         },
         {
+            "libraryName": "cordova-plugin-x-socialsharing",
+            "typingsPackageName": "cordova-plugin-x-socialsharing",
+            "sourceRepoURL": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin",
+            "asOfVersion": "5.4.5"
+        },
+        {
             "libraryName": "cordova.plugins.diagnostic",
             "typingsPackageName": "cordova.plugins.diagnostic",
             "sourceRepoURL": "https://github.com/dpa99c/cordova-diagnostic-plugin",
