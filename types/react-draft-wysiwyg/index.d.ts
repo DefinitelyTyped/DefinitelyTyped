@@ -6,7 +6,7 @@
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Nathan Zeplowitz <https://github.com/n-zeplo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as Draft from 'draft-js';
