@@ -1,108 +1,122 @@
 import { Event, DetailedErrorCode } from './cast.framework.events';
 
 export as namespace messages;
-export type UserAction = 'LIKE' | 'DISLIKE' | 'FOLLOW' | 'UNFOLLOW' | 'FLAG' | 'SKIP_AD';
 
-export type UserActionContext =
-    | 'UNKNOWN_CONTEXT'
-    | 'ALBUM'
-    | 'ARTIST'
-    | 'PLAYLIST'
-    | 'EPISODE'
-    | 'SERIES'
-    | 'MOVIE'
-    | 'CHANNEL'
-    | 'TEAM'
-    | 'PLAYER'
-    | 'COACH';
-
-export type TextTrackType = 'SUBTITLES' | 'CAPTIONS' | 'DESCRIPTIONS' | 'CHAPTERS' | 'METADATA';
-
-export type TextTrackWindowType = 'NONE' | 'NORMAL' | 'ROUNDED_CORNERS';
-
-export type TrackType = 'TEXT' | 'AUDIO' | 'VIDEO';
-
-export type TextTrackFontGenericFamily =
-    | 'SANS_SERIF'
-    | 'MONOSPACED_SANS_SERIF'
-    | 'SERIF'
-    | 'MONOSPACED_SERIF'
-    | 'CASUAL'
-    | 'CURSIVE'
-    | 'SMALL_CAPITALS';
-
-export type TextTrackFontStyle = 'NORMAL' | 'BOLD' | 'BOLD_ITALIC' | 'ITALIC';
-
-export type TextTrackEdgeType = 'NONE' | 'OUTLINE' | 'DROP_SHADOW' | 'RAISED' | 'DEPRESSED';
-
-export namespace Command {
-    const ALL_BASIC_MEDIA: number;
-    const DISLIKE: number;
-    const EDIT_TRACKS: number;
-    const FOLLOW: number;
-    const LIKE: number;
-    const PAUSE: number;
-    const PLAYBACK_RATE: number;
-    const QUEUE_NEXT: number;
-    const QUEUE_PREV: number;
-    const QUEUE_REPEAT: number;
-    const QUEUE_REPEAT_ALL: number;
-    const QUEUE_REPEAT_ONE: number;
-    const QUEUE_SHUFFLE: number;
-    const SEEK: number;
-    const SKIP_AD: number;
-    const STREAM_MUTE: number;
-    const STREAM_TRANSFER: number;
-    const STREAM_VOLUME: number;
-    const UNFOLLOW: number;
+export enum CaptionMimeType {
+    CEA608 = 'text/cea608',
+    TTML = 'application/ttml+xml',
+    TTML_MP4 = 'application/mp4',
+    VTT = 'text/vtt',
 }
 
-export type SeekResumeState = 'PLAYBACK_START' | 'PLAYBACK_PAUSE';
-
-export type StreamingProtocolType = 'UNKNOWN' | 'MPEG_DASH' | 'HLS' | 'SMOOTH_STREAMING';
-
-export type StreamType = 'BUFFERED' | 'LIVE' | 'NONE';
-
-export type FocusState = 'IN_FOCUS' | 'NOT_IN_FOCUS';
-
-export type ExtendedPlayerState = 'LOADING';
-
-export type ErrorType = 'INVALID_PLAYER_STATE' | 'LOAD_FAILED' | 'LOAD_CANCELLED' | 'INVALID_REQUEST' | 'ERROR';
-
-export type ErrorReason =
-    | 'INVALID_COMMAND'
-    | 'INVALID_PARAMS'
-    | 'INVALID_MEDIA_SESSION_ID'
-    | 'SKIP_LIMIT_REACHED'
-    | 'NOT_SUPPORTED'
-    | 'LANGUAGE_NOT_SUPPORTED'
-    | 'END_OF_QUEUE'
-    | 'APP_ERROR'
-    | 'AUTHENTICATION_EXPIRED'
-    | 'PREMIUM_ACCOUNT_REQUIRED'
-    | 'CONCURRENT_STREAM_LIMIT'
-    | 'PARENTAL_CONTROL_RESTRICTED'
-    | 'NOT_AVAILABLE_IN_REGION'
-    | 'CONTENT_ALREADY_PLAYING'
-    | 'INVALID_REQUEST'
-    | 'GENERIC_LOAD_ERROR';
-
-export enum RepeatMode {
-    REPEAT_ALL = 'REPEAT_ALL',
-    REPEAT_ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
-    REPEAT_OFF = 'REPEAT_OFF',
-    REPEAT_SINGLE = 'REPEAT_SINGLE',
+export enum Command {
+    PAUSE = 1,
+    SEEK = 2,
+    STREAM_VOLUME = 4,
+    STREAM_MUTE = 8,
+    QUEUE_NEXT = 64,
+    QUEUE_PREV = 128,
+    QUEUE_SHUFFLE = 256,
+    SKIP_AD = 512,
+    QUEUE_REPEAT_ALL = 1024,
+    QUEUE_REPEAT_ONE = 2048,
+    QUEUE_REPEAT = 3072,
+    EDIT_TRACKS = 4096,
+    PLAYBACK_RATE = 8192,
+    ALL_BASIC_MEDIA = 12303,
+    LIKE = 16384,
+    DISLIKE = 32768,
+    FOLLOW = 65536,
+    UNFOLLOW = 131072,
+    STREAM_TRANSFER = 262144,
 }
 
-export type IdleReason = 'CANCELLED' | 'INTERRUPTED' | 'FINISHED' | 'ERROR';
+export enum ContainerType {
+    GENERIC_CONTAINER = 0,
+    AUDIOBOOK_CONTAINER = 1,
+}
 
-export type HlsSegmentFormat = 'aac' | 'ac3' | 'e_ac3' | 'fmp4' | 'mp3' | 'ts' | 'ts_aac';
+export enum ContentFilteringMode {
+    FILTER_EXPLICIT = 'FILTER_EXPLICIT',
+}
 
-export type HdrType = 'sdr' | 'hdr' | 'dv';
+export enum ErrorReason {
+    APP_ERROR = 'APP_ERROR',
+    AUTHENTICATION_EXPIRED = 'AUTHENTICATION_EXPIRED',
+    CONCURRENT_STREAM_LIMIT = 'CONCURRENT_STREAM_LIMIT',
+    CONTENT_ALREADY_PLAYING = 'CONTENT_ALREADY_PLAYING',
+    CONTENT_FILTERED = 'CONTENT_FILTERED',
+    DUPLICATE_REQUEST_ID = 'DUPLICATE_REQUEST_ID',
+    END_OF_QUEUE = 'END_OF_QUEUE',
+    GENERIC_LOAD_ERROR = 'GENERIC_LOAD_ERROR',
+    INVALID_COMMAND = 'INVALID_COMMAND',
+    INVALID_MEDIA_SESSION_ID = 'INVALID_MEDIA_SESSION_ID',
+    INVALID_PARAMS = 'INVALID_PARAMS',
+    INVALID_REQUEST = 'INVALID_REQUEST',
+    LANGUAGE_NOT_SUPPORTED = 'LANGUAGE_NOT_SUPPORTED',
+    NOT_AVAILABLE_IN_REGION = 'NOT_AVAILABLE_IN_REGION',
+    NOT_SUPPORTED = 'NOT_SUPPORTED',
+    PARENTAL_CONTROL_RESTRICTED = 'PARENTAL_CONTROL_RESTRICTED',
+    PREMIUM_ACCOUNT_REQUIRED = 'PREMIUM_ACCOUNT_REQUIRED',
+    SKIP_LIMIT_REACHED = 'SKIP_LIMIT_REACHED',
+    VIDEO_DEVICE_REQUIRED = 'VIDEO_DEVICE_REQUIRED',
+}
 
-export type PlayStringId = 'FREE_TRIAL_ABOUT_TO_EXPIRE' | 'SUBSCRIPTION_ABOUT_TO_EXPIRE' | 'STREAM_HIJACKED';
+export enum ErrorType {
+    ERROR = 'ERROR',
+    INVALID_PLAYER_STATE = 'INVALID_PLAYER_STATE',
+    INVALID_REQUEST = 'INVALID_REQUEST',
+    LOAD_CANCELLED = 'LOAD_CANCELLED',
+    LOAD_FAILED = 'LOAD_FAILED',
+}
 
-export type GetStatusOptions = 'NO_METADATA' | 'NO_QUEUE_ITEMS';
+export enum ExtendedPlayerState {
+    LOADING = 'LOADING',
+}
+
+export enum FocusState {
+    IN_FOCUS = 'IN_FOCUS',
+    NOT_IN_FOCUS = 'NOT_IN_FOCUS',
+}
+
+export enum GetStatusOptions {
+    NO_METADATA = 1,
+    NO_QUEUE_ITEMS = 2,
+}
+
+export enum HdrType {
+    DV = 'dv',
+    HDR = 'hdr',
+    SDR = 'sdr',
+}
+
+export enum HlsSegmentFormat {
+    AAC = 'aac',
+    AC3 = 'ac3',
+    E_AC3 = 'e_ac3',
+    FMP4 = 'fmp4',
+    MP3 = 'mp3',
+    TS = 'ts',
+    TS_AAC = 'ts_aac',
+}
+
+export enum HlsVideoSegmentFormat {
+    FMP4 = 'fmp4',
+    MPEG2_TS = 'mpeg2_ts',
+}
+
+export enum IdleReason {
+    CANCELLED = 'CANCELLED',
+    ERROR = 'ERROR',
+    FINISHED = 'FINISHED',
+    INTERRUPTED = 'INTERRUPTED',
+}
+
+export enum MediaCategory {
+    AUDIO = 'AUDIO',
+    IMAGE = 'IMAGE',
+    VIDEO = 'VIDEO',
+}
 
 export enum MessageType {
     CLOUD_STATUS = 'CLOUD_STATUS',
@@ -151,6 +165,22 @@ export enum MessageType {
     USER_ACTION = 'USER_ACTION',
 }
 
+export enum MetadataType {
+    GENERIC = 0,
+    MOVIE = 1,
+    TV_SHOW = 2,
+    MUSIC_TRACK = 3,
+    PHOTO = 4,
+    AUDIOBOOK_CHAPTER = 5,
+}
+
+export enum PlayStringId {
+    FREE_TRIAL_ABOUT_TO_EXPIRE = 'FREE_TRIAL_ABOUT_TO_EXPIRE',
+    PLAYING_ALTERNATE_MIX = 'PLAYING_ALTERNATE_MIX',
+    STREAM_HIJACKED = 'STREAM_HIJACKED',
+    SUBSCRIPTION_ABOUT_TO_EXPIRE = 'SUBSCRIPTION_ABOUT_TO_EXPIRE',
+}
+
 export enum PlayerState {
     BUFFERING = 'BUFFERING',
     IDLE = 'IDLE',
@@ -158,7 +188,13 @@ export enum PlayerState {
     PLAYING = 'PLAYING',
 }
 
-export type QueueChangeType = 'INSERT' | 'REMOVE' | 'ITEMS_CHANGE' | 'UPDATE' | 'NO_CHANGE';
+export enum QueueChangeType {
+    INSERT = 'INSERT',
+    ITEMS_CHANGE = 'ITEMS_CHANGE',
+    NO_CHANGE = 'NO_CHANGE',
+    REMOVE = 'REMOVE',
+    UPDATE = 'UPDATE',
+}
 
 export enum QueueType {
     ALBUM = 'ALBUM',
@@ -172,24 +208,98 @@ export enum QueueType {
     VIDEO_PLAYLIST = 'VIDEO_PLAYLIST',
 }
 
-export enum ContainerType {
-    GENERIC_CONTAINER = 0,
-    AUDIOBOOK_CONTAINER = 1,
+export enum RepeatMode {
+    REPEAT_ALL = 'REPEAT_ALL',
+    REPEAT_ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
+    REPEAT_OFF = 'REPEAT_OFF',
+    REPEAT_SINGLE = 'REPEAT_SINGLE',
 }
 
-export enum MetadataType {
-    GENERIC = 0,
-    MOVIE = 1,
-    TV_SHOW = 2,
-    MUSIC_TRACK = 3,
-    PHOTO = 4,
-    AUDIOBOOK_CHAPTER = 5,
+export enum SeekResumeState {
+    PLAYBACK_PAUSE = 'PLAYBACK_PAUSE',
+    PLAYBACK_START = 'PLAYBACK_START',
 }
 
-export enum MediaCategory {
+export enum StreamType {
+    BUFFERED = 'BUFFERED',
+    LIVE = 'LIVE',
+    NONE = 'NONE',
+}
+
+export enum StreamingProtocolType {
+    UNKNOWN = 0,
+    MPEG_DASH = 1,
+    HLS = 2,
+    SMOOTH_STREAMING = 3,
+}
+
+export enum TextTrackEdgeType {
+    DEPRESSED = 'DEPRESSED',
+    DROP_SHADOW = 'DROP_SHADOW',
+    NONE = 'NONE',
+    OUTLINE = 'OUTLINE',
+    RAISED = 'RAISED',
+}
+
+export enum TextTrackFontGenericFamily {
+    CASUAL = 'CASUAL',
+    CURSIVE = 'CURSIVE',
+    MONOSPACED_SANS_SERIF = 'MONOSPACED_SANS_SERIF',
+    MONOSPACED_SERIF = 'MONOSPACED_SERIF',
+    SANS_SERIF = 'SANS_SERIF',
+    SERIF = 'SERIF',
+    SMALL_CAPITALS = 'SMALL_CAPITALS',
+}
+
+export enum TextTrackFontStyle {
+    BOLD = 'BOLD',
+    BOLD_ITALIC = 'BOLD_ITALIC',
+    ITALIC = 'ITALIC',
+    NORMAL = 'NORMAL',
+}
+
+export enum TextTrackType {
+    CAPTIONS = 'CAPTIONS',
+    CHAPTERS = 'CHAPTERS',
+    DESCRIPTIONS = 'DESCRIPTIONS',
+    METADATA = 'METADATA',
+    SUBTITLES = 'SUBTITLES',
+}
+
+export enum TextTrackWindowType {
+    NONE = 'NONE',
+    NORMAL = 'NORMAL',
+    ROUNDED_CORNERS = 'ROUNDED_CORNERS',
+}
+
+export enum TrackType {
     AUDIO = 'AUDIO',
-    IMAGE = 'IMAGE',
+    TEXT = 'TEXT',
     VIDEO = 'VIDEO',
+}
+
+export enum UserAction {
+    DISLIKE = 'DISLIKE',
+    FLAG = 'FLAG',
+    FOLLOW = 'FOLLOW',
+    LIKE = 'LIKE',
+    SKIP_AD = 'SKIP_AD',
+    UNFOLLOW = 'UNFOLLOW',
+}
+
+export enum UserActionContext {
+    ALBUM = 'ALBUM',
+    ARTIST = 'ARTIST',
+    CHANNEL = 'CHANNEL',
+    COACH = 'COACH',
+    EPISODE = 'EPISODE',
+    MOVIE = 'MOVIE',
+    PLAYER = 'PLAYER',
+    PLAYLIST = 'PLAYLIST',
+    SERIES = 'SERIES',
+    TEAM = 'TEAM',
+    TRACK = 'TRACK',
+    UNKNOWN_CONTEXT = 'UNKNOWN_CONTEXT',
 }
 
 /**

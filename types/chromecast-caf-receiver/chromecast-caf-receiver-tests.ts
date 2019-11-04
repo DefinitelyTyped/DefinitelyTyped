@@ -1,5 +1,4 @@
-import { MediaMetadata, LoadRequestData } from 'chromecast-caf-receiver/cast.framework.messages';
-import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
+import { MediaMetadata, LoadRequestData, StreamType, HlsSegmentFormat, Track, TrackType } from 'chromecast-caf-receiver/cast.framework.messages';
 import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
@@ -17,7 +16,7 @@ breaksEvent.breakId = 'some-break-id';
 breaksEvent.breakClipId = 'some-break-clip-id';
 
 // tslint:disable-next-line
-const track = new cast.framework.messages.Track(1, 'TEXT');
+const track = new cast.framework.messages.Track(1, TrackType.TEXT);
 // tslint:disable-next-line
 const breakClip = new cast.framework.messages.BreakClip('id');
 // tslint:disable-next-line
@@ -68,11 +67,11 @@ lrd.activeTrackIds = [1, 2];
 lrd.media = {
     tracks: [],
     textTrackStyle: {},
-    streamType: 'BUFFERED',
+    streamType: StreamType.BUFFERED,
     metadata: {
         metadataType: cast.framework.messages.MetadataType.GENERIC,
     },
-    hlsSegmentFormat: 'aac',
+    hlsSegmentFormat: HlsSegmentFormat.AAC,
     contentId: 'id',
     contentType: 'type',
     breakClips: [breakClip],
