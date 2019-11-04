@@ -15,6 +15,7 @@
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
 //                 Alex Povar <https://github.com/zvirja>
+//                 Dominik Ehrenberg <https://github.com/djungowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -157,6 +158,18 @@ interface DoneFn extends Function {
 
     /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
     fail: (message?: Error | string) => void;
+}
+
+/**
+ * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
+ */
+interface EnvConfiguration {
+    random?: boolean;
+    seed?: number;
+    failFast?: boolean;
+    oneFailurePerSpec?: boolean;
+    hideDisabled?: boolean;
+    specFilter?: Function;
 }
 
 /**
@@ -372,14 +385,28 @@ declare namespace jasmine {
         addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
+        /**
+         * @deprecated Use oneFailurePerSpec option in {@link jasmine.Env.configure} instead.
+         */
         throwOnExpectationFailure(value: boolean): void;
+        /**
+         * @deprecated Use failFast option in {@link jasmine.Env.configure} instead.
+         */
+        stopOnSpecFailure(value: boolean): void;
+        /**
+         * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
+         */
         seed(seed: string | number): string | number;
         provideFallbackReporter(reporter: Reporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
+        /**
+         * @deprecated Use random option in {@link jasmine.Env.configure} instead.
+         */
         randomizeTests(b: boolean): void;
         clearReporters(): void;
+        configure(configuration: EnvConfiguration): void;
     }
 
     interface FakeTimer {
