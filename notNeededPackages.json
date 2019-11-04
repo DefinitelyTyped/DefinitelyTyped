@@ -739,6 +739,12 @@
             "asOfVersion": "1.2.2"
         },
         {
+            "libraryName": "cucumber-html-reporter",
+            "typingsPackageName": "cucumber-html-reporter",
+            "sourceRepoURL": "https://github.com/gkushang/cucumber-html-reporter",
+            "asOfVersion": "5.0.1"
+        },
+        {
             "libraryName": "csv-stringify",
             "typingsPackageName": "csv-stringify",
             "sourceRepoURL": "https://github.com/wdavidw/node-csv-stringify",
