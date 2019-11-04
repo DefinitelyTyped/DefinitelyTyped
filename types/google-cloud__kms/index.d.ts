@@ -3,13 +3,15 @@
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
 //                 Caian Ertl <https://github.com/caiertl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 export namespace v1 {
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
     enum CryptoKeyVersionAlgorithm {
         // Not specified.
         CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED = 0,

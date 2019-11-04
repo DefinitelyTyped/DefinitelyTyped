@@ -25,8 +25,8 @@ async function exampleCreateKeyRing() {
     const keyRing = {};
     const request = {
       parent: formattedParent,
-      keyRingId: keyRingId,
-      keyRing: keyRing,
+      keyRingId,
+      keyRing,
     };
 
     const [asyncCreatedKeyRing] = await kmsClient.createKeyRing(request);
@@ -79,14 +79,14 @@ async function exampleCreateCryptoKey() {
         seconds: 604800,
     };
     const cryptoKey = {
-        purpose: purpose,
-        nextRotationTime: nextRotationTime,
-        rotationPeriod: rotationPeriod,
+        purpose,
+        nextRotationTime,
+        rotationPeriod,
     };
     const request = {
         parent: formattedParent,
-        cryptoKeyId: cryptoKeyId,
-        cryptoKey: cryptoKey,
+        cryptoKeyId,
+        cryptoKey,
     };
 
     const [asyncCreatedCryptoKey] = await kmsClient.createCryptoKey(request);
