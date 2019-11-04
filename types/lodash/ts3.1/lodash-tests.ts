@@ -6991,14 +6991,6 @@ fp.now(); // $ExpectType number
     fp.stubString(); // $ExpectType string
 }
 
-// _.stubTrue
-{
-    _.stubTrue(); // $ExpectType true
-    _(anything).stubTrue(); // $ExpectType true
-    _.chain(anything).stubTrue(); // $ExpectType PrimitiveChain<true>
-    fp.stubTrue(); // $ExpectType true
-}
-
 // _.times
 {
     const iteratee = (num: number): AbcObject => ({ a: 1, b: "", c: true });
