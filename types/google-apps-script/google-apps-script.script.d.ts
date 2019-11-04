@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
 /// <reference path="google-apps-script.spreadsheet.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Script {
+  namespace Script {
     /**
      * An enumeration that identifies which categories of authorized services Apps Script is able to
      * execute through a triggered function. These values are exposed in triggered functions as the authMode
@@ -38,7 +38,7 @@ declare namespace GoogleAppsScript {
      *       menu.addToUi();
      *     }
      */
-    export enum AuthMode { NONE, CUSTOM_FUNCTION, LIMITED, FULL }
+    enum AuthMode { NONE, CUSTOM_FUNCTION, LIMITED, FULL }
 
     /**
      * An object used to determine whether the user needs to authorize this script to use one or more
@@ -51,7 +51,7 @@ declare namespace GoogleAppsScript {
      * all cases, scripts should call ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL),
      * since no other authorization mode requires that users grant authorization.
      */
-    export interface AuthorizationInfo {
+    interface AuthorizationInfo {
       getAuthorizationStatus(): AuthorizationStatus;
       getAuthorizationUrl(): string;
     }
@@ -59,12 +59,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration denoting the authorization status of a script.
      */
-    export enum AuthorizationStatus { REQUIRED, NOT_REQUIRED }
+    enum AuthorizationStatus { REQUIRED, NOT_REQUIRED }
 
     /**
      * Builder for calendar triggers.
      */
-    export interface CalendarTriggerBuilder {
+    interface CalendarTriggerBuilder {
       create(): Trigger;
       onEventUpdated(): CalendarTriggerBuilder;
     }
@@ -72,9 +72,9 @@ declare namespace GoogleAppsScript {
     /**
      * A builder for clock triggers.
      */
-    export interface ClockTriggerBuilder {
+    interface ClockTriggerBuilder {
       after(durationMilliseconds: Integer): ClockTriggerBuilder;
-      at(date: Date): ClockTriggerBuilder;
+      at(date: Base.Date): ClockTriggerBuilder;
       atDate(year: Integer, month: Integer, day: Integer): ClockTriggerBuilder;
       atHour(hour: Integer): ClockTriggerBuilder;
       create(): Trigger;
@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
     /**
      * A builder for document triggers.
      */
-    export interface DocumentTriggerBuilder {
+    interface DocumentTriggerBuilder {
       create(): Trigger;
       onOpen(): DocumentTriggerBuilder;
     }
@@ -99,12 +99,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration denoting the type of triggered event.
      */
-    export enum EventType { CLOCK, ON_OPEN, ON_EDIT, ON_FORM_SUBMIT, ON_CHANGE, ON_EVENT_UPDATED }
+    enum EventType { CLOCK, ON_OPEN, ON_EDIT, ON_FORM_SUBMIT, ON_CHANGE, ON_EVENT_UPDATED }
 
     /**
      * A builder for form triggers.
      */
-    export interface FormTriggerBuilder {
+    interface FormTriggerBuilder {
       create(): Trigger;
       onFormSubmit(): FormTriggerBuilder;
       onOpen(): FormTriggerBuilder;
@@ -114,13 +114,13 @@ declare namespace GoogleAppsScript {
      * An enumeration that indicates how the script came to be installed as an add-on for the current
      * user.
      */
-    export enum InstallationSource { APPS_MARKETPLACE_DOMAIN_ADD_ON, NONE, WEB_STORE_ADD_ON }
+    enum InstallationSource { APPS_MARKETPLACE_DOMAIN_ADD_ON, NONE, WEB_STORE_ADD_ON }
 
     /**
      * Access and manipulate script publishing and triggers. This class allows users to create script
      * triggers and control publishing the script as a service.
      */
-    export interface ScriptApp {
+    interface ScriptApp {
       AuthMode: typeof AuthMode;
       AuthorizationStatus: typeof AuthorizationStatus;
       EventType: typeof EventType;
@@ -142,23 +142,24 @@ declare namespace GoogleAppsScript {
       newTrigger(functionName: string): TriggerBuilder;
       /** @deprecated DO NOT USE */
       getProjectKey(): string;
-       /** @deprecated DO NOT USE */
-       getScriptTriggers(): Trigger[];
+      /** @deprecated DO NOT USE */
+      getScriptTriggers(): Trigger[];
     }
 
     /**
      * Access and manipulate script publishing.
      */
-    export interface Service {
-      disable(): void;
+    interface Service {
       getUrl(): string;
       isEnabled(): boolean;
+      /** @deprecated DO NOT USE */
+      disable(): void;
     }
 
     /**
      * Builder for spreadsheet triggers.
      */
-    export interface SpreadsheetTriggerBuilder {
+    interface SpreadsheetTriggerBuilder {
       create(): Trigger;
       onChange(): SpreadsheetTriggerBuilder;
       onEdit(): SpreadsheetTriggerBuilder;
@@ -183,7 +184,7 @@ declare namespace GoogleAppsScript {
      *       return url + stateToken;
      *     }
      */
-    export interface StateTokenBuilder {
+    interface StateTokenBuilder {
       createToken(): string;
       withArgument(name: string, value: string): StateTokenBuilder;
       withMethod(method: string): StateTokenBuilder;
@@ -193,7 +194,7 @@ declare namespace GoogleAppsScript {
     /**
      * A script trigger.
      */
-    export interface Trigger {
+    interface Trigger {
       getEventType(): EventType;
       getHandlerFunction(): string;
       getTriggerSource(): TriggerSource;
@@ -204,7 +205,7 @@ declare namespace GoogleAppsScript {
     /**
      * A generic builder for script triggers.
      */
-    export interface TriggerBuilder {
+    interface TriggerBuilder {
       forDocument(document: Document.Document): DocumentTriggerBuilder;
       forDocument(key: string): DocumentTriggerBuilder;
       forForm(form: Forms.Form): FormTriggerBuilder;
@@ -218,8 +219,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration denoting the source of the event that causes the trigger to fire.
      */
-    export enum TriggerSource { SPREADSHEETS, CLOCK, FORMS, DOCUMENTS, CALENDAR }
-
+    enum TriggerSource { SPREADSHEETS, CLOCK, FORMS, DOCUMENTS, CALENDAR }
   }
 }
 

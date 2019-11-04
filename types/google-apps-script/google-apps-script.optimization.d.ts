@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-05-20
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Optimization {
+  namespace Optimization {
     /**
      * Object storing a linear constraint of the form lowerBound ≤ Sum(a(i) x(i)) ≤ upperBound
      * where lowerBound and upperBound are constants, a(i) are constant
@@ -26,7 +26,7 @@ declare namespace GoogleAppsScript {
      *     // 0 <= 2 * x <= 5
      *     constraint.setCoefficient('x', 2);
      */
-    export interface LinearOptimizationConstraint {
+    interface LinearOptimizationConstraint {
       setCoefficient(variableName: string, coefficient: number): LinearOptimizationConstraint;
     }
 
@@ -82,7 +82,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationEngine {
+    interface LinearOptimizationEngine {
       addConstraint(lowerBound: number, upperBound: number): LinearOptimizationConstraint;
       addConstraints(lowerBounds: number[], upperBounds: number[], variableNames: string[][], coefficients: number[][]): LinearOptimizationEngine;
       addVariable(name: string, lowerBound: number, upperBound: number): LinearOptimizationEngine;
@@ -148,7 +148,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationService {
+    interface LinearOptimizationService {
       Status: typeof Status;
       VariableType: typeof VariableType;
       createEngine(): LinearOptimizationEngine;
@@ -206,7 +206,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationSolution {
+    interface LinearOptimizationSolution {
       getObjectiveValue(): number;
       getStatus(): Status;
       getVariableValue(variableName: string): number;
@@ -218,13 +218,12 @@ declare namespace GoogleAppsScript {
      * afterwards it will take any of the other values depending if it successfully found a solution and
      * if the solution is optimal.
      */
-    export enum Status { OPTIMAL, FEASIBLE, INFEASIBLE, UNBOUNDED, ABNORMAL, MODEL_INVALID, NOT_SOLVED }
+    enum Status { OPTIMAL, FEASIBLE, INFEASIBLE, UNBOUNDED, ABNORMAL, MODEL_INVALID, NOT_SOLVED }
 
     /**
      * Type of variables created by the engine.
      */
-    export enum VariableType { INTEGER, CONTINUOUS }
-
+    enum VariableType { INTEGER, CONTINUOUS }
   }
 }
 
