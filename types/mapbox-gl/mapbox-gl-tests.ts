@@ -13,6 +13,21 @@ mapboxgl.accessToken = 'foo';
 mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
+ * Set amount of workers
+ */
+mapboxgl.workerCount = 3;
+
+/**
+ * Set max amount of parallel images requests 
+ */
+mapboxgl.maxParallelImageRequests = 10;
+
+/**
+ * Clears browser storage used by this library 
+ */
+mapboxgl.clearStorage(() => {});
+
+/**
  * Get RTL Text Plugin Status
  */
 expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
