@@ -13,17 +13,21 @@ declare namespace websiteScraper {
         url: string;
         filename: string;
     }
+
     interface SubDirectory {
         directory: string;
         extensions: string[];
     }
+
     interface Source {
         selector: string;
         attr?: string;
     }
+
     interface RequestOptions {
         headers: request.Headers;
     }
+
     interface Options {
         urls: (string | Url)[];
         directory: string;
@@ -38,11 +42,13 @@ declare namespace websiteScraper {
         maxDepth?: number;
         ignoreErrors?: boolean;
     }
+
     interface Resource {
         url: string;
         filename: string;
         assets: Resource[];
     }
+
     interface Callback {
         (error: any | null, result: Resource[] | null): void;
     }
