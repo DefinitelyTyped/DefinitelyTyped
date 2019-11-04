@@ -52,14 +52,14 @@ async function exampleCreateCryptoKey() {
     // const nextRotationTime = {
     //     seconds: seconds,
     // };
-    // const seconds2 = 604800;
-    // const rotationPeriod = {
-    //     seconds: seconds2,
-    // };
+    const seconds2 = 604800;
+    const rotationPeriod = {
+        seconds: seconds2,
+    };
     const cryptoKey = {
         purpose: purpose,
         // nextRotationTime: nextRotationTime,
-        // rotationPeriod: rotationPeriod,
+        rotationPeriod: rotationPeriod,
     };
     const request = {
         parent: formattedParent,
