@@ -3,7 +3,7 @@
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.0
 
 /// <reference types="backbone" />
 /// <reference types="titanium" />
