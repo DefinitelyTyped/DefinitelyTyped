@@ -1,4 +1,4 @@
-// Type definitions for simple-oauth2 2.2
+// Type definitions for simple-oauth2 2.5.2
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
