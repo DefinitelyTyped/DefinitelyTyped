@@ -3643,6 +3643,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-rnd",
+            "typingsPackageName": "react-rnd",
+            "sourceRepoURL": "https://github.com/bokuweb/react-rnd",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "react-sortable-pane",
             "typingsPackageName": "react-sortable-pane",
             "sourceRepoURL": "https://github.com/bokuweb/react-sortable-pane",
