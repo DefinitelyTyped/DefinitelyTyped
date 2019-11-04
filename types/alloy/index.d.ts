@@ -14,7 +14,7 @@ interface JQueryStatic extends AlloyController {
 /**
  * The base class for Alloy controllers.
  */
-declare class AlloyController extends Backbone.Model {
+interface AlloyController extends Backbone.Model {
   /**
    *
    * @param proxy View object to which to add class(es).
