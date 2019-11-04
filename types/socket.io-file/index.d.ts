@@ -14,7 +14,7 @@ declare class SocketIOFile {
 }
 
 interface Options {
-	uploadDir:string | { [dirId: string]: string };
+	uploadDir: string | { [dirId: string]: string };
 	maxFileSize?: number;
 	accepts?: string[];
 	chunkSize?: number;
