@@ -3361,6 +3361,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ractive",
+            "typingsPackageName": "ractive",
+            "sourceRepoURL": "https://ractive.js.org",
+            "asOfVersion": "0.10.0"
+        },
+        {
             "libraryName": "qunit-dom",
             "typingsPackageName": "qunit-dom",
             "sourceRepoURL": "https://github.com/simplabs/qunit-dom#readme",
