@@ -1111,6 +1111,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "ex-react-native-i18n",
+            "typingsPackageName": "ex-react-native-i18n",
+            "sourceRepoURL": "https://github.com/xcarpentier/ex-react-native-i18n/",
+            "asOfVersion": "0.0.6"
+        },
+        {
             "libraryName": "exceljs",
             "typingsPackageName": "exceljs",
             "sourceRepoURL": "https://github.com/exceljs/exceljs",
