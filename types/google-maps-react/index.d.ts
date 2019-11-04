@@ -83,7 +83,7 @@ export interface MarkerProps extends Partial<google.maps.MarkerOptions> {
 export class Map extends React.Component<MapProps, any> {
 }
 
-export class Marker<P extends MarkerProps = MarkerProps, S = any> extends React.Component<P,S> {
+export class Marker<P extends MarkerProps = MarkerProps, S = any> extends React.Component<P, S> {
   marker?: google.maps.Marker;
 
   renderMarker(): void;
@@ -111,7 +111,7 @@ export interface InfoWindowProps extends Partial<google.maps.InfoWindowOptions> 
   visible?: boolean;
 }
 
-export class InfoWindow<P extends InfoWindowProps = InfoWindowProps, S = any> extends React.Component<P,S> {
+export class InfoWindow<P extends InfoWindowProps = InfoWindowProps, S = any> extends React.Component<P, S> {
   renderInfoWindow(): void;
   openWindow(): void;
   updatePosition(): void;
