@@ -212,6 +212,16 @@ export namespace v1 {
         }
         type ListKeyRingsCallback = (err: Error | null, apiResponse: [KeyRing[], any, any]) => void;
 
+        interface CreateCryptoKeyRequest {
+            parent: string;
+            cryptoKeyId: string;
+            cryptoKey: Partial<Omit<CryptoKey, 'purpose'>> & {
+                purpose: keyof typeof CryptoKeyPurpose;
+            };
+            skipInitialVersionCreation?: boolean;
+        }
+        type CreateCryptoKeyCallback = (err: Error | null, apiResponse: [CryptoKey, any, any]) => void;
+
         interface ListCryptoKeysRequest {
             parent: string;
             page_size?: number;
@@ -245,6 +255,11 @@ export namespace v1 {
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing[], any, any]>;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
+
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey, any, any]>;
 
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey[], any, any]>;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;

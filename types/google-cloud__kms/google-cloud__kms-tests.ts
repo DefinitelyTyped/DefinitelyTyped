@@ -44,6 +44,44 @@ async function exampleCreateKeyRing() {
     });
 }
 
+async function exampleCreateCryptoKey() {
+    const formattedParent = kmsClient.keyRingPath('[PROJECT]', '[LOCATION]', '[KEY_RING]');
+    const cryptoKeyId = 'my-app-key';
+    const purpose = 'ENCRYPT_DECRYPT' as const;
+    // const seconds = 2147483647;
+    // const nextRotationTime = {
+    //     seconds: seconds,
+    // };
+    // const seconds2 = 604800;
+    // const rotationPeriod = {
+    //     seconds: seconds2,
+    // };
+    const cryptoKey = {
+        purpose: purpose,
+        // nextRotationTime: nextRotationTime,
+        // rotationPeriod: rotationPeriod,
+    };
+    const request = {
+        parent: formattedParent,
+        cryptoKeyId: cryptoKeyId,
+        cryptoKey: cryptoKey,
+    };
+
+    const [asyncCreatedCryptoKey] = await kmsClient.createCryptoKey(request);
+    console.log(`Created CryptoKey: ${asyncCreatedCryptoKey.name}`);
+
+    const [asyncCreatedCryptoKeyWithGaxOpts] = await kmsClient.createCryptoKey(request, { timeout: 1000 });
+    console.log(`Created CryptoKey with GAX opts: ${asyncCreatedCryptoKeyWithGaxOpts.name}`);
+
+    kmsClient.createCryptoKey(request, (err, [response]) => {
+        console.log(`Created CryptoKey: ${response.name}`);
+    });
+
+    kmsClient.createCryptoKey(request, { timeout: 1000 }, (err, [response]) => {
+        console.log(`Created CryptoKey: ${response.name}`);
+    });
+}
+
 async function exampleListKeyRings() {
     const locationPath = kmsClient.locationPath('[PROJECT_ID]', '[LOCATION]');
     const [ asyncKeyRings ] = await kmsClient.listKeyRings({parent: locationPath});
