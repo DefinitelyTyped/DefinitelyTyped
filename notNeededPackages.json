@@ -3133,6 +3133,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "peerjs",
+            "typingsPackageName": "peerjs",
+            "sourceRepoURL": "http://peerjs.com/",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "perfect-scrollbar",
             "typingsPackageName": "perfect-scrollbar",
             "sourceRepoURL": "https://github.com/noraesae/perfect-scrollbar",
