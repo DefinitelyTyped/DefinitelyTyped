@@ -3625,6 +3625,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-owl-carousel",
+            "typingsPackageName": "react-owl-carousel",
+            "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-sortable-pane",
             "typingsPackageName": "react-sortable-pane",
             "sourceRepoURL": "https://github.com/bokuweb/react-sortable-pane",
