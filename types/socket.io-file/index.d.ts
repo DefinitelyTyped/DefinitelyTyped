@@ -2,6 +2,7 @@
 // Project: https://github.com/rico345100/socket.io-file
 // Definitions by: Dief Bell <https://github.com/merrickking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Socket } from 'socket.io';
 
