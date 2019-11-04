@@ -459,6 +459,8 @@ declare namespace google {
 
         export type ChartAxisTitlesPosition = 'in' | 'out' | 'none';
         
+        export type ChartSelectionMode = 'single' | 'multiple';
+        
         export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
         export type ChartLegendAlignment = 'start' | 'center' | 'end';
         export interface ChartLegend {
@@ -606,7 +608,7 @@ declare namespace google {
             legend?: ChartLegend | 'none';
             lineWidth?: number;
             pointSize?: number;
-            selectionMode?: string;
+            selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
             title?: string;
@@ -645,7 +647,7 @@ declare namespace google {
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
-            selectionMode?: string // single / multiple
+            selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
             title?: string;
@@ -705,7 +707,7 @@ declare namespace google {
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
-            selectionMode?: string | 'single' | 'multiple';
+            selectionMode?: ChartSelectionMode;
             series?: any;
             domainAxis?: { type: string };
             trendlines?: { [key: number]: LineChartTrendlineOptions; };
@@ -842,7 +844,7 @@ declare namespace google {
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
-            selectionMode?: string // single / multiple
+            selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
             title?: string;
@@ -924,7 +926,7 @@ declare namespace google {
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
-            selectionMode?: string // single / multiple
+            selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
             title?: string;
@@ -995,7 +997,7 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             legend?: ChartLegend | 'none';
-            selectionMode?: string;
+            selectionMode?: ChartSelectionMode;
             series?: any;
             sizeAxis?: ChartSizeAxis;
             sortBubblesBySize?: boolean;
@@ -1159,7 +1161,7 @@ declare namespace google {
             legend?: ChartLegend | 'none';
             orientation?: string;
             reverseCategories?: boolean;
-            selectionMode?: string // single / multiple
+            selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
             title?: string;
@@ -1211,7 +1213,7 @@ declare namespace google {
             pointSize?: number;
             pointsVisible?: boolean;
             reverseCategories?: boolean;
-            selectionMode?: string;// single / multiple
+            selectionMode?: ChartSelectionMode;
             series?: any;
             seriesType?: string;
             theme?: string;
