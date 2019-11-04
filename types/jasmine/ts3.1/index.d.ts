@@ -159,7 +159,7 @@ interface DoneFn extends Function {
 /**
  * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
  */
-interface Configuration {
+interface EnvConfiguration {
     random?: boolean;
     seed?: number;
     failFast?: boolean;
@@ -408,7 +408,7 @@ declare namespace jasmine {
          */
         randomizeTests(b: boolean): void;
         clearReporters(): void;
-        configure(configuration: Configuration): void;
+        configure(configuration: EnvConfiguration): void;
     }
 
     interface FakeTimer {
