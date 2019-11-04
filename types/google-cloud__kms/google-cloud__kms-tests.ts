@@ -48,17 +48,16 @@ async function exampleCreateCryptoKey() {
     const formattedParent = kmsClient.keyRingPath('[PROJECT]', '[LOCATION]', '[KEY_RING]');
     const cryptoKeyId = 'my-app-key';
     const purpose = 'ENCRYPT_DECRYPT' as const;
-    // const seconds = 2147483647;
-    // const nextRotationTime = {
-    //     seconds: seconds,
-    // };
-    const seconds2 = 604800;
+    const nextRotationTime = {
+        seconds: 2147483647,
+        nanos: 0,
+    };
     const rotationPeriod = {
-        seconds: seconds2,
+        seconds: 604800,
     };
     const cryptoKey = {
         purpose: purpose,
-        // nextRotationTime: nextRotationTime,
+        nextRotationTime: nextRotationTime,
         rotationPeriod: rotationPeriod,
     };
     const request = {
