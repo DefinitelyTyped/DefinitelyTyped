@@ -23,8 +23,8 @@ export default class OrderedSet<T = unknown> {
     add(value: T): this;
     clear(): void;
     delete(value: T): boolean;
-    forEach(callbackfn: (this: undefined, value: T, value2: T, set: Set<T>) => void): void;
-    forEach<Ctx>(callbackfn: (this: Ctx, value: T, value2: T, set: Set<T>) => void, context: Ctx): void;
+    forEach(callbackfn: (this: undefined, value: T, value2: T, set: OrderedSet<T>) => void): void;
+    forEach<Ctx>(callbackfn: (this: Ctx, value: T, value2: T, set: OrderedSet<T>) => void, context: Ctx): void;
     has(value: T): boolean;
     isEmpty(): boolean;
     toArray(): T[];
