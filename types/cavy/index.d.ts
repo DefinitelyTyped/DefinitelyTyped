@@ -3,7 +3,7 @@
 // Definitions by: Tyler Hoffman <https://github.com/tyler-hoffman>
 //                 Abigail McPhillips <https://github.com/AbigailMcP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 
