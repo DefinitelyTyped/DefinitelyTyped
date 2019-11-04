@@ -198,6 +198,13 @@ export namespace v1 {
         }
         type DecryptCallback = (err: Error | null, apiResponse: [DecryptResponse, any, any]) => void;
 
+        interface CreateKeyRingRequest {
+            parent: string;
+            keyRingId: string;
+            keyRing?: Partial<KeyRing>;
+        }
+        type CreateKeyRingCallback = (err: Error | null, apiResponse: [KeyRing, any, any]) => void;
+
         interface ListKeyRingsRequest {
             parent: string;
             page_size?: number;
@@ -229,6 +236,11 @@ export namespace v1 {
         decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.DecryptResponse, any, any]>;
         decrypt(request: KeyManagementServiceClient.DecryptRequest, callback: KeyManagementServiceClient.DecryptCallback): void;
         decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.DecryptCallback): void;
+
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing, any, any]>;
 
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing[], any, any]>;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
