@@ -3991,6 +3991,12 @@
             "asOfVersion": "0.7.3"
         },
         {
+            "libraryName": "schema-utils",
+            "typingsPackageName": "schema-utils",
+            "sourceRepoURL": "https://github.com/webpack-contrib/schema-utils",
+            "asOfVersion": "2.4.0"
+        },
+        {
             "libraryName": "screenfull",
             "typingsPackageName": "screenfull",
             "sourceRepoURL": "https://github.com/sindresorhus/screenfull.js",
