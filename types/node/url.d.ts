@@ -23,7 +23,7 @@ declare module "url" {
         hash: string | null;
         host: string | null;
         hostname: string | null;
-        href: string | null;
+        href: string;
         path: string | null;
         pathname: string | null;
         protocol: string | null;

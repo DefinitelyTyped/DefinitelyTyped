@@ -96,7 +96,7 @@ let req: http.ClientRequest;
 let res: http.IncomingMessage | undefined;
 let opts: got.GotOptions<string | null>;
 let err: got.GotError;
-let href: string | undefined | null;
+let href: string | undefined;
 let progress: got.Progress;
 
 const stream = got.stream('todomvc.com');
