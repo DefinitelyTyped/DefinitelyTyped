@@ -34,7 +34,7 @@ export interface ProvidedProps {
 type mapEventHandler = (mapProps?: MapProps, map?: google.maps.Map, event?: any) => any;
 
 export interface MapProps extends google.maps.MapOptions {
-  google: GoogleAPI;
+  google?: GoogleAPI;
   loaded?: boolean;
 
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
@@ -71,13 +71,23 @@ export interface MarkerProps extends Partial<google.maps.MarkerOptions> {
   mapCenter?: google.maps.LatLng | google.maps.LatLngLiteral;
 
   onClick?: markerEventHandler;
+  onDblclick?: markerEventHandler;
+  onDragend?: markerEventHandler;
+  onMousedown?: markerEventHandler;
+  onMouseout?: markerEventHandler;
   onMouseover?: markerEventHandler;
+  onMouseup?: markerEventHandler;
+  onRecenter?: markerEventHandler;
 }
 
 export class Map extends React.Component<MapProps, any> {
 }
 
-export class Marker extends React.Component<MarkerProps, any> {
+export class Marker<P extends MarkerProps = MarkerProps, S = any> extends React.Component<P,S> {
+  marker?: google.maps.Marker;
+
+  renderMarker(): void;
+  getMarker(): Promise<google.maps.Marker>;
 }
 
 export class Polygon extends React.Component<any, any> {
@@ -93,15 +103,21 @@ export class HeatMap extends React.Component<any, any> {
 }
 
 export interface InfoWindowProps extends Partial<google.maps.InfoWindowOptions> {
-  google: typeof google;
-  map: google.maps.Map;
-  marker: google.maps.Marker;
+  google?: typeof google;
+  map?: google.maps.Map;
+  marker?: google.maps.Marker;
 
   mapCenter?: google.maps.LatLng | google.maps.LatLngLiteral;
   visible?: boolean;
 }
 
-export class InfoWindow extends React.Component<InfoWindowProps, any> {
+export class InfoWindow<P extends InfoWindowProps = InfoWindowProps, S = any> extends React.Component<P,S> {
+  renderInfoWindow(): void;
+  openWindow(): void;
+  updatePosition(): void;
+  updateContent(): void;
+  closeWindow(): void;
+  renderChildren(): void;
 }
 
 export {};
