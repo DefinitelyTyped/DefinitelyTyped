@@ -25,7 +25,7 @@ declare namespace websiteScraper {
         headers: request.Headers
     }
     interface Options {
-        urls: Array<string | Url>;
+        urls: (string | Url)[];
         directory: string;
         urlFilter?: (url: string) => boolean;
         filenameGenerator?: string;
