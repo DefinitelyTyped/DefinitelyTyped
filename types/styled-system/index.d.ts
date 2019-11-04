@@ -16,6 +16,7 @@
 //                 Elliot Bonneville <https://github.com/elliotbonneville>
 //                 Jack Caldwell <https://github.com/jackcaldwell>
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
+//                 Craig Michael Thompson <https://github.com/craga89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -629,12 +630,28 @@ export interface OrderProps {
 export const order: styleFn;
 
 export interface FlexGrowProps {
+    /**
+     * The flex-grow CSS property sets the flex grow factor of a flex item main size. It specifies how much of the
+     * remaining space in the flex container should be assigned to the item (the flex grow factor).
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow)
+     */
     flexGrow?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
+export const flexGrow: styleFn;
+
 export interface FlexShrinkProps {
+    /**
+     * The flex-shrink CSS property sets the flex shrink factor of a flex item. If the size of all flex items is larger
+     * than the flex container, items shrink to fit according to flex-shrink.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink)
+     */
     flexShrink?: ResponsiveValue<CSS.GlobalsNumber>;
 }
+
+export const flexShrink: styleFn;
 
 /**
  * A convenience style group containing props related to flexbox.
