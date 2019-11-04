@@ -77,7 +77,7 @@ declare namespace google {
             type: string;
             modifier?: (value: any) => any;
             label?: string;
-            id?: any;
+            id?: string;
         }
 
         export interface GroupColumnOptions {
@@ -85,7 +85,7 @@ declare namespace google {
             aggregation: (values: any[]) => any;
             type: string;
             label?: string;
-            id?: any;
+            id?: string;
         }
         
         export class data {
