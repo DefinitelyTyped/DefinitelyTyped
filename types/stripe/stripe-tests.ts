@@ -35,7 +35,6 @@ stripe.balance.listTransactions().then(items => {
 stripe.balance.listTransactions().autoPagingEach(async item => {
     item; // $ExpectType IBalanceTransaction
 });
-stripe.balance.listTransactions().autoPagingToArray({}); // $ExpectError
 stripe.balance
     .listTransactions()
     .autoPagingToArray({ limit: 1 })
