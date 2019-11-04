@@ -1303,6 +1303,12 @@
             "asOfVersion": "0.1.1"
         },
         {
+            "libraryName": "find-process",
+            "typingsPackageName": "find-process",
+            "sourceRepoURL": "https://github.com/yibn2008/find-process",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "find-java-home",
             "typingsPackageName": "find-java-home",
             "sourceRepoURL": "https://github.com/jsdevel/node-find-java-home",
