@@ -271,8 +271,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/reference#DataView
         export class DataView {
-            constructor(data: DataTable);
-            constructor(data: DataView);
+            constructor(data: DataTable | DataView);
 
             getColumnId(columnIndex: number): String;
             getColumnLabel(columnIndex: number): string;
