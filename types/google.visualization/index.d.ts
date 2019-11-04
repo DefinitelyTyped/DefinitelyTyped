@@ -316,7 +316,7 @@ declare namespace google {
         }
 
         export interface ColumnSpec {
-            calc?: (dataTable: DataTable, row: number) => any;
+            calc?: (data: DataTable, row: number) => any;
             type?: string;
             label?: string;
             id?: string;
@@ -1228,7 +1228,7 @@ declare namespace google {
         export class Dashboard {
             constructor(containerRef: HTMLElement);
             bind(controls: ControlWrapper | ControlWrapper[], charts: ChartWrapper | ChartWrapper[]): google.visualization.Dashboard;
-            draw(dataTable: DataTable): void;
+            draw(data: DataTable | DataView): void;
             getSelection(): Object[];
         }
 
@@ -1550,7 +1550,7 @@ declare namespace google {
              * @param srcColumnIndices - An array of one or more (zero-based) column indices to pull as the sources from the underlying DataTable. This will be used as a data source for the pattern parameter in the constructor. The column numbers do not have to be in sorted order.
              * @param opt_dstColumnIndex - The destination column to place the output of the pattern manipulation. If not specified, the first element in srcColumIndices will be used as the destination.
              */
-            format(dataTable: DataTable, srcColumnIndices: number[], opt_dstColumnIndex?: number): void;
+            format(data: DataTable, srcColumnIndices: number[], opt_dstColumnIndex?: number): void;
         }
 
         //#endregion
