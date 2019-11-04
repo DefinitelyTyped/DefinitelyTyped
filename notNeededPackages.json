@@ -1591,6 +1591,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "http-status",
+            "typingsPackageName": "http-status",
+            "sourceRepoURL": "https://github.com/wdavidw/node-http-status",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "html-webpack-tags-plugin",
             "typingsPackageName": "html-webpack-tags-plugin",
             "sourceRepoURL": "https://github.com/jharris4/html-webpack-tags-plugin",
@@ -1997,6 +2003,12 @@
             "typingsPackageName": "jdenticon",
             "sourceRepoURL": "https://github.com/dmester/jdenticon",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "jest-get-type",
+            "typingsPackageName": "jest-get-type",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-get-type",
+            "asOfVersion": "24.2.0"
         },
         {
             "libraryName": "jest-each",
@@ -3631,6 +3643,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-rnd",
+            "typingsPackageName": "react-rnd",
+            "sourceRepoURL": "https://github.com/bokuweb/react-rnd",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "react-sortable-hoc",
             "typingsPackageName": "react-sortable-hoc",
             "sourceRepoURL": "https://github.com/clauderic/react-sortable-hoc",
@@ -4829,6 +4847,12 @@
             "typingsPackageName": "whatwg-streams",
             "sourceRepoURL": "https://streams.spec.whatwg.org",
             "asOfVersion": "3.2.1"
+        },
+        {
+            "libraryName": "wikidata-sdk",
+            "typingsPackageName": "wikidata-sdk",
+            "sourceRepoURL": "https://github.com/maxlath/wikidata-sdk",
+            "asOfVersion": "6.1.0"
         },
         {
             "libraryName": "which-pm",
