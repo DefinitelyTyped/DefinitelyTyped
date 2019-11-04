@@ -2185,6 +2185,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "kafka-node",
+            "typingsPackageName": "kafka-node",
+            "sourceRepoURL": "https://github.com/SOHU-Co/kafka-node/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "karma-viewport",
             "typingsPackageName": "karma-viewport",
             "sourceRepoURL": "https://github.com/squidfunk/karma-viewport",
