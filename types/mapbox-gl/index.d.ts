@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v1.5.0
+// Type definitions for Mapbox GL JS 1.5
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -40,6 +40,9 @@ declare namespace mapboxgl {
     export function clearStorage(callback?: (err?: Error) => void): void;
 
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
+    export function getRTLTextPluginStatus(): PluginStatus;
+
+    type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
     /**
      * Gets the map's RTL text plugin status.
@@ -378,7 +381,12 @@ declare namespace mapboxgl {
         /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
         doubleClickZoom?: boolean;
 
-        /** If true, the map will track and update the page URL according to map position. An additional string may optionally be provided to indicate a parameter-styled hash. */
+        /** If `true`, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
+        * For example, `http://path/to/my/page.html#2.59/39.26/53.07/-24.1/60`.
+        * An additional string may optionally be provided to indicate a parameter-styled hash,
+        * e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
+        * is a custom parameter and bar is an arbitrary hash distinct from the map hash.
+        * */
         hash?: boolean | string;
 
         /**
