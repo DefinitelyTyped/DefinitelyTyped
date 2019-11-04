@@ -457,6 +457,8 @@ declare namespace google {
             height?: number | string;
         }
 
+        export type ChartAxisTitlesPosition = 'in' | 'out' | 'none';
+        
         export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
         export type ChartLegendAlignment = 'start' | 'center' | 'end';
         export interface ChartLegend {
@@ -587,7 +589,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             chartArea?: ChartArea;
             colors?: string[];
@@ -628,7 +630,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             annotations?: ChartBarColumnAnnotations;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bar?: GroupWidth;
             chartArea?: ChartArea;
@@ -682,7 +684,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
-            axisTitlesPosition?: string;
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             chartArea?: ChartArea;
             colors?: string[];
@@ -703,7 +705,7 @@ declare namespace google {
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
-            selectionMode?: string // single / multiple
+            selectionMode?: string | 'single' | 'multiple';
             series?: any;
             domainAxis?: { type: string };
             trendlines?: { [key: number]: LineChartTrendlineOptions; };
@@ -728,7 +730,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             annotations?: ChartBarColumnAnnotations;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bar?: GroupWidth;
             chartArea?: ChartArea;
@@ -771,7 +773,7 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/histogram#configuration-options
         export interface HistogramOptions {
             animation?: TransitionAnimation;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bar?: GroupWidth;
             chartArea?: ChartArea;
@@ -820,7 +822,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
             areaOpacity?: number;
-            axisTitlesPosition?: string;
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             chartArea?: ChartArea;
             colors?: string[];
@@ -907,7 +909,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             areaOpacity?: number;
-            axisTitlesPosition?: string;
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             chartArea?: ChartArea;
             colors?: string[];
@@ -979,7 +981,7 @@ declare namespace google {
 
         export interface BubbleChartOptions {
             animation?: TransitionAnimation;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bubble?: ChartBubble;
             chartArea?: ChartArea;
@@ -1142,7 +1144,7 @@ declare namespace google {
         export interface CandlestickChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
-            axisTitlesPosition?: string;
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bar?: GroupWidth;
             candlestick?: Candlestick;
@@ -1183,7 +1185,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
             areaOpacity?: number;
-            axisTitlesPosition?: string; // in, out, none
+            axisTitlesPosition?: ChartAxisTitlesPosition;
             backgroundColor?: any;
             bar?: GroupWidth;
             candlestick?: Candlestick;
