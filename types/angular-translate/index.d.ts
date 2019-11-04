@@ -122,6 +122,7 @@ declare module 'angular' {
     interface IFilterService {
         (name: 'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string, forceLanguage?: string): string;
+            (translationIds: string[], interpolateParams?: any, interpolation?: string, forceLanguage?: string): { [key: string]: string };
         };
     }
 }
