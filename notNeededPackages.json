@@ -3697,6 +3697,12 @@
             "asOfVersion": "8.0.0"
         },
         {
+            "libraryName": "react-sortable-hoc",
+            "typingsPackageName": "react-sortable-hoc",
+            "sourceRepoURL": "https://github.com/clauderic/react-sortable-hoc",
+            "asOfVersion": "0.7.1"
+        },
+        {
             "libraryName": "react-sortable-pane",
             "typingsPackageName": "react-sortable-pane",
             "sourceRepoURL": "https://github.com/bokuweb/react-sortable-pane",
