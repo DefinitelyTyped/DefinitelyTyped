@@ -211,6 +211,7 @@ declare namespace google {
             value?: any;
             minValue?: any;
             maxValue?: any;
+            test?: (value: any, row?: number, column?: number, data?: DataTable | DataView) => boolean;
         }
 
         export interface DataObjectCell {
