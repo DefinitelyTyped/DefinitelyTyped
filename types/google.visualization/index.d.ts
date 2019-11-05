@@ -336,7 +336,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
         export interface GeoChartOptions {
-            backgroundColor?: string | ChartFill;
+            backgroundColor?: string | ChartStrokeFill;
             colorAxis?: ChartColorAxis;
             datalessRegionColor?: string;
             defaultColor?: string;
@@ -559,8 +559,8 @@ declare namespace google {
 
         export interface Candlestick {
             hollowIsRising?: boolean;
-            fallingColor?: ChartStroke;
-            risingColor?: ChartStroke;
+            fallingColor?: ChartStrokeFill;
+            risingColor?: ChartStrokeFill;
         }
         
         export interface ChartSeriesOptionsBase {
@@ -1208,7 +1208,7 @@ declare namespace google {
             annotations?: ChartAnnotations;
             areaOpacity?: number;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartFill;
+            backgroundColor?: string | ChartStrokeFill;
             bar?: GroupWidth;
             candlestick?: Candlestick;
             chartArea?: ChartArea;
