@@ -6,16 +6,15 @@
 
 import { DecoratorFunction, StoryFn } from '@storybook/addons';
 import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
-import { ComponentType, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 // Shared Types
-export type Renderable = ComponentType | JSX.Element;
 export type RenderFunction = StoryFn<StoryFnReactReturnType>;
 export type Readme = string | string[];
 
 export type DecoratorPattern = DecoratorFunction<StoryFnReactReturnType>;
 
-export type HOCPattern = (story: RenderFunction) => Renderable | null;
+export type HOCPattern = DecoratorFunction<StoryFnReactReturnType>;
 
 export type MakeDecoratorResult = (...args: any[]) => any;
 
