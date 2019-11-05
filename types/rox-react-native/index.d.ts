@@ -2,6 +2,7 @@
 // Project: https://rollout.io
 // Definitions by: ahanriat <https://github.com/ahanriat>
 //                 g-guirado <https://github.com/g-guirado>
+//                 glenna <https://github.com/glenna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
