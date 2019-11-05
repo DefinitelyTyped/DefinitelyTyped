@@ -8,10 +8,12 @@
 //                 Sudhi Ramamurthy <https://github.com/sumurthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
+
 /*
 office-runtime
 Copyright (c) Microsoft Corporation
 */
+
 /**
  * Office runtime namespace.
  */
