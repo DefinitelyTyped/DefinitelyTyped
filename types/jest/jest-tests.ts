@@ -814,6 +814,11 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
 
+        // $ExpectError
+        expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
+        // $ExpectError
+        expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
+
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
 
