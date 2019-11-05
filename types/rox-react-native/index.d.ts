@@ -109,7 +109,7 @@ export function unfreeze(namespace?: string): void;
  *
  * https://support.rollout.io/docs/reactnative#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Default is untilForeground
