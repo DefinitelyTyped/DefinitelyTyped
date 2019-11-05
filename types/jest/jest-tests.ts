@@ -725,21 +725,15 @@ expect.extend({
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
 
-        const diff: string = this.utils.diff({}, {});
+        const diff: string | null = this.utils.diff({}, {});
 
-        this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, 'matcher');
 
-        this.utils.ensureExpectedIsNumber({});
         this.utils.ensureExpectedIsNumber({}, 'matcher');
 
-        this.utils.ensureNoExpected({});
         this.utils.ensureNoExpected({}, 'matcher');
 
-        this.utils.ensureNumbers({}, {});
         this.utils.ensureNumbers({}, {}, 'matcher');
-
-        const valueType: string = this.utils.getType({});
 
         this.utils.matcherHint('matcher');
         this.utils.matcherHint('matcher', 'received');
