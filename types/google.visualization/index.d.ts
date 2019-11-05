@@ -250,7 +250,6 @@ declare namespace google {
             sendMethod?: string,
             makeRequestParams?: Object
         }
-
         //#endregion
         //#region QueryResponse
 
@@ -324,7 +323,6 @@ declare namespace google {
             properties?: Properties;
             role?: string;
         }
-
         //#endregion
         //#region GeoChart
 
