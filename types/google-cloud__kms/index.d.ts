@@ -1,4 +1,4 @@
-// Type definitions for @google-cloud/kms 1.5.1
+// Type definitions for @google-cloud/kms 1.5
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
 //                 Caian Ertl <https://github.com/caiertl>
