@@ -66,36 +66,46 @@ o.spec('ospec typings', () => {
         o(arr).notEquals(['hi']);
     });
 
-    o('.deepEquals()/.notDeepEquals() only compares objects to object values', () => {
-        o(obj).deepEquals({
-            a: 1,
-        });
-        o(arr).deepEquals([1]); // $ExpectType AssertionDescriber
-        o(fn).deepEquals(() => {}); // $ExpectType AssertionDescriber
-        o(obj).notDeepEquals({
-            a: 1,
-        });
-        o(arr).notDeepEquals([1]); // $ExpectType AssertionDescriber
-        o(fn).notDeepEquals(() => {}); // $ExpectType AssertionDescriber
+    o('.deepEquals() is similarily type safe', () => {
+        o(bool).deepEquals(true); // $ExpectType AssertionDescriber
+        o(bool).deepEquals(true)('description text');
+        o(numOrStr).deepEquals('hello');
+        o(numOrStr).deepEquals(1);
+        o(fn).deepEquals(() => {});
+        o(obj).deepEquals({ a: 1 });
+        o(arr).deepEquals([1, 2]);
 
-        // $ExpectError
-        o(obj).deepEquals(1);
-        // $ExpectError
-        o(obj).notDeepEquals(1);
         // $ExpectError
         o(bool).deepEquals(1);
         // $ExpectError
+        o(numOrStr).deepEquals(true);
+        // $ExpectError
+        o(fn).deepEquals(1);
+        // $ExpectError
+        o(obj).deepEquals({});
+        // $ExpectError
+        o(arr).deepEquals(['hi']);
+    });
+
+    o('and .notDeepEquals() is also type safe', () => {
+        o(bool).notDeepEquals(true); // $ExpectType AssertionDescriber
+        o(bool).notDeepEquals(true)('description text');
+        o(numOrStr).notDeepEquals('hello');
+        o(numOrStr).notDeepEquals(1);
+        o(fn).notDeepEquals(() => {});
+        o(obj).notDeepEquals({ a: 1 });
+        o(arr).notDeepEquals([1, 2]);
+
+        // $ExpectError
         o(bool).notDeepEquals(1);
         // $ExpectError
-        o(numOrStr).deepEquals(1);
+        o(numOrStr).notDeepEquals(true);
         // $ExpectError
-        o(numOrStr).notDeepEquals(1);
+        o(fn).notDeepEquals(1);
         // $ExpectError
         o(obj).notDeepEquals({});
         // $ExpectError
-        o(arr).notDeepEquals(['hi']); // $ExpectType AssertionDescriber
-        // $ExpectError
-        o(fn).notDeepEquals({}); // $ExpectType AssertionDescriber
+        o(arr).notDeepEquals(['hi']);
     });
 
     o('.throws()/.notThrows() only available for function values', () => {
