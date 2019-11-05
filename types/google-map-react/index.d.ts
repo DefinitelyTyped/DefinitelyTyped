@@ -19,6 +19,7 @@ export interface MapOptions {
   // excluding 'zoom' and 'center' which get set via props.
   backgroundColor?: string;
   clickableIcons?: boolean;
+  controlSize?: number;
   disableDefaultUI?: boolean;
   disableDoubleClickZoom?: boolean;
   draggable?: boolean;
