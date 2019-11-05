@@ -21,6 +21,7 @@ interface Cheerio {
     // JQuery http://api.jquery.com
 
     [index: number]: CheerioElement;
+    cheerio: string;
     length: number;
 
     // Attributes
