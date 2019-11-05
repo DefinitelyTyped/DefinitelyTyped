@@ -9,15 +9,10 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "paths": {
             "@storybook/addon-storyshots-puppeteer": [
                 "storybook__addon-storyshots-puppeteer"
-            ],
-            "@storybook/react": [
-                "storybook__react"
             ],
             "@storybook/addon-storyshots": [
                 "storybook__addon-storyshots"
@@ -25,7 +20,8 @@
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
