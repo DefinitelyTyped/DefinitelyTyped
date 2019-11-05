@@ -227,7 +227,7 @@ function NullableFragment() {
     }
 
     interface Props {
-        user: UserComponent_user$key;
+        user: UserComponent_user$key | null;
     }
 
     return function UserComponent(props: Props) {
@@ -243,6 +243,10 @@ function NullableFragment() {
             props.user,
         );
 
+        if (data === null) {
+            return null;
+        }
+
         return (
             <>
                 <h1>{data.name}</h1>
@@ -251,6 +255,49 @@ function NullableFragment() {
                 </div>
             </>
         );
+    };
+}
+
+function ArrayFragment() {
+    type NullableArrayFragment_user = ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+        readonly profile_picture: {
+            readonly uri: string;
+        };
+        readonly ' $refType': 'NullableArrayFragment_user';
+    }>;
+    type NullableArrayFragment_user$data = NullableArrayFragment_user;
+    type NullableArrayFragment_user$key = ReadonlyArray<{
+        readonly ' $data'?: NullableArrayFragment_user$data;
+        readonly ' $fragmentRefs': FragmentRefs<'NullableArrayFragment_user'>;
+    }>;
+
+    interface Props {
+        user: NullableArrayFragment_user$key;
+    }
+
+    return function UserComponent(props: Props) {
+        const data = useFragment(
+            graphql`
+                fragment UserComponent_user on User {
+                    name
+                    profile_picture(scale: 2) {
+                        uri
+                    }
+                }
+            `,
+            props.user,
+        );
+
+        return data.map(d => (
+            <>
+                <h1>{d.name}</h1>
+                <div>
+                    <img src={d.profile_picture.uri} />
+                </div>
+            </>
+        ));
     };
 }
 
