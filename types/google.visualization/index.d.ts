@@ -562,6 +562,10 @@ declare namespace google {
             fallingColor?: ChartStroke;
             risingColor?: ChartStroke;
         }
+        
+        export interface ChartSeriesOptionsBase {
+            color?: string;
+        }
 
         class ChartBase {
             constructor(element: Element);
@@ -669,10 +673,9 @@ declare namespace google {
             draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
        
-        export interface LineChartSeriesOptions {
+        export interface LineChartSeriesOptions extends ChartSeriesOptionsBase {
             annotations?: ChartAnnotations;
             curveType?: 'none' | 'function';
-            color?: string;
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
