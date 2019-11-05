@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET 192.3
+// Type definitions for DevExpress ASP.NET 191.6
 // Project: https://devexpress.com/
 // Definitions by: DevExpress Inc. <https://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,47 +7,6 @@
 /// <reference types="jquery"/>
 /// <reference types="knockout"/>
 
-/**
- * A client-side equivalent of the ASPxDiagram control.
- */
-declare class ASPxClientDiagram extends ASPxClientControl {
-    /**
-     * Fires when the diagram's data is changed.
-     */
-    DiagramChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDiagram>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientDiagram>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientDiagram>>;
-    /**
-     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientDiagram.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientDiagram>>;
-    /**
-     * Imports the diagram data.
-     * @param data The diagram data in JSON format.
-     */
-    Import(data: string): void;
-    /**
-     * Exports the diagram data in JSON format.
-     */
-    Export(): string;
-    /**
-     * Exports the diagram to an image format.
-     * @param format The image format. Acceptable values: svg, png, jpg.
-     * @param callback A function to be executed after a diagram image is prepared and allows you to save the image.
-     */
-    ExportTo(format: string, callback: (arg: string) => void): void;
-    /**
-     * Allows you to enable/disable full-screen mode.
-     * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
-     */
-    SetFullscreenMode(fullscreen: boolean): void;
-}
 /**
  * Represents the client ASPxGaugeControl.
  */
@@ -12893,6 +12852,117 @@ declare class ASPxClientSpreadsheetPopupMenuItemCollection {
     Clear(): void;
 }
 /**
+ * A client-side equivalent of the ASPxGantt control.
+ */
+declare class ASPxClientGantt extends ASPxClientTreeList {
+    /**
+     * Sets a view to display tasks.
+     * @param viewType Lists views to display tasks.
+     */
+    SetViewType(viewType: ASPxClientGanttViewType): void;
+    /**
+     * Sets a task's title position.
+     * @param position Lists title positions.
+     */
+    SetTaskTitlePosition(position: ASPxClientGanttTaskTitlePosition): void;
+    /**
+     * Shows resources for tasks.
+     * @param value true to display resources; otherwise, false.
+     */
+    ShowResources(value: boolean): void;
+    batchEditApi: ASPxClientTreeListBatchEditApi;
+    AutoFilterByColumn(column: ASPxClientTreeListColumn | number | string, val: string): void;
+    FocusEditor(column: ASPxClientTreeListColumn | number | string): void;
+    GetAutoFilterEditor(column: ASPxClientTreeListColumn | number | string): any;
+    GetEditValue(column: ASPxClientTreeListColumn | number | string): any;
+    GetEditor(column: ASPxClientTreeListColumn | number | string): any;
+    GetSelectedNodeValues(fieldNames: string | string[], onCallback: ASPxClientTreeListValuesCallback, visibleOnly?: boolean): void;
+    SelectNode(nodeKey: string, state?: boolean): void;
+    SetEditValue(column: ASPxClientTreeListColumn | number | string, value: any): void;
+    StartEditNewNode(parentNodeKey?: string): void;
+    ApplyFilter(filterExpression: string): void;
+    ApplyOnClickRowFilter(): void;
+    ApplySearchPanelFilter(value: string): void;
+    CancelEdit(): void;
+    ClearFilter(): void;
+    CloseFilterControl(): void;
+    DeleteNode(nodeKey: string): void;
+    ExportTo(format: ASPxClientTreeListExportFormat): void;
+    GetEditingNodeKey(): string;
+    GetFocusedCell(): ASPxClientTreeListCellInfo;
+    GetPageCount(): number;
+    GetPageIndex(): number;
+    GetPopupEditForm(): ASPxClientPopupControl;
+    GetToolbar(index: number): ASPxClientMenu;
+    GetToolbarByName(name: string): ASPxClientMenu;
+    GetVisibleSelectedNodeKeys(): string[];
+    GoToPage(index: number): void;
+    IsEditing(): boolean;
+    IsNodeSelected(nodeKey: string): boolean | null;
+    MoveNode(nodeKey: string, parentNodeKey: string): void;
+    NextPage(): void;
+    PrevPage(): void;
+    SetFilterEnabled(isFilterEnabled: boolean): void;
+    SetFocusedCell(nodeKey: string, columnIndex: number): void;
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    ShowFilterControl(): void;
+    StartEdit(nodeKey: string): void;
+    UpdateEdit(): void;
+    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientTreeListBatchEditChangesCancelingEventHandler<ASPxClientGantt>>;
+    BatchEditChangesSaving: ASPxClientEvent<ASPxClientTreeListBatchEditChangesSavingEventHandler<ASPxClientGantt>>;
+    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientTreeListBatchEditConfirmShowingEventHandler<ASPxClientGantt>>;
+    BatchEditEndEditing: ASPxClientEvent<ASPxClientTreeListBatchEditEndEditingEventHandler<ASPxClientGantt>>;
+    BatchEditNodeDeleting: ASPxClientEvent<ASPxClientTreeListBatchEditNodeDeletingEventHandler<ASPxClientGantt>>;
+    BatchEditNodeInserting: ASPxClientEvent<ASPxClientTreeListBatchEditNodeInsertingEventHandler<ASPxClientGantt>>;
+    BatchEditNodeRecovering: ASPxClientEvent<ASPxClientTreeListBatchEditNodeRecoveringEventHandler<ASPxClientGantt>>;
+    BatchEditNodeValidating: ASPxClientEvent<ASPxClientTreeListBatchEditNodeValidatingEventHandler<ASPxClientGantt>>;
+    BatchEditStartEditing: ASPxClientEvent<ASPxClientTreeListBatchEditStartEditingEventHandler<ASPxClientGantt>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientTreeListBatchEditTemplateCellFocusedEventHandler<ASPxClientGantt>>;
+    EndDragNode: ASPxClientEvent<ASPxClientTreeListEndDragNodeEventHandler<ASPxClientGantt>>;
+    FocusedCellChanging: ASPxClientEvent<ASPxClientTreeListFocusedCellChangingEventHandler<ASPxClientGantt>>;
+    SelectionChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientGantt>>;
+    StartDragNode: ASPxClientEvent<ASPxClientTreeListStartDragNodeEventHandler<ASPxClientGantt>>;
+    ToolbarItemClick: ASPxClientEvent<ASPxClientTreeListToolbarItemClickEventHandler<ASPxClientGantt>>;
+}
+/**
+ * Lists the gantt's view types.
+ */
+declare class ASPxClientGanttViewType {
+    /**
+     * Displays hours.
+     */
+    Hours: number;
+    /**
+     * Displays days.
+     */
+    Days: number;
+    /**
+     * Displays weeks.
+     */
+    Weeks: number;
+    /**
+     * Displays months.
+     */
+    Months: number;
+}
+/**
+ * Lists task title positions.
+ */
+declare class ASPxClientGanttTaskTitlePosition {
+    /**
+     * Displays a title inside the task.
+     */
+    Inside: number;
+    /**
+     * Displays a title outside the task.
+     */
+    Outside: number;
+    /**
+     * Does not display the task's title.
+     */
+    None: number;
+}
+/**
  * Represents the client ASPxTreeList.
  */
 declare class ASPxClientTreeList extends ASPxClientControl {
@@ -19075,20 +19145,6 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
      */
     SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
     /**
-     * Gets the form layout.
-     */
-    GetEditFormLayout(): ASPxClientFormLayout;
-    /**
-     * Gets the edit form layout item. The form layout item.
-     * @param column The column, its index or field name.
-     */
-    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
-    /**
-     * Gets the edit form layout item or group. The layout item.
-     * @param name The layout item name.
-     */
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
-    /**
      * Converts the specified object to the ASPxClientCardView type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
@@ -19692,12 +19748,6 @@ declare class ASPxClientCardViewBatchEditApi {
      * @param value An object representing a value.
      */
     GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
-    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
 }
 /**
  * Contains information on a grid cell.
@@ -19751,10 +19801,6 @@ declare class ASPxClientGridColumnMovingTargetPosition {
  * Represents the client ASPxGridView.
  */
 declare class ASPxClientGridBase extends ASPxClientControl {
-    /**
-     * Fires when a user changes the summary item value.
-     */
-    BatchEditSummaryDisplayText: ASPxClientEvent<ASPxClientGridBatchEditSummaryDisplayTextEventHandler<ASPxClientGridBase>>;
     /**
      * Fires after a toolbar item has been clicked.
      */
@@ -19899,7 +19945,6 @@ declare class ASPxClientGridViewCallbackCommand {
      * Default value: "UPDATEEDIT"
      */
     static readonly UpdateEdit: string;
-    static readonly UpdateSummaries: string;
     /**
      * Default value: "ADDNEWROW"
      */
@@ -20026,84 +20071,6 @@ declare class ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessi
      * Specifies whether a postback or a callback is used to finally process the event on the server side.
      */
     usePostBack: boolean;
-}
-interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> { (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void; }
-/**
- * Provides data for the BatchEditSummaryDisplayText event.
- */
-declare class ASPxClientGridBatchEditSummaryDisplayTextEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the class.
-     * @param summaryInfo The summary information.
-     * @param text The summary text.
-     * @param groupRowVisibleIndex The group row's visible index.
-     */
-    constructor(summaryInfo: any, text: string, groupRowVisibleIndex: number);
-    /**
-     * Specifies whether the processed summary is a group summary.
-     */
-    isGroupSummary: boolean;
-    /**
-     * Specifies whether the processed summary is a total summary.
-     */
-    isTotalSummary: boolean;
-    /**
-     * Gets the summary item index.
-     */
-    summaryItemIndex: number;
-    /**
-     * Gets the summary type.
-     */
-    summaryType: ASPxClientSummaryItemType;
-    /**
-     * Gets the summary item's field name.
-     */
-    summaryFieldName: string;
-    /**
-     * Gets the summary item's server value.
-     */
-    serverValue: number;
-    /**
-     * Specifies the summary item's value.
-     */
-    value: number;
-    /**
-     * Gets the element that contains the summary item.
-     */
-    summaryElement: any;
-    /**
-     * Gets or sets the summary item's display text.
-     */
-    displayText: string;
-    /**
-     * Specifies the group row's visible index.
-     */
-    groupRowVisibleIndex: number;
-}
-/**
- * Lists values that specify the summary item's aggregate function types.
- */
-declare class ASPxClientSummaryItemType {
-    /**
-     * The sum of all values in a column.
-     */
-    Sum: number;
-    /**
-     * The minimum value in the column.
-     */
-    Min: number;
-    /**
-     * The maximum value in the column.
-     */
-    Max: number;
-    /**
-     * The record count.
-     */
-    Count: number;
-    /**
-     * The column's average value.
-     */
-    Average: number;
 }
 /**
  * The client-side equivalent of the ASPxGridLookup control.
@@ -20747,20 +20714,6 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
      * @param editor An ASPxClientEdit object representing a custom editor.
      */
     SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
-    /**
-     * Returns the edit form layout.
-     */
-    GetEditFormLayout(): ASPxClientFormLayout;
-    /**
-     * Returns the form layout item. The form layout item.
-     * @param column The column, its index or field name.
-     */
-    GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
-    /**
-     * Returns the form layout item or group. The layout item.
-     * @param name The item's or group's name.
-     */
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
     /**
      * Converts the specified object to the ASPxClientGridView type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
@@ -21605,17 +21558,6 @@ declare class ASPxClientGridViewBatchEditApi {
      * @param value An object representing a value.
      */
     GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The total summary value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
-    /**
-     * Returns the group summery value. The group summary value.
-     * @param groupRowVisibleIndex The group row's visible index.
-     * @param summaryItemIndex The summary's index or field name.
-     */
-    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
 }
 /**
  * Lists values that specify the document formats available for export from the grid.
@@ -21964,10 +21906,6 @@ declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param value true, to expand the row; otherwise, false.
      */
     SetRowExpanded(row: ASPxClientVerticalGridRow | number | string, value: boolean): void;
-    /**
-     * Sets the offset from the container's top border to fixed rows while scrolling the page.
-     * @param offset The top offset.
-     */
     SetFixedRowsTopOffset(offset: number): void;
     /**
      * Converts the specified object to the ASPxClientVerticalGrid type. The converted client object specified by the obj parameter.
@@ -22571,11 +22509,6 @@ declare class ASPxClientVerticalGridBatchEditApi {
      * @param value An object representing a value.
      */
     GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
 }
 /**
  * Lists values that specify the document formats available for export from the grid.
@@ -26856,7 +26789,6 @@ declare class ASPxClientUtils {
      * @param className A string value that specifies the class name.
      */
     static RemoveClassNameFromElement(element: any, className: string): void;
-    static ToggleClassName(element: any, className: string, toggleState: boolean): void;
     /**
      * Gets a value indicating whether the object passed via the parentElement parameter is a parent of the object passed via the element parameter. true, if the parentElement is a parent for the element; otherwise, false.
      * @param parentElement An object specifying the parent HTML element.
@@ -27166,6 +27098,21 @@ declare class MVCxClientFilterControl extends ASPxClientFilterControl {
  * A client-side counterpart of the Gantt extension.
  */
 declare class MVCxClientGantt extends ASPxClientGantt {
+    /**
+     * Occurs when you initiates a callback to the server side.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGantt>>;
+    /**
+     * Sends a callback with a parameter to update the Gantt by processing the passed information on the server, in an Action specified via the gantts CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the gantt's CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the Gantt's CustomDataActionRouteValues property, and then returns the processing result to the client, to the ASPxClientGantt.PerformCustomDataCallback event. This method does not update the Gantt.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomDataActionRouteValues property.
+     */
+    PerformCustomDataCallback(data: any): void;
     /**
      * Converts the specified object to the MVCxClientGantt type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
@@ -28375,7 +28322,6 @@ declare class ASPxClientDiagramCoordinates {
      * Gets the date-time representation of the data point's argument.
      */
     dateTimeArgument: Date;
-    timeSpanArgument: any;
     /**
      * Gets the numerical representation of the data point's value.
      */
@@ -28384,7 +28330,6 @@ declare class ASPxClientDiagramCoordinates {
      * Gets the date-time representation of the data point's value.
      */
     dateTimeValue: Date;
-    timeSpanValue: any;
     /**
      * Gets the X-axis of the diagram point.
      */
@@ -28427,7 +28372,6 @@ declare class ASPxClientAxisValue {
      * Gets the axis value, if the axis scale type is date-time.
      */
     dateTimeValue: Date;
-    timeSpanValue: any;
 }
 /**
  * Represents the client-side equivalent of the ControlCoordinates class.
@@ -29790,64 +29734,6 @@ declare class ASPxClientSpellCheckerStopCheckingReason {
  * @param e An ASPxClientSpellCheckerAfterCheckEventArgs object which contains event data.
  */
 interface ASPxClientWordChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void; }
-/**
- * A client-side equivalent of the DevExpress.Web.ASPxGantt control.
- */
-declare class ASPxClientGantt extends ASPxClientControl {
-    /**
-     * Specifies the view type.
-     * @param viewType The control's view type.
-     */
-    SetViewType(viewType: ASPxClientGanttViewType): void;
-    /**
-     * Sets the task's title position.
-     * @param position The task position.
-     */
-    SetTaskTitlePosition(position: ASPxClientGanttTaskTitlePosition): void;
-    /**
-     * Specifies whether the resources are visible in the Gantt.
-     * @param value true, to show resources in the Gantt; otherwise, false.
-     */
-    ShowResources(value: boolean): void;
-}
-/**
- * Declare client constants that specify the Gantt's view type.
- */
-declare class ASPxClientGanttViewType {
-    /**
-     * Displays hours.
-     */
-    Hours: number;
-    /**
-     * Displays days.
-     */
-    Days: number;
-    /**
-     * Displays weeks.
-     */
-    Weeks: number;
-    /**
-     * Display months.
-     */
-    Months: number;
-}
-/**
- * Declares client constants that specify the task title position.
- */
-declare class ASPxClientGanttTaskTitlePosition {
-    /**
-     * Displays the title inside the task.
-     */
-    Inside: number;
-    /**
-     * Displays the title outside the task.
-     */
-    Outside: number;
-    /**
-     * The title is hidden.
-     */
-    None: number;
-}
 /**
  * Lists constants used to identify various types of data axes.
  */
@@ -31357,7 +31243,6 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      * Occurs when the selected tab page is changed.
      */
     SelectedTabPageChanged: ASPxClientEvent<ASPxClientSelectedTabPageChangedEventHandler<ASPxClientDashboard>>;
-    CustomizeDataSourceWizard: ASPxClientEvent<ASPxClientCustomizeDataSourceWizardEventHandler<ASPxClientDashboard>>;
     /**
      * Gets the DashboardControl object that is the client-side part of the Web Dashboard.
      */
@@ -31892,11 +31777,6 @@ declare class ASPxClientSelectedTabPageChangedEventArgs extends ASPxClientEventA
      */
     PreviousPage: string;
 }
-interface ASPxClientCustomizeDataSourceWizardEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeDataSourceWizardEventArgs): void; }
-declare class ASPxClientCustomizeDataSourceWizardEventArgs extends ASPxClientEventArgs {
-    Type: string;
-    Wizard: any;
-}
 /**
  * Represents a client-side equivalent of the BootstrapAccordion control.
  */
@@ -32202,9 +32082,6 @@ declare class BootstrapClientCallbackPanel extends ASPxClientControl {
  * Represents the client BootstrapCardView.
  */
 declare class BootstrapClientCardView extends ASPxClientCardView {
-    GetEditFormLayout(): ASPxClientFormLayout;
-    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
 }
 /**
  * Represents a client-side equivalent of the BootstrapCheckBox control.
@@ -32703,9 +32580,6 @@ declare class BootstrapClientFormLayout extends ASPxClientFormLayout {
  * Represents the client BootstrapGridView.
  */
 declare class BootstrapClientGridView extends ASPxClientGridView {
-    GetEditFormLayout(): ASPxClientFormLayout;
-    GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
 }
 /**
  * Represents a client-side equivalent of the BootstrapHyperLink control.
