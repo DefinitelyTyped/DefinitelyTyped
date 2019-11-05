@@ -187,7 +187,7 @@ export interface MUIDataTableOptions {
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
     filter?: boolean;
-    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
     fixedHeader?: boolean;
     isRowExpandable?: (dataIndex: number, expandedRows?: MUIDataTableIsRowCheck) => boolean;
     isRowSelectable?: (dataIndex: number, selectedRows?: MUIDataTableIsRowCheck) => boolean;
