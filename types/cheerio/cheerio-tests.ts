@@ -47,6 +47,8 @@ $ = cheerio.load(html, {
 var $el = $('.class');
 var $multiEl = $('selector', 'selector', 'selector');
 
+$el.cheerio;
+
 /**
  * Attributes
  */
