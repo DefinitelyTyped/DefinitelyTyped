@@ -19,6 +19,9 @@ export interface uiParams<UIStateShape> {
 
   // **required**: UI state for the component
   state: UIStateShape;
+    
+  // customReducer: you can handle the UI state for this component's scope by dispatching actions
+  reducer?(state: any, action:any): any;
 
   // optional mergeProps passed to react-redux' @connect
   mergeProps?(stateProps: any, dispatchProps: any, ownProps: any): any;
