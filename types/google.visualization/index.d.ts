@@ -566,6 +566,20 @@ declare namespace google {
         export interface ChartSeriesOptionsBase {
             color?: string;
         }
+        
+        // https://developers.google.com/chart/interactive/docs/gallery/trendlines
+        export interface ChartTrendlineOptions {
+            type?: 'linear' | 'exponential' | 'polynomial';
+            degree?: number;
+            color?: string;
+            lineWidth?: number;
+            opacity?: number;
+            pointSize?: number;
+            pointsVisible?: boolean;
+            labelInLegend?: string;
+            visibleInLegend?: boolean;
+            showR2?: boolean
+        }
 
         class ChartBase {
             constructor(element: Element);
@@ -613,10 +627,14 @@ declare namespace google {
             height?: number;
             legend?: ChartLegend | 'none';
             lineWidth?: number;
+            orientation?: 'vertical' | 'horizontal';
+            pointShape?: ChartPointShape;
             pointSize?: number;
+            pointsVisible?: boolean;
             selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
+            trendlines?: { [key: number]: ChartTrendlineOptions; };
             title?: string;
             titlePosition?: string;
             titleTextStyle?: ChartTextStyle;
@@ -686,20 +704,6 @@ declare namespace google {
             targetAxisIndex?: number;
         }
         
-        // https://developers.google.com/chart/interactive/docs/gallery/trendlines
-        export interface LineChartTrendlineOptions {
-            type?: 'linear' | 'exponential' | 'polynomial';
-            degree?: number;
-            color?: string;
-            lineWidth?: number;
-            opacity?: number;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            labelInLegend?: string;
-            visibleInLegend?: boolean;
-            showR2?: boolean
-        }
-        
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -723,12 +727,12 @@ declare namespace google {
             legend?: ChartLegend | 'none';
             lineWidth?: number;
             min?: number;
-            orientation?: string;
+            orientation?: 'vertical' | 'horizontal';
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
             series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; };
             domainAxis?: { type: string };
-            trendlines?: { [key: number]: LineChartTrendlineOptions; };
+            trendlines?: { [key: number]: ChartTrendlineOptions; };
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
