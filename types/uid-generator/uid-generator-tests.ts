@@ -1,4 +1,4 @@
-import { default as UIDGenerator } from 'uid-generator';
+import UIDGenerator = require('uid-generator');
 
 new UIDGenerator('abc'); // $ExpectType UIDGeneratorInstance
 const generator = new UIDGenerator(128, 'abc'); // $ExpectType UIDGeneratorInstance
