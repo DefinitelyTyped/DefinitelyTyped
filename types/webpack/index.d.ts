@@ -46,10 +46,7 @@ export = webpack;
 declare function webpack(
     options:
         | webpack.Configuration
-        | ((
-              env: string | Record<string, boolean | number | string>,
-              args: Record<string, string>,
-          ) => webpack.Configuration | Promise<webpack.Configuration>),
+        | webpack.ConfigurationFactory,
     handler: webpack.Compiler.Handler,
 ): webpack.Compiler.Watching | webpack.Compiler;
 declare function webpack(options?: webpack.Configuration): webpack.Compiler;
@@ -57,10 +54,7 @@ declare function webpack(options?: webpack.Configuration): webpack.Compiler;
 declare function webpack(
     options:
         | webpack.Configuration[]
-        | ((
-              env: string | Record<string, boolean | number | string>,
-              args: Record<string, string>,
-          ) => webpack.Configuration[] | Promise<webpack.Configuration[]>),
+        | webpack.MultiConfigurationFactory,
     handler: webpack.MultiCompiler.Handler
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
@@ -141,6 +135,16 @@ declare namespace webpack {
         /** Optimization options */
         optimization?: Options.Optimization;
     }
+
+    type ConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: Record<string, string>,
+    ) => Configuration | Promise<Configuration>);
+
+    type MultiConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: Record<string, string>,
+    ) => Configuration[] | Promise<Configuration[]>);
 
     interface Entry {
         [name: string]: string | string[];
