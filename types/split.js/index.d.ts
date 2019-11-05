@@ -83,6 +83,6 @@ declare namespace Split {
     collapse(index: number): void;
 
     // Destroy the instance. It removes the gutter elements, and the size CSS styles Split.js set.
-    destroy(): void;
+    destroy(preserveStyles?: boolean, preserveGutters?: boolean): void;
   }
 }
