@@ -73,7 +73,7 @@ declare namespace prompts {
         initial?: string | number | boolean | Date;
         style?: string;
         format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, boolean | string>;
+        validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
         onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
@@ -85,7 +85,7 @@ declare namespace prompts {
         inactive?: string;
         choices?: Choice[];
         hint?: string;
-        suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
+        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;
     }
