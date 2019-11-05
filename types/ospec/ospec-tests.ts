@@ -227,6 +227,31 @@ o.spec('ospec typings', () => {
 
     // ======================================================================
 
+    // $ExpectType void
+    o.only('only this test should run', () => {
+        o(true).equals(true);
+    });
+    o.only(
+        '...and this also',
+        () => {
+            o(true).equals(true);
+        },
+        false,
+    );
+    o.only(
+        'And this one, but silently',
+        () => {
+            o(true).equals(true);
+        },
+        true,
+    );
+    // $ExpectError
+    o.only('definer function missing');
+    // $ExpectError
+    o.only(() => {}); // Missing name parameter
+
+    // ======================================================================
+
     const o2: o.Ospec = o.new();
     o2.spec('New Ospec instance', () => {
         o2('Works?', done => {
