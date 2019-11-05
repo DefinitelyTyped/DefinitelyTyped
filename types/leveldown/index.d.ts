@@ -43,14 +43,14 @@ export interface LevelDown extends AbstractLevelDOWN<Bytes, Bytes> {
   approximateSize(start: Bytes, end: Bytes, cb: ErrorSizeCallback): void;
   compactRange(start: Bytes, end: Bytes, cb: ErrorCallback): void;
   getProperty(property: string): string;
-  destroy(location: string, cb: ErrorCallback): void;
-  repair(location: string, cb: ErrorCallback): void;
   iterator(options?: LevelDownIteratorOptions): LevelDownIterator;
 }
 
 interface LevelDownConstructor {
   new(location: string): LevelDown;
   (location: string): LevelDown;
+  destroy(location: string, cb: ErrorCallback): void;
+  repair(location: string, cb: ErrorCallback): void;
 }
 
 export interface LevelDownOpenOptions extends AbstractOpenOptions {
