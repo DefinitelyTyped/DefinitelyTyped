@@ -19,6 +19,7 @@ declare namespace google {
     namespace visualization {
 
         export function dataTableToCsv(data: DataTable | DataView): string;
+        export function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
         
         export interface ChartSpecs {
             chartType: string;
@@ -228,8 +229,6 @@ declare namespace google {
             minValue?: any;
             maxValue?: any;
         }
-
-        function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
 
         //#endregion
         //#region Query
