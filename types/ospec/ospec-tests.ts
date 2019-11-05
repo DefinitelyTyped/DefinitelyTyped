@@ -231,20 +231,6 @@ o.spec('ospec typings', () => {
     o.only('only this test should run', () => {
         o(true).equals(true);
     });
-    o.only(
-        '...and this also',
-        () => {
-            o(true).equals(true);
-        },
-        false,
-    );
-    o.only(
-        'And this one, but silently',
-        () => {
-            o(true).equals(true);
-        },
-        true,
-    );
     // $ExpectError
     o.only('definer function missing');
     // $ExpectError

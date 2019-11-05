@@ -58,7 +58,7 @@ declare namespace o {
         (name: string, assertions: Definer): void;
 
         /** Defines a test */
-        only(name: string, assertions: Definer, silent?: boolean): void;
+        only(name: string, assertions: Definer): void;
 
         /** Defines a group of tests */
         spec(name: string, tests: () => void): void;
