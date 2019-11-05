@@ -815,7 +815,7 @@ declare namespace google {
             interpolateNulls?: boolean;
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
-            orientation?: string;
+            orientation?: 'vertical' | 'horizontal';
             reverseCategories?: boolean;
             series?: any;
             theme?: string;
