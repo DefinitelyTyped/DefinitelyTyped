@@ -161,7 +161,7 @@ export interface Client {
     escapeSpecialChars(s: string): string;
     query(): Query;
     atomicUpdate(doc: object, callback?: (err: Error, data: object) => void): ClientRequest;
-    searchAsync(query: Query):Promise<ClientRequest>;
+    searchAsync(query: Query):Promise<object>;
 }
 
 export as namespace Solr;
