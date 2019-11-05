@@ -132,7 +132,6 @@ declare namespace marked {
         link(href: string, title: string, text: string): string;
         image(href: string, title: string, text: string): string;
         text(text: string): string;
-        checkbox(checked: boolean): string;
     }
 
     class TextRenderer {
