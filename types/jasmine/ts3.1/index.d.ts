@@ -157,18 +157,6 @@ interface DoneFn extends Function {
 }
 
 /**
- * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
- */
-interface EnvConfiguration {
-    random?: boolean;
-    seed?: number;
-    failFast?: boolean;
-    oneFailurePerSpec?: boolean;
-    hideDisabled?: boolean;
-    specFilter?: Function;
-}
-
-/**
  * Install a spy onto an existing object.
  * @param object The object upon which to install the `Spy`.
  * @param method The name of the method to replace with a `Spy`.
@@ -218,6 +206,18 @@ declare namespace jasmine {
         T extends undefined ?
             (ReadonlyArray<string> | { [methodName: string]: any }) :
             (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
+
+    /**
+     * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
+     */
+    interface EnvConfiguration {
+        random?: boolean;
+        seed?: number;
+        failFast?: boolean;
+        oneFailurePerSpec?: boolean;
+        hideDisabled?: boolean;
+        specFilter?: Function;
+    }
 
     function clock(): Clock;
 
