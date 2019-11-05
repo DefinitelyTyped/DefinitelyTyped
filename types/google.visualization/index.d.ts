@@ -613,7 +613,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
-            curveType?: string;
+            curveType?: 'none' | 'function';
             dataOpacity?: number;
             enableInteractivity?: boolean;
             explorer?: ChartExplorer;
@@ -711,7 +711,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
-            curveType?: string;
+            curveType?: 'none' | 'function';
             dataOpacity?: number;
             enableInteractivity?: boolean;
             explorer?: ChartExplorer;
@@ -1215,7 +1215,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
-            curveType?: string;
+            curveType?: 'none' | 'function';
             dataOpacity?: number;
             enableInteractivity?: boolean;
             focusTarget?: string;
