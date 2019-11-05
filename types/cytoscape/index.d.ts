@@ -4634,7 +4634,7 @@ declare namespace cytoscape {
         // force num of columns in the grid
         cols?: number;
         // returns { row, col } for element
-        position(nodeid: string): { row: number; col: number; };
+        position(node: NodeSingular): { row: number; col: number; };
     }
 
     /**
