@@ -1,3 +1,5 @@
+// tslint:disable: no-var-keyword prefer-const object-literal-shorthand
+
 // from https://developers.google.com/apps-script/overview
 function createAndSendDocument() {
   // Create a new Google Doc named 'Hello, world!'
@@ -105,7 +107,7 @@ function doGet(e: GoogleAppsScript.Events.DoGet) {
 }
 
 // Base Service
-function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
+function createFileFromBlob(blob: GoogleAppsScript.Base.Blob) {
   const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
 }
 
@@ -117,7 +119,7 @@ console.error("error");
 console.log("Console can use %s and %d format string.", "hello", 2);
 
 // Data Studio Request
-const request : GoogleAppsScript.Data_Studio.Request<any> = {
+const request: GoogleAppsScript.Data_Studio.Request<any> = {
   configParams: {
     my_param: 'my_param_value'
   },
@@ -145,7 +147,7 @@ const request : GoogleAppsScript.Data_Studio.Request<any> = {
       }
     ]
   ]
-}
+};
 
 XmlService.createElement("")
   .addContent(XmlService.createCdata(""))

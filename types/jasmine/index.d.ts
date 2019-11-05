@@ -10,7 +10,6 @@
 //                 Giles Roadnight <https://github.com/Roaders>
 //                 Yaroslav Admin <https://github.com/devoto13>
 //                 Domas Trijonis <https://github.com/fdim>
-//                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
