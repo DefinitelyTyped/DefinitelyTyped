@@ -5,6 +5,7 @@
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,7 +19,25 @@ declare namespace mapboxgl {
     let version: string;
     let baseApiUrl: string;
 
+    /**
+     * Number of web workers instantiated on a page with GL JS maps.
+     * By default, it is set to half the number of CPU cores (capped at 6).
+     */
+    let workerCount: number;
+
+    /**
+     * Maximum number of images (raster tiles, sprites, icons) to load in parallel, which affects performance in raster-heavy maps.
+     * 16 by default.
+    */
+    let maxParallelImageRequests: number;
+
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
+
+    /**
+     * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
+     * Tiles may still be cached by the browser in some cases.
+     */
+    export function clearStorage(callback?: (err?: Error) => void): void;
 
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
     export function getRTLTextPluginStatus(): PluginStatus;
