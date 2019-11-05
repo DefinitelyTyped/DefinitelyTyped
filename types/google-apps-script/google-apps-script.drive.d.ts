@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Drive {
+  namespace Drive {
     /**
      * An enum representing classes of users who can access a file or folder, besides any individual
      * users who have been explicitly given access. These properties can be accessed from DriveApp.Access.
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
      *     var folder = DriveApp.createFolder('Shared Folder');
      *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
-    export enum Access { ANYONE, ANYONE_WITH_LINK, DOMAIN, DOMAIN_WITH_LINK, PRIVATE }
+    enum Access { ANYONE, ANYONE_WITH_LINK, DOMAIN, DOMAIN_WITH_LINK, PRIVATE }
 
     /**
      * Allows scripts to create, find, and modify files and folders in Google Drive.
@@ -29,7 +29,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(file.getName());
      *     }
      */
-    export interface DriveApp {
+    interface DriveApp {
       Access: typeof Access;
       Permission: typeof Permission;
       /**
@@ -145,7 +145,7 @@ declare namespace GoogleAppsScript {
      *       }
      *     }
      */
-    export interface File {
+    interface File {
       addCommenter(emailAddress: string): File;
       addCommenter(user: Base.User): File;
       addCommenters(emailAddresses: string[]): File;
@@ -159,12 +159,12 @@ declare namespace GoogleAppsScript {
       getAccess(user: Base.User): Permission;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getDownloadUrl(): string;
       getEditors(): User[];
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getMimeType(): string;
       getName(): string;
       getOwner(): User;
@@ -212,7 +212,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(file.getName());
      *     }
      */
-    export interface FileIterator {
+    interface FileIterator {
       /**
        * Gets a token that can be used to resume this iteration at a later time.
        * This method is useful if processing an iterator in one execution would
@@ -238,7 +238,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(folder.getName());
      *     }
      */
-    export interface Folder {
+    interface Folder {
       addEditor(emailAddress: string): Folder;
       addEditor(user: Base.User): Folder;
       addEditors(emailAddresses: string[]): Folder;
@@ -253,7 +253,7 @@ declare namespace GoogleAppsScript {
       createFolder(name: string): Folder;
       getAccess(email: string): Permission;
       getAccess(user: Base.User): Permission;
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getEditors(): User[];
       getFiles(): FileIterator;
@@ -262,7 +262,7 @@ declare namespace GoogleAppsScript {
       getFolders(): FolderIterator;
       getFoldersByName(name: string): FolderIterator;
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
@@ -305,7 +305,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(folder.getName());
      *     }
      */
-    export interface FolderIterator {
+    interface FolderIterator {
       getContinuationToken(): string;
       hasNext(): boolean;
       next(): Folder;
@@ -321,7 +321,7 @@ declare namespace GoogleAppsScript {
      *     var folder = DriveApp.createFolder('Shared Folder');
      *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
-    export enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
+    enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
 
     /**
      * A user associated with a file in Google Drive. Users can be accessed from File.getEditors(), Folder.getViewers(), and other methods.
@@ -333,7 +333,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(editors[i].getEmail());
      *     }
      */
-    export interface User {
+    interface User {
       /** Gets the domain name associated with the user's account. */
       getDomain(): string;
       /**
