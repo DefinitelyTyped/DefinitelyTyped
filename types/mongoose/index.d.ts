@@ -289,7 +289,7 @@ declare module "mongoose" {
     modelNames(): string[];
 
     /** A hash of the global options that are associated with this connection */
-    config: any;
+      config: Pick<ConnectionOptions, 'autoIndex' | 'autoCreate' | 'useCreateIndex' | 'useFindAndModify' | 'bufferCommands'>;
 
     /** The mongodb.Db instance, set when the connection is opened */
     db: mongodb.Db;
@@ -833,7 +833,7 @@ declare module "mongoose" {
       errorCb?: HookErrorCallback
     ): this;
     pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
-      method: string,
+      method: string | RegExp,
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
@@ -2416,15 +2416,17 @@ declare module "mongoose" {
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+        discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
 
         /**
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
       }
 

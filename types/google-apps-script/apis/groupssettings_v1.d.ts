@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace AdminGroupsSettings {
     namespace Collection {
-      export interface GroupsCollection {
+      interface GroupsCollection {
         // Gets one resource by id.
         get(groupUniqueId: string): AdminGroupsSettings.Schema.Groups;
         // Updates an existing resource. This method supports patch semantics.
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Groups {
+      interface Groups {
         allowExternalMembers?: string;
         allowGoogleCommunication?: string;
         allowWebPosting?: string;
@@ -82,7 +82,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface AdminGroupsSettings {
+  interface AdminGroupsSettings {
     Groups?: AdminGroupsSettings.Collection.GroupsCollection;
     // Create a new instance of Groups
     newGroups(): AdminGroupsSettings.Schema.Groups;

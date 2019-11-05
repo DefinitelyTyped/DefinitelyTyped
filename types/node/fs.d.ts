@@ -490,7 +490,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -1932,7 +1932,7 @@ declare module "fs" {
         encoding?: BufferEncoding;
     }
 
-    function opendirSync(path: string, options?: OpenDirOptions): Dirent;
+    function opendirSync(path: string, options?: OpenDirOptions): Dir;
 
     function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
     function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
@@ -2441,6 +2441,6 @@ declare module "fs" {
          */
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
 
-        function opendir(path: string, options?: OpenDirOptions): Promise<Dirent>;
+        function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
     }
 }
