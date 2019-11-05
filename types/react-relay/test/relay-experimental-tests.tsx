@@ -309,10 +309,7 @@ function NullableArrayOfNonNullableFragment() {
 
 function NonNullableArrayOfNullableFragment() {
     interface Props {
-        users: ReadonlyArray<{
-            readonly ' $data'?: UserComponent_users$data;
-            readonly ' $fragmentRefs': FragmentRefs<'UserComponent_users'>;
-        } | null>;
+        users: ReadonlyArray<UserComponent_users$key[0] | null>;
     }
 
     return function UserComponent(props: Props) {
@@ -341,10 +338,7 @@ function NonNullableArrayOfNullableFragment() {
 
 function NullableArrayOfNullableFragment() {
     interface Props {
-        users: ReadonlyArray<{
-            readonly ' $data'?: UserComponent_users$data;
-            readonly ' $fragmentRefs': FragmentRefs<'UserComponent_users'>;
-        } | null> | null;
+        users: ReadonlyArray<UserComponent_users$key[0] | null> | null;
     }
 
     return function UserComponent(props: Props) {
