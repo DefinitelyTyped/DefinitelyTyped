@@ -83,9 +83,9 @@ export namespace ReactStripeElements {
         onReady?(el: HTMLStripeElement): void;
     }
 
-	interface PaymentRequestButtonElementProps extends ElementProps {
-		onClick?(event: any): void;
-	}
+    interface PaymentRequestButtonElementProps extends ElementProps {
+        onClick?(event: any): void;
+    }
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}
