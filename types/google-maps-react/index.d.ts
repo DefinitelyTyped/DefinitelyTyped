@@ -34,7 +34,7 @@ export interface ProvidedProps {
 type mapEventHandler = (mapProps?: MapProps, map?: google.maps.Map, event?: any) => any;
 
 export interface MapProps extends google.maps.MapOptions {
-  google?: GoogleAPI;
+  google: GoogleAPI;
   loaded?: boolean;
 
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
