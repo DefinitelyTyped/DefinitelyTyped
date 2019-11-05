@@ -336,7 +336,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
         export interface GeoChartOptions {
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             colorAxis?: ChartColorAxis;
             datalessRegionColor?: string;
             defaultColor?: string;
@@ -442,13 +442,18 @@ declare namespace google {
         }
 
         export interface ChartStroke {
+            stroke: string;
+            strokeWidth: number;
+        }
+        
+        export interface ChartFill {
             stroke?: string;
             strokeWidth?: number;
             fill?: string;
         }
 
         export interface ChartArea {
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             top?: number | string;
             left?: number | string;
             right?: number | string;
@@ -598,7 +603,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
@@ -639,7 +644,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bar?: GroupWidth;
             chartArea?: ChartArea;
             colors?: string[];
@@ -706,7 +711,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartAnnotations;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
@@ -753,7 +758,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bar?: GroupWidth;
             chartArea?: ChartArea;
             colors?: string[];
@@ -796,7 +801,7 @@ declare namespace google {
         export interface HistogramOptions {
             animation?: TransitionAnimation;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bar?: GroupWidth;
             chartArea?: ChartArea;
             colors?: string[];
@@ -845,7 +850,7 @@ declare namespace google {
             annotations?: ChartAnnotations;
             areaOpacity?: number;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             chartArea?: ChartArea;
             colors?: string[];
             crosshair?: ChartCrosshair;
@@ -932,7 +937,7 @@ declare namespace google {
             animation?: TransitionAnimation;
             areaOpacity?: number;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             chartArea?: ChartArea;
             colors?: string[];
             connectSteps?: boolean;
@@ -968,7 +973,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options
         export interface PieChartOptions {
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
@@ -1004,7 +1009,7 @@ declare namespace google {
         export interface BubbleChartOptions {
             animation?: TransitionAnimation;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bubble?: ChartBubble;
             chartArea?: ChartArea;
             colors?: string[];
@@ -1132,7 +1137,7 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
         export interface TimelineOptions {
             avoidOverlappingGridLines?: boolean;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             colors?: string[];
             enableInteractivity?: boolean;
             forceIFrame?: boolean;
@@ -1167,7 +1172,7 @@ declare namespace google {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bar?: GroupWidth;
             candlestick?: Candlestick;
             chartArea?: ChartArea;
@@ -1208,7 +1213,7 @@ declare namespace google {
             annotations?: ChartAnnotations;
             areaOpacity?: number;
             axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStroke;
+            backgroundColor?: string | ChartFill;
             bar?: GroupWidth;
             candlestick?: Candlestick;
             chartArea?: ChartArea;
