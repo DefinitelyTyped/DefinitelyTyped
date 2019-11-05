@@ -11,7 +11,7 @@ import { IntlProvider as ReactIntlProvider } from "react-intl"
 interface IntlState {
     locale: string
     messages: any
-    formats: any
+    formats?: any
 }
 
 interface IntlAction extends Action {
