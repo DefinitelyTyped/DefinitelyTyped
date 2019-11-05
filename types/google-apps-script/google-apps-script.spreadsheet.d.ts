@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,18 +9,18 @@
 /// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Spreadsheet {
+  namespace Spreadsheet {
     /**
      * An enumeration of the types of series used to calculate auto-filled values. The manner in which
      * these series affect calculated values differs depending on the type and amount of source data.
      */
-    export enum AutoFillSeries { DEFAULT_SERIES, ALTERNATE_SERIES }
+    enum AutoFillSeries { DEFAULT_SERIES, ALTERNATE_SERIES }
 
     /**
      * Access and modify bandings, the color patterns applied to rows or columns of a range. Each
      * banding consists of a range and a set of colors for rows, columns, headers, and footers.
      */
-    export interface Banding {
+    interface Banding {
       copyTo(range: Range): Banding;
       getFirstColumnColor(): string | null;
       getFirstRowColor(): string | null;
@@ -47,13 +47,13 @@ declare namespace GoogleAppsScript {
      * An enumeration of banding themes. Each theme consists of several complementary colors that are
      * applied to different cells based on the banding settings.
      */
-    export enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
+    enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
 
     /**
      * Access the existing BigQuery data source specification. To create a new data source
      * specification, use SpreadsheetApp.newDataSourceSpec().
      */
-    export interface BigQueryDataSourceSpec {
+    interface BigQueryDataSourceSpec {
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
       getProjectId(): string;
@@ -64,7 +64,7 @@ declare namespace GoogleAppsScript {
     /**
      * The builder for BigQueryDataSourceSpecBuilder.
      */
-    export interface BigQueryDataSourceSpecBuilder {
+    interface BigQueryDataSourceSpecBuilder {
       build(): DataSourceSpec;
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
@@ -85,7 +85,7 @@ declare namespace GoogleAppsScript {
      * against the content of a cell resulting in either a true or false value. If the
      * criteria evaluates to true, the condition's formatting settings are applied to the cell.
      */
-    export interface BooleanCondition {
+    interface BooleanCondition {
       getBackground(): string | null;
       getBold(): boolean | null;
       getCriteriaType(): BooleanCriteria;
@@ -100,19 +100,19 @@ declare namespace GoogleAppsScript {
      * An enumeration representing the boolean criteria that can be used in conditional format or
      * filter.
      */
-    export enum BooleanCriteria { CELL_EMPTY, CELL_NOT_EMPTY, DATE_AFTER, DATE_BEFORE, DATE_EQUAL_TO, DATE_AFTER_RELATIVE, DATE_BEFORE_RELATIVE, DATE_EQUAL_TO_RELATIVE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_STARTS_WITH, TEXT_ENDS_WITH, CUSTOM_FORMULA }
+    enum BooleanCriteria { CELL_EMPTY, CELL_NOT_EMPTY, DATE_AFTER, DATE_BEFORE, DATE_EQUAL_TO, DATE_AFTER_RELATIVE, DATE_BEFORE_RELATIVE, DATE_EQUAL_TO_RELATIVE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_STARTS_WITH, TEXT_ENDS_WITH, CUSTOM_FORMULA }
 
     /**
      * Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
-    export enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
+    enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
 
     /**
      * Access conditional formatting rules. To create a new rule, use SpreadsheetApp.newConditionalFormatRule() and ConditionalFormatRuleBuilder.
      * You can use Sheet.setConditionalFormatRules(rules) to set the
      * rules for a given sheet.
      */
-    export interface ConditionalFormatRule {
+    interface ConditionalFormatRule {
       copy(): ConditionalFormatRuleBuilder;
       getBooleanCondition(): BooleanCondition | null;
       getGradientCondition(): GradientCondition | null;
@@ -135,7 +135,7 @@ declare namespace GoogleAppsScript {
      *     rules.push(rule);
      *     sheet.setConditionalFormatRules(rules);
      */
-    export interface ConditionalFormatRuleBuilder {
+    interface ConditionalFormatRuleBuilder {
       build(): ConditionalFormatRule;
       copy(): ConditionalFormatRuleBuilder;
       getBooleanCondition(): BooleanCondition | null;
@@ -184,7 +184,7 @@ declare namespace GoogleAppsScript {
      *     chart = chart.modify().setPosition(5, 5, 0, 0).build();
      *     sheet.updateChart(chart);
      */
-    export interface ContainerInfo {
+    interface ContainerInfo {
       getAnchorColumn(): Integer;
       getAnchorRow(): Integer;
       getOffsetX(): Integer;
@@ -194,22 +194,22 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of possible special paste types.
      */
-    export enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
+    enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
 
     /**
      * An enumeration of data execution error codes.
      */
-    export enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
+    enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
 
     /**
      * An enumeration of data execution states.
      */
-    export enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
+    enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
 
     /**
      * The data execution status.
      */
-    export interface DataExecutionStatus {
+    interface DataExecutionStatus {
       getErrorCode(): DataExecutionErrorCode;
       getErrorMessage(): string;
       getExecutionState(): DataExecutionState;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
      * Access and modify existing data source. To create a data source table with new data source, see
      * DataSourceTable.
      */
-    export interface DataSource {
+    interface DataSource {
       getSpec(): DataSourceSpec;
       updateSpec(spec: DataSourceSpec): DataSource;
     }
@@ -229,7 +229,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access existing data source parameters.
      */
-    export interface DataSourceParameter {
+    interface DataSourceParameter {
       getName(): string;
       getSourceCell(): string | null;
       getType(): DataSourceParameterType;
@@ -238,7 +238,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of data source parameter types.
      */
-    export enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
+    enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
 
     /**
      * Access the general settings of an existing data source spec. To access data source spec for
@@ -255,7 +255,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log("Raw query string: %s\n", bqSpec.getRawQuery());
      *     }
      */
-    export interface DataSourceSpec {
+    interface DataSourceSpec {
       asBigQuery(): BigQueryDataSourceSpec;
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
@@ -275,7 +275,7 @@ declare namespace GoogleAppsScript {
      *                .setParameterFromCell('LIMIT', 'namedRangeCell')
      *                .build();
      */
-    export interface DataSourceSpecBuilder {
+    interface DataSourceSpecBuilder {
       asBigQuery(): BigQueryDataSourceSpecBuilder;
       build(): DataSourceSpec;
       copy(): DataSourceSpecBuilder;
@@ -330,7 +330,7 @@ declare namespace GoogleAppsScript {
      *     // Check status after execution.
      *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
      */
-    export interface DataSourceTable {
+    interface DataSourceTable {
       forceRefreshData(): DataSourceTable;
       getDataSource(): DataSource;
       getRange(): Range;
@@ -342,7 +342,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of data source types.
      */
-    export enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
+    enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
 
     /**
      * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -359,7 +359,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The cell does not have a data validation rule.')
      *     }
      */
-    export interface DataValidation {
+    interface DataValidation {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
@@ -376,7 +376,7 @@ declare namespace GoogleAppsScript {
      *     var rule = SpreadsheetApp.newDataValidation().requireValueInRange(range).build();
      *     cell.setDataValidation(rule);
      */
-    export interface DataValidationBuilder {
+    interface DataValidationBuilder {
       build(): DataValidation;
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
@@ -446,12 +446,12 @@ declare namespace GoogleAppsScript {
      *     }
      *     range.setDataValidations(rules);
      */
-    export enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
+    enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
 
     /**
      * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
      */
-    export interface DeveloperMetadata {
+    interface DeveloperMetadata {
       getId(): Integer;
       getKey(): string;
       getLocation(): DeveloperMetadataLocation;
@@ -472,7 +472,7 @@ declare namespace GoogleAppsScript {
      * Range.createDeveloperMetadataFinder(), Sheet.createDeveloperMetadataFinder(),
      * or Spreadsheet.createDeveloperMetadataFinder().
      */
-    export interface DeveloperMetadataFinder {
+    interface DeveloperMetadataFinder {
       find(): DeveloperMetadata[];
       onIntersectingLocations(): DeveloperMetadataFinder;
       withId(id: Integer): DeveloperMetadataFinder;
@@ -485,7 +485,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access developer metadata location information.
      */
-    export interface DeveloperMetadataLocation {
+    interface DeveloperMetadataLocation {
       getColumn(): Range | null;
       getLocationType(): DeveloperMetadataLocationType;
       getRow(): Range | null;
@@ -496,29 +496,29 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of the types of developer metadata location types.
      */
-    export enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
+    enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
 
     /**
      * An enumeration of the types of developer metadata visibility.
      */
-    export enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
+    enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
 
     /**
      * An enumeration of possible directions along which data can be stored in a spreadsheet.
      */
-    export enum Dimension { COLUMNS, ROWS }
+    enum Dimension { COLUMNS, ROWS }
 
     /**
      * An enumeration representing the possible directions that one can move within a spreadsheet using
      * the arrow keys.
      */
-    export enum Direction { UP, DOWN, PREVIOUS, NEXT }
+    enum Direction { UP, DOWN, PREVIOUS, NEXT }
 
     /**
      * Builder for area charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedAreaChartBuilder {
+    interface EmbeddedAreaChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -565,7 +565,7 @@ declare namespace GoogleAppsScript {
      * Builder for bar charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedBarChartBuilder {
+    interface EmbeddedBarChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -635,21 +635,18 @@ declare namespace GoogleAppsScript {
      *       sheet.insertChart(chartBuilder.build());
      *     }
      */
-    export interface EmbeddedChart {
+    interface EmbeddedChart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getChartId(): Integer | null;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
-      getId(): string;
       getMergeStrategy(): Charts.ChartMergeStrategy;
       getNumHeaders(): Integer;
       getOptions(): Charts.ChartOptions;
       getRanges(): Range[];
       getTransposeRowsAndColumns(): boolean;
-      getType(): string;
       modify(): EmbeddedChartBuilder;
-      setId(id: string): Charts.Chart;
     }
 
     /**
@@ -667,7 +664,7 @@ declare namespace GoogleAppsScript {
      *         .build();
      *     sheet.updateChart(chart);
      */
-    export interface EmbeddedChartBuilder {
+    interface EmbeddedChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -697,7 +694,7 @@ declare namespace GoogleAppsScript {
      * Builder for column charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedColumnChartBuilder {
+    interface EmbeddedColumnChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -742,7 +739,7 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for combo charts. For more details, see the Gviz documentation.
      */
-    export interface EmbeddedComboChartBuilder {
+    interface EmbeddedComboChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -788,7 +785,7 @@ declare namespace GoogleAppsScript {
      * Builder for histogram charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedHistogramChartBuilder {
+    interface EmbeddedHistogramChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -834,7 +831,7 @@ declare namespace GoogleAppsScript {
      * Builder for line charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedLineChartBuilder {
+    interface EmbeddedLineChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -881,7 +878,7 @@ declare namespace GoogleAppsScript {
      * Builder for pie charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedPieChartBuilder {
+    interface EmbeddedPieChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -919,7 +916,7 @@ declare namespace GoogleAppsScript {
      * Builder for scatter charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedScatterChartBuilder {
+    interface EmbeddedScatterChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -965,7 +962,7 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for table charts. For more details, see the Gviz documentation.
      */
-    export interface EmbeddedTableChartBuilder {
+    interface EmbeddedTableChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -1004,7 +1001,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify existing filters. To create a new filter, use Range.createFilter().
      */
-    export interface Filter {
+    interface Filter {
       getColumnFilterCriteria(columnPosition: Integer): FilterCriteria | null;
       getRange(): Range;
       remove(): void;
@@ -1016,7 +1013,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access filter criteria. To create a new criteria, use SpreadsheetApp.newFilterCriteria() and FilterCriteriaBuilder.
      */
-    export interface FilterCriteria {
+    interface FilterCriteria {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
       getCriteriaValues(): any[];
@@ -1027,7 +1024,7 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for FilterCriteria.
      */
-    export interface FilterCriteriaBuilder {
+    interface FilterCriteriaBuilder {
       build(): FilterCriteria;
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
@@ -1083,7 +1080,7 @@ declare namespace GoogleAppsScript {
      *         gradient.getMaxColor(), gradient.getMaxType(), gradient.getMaxValue());
      *     }
      */
-    export interface GradientCondition {
+    interface GradientCondition {
       getMaxColor(): string;
       getMaxType(): InterpolationType | null;
       getMaxValue(): string;
@@ -1108,7 +1105,7 @@ declare namespace GoogleAppsScript {
      * set visible, though individual rows or columns can be hidden or set visible irrespective of the
      * collapsed state.
      */
-    export interface Group {
+    interface Group {
       collapse(): Group;
       expand(): Group;
       getControlIndex(): Integer;
@@ -1121,20 +1118,20 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration representing the possible positions that a group control toggle can have.
      */
-    export enum GroupControlTogglePosition { BEFORE, AFTER }
+    enum GroupControlTogglePosition { BEFORE, AFTER }
 
     /**
      * An enumeration representing the interpolation options for calculating a value to be used in a
      * GradientCondition in a ConditionalFormatRule.
      */
-    export enum InterpolationType { NUMBER, PERCENT, PERCENTILE, MIN, MAX }
+    enum InterpolationType { NUMBER, PERCENT, PERCENTILE, MIN, MAX }
 
     /**
      * Create, access and modify named ranges in a spreadsheet. Named ranges are ranges that have
      * associated string aliases. They can be viewed and edited via the Sheets UI under the Data >
      * Named ranges... menu.
      */
-    export interface NamedRange {
+    interface NamedRange {
       getName(): string;
       getRange(): Range;
       remove(): void;
@@ -1145,7 +1142,7 @@ declare namespace GoogleAppsScript {
     /**
      * Represents an image over the grid in a spreadsheet.
      */
-    export interface OverGridImage {
+    interface OverGridImage {
       assignScript(functionName: string): OverGridImage;
       getAltTextDescription(): string;
       getAltTextTitle(): string;
@@ -1179,7 +1176,7 @@ declare namespace GoogleAppsScript {
      *     for compatibility with the older version of Sheets.
      * Access and modify protected sheets in the older version of Google Sheets.
      */
-    export interface PageProtection {
+    interface PageProtection {
       addUser(email: string): void;
       getUsers(): string[];
       isProtected(): boolean;
@@ -1190,7 +1187,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot table filters.
      */
-    export interface PivotFilter {
+    interface PivotFilter {
       getFilterCriteria(): FilterCriteria;
       getPivotTable(): PivotTable;
       getSourceDataColumn(): Integer;
@@ -1201,7 +1198,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot table breakout groups.
      */
-    export interface PivotGroup {
+    interface PivotGroup {
       addManualGroupingRule(groupName: string, groupMembers: any[]): PivotGroup;
       areLabelsRepeated(): boolean;
       clearGroupingRule(): PivotGroup;
@@ -1229,7 +1226,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot tables.
      */
-    export interface PivotTable {
+    interface PivotTable {
       addCalculatedPivotValue(name: string, formula: string): PivotValue;
       addColumnGroup(sourceDataColumn: Integer): PivotGroup;
       addFilter(sourceDataColumn: Integer, filterCriteria: FilterCriteria): PivotFilter;
@@ -1248,12 +1245,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of functions that summarize pivot table data.
      */
-    export enum PivotTableSummarizeFunction { CUSTOM, SUM, COUNTA, COUNT, COUNTUNIQUE, AVERAGE, MAX, MIN, MEDIAN, PRODUCT, STDEV, STDEVP, VAR, VARP }
+    enum PivotTableSummarizeFunction { CUSTOM, SUM, COUNTA, COUNT, COUNTUNIQUE, AVERAGE, MAX, MIN, MEDIAN, PRODUCT, STDEV, STDEVP, VAR, VARP }
 
     /**
      * Access and modify value groups in pivot tables.
      */
-    export interface PivotValue {
+    interface PivotValue {
       getDisplayType(): PivotValueDisplayType;
       getFormula(): string | null;
       getPivotTable(): PivotTable;
@@ -1267,7 +1264,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of ways to display a pivot value as a function of another value.
      */
-    export enum PivotValueDisplayType { DEFAULT, PERCENT_OF_ROW_TOTAL, PERCENT_OF_COLUMN_TOTAL, PERCENT_OF_GRAND_TOTAL }
+    enum PivotValueDisplayType { DEFAULT, PERCENT_OF_ROW_TOTAL, PERCENT_OF_COLUMN_TOTAL, PERCENT_OF_GRAND_TOTAL }
 
     /**
      * Access and modify protected ranges and sheets. A protected range can protect either a static
@@ -1312,7 +1309,7 @@ declare namespace GoogleAppsScript {
      *       protection.setDomainEdit(false);
      *     }
      */
-    export interface Protection {
+    interface Protection {
       addEditor(emailAddress: string): Protection;
       addEditor(user: Base.User): Protection;
       addEditors(emailAddresses: string[]): Protection;
@@ -1329,7 +1326,6 @@ declare namespace GoogleAppsScript {
       removeEditor(emailAddress: string): Protection;
       removeEditor(user: Base.User): Protection;
       removeEditors(emailAddresses: string[]): Protection;
-      removeEditors(user: Base.User[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
       setNamedRange(namedRange: NamedRange): Protection;
@@ -1359,13 +1355,13 @@ declare namespace GoogleAppsScript {
      *       protection.remove();
      *     }
      */
-    export enum ProtectionType { RANGE, SHEET }
+    enum ProtectionType { RANGE, SHEET }
 
     /**
      * Access and modify spreadsheet ranges. A range can be a single cell in a sheet or a group of
      * adjacent cells in a sheet.
      */
-    export interface Range {
+    interface Range {
       activate(): Range;
       activateAsCurrentCell(): Range;
       addDeveloperMetadata(key: string): Range;
@@ -1556,7 +1552,7 @@ declare namespace GoogleAppsScript {
      * A collection of one or more Range instances in the same sheet. You can use this class
      * to apply operations on collections of non-adjacent ranges or cells.
      */
-    export interface RangeList {
+    interface RangeList {
       activate(): RangeList;
       breakApart(): RangeList;
       check(): RangeList;
@@ -1601,13 +1597,13 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration representing the possible intervals used in spreadsheet recalculation.
      */
-    export enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
+    enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
 
     /**
      * An enumeration representing the relative date options for calculating a value to be used in
      * date-based BooleanCriteria.
      */
-    export enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
+    enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
 
     /**
      * A stylized text string used to represent cell text. Substrings of the text can have different
@@ -1617,7 +1613,7 @@ declare namespace GoogleAppsScript {
      * sentence "This kid has two apples." has four runs: ["This ", "kid ", "has two ",
      * "apples."].
      */
-    export interface RichTextValue {
+    interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
       getRuns(): RichTextValue[];
@@ -1630,7 +1626,7 @@ declare namespace GoogleAppsScript {
     /**
      * A builder for Rich Text values.
      */
-    export interface RichTextValueBuilder {
+    interface RichTextValueBuilder {
       build(): RichTextValue;
       setText(text: string): RichTextValueBuilder;
       setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
@@ -1659,7 +1655,7 @@ declare namespace GoogleAppsScript {
      *     }
      *     Logger.log('Active Sheet: ' + selection.getActiveSheet().getName());
      */
-    export interface Selection {
+    interface Selection {
       getActiveRange(): Range | null;
       getActiveRangeList(): RangeList | null;
       getActiveSheet(): Sheet;
@@ -1671,7 +1667,7 @@ declare namespace GoogleAppsScript {
      * Access and modify spreadsheet sheets. Common operations are renaming a sheet and accessing range
      * objects from the sheet.
      */
-    export interface Sheet {
+    interface Sheet {
       activate(): Sheet;
       addDeveloperMetadata(key: string): Sheet;
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
@@ -1816,13 +1812,13 @@ declare namespace GoogleAppsScript {
     /**
      * The different types of sheets that can exist in a spreadsheet.
      */
-    export enum SheetType { GRID, OBJECT }
+    enum SheetType { GRID, OBJECT }
 
     /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
      * collaborators.
      */
-    export interface Spreadsheet {
+    interface Spreadsheet {
       addDeveloperMetadata(key: string): Spreadsheet;
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
       addDeveloperMetadata(key: string, value: string): Spreadsheet;
@@ -1967,7 +1963,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and create Google Sheets files. This class is the parent class for the Spreadsheet service.
      */
-    export interface SpreadsheetApp {
+    interface SpreadsheetApp {
       AutoFillSeries: typeof AutoFillSeries;
       BandingTheme: typeof BandingTheme;
       BooleanCriteria: typeof BooleanCriteria;
@@ -2026,12 +2022,12 @@ declare namespace GoogleAppsScript {
     /**
      * An enumerations of text directions.
      */
-    export enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
+    enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
 
     /**
      * Find or replace text within a range, sheet or spreadsheet. Can also specify search options.
      */
-    export interface TextFinder {
+    interface TextFinder {
       findAll(): Range[];
       findNext(): Range | null;
       findPrevious(): Range | null;
@@ -2049,7 +2045,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access the text rotation settings for a cell.
      */
-    export interface TextRotation {
+    interface TextRotation {
       getDegrees(): Integer;
       isVertical(): boolean;
     }
@@ -2061,7 +2057,7 @@ declare namespace GoogleAppsScript {
      * method, the method returns null. To avoid this, query for text styles using the Rich Text
      * values returned by the RichTextValue.getRuns() method.
      */
-    export interface TextStyle {
+    interface TextStyle {
       copy(): TextStyleBuilder;
       getFontFamily(): string | null;
       getFontSize(): Integer | null;
@@ -2075,7 +2071,7 @@ declare namespace GoogleAppsScript {
     /**
      * A builder for text styles.
      */
-    export interface TextStyleBuilder {
+    interface TextStyleBuilder {
       build(): TextStyle;
       setBold(bold: boolean): TextStyleBuilder;
       setFontFamily(fontFamily: string): TextStyleBuilder;
@@ -2090,13 +2086,12 @@ declare namespace GoogleAppsScript {
      * An enumeration of the types of preset delimiters that can split a column of text into multiple
      * columns.
      */
-    export enum TextToColumnsDelimiter { COMMA, SEMICOLON, PERIOD, SPACE }
+    enum TextToColumnsDelimiter { COMMA, SEMICOLON, PERIOD, SPACE }
 
     /**
      * An enumeration of the strategies used to handle cell text wrapping.
      */
-    export enum WrapStrategy { WRAP, OVERFLOW, CLIP }
-
+    enum WrapStrategy { WRAP, OVERFLOW, CLIP }
   }
 }
 
