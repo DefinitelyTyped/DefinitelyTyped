@@ -362,8 +362,7 @@ declare namespace google {
         }
 
         //#endregion
-        //#region Common
-        
+        //#region Common        
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle;
             textStyle?: ChartTextStyle;
