@@ -41,6 +41,9 @@ declare namespace websiteScraper {
         recursive?: boolean;
         maxDepth?: number;
         ignoreErrors?: boolean;
+        maxRecursiveDepth?: number;
+        requestConcurrency?: number;
+        plugins?: object[];
     }
 
     interface Resource {
