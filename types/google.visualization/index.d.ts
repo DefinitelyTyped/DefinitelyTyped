@@ -366,7 +366,7 @@ declare namespace google {
 
         //#endregion
         //#region Common
-
+        
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle;
             textStyle?: ChartTextStyle;
@@ -424,7 +424,7 @@ declare namespace google {
                 opacity?: number;
             }
             opacity?: number;
-            orientation?: string;
+            orientation?: ChartOrientation;
             selected?: {
                 color?: string;
                 opacity?: number;
@@ -457,6 +457,7 @@ declare namespace google {
             height?: number | string;
         }
 
+        export type ChartOrientation = 'vertical' | 'horizontal';
         export type ChartAxisTitlesPosition = 'in' | 'out' | 'none';
         
         export type ChartSelectionMode = 'single' | 'multiple';
@@ -627,7 +628,7 @@ declare namespace google {
             height?: number;
             legend?: ChartLegend | 'none';
             lineWidth?: number;
-            orientation?: 'vertical' | 'horizontal';
+            orientation?: ChartOrientation;
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
@@ -727,7 +728,7 @@ declare namespace google {
             legend?: ChartLegend | 'none';
             lineWidth?: number;
             min?: number;
-            orientation?: 'vertical' | 'horizontal';
+            orientation?: ChartOrientation;
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
             series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; };
@@ -815,7 +816,7 @@ declare namespace google {
             interpolateNulls?: boolean;
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
-            orientation?: 'vertical' | 'horizontal';
+            orientation?: ChartOrientation;
             reverseCategories?: boolean;
             series?: any;
             theme?: string;
@@ -865,7 +866,7 @@ declare namespace google {
             isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             lineWidth?: number;
-            orientation?: string;
+            orientation?: ChartOrientation;
             pointSize?: number;
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
@@ -1183,7 +1184,7 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             legend?: ChartLegend | 'none';
-            orientation?: string;
+            orientation?: ChartOrientation;
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
             series?: any;
@@ -1232,7 +1233,7 @@ declare namespace google {
             legend?: ChartLegend | 'none';
             lineDashStyle?: number[];
             lineWidth?: number;
-            orientation?: string;
+            orientation?: ChartOrientation;
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
