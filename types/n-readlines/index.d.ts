@@ -6,7 +6,7 @@
 
 import { PathLike } from 'fs';
 
-export declare class LineByLine {
+export class LineByLine {
 	constructor(file: PathLike | number, options?: Options)
 	next(): Buffer | false;
 	reset(): void;
