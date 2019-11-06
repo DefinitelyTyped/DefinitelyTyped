@@ -3697,6 +3697,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-fs",
+            "typingsPackageName": "react-native-fs",
+            "sourceRepoURL": "https://github.com/itinance/react-native-fs",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "react-native-fabric",
             "typingsPackageName": "react-native-fabric",
             "sourceRepoURL": "https://github.com/corymsmith/react-native-fabric",
