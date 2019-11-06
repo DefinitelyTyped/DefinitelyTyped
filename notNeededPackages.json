@@ -2197,6 +2197,12 @@
             "asOfVersion": "1.0.5"
         },
         {
+            "libraryName": "jss",
+            "typingsPackageName": "jss",
+            "sourceRepoURL": "https://github.com/cssinjs/jss#readme",
+            "asOfVersion": "10.0.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
