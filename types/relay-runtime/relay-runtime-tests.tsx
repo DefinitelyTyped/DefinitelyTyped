@@ -10,7 +10,7 @@ import {
     ROOT_ID,
     RelayNetworkLoggerTransaction,
     createRelayNetworkLogger,
-    RecordSourceSelectorProxy,
+    RecordSourceSelectorProxy, RecordProxy,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -68,12 +68,44 @@ function handlerProvider(handle: any) {
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
     const mutationPayload = store.getRootField('sendConversationMessage');
-    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
-    const connection = ConnectionHandler.getConnection(conversationStore, 'Messages_messages');
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
+    if (connection) {
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
+    }
+}
+
+interface MessageEdge {
+    readonly id: string;
+}
+
+interface SendConversationMessageMutationResponse {
+    readonly sendConversationMessage: {
+        readonly messageEdge: MessageEdge & {
+            error: string
+        }
+    };
+}
+
+interface TConversation {
+    id: string;
+}
+
+function passToHelper(edge: RecordProxy<MessageEdge>) {
+    edge.getValue('id');
+}
+
+function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    const mutationPayload = store.getRootField('sendConversationMessage');
+    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const id = newMessageEdge.getValue('id');
+    const conversationStore = store.get<TConversation>(id);
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
     }
+    passToHelper(newMessageEdge);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +120,7 @@ store.publish(source);
 
 commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
-    root.setValue('foo', 'localKey');
+    root!.setValue('foo', 'localKey');
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~

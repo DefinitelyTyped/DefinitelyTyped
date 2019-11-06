@@ -99,7 +99,7 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook = (event: Event, editor: CoreEditor, next: () => any) => any;
+export type EventHook<T = Event> = (event: T, editor: CoreEditor, next: () => any) => any;
 
 export interface Plugin extends CorePlugin {
     decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
@@ -118,25 +118,25 @@ export interface Plugin extends CorePlugin {
         next: () => any
     ) => any;
 
-    onBeforeInput?: EventHook;
-    onBlur?: EventHook;
-    onClick?: EventHook;
-    onCompositionEnd?: EventHook;
-    onCompositionStart?: EventHook;
-    onCopy?: EventHook;
-    onCut?: EventHook;
-    onDragEnd?: EventHook;
-    onDragEnter?: EventHook;
-    onDragExit?: EventHook;
-    onDragLeave?: EventHook;
-    onDragOver?: EventHook;
-    onDragStart?: EventHook;
-    onDrop?: EventHook;
-    onFocus?: EventHook;
-    onInput?: EventHook;
-    onKeyDown?: EventHook;
-    onPaste?: EventHook;
-    onSelect?: EventHook;
+    onBeforeInput?: EventHook<React.FormEvent>;
+    onBlur?: EventHook<React.FocusEvent>;
+    onClick?: EventHook<React.MouseEvent>;
+    onCompositionEnd?: EventHook<React.CompositionEvent>;
+    onCompositionStart?: EventHook<React.CompositionEvent>;
+    onCopy?: EventHook<React.ClipboardEvent>;
+    onCut?: EventHook<React.ClipboardEvent>;
+    onDragEnd?: EventHook<React.DragEvent>;
+    onDragEnter?: EventHook<React.DragEvent>;
+    onDragExit?: EventHook<React.DragEvent>;
+    onDragLeave?: EventHook<React.DragEvent>;
+    onDragOver?: EventHook<React.DragEvent>;
+    onDragStart?: EventHook<React.DragEvent>;
+    onDrop?: EventHook<React.DragEvent>;
+    onFocus?: EventHook<React.FocusEvent>;
+    onInput?: EventHook<React.FormEvent>;
+    onKeyDown?: EventHook<React.KeyboardEvent>;
+    onPaste?: EventHook<React.ClipboardEvent>;
+    onSelect?: EventHook<React.SyntheticEvent>;
 }
 
 export type PluginOrPlugins = Plugin | Plugins;

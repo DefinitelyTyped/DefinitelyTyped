@@ -59,6 +59,12 @@ export interface MiddlewaresOptions {
     bodyParser?: boolean;
 
     /**
+     * Disable compression
+     * @default false
+     */
+    noGzip?: boolean;
+
+    /**
      * Disable CORS
      * @default false
      */

@@ -53,7 +53,7 @@ export interface ClientOptions {
 export interface SearchOptions {
 	scope?: string;
 	filter?: string | Filter;
-	attributes?: string[];
+	attributes?: string | string[];
 	sizeLimit?: number;
 	timeLimit?: number;
 	derefAliases?: number;

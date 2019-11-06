@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import _Vue, { PluginFunction } from 'vue';
+import _Vue, { PluginObject } from 'vue';
 
 declare module 'vue/types/vue' {
     interface Vue {
@@ -43,6 +43,7 @@ export class WebStorage {
     setOptions(options?: Options): void;
 }
 
-export const VueStorage: {
-    install: PluginFunction<Options>;
-};
+declare const VueStorage: PluginObject<Options>;
+
+// forced to use deault export, the reason is discussed on https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38653#discussion_r331455390
+export default VueStorage;

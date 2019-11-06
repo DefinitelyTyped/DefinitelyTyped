@@ -3898,7 +3898,7 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
-    <UncontrolledCollapse ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any} toggler="#foobar"/>;
 }
 
 function Example118() {
@@ -4072,7 +4072,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }
@@ -4243,7 +4243,7 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }

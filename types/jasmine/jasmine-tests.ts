@@ -917,10 +917,10 @@ describe("jasmine.any", () => {
 });
 
 describe('custom asymmetry', function() {
-    const tester = {
-        asymmetricMatch: (actual: string) => {
+    const tester: jasmine.AsymmetricMatcher<string> = {
+        asymmetricMatch: (actual: string, customTesters) => {
             const secondValue = actual.split(',')[1];
-            return secondValue === 'bar';
+            return jasmine.matchersUtil.equals(secondValue, 'bar', customTesters);
         },
     };
 
@@ -998,6 +998,7 @@ describe("jasmine.objectContaining", () => {
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
             const callback = jasmine.createSpy('callback');
+            callback.withArgs(jasmine.objectContaining({ bar: "foo" })).and.returnValue(42);
 
             callback({
                 bar: "baz"
@@ -1040,6 +1041,7 @@ describe("jasmine.arrayContaining", () => {
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
             const callback = jasmine.createSpy('callback');
+            callback.withArgs(jasmine.arrayContaining([1, 2])).and.returnValue(42);
 
             callback([1, 2, 3, 4]);
 
@@ -1067,6 +1069,7 @@ describe("jasmine.arrayWithExactContents", () => {
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
             const callback = jasmine.createSpy('callback');
+            callback.withArgs(jasmine.arrayWithExactContents([1, 2])).and.returnValue(42);
 
             callback([1, 2, 3, 4]);
 
@@ -1410,15 +1413,19 @@ describe("Randomize Tests", () => {
     it("should allow randomization of the order of tests", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
+            env.configure({
+                random: true
+            });
         }).not.toThrow();
     });
 
     it("should allow a seed to be passed in for randomization", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
-            return env.seed(1234);
+            env.configure({
+                random: true,
+                seed: 1234
+            });
         }).not.toThrow();
     });
 });

@@ -2,7 +2,7 @@
 // Project: https://github.com/jfromaniello/passport.socketio#readme
 // Definitions by: AhmedMKamal <https://github.com/AhmedMKamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Store } from 'express-session';
 import { RequestHandler } from 'express';

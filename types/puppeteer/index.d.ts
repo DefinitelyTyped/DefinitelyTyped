@@ -5,7 +5,9 @@
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Serban Ghita <https://github.com/SerbanGhita>
+//                 Jason Kaczmarsky <https://github.com/JasonKaz>
 //                 Dave Cardwell <https://github.com/davecardwell>
+//                 Andrés Ortiz <https://github.com/angrykoala>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -241,10 +243,10 @@ export interface JSEvalable<A = any> {
      * @param args Arguments to pass to `fn`
      */
     evaluateHandle(
-      pageFunction: (arg1: A, ...args: any[]) => any,
+      pageFunction: string | ((arg1: A, ...args: any[]) => any),
       ...args: SerializableOrJSHandle[],
     ): Promise<JSHandle>;
-  }
+}
 
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {

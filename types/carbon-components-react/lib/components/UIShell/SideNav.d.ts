@@ -9,13 +9,14 @@ interface InheritedProps extends InternationalProps<SideNavTranslationKey> {
 }
 
 export interface SideNavProps extends InheritedProps {
-    defaultExpanded?: boolean,
-    expanded?: boolean,
-    isChildOfHeader?: boolean,
-    isFixedNav?: boolean,
-    isPersistent?: boolean,
-    isRail?: boolean,
-    onToggle?(event: React.FocusEvent<HTMLElement>, focus: boolean): void,
+    addMouseListeners?: boolean;
+    defaultExpanded?: boolean;
+    expanded?: boolean;
+    isChildOfHeader?: boolean;
+    isFixedNav?: boolean;
+    isPersistent?: boolean;
+    isRail?: boolean;
+    onToggle?(event: React.FocusEvent<HTMLElement>, focus: boolean): void;
 }
 
 declare const SideNav: React.RefForwardingComponent<HTMLElement, SideNavProps>;

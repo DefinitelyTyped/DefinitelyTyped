@@ -33,7 +33,7 @@ export interface NextFunction {
 
 export interface Dictionary<T> { [key: string]: T; }
 
-export type ParamsDictionary = Dictionary<string>;
+export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
@@ -174,12 +174,12 @@ export interface Router extends IRouter { }
 export interface CookieOptions {
     maxAge?: number;
     signed?: boolean;
-    expires?: Date | boolean;
+    expires?: Date;
     httpOnly?: boolean;
     path?: string;
     domain?: string;
-    secure?: boolean | 'auto';
-    encode?: (val: string) => void;
+    secure?: boolean;
+    encode?: (val: string) => string;
     sameSite?: boolean | string;
 }
 
@@ -456,9 +456,6 @@ export interface Request<P extends Params = ParamsDictionary> extends http.Incom
 
     params: P;
 
-    /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): Response;
-
     query: any;
 
     route: any;
@@ -488,13 +485,13 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send = (body?: any) => Response;
+export type Send<T = Response> = (body?: any) => T;
 
 export interface Response extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
-    status(code: number): Response;
+    status(code: number): this;
 
     /**
      * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -507,7 +504,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
      *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
      */
-    sendStatus(code: number): Response;
+    sendStatus(code: number): this;
 
     /**
      * Set Link header field with the given `links`.
@@ -519,7 +516,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *      last: 'http://api.example.com/users?page=5'
      *    });
      */
-    links(links: any): Response;
+    links(links: any): this;
 
     /**
      * Send a response.
@@ -531,7 +528,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send('<p>some html</p>');
      *     res.status(404).send('Sorry, cant find that');
      */
-    send: Send;
+    send: Send<this>;
 
     /**
      * Send JSON response.
@@ -543,7 +540,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.status(500).json('oh noes!');
      *     res.status(404).json('I dont have that');
      */
-    json: Send;
+    json: Send<this>;
 
     /**
      * Send JSON response with JSONP callback support.
@@ -555,7 +552,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.status(500).jsonp('oh noes!');
      *     res.status(404).jsonp('I dont have that');
      */
-    jsonp: Send;
+    jsonp: Send<this>;
 
     /**
      * Transfer the file at the given `path`.
@@ -646,7 +643,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    contentType(type: string): Response;
+    contentType(type: string): this;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
@@ -660,7 +657,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    type(type: string): Response;
+    type(type: string): this;
 
     /**
      * Respond to the Acceptable formats using an `obj`
@@ -714,12 +711,12 @@ export interface Response extends http.ServerResponse, Express.Response {
      * a `.default` callback it will be invoked
      * instead.
      */
-    format(obj: any): Response;
+    format(obj: any): this;
 
     /**
      * Set _Content-Disposition_ header to _attachment_ with optional `filename`.
      */
-    attachment(filename?: string): Response;
+    attachment(filename?: string): this;
 
     /**
      * Set header `field` to `val`, or pass
@@ -733,12 +730,11 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * Aliased as `res.header()`.
      */
-    set(field: any): Response;
-    set(field: string, value?: string): Response;
-    set(field: string, value?: string[]): Response;
+    set(field: any): this;
+    set(field: string, value?: string | string[]): this;
 
-    header(field: any): Response;
-    header(field: string, value?: string): Response;
+    header(field: any): this;
+    header(field: string, value?: string | string[]): this;
 
     // Property indicating if HTTP headers has been sent for the response.
     headersSent: boolean;
@@ -747,7 +743,7 @@ export interface Response extends http.ServerResponse, Express.Response {
     get(field: string): string;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): Response;
+    clearCookie(name: string, options?: any): this;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.
@@ -766,9 +762,9 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    // save as above
      *    res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
      */
-    cookie(name: string, val: string, options: CookieOptions): Response;
-    cookie(name: string, val: any, options: CookieOptions): Response;
-    cookie(name: string, val: any): Response;
+    cookie(name: string, val: string, options: CookieOptions): this;
+    cookie(name: string, val: any, options: CookieOptions): this;
+    cookie(name: string, val: any): this;
 
     /**
      * Set the location header to `url`.
@@ -796,7 +792,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *      res.location('/login');
      */
-    location(url: string): Response;
+    location(url: string): this;
 
     /**
      * Redirect to the given `url` with optional response `status`
@@ -842,7 +838,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.vary('User-Agent').render('docs');
      *
      */
-    vary(field: string): Response;
+    vary(field: string): this;
 
     app: Application;
 
@@ -855,7 +851,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @since 4.11.0
      */
-    append(field: string, value?: string[] | string): Response;
+    append(field: string, value?: string[] | string): this;
 
     /**
      * After middleware.init executed, Response will contain req property
@@ -919,7 +915,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): Application;
+    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): this;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.
@@ -933,7 +929,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *
      * Mounted servers inherit their parent server's settings.
      */
-    set(setting: string, val: any): Application;
+    set(setting: string, val: any): this;
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
@@ -982,10 +978,10 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     disabled(setting: string): boolean;
 
     /** Enable `setting`. */
-    enable(setting: string): Application;
+    enable(setting: string): this;
 
     /** Disable `setting`. */
-    disable(setting: string): Application;
+    disable(setting: string): this;
 
     /**
      * Render the given view `name` name with `options`

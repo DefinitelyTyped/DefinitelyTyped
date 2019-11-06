@@ -24,11 +24,11 @@ import TableToolbarSearch from "./TableToolbarSearch";
 
 // region Row Types
 
-export interface DataTableRow {
-    disabled?: boolean,
-    id: string,
-    isExpanded?: boolean,
-    isSelected?: boolean,
+export interface DataTableRow<ID extends string = string> {
+    disabled?: boolean;
+    id: ID;
+    isExpanded?: boolean;
+    isSelected?: boolean;
 }
 
 export interface SortRowData {
@@ -83,9 +83,9 @@ export interface DataTableCustomSelectionProps<R extends DataTableRow = DataTabl
 
 // region Header Types
 
-export interface DataTableHeader {
-    header: NonNullable<React.ReactNode>,
-    key: string,
+export interface DataTableHeader<K extends string = string> {
+    header: NonNullable<React.ReactNode>;
+    key: K;
 }
 
 export interface DataTableCustomHeaderData<H extends DataTableHeader = DataTableHeader> {
@@ -94,28 +94,28 @@ export interface DataTableCustomHeaderData<H extends DataTableHeader = DataTable
     onClick?(event: React.MouseEvent<HTMLElement>): void,
 }
 
-export interface DataTableCustomHeaderProps<H extends DataTableHeader = DataTableHeader> {
-    isSortable?: boolean,
-    isSortHeader: boolean,
-    key: H["key"],
-    onClick(event: React.MouseEvent<HTMLElement>): void,
-    sortDirection: DataTableSortState,
+export interface DataTableCustomHeaderProps<H extends { key: string } = DataTableHeader> {
+    isSortable?: boolean;
+    isSortHeader: boolean;
+    key: H['key'];
+    onClick(event: React.MouseEvent<HTMLElement>): void;
+    sortDirection: DataTableSortState;
 }
 
 // endregion Header Types
 
 // region Cell Types
 
-export interface DataTableCell {
-    errors?: any[] | null,
-    id: string,
+export interface DataTableCell<V = any, H extends DataTableHeader = DataTableHeader> {
+    errors?: any[] | null;
+    id: string;
     info: {
-        header: DataTableHeader["key"],
-    },
-    isEditable: boolean,
-    isEditing: boolean,
-    isValid: boolean,
-    value?: any,
+        header: H['key'];
+    };
+    isEditable: boolean;
+    isEditing: boolean;
+    isValid: boolean;
+    value?: V;
 }
 
 // endregion CellTypes
@@ -179,7 +179,7 @@ export interface DataTableProps<R extends DataTableRow = DataTableRow, H extends
     headers: H[];
     locale?: string;
     radio?: boolean;
-    render?(props: DataTableCustomRenderProps): React.ReactNode;
+    render?(props: DataTableCustomRenderProps<R, H>): React.ReactNode;
     rows: R[];
     sortRow?(cellA: any, cellB: any, data: SortRowData): number;
 }

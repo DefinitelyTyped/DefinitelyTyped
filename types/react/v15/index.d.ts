@@ -10,6 +10,7 @@
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Kyle Scully <https://github.com/zieka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2602,8 +2603,6 @@ declare namespace React {
         title?: string;
 
         // Unknown
-        inputMode?: string;
-        is?: string;
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
@@ -2632,6 +2631,18 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: boolean;
+
+        // Living Standard
+        /**
+         * Hints at the type of data that might be entered by the user while editing the element or its contents
+         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         */
+        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+         * Specify that a standard HTML element should behave like a defined custom built-in element
+         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         */
+        is?: string;
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {

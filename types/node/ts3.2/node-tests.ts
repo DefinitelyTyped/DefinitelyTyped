@@ -24,7 +24,8 @@ import '../util';
 import '../worker_threads';
 import '../zlib';
 
-import { types } from 'util';
+import { types, promisify } from 'util';
+import { BigIntStats, statSync, Stats } from 'fs';
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -48,6 +49,15 @@ import { types } from 'util';
         // $ExpectType number
         const b = value;
     }
+
+    const arg1UnknownError: (arg: string) => Promise<number> = promisify((arg: string, cb: (err: unknown, result: number) => void): void => { });
+    const arg1AnyError: (arg: string) => Promise<number> = promisify((arg: string, cb: (err: any, result: number) => void): void => { });
+}
+
+// FS Tests
+{
+    const bigStats: BigIntStats = statSync('.', { bigint: true });
+    const anyStats: Stats | BigIntStats = statSync('.', { bigint: Math.random() > 0.5 });
 }
 
 // Global Tests

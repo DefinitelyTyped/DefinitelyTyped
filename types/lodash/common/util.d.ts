@@ -1460,4 +1460,29 @@ declare module "../index" {
          */
         uniqueId(): LoDashExplicitWrapper<string>;
     }
+
+    // stubTrue
+
+    interface LoDashStatic {
+        /**
+         * This method returns true.
+         *
+         * @return Returns true.
+         */
+        stubTrue(): true;
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): true;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): LoDashExplicitWrapper<true>;
+    }
 }

@@ -14,6 +14,8 @@
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
+//                  Jeff Gu Kang <https://github.com/jeffgukang>
+//                  Bui Tan Loc <https://github.com/buitanloc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -74,11 +76,10 @@ declare enum ErrorCode {
     UNSUPPORTED_SERVICE = 252,
     AGGREGATE_ERROR = 600,
     FILE_READ_ERROR = 601,
-    X_DOMAIN_REQUEST = 602
+    X_DOMAIN_REQUEST = 602,
 }
 
 declare namespace Parse {
-
     let applicationId: string;
     let javaScriptKey: string | undefined;
     let masterKey: string | undefined;
@@ -121,8 +122,7 @@ declare namespace Parse {
         progress?: Function;
     }
 
-    interface SuccessFailureOptions extends SuccessOption, ErrorOption {
-    }
+    interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
     interface SignUpOptions {
         useMasterKey?: boolean;
@@ -148,8 +148,7 @@ declare namespace Parse {
         useMasterKey?: boolean;
     }
 
-    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {
-    }
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
 
     interface SilentOption {
         /**
@@ -169,7 +168,7 @@ declare namespace Parse {
     }
 
     interface AuthData {
-        [key: string]: any
+        [key: string]: any;
     }
 
     class BaseObject implements IBaseObject {
@@ -191,7 +190,6 @@ declare namespace Parse {
      * of your application.</p>
      */
     class ACL extends BaseObject {
-
         permissionsById: any;
 
         constructor(arg1?: any);
@@ -224,7 +222,6 @@ declare namespace Parse {
         getWriteAccess(userId: string): boolean;
     }
 
-
     /**
      * A Parse.File is a local representation of a file that is saved to the Parse
      * cloud.
@@ -255,12 +252,10 @@ declare namespace Parse {
      *     extension.
      */
     class File {
-
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save(options?: SuccessFailureOptions): Promise<File>;
-
+        save(options?: FullOptions): Promise<File>;
     }
 
     /**
@@ -287,7 +282,6 @@ declare namespace Parse {
      *   object.save();</pre></p>
      */
     class GeoPoint extends BaseObject {
-
         latitude: number;
         longitude: number;
 
@@ -304,7 +298,6 @@ declare namespace Parse {
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
     class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
-
         parent: S;
         key: string;
         targetClassName: string;
@@ -347,7 +340,6 @@ declare namespace Parse {
      * Creates a new model with defined attributes.
      */
     class Object extends BaseObject {
-
         id: string;
         createdAt: Date;
         updatedAt: Date;
@@ -364,7 +356,11 @@ declare namespace Parse {
         static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(
+            list: T[],
+            keys: string | Array<string | Array<string>>,
+            options: RequestOptions,
+        ): Promise<T[]>;
         static fromJSON<T extends Object>(json: any, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
@@ -425,17 +421,22 @@ declare namespace Parse {
     }
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
 
-        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions {}
 
-        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions {}
 
-        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
 
-        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions
+            extends CascadeSaveOption,
+                SuccessFailureOptions,
+                SilentOption,
+                ScopeOptions,
+                WaitOption {}
 
-        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -452,7 +453,6 @@ declare namespace Parse {
      * push notifications has an associated Installation object.
      */
     class Installation extends Object {
-
         badge: any;
         channels: string[];
         timeZone: any;
@@ -465,7 +465,6 @@ declare namespace Parse {
         appVersion: string;
         parseVersion: string;
         appIdentifier: string;
-
     }
     /**
      * Creates a new parse Parse.Query for the given Parse.Object subclass.
@@ -524,7 +523,6 @@ declare namespace Parse {
      * });</pre></p>
      */
     class Query<T extends Object = Object> extends BaseObject {
-
         objectClass: any;
         className: string;
 
@@ -585,7 +583,7 @@ declare namespace Parse {
         skip(n: number): Query<T>;
         sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
-        subscribe(): LiveQuerySubscription;
+        subscribe(): Promise<LiveQuerySubscription>;
         withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
@@ -595,15 +593,15 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key: string]: any };
+            group?: { objectId?: string; [key: string]: any };
             match?: { [key: string]: any };
             project?: { [key: string]: any };
             limit?: number;
@@ -716,7 +714,6 @@ subscription.on('close', () => {});
      * cloud.
      */
     class Role extends Object {
-
         constructor(name: string, acl: ACL);
 
         getRoles(): Relation<Role, Role>;
@@ -756,7 +753,7 @@ subscription.on('close', () => {});
         static current(): User | undefined;
         static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
+        static logIn(username: string, password: string, options?: FullOptions): Promise<User>;
         static logOut(): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
@@ -764,7 +761,7 @@ subscription.on('close', () => {});
         static enableUnsafeCurrentUser(): void;
 
         signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
-        logIn(options?: SuccessFailureOptions): Promise<this>;
+        logIn(options?: FullOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
@@ -781,9 +778,130 @@ subscription.on('close', () => {});
         _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
 
+    /**
+     * A Parse.Schema object is for handling schema data from Parse.
+     * All the schemas methods require MasterKey.
+     *
+     * @param {String} className Parse Class string
+     *
+     * https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Schema.html
+     *
+     * ```
+     * const schema = new Parse.Schema('MyClass');
+     * schema.addString('field');
+     * schema.addIndex('index_name', { field: 1 });
+     * schema.save();
+     * ```
+     */
+    class Schema {
+        constructor(className: string);
+
+        /**
+         * Static method to get all schemas
+         * @param options Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         */
+        static all(options?: ScopeOptions): Promise<Schema[]>;
+
+        addArray(name: string): this;
+        addBoolean(name: string): this;
+        addDate(name: string): this;
+        addField(name: string, type?: Schema.TYPE): this;
+        addFile(name: string): this;
+        addGeoPoint(name: string): this;
+
+        /**
+         * Adding an Index to Create / Update a Schema
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {Schema.Index} index { 'field': value } `field` should exist in the schema before using addIndex. `value` can be a (String|Number|Boolean|Date|Parse.File|Parse.GeoPoint|Array|Object|Pointer|Parse.Relation)
+         * @return Returns the schema, so you can chain this call.
+         * @example
+         * ```
+         * schema.addIndex('index_name', {'field': 1});
+         * ```
+         */
+        addIndex(name: string, index: Schema.Index): this;
+
+        addNumber(name: string): this;
+        addObject(name: string): this;
+
+        /**
+         * Adding Pointer Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addPointer(name: string, targetClass: string): this;
+
+        addPolygon(name: string): this;
+
+        /**
+         * Adding Relation Field
+         * @param {String} name Name of the field that will be created on Parse
+         * @param {String} targetClass  Name of the target Pointer Class
+         * @return Returns the schema, so you can chain this call.
+         */
+        addRelation(name: string, targetClass: string): this;
+
+        addString(name: string): this;
+
+        /**
+         * Removing a Schema from Parse Can only be used on Schema without objects
+         * @param options
+         * Valid options are:
+         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
+         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         * @returns {Promise} A promise that is resolved with the result when the query completes.
+         */
+        // @TODO Fix Promise<any>
+        delete(options?: ScopeOptions): Promise<any>;
+
+        /**
+         * Deleting a Field to Update on a Schema
+         * @param name Name of the field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteField(name: string): this;
+
+        /**
+         * Deleting a Index Field to Update on a Schema
+         * @param name Name of the index field
+         * @return Returns the schema, so you can chain this call.
+         */
+        deleteIndex(name: string): this;
+
+        /**
+         * Get the Schema from Parse
+         */
+        get(options?: ScopeOptions): Promise<Schema>;
+
+        /**
+         * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+         */
+        // TODO Fix Promise<any>
+        purge(): Promise<any>;
+
+        /**
+         * Create a new Schema on Parse
+         */
+        save(options?: ScopeOptions): Promise<Schema>;
+
+        /**
+         * Update a Schema on Parse
+         */
+        update(options?: ScopeOptions): Promise<Schema>;
+    }
+
+    namespace Schema {
+        type TYPE = string | number | boolean | Date | File | GeoPoint | Array<any> | object | Pointer | Relation;
+
+        interface Index {
+            [fieldName: string]: TYPE;
+        }
+    }
 
     namespace Analytics {
-
         function track(name: string, dimensions: any): Promise<any>;
     }
 
@@ -793,11 +911,10 @@ subscription.on('close', () => {});
      * Provides a set of utilities for using Parse with Facebook.
      */
     namespace FacebookUtils {
-
         function init(options?: any): void;
         function isLinked(user: User): boolean;
         function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
-        function logIn(permissions: any, options?: SuccessFailureOptions): void;
+        function logIn(permissions: any, options?: FullOptions): void;
         function unlink(user: User, options?: SuccessFailureOptions): void;
     }
 
@@ -809,7 +926,6 @@ subscription.on('close', () => {});
      * </em></strong></p>
      */
     namespace Cloud {
-
         interface CookieOptions {
             domain?: string;
             expires?: Date;
@@ -834,7 +950,7 @@ subscription.on('close', () => {});
         }
 
         interface FunctionRequest {
-            installationId?: String;
+            installationId?: string;
             master?: boolean;
             params?: any;
             user?: User;
@@ -847,7 +963,7 @@ subscription.on('close', () => {});
         }
 
         interface TriggerRequest {
-            installationId?: String;
+            installationId?: string;
             master?: boolean;
             user?: User;
             ip: string;
@@ -861,8 +977,8 @@ subscription.on('close', () => {});
         interface AfterSaveRequest extends TriggerRequest {
             context: object;
         }
-        interface AfterDeleteRequest extends TriggerRequest { }
-        interface BeforeDeleteRequest extends TriggerRequest { }
+        interface AfterDeleteRequest extends TriggerRequest {}
+        interface BeforeDeleteRequest extends TriggerRequest {}
         interface BeforeSaveRequest extends TriggerRequest {
             context: object;
         }
@@ -873,18 +989,18 @@ subscription.on('close', () => {});
             PrimaryPreferred = 'PRIMARY_PREFERRED',
             Secondary = 'SECONDARY',
             SecondaryPreferred = 'SECONDARY_PREFERRED',
-            Nearest = 'NEAREST'
+            Nearest = 'NEAREST',
         }
 
         interface BeforeFindRequest extends TriggerRequest {
-            query: Query
-            count: boolean
-            isGet: boolean
-            readPreference?: ReadPreferenceOption
+            query: Query;
+            count: boolean;
+            isGet: boolean;
+            readPreference?: ReadPreferenceOption;
         }
 
         interface AfterFindRequest extends TriggerRequest {
-            objects: Object[]
+            objects: Object[];
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
@@ -894,6 +1010,7 @@ subscription.on('close', () => {});
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<void> | void): void;
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
+        function beforeLogin(func?: (request: TriggerRequest) => Promise<any> | any): void;
         function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
         /**
          * Gets data for the current set of cloud jobs.
@@ -910,17 +1027,15 @@ subscription.on('close', () => {});
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
         /**
-          * Starts a given cloud job, which will process asynchronously.
-          * @param jobName The function name.
-          * @param data The parameters to send to the cloud function.
-          * @returns A promise that will be resolved with the jobStatusId of the job.
-          */
+         * Starts a given cloud job, which will process asynchronously.
+         * @param jobName The function name.
+         * @param data The parameters to send to the cloud function.
+         * @returns A promise that will be resolved with the jobStatusId of the job.
+         */
         function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
 
-
-
-        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions {}
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
@@ -965,66 +1080,66 @@ subscription.on('close', () => {});
     }
 
     class Error {
-      static OTHER_CAUSE: ErrorCode.OTHER_CAUSE;
-      static INTERNAL_SERVER_ERROR: ErrorCode.INTERNAL_SERVER_ERROR;
-      static CONNECTION_FAILED: ErrorCode.CONNECTION_FAILED;
-      static OBJECT_NOT_FOUND: ErrorCode.OBJECT_NOT_FOUND;
-      static INVALID_QUERY: ErrorCode.INVALID_QUERY;
-      static INVALID_CLASS_NAME: ErrorCode.INVALID_CLASS_NAME;
-      static MISSING_OBJECT_ID: ErrorCode.MISSING_OBJECT_ID;
-      static INVALID_KEY_NAME: ErrorCode.INVALID_KEY_NAME;
-      static INVALID_POINTER: ErrorCode.INVALID_POINTER;
-      static INVALID_JSON: ErrorCode.INVALID_JSON;
-      static COMMAND_UNAVAILABLE: ErrorCode.COMMAND_UNAVAILABLE;
-      static NOT_INITIALIZED: ErrorCode.NOT_INITIALIZED;
-      static INCORRECT_TYPE: ErrorCode.INCORRECT_TYPE;
-      static INVALID_CHANNEL_NAME: ErrorCode.INVALID_CHANNEL_NAME;
-      static PUSH_MISCONFIGURED: ErrorCode.PUSH_MISCONFIGURED;
-      static OBJECT_TOO_LARGE: ErrorCode.OBJECT_TOO_LARGE;
-      static OPERATION_FORBIDDEN: ErrorCode.OPERATION_FORBIDDEN;
-      static CACHE_MISS: ErrorCode.CACHE_MISS;
-      static INVALID_NESTED_KEY: ErrorCode.INVALID_NESTED_KEY;
-      static INVALID_FILE_NAME: ErrorCode.INVALID_FILE_NAME;
-      static INVALID_ACL: ErrorCode.INVALID_ACL;
-      static TIMEOUT: ErrorCode.TIMEOUT;
-      static INVALID_EMAIL_ADDRESS: ErrorCode.INVALID_EMAIL_ADDRESS;
-      static MISSING_CONTENT_TYPE: ErrorCode.MISSING_CONTENT_TYPE;
-      static MISSING_CONTENT_LENGTH: ErrorCode.MISSING_CONTENT_LENGTH;
-      static INVALID_CONTENT_LENGTH: ErrorCode.INVALID_CONTENT_LENGTH;
-      static FILE_TOO_LARGE: ErrorCode.FILE_TOO_LARGE;
-      static FILE_SAVE_ERROR: ErrorCode.FILE_SAVE_ERROR;
-      static DUPLICATE_VALUE: ErrorCode.DUPLICATE_VALUE;
-      static INVALID_ROLE_NAME: ErrorCode.INVALID_ROLE_NAME;
-      static EXCEEDED_QUOTA: ErrorCode.EXCEEDED_QUOTA;
-      static SCRIPT_FAILED: ErrorCode.SCRIPT_FAILED;
-      static VALIDATION_ERROR: ErrorCode.VALIDATION_ERROR;
-      static INVALID_IMAGE_DATA: ErrorCode.INVALID_IMAGE_DATA;
-      static UNSAVED_FILE_ERROR: ErrorCode.UNSAVED_FILE_ERROR;
-      static INVALID_PUSH_TIME_ERROR: ErrorCode.INVALID_PUSH_TIME_ERROR;
-      static FILE_DELETE_ERROR: ErrorCode.FILE_DELETE_ERROR;
-      static REQUEST_LIMIT_EXCEEDED: ErrorCode.REQUEST_LIMIT_EXCEEDED;
-      static INVALID_EVENT_NAME: ErrorCode.INVALID_EVENT_NAME;
-      static USERNAME_MISSING: ErrorCode.USERNAME_MISSING;
-      static PASSWORD_MISSING: ErrorCode.PASSWORD_MISSING;
-      static USERNAME_TAKEN: ErrorCode.USERNAME_TAKEN;
-      static EMAIL_TAKEN: ErrorCode.EMAIL_TAKEN;
-      static EMAIL_MISSING: ErrorCode.EMAIL_MISSING;
-      static EMAIL_NOT_FOUND: ErrorCode.EMAIL_NOT_FOUND;
-      static SESSION_MISSING: ErrorCode.SESSION_MISSING;
-      static MUST_CREATE_USER_THROUGH_SIGNUP: ErrorCode.MUST_CREATE_USER_THROUGH_SIGNUP;
-      static ACCOUNT_ALREADY_LINKED: ErrorCode.ACCOUNT_ALREADY_LINKED;
-      static INVALID_SESSION_TOKEN: ErrorCode.INVALID_SESSION_TOKEN;
-      static LINKED_ID_MISSING: ErrorCode.LINKED_ID_MISSING;
-      static INVALID_LINKED_SESSION: ErrorCode.INVALID_LINKED_SESSION;
-      static UNSUPPORTED_SERVICE: ErrorCode.UNSUPPORTED_SERVICE;
-      static AGGREGATE_ERROR: ErrorCode.AGGREGATE_ERROR;
-      static FILE_READ_ERROR: ErrorCode.FILE_READ_ERROR;
-      static X_DOMAIN_REQUEST: ErrorCode.X_DOMAIN_REQUEST;
+        static OTHER_CAUSE: ErrorCode.OTHER_CAUSE;
+        static INTERNAL_SERVER_ERROR: ErrorCode.INTERNAL_SERVER_ERROR;
+        static CONNECTION_FAILED: ErrorCode.CONNECTION_FAILED;
+        static OBJECT_NOT_FOUND: ErrorCode.OBJECT_NOT_FOUND;
+        static INVALID_QUERY: ErrorCode.INVALID_QUERY;
+        static INVALID_CLASS_NAME: ErrorCode.INVALID_CLASS_NAME;
+        static MISSING_OBJECT_ID: ErrorCode.MISSING_OBJECT_ID;
+        static INVALID_KEY_NAME: ErrorCode.INVALID_KEY_NAME;
+        static INVALID_POINTER: ErrorCode.INVALID_POINTER;
+        static INVALID_JSON: ErrorCode.INVALID_JSON;
+        static COMMAND_UNAVAILABLE: ErrorCode.COMMAND_UNAVAILABLE;
+        static NOT_INITIALIZED: ErrorCode.NOT_INITIALIZED;
+        static INCORRECT_TYPE: ErrorCode.INCORRECT_TYPE;
+        static INVALID_CHANNEL_NAME: ErrorCode.INVALID_CHANNEL_NAME;
+        static PUSH_MISCONFIGURED: ErrorCode.PUSH_MISCONFIGURED;
+        static OBJECT_TOO_LARGE: ErrorCode.OBJECT_TOO_LARGE;
+        static OPERATION_FORBIDDEN: ErrorCode.OPERATION_FORBIDDEN;
+        static CACHE_MISS: ErrorCode.CACHE_MISS;
+        static INVALID_NESTED_KEY: ErrorCode.INVALID_NESTED_KEY;
+        static INVALID_FILE_NAME: ErrorCode.INVALID_FILE_NAME;
+        static INVALID_ACL: ErrorCode.INVALID_ACL;
+        static TIMEOUT: ErrorCode.TIMEOUT;
+        static INVALID_EMAIL_ADDRESS: ErrorCode.INVALID_EMAIL_ADDRESS;
+        static MISSING_CONTENT_TYPE: ErrorCode.MISSING_CONTENT_TYPE;
+        static MISSING_CONTENT_LENGTH: ErrorCode.MISSING_CONTENT_LENGTH;
+        static INVALID_CONTENT_LENGTH: ErrorCode.INVALID_CONTENT_LENGTH;
+        static FILE_TOO_LARGE: ErrorCode.FILE_TOO_LARGE;
+        static FILE_SAVE_ERROR: ErrorCode.FILE_SAVE_ERROR;
+        static DUPLICATE_VALUE: ErrorCode.DUPLICATE_VALUE;
+        static INVALID_ROLE_NAME: ErrorCode.INVALID_ROLE_NAME;
+        static EXCEEDED_QUOTA: ErrorCode.EXCEEDED_QUOTA;
+        static SCRIPT_FAILED: ErrorCode.SCRIPT_FAILED;
+        static VALIDATION_ERROR: ErrorCode.VALIDATION_ERROR;
+        static INVALID_IMAGE_DATA: ErrorCode.INVALID_IMAGE_DATA;
+        static UNSAVED_FILE_ERROR: ErrorCode.UNSAVED_FILE_ERROR;
+        static INVALID_PUSH_TIME_ERROR: ErrorCode.INVALID_PUSH_TIME_ERROR;
+        static FILE_DELETE_ERROR: ErrorCode.FILE_DELETE_ERROR;
+        static REQUEST_LIMIT_EXCEEDED: ErrorCode.REQUEST_LIMIT_EXCEEDED;
+        static INVALID_EVENT_NAME: ErrorCode.INVALID_EVENT_NAME;
+        static USERNAME_MISSING: ErrorCode.USERNAME_MISSING;
+        static PASSWORD_MISSING: ErrorCode.PASSWORD_MISSING;
+        static USERNAME_TAKEN: ErrorCode.USERNAME_TAKEN;
+        static EMAIL_TAKEN: ErrorCode.EMAIL_TAKEN;
+        static EMAIL_MISSING: ErrorCode.EMAIL_MISSING;
+        static EMAIL_NOT_FOUND: ErrorCode.EMAIL_NOT_FOUND;
+        static SESSION_MISSING: ErrorCode.SESSION_MISSING;
+        static MUST_CREATE_USER_THROUGH_SIGNUP: ErrorCode.MUST_CREATE_USER_THROUGH_SIGNUP;
+        static ACCOUNT_ALREADY_LINKED: ErrorCode.ACCOUNT_ALREADY_LINKED;
+        static INVALID_SESSION_TOKEN: ErrorCode.INVALID_SESSION_TOKEN;
+        static LINKED_ID_MISSING: ErrorCode.LINKED_ID_MISSING;
+        static INVALID_LINKED_SESSION: ErrorCode.INVALID_LINKED_SESSION;
+        static UNSUPPORTED_SERVICE: ErrorCode.UNSUPPORTED_SERVICE;
+        static AGGREGATE_ERROR: ErrorCode.AGGREGATE_ERROR;
+        static FILE_READ_ERROR: ErrorCode.FILE_READ_ERROR;
+        static X_DOMAIN_REQUEST: ErrorCode.X_DOMAIN_REQUEST;
 
-      code: ErrorCode;
-      message: string;
+        code: ErrorCode;
+        message: string;
 
-      constructor(code: ErrorCode, message: string);
+        constructor(code: ErrorCode, message: string);
     }
 
     /**
@@ -1040,16 +1155,13 @@ subscription.on('close', () => {});
      * directly.
      */
     namespace Op {
-
         interface BaseOperation extends IBaseObject {
             objects(): any[];
         }
 
-        interface Add extends BaseOperation {
-        }
+        interface Add extends BaseOperation {}
 
-        interface AddUnique extends BaseOperation {
-        }
+        interface AddUnique extends BaseOperation {}
 
         interface Increment extends IBaseObject {
             amount: number;
@@ -1064,9 +1176,7 @@ subscription.on('close', () => {});
             value(): any;
         }
 
-        interface Unset extends IBaseObject {
-        }
-
+        interface Unset extends IBaseObject {}
     }
 
     /**
@@ -1132,16 +1242,16 @@ subscription.on('close', () => {});
     function setLocalDatastoreController(controller: any): void;
 }
 
-declare module "parse/node" {
+declare module 'parse/node' {
     export = Parse;
 }
 
-declare module "parse" {
-    import * as parse from "parse/node";
-    export = parse
+declare module 'parse' {
+    import * as parse from 'parse/node';
+    export = parse;
 }
 
-declare module "parse/react-native" {
-    import * as parse from "parse/node";
-    export = parse
+declare module 'parse/react-native' {
+    import * as parse from 'parse/node';
+    export = parse;
 }

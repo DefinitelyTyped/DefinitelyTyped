@@ -99,7 +99,7 @@ declare namespace mermaidAPI {
         useMaxWidth?: boolean;
     }
 
-    interface GnattConfig {
+    interface GanttConfig {
         /**
          * **titleTopMargin** - margin top for the text over the gantt diagram
          * default: 25
@@ -209,7 +209,7 @@ declare namespace mermaidAPI {
          * ### gantt
          * The object containing configurations specific for gantt diagrams*
          */
-        gnatt?: GnattConfig;
+        gantt?: GanttConfig;
 
         class?: any;
         git?: any;

@@ -354,12 +354,7 @@ declare namespace JiraApi {
         startAt?: number;
         maxResults?: number;
         fields?: string[];
-    }
-
-    interface SearchQuery {
-        startAt?: number;
-        maxResults?: number;
-        fields?: string[];
+        expand?: string[];
     }
 
     interface UriOptions {

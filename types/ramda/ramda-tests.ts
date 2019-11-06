@@ -44,9 +44,6 @@ class F2 {
 });
 
 () => {
-    function takesNoArg() {
-        return true;
-    }
     function takesOneArg(a: number) {
         return [a];
     }
@@ -56,12 +53,6 @@ class F2 {
     function takesThreeArgs(a: number, b: number, c: number) {
         return [a, b, c];
     }
-
-    R.nAry(0);
-    R.nAry(0, takesNoArg);
-    R.nAry(0, takesOneArg);
-    R.nAry(1, takesTwoArgs);
-    R.nAry(1, takesThreeArgs);
 
     const u1: (a: any) => any = R.unary(takesOneArg);
     const u2: (a: any) => any = R.unary(takesTwoArgs);
@@ -115,7 +106,7 @@ class F2 {
 
 () => {
     // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.isArrayLike, R.of);
+    const coerceArray = R.unless(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1);         // => [1]
 };
@@ -298,48 +289,11 @@ R.times(i, 5);
 })();
 
 (() => {
-    interface Vector {
-      x: number;
-      y: number;
-    }
-
-    let numberOfCalls = 0;
-
-    function vectorSum(a: Vector, b: Vector): Vector {
-        numberOfCalls += 1;
-        return {
-            x: a.x + b.x,
-            y: a.y + b.y
-        };
-    }
-
-    const memoVectorSum = R.memoizeWith((a, b) => JSON.stringify([a, b]), vectorSum);
-
-    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
-    numberOfCalls; // => 1
-    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
-    numberOfCalls; // => 1
-    memoVectorSum({ x: 1, y: 2 }, { x: 2, y: 3 }); // => { x: 3, y: 5 }
-    numberOfCalls; // => 2
-
-    // Note that argument order matters
-    memoVectorSum({ x: 2, y: 3 }, { x: 1, y: 2 }); // => { x: 3, y: 5 }
-    numberOfCalls; // => 3
-})();
-
-(() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
 
     const str = R.once<string>(() => 'test')();
-})();
-
-(() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
 })();
 
 (() => {
@@ -534,9 +488,9 @@ interface Obj {
 };
 
 () => {
-    R.none(R.isNaN, [1, 2, 3]); // => true
-    R.none(R.isNaN, [1, 2, 3, NaN]); // => false
-    R.none(R.isNaN)([1, 2, 3, NaN]); // => false
+    R.none(Number.isNaN, [1, 2, 3]); // => true
+    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
+    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
 };
 
 () => {
@@ -959,71 +913,6 @@ type Pair = KeyValuePair<string, number>;
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 };
-
-() => {
-    R.merge({name: "fred", age: 10}, {age: 40});
-    // => { 'name': 'fred', 'age': 40 }
-};
-
-() => {
-    const a = R.mergeAll([{foo: 1}, {bar: 2}, {baz: 3}]); // => {foo:1,bar:2,baz:3}
-    const b = R.mergeAll([{foo: 1}, {foo: 2}, {bar: 2}]); // => {foo:2,bar:2}
-};
-
-() => {
-    const a = R.mergeDeepLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
-};
-
-() => {
-    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: bar: 2}}
-};
-
-() => {
-    const a = R.mergeDeepWith(
-        (a: number[], b: number[]) => a.concat(b),
-        {foo: {bar: [1, 2]}},
-        {foo: {bar: [3, 4]}},
-    ); // => {foo: {bar: [1,2,3,4]}}
-};
-
-() => {
-    const a = R.mergeDeepWithKey(
-        (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
-        {foo: {bar: [1, 2], userIds: [42]}},
-        {foo: {bar: [3, 4], userIds: [34]}}
-    ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
-};
-
-() => {
-    R.mergeLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
-    const curry1 = R.mergeLeft({foo: {bar: 1}});
-    curry1({foo: {bar: 2}}); // => {foo: {bar: 1}}
-};
-
-() => {
-    R.mergeRight({ name: 'fred', age: 10 }, { age: 40 });
-    // => { 'name': 'fred', 'age': 40 }
-
-    const withDefaults = R.mergeRight({x: 0, y: 0});
-    withDefaults({y: 2}); // => {x: 0, y: 2}
-};
-
-() => {
-    const a = R.mergeWith(R.concat,
-        {a: true, values: [10, 20]},
-        {b: true, values: [15, 35]});
-    // => { a: true, b: true, values: [10, 20, 15, 35] }
-};
-
-() => {
-    const concatValues = (k: string, l: string, r: string) => k === "values" ? R.concat(l, r) : r;
-    R.mergeWithKey(concatValues,
-        {a: true, thing: "foo", values: [10, 20]},
-        {b: true, thing: "bar", values: [15, 35]});
-    const merge = R.mergeWithKey(concatValues);
-    merge({a: true, thing: "foo", values: [10, 20]}, {b: true, thing: "bar", values: [15, 35]});
-};
-
 () => {
     const orValue  = 11;
     const orValueStr = "str";
@@ -1082,6 +971,18 @@ type Pair = KeyValuePair<string, number>;
 
     const out: { must: Array<{ match_phrase: string }> } =
               matchPhrases(["foo", "bar", "baz"]);
+};
+
+() => {
+    const classyGreeting = (name: { last: string; first: string }) =>
+      `The name's ${name.last}, ${name.first} ${name.last}`;
+    const yellGreeting = R.o(R.toUpper, classyGreeting);
+    const str: string = yellGreeting({ first: 'James', last: 'Bond' });
+
+    const num: number = R.o(R.multiply(10), R.add(10))(-4);
+    const num2: number = R.o(R.multiply(10))(R.add(10))(-4);
+    const num3: number = R.o(R.multiply(10))(R.add(10), -4);
+    const num4: number = R.o(R.multiply(10), R.add(10), -4);
 };
 
 () => {
@@ -1312,54 +1213,6 @@ type Pair = KeyValuePair<string, number>;
     R.startsWith(1)([1, 2, 3]);   // => true
     R.startsWith([1], [1, 2, 3]);   // => true
     R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
-    const a: number = R.median([7, 2, 10, 9]); // => 8
-    const b: number = R.median([]); // => NaN
-};
-
-() => {
-    const x: number = R.min(9, 3); // => 3
-    const y: string = R.min("a", "z"); // => 'a'
-};
-
-() => {
-    function cmp(obj: { x: R.Ord }) {
-        return obj.x;
-    }
-
-    const a = {x: 1};
-    const b = {x: 2};
-    const c = {x: 3};
-    const d = {x: "a"};
-    const e = {x: "z"};
-    const f = {x: new Date(0)};
-    const g = {x: new Date(60 * 1000)};
-    R.minBy(cmp, a, b); // => {x: 1}
-    R.minBy(cmp)(a, b); // => {x: 1}
-    R.minBy(cmp)(a)(c);
-    R.minBy(cmp, d, e);
-    R.minBy(cmp)(f)(g);
-};
-
-() => {
-    R.modulo(17, 3); // => 2
-    // JS behavior:
-    R.modulo(-17, 3); // => -2
-    R.modulo(17, -3); // => 2
-};
-
-() => {
-    const double = R.multiply(2);
-    const triple = R.multiply(3);
-    double(3);       // =>  6
-    triple(4);       // => 12
-    R.multiply(2, 5);  // => 10
-};
-
-() => {
-    R.negate(42); // => -42
 };
 
 () => {

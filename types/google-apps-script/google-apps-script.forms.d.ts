@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Forms {
+  namespace Forms {
     /**
      * An enum representing the supported types of image alignment. Alignment types can be accessed from
      * FormApp.Alignment.
@@ -19,7 +19,7 @@ declare namespace GoogleAppsScript {
      *         .setImage(img)
      *         .setAlignment(FormApp.Alignment.CENTER);
      */
-    export enum Alignment { LEFT, CENTER, RIGHT }
+    enum Alignment { LEFT, CENTER, RIGHT }
 
     /**
      * A question item, presented as a grid of columns and rows, that allows the respondent to select
@@ -33,7 +33,7 @@ declare namespace GoogleAppsScript {
      *       .setRows(['New York', 'San Francisco', 'London'])
      *       .setColumns(['2014', '2015', '2016', '2017']);
      */
-    export interface CheckboxGridItem {
+    interface CheckboxGridItem {
       clearValidation(): CheckboxGridItem;
       createResponse(responses: string[][]): ItemResponse;
       duplicate(): CheckboxGridItem;
@@ -67,7 +67,9 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     checkboxGridItem.setValidation(checkboxGridValidation);
      */
-    export interface CheckboxGridValidation {
+    // tslint:disable-next-line: no-empty-interface
+    interface CheckboxGridValidation {
+      // TODO: no-empty-interface
     }
 
     /**
@@ -84,7 +86,7 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     checkboxGridItem.setValidation(checkboxGridValidation);
      */
-    export interface CheckboxGridValidationBuilder {
+    interface CheckboxGridValidationBuilder {
       requireLimitOneResponsePerColumn(): CheckboxGridValidationBuilder;
     }
 
@@ -104,7 +106,7 @@ declare namespace GoogleAppsScript {
      *         ])
      *         .showOtherOption(true);
      */
-    export interface CheckboxItem {
+    interface CheckboxItem {
       clearValidation(): CheckboxItem;
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
@@ -150,11 +152,11 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     checkBoxItem.setValidation(checkBoxValidation);
      */
-    export interface CheckboxValidation {
-      requireSelectAtLeast(number: Integer): CheckboxValidation;
-      requireSelectAtMost(number: Integer): CheckboxValidation;
-      requireSelectExactly(number: Integer): CheckboxValidation;
-    }
+    interface CheckboxValidation {
+        requireSelectAtLeast(number: Integer): CheckboxValidation;
+        requireSelectAtMost(number: Integer): CheckboxValidation;
+        requireSelectExactly(number: Integer): CheckboxValidation;
+      }
 
     /**
      * A DataValidationBuilder for a CheckboxValidation.
@@ -173,7 +175,7 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     checkBoxItem.setValidation(checkBoxValidation);
      */
-    export interface CheckboxValidationBuilder {
+    interface CheckboxValidationBuilder {
       requireSelectAtLeast(number: Integer): CheckboxValidationBuilder;
       requireSelectAtMost(number: Integer): CheckboxValidationBuilder;
       requireSelectExactly(number: Integer): CheckboxValidationBuilder;
@@ -202,7 +204,7 @@ declare namespace GoogleAppsScript {
      *                choices[i].getPageNavigationType());
      *     }
      */
-    export interface Choice {
+    interface Choice {
       getGotoPage(): PageBreakItem;
       getPageNavigationType(): PageNavigationType;
       getValue(): string;
@@ -218,7 +220,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addDateItem();
      *     item.setTitle('When were you born?');
      */
-    export interface DateItem {
+    interface DateItem {
       createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateItem;
       getGeneralFeedback(): QuizFeedback;
@@ -247,7 +249,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addDateTimeItem();
      *     item.setTitle('When do you want to meet?');
      */
-    export interface DateTimeItem {
+    interface DateTimeItem {
       createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateTimeItem;
       getGeneralFeedback(): QuizFeedback;
@@ -279,7 +281,7 @@ declare namespace GoogleAppsScript {
      *     // Update the form's response destination.
      *     form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
-    export enum DestinationType { SPREADSHEET }
+    enum DestinationType { SPREADSHEET }
 
     /**
      * A question item that allows the respondent to indicate a length of time. Items can be accessed or
@@ -290,7 +292,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addDurationItem();
      *     item.setTitle('How long can you hold your breath?');
      */
-    export interface DurationItem {
+    interface DurationItem {
       createResponse(hours: Integer, minutes: Integer, seconds: Integer): ItemResponse;
       duplicate(): DurationItem;
       getGeneralFeedback(): QuizFeedback;
@@ -323,7 +325,7 @@ declare namespace GoogleAppsScript {
      *     item.setFeedbackForCorrect(
      *         FormApp.createFeedback().setDisplayText("Dogs rule, cats drool.").build());
      */
-    export enum FeedbackType { CORRECT, INCORRECT, GENERAL }
+    enum FeedbackType { CORRECT, INCORRECT, GENERAL }
 
     /**
      * A form that contains overall properties and items. Properties include title, settings, and where
@@ -344,7 +346,7 @@ declare namespace GoogleAppsScript {
      *     // Update the form's response destination.
      *     form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
-    export interface Form {
+    interface Form {
       addCheckboxGridItem(): CheckboxGridItem;
       addCheckboxItem(): CheckboxItem;
       addDateItem(): DateItem;
@@ -429,7 +431,7 @@ declare namespace GoogleAppsScript {
      *     // Create and open a form.
      *     var newForm = FormApp.create('Form Name');
      */
-    export interface FormApp {
+    interface FormApp {
       Alignment: typeof Alignment;
       DestinationType: typeof DestinationType;
       FeedbackType: typeof FeedbackType;
@@ -469,7 +471,7 @@ declare namespace GoogleAppsScript {
      *       }
      *     }
      */
-    export interface FormResponse {
+    interface FormResponse {
       getEditResponseUrl(): string;
       getGradableItemResponses(): ItemResponse[];
       getGradableResponseForItem(item: Item): ItemResponse;
@@ -496,7 +498,7 @@ declare namespace GoogleAppsScript {
      *         .setRows(['Cars', 'Computers', 'Celebrities'])
      *         .setColumns(['Boring', 'So-so', 'Interesting']);
      */
-    export interface GridItem {
+    interface GridItem {
       clearValidation(): GridItem;
       createResponse(responses: string[]): ItemResponse;
       duplicate(): GridItem;
@@ -530,7 +532,9 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     gridItem.setValidation(gridValidation);
      */
-    export interface GridValidation {
+    // tslint:disable-next-line: no-empty-interface
+    interface GridValidation {
+      // TODO: no-empty-interface
     }
 
     /**
@@ -547,7 +551,7 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     gridItem.setValidation(gridValidation);
      */
-    export interface GridValidationBuilder {
+    interface GridValidationBuilder {
       requireLimitOneResponsePerColumn(): GridValidationBuilder;
     }
 
@@ -562,7 +566,7 @@ declare namespace GoogleAppsScript {
      *         .setHelpText('Google Logo') // The help text is the image description
      *         .setImage(img);
      */
-    export interface ImageItem {
+    interface ImageItem {
       duplicate(): ImageItem;
       getAlignment(): Alignment;
       getHelpText(): string;
@@ -604,7 +608,7 @@ declare namespace GoogleAppsScript {
      *
      * NameBrief description
      */
-    export interface Item {
+    interface Item {
       asCheckboxGridItem(): CheckboxGridItem;
       asCheckboxItem(): CheckboxItem;
       asDateItem(): DateItem;
@@ -649,10 +653,10 @@ declare namespace GoogleAppsScript {
      *       }
      *     }
      */
-    export interface ItemResponse {
+    interface ItemResponse {
       getFeedback(): QuizFeedback;
       getItem(): Item;
-      getResponse(): string[][]|string[]|string;
+      getResponse(): string[][] | string[] | string;
       getScore(): number;
       setFeedback(feedback: any): ItemResponse;
       setScore(score: any): ItemResponse;
@@ -671,7 +675,7 @@ declare namespace GoogleAppsScript {
      *       item.setHelpText('Description of new section.');
      *     }
      */
-    export enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
+    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
 
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
@@ -686,7 +690,7 @@ declare namespace GoogleAppsScript {
      *             item.createChoice('Dogs')
      *         ]);
      */
-    export interface ListItem {
+    interface ListItem {
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
       createChoice(value: string, navigationItem: PageBreakItem): Choice;
@@ -728,7 +732,7 @@ declare namespace GoogleAppsScript {
      *          ])
      *         .showOtherOption(true);
      */
-    export interface MultipleChoiceItem {
+    interface MultipleChoiceItem {
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
       createChoice(value: string, navigationItem: PageBreakItem): Choice;
@@ -769,7 +773,7 @@ declare namespace GoogleAppsScript {
      *     pageTwo.setGoToPage(pageThree); // At end of page one (start of page two), jump to page three
      *     pageThree.setGoToPage(FormApp.PageNavigationType.RESTART); // At end of page two, restart form
      */
-    export interface PageBreakItem {
+    interface PageBreakItem {
       duplicate(): PageBreakItem;
       getGoToPage(): PageBreakItem;
       getHelpText(): string;
@@ -811,7 +815,7 @@ declare namespace GoogleAppsScript {
      *     var otherChoice = item.createChoice('Strawberry', FormApp.PageNavigationType.CONTINUE);
      *     item.setChoices([rightChoice, wrongChoice, iffyChoice, otherChoice]);
      */
-    export enum PageNavigationType { CONTINUE, GO_TO_PAGE, RESTART, SUBMIT }
+    enum PageNavigationType { CONTINUE, GO_TO_PAGE, RESTART, SUBMIT }
 
     /**
      * A question item that allows the respondent to enter a block of text. Items can be accessed or
@@ -822,7 +826,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addParagraphTextItem();
      *     item.setTitle('What is your address?');
      */
-    export interface ParagraphTextItem {
+    interface ParagraphTextItem {
       clearValidation(): ParagraphTextItem;
       createResponse(response: string): ItemResponse;
       duplicate(): ParagraphTextItem;
@@ -852,7 +856,9 @@ declare namespace GoogleAppsScript {
      *       .requireTextLengthGreatherThan(100);
      *     paragraphTextItem.setValidation(paragraphtextValidation);
      */
-    export interface ParagraphTextValidation {
+    // tslint:disable-next-line: no-empty-interface
+    interface ParagraphTextValidation {
+      // TODO: no-empty-interface
     }
 
     /**
@@ -865,7 +871,7 @@ declare namespace GoogleAppsScript {
      *       .requireTextLengthGreatherThan(100);
      *     paragraphTextItem.setValidation(paragraphtextValidation);
      */
-    export interface ParagraphTextValidationBuilder {
+    interface ParagraphTextValidationBuilder {
       requireTextContainsPattern(pattern: string): ParagraphTextValidationBuilder;
       requireTextDoesNotContainPattern(pattern: string): ParagraphTextValidationBuilder;
       requireTextDoesNotMatchPattern(pattern: string): ParagraphTextValidationBuilder;
@@ -889,7 +895,7 @@ declare namespace GoogleAppsScript {
      *       .addLink("http://wikipedia.com/osmosis");
      *     textItem.setFeedbackForIncorrect(feedback);
      */
-    export interface QuizFeedback {
+    interface QuizFeedback {
       getLinkUrls(): string[];
       getText(): string;
     }
@@ -908,7 +914,7 @@ declare namespace GoogleAppsScript {
      *     // Add feedback which will be shown for correct responses; ie "Dogs".
      *     item.setFeedbackForCorrect(FormApp.createFeedback().setText("Dogs rule, cats drool.").build());
      */
-    export interface QuizFeedbackBuilder {
+    interface QuizFeedbackBuilder {
       addLink(url: string): QuizFeedbackBuilder;
       addLink(url: string, displayText: string): QuizFeedbackBuilder;
       build(): QuizFeedback;
@@ -927,7 +933,7 @@ declare namespace GoogleAppsScript {
      *     item.setTitle('Pick a number between 1 and 10')
      *         .setBounds(1, 10);
      */
-    export interface ScaleItem {
+    interface ScaleItem {
       createResponse(response: Integer): ItemResponse;
       duplicate(): ScaleItem;
       getGeneralFeedback(): QuizFeedback;
@@ -960,7 +966,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addSectionHeaderItem();
      *     item.setTitle('Title of new section');
      */
-    export interface SectionHeaderItem {
+    interface SectionHeaderItem {
       duplicate(): SectionHeaderItem;
       getHelpText(): string;
       getId(): Integer;
@@ -980,7 +986,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addTextItem();
      *     item.setTitle('What is your name?');
      */
-    export interface TextItem {
+    interface TextItem {
       clearValidation(): TextItem;
       createResponse(response: string): ItemResponse;
       duplicate(): TextItem;
@@ -1011,7 +1017,9 @@ declare namespace GoogleAppsScript {
      *       .build();
      *     textItem.setValidation(textValidation);
      */
-    export interface TextValidation {
+    // tslint:disable-next-line: no-empty-interface
+    interface TextValidation {
+      // TODO: no-empty-interface
     }
 
     /**
@@ -1024,7 +1032,7 @@ declare namespace GoogleAppsScript {
      *       .requireNumberBetween(1, 100);
      *     textItem.setValidation(textValidation);
      */
-    export interface TextValidationBuilder {
+    interface TextValidationBuilder {
       requireNumber(): TextValidationBuilder;
       requireNumberBetween(start: number, end: number): TextValidationBuilder;
       requireNumberEqualTo(number: number): TextValidationBuilder;
@@ -1054,7 +1062,7 @@ declare namespace GoogleAppsScript {
      *     var item = form.addTimeItem();
      *     item.setTitle('What time do you usually wake up in the morning?');
      */
-    export interface TimeItem {
+    interface TimeItem {
       createResponse(hour: Integer, minute: Integer): ItemResponse;
       duplicate(): TimeItem;
       getGeneralFeedback(): QuizFeedback;
@@ -1093,7 +1101,7 @@ declare namespace GoogleAppsScript {
      *         .setHelpText('Video Caption')
      *         .setVideoUrl('1234abcdxyz');
      */
-    export interface VideoItem {
+    interface VideoItem {
       duplicate(): VideoItem;
       getAlignment(): Alignment;
       getHelpText(): string;
@@ -1108,7 +1116,6 @@ declare namespace GoogleAppsScript {
       setVideoUrl(youtubeUrl: string): VideoItem;
       setWidth(width: Integer): VideoItem;
     }
-
   }
 }
 

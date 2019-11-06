@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.32
+// Type definitions for stripe 7.10
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -31,6 +31,8 @@
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Claus Stilborg <https://github.com/stilborg>
+//                 Jorgen Vik <https://github.com/jvik>
+//                 Richard Ward <https://github.com/richardwardza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -38,94 +40,119 @@
 
 import { Agent } from 'http';
 
-declare class Stripe {
-  DEFAULT_HOST: string;
-  DEFAULT_PORT: string;
-  DEFAULT_BASE_PATH: string;
-  DEFAULT_API_VERSION: string;
-  DEFAULT_TIMEOUT: number;
-  PACKAGE_VERSION: string;
-  USER_AGENT: {
-    bindings_version: string;
-    lang: string;
-    lang_version: string;
-    platform: string;
-    publisher: string;
-    uname: string;
-  };
-  USER_AGENT_SERIALIZED: string;
-
-  resources: typeof Stripe.resources;
-  StripeResource: typeof Stripe.StripeResource;
-
-  constructor(apiKey: string, version?: string);
-
-  accounts: Stripe.resources.Accounts;
-  balance: Stripe.resources.Balance;
-  balanceTransactions: Stripe.resources.BalanceTransaction;
-  charges: Stripe.resources.Charges;
-  checkout: Stripe.resources.Checkout;
-  coupons: Stripe.resources.Coupons;
-  creditNotes: Stripe.resources.CreditNotes;
-  customers: Stripe.resources.Customers;
-  disputes: Stripe.resources.Disputes;
-  events: Stripe.resources.Events;
-  invoices: Stripe.resources.Invoices;
-  invoiceItems: Stripe.resources.InvoiceItems;
-  paymentIntents: Stripe.resources.PaymentIntents;
-  paymentMethods: Stripe.resources.PaymentMethods;
-  payouts: Stripe.resources.Payouts;
-  plans: Stripe.resources.Plans;
-  /**
-   * @deprecated
-   */
-  recipientCards: Stripe.resources.RecipientCards;
-  /**
-   * @deprecated
-   */
-  recipients: Stripe.resources.Recipients;
-  subscriptions: Stripe.resources.Subscriptions;
-  subscriptionItems: Stripe.resources.SubscriptionItems;
-  tokens: Stripe.resources.Tokens;
-  transfers: Stripe.resources.Transfers;
-  applicationFees: Stripe.resources.ApplicationFees;
-  fileUploads: Stripe.resources.FileUploads;
-  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-  refunds: Stripe.resources.Refunds;
-  countrySpecs: Stripe.resources.CountrySpecs;
-  orders: Stripe.resources.Orders;
-  products: Stripe.resources.Products;
-  setupIntents: Stripe.resources.SetupIntents;
-  skus: Stripe.resources.SKUs;
-  webhooks: Stripe.resources.WebHooks;
-  ephemeralKeys: Stripe.resources.EphemeralKeys;
-  usageRecords: Stripe.resources.UsageRecords;
-  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-  sources: Stripe.resources.Sources;
-
-  setHost(host: string): void;
-  setHost(host: string, port: string | number): void;
-  setHost(host: string, port: string | number, protocol: string): void;
-
-  setProtocol(protocol: string): void;
-  setPort(port: string | number): void;
-  setApiVersion(version?: string): void;
-  setApiKey(key?: string): void;
-  setAppInfo(info?: {
-    partner_id?: string;
-    name: string;
-    url?: string;
-    version?: string;
-  }): void;
-  setTimeout(timeout?: number): void;
-  setMaxNetworkRetries(maxNetworkRetries: number): void;
-  setTelemetryEnabled(enabled: boolean): void;
-  setHttpAgent(agent: Agent): void;
-  getConstant(c: string): any;
-  getMaxNetworkRetries(): number;
-  getTelemetryEnabled(): boolean;
-  getClientUserAgent(response: (userAgent: string) => void): void;
+interface RequestEvent {
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    request_start_time: number;
 }
+
+interface ResponseEvent {
+    api_version: string;
+    account?: string;
+    idempotency_key?: string;
+    method: string;
+    path: string;
+    status: number;
+    request_id: string;
+    elapsed: number;
+    request_start_time: number;
+    request_end_time: number;
+}
+
+declare class Stripe {
+    DEFAULT_HOST: string;
+    DEFAULT_PORT: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_API_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: {
+        bindings_version: string;
+        lang: string;
+        lang_version: string;
+        platform: string;
+        publisher: string;
+        uname: string;
+    };
+    USER_AGENT_SERIALIZED: string;
+
+    resources: typeof Stripe.resources;
+    StripeResource: typeof Stripe.StripeResource;
+
+    constructor(apiKey: string, version?: string);
+
+    accounts: Stripe.resources.Accounts;
+    balance: Stripe.resources.Balance;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
+    charges: Stripe.resources.Charges;
+    checkout: Stripe.resources.Checkout;
+    coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
+    customers: Stripe.resources.Customers;
+    disputes: Stripe.resources.Disputes;
+    events: Stripe.resources.Events;
+    invoices: Stripe.resources.Invoices;
+    invoiceItems: Stripe.resources.InvoiceItems;
+    paymentIntents: Stripe.resources.PaymentIntents;
+    paymentMethods: Stripe.resources.PaymentMethods;
+    payouts: Stripe.resources.Payouts;
+    plans: Stripe.resources.Plans;
+    /**
+     * @deprecated
+     */
+    recipientCards: Stripe.resources.RecipientCards;
+    /**
+     * @deprecated
+     */
+    recipients: Stripe.resources.Recipients;
+    subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
+    tokens: Stripe.resources.Tokens;
+    transfers: Stripe.resources.Transfers;
+    applicationFees: Stripe.resources.ApplicationFees;
+    files: Stripe.resources.Files;
+    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+    refunds: Stripe.resources.Refunds;
+    countrySpecs: Stripe.resources.CountrySpecs;
+    orders: Stripe.resources.Orders;
+    products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
+    skus: Stripe.resources.SKUs;
+    webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
+    usageRecords: Stripe.resources.UsageRecords;
+    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+    sources: Stripe.resources.Sources;
+
+    setHost(host: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
+
+    setProtocol(protocol: string): void;
+    setPort(port: string | number): void;
+    setApiVersion(version?: string): void;
+    setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
+    setTimeout(timeout?: number): void;
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
+    setHttpAgent(agent: Agent): void;
+    getConstant(c: string): any;
+    getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
+    getClientUserAgent(response: (userAgent: string) => void): void;
+
+    on(event: 'request', handler: (event: RequestEvent) => void): void;
+    on(event: 'response', handler: (event: ResponseEvent) => void): void;
+    once(event: 'request', handler: (event: RequestEvent) => void): void;
+    once(event: 'response', handler: (event: ResponseEvent) => void): void;
+    off(event: 'request', handler: (event: RequestEvent) => void): void;
+    off(event: 'response', handler: (event: ResponseEvent) => void): void;
+}
+
 export = Stripe;
 
 declare namespace Stripe {
@@ -145,7 +172,31 @@ declare namespace Stripe {
             /**
              * Value is "account"
              */
-            object: string;
+            object: 'account';
+
+            /**
+             * A hash containing the set of capabilities that was requested for this
+             * account and their associatedstates. Keys are names of capabilities.
+             * You can see the full list here. Values may be active, inactive, or pending.
+             */
+            capabilities?: {
+                /**
+                 * The status of the card payments capability of the account, or whether
+                 * the account can directly process credit and debit card charges.
+                 */
+                card_payments?: 'active' | 'inactive' | 'pending';
+
+                /**
+                 * The status of the legacy payments capability of the account.
+                 */
+                legacy_payments?: 'active' | 'inactive' | 'pending';
+
+                /**
+                 * The status of the transfers capability of the account, or whether your
+                 * platform can transfer funds to the account.
+                 */
+                transfers?: 'active' | 'inactive' | 'pending';
+            };
 
             /**
              * Whether or not the account can create live charges
@@ -153,9 +204,20 @@ declare namespace Stripe {
             charges_enabled: boolean;
 
             /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompany;
+
+            /**
              * The country of the account
              */
             country: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created?: number;
 
             /**
              * Whether or not account details have been submitted yet. Standalone
@@ -170,6 +232,24 @@ declare namespace Stripe {
             display_name: string;
 
             /**
+             * External accounts (bank accounts and debit cards) currently
+             * attached to this account
+             */
+            external_accounts?: IList<IExternalAccount>;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividual;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful
+             * for storing additional information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+
+            /**
              * Whether or not Stripe will send automatic transfers for this account. This
              * is only false when Stripe is waiting for additional information from the
              * account holder.
@@ -177,10 +257,22 @@ declare namespace Stripe {
             payouts_enabled: boolean;
 
             /**
+             * Information about the requirements for the account, including what information
+             * needs to be collected, and by when.
+             */
+            requirements?: IAccountRequirements;
+
+            /**
+             * The Stripe account type. Can be standard, express, or custom.
+             */
+            type: 'standard' | 'express' | 'custom';
+
+            /**
              * The state of the account’s information requests, including what
              * information is needed and by when it must be provided.
+             * @deprecated
              */
-            verification: {
+            verification?: {
                 /**
                  * A string describing the reason for this account being unable to charge
                  * and/or transfer, if that is the case. Possible values are "rejected.fraud",
@@ -205,29 +297,6 @@ declare namespace Stripe {
                  */
                 fields_needed: string[];
             };
-
-            /**
-             * Information about the company or business.
-             * This field is null unless business_type is set to company.
-             */
-            company?: ICompany;
-
-            /**
-             * Information about the person represented by the account.
-             * This field is null unless business_type is set to individual.
-             */
-            individual?: IIndividual;
-
-            /**
-             * External accounts (bank accounts and debit cards) currently
-             * attached to this account
-             */
-            external_accounts?: IList<IExternalAccount>;
-
-            /**
-             * Information about the requirements for the account, including what information needs to be collected, and by when.
-             */
-            requirements?: IAccountRequirements;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -252,14 +321,10 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * Whether you'd like to create a Custom or Standard account. Custom
-             * accounts have extra parameters available to them, and require that you,
-             * the platform, handle all communication with the account holder.
-             * Standard accounts are normal Stripe accounts: Stripe will email the
-             * account holder to setup a username and password, and handle all account
-             * management directly with them. Possible values are custom and standard.
+             * The type of Stripe account to create. Currently must be custom, as only Custom
+             * accounts may be created via the API.
              */
-            type: 'custom' | 'standard';
+            type: 'custom';
 
             /**
              * Information about the company or business.
@@ -406,18 +471,19 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * A set of key/value pairs that you can attach to an account object. It can be
-             * useful for storing additional information about the account in a structured
-             * format. This can be unset by updating the value to null and then saving.
-             */
-            metadata?: IMetadata;
-
-            /**
              * Internal-only description of the product being sold or service being
              * provided by this account. It’s used by Stripe for risk and underwriting
              * purposes.
              */
             product_description?: string;
+
+            /**
+             * The set of capabilities you want to unlock for this account (US only).
+             * Each capability will be inactive until you have provided its specific
+             * requirements and Stripe has verified them. An account may have some of
+             * its requested capabilities be active and some be inactive.
+             */
+            requested_capabilities?: string[];
 
             /**
              * Account options for customizing how the account functions within Stripe.
@@ -429,13 +495,13 @@ declare namespace Stripe {
                  */
                 branding?: {
                     /**
-                     * (ID of a file upload) An icon for the account. Must be square and at
+                     * (ID of a file) An icon for the account. Must be square and at
                      * least 128px x 128px.
                      */
                     icon?: string;
 
                     /**
-                     * (ID of a file upload) A logo for the account that will be used in
+                     * (ID of a file) A logo for the account that will be used in
                      * Checkout instead of the icon and without the account’s name next to it
                      * if provided. Must be at least 128px x 128px. This can be unset by
                      * updating the value to null and then saving.
@@ -508,6 +574,18 @@ declare namespace Stripe {
                      * charge.
                      */
                     statement_descriptor?: string;
+
+                    /**
+                     * The Kana variation of the default text that appears on credit card statements
+                     * when a charge is made (Japan only)
+                     */
+                    statement_descriptor_kana?: string | null;
+
+                    /**
+                     * The Kanji variation of the default text that appears on credit card statements
+                     * when a charge is made (Japan only)
+                     */
+                    statement_descriptor_kanji?: string | null;
                 };
 
                 /**
@@ -594,7 +672,18 @@ declare namespace Stripe {
             };
         }
 
-        interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
+        interface IAccountUpdateOptions extends IDataOptionsWithMetadata, IAccountShared {
+            /**
+             * An account token, used to securely provide details to the account.
+             */
+            account_token?: string;
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyCreateUpdateOptions;
+
             /**
              * A card or bank account to attach to the account. You can provide either a
              * token, like the ones returned by Stripe.js, or a dictionary as documented in
@@ -653,17 +742,6 @@ declare namespace Stripe {
             };
 
             /**
-             * An account token, used to securely provide details to the account.
-             */
-            account_token?: string;
-
-            /**
-             * Information about the company or business.
-             * This field is null unless business_type is set to company.
-             */
-            company?: ICompanyCreateUpdateOptions;
-
-            /**
              * Information about the person represented by the account.
              * This field is null unless business_type is set to individual.
              */
@@ -718,6 +796,13 @@ declare namespace Stripe {
              * A single-use login link for an Express account to access their Stripe dashboard.
              */
             url: string;
+        }
+
+        interface ILoginLinkOptions {
+            /**
+             * Where to redirect the user after they log out of their dashboard.
+             */
+            redirect_url: string;
         }
 
         interface ICompanyShared {
@@ -921,13 +1006,13 @@ declare namespace Stripe {
                  */
                 document?: {
                     /**
-                     * The back of an ID returned by a file upload with a purpose value of identity_document.
+                     * The back of an ID returned by a file with a purpose value of identity_document.
                      * This can be unset by updating the value to null and then saving.
                      */
                     back?: string;
 
                     /**
-                     * The front of an ID returned by a file upload with a purpose value of identity_document.
+                     * The front of an ID returned by a file with a purpose value of identity_document.
                      * This can be unset by updating the value to null and then saving.
                      */
                     front?: string;
@@ -961,6 +1046,337 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             ssn_last_4?: string;
+        }
+
+        interface IPersonDocumentCreateUpdateOptions {
+            /**
+             * The back of an ID returned by a file upload with a purpose value of identity_document.
+             * The uploaded file needs to be a color image (smaller than 8,000px by 8,000px),
+             * in JPG or PNG format, and less than 10 MB in size.
+             */
+            back?: string;
+
+            /**
+             * The front of an ID returned by a file upload with a purpose value of identity_document.
+             * The uploaded file needs to be a color image (smaller than 8,000px by 8,000px),
+             * in JPG or PNG format, and less than 10 MB in size.
+             */
+            front?: string;
+        }
+
+        interface IPersonDocument extends IPersonDocumentCreateUpdateOptions {
+            /**
+             * A user-displayable string describing the verification state of this document.
+             * For example, if a document is uploaded and the picture is too fuzzy, this may
+             * say “Identity document is too unclear to read”.
+             */
+            details?: string;
+
+            /**
+             * One of document_corrupt, document_country_not_supported, document_expired, document_failed_copy,
+             * document_failed_other, document_failed_test_mode, document_fraudulent, document_failed_greyscale,
+             * document_incomplete, document_invalid, document_manipulated, document_missing_back, document_missing_front,
+             * document_not_readable, document_not_uploaded, document_photo_mismatch, document_too_large, or document_type_not_supported.
+             * A machine-readable code specifying the verification state for this document.
+             */
+            details_code?: string;
+        }
+
+        interface IPersonShared {
+            /**
+             * The account the person is associated with.
+             */
+            account?: string;
+
+            /**
+             * The person’s address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the person’s address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the person’s address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * The person’s date of birth.
+             */
+            dob?: {
+                /**
+                 * The day of birth, between 1 and 31.
+                 */
+                day: number;
+                /**
+                 * The month of birth, between 1 and 12.
+                 */
+                month: number;
+                /**
+                 * The four-digit year of birth.
+                 */
+                year: number;
+            };
+
+            /**
+             * The person’s email address.
+             */
+            email?: string;
+
+            /**
+             * The person’s first name.
+             */
+            first_name?: string;
+
+            /**
+             * The Kana variation of the the person’s first name (Japan only).
+             */
+            first_name_kana?: string;
+
+            /**
+             * The Kanji variation of the person’s first name (Japan only).
+             */
+            first_name_kanji?: string;
+
+            /**
+             * The person’s gender (International regulations require either “male” or “female”).
+             */
+            gender?: 'male' | 'female';
+
+            /**
+             * The person’s last name.
+             */
+            last_name?: string;
+
+            /**
+             * The Kana variation of the person’s last name (Japan only).
+             */
+            last_name_kana?: string;
+
+            /**
+             * The Kanji variation of the person’s last name (Japan only).
+             */
+            last_name_kanji?: string;
+
+            /**
+             * The person’s maiden name.
+             */
+            maiden_name?: string;
+
+            /**
+             * The person’s phone number.
+             */
+            phone?: string;
+
+            /**
+             * Describes the person’s relationship to the account.
+             */
+            relationship?: {
+                /**
+                 * Whether the person is a director of the account’s legal entity. Currently only required for accounts in the EU.
+                 * Directors are typically members of the governing board of the company, or responsible for ensuring the
+                 * company meets its regulatory obligations.
+                 */
+                director?: boolean;
+
+                /**
+                 * Whether the person has significant responsibility to control, manage, or direct the organization.
+                 */
+                executive?: boolean;
+
+                /**
+                 * Whether the person is an owner of the account’s legal entity.
+                 */
+                owner?: boolean;
+
+                /**
+                 * The percent owned by the person of the account’s legal entity.
+                 */
+                percent_ownership?: number;
+
+                /**
+                 * Whether the person is authorized as the primary representative of the account.
+                 * This is the person nominated by the business to provide information about themselves,
+                 * and general information about the account. There can only be one representative at any given time.
+                 * At the time the account is created, this person should be set to the person responsible for opening the account.
+                 */
+                representative?: boolean;
+
+                /**
+                 * The person’s title (e.g., CEO, Support Engineer).
+                 */
+                title?: string;
+            };
+        }
+
+        interface IPerson extends IPersonShared {
+            /**
+             * Unique identifier for the object.
+             */
+            id: string;
+
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: 'person';
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * Whether the person’s personal ID number was provided.
+             */
+            id_number_provided: boolean;
+
+            /**
+             * Information about the requirements for this person, including what information needs to be collected, and by when.
+             */
+            requirements: {
+                /**
+                 * Fields that need to be collected to keep the person’s account enabled.
+                 * If not collected by the account’s current_deadline, these fields appear in past_due as well, and the account is disabled.
+                 */
+                currently_due: string[];
+
+                /**
+                 * Fields that need to be collected assuming all volume thresholds are reached.
+                 * As fields are needed, they are moved to currently_due and the account’s current_deadline is set.
+                 */
+                eventually_due: string[];
+
+                /**
+                 * Fields that weren’t collected by the account’s current_deadline.
+                 * These fields need to be collected to enable payouts for the person’s account.
+                 */
+                past_due: string[];
+
+                /**
+                 * Fields that may become required depending on the results of verification or review.
+                 * An empty array unless an asynchronous verification is pending.
+                 * If verification fails, the fields in this array become required and move to currently_due or past_due.
+                 */
+                pending_verification: string[];
+            };
+
+            /**
+             * Whether the person’s last 4 SSN digits was provided.
+             */
+            ssn_last_4_provided: boolean;
+
+            /**
+             * The person’s verification document information.
+             */
+            verification: {
+                /**
+                 * A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+                 */
+                additional_document: IPersonDocument;
+
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code: string;
+
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document: IPersonDocument;
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status: string;
+            };
+        }
+
+        interface IPersonCreateUpdateOptions extends IPersonShared {
+            /**
+             * The person’s ID number, as appropriate for their country. For example, a social security number
+             * in the U.S., social insurance number in Canada, etc. Instead of the number itself,
+             * you can also provide a PII token provided by Stripe.js.
+             */
+            id_number?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them.
+             * All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * A person token, used to securely provide details to the person.
+             */
+            person_token?: string;
+
+            /**
+             * The last four digits of the person’s Social Security Number (U.S. only).
+             */
+            ssn_last_4?: string;
+
+            /**
+             * The person’s verification document information.
+             */
+            verification?: {
+                /**
+                 * A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+                 */
+                additional_document?: IPersonDocumentCreateUpdateOptions;
+
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document?: IPersonDocumentCreateUpdateOptions;
+            };
+        }
+
+        interface IPersonListOptions extends IListOptions {
+            relationship: {
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * directors of the account’s company.
+                 */
+                director?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * executives of the account’s company.
+                 */
+                executive?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * owners of the account’s company.
+                 */
+                owner?: boolean;
+
+                /**
+                 * A filter on the list of people returned based on whether these people are
+                 * the representative of the account’s company.
+                 */
+                representative?: boolean;
+            };
         }
     }
 
@@ -1668,6 +2084,14 @@ declare namespace Stripe {
              * physical goods.
              */
             shipping?: IShippingInformation;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            transfer_group?: string;
         }
 
         interface IChargeListOptions extends IListOptionsCreated {
@@ -2189,6 +2613,7 @@ declare namespace Stripe {
                  */
                 quantity?: number;
             }
+
             interface ICheckOutCreationSubscriptionData {
                 /**
                  * A list of items, each with an attached plan, that the customer is subscribing to. Use this parameter for subscriptions. To create one-time payments, use line_items.
@@ -2216,6 +2641,7 @@ declare namespace Stripe {
                  */
                 trial_period_days?: number;
             }
+
             interface ICheckoutCreationOptions {
                 /**
                  * The URL to return the customer to if they cancel payment
@@ -2705,7 +3131,7 @@ declare namespace Stripe {
             /**
              * The customer’s tax IDs.
              */
-            tax_id_data?: {
+            tax_id_data?: Array<{
                 /**
                  * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, or nz_gst.
                  */
@@ -2715,7 +3141,7 @@ declare namespace Stripe {
                  * Value of the tax ID.
                  */
                 value: string;
-            };
+            }>;
 
             /**
              * @deprecated
@@ -3108,7 +3534,7 @@ declare namespace Stripe {
             billing_address?: string;
 
             /**
-             * (ID of a file upload) Your subscription cancellation policy, as shown to the customer. [Expandable]
+             * (ID of a file) Your subscription cancellation policy, as shown to the customer. [Expandable]
              */
             cancellation_policy?: string;
 
@@ -3123,7 +3549,7 @@ declare namespace Stripe {
             cancellation_rebuttal?: string;
 
             /**
-             * (ID of a file upload) Any communication with the customer that you feel is relevant to your case (for
+             * (ID of a file) Any communication with the customer that you feel is relevant to your case (for
              * example emails proving that they received the product or service, or demonstrating their use of or
              * satisfaction with the product or service).
              */
@@ -3145,12 +3571,12 @@ declare namespace Stripe {
             customer_purchase_ip?: string;
 
             /**
-             * (ID of a file upload) A relevant document or contract showing the customer's signature. [Expandable]
+             * (ID of a file) A relevant document or contract showing the customer's signature. [Expandable]
              */
             customer_signature?: string;
 
             /**
-             * (ID of a file upload) Documentation for the prior charge that can uniquely identify the charge,
+             * (ID of a file) Documentation for the prior charge that can uniquely identify the charge,
              * such as a receipt, shipping label, work order, etc. This document should be paired with a similar
              * document from the disputed payment that proves the two payments are separate. [Expandable]
              */
@@ -3172,12 +3598,12 @@ declare namespace Stripe {
             product_description?: string;
 
             /**
-             * (ID of a file upload) Any receipt or message sent to the customer notifying them of the charge. [Expandable]
+             * (ID of a file) Any receipt or message sent to the customer notifying them of the charge. [Expandable]
              */
             receipt?: string;
 
             /**
-             * (ID of a file upload) Your refund policy, as shown to the customer. [Expandable]
+             * (ID of a file) Your refund policy, as shown to the customer. [Expandable]
              */
             refund_policy?: string;
 
@@ -3197,7 +3623,7 @@ declare namespace Stripe {
             service_date?: string;
 
             /**
-             * (ID of a file upload) Documentation showing proof that a service was provided to the customer. This could
+             * (ID of a file) Documentation showing proof that a service was provided to the customer. This could
              * include a copy of a signed contract, work order, or other form of written agreement.
              */
             service_documentation?: string;
@@ -3219,7 +3645,7 @@ declare namespace Stripe {
             shipping_date?: string;
 
             /**
-             * (ID of a file upload) Documentation showing proof that a product was shipped to the customer at the same address
+             * (ID of a file) Documentation showing proof that a product was shipped to the customer at the same address
              * the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc, and should
              * show the full shipping address of the customer, if possible. [Expandable]
              */
@@ -3232,7 +3658,7 @@ declare namespace Stripe {
             shipping_tracking_number?: string;
 
             /**
-             * (ID of a file upload) Any additional evidence or statements. [Expandable]
+             * (ID of a file) Any additional evidence or statements. [Expandable]
              */
             uncategorized_file?: string;
 
@@ -3328,12 +3754,12 @@ declare namespace Stripe {
         }
     }
 
-    namespace fileUploads {
+    namespace files {
         interface IFileUpdate extends IResourceObject {
             /**
-             * Value is "file_upload"
+             * Value is "file"
              */
-            object: 'file_upload';
+            object: 'file';
 
             created: number;
 
@@ -3345,7 +3771,7 @@ declare namespace Stripe {
             purpose: IPurpose;
 
             /**
-             * The size in bytes of the file upload object.
+             * The size in bytes of the file object.
              */
             size: number;
 
@@ -3364,7 +3790,7 @@ declare namespace Stripe {
             url: string;
         }
 
-        interface IFileUploadCreationOptions extends IDataOptions {
+        interface IFileCreationOptions extends IDataOptions {
             purpose: IPurpose;
             file: {
                 data: string | Buffer;
@@ -3373,7 +3799,7 @@ declare namespace Stripe {
             };
         }
 
-        interface IFileUploadListOptions extends IListOptionsCreated {
+        interface IFileListOptions extends IListOptionsCreated {
             /**
              * The file purpose to filter queries by. If none is provided, files will not be
              * filtered by purpose.
@@ -3408,6 +3834,16 @@ declare namespace Stripe {
              * Value is 'invoice'
              */
             object: 'invoice';
+
+            /**
+             * The country of the business associated with this invoice, most often the business creating the invoice.
+             */
+            account_country: string;
+
+            /**
+             * The public name of the business associated with this invoice, most often the business creating the invoice.
+             */
+            account_name: string;
 
             /**
              * Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge
@@ -3472,6 +3908,8 @@ declare namespace Stripe {
              * Stripe will attempt to pay this invoice using the default source attached to the
              * customer. When sending an invoice, Stripe will email this invoice to the customer
              * with payment instructions.
+             *
+             * @deprecated This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing: 'charge_automatically' | 'send_invoice';
 
@@ -3502,10 +3940,10 @@ declare namespace Stripe {
             charge: string | charges.ICharge | null;
 
             /**
-             * Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
+             * @deprecated Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
              * it has been marked closed. A closed invoice will no longer attempt to collect payment.
              */
-            closed: boolean;
+            closed?: boolean;
 
             /**
              * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
@@ -3527,9 +3965,15 @@ declare namespace Stripe {
             /**
              * Custom fields displayed on the invoice.
              */
-            custom_fields: ICustomField[];
+            custom_fields: ICustomField[] | null;
 
             customer: string | customers.ICustomer;
+
+            /**
+             * The customer’s address. Until the invoice is finalized, this field will equal customer.address.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_address: IAddress | null;
 
             /**
              * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
@@ -3547,25 +3991,55 @@ declare namespace Stripe {
              * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_phone: string;
+            customer_phone: string | null;
 
             /**
-             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             * The customer’s shipping information. Until the invoice is finalized, this field will equal customer.shipping.
+             * Once the invoice is finalized, this field will no longer be updated.
              */
-            date: number;
+            customer_shipping: IShippingInformation;
+
+            /**
+             * The customer’s tax exempt status. Until the invoice is finalized, this field will equal customer.tax_exempt.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_tax_exempt: string;
+
+            /**
+             * The customer’s tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as customer.tax_ids.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_tax_ids: customerTaxIds.ITaxIdCreationOptions[];
+
+            /**
+             * @deprecated Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            date?: number;
+
+            /**
+             * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice.
+             * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
+             * the customer’s invoice settings.
+             */
+            default_payment_method: string | null;
 
             /**
              * ID of the default payment source for the invoice. It must belong to the customer
              * associated with the invoice and be in a chargeable state. If not set, defaults to
              * the subscription’s default source, if any, or to the customer’s default source.
              */
-            default_source: string;
+            default_source: string | null;
+
+            /**
+             * The tax rates applied to this invoice, if any.
+             */
+            default_tax_rates: taxRates.ITaxRate[];
 
             /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
              * Referenced as ‘memo’ in the Dashboard.
              */
-            description: string;
+            description: string | null;
 
             discount: coupons.IDiscount | null;
 
@@ -3582,16 +4056,16 @@ declare namespace Stripe {
             ending_balance: number | null;
 
             /**
-             * Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
+             * Footer displayed on the invoice.
+             */
+            footer: string | null;
+
+            /**
+             * @deprecated Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
              * status as if the invoice were succcessfully paid. Once an invoice has been forgiven, it cannot be unforgiven
              * or reopened
              */
-            forgiven: boolean;
-
-            /**
-             * Footer displayed on the invoice.
-             */
-            footer: string;
+            forgiven?: boolean;
 
             /**
              * The URL for the hosted invoice page, which allows customers to view and pay an
@@ -3626,7 +4100,7 @@ declare namespace Stripe {
             /**
              * The time at which payment will next be attempted.
              */
-            next_payment_attempt: number;
+            next_payment_attempt: number | null;
 
             /**
              * A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer’s unique invoice_prefix if it is specified.
@@ -3643,7 +4117,7 @@ declare namespace Stripe {
              * The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized,
              * and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. [Expandable]
              */
-            payment_intent: paymentIntents.IPaymentIntent | null;
+            payment_intent: paymentIntents.IPaymentIntent | string | null;
 
             /**
              * End of the usage period during which invoice items were added to this invoice
@@ -3668,7 +4142,7 @@ declare namespace Stripe {
             /**
              * This is the transaction number that appears on email receipts sent for this invoice.
              */
-            receipt_number: string;
+            receipt_number: string | null;
 
             /**
              * Starting customer balance before attempting to pay invoice. If the invoice has not been attempted yet,
@@ -3679,7 +4153,7 @@ declare namespace Stripe {
             /**
              * Extra information about an invoice for the customer's credit card statement.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`.
@@ -3694,7 +4168,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice was prepared for, if any.
              */
-            subscription: string | subscriptions.ISubscription;
+            subscription: string | subscriptions.ISubscription | null;
 
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
@@ -3731,11 +4205,16 @@ declare namespace Stripe {
             total: number;
 
             /**
+             * The aggregate amounts calculated per tax rate for all line items.
+             */
+            total_tax_amounts: taxRates.ITaxAmount[] | null;
+
+            /**
              * The time at which webhooks for this invoice were successfully delivered (if the invoice had no webhooks to
              * deliver, this will match date). Invoice payment is delayed until webhooks are delivered, or until all webhook
              * delivery attempts have been exhausted.
              */
-            webhooks_delivered_at: number;
+            webhooks_delivered_at: number | null;
         }
 
         interface IInvoiceLineItem extends IResourceObject {
@@ -3831,12 +4310,17 @@ declare namespace Stripe {
             auto_advance?: boolean;
 
             /**
+             * @deprecated Use collection_method instead
+             */
+            billing?: 'charge_automatically' | 'send_invoice';
+
+            /**
              * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe
              * will attempt to pay this invoice using the default source attached to the customer.
              * When sending an invoice, Stripe will email this invoice to the customer with payment
              * instructions. Defaults to charge_automatically.
              */
-            billing?: 'charge_automatically' | 'send_invoice';
+            collection_method?: 'charge_automatically' | 'send_invoice';
 
             /**
              * A list of up to 4 custom fields to be displayed on the invoice.
@@ -4299,19 +4783,19 @@ declare namespace Stripe {
             /**
              * The time that the invoice draft was finalized.
              */
-            finalized_at: number;
+            finalized_at: number | null;
             /**
              * The time that the invoice was marked uncollectible.
              */
-            marked_uncollectible_at: number;
+            marked_uncollectible_at: number | null;
             /**
              * The time that the invoice was paid.
              */
-            paid_at: number;
+            paid_at: number | null;
             /**
              * The time that the invoice was voided.
              */
-            voided_at: number;
+            voided_at: number | null;
         }
 
         interface IThresholdReason {
@@ -4346,7 +4830,7 @@ declare namespace Stripe {
 
             amount: number;
             currency: string;
-            customer: string;
+            customer: string | customers.ICustomer;
             date: number;
             description: string;
 
@@ -5044,7 +5528,12 @@ declare namespace Stripe {
             transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
-        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentUserProvidedCancellationReason =
+            | 'duplicate'
+            | 'fraudulent'
+            | 'requested_by_customer'
+            | 'abandoned';
+        type PaymentIntentStripeProvidedCancellationReason = 'failed_invoice' | 'void_invoice' | 'automatic';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
 
@@ -5088,7 +5577,10 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancellation_reason: PaymentIntentCancellationReason | null;
+            cancellation_reason:
+                | PaymentIntentUserProvidedCancellationReason
+                | PaymentIntentStripeProvidedCancellationReason
+                | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -5157,18 +5649,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
@@ -5233,6 +5714,12 @@ declare namespace Stripe {
              * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success. [Expandable]
              */
             destination: string | bankAccounts.IBankAccount | cards.ICardHash | accounts.IAccountCreationOptions;
+
+            /**
+             * The amount that will be transferred automatically when a charge succeeds. The amount is capped at the total transaction amount and if no amount is set, the full amount is transferred.
+             * If you intend to collect a fee and you need a more robust reporting experience, using application_fee_amount might be a better fit for your integration.
+             */
+            amount?: number;
         }
 
         interface IPaymentIntentNextActionRedirectToUrl {
@@ -5254,48 +5741,22 @@ declare namespace Stripe {
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
         type PaymentIntentPaymentMethodType = 'card' | 'card_present';
 
-        interface IPaymentIntentCreationOptions {
+        interface IPaymentMethodCardOptions {
             /**
-             * Amount intended to be collected by this PaymentIntent (in cents).
+             * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
+             * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
              */
-            amount: number;
+            request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
+        }
 
+        interface IPaymentMethodOptions {
             /**
-             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             * Configuration for any card payments attempted on this PaymentIntent.
              */
-            currency: string;
+            card?: IPaymentMethodCardOptions;
+        }
 
-            /**
-             * The ID of the payment method used to pay
-             */
-            payment_method?: string;
-
-            /**
-             * The list of payment method types that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"].
-             */
-            payment_method_types?: PaymentIntentPaymentMethodType[];
-
-            /**
-             * Payment-method-specific configuration for this PaymentIntent.
-             */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
-
-            /**
-             * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
-             */
-            application_fee_amount?: number;
-
+        interface IPaymentIntentCreationOptions extends IPaymentIntentUpdateOptions {
             /**
              * Capture method of this PaymentIntent.
              */
@@ -5312,32 +5773,14 @@ declare namespace Stripe {
             confirmation_method?: 'automatic' | 'manual';
 
             /**
-             * ID of the customer this PaymentIntent is for if one exists.
-             */
-            customer?: string;
-
-            /**
-             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
-             */
-            description?: string | null;
-
-            /**
-             * A set of key/value pairs that you can attach to an object. It can be
-             * useful for storing additional information about the object in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IOptionsMetadata;
-
-            /**
              * The Stripe account ID for which these funds are intended.
              */
             on_behalf_of?: string;
 
             /**
-             * Email address that the receipt for the resulting payment will be sent to.
+             * Payment-method-specific configuration for this PaymentIntent.
              */
-            receipt_email?: string;
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site. If you’d prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This param can only be used if `confirm=true`.
@@ -5345,34 +5788,14 @@ declare namespace Stripe {
             return_url?: string;
 
             /**
-             * Set to `true` to save this PaymentIntent’s payment method to the associated Customer, if the payment method is not already attached. This parameter only applies to the payment method passed in the same request or the current payment method attached to the PaymentIntent and must be specified again if a new payment method is added.
-             */
-            save_payment_method?: boolean;
-
-            /*
-             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
-             */
-            setup_future_usage?: PaymentIntentFutureUsageType;
-
-            /**
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
 
             /**
-             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
-             */
-            statement_descriptor?: string;
-
-            /**
              * The parameters used to automatically create a Transfer when the payment succeeds.
              */
             transfer_data?: IPaymentIntentTransferData;
-
-            /**
-             * A string that identifies the resulting payment as part of a group.
-             */
-            transfer_group?: string;
         }
 
         interface IPaymentIntentUpdateOptions {
@@ -5429,7 +5852,7 @@ declare namespace Stripe {
              */
             save_payment_method?: boolean;
 
-            /*
+            /**
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
             setup_future_usage?: PaymentIntentFutureUsageType;
@@ -5445,9 +5868,20 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * ID of the Source object to attach to this PaymentIntent.
+             * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
              */
-            source?: string;
+            statement_descriptor_suffix?: string;
+
+            /**
+             * The parameters used to automatically create a Transfer when the payment succeeds.
+             */
+            transfer_data?: {
+                /**
+                 * The amount that will be transferred automatically when a charge succeeds. The amount is capped at the total transaction amount and if no amount is set, the full amount is transferred.
+                 * If you intend to collect a fee and you need a more robust reporting experience, using application_fee_amount might be a better fit for your integration.
+                 */
+                amount?: number;
+            };
 
             /**
              * A string that identifies the resulting payment as part of a group.
@@ -5474,18 +5908,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types that this PaymentIntent is allowed to use.
@@ -5516,11 +5939,6 @@ declare namespace Stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation | null;
-
-            /**
-             * ID of the source used in this PaymentIntent.
-             */
-            source?: string;
         }
 
         interface IPaymentIntentRetrieveOptions {
@@ -5962,6 +6380,76 @@ declare namespace Stripe {
         }
     }
 
+    namespace taxRates {
+        interface ITaxAmount {
+            /**
+             * The amount, in cents, of the tax.
+             */
+            amount: number;
+            /**
+             * Whether this tax amount is inclusive or exclusive.
+             */
+            inclusive: boolean;
+            /**
+             * The tax rate that was applied to get this tax amount.
+             */
+            tax_rate: string | ITaxRate;
+        }
+        /**
+         * Tax rates can be applied to invoices and subscriptions to collect tax.
+         */
+        interface ITaxRate extends IResourceObject {
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: 'tax_rate';
+
+            /**
+             * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
+             */
+            active: boolean;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description: string | null;
+
+            /**
+             * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
+             */
+            display_name: string | null;
+
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
+
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number | null;
+        }
+    }
     namespace paymentMethods {
         interface WalletAddress {
             /** City/District/Suburb/Town/Village. */
@@ -6030,6 +6518,7 @@ declare namespace Stripe {
             type: 'google_pay';
             google_pay: {};
         }
+
         interface SamsungPayWallet extends TokenizedWallet {
             type: 'samsung_pay';
             samsung_pay: {};
@@ -7214,6 +7703,12 @@ declare namespace Stripe {
             source_transaction?: string;
 
             /**
+             * The source balance to use for this transfer. One of bank_account
+             * or card. For most users, this will default to card.
+             */
+            source_type?: SourceTypes;
+
+            /**
              * A string that identifies this transaction as part of a group.
              * See the Connect documentation for details.
              */
@@ -7787,6 +8282,7 @@ declare namespace Stripe {
             | 'invoice_too_large'
             | 'invoice_too_small'
             | 'unspent_receiver_credit';
+
         interface ICustomerBalanceTransaction extends IResourceObject {
             /**
              * Value is "customer_balance_transaction"
@@ -7901,6 +8397,7 @@ declare namespace Stripe {
             | 'canceled'
             | 'unpaid';
         type SubscriptionBilling = 'charge_automatically' | 'send_invoice';
+
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -8203,6 +8700,12 @@ declare namespace Stripe {
              * Using this flag requires contacting Stripe support in order to have the account whitelisted.
              */
             pay_immediately?: boolean;
+
+            /**
+             * The tax rates that will apply to the subscription.
+             */
+
+            default_tax_rates?: string[];
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -8970,6 +9473,7 @@ declare namespace Stripe {
 
     interface IListPromise<T> extends Promise<IList<T>>, AsyncIterableIterator<T> {
         autoPagingEach(handler: (item: T) => Promise<void>): void;
+
         autoPagingToArray(opts: { limit: number }): Promise<T[]>;
     }
 
@@ -9260,9 +9764,108 @@ declare namespace Stripe {
             createLoginLink(accId: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
             createLoginLink(
                 accId: string,
-                redirectUrl?: string,
+                options?: accounts.ILoginLinkOptions,
                 response?: IResponseFn<accounts.ILoginLink>,
             ): Promise<accounts.ILoginLink>;
+
+            /**
+             * Creates a new person.
+             */
+            createPerson(
+                accId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            createPerson(
+                accId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Updates an existing person.
+             */
+            updatePerson(
+                accId: string,
+                personId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            updatePerson(
+                accId: string,
+                personId: string,
+                data: accounts.IPersonCreateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Retrieves an existing person.
+             */
+            retrievePerson(
+                accId: string,
+                personId: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                data: IDataOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            retrievePerson(
+                accId: string,
+                personId: string,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account
+             * can be deleted through the API, except if the person is the account_opener.
+             * If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+             */
+            deletePerson(
+                accId: string,
+                personId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+            deletePerson(
+                accId: string,
+                personId: string,
+                response?: IResponseFn<accounts.IPerson>,
+            ): Promise<accounts.IPerson>;
+
+            /**
+             * Returns a list of people associated with the account’s legal entity.
+             * The people are returned sorted by creation date, with the most recent people appearing first.
+             */
+            listPersons(
+                accId: string,
+                data: accounts.IPersonListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(
+                accId: string,
+                data: accounts.IPersonListOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(
+                accId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<accounts.IPerson>,
+            ): IListPromise<accounts.IPerson>;
+            listPersons(accId: string, response?: IResponseFn<accounts.IPerson>): IListPromise<accounts.IPerson>;
         }
 
         class ApplicationFees extends StripeResource {
@@ -9658,8 +10261,14 @@ declare namespace Stripe {
         class Sessions extends StripeResource {
             create(
                 data: checkouts.sessions.ICheckoutCreationOptions,
+                options: HeaderOptions,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+            create(
+                data: checkouts.sessions.ICheckoutCreationOptions,
+                response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
+            ): Promise<checkouts.sessions.ICheckoutSession>;
+
             retrieve(
                 data: string,
                 options: HeaderOptions,
@@ -9904,6 +10513,7 @@ declare namespace Stripe {
             ): IListPromise<refunds.IRefund>;
 
             markAsSafe(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+
             markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
         }
 
@@ -11235,6 +11845,7 @@ declare namespace Stripe {
                 response?: IResponseFn<subscriptions.ISubscription>,
             ): Promise<subscriptions.ISubscription>;
         }
+
         class CustomerSubscriptions extends SubscriptionsBase {
             /**
              * Creates a new subscription on an existing customer.
@@ -11468,7 +12079,7 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
         }
 
-        class FileUploads extends StripeResource {
+        class Files extends StripeResource {
             /**
              * To upload a file to Stripe, you’ll need to send a request of type multipart/form-data.
              * The request should contain the file you would like to upload, as well as the parameters for creating a file.
@@ -11476,55 +12087,55 @@ declare namespace Stripe {
              * All of Stripe’s officially supported API libraries should have support for sending multipart/form-data.
              */
             create(
-                data: fileUploads.IFileUploadCreationOptions,
+                data: files.IFileCreationOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             create(
-                data: fileUploads.IFileUploadCreationOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                data: files.IFileCreationOptions,
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
 
             /**
              * Retrieves the details of an existing file object.
-             * Supply the unique file upload ID from a file creation request, and Stripe will return the corresponding transfer information.
+             * Supply the unique file ID from a file creation request, and Stripe will return the corresponding transfer information.
              */
             retrieve(
                 id: string,
                 data: IDataOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             retrieve(
                 id: string,
                 data: IDataOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             retrieve(
                 id: string,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
-            retrieve(id: string, response?: IResponseFn<fileUploads.IFileUpdate>): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
+            retrieve(id: string, response?: IResponseFn<files.IFileUpdate>): Promise<files.IFileUpdate>;
 
             /**
              * Returns a list of the files that you have uploaded to Stripe.
-             * The file uploads are returned sorted by creation date, with the most recently created file uploads appearing first.
+             * The files are returned sorted by creation date, with the most recently created files appearing first.
              */
             list(
-                data: fileUploads.IFileUploadListOptions,
+                data: files.IFileListOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
             list(
-                data: fileUploads.IFileUploadListOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
+                data: files.IFileListOptions,
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
             list(
                 options: HeaderOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
-            list(response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
+            list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
         }
 
         class Invoices extends StripeResource {
@@ -12044,7 +12655,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason;
+                    cancellation_reason?: paymentIntents.PaymentIntentUserProvidedCancellationReason;
                 },
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
@@ -12057,7 +12668,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason;
+                    cancellation_reason?: paymentIntents.PaymentIntentUserProvidedCancellationReason;
                 },
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
@@ -12228,6 +12839,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodCreationOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             retrieve(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12237,6 +12849,7 @@ declare namespace Stripe {
                 paymentMethodId: string,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             update(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodUpdateOptions,
@@ -12248,6 +12861,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodUpdateOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             list<T extends paymentMethods.IPaymentMethodType>(
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 options: HeaderOptions,
@@ -12257,6 +12871,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>,
             ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+
             attach(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodAttachOptions,
@@ -12268,6 +12883,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodAttachOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             detach(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12455,18 +13071,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -12482,18 +13102,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -13416,27 +14040,27 @@ declare namespace Stripe {
         /**
          * Address line 2 (Apartment/Suite/Unit/Building)
          */
-        line2?: string;
+        line2?: string | null;
 
         /**
          * City/Suburb/Town/Village
          */
-        city?: string;
+        city?: string | null;
 
         /**
          * State/Province/County
          */
-        state?: string;
+        state?: string | null;
 
         /**
          * Zip/Postal Code
          */
-        postal_code?: string;
+        postal_code?: string | null;
 
         /**
          * 2-letter country code
          */
-        country?: string;
+        country?: string | null;
     }
 
     interface IAddressKana {
@@ -13541,18 +14165,18 @@ declare namespace Stripe {
         /**
          * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
          */
-        carrier?: string;
+        carrier?: string | null;
 
         /**
          * Recipient phone (including extension).
          */
-        phone?: string;
+        phone?: string | null;
 
         /**
          * The tracking number for a physical product, obtained from the delivery service. If multiple
          * tracking numbers were generated for this purchase, please separate them with commas.
          */
-        tracking_number?: string;
+        tracking_number?: string | null;
     }
 
     interface IList<T> {
@@ -13669,12 +14293,14 @@ declare namespace Stripe {
         class _Error extends Error {
             readonly message: string;
         }
+
         namespace _Error {}
 
         type RawType = 'card_error' | 'invalid_request_error' | 'api_error' | 'idempotency_error';
 
         abstract class StripeError extends _Error implements IStripeError {
             static populate(type: RawType): StripeError;
+
             readonly rawType: RawType;
             readonly code?: string;
             readonly raw: any;
@@ -13683,34 +14309,50 @@ declare namespace Stripe {
             };
             readonly requestId: string;
             readonly detail?: any;
-            readonly: number;
             readonly params?: string;
             readonly type: string;
+            readonly statusCode?: number;
+
+            readonly charge?: string;
+            readonly decline_code?: string;
+            readonly payment_intent?: paymentIntents.IPaymentIntent;
+            readonly payment_method?: paymentMethods.IPaymentMethod;
+            readonly setup_intent?: setupIntents.ISetupIntent;
+            readonly source?: sources.ISource;
         }
+
         class StripeCardError extends StripeError {
             readonly type: 'StripeCardError';
         }
+
         class StripeInvalidRequestError extends StripeError {
             readonly type: 'StripeInvalidRequestError';
         }
+
         class StripeAPIError extends StripeError {
             readonly type: 'StripeAPIError';
         }
+
         class StripeAuthenticationError extends StripeError {
             readonly type: 'StripeAuthenticationError';
         }
+
         class StripePermissionError extends StripeError {
             readonly type: 'StripePermissionError';
         }
+
         class StripeRateLimitError extends StripeError {
             readonly type: 'StripeRateLimitError';
         }
+
         class StripeConnectionError extends StripeError {
             readonly type: 'StripeConnectionError';
         }
+
         class StripeSignatureVerificationError extends StripeError {
             readonly type: 'StripeSignatureVerificationError';
         }
+
         class StripeIdempotencyError extends StripeError {
             readonly type: 'StripeIdempotencyError';
         }

@@ -720,7 +720,7 @@ service.findPlaceFromQuery(
         fields: ['name'],
     },
     (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
             return;
         }
 
@@ -734,7 +734,7 @@ service.findPlaceFromPhoneNumber(
         fields: ['name'],
     },
     (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
             return;
         }
 

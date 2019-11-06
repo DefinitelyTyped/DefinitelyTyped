@@ -120,6 +120,9 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
+  Devices.forEach(device => console.log(device.name));
+  puppeteer.devices.forEach(device => console.log(device.name));
+
   await page.emulateMedia("screen");
   await page.emulate(Devices['test']);
   await page.emulate(puppeteer.devices['test']);
@@ -306,6 +309,7 @@ puppeteer.launch().then(async browser => {
 
   // evaluateHandle example
   const aHandle = await page.evaluateHandle(() => document.body);
+  await page.evaluateHandle('document.body');
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();

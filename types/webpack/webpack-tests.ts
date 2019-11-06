@@ -989,3 +989,49 @@ webpack.Template.renderChunkModules(
   [],
   'a',
 );
+
+// https://webpack.js.org/configuration/output/#outputfilename
+configuration = {
+    output: {
+        filename: chunkData => {
+            return chunkData.chunk.name === 'main' ? '[name].js' : '[name]/[name].js';
+        },
+    },
+};
+
+// https://webpack.js.org/api/logging/
+class LoggingPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler): void {
+        const infrastructureLogger: webpack.Logger = compiler.getInfrastructureLogger('LoggingPlugin');
+        infrastructureLogger.error("File not found");
+        infrastructureLogger.warn("Ignoring unknown configuration option");
+        infrastructureLogger.info("Maintaining flux");
+        infrastructureLogger.debug("Dynamic reloads are inside the frobnitz");
+        infrastructureLogger.trace("Something might have gone wrong here");
+        infrastructureLogger.group("Start of messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.groupCollapsed("Start of collapsed messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.status("50% complete");
+        infrastructureLogger.clear();
+        infrastructureLogger.profile("How long does this take");
+        infrastructureLogger.profileEnd();
+
+        compiler.hooks.emit.tap('LoggingPlugin', compilation => {
+            const logger = compilation.getLogger('LoggingPlugin');
+            logger.error("File not found");
+            logger.warn("Ignoring unknown configuration option");
+            logger.info("Maintaining flux");
+            logger.debug("Dynamic reloads are inside the frobnitz");
+            logger.trace("Something might have gone wrong here");
+            logger.group("Start of messages");
+            logger.groupEnd();
+            logger.groupCollapsed("Start of collapsed messages");
+            logger.groupEnd();
+            logger.status("50% complete");
+            logger.clear();
+            logger.profile("How long does this take");
+            logger.profileEnd();
+        });
+    }
+}

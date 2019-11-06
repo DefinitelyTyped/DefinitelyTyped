@@ -12,17 +12,19 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
+//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                 Kamil Kamiński <https://github.com/0ctothorp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
-export class Data extends Immutable.Record({}) {
-    [key: string]: any;
+export interface Data extends Immutable.Map<any, any> {}
 
-    static create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
-    static fromJSON(object: { [key: string]: any }): Data;
-    static fromJS(object: { [key: string]: any }): Data;
+export namespace Data {
+    function create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
+    function fromJSON(object: { [key: string]: any }): Data;
+    function fromJS(object: { [key: string]: any }): Data;
 }
 
 export interface RulesByNodeType {
@@ -490,7 +492,7 @@ declare class BaseNode extends Immutable.Record({}) {
     createSelection(properties: SelectionProperties | SelectionJSON | Selection | Range): Selection;
     descendants(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     filterDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Immutable.List<Node>;
-    findDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
+    findDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     forEachDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): void;
     getActiveMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;

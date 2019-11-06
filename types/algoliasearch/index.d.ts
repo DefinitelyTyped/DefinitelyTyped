@@ -924,15 +924,15 @@ declare namespace algoliasearch {
     /**
      * Condition of the rule
      */
-    condition: {
+    condition?: {
       /**
        * Query pattern
        */
-      pattern: string;
+      pattern?: string;
       /**
        * Whether the pattern must match the beginning or the end of the query string, or both, or none.
        */
-      anchoring: 'is' | 'startsWith' | 'endsWith' | 'contains';
+      anchoring?: 'is' | 'startsWith' | 'endsWith' | 'contains';
       /**
        * Rule context (format: [A-Za-z0-9_-]+).
        * When specified, the rule is contextual and applies only when the same context is specified
@@ -1307,6 +1307,12 @@ declare namespace algoliasearch {
     sortFacetValuesBy?: 'count' | 'alpha';
 
     ruleContexts?: string[];
+    
+    /**
+     * allow the usage of an AB-test. This parameter is only allowed for queries, not for settings.
+     * default: true
+     */
+    enableABTest?: boolean;
   }
 
   namespace SearchForFacetValues {
@@ -1906,12 +1912,12 @@ declare namespace algoliasearch {
         /**
          * Force to first search around a specific latitude longitude.
          * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
-         * The default is to search around the location of the user determined via his IP address (geoip).
+         * The default is to search around the location of the user determined via their IP address (geoip).
          * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
          */
         aroundLatLng?: string;
         /**
-         * Whether or not to first search around the geolocation of the user found via his IP address. This is true by default.
+         * Whether or not to first search around the geolocation of the user found via their IP address. This is true by default.
          * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLngViaIP
          */
         aroundLatLngViaIP?: string;
@@ -1937,7 +1943,7 @@ declare namespace algoliasearch {
         /**
          * Force to first search around a specific latitude longitude.
          * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
-         * The default is to search around the location of the user determined via his IP address (geoip).
+         * The default is to search around the location of the user determined via their IP address (geoip).
          * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
          */
         aroundLatLng: string;

@@ -143,6 +143,11 @@ auth
     // Handle the error.
   });
 
+auth
+  .oauth.authorizationCodeGrant({
+    code: '{CODE}',
+    redirect_uri: '{REDIRECT_URI}'
+  });
 
 // Update a user
 management

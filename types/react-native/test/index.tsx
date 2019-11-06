@@ -87,6 +87,7 @@ import {
     Platform,
     ProgressBarAndroid,
     PushNotificationIOS,
+    AccessibilityInfo,
 } from "react-native";
 
 declare module "react-native" {
@@ -525,6 +526,32 @@ class AlertTest extends React.Component {
     }
 }
 
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
+
 class MaskedViewTest extends React.Component {
     render() {
         return (
@@ -765,6 +792,8 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
