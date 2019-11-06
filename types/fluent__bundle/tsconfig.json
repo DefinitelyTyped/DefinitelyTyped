@@ -20,7 +20,7 @@
         "paths": {
             "@fluent/bundle": [
                 "fluent__bundle"
-            ],
+            ]
         }
     },
     "files": [
