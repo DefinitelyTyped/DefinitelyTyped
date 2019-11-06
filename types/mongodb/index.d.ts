@@ -2287,9 +2287,7 @@ export class ChangeStream extends Readable {
     stream(options?: { transform?: Function }): Cursor;
 }
 
-export interface ResumeToken {
-    _data: string | Binary;
-}
+export class ResumeToken {}
 
 /** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
