@@ -106,15 +106,16 @@ declare namespace Two {
     }
 
     /**
-     * 
+     * Map of possible path commands. Taken from the SVG specification.
+     *
      * @file [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L474-L484)
      */
     enum Commands {
-        move,
-        line,
-        curve,
-        arc,
-        close
+        move = 'M',
+        line = 'L',
+        curve = 'C',
+        arc = 'A',
+        close = 'Z'
     }
 
     const Resolution: number;
