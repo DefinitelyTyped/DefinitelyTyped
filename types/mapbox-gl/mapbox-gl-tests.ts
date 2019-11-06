@@ -13,6 +13,27 @@ mapboxgl.accessToken = 'foo';
 mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
+ * Set amount of workers
+ */
+mapboxgl.workerCount = 3;
+
+/**
+ * Set max amount of parallel images requests 
+ */
+mapboxgl.maxParallelImageRequests = 10;
+
+/**
+ * Clears browser storage used by this library 
+ */
+mapboxgl.clearStorage(() => {});
+
+/**
+ * Get RTL Text Plugin Status
+ */
+expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
+
+
+/**
  * Display a Map
  */
 let map = new mapboxgl.Map({
@@ -224,6 +245,13 @@ map.flyTo({
 	maxDuration: 1
 });
 
+// QueryRenderedFeatures
+const features = map.queryRenderedFeatures(
+	[0, 0],
+	{ layers: ['custom' ], validate: false }
+);
+features // $ExpectType MapboxGeoJSONFeature[]
+
 /**
  * GeoJSONSource
  */
@@ -340,10 +368,12 @@ const popupOptions = {
 expectType<mapboxgl.PopupOptions>(popupOptions);
 const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
+	.trackPointer()
 	.setHTML('<h1>Hello World!</h1>')
 	.setMaxWidth('none')
 	.addTo(map);
 popup.getMaxWidth();
+popup.getElement();  // $ExpectType HTMLElement
 
 /**
  * Add an image
@@ -562,6 +592,11 @@ map = new mapboxgl.Map({
 	hash: false
 });
 
+map = new mapboxgl.Map({
+    container: 'map',
+	hash: 'customHash'
+});
+
 /**
  * Marker
  */
@@ -654,10 +689,11 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 new mapboxgl.MercatorCoordinate(0, 0);
 new mapboxgl.MercatorCoordinate(0, 0, 0);
-expectType<number>(mercatorcoordinate.toAltitude());
-expectType<mapboxgl.LngLat>(mercatorcoordinate.toLngLat());
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike));
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0));
+mercatorcoordinate.toAltitude();  // $ExpectType number
+mercatorcoordinate.toLngLat();  // $ExpectType LngLat
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike);  // $ExpectType MercatorCoordinate
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0); // $ExpectType MercatorCoordinate
+mercatorcoordinate.meterInMercatorCoordinateUnits();  // $ExpectType number
 
 /*
  * TransformRequestFunction

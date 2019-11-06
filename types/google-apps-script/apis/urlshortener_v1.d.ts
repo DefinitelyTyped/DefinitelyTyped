@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace UrlShortener {
     namespace Collection {
-      export interface UrlCollection {
+      interface UrlCollection {
         // Expands a short URL or gets creation time and analytics.
         get(shortUrl: string): UrlShortener.Schema.Url;
         // Expands a short URL or gets creation time and analytics.
@@ -21,7 +21,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AnalyticsSnapshot {
+      interface AnalyticsSnapshot {
         browsers?: UrlShortener.Schema.StringCount[];
         countries?: UrlShortener.Schema.StringCount[];
         longUrlClicks?: string;
@@ -29,18 +29,18 @@ declare namespace GoogleAppsScript {
         referrers?: UrlShortener.Schema.StringCount[];
         shortUrlClicks?: string;
       }
-      export interface AnalyticsSummary {
+      interface AnalyticsSummary {
         allTime?: UrlShortener.Schema.AnalyticsSnapshot;
         day?: UrlShortener.Schema.AnalyticsSnapshot;
         month?: UrlShortener.Schema.AnalyticsSnapshot;
         twoHours?: UrlShortener.Schema.AnalyticsSnapshot;
         week?: UrlShortener.Schema.AnalyticsSnapshot;
       }
-      export interface StringCount {
+      interface StringCount {
         count?: string;
         id?: string;
       }
-      export interface Url {
+      interface Url {
         analytics?: UrlShortener.Schema.AnalyticsSummary;
         created?: string;
         id?: string;
@@ -48,7 +48,7 @@ declare namespace GoogleAppsScript {
         longUrl?: string;
         status?: string;
       }
-      export interface UrlHistory {
+      interface UrlHistory {
         items?: UrlShortener.Schema.Url[];
         itemsPerPage?: number;
         kind?: string;
@@ -57,7 +57,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface UrlShortener {
+  interface UrlShortener {
     Url?: UrlShortener.Collection.UrlCollection;
     // Create a new instance of AnalyticsSnapshot
     newAnalyticsSnapshot(): UrlShortener.Schema.AnalyticsSnapshot;
