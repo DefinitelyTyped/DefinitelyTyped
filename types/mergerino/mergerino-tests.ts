@@ -149,7 +149,7 @@ function multiArrayFalsyPatches() {
         0,
         null,
         (s, m) => m(s, { age: 10 }),
-        [[[[[[[{ age: (x: number) => x * 3 }]]]]]]],
+        [[[[{ age: (x?: number) => (x || 0) * 3 }]]]],
     );
 }
 
