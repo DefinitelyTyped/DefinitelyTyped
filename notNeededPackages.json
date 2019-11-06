@@ -715,6 +715,12 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "cosmiconfig",
+            "typingsPackageName": "cosmiconfig",
+            "sourceRepoURL": "https://github.com/davidtheclark/cosmiconfig",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "countup.js",
             "typingsPackageName": "countup.js",
             "sourceRepoURL": "https://github.com/inorganik/CountUp.js",
