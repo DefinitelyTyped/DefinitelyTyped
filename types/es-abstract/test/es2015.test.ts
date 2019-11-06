@@ -1,4 +1,5 @@
 import ES2015 = require('es-abstract/es2015');
+import { expectType } from './index.test';
 
 const any: unknown = undefined;
 
@@ -23,6 +24,14 @@ ES2015.GetIterator({ [Symbol.iterator]: generable });
 
 // $ExpectType Generator<number, void, unknown>
 ES2015.GetIterator(null, generable);
+
+ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, void>
+ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise<IteratorResult<number, void>>
+// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
+expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
+	// tslint:disable-next-line: invalid-void
+	ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
+);
 
 const iteratorYieldResult: IteratorYieldResult<number> = null!;
 const iteratorReturnResult: IteratorReturnResult<string> = null!;
