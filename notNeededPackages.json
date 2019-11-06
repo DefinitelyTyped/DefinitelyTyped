@@ -3685,6 +3685,12 @@
             "asOfVersion": "5.3.3"
         },
         {
+            "libraryName": "react-native-keychain",
+            "typingsPackageName": "react-native-keychain",
+            "sourceRepoURL": "https://github.com/oblador/react-native-keychain",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-native-linear-gradient",
             "typingsPackageName": "react-native-linear-gradient",
             "sourceRepoURL": "https://github.com/react-native-community/react-native-linear-gradient",
