@@ -31,12 +31,11 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="validator" />
-
-
 import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
+
+type ValidatorJS = typeof import('validator')
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -6342,7 +6341,8 @@ declare namespace sequelize {
     /**
      * Validator Interface
      */
-    interface Validator extends ValidatorJS.ValidatorStatic {
+
+    interface Validator extends ValidatorJS {
 
         notEmpty(str: string): boolean;
         len(str: string, min: number, max: number): boolean;
