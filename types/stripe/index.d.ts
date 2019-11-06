@@ -4100,7 +4100,7 @@ declare namespace Stripe {
             /**
              * The time at which payment will next be attempted.
              */
-            next_payment_attempt: number;
+            next_payment_attempt: number | null;
 
             /**
              * A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer’s unique invoice_prefix if it is specified.
@@ -4214,7 +4214,7 @@ declare namespace Stripe {
              * deliver, this will match date). Invoice payment is delayed until webhooks are delivered, or until all webhook
              * delivery attempts have been exhausted.
              */
-            webhooks_delivered_at: number;
+            webhooks_delivered_at: number | null;
         }
 
         interface IInvoiceLineItem extends IResourceObject {
@@ -14179,27 +14179,27 @@ declare namespace Stripe {
         /**
          * Address line 2 (Apartment/Suite/Unit/Building)
          */
-        line2?: string;
+        line2?: string | null;
 
         /**
          * City/Suburb/Town/Village
          */
-        city?: string;
+        city?: string | null;
 
         /**
          * State/Province/County
          */
-        state?: string;
+        state?: string | null;
 
         /**
          * Zip/Postal Code
          */
-        postal_code?: string;
+        postal_code?: string | null;
 
         /**
          * 2-letter country code
          */
-        country?: string;
+        country?: string | null;
     }
 
     interface IAddressKana {
@@ -14304,18 +14304,18 @@ declare namespace Stripe {
         /**
          * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
          */
-        carrier?: string;
+        carrier?: string | null;
 
         /**
          * Recipient phone (including extension).
          */
-        phone?: string;
+        phone?: string | null;
 
         /**
          * The tracking number for a physical product, obtained from the delivery service. If multiple
          * tracking numbers were generated for this purchase, please separate them with commas.
          */
-        tracking_number?: string;
+        tracking_number?: string | null;
     }
 
     interface IList<T> {
