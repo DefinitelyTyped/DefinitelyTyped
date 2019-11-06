@@ -22,6 +22,7 @@ interface Elements {
     oListItem: 'o-list-item';
     list: 'group-list-item';
     oList: 'group-o-list-item';
+    image: 'image';
     embed: 'embed';
     hyperlink: 'hyperlink';
     label: 'label';
