@@ -7,6 +7,7 @@
 //                 Brian Ng <https://github.com/existentialism>
 //                 Airat Aminev <https://github.com/airato>
 //                 Simon Jespersen <https://github.com/simjes>
+//                 Hugh Loughrey <https://github.com/hloughrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -28,6 +29,262 @@ export type SelectorMatcherOptions = DTLSelectorMatcherOptions | CTLMatcherOptio
 declare global {
     namespace Cypress {
         interface Chainable<Subject = any> {
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByLabelText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByPlaceholderText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByAltText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByTitle(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByDisplayValue(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getByTestId(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByLabelText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByPlaceholderText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByAltText(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByTitle(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByDisplayValue(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
+            /**
+             * dom-testing-library helpers for Cypress
+             *
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
+             * `queryBy*` APIs search for an element and returns null if nothing found
+             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
+             * `getBy*` APIs search for an element and returns null if nothing found
+             * `getAllBy*` APIs search for all elements and return empty array if nothing found
+             *
+             *
+             * @see https://github.com/testing-library/cypress-testing-library#usage
+             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
+             */
+            getAllByTestId(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+
             /**
              * dom-testing-library helpers for Cypress
              *

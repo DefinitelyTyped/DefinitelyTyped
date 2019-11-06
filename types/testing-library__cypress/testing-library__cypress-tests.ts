@@ -49,3 +49,23 @@ cy.queryAllByRole('foo', { container }); // $ExpectType Chainable<JQuery<HTMLEle
 
 const $container = cy.$$('body').append('div');
 cy.queryAllByRole('foo', { container: $container }); // $ExpectType Chainable<JQuery<HTMLElement>>
+
+// getBy*
+cy.getByPlaceholderText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByLabelText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByAltText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByTestId('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByTitle('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByDisplayValue('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getByRole('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+
+// getAllBy*
+cy.getAllByPlaceholderText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByLabelText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByAltText('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByTestId('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByTitle('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByDisplayValue('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
+cy.getAllByRole('foo'); // $ExpectType Chainable<JQuery<HTMLElement>>
