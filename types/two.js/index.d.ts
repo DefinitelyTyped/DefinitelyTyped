@@ -69,32 +69,46 @@ declare namespace Two {
     }
 
     namespace Utils {
-        // TODO
+        /** @todo */
         class Collection<T> extends Array<T> {}
     }
 
-    /** The type of renderer. [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L429-L437) */
+    /**
+     * The type of renderer; `svg`, `webgl` or `canvas`.
+     *
+     * @file [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L429-L437)
+     */
     enum Types {
         svg = 'SvgRenderer',
         webgl = 'WebGLRenderer',
         canvas = 'CanvasRenderer'
     }
 
+    /** @todo */
     const Properties: any[];
 
+    /**
+     * Map of possible events in TwoJS. These can be binded to with `two.bind([name], [callbackFunction])`
+     *
+     * @file [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L457-L472)
+     */
     enum Events {
-        change,
-        insert,
-        load,
-        order,
-        pause,
-        play,
-        remove,
-        render,
-        resize,
-        update
+        play = 'play',
+        pause = 'pause',
+        update = 'update',
+        render = 'render',
+        resize = 'resize',
+        change = 'change',
+        remove = 'remove',
+        insert = 'insert',
+        order = 'order',
+        load = 'load'
     }
 
+    /**
+     * 
+     * @file [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L474-L484)
+     */
     enum Commands {
         move,
         line,
