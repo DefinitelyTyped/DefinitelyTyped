@@ -501,7 +501,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
 	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap';
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'densitymapbox' | 'scattermapbox';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -512,6 +512,9 @@ export interface PlotData {
 	yaxis: string;
 	text: string | string[];
 	line: Partial<ScatterLine>;
+	lon: number[] | string[];
+	lat: number[] | string[];
+	radius: number;
 	'line.color': Color;
 	'line.width': number;
 	'line.dash': Dash;
