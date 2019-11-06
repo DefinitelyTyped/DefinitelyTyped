@@ -4885,6 +4885,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "vfile",
+            "typingsPackageName": "vfile",
+            "sourceRepoURL": "https://github.com/vfile/vfile",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "viewerjs",
             "typingsPackageName": "viewerjs",
             "sourceRepoURL": "https://fengyuanchen.github.io/viewerjs",
