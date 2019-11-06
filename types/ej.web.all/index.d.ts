@@ -37825,7 +37825,7 @@ declare namespace ej {
              */
             ajaxError?(e: AjaxErrorEventArgs): void;
 
-            /** Fires when the dependent parameter value is changingÂ in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+            /** Fires when the dependent parameter value is changing in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
              * ParameterUpdateStateChange event.
              */
             parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
