@@ -396,7 +396,7 @@ declare namespace Parse {
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
-        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchFromLocalDatastore(): Promise<this>;
         fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
