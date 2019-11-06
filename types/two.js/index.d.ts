@@ -69,13 +69,15 @@ declare namespace Two {
     }
 
     namespace Utils {
+        // TODO
         class Collection<T> extends Array<T> {}
     }
 
+    /** The type of renderer. [Source](https://github.com/jonobr1/two.js/blob/284d5cc656dd21a53f14608fd54455d059a98850/src/two.js#L429-L437) */
     enum Types {
-        svg,
-        webgl,
-        canvas
+        svg = 'SvgRenderer',
+        webgl = 'WebGLRenderer',
+        canvas = 'CanvasRenderer'
     }
 
     const Properties: any[];
