@@ -3751,6 +3751,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-swipe-gestures",
+            "typingsPackageName": "react-native-swipe-gestures",
+            "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
+            "asOfVersion": "1.0.4"
+        },
+        {
             "libraryName": "react-native-safe-area",
             "typingsPackageName": "react-native-safe-area",
             "sourceRepoURL": "https://github.com/miyabi/react-native-safe-area#readme",
