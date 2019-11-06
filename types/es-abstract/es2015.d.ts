@@ -87,7 +87,7 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	CreateDataProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
 	CreateDataPropertyOrThrow(O: object, P: ESPropertyKey, V: unknown): boolean;
 
-	ObjectCreate(proto: object | null, internalSlotsList?: []): unknown;
+	ObjectCreate(proto: object | null, internalSlotsList?: []): object;
 	AdvanceStringIndex(S: string, index: number, unicode: boolean): number;
 
 	CreateMethodProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
