@@ -47,6 +47,7 @@ declare class Two {
     ): Two.ArcSegment;
     makeCurve(...coords: Array<number | boolean>): Two.Path;
     makeCurve(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
+    /** @todo ask for the APi to be changed. coords at end */
     makePath(...coords: Array<number | boolean>): Two.Path;
     makePath(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
     makeGroup(objects: ReadonlyArray<Two.Object>): Two.Group;
@@ -119,7 +120,7 @@ declare namespace Two {
     }
 
     const Resolution: number;
-
+ 
     const Instances: Two[];
 
     function noConflict(): Two;
@@ -132,7 +133,7 @@ declare namespace Two {
 
     class Path {
         constructor(vertices: ReadonlyArray<Vector>, closed: boolean, curved: boolean, manual?: boolean);
-
+      
         id: number;
         stroke: Color;
         fill: Color;
