@@ -35,7 +35,7 @@ declare module 'react-jsonschema-form' {
         showErrorList?: boolean;
         ErrorList?: React.StatelessComponent<ErrorListProps>;
         validate?: (formData: T, errors: FormValidation) => FormValidation;
-        onBlur?: (e: any[]) => any;
+        onBlur?: (...e: any[]) => any;
         onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
         onSubmit?: (e: ISubmitEvent<T>) => any;
