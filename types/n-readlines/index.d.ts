@@ -1,0 +1,19 @@
+// Type definitions for socket.io-file 1.0
+// Project: https://github.com/nacholibre/node-readlines
+// Definitions by: Dief Bell <https://github.com/merrickking>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+import { PathLike } from 'fs';
+
+export declare class LineByLine {
+	constructor(file: PathLike | number, options?: Options)
+	next(): Buffer | false;
+	reset(): void;
+	close(): void;
+}
+
+interface Options {
+	readChunk?: number;
+	newLineCharacter?: string;
+}
