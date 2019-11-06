@@ -9,17 +9,25 @@
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "swiper": [
+                "swiper/v4"
+            ],
+            "swiper/*": [
+                "swiper/v4/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "js/swiper.esm.d.ts",
+        "dist/js/swiper.esm.d.ts",
         "swiper-tests.ts"
     ]
 }
