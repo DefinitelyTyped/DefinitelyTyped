@@ -12,14 +12,10 @@ type $Call<Fn extends (...args: any[]) => any> = Fn extends (arg: any) => infer 
 interface KeyType {
     readonly ' $data'?: unknown;
 }
-type ArrayKeyType = ReadonlyArray<{ readonly ' $data'?: ReadonlyArray<unknown> }>;
-type NullableArrayKeyType = ReadonlyArray<{ readonly ' $data'?: ReadonlyArray<unknown> } | null>;
+type ArrayKeyType = ReadonlyArray<{ readonly ' $data'?: ReadonlyArray<unknown> } | null>;
 
 type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
-type ArrayKeyReturnType<T extends ArrayKeyType> = (arg: T) => NonNullable<T[0][' $data']>[0];
-type NullableArrayKeyReturnType<T extends NullableArrayKeyType> = (
-    arg: T,
-) => NonNullable<NonNullable<T[0]>[' $data']>[0];
+type ArrayKeyReturnType<T extends ArrayKeyType> = (arg: T) => NonNullable<NonNullable<T[0]>[' $data']>[0];
 
 export function useFragment<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
@@ -40,25 +36,5 @@ export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey | null,
 ): ReadonlyArray<$Call<ArrayKeyReturnType<TKey>>> | null;
-
-export function useFragment<TKey extends NullableArrayKeyType>(
-    fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey,
-): ReadonlyArray<$Call<NullableArrayKeyReturnType<TKey>> | null>;
-
-export function useFragment<TKey extends NullableArrayKeyType>(
-    fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): ReadonlyArray<$Call<NullableArrayKeyReturnType<TKey>> | null> | null;
-
-export function useFragment<TKey extends ArrayKeyType>(
-    fragmentInput: GraphQLTaggedNode,
-    fragmentRef: ReadonlyArray<TKey[0] | null>,
-): ReadonlyArray<$Call<ArrayKeyReturnType<TKey>> | null>;
-
-export function useFragment<TKey extends ArrayKeyType>(
-    fragmentInput: GraphQLTaggedNode,
-    fragmentRef: ReadonlyArray<TKey[0] | null> | null,
-): ReadonlyArray<$Call<ArrayKeyReturnType<TKey>> | null> | null;
 
 export {};

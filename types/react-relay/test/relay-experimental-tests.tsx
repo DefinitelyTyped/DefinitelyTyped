@@ -245,7 +245,7 @@ type UserComponent_users$key = ReadonlyArray<{
     readonly ' $fragmentRefs': FragmentRefs<'UserComponent_users'>;
 }>;
 
-function NonNullableArrayOfNonNullableFragment() {
+function NonNullableArrayFragment() {
     interface Props {
         users: UserComponent_users$key;
     }
@@ -274,7 +274,7 @@ function NonNullableArrayOfNonNullableFragment() {
     };
 }
 
-function NullableArrayOfNonNullableFragment() {
+function NullableArrayFragment() {
     interface Props {
         users: UserComponent_users$key | null;
     }
@@ -307,7 +307,7 @@ function NullableArrayOfNonNullableFragment() {
     };
 }
 
-function NonNullableArrayOfNullableFragment() {
+function ArrayOfNullableFragment() {
     interface Props {
         users: ReadonlyArray<UserComponent_users$key[0] | null>;
     }
@@ -324,39 +324,6 @@ function NonNullableArrayOfNullableFragment() {
             `,
             props.users,
         );
-
-        return data.map(d => (
-            <>
-                <h1>{d!.name}</h1>
-                <div>
-                    <img src={d!.profile_picture.uri} />
-                </div>
-            </>
-        ));
-    };
-}
-
-function NullableArrayOfNullableFragment() {
-    interface Props {
-        users: ReadonlyArray<UserComponent_users$key[0] | null> | null;
-    }
-
-    return function UserComponent(props: Props) {
-        const data = useFragment(
-            graphql`
-                fragment UserComponent_users on User @relay(plural: true) {
-                    name
-                    profile_picture(scale: 2) {
-                        uri
-                    }
-                }
-            `,
-            props.users,
-        );
-
-        if (data === null) {
-            return null;
-        }
 
         return data.map(d => (
             <>
