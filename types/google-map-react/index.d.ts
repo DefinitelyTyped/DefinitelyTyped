@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
+export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string; region?: string; libraries?: string[] | string; };
 
 export interface MapTypeStyle {
   elementType?: string;
@@ -19,6 +19,7 @@ export interface MapOptions {
   // excluding 'zoom' and 'center' which get set via props.
   backgroundColor?: string;
   clickableIcons?: boolean;
+  controlSize?: number;
   disableDefaultUI?: boolean;
   disableDoubleClickZoom?: boolean;
   draggable?: boolean;
