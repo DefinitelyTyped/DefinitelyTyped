@@ -1084,3 +1084,9 @@ export interface SymbolsProps extends Partial<PresentationAttributes> {
 }
 
 export class Symbols extends React.Component<SymbolsProps> { }
+
+export interface CustomizedProps {
+    component: ContentRenderer<any> | React.ReactElement;
+}
+
+export class Customized extends React.Component<CustomizedProps> { }
