@@ -8,7 +8,9 @@
 
 import { PathLike } from 'fs';
 
-export class LineByLine {
+export = LineByLine;
+
+declare class LineByLine {
 	constructor(file: PathLike | number, options?: Options)
 	next(): Buffer | false;
 	reset(): void;
