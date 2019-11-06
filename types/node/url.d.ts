@@ -27,7 +27,7 @@ declare module "url" {
         path: string | null;
         pathname: string | null;
         protocol: string | null;
-        search: string | null | null;
+        search: string | null;
         slashes: boolean | null;
         port: string | null;
         query: string | null | ParsedUrlQuery;
