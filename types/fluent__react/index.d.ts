@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import * as React from "react";
+import * as React from 'react';
 
 import { FluentBundle } from "@fluent/bundle";
 

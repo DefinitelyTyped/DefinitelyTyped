@@ -1,12 +1,16 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import { FluentBundle, FluentResource } from "@fluent/bundle";
-import ftl from "@fluent/dedent";
+import { FluentBundle, FluentResource } from '@fluent/bundle';
+import ftl from '@fluent/dedent';
 import {
-    GetString, isReactLocalization, LocalizationProvider, Localized, ReactLocalization,
-    withLocalization
-} from "@fluent/react";
+    GetString,
+    isReactLocalization,
+    LocalizationProvider,
+    Localized,
+    ReactLocalization,
+    withLocalization,
+} from '@fluent/react';
 
 // ReactLocalization examples:
 const bundle = new FluentBundle('en-US');
