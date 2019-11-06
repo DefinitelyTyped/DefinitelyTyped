@@ -55,6 +55,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "angular-dynamic-locale",
+            "typingsPackageName": "angular-dynamic-locale",
+            "sourceRepoURL": "https://github.com/lgalfaso/angular-dynamic-locale",
+            "asOfVersion": "0.1.35"
+        },
+        {
             "libraryName": "angular-touchspin",
             "typingsPackageName": "angular-touchspin",
             "sourceRepoURL": "https://github.com/nkovacic/angular-touchspin",
