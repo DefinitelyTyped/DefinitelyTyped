@@ -14,6 +14,7 @@
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
+//								 Archit Bhatia <https://github.com/abhatia-lix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
