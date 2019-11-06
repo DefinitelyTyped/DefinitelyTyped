@@ -8,6 +8,8 @@
 
 import * as React from "react";
 
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
 interface ReactResizeDetectorDimensions {
     height: number;
     width: number;
@@ -77,9 +79,9 @@ declare class ReactResizeDetector extends React.PureComponent<
     ReactResizeDetectorProps
 > {}
 
-export function withResizeDetector(
-    WrappedComponent: React.ReactNode,
+export function withResizeDetector<T extends Partial<ReactResizeDetectorDimensions>>(
+    WrappedComponent: React.ComponentType<T>,
     props?: ReactResizeDetectorProps
-): React.Component;
+): React.ComponentType<Omit<T, keyof ReactResizeDetectorDimensions>>;
 
 export default ReactResizeDetector;

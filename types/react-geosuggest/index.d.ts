@@ -81,6 +81,6 @@ export interface Fixture {
 export interface Suggest {
     gmaps?: google.maps.GeocoderResult;
     label: string;
-    location: {lat: string, lng: string};
+    location: {lat: number, lng: number};
     placeId: string;
 }

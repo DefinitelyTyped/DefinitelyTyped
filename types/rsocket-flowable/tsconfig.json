@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "Flowable.d.ts",
+        "FlowableMapOperator.d.ts",
+        "FlowableProcessor.d.ts",
+        "FlowableRequestOperator.d.ts",
+        "FlowableTakeOperator.d.ts",
+        "FlowableTimer.d.ts",
+        "Single.d.ts"
+    ]
+}

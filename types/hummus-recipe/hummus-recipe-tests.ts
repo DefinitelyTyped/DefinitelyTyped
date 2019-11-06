@@ -1,7 +1,9 @@
 import Recipe = require("hummus-recipe");
 
+import fs = require("fs");
+
 // $ExpectType Recipe
-const pdf = new Recipe("new", "test.pdf", {
+const newDoc = new Recipe("new", "test.pdf", {
     version: 1.6,
     author: "John Doe",
     title: "Hummus Recipe",
@@ -9,13 +11,28 @@ const pdf = new Recipe("new", "test.pdf", {
 });
 
 // $ExpectType Recipe
-pdf.createPage(595, 842)
+newDoc
+    .createPage(595, 842)
     .text("Memento Mori", 100, 100)
     .endPage()
     .endPDF();
 
 // $ExpectError
-pdf.createPage("A4")
+newDoc.createPage("A5")
     .text("Memento Mori", 100, 100)
     .endPage()
     .endPDF();
+
+const inBuffer: Buffer = fs.readFileSync("test.pdf");
+
+const bufferDoc = new Recipe(inBuffer);
+
+bufferDoc
+    .createPage(595, 842)
+    .text("Memento Mori", 100, 100)
+    .endPage()
+    .endPDF(
+        (outBuffer: Buffer) =>
+            // $ExpectType Buffer
+            outBuffer
+    );

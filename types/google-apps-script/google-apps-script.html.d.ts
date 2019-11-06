@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module HTML {
+  namespace HTML {
     /**
      * An HtmlOutput object that can be served from a script. Due to security considerations,
      * scripts cannot directly return HTML to a browser. Instead, they must sanitize it so that it
@@ -21,7 +21,7 @@ declare namespace GoogleAppsScript {
      * Google Caja
      * guide to restrictions in HTML service
      */
-    export interface HtmlOutput {
+    interface HtmlOutput {
       addMetaTag(name: string, content: string): HtmlOutput;
       append(addedContent: string): HtmlOutput;
       appendUntrusted(addedContent: string): HtmlOutput;
@@ -53,7 +53,7 @@ declare namespace GoogleAppsScript {
      *     var tags = output.getMetaTags();
      *     Logger.log('<meta name="%s" content="%s"/>', tags[0].getName(), tags[0].getContent());
      */
-    export interface HtmlOutputMetaTag {
+    interface HtmlOutputMetaTag {
       getContent(): string;
       getName(): string;
     }
@@ -65,7 +65,7 @@ declare namespace GoogleAppsScript {
      * they must sanitize the HTML so that it cannot perform malicious actions. See the description of
      * HtmlOutput for what limitations this implies on what can be returned.
      */
-    export interface HtmlService {
+    interface HtmlService {
       SandboxMode: typeof SandboxMode;
       XFrameOptionsMode: typeof XFrameOptionsMode;
       createHtmlOutput(): HtmlOutput;
@@ -81,11 +81,12 @@ declare namespace GoogleAppsScript {
     /**
      * A template object for dynamically constructing HTML. For more information, see the guide to templates.
      */
-    export interface HtmlTemplate {
+    interface HtmlTemplate {
       evaluate(): HtmlOutput;
       getCode(): string;
       getCodeWithComments(): string;
       getRawContent(): string;
+      [propName: string]: any;
     }
 
     /**
@@ -113,7 +114,7 @@ declare namespace GoogleAppsScript {
      *       alert(google.script.sandbox.mode);
      *     </script>
      */
-    export enum SandboxMode { EMULATED, IFRAME, NATIVE }
+    enum SandboxMode { EMULATED, IFRAME, NATIVE }
 
     /**
      * An enum representing the X-Frame-Options modes that can be used for client-side HtmlService scripts. These values can be accessed from HtmlService.XFrameOptionsMode,
@@ -129,8 +130,7 @@ declare namespace GoogleAppsScript {
      *     var output = HtmlService.createHtmlOutput('<b>Hello, world!</b>');
      *     output.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
      */
-    export enum XFrameOptionsMode { ALLOWALL, DEFAULT }
-
+    enum XFrameOptionsMode { ALLOWALL, DEFAULT }
   }
 }
 

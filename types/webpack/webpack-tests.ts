@@ -258,37 +258,69 @@ rule = {
 declare const require: any;
 declare const path: any;
 configuration = {
-    plugins: [
-        function apply(this: webpack.Compiler) {
-            const prevTimestamps = new Map<string, number>();
-            const startTime = Date.now();
+  plugins: [
+    function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
+      const prevTimestamps = new Map<string, number>();
+      const startTime = Date.now();
 
-            this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
-                for (const filepath in compilation.fileTimestamps.keys()) {
-                    const prevTimestamp = prevTimestamps.get(filepath) || startTime;
-                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
-                    if (prevTimestamp < newTimestamp) {
-                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
-                    }
-                }
-            });
+      this.hooks.emit.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          for (const filepath in compilation.fileTimestamps.keys()) {
+            const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+            const newTimestamp =
+              compilation.fileTimestamps.get(filepath) || Infinity;
+            if (prevTimestamp < newTimestamp) {
+              this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+            }
+          }
+        },
+      );
 
-            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
-                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
-              });
+      compiler.hooks.afterCompile.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          ['path/to/extra/dep', 'another/extra/dep'].forEach(path =>
+            compilation.fileDependencies.add(path),
+          );
+        },
+      );
 
-            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
-                this.outputFileSystem.writeFile(
-                    path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.getStats().toJson()),
-                    callback
-                );
-            });
+      this.hooks.afterEmit.tapAsync('afterEmit', (stats, callback) => {
+        this.outputFileSystem.writeFile(
+          path.join(__dirname, '...', 'stats.json'),
+          JSON.stringify(stats.getStats().toJson()),
+          callback,
+        );
+      });
 
-            this.hooks.beforeRun.tap("SomePlugin", (compiler: webpack.Compiler) => {});
-            this.hooks.run.tap("SomePlugin", (compiler: webpack.Compiler) => {});
+      this.hooks.beforeRun.tap(
+        'SomePlugin',
+        (compiler: webpack.Compiler) => {},
+      );
+      this.hooks.run.tap('SomePlugin', (compiler: webpack.Compiler) => {});
+
+      compiler.hooks.compilation.tap('SomePlugin', compilation => {
+        const { mainTemplate } = compilation;
+        mainTemplate.requireFn.trimLeft();
+        mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
+          return resource.trimLeft();
+        });
+        if (mainTemplate.hooks.jsonpScript == null) {
+          return;
         }
-    ]
+        mainTemplate.hooks.jsonpScript.tap(
+          'SomePlugin',
+          (source, chunk, hash) => {
+            source.trimLeft();
+            hash.trimLeft();
+            return chunk.name;
+          },
+        );
+      });
+    },
+  ],
 };
 
 //
@@ -903,3 +935,103 @@ compiler.hooks.done.tap('foo', stats => {
 
   console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
 });
+
+const multiCompiler = webpack([{}, {}]);
+
+multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
+    const stats = multiStats[0];
+
+    if (stats.startTime === undefined || stats.endTime === undefined) {
+        throw new Error('Well, this is odd');
+    }
+
+    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+});
+
+webpack.Template.getFunctionContent(() => undefined).trimLeft();
+webpack.Template.toIdentifier('a').trimLeft();
+webpack.Template.toComment('a').trimLeft();
+webpack.Template.toNormalComment('a').trimLeft();
+webpack.Template.toPath('a').trimLeft();
+webpack.Template.numberToIdentifer(2).trimLeft();
+webpack.Template.indent('a').trimLeft();
+webpack.Template.indent(['a']).trimLeft();
+webpack.Template.prefix('a', 'a').trimLeft();
+webpack.Template.prefix(['a'], 'a').trimLeft();
+webpack.Template.asString('a').trimLeft();
+webpack.Template.asString(['a']).trimLeft();
+webpack.Template.getModulesArrayBounds([{ id: 'a' }]);
+
+function testTemplateFn() {
+  const result = webpack.Template.getModulesArrayBounds([{ id: 1 }]);
+  if (result === false) {
+    return;
+  }
+  Math.max(...result);
+}
+
+const chunk = new webpack.compilation.Chunk('name');
+const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
+webpack.Template.renderChunkModules(
+  chunk,
+  (_, num) => {
+    Math.max(num, 2);
+    return true;
+  },
+  moduleTemplate,
+  [],
+);
+
+webpack.Template.renderChunkModules(
+  chunk,
+  () => false,
+  moduleTemplate,
+  [],
+  'a',
+);
+
+// https://webpack.js.org/configuration/output/#outputfilename
+configuration = {
+    output: {
+        filename: chunkData => {
+            return chunkData.chunk.name === 'main' ? '[name].js' : '[name]/[name].js';
+        },
+    },
+};
+
+// https://webpack.js.org/api/logging/
+class LoggingPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler): void {
+        const infrastructureLogger: webpack.Logger = compiler.getInfrastructureLogger('LoggingPlugin');
+        infrastructureLogger.error("File not found");
+        infrastructureLogger.warn("Ignoring unknown configuration option");
+        infrastructureLogger.info("Maintaining flux");
+        infrastructureLogger.debug("Dynamic reloads are inside the frobnitz");
+        infrastructureLogger.trace("Something might have gone wrong here");
+        infrastructureLogger.group("Start of messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.groupCollapsed("Start of collapsed messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.status("50% complete");
+        infrastructureLogger.clear();
+        infrastructureLogger.profile("How long does this take");
+        infrastructureLogger.profileEnd();
+
+        compiler.hooks.emit.tap('LoggingPlugin', compilation => {
+            const logger = compilation.getLogger('LoggingPlugin');
+            logger.error("File not found");
+            logger.warn("Ignoring unknown configuration option");
+            logger.info("Maintaining flux");
+            logger.debug("Dynamic reloads are inside the frobnitz");
+            logger.trace("Something might have gone wrong here");
+            logger.group("Start of messages");
+            logger.groupEnd();
+            logger.groupCollapsed("Start of collapsed messages");
+            logger.groupEnd();
+            logger.status("50% complete");
+            logger.clear();
+            logger.profile("How long does this take");
+            logger.profileEnd();
+        });
+    }
+}

@@ -42,6 +42,7 @@ token = jwt.sign(testObject, cert, { algorithm: "RS256" });
 const privKey: Buffer = fs.readFileSync("encrypted_private.key"); // get private key
 const secret = { key: privKey.toString(), passphrase: "keypwd" };
 token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
+token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
@@ -64,15 +65,22 @@ jwt.verify(token, "shhhhh", (err, decoded) => {
 
 // use external time for verifying
 jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
-  const result = decoded as TestObject;
+    const result = decoded as TestObject;
 
-  console.log(result.foo); // bar
+    console.log(result.foo); // bar
 });
 
 // invalid token
 jwt.verify(token, "wrong-secret", (err, decoded) => {
     // err
     // decoded undefined
+});
+
+// verify with encrypted RSA SHA256 private key
+jwt.verify(token, secret, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
 });
 
 // verify a token asymmetric

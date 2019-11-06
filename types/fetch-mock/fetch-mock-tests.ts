@@ -11,6 +11,16 @@ fetchMock.mock("http//test.com", 200, {
         searchValue: "apples"
     }
 });
+fetchMock.mock("express:/users/:user", 200, {
+    params: {
+        user: "someone"
+    }
+});
+fetchMock.mock("http://test.com", 200, {
+    functionMatcher: (url, opts) => {
+        return url.includes("test.com");
+    }
+});
 fetchMock.mock("http://test.com", 200, {
     repeat: 2
 });

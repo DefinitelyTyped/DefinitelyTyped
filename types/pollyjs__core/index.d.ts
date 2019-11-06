@@ -1,178 +1,210 @@
-// Type definitions for @pollyjs/core 2.3
+// Type definitions for @pollyjs/core 2.6
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
+//                 Borui Gu <https://github.com/BoruiGu>
+//                 Offir Golan <https://github.com/offirgolan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { MODES } from '@pollyjs/utils';
 import Adapter from '@pollyjs/adapter';
 import Persister from '@pollyjs/persister';
 
+export type MODE = 'record' | 'replay' | 'passthrough' | 'stopped';
+export type ACTION = 'record' | 'replay' | 'intercept' | 'passthrough';
+export type EXPIRY_STRATEGY = 'record' | 'warn' | 'error';
+
 export const Timing: {
-	fixed(ms: number): () => Promise<void>;
-	relative(ratio: number): (ms: number) => Promise<void>;
+    fixed(ms: number): () => Promise<void>;
+    relative(ratio: number): (ms: number) => Promise<void>;
 };
 
 export type MatchBy<T = string, R = T> = (input: T) => R;
+export type Headers = Record<string, string | string[]>;
 export interface PollyConfig {
-	mode?: MODES | string;
+    mode?: MODE;
 
-	adapters?: Array<string | typeof Adapter>;
-	adapterOptions?: any;
+    adapters?: Array<string | typeof Adapter>;
+    adapterOptions?: {
+        fetch?: { context?: any };
+        puppeteer?: { page?: any };
+        xhr?: { context?: any };
+        [key: string]: any;
+    };
 
-	persister?: string | typeof Persister;
-	persisterOptions?: {
-		keepUnusedRequests?: boolean;
-		[key: string]: any;
-	};
+    persister?: string | typeof Persister;
+    persisterOptions?: {
+        keepUnusedRequests?: boolean;
+        fs?: { recordingsDir?: string };
+        'local-storage'?: { context?: any; key?: string };
+        rest?: { host?: string; apiNamespace?: string };
+        [key: string]: any;
+    };
 
-	logging?: boolean;
+    logging?: boolean;
 
-	recordIfMissing?: boolean;
-	recordIfExpired?: boolean;
-	recordFailedRequests?: boolean;
+    recordIfMissing?: boolean;
+    /** @deprecated use expiryStrategy */
+    recordIfExpired?: boolean;
+    recordFailedRequests?: boolean;
+    expiryStrategy?: EXPIRY_STRATEGY;
 
-	expiresIn?: string | null;
-	timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
+    expiresIn?: string | null;
+    timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
 
-	matchRequestsBy?: {
-		method?: boolean | MatchBy;
-		headers?: boolean | { exclude: string[] } | MatchBy<Record<string, string>>;
-		body?: boolean | MatchBy<any>;
-		order?: boolean;
+    matchRequestsBy?: {
+        method?: boolean | MatchBy;
+        headers?: boolean | { exclude: string[] } | MatchBy<Headers>;
+        body?: boolean | MatchBy<any>;
+        order?: boolean;
 
-		url?: {
-			protocol?: boolean | MatchBy;
-			username?: boolean | MatchBy;
-			password?: boolean | MatchBy;
-			hostname?: boolean | MatchBy;
-			port?: boolean | MatchBy<number>;
-			pathname?: boolean | MatchBy;
-			query?: boolean | MatchBy<any>;
-			hash?: boolean | MatchBy;
-		};
-	};
+        url?: {
+            protocol?: boolean | MatchBy;
+            username?: boolean | MatchBy;
+            password?: boolean | MatchBy;
+            hostname?: boolean | MatchBy;
+            port?: boolean | MatchBy<number>;
+            pathname?: boolean | MatchBy;
+            query?: boolean | MatchBy<any>;
+            hash?: boolean | MatchBy;
+        };
+    };
 }
-export interface Request {
-	getHeader(name: string): string | null;
-	setHeader(name: string, value?: string | null): Request;
-	setHeaders(headers: Record<string, string | string[]>): Request;
-	removeHeader(name: string): Request;
-	removeHeaders(headers: string[]): Request;
-	hasHeader(name: string): boolean;
-	type(contentType: string): Request;
-	send(body: any): Request;
-	json(body: any): Request;
-	jsonBody(): any;
+export interface HTTPBase {
+    headers: Headers;
+    body: any;
 
-	method: string;
-	url: string;
-	protocol: string;
-	hostname: string;
-	port: string;
-	pathname: string;
-	hash: string;
-	headers: Record<string, string | string[]>;
-	body: any;
-	query: any;
-	params: any;
-	recordingName: string;
-	responseTime?: number;
+    getHeader(name: string): string | string[] | null;
+    setHeader(name: string, value?: string | string[] | null): this;
+    setHeaders(headers: Headers): this;
+    removeHeader(name: string): this;
+    removeHeaders(headers: string[]): this;
+    hasHeader(name: string): boolean;
+    type(contentType: string): this;
+    send(body: any): this;
+    json(body: any): this;
+    jsonBody(): any;
 }
-export interface Response {
-	statusCode?: number;
-	headers: Record<string, string | string[]>;
-	body: any;
-	status(status: number): Response;
-	getHeader(name: string): string | null;
-	setHeader(name: string, value?: string | null): Response;
-	setHeaders(headers: Record<string, string | string[]>): Response;
-	removeHeader(name: string): Request;
-	removeHeaders(headers: string[]): Request;
-	hasHeader(name: string): boolean;
-	type(contentType: string): Response;
-	send(body: any): Response;
-	sendStatus(status: number): Response;
-	json(body: any): Response;
-	jsonBody(): any;
-	end(): Readonly<Response>;
+
+export interface Request extends HTTPBase {
+    method: string;
+    url: string;
+    readonly absoluteUrl: string;
+    readonly protocol: string;
+    readonly hostname: string;
+    readonly port: string;
+    readonly pathname: string;
+    hash: string;
+    query: { [key: string]: string | string[] };
+    readonly params: { [key: string]: string };
+    recordingName: string;
+    responseTime?: number;
+    timestamp?: string;
+    didRespond: boolean;
+    id?: string;
+    order?: number;
+    action: ACTION | null;
 }
-export interface Intercept {
-	abort(): void;
-	passthrough(): void;
+export interface Response extends HTTPBase {
+    statusCode: number;
+    readonly statusText: string;
+    readonly ok: boolean;
+
+    status(status: number): this;
+    sendStatus(status: number): this;
+    end(): Readonly<this>;
+}
+export interface Interceptor {
+    abort(): void;
+    passthrough(): void;
 }
 export type RequestRouteEvent = 'request';
 export type RecordingRouteEvent = 'beforeReplay' | 'beforePersist';
 export type ResponseRouteEvent = 'beforeResponse' | 'response';
 export type ErrorRouteEvent = 'error';
 
-export type EventListenerResponse = any;
-export type ErrorEventListener = (req: Request, error: any) => EventListenerResponse;
-export type RequestEventListener = (req: Request) => EventListenerResponse;
-export type RecordingEventListener = (req: Request, recording: any) => EventListenerResponse;
-export type ResponseEventListener = (req: Request, res: Response) => EventListenerResponse;
-export type InterceptHandler = (
-	req: Request,
-	res: Response,
-	intercept: Intercept
-) => EventListenerResponse;
+export interface ListenerEvent {
+    readonly type: string;
+    stopPropagation: () => void;
+}
+export type ErrorEventListener = (req: Request, error: any, event: ListenerEvent) => void | Promise<void>;
+export type RequestEventListener = (req: Request, event: ListenerEvent) => void | Promise<void>;
+export type RecordingEventListener = (req: Request, recording: any, event: ListenerEvent) => void | Promise<void>;
+export type ResponseEventListener = (req: Request, res: Response, event: ListenerEvent) => void | Promise<void>;
+export type InterceptHandler = (req: Request, res: Response, interceptor: Interceptor) => void | Promise<void>;
 export class RouteHandler {
-	on(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
-	on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
-	on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-	on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-	off(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
-	off(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
-	off(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-	off(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-	once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
-	once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
-	once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-	once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-	filter: (callback: (req: Request) => boolean) => RouteHandler;
-	passthrough(value?: boolean): RouteHandler;
-	intercept(
-		fn: (req: Request, res: Response, intercept: Intercept) => EventListenerResponse
-	): RouteHandler;
-	recordingName(recordingName?: string): RouteHandler;
-	configure(config: PollyConfig): RouteHandler;
+    on(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
+    on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
+    on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
+    on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    off(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
+    off(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
+    off(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
+    off(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
+    once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
+    once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
+    once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    filter: (callback: (req: Request) => boolean) => RouteHandler;
+    passthrough(value?: boolean): RouteHandler;
+    intercept(fn: InterceptHandler): RouteHandler;
+    recordingName(recordingName?: string): RouteHandler;
+    configure(config: PollyConfig): RouteHandler;
+    times(n?: number): RouteHandler;
 }
 export class PollyServer {
-	timeout: (ms: number) => Promise<void>;
-	get: (...args: any[]) => RouteHandler;
-	put: (...args: any[]) => RouteHandler;
-	post: (...args: any[]) => RouteHandler;
-	delete: (...args: any[]) => RouteHandler;
-	patch: (...args: any[]) => RouteHandler;
-	head: (...args: any[]) => RouteHandler;
-	options: (...args: any[]) => RouteHandler;
-	any: (...args: any[]) => RouteHandler;
-	host(host: string, callback: () => void): void;
-	namespace(path: string, callback: () => void): void;
+    timeout: (ms: number) => Promise<void>;
+    get: (routes?: string | string[]) => RouteHandler;
+    put: (routes?: string | string[]) => RouteHandler;
+    post: (routes?: string | string[]) => RouteHandler;
+    delete: (routes?: string | string[]) => RouteHandler;
+    patch: (routes?: string | string[]) => RouteHandler;
+    head: (routes?: string | string[]) => RouteHandler;
+    options: (routes?: string | string[]) => RouteHandler;
+    merge: (routes?: string | string[]) => RouteHandler;
+    any: (routes?: string | string[]) => RouteHandler;
+    host(host: string, callback: () => void): void;
+    namespace(path: string, callback: () => void): void;
 }
 export type PollyEvent = 'create' | 'stop' | 'register';
 export type PollyEventListener = (poll: Polly) => void;
 export class Polly {
-	static register(Factory: typeof Adapter | typeof Persister): void;
-	static on(event: PollyEvent, listener: PollyEventListener): void;
-	static off(event: PollyEvent, listener: PollyEventListener): void;
-	static once(event: PollyEvent, listener: PollyEventListener): void;
+    static register(Factory: typeof Adapter | typeof Persister): void;
+    static unregister(Factory: typeof Adapter | typeof Persister): void;
+    static on(event: PollyEvent, listener: PollyEventListener): void;
+    static off(event: PollyEvent, listener: PollyEventListener): void;
+    static once(event: PollyEvent, listener: PollyEventListener): void;
 
-	constructor(name: string, options?: PollyConfig);
+    constructor(recordingName: string, options?: PollyConfig);
 
-	readonly recordingName: string | null;
-	mode: MODES;
-	server: PollyServer;
-	persister: Persister;
+    static VERSION: string;
+    recordingName: string;
+    recordingId: string;
+    mode: MODE;
+    server: PollyServer;
+    persister: Persister | null;
+    adapters: Map<string, typeof Adapter>;
+    config: PollyConfig;
 
-	pause: () => void;
-	play: () => void;
-	replay: () => void;
-	record: () => void;
-	stop: () => Promise<void>;
-	flush: () => Promise<void>;
-	configure(config: PollyConfig): void;
-	connectTo(name: string | typeof Adapter): void;
-	disconnectFrom(name: string | typeof Adapter): void;
-	disconnect(): void;
+    pause: () => void;
+    play: () => void;
+    replay: () => void;
+    record: () => void;
+    stop: () => Promise<void>;
+    flush: () => Promise<void>;
+    configure(config: PollyConfig): void;
+    connectTo(name: string | typeof Adapter): void;
+    disconnectFrom(name: string | typeof Adapter): void;
+    disconnect(): void;
 }
+
+export const setupMocha: {
+    (config?: PollyConfig, context?: any): void;
+    beforeEach: (config?: PollyConfig, context?: any) => void;
+    afterEach: (context?: any) => void;
+};
+
+export const setupQunit: {
+    (hooks: any, config?: PollyConfig): void;
+    beforeEach: (hooks: any, config?: PollyConfig) => void;
+    afterEach: (hooks: any) => void;
+};

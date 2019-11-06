@@ -121,6 +121,15 @@ function test_font_metrics_based_line_sizing_split() {
     pdf.save('Test.pdf');
 }
 
+function test_simple_custom_size_document() {
+    var doc = new jsPDF('l', 'px', [500, 200]);
+    doc.text(20, 20, 'Hello world!');
+    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+    doc.addPage();
+    doc.text(20, 20, 'Do you like that?');
+    doc.save('Test.pdf');
+}
+
 function test_from_html() {
     var pdf = new jsPDF('p', 'pt', 'letter')
         , source = document.getElementById('#fromHTMLtestdiv')

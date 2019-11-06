@@ -32,9 +32,8 @@ graph
     .linkAutoColorBy((link) => link.type)
     .linkWidth(1)
     .linkWidth((link) => 1)
-    .linkCurvature(ForceGraph.LinkCurvatureType.Straight)
     .linkCurvature('curvature')
-    .linkCurvature((link) => ForceGraph.LinkCurvatureType.Straight)
+    .linkCurvature((link) => 0.5)
     .linkCanvasObject((link, ctx, scale) => {})
     .linkDirectionalArrowLength(0)
     .linkDirectionalArrowLength('length')
@@ -72,7 +71,8 @@ graph
     .cooldownTicks(Infinity)
     .cooldownTime(15000)
     .onEngineTick(() => {})
-    .onEngineStop(() => {});
+    .onEngineStop(() => {})
+    .refresh();
 
 graph
     .onNodeClick(() => {})

@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace Content {
     namespace Collection {
-      export interface AccountsCollection {
+      interface AccountsCollection {
         // Returns information about the authenticated user.
         authinfo(): Content.Schema.AccountsAuthInfoResponse;
         // Claims the website of a Merchant Center sub-account.
@@ -43,7 +43,7 @@ declare namespace GoogleAppsScript {
         // Updates a Merchant Center account.
         update(resource: Schema.Account, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.Account;
       }
-      export interface AccountstatusesCollection {
+      interface AccountstatusesCollection {
         // Retrieves multiple Merchant Center account statuses in a single request.
         custombatch(resource: Schema.AccountstatusesCustomBatchRequest): Content.Schema.AccountstatusesCustomBatchResponse;
         // Retrieves the status of a Merchant Center account. No itemLevelIssues are returned for multi-client accounts.
@@ -55,7 +55,7 @@ declare namespace GoogleAppsScript {
         // Lists the statuses of the sub-accounts in your Merchant Center account.
         list(merchantId: string, optionalArgs: object): Content.Schema.AccountstatusesListResponse;
       }
-      export interface AccounttaxCollection {
+      interface AccounttaxCollection {
         // Retrieves and updates tax settings of multiple accounts in a single request.
         custombatch(resource: Schema.AccounttaxCustomBatchRequest): Content.Schema.AccounttaxCustomBatchResponse;
         // Retrieves and updates tax settings of multiple accounts in a single request.
@@ -75,7 +75,7 @@ declare namespace GoogleAppsScript {
         // Updates the tax settings of the account.
         update(resource: Schema.AccountTax, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.AccountTax;
       }
-      export interface DatafeedsCollection {
+      interface DatafeedsCollection {
         // Deletes, fetches, gets, inserts and updates multiple datafeeds in a single request.
         custombatch(resource: Schema.DatafeedsCustomBatchRequest): Content.Schema.DatafeedsCustomBatchResponse;
         // Deletes, fetches, gets, inserts and updates multiple datafeeds in a single request.
@@ -107,7 +107,7 @@ declare namespace GoogleAppsScript {
         // Updates a datafeed configuration of your Merchant Center account.
         update(resource: Schema.Datafeed, merchantId: string, datafeedId: string, optionalArgs: object): Content.Schema.Datafeed;
       }
-      export interface DatafeedstatusesCollection {
+      interface DatafeedstatusesCollection {
         // Gets multiple Merchant Center datafeed statuses in a single request.
         custombatch(resource: Schema.DatafeedstatusesCustomBatchRequest): Content.Schema.DatafeedstatusesCustomBatchResponse;
         // Retrieves the status of a datafeed from your Merchant Center account.
@@ -119,7 +119,7 @@ declare namespace GoogleAppsScript {
         // Lists the statuses of the datafeeds in your Merchant Center account.
         list(merchantId: string, optionalArgs: object): Content.Schema.DatafeedstatusesListResponse;
       }
-      export interface InventoryCollection {
+      interface InventoryCollection {
         // Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.
         custombatch(resource: Schema.InventoryCustomBatchRequest): Content.Schema.InventoryCustomBatchResponse;
         // Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.
@@ -129,7 +129,7 @@ declare namespace GoogleAppsScript {
         // Updates price and availability of a product in your Merchant Center account.
         set(resource: Schema.InventorySetRequest, merchantId: string, storeCode: string, productId: string, optionalArgs: object): Content.Schema.InventorySetResponse;
       }
-      export interface LiasettingsCollection {
+      interface LiasettingsCollection {
         // Retrieves and/or updates the LIA settings of multiple accounts in a single request.
         custombatch(resource: Schema.LiasettingsCustomBatchRequest): Content.Schema.LiasettingsCustomBatchResponse;
         // Retrieves and/or updates the LIA settings of multiple accounts in a single request.
@@ -163,13 +163,13 @@ declare namespace GoogleAppsScript {
         // Updates the LIA settings of the account.
         update(resource: Schema.LiaSettings, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.LiaSettings;
       }
-      export interface OrderinvoicesCollection {
+      interface OrderinvoicesCollection {
         // Creates a charge invoice for a shipment group, and triggers a charge capture for non-facilitated payment orders.
         createchargeinvoice(resource: Schema.OrderinvoicesCreateChargeInvoiceRequest, merchantId: string, orderId: string): Content.Schema.OrderinvoicesCreateChargeInvoiceResponse;
         // Creates a refund invoice for one or more shipment groups, and triggers a refund for non-facilitated payment orders. This can only be used for line items that have previously been charged using createChargeInvoice. All amounts (except for the summary) are incremental with respect to the previous invoice.
         createrefundinvoice(resource: Schema.OrderinvoicesCreateRefundInvoiceRequest, merchantId: string, orderId: string): Content.Schema.OrderinvoicesCreateRefundInvoiceResponse;
       }
-      export interface OrderpaymentsCollection {
+      interface OrderpaymentsCollection {
         // Notify about successfully authorizing user's payment method for a given amount.
         notifyauthapproved(resource: Schema.OrderpaymentsNotifyAuthApprovedRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyAuthApprovedResponse;
         // Notify about failure to authorize user's payment method.
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
         // Notify about refund on user's selected payments method.
         notifyrefund(resource: Schema.OrderpaymentsNotifyRefundRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyRefundResponse;
       }
-      export interface OrderreportsCollection {
+      interface OrderreportsCollection {
         // Retrieves a report for disbursements from your Merchant Center account.
         listdisbursements(merchantId: string, disbursementStartDate: string): Content.Schema.OrderreportsListDisbursementsResponse;
         // Retrieves a report for disbursements from your Merchant Center account.
@@ -189,7 +189,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of transactions for a disbursement from your Merchant Center account.
         listtransactions(merchantId: string, disbursementId: string, transactionStartDate: string, optionalArgs: object): Content.Schema.OrderreportsListTransactionsResponse;
       }
-      export interface OrderreturnsCollection {
+      interface OrderreturnsCollection {
         // Retrieves an order return from your Merchant Center account.
         get(merchantId: string, returnId: string): Content.Schema.MerchantOrderReturn;
         // Lists order returns in your Merchant Center account.
@@ -197,7 +197,7 @@ declare namespace GoogleAppsScript {
         // Lists order returns in your Merchant Center account.
         list(merchantId: string, optionalArgs: object): Content.Schema.OrderreturnsListResponse;
       }
-      export interface OrdersCollection {
+      interface OrdersCollection {
         // Marks an order as acknowledged.
         acknowledge(resource: Schema.OrdersAcknowledgeRequest, merchantId: string, orderId: string): Content.Schema.OrdersAcknowledgeResponse;
         // Sandbox only. Moves a test order from state "inProgress" to state "pendingShipment".
@@ -248,7 +248,7 @@ declare namespace GoogleAppsScript {
         // Updates a shipment's status, carrier, and/or tracking ID.
         updateshipment(resource: Schema.OrdersUpdateShipmentRequest, merchantId: string, orderId: string): Content.Schema.OrdersUpdateShipmentResponse;
       }
-      export interface PosCollection {
+      interface PosCollection {
         // Batches multiple POS-related calls in a single request.
         custombatch(resource: Schema.PosCustomBatchRequest): Content.Schema.PosCustomBatchResponse;
         // Batches multiple POS-related calls in a single request.
@@ -274,7 +274,7 @@ declare namespace GoogleAppsScript {
         // Submit a sale event for the given merchant.
         sale(resource: Schema.PosSaleRequest, merchantId: string, targetMerchantId: string, optionalArgs: object): Content.Schema.PosSaleResponse;
       }
-      export interface ProductsCollection {
+      interface ProductsCollection {
         // Retrieves, inserts, and deletes multiple products in a single request.
         custombatch(resource: Schema.ProductsCustomBatchRequest): Content.Schema.ProductsCustomBatchResponse;
         // Retrieves, inserts, and deletes multiple products in a single request.
@@ -294,7 +294,7 @@ declare namespace GoogleAppsScript {
         // Deletes a product from your Merchant Center account.
         remove(merchantId: string, productId: string, optionalArgs: object): void;
       }
-      export interface ProductstatusesCollection {
+      interface ProductstatusesCollection {
         // Gets the statuses of multiple products in a single request.
         custombatch(resource: Schema.ProductstatusesCustomBatchRequest): Content.Schema.ProductstatusesCustomBatchResponse;
         // Gets the statuses of multiple products in a single request.
@@ -308,7 +308,7 @@ declare namespace GoogleAppsScript {
         // Lists the statuses of the products in your Merchant Center account.
         list(merchantId: string, optionalArgs: object): Content.Schema.ProductstatusesListResponse;
       }
-      export interface ShippingsettingsCollection {
+      interface ShippingsettingsCollection {
         // Retrieves and updates the shipping settings of multiple accounts in a single request.
         custombatch(resource: Schema.ShippingsettingsCustomBatchRequest): Content.Schema.ShippingsettingsCustomBatchResponse;
         // Retrieves and updates the shipping settings of multiple accounts in a single request.
@@ -334,7 +334,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         adultContent?: boolean;
         adwordsLinks?: Content.Schema.AccountAdwordsLink[];
         businessInformation?: Content.Schema.AccountBusinessInformation;
@@ -348,36 +348,36 @@ declare namespace GoogleAppsScript {
         websiteUrl?: string;
         youtubeChannelLinks?: Content.Schema.AccountYouTubeChannelLink[];
       }
-      export interface AccountAddress {
+      interface AccountAddress {
         country?: string;
         locality?: string;
         postalCode?: string;
         region?: string;
         streetAddress?: string;
       }
-      export interface AccountAdwordsLink {
+      interface AccountAdwordsLink {
         adwordsId?: string;
         status?: string;
       }
-      export interface AccountBusinessInformation {
+      interface AccountBusinessInformation {
         address?: Content.Schema.AccountAddress;
         customerService?: Content.Schema.AccountCustomerService;
         phoneNumber?: string;
       }
-      export interface AccountCustomerService {
+      interface AccountCustomerService {
         email?: string;
         phoneNumber?: string;
         url?: string;
       }
-      export interface AccountGoogleMyBusinessLink {
+      interface AccountGoogleMyBusinessLink {
         gmbEmail?: string;
         status?: string;
       }
-      export interface AccountIdentifier {
+      interface AccountIdentifier {
         aggregatorId?: string;
         merchantId?: string;
       }
-      export interface AccountStatus {
+      interface AccountStatus {
         accountId?: string;
         accountLevelIssues?: Content.Schema.AccountStatusAccountLevelIssue[];
         dataQualityIssues?: Content.Schema.AccountStatusDataQualityIssue[];
@@ -385,7 +385,7 @@ declare namespace GoogleAppsScript {
         products?: Content.Schema.AccountStatusProducts[];
         websiteClaimed?: boolean;
       }
-      export interface AccountStatusAccountLevelIssue {
+      interface AccountStatusAccountLevelIssue {
         country?: string;
         destination?: string;
         detail?: string;
@@ -394,7 +394,7 @@ declare namespace GoogleAppsScript {
         severity?: string;
         title?: string;
       }
-      export interface AccountStatusDataQualityIssue {
+      interface AccountStatusDataQualityIssue {
         country?: string;
         destination?: string;
         detail?: string;
@@ -407,14 +407,14 @@ declare namespace GoogleAppsScript {
         severity?: string;
         submittedValue?: string;
       }
-      export interface AccountStatusExampleItem {
+      interface AccountStatusExampleItem {
         itemId?: string;
         link?: string;
         submittedValue?: string;
         title?: string;
         valueOnLandingPage?: string;
       }
-      export interface AccountStatusItemLevelIssue {
+      interface AccountStatusItemLevelIssue {
         attributeName?: string;
         code?: string;
         description?: string;
@@ -424,53 +424,53 @@ declare namespace GoogleAppsScript {
         resolution?: string;
         servability?: string;
       }
-      export interface AccountStatusProducts {
+      interface AccountStatusProducts {
         channel?: string;
         country?: string;
         destination?: string;
         itemLevelIssues?: Content.Schema.AccountStatusItemLevelIssue[];
         statistics?: Content.Schema.AccountStatusStatistics;
       }
-      export interface AccountStatusStatistics {
+      interface AccountStatusStatistics {
         active?: string;
         disapproved?: string;
         expiring?: string;
         pending?: string;
       }
-      export interface AccountTax {
+      interface AccountTax {
         accountId?: string;
         kind?: string;
         rules?: Content.Schema.AccountTaxTaxRule[];
       }
-      export interface AccountTaxTaxRule {
+      interface AccountTaxTaxRule {
         country?: string;
         locationId?: string;
         ratePercent?: string;
         shippingTaxed?: boolean;
         useGlobalRate?: boolean;
       }
-      export interface AccountUser {
+      interface AccountUser {
         admin?: boolean;
         emailAddress?: string;
         orderManager?: boolean;
         paymentsAnalyst?: boolean;
         paymentsManager?: boolean;
       }
-      export interface AccountYouTubeChannelLink {
+      interface AccountYouTubeChannelLink {
         channelId?: string;
         status?: string;
       }
-      export interface AccountsAuthInfoResponse {
+      interface AccountsAuthInfoResponse {
         accountIdentifiers?: Content.Schema.AccountIdentifier[];
         kind?: string;
       }
-      export interface AccountsClaimWebsiteResponse {
+      interface AccountsClaimWebsiteResponse {
         kind?: string;
       }
-      export interface AccountsCustomBatchRequest {
+      interface AccountsCustomBatchRequest {
         entries?: Content.Schema.AccountsCustomBatchRequestEntry[];
       }
-      export interface AccountsCustomBatchRequestEntry {
+      interface AccountsCustomBatchRequestEntry {
         account?: Content.Schema.Account;
         accountId?: string;
         batchId?: number;
@@ -480,89 +480,89 @@ declare namespace GoogleAppsScript {
         method?: string;
         overwrite?: boolean;
       }
-      export interface AccountsCustomBatchRequestEntryLinkRequest {
+      interface AccountsCustomBatchRequestEntryLinkRequest {
         action?: string;
         linkType?: string;
         linkedAccountId?: string;
       }
-      export interface AccountsCustomBatchResponse {
+      interface AccountsCustomBatchResponse {
         entries?: Content.Schema.AccountsCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface AccountsCustomBatchResponseEntry {
+      interface AccountsCustomBatchResponseEntry {
         account?: Content.Schema.Account;
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
         linkStatus?: string;
       }
-      export interface AccountsLinkRequest {
+      interface AccountsLinkRequest {
         action?: string;
         linkType?: string;
         linkedAccountId?: string;
       }
-      export interface AccountsLinkResponse {
+      interface AccountsLinkResponse {
         kind?: string;
       }
-      export interface AccountsListResponse {
+      interface AccountsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.Account[];
       }
-      export interface AccountstatusesCustomBatchRequest {
+      interface AccountstatusesCustomBatchRequest {
         entries?: Content.Schema.AccountstatusesCustomBatchRequestEntry[];
       }
-      export interface AccountstatusesCustomBatchRequestEntry {
+      interface AccountstatusesCustomBatchRequestEntry {
         accountId?: string;
         batchId?: number;
         destinations?: string[];
         merchantId?: string;
         method?: string;
       }
-      export interface AccountstatusesCustomBatchResponse {
+      interface AccountstatusesCustomBatchResponse {
         entries?: Content.Schema.AccountstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface AccountstatusesCustomBatchResponseEntry {
+      interface AccountstatusesCustomBatchResponseEntry {
         accountStatus?: Content.Schema.AccountStatus;
         batchId?: number;
         errors?: Content.Schema.Errors;
       }
-      export interface AccountstatusesListResponse {
+      interface AccountstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.AccountStatus[];
       }
-      export interface AccounttaxCustomBatchRequest {
+      interface AccounttaxCustomBatchRequest {
         entries?: Content.Schema.AccounttaxCustomBatchRequestEntry[];
       }
-      export interface AccounttaxCustomBatchRequestEntry {
+      interface AccounttaxCustomBatchRequestEntry {
         accountId?: string;
         accountTax?: Content.Schema.AccountTax;
         batchId?: number;
         merchantId?: string;
         method?: string;
       }
-      export interface AccounttaxCustomBatchResponse {
+      interface AccounttaxCustomBatchResponse {
         entries?: Content.Schema.AccounttaxCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface AccounttaxCustomBatchResponseEntry {
+      interface AccounttaxCustomBatchResponseEntry {
         accountTax?: Content.Schema.AccountTax;
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
       }
-      export interface AccounttaxListResponse {
+      interface AccounttaxListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.AccountTax[];
       }
-      export interface Amount {
+      interface Amount {
         pretax?: Content.Schema.Price;
         tax?: Content.Schema.Price;
       }
-      export interface CarrierRate {
+      interface CarrierRate {
         carrierName?: string;
         carrierService?: string;
         flatAdjustment?: Content.Schema.Price;
@@ -570,31 +570,31 @@ declare namespace GoogleAppsScript {
         originPostalCode?: string;
         percentageAdjustment?: string;
       }
-      export interface CarriersCarrier {
+      interface CarriersCarrier {
         country?: string;
         name?: string;
         services?: string[];
       }
-      export interface CustomAttribute {
+      interface CustomAttribute {
         name?: string;
         type?: string;
         unit?: string;
         value?: string;
       }
-      export interface CustomGroup {
+      interface CustomGroup {
         attributes?: Content.Schema.CustomAttribute[];
         name?: string;
       }
-      export interface CustomerReturnReason {
+      interface CustomerReturnReason {
         description?: string;
         reasonCode?: string;
       }
-      export interface CutoffTime {
+      interface CutoffTime {
         hour?: number;
         minute?: number;
         timezone?: string;
       }
-      export interface Datafeed {
+      interface Datafeed {
         attributeLanguage?: string;
         contentLanguage?: string;
         contentType?: string;
@@ -608,7 +608,7 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         targets?: Content.Schema.DatafeedTarget[];
       }
-      export interface DatafeedFetchSchedule {
+      interface DatafeedFetchSchedule {
         dayOfMonth?: number;
         fetchUrl?: string;
         hour?: number;
@@ -619,12 +619,12 @@ declare namespace GoogleAppsScript {
         username?: string;
         weekday?: string;
       }
-      export interface DatafeedFormat {
+      interface DatafeedFormat {
         columnDelimiter?: string;
         fileEncoding?: string;
         quotingMode?: string;
       }
-      export interface DatafeedStatus {
+      interface DatafeedStatus {
         country?: string;
         datafeedId?: string;
         errors?: Content.Schema.DatafeedStatusError[];
@@ -636,54 +636,54 @@ declare namespace GoogleAppsScript {
         processingStatus?: string;
         warnings?: Content.Schema.DatafeedStatusError[];
       }
-      export interface DatafeedStatusError {
+      interface DatafeedStatusError {
         code?: string;
         count?: string;
         examples?: Content.Schema.DatafeedStatusExample[];
         message?: string;
       }
-      export interface DatafeedStatusExample {
+      interface DatafeedStatusExample {
         itemId?: string;
         lineNumber?: string;
         value?: string;
       }
-      export interface DatafeedTarget {
+      interface DatafeedTarget {
         country?: string;
         excludedDestinations?: string[];
         includedDestinations?: string[];
         language?: string;
       }
-      export interface DatafeedsCustomBatchRequest {
+      interface DatafeedsCustomBatchRequest {
         entries?: Content.Schema.DatafeedsCustomBatchRequestEntry[];
       }
-      export interface DatafeedsCustomBatchRequestEntry {
+      interface DatafeedsCustomBatchRequestEntry {
         batchId?: number;
         datafeed?: Content.Schema.Datafeed;
         datafeedId?: string;
         merchantId?: string;
         method?: string;
       }
-      export interface DatafeedsCustomBatchResponse {
+      interface DatafeedsCustomBatchResponse {
         entries?: Content.Schema.DatafeedsCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface DatafeedsCustomBatchResponseEntry {
+      interface DatafeedsCustomBatchResponseEntry {
         batchId?: number;
         datafeed?: Content.Schema.Datafeed;
         errors?: Content.Schema.Errors;
       }
-      export interface DatafeedsFetchNowResponse {
+      interface DatafeedsFetchNowResponse {
         kind?: string;
       }
-      export interface DatafeedsListResponse {
+      interface DatafeedsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.Datafeed[];
       }
-      export interface DatafeedstatusesCustomBatchRequest {
+      interface DatafeedstatusesCustomBatchRequest {
         entries?: Content.Schema.DatafeedstatusesCustomBatchRequestEntry[];
       }
-      export interface DatafeedstatusesCustomBatchRequestEntry {
+      interface DatafeedstatusesCustomBatchRequestEntry {
         batchId?: number;
         country?: string;
         datafeedId?: string;
@@ -691,21 +691,21 @@ declare namespace GoogleAppsScript {
         merchantId?: string;
         method?: string;
       }
-      export interface DatafeedstatusesCustomBatchResponse {
+      interface DatafeedstatusesCustomBatchResponse {
         entries?: Content.Schema.DatafeedstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface DatafeedstatusesCustomBatchResponseEntry {
+      interface DatafeedstatusesCustomBatchResponseEntry {
         batchId?: number;
         datafeedStatus?: Content.Schema.DatafeedStatus;
         errors?: Content.Schema.Errors;
       }
-      export interface DatafeedstatusesListResponse {
+      interface DatafeedstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.DatafeedStatus[];
       }
-      export interface DeliveryTime {
+      interface DeliveryTime {
         cutoffTime?: Content.Schema.CutoffTime;
         holidayCutoffs?: Content.Schema.HolidayCutoff[];
         maxHandlingTimeInDays?: number;
@@ -714,41 +714,41 @@ declare namespace GoogleAppsScript {
         minTransitTimeInDays?: number;
         transitTimeTable?: Content.Schema.TransitTable;
       }
-      export interface Error {
+      interface Error {
         domain?: string;
         message?: string;
         reason?: string;
       }
-      export interface Errors {
+      interface Errors {
         code?: number;
         errors?: Content.Schema.Error[];
         message?: string;
       }
-      export interface GmbAccounts {
+      interface GmbAccounts {
         accountId?: string;
         gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
       }
-      export interface GmbAccountsGmbAccount {
+      interface GmbAccountsGmbAccount {
         email?: string;
         listingCount?: string;
         name?: string;
         type?: string;
       }
-      export interface Headers {
+      interface Headers {
         locations?: Content.Schema.LocationIdSet[];
         numberOfItems?: string[];
         postalCodeGroupNames?: string[];
         prices?: Content.Schema.Price[];
         weights?: Content.Schema.Weight[];
       }
-      export interface HolidayCutoff {
+      interface HolidayCutoff {
         deadlineDate?: string;
         deadlineHour?: number;
         deadlineTimezone?: string;
         holidayId?: string;
         visibleFromDate?: string;
       }
-      export interface HolidaysHoliday {
+      interface HolidaysHoliday {
         countryCode?: string;
         date?: string;
         deliveryGuaranteeDate?: string;
@@ -756,11 +756,11 @@ declare namespace GoogleAppsScript {
         id?: string;
         type?: string;
       }
-      export interface Installment {
+      interface Installment {
         amount?: Content.Schema.Price;
         months?: string;
       }
-      export interface Inventory {
+      interface Inventory {
         availability?: string;
         customLabel0?: string;
         customLabel1?: string;
@@ -778,30 +778,30 @@ declare namespace GoogleAppsScript {
         salePriceEffectiveDate?: string;
         sellOnGoogleQuantity?: number;
       }
-      export interface InventoryCustomBatchRequest {
+      interface InventoryCustomBatchRequest {
         entries?: Content.Schema.InventoryCustomBatchRequestEntry[];
       }
-      export interface InventoryCustomBatchRequestEntry {
+      interface InventoryCustomBatchRequestEntry {
         batchId?: number;
         inventory?: Content.Schema.Inventory;
         merchantId?: string;
         productId?: string;
         storeCode?: string;
       }
-      export interface InventoryCustomBatchResponse {
+      interface InventoryCustomBatchResponse {
         entries?: Content.Schema.InventoryCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface InventoryCustomBatchResponseEntry {
+      interface InventoryCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
       }
-      export interface InventoryPickup {
+      interface InventoryPickup {
         pickupMethod?: string;
         pickupSla?: string;
       }
-      export interface InventorySetRequest {
+      interface InventorySetRequest {
         availability?: string;
         customLabel0?: string;
         customLabel1?: string;
@@ -818,10 +818,10 @@ declare namespace GoogleAppsScript {
         salePriceEffectiveDate?: string;
         sellOnGoogleQuantity?: number;
       }
-      export interface InventorySetResponse {
+      interface InventorySetResponse {
         kind?: string;
       }
-      export interface InvoiceSummary {
+      interface InvoiceSummary {
         additionalChargeSummaries?: Content.Schema.InvoiceSummaryAdditionalChargeSummary[];
         customerBalance?: Content.Schema.Amount;
         googleBalance?: Content.Schema.Amount;
@@ -829,15 +829,15 @@ declare namespace GoogleAppsScript {
         productTotal?: Content.Schema.Amount;
         promotionSummaries?: Content.Schema.Promotion[];
       }
-      export interface InvoiceSummaryAdditionalChargeSummary {
+      interface InvoiceSummaryAdditionalChargeSummary {
         totalAmount?: Content.Schema.Amount;
         type?: string;
       }
-      export interface LiaAboutPageSettings {
+      interface LiaAboutPageSettings {
         status?: string;
         url?: string;
       }
-      export interface LiaCountrySettings {
+      interface LiaCountrySettings {
         about?: Content.Schema.LiaAboutPageSettings;
         country?: string;
         hostedLocalStorefrontActive?: boolean;
@@ -846,29 +846,29 @@ declare namespace GoogleAppsScript {
         posDataProvider?: Content.Schema.LiaPosDataProvider;
         storePickupActive?: boolean;
       }
-      export interface LiaInventorySettings {
+      interface LiaInventorySettings {
         inventoryVerificationContactEmail?: string;
         inventoryVerificationContactName?: string;
         inventoryVerificationContactStatus?: string;
         status?: string;
       }
-      export interface LiaOnDisplayToOrderSettings {
+      interface LiaOnDisplayToOrderSettings {
         shippingCostPolicyUrl?: string;
         status?: string;
       }
-      export interface LiaPosDataProvider {
+      interface LiaPosDataProvider {
         posDataProviderId?: string;
         posExternalAccountId?: string;
       }
-      export interface LiaSettings {
+      interface LiaSettings {
         accountId?: string;
         countrySettings?: Content.Schema.LiaCountrySettings[];
         kind?: string;
       }
-      export interface LiasettingsCustomBatchRequest {
+      interface LiasettingsCustomBatchRequest {
         entries?: Content.Schema.LiasettingsCustomBatchRequestEntry[];
       }
-      export interface LiasettingsCustomBatchRequestEntry {
+      interface LiasettingsCustomBatchRequestEntry {
         accountId?: string;
         batchId?: number;
         contactEmail?: string;
@@ -881,11 +881,11 @@ declare namespace GoogleAppsScript {
         posDataProviderId?: string;
         posExternalAccountId?: string;
       }
-      export interface LiasettingsCustomBatchResponse {
+      interface LiasettingsCustomBatchResponse {
         entries?: Content.Schema.LiasettingsCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface LiasettingsCustomBatchResponseEntry {
+      interface LiasettingsCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         gmbAccounts?: Content.Schema.GmbAccounts;
@@ -893,41 +893,41 @@ declare namespace GoogleAppsScript {
         liaSettings?: Content.Schema.LiaSettings;
         posDataProviders?: Content.Schema.PosDataProviders[];
       }
-      export interface LiasettingsGetAccessibleGmbAccountsResponse {
+      interface LiasettingsGetAccessibleGmbAccountsResponse {
         accountId?: string;
         gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
         kind?: string;
       }
-      export interface LiasettingsListPosDataProvidersResponse {
+      interface LiasettingsListPosDataProvidersResponse {
         kind?: string;
         posDataProviders?: Content.Schema.PosDataProviders[];
       }
-      export interface LiasettingsListResponse {
+      interface LiasettingsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.LiaSettings[];
       }
-      export interface LiasettingsRequestGmbAccessResponse {
+      interface LiasettingsRequestGmbAccessResponse {
         kind?: string;
       }
-      export interface LiasettingsRequestInventoryVerificationResponse {
+      interface LiasettingsRequestInventoryVerificationResponse {
         kind?: string;
       }
-      export interface LiasettingsSetInventoryVerificationContactResponse {
+      interface LiasettingsSetInventoryVerificationContactResponse {
         kind?: string;
       }
-      export interface LiasettingsSetPosDataProviderResponse {
+      interface LiasettingsSetPosDataProviderResponse {
         kind?: string;
       }
-      export interface LocationIdSet {
+      interface LocationIdSet {
         locationIds?: string[];
       }
-      export interface LoyaltyPoints {
+      interface LoyaltyPoints {
         name?: string;
         pointsValue?: string;
-        ratio?: Number;
+        ratio?: number;
       }
-      export interface MerchantOrderReturn {
+      interface MerchantOrderReturn {
         creationDate?: string;
         merchantOrderId?: string;
         orderId?: string;
@@ -935,7 +935,7 @@ declare namespace GoogleAppsScript {
         returnItems?: Content.Schema.MerchantOrderReturnItem[];
         returnShipments?: Content.Schema.ReturnShipment[];
       }
-      export interface MerchantOrderReturnItem {
+      interface MerchantOrderReturnItem {
         customerReturnReason?: Content.Schema.CustomerReturnReason;
         itemId?: string;
         merchantReturnReason?: Content.Schema.RefundReason;
@@ -943,7 +943,7 @@ declare namespace GoogleAppsScript {
         returnShipmentIds?: string[];
         state?: string;
       }
-      export interface Order {
+      interface Order {
         acknowledged?: boolean;
         channelType?: string;
         customer?: Content.Schema.OrderCustomer;
@@ -966,7 +966,7 @@ declare namespace GoogleAppsScript {
         status?: string;
         taxCollector?: string;
       }
-      export interface OrderAddress {
+      interface OrderAddress {
         country?: string;
         fullAddress?: string[];
         isPostOfficeBox?: boolean;
@@ -976,29 +976,29 @@ declare namespace GoogleAppsScript {
         region?: string;
         streetAddress?: string[];
       }
-      export interface OrderCancellation {
+      interface OrderCancellation {
         actor?: string;
         creationDate?: string;
         quantity?: number;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrderCustomer {
+      interface OrderCustomer {
         email?: string;
         explicitMarketingPreference?: boolean;
         fullName?: string;
         marketingRightsInfo?: Content.Schema.OrderCustomerMarketingRightsInfo;
       }
-      export interface OrderCustomerMarketingRightsInfo {
+      interface OrderCustomerMarketingRightsInfo {
         explicitMarketingPreference?: string;
         lastUpdatedTimestamp?: string;
         marketingEmailAddress?: string;
       }
-      export interface OrderDeliveryDetails {
+      interface OrderDeliveryDetails {
         address?: Content.Schema.OrderAddress;
         phoneNumber?: string;
       }
-      export interface OrderLegacyPromotion {
+      interface OrderLegacyPromotion {
         benefits?: Content.Schema.OrderLegacyPromotionBenefit[];
         effectiveDates?: string;
         genericRedemptionCode?: string;
@@ -1007,14 +1007,14 @@ declare namespace GoogleAppsScript {
         productApplicability?: string;
         redemptionChannel?: string;
       }
-      export interface OrderLegacyPromotionBenefit {
+      interface OrderLegacyPromotionBenefit {
         discount?: Content.Schema.Price;
         offerIds?: string[];
         subType?: string;
         taxImpact?: Content.Schema.Price;
         type?: string;
       }
-      export interface OrderLineItem {
+      interface OrderLineItem {
         annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
         cancellations?: Content.Schema.OrderCancellation[];
         id?: string;
@@ -1031,7 +1031,7 @@ declare namespace GoogleAppsScript {
         shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
         tax?: Content.Schema.Price;
       }
-      export interface OrderLineItemProduct {
+      interface OrderLineItemProduct {
         brand?: string;
         channel?: string;
         condition?: string;
@@ -1049,35 +1049,35 @@ declare namespace GoogleAppsScript {
         title?: string;
         variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
       }
-      export interface OrderLineItemProductFee {
+      interface OrderLineItemProductFee {
         amount?: Content.Schema.Price;
         name?: string;
       }
-      export interface OrderLineItemProductVariantAttribute {
+      interface OrderLineItemProductVariantAttribute {
         dimension?: string;
         value?: string;
       }
-      export interface OrderLineItemReturnInfo {
+      interface OrderLineItemReturnInfo {
         daysToReturn?: number;
         isReturnable?: boolean;
         policyUrl?: string;
       }
-      export interface OrderLineItemShippingDetails {
+      interface OrderLineItemShippingDetails {
         deliverByDate?: string;
         method?: Content.Schema.OrderLineItemShippingDetailsMethod;
         shipByDate?: string;
       }
-      export interface OrderLineItemShippingDetailsMethod {
+      interface OrderLineItemShippingDetailsMethod {
         carrier?: string;
         maxDaysInTransit?: number;
         methodName?: string;
         minDaysInTransit?: number;
       }
-      export interface OrderMerchantProvidedAnnotation {
+      interface OrderMerchantProvidedAnnotation {
         key?: string;
         value?: string;
       }
-      export interface OrderPaymentMethod {
+      interface OrderPaymentMethod {
         billingAddress?: Content.Schema.OrderAddress;
         expirationMonth?: number;
         expirationYear?: number;
@@ -1085,21 +1085,21 @@ declare namespace GoogleAppsScript {
         phoneNumber?: string;
         type?: string;
       }
-      export interface OrderRefund {
+      interface OrderRefund {
         actor?: string;
         amount?: Content.Schema.Price;
         creationDate?: string;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrderReportDisbursement {
+      interface OrderReportDisbursement {
         disbursementAmount?: Content.Schema.Price;
         disbursementCreationDate?: string;
         disbursementDate?: string;
         disbursementId?: string;
         merchantId?: string;
       }
-      export interface OrderReportTransaction {
+      interface OrderReportTransaction {
         disbursementAmount?: Content.Schema.Price;
         disbursementCreationDate?: string;
         disbursementDate?: string;
@@ -1111,14 +1111,14 @@ declare namespace GoogleAppsScript {
         productAmountWithRemittedTax?: Content.Schema.ProductAmount;
         transactionDate?: string;
       }
-      export interface OrderReturn {
+      interface OrderReturn {
         actor?: string;
         creationDate?: string;
         quantity?: number;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrderShipment {
+      interface OrderShipment {
         carrier?: string;
         creationDate?: string;
         deliveryDate?: string;
@@ -1127,100 +1127,100 @@ declare namespace GoogleAppsScript {
         status?: string;
         trackingId?: string;
       }
-      export interface OrderShipmentLineItemShipment {
+      interface OrderShipmentLineItemShipment {
         lineItemId?: string;
         productId?: string;
         quantity?: number;
       }
-      export interface OrderinvoicesCreateChargeInvoiceRequest {
+      interface OrderinvoicesCreateChargeInvoiceRequest {
         invoiceId?: string;
         invoiceSummary?: Content.Schema.InvoiceSummary;
         lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
         operationId?: string;
         shipmentGroupId?: string;
       }
-      export interface OrderinvoicesCreateChargeInvoiceResponse {
+      interface OrderinvoicesCreateChargeInvoiceResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderinvoicesCreateRefundInvoiceRequest {
+      interface OrderinvoicesCreateRefundInvoiceRequest {
         invoiceId?: string;
         operationId?: string;
         refundOnlyOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
         returnOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
         shipmentInvoices?: Content.Schema.ShipmentInvoice[];
       }
-      export interface OrderinvoicesCreateRefundInvoiceResponse {
+      interface OrderinvoicesCreateRefundInvoiceResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption {
+      interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption {
         description?: string;
         reason?: string;
       }
-      export interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption {
+      interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption {
         description?: string;
         reason?: string;
       }
-      export interface OrderpaymentsNotifyAuthApprovedRequest {
+      interface OrderpaymentsNotifyAuthApprovedRequest {
         authAmountPretax?: Content.Schema.Price;
         authAmountTax?: Content.Schema.Price;
       }
-      export interface OrderpaymentsNotifyAuthApprovedResponse {
+      interface OrderpaymentsNotifyAuthApprovedResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderpaymentsNotifyAuthDeclinedRequest {
+      interface OrderpaymentsNotifyAuthDeclinedRequest {
         declineReason?: string;
       }
-      export interface OrderpaymentsNotifyAuthDeclinedResponse {
+      interface OrderpaymentsNotifyAuthDeclinedResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderpaymentsNotifyChargeRequest {
+      interface OrderpaymentsNotifyChargeRequest {
         chargeState?: string;
         invoiceId?: string;
         invoiceIds?: string[];
       }
-      export interface OrderpaymentsNotifyChargeResponse {
+      interface OrderpaymentsNotifyChargeResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderpaymentsNotifyRefundRequest {
+      interface OrderpaymentsNotifyRefundRequest {
         invoiceId?: string;
         invoiceIds?: string[];
         refundState?: string;
       }
-      export interface OrderpaymentsNotifyRefundResponse {
+      interface OrderpaymentsNotifyRefundResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrderreportsListDisbursementsResponse {
+      interface OrderreportsListDisbursementsResponse {
         disbursements?: Content.Schema.OrderReportDisbursement[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface OrderreportsListTransactionsResponse {
+      interface OrderreportsListTransactionsResponse {
         kind?: string;
         nextPageToken?: string;
         transactions?: Content.Schema.OrderReportTransaction[];
       }
-      export interface OrderreturnsListResponse {
+      interface OrderreturnsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.MerchantOrderReturn[];
       }
-      export interface OrdersAcknowledgeRequest {
+      interface OrdersAcknowledgeRequest {
         operationId?: string;
       }
-      export interface OrdersAcknowledgeResponse {
+      interface OrdersAcknowledgeResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersAdvanceTestOrderResponse {
+      interface OrdersAdvanceTestOrderResponse {
         kind?: string;
       }
-      export interface OrdersCancelLineItemRequest {
+      interface OrdersCancelLineItemRequest {
         amount?: Content.Schema.Price;
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
@@ -1231,45 +1231,45 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCancelLineItemResponse {
+      interface OrdersCancelLineItemResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersCancelRequest {
+      interface OrdersCancelRequest {
         operationId?: string;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCancelResponse {
+      interface OrdersCancelResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersCancelTestOrderByCustomerRequest {
+      interface OrdersCancelTestOrderByCustomerRequest {
         reason?: string;
       }
-      export interface OrdersCancelTestOrderByCustomerResponse {
+      interface OrdersCancelTestOrderByCustomerResponse {
         kind?: string;
       }
-      export interface OrdersCreateTestOrderRequest {
+      interface OrdersCreateTestOrderRequest {
         country?: string;
         templateName?: string;
         testOrder?: Content.Schema.TestOrder;
       }
-      export interface OrdersCreateTestOrderResponse {
+      interface OrdersCreateTestOrderResponse {
         kind?: string;
         orderId?: string;
       }
-      export interface OrdersCreateTestReturnRequest {
+      interface OrdersCreateTestReturnRequest {
         items?: Content.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem[];
       }
-      export interface OrdersCreateTestReturnResponse {
+      interface OrdersCreateTestReturnResponse {
         kind?: string;
         returnId?: string;
       }
-      export interface OrdersCustomBatchRequest {
+      interface OrdersCustomBatchRequest {
         entries?: Content.Schema.OrdersCustomBatchRequestEntry[];
       }
-      export interface OrdersCustomBatchRequestEntry {
+      interface OrdersCustomBatchRequestEntry {
         batchId?: number;
         cancel?: Content.Schema.OrdersCustomBatchRequestEntryCancel;
         cancelLineItem?: Content.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
@@ -1288,11 +1288,11 @@ declare namespace GoogleAppsScript {
         updateLineItemShippingDetails?: Content.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
         updateShipment?: Content.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
       }
-      export interface OrdersCustomBatchRequestEntryCancel {
+      interface OrdersCustomBatchRequestEntryCancel {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryCancelLineItem {
+      interface OrdersCustomBatchRequestEntryCancelLineItem {
         amount?: Content.Schema.Price;
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
@@ -1302,11 +1302,11 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryCreateTestReturnReturnItem {
+      interface OrdersCustomBatchRequestEntryCreateTestReturnReturnItem {
         lineItemId?: string;
         quantity?: number;
       }
-      export interface OrdersCustomBatchRequestEntryInStoreRefundLineItem {
+      interface OrdersCustomBatchRequestEntryInStoreRefundLineItem {
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
         lineItemId?: string;
@@ -1315,28 +1315,28 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryRefund {
+      interface OrdersCustomBatchRequestEntryRefund {
         amount?: Content.Schema.Price;
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryRejectReturnLineItem {
+      interface OrdersCustomBatchRequestEntryRejectReturnLineItem {
         lineItemId?: string;
         productId?: string;
         quantity?: number;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryReturnLineItem {
+      interface OrdersCustomBatchRequestEntryReturnLineItem {
         lineItemId?: string;
         productId?: string;
         quantity?: number;
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntryReturnRefundLineItem {
+      interface OrdersCustomBatchRequestEntryReturnRefundLineItem {
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
         lineItemId?: string;
@@ -1345,12 +1345,12 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersCustomBatchRequestEntrySetLineItemMetadata {
+      interface OrdersCustomBatchRequestEntrySetLineItemMetadata {
         annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
         lineItemId?: string;
         productId?: string;
       }
-      export interface OrdersCustomBatchRequestEntryShipLineItems {
+      interface OrdersCustomBatchRequestEntryShipLineItems {
         carrier?: string;
         lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
         shipmentGroupId?: string;
@@ -1358,44 +1358,44 @@ declare namespace GoogleAppsScript {
         shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
         trackingId?: string;
       }
-      export interface OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo {
+      interface OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo {
         carrier?: string;
         shipmentId?: string;
         trackingId?: string;
       }
-      export interface OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails {
+      interface OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails {
         deliverByDate?: string;
         lineItemId?: string;
         productId?: string;
         shipByDate?: string;
       }
-      export interface OrdersCustomBatchRequestEntryUpdateShipment {
+      interface OrdersCustomBatchRequestEntryUpdateShipment {
         carrier?: string;
         deliveryDate?: string;
         shipmentId?: string;
         status?: string;
         trackingId?: string;
       }
-      export interface OrdersCustomBatchResponse {
+      interface OrdersCustomBatchResponse {
         entries?: Content.Schema.OrdersCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface OrdersCustomBatchResponseEntry {
+      interface OrdersCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         executionStatus?: string;
         kind?: string;
         order?: Content.Schema.Order;
       }
-      export interface OrdersGetByMerchantOrderIdResponse {
+      interface OrdersGetByMerchantOrderIdResponse {
         kind?: string;
         order?: Content.Schema.Order;
       }
-      export interface OrdersGetTestOrderTemplateResponse {
+      interface OrdersGetTestOrderTemplateResponse {
         kind?: string;
         template?: Content.Schema.TestOrder;
       }
-      export interface OrdersInStoreRefundLineItemRequest {
+      interface OrdersInStoreRefundLineItemRequest {
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
         lineItemId?: string;
@@ -1405,16 +1405,16 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersInStoreRefundLineItemResponse {
+      interface OrdersInStoreRefundLineItemResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersListResponse {
+      interface OrdersListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.Order[];
       }
-      export interface OrdersRefundRequest {
+      interface OrdersRefundRequest {
         amount?: Content.Schema.Price;
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
@@ -1422,11 +1422,11 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersRefundResponse {
+      interface OrdersRefundResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersRejectReturnLineItemRequest {
+      interface OrdersRejectReturnLineItemRequest {
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1434,11 +1434,11 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersRejectReturnLineItemResponse {
+      interface OrdersRejectReturnLineItemResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersReturnLineItemRequest {
+      interface OrdersReturnLineItemRequest {
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1446,11 +1446,11 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersReturnLineItemResponse {
+      interface OrdersReturnLineItemResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersReturnRefundLineItemRequest {
+      interface OrdersReturnRefundLineItemRequest {
         amountPretax?: Content.Schema.Price;
         amountTax?: Content.Schema.Price;
         lineItemId?: string;
@@ -1460,21 +1460,21 @@ declare namespace GoogleAppsScript {
         reason?: string;
         reasonText?: string;
       }
-      export interface OrdersReturnRefundLineItemResponse {
+      interface OrdersReturnRefundLineItemResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersSetLineItemMetadataRequest {
+      interface OrdersSetLineItemMetadataRequest {
         annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
         lineItemId?: string;
         operationId?: string;
         productId?: string;
       }
-      export interface OrdersSetLineItemMetadataResponse {
+      interface OrdersSetLineItemMetadataResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersShipLineItemsRequest {
+      interface OrdersShipLineItemsRequest {
         carrier?: string;
         lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
         operationId?: string;
@@ -1483,30 +1483,30 @@ declare namespace GoogleAppsScript {
         shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
         trackingId?: string;
       }
-      export interface OrdersShipLineItemsResponse {
+      interface OrdersShipLineItemsResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersUpdateLineItemShippingDetailsRequest {
+      interface OrdersUpdateLineItemShippingDetailsRequest {
         deliverByDate?: string;
         lineItemId?: string;
         operationId?: string;
         productId?: string;
         shipByDate?: string;
       }
-      export interface OrdersUpdateLineItemShippingDetailsResponse {
+      interface OrdersUpdateLineItemShippingDetailsResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersUpdateMerchantOrderIdRequest {
+      interface OrdersUpdateMerchantOrderIdRequest {
         merchantOrderId?: string;
         operationId?: string;
       }
-      export interface OrdersUpdateMerchantOrderIdResponse {
+      interface OrdersUpdateMerchantOrderIdResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface OrdersUpdateShipmentRequest {
+      interface OrdersUpdateShipmentRequest {
         carrier?: string;
         deliveryDate?: string;
         operationId?: string;
@@ -1514,14 +1514,14 @@ declare namespace GoogleAppsScript {
         status?: string;
         trackingId?: string;
       }
-      export interface OrdersUpdateShipmentResponse {
+      interface OrdersUpdateShipmentResponse {
         executionStatus?: string;
         kind?: string;
       }
-      export interface PosCustomBatchRequest {
+      interface PosCustomBatchRequest {
         entries?: Content.Schema.PosCustomBatchRequestEntry[];
       }
-      export interface PosCustomBatchRequestEntry {
+      interface PosCustomBatchRequestEntry {
         batchId?: number;
         inventory?: Content.Schema.PosInventory;
         merchantId?: string;
@@ -1531,11 +1531,11 @@ declare namespace GoogleAppsScript {
         storeCode?: string;
         targetMerchantId?: string;
       }
-      export interface PosCustomBatchResponse {
+      interface PosCustomBatchResponse {
         entries?: Content.Schema.PosCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface PosCustomBatchResponseEntry {
+      interface PosCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         inventory?: Content.Schema.PosInventory;
@@ -1543,16 +1543,16 @@ declare namespace GoogleAppsScript {
         sale?: Content.Schema.PosSale;
         store?: Content.Schema.PosStore;
       }
-      export interface PosDataProviders {
+      interface PosDataProviders {
         country?: string;
         posDataProviders?: Content.Schema.PosDataProvidersPosDataProvider[];
       }
-      export interface PosDataProvidersPosDataProvider {
+      interface PosDataProvidersPosDataProvider {
         displayName?: string;
         fullName?: string;
         providerId?: string;
       }
-      export interface PosInventory {
+      interface PosInventory {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1563,7 +1563,7 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosInventoryRequest {
+      interface PosInventoryRequest {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1573,7 +1573,7 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosInventoryResponse {
+      interface PosInventoryResponse {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1584,11 +1584,11 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosListResponse {
+      interface PosListResponse {
         kind?: string;
         resources?: Content.Schema.PosStore[];
       }
-      export interface PosSale {
+      interface PosSale {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1600,7 +1600,7 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosSaleRequest {
+      interface PosSaleRequest {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1611,7 +1611,7 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosSaleResponse {
+      interface PosSaleResponse {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
@@ -1623,25 +1623,25 @@ declare namespace GoogleAppsScript {
         targetCountry?: string;
         timestamp?: string;
       }
-      export interface PosStore {
+      interface PosStore {
         kind?: string;
         storeAddress?: string;
         storeCode?: string;
       }
-      export interface PostalCodeGroup {
+      interface PostalCodeGroup {
         country?: string;
         name?: string;
         postalCodeRanges?: Content.Schema.PostalCodeRange[];
       }
-      export interface PostalCodeRange {
+      interface PostalCodeRange {
         postalCodeRangeBegin?: string;
         postalCodeRangeEnd?: string;
       }
-      export interface Price {
+      interface Price {
         currency?: string;
         value?: string;
       }
-      export interface Product {
+      interface Product {
         additionalImageLinks?: string[];
         additionalProductTypes?: string[];
         adult?: boolean;
@@ -1671,7 +1671,7 @@ declare namespace GoogleAppsScript {
         displayAdsLink?: string;
         displayAdsSimilarIds?: string[];
         displayAdsTitle?: string;
-        displayAdsValue?: Number;
+        displayAdsValue?: number;
         energyEfficiencyClass?: string;
         expirationDate?: string;
         gender?: string;
@@ -1721,21 +1721,21 @@ declare namespace GoogleAppsScript {
         validatedDestinations?: string[];
         warnings?: Content.Schema.Error[];
       }
-      export interface ProductAmount {
+      interface ProductAmount {
         priceAmount?: Content.Schema.Price;
         remittedTaxAmount?: Content.Schema.Price;
         taxAmount?: Content.Schema.Price;
       }
-      export interface ProductAspect {
+      interface ProductAspect {
         aspectName?: string;
         destinationName?: string;
         intention?: string;
       }
-      export interface ProductDestination {
+      interface ProductDestination {
         destinationName?: string;
         intention?: string;
       }
-      export interface ProductShipping {
+      interface ProductShipping {
         country?: string;
         locationGroupName?: string;
         locationId?: string;
@@ -1744,15 +1744,15 @@ declare namespace GoogleAppsScript {
         region?: string;
         service?: string;
       }
-      export interface ProductShippingDimension {
+      interface ProductShippingDimension {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
-      export interface ProductShippingWeight {
+      interface ProductShippingWeight {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
-      export interface ProductStatus {
+      interface ProductStatus {
         creationDate?: string;
         dataQualityIssues?: Content.Schema.ProductStatusDataQualityIssue[];
         destinationStatuses?: Content.Schema.ProductStatusDestinationStatus[];
@@ -1765,7 +1765,7 @@ declare namespace GoogleAppsScript {
         productId?: string;
         title?: string;
       }
-      export interface ProductStatusDataQualityIssue {
+      interface ProductStatusDataQualityIssue {
         destination?: string;
         detail?: string;
         fetchStatus?: string;
@@ -1776,13 +1776,13 @@ declare namespace GoogleAppsScript {
         valueOnLandingPage?: string;
         valueProvided?: string;
       }
-      export interface ProductStatusDestinationStatus {
+      interface ProductStatusDestinationStatus {
         approvalPending?: boolean;
         approvalStatus?: string;
         destination?: string;
         intention?: string;
       }
-      export interface ProductStatusItemLevelIssue {
+      interface ProductStatusItemLevelIssue {
         attributeName?: string;
         code?: string;
         description?: string;
@@ -1792,51 +1792,51 @@ declare namespace GoogleAppsScript {
         resolution?: string;
         servability?: string;
       }
-      export interface ProductTax {
+      interface ProductTax {
         country?: string;
         locationId?: string;
         postalCode?: string;
-        rate?: Number;
+        rate?: number;
         region?: string;
         taxShip?: boolean;
       }
-      export interface ProductUnitPricingBaseMeasure {
+      interface ProductUnitPricingBaseMeasure {
         unit?: string;
         value?: string;
       }
-      export interface ProductUnitPricingMeasure {
+      interface ProductUnitPricingMeasure {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
-      export interface ProductsCustomBatchRequest {
+      interface ProductsCustomBatchRequest {
         entries?: Content.Schema.ProductsCustomBatchRequestEntry[];
       }
-      export interface ProductsCustomBatchRequestEntry {
+      interface ProductsCustomBatchRequestEntry {
         batchId?: number;
         merchantId?: string;
         method?: string;
         product?: Content.Schema.Product;
         productId?: string;
       }
-      export interface ProductsCustomBatchResponse {
+      interface ProductsCustomBatchResponse {
         entries?: Content.Schema.ProductsCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface ProductsCustomBatchResponseEntry {
+      interface ProductsCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
         product?: Content.Schema.Product;
       }
-      export interface ProductsListResponse {
+      interface ProductsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.Product[];
       }
-      export interface ProductstatusesCustomBatchRequest {
+      interface ProductstatusesCustomBatchRequest {
         entries?: Content.Schema.ProductstatusesCustomBatchRequestEntry[];
       }
-      export interface ProductstatusesCustomBatchRequestEntry {
+      interface ProductstatusesCustomBatchRequestEntry {
         batchId?: number;
         destinations?: string[];
         includeAttributes?: boolean;
@@ -1844,26 +1844,26 @@ declare namespace GoogleAppsScript {
         method?: string;
         productId?: string;
       }
-      export interface ProductstatusesCustomBatchResponse {
+      interface ProductstatusesCustomBatchResponse {
         entries?: Content.Schema.ProductstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface ProductstatusesCustomBatchResponseEntry {
+      interface ProductstatusesCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
         productStatus?: Content.Schema.ProductStatus;
       }
-      export interface ProductstatusesListResponse {
+      interface ProductstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.ProductStatus[];
       }
-      export interface Promotion {
+      interface Promotion {
         promotionAmount?: Content.Schema.Amount;
         promotionId?: string;
       }
-      export interface RateGroup {
+      interface RateGroup {
         applicableShippingLabels?: string[];
         carrierRates?: Content.Schema.CarrierRate[];
         mainTable?: Content.Schema.Table;
@@ -1871,11 +1871,11 @@ declare namespace GoogleAppsScript {
         singleValue?: Content.Schema.Value;
         subtables?: Content.Schema.Table[];
       }
-      export interface RefundReason {
+      interface RefundReason {
         description?: string;
         reasonCode?: string;
       }
-      export interface ReturnShipment {
+      interface ReturnShipment {
         creationDate?: string;
         deliveryDate?: string;
         returnMethodType?: string;
@@ -1884,10 +1884,10 @@ declare namespace GoogleAppsScript {
         shippingDate?: string;
         state?: string;
       }
-      export interface Row {
+      interface Row {
         cells?: Content.Schema.Value[];
       }
-      export interface Service {
+      interface Service {
         active?: boolean;
         currency?: string;
         deliveryCountry?: string;
@@ -1897,66 +1897,66 @@ declare namespace GoogleAppsScript {
         name?: string;
         rateGroups?: Content.Schema.RateGroup[];
       }
-      export interface ShipmentInvoice {
+      interface ShipmentInvoice {
         invoiceSummary?: Content.Schema.InvoiceSummary;
         lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
         shipmentGroupId?: string;
       }
-      export interface ShipmentInvoiceLineItemInvoice {
+      interface ShipmentInvoiceLineItemInvoice {
         lineItemId?: string;
         productId?: string;
         shipmentUnitIds?: string[];
         unitInvoice?: Content.Schema.UnitInvoice;
       }
-      export interface ShipmentTrackingInfo {
+      interface ShipmentTrackingInfo {
         carrier?: string;
         trackingNumber?: string;
       }
-      export interface ShippingSettings {
+      interface ShippingSettings {
         accountId?: string;
         postalCodeGroups?: Content.Schema.PostalCodeGroup[];
         services?: Content.Schema.Service[];
       }
-      export interface ShippingsettingsCustomBatchRequest {
+      interface ShippingsettingsCustomBatchRequest {
         entries?: Content.Schema.ShippingsettingsCustomBatchRequestEntry[];
       }
-      export interface ShippingsettingsCustomBatchRequestEntry {
+      interface ShippingsettingsCustomBatchRequestEntry {
         accountId?: string;
         batchId?: number;
         merchantId?: string;
         method?: string;
         shippingSettings?: Content.Schema.ShippingSettings;
       }
-      export interface ShippingsettingsCustomBatchResponse {
+      interface ShippingsettingsCustomBatchResponse {
         entries?: Content.Schema.ShippingsettingsCustomBatchResponseEntry[];
         kind?: string;
       }
-      export interface ShippingsettingsCustomBatchResponseEntry {
+      interface ShippingsettingsCustomBatchResponseEntry {
         batchId?: number;
         errors?: Content.Schema.Errors;
         kind?: string;
         shippingSettings?: Content.Schema.ShippingSettings;
       }
-      export interface ShippingsettingsGetSupportedCarriersResponse {
+      interface ShippingsettingsGetSupportedCarriersResponse {
         carriers?: Content.Schema.CarriersCarrier[];
         kind?: string;
       }
-      export interface ShippingsettingsGetSupportedHolidaysResponse {
+      interface ShippingsettingsGetSupportedHolidaysResponse {
         holidays?: Content.Schema.HolidaysHoliday[];
         kind?: string;
       }
-      export interface ShippingsettingsListResponse {
+      interface ShippingsettingsListResponse {
         kind?: string;
         nextPageToken?: string;
         resources?: Content.Schema.ShippingSettings[];
       }
-      export interface Table {
+      interface Table {
         columnHeaders?: Content.Schema.Headers;
         name?: string;
         rowHeaders?: Content.Schema.Headers;
         rows?: Content.Schema.Row[];
       }
-      export interface TestOrder {
+      interface TestOrder {
         customer?: Content.Schema.TestOrderCustomer;
         enableOrderinvoices?: boolean;
         kind?: string;
@@ -1969,24 +1969,24 @@ declare namespace GoogleAppsScript {
         shippingCostTax?: Content.Schema.Price;
         shippingOption?: string;
       }
-      export interface TestOrderCustomer {
+      interface TestOrderCustomer {
         email?: string;
         explicitMarketingPreference?: boolean;
         fullName?: string;
         marketingRightsInfo?: Content.Schema.TestOrderCustomerMarketingRightsInfo;
       }
-      export interface TestOrderCustomerMarketingRightsInfo {
+      interface TestOrderCustomerMarketingRightsInfo {
         explicitMarketingPreference?: string;
         lastUpdatedTimestamp?: string;
       }
-      export interface TestOrderLineItem {
+      interface TestOrderLineItem {
         product?: Content.Schema.TestOrderLineItemProduct;
         quantityOrdered?: number;
         returnInfo?: Content.Schema.OrderLineItemReturnInfo;
         shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
         unitTax?: Content.Schema.Price;
       }
-      export interface TestOrderLineItemProduct {
+      interface TestOrderLineItemProduct {
         brand?: string;
         channel?: string;
         condition?: string;
@@ -2001,55 +2001,55 @@ declare namespace GoogleAppsScript {
         title?: string;
         variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
       }
-      export interface TestOrderPaymentMethod {
+      interface TestOrderPaymentMethod {
         expirationMonth?: number;
         expirationYear?: number;
         lastFourDigits?: string;
         predefinedBillingAddress?: string;
         type?: string;
       }
-      export interface TransitTable {
+      interface TransitTable {
         postalCodeGroupNames?: string[];
         rows?: Content.Schema.TransitTableTransitTimeRow[];
         transitTimeLabels?: string[];
       }
-      export interface TransitTableTransitTimeRow {
+      interface TransitTableTransitTimeRow {
         values?: Content.Schema.TransitTableTransitTimeRowTransitTimeValue[];
       }
-      export interface TransitTableTransitTimeRowTransitTimeValue {
+      interface TransitTableTransitTimeRowTransitTimeValue {
         maxTransitTimeInDays?: number;
         minTransitTimeInDays?: number;
       }
-      export interface UnitInvoice {
+      interface UnitInvoice {
         additionalCharges?: Content.Schema.UnitInvoiceAdditionalCharge[];
         promotions?: Content.Schema.Promotion[];
         unitPricePretax?: Content.Schema.Price;
         unitPriceTaxes?: Content.Schema.UnitInvoiceTaxLine[];
       }
-      export interface UnitInvoiceAdditionalCharge {
+      interface UnitInvoiceAdditionalCharge {
         additionalChargeAmount?: Content.Schema.Amount;
         additionalChargePromotions?: Content.Schema.Promotion[];
         type?: string;
       }
-      export interface UnitInvoiceTaxLine {
+      interface UnitInvoiceTaxLine {
         taxAmount?: Content.Schema.Price;
         taxName?: string;
         taxType?: string;
       }
-      export interface Value {
+      interface Value {
         carrierRateName?: string;
         flatRate?: Content.Schema.Price;
         noShipping?: boolean;
         pricePercentage?: string;
         subtableName?: string;
       }
-      export interface Weight {
+      interface Weight {
         unit?: string;
         value?: string;
       }
     }
   }
-  export interface Content {
+  interface Content {
     Accounts?: Content.Collection.AccountsCollection;
     Accountstatuses?: Content.Collection.AccountstatusesCollection;
     Accounttax?: Content.Collection.AccounttaxCollection;

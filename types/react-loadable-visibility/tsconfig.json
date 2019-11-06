@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@loadable/component": [
+                "loadable__component"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "loadable-components.d.ts",
+        "react-loadable.d.ts",
+        "react-loadable-visibility-tests.tsx"
+    ]
+}

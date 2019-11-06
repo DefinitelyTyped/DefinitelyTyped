@@ -178,6 +178,18 @@ class MySimple extends jspb.Message {
     return writer.getResultBuffer();
   }
 
+  getExtensionsObject() {
+    const simple = new MySimple();
+    const { ExtensionRangeOptions } = google_protobuf_descriptor_pb;
+    const options: google_protobuf_descriptor_pb.ExtensionRangeOptions = ExtensionRangeOptions.deserializeBinary(simple.serializeBinary());
+    return options.toObject(true);
+  }
+
+  clearUninterpretedOptionList(options: google_protobuf_descriptor_pb.ExtensionRangeOptions) {
+    options.getUninterpretedOptionList();
+    options.clearUninterpretedOptionList();
+  }
+
   static serializeBinaryToWriter(message: MySimple, writer: jspb.BinaryWriter) {
     const f1 = message.getMyString();
     if (f1.length > 0) {
@@ -522,3 +534,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 15) != null;
   }
 };
+
+// ensures messages are cloneable without a redundant cast
+const myMessage: MySimple = new MySimple();
+const myClonedMessage: MySimple = myMessage.clone();
+const myClonedMessage2: MySimple = myMessage.cloneMessage()

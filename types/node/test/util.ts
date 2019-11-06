@@ -102,13 +102,13 @@ import { readFile } from 'fs';
             const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
             const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
-            cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+            cfn((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
             cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnT1('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+            cfnT1('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
             cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnTResult((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+            cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
             cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnT1TResult('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+            cfnT1TResult('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
             cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
         }
     }
@@ -117,18 +117,21 @@ import { readFile } from 'fs';
     // util.promisify
     const readPromised = util.promisify(readFile);
     const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-    const arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
-    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
-    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
-    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+    const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
+    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
+    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: NodeJS.PoorMansUnknown, result: number) => void): void => { });
+    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
     const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
     // util.deprecate
     const foo = () => {};
     // $ExpectType () => void
     util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-    // $ExpectType <T extends Function>(fn: T, message: string) => T
+    // $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
     util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+    // $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
+    util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
     // util.isDeepStrictEqual
     util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -161,6 +164,8 @@ import { readFile } from 'fs';
     const te = new util.TextEncoder();
     const teEncoding: string = te.encoding;
     const teEncodeRes: Uint8Array = te.encode("TextEncoder");
+
+    const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 
     // util.types
     let b: boolean;

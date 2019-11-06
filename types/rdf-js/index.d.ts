@@ -385,7 +385,7 @@ export interface Sink<Q extends BaseQuad = Quad> {
  *
  * Access to stores LDP or SPARQL endpoints can be implemented with a Store inteface.
  */
-export interface Store<Q extends BaseQuad = Quad> extends Source, Sink {
+export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
     /**
      * Removes all streamed quads.
      *

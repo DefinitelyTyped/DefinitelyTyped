@@ -23,6 +23,8 @@ import { Writable, Readable, Pipe } from 'stream';
 {
     childProcess.execFile("npm", () => {});
     childProcess.execFile("npm", { windowsHide: true }, () => {});
+    childProcess.execFile("npm", { shell: true }, () => {});
+    childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
     childProcess.execFile("npm", ["-v"], () => {});
     childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
@@ -54,6 +56,9 @@ async function testPromisify() {
     r = await execFile("npm", ["-v"], { encoding: 'buffer' });
     r = await execFile("npm", { encoding: 'utf-8' });
     r = await execFile("npm", { encoding: 'buffer' });
+
+    const prom: childProcess.PromiseWithChild<{ stdout: string, stderr: string }> = execFile('test');
+    prom.child;
 }
 
 {
@@ -303,6 +308,57 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }));
 
+    function expectStdio<Stdin, Stdout, Stderr>(...cps: Array<{
+        stdin: Stdin,
+        stdout: Stdout,
+        stderr: Stderr,
+        stdio: [Stdin, Stdout, Stderr, any, any]
+    }>): void {
+        return undefined;
+    }
+
+    expectStdio<Writable, Readable, Readable>(
+        childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }),
+        childProcess.spawn('command', { stdio: [null, null, null] }),
+        childProcess.spawn('command', { stdio: [undefined, undefined, undefined] }),
+        childProcess.spawn('command', { stdio: ['pipe', null, undefined] }),
+    );
+
+    expectStdio<Writable, Readable, null>(
+        childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'ignore'] }),
+        childProcess.spawn('command', { stdio: [null, null, 'inherit'] }),
+        childProcess.spawn('command', { stdio: [undefined, undefined, process.stdout] }),
+        childProcess.spawn('command', { stdio: ['pipe', null, process.stderr] }),
+    );
+
+    expectStdio<null, null, null>(
+        childProcess.spawn('command', { stdio: ['ignore', 'ignore', 'ignore'] }),
+        childProcess.spawn('command', { stdio: ['inherit', 'inherit', 'inherit'] }),
+        childProcess.spawn('command', { stdio: [process.stdin, process.stdout, process.stderr] }),
+        childProcess.spawn('command', { stdio: ['ignore', 'inherit', process.stderr] }),
+    );
+
+    expectStdio<Writable, Readable, Readable>(
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [undefined, undefined, undefined] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', null, undefined] }),
+    );
+
+    expectStdio<Writable, Readable, null>(
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'ignore'] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, 'inherit'] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [undefined, undefined, process.stdout] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', null, process.stderr] }),
+    );
+
+    expectStdio<null, null, null>(
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['ignore', 'ignore', 'ignore'] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['inherit', 'inherit', 'inherit'] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [process.stdin, process.stdout, process.stderr] }),
+        childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['ignore', 'inherit', process.stderr] }),
+    );
+
     function expectChildProcess(cp: childProcess.ChildProcess): void {
         return undefined;
     }
@@ -344,11 +400,11 @@ async function testPromisify() {
     console.log(process.stdin instanceof net.Socket);
     console.log(process.stdout instanceof fs.ReadStream);
 
-    const stdin: Readable = process.stdin;
+    const stdin: NodeJS.ReadableStream = process.stdin;
     console.log(stdin instanceof net.Socket);
     console.log(stdin instanceof fs.ReadStream);
 
-    const stdout: Writable = process.stdout;
+    const stdout: NodeJS.WritableStream = process.stdout;
     console.log(stdout instanceof net.Socket);
     console.log(stdout instanceof fs.WriteStream);
 }

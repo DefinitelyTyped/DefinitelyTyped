@@ -70,7 +70,7 @@ declare namespace flowjs {
         paused: boolean;
         error: boolean;
 
-        progress(relative: boolean): number;
+        progress(): number;
         pause(): void;
         resume(): void;
         cancel(): void;

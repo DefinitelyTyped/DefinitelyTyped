@@ -8,11 +8,11 @@ declare namespace GoogleAppsScript {
   namespace Dfareporting {
     namespace Collection {
       namespace Reports {
-        export interface CompatibleFieldsCollection {
+        interface CompatibleFieldsCollection {
           // Returns the fields that are compatible to be selected in the respective sections of a report criteria, given the fields already selected in the input report and user permissions.
           query(resource: Schema.Report, profileId: string): Dfareporting.Schema.CompatibleFields;
         }
-        export interface FilesCollection {
+        interface FilesCollection {
           // Retrieves a report file. This method supports media download.
           get(profileId: string, reportId: string, fileId: string): Dfareporting.Schema.File;
           // Lists files for a report.
@@ -21,23 +21,23 @@ declare namespace GoogleAppsScript {
           list(profileId: string, reportId: string, optionalArgs: object): Dfareporting.Schema.FileList;
         }
       }
-      export interface AccountActiveAdSummariesCollection {
+      interface AccountActiveAdSummariesCollection {
         // Gets the account's active ad summary by account ID.
         get(profileId: string, summaryAccountId: string): Dfareporting.Schema.AccountActiveAdSummary;
       }
-      export interface AccountPermissionGroupsCollection {
+      interface AccountPermissionGroupsCollection {
         // Gets one account permission group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.AccountPermissionGroup;
         // Retrieves the list of account permission groups.
         list(profileId: string): Dfareporting.Schema.AccountPermissionGroupsListResponse;
       }
-      export interface AccountPermissionsCollection {
+      interface AccountPermissionsCollection {
         // Gets one account permission by ID.
         get(profileId: string, id: string): Dfareporting.Schema.AccountPermission;
         // Retrieves the list of account permissions.
         list(profileId: string): Dfareporting.Schema.AccountPermissionsListResponse;
       }
-      export interface AccountUserProfilesCollection {
+      interface AccountUserProfilesCollection {
         // Gets one account user profile by ID.
         get(profileId: string, id: string): Dfareporting.Schema.AccountUserProfile;
         // Inserts a new account user profile.
@@ -51,7 +51,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing account user profile.
         update(resource: Schema.AccountUserProfile, profileId: string): Dfareporting.Schema.AccountUserProfile;
       }
-      export interface AccountsCollection {
+      interface AccountsCollection {
         // Gets one account by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Account;
         // Retrieves the list of accounts, possibly filtered. This method supports paging.
@@ -63,7 +63,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing account.
         update(resource: Schema.Account, profileId: string): Dfareporting.Schema.Account;
       }
-      export interface AdsCollection {
+      interface AdsCollection {
         // Gets one ad by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Ad;
         // Inserts a new ad.
@@ -77,7 +77,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing ad.
         update(resource: Schema.Ad, profileId: string): Dfareporting.Schema.Ad;
       }
-      export interface AdvertiserGroupsCollection {
+      interface AdvertiserGroupsCollection {
         // Gets one advertiser group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.AdvertiserGroup;
         // Inserts a new advertiser group.
@@ -93,7 +93,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing advertiser group.
         update(resource: Schema.AdvertiserGroup, profileId: string): Dfareporting.Schema.AdvertiserGroup;
       }
-      export interface AdvertiserLandingPagesCollection {
+      interface AdvertiserLandingPagesCollection {
         // Gets one landing page by ID.
         get(profileId: string, id: string): Dfareporting.Schema.LandingPage;
         // Inserts a new landing page.
@@ -107,7 +107,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing landing page.
         update(resource: Schema.LandingPage, profileId: string): Dfareporting.Schema.LandingPage;
       }
-      export interface AdvertisersCollection {
+      interface AdvertisersCollection {
         // Gets one advertiser by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Advertiser;
         // Inserts a new advertiser.
@@ -121,11 +121,11 @@ declare namespace GoogleAppsScript {
         // Updates an existing advertiser.
         update(resource: Schema.Advertiser, profileId: string): Dfareporting.Schema.Advertiser;
       }
-      export interface BrowsersCollection {
+      interface BrowsersCollection {
         // Retrieves a list of browsers.
         list(profileId: string): Dfareporting.Schema.BrowsersListResponse;
       }
-      export interface CampaignCreativeAssociationsCollection {
+      interface CampaignCreativeAssociationsCollection {
         // Associates a creative with the specified campaign. This method creates a default ad with dimensions matching the creative in the campaign if such a default ad does not exist already.
         insert(resource: Schema.CampaignCreativeAssociation, profileId: string, campaignId: string): Dfareporting.Schema.CampaignCreativeAssociation;
         // Retrieves the list of creative IDs associated with the specified campaign. This method supports paging.
@@ -133,7 +133,7 @@ declare namespace GoogleAppsScript {
         // Retrieves the list of creative IDs associated with the specified campaign. This method supports paging.
         list(profileId: string, campaignId: string, optionalArgs: object): Dfareporting.Schema.CampaignCreativeAssociationsListResponse;
       }
-      export interface CampaignsCollection {
+      interface CampaignsCollection {
         // Gets one campaign by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Campaign;
         // Inserts a new campaign.
@@ -147,7 +147,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing campaign.
         update(resource: Schema.Campaign, profileId: string): Dfareporting.Schema.Campaign;
       }
-      export interface ChangeLogsCollection {
+      interface ChangeLogsCollection {
         // Gets one change log by ID.
         get(profileId: string, id: string): Dfareporting.Schema.ChangeLog;
         // Retrieves a list of change logs. This method supports paging.
@@ -155,19 +155,19 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of change logs. This method supports paging.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.ChangeLogsListResponse;
       }
-      export interface CitiesCollection {
+      interface CitiesCollection {
         // Retrieves a list of cities, possibly filtered.
         list(profileId: string): Dfareporting.Schema.CitiesListResponse;
         // Retrieves a list of cities, possibly filtered.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.CitiesListResponse;
       }
-      export interface ConnectionTypesCollection {
+      interface ConnectionTypesCollection {
         // Gets one connection type by ID.
         get(profileId: string, id: string): Dfareporting.Schema.ConnectionType;
         // Retrieves a list of connection types.
         list(profileId: string): Dfareporting.Schema.ConnectionTypesListResponse;
       }
-      export interface ContentCategoriesCollection {
+      interface ContentCategoriesCollection {
         // Gets one content category by ID.
         get(profileId: string, id: string): Dfareporting.Schema.ContentCategory;
         // Inserts a new content category.
@@ -183,25 +183,25 @@ declare namespace GoogleAppsScript {
         // Updates an existing content category.
         update(resource: Schema.ContentCategory, profileId: string): Dfareporting.Schema.ContentCategory;
       }
-      export interface ConversionsCollection {
+      interface ConversionsCollection {
         // Inserts conversions.
         batchinsert(resource: Schema.ConversionsBatchInsertRequest, profileId: string): Dfareporting.Schema.ConversionsBatchInsertResponse;
         // Updates existing conversions.
         batchupdate(resource: Schema.ConversionsBatchUpdateRequest, profileId: string): Dfareporting.Schema.ConversionsBatchUpdateResponse;
       }
-      export interface CountriesCollection {
+      interface CountriesCollection {
         // Gets one country by ID.
         get(profileId: string, dartId: string): Dfareporting.Schema.Country;
         // Retrieves a list of countries.
         list(profileId: string): Dfareporting.Schema.CountriesListResponse;
       }
-      export interface CreativeAssetsCollection {
+      interface CreativeAssetsCollection {
         // Inserts a new creative asset.
         insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string): Dfareporting.Schema.CreativeAssetMetadata;
         // Inserts a new creative asset.
         insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string, mediaData: any): Dfareporting.Schema.CreativeAssetMetadata;
       }
-      export interface CreativeFieldValuesCollection {
+      interface CreativeFieldValuesCollection {
         // Gets one creative field value by ID.
         get(profileId: string, creativeFieldId: string, id: string): Dfareporting.Schema.CreativeFieldValue;
         // Inserts a new creative field value.
@@ -217,7 +217,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing creative field value.
         update(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string): Dfareporting.Schema.CreativeFieldValue;
       }
-      export interface CreativeFieldsCollection {
+      interface CreativeFieldsCollection {
         // Gets one creative field by ID.
         get(profileId: string, id: string): Dfareporting.Schema.CreativeField;
         // Inserts a new creative field.
@@ -233,7 +233,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing creative field.
         update(resource: Schema.CreativeField, profileId: string): Dfareporting.Schema.CreativeField;
       }
-      export interface CreativeGroupsCollection {
+      interface CreativeGroupsCollection {
         // Gets one creative group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.CreativeGroup;
         // Inserts a new creative group.
@@ -247,7 +247,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing creative group.
         update(resource: Schema.CreativeGroup, profileId: string): Dfareporting.Schema.CreativeGroup;
       }
-      export interface CreativesCollection {
+      interface CreativesCollection {
         // Gets one creative by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Creative;
         // Inserts a new creative.
@@ -261,13 +261,13 @@ declare namespace GoogleAppsScript {
         // Updates an existing creative.
         update(resource: Schema.Creative, profileId: string): Dfareporting.Schema.Creative;
       }
-      export interface DimensionValuesCollection {
+      interface DimensionValuesCollection {
         // Retrieves list of report dimension values for a list of filters.
         query(resource: Schema.DimensionValueRequest, profileId: string): Dfareporting.Schema.DimensionValueList;
         // Retrieves list of report dimension values for a list of filters.
         query(resource: Schema.DimensionValueRequest, profileId: string, optionalArgs: object): Dfareporting.Schema.DimensionValueList;
       }
-      export interface DirectorySitesCollection {
+      interface DirectorySitesCollection {
         // Gets one directory site by ID.
         get(profileId: string, id: string): Dfareporting.Schema.DirectorySite;
         // Inserts a new directory site.
@@ -277,7 +277,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of directory sites, possibly filtered. This method supports paging.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.DirectorySitesListResponse;
       }
-      export interface DynamicTargetingKeysCollection {
+      interface DynamicTargetingKeysCollection {
         // Inserts a new dynamic targeting key. Keys must be created at the advertiser level before being assigned to the advertiser's ads, creatives, or placements. There is a maximum of 1000 keys per advertiser, out of which a maximum of 20 keys can be assigned per ad, creative, or placement.
         insert(resource: Schema.DynamicTargetingKey, profileId: string): Dfareporting.Schema.DynamicTargetingKey;
         // Retrieves a list of dynamic targeting keys.
@@ -287,7 +287,7 @@ declare namespace GoogleAppsScript {
         // Deletes an existing dynamic targeting key.
         remove(profileId: string, objectId: string, name: string, objectType: string): void;
       }
-      export interface EventTagsCollection {
+      interface EventTagsCollection {
         // Gets one event tag by ID.
         get(profileId: string, id: string): Dfareporting.Schema.EventTag;
         // Inserts a new event tag.
@@ -303,7 +303,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing event tag.
         update(resource: Schema.EventTag, profileId: string): Dfareporting.Schema.EventTag;
       }
-      export interface FilesCollection {
+      interface FilesCollection {
         // Retrieves a report file by its report ID and file ID. This method supports media download.
         get(reportId: string, fileId: string): Dfareporting.Schema.File;
         // Lists files for a user profile.
@@ -311,7 +311,7 @@ declare namespace GoogleAppsScript {
         // Lists files for a user profile.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.FileList;
       }
-      export interface FloodlightActivitiesCollection {
+      interface FloodlightActivitiesCollection {
         // Generates a tag for a floodlight activity.
         generatetag(profileId: string): Dfareporting.Schema.FloodlightActivitiesGenerateTagResponse;
         // Generates a tag for a floodlight activity.
@@ -331,7 +331,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing floodlight activity.
         update(resource: Schema.FloodlightActivity, profileId: string): Dfareporting.Schema.FloodlightActivity;
       }
-      export interface FloodlightActivityGroupsCollection {
+      interface FloodlightActivityGroupsCollection {
         // Gets one floodlight activity group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.FloodlightActivityGroup;
         // Inserts a new floodlight activity group.
@@ -345,7 +345,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing floodlight activity group.
         update(resource: Schema.FloodlightActivityGroup, profileId: string): Dfareporting.Schema.FloodlightActivityGroup;
       }
-      export interface FloodlightConfigurationsCollection {
+      interface FloodlightConfigurationsCollection {
         // Gets one floodlight configuration by ID.
         get(profileId: string, id: string): Dfareporting.Schema.FloodlightConfiguration;
         // Retrieves a list of floodlight configurations, possibly filtered.
@@ -357,7 +357,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing floodlight configuration.
         update(resource: Schema.FloodlightConfiguration, profileId: string): Dfareporting.Schema.FloodlightConfiguration;
       }
-      export interface InventoryItemsCollection {
+      interface InventoryItemsCollection {
         // Gets one inventory item by ID.
         get(profileId: string, projectId: string, id: string): Dfareporting.Schema.InventoryItem;
         // Retrieves a list of inventory items, possibly filtered. This method supports paging.
@@ -365,15 +365,15 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of inventory items, possibly filtered. This method supports paging.
         list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.InventoryItemsListResponse;
       }
-      export interface LanguagesCollection {
+      interface LanguagesCollection {
         // Retrieves a list of languages.
         list(profileId: string): Dfareporting.Schema.LanguagesListResponse;
       }
-      export interface MetrosCollection {
+      interface MetrosCollection {
         // Retrieves a list of metros.
         list(profileId: string): Dfareporting.Schema.MetrosListResponse;
       }
-      export interface MobileAppsCollection {
+      interface MobileAppsCollection {
         // Gets one mobile app by ID.
         get(profileId: string, id: string): Dfareporting.Schema.MobileApp;
         // Retrieves list of available mobile apps.
@@ -381,25 +381,25 @@ declare namespace GoogleAppsScript {
         // Retrieves list of available mobile apps.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.MobileAppsListResponse;
       }
-      export interface MobileCarriersCollection {
+      interface MobileCarriersCollection {
         // Gets one mobile carrier by ID.
         get(profileId: string, id: string): Dfareporting.Schema.MobileCarrier;
         // Retrieves a list of mobile carriers.
         list(profileId: string): Dfareporting.Schema.MobileCarriersListResponse;
       }
-      export interface OperatingSystemVersionsCollection {
+      interface OperatingSystemVersionsCollection {
         // Gets one operating system version by ID.
         get(profileId: string, id: string): Dfareporting.Schema.OperatingSystemVersion;
         // Retrieves a list of operating system versions.
         list(profileId: string): Dfareporting.Schema.OperatingSystemVersionsListResponse;
       }
-      export interface OperatingSystemsCollection {
+      interface OperatingSystemsCollection {
         // Gets one operating system by DART ID.
         get(profileId: string, dartId: string): Dfareporting.Schema.OperatingSystem;
         // Retrieves a list of operating systems.
         list(profileId: string): Dfareporting.Schema.OperatingSystemsListResponse;
       }
-      export interface OrderDocumentsCollection {
+      interface OrderDocumentsCollection {
         // Gets one order document by ID.
         get(profileId: string, projectId: string, id: string): Dfareporting.Schema.OrderDocument;
         // Retrieves a list of order documents, possibly filtered. This method supports paging.
@@ -407,7 +407,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of order documents, possibly filtered. This method supports paging.
         list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.OrderDocumentsListResponse;
       }
-      export interface OrdersCollection {
+      interface OrdersCollection {
         // Gets one order by ID.
         get(profileId: string, projectId: string, id: string): Dfareporting.Schema.Order;
         // Retrieves a list of orders, possibly filtered. This method supports paging.
@@ -415,7 +415,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of orders, possibly filtered. This method supports paging.
         list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.OrdersListResponse;
       }
-      export interface PlacementGroupsCollection {
+      interface PlacementGroupsCollection {
         // Gets one placement group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.PlacementGroup;
         // Inserts a new placement group.
@@ -429,7 +429,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing placement group.
         update(resource: Schema.PlacementGroup, profileId: string): Dfareporting.Schema.PlacementGroup;
       }
-      export interface PlacementStrategiesCollection {
+      interface PlacementStrategiesCollection {
         // Gets one placement strategy by ID.
         get(profileId: string, id: string): Dfareporting.Schema.PlacementStrategy;
         // Inserts a new placement strategy.
@@ -445,7 +445,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing placement strategy.
         update(resource: Schema.PlacementStrategy, profileId: string): Dfareporting.Schema.PlacementStrategy;
       }
-      export interface PlacementsCollection {
+      interface PlacementsCollection {
         // Generates tags for a placement.
         generatetags(profileId: string): Dfareporting.Schema.PlacementsGenerateTagsResponse;
         // Generates tags for a placement.
@@ -463,19 +463,19 @@ declare namespace GoogleAppsScript {
         // Updates an existing placement.
         update(resource: Schema.Placement, profileId: string): Dfareporting.Schema.Placement;
       }
-      export interface PlatformTypesCollection {
+      interface PlatformTypesCollection {
         // Gets one platform type by ID.
         get(profileId: string, id: string): Dfareporting.Schema.PlatformType;
         // Retrieves a list of platform types.
         list(profileId: string): Dfareporting.Schema.PlatformTypesListResponse;
       }
-      export interface PostalCodesCollection {
+      interface PostalCodesCollection {
         // Gets one postal code by ID.
         get(profileId: string, code: string): Dfareporting.Schema.PostalCode;
         // Retrieves a list of postal codes.
         list(profileId: string): Dfareporting.Schema.PostalCodesListResponse;
       }
-      export interface ProjectsCollection {
+      interface ProjectsCollection {
         // Gets one project by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Project;
         // Retrieves a list of projects, possibly filtered. This method supports paging.
@@ -483,11 +483,11 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of projects, possibly filtered. This method supports paging.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.ProjectsListResponse;
       }
-      export interface RegionsCollection {
+      interface RegionsCollection {
         // Retrieves a list of regions.
         list(profileId: string): Dfareporting.Schema.RegionsListResponse;
       }
-      export interface RemarketingListSharesCollection {
+      interface RemarketingListSharesCollection {
         // Gets one remarketing list share by remarketing list ID.
         get(profileId: string, remarketingListId: string): Dfareporting.Schema.RemarketingListShare;
         // Updates an existing remarketing list share. This method supports patch semantics.
@@ -495,7 +495,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing remarketing list share.
         update(resource: Schema.RemarketingListShare, profileId: string): Dfareporting.Schema.RemarketingListShare;
       }
-      export interface RemarketingListsCollection {
+      interface RemarketingListsCollection {
         // Gets one remarketing list by ID.
         get(profileId: string, id: string): Dfareporting.Schema.RemarketingList;
         // Inserts a new remarketing list.
@@ -509,7 +509,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing remarketing list.
         update(resource: Schema.RemarketingList, profileId: string): Dfareporting.Schema.RemarketingList;
       }
-      export interface ReportsCollection {
+      interface ReportsCollection {
         CompatibleFields?: Dfareporting.Collection.Reports.CompatibleFieldsCollection;
         Files?: Dfareporting.Collection.Reports.FilesCollection;
         // Retrieves a report by its ID.
@@ -531,7 +531,7 @@ declare namespace GoogleAppsScript {
         // Updates a report.
         update(resource: Schema.Report, profileId: string, reportId: string): Dfareporting.Schema.Report;
       }
-      export interface SitesCollection {
+      interface SitesCollection {
         // Gets one site by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Site;
         // Inserts a new site.
@@ -545,7 +545,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing site.
         update(resource: Schema.Site, profileId: string): Dfareporting.Schema.Site;
       }
-      export interface SizesCollection {
+      interface SizesCollection {
         // Gets one size by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Size;
         // Inserts a new size.
@@ -555,7 +555,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of sizes, possibly filtered. Retrieved sizes are globally unique and may include values not currently in use by your account. Due to this, the list of sizes returned by this method may differ from the list seen in the Trafficking UI.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.SizesListResponse;
       }
-      export interface SubaccountsCollection {
+      interface SubaccountsCollection {
         // Gets one subaccount by ID.
         get(profileId: string, id: string): Dfareporting.Schema.Subaccount;
         // Inserts a new subaccount.
@@ -569,7 +569,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing subaccount.
         update(resource: Schema.Subaccount, profileId: string): Dfareporting.Schema.Subaccount;
       }
-      export interface TargetableRemarketingListsCollection {
+      interface TargetableRemarketingListsCollection {
         // Gets one remarketing list by ID.
         get(profileId: string, id: string): Dfareporting.Schema.TargetableRemarketingList;
         // Retrieves a list of targetable remarketing lists, possibly filtered. This method supports paging.
@@ -577,7 +577,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of targetable remarketing lists, possibly filtered. This method supports paging.
         list(profileId: string, advertiserId: string, optionalArgs: object): Dfareporting.Schema.TargetableRemarketingListsListResponse;
       }
-      export interface TargetingTemplatesCollection {
+      interface TargetingTemplatesCollection {
         // Gets one targeting template by ID.
         get(profileId: string, id: string): Dfareporting.Schema.TargetingTemplate;
         // Inserts a new targeting template.
@@ -591,19 +591,19 @@ declare namespace GoogleAppsScript {
         // Updates an existing targeting template.
         update(resource: Schema.TargetingTemplate, profileId: string): Dfareporting.Schema.TargetingTemplate;
       }
-      export interface UserProfilesCollection {
+      interface UserProfilesCollection {
         // Gets one user profile by ID.
         get(profileId: string): Dfareporting.Schema.UserProfile;
         // Retrieves list of user profiles for a user.
         list(): Dfareporting.Schema.UserProfileList;
       }
-      export interface UserRolePermissionGroupsCollection {
+      interface UserRolePermissionGroupsCollection {
         // Gets one user role permission group by ID.
         get(profileId: string, id: string): Dfareporting.Schema.UserRolePermissionGroup;
         // Gets a list of all supported user role permission groups.
         list(profileId: string): Dfareporting.Schema.UserRolePermissionGroupsListResponse;
       }
-      export interface UserRolePermissionsCollection {
+      interface UserRolePermissionsCollection {
         // Gets one user role permission by ID.
         get(profileId: string, id: string): Dfareporting.Schema.UserRolePermission;
         // Gets a list of user role permissions, possibly filtered.
@@ -611,7 +611,7 @@ declare namespace GoogleAppsScript {
         // Gets a list of user role permissions, possibly filtered.
         list(profileId: string, optionalArgs: object): Dfareporting.Schema.UserRolePermissionsListResponse;
       }
-      export interface UserRolesCollection {
+      interface UserRolesCollection {
         // Gets one user role by ID.
         get(profileId: string, id: string): Dfareporting.Schema.UserRole;
         // Inserts a new user role.
@@ -627,7 +627,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing user role.
         update(resource: Schema.UserRole, profileId: string): Dfareporting.Schema.UserRole;
       }
-      export interface VideoFormatsCollection {
+      interface VideoFormatsCollection {
         // Gets one video format by ID.
         get(profileId: string, id: number): Dfareporting.Schema.VideoFormat;
         // Lists available video formats.
@@ -635,7 +635,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         accountPermissionIds?: string[];
         accountProfile?: string;
         active?: boolean;
@@ -656,14 +656,14 @@ declare namespace GoogleAppsScript {
         shareReportsWithTwitter?: boolean;
         teaserSizeLimit?: string;
       }
-      export interface AccountActiveAdSummary {
+      interface AccountActiveAdSummary {
         accountId?: string;
         activeAds?: string;
         activeAdsLimitTier?: string;
         availableAds?: string;
         kind?: string;
       }
-      export interface AccountPermission {
+      interface AccountPermission {
         accountProfiles?: string[];
         id?: string;
         kind?: string;
@@ -671,20 +671,20 @@ declare namespace GoogleAppsScript {
         name?: string;
         permissionGroupId?: string;
       }
-      export interface AccountPermissionGroup {
+      interface AccountPermissionGroup {
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface AccountPermissionGroupsListResponse {
+      interface AccountPermissionGroupsListResponse {
         accountPermissionGroups?: Dfareporting.Schema.AccountPermissionGroup[];
         kind?: string;
       }
-      export interface AccountPermissionsListResponse {
+      interface AccountPermissionsListResponse {
         accountPermissions?: Dfareporting.Schema.AccountPermission[];
         kind?: string;
       }
-      export interface AccountUserProfile {
+      interface AccountUserProfile {
         accountId?: string;
         active?: boolean;
         advertiserFilter?: Dfareporting.Schema.ObjectFilter;
@@ -702,22 +702,22 @@ declare namespace GoogleAppsScript {
         userRoleFilter?: Dfareporting.Schema.ObjectFilter;
         userRoleId?: string;
       }
-      export interface AccountUserProfilesListResponse {
+      interface AccountUserProfilesListResponse {
         accountUserProfiles?: Dfareporting.Schema.AccountUserProfile[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AccountsListResponse {
+      interface AccountsListResponse {
         accounts?: Dfareporting.Schema.Account[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Activities {
+      interface Activities {
         filters?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
         metricNames?: string[];
       }
-      export interface Ad {
+      interface Ad {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
@@ -758,13 +758,13 @@ declare namespace GoogleAppsScript {
         technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
         type?: string;
       }
-      export interface AdBlockingConfiguration {
+      interface AdBlockingConfiguration {
         clickThroughUrl?: string;
         creativeBundleId?: string;
         enabled?: boolean;
         overrideClickThroughUrl?: boolean;
       }
-      export interface AdSlot {
+      interface AdSlot {
         comment?: string;
         compatibility?: string;
         height?: string;
@@ -774,12 +774,12 @@ declare namespace GoogleAppsScript {
         primary?: boolean;
         width?: string;
       }
-      export interface AdsListResponse {
+      interface AdsListResponse {
         ads?: Dfareporting.Schema.Ad[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Advertiser {
+      interface Advertiser {
         accountId?: string;
         advertiserGroupId?: string;
         clickThroughUrlSuffix?: string;
@@ -796,38 +796,38 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         suspended?: boolean;
       }
-      export interface AdvertiserGroup {
+      interface AdvertiserGroup {
         accountId?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface AdvertiserGroupsListResponse {
+      interface AdvertiserGroupsListResponse {
         advertiserGroups?: Dfareporting.Schema.AdvertiserGroup[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AdvertiserLandingPagesListResponse {
+      interface AdvertiserLandingPagesListResponse {
         kind?: string;
         landingPages?: Dfareporting.Schema.LandingPage[];
         nextPageToken?: string;
       }
-      export interface AdvertisersListResponse {
+      interface AdvertisersListResponse {
         advertisers?: Dfareporting.Schema.Advertiser[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AudienceSegment {
+      interface AudienceSegment {
         allocation?: number;
         id?: string;
         name?: string;
       }
-      export interface AudienceSegmentGroup {
+      interface AudienceSegmentGroup {
         audienceSegments?: Dfareporting.Schema.AudienceSegment[];
         id?: string;
         name?: string;
       }
-      export interface Browser {
+      interface Browser {
         browserVersionId?: string;
         dartId?: string;
         kind?: string;
@@ -835,11 +835,11 @@ declare namespace GoogleAppsScript {
         minorVersion?: string;
         name?: string;
       }
-      export interface BrowsersListResponse {
+      interface BrowsersListResponse {
         browsers?: Dfareporting.Schema.Browser[];
         kind?: string;
       }
-      export interface Campaign {
+      interface Campaign {
         accountId?: string;
         adBlockingConfiguration?: Dfareporting.Schema.AdBlockingConfiguration;
         additionalCreativeOptimizationConfigurations?: Dfareporting.Schema.CreativeOptimizationConfiguration[];
@@ -869,21 +869,21 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         traffickerEmails?: string[];
       }
-      export interface CampaignCreativeAssociation {
+      interface CampaignCreativeAssociation {
         creativeId?: string;
         kind?: string;
       }
-      export interface CampaignCreativeAssociationsListResponse {
+      interface CampaignCreativeAssociationsListResponse {
         campaignCreativeAssociations?: Dfareporting.Schema.CampaignCreativeAssociation[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CampaignsListResponse {
+      interface CampaignsListResponse {
         campaigns?: Dfareporting.Schema.Campaign[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface ChangeLog {
+      interface ChangeLog {
         accountId?: string;
         action?: string;
         changeTime?: string;
@@ -899,16 +899,16 @@ declare namespace GoogleAppsScript {
         userProfileId?: string;
         userProfileName?: string;
       }
-      export interface ChangeLogsListResponse {
+      interface ChangeLogsListResponse {
         changeLogs?: Dfareporting.Schema.ChangeLog[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CitiesListResponse {
+      interface CitiesListResponse {
         cities?: Dfareporting.Schema.City[];
         kind?: string;
       }
-      export interface City {
+      interface City {
         countryCode?: string;
         countryDartId?: string;
         dartId?: string;
@@ -919,32 +919,32 @@ declare namespace GoogleAppsScript {
         regionCode?: string;
         regionDartId?: string;
       }
-      export interface ClickTag {
+      interface ClickTag {
         clickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
         eventName?: string;
         name?: string;
       }
-      export interface ClickThroughUrl {
+      interface ClickThroughUrl {
         computedClickThroughUrl?: string;
         customClickThroughUrl?: string;
         defaultLandingPage?: boolean;
         landingPageId?: string;
       }
-      export interface ClickThroughUrlSuffixProperties {
+      interface ClickThroughUrlSuffixProperties {
         clickThroughUrlSuffix?: string;
         overrideInheritedSuffix?: boolean;
       }
-      export interface CompanionClickThroughOverride {
+      interface CompanionClickThroughOverride {
         clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
         creativeId?: string;
       }
-      export interface CompanionSetting {
+      interface CompanionSetting {
         companionsDisabled?: boolean;
         enabledSizes?: Dfareporting.Schema.Size[];
         imageOnly?: boolean;
         kind?: string;
       }
-      export interface CompatibleFields {
+      interface CompatibleFields {
         crossDimensionReachReportCompatibleFields?: Dfareporting.Schema.CrossDimensionReachReportCompatibleFields;
         floodlightReportCompatibleFields?: Dfareporting.Schema.FloodlightReportCompatibleFields;
         kind?: string;
@@ -952,27 +952,27 @@ declare namespace GoogleAppsScript {
         reachReportCompatibleFields?: Dfareporting.Schema.ReachReportCompatibleFields;
         reportCompatibleFields?: Dfareporting.Schema.ReportCompatibleFields;
       }
-      export interface ConnectionType {
+      interface ConnectionType {
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface ConnectionTypesListResponse {
+      interface ConnectionTypesListResponse {
         connectionTypes?: Dfareporting.Schema.ConnectionType[];
         kind?: string;
       }
-      export interface ContentCategoriesListResponse {
+      interface ContentCategoriesListResponse {
         contentCategories?: Dfareporting.Schema.ContentCategory[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface ContentCategory {
+      interface ContentCategory {
         accountId?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface Conversion {
+      interface Conversion {
         childDirectedTreatment?: boolean;
         customVariables?: Dfareporting.Schema.CustomFloodlightVariable[];
         encryptedUserId?: string;
@@ -988,50 +988,50 @@ declare namespace GoogleAppsScript {
         quantity?: string;
         timestampMicros?: string;
         treatmentForUnderage?: boolean;
-        value?: Number;
+        value?: number;
       }
-      export interface ConversionError {
+      interface ConversionError {
         code?: string;
         kind?: string;
         message?: string;
       }
-      export interface ConversionStatus {
+      interface ConversionStatus {
         conversion?: Dfareporting.Schema.Conversion;
         errors?: Dfareporting.Schema.ConversionError[];
         kind?: string;
       }
-      export interface ConversionsBatchInsertRequest {
+      interface ConversionsBatchInsertRequest {
         conversions?: Dfareporting.Schema.Conversion[];
         encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
         kind?: string;
       }
-      export interface ConversionsBatchInsertResponse {
+      interface ConversionsBatchInsertResponse {
         hasFailures?: boolean;
         kind?: string;
         status?: Dfareporting.Schema.ConversionStatus[];
       }
-      export interface ConversionsBatchUpdateRequest {
+      interface ConversionsBatchUpdateRequest {
         conversions?: Dfareporting.Schema.Conversion[];
         encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
         kind?: string;
       }
-      export interface ConversionsBatchUpdateResponse {
+      interface ConversionsBatchUpdateResponse {
         hasFailures?: boolean;
         kind?: string;
         status?: Dfareporting.Schema.ConversionStatus[];
       }
-      export interface CountriesListResponse {
+      interface CountriesListResponse {
         countries?: Dfareporting.Schema.Country[];
         kind?: string;
       }
-      export interface Country {
+      interface Country {
         countryCode?: string;
         dartId?: string;
         kind?: string;
         name?: string;
         sslEnabled?: boolean;
       }
-      export interface Creative {
+      interface Creative {
         accountId?: string;
         active?: boolean;
         adParameters?: string;
@@ -1070,7 +1070,7 @@ declare namespace GoogleAppsScript {
         lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         latestTraffickedCreativeId?: string;
         mediaDescription?: string;
-        mediaDuration?: Number;
+        mediaDuration?: number;
         name?: string;
         overrideCss?: string;
         progressOffset?: Dfareporting.Schema.VideoOffset;
@@ -1097,7 +1097,7 @@ declare namespace GoogleAppsScript {
         universalAdId?: Dfareporting.Schema.UniversalAdId;
         version?: number;
       }
-      export interface CreativeAsset {
+      interface CreativeAsset {
         actionScript3?: boolean;
         active?: boolean;
         additionalSizes?: Dfareporting.Schema.Size[];
@@ -1119,13 +1119,13 @@ declare namespace GoogleAppsScript {
         expandedDimension?: Dfareporting.Schema.Size;
         fileSize?: string;
         flashVersion?: number;
-        frameRate?: Number;
+        frameRate?: number;
         hideFlashObjects?: boolean;
         hideSelectionBoxes?: boolean;
         horizontallyLocked?: boolean;
         id?: string;
         idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        mediaDuration?: Number;
+        mediaDuration?: number;
         mimeType?: string;
         offset?: Dfareporting.Schema.OffsetPosition;
         orientation?: string;
@@ -1136,7 +1136,7 @@ declare namespace GoogleAppsScript {
         positionTopUnit?: string;
         progressiveServingUrl?: string;
         pushdown?: boolean;
-        pushdownDuration?: Number;
+        pushdownDuration?: number;
         role?: string;
         size?: Dfareporting.Schema.Size;
         sslCompliant?: boolean;
@@ -1149,11 +1149,11 @@ declare namespace GoogleAppsScript {
         zipFilename?: string;
         zipFilesize?: string;
       }
-      export interface CreativeAssetId {
+      interface CreativeAssetId {
         name?: string;
         type?: string;
       }
-      export interface CreativeAssetMetadata {
+      interface CreativeAssetMetadata {
         assetIdentifier?: Dfareporting.Schema.CreativeAssetId;
         clickTags?: Dfareporting.Schema.ClickTag[];
         detectedFeatures?: string[];
@@ -1162,11 +1162,11 @@ declare namespace GoogleAppsScript {
         kind?: string;
         warnedValidationRules?: string[];
       }
-      export interface CreativeAssetSelection {
+      interface CreativeAssetSelection {
         defaultAssetId?: string;
         rules?: Dfareporting.Schema.Rule[];
       }
-      export interface CreativeAssignment {
+      interface CreativeAssignment {
         active?: boolean;
         applyEventTags?: boolean;
         clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
@@ -1181,12 +1181,12 @@ declare namespace GoogleAppsScript {
         startTime?: string;
         weight?: number;
       }
-      export interface CreativeClickThroughUrl {
+      interface CreativeClickThroughUrl {
         computedClickThroughUrl?: string;
         customClickThroughUrl?: string;
         landingPageId?: string;
       }
-      export interface CreativeCustomEvent {
+      interface CreativeCustomEvent {
         advertiserCustomEventId?: string;
         advertiserCustomEventName?: string;
         advertiserCustomEventType?: string;
@@ -1198,7 +1198,7 @@ declare namespace GoogleAppsScript {
         targetType?: string;
         videoReportingId?: string;
       }
-      export interface CreativeField {
+      interface CreativeField {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1207,26 +1207,26 @@ declare namespace GoogleAppsScript {
         name?: string;
         subaccountId?: string;
       }
-      export interface CreativeFieldAssignment {
+      interface CreativeFieldAssignment {
         creativeFieldId?: string;
         creativeFieldValueId?: string;
       }
-      export interface CreativeFieldValue {
+      interface CreativeFieldValue {
         id?: string;
         kind?: string;
         value?: string;
       }
-      export interface CreativeFieldValuesListResponse {
+      interface CreativeFieldValuesListResponse {
         creativeFieldValues?: Dfareporting.Schema.CreativeFieldValue[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CreativeFieldsListResponse {
+      interface CreativeFieldsListResponse {
         creativeFields?: Dfareporting.Schema.CreativeField[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CreativeGroup {
+      interface CreativeGroup {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1236,104 +1236,104 @@ declare namespace GoogleAppsScript {
         name?: string;
         subaccountId?: string;
       }
-      export interface CreativeGroupAssignment {
+      interface CreativeGroupAssignment {
         creativeGroupId?: string;
         creativeGroupNumber?: string;
       }
-      export interface CreativeGroupsListResponse {
+      interface CreativeGroupsListResponse {
         creativeGroups?: Dfareporting.Schema.CreativeGroup[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CreativeOptimizationConfiguration {
+      interface CreativeOptimizationConfiguration {
         id?: string;
         name?: string;
         optimizationActivitys?: Dfareporting.Schema.OptimizationActivity[];
         optimizationModel?: string;
       }
-      export interface CreativeRotation {
+      interface CreativeRotation {
         creativeAssignments?: Dfareporting.Schema.CreativeAssignment[];
         creativeOptimizationConfigurationId?: string;
         type?: string;
         weightCalculationStrategy?: string;
       }
-      export interface CreativesListResponse {
+      interface CreativesListResponse {
         creatives?: Dfareporting.Schema.Creative[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CrossDimensionReachReportCompatibleFields {
+      interface CrossDimensionReachReportCompatibleFields {
         breakdown?: Dfareporting.Schema.Dimension[];
         dimensionFilters?: Dfareporting.Schema.Dimension[];
         kind?: string;
         metrics?: Dfareporting.Schema.Metric[];
         overlapMetrics?: Dfareporting.Schema.Metric[];
       }
-      export interface CustomFloodlightVariable {
+      interface CustomFloodlightVariable {
         kind?: string;
         type?: string;
         value?: string;
       }
-      export interface CustomRichMediaEvents {
+      interface CustomRichMediaEvents {
         filteredEventIds?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
       }
-      export interface CustomViewabilityMetric {
+      interface CustomViewabilityMetric {
         configuration?: Dfareporting.Schema.CustomViewabilityMetricConfiguration;
         id?: string;
         name?: string;
       }
-      export interface CustomViewabilityMetricConfiguration {
+      interface CustomViewabilityMetricConfiguration {
         audible?: boolean;
         timeMillis?: number;
         timePercent?: number;
         viewabilityPercent?: number;
       }
-      export interface DateRange {
+      interface DateRange {
         endDate?: string;
         kind?: string;
         relativeDateRange?: string;
         startDate?: string;
       }
-      export interface DayPartTargeting {
+      interface DayPartTargeting {
         daysOfWeek?: string[];
         hoursOfDay?: number[];
         userLocalTime?: boolean;
       }
-      export interface DeepLink {
+      interface DeepLink {
         appUrl?: string;
         fallbackUrl?: string;
         kind?: string;
         mobileApp?: Dfareporting.Schema.MobileApp;
         remarketingListIds?: string[];
       }
-      export interface DefaultClickThroughEventTagProperties {
+      interface DefaultClickThroughEventTagProperties {
         defaultClickThroughEventTagId?: string;
         overrideInheritedEventTag?: boolean;
       }
-      export interface DeliverySchedule {
+      interface DeliverySchedule {
         frequencyCap?: Dfareporting.Schema.FrequencyCap;
         hardCutoff?: boolean;
         impressionRatio?: string;
         priority?: string;
       }
-      export interface DfpSettings {
+      interface DfpSettings {
         dfpNetworkCode?: string;
         dfpNetworkName?: string;
         programmaticPlacementAccepted?: boolean;
         pubPaidPlacementAccepted?: boolean;
         publisherPortalOnly?: boolean;
       }
-      export interface Dimension {
+      interface Dimension {
         kind?: string;
         name?: string;
       }
-      export interface DimensionFilter {
+      interface DimensionFilter {
         dimensionName?: string;
         kind?: string;
         value?: string;
       }
-      export interface DimensionValue {
+      interface DimensionValue {
         dimensionName?: string;
         etag?: string;
         id?: string;
@@ -1341,20 +1341,20 @@ declare namespace GoogleAppsScript {
         matchType?: string;
         value?: string;
       }
-      export interface DimensionValueList {
+      interface DimensionValueList {
         etag?: string;
         items?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface DimensionValueRequest {
+      interface DimensionValueRequest {
         dimensionName?: string;
         endDate?: string;
         filters?: Dfareporting.Schema.DimensionFilter[];
         kind?: string;
         startDate?: string;
       }
-      export interface DirectorySite {
+      interface DirectorySite {
         active?: boolean;
         id?: string;
         idDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1365,34 +1365,34 @@ declare namespace GoogleAppsScript {
         settings?: Dfareporting.Schema.DirectorySiteSettings;
         url?: string;
       }
-      export interface DirectorySiteSettings {
+      interface DirectorySiteSettings {
         activeViewOptOut?: boolean;
         dfpSettings?: Dfareporting.Schema.DfpSettings;
         instreamVideoPlacementAccepted?: boolean;
         interstitialPlacementAccepted?: boolean;
       }
-      export interface DirectorySitesListResponse {
+      interface DirectorySitesListResponse {
         directorySites?: Dfareporting.Schema.DirectorySite[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface DynamicTargetingKey {
+      interface DynamicTargetingKey {
         kind?: string;
         name?: string;
         objectId?: string;
         objectType?: string;
       }
-      export interface DynamicTargetingKeysListResponse {
+      interface DynamicTargetingKeysListResponse {
         dynamicTargetingKeys?: Dfareporting.Schema.DynamicTargetingKey[];
         kind?: string;
       }
-      export interface EncryptionInfo {
+      interface EncryptionInfo {
         encryptionEntityId?: string;
         encryptionEntityType?: string;
         encryptionSource?: string;
         kind?: string;
       }
-      export interface EventTag {
+      interface EventTag {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1412,15 +1412,15 @@ declare namespace GoogleAppsScript {
         url?: string;
         urlEscapeLevels?: number;
       }
-      export interface EventTagOverride {
+      interface EventTagOverride {
         enabled?: boolean;
         id?: string;
       }
-      export interface EventTagsListResponse {
+      interface EventTagsListResponse {
         eventTags?: Dfareporting.Schema.EventTag[];
         kind?: string;
       }
-      export interface File {
+      interface File {
         dateRange?: Dfareporting.Schema.DateRange;
         etag?: string;
         fileName?: string;
@@ -1432,33 +1432,33 @@ declare namespace GoogleAppsScript {
         status?: string;
         urls?: Dfareporting.Schema.FileUrls;
       }
-      export interface FileList {
+      interface FileList {
         etag?: string;
         items?: Dfareporting.Schema.File[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface FileUrls {
+      interface FileUrls {
         apiUrl?: string;
         browserUrl?: string;
       }
-      export interface Flight {
+      interface Flight {
         endDate?: string;
         rateOrCost?: string;
         startDate?: string;
         units?: string;
       }
-      export interface FloodlightActivitiesGenerateTagResponse {
+      interface FloodlightActivitiesGenerateTagResponse {
         floodlightActivityTag?: string;
         globalSiteTagGlobalSnippet?: string;
         kind?: string;
       }
-      export interface FloodlightActivitiesListResponse {
+      interface FloodlightActivitiesListResponse {
         floodlightActivities?: Dfareporting.Schema.FloodlightActivity[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface FloodlightActivity {
+      interface FloodlightActivity {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1488,12 +1488,12 @@ declare namespace GoogleAppsScript {
         tagString?: string;
         userDefinedVariableTypes?: string[];
       }
-      export interface FloodlightActivityDynamicTag {
+      interface FloodlightActivityDynamicTag {
         id?: string;
         name?: string;
         tag?: string;
       }
-      export interface FloodlightActivityGroup {
+      interface FloodlightActivityGroup {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1507,12 +1507,12 @@ declare namespace GoogleAppsScript {
         tagString?: string;
         type?: string;
       }
-      export interface FloodlightActivityGroupsListResponse {
+      interface FloodlightActivityGroupsListResponse {
         floodlightActivityGroups?: Dfareporting.Schema.FloodlightActivityGroup[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface FloodlightActivityPublisherDynamicTag {
+      interface FloodlightActivityPublisherDynamicTag {
         clickThrough?: boolean;
         directorySiteId?: string;
         dynamicTag?: Dfareporting.Schema.FloodlightActivityDynamicTag;
@@ -1520,7 +1520,7 @@ declare namespace GoogleAppsScript {
         siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         viewThrough?: boolean;
       }
-      export interface FloodlightConfiguration {
+      interface FloodlightConfiguration {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1540,28 +1540,28 @@ declare namespace GoogleAppsScript {
         thirdPartyAuthenticationTokens?: Dfareporting.Schema.ThirdPartyAuthenticationToken[];
         userDefinedVariableConfigurations?: Dfareporting.Schema.UserDefinedVariableConfiguration[];
       }
-      export interface FloodlightConfigurationsListResponse {
+      interface FloodlightConfigurationsListResponse {
         floodlightConfigurations?: Dfareporting.Schema.FloodlightConfiguration[];
         kind?: string;
       }
-      export interface FloodlightReportCompatibleFields {
+      interface FloodlightReportCompatibleFields {
         dimensionFilters?: Dfareporting.Schema.Dimension[];
         dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
         metrics?: Dfareporting.Schema.Metric[];
       }
-      export interface FrequencyCap {
+      interface FrequencyCap {
         duration?: string;
         impressions?: string;
       }
-      export interface FsCommand {
+      interface FsCommand {
         left?: number;
         positionOption?: string;
         top?: number;
         windowHeight?: number;
         windowWidth?: number;
       }
-      export interface GeoTargeting {
+      interface GeoTargeting {
         cities?: Dfareporting.Schema.City[];
         countries?: Dfareporting.Schema.Country[];
         excludeCountries?: boolean;
@@ -1569,7 +1569,7 @@ declare namespace GoogleAppsScript {
         postalCodes?: Dfareporting.Schema.PostalCode[];
         regions?: Dfareporting.Schema.Region[];
       }
-      export interface InventoryItem {
+      interface InventoryItem {
         accountId?: string;
         adSlots?: Dfareporting.Schema.AdSlot[];
         advertiserId?: string;
@@ -1591,15 +1591,15 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         type?: string;
       }
-      export interface InventoryItemsListResponse {
+      interface InventoryItemsListResponse {
         inventoryItems?: Dfareporting.Schema.InventoryItem[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface KeyValueTargetingExpression {
+      interface KeyValueTargetingExpression {
         expression?: string;
       }
-      export interface LandingPage {
+      interface LandingPage {
         advertiserId?: string;
         archived?: boolean;
         deepLinks?: Dfareporting.Schema.DeepLink[];
@@ -1608,31 +1608,31 @@ declare namespace GoogleAppsScript {
         name?: string;
         url?: string;
       }
-      export interface Language {
+      interface Language {
         id?: string;
         kind?: string;
         languageCode?: string;
         name?: string;
       }
-      export interface LanguageTargeting {
+      interface LanguageTargeting {
         languages?: Dfareporting.Schema.Language[];
       }
-      export interface LanguagesListResponse {
+      interface LanguagesListResponse {
         kind?: string;
         languages?: Dfareporting.Schema.Language[];
       }
-      export interface LastModifiedInfo {
+      interface LastModifiedInfo {
         time?: string;
       }
-      export interface ListPopulationClause {
+      interface ListPopulationClause {
         terms?: Dfareporting.Schema.ListPopulationTerm[];
       }
-      export interface ListPopulationRule {
+      interface ListPopulationRule {
         floodlightActivityId?: string;
         floodlightActivityName?: string;
         listPopulationClauses?: Dfareporting.Schema.ListPopulationClause[];
       }
-      export interface ListPopulationTerm {
+      interface ListPopulationTerm {
         contains?: boolean;
         negation?: boolean;
         operator?: string;
@@ -1642,18 +1642,18 @@ declare namespace GoogleAppsScript {
         variableFriendlyName?: string;
         variableName?: string;
       }
-      export interface ListTargetingExpression {
+      interface ListTargetingExpression {
         expression?: string;
       }
-      export interface LookbackConfiguration {
+      interface LookbackConfiguration {
         clickDuration?: number;
         postImpressionActivitiesDuration?: number;
       }
-      export interface Metric {
+      interface Metric {
         kind?: string;
         name?: string;
       }
-      export interface Metro {
+      interface Metro {
         countryCode?: string;
         countryDartId?: string;
         dartId?: string;
@@ -1662,54 +1662,54 @@ declare namespace GoogleAppsScript {
         metroCode?: string;
         name?: string;
       }
-      export interface MetrosListResponse {
+      interface MetrosListResponse {
         kind?: string;
         metros?: Dfareporting.Schema.Metro[];
       }
-      export interface MobileApp {
+      interface MobileApp {
         directory?: string;
         id?: string;
         kind?: string;
         publisherName?: string;
         title?: string;
       }
-      export interface MobileAppsListResponse {
+      interface MobileAppsListResponse {
         kind?: string;
         mobileApps?: Dfareporting.Schema.MobileApp[];
         nextPageToken?: string;
       }
-      export interface MobileCarrier {
+      interface MobileCarrier {
         countryCode?: string;
         countryDartId?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface MobileCarriersListResponse {
+      interface MobileCarriersListResponse {
         kind?: string;
         mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
       }
-      export interface ObjectFilter {
+      interface ObjectFilter {
         kind?: string;
         objectIds?: string[];
         status?: string;
       }
-      export interface OffsetPosition {
+      interface OffsetPosition {
         left?: number;
         top?: number;
       }
-      export interface OmnitureSettings {
+      interface OmnitureSettings {
         omnitureCostDataEnabled?: boolean;
         omnitureIntegrationEnabled?: boolean;
       }
-      export interface OperatingSystem {
+      interface OperatingSystem {
         dartId?: string;
         desktop?: boolean;
         kind?: string;
         mobile?: boolean;
         name?: string;
       }
-      export interface OperatingSystemVersion {
+      interface OperatingSystemVersion {
         id?: string;
         kind?: string;
         majorVersion?: string;
@@ -1717,20 +1717,20 @@ declare namespace GoogleAppsScript {
         name?: string;
         operatingSystem?: Dfareporting.Schema.OperatingSystem;
       }
-      export interface OperatingSystemVersionsListResponse {
+      interface OperatingSystemVersionsListResponse {
         kind?: string;
         operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[];
       }
-      export interface OperatingSystemsListResponse {
+      interface OperatingSystemsListResponse {
         kind?: string;
         operatingSystems?: Dfareporting.Schema.OperatingSystem[];
       }
-      export interface OptimizationActivity {
+      interface OptimizationActivity {
         floodlightActivityId?: string;
         floodlightActivityIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         weight?: number;
       }
-      export interface Order {
+      interface Order {
         accountId?: string;
         advertiserId?: string;
         approverUserProfileIds?: string[];
@@ -1752,14 +1752,14 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         termsAndConditions?: string;
       }
-      export interface OrderContact {
+      interface OrderContact {
         contactInfo?: string;
         contactName?: string;
         contactTitle?: string;
         contactType?: string;
         signatureUserProfileId?: string;
       }
-      export interface OrderDocument {
+      interface OrderDocument {
         accountId?: string;
         advertiserId?: string;
         amendedOrderDocumentId?: string;
@@ -1778,24 +1778,24 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface OrderDocumentsListResponse {
+      interface OrderDocumentsListResponse {
         kind?: string;
         nextPageToken?: string;
         orderDocuments?: Dfareporting.Schema.OrderDocument[];
       }
-      export interface OrdersListResponse {
+      interface OrdersListResponse {
         kind?: string;
         nextPageToken?: string;
         orders?: Dfareporting.Schema.Order[];
       }
-      export interface PathToConversionReportCompatibleFields {
+      interface PathToConversionReportCompatibleFields {
         conversionDimensions?: Dfareporting.Schema.Dimension[];
         customFloodlightVariables?: Dfareporting.Schema.Dimension[];
         kind?: string;
         metrics?: Dfareporting.Schema.Metric[];
         perInteractionDimensions?: Dfareporting.Schema.Dimension[];
       }
-      export interface Placement {
+      interface Placement {
         accountId?: string;
         adBlockingOptOut?: boolean;
         additionalSizes?: Dfareporting.Schema.Size[];
@@ -1838,13 +1838,13 @@ declare namespace GoogleAppsScript {
         videoSettings?: Dfareporting.Schema.VideoSettings;
         vpaidAdapterChoice?: string;
       }
-      export interface PlacementAssignment {
+      interface PlacementAssignment {
         active?: boolean;
         placementId?: string;
         placementIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         sslRequired?: boolean;
       }
-      export interface PlacementGroup {
+      interface PlacementGroup {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -1872,45 +1872,45 @@ declare namespace GoogleAppsScript {
         siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         subaccountId?: string;
       }
-      export interface PlacementGroupsListResponse {
+      interface PlacementGroupsListResponse {
         kind?: string;
         nextPageToken?: string;
         placementGroups?: Dfareporting.Schema.PlacementGroup[];
       }
-      export interface PlacementStrategiesListResponse {
+      interface PlacementStrategiesListResponse {
         kind?: string;
         nextPageToken?: string;
         placementStrategies?: Dfareporting.Schema.PlacementStrategy[];
       }
-      export interface PlacementStrategy {
+      interface PlacementStrategy {
         accountId?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface PlacementTag {
+      interface PlacementTag {
         placementId?: string;
         tagDatas?: Dfareporting.Schema.TagData[];
       }
-      export interface PlacementsGenerateTagsResponse {
+      interface PlacementsGenerateTagsResponse {
         kind?: string;
         placementTags?: Dfareporting.Schema.PlacementTag[];
       }
-      export interface PlacementsListResponse {
+      interface PlacementsListResponse {
         kind?: string;
         nextPageToken?: string;
         placements?: Dfareporting.Schema.Placement[];
       }
-      export interface PlatformType {
+      interface PlatformType {
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface PlatformTypesListResponse {
+      interface PlatformTypesListResponse {
         kind?: string;
         platformTypes?: Dfareporting.Schema.PlatformType[];
       }
-      export interface PopupWindowProperties {
+      interface PopupWindowProperties {
         dimension?: Dfareporting.Schema.Size;
         offset?: Dfareporting.Schema.OffsetPosition;
         positionType?: string;
@@ -1921,18 +1921,18 @@ declare namespace GoogleAppsScript {
         showToolBar?: boolean;
         title?: string;
       }
-      export interface PostalCode {
+      interface PostalCode {
         code?: string;
         countryCode?: string;
         countryDartId?: string;
         id?: string;
         kind?: string;
       }
-      export interface PostalCodesListResponse {
+      interface PostalCodesListResponse {
         kind?: string;
         postalCodes?: Dfareporting.Schema.PostalCode[];
       }
-      export interface Pricing {
+      interface Pricing {
         capCostType?: string;
         endDate?: string;
         flights?: Dfareporting.Schema.Flight[];
@@ -1940,7 +1940,7 @@ declare namespace GoogleAppsScript {
         pricingType?: string;
         startDate?: string;
       }
-      export interface PricingSchedule {
+      interface PricingSchedule {
         capCostOption?: string;
         disregardOverdelivery?: boolean;
         endDate?: string;
@@ -1951,14 +1951,14 @@ declare namespace GoogleAppsScript {
         startDate?: string;
         testingStartDate?: string;
       }
-      export interface PricingSchedulePricingPeriod {
+      interface PricingSchedulePricingPeriod {
         endDate?: string;
         pricingComment?: string;
         rateOrCostNanos?: string;
         startDate?: string;
         units?: string;
       }
-      export interface Project {
+      interface Project {
         accountId?: string;
         advertiserId?: string;
         audienceAgeGroup?: string;
@@ -1982,12 +1982,12 @@ declare namespace GoogleAppsScript {
         targetCpmNanos?: string;
         targetImpressions?: string;
       }
-      export interface ProjectsListResponse {
+      interface ProjectsListResponse {
         kind?: string;
         nextPageToken?: string;
         projects?: Dfareporting.Schema.Project[];
       }
-      export interface ReachReportCompatibleFields {
+      interface ReachReportCompatibleFields {
         dimensionFilters?: Dfareporting.Schema.Dimension[];
         dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
@@ -1995,12 +1995,12 @@ declare namespace GoogleAppsScript {
         pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
         reachByFrequencyMetrics?: Dfareporting.Schema.Metric[];
       }
-      export interface Recipient {
+      interface Recipient {
         deliveryType?: string;
         email?: string;
         kind?: string;
       }
-      export interface Region {
+      interface Region {
         countryCode?: string;
         countryDartId?: string;
         dartId?: string;
@@ -2008,11 +2008,11 @@ declare namespace GoogleAppsScript {
         name?: string;
         regionCode?: string;
       }
-      export interface RegionsListResponse {
+      interface RegionsListResponse {
         kind?: string;
         regions?: Dfareporting.Schema.Region[];
       }
-      export interface RemarketingList {
+      interface RemarketingList {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
@@ -2027,18 +2027,18 @@ declare namespace GoogleAppsScript {
         name?: string;
         subaccountId?: string;
       }
-      export interface RemarketingListShare {
+      interface RemarketingListShare {
         kind?: string;
         remarketingListId?: string;
         sharedAccountIds?: string[];
         sharedAdvertiserIds?: string[];
       }
-      export interface RemarketingListsListResponse {
+      interface RemarketingListsListResponse {
         kind?: string;
         nextPageToken?: string;
         remarketingLists?: Dfareporting.Schema.RemarketingList[];
       }
-      export interface Report {
+      interface Report {
         accountId?: string;
         criteria?: Dfareporting.Schema.ReportCriteria;
         crossDimensionReachCriteria?: Dfareporting.Schema.ReportCrossDimensionReachCriteria;
@@ -2058,14 +2058,14 @@ declare namespace GoogleAppsScript {
         subAccountId?: string;
         type?: string;
       }
-      export interface ReportCompatibleFields {
+      interface ReportCompatibleFields {
         dimensionFilters?: Dfareporting.Schema.Dimension[];
         dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
         metrics?: Dfareporting.Schema.Metric[];
         pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
       }
-      export interface ReportCriteria {
+      interface ReportCriteria {
         activities?: Dfareporting.Schema.Activities;
         customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
         dateRange?: Dfareporting.Schema.DateRange;
@@ -2073,7 +2073,7 @@ declare namespace GoogleAppsScript {
         dimensions?: Dfareporting.Schema.SortedDimension[];
         metricNames?: string[];
       }
-      export interface ReportCrossDimensionReachCriteria {
+      interface ReportCrossDimensionReachCriteria {
         breakdown?: Dfareporting.Schema.SortedDimension[];
         dateRange?: Dfareporting.Schema.DateRange;
         dimension?: string;
@@ -2082,13 +2082,13 @@ declare namespace GoogleAppsScript {
         overlapMetricNames?: string[];
         pivoted?: boolean;
       }
-      export interface ReportDelivery {
+      interface ReportDelivery {
         emailOwner?: boolean;
         emailOwnerDeliveryType?: string;
         message?: string;
         recipients?: Dfareporting.Schema.Recipient[];
       }
-      export interface ReportFloodlightCriteria {
+      interface ReportFloodlightCriteria {
         customRichMediaEvents?: Dfareporting.Schema.DimensionValue[];
         dateRange?: Dfareporting.Schema.DateRange;
         dimensionFilters?: Dfareporting.Schema.DimensionValue[];
@@ -2097,18 +2097,18 @@ declare namespace GoogleAppsScript {
         metricNames?: string[];
         reportProperties?: Dfareporting.Schema.ReportFloodlightCriteriaReportProperties;
       }
-      export interface ReportFloodlightCriteriaReportProperties {
+      interface ReportFloodlightCriteriaReportProperties {
         includeAttributedIPConversions?: boolean;
         includeUnattributedCookieConversions?: boolean;
         includeUnattributedIPConversions?: boolean;
       }
-      export interface ReportList {
+      interface ReportList {
         etag?: string;
         items?: Dfareporting.Schema.Report[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface ReportPathToConversionCriteria {
+      interface ReportPathToConversionCriteria {
         activityFilters?: Dfareporting.Schema.DimensionValue[];
         conversionDimensions?: Dfareporting.Schema.SortedDimension[];
         customFloodlightVariables?: Dfareporting.Schema.SortedDimension[];
@@ -2119,7 +2119,7 @@ declare namespace GoogleAppsScript {
         perInteractionDimensions?: Dfareporting.Schema.SortedDimension[];
         reportProperties?: Dfareporting.Schema.ReportPathToConversionCriteriaReportProperties;
       }
-      export interface ReportPathToConversionCriteriaReportProperties {
+      interface ReportPathToConversionCriteriaReportProperties {
         clicksLookbackWindow?: number;
         impressionsLookbackWindow?: number;
         includeAttributedIPConversions?: boolean;
@@ -2130,7 +2130,7 @@ declare namespace GoogleAppsScript {
         maximumInteractionGap?: number;
         pivotOnInteractionPath?: boolean;
       }
-      export interface ReportReachCriteria {
+      interface ReportReachCriteria {
         activities?: Dfareporting.Schema.Activities;
         customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
         dateRange?: Dfareporting.Schema.DateRange;
@@ -2140,7 +2140,7 @@ declare namespace GoogleAppsScript {
         metricNames?: string[];
         reachByFrequencyMetricNames?: string[];
       }
-      export interface ReportSchedule {
+      interface ReportSchedule {
         active?: boolean;
         every?: number;
         expirationDate?: string;
@@ -2149,22 +2149,22 @@ declare namespace GoogleAppsScript {
         runsOnDayOfMonth?: string;
         startDate?: string;
       }
-      export interface ReportsConfiguration {
+      interface ReportsConfiguration {
         exposureToConversionEnabled?: boolean;
         lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
         reportGenerationTimeZoneId?: string;
       }
-      export interface RichMediaExitOverride {
+      interface RichMediaExitOverride {
         clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
         enabled?: boolean;
         exitId?: string;
       }
-      export interface Rule {
+      interface Rule {
         assetId?: string;
         name?: string;
         targetingTemplateId?: string;
       }
-      export interface Site {
+      interface Site {
         accountId?: string;
         approved?: boolean;
         directorySiteId?: string;
@@ -2179,13 +2179,13 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         videoSettings?: Dfareporting.Schema.SiteVideoSettings;
       }
-      export interface SiteCompanionSetting {
+      interface SiteCompanionSetting {
         companionsDisabled?: boolean;
         enabledSizes?: Dfareporting.Schema.Size[];
         imageOnly?: boolean;
         kind?: string;
       }
-      export interface SiteContact {
+      interface SiteContact {
         address?: string;
         contactType?: string;
         email?: string;
@@ -2195,7 +2195,7 @@ declare namespace GoogleAppsScript {
         phone?: string;
         title?: string;
       }
-      export interface SiteSettings {
+      interface SiteSettings {
         activeViewOptOut?: boolean;
         adBlockingOptOut?: boolean;
         disableNewCookie?: boolean;
@@ -2203,84 +2203,84 @@ declare namespace GoogleAppsScript {
         videoActiveViewOptOutTemplate?: boolean;
         vpaidAdapterChoiceTemplate?: string;
       }
-      export interface SiteSkippableSetting {
+      interface SiteSkippableSetting {
         kind?: string;
         progressOffset?: Dfareporting.Schema.VideoOffset;
         skipOffset?: Dfareporting.Schema.VideoOffset;
         skippable?: boolean;
       }
-      export interface SiteTranscodeSetting {
+      interface SiteTranscodeSetting {
         enabledVideoFormats?: number[];
         kind?: string;
       }
-      export interface SiteVideoSettings {
+      interface SiteVideoSettings {
         companionSettings?: Dfareporting.Schema.SiteCompanionSetting;
         kind?: string;
         orientation?: string;
         skippableSettings?: Dfareporting.Schema.SiteSkippableSetting;
         transcodeSettings?: Dfareporting.Schema.SiteTranscodeSetting;
       }
-      export interface SitesListResponse {
+      interface SitesListResponse {
         kind?: string;
         nextPageToken?: string;
         sites?: Dfareporting.Schema.Site[];
       }
-      export interface Size {
+      interface Size {
         height?: number;
         iab?: boolean;
         id?: string;
         kind?: string;
         width?: number;
       }
-      export interface SizesListResponse {
+      interface SizesListResponse {
         kind?: string;
         sizes?: Dfareporting.Schema.Size[];
       }
-      export interface SkippableSetting {
+      interface SkippableSetting {
         kind?: string;
         progressOffset?: Dfareporting.Schema.VideoOffset;
         skipOffset?: Dfareporting.Schema.VideoOffset;
         skippable?: boolean;
       }
-      export interface SortedDimension {
+      interface SortedDimension {
         kind?: string;
         name?: string;
         sortOrder?: string;
       }
-      export interface Subaccount {
+      interface Subaccount {
         accountId?: string;
         availablePermissionIds?: string[];
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface SubaccountsListResponse {
+      interface SubaccountsListResponse {
         kind?: string;
         nextPageToken?: string;
         subaccounts?: Dfareporting.Schema.Subaccount[];
       }
-      export interface TagData {
+      interface TagData {
         adId?: string;
         clickTag?: string;
         creativeId?: string;
         format?: string;
         impressionTag?: string;
       }
-      export interface TagSetting {
+      interface TagSetting {
         additionalKeyValues?: string;
         includeClickThroughUrls?: boolean;
         includeClickTracking?: boolean;
         keywordOption?: string;
       }
-      export interface TagSettings {
+      interface TagSettings {
         dynamicTagEnabled?: boolean;
         imageTagEnabled?: boolean;
       }
-      export interface TargetWindow {
+      interface TargetWindow {
         customHtml?: string;
         targetWindowOption?: string;
       }
-      export interface TargetableRemarketingList {
+      interface TargetableRemarketingList {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
@@ -2294,12 +2294,12 @@ declare namespace GoogleAppsScript {
         name?: string;
         subaccountId?: string;
       }
-      export interface TargetableRemarketingListsListResponse {
+      interface TargetableRemarketingListsListResponse {
         kind?: string;
         nextPageToken?: string;
         targetableRemarketingLists?: Dfareporting.Schema.TargetableRemarketingList[];
       }
-      export interface TargetingTemplate {
+      interface TargetingTemplate {
         accountId?: string;
         advertiserId?: string;
         advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
@@ -2314,12 +2314,12 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
       }
-      export interface TargetingTemplatesListResponse {
+      interface TargetingTemplatesListResponse {
         kind?: string;
         nextPageToken?: string;
         targetingTemplates?: Dfareporting.Schema.TargetingTemplate[];
       }
-      export interface TechnologyTargeting {
+      interface TechnologyTargeting {
         browsers?: Dfareporting.Schema.Browser[];
         connectionTypes?: Dfareporting.Schema.ConnectionType[];
         mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
@@ -2327,28 +2327,28 @@ declare namespace GoogleAppsScript {
         operatingSystems?: Dfareporting.Schema.OperatingSystem[];
         platformTypes?: Dfareporting.Schema.PlatformType[];
       }
-      export interface ThirdPartyAuthenticationToken {
+      interface ThirdPartyAuthenticationToken {
         name?: string;
         value?: string;
       }
-      export interface ThirdPartyTrackingUrl {
+      interface ThirdPartyTrackingUrl {
         thirdPartyUrlType?: string;
         url?: string;
       }
-      export interface TranscodeSetting {
+      interface TranscodeSetting {
         enabledVideoFormats?: number[];
         kind?: string;
       }
-      export interface UniversalAdId {
+      interface UniversalAdId {
         registry?: string;
         value?: string;
       }
-      export interface UserDefinedVariableConfiguration {
+      interface UserDefinedVariableConfiguration {
         dataType?: string;
         reportName?: string;
         variableType?: string;
       }
-      export interface UserProfile {
+      interface UserProfile {
         accountId?: string;
         accountName?: string;
         etag?: string;
@@ -2358,12 +2358,12 @@ declare namespace GoogleAppsScript {
         subAccountName?: string;
         userName?: string;
       }
-      export interface UserProfileList {
+      interface UserProfileList {
         etag?: string;
         items?: Dfareporting.Schema.UserProfile[];
         kind?: string;
       }
-      export interface UserRole {
+      interface UserRole {
         accountId?: string;
         defaultUserRole?: boolean;
         id?: string;
@@ -2373,47 +2373,47 @@ declare namespace GoogleAppsScript {
         permissions?: Dfareporting.Schema.UserRolePermission[];
         subaccountId?: string;
       }
-      export interface UserRolePermission {
+      interface UserRolePermission {
         availability?: string;
         id?: string;
         kind?: string;
         name?: string;
         permissionGroupId?: string;
       }
-      export interface UserRolePermissionGroup {
+      interface UserRolePermissionGroup {
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface UserRolePermissionGroupsListResponse {
+      interface UserRolePermissionGroupsListResponse {
         kind?: string;
         userRolePermissionGroups?: Dfareporting.Schema.UserRolePermissionGroup[];
       }
-      export interface UserRolePermissionsListResponse {
+      interface UserRolePermissionsListResponse {
         kind?: string;
         userRolePermissions?: Dfareporting.Schema.UserRolePermission[];
       }
-      export interface UserRolesListResponse {
+      interface UserRolesListResponse {
         kind?: string;
         nextPageToken?: string;
         userRoles?: Dfareporting.Schema.UserRole[];
       }
-      export interface VideoFormat {
+      interface VideoFormat {
         fileType?: string;
         id?: number;
         kind?: string;
         resolution?: Dfareporting.Schema.Size;
         targetBitRate?: number;
       }
-      export interface VideoFormatsListResponse {
+      interface VideoFormatsListResponse {
         kind?: string;
         videoFormats?: Dfareporting.Schema.VideoFormat[];
       }
-      export interface VideoOffset {
+      interface VideoOffset {
         offsetPercentage?: number;
         offsetSeconds?: number;
       }
-      export interface VideoSettings {
+      interface VideoSettings {
         companionSettings?: Dfareporting.Schema.CompanionSetting;
         kind?: string;
         orientation?: string;
@@ -2422,7 +2422,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Dfareporting {
+  interface Dfareporting {
     AccountActiveAdSummaries?: Dfareporting.Collection.AccountActiveAdSummariesCollection;
     AccountPermissionGroups?: Dfareporting.Collection.AccountPermissionGroupsCollection;
     AccountPermissions?: Dfareporting.Collection.AccountPermissionsCollection;

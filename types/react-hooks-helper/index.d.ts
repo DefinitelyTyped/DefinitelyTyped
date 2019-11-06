@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+/// <reference types="react"/>
+
 export as namespace ReactHooksHelper;
 
 export interface NavigationProps {
@@ -30,6 +32,19 @@ export interface UseStepResponse {
 
 export function useStep(params: UseStepParams): UseStepResponse;
 
-export type UseFormResponse = [any, any];
+export interface FormTarget {
+    target: {
+        name: string, // object property name or Dot separated when hierarchical
+        value: any,
+        type?: string,
+        checked?: boolean,
+    };
+}
 
-export function useForm(params: any): UseFormResponse;
+export type SetForm = (event:
+    | React.SyntheticEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLInputElement>
+    | FormTarget
+) => void;
+
+export function useForm<T>(defaultFormConfig: T): [T, SetForm];

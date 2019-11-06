@@ -6,7 +6,7 @@
 
 declare namespace Tail {
     interface TailOptions {
-        separator?: string | RegExp;
+        separator?: string | RegExp | null;
         fromBeginning?: boolean;
         fsWatchOptions?: Record<string, any>;
         follow?: boolean;

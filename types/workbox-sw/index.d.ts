@@ -822,7 +822,7 @@ interface QueueOptions {
 	 * Note: if the replay fails after a sync event, make sure you throw an
 	 * error, so the browser knows to retry the sync event later.
 	 */
-	onSync: (queue: Queue) => void;
+	onSync: (queue: { queue: Queue }) => void;
 
 	/**
 	 * The amount of time (in minutes) a request may be retried. After this amount of time has

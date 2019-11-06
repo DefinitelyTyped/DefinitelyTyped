@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,32 +7,32 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Utilities {
+  namespace Utilities {
     /**
      * A typesafe enum for character sets.
      */
-    export enum Charset { US_ASCII, UTF_8 }
+    enum Charset { US_ASCII, UTF_8 }
 
     /**
      * Selector of Digest algorithm.
      */
-    export enum DigestAlgorithm { MD2, MD5, SHA_1, SHA_256, SHA_384, SHA_512 }
+    enum DigestAlgorithm { MD2, MD5, SHA_1, SHA_256, SHA_384, SHA_512 }
 
     /**
      * Selector of MAC algorithm
      */
-    export enum MacAlgorithm { HMAC_MD5, HMAC_SHA_1, HMAC_SHA_256, HMAC_SHA_384, HMAC_SHA_512 }
+    enum MacAlgorithm { HMAC_MD5, HMAC_SHA_1, HMAC_SHA_256, HMAC_SHA_384, HMAC_SHA_512 }
 
     /**
      * Selector of RSA algorithm
      */
-    export enum RsaAlgorithm { RSA_SHA_1, RSA_SHA_256 }
+    enum RsaAlgorithm { RSA_SHA_1, RSA_SHA_256 }
 
     /**
      * This service provides utilities for string encoding/decoding, date formatting, JSON manipulation,
      * and other miscellaneous tasks.
      */
-    export interface Utilities {
+    interface Utilities {
       Charset: typeof Charset;
       DigestAlgorithm: typeof DigestAlgorithm;
       MacAlgorithm: typeof MacAlgorithm;
@@ -62,8 +62,8 @@ declare namespace GoogleAppsScript {
       computeRsaSha256Signature(value: string, key: string, charset: Charset): Byte[];
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string): Byte[];
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string, charset: Charset): Byte[];
-      formatDate(date: Date, timeZone: string, format: string): string;
-      formatString(template: string, ...args: Object[]): string;
+      formatDate(date: Base.Date, timeZone: string, format: string): string;
+      formatString(template: string, ...args: any[]): string;
       getUuid(): string;
       gzip(blob: Base.BlobSource): Base.Blob;
       gzip(blob: Base.BlobSource, name: string): Base.Blob;
@@ -80,10 +80,11 @@ declare namespace GoogleAppsScript {
       unzip(blob: Base.BlobSource): Base.Blob[];
       zip(blobs: Base.BlobSource[]): Base.Blob;
       zip(blobs: Base.BlobSource[], name: string): Base.Blob;
-      jsonParse(jsonString: string): Object;
-      jsonStringify(obj: Object): string;
+      /** @deprecated DO NOT USE */
+      jsonParse(jsonString: string): any;
+      /** @deprecated DO NOT USE */
+      jsonStringify(obj: any): string;
     }
-
   }
 }
 

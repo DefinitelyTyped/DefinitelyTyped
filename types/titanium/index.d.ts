@@ -2,6 +2,7 @@
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 declare const Ti: typeof Titanium;
@@ -34432,7 +34433,7 @@ declare namespace Titanium {
 				const BAR: number;
 
 				/**
-				 * he standard progress-view style. This is the default.
+				 * The standard progress-view style. This is the default.
 				 */
 				const DEFAULT: number;
 
@@ -37489,7 +37490,7 @@ declare namespace Titanium {
 				const BAR: number;
 
 				/**
-				 * he standard progress-view style. This is the default.
+				 * The standard progress-view style. This is the default.
 				 */
 				const DEFAULT: number;
 
@@ -38437,32 +38438,17 @@ declare namespace Titanium {
 		/**
 		 * Logs messages with a `debug` severity-level.
 		 */
-		function debug(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with a `debug` severity-level.
-		 */
-		function debug(message: string): void;
+		function debug(...message: string[]): void;
 
 		/**
 		 * Logs messages with an `error` severity-level.
 		 */
-		function error(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with an `error` severity-level.
-		 */
-		function error(message: string): void;
+		function error(...message: string[]): void;
 
 		/**
 		 * Logs messages with an `info` severity-level.
 		 */
-		function info(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with an `info` severity-level.
-		 */
-		function info(message: string): void;
+		function info(...message: string[]): void;
 
 		/**
 		 * Logs messages with the specified severity-level.
@@ -43033,7 +43019,7 @@ declare namespace Titanium {
 		/**
 		 * Fires a synthesized event to any registered listeners.
 		 */
-		function fireEvent(name: string, event: any): void;
+		function fireEvent(name: string, event?: any): void;
 
 		/**
 		 * Applies the properties to the proxy.
@@ -46004,7 +45990,7 @@ declare namespace Titanium {
 				 * Removes the specified pending notifications to prevent them from being triggered.
 				 * If no notifications are specified, all pending notifications will be removed.
 				 */
-				function removePendingNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
+				function removePendingNotifications(notifications?: ReadonlyArray<UserNotificationDictionary>): void;
 
 				/**
 				 * Removes the specified delivered notifications from the notification-center.

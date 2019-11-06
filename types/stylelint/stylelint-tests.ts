@@ -10,8 +10,9 @@ import {
     createRuleTester,
     RuleTesterContext,
     RuleTesterResult,
-    Plugin
-} from "stylelint";
+    Plugin,
+    Warning,
+} from 'stylelint';
 
 const options: Partial<LinterOptions> = {
     code: "div { color: red }",
@@ -29,6 +30,9 @@ lint(options).then((x: LinterResult) => {
     const err: boolean = x.errored;
     const output: string = x.output;
     const results: LintResult[] = x.results;
+    if (results.length > 0) {
+        const warnings: Warning[] = results[0].warnings;
+    }
 });
 
 const formatter: FormatterType = "json";

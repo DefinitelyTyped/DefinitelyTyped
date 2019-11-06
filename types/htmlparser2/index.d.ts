@@ -3,7 +3,9 @@
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Johan Davidsson <https://github.com/johandavidson>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 ///<reference types="node"/>
 ///<reference types="domhandler"/>
@@ -61,7 +63,7 @@ export declare class WritableStream extends Writable {
 }
 
 export declare class Parser {
-    constructor(handler: DomHandler, options?: ParserOptions);
+    constructor(handler: Partial<DomHandler>, options?: ParserOptions);
 
     /***
      * Parses a chunk of data and calls the corresponding callbacks.

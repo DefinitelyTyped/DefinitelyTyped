@@ -22,7 +22,7 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
-declare function computed(...deps: string[]): (target: object, propertyKey: string) => void;
+declare function computed(...deps: string[]): MethodDecorator;
 declare function computed<T>(
     cb: ComputedPropertyCallback<T>
 ): ComputedProperty<T>;

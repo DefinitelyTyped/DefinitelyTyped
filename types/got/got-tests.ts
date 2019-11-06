@@ -21,6 +21,11 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
+got('todomvc.com').then((response) => {
+    response.statusCode; // $ExpectType number
+    response.statusMessage; // $ExpectType string
+});
+
 got('todomvc.com', { json: true }).then((response) => {
     response.body; // $ExpectType any
 });
@@ -306,7 +311,7 @@ got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', {
     retry: {
         retries: 2,
-        methods: ['GET'],
+        methods: ['GET', 'POST'],
         statusCodes: [408, 504],
         maxRetryAfter: 1,
         errorCodes: ['ETIMEDOUT']
@@ -343,6 +348,15 @@ got('http://todomvc.com', { timeout: 1 }).catch((err) => err instanceof got.Time
 // Test hooks.
 got('example.com', {
     hooks: {
+        init: [
+            options => {
+                options.baseUrl = 'https://google.com';
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         beforeRequest: [
             options => {
                 options.headers!['x-foo'] = 'bar';
@@ -368,6 +382,15 @@ got('example.com', {
                 if (error instanceof got.HTTPError && error.statusCode === 413) { // Payload too large
                     options.body = 'new body';
                 }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        beforeError: [
+            error => {
+                return error;
             }
         ]
     }
@@ -416,6 +439,12 @@ got('example.com', {
                     await doSomethingAsync();
                 }
             ],
+            beforeError: [
+                async (error) => {
+                    await doSomethingAsync();
+                    return error;
+                }
+            ],
             afterResponse: [
                 async (response) => {
                     await doSomethingAsync();
@@ -425,3 +454,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});

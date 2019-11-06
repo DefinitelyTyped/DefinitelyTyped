@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,51 +9,51 @@
 /// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Spreadsheet {
+  namespace Spreadsheet {
     /**
      * An enumeration of the types of series used to calculate auto-filled values. The manner in which
      * these series affect calculated values differs depending on the type and amount of source data.
      */
-    export enum AutoFillSeries { DEFAULT_SERIES, ALTERNATE_SERIES }
+    enum AutoFillSeries { DEFAULT_SERIES, ALTERNATE_SERIES }
 
     /**
      * Access and modify bandings, the color patterns applied to rows or columns of a range. Each
      * banding consists of a range and a set of colors for rows, columns, headers, and footers.
      */
-    export interface Banding {
+    interface Banding {
       copyTo(range: Range): Banding;
-      getFirstColumnColor(): string;
-      getFirstRowColor(): string;
-      getFooterColumnColor(): string;
-      getFooterRowColor(): string;
-      getHeaderColumnColor(): string;
-      getHeaderRowColor(): string;
+      getFirstColumnColor(): string | null;
+      getFirstRowColor(): string | null;
+      getFooterColumnColor(): string | null;
+      getFooterRowColor(): string | null;
+      getHeaderColumnColor(): string | null;
+      getHeaderRowColor(): string | null;
       getRange(): Range;
-      getSecondColumnColor(): string;
-      getSecondRowColor(): string;
+      getSecondColumnColor(): string | null;
+      getSecondRowColor(): string | null;
       remove(): void;
-      setFirstColumnColor(color: string): Banding;
-      setFirstRowColor(color: string): Banding;
-      setFooterColumnColor(color: string): Banding;
-      setFooterRowColor(color: string): Banding;
-      setHeaderColumnColor(color: string): Banding;
-      setHeaderRowColor(color: string): Banding;
+      setFirstColumnColor(color: string | null): Banding;
+      setFirstRowColor(color: string | null): Banding;
+      setFooterColumnColor(color: string | null): Banding;
+      setFooterRowColor(color: string | null): Banding;
+      setHeaderColumnColor(color: string | null): Banding;
+      setHeaderRowColor(color: string | null): Banding;
       setRange(range: Range): Banding;
-      setSecondColumnColor(color: string): Banding;
-      setSecondRowColor(color: string): Banding;
+      setSecondColumnColor(color: string | null): Banding;
+      setSecondRowColor(color: string | null): Banding;
     }
 
     /**
      * An enumeration of banding themes. Each theme consists of several complementary colors that are
      * applied to different cells based on the banding settings.
      */
-    export enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
+    enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
 
     /**
      * Access the existing BigQuery data source specification. To create a new data source
      * specification, use SpreadsheetApp.newDataSourceSpec().
      */
-    export interface BigQueryDataSourceSpec {
+    interface BigQueryDataSourceSpec {
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
       getProjectId(): string;
@@ -64,7 +64,7 @@ declare namespace GoogleAppsScript {
     /**
      * The builder for BigQueryDataSourceSpecBuilder.
      */
-    export interface BigQueryDataSourceSpecBuilder {
+    interface BigQueryDataSourceSpecBuilder {
       build(): DataSourceSpec;
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
@@ -85,37 +85,37 @@ declare namespace GoogleAppsScript {
      * against the content of a cell resulting in either a true or false value. If the
      * criteria evaluates to true, the condition's formatting settings are applied to the cell.
      */
-    export interface BooleanCondition {
-      getBackground(): string;
-      getBold(): boolean;
+    interface BooleanCondition {
+      getBackground(): string | null;
+      getBold(): boolean | null;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
-      getFontColor(): string;
-      getItalic(): boolean;
-      getStrikethrough(): boolean;
-      getUnderline(): boolean;
+      getCriteriaValues(): any[];
+      getFontColor(): string | null;
+      getItalic(): boolean | null;
+      getStrikethrough(): boolean | null;
+      getUnderline(): boolean | null;
     }
 
     /**
      * An enumeration representing the boolean criteria that can be used in conditional format or
      * filter.
      */
-    export enum BooleanCriteria { CELL_EMPTY, CELL_NOT_EMPTY, DATE_AFTER, DATE_BEFORE, DATE_EQUAL_TO, DATE_AFTER_RELATIVE, DATE_BEFORE_RELATIVE, DATE_EQUAL_TO_RELATIVE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_STARTS_WITH, TEXT_ENDS_WITH, CUSTOM_FORMULA }
+    enum BooleanCriteria { CELL_EMPTY, CELL_NOT_EMPTY, DATE_AFTER, DATE_BEFORE, DATE_EQUAL_TO, DATE_AFTER_RELATIVE, DATE_BEFORE_RELATIVE, DATE_EQUAL_TO_RELATIVE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_STARTS_WITH, TEXT_ENDS_WITH, CUSTOM_FORMULA }
 
     /**
      * Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
-    export enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
+    enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
 
     /**
      * Access conditional formatting rules. To create a new rule, use SpreadsheetApp.newConditionalFormatRule() and ConditionalFormatRuleBuilder.
      * You can use Sheet.setConditionalFormatRules(rules) to set the
      * rules for a given sheet.
      */
-    export interface ConditionalFormatRule {
+    interface ConditionalFormatRule {
       copy(): ConditionalFormatRuleBuilder;
-      getBooleanCondition(): BooleanCondition;
-      getGradientCondition(): GradientCondition;
+      getBooleanCondition(): BooleanCondition | null;
+      getGradientCondition(): GradientCondition | null;
       getRanges(): Range[];
     }
 
@@ -135,47 +135,47 @@ declare namespace GoogleAppsScript {
      *     rules.push(rule);
      *     sheet.setConditionalFormatRules(rules);
      */
-    export interface ConditionalFormatRuleBuilder {
+    interface ConditionalFormatRuleBuilder {
       build(): ConditionalFormatRule;
       copy(): ConditionalFormatRuleBuilder;
-      getBooleanCondition(): BooleanCondition;
-      getGradientCondition(): GradientCondition;
+      getBooleanCondition(): BooleanCondition | null;
+      getGradientCondition(): GradientCondition | null;
       getRanges(): Range[];
-      setBackground(color: string): ConditionalFormatRuleBuilder;
-      setBold(bold: boolean): ConditionalFormatRuleBuilder;
-      setFontColor(color: string): ConditionalFormatRuleBuilder;
+      setBackground(color: string | null): ConditionalFormatRuleBuilder;
+      setBold(bold: boolean | null): ConditionalFormatRuleBuilder;
+      setFontColor(color: string | null): ConditionalFormatRuleBuilder;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
       setGradientMidpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
       setGradientMinpoint(color: string): ConditionalFormatRuleBuilder;
       setGradientMinpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
-      setItalic(italic: boolean): ConditionalFormatRuleBuilder;
+      setItalic(italic: boolean | null): ConditionalFormatRuleBuilder;
       setRanges(ranges: Range[]): ConditionalFormatRuleBuilder;
-      setStrikethrough(strikethrough: boolean): ConditionalFormatRuleBuilder;
-      setUnderline(underline: boolean): ConditionalFormatRuleBuilder;
+      setStrikethrough(strikethrough: boolean | null): ConditionalFormatRuleBuilder;
+      setUnderline(underline: boolean | null): ConditionalFormatRuleBuilder;
       whenCellEmpty(): ConditionalFormatRuleBuilder;
       whenCellNotEmpty(): ConditionalFormatRuleBuilder;
-      whenDateAfter(date: Date): ConditionalFormatRuleBuilder;
+      whenDateAfter(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateAfter(date: RelativeDate): ConditionalFormatRuleBuilder;
-      whenDateBefore(date: Date): ConditionalFormatRuleBuilder;
+      whenDateBefore(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateBefore(date: RelativeDate): ConditionalFormatRuleBuilder;
-      whenDateEqualTo(date: Date): ConditionalFormatRuleBuilder;
+      whenDateEqualTo(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateEqualTo(date: RelativeDate): ConditionalFormatRuleBuilder;
       whenFormulaSatisfied(formula: string): ConditionalFormatRuleBuilder;
-      whenNumberBetween(start: Number, end: Number): ConditionalFormatRuleBuilder;
-      whenNumberEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberGreaterThan(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberGreaterThanOrEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberLessThan(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberLessThanOrEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberNotBetween(start: Number, end: Number): ConditionalFormatRuleBuilder;
-      whenNumberNotEqualTo(number: Number): ConditionalFormatRuleBuilder;
+      whenNumberBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+      whenNumberEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberGreaterThan(number: number): ConditionalFormatRuleBuilder;
+      whenNumberGreaterThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberLessThan(number: number): ConditionalFormatRuleBuilder;
+      whenNumberLessThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberNotBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+      whenNumberNotEqualTo(number: number): ConditionalFormatRuleBuilder;
       whenTextContains(text: string): ConditionalFormatRuleBuilder;
       whenTextDoesNotContain(text: string): ConditionalFormatRuleBuilder;
       whenTextEndsWith(text: string): ConditionalFormatRuleBuilder;
       whenTextEqualTo(text: string): ConditionalFormatRuleBuilder;
       whenTextStartsWith(text: string): ConditionalFormatRuleBuilder;
-      withCriteria(criteria: BooleanCriteria, args: Object[]): ConditionalFormatRuleBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): ConditionalFormatRuleBuilder;
     }
 
     /**
@@ -184,7 +184,7 @@ declare namespace GoogleAppsScript {
      *     chart = chart.modify().setPosition(5, 5, 0, 0).build();
      *     sheet.updateChart(chart);
      */
-    export interface ContainerInfo {
+    interface ContainerInfo {
       getAnchorColumn(): Integer;
       getAnchorRow(): Integer;
       getOffsetX(): Integer;
@@ -194,26 +194,26 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of possible special paste types.
      */
-    export enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
+    enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
 
     /**
      * An enumeration of data execution error codes.
      */
-    export enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
+    enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
 
     /**
      * An enumeration of data execution states.
      */
-    export enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
+    enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
 
     /**
      * The data execution status.
      */
-    export interface DataExecutionStatus {
+    interface DataExecutionStatus {
       getErrorCode(): DataExecutionErrorCode;
       getErrorMessage(): string;
       getExecutionState(): DataExecutionState;
-      getLastRefreshedTime(): Date;
+      getLastRefreshedTime(): Base.Date | null;
       isTruncated(): boolean;
     }
 
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
      * Access and modify existing data source. To create a data source table with new data source, see
      * DataSourceTable.
      */
-    export interface DataSource {
+    interface DataSource {
       getSpec(): DataSourceSpec;
       updateSpec(spec: DataSourceSpec): DataSource;
     }
@@ -229,16 +229,16 @@ declare namespace GoogleAppsScript {
     /**
      * Access existing data source parameters.
      */
-    export interface DataSourceParameter {
+    interface DataSourceParameter {
       getName(): string;
-      getSourceCell(): string;
+      getSourceCell(): string | null;
       getType(): DataSourceParameterType;
     }
 
     /**
      * An enumeration of data source parameter types.
      */
-    export enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
+    enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
 
     /**
      * Access the general settings of an existing data source spec. To access data source spec for
@@ -255,7 +255,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log("Raw query string: %s\n", bqSpec.getRawQuery());
      *     }
      */
-    export interface DataSourceSpec {
+    interface DataSourceSpec {
       asBigQuery(): BigQueryDataSourceSpec;
       copy(): DataSourceSpecBuilder;
       getParameters(): DataSourceParameter[];
@@ -275,7 +275,7 @@ declare namespace GoogleAppsScript {
      *                .setParameterFromCell('LIMIT', 'namedRangeCell')
      *                .build();
      */
-    export interface DataSourceSpecBuilder {
+    interface DataSourceSpecBuilder {
       asBigQuery(): BigQueryDataSourceSpecBuilder;
       build(): DataSourceSpec;
       copy(): DataSourceSpecBuilder;
@@ -330,7 +330,7 @@ declare namespace GoogleAppsScript {
      *     // Check status after execution.
      *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
      */
-    export interface DataSourceTable {
+    interface DataSourceTable {
       forceRefreshData(): DataSourceTable;
       getDataSource(): DataSource;
       getRange(): Range;
@@ -342,7 +342,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of data source types.
      */
-    export enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
+    enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
 
     /**
      * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -359,11 +359,11 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The cell does not have a data validation rule.')
      *     }
      */
-    export interface DataValidation {
+    interface DataValidation {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHelpText(): string;
     }
 
@@ -376,33 +376,33 @@ declare namespace GoogleAppsScript {
      *     var rule = SpreadsheetApp.newDataValidation().requireValueInRange(range).build();
      *     cell.setDataValidation(rule);
      */
-    export interface DataValidationBuilder {
+    interface DataValidationBuilder {
       build(): DataValidation;
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): Object[];
-      getHelpText(): string;
+      getCriteriaValues(): any[];
+      getHelpText(): string | null;
       requireCheckbox(): DataValidationBuilder;
-      requireCheckbox(checkedValue: Object): DataValidationBuilder;
-      requireCheckbox(checkedValue: Object, uncheckedValue: Object): DataValidationBuilder;
+      requireCheckbox(checkedValue: any): DataValidationBuilder;
+      requireCheckbox(checkedValue: any, uncheckedValue: any): DataValidationBuilder;
       requireDate(): DataValidationBuilder;
-      requireDateAfter(date: Date): DataValidationBuilder;
-      requireDateBefore(date: Date): DataValidationBuilder;
-      requireDateBetween(start: Date, end: Date): DataValidationBuilder;
-      requireDateEqualTo(date: Date): DataValidationBuilder;
-      requireDateNotBetween(start: Date, end: Date): DataValidationBuilder;
-      requireDateOnOrAfter(date: Date): DataValidationBuilder;
-      requireDateOnOrBefore(date: Date): DataValidationBuilder;
+      requireDateAfter(date: Base.Date): DataValidationBuilder;
+      requireDateBefore(date: Base.Date): DataValidationBuilder;
+      requireDateBetween(start: Base.Date, end: Base.Date): DataValidationBuilder;
+      requireDateEqualTo(date: Base.Date): DataValidationBuilder;
+      requireDateNotBetween(start: Base.Date, end: Base.Date): DataValidationBuilder;
+      requireDateOnOrAfter(date: Base.Date): DataValidationBuilder;
+      requireDateOnOrBefore(date: Base.Date): DataValidationBuilder;
       requireFormulaSatisfied(formula: string): DataValidationBuilder;
-      requireNumberBetween(start: Number, end: Number): DataValidationBuilder;
-      requireNumberEqualTo(number: Number): DataValidationBuilder;
-      requireNumberGreaterThan(number: Number): DataValidationBuilder;
-      requireNumberGreaterThanOrEqualTo(number: Number): DataValidationBuilder;
-      requireNumberLessThan(number: Number): DataValidationBuilder;
-      requireNumberLessThanOrEqualTo(number: Number): DataValidationBuilder;
-      requireNumberNotBetween(start: Number, end: Number): DataValidationBuilder;
-      requireNumberNotEqualTo(number: Number): DataValidationBuilder;
+      requireNumberBetween(start: number, end: number): DataValidationBuilder;
+      requireNumberEqualTo(number: number): DataValidationBuilder;
+      requireNumberGreaterThan(number: number): DataValidationBuilder;
+      requireNumberGreaterThanOrEqualTo(number: number): DataValidationBuilder;
+      requireNumberLessThan(number: number): DataValidationBuilder;
+      requireNumberLessThanOrEqualTo(number: number): DataValidationBuilder;
+      requireNumberNotBetween(start: number, end: number): DataValidationBuilder;
+      requireNumberNotEqualTo(number: number): DataValidationBuilder;
       requireTextContains(text: string): DataValidationBuilder;
       requireTextDoesNotContain(text: string): DataValidationBuilder;
       requireTextEqualTo(text: string): DataValidationBuilder;
@@ -414,7 +414,7 @@ declare namespace GoogleAppsScript {
       requireValueInRange(range: Range, showDropdown: boolean): DataValidationBuilder;
       setAllowInvalid(allowInvalidData: boolean): DataValidationBuilder;
       setHelpText(helpText: string): DataValidationBuilder;
-      withCriteria(criteria: DataValidationCriteria, args: Object[]): DataValidationBuilder;
+      withCriteria(criteria: DataValidationCriteria, args: any[]): DataValidationBuilder;
     }
 
     /**
@@ -446,16 +446,16 @@ declare namespace GoogleAppsScript {
      *     }
      *     range.setDataValidations(rules);
      */
-    export enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
+    enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
 
     /**
      * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
      */
-    export interface DeveloperMetadata {
+    interface DeveloperMetadata {
       getId(): Integer;
       getKey(): string;
       getLocation(): DeveloperMetadataLocation;
-      getValue(): string;
+      getValue(): string | null;
       getVisibility(): DeveloperMetadataVisibility;
       moveToColumn(column: Range): DeveloperMetadata;
       moveToRow(row: Range): DeveloperMetadata;
@@ -472,7 +472,7 @@ declare namespace GoogleAppsScript {
      * Range.createDeveloperMetadataFinder(), Sheet.createDeveloperMetadataFinder(),
      * or Spreadsheet.createDeveloperMetadataFinder().
      */
-    export interface DeveloperMetadataFinder {
+    interface DeveloperMetadataFinder {
       find(): DeveloperMetadata[];
       onIntersectingLocations(): DeveloperMetadataFinder;
       withId(id: Integer): DeveloperMetadataFinder;
@@ -485,40 +485,40 @@ declare namespace GoogleAppsScript {
     /**
      * Access developer metadata location information.
      */
-    export interface DeveloperMetadataLocation {
-      getColumn(): Range;
+    interface DeveloperMetadataLocation {
+      getColumn(): Range | null;
       getLocationType(): DeveloperMetadataLocationType;
-      getRow(): Range;
-      getSheet(): Sheet;
-      getSpreadsheet(): Spreadsheet;
+      getRow(): Range | null;
+      getSheet(): Sheet | null;
+      getSpreadsheet(): Spreadsheet | null;
     }
 
     /**
      * An enumeration of the types of developer metadata location types.
      */
-    export enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
+    enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
 
     /**
      * An enumeration of the types of developer metadata visibility.
      */
-    export enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
+    enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
 
     /**
      * An enumeration of possible directions along which data can be stored in a spreadsheet.
      */
-    export enum Dimension { COLUMNS, ROWS }
+    enum Dimension { COLUMNS, ROWS }
 
     /**
      * An enumeration representing the possible directions that one can move within a spreadsheet using
      * the arrow keys.
      */
-    export enum Direction { UP, DOWN, PREVIOUS, NEXT }
+    enum Direction { UP, DOWN, PREVIOUS, NEXT }
 
     /**
      * Builder for area charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedAreaChartBuilder {
+    interface EmbeddedAreaChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -544,10 +544,10 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedAreaChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedAreaChartBuilder;
+      setRange(start: number, end: number): EmbeddedAreaChartBuilder;
       setStacked(): EmbeddedAreaChartBuilder;
       setTitle(chartTitle: string): EmbeddedAreaChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
@@ -565,7 +565,7 @@ declare namespace GoogleAppsScript {
      * Builder for bar charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedBarChartBuilder {
+    interface EmbeddedBarChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -592,9 +592,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedBarChartBuilder;
+      setRange(start: number, end: number): EmbeddedBarChartBuilder;
       setStacked(): EmbeddedBarChartBuilder;
       setTitle(chartTitle: string): EmbeddedBarChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
@@ -635,21 +635,18 @@ declare namespace GoogleAppsScript {
      *       sheet.insertChart(chartBuilder.build());
      *     }
      */
-    export interface EmbeddedChart {
+    interface EmbeddedChart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getChartId(): Integer;
+      getChartId(): Integer | null;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
-      getId(): string;
       getMergeStrategy(): Charts.ChartMergeStrategy;
       getNumHeaders(): Integer;
       getOptions(): Charts.ChartOptions;
       getRanges(): Range[];
       getTransposeRowsAndColumns(): boolean;
-      getType(): string;
       modify(): EmbeddedChartBuilder;
-      setId(id: string): Charts.Chart;
     }
 
     /**
@@ -667,7 +664,7 @@ declare namespace GoogleAppsScript {
      *         .build();
      *     sheet.updateChart(chart);
      */
-    export interface EmbeddedChartBuilder {
+    interface EmbeddedChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -688,7 +685,7 @@ declare namespace GoogleAppsScript {
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
     }
@@ -697,7 +694,7 @@ declare namespace GoogleAppsScript {
      * Builder for column charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedColumnChartBuilder {
+    interface EmbeddedColumnChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -723,9 +720,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedColumnChartBuilder;
+      setRange(start: number, end: number): EmbeddedColumnChartBuilder;
       setStacked(): EmbeddedColumnChartBuilder;
       setTitle(chartTitle: string): EmbeddedColumnChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
@@ -742,7 +739,7 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for combo charts. For more details, see the Gviz documentation.
      */
-    export interface EmbeddedComboChartBuilder {
+    interface EmbeddedComboChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -768,9 +765,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedComboChartBuilder;
+      setRange(start: number, end: number): EmbeddedComboChartBuilder;
       setStacked(): EmbeddedComboChartBuilder;
       setTitle(chartTitle: string): EmbeddedComboChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
@@ -788,7 +785,7 @@ declare namespace GoogleAppsScript {
      * Builder for histogram charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedHistogramChartBuilder {
+    interface EmbeddedHistogramChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -814,9 +811,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedHistogramChartBuilder;
+      setRange(start: number, end: number): EmbeddedHistogramChartBuilder;
       setStacked(): EmbeddedHistogramChartBuilder;
       setTitle(chartTitle: string): EmbeddedHistogramChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
@@ -834,7 +831,7 @@ declare namespace GoogleAppsScript {
      * Builder for line charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedLineChartBuilder {
+    interface EmbeddedLineChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -861,10 +858,10 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedLineChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedLineChartBuilder;
+      setRange(start: number, end: number): EmbeddedLineChartBuilder;
       setTitle(chartTitle: string): EmbeddedLineChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
@@ -881,7 +878,7 @@ declare namespace GoogleAppsScript {
      * Builder for pie charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedPieChartBuilder {
+    interface EmbeddedPieChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -908,7 +905,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedPieChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
@@ -919,7 +916,7 @@ declare namespace GoogleAppsScript {
      * Builder for scatter charts. For more details, see the Gviz
      * documentation.
      */
-    export interface EmbeddedScatterChartBuilder {
+    interface EmbeddedScatterChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -944,19 +941,19 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedScatterChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedScatterChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
       setXAxisLogScale(): EmbeddedScatterChartBuilder;
-      setXAxisRange(start: Number, end: Number): EmbeddedScatterChartBuilder;
+      setXAxisRange(start: number, end: number): EmbeddedScatterChartBuilder;
       setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setXAxisTitle(title: string): EmbeddedScatterChartBuilder;
       setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setYAxisLogScale(): EmbeddedScatterChartBuilder;
-      setYAxisRange(start: Number, end: Number): EmbeddedScatterChartBuilder;
+      setYAxisRange(start: number, end: number): EmbeddedScatterChartBuilder;
       setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setYAxisTitle(title: string): EmbeddedScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
@@ -965,7 +962,7 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for table charts. For more details, see the Gviz documentation.
      */
-    export interface EmbeddedTableChartBuilder {
+    interface EmbeddedTableChartBuilder {
       addRange(range: Range): EmbeddedChartBuilder;
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
@@ -994,7 +991,7 @@ declare namespace GoogleAppsScript {
       setInitialSortingDescending(column: Integer): EmbeddedTableChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): EmbeddedTableChartBuilder;
@@ -1004,22 +1001,22 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify existing filters. To create a new filter, use Range.createFilter().
      */
-    export interface Filter {
-      getColumnFilterCriteria(columnPosition: Integer): FilterCriteria;
+    interface Filter {
+      getColumnFilterCriteria(columnPosition: Integer): FilterCriteria | null;
       getRange(): Range;
       remove(): void;
       removeColumnFilterCriteria(columnPosition: Integer): Filter;
-      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria): Filter;
+      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria | null): Filter;
       sort(columnPosition: Integer, ascending: boolean): Filter;
     }
 
     /**
      * Access filter criteria. To create a new criteria, use SpreadsheetApp.newFilterCriteria() and FilterCriteriaBuilder.
      */
-    export interface FilterCriteria {
+    interface FilterCriteria {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
     }
@@ -1027,38 +1024,38 @@ declare namespace GoogleAppsScript {
     /**
      * Builder for FilterCriteria.
      */
-    export interface FilterCriteriaBuilder {
+    interface FilterCriteriaBuilder {
       build(): FilterCriteria;
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
       setHiddenValues(values: string[]): FilterCriteriaBuilder;
       setVisibleValues(values: string[]): FilterCriteriaBuilder;
       whenCellEmpty(): FilterCriteriaBuilder;
       whenCellNotEmpty(): FilterCriteriaBuilder;
-      whenDateAfter(date: Date): FilterCriteriaBuilder;
+      whenDateAfter(date: Base.Date): FilterCriteriaBuilder;
       whenDateAfter(date: RelativeDate): FilterCriteriaBuilder;
-      whenDateBefore(date: Date): FilterCriteriaBuilder;
+      whenDateBefore(date: Base.Date): FilterCriteriaBuilder;
       whenDateBefore(date: RelativeDate): FilterCriteriaBuilder;
-      whenDateEqualTo(date: Date): FilterCriteriaBuilder;
+      whenDateEqualTo(date: Base.Date): FilterCriteriaBuilder;
       whenDateEqualTo(date: RelativeDate): FilterCriteriaBuilder;
       whenFormulaSatisfied(formula: string): FilterCriteriaBuilder;
-      whenNumberBetween(start: Number, end: Number): FilterCriteriaBuilder;
-      whenNumberEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberGreaterThan(number: Number): FilterCriteriaBuilder;
-      whenNumberGreaterThanOrEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberLessThan(number: Number): FilterCriteriaBuilder;
-      whenNumberLessThanOrEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberNotBetween(start: Number, end: Number): FilterCriteriaBuilder;
-      whenNumberNotEqualTo(number: Number): FilterCriteriaBuilder;
+      whenNumberBetween(start: number, end: number): FilterCriteriaBuilder;
+      whenNumberEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberGreaterThan(number: number): FilterCriteriaBuilder;
+      whenNumberGreaterThanOrEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberLessThan(number: number): FilterCriteriaBuilder;
+      whenNumberLessThanOrEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberNotBetween(start: number, end: number): FilterCriteriaBuilder;
+      whenNumberNotEqualTo(number: number): FilterCriteriaBuilder;
       whenTextContains(text: string): FilterCriteriaBuilder;
       whenTextDoesNotContain(text: string): FilterCriteriaBuilder;
       whenTextEndsWith(text: string): FilterCriteriaBuilder;
       whenTextEqualTo(text: string): FilterCriteriaBuilder;
       whenTextStartsWith(text: string): FilterCriteriaBuilder;
-      withCriteria(criteria: BooleanCriteria, args: Object[]): FilterCriteriaBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
     }
 
     /**
@@ -1083,15 +1080,15 @@ declare namespace GoogleAppsScript {
      *         gradient.getMaxColor(), gradient.getMaxType(), gradient.getMaxValue());
      *     }
      */
-    export interface GradientCondition {
+    interface GradientCondition {
       getMaxColor(): string;
-      getMaxType(): InterpolationType;
+      getMaxType(): InterpolationType | null;
       getMaxValue(): string;
       getMidColor(): string;
-      getMidType(): InterpolationType;
+      getMidType(): InterpolationType | null;
       getMidValue(): string;
       getMinColor(): string;
-      getMinType(): InterpolationType;
+      getMinType(): InterpolationType | null;
       getMinValue(): string;
     }
 
@@ -1108,7 +1105,7 @@ declare namespace GoogleAppsScript {
      * set visible, though individual rows or columns can be hidden or set visible irrespective of the
      * collapsed state.
      */
-    export interface Group {
+    interface Group {
       collapse(): Group;
       expand(): Group;
       getControlIndex(): Integer;
@@ -1121,20 +1118,20 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration representing the possible positions that a group control toggle can have.
      */
-    export enum GroupControlTogglePosition { BEFORE, AFTER }
+    enum GroupControlTogglePosition { BEFORE, AFTER }
 
     /**
      * An enumeration representing the interpolation options for calculating a value to be used in a
      * GradientCondition in a ConditionalFormatRule.
      */
-    export enum InterpolationType { NUMBER, PERCENT, PERCENTILE, MIN, MAX }
+    enum InterpolationType { NUMBER, PERCENT, PERCENTILE, MIN, MAX }
 
     /**
      * Create, access and modify named ranges in a spreadsheet. Named ranges are ranges that have
      * associated string aliases. They can be viewed and edited via the Sheets UI under the Data >
      * Named ranges... menu.
      */
-    export interface NamedRange {
+    interface NamedRange {
       getName(): string;
       getRange(): Range;
       remove(): void;
@@ -1145,7 +1142,7 @@ declare namespace GoogleAppsScript {
     /**
      * Represents an image over the grid in a spreadsheet.
      */
-    export interface OverGridImage {
+    interface OverGridImage {
       assignScript(functionName: string): OverGridImage;
       getAltTextDescription(): string;
       getAltTextTitle(): string;
@@ -1157,7 +1154,7 @@ declare namespace GoogleAppsScript {
       getInherentWidth(): Integer;
       getScript(): string;
       getSheet(): Sheet;
-      getUrl(): string;
+      getUrl(): string | null;
       getWidth(): Integer;
       remove(): void;
       replace(blob: Base.BlobSource): OverGridImage;
@@ -1179,7 +1176,7 @@ declare namespace GoogleAppsScript {
      *     for compatibility with the older version of Sheets.
      * Access and modify protected sheets in the older version of Google Sheets.
      */
-    export interface PageProtection {
+    interface PageProtection {
       addUser(email: string): void;
       getUsers(): string[];
       isProtected(): boolean;
@@ -1190,7 +1187,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot table filters.
      */
-    export interface PivotFilter {
+    interface PivotFilter {
       getFilterCriteria(): FilterCriteria;
       getPivotTable(): PivotTable;
       getSourceDataColumn(): Integer;
@@ -1201,8 +1198,8 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot table breakout groups.
      */
-    export interface PivotGroup {
-      addManualGroupingRule(groupName: string, groupMembers: Object[]): PivotGroup;
+    interface PivotGroup {
+      addManualGroupingRule(groupName: string, groupMembers: any[]): PivotGroup;
       areLabelsRepeated(): boolean;
       clearGroupingRule(): PivotGroup;
       clearSort(): PivotGroup;
@@ -1221,7 +1218,7 @@ declare namespace GoogleAppsScript {
       showRepeatedLabels(): PivotGroup;
       showTotals(showTotals: boolean): PivotGroup;
       sortAscending(): PivotGroup;
-      sortBy(value: PivotValue, oppositeGroupValues: Object[]): PivotGroup;
+      sortBy(value: PivotValue, oppositeGroupValues: any[]): PivotGroup;
       sortDescending(): PivotGroup;
       totalsAreShown(): boolean;
     }
@@ -1229,7 +1226,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access and modify pivot tables.
      */
-    export interface PivotTable {
+    interface PivotTable {
       addCalculatedPivotValue(name: string, formula: string): PivotValue;
       addColumnGroup(sourceDataColumn: Integer): PivotGroup;
       addFilter(sourceDataColumn: Integer, filterCriteria: FilterCriteria): PivotFilter;
@@ -1248,14 +1245,14 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of functions that summarize pivot table data.
      */
-    export enum PivotTableSummarizeFunction { CUSTOM, SUM, COUNTA, COUNT, COUNTUNIQUE, AVERAGE, MAX, MIN, MEDIAN, PRODUCT, STDEV, STDEVP, VAR, VARP }
+    enum PivotTableSummarizeFunction { CUSTOM, SUM, COUNTA, COUNT, COUNTUNIQUE, AVERAGE, MAX, MIN, MEDIAN, PRODUCT, STDEV, STDEVP, VAR, VARP }
 
     /**
      * Access and modify value groups in pivot tables.
      */
-    export interface PivotValue {
+    interface PivotValue {
       getDisplayType(): PivotValueDisplayType;
-      getFormula(): string;
+      getFormula(): string | null;
       getPivotTable(): PivotTable;
       getSummarizedBy(): PivotTableSummarizeFunction;
       setDisplayName(name: string): PivotValue;
@@ -1267,7 +1264,7 @@ declare namespace GoogleAppsScript {
     /**
      * An enumeration of ways to display a pivot value as a function of another value.
      */
-    export enum PivotValueDisplayType { DEFAULT, PERCENT_OF_ROW_TOTAL, PERCENT_OF_COLUMN_TOTAL, PERCENT_OF_GRAND_TOTAL }
+    enum PivotValueDisplayType { DEFAULT, PERCENT_OF_ROW_TOTAL, PERCENT_OF_COLUMN_TOTAL, PERCENT_OF_GRAND_TOTAL }
 
     /**
      * Access and modify protected ranges and sheets. A protected range can protect either a static
@@ -1312,7 +1309,7 @@ declare namespace GoogleAppsScript {
      *       protection.setDomainEdit(false);
      *     }
      */
-    export interface Protection {
+    interface Protection {
       addEditor(emailAddress: string): Protection;
       addEditor(user: Base.User): Protection;
       addEditors(emailAddresses: string[]): Protection;
@@ -1322,7 +1319,7 @@ declare namespace GoogleAppsScript {
       getEditors(): Base.User[];
       getProtectionType(): ProtectionType;
       getRange(): Range;
-      getRangeName(): string;
+      getRangeName(): string | null;
       getUnprotectedRanges(): Range[];
       isWarningOnly(): boolean;
       remove(): void;
@@ -1358,13 +1355,13 @@ declare namespace GoogleAppsScript {
      *       protection.remove();
      *     }
      */
-    export enum ProtectionType { RANGE, SHEET }
+    enum ProtectionType { RANGE, SHEET }
 
     /**
      * Access and modify spreadsheet ranges. A range can be a single cell in a sheet or a group of
      * adjacent cells in a sheet.
      */
-    export interface Range {
+    interface Range {
       activate(): Range;
       activateAsCurrentCell(): Range;
       addDeveloperMetadata(key: string): Range;
@@ -1383,7 +1380,7 @@ declare namespace GoogleAppsScript {
       canEdit(): boolean;
       check(): Range;
       clear(): Range;
-      clear(options: Object): Range;
+      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1393,7 +1390,7 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: Object): void;
+      copyTo(destination: Range, options: { formatOnly?: boolean; contentsOnly?: boolean }): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1414,12 +1411,12 @@ declare namespace GoogleAppsScript {
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
-      getDataValidation(): DataValidation;
-      getDataValidations(): DataValidation[][];
+      getDataValidation(): DataValidation | null;
+      getDataValidations(): (DataValidation | null)[][];
       getDeveloperMetadata(): DeveloperMetadata[];
       getDisplayValue(): string;
       getDisplayValues(): string[][];
-      getFilter(): Filter;
+      getFilter(): Filter | null;
       getFontColor(): string;
       getFontColors(): string[][];
       getFontFamilies(): string[][];
@@ -1433,9 +1430,9 @@ declare namespace GoogleAppsScript {
       getFontWeight(): string;
       getFontWeights(): string[][];
       getFormula(): string;
-      getFormulaR1C1(): string;
+      getFormulaR1C1(): string | null;
       getFormulas(): string[][];
-      getFormulasR1C1(): string[][];
+      getFormulasR1C1(): (string | null)[][];
       getGridId(): Integer;
       getHeight(): Integer;
       getHorizontalAlignment(): string;
@@ -1450,19 +1447,19 @@ declare namespace GoogleAppsScript {
       getNumRows(): Integer;
       getNumberFormat(): string;
       getNumberFormats(): string[][];
-      getRichTextValue(): RichTextValue;
-      getRichTextValues(): RichTextValue[][];
+      getRichTextValue(): RichTextValue | null;
+      getRichTextValues(): (RichTextValue | null)[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
-      getTextDirection(): TextDirection;
-      getTextDirections(): TextDirection[][];
+      getTextDirection(): TextDirection | null;
+      getTextDirections(): (TextDirection | null)[][];
       getTextRotation(): TextRotation;
       getTextRotations(): TextRotation[][];
       getTextStyle(): TextStyle;
       getTextStyles(): TextStyle[][];
-      getValue(): Object;
-      getValues(): Object[][];
+      getValue(): any;
+      getValues(): any[][];
       getVerticalAlignment(): string;
       getVerticalAlignments(): string[][];
       getWidth(): Integer;
@@ -1472,10 +1469,10 @@ declare namespace GoogleAppsScript {
       getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
       insertCheckboxes(): Range;
-      insertCheckboxes(checkedValue: Object): Range;
-      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): Range;
+      insertCheckboxes(checkedValue: any): Range;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
       isBlank(): boolean;
-      isChecked(): boolean;
+      isChecked(): boolean | null;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
       isPartOfMerge(): boolean;
@@ -1491,60 +1488,63 @@ declare namespace GoogleAppsScript {
       protect(): Protection;
       randomize(): Range;
       removeCheckboxes(): Range;
-      setBackground(color: string): Range;
+      removeDuplicates(): Range;
+      removeDuplicates(columnsToCompare: Integer[]): Range;
+      setBackground(color: string | null): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
-      setBackgrounds(color: string[][]): Range;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
-      setDataValidation(rule: DataValidation): Range;
-      setDataValidations(rules: DataValidation[][]): Range;
-      setFontColor(color: string): Range;
-      setFontColors(colors: Object[][]): Range;
-      setFontFamilies(fontFamilies: Object[][]): Range;
-      setFontFamily(fontFamily: string): Range;
-      setFontLine(fontLine: string): Range;
-      setFontLines(fontLines: Object[][]): Range;
+      setBackgrounds(color: (string | null)[][]): Range;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null): Range;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): Range;
+      setDataValidation(rule: DataValidation | null): Range;
+      setDataValidations(rules: (DataValidation | null)[][]): Range;
+      setFontColor(color: string | null): Range;
+      setFontColors(colors: any[][]): Range;
+      setFontFamilies(fontFamilies: (string | null)[][]): Range;
+      setFontFamily(fontFamily: string | null): Range;
+      setFontLine(fontLine: "underline" | "line-through" | "none" | null): Range;
+      setFontLines(fontLines: ("underline" | "line-through" | "none" | null)[][]): Range;
       setFontSize(size: Integer): Range;
-      setFontSizes(sizes: Object[][]): Range;
-      setFontStyle(fontStyle: string): Range;
-      setFontStyles(fontStyles: Object[][]): Range;
-      setFontWeight(fontWeight: string): Range;
-      setFontWeights(fontWeights: Object[][]): Range;
+      setFontSizes(sizes: Integer[][]): Range;
+      setFontStyle(fontStyle: "italic" | "normal" | null): Range;
+      setFontStyles(fontStyles: ("italic" | "normal" | null)[][]): Range;
+      setFontWeight(fontWeight: "bold" | "normal" | null): Range;
+      setFontWeights(fontWeights: ("bold" | "normal" | null)[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
-      setHorizontalAlignment(alignment: string): Range;
-      setHorizontalAlignments(alignments: Object[][]): Range;
-      setNote(note: string): Range;
-      setNotes(notes: Object[][]): Range;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
+      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
+      setNote(note: string | null): Range;
+      setNotes(notes: (string | null)[][]): Range;
       setNumberFormat(numberFormat: string): Range;
-      setNumberFormats(numberFormats: Object[][]): Range;
+      setNumberFormats(numberFormats: string[][]): Range;
       setRichTextValue(value: RichTextValue): Range;
       setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
-      setTextDirection(direction: TextDirection): Range;
-      setTextDirections(directions: TextDirection[][]): Range;
+      setTextDirection(direction: TextDirection | null): Range;
+      setTextDirections(directions: (TextDirection | null)[][]): Range;
       setTextRotation(degrees: Integer): Range;
       setTextRotation(rotation: TextRotation): Range;
       setTextRotations(rotations: TextRotation[][]): Range;
       setTextStyle(style: TextStyle): Range;
       setTextStyles(styles: TextStyle[][]): Range;
-      setValue(value: Object): Range;
-      setValues(values: Object[][]): Range;
-      setVerticalAlignment(alignment: string): Range;
-      setVerticalAlignments(alignments: Object[][]): Range;
+      setValue(value: any): Range;
+      setValues(values: any[][]): Range;
+      setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): Range;
+      setVerticalAlignments(alignments: ("top" | "middle" | "bottom" | null)[][]): Range;
       setVerticalText(isVertical: boolean): Range;
       setWrap(isWrapEnabled: boolean): Range;
       setWrapStrategies(strategies: WrapStrategy[][]): Range;
       setWrapStrategy(strategy: WrapStrategy): Range;
-      setWraps(isWrapEnabled: Object[][]): Range;
+      setWraps(isWrapEnabled: boolean[][]): Range;
       shiftColumnGroupDepth(delta: Integer): Range;
       shiftRowGroupDepth(delta: Integer): Range;
-      sort(sortSpecObj: Object): Range;
+      sort(sortSpecObj: any): Range;
       splitTextToColumns(): void;
       splitTextToColumns(delimiter: string): void;
       splitTextToColumns(delimiter: TextToColumnsDelimiter): void;
+      trimWhitespace(): Range;
       uncheck(): Range;
     }
 
@@ -1552,57 +1552,58 @@ declare namespace GoogleAppsScript {
      * A collection of one or more Range instances in the same sheet. You can use this class
      * to apply operations on collections of non-adjacent ranges or cells.
      */
-    export interface RangeList {
+    interface RangeList {
       activate(): RangeList;
       breakApart(): RangeList;
       check(): RangeList;
       clear(): RangeList;
-      clear(options: Object): RangeList;
+      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
       clearNote(): RangeList;
       getRanges(): Range[];
       insertCheckboxes(): RangeList;
-      insertCheckboxes(checkedValue: Object): RangeList;
-      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): RangeList;
+      insertCheckboxes(checkedValue: any): RangeList;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): RangeList;
       removeCheckboxes(): RangeList;
-      setBackground(color: string): RangeList;
+      setBackground(color: string | null): RangeList;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): RangeList;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): RangeList;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): RangeList;
-      setFontColor(color: string): RangeList;
-      setFontFamily(fontFamily: string): RangeList;
-      setFontLine(fontLine: string): RangeList;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null): RangeList;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): RangeList;
+      setFontColor(color: string | null): RangeList;
+      setFontFamily(fontFamily: string | null): RangeList;
+      setFontLine(fontLine: "underline" | "line-through" | "none" | null): RangeList;
       setFontSize(size: Integer): RangeList;
-      setFontStyle(fontStyle: string): RangeList;
-      setFontWeight(fontWeight: string): RangeList;
+      setFontStyle(fontStyle: "italic" | "normal" | null): RangeList;
+      setFontWeight(fontWeight: "bold" | "normal" | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
-      setHorizontalAlignment(alignment: string): RangeList;
-      setNote(note: string): RangeList;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;
+      setNote(note: string | null): RangeList;
       setNumberFormat(numberFormat: string): RangeList;
       setShowHyperlink(showHyperlink: boolean): RangeList;
-      setTextDirection(direction: TextDirection): RangeList;
+      setTextDirection(direction: TextDirection | null): RangeList;
       setTextRotation(degrees: Integer): RangeList;
-      setValue(value: Object): RangeList;
-      setVerticalAlignment(alignment: string): RangeList;
+      setValue(value: any): RangeList;
+      setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): RangeList;
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
       setWrapStrategy(strategy: WrapStrategy): RangeList;
+      trimWhitespace(): RangeList;
       uncheck(): RangeList;
     }
 
     /**
      * An enumeration representing the possible intervals used in spreadsheet recalculation.
      */
-    export enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
+    enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
 
     /**
      * An enumeration representing the relative date options for calculating a value to be used in
      * date-based BooleanCriteria.
      */
-    export enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
+    enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
 
     /**
      * A stylized text string used to represent cell text. Substrings of the text can have different
@@ -1612,7 +1613,7 @@ declare namespace GoogleAppsScript {
      * sentence "This kid has two apples." has four runs: ["This ", "kid ", "has two ",
      * "apples."].
      */
-    export interface RichTextValue {
+    interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
       getRuns(): RichTextValue[];
@@ -1625,11 +1626,11 @@ declare namespace GoogleAppsScript {
     /**
      * A builder for Rich Text values.
      */
-    export interface RichTextValueBuilder {
+    interface RichTextValueBuilder {
       build(): RichTextValue;
       setText(text: string): RichTextValueBuilder;
-      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle): RichTextValueBuilder;
-      setTextStyle(textStyle: TextStyle): RichTextValueBuilder;
+      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
+      setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;
     }
 
     /**
@@ -1654,30 +1655,30 @@ declare namespace GoogleAppsScript {
      *     }
      *     Logger.log('Active Sheet: ' + selection.getActiveSheet().getName());
      */
-    export interface Selection {
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+    interface Selection {
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getActiveSheet(): Sheet;
-      getCurrentCell(): Range;
-      getNextDataRange(direction: Direction): Range;
+      getCurrentCell(): Range | null;
+      getNextDataRange(direction: Direction): Range | null;
     }
 
     /**
      * Access and modify spreadsheet sheets. Common operations are renaming a sheet and accessing range
      * objects from the sheet.
      */
-    export interface Sheet {
+    interface Sheet {
       activate(): Sheet;
       addDeveloperMetadata(key: string): Sheet;
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
       addDeveloperMetadata(key: string, value: string): Sheet;
       addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
-      appendRow(rowContents: Object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: Object): Sheet;
+      clear(options: { formatOnly?: boolean; contentsOnly?: boolean }): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1696,21 +1697,21 @@ declare namespace GoogleAppsScript {
       expandColumnGroupsUpToDepth(groupDepth: Integer): Sheet;
       expandRowGroupsUpToDepth(groupDepth: Integer): Sheet;
       getActiveCell(): Range;
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getBandings(): Banding[];
       getCharts(): EmbeddedChart[];
-      getColumnGroup(columnIndex: Integer, groupDepth: Integer): Group;
+      getColumnGroup(columnIndex: Integer, groupDepth: Integer): Group | null;
       getColumnGroupControlPosition(): GroupControlTogglePosition;
       getColumnGroupDepth(columnIndex: Integer): Integer;
       getColumnWidth(columnPosition: Integer): Integer;
       getConditionalFormatRules(): ConditionalFormatRule[];
-      getCurrentCell(): Range;
+      getCurrentCell(): Range | null;
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
-      getFilter(): Filter;
-      getFormUrl(): string;
+      getFilter(): Filter | null;
+      getFormUrl(): string | null;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getImages(): OverGridImage[];
@@ -1729,15 +1730,15 @@ declare namespace GoogleAppsScript {
       getRange(row: Integer, column: Integer, numRows: Integer, numColumns: Integer): Range;
       getRange(a1Notation: string): Range;
       getRangeList(a1Notations: string[]): RangeList;
-      getRowGroup(rowIndex: Integer, groupDepth: Integer): Group;
+      getRowGroup(rowIndex: Integer, groupDepth: Integer): Group | null;
       getRowGroupControlPosition(): GroupControlTogglePosition;
       getRowGroupDepth(rowIndex: Integer): Integer;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
-      getTabColor(): string;
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
+      getTabColor(): string | null;
       getType(): SheetType;
       hasHiddenGridlines(): boolean;
       hideColumn(column: Range): void;
@@ -1791,7 +1792,7 @@ declare namespace GoogleAppsScript {
       setRowGroupControlPosition(position: GroupControlTogglePosition): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
-      setTabColor(color: string): Sheet;
+      setTabColor(color: string | null): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
       showRows(rowIndex: Integer): void;
@@ -1802,20 +1803,22 @@ declare namespace GoogleAppsScript {
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
       updateChart(chart: EmbeddedChart): void;
+      /** @deprecated DO NOT USE */
       getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */
       setSheetProtection(permissions: PageProtection): void;
     }
 
     /**
      * The different types of sheets that can exist in a spreadsheet.
      */
-    export enum SheetType { GRID, OBJECT }
+    enum SheetType { GRID, OBJECT }
 
     /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
      * collaborators.
      */
-    export interface Spreadsheet {
+    interface Spreadsheet {
       addDeveloperMetadata(key: string): Spreadsheet;
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
       addDeveloperMetadata(key: string, value: string): Spreadsheet;
@@ -1823,11 +1826,11 @@ declare namespace GoogleAppsScript {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
-      addMenu(name: string, subMenus: Object[]): void;
+      addMenu(name: string, subMenus: ({ name: string, functionName: string } | null)[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
       addViewers(emailAddresses: string[]): Spreadsheet;
-      appendRow(rowContents: Object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1840,42 +1843,42 @@ declare namespace GoogleAppsScript {
       deleteSheet(sheet: Sheet): void;
       duplicateActiveSheet(): Sheet;
       getActiveCell(): Range;
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getActiveSheet(): Sheet;
       getAs(contentType: string): Base.Blob;
       getBandings(): Banding[];
       getBlob(): Base.Blob;
       getColumnWidth(columnPosition: Integer): Integer;
-      getCurrentCell(): Range;
+      getCurrentCell(): Range | null;
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
-      getFormUrl(): string;
+      getFormUrl(): string | null;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getId(): string;
       getImages(): OverGridImage[];
-      getIterativeCalculationConvergenceThreshold(): Number;
+      getIterativeCalculationConvergenceThreshold(): number;
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getMaxIterativeCalculationCycles(): Integer;
       getName(): string;
       getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
-      getOwner(): Base.User;
+      getOwner(): Base.User | null;
       getProtections(type: ProtectionType): Protection[];
       getRange(a1Notation: string): Range;
-      getRangeByName(name: string): Range;
+      getRangeByName(name: string): Range | null;
       getRangeList(a1Notations: string[]): RangeList;
       getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
-      getSheetByName(name: string): Sheet;
+      getSheetByName(name: string): Sheet | null;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getSheets(): Sheet[];
       getSpreadsheetLocale(): string;
       getSpreadsheetTimeZone(): string;
@@ -1897,12 +1900,12 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: Object): Sheet;
-      insertSheet(options: Object): Sheet;
+      insertSheet(sheetIndex: Integer, options: { template?: Sheet }): Sheet;
+      insertSheet(options: { template?: Sheet }): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
-      insertSheet(sheetName: string, options: Object): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet }): Sheet;
+      insertSheet(sheetName: string, options: { template?: Sheet }): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isIterativeCalculationEnabled(): boolean;
@@ -1928,7 +1931,7 @@ declare namespace GoogleAppsScript {
       setCurrentCell(cell: Range): Range;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
-      setIterativeCalculationConvergenceThreshold(minThreshold: Number): Spreadsheet;
+      setIterativeCalculationConvergenceThreshold(minThreshold: number): Spreadsheet;
       setIterativeCalculationEnabled(isEnabled: boolean): Spreadsheet;
       setMaxIterativeCalculationCycles(maxIterations: Integer): Spreadsheet;
       setNamedRange(name: string, range: Range): void;
@@ -1936,26 +1939,31 @@ declare namespace GoogleAppsScript {
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
       setSpreadsheetTimeZone(timezone: string): void;
-      show(userInterface: Object): void;
+      show(userInterface: HTML.HtmlOutput): void;
       sort(columnPosition: Integer): Sheet;
       sort(columnPosition: Integer, ascending: boolean): Sheet;
       toast(msg: string): void;
       toast(msg: string, title: string): void;
-      toast(msg: string, title: string, timeoutSeconds: Number): void;
+      toast(msg: string, title: string, timeoutSeconds: number | null): void;
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
-      updateMenu(name: string, subMenus: Object[]): void;
+      updateMenu(name: string, subMenus: { name: string, functionName: string }[]): void;
+      /** @deprecated DO NOT USE */
       getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */
       isAnonymousView(): boolean;
+      /** @deprecated DO NOT USE */
       isAnonymousWrite(): boolean;
+      /** @deprecated DO NOT USE */
       setAnonymousAccess(anonymousReadAllowed: boolean, anonymousWriteAllowed: boolean): void;
+      /** @deprecated DO NOT USE */
       setSheetProtection(permissions: PageProtection): void;
     }
 
     /**
      * Access and create Google Sheets files. This class is the parent class for the Spreadsheet service.
      */
-    export interface SpreadsheetApp {
+    interface SpreadsheetApp {
       AutoFillSeries: typeof AutoFillSeries;
       BandingTheme: typeof BandingTheme;
       BooleanCriteria: typeof BooleanCriteria;
@@ -2014,16 +2022,16 @@ declare namespace GoogleAppsScript {
     /**
      * An enumerations of text directions.
      */
-    export enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
+    enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
 
     /**
      * Find or replace text within a range, sheet or spreadsheet. Can also specify search options.
      */
-    export interface TextFinder {
+    interface TextFinder {
       findAll(): Range[];
-      findNext(): Range;
-      findPrevious(): Range;
-      getCurrentMatch(): Range;
+      findNext(): Range | null;
+      findPrevious(): Range | null;
+      getCurrentMatch(): Range | null;
       ignoreDiacritics(ignoreDiacritics: boolean): TextFinder;
       matchCase(matchCase: boolean): TextFinder;
       matchEntireCell(matchEntireCell: boolean): TextFinder;
@@ -2037,7 +2045,7 @@ declare namespace GoogleAppsScript {
     /**
      * Access the text rotation settings for a cell.
      */
-    export interface TextRotation {
+    interface TextRotation {
       getDegrees(): Integer;
       isVertical(): boolean;
     }
@@ -2049,21 +2057,21 @@ declare namespace GoogleAppsScript {
      * method, the method returns null. To avoid this, query for text styles using the Rich Text
      * values returned by the RichTextValue.getRuns() method.
      */
-    export interface TextStyle {
+    interface TextStyle {
       copy(): TextStyleBuilder;
-      getFontFamily(): string;
-      getFontSize(): Integer;
-      getForegroundColor(): string;
-      isBold(): boolean;
-      isItalic(): boolean;
-      isStrikethrough(): boolean;
-      isUnderline(): boolean;
+      getFontFamily(): string | null;
+      getFontSize(): Integer | null;
+      getForegroundColor(): string | null;
+      isBold(): boolean | null;
+      isItalic(): boolean | null;
+      isStrikethrough(): boolean | null;
+      isUnderline(): boolean | null;
     }
 
     /**
      * A builder for text styles.
      */
-    export interface TextStyleBuilder {
+    interface TextStyleBuilder {
       build(): TextStyle;
       setBold(bold: boolean): TextStyleBuilder;
       setFontFamily(fontFamily: string): TextStyleBuilder;
@@ -2078,13 +2086,12 @@ declare namespace GoogleAppsScript {
      * An enumeration of the types of preset delimiters that can split a column of text into multiple
      * columns.
      */
-    export enum TextToColumnsDelimiter { COMMA, SEMICOLON, PERIOD, SPACE }
+    enum TextToColumnsDelimiter { COMMA, SEMICOLON, PERIOD, SPACE }
 
     /**
      * An enumeration of the strategies used to handle cell text wrapping.
      */
-    export enum WrapStrategy { WRAP, OVERFLOW, CLIP }
-
+    enum WrapStrategy { WRAP, OVERFLOW, CLIP }
   }
 }
 

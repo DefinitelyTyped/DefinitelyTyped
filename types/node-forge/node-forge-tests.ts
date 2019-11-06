@@ -1,6 +1,7 @@
 import * as forge from 'node-forge';
 
 let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
+forge.pki.rsa.setPublicKey(keypair.privateKey.n, keypair.privateKey.e);
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
@@ -10,6 +11,7 @@ let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -362,4 +364,20 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     console.log('created TLS client and server, doing handshake...');
     client.handshake();
+}
+
+{
+    const { privateKey } = forge.pki.ed25519.generateKeyPair();
+    const toSign = Buffer.from('test', 'utf8');
+    forge.pki.ed25519.sign({
+        message: toSign,
+        privateKey
+    });
+    
+    const toSign2 = 'foo';
+    forge.pki.ed25519.sign({
+        message: toSign2,
+        encoding: 'utf8',
+        privateKey
+    });
 }

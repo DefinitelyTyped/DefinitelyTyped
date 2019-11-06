@@ -4,7 +4,7 @@
 //                 Simon Ihmig <https://github.com/simonihmig>
 //                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { TestContext, ModuleCallbacks } from "ember-test-helpers";
 import Ember from 'ember';

@@ -24,6 +24,8 @@ const onChangeFunc1 = (string: number) => {};
 
 const onChangeFunc2 = (string: number[]) => {};
 
+const onBlurFunc = (e: React.FocusEvent) => {};
+
 ReactDOM.render(
     <Slider
         className="bottomRight"
@@ -38,12 +40,14 @@ ReactDOM.render(
         dots={true}
         onBeforeChange={onChangeFunc1}
         onChange={onChangeFunc1}
+        onBlur={onBlurFunc}
         onAfterChange={onChangeFunc1}
         defaultValue={0.1}
         value={0.1}
         style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}
         activeDotStyle={{backgroundColor: 'antiquewhite'}}
+        reverse={true}
     />,
     document.querySelector('.another-app')
 );

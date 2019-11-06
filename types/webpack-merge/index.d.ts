@@ -32,7 +32,7 @@ declare namespace webpackMerge {
         (customizeOptions: CustomizeOptions): ConfigurationMergeFunction;
         unique: UniqueFunction;
         smart: ConfigurationMergeFunction;
-        multiple: ConfigurationMergeFunction;
+        multiple: MultipleConfigurationMergeFunction;
         strategy(options: { [field: string]: MergeStrategy }): ConfigurationMergeFunction;
         smartStrategy(options: { [key: string]: MergeStrategy }): ConfigurationMergeFunction;
     }

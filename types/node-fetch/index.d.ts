@@ -1,4 +1,4 @@
-// Type definitions for node-fetch 2.3
+// Type definitions for node-fetch 2.5
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
@@ -6,15 +6,19 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
+//                 Brandon Wilson <https://github.com/wilsonianb>
+//                 Steve Faulkner <https://github.com/southpolesteve>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import { Agent } from "http";
-import { URLSearchParams } from "url";
+import { URLSearchParams, URL } from "url";
+import { AbortSignal } from "./externals";
 
 export class Request extends Body {
-    constructor(input: string | { href: string } | Request, init?: RequestInit);
+    constructor(input: RequestInfo, init?: RequestInit);
     clone(): Request;
     context: RequestContext;
     headers: Headers;
@@ -24,7 +28,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent;
+    agent?: Agent | ((parsedUrl: URL) => Agent);
     compress: boolean;
     counter: number;
     follow: number;
@@ -41,9 +45,10 @@ export interface RequestInit {
     headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal | null;
 
     // node-fetch extensions
-    agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: Agent | ((parsedUrl: URL) => Agent); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean; // =true support gzip/deflate content encoding. false to disable
     follow?: number; // =20 maximum redirect count. 0 to not follow redirect
     size?: number; // =0 maximum response body size in bytes. 0 to disable
@@ -104,7 +109,6 @@ export class Headers implements Iterable<[string, string]> {
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
-    getAll(name: string): string[];
     has(name: string): boolean;
     raw(): { [k: string]: string[] };
     set(name: string, value: string): void;
@@ -138,8 +142,10 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
+    size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
+    timeout: number;
 }
 
 export class FetchError extends Error {
@@ -157,10 +163,9 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
-    size: number;
+    redirected: boolean;
     status: number;
     statusText: string;
-    timeout: number;
     type: ResponseType;
     url: string;
 }
@@ -175,8 +180,15 @@ export type ResponseType =
 
 export interface ResponseInit {
     headers?: HeadersInit;
-    status: number;
+    size?: number;
+    status?: number;
     statusText?: string;
+    timeout?: number;
+    url?: string;
+}
+
+interface URLLike {
+    href: string;
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
@@ -188,10 +200,10 @@ export type BodyInit =
     | NodeJS.ReadableStream
     | string
     | URLSearchParams;
-export type RequestInfo = string | Request;
+export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
-    url: string | Request,
+    url: RequestInfo,
     init?: RequestInit
 ): Promise<Response>;
 

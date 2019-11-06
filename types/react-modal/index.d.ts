@@ -1,4 +1,4 @@
-// Type definitions for react-modal 3.8
+// Type definitions for react-modal 3.10
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -32,8 +32,12 @@ declare namespace ReactModal {
     }
 
     interface Aria {
+        /** Defines a string value that labels the current element. */
         labelledby?: string;
+        /** Identifies the element (or elements) that describes the object. */
         describedby?: string;
+        /** Indicates whether an element is modal when displayed. */
+        modal?: boolean | 'false' | 'true';
     }
 
     interface Props {
@@ -46,11 +50,11 @@ declare namespace ReactModal {
         /* String className to be applied to the portal. Defaults to "ReactModalPortal". */
         portalClassName?: string;
 
-        /* String className to be applied to the document.body. */
-        bodyOpenClassName?: string;
+        /* String className to be applied to the document.body (must be a constant string). When set to null it doesn't add any class to document.body. */
+        bodyOpenClassName?: string | null;
 
-        /* String className to be applied to the document.html. */
-        htmlOpenClassName?: string;
+        /* String className to be applied to the document.html (must be a constant string). Defaults to null. */
+        htmlOpenClassName?: string | null;
 
         /* String or object className to be applied to the modal content. */
         className?: string | Classes;
@@ -97,8 +101,8 @@ declare namespace ReactModal {
         /* Additional data attributes to be applied to to the modal content in the form of "data-*" */
         data?: any;
 
-        /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
-        role?: string;
+        /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. Defaults to "dialog". */
+        role?: string | null;
 
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;

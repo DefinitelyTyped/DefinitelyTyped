@@ -3,10 +3,11 @@
 // Definitions by: Cliff Burger <https://github.com/cliffburger>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
-declare function chaiDateTime(chai: any, utils: any): void;
+declare const chaiDateTime: Chai.ChaiPlugin;
 export = chaiDateTime;
 
 declare global {

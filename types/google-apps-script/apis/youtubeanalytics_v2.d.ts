@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace YouTubeAnalytics {
     namespace Collection {
-      export interface GroupItemsCollection {
+      interface GroupItemsCollection {
         // Creates a group item.
         insert(resource: Schema.GroupItem): YouTubeAnalytics.Schema.GroupItem;
         // Creates a group item.
@@ -21,7 +21,7 @@ declare namespace GoogleAppsScript {
         // Removes an item from a group.
         remove(optionalArgs: object): YouTubeAnalytics.Schema.EmptyResponse;
       }
-      export interface GroupsCollection {
+      interface GroupsCollection {
         // Creates a group.
         insert(resource: Schema.Group): YouTubeAnalytics.Schema.Group;
         // Creates a group.
@@ -43,7 +43,7 @@ declare namespace GoogleAppsScript {
         // Modifies a group. For example, you could change a group's title.
         update(resource: Schema.Group, optionalArgs: object): YouTubeAnalytics.Schema.Group;
       }
-      export interface ReportsCollection {
+      interface ReportsCollection {
         // Retrieve your YouTube Analytics reports.
         query(): YouTubeAnalytics.Schema.QueryResponse;
         // Retrieve your YouTube Analytics reports.
@@ -51,10 +51,10 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface EmptyResponse {
+      interface EmptyResponse {
         errors?: YouTubeAnalytics.Schema.Errors;
       }
-      export interface ErrorProto {
+      interface ErrorProto {
         argument?: string[];
         code?: string;
         debugInfo?: string;
@@ -63,12 +63,12 @@ declare namespace GoogleAppsScript {
         location?: string;
         locationType?: string;
       }
-      export interface Errors {
+      interface Errors {
         code?: string;
         error?: YouTubeAnalytics.Schema.ErrorProto[];
         requestId?: string;
       }
-      export interface Group {
+      interface Group {
         contentDetails?: YouTubeAnalytics.Schema.GroupContentDetails;
         errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
@@ -76,11 +76,11 @@ declare namespace GoogleAppsScript {
         kind?: string;
         snippet?: YouTubeAnalytics.Schema.GroupSnippet;
       }
-      export interface GroupContentDetails {
+      interface GroupContentDetails {
         itemCount?: string;
         itemType?: string;
       }
-      export interface GroupItem {
+      interface GroupItem {
         errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
         groupId?: string;
@@ -88,41 +88,41 @@ declare namespace GoogleAppsScript {
         kind?: string;
         resource?: YouTubeAnalytics.Schema.GroupItemResource;
       }
-      export interface GroupItemResource {
+      interface GroupItemResource {
         id?: string;
         kind?: string;
       }
-      export interface GroupSnippet {
+      interface GroupSnippet {
         publishedAt?: string;
         title?: string;
       }
-      export interface ListGroupItemsResponse {
+      interface ListGroupItemsResponse {
         errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
         items?: YouTubeAnalytics.Schema.GroupItem[];
         kind?: string;
       }
-      export interface ListGroupsResponse {
+      interface ListGroupsResponse {
         errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
         items?: YouTubeAnalytics.Schema.Group[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface QueryResponse {
+      interface QueryResponse {
         columnHeaders?: YouTubeAnalytics.Schema.ResultTableColumnHeader[];
         errors?: YouTubeAnalytics.Schema.Errors;
         kind?: string;
-        rows?: Object[][];
+        rows?: any[][];
       }
-      export interface ResultTableColumnHeader {
+      interface ResultTableColumnHeader {
         columnType?: string;
         dataType?: string;
         name?: string;
       }
     }
   }
-  export interface YouTubeAnalytics {
+  interface YouTubeAnalytics {
     GroupItems?: YouTubeAnalytics.Collection.GroupItemsCollection;
     Groups?: YouTubeAnalytics.Collection.GroupsCollection;
     Reports?: YouTubeAnalytics.Collection.ReportsCollection;

@@ -11,8 +11,10 @@
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
+//                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Ben Salili-James <https://github.com/benhjames>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -36,6 +38,10 @@ declare namespace Draft {
             import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
+
+            type DraftStyleMap = {
+                [styleName: string]: React.CSSProperties
+            };
 
             type EditorCommand = DraftEditorCommand | string;
 
@@ -71,21 +77,30 @@ declare namespace Draft {
                 // regardless of input characters.
                 textAlignment?: DraftTextAlignment;
 
+                // Specify whether text directionality should be forced in a direction
+                // regardless of input characters.
+                textDirectionality?: DraftTextDirectionality;
+
                 // For a given `ContentBlock` object, return an object that specifies
                 // a custom block component and/or props. If no object is returned,
                 // the default `TextEditorBlock` is used.
                 blockRendererFn?(block: ContentBlock): any;
+
+                // Provide a map of block rendering configurations. Each block type maps to
+                // an element tag and an optional react element wrapper. This configuration
+                // is used for both rendering and paste processing.
+                blockRenderMap?: DraftBlockRenderMap
 
                 // Function that allows to define class names to apply to the given block when it is rendered.
                 blockStyleFn?(block: ContentBlock): string;
 
                 // Provide a map of inline style names corresponding to CSS style objects
                 // that will be rendered for matching ranges.
-                customStyleMap?: any;
+                customStyleMap?: DraftStyleMap;
 
                 // Provide a function that will construct CSS style objects given inline
                 // style names.
-                customStyleFn?: (style: DraftInlineStyle) => Object;
+                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => DraftStyleMap;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
@@ -121,7 +136,13 @@ declare namespace Draft {
                 ariaLabel?: string;
                 ariaMultiline?: boolean;
 
+                role?: string;
+
                 webDriverTestID?: string;
+
+                // If using server-side rendering, this prop is required to be set to
+                // avoid client/server mismatches.
+                editorKey?: string;
 
                 /**
                  * Cancelable event handlers, handled from the top level down. A handler
@@ -134,14 +155,14 @@ declare namespace Draft {
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: EditorCommand, editorState: EditorState): DraftHandleValue,
+                handleKeyCommand?(command: EditorCommand, editorState: EditorState, eventTimeStamp: number): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue,
 
                 handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
@@ -165,14 +186,11 @@ declare namespace Draft {
 
                 onBlur?(e: SyntheticEvent): void,
                 onFocus?(e: SyntheticEvent): void,
-
-                // Provide a map of block rendering configurations. Each block type maps to
-                // an element tag and an optional react element wrapper. This configuration
-                // is used for both rendering and paste processing.
-                blockRenderMap?: DraftBlockRenderMap
             }
 
             type DraftTextAlignment = "left" | "center" | "right";
+
+            type DraftTextDirectionality = "LTR" | "RTL" | "NEUTRAL";
         }
 
         namespace Components {
@@ -302,7 +320,7 @@ declare namespace Draft {
             /**
              * The list of default valid block types.
              */
-            type DraftBlockType = (
+            type CoreDraftBlockType = (
                 "unstyled" |
                 "paragraph" |
                 "header-one" |
@@ -317,6 +335,10 @@ declare namespace Draft {
                 "code-block" |
                 "atomic"
             );
+
+            type CustomBlockType = string;
+
+            type DraftBlockType = CoreDraftBlockType | CustomBlockType;
 
             /**
              * A type that allows us to avoid passing boolean arguments
@@ -437,7 +459,7 @@ declare namespace Draft {
             interface DraftDecorator {
                 strategy: (block: ContentBlock, callback: (start: number, end: number) => void, contentState: ContentState) => void;
                 component: Function;
-                props?: Object;
+                props?: object;
             }
 
             /**
@@ -503,10 +525,10 @@ declare namespace Draft {
             /**
              * A plain object representation of an EntityInstance.
              */
-            interface RawDraftEntity {
+            interface RawDraftEntity<T = { [key: string]: any }> {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: { [key: string]: any };
+                data: T;
             }
 
             /**
@@ -731,7 +753,6 @@ declare namespace Draft {
                 getKey(): string;
 
                 getType(): DraftBlockType;
-                getType(): string;
 
                 getText(): string;
                 getCharacterList(): Immutable.List<CharacterMetadata>;
@@ -913,7 +934,7 @@ declare namespace Draft {
                 static getCurrentBlockType(editorState: EditorState): string;
                 static getDataObjectForLinkURL(uri: URI): Object;
 
-                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState | null;
                 static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
@@ -922,8 +943,8 @@ declare namespace Draft {
                  * For collapsed selections at the start of styled blocks, backspace should
                  * just remove the existing style.
                  */
-                static onBackspace(editorState: EditorState): EditorState;
-                static onDelete(editorState: EditorState): EditorState;
+                static onBackspace(editorState: EditorState): EditorState | null;
+                static onDelete(editorState: EditorState): EditorState | null;
                 static onTab(event: SyntheticKeyboardEvent, editorState: EditorState, maxDepth: number): EditorState;
 
                 static toggleBlockType(editorState: EditorState, blockType: DraftBlockType): EditorState;
@@ -946,7 +967,7 @@ declare namespace Draft {
                  * certain key commands (newline, backspace) to simply change the
                  * style of the block instead of the default behavior.
                  */
-                static tryToRemoveBlockStyle(editorState: EditorState): ContentState;
+                static tryToRemoveBlockStyle(editorState: EditorState): ContentState | null;
             }
         }
     }
@@ -958,6 +979,7 @@ import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
+import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
 import EntityInstance = Draft.Model.Entity.DraftEntityInstance;
@@ -1002,6 +1024,7 @@ import DraftEntityType = Draft.Model.Constants.DraftEntityType;
 import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
 import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
+import DraftStyleMap = Draft.Component.Base.DraftStyleMap;
 
 export {
     Editor,
@@ -1010,6 +1033,7 @@ export {
     EditorState,
     EditorChangeType,
 
+    DraftDecorator,
     CompositeDecorator,
     Entity,
     EntityInstance,
@@ -1054,4 +1078,5 @@ export {
     DraftRemovalDirection,
     DraftHandleValue,
     DraftInsertionType,
+    DraftStyleMap
 };

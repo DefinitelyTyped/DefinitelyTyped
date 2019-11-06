@@ -21,6 +21,7 @@
     "files": [
         "index.d.ts",
         "constants.d.ts",
+        "amp.d.ts",
         "app.d.ts",
         "document.d.ts",
         "dynamic.d.ts",

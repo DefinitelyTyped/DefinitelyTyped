@@ -8,7 +8,7 @@ declare namespace GoogleAppsScript {
   namespace Mirror {
     namespace Collection {
       namespace Timeline {
-        export interface AttachmentsCollection {
+        interface AttachmentsCollection {
           // Retrieves an attachment on a timeline item by item ID and attachment ID.
           get(itemId: string, attachmentId: string): Mirror.Schema.Attachment;
           // Adds a new attachment to a timeline item.
@@ -21,11 +21,11 @@ declare namespace GoogleAppsScript {
           remove(itemId: string, attachmentId: string): void;
         }
       }
-      export interface AccountsCollection {
+      interface AccountsCollection {
         // Inserts a new account for a user
         insert(resource: Schema.Account, userToken: string, accountType: string, accountName: string): Mirror.Schema.Account;
       }
-      export interface ContactsCollection {
+      interface ContactsCollection {
         // Gets a single contact by ID.
         get(id: string): Mirror.Schema.Contact;
         // Inserts a new contact.
@@ -39,17 +39,17 @@ declare namespace GoogleAppsScript {
         // Updates a contact in place.
         update(resource: Schema.Contact, id: string): Mirror.Schema.Contact;
       }
-      export interface LocationsCollection {
+      interface LocationsCollection {
         // Gets a single location by ID.
         get(id: string): Mirror.Schema.Location;
         // Retrieves a list of locations for the user.
         list(): Mirror.Schema.LocationsListResponse;
       }
-      export interface SettingsCollection {
+      interface SettingsCollection {
         // Gets a single setting by ID.
         get(id: string): Mirror.Schema.Setting;
       }
-      export interface SubscriptionsCollection {
+      interface SubscriptionsCollection {
         // Creates a new subscription.
         insert(resource: Schema.Subscription): Mirror.Schema.Subscription;
         // Retrieves a list of subscriptions for the authenticated user and service.
@@ -59,7 +59,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing subscription in place.
         update(resource: Schema.Subscription, id: string): Mirror.Schema.Subscription;
       }
-      export interface TimelineCollection {
+      interface TimelineCollection {
         Attachments?: Mirror.Collection.Timeline.AttachmentsCollection;
         // Gets a single timeline item by ID.
         get(id: string): Mirror.Schema.TimelineItem;
@@ -82,30 +82,30 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         authTokens?: Mirror.Schema.AuthToken[];
         features?: string[];
         password?: string;
         userData?: Mirror.Schema.UserData[];
       }
-      export interface Attachment {
+      interface Attachment {
         contentType?: string;
         contentUrl?: string;
         id?: string;
         isProcessingContent?: boolean;
       }
-      export interface AttachmentsListResponse {
+      interface AttachmentsListResponse {
         items?: Mirror.Schema.Attachment[];
         kind?: string;
       }
-      export interface AuthToken {
+      interface AuthToken {
         authToken?: string;
         type?: string;
       }
-      export interface Command {
+      interface Command {
         type?: string;
       }
-      export interface Contact {
+      interface Contact {
         acceptCommands?: Mirror.Schema.Command[];
         acceptTypes?: string[];
         displayName?: string;
@@ -119,25 +119,25 @@ declare namespace GoogleAppsScript {
         speakableName?: string;
         type?: string;
       }
-      export interface ContactsListResponse {
+      interface ContactsListResponse {
         items?: Mirror.Schema.Contact[];
         kind?: string;
       }
-      export interface Location {
-        accuracy?: Number;
+      interface Location {
+        accuracy?: number;
         address?: string;
         displayName?: string;
         id?: string;
         kind?: string;
-        latitude?: Number;
-        longitude?: Number;
+        latitude?: number;
+        longitude?: number;
         timestamp?: string;
       }
-      export interface LocationsListResponse {
+      interface LocationsListResponse {
         items?: Mirror.Schema.Location[];
         kind?: string;
       }
-      export interface MenuItem {
+      interface MenuItem {
         action?: string;
         contextual_command?: string;
         id?: string;
@@ -145,12 +145,12 @@ declare namespace GoogleAppsScript {
         removeWhenSelected?: boolean;
         values?: Mirror.Schema.MenuValue[];
       }
-      export interface MenuValue {
+      interface MenuValue {
         displayName?: string;
         iconUrl?: string;
         state?: string;
       }
-      export interface Notification {
+      interface Notification {
         collection?: string;
         itemId?: string;
         operation?: string;
@@ -158,16 +158,16 @@ declare namespace GoogleAppsScript {
         userToken?: string;
         verifyToken?: string;
       }
-      export interface NotificationConfig {
+      interface NotificationConfig {
         deliveryTime?: string;
         level?: string;
       }
-      export interface Setting {
+      interface Setting {
         id?: string;
         kind?: string;
         value?: string;
       }
-      export interface Subscription {
+      interface Subscription {
         callbackUrl?: string;
         collection?: string;
         id?: string;
@@ -178,11 +178,11 @@ declare namespace GoogleAppsScript {
         userToken?: string;
         verifyToken?: string;
       }
-      export interface SubscriptionsListResponse {
+      interface SubscriptionsListResponse {
         items?: Mirror.Schema.Subscription[];
         kind?: string;
       }
-      export interface TimelineItem {
+      interface TimelineItem {
         attachments?: Mirror.Schema.Attachment[];
         bundleId?: string;
         canonicalUrl?: string;
@@ -210,22 +210,22 @@ declare namespace GoogleAppsScript {
         title?: string;
         updated?: string;
       }
-      export interface TimelineListResponse {
+      interface TimelineListResponse {
         items?: Mirror.Schema.TimelineItem[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface UserAction {
+      interface UserAction {
         payload?: string;
         type?: string;
       }
-      export interface UserData {
+      interface UserData {
         key?: string;
         value?: string;
       }
     }
   }
-  export interface Mirror {
+  interface Mirror {
     Accounts?: Mirror.Collection.AccountsCollection;
     Contacts?: Mirror.Collection.ContactsCollection;
     Locations?: Mirror.Collection.LocationsCollection;

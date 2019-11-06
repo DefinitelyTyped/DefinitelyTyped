@@ -2397,6 +2397,12 @@ function test_AxisOptions() {
             ['minute', [1, 2, 5, 10, 15, 30]]],
         visible: true
     };
+
+    const labelsOptionUnions: Highcharts.AxisOptions = {
+        labels: {
+            autoRotation: false
+        }
+    };
 }
 
 function test_AxisObject() {

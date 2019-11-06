@@ -1,7 +1,7 @@
 import * as tty from 'tty';
 
-const rs: tty.ReadStream = new tty.ReadStream();
-const ws: tty.WriteStream = new tty.WriteStream();
+const rs: tty.ReadStream = new tty.ReadStream(0);
+const ws: tty.WriteStream = new tty.WriteStream(1);
 
 const rsIsRaw: boolean = rs.isRaw;
 rs.setRawMode(true);
@@ -14,6 +14,8 @@ ws.clearLine(0);
 ws.clearLine(1);
 ws.clearScreenDown();
 ws.cursorTo(42, 42);
+ws.cursorTo(42);
+ws.cursorTo(42, () => { });
 ws.addListener('resize', () => {
 });
 ws.getColorDepth();

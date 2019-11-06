@@ -2,8 +2,9 @@
 // Project: https://github.com/datadog/node-connect-datadog
 // Definitions by: Moshe Good <https://github.com/moshegood>
 //                 Michael Mifsud <https://github.com/xzyfer>
+//                 Lewis Vail <https://github.com/lewisvail3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
 import dogstatsd = require('node-dogstatsd');
@@ -17,6 +18,7 @@ declare namespace Factory {
         stat?: string;
         tags?: string[];
         path?: boolean;
+        base_url?: boolean;
         method?: boolean;
         protocol?: boolean;
         response_code?: boolean;

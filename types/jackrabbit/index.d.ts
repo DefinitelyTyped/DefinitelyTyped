@@ -2,7 +2,7 @@
 // Project: https://github.com/hunterloftis/jackrabbit
 // Definitions by: Elvis Adomnica <https://github.com/elvisvoer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import { Connection, Options, Message } from 'amqplib';
 

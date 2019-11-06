@@ -82,6 +82,7 @@ function testSandbox() {
     const stubInstance = sb.createStubInstance(cls);
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo', 1);
+    stubInstance.foo.calledWith('foo');
     privateFooStubbedInstance.foo.calledWith();
     const clsFoo: sinon.SinonStub<[string, number], number> = stubInstance.foo;
     const privateFooFoo: sinon.SinonStub<[], void> = privateFooStubbedInstance.foo;
@@ -133,18 +134,20 @@ function testClock() {
     let clock = sinon.clock.create(1000);
     clock = sinon.clock.create(new Date());
 
-    let now = 0;
+    let now: sinon.SinonTimerId = 0;
     now = clock.now;
 
     const fn = () => { };
+    const fnWithArgs = (a: number, b: string) => {};
 
     clock.setTimeout(fn, 0);
-    clock.setTimeout(fn, 0, 'a', 'b');
     clock.setInterval(fn, 0);
-    clock.setInterval(fn, 0, 'a', 'b');
     clock.setImmediate(fn);
-    clock.setImmediate(fn, 'a', 'b');
     clock.requestAnimationFrame(fn);
+
+    now = clock.setTimeout(fnWithArgs, 0, 1234, 'abc');
+    now = clock.setInterval(fnWithArgs, 0, 1234, 'abc');
+    now = clock.setImmediate(fnWithArgs, 1234, 'abc');
 
     let timer = clock.setTimeout(fn, 0);
     clock.clearTimeout(timer);
@@ -490,6 +493,7 @@ function testStub() {
         foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
         promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
+        unresolvableReturnFunc(): any { return Promise.resolve(); }
         fooDeep(arg: { s: string }): void { return undefined; }
     };
     const instance = new obj();
@@ -500,6 +504,11 @@ function testStub() {
 
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+    promiseStub.resolves(123); // $ExpectError
+
+    const promiseUnresolvableReturn =
+        sinon.stub(instance, 'unresolvableReturnFunc');
+    promiseUnresolvableReturn.resolves(['anything', 123, true]);
 
     const promiseLikeStub = sinon.stub(instance, 'promiseLikeFunc');
     promiseLikeStub.resolves('test');

@@ -1,7 +1,9 @@
-// Type definitions for redux-storage 4.0.1
-// Project: https://github.com/michaelcontento/redux-storage
+// Type definitions for redux-storage 4.1.2
+// Project: https://github.com/react-stack/redux-storage
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+//                 Alexey Pelykh <https://github.com/alexey-pelykh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="redux" />
 
@@ -41,12 +43,18 @@ declare module "redux-storage" {
     export function reducer<TState>(reducer: Reducer<TState>, merger?: StateMerger): Reducer<TState>;
 
     /**
+     * Callback that checks action type
+     * @param type
+     */
+    export type ActionTypeCheckCallback = (type: string) => boolean
+
+    /**
      * Create storage middleware
      * @param engine
      * @param actionBlacklist
      * @param actionWhitelist
      */
-    export function createMiddleware(engine: StorageEngine, actionBlacklist?: string[], actionWhitelist?: string[]): Middleware;
+    export function createMiddleware(engine: StorageEngine, actionBlacklist?: string[], actionWhitelist?: string[] | ActionTypeCheckCallback): Middleware;
 
     /**
      * Loader interface

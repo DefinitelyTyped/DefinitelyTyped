@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 3.1
+// Type definitions for webpack-dev-server 3.4
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -6,6 +6,8 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
 //                 Dave Cardwell <https://github.com/davecardwell>
+//                 Katsuya Hino <https://github.com/dobogo>
+//                 Billy Le <https://github.com/billy-le>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +17,7 @@ import * as express from 'express';
 import * as serveStatic from 'serve-static';
 import * as https from 'https';
 import * as http from 'http';
-import { Url } from "url";
+import * as connectHistoryApiFallback from 'connect-history-api-fallback';
 
 declare namespace WebpackDevServer {
     interface ListeningApp {
@@ -28,35 +30,18 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
-        context?: string | string[] | httpProxyMiddleware.Filter
+        context?: string | string[] | httpProxyMiddleware.Filter;
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
-    interface Context {
-        match: RegExpMatchArray;
-        parsedUrl: Url;
-    }
-
-    type RewriteTo = (context: Context) => string;
-
-    interface Rewrite {
-        from: RegExp;
-        to: string | RegExp | RewriteTo;
-    }
-
-    interface HistoryApiFallbackConfig {
-        disableDotRule?: boolean;
-        rewrites?: Rewrite[];
-    }
-
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
-        after?: (app: express.Application, server: WebpackDevServer) => void;
+        after?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
         /** This option allows you to whitelist services that are allowed to access the dev server. */
         allowedHosts?: string[];
         /** Provides the ability to execute custom middleware prior to all other middleware internally within the server. */
-        before?: (app: express.Application, server: WebpackDevServer) => void;
+        before?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
         /** This option broadcasts the server via ZeroConf networking on start. */
         bonjour?: boolean;
         /**
@@ -87,17 +72,34 @@ declare namespace WebpackDevServer {
             [key: string]: string;
         };
         /** When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. */
-        historyApiFallback?: boolean | HistoryApiFallbackConfig;
+        historyApiFallback?: boolean | connectHistoryApiFallback.Options;
         /** Specify a host to use. By default this is localhost. */
         host?: string;
         /** Enable webpack's Hot Module Replacement feature. */
         hot?: boolean;
         /** Enables Hot Module Replacement (see devServer.hot) without page refresh as fallback in case of build failures. */
         hotOnly?: boolean;
+        /**
+         * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0 and above,
+         * as spdy is broken for those versions. The dev server will migrate over to Node's
+         * built-in HTTP/2 once Express supports it.
+         */
+        http2?: boolean;
         /** By default dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. */
         https?: boolean | https.ServerOptions;
         /** The filename that is considered the index file. */
         index?: string;
+        /**
+         * Tells devServer to inject a client. Setting devServer.injectClient to true will result
+         * in always injecting a client. It is possible to provide a function to inject conditionally
+         */
+        injectClient?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
+        /**
+         * Tells devServer to inject a Hot Module Replacement. Setting devServer.injectHot
+         * to true will result in always injecting. It is possible to provide a function to
+         * inject conditionally
+         */
+        injectHot?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
         /**
          * Toggle between the dev-server's two different modes.
          * By default the application will be served with inline mode enabled.
@@ -111,6 +113,24 @@ declare namespace WebpackDevServer {
          */
         lazy?: boolean;
         /**
+         * By default, the dev-server will reload/refresh the page when file changes are detected.
+         */
+        liveReload?: boolean;
+        /**
+         * Allows dev-server to register custom mime types.
+         */
+        mimeTypes?:
+            | {
+                  [key: string]: string[];
+              }
+            | {
+                  typeMap?: {
+                      [key: string]: string[];
+                  } & {
+                      force: boolean;
+                  };
+              };
+        /**
          * With noInfo enabled, messages like the webpack bundle information that is shown
          * when starting up and after each save,will be hidden.
          * Errors and warnings will still be shown.
@@ -121,10 +141,12 @@ declare namespace WebpackDevServer {
         /** Specify a page to navigate to when opening the browser. */
         openPage?: string;
         /** Shows a full-screen overlay in the browser when there are compiler errors or warnings. Disabled by default. */
-        overlay?: boolean | {
-            warnings?: boolean;
-            errors?: boolean;
-        };
+        overlay?:
+            | boolean
+            | {
+                  warnings?: boolean;
+                  errors?: boolean;
+              };
         /** When used via the CLI, a path to an SSL .pfx file. If used in options, it should be the bytestream of the .pfx file. */
         pfx?: string;
         /** The passphrase to a SSL PFX file. */
@@ -149,10 +171,18 @@ declare namespace WebpackDevServer {
          * This also means that errors or warnings from webpack are not visible.
          */
         quiet?: boolean;
+        /**
+         * Tells dev-server to use serveIndex middleware when enabled.
+         */
+        serveIndex?: boolean;
         /** @deprecated Here you can access the Express app object and add your own custom middleware to it. */
         setup?: (app: express.Application, server: WebpackDevServer) => void;
         /** The Unix socket to listen to (instead of a host). */
         socket?: string;
+        /**
+         * Tells clients connected to devServer to use provided socket host.
+         */
+        sockHost?: string;
         /** The path at which to connect to the reloading socket. */
         sockPath?: string;
         /** It is possible to configure advanced options for serving static files from contentBase. */
@@ -181,15 +211,12 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
-    constructor(
-        webpack: webpack.Compiler | webpack.MultiCompiler,
-        config: WebpackDevServer.Configuration
-    );
+    constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
 
     static addDevServerEntrypoints(
         webpackOptions: webpack.Configuration | webpack.Configuration[],
         config: WebpackDevServer.Configuration,
-        listeningApp?: WebpackDevServer.ListeningApp
+        listeningApp?: WebpackDevServer.ListeningApp,
     ): void;
 
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;

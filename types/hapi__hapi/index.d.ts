@@ -201,6 +201,8 @@ export interface AuthCredentials {
     app?: AppCredentials;
 }
 
+export type AuthMode = 'required' | 'optional' | 'try';
+
 /**
  * Authentication information:
  * * artifacts - an artifact object received from the authentication strategy and used in authentication-related actions.
@@ -228,7 +230,7 @@ export interface RequestAuth {
      */
     isAuthorized: boolean;
     /** the route authentication mode. */
-    mode: string;
+    mode: AuthMode;
     /** the name of the strategy used. */
     strategy: string;
 }
@@ -347,7 +349,7 @@ export interface RequestRoute {
     realm: ServerRealm;
 
     /** the route options object with all defaults applied. */
-    settings: RouteOptions;
+    settings: RouteSettings;
 
     /** the route internal normalized string representing the normalized path. */
     fingerprint: string;
@@ -399,7 +401,7 @@ export interface Request extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestapp)
      */
-    app: ApplicationState;
+    app: RequestApplicationState;
 
     /**
      * Authentication information:
@@ -669,7 +671,7 @@ export interface ResponseObject extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
-    app: ApplicationState;
+    app: ResponseApplicationState;
 
     /**
      * Access: read only and the public podium interface.
@@ -740,8 +742,8 @@ export interface ResponseObject extends Podium {
     charset(charset: string): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
-     * $param charset - the charset property value.
+     * Sets the HTTP status code where:
+     * @param statusCode - the HTTP status code (e.g. 200).
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      */
@@ -1112,14 +1114,14 @@ export interface ResponseToolkit {
 
 export type RouteOptionsAccessScope = false | string | string[];
 
-export type RouteOptionsAccessEntity = 'any' | 'user' | 'app';
+export type AccessEntity = 'any' | 'user' | 'app';
 
 export interface RouteOptionsAccessScopeObject {
     scope: RouteOptionsAccessScope;
 }
 
 export interface RouteOptionsAccessEntityObject {
-    entity: RouteOptionsAccessEntity;
+    entity: AccessEntity;
 }
 
 export type RouteOptionsAccessObject =
@@ -1158,7 +1160,7 @@ export interface RouteOptionsAccess {
      * strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
      */
-    entity?: RouteOptionsAccessEntity;
+    entity?: AccessEntity;
 
     /**
      * Default value: 'required'.
@@ -1168,7 +1170,7 @@ export interface RouteOptionsAccess {
      * * 'try' - similar to 'optional', any request credentials are attempted authentication, but if the credentials are invalid, the request proceeds regardless of the authentication error.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthmode)
      */
-    mode?: 'required' | 'optional' | 'try';
+    mode?: AuthMode;
 
     /**
      * Default value: false, unless the scheme requires payload authentication.
@@ -1583,7 +1585,7 @@ export interface RouteOptionsSecureObject {
         /**
          * a boolean specifying whether to add the includeSubDomains flag to the header.
          */
-        includeSubdomains: boolean;
+        includeSubDomains: boolean;
         /**
          * a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header.
          */
@@ -1725,26 +1727,7 @@ export type RouteCompressionEncoderSettings = object;
 export interface RouteOptionsApp {
 }
 
-/**
- * Each route can be customized to change the default behavior of the request lifecycle.
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
- */
-export interface RouteOptions {
-    /**
-     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    app?: RouteOptionsApp;
-
-    /**
-     * Route authentication configuration. Value can be:
-     * false to disable authentication if a default strategy is set.
-     * a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
-     * an authentication configuration object.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    auth?: false | string | RouteOptionsAccess;
-
+export interface CommonRouteProperties {
     /**
      * Default value: null.
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
@@ -1975,6 +1958,48 @@ export interface RouteOptions {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
      */
     validate?: RouteOptionsValidate;
+}
+
+export interface AccessScopes {
+    forbidden?: string[];
+    required?: string[];
+    selection?: string[];
+}
+
+export interface AccessSetting {
+    entity?: AccessEntity;
+    scope: AccessScopes | false;
+}
+
+export interface AuthSettings {
+    strategies: string[];
+    mode: AuthMode;
+    access?: AccessSetting[];
+}
+
+export interface RouteSettings extends CommonRouteProperties {
+    auth?: AuthSettings;
+}
+
+/**
+ * Each route can be customized to change the default behavior of the request lifecycle.
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
+ */
+export interface RouteOptions extends CommonRouteProperties {
+    /**
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    app?: RouteOptionsApp;
+
+    /**
+     * Route authentication configuration. Value can be:
+     * false to disable authentication if a default strategy is set.
+     * a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
+     * an authentication configuration object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    auth?: false | string | RouteOptionsAccess;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
@@ -2678,7 +2703,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: ApplicationState;
+    app?: RequestApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -3359,6 +3384,13 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 export interface PluginProperties {
 }
 
+/**
+ * An empty interface to allow typings of custom server.methods.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerMethods extends Util.Dictionary<ServerMethod> {
+}
+
 export type DecorateName = string | symbol;
 
 /**
@@ -3380,7 +3412,7 @@ export class Server {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app: ApplicationState;
+    app: ServerApplicationState;
 
     /**
      * Server Auth: properties and methods
@@ -3509,7 +3541,7 @@ export class Server {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Util.Dictionary<ServerMethod>;
+    readonly methods: ServerMethods;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be
@@ -3944,10 +3976,24 @@ export class Server {
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 /**
- *  User-extensible type for application specific state.
+ *  User-extensible type for application specific state (`server.app`).
  */
  /* tslint:disable-next-line:no-empty-interface */
-export interface ApplicationState {
+export interface ServerApplicationState {
+}
+
+/**
+ *  User-extensible type for application specific state on requests (`request.app`).
+ */
+ /* tslint:disable-next-line:no-empty-interface */
+ export interface RequestApplicationState {
+}
+
+/**
+ *  User-extensible type for application specific state on responses (`response.app`).
+ */
+ /* tslint:disable-next-line:no-empty-interface */
+ export interface ResponseApplicationState {
 }
 
 export type PeekListener = (chunk: string, encoding: string) => void;

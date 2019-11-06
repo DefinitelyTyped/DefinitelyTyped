@@ -1,6 +1,13 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>, MatCarlson <https://github.com/MatCarlson>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
+//                 otiai10 <https://github.com/otiai10>
+//                 couven92 <https://github.com/couven92>
+//                 RReverser <https://github.com/rreverser>
+//                 sreimer15 <https://github.com/sreimer15>
+//                 MatCarlson <https://github.com/MatCarlson>
+//                 ekinsol <https://github.com/ekinsol>
+//                 Thierry Régagnon <https://github.com/tregagnon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -488,29 +495,42 @@ declare namespace chrome.browserAction {
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
      * @param tabId The id of the tab for which you want to modify the browser action.
+     * @param callback Supported since Chrome 67
      */
-    export function enable(tabId?: number): void;
-    /** Sets the background color for the badge. */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): void;
-    /** Sets the badge text for the browser action. The badge is displayed on top of the icon. */
-    export function setBadgeText(details: BadgeTextDetails): void;
-    /** Sets the title of the browser action. This shows up in the tooltip. */
-    export function setTitle(details: TitleDetails): void;
+    export function enable(tabId?: number, callback?: () => void): void;
+    /**
+     * Sets the background color for the badge.
+     * @param callback Supported since Chrome 67
+     */
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+    /**
+     * Sets the badge text for the browser action. The badge is displayed on top of the icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+    /**
+     * Sets the title of the browser action. This shows up in the tooltip.
+     * @param callback Supported since Chrome 67
+     */
+    export function setTitle(details: TitleDetails, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
-     * @param callback The callback parameter should be a function that looks like this:
-     * function(string result) {...};
+     * @param callback Supported since Chrome 67
      */
     export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
-    /** Sets the html document to be opened as a popup when the user clicks on the browser action's icon. */
-    export function setPopup(details: PopupDetails): void;
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
      * @param tabId The id of the tab for which you want to modify the browser action.
+     * @param callback Supported since Chrome 67
      */
-    export function disable(tabId?: number): void;
+    export function disable(tabId?: number, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -2141,10 +2161,17 @@ declare namespace chrome.downloads {
     }
 
     export interface DownloadDelta {
+        /** The id of the DownloadItem that changed. */
+        id: number;
         /** Optional. The change in danger, if any.  */
         danger?: StringDelta;
         /** Optional. The change in url, if any.  */
         url?: StringDelta;
+        /**
+         * Optional. The change in finalUrl, if any.
+         * @since Since Chrome 54.
+         */
+        finalUrl: StringDelta;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta;
         /** Optional. The change in filename, if any.  */
@@ -2158,13 +2185,11 @@ declare namespace chrome.downloads {
         /** Optional. The change in fileSize, if any.  */
         fileSize?: DoubleDelta;
         /** Optional. The change in startTime, if any.  */
-        startTime?: DoubleDelta;
+        startTime?: StringDelta;
         /** Optional. The change in error, if any.  */
         error?: StringDelta;
         /** Optional. The change in endTime, if any.  */
-        endTime?: DoubleDelta;
-        /** The id of the DownloadItem that changed. */
-        id: number;
+        endTime?: StringDelta;
         /** Optional. The change in canResume, if any.  */
         canResume?: BooleanDelta;
         /** Optional. The change in exists, if any.  */
@@ -2192,8 +2217,13 @@ declare namespace chrome.downloads {
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: string;
-        /** Absolute URL. */
+        /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
+        /**
+         * The absolute URL that this download is being made from, after all redirects.
+         * @since Since Chrome 54.
+         */
+        finalUrl: string;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
         totalBytes: number;
         /** Absolute local path. */
@@ -2241,8 +2271,8 @@ declare namespace chrome.downloads {
         orderBy?: string[];
         /** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
         urlRegex?: string;
-        /** Optional. Limits results to DownloadItem that ended before the given ms since the epoch.  */
-        endedBefore?: number;
+        /** Optional. Limits results to DownloadItem that ended before the time in ISO 8601 format.  */
+        endedBefore?: string;
         /** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
         totalBytesGreater?: number;
         /** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
@@ -2261,30 +2291,30 @@ declare namespace chrome.downloads {
         id?: number;
         /** Optional. Number of bytes received so far from the host, without considering file compression.  */
         bytesReceived?: number;
-        /** Optional. Limits results to DownloadItem that ended after the given ms since the epoch.  */
-        endedAfter?: number;
+        /** Optional. Limits results to DownloadItem that ended after the time in ISO 8601 format.  */
+        endedAfter?: string;
         /** Optional. Absolute local path.  */
         filename?: string;
         /** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
         state?: string;
-        /** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
-        startedAfter?: number;
+        /** Optional. Limits results to DownloadItem that started after the time in ISO 8601 format.  */
+        startedAfter?: string;
         /** Optional. The file's MIME type.  */
         mime?: string;
         /** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
         fileSize?: number;
         /** Optional. The time when the download began in ISO 8601 format.  */
-        startTime?: number;
+        startTime?: string;
         /** Optional. Absolute URL.  */
         url?: string;
-        /** Optional. Limits results to DownloadItem that started before the given ms since the epoch.  */
-        startedBefore?: number;
+        /** Optional. Limits results to DownloadItem that started before the time in ISO 8601 format.  */
+        startedBefore?: string;
         /** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
         limit?: number;
         /** Optional. Why a download was interrupted.  */
         error?: number;
         /** Optional. The time when the download ended in ISO 8601 format.  */
-        endTime?: number;
+        endTime?: string;
         /** Optional. Whether the downloaded file exists;  */
         exists?: boolean;
     }
@@ -4703,17 +4733,25 @@ declare namespace chrome.pageAction {
     /**
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
+     * @param callback Supported since Chrome 67
      */
     export function hide(tabId: number, callback?: () => void): void;
     /**
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
+     * @param callback Supported since Chrome 67
      */
     export function show(tabId: number, callback?: () => void): void;
-    /** Sets the title of the page action. This is displayed in a tooltip over the page action. */
-    export function setTitle(details: TitleDetails): void;
-    /** Sets the html document to be opened as a popup when the user clicks on the page action's icon. */
-    export function setPopup(details: PopupDetails): void;
+    /**
+     * Sets the title of the page action. This is displayed in a tooltip over the page action.
+     * @param callback Supported since Chrome 67
+     */
+    export function setTitle(details: TitleDetails, callback?: () => void): void;
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the page action's icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Gets the title of the page action.
      * @since Chrome 19.
@@ -4891,7 +4929,7 @@ declare namespace chrome.platformKeys {
     }
 
     /**
-     * This function filters from a list of client certificates the ones that are known to the platform, match request and for which the extension has permission to access the certificate and its private key. If interactive is true, the user is presented a dialog where he can select from matching certificates and grant the extension access to the certificate. The selected/filtered client certificates will be passed to callback.
+     * This function filters from a list of client certificates the ones that are known to the platform, match request and for which the extension has permission to access the certificate and its private key. If interactive is true, the user is presented a dialog where they can select from matching certificates and grant the extension access to the certificate. The selected/filtered client certificates will be passed to callback.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of Match matches) {...};
      * Parameter matches: The list of certificates that match the request, that the extension has permission for and, if interactive is true, that were selected by the user.
@@ -5007,6 +5045,7 @@ declare namespace chrome.privacy {
         instantEnabled: chrome.types.ChromeSetting;
         alternateErrorPagesEnabled: chrome.types.ChromeSetting;
         safeBrowsingEnabled: chrome.types.ChromeSetting;
+        /** @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. */
         autofillEnabled: chrome.types.ChromeSetting;
         translationServiceEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 38. */
@@ -5015,22 +5054,30 @@ declare namespace chrome.privacy {
         hotwordSearchEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 42. */
         safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillAddressEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillCreditCardEnabled: chrome.types.ChromeSetting;
     }
 
     export interface Network {
         networkPredictionEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 42. */
+        /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
         webRTCMultipleRoutesEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 47. Warning: this is the current Dev channel. */
+        /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
         webRTCNonProxiedUdpEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 48. */
+        webRTCIPHandlingPolicy: chrome.types.ChromeSetting;
     }
 
     export interface Websites {
         thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
         referrersEnabled: chrome.types.ChromeSetting;
         hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 21. */
+        /** @since Chrome 21. Available on Windows and ChromeOS only. */
         protectedContentEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 65. */
+        doNotTrackEnabled: chrome.types.ChromeSetting;
     }
 
     /** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */
@@ -5116,6 +5163,311 @@ declare namespace chrome.proxy {
     export var settings: chrome.types.ChromeSetting;
     /** Notifies about proxy errors. */
     export var onProxyError: ProxyErrorEvent;
+}
+
+////////////////////
+// Serial
+////////////////////
+/**
+ * Use the <code>chrome.serial</code> API to read from and write to a device connected to a serial port.
+ * Permissions:  "enterprise.serial"
+ * Since: Chrome 29
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.serial {
+
+  export const DataBits: {
+    SEVEN: 'seven',
+    EIGHT: 'eight'
+  };
+  export const ParityBit: {
+    NO: 'no',
+    ODD: 'odd',
+    EVEN: 'even'
+  };
+  export const StopBits: {
+    ONE: 'one',
+    TWO: 'two'
+  };
+
+  export interface DeviceInfo {
+    /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
+    path: string;
+    /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
+    vendorId?: number;
+    /** Optional. A USB product ID if one can be determined for the underlying device. */
+    productId?: number;
+    /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
+    displayName?: number;
+  }
+
+  export interface ConnectionInfo {
+    /** The id of the serial port connection. */
+    connectionId?: number;
+    /** Flag indicating whether the connection is blocked from firing onReceive events. */
+    paused: boolean;
+    /** See ConnectionOptions.persistent */
+    peristent: boolean;
+    /** See ConnectionOptions.name */
+    name: string;
+    /** See ConnectionOptions.bufferSize */
+    bufferSize: number;
+    /** See ConnectionOptions.receiveTimeout */
+    receiveTimeout?: number;
+    /** See ConnectionOptions.sendTimeout */
+    sendTimeout?: number;
+    /** Optional. See ConnectionOptions.bitrate.
+     * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
+    bitrate?: number;
+    /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
+    dataBits?: typeof DataBits[keyof typeof DataBits];
+    /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
+    parityBit?: typeof ParityBit[keyof typeof ParityBit];
+    /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
+    stopBits?: typeof StopBits[keyof typeof StopBits];
+    /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+    ctsFlowControl?: boolean;
+  }
+
+  export interface ConnectionOptions {
+    /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
+     *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
+    peristent?: boolean;
+    /** Optional. An application-defined string to associate with the connection. */
+    name?: string;
+    /** Optional. The size of the buffer used to receive data. The default value is 4096. */
+    bufferSize?: number;
+    /** Optional. The requested bitrate of the connection to be opened.
+     * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
+     * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
+     * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
+     * 9600 will be passed by default. */
+    bitrate?: number;
+    /** Optional. "eight" will be passed by default. */
+    dataBits?: typeof DataBits[keyof typeof DataBits];
+    /** Optional. "no" will be passed by default. */
+    parityBit?: typeof ParityBit[keyof typeof ParityBit];
+    /** Optional. "one" will be passed by default. */
+    stopBits?: typeof StopBits[keyof typeof StopBits];
+    /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+    ctsFlowControl?: boolean;
+    /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
+     * If zero, receive timeout errors will not be raised for the connection.
+     * Defaults to 0. */
+    receiveTimeout?: number;
+    /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
+     * If zero, send timeout errors will not be triggered.
+     * Defaults to 0. */
+    sendTimeout?: number;
+  }
+
+  /**
+   * @since Chrome 33.
+   * @description Returns information about available serial devices on the system. The list is regenerated each time this method is called.
+   * @export
+   * @param callback Called with the list of DeviceInfo objects.
+   * The callback parameter should be a function that looks like this:
+   * function(array of object ports) {...};
+   */
+  export function getDevices(callback: (ports: DeviceInfo[]) => void): void;
+
+  /**
+   * @since Chrome 33.
+   * @description Connects to a given serial port.
+   * @export
+   * @param path The system path of the serial port to open.
+   * @param options Port configuration options.
+   * @param callback Called when the connection has been opened.
+   * The callback parameter should be a function that looks like this:
+   * function( ConnectionInfo connectionInfo) {...};
+   */
+  export function connect(path: string, options: ConnectionOptions, callback: (connectionInfo: ConnectionInfo) => void): void;
+
+  /**
+   * @since Chrome 33.
+   * @description Update the option settings on an open serial port connection.
+   * @export
+   * @param connectionId The id of the opened connection.
+   * @param options Port configuration options.
+   * @param callback Called when the configuation has completed.
+   * The callback parameter should be a function that looks like this:
+   * function(boolean result) {...};
+   */
+  export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
+
+  /**
+  * @since Chrome 33.
+  * @description Disconnects from a serial port.
+  * @export
+  * @param connectionId The id of the opened connection.
+  * @param callback Called when the connection has been closed.
+  * The callback parameter should be a function that looks like this:
+  * function(boolean result) {...};
+  */
+  export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
+
+  /**
+  * @since Chrome 33.
+  * @description Pauses or unpauses an open connection.
+  * @export
+  * @param connectionId The id of the opened connection.
+  * @param paused Flag to indicate whether to pause or unpause.
+  * @param callback Called when the connection has been successfully paused or unpaused.
+  * The callback parameter should be a function that looks like this:
+  * function() {...};
+  */
+  export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
+
+  /**
+  * @since Chrome 33.
+  * @description Retrieves the state of a given connection.
+  * @export
+  * @param callback Called with connection state information when available.
+  * The callback parameter should be a function that looks like this:
+  * function( ConnectionInfo connectionInfo) {...};
+  */
+  export function getInfo(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+
+  /**
+  * @since Chrome 33.
+  * @description Retrieves the list of currently opened serial port connections owned by the application.
+  * @export
+  * @param callback Called with the list of connections when available.
+  * The callback parameter should be a function that looks like this:
+  * function(array of ConnectionInfo connectionInfos) {...};
+  */
+  export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+
+  /**
+  * @since Chrome 33.
+  * @description Writes data to the given connection.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param data The data to send.
+  * @param callback Called when the operation has completed.
+  * The callback parameter should be a function that looks like this:
+  * function(object sendInfo) {...};
+  */
+  export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: object) => void): void;
+
+  /**
+  * @description Flushes all bytes in the given connection's input and output buffers.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param callback
+  * The callback parameter should be a function that looks like this:
+  * function(boolean result) {...};
+  */
+  export function flush(connectionId: number, callback: (result: boolean) => void): void;
+
+  /**
+  * @description Retrieves the state of control signals on a given connection.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param callback Called when the control signals are available.
+  * The callback parameter should be a function that looks like this:
+  * function(object signals) {...};
+  */
+  export function getControlSignals(connectionId: number, callback: (signals: object) => void): void;
+
+  /**
+  * @description Sets the state of control signals on a given connection.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param signals The set of signal changes to send to the device:
+  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
+  * boolean:	(optional) rts - RTS (Request To Send).
+  * @param callback Called once the control signals have been set.
+  * The callback parameter should be a function that looks like this:
+  * function(boolean result) {...};
+  */
+  export function setControlSignals(connectionId: number, signals: object, callback: (result: boolean) => void): void;
+
+  /**
+  * @since Chrome 45.
+  * @description Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param callback
+  * The callback parameter should be a function that looks like this:
+  * function(boolean result) {...};
+  */
+  export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
+
+  /**
+  * @since Chrome 45.
+  * @description Restore character transmission on a given connection and place the transmission line in a nonbreak state.
+  * @export
+  * @param connectionId The id of the connection.
+  * @param callback
+  * The callback parameter should be a function that looks like this:
+  * function(boolean result) {...};
+  */
+  export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
+
+
+}
+
+declare namespace chrome.serial.onReceive {
+
+  export interface OnReceiveInfo {
+    /** The connection identifier. */
+    connectionId: number;
+    /** The data received. */
+    data: ArrayBuffer;
+  }
+
+  /**
+  * @since Chrome 33.
+  * @description Event raised when data has been read from the connection.
+  * @export
+  * @param callback
+  * The callback parameter should be a function that looks like this:
+  * function(OnReceiveInfo info) {...};
+  */
+  export function addListener(callback: (info: OnReceiveInfo) => void): void;
+}
+
+declare namespace chrome.serial.onReceiveError {
+
+  export const OnReceiveErrorEnum: {
+    /* The connection was disconnected. */
+    disconnected: 'disconnected',
+    /* No data has been received for receiveTimeout milliseconds. */
+    timeout: 'timeout',
+    /* The device was most likely disconnected from the host. */
+    device_lost: 'device_lost'
+    /* The device detected a break condition. */
+    break: 'break',
+    /* The device detected a framing error. */
+    frame_error: 'frame_error',
+    /* A character-buffer overrun has occurred. The next character is lost. */
+    overrun: 'overrun',
+    /* An input buffer overflow has occurred. There is either no room in the input buffer, or a character was received after the end-of-file (EOF) character. */
+    buffer_overflow: 'buffer_overflow',
+    /* The device detected a parity error. */
+    parity_error: 'parity_error',
+    /* A system error occurred and the connection may be unrecoverable. */
+    system_error: 'system_error',
+  };
+
+  export interface OnReceiveErrorInfo {
+    /** The connection identifier. */
+    connectionId: number;
+    /** The data received. */
+    error: ArrayBuffer;
+  }
+
+  /**
+  * @since Chrome 33.
+  * @description Event raised when an error occurred while the runtime was waiting for data on the serial port.
+  * Once this event is raised, the connection may be set to paused. A "timeout" error does not pause the connection.
+  * @export
+  * @param callback
+  * The callback parameter should be a function that looks like this:
+  * function(OnReceiveErrorInfo info) {...};
+  */
+  export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
 }
 
 ////////////////////
@@ -5353,6 +5705,7 @@ declare namespace chrome.runtime {
             js?: string[];
             run_at?: string;
             all_frames?: boolean;
+            match_about_blank?: boolean;
             include_globs?: string[];
             exclude_globs?: string[];
         }[];
@@ -7306,7 +7659,7 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
      * @param callback Called after the operation is completed.
      */
-    export function discard(tabId: number, callback: (tab: Tab) => void): void;
+    export function discard(tabId?: number, callback?: (tab: Tab) => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.
@@ -8114,8 +8467,12 @@ declare namespace chrome.webRequest {
         error: string;
     }
 
-    export interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => void> {
-        addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebRequestBodyDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
+
+    export interface WebRequestHeadersSynchronousEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebRequestHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
@@ -8126,7 +8483,9 @@ declare namespace chrome.webRequest {
         addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    export interface WebResponseHeadersEvent extends _WebResponseHeadersEvent<WebResponseHeadersDetails> { }
+    export interface WebResponseHeadersEvent extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebResponseHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
 
     export interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> { }
 
@@ -8150,7 +8509,7 @@ declare namespace chrome.webRequest {
     /** Fired when a request is about to occur. */
     export var onBeforeRequest: WebRequestBodyEvent;
     /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-    export var onBeforeSendHeaders: WebRequestHeadersEvent;
+    export var onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
     /** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
     export var onSendHeaders: WebRequestHeadersEvent;
     /** Fired when HTTP response headers of a request have been received. */

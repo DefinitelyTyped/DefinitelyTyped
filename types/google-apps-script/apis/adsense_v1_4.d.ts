@@ -9,7 +9,7 @@ declare namespace GoogleAppsScript {
     namespace Collection {
       namespace Accounts {
         namespace Adunits {
-          export interface CustomchannelsCollection {
+          interface CustomchannelsCollection {
             // List all custom channels which the specified ad unit belongs to.
             list(accountId: string, adClientId: string, adUnitId: string): Adsense.Schema.CustomChannels;
             // List all custom channels which the specified ad unit belongs to.
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
           }
         }
         namespace Customchannels {
-          export interface AdunitsCollection {
+          interface AdunitsCollection {
             // List all ad units in the specified custom channel.
             list(accountId: string, adClientId: string, customChannelId: string): Adsense.Schema.AdUnits;
             // List all ad units in the specified custom channel.
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
           }
         }
         namespace Reports {
-          export interface SavedCollection {
+          interface SavedCollection {
             // Generate an AdSense report based on the saved report ID sent in the query parameters.
             generate(accountId: string, savedReportId: string): Adsense.Schema.AdsenseReportsGenerateResponse;
             // Generate an AdSense report based on the saved report ID sent in the query parameters.
@@ -36,7 +36,7 @@ declare namespace GoogleAppsScript {
             list(accountId: string, optionalArgs: object): Adsense.Schema.SavedReports;
           }
         }
-        export interface AdclientsCollection {
+        interface AdclientsCollection {
           // Get Auto ad code for a given ad client.
           getAdCode(accountId: string, adClientId: string): Adsense.Schema.AdCode;
           // List all ad clients in the specified account.
@@ -44,7 +44,7 @@ declare namespace GoogleAppsScript {
           // List all ad clients in the specified account.
           list(accountId: string, optionalArgs: object): Adsense.Schema.AdClients;
         }
-        export interface AdunitsCollection {
+        interface AdunitsCollection {
           Customchannels?: Adsense.Collection.Accounts.Adunits.CustomchannelsCollection;
           // Gets the specified ad unit in the specified ad client for the specified account.
           get(accountId: string, adClientId: string, adUnitId: string): Adsense.Schema.AdUnit;
@@ -55,7 +55,7 @@ declare namespace GoogleAppsScript {
           // List all ad units in the specified ad client for the specified account.
           list(accountId: string, adClientId: string, optionalArgs: object): Adsense.Schema.AdUnits;
         }
-        export interface AlertsCollection {
+        interface AlertsCollection {
           // List the alerts for the specified AdSense account.
           list(accountId: string): Adsense.Schema.Alerts;
           // List the alerts for the specified AdSense account.
@@ -63,7 +63,7 @@ declare namespace GoogleAppsScript {
           // Dismiss (delete) the specified alert from the specified publisher AdSense account.
           remove(accountId: string, alertId: string): void;
         }
-        export interface CustomchannelsCollection {
+        interface CustomchannelsCollection {
           Adunits?: Adsense.Collection.Accounts.Customchannels.AdunitsCollection;
           // Get the specified custom channel from the specified ad client for the specified account.
           get(accountId: string, adClientId: string, customChannelId: string): Adsense.Schema.CustomChannel;
@@ -72,18 +72,18 @@ declare namespace GoogleAppsScript {
           // List all custom channels in the specified ad client for the specified account.
           list(accountId: string, adClientId: string, optionalArgs: object): Adsense.Schema.CustomChannels;
         }
-        export interface PaymentsCollection {
+        interface PaymentsCollection {
           // List the payments for the specified AdSense account.
           list(accountId: string): Adsense.Schema.Payments;
         }
-        export interface ReportsCollection {
+        interface ReportsCollection {
           Saved?: Adsense.Collection.Accounts.Reports.SavedCollection;
           // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
           generate(accountId: string, startDate: string, endDate: string): Adsense.Schema.AdsenseReportsGenerateResponse;
           // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
           generate(accountId: string, startDate: string, endDate: string, optionalArgs: object): Adsense.Schema.AdsenseReportsGenerateResponse;
         }
-        export interface SavedadstylesCollection {
+        interface SavedadstylesCollection {
           // List a specific saved ad style for the specified account.
           get(accountId: string, savedAdStyleId: string): Adsense.Schema.SavedAdStyle;
           // List all saved ad styles in the specified account.
@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
           // List all saved ad styles in the specified account.
           list(accountId: string, optionalArgs: object): Adsense.Schema.SavedAdStyles;
         }
-        export interface UrlchannelsCollection {
+        interface UrlchannelsCollection {
           // List all URL channels in the specified ad client for the specified account.
           list(accountId: string, adClientId: string): Adsense.Schema.UrlChannels;
           // List all URL channels in the specified ad client for the specified account.
@@ -99,7 +99,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Adunits {
-        export interface CustomchannelsCollection {
+        interface CustomchannelsCollection {
           // List all custom channels which the specified ad unit belongs to.
           list(adClientId: string, adUnitId: string): Adsense.Schema.CustomChannels;
           // List all custom channels which the specified ad unit belongs to.
@@ -107,7 +107,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Customchannels {
-        export interface AdunitsCollection {
+        interface AdunitsCollection {
           // List all ad units in the specified custom channel.
           list(adClientId: string, customChannelId: string): Adsense.Schema.AdUnits;
           // List all ad units in the specified custom channel.
@@ -115,17 +115,17 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Metadata {
-        export interface DimensionsCollection {
+        interface DimensionsCollection {
           // List the metadata for the dimensions available to this AdSense account.
           list(): Adsense.Schema.Metadata;
         }
-        export interface MetricsCollection {
+        interface MetricsCollection {
           // List the metadata for the metrics available to this AdSense account.
           list(): Adsense.Schema.Metadata;
         }
       }
       namespace Reports {
-        export interface SavedCollection {
+        interface SavedCollection {
           // Generate an AdSense report based on the saved report ID sent in the query parameters.
           generate(savedReportId: string): Adsense.Schema.AdsenseReportsGenerateResponse;
           // Generate an AdSense report based on the saved report ID sent in the query parameters.
@@ -136,7 +136,7 @@ declare namespace GoogleAppsScript {
           list(optionalArgs: object): Adsense.Schema.SavedReports;
         }
       }
-      export interface AccountsCollection {
+      interface AccountsCollection {
         Adclients?: Adsense.Collection.Accounts.AdclientsCollection;
         Adunits?: Adsense.Collection.Accounts.AdunitsCollection;
         Alerts?: Adsense.Collection.Accounts.AlertsCollection;
@@ -154,13 +154,13 @@ declare namespace GoogleAppsScript {
         // List all accounts available to this AdSense account.
         list(optionalArgs: object): Adsense.Schema.Accounts;
       }
-      export interface AdclientsCollection {
+      interface AdclientsCollection {
         // List all ad clients in this AdSense account.
         list(): Adsense.Schema.AdClients;
         // List all ad clients in this AdSense account.
         list(optionalArgs: object): Adsense.Schema.AdClients;
       }
-      export interface AdunitsCollection {
+      interface AdunitsCollection {
         Customchannels?: Adsense.Collection.Adunits.CustomchannelsCollection;
         // Gets the specified ad unit in the specified ad client.
         get(adClientId: string, adUnitId: string): Adsense.Schema.AdUnit;
@@ -171,7 +171,7 @@ declare namespace GoogleAppsScript {
         // List all ad units in the specified ad client for this AdSense account.
         list(adClientId: string, optionalArgs: object): Adsense.Schema.AdUnits;
       }
-      export interface AlertsCollection {
+      interface AlertsCollection {
         // List the alerts for this AdSense account.
         list(): Adsense.Schema.Alerts;
         // List the alerts for this AdSense account.
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
         // Dismiss (delete) the specified alert from the publisher's AdSense account.
         remove(alertId: string): void;
       }
-      export interface CustomchannelsCollection {
+      interface CustomchannelsCollection {
         Adunits?: Adsense.Collection.Customchannels.AdunitsCollection;
         // Get the specified custom channel from the specified ad client.
         get(adClientId: string, customChannelId: string): Adsense.Schema.CustomChannel;
@@ -188,22 +188,22 @@ declare namespace GoogleAppsScript {
         // List all custom channels in the specified ad client for this AdSense account.
         list(adClientId: string, optionalArgs: object): Adsense.Schema.CustomChannels;
       }
-      export interface MetadataCollection {
+      interface MetadataCollection {
         Dimensions?: Adsense.Collection.Metadata.DimensionsCollection;
         Metrics?: Adsense.Collection.Metadata.MetricsCollection;
       }
-      export interface PaymentsCollection {
+      interface PaymentsCollection {
         // List the payments for this AdSense account.
         list(): Adsense.Schema.Payments;
       }
-      export interface ReportsCollection {
+      interface ReportsCollection {
         Saved?: Adsense.Collection.Reports.SavedCollection;
         // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         generate(startDate: string, endDate: string): Adsense.Schema.AdsenseReportsGenerateResponse;
         // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         generate(startDate: string, endDate: string, optionalArgs: object): Adsense.Schema.AdsenseReportsGenerateResponse;
       }
-      export interface SavedadstylesCollection {
+      interface SavedadstylesCollection {
         // Get a specific saved ad style from the user's account.
         get(savedAdStyleId: string): Adsense.Schema.SavedAdStyle;
         // List all saved ad styles in the user's account.
@@ -211,7 +211,7 @@ declare namespace GoogleAppsScript {
         // List all saved ad styles in the user's account.
         list(optionalArgs: object): Adsense.Schema.SavedAdStyles;
       }
-      export interface UrlchannelsCollection {
+      interface UrlchannelsCollection {
         // List all URL channels in the specified ad client for this AdSense account.
         list(adClientId: string): Adsense.Schema.UrlChannels;
         // List all URL channels in the specified ad client for this AdSense account.
@@ -219,7 +219,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         creation_time?: string;
         id?: string;
         kind?: string;
@@ -228,49 +228,49 @@ declare namespace GoogleAppsScript {
         subAccounts?: Adsense.Schema.Account[];
         timezone?: string;
       }
-      export interface Accounts {
+      interface Accounts {
         etag?: string;
         items?: Adsense.Schema.Account[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AdClient {
+      interface AdClient {
         arcOptIn?: boolean;
         id?: string;
         kind?: string;
         productCode?: string;
         supportsReporting?: boolean;
       }
-      export interface AdClients {
+      interface AdClients {
         etag?: string;
         items?: Adsense.Schema.AdClient[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AdCode {
+      interface AdCode {
         adCode?: string;
         ampBody?: string;
         ampHead?: string;
         kind?: string;
       }
-      export interface AdStyle {
+      interface AdStyle {
         colors?: Adsense.Schema.AdStyleColors;
         corners?: string;
         font?: Adsense.Schema.AdStyleFont;
         kind?: string;
       }
-      export interface AdStyleColors {
+      interface AdStyleColors {
         background?: string;
         border?: string;
         text?: string;
         title?: string;
         url?: string;
       }
-      export interface AdStyleFont {
+      interface AdStyleFont {
         family?: string;
         size?: string;
       }
-      export interface AdUnit {
+      interface AdUnit {
         code?: string;
         contentAdsSettings?: Adsense.Schema.AdUnitContentAdsSettings;
         customStyle?: Adsense.Schema.AdStyle;
@@ -282,51 +282,51 @@ declare namespace GoogleAppsScript {
         savedStyleId?: string;
         status?: string;
       }
-      export interface AdUnitContentAdsSettings {
+      interface AdUnitContentAdsSettings {
         backupOption?: Adsense.Schema.AdUnitContentAdsSettingsBackupOption;
         size?: string;
         type?: string;
       }
-      export interface AdUnitContentAdsSettingsBackupOption {
+      interface AdUnitContentAdsSettingsBackupOption {
         color?: string;
         type?: string;
         url?: string;
       }
-      export interface AdUnitFeedAdsSettings {
+      interface AdUnitFeedAdsSettings {
         adPosition?: string;
         frequency?: number;
         minimumWordCount?: number;
         type?: string;
       }
-      export interface AdUnitMobileContentAdsSettings {
+      interface AdUnitMobileContentAdsSettings {
         markupLanguage?: string;
         scriptingLanguage?: string;
         size?: string;
         type?: string;
       }
-      export interface AdUnits {
+      interface AdUnits {
         etag?: string;
         items?: Adsense.Schema.AdUnit[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface AdsenseReportsGenerateResponse {
+      interface AdsenseReportsGenerateResponse {
         averages?: string[];
         endDate?: string;
         headers?: Adsense.Schema.AdsenseReportsGenerateResponseHeaders[];
         kind?: string;
-        rows?: String[][];
+        rows?: string[][];
         startDate?: string;
         totalMatchedRows?: string;
         totals?: string[];
         warnings?: string[];
       }
-      export interface AdsenseReportsGenerateResponseHeaders {
+      interface AdsenseReportsGenerateResponseHeaders {
         currency?: string;
         name?: string;
         type?: string;
       }
-      export interface Alert {
+      interface Alert {
         id?: string;
         isDismissible?: boolean;
         kind?: string;
@@ -334,45 +334,45 @@ declare namespace GoogleAppsScript {
         severity?: string;
         type?: string;
       }
-      export interface Alerts {
+      interface Alerts {
         items?: Adsense.Schema.Alert[];
         kind?: string;
       }
-      export interface CustomChannel {
+      interface CustomChannel {
         code?: string;
         id?: string;
         kind?: string;
         name?: string;
         targetingInfo?: Adsense.Schema.CustomChannelTargetingInfo;
       }
-      export interface CustomChannelTargetingInfo {
+      interface CustomChannelTargetingInfo {
         adsAppearOn?: string;
         description?: string;
         location?: string;
         siteLanguage?: string;
       }
-      export interface CustomChannels {
+      interface CustomChannels {
         etag?: string;
         items?: Adsense.Schema.CustomChannel[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Metadata {
+      interface Metadata {
         items?: Adsense.Schema.ReportingMetadataEntry[];
         kind?: string;
       }
-      export interface Payment {
+      interface Payment {
         id?: string;
         kind?: string;
         paymentAmount?: string;
         paymentAmountCurrencyCode?: string;
         paymentDate?: string;
       }
-      export interface Payments {
+      interface Payments {
         items?: Adsense.Schema.Payment[];
         kind?: string;
       }
-      export interface ReportingMetadataEntry {
+      interface ReportingMetadataEntry {
         compatibleDimensions?: string[];
         compatibleMetrics?: string[];
         id?: string;
@@ -381,35 +381,35 @@ declare namespace GoogleAppsScript {
         requiredMetrics?: string[];
         supportedProducts?: string[];
       }
-      export interface SavedAdStyle {
+      interface SavedAdStyle {
         adStyle?: Adsense.Schema.AdStyle;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface SavedAdStyles {
+      interface SavedAdStyles {
         etag?: string;
         items?: Adsense.Schema.SavedAdStyle[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface SavedReport {
+      interface SavedReport {
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface SavedReports {
+      interface SavedReports {
         etag?: string;
         items?: Adsense.Schema.SavedReport[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface UrlChannel {
+      interface UrlChannel {
         id?: string;
         kind?: string;
         urlPattern?: string;
       }
-      export interface UrlChannels {
+      interface UrlChannels {
         etag?: string;
         items?: Adsense.Schema.UrlChannel[];
         kind?: string;
@@ -417,7 +417,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Adsense {
+  interface Adsense {
     Accounts?: Adsense.Collection.AccountsCollection;
     Adclients?: Adsense.Collection.AdclientsCollection;
     Adunits?: Adsense.Collection.AdunitsCollection;

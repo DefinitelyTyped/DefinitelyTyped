@@ -70,11 +70,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         assert.equal(3, "3", "uses == comparator");
 
-        assert.fail('stuff broke');
+        if (!!true) assert.fail('stuff broke');
 
-        assert.fail('actual', 'expected', 'message');
+        if (!!true) assert.fail('actual', 'expected', 'message');
 
-        assert.fail(1, 2, undefined, '>');
+        if (!!true) assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 
@@ -261,6 +261,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -272,6 +273,23 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
     }
+
+    async function testPromisify() {
+        const rd = util.promisify(fs.readdir);
+        let listS: string[];
+        listS = await rd('path');
+        listS = await rd('path', 'utf8');
+        listS = await rd('path', null);
+        listS = await rd('path', undefined);
+        listS = await rd('path', { encoding: 'utf8' });
+        listS = await rd('path', { encoding: null });
+        listS = await rd('path', { encoding: null, withFileTypes: false });
+        listS = await rd('path', { encoding: 'utf8', withFileTypes: false });
+        const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
+        const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+    }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -429,6 +447,18 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
             recursive: true,
             mode: 0o777,
         });
+    }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
     }
 }
 
@@ -916,8 +946,10 @@ function bufferTests() {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -1354,6 +1386,33 @@ async function asyncStreamPipelineFinished() {
             plaintextLength: ciphertext.length
         });
         const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key: string | null = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, 'binary', 'utf8');
         decipher.final();
     }
 
@@ -2154,8 +2213,8 @@ async function asyncStreamPipelineFinished() {
 ////////////////////////////////////////////////////
 
 {
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
+    const rs: tty.ReadStream = new tty.ReadStream(0);
+    const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);
@@ -3202,6 +3261,69 @@ async function asyncStreamPipelineFinished() {
         result = os.constants.errno.EXDEV;
     }
 
+    if (os.platform() === 'win32') {
+        let result: number;
+
+        result = os.constants.errno.WSAEINTR;
+        result = os.constants.errno.WSAEBADF;
+        result = os.constants.errno.WSAEACCES;
+        result = os.constants.errno.WSAEFAULT;
+        result = os.constants.errno.WSAEINVAL;
+        result = os.constants.errno.WSAEMFILE;
+        result = os.constants.errno.WSAEWOULDBLOCK;
+        result = os.constants.errno.WSAEINPROGRESS;
+        result = os.constants.errno.WSAEALREADY;
+        result = os.constants.errno.WSAENOTSOCK;
+        result = os.constants.errno.WSAEDESTADDRREQ;
+        result = os.constants.errno.WSAEMSGSIZE;
+        result = os.constants.errno.WSAEPROTOTYPE;
+        result = os.constants.errno.WSAENOPROTOOPT;
+        result = os.constants.errno.WSAEPROTONOSUPPORT;
+        result = os.constants.errno.WSAESOCKTNOSUPPORT;
+        result = os.constants.errno.WSAEOPNOTSUPP;
+        result = os.constants.errno.WSAEPFNOSUPPORT;
+        result = os.constants.errno.WSAEAFNOSUPPORT;
+        result = os.constants.errno.WSAEADDRINUSE;
+        result = os.constants.errno.WSAEADDRNOTAVAIL;
+        result = os.constants.errno.WSAENETDOWN;
+        result = os.constants.errno.WSAENETUNREACH;
+        result = os.constants.errno.WSAENETRESET;
+        result = os.constants.errno.WSAECONNABORTED;
+        result = os.constants.errno.WSAECONNRESET;
+        result = os.constants.errno.WSAENOBUFS;
+        result = os.constants.errno.WSAEISCONN;
+        result = os.constants.errno.WSAENOTCONN;
+        result = os.constants.errno.WSAESHUTDOWN;
+        result = os.constants.errno.WSAETOOMANYREFS;
+        result = os.constants.errno.WSAETIMEDOUT;
+        result = os.constants.errno.WSAECONNREFUSED;
+        result = os.constants.errno.WSAELOOP;
+        result = os.constants.errno.WSAENAMETOOLONG;
+        result = os.constants.errno.WSAEHOSTDOWN;
+        result = os.constants.errno.WSAEHOSTUNREACH;
+        result = os.constants.errno.WSAENOTEMPTY;
+        result = os.constants.errno.WSAEPROCLIM;
+        result = os.constants.errno.WSAEUSERS;
+        result = os.constants.errno.WSAEDQUOT;
+        result = os.constants.errno.WSAESTALE;
+        result = os.constants.errno.WSAEREMOTE;
+        result = os.constants.errno.WSASYSNOTREADY;
+        result = os.constants.errno.WSAVERNOTSUPPORTED;
+        result = os.constants.errno.WSANOTINITIALISED;
+        result = os.constants.errno.WSAEDISCON;
+        result = os.constants.errno.WSAENOMORE;
+        result = os.constants.errno.WSAECANCELLED;
+        result = os.constants.errno.WSAEINVALIDPROCTABLE;
+        result = os.constants.errno.WSAEINVALIDPROVIDER;
+        result = os.constants.errno.WSAEPROVIDERFAILEDINIT;
+        result = os.constants.errno.WSASYSCALLFAILURE;
+        result = os.constants.errno.WSASERVICE_NOT_FOUND;
+        result = os.constants.errno.WSATYPE_NOT_FOUND;
+        result = os.constants.errno.WSA_E_NO_MORE;
+        result = os.constants.errno.WSA_E_CANCELLED;
+        result = os.constants.errno.WSAEREFUSED;
+    }
+
     {
         const prio = os.getPriority();
         os.setPriority(prio + 1);
@@ -3278,21 +3400,32 @@ async function asyncStreamPipelineFinished() {
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -4810,7 +4943,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

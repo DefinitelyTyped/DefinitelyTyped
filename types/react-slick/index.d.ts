@@ -3,6 +3,7 @@
 // Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Shannor Trotty <https://github.com/Shannor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -81,6 +82,7 @@ export interface Settings {
     useTransform?: boolean;
     variableWidth?: boolean;
     vertical?: boolean;
+    verticalSwiping?: boolean;
     waitForAnimate?: boolean;
 }
 

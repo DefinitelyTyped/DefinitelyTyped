@@ -392,13 +392,17 @@ export interface Commands<R> {
      * Remove all keys from all databases.
      */
     flushall(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
      */
     flushdb(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHDB(cb?: Callback<'OK'>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -1083,8 +1087,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1133,8 +1137,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.

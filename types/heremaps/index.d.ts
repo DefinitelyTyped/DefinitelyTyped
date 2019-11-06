@@ -3,6 +3,7 @@
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Ferdinand Armbruster <https://github.com/fx88>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -309,6 +310,7 @@ declare namespace H {
          * @property margin {number=} - The size in pixel of the supplemental area to render for each side of the map
          * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
          * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
+         * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
             center?: H.geo.IPoint;
@@ -323,6 +325,7 @@ declare namespace H {
             margin?: number;
             padding?: H.map.ViewPort.Padding;
             fixedCenter?: boolean;
+            noWrap?: boolean;
         }
     }
 
@@ -4547,13 +4550,13 @@ declare namespace H {
              * @param opt_buttons {number=} - Indicates which pointer device buttons are being pressed, expressed as a bitmask. Uses the same values, as "buttons" in Pointer Events spec.
              */
             constructor(viewportX: number, viewportY: number, id: number, type: string, opt_button?: H.mapevents.Pointer.Button, opt_buttons?: H.math.BitMask);
-            static viewportX: number;
-            static viewportY: number;
-            static target: (H.map.Object | H.Map);
-            static id: number;
-            static type: string;
-            static dragTarget: (H.map.Object | H.Map);
-            static button: H.mapevents.Pointer.Button;
+            viewportX: number;
+            viewportY: number;
+            target: (H.map.Object | H.Map);
+            id: number;
+            type: string;
+            dragTarget: (H.map.Object | H.Map);
+            button: H.mapevents.Pointer.Button;
         }
 
         namespace Pointer {

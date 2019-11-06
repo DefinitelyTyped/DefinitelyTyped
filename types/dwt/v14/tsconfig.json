@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "dwt": [
+                "dwt/v14"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "dwt-tests.ts",
+        "index.d.ts",
+        "Dynamsoft.d.ts",
+		"addon.ocr.d.ts",
+        "addon.ocrp.d.ts",
+        "addon.pdf.d.ts",
+        "addon.webcam.d.ts",
+        "dbr.d.ts",
+		"mbc.d.ts"
+    ]
+}

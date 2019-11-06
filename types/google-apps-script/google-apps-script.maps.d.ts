@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,16 +7,16 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Maps {
+  namespace Maps {
     /**
      * An enum representing the types of restrictions to avoid when finding directions.
      */
-    export enum Avoid { TOLLS, HIGHWAYS }
+    enum Avoid { TOLLS, HIGHWAYS }
 
     /**
      * An enum representing the named colors available to use in map images.
      */
-    export enum Color { BLACK, BROWN, GREEN, PURPLE, YELLOW, BLUE, GRAY, ORANGE, RED, WHITE }
+    enum Color { BLACK, BROWN, GREEN, PURPLE, YELLOW, BLUE, GRAY, ORANGE, RED, WHITE }
 
     /**
      * Allows for the retrieval of directions between locations.
@@ -58,32 +58,36 @@ declare namespace GoogleAppsScript {
      *
      *     // Send the map in an email.
      *     var toAddress = Session.getActiveUser().getEmail();
-     *     MailApp.sendEmail(toAddress, 'Directions', 'Please open: ' + map.getMapUrl(), {
-     *       htmlBody: 'See below.<br/><img src="cid:mapImage">',
-     *       inlineImages: {
-     *         mapImage: Utilities.newBlob(map.getMapImage(), 'image/png')
+     *     MailApp.sendEmail(
+     *       toAddress,
+     *       'Directions',
+     *       'Please open: ' + map.getMapUrl() + '&key=YOUR_API_KEY', {
+     *         htmlBody: 'See below.<br/><img src="cid:mapImage">',
+     *         inlineImages: {
+     *           mapImage: Utilities.newBlob(map.getMapImage(), 'image/png')
+     *         }
      *       }
-     *     });
+     *     );
      *
      * See also
      *
      * Google Directions API
      */
-    export interface DirectionFinder {
-      addWaypoint(latitude: Number, longitude: Number): DirectionFinder;
+    interface DirectionFinder {
+      addWaypoint(latitude: number, longitude: number): DirectionFinder;
       addWaypoint(address: string): DirectionFinder;
       clearWaypoints(): DirectionFinder;
-      getDirections(): Object;
+      getDirections(): any;
       setAlternatives(useAlternatives: boolean): DirectionFinder;
-      setArrive(time: Date): DirectionFinder;
+      setArrive(time: Base.Date): DirectionFinder;
       setAvoid(avoid: string): DirectionFinder;
-      setDepart(time: Date): DirectionFinder;
-      setDestination(latitude: Number, longitude: Number): DirectionFinder;
+      setDepart(time: Base.Date): DirectionFinder;
+      setDestination(latitude: number, longitude: number): DirectionFinder;
       setDestination(address: string): DirectionFinder;
       setLanguage(language: string): DirectionFinder;
       setMode(mode: Mode): DirectionFinder;
       setOptimizeWaypoints(optimizeOrder: boolean): DirectionFinder;
-      setOrigin(latitude: Number, longitude: Number): DirectionFinder;
+      setOrigin(latitude: number, longitude: number): DirectionFinder;
       setOrigin(address: string): DirectionFinder;
       setRegion(region: string): DirectionFinder;
     }
@@ -91,7 +95,7 @@ declare namespace GoogleAppsScript {
     /**
      * A collection of enums used by DirectionFinder.
      */
-    export interface DirectionFinderEnums {
+    interface DirectionFinderEnums {
       Avoid: typeof Avoid;
       Mode: typeof Mode;
     }
@@ -137,12 +141,12 @@ declare namespace GoogleAppsScript {
      *
      * Google Elevation API
      */
-    export interface ElevationSampler {
-      sampleLocation(latitude: Number, longitude: Number): Object;
-      sampleLocations(points: Number[]): Object;
-      sampleLocations(encodedPolyline: string): Object;
-      samplePath(points: Number[], numSamples: Integer): Object;
-      samplePath(encodedPolyline: string, numSamples: Integer): Object;
+    interface ElevationSampler {
+      sampleLocation(latitude: number, longitude: number): any;
+      sampleLocations(points: number[]): any;
+      sampleLocations(encodedPolyline: string): any;
+      samplePath(points: number[], numSamples: Integer): any;
+      samplePath(encodedPolyline: string, numSamples: Integer): any;
     }
 
     /**
@@ -151,7 +155,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
+    enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
 
     /**
      * Allows for the conversion between an address and geographical coordinates.
@@ -183,11 +187,11 @@ declare namespace GoogleAppsScript {
      *
      * Google Geocoding API
      */
-    export interface Geocoder {
-      geocode(address: string): Object;
-      reverseGeocode(latitude: Number, longitude: Number): Object;
-      reverseGeocode(swLatitude: Number, swLongitude: Number, neLatitude: Number, neLongitude: Number): Object;
-      setBounds(swLatitude: Number, swLongitude: Number, neLatitude: Number, neLongitude: Number): Geocoder;
+    interface Geocoder {
+      geocode(address: string): any;
+      reverseGeocode(latitude: number, longitude: number): any;
+      reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): any;
+      setBounds(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): Geocoder;
       setLanguage(language: string): Geocoder;
       setRegion(region: string): Geocoder;
     }
@@ -196,11 +200,11 @@ declare namespace GoogleAppsScript {
      * Allows for direction finding, geocoding, elevation sampling and the creation of static map
      * images.
      */
-    export interface Maps {
+    interface Maps {
       DirectionFinder: DirectionFinderEnums;
       StaticMap: StaticMapEnums;
-      decodePolyline(polyline: string): Number[];
-      encodePolyline(points: Number[]): string;
+      decodePolyline(polyline: string): number[];
+      encodePolyline(points: number[]): string;
       newDirectionFinder(): DirectionFinder;
       newElevationSampler(): ElevationSampler;
       newGeocoder(): Geocoder;
@@ -214,15 +218,16 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum MarkerSize { TINY, MID, SMALL }
+    enum MarkerSize { TINY, MID, SMALL }
 
     /**
      * An enum representing the mode of travel to use when finding directions.
      */
-    export enum Mode { DRIVING, WALKING, BICYCLING, TRANSIT }
+    enum Mode { DRIVING, WALKING, BICYCLING, TRANSIT }
 
     /**
      * Allows for the creation and decoration of static map images.
+     *
      * The example below shows how you can use this class to create a map of New York City's Theatre
      * District, including nearby train stations, and display it in a simple web app.
      *
@@ -248,20 +253,21 @@ declare namespace GoogleAppsScript {
      *     for (var i = 0; i < corners.length; i++) {
      *       map.addAddress(corners[i]);
      *     }
-     *     var url = map.getMapUrl();
+     *     // All static map URLs require an API key.
+     *     var url = map.getMapUrl() + "&key=YOUR_API_KEY";
      *
      * See also
      *
      * Google Static Maps API
      */
-    export interface StaticMap {
+    interface StaticMap {
       addAddress(address: string): StaticMap;
-      addMarker(latitude: Number, longitude: Number): StaticMap;
+      addMarker(latitude: number, longitude: number): StaticMap;
       addMarker(address: string): StaticMap;
-      addPath(points: Number[]): StaticMap;
+      addPath(points: number[]): StaticMap;
       addPath(polyline: string): StaticMap;
-      addPoint(latitude: Number, longitude: Number): StaticMap;
-      addVisible(latitude: Number, longitude: Number): StaticMap;
+      addPoint(latitude: number, longitude: number): StaticMap;
+      addVisible(latitude: number, longitude: number): StaticMap;
       addVisible(address: string): StaticMap;
       beginPath(): StaticMap;
       clearMarkers(): StaticMap;
@@ -272,7 +278,7 @@ declare namespace GoogleAppsScript {
       getBlob(): Base.Blob;
       getMapImage(): Byte[];
       getMapUrl(): string;
-      setCenter(latitude: Number, longitude: Number): StaticMap;
+      setCenter(latitude: number, longitude: number): StaticMap;
       setCenter(address: string): StaticMap;
       setCustomMarkerStyle(imageUrl: string, useShadow: boolean): StaticMap;
       setFormat(format: string): StaticMap;
@@ -288,7 +294,7 @@ declare namespace GoogleAppsScript {
     /**
      * A collection of enums used by StaticMap.
      */
-    export interface StaticMapEnums {
+    interface StaticMapEnums {
       Color: typeof Color;
       Format: typeof Format;
       MarkerSize: typeof MarkerSize;
@@ -301,8 +307,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum Type { ROADMAP, SATELLITE, TERRAIN, HYBRID }
-
+    enum Type { ROADMAP, SATELLITE, TERRAIN, HYBRID }
   }
 }
 

@@ -12,12 +12,36 @@ const audioQueue = new Queue('audio transcoding', {
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 
+videoQueue.getWorkers();
+videoQueue.setWorkerName();
+videoQueue.base64Name();
+videoQueue.clientName();
+videoQueue.parseClientList('');
+
 videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
 
+    // job.opts contains the options that were passed to the job
+    job.opts;
+
+    job.queue;
+    job.queue.client;
+
     // transcode video asynchronously and report progress
     job.progress(42);
+
+    // get current job progress
+    const progress = job.progress();
+
+    job.log('loglog');
+    job.isCompleted();
+    job.isFailed();
+    job.isDelayed();
+    job.isActive();
+    job.isWaiting();
+    job.isPaused();
+    job.isStuck();
 
     // call done when finished
     done();
@@ -30,11 +54,17 @@ videoQueue.process((job, done) => {
 
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error('some unexpected error');
+}).catch(error => {
+    // Catch the general error, like redis connection
+    console.log(error);
 });
 
 audioQueue.process((job, done) => {
     // transcode audio asynchronously and report progress
     job.progress(42);
+
+    // get current job progress
+    const progress = job.progress();
 
     // call done when finished
     done();
@@ -185,6 +215,7 @@ myQueue.on('active', (job: Queue.Job) => {
             const nextJobId: Queue.JobId = val[1];
         }
     });
+    job.moveToCompleted('done', true, false);
 
     job.moveToFailed({ message: "Call to external service failed!" }, true);
     job.moveToFailed(new Error('test error'), true);
@@ -197,6 +228,16 @@ myQueue.on('active', (job: Queue.Job) => {
 
     job.discard();
 });
+
+// Close queues
+
+myQueue.close();
+
+const doNotWaitForJobs = true;
+myQueue.close(doNotWaitForJobs);
+
+// Get Redis clients
+const clients = myQueue.clients;
 
 // test all constructor options:
 

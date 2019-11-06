@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace YouTube {
     namespace Collection {
-      export interface ActivitiesCollection {
+      interface ActivitiesCollection {
         // Posts a bulletin for a specific channel. (The user submitting the request must be authorized to act on the channel's behalf.)
         // Note: Even though an activity resource can contain information about actions like a user rating a video or marking a video as a favorite, you need to use other API methods to generate those activity resources. For example, you would use the API's videos.rate() method to rate a video and the playlistItems.insert() method to mark a video as a favorite.
         insert(resource: Schema.Activity, part: string): YouTube.Schema.Activity;
@@ -16,7 +16,7 @@ declare namespace GoogleAppsScript {
         // Returns a list of channel activity events that match the request criteria. For example, you can retrieve events associated with a particular channel, events associated with the user's subscriptions and Google+ friends, or the YouTube home page feed, which is customized for each user.
         list(part: string, optionalArgs: object): YouTube.Schema.ActivityListResponse;
       }
-      export interface CaptionsCollection {
+      interface CaptionsCollection {
         // Downloads a caption track. The caption track is returned in its original format unless the request specifies a value for the tfmt parameter and in its original language unless the request specifies a value for the tlang parameter.
         download(id: string): void;
         // Downloads a caption track. The caption track is returned in its original format unless the request specifies a value for the tfmt parameter and in its original language unless the request specifies a value for the tlang parameter.
@@ -42,7 +42,7 @@ declare namespace GoogleAppsScript {
         // Updates a caption track. When updating a caption track, you can change the track's draft status, upload a new caption file for the track, or both.
         update(resource: Schema.Caption, part: string, mediaData: any, optionalArgs: object): YouTube.Schema.Caption;
       }
-      export interface ChannelBannersCollection {
+      interface ChannelBannersCollection {
         // Uploads a channel banner image to YouTube. This method represents the first two steps in a three-step process to update the banner image for a channel:
         // - Call the channelBanners.insert method to upload the binary image data to YouTube. The image must have a 16:9 aspect ratio and be at least 2120x1192 pixels.
         // - Extract the url property's value from the response that the API returns for step 1.
@@ -59,7 +59,7 @@ declare namespace GoogleAppsScript {
         // - Call the channels.update method to update the channel's branding settings. Set the brandingSettings.image.bannerExternalUrl property's value to the URL obtained in step 2.
         insert(resource: Schema.ChannelBannerResource, mediaData: any, optionalArgs: object): YouTube.Schema.ChannelBannerResource;
       }
-      export interface ChannelSectionsCollection {
+      interface ChannelSectionsCollection {
         // Adds a channelSection for the authenticated user's channel.
         insert(resource: Schema.ChannelSection, part: string): YouTube.Schema.ChannelSection;
         // Adds a channelSection for the authenticated user's channel.
@@ -77,7 +77,7 @@ declare namespace GoogleAppsScript {
         // Update a channelSection.
         update(resource: Schema.ChannelSection, part: string, optionalArgs: object): YouTube.Schema.ChannelSection;
       }
-      export interface ChannelsCollection {
+      interface ChannelsCollection {
         // Returns a collection of zero or more channel resources that match the request criteria.
         list(part: string): YouTube.Schema.ChannelListResponse;
         // Returns a collection of zero or more channel resources that match the request criteria.
@@ -87,7 +87,7 @@ declare namespace GoogleAppsScript {
         // Updates a channel's metadata. Note that this method currently only supports updates to the channel resource's brandingSettings and invideoPromotion objects and their child properties.
         update(resource: Schema.Channel, part: string, optionalArgs: object): YouTube.Schema.Channel;
       }
-      export interface CommentThreadsCollection {
+      interface CommentThreadsCollection {
         // Creates a new top-level comment. To add a reply to an existing comment, use the comments.insert method instead.
         insert(resource: Schema.CommentThread, part: string): YouTube.Schema.CommentThread;
         // Returns a list of comment threads that match the API request parameters.
@@ -97,7 +97,7 @@ declare namespace GoogleAppsScript {
         // Modifies the top-level comment in a comment thread.
         update(resource: Schema.CommentThread, part: string): YouTube.Schema.CommentThread;
       }
-      export interface CommentsCollection {
+      interface CommentsCollection {
         // Creates a reply to an existing comment. Note: To create a top-level comment, use the commentThreads.insert method.
         insert(resource: Schema.Comment, part: string): YouTube.Schema.Comment;
         // Returns a list of comments that match the API request parameters.
@@ -115,25 +115,25 @@ declare namespace GoogleAppsScript {
         // Modifies a comment.
         update(resource: Schema.Comment, part: string): YouTube.Schema.Comment;
       }
-      export interface GuideCategoriesCollection {
+      interface GuideCategoriesCollection {
         // Returns a list of categories that can be associated with YouTube channels.
         list(part: string): YouTube.Schema.GuideCategoryListResponse;
         // Returns a list of categories that can be associated with YouTube channels.
         list(part: string, optionalArgs: object): YouTube.Schema.GuideCategoryListResponse;
       }
-      export interface I18nLanguagesCollection {
+      interface I18nLanguagesCollection {
         // Returns a list of application languages that the YouTube website supports.
         list(part: string): YouTube.Schema.I18nLanguageListResponse;
         // Returns a list of application languages that the YouTube website supports.
         list(part: string, optionalArgs: object): YouTube.Schema.I18nLanguageListResponse;
       }
-      export interface I18nRegionsCollection {
+      interface I18nRegionsCollection {
         // Returns a list of content regions that the YouTube website supports.
         list(part: string): YouTube.Schema.I18nRegionListResponse;
         // Returns a list of content regions that the YouTube website supports.
         list(part: string, optionalArgs: object): YouTube.Schema.I18nRegionListResponse;
       }
-      export interface LiveBroadcastsCollection {
+      interface LiveBroadcastsCollection {
         // Binds a YouTube broadcast to a stream or removes an existing binding between a broadcast and a stream. A broadcast can only be bound to one video stream, though a video stream may be bound to more than one broadcast.
         bind(id: string, part: string): YouTube.Schema.LiveBroadcast;
         // Binds a YouTube broadcast to a stream or removes an existing binding between a broadcast and a stream. A broadcast can only be bound to one video stream, though a video stream may be bound to more than one broadcast.
@@ -163,13 +163,13 @@ declare namespace GoogleAppsScript {
         // Updates a broadcast. For example, you could modify the broadcast settings defined in the liveBroadcast resource's contentDetails object.
         update(resource: Schema.LiveBroadcast, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
       }
-      export interface LiveChatBansCollection {
+      interface LiveChatBansCollection {
         // Adds a new ban to the chat.
         insert(resource: Schema.LiveChatBan, part: string): YouTube.Schema.LiveChatBan;
         // Removes a chat ban.
         remove(id: string): void;
       }
-      export interface LiveChatMessagesCollection {
+      interface LiveChatMessagesCollection {
         // Adds a message to a live chat.
         insert(resource: Schema.LiveChatMessage, part: string): YouTube.Schema.LiveChatMessage;
         // Lists live chat messages for a specific chat.
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
         // Deletes a chat message.
         remove(id: string): void;
       }
-      export interface LiveChatModeratorsCollection {
+      interface LiveChatModeratorsCollection {
         // Adds a new moderator for the chat.
         insert(resource: Schema.LiveChatModerator, part: string): YouTube.Schema.LiveChatModerator;
         // Lists moderators for a live chat.
@@ -189,7 +189,7 @@ declare namespace GoogleAppsScript {
         // Removes a chat moderator.
         remove(id: string): void;
       }
-      export interface LiveStreamsCollection {
+      interface LiveStreamsCollection {
         // Creates a video stream. The stream enables you to send your video to YouTube, which can then broadcast the video to your audience.
         insert(resource: Schema.LiveStream, part: string): YouTube.Schema.LiveStream;
         // Creates a video stream. The stream enables you to send your video to YouTube, which can then broadcast the video to your audience.
@@ -207,7 +207,7 @@ declare namespace GoogleAppsScript {
         // Updates a video stream. If the properties that you want to change cannot be updated, then you need to create a new stream with the proper settings.
         update(resource: Schema.LiveStream, part: string, optionalArgs: object): YouTube.Schema.LiveStream;
       }
-      export interface PlaylistItemsCollection {
+      interface PlaylistItemsCollection {
         // Adds a resource to a playlist.
         insert(resource: Schema.PlaylistItem, part: string): YouTube.Schema.PlaylistItem;
         // Adds a resource to a playlist.
@@ -225,7 +225,7 @@ declare namespace GoogleAppsScript {
         // Modifies a playlist item. For example, you could update the item's position in the playlist.
         update(resource: Schema.PlaylistItem, part: string, optionalArgs: object): YouTube.Schema.PlaylistItem;
       }
-      export interface PlaylistsCollection {
+      interface PlaylistsCollection {
         // Creates a playlist.
         insert(resource: Schema.Playlist, part: string): YouTube.Schema.Playlist;
         // Creates a playlist.
@@ -243,19 +243,19 @@ declare namespace GoogleAppsScript {
         // Modifies a playlist. For example, you could change a playlist's title, description, or privacy status.
         update(resource: Schema.Playlist, part: string, optionalArgs: object): YouTube.Schema.Playlist;
       }
-      export interface SearchCollection {
+      interface SearchCollection {
         // Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.
         list(part: string): YouTube.Schema.SearchListResponse;
         // Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.
         list(part: string, optionalArgs: object): YouTube.Schema.SearchListResponse;
       }
-      export interface SponsorsCollection {
+      interface SponsorsCollection {
         // Lists sponsors for a channel.
         list(part: string): YouTube.Schema.SponsorListResponse;
         // Lists sponsors for a channel.
         list(part: string, optionalArgs: object): YouTube.Schema.SponsorListResponse;
       }
-      export interface SubscriptionsCollection {
+      interface SubscriptionsCollection {
         // Adds a subscription for the authenticated user's channel.
         insert(resource: Schema.Subscription, part: string): YouTube.Schema.Subscription;
         // Returns subscription resources that match the API request criteria.
@@ -265,13 +265,13 @@ declare namespace GoogleAppsScript {
         // Deletes a subscription.
         remove(id: string): void;
       }
-      export interface SuperChatEventsCollection {
+      interface SuperChatEventsCollection {
         // Lists Super Chat events for a channel.
         list(part: string): YouTube.Schema.SuperChatEventListResponse;
         // Lists Super Chat events for a channel.
         list(part: string, optionalArgs: object): YouTube.Schema.SuperChatEventListResponse;
       }
-      export interface ThumbnailsCollection {
+      interface ThumbnailsCollection {
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
         set(videoId: string): YouTube.Schema.ThumbnailSetResponse;
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
@@ -279,19 +279,19 @@ declare namespace GoogleAppsScript {
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
         set(videoId: string, mediaData: any, optionalArgs: object): YouTube.Schema.ThumbnailSetResponse;
       }
-      export interface VideoAbuseReportReasonsCollection {
+      interface VideoAbuseReportReasonsCollection {
         // Returns a list of abuse reasons that can be used for reporting abusive videos.
         list(part: string): YouTube.Schema.VideoAbuseReportReasonListResponse;
         // Returns a list of abuse reasons that can be used for reporting abusive videos.
         list(part: string, optionalArgs: object): YouTube.Schema.VideoAbuseReportReasonListResponse;
       }
-      export interface VideoCategoriesCollection {
+      interface VideoCategoriesCollection {
         // Returns a list of categories that can be associated with YouTube videos.
         list(part: string): YouTube.Schema.VideoCategoryListResponse;
         // Returns a list of categories that can be associated with YouTube videos.
         list(part: string, optionalArgs: object): YouTube.Schema.VideoCategoryListResponse;
       }
-      export interface VideosCollection {
+      interface VideosCollection {
         // Retrieves the ratings that the authorized user gave to a list of specified videos.
         getRating(id: string): YouTube.Schema.VideoGetRatingResponse;
         // Retrieves the ratings that the authorized user gave to a list of specified videos.
@@ -321,7 +321,7 @@ declare namespace GoogleAppsScript {
         // Updates a video's metadata.
         update(resource: Schema.Video, part: string, optionalArgs: object): YouTube.Schema.Video;
       }
-      export interface WatermarksCollection {
+      interface WatermarksCollection {
         // Uploads a watermark image to YouTube and sets it for a channel.
         set(resource: Schema.InvideoBranding, channelId: string): void;
         // Uploads a watermark image to YouTube and sets it for a channel.
@@ -335,18 +335,18 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AccessPolicy {
+      interface AccessPolicy {
         allowed?: boolean;
         exception?: string[];
       }
-      export interface Activity {
+      interface Activity {
         contentDetails?: YouTube.Schema.ActivityContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.ActivitySnippet;
       }
-      export interface ActivityContentDetails {
+      interface ActivityContentDetails {
         bulletin?: YouTube.Schema.ActivityContentDetailsBulletin;
         channelItem?: YouTube.Schema.ActivityContentDetailsChannelItem;
         comment?: YouTube.Schema.ActivityContentDetailsComment;
@@ -359,27 +359,27 @@ declare namespace GoogleAppsScript {
         subscription?: YouTube.Schema.ActivityContentDetailsSubscription;
         upload?: YouTube.Schema.ActivityContentDetailsUpload;
       }
-      export interface ActivityContentDetailsBulletin {
+      interface ActivityContentDetailsBulletin {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsChannelItem {
+      interface ActivityContentDetailsChannelItem {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsComment {
+      interface ActivityContentDetailsComment {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsFavorite {
+      interface ActivityContentDetailsFavorite {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsLike {
+      interface ActivityContentDetailsLike {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsPlaylistItem {
+      interface ActivityContentDetailsPlaylistItem {
         playlistId?: string;
         playlistItemId?: string;
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsPromotedItem {
+      interface ActivityContentDetailsPromotedItem {
         adTag?: string;
         clickTrackingUrl?: string;
         creativeViewUrl?: string;
@@ -391,25 +391,25 @@ declare namespace GoogleAppsScript {
         impressionUrl?: string[];
         videoId?: string;
       }
-      export interface ActivityContentDetailsRecommendation {
+      interface ActivityContentDetailsRecommendation {
         reason?: string;
         resourceId?: YouTube.Schema.ResourceId;
         seedResourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsSocial {
+      interface ActivityContentDetailsSocial {
         author?: string;
         imageUrl?: string;
         referenceUrl?: string;
         resourceId?: YouTube.Schema.ResourceId;
         type?: string;
       }
-      export interface ActivityContentDetailsSubscription {
+      interface ActivityContentDetailsSubscription {
         resourceId?: YouTube.Schema.ResourceId;
       }
-      export interface ActivityContentDetailsUpload {
+      interface ActivityContentDetailsUpload {
         videoId?: string;
       }
-      export interface ActivityListResponse {
+      interface ActivityListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Activity[];
@@ -420,7 +420,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface ActivitySnippet {
+      interface ActivitySnippet {
         channelId?: string;
         channelTitle?: string;
         description?: string;
@@ -430,20 +430,20 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface Caption {
+      interface Caption {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.CaptionSnippet;
       }
-      export interface CaptionListResponse {
+      interface CaptionListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Caption[];
         kind?: string;
         visitorId?: string;
       }
-      export interface CaptionSnippet {
+      interface CaptionSnippet {
         audioTrackType?: string;
         failureReason?: string;
         isAutoSynced?: boolean;
@@ -458,14 +458,14 @@ declare namespace GoogleAppsScript {
         trackKind?: string;
         videoId?: string;
       }
-      export interface CdnSettings {
+      interface CdnSettings {
         format?: string;
         frameRate?: string;
         ingestionInfo?: YouTube.Schema.IngestionInfo;
         ingestionType?: string;
         resolution?: string;
       }
-      export interface Channel {
+      interface Channel {
         auditDetails?: YouTube.Schema.ChannelAuditDetails;
         brandingSettings?: YouTube.Schema.ChannelBrandingSettings;
         contentDetails?: YouTube.Schema.ChannelContentDetails;
@@ -481,44 +481,44 @@ declare namespace GoogleAppsScript {
         status?: YouTube.Schema.ChannelStatus;
         topicDetails?: YouTube.Schema.ChannelTopicDetails;
       }
-      export interface ChannelAuditDetails {
+      interface ChannelAuditDetails {
         communityGuidelinesGoodStanding?: boolean;
         contentIdClaimsGoodStanding?: boolean;
         copyrightStrikesGoodStanding?: boolean;
       }
-      export interface ChannelBannerResource {
+      interface ChannelBannerResource {
         etag?: string;
         kind?: string;
         url?: string;
       }
-      export interface ChannelBrandingSettings {
+      interface ChannelBrandingSettings {
         channel?: YouTube.Schema.ChannelSettings;
         hints?: YouTube.Schema.PropertyValue[];
         image?: YouTube.Schema.ImageSettings;
         watch?: YouTube.Schema.WatchSettings;
       }
-      export interface ChannelContentDetails {
+      interface ChannelContentDetails {
         relatedPlaylists?: YouTube.Schema.ChannelContentDetailsRelatedPlaylists;
       }
-      export interface ChannelContentDetailsRelatedPlaylists {
+      interface ChannelContentDetailsRelatedPlaylists {
         favorites?: string;
         likes?: string;
         uploads?: string;
         watchHistory?: string;
         watchLater?: string;
       }
-      export interface ChannelContentOwnerDetails {
+      interface ChannelContentOwnerDetails {
         contentOwner?: string;
         timeLinked?: string;
       }
-      export interface ChannelConversionPing {
+      interface ChannelConversionPing {
         context?: string;
         conversionUrl?: string;
       }
-      export interface ChannelConversionPings {
+      interface ChannelConversionPings {
         pings?: YouTube.Schema.ChannelConversionPing[];
       }
-      export interface ChannelListResponse {
+      interface ChannelListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Channel[];
@@ -529,17 +529,17 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface ChannelLocalization {
+      interface ChannelLocalization {
         description?: string;
         title?: string;
       }
-      export interface ChannelProfileDetails {
+      interface ChannelProfileDetails {
         channelId?: string;
         channelUrl?: string;
         displayName?: string;
         profileImageUrl?: string;
       }
-      export interface ChannelSection {
+      interface ChannelSection {
         contentDetails?: YouTube.Schema.ChannelSectionContentDetails;
         etag?: string;
         id?: string;
@@ -548,21 +548,21 @@ declare namespace GoogleAppsScript {
         snippet?: YouTube.Schema.ChannelSectionSnippet;
         targeting?: YouTube.Schema.ChannelSectionTargeting;
       }
-      export interface ChannelSectionContentDetails {
+      interface ChannelSectionContentDetails {
         channels?: string[];
         playlists?: string[];
       }
-      export interface ChannelSectionListResponse {
+      interface ChannelSectionListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.ChannelSection[];
         kind?: string;
         visitorId?: string;
       }
-      export interface ChannelSectionLocalization {
+      interface ChannelSectionLocalization {
         title?: string;
       }
-      export interface ChannelSectionSnippet {
+      interface ChannelSectionSnippet {
         channelId?: string;
         defaultLanguage?: string;
         localized?: YouTube.Schema.ChannelSectionLocalization;
@@ -571,12 +571,12 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface ChannelSectionTargeting {
+      interface ChannelSectionTargeting {
         countries?: string[];
         languages?: string[];
         regions?: string[];
       }
-      export interface ChannelSettings {
+      interface ChannelSettings {
         country?: string;
         defaultLanguage?: string;
         defaultTab?: string;
@@ -592,7 +592,7 @@ declare namespace GoogleAppsScript {
         trackingAnalyticsAccountId?: string;
         unsubscribedTrailer?: string;
       }
-      export interface ChannelSnippet {
+      interface ChannelSnippet {
         country?: string;
         customUrl?: string;
         defaultLanguage?: string;
@@ -602,29 +602,29 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface ChannelStatistics {
+      interface ChannelStatistics {
         commentCount?: string;
         hiddenSubscriberCount?: boolean;
         subscriberCount?: string;
         videoCount?: string;
         viewCount?: string;
       }
-      export interface ChannelStatus {
+      interface ChannelStatus {
         isLinked?: boolean;
         longUploadsStatus?: string;
         privacyStatus?: string;
       }
-      export interface ChannelTopicDetails {
+      interface ChannelTopicDetails {
         topicCategories?: string[];
         topicIds?: string[];
       }
-      export interface Comment {
+      interface Comment {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.CommentSnippet;
       }
-      export interface CommentListResponse {
+      interface CommentListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Comment[];
@@ -634,7 +634,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface CommentSnippet {
+      interface CommentSnippet {
         authorChannelId?: object;
         authorChannelUrl?: string;
         authorDisplayName?: string;
@@ -651,14 +651,14 @@ declare namespace GoogleAppsScript {
         videoId?: string;
         viewerRating?: string;
       }
-      export interface CommentThread {
+      interface CommentThread {
         etag?: string;
         id?: string;
         kind?: string;
         replies?: YouTube.Schema.CommentThreadReplies;
         snippet?: YouTube.Schema.CommentThreadSnippet;
       }
-      export interface CommentThreadListResponse {
+      interface CommentThreadListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.CommentThread[];
@@ -668,10 +668,10 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface CommentThreadReplies {
+      interface CommentThreadReplies {
         comments?: YouTube.Schema.Comment[];
       }
-      export interface CommentThreadSnippet {
+      interface CommentThreadSnippet {
         canReply?: boolean;
         channelId?: string;
         isPublic?: boolean;
@@ -679,7 +679,7 @@ declare namespace GoogleAppsScript {
         totalReplyCount?: number;
         videoId?: string;
       }
-      export interface ContentRating {
+      interface ContentRating {
         acbRating?: string;
         agcomRating?: string;
         anatelRating?: string;
@@ -751,18 +751,18 @@ declare namespace GoogleAppsScript {
         tvpgRating?: string;
         ytRating?: string;
       }
-      export interface GeoPoint {
-        altitude?: Number;
-        latitude?: Number;
-        longitude?: Number;
+      interface GeoPoint {
+        altitude?: number;
+        latitude?: number;
+        longitude?: number;
       }
-      export interface GuideCategory {
+      interface GuideCategory {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.GuideCategorySnippet;
       }
-      export interface GuideCategoryListResponse {
+      interface GuideCategoryListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.GuideCategory[];
@@ -773,45 +773,45 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface GuideCategorySnippet {
+      interface GuideCategorySnippet {
         channelId?: string;
         title?: string;
       }
-      export interface I18nLanguage {
+      interface I18nLanguage {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.I18nLanguageSnippet;
       }
-      export interface I18nLanguageListResponse {
+      interface I18nLanguageListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.I18nLanguage[];
         kind?: string;
         visitorId?: string;
       }
-      export interface I18nLanguageSnippet {
+      interface I18nLanguageSnippet {
         hl?: string;
         name?: string;
       }
-      export interface I18nRegion {
+      interface I18nRegion {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.I18nRegionSnippet;
       }
-      export interface I18nRegionListResponse {
+      interface I18nRegionListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.I18nRegion[];
         kind?: string;
         visitorId?: string;
       }
-      export interface I18nRegionSnippet {
+      interface I18nRegionSnippet {
         gl?: string;
         name?: string;
       }
-      export interface ImageSettings {
+      interface ImageSettings {
         backgroundImageUrl?: YouTube.Schema.LocalizedProperty;
         bannerExternalUrl?: string;
         bannerImageUrl?: string;
@@ -835,37 +835,37 @@ declare namespace GoogleAppsScript {
         trackingImageUrl?: string;
         watchIconImageUrl?: string;
       }
-      export interface IngestionInfo {
+      interface IngestionInfo {
         backupIngestionAddress?: string;
         ingestionAddress?: string;
         streamName?: string;
       }
-      export interface InvideoBranding {
+      interface InvideoBranding {
         imageBytes?: string;
         imageUrl?: string;
         position?: YouTube.Schema.InvideoPosition;
         targetChannelId?: string;
         timing?: YouTube.Schema.InvideoTiming;
       }
-      export interface InvideoPosition {
+      interface InvideoPosition {
         cornerPosition?: string;
         type?: string;
       }
-      export interface InvideoPromotion {
+      interface InvideoPromotion {
         defaultTiming?: YouTube.Schema.InvideoTiming;
         items?: YouTube.Schema.PromotedItem[];
         position?: YouTube.Schema.InvideoPosition;
         useSmartTiming?: boolean;
       }
-      export interface InvideoTiming {
+      interface InvideoTiming {
         durationMs?: string;
         offsetMs?: string;
         type?: string;
       }
-      export interface LanguageTag {
+      interface LanguageTag {
         value?: string;
       }
-      export interface LiveBroadcast {
+      interface LiveBroadcast {
         contentDetails?: YouTube.Schema.LiveBroadcastContentDetails;
         etag?: string;
         id?: string;
@@ -874,7 +874,7 @@ declare namespace GoogleAppsScript {
         statistics?: YouTube.Schema.LiveBroadcastStatistics;
         status?: YouTube.Schema.LiveBroadcastStatus;
       }
-      export interface LiveBroadcastContentDetails {
+      interface LiveBroadcastContentDetails {
         boundStreamId?: string;
         boundStreamLastUpdateTimeMs?: string;
         closedCaptionsType?: string;
@@ -892,7 +892,7 @@ declare namespace GoogleAppsScript {
         startWithSlate?: boolean;
         stereoLayout?: string;
       }
-      export interface LiveBroadcastListResponse {
+      interface LiveBroadcastListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.LiveBroadcast[];
@@ -903,7 +903,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface LiveBroadcastSnippet {
+      interface LiveBroadcastSnippet {
         actualEndTime?: string;
         actualStartTime?: string;
         channelId?: string;
@@ -916,42 +916,42 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface LiveBroadcastStatistics {
+      interface LiveBroadcastStatistics {
         concurrentViewers?: string;
         totalChatCount?: string;
       }
-      export interface LiveBroadcastStatus {
+      interface LiveBroadcastStatus {
         lifeCycleStatus?: string;
         liveBroadcastPriority?: string;
         privacyStatus?: string;
         recordingStatus?: string;
       }
-      export interface LiveChatBan {
+      interface LiveChatBan {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.LiveChatBanSnippet;
       }
-      export interface LiveChatBanSnippet {
+      interface LiveChatBanSnippet {
         banDurationSeconds?: string;
         bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
         liveChatId?: string;
         type?: string;
       }
-      export interface LiveChatFanFundingEventDetails {
+      interface LiveChatFanFundingEventDetails {
         amountDisplayString?: string;
         amountMicros?: string;
         currency?: string;
         userComment?: string;
       }
-      export interface LiveChatMessage {
+      interface LiveChatMessage {
         authorDetails?: YouTube.Schema.LiveChatMessageAuthorDetails;
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.LiveChatMessageSnippet;
       }
-      export interface LiveChatMessageAuthorDetails {
+      interface LiveChatMessageAuthorDetails {
         channelId?: string;
         channelUrl?: string;
         displayName?: string;
@@ -961,10 +961,10 @@ declare namespace GoogleAppsScript {
         isVerified?: boolean;
         profileImageUrl?: string;
       }
-      export interface LiveChatMessageDeletedDetails {
+      interface LiveChatMessageDeletedDetails {
         deletedMessageId?: string;
       }
-      export interface LiveChatMessageListResponse {
+      interface LiveChatMessageListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.LiveChatMessage[];
@@ -976,10 +976,10 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface LiveChatMessageRetractedDetails {
+      interface LiveChatMessageRetractedDetails {
         retractedMessageId?: string;
       }
-      export interface LiveChatMessageSnippet {
+      interface LiveChatMessageSnippet {
         authorChannelId?: string;
         displayMessage?: string;
         fanFundingEventDetails?: YouTube.Schema.LiveChatFanFundingEventDetails;
@@ -998,13 +998,13 @@ declare namespace GoogleAppsScript {
         type?: string;
         userBannedDetails?: YouTube.Schema.LiveChatUserBannedMessageDetails;
       }
-      export interface LiveChatModerator {
+      interface LiveChatModerator {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.LiveChatModeratorSnippet;
       }
-      export interface LiveChatModeratorListResponse {
+      interface LiveChatModeratorListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.LiveChatModerator[];
@@ -1015,54 +1015,54 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface LiveChatModeratorSnippet {
+      interface LiveChatModeratorSnippet {
         liveChatId?: string;
         moderatorDetails?: YouTube.Schema.ChannelProfileDetails;
       }
-      export interface LiveChatPollClosedDetails {
+      interface LiveChatPollClosedDetails {
         pollId?: string;
       }
-      export interface LiveChatPollEditedDetails {
+      interface LiveChatPollEditedDetails {
         id?: string;
         items?: YouTube.Schema.LiveChatPollItem[];
         prompt?: string;
       }
-      export interface LiveChatPollItem {
+      interface LiveChatPollItem {
         description?: string;
         itemId?: string;
       }
-      export interface LiveChatPollOpenedDetails {
+      interface LiveChatPollOpenedDetails {
         id?: string;
         items?: YouTube.Schema.LiveChatPollItem[];
         prompt?: string;
       }
-      export interface LiveChatPollVotedDetails {
+      interface LiveChatPollVotedDetails {
         itemId?: string;
         pollId?: string;
       }
-      export interface LiveChatSuperChatDetails {
+      interface LiveChatSuperChatDetails {
         amountDisplayString?: string;
         amountMicros?: string;
         currency?: string;
         tier?: number;
         userComment?: string;
       }
-      export interface LiveChatSuperStickerDetails {
+      interface LiveChatSuperStickerDetails {
         amountDisplayString?: string;
         amountMicros?: string;
         currency?: string;
         superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
         tier?: number;
       }
-      export interface LiveChatTextMessageDetails {
+      interface LiveChatTextMessageDetails {
         messageText?: string;
       }
-      export interface LiveChatUserBannedMessageDetails {
+      interface LiveChatUserBannedMessageDetails {
         banDurationSeconds?: string;
         banType?: string;
         bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
       }
-      export interface LiveStream {
+      interface LiveStream {
         cdn?: YouTube.Schema.CdnSettings;
         contentDetails?: YouTube.Schema.LiveStreamContentDetails;
         etag?: string;
@@ -1071,22 +1071,22 @@ declare namespace GoogleAppsScript {
         snippet?: YouTube.Schema.LiveStreamSnippet;
         status?: YouTube.Schema.LiveStreamStatus;
       }
-      export interface LiveStreamConfigurationIssue {
+      interface LiveStreamConfigurationIssue {
         description?: string;
         reason?: string;
         severity?: string;
         type?: string;
       }
-      export interface LiveStreamContentDetails {
+      interface LiveStreamContentDetails {
         closedCaptionsIngestionUrl?: string;
         isReusable?: boolean;
       }
-      export interface LiveStreamHealthStatus {
+      interface LiveStreamHealthStatus {
         configurationIssues?: YouTube.Schema.LiveStreamConfigurationIssue[];
         lastUpdateTimeSeconds?: string;
         status?: string;
       }
-      export interface LiveStreamListResponse {
+      interface LiveStreamListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.LiveStream[];
@@ -1097,43 +1097,43 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface LiveStreamSnippet {
+      interface LiveStreamSnippet {
         channelId?: string;
         description?: string;
         isDefaultStream?: boolean;
         publishedAt?: string;
         title?: string;
       }
-      export interface LiveStreamStatus {
+      interface LiveStreamStatus {
         healthStatus?: YouTube.Schema.LiveStreamHealthStatus;
         streamStatus?: string;
       }
-      export interface LocalizedProperty {
+      interface LocalizedProperty {
         default?: string;
         defaultLanguage?: YouTube.Schema.LanguageTag;
         localized?: YouTube.Schema.LocalizedString[];
       }
-      export interface LocalizedString {
+      interface LocalizedString {
         language?: string;
         value?: string;
       }
-      export interface MonitorStreamInfo {
+      interface MonitorStreamInfo {
         broadcastStreamDelayMs?: number;
         embedHtml?: string;
         enableMonitorStream?: boolean;
       }
-      export interface Nonprofit {
+      interface Nonprofit {
         nonprofitId?: YouTube.Schema.NonprofitId;
         nonprofitLegalName?: string;
       }
-      export interface NonprofitId {
+      interface NonprofitId {
         value?: string;
       }
-      export interface PageInfo {
+      interface PageInfo {
         resultsPerPage?: number;
         totalResults?: number;
       }
-      export interface Playlist {
+      interface Playlist {
         contentDetails?: YouTube.Schema.PlaylistContentDetails;
         etag?: string;
         id?: string;
@@ -1143,10 +1143,10 @@ declare namespace GoogleAppsScript {
         snippet?: YouTube.Schema.PlaylistSnippet;
         status?: YouTube.Schema.PlaylistStatus;
       }
-      export interface PlaylistContentDetails {
+      interface PlaylistContentDetails {
         itemCount?: number;
       }
-      export interface PlaylistItem {
+      interface PlaylistItem {
         contentDetails?: YouTube.Schema.PlaylistItemContentDetails;
         etag?: string;
         id?: string;
@@ -1154,14 +1154,14 @@ declare namespace GoogleAppsScript {
         snippet?: YouTube.Schema.PlaylistItemSnippet;
         status?: YouTube.Schema.PlaylistItemStatus;
       }
-      export interface PlaylistItemContentDetails {
+      interface PlaylistItemContentDetails {
         endAt?: string;
         note?: string;
         startAt?: string;
         videoId?: string;
         videoPublishedAt?: string;
       }
-      export interface PlaylistItemListResponse {
+      interface PlaylistItemListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.PlaylistItem[];
@@ -1172,7 +1172,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface PlaylistItemSnippet {
+      interface PlaylistItemSnippet {
         channelId?: string;
         channelTitle?: string;
         description?: string;
@@ -1183,10 +1183,10 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface PlaylistItemStatus {
+      interface PlaylistItemStatus {
         privacyStatus?: string;
       }
-      export interface PlaylistListResponse {
+      interface PlaylistListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Playlist[];
@@ -1197,14 +1197,14 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface PlaylistLocalization {
+      interface PlaylistLocalization {
         description?: string;
         title?: string;
       }
-      export interface PlaylistPlayer {
+      interface PlaylistPlayer {
         embedHtml?: string;
       }
-      export interface PlaylistSnippet {
+      interface PlaylistSnippet {
         channelId?: string;
         channelTitle?: string;
         defaultLanguage?: string;
@@ -1215,32 +1215,32 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface PlaylistStatus {
+      interface PlaylistStatus {
         privacyStatus?: string;
       }
-      export interface PromotedItem {
+      interface PromotedItem {
         customMessage?: string;
         id?: YouTube.Schema.PromotedItemId;
         promotedByContentOwner?: boolean;
         timing?: YouTube.Schema.InvideoTiming;
       }
-      export interface PromotedItemId {
+      interface PromotedItemId {
         recentlyUploadedBy?: string;
         type?: string;
         videoId?: string;
         websiteUrl?: string;
       }
-      export interface PropertyValue {
+      interface PropertyValue {
         property?: string;
         value?: string;
       }
-      export interface ResourceId {
+      interface ResourceId {
         channelId?: string;
         kind?: string;
         playlistId?: string;
         videoId?: string;
       }
-      export interface SearchListResponse {
+      interface SearchListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.SearchResult[];
@@ -1252,13 +1252,13 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface SearchResult {
+      interface SearchResult {
         etag?: string;
         id?: YouTube.Schema.ResourceId;
         kind?: string;
         snippet?: YouTube.Schema.SearchResultSnippet;
       }
-      export interface SearchResultSnippet {
+      interface SearchResultSnippet {
         channelId?: string;
         channelTitle?: string;
         description?: string;
@@ -1267,12 +1267,12 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface Sponsor {
+      interface Sponsor {
         etag?: string;
         kind?: string;
         snippet?: YouTube.Schema.SponsorSnippet;
       }
-      export interface SponsorListResponse {
+      interface SponsorListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Sponsor[];
@@ -1282,13 +1282,13 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface SponsorSnippet {
+      interface SponsorSnippet {
         channelId?: string;
         cumulativeDurationMonths?: number;
         sponsorDetails?: YouTube.Schema.ChannelProfileDetails;
         sponsorSince?: string;
       }
-      export interface Subscription {
+      interface Subscription {
         contentDetails?: YouTube.Schema.SubscriptionContentDetails;
         etag?: string;
         id?: string;
@@ -1296,12 +1296,12 @@ declare namespace GoogleAppsScript {
         snippet?: YouTube.Schema.SubscriptionSnippet;
         subscriberSnippet?: YouTube.Schema.SubscriptionSubscriberSnippet;
       }
-      export interface SubscriptionContentDetails {
+      interface SubscriptionContentDetails {
         activityType?: string;
         newItemCount?: number;
         totalItemCount?: number;
       }
-      export interface SubscriptionListResponse {
+      interface SubscriptionListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Subscription[];
@@ -1312,7 +1312,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface SubscriptionSnippet {
+      interface SubscriptionSnippet {
         channelId?: string;
         channelTitle?: string;
         description?: string;
@@ -1321,19 +1321,19 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface SubscriptionSubscriberSnippet {
+      interface SubscriptionSubscriberSnippet {
         channelId?: string;
         description?: string;
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface SuperChatEvent {
+      interface SuperChatEvent {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.SuperChatEventSnippet;
       }
-      export interface SuperChatEventListResponse {
+      interface SuperChatEventListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.SuperChatEvent[];
@@ -1343,7 +1343,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface SuperChatEventSnippet {
+      interface SuperChatEventSnippet {
         amountMicros?: string;
         channelId?: string;
         commentText?: string;
@@ -1357,31 +1357,31 @@ declare namespace GoogleAppsScript {
         superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
         supporterDetails?: YouTube.Schema.ChannelProfileDetails;
       }
-      export interface SuperStickerMetadata {
+      interface SuperStickerMetadata {
         altText?: string;
         altTextLanguage?: string;
         stickerId?: string;
       }
-      export interface Thumbnail {
+      interface Thumbnail {
         height?: number;
         url?: string;
         width?: number;
       }
-      export interface ThumbnailDetails {
+      interface ThumbnailDetails {
         default?: YouTube.Schema.Thumbnail;
         high?: YouTube.Schema.Thumbnail;
         maxres?: YouTube.Schema.Thumbnail;
         medium?: YouTube.Schema.Thumbnail;
         standard?: YouTube.Schema.Thumbnail;
       }
-      export interface ThumbnailSetResponse {
+      interface ThumbnailSetResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.ThumbnailDetails[];
         kind?: string;
         visitorId?: string;
       }
-      export interface Video {
+      interface Video {
         ageGating?: YouTube.Schema.VideoAgeGating;
         contentDetails?: YouTube.Schema.VideoContentDetails;
         etag?: string;
@@ -1401,46 +1401,46 @@ declare namespace GoogleAppsScript {
         suggestions?: YouTube.Schema.VideoSuggestions;
         topicDetails?: YouTube.Schema.VideoTopicDetails;
       }
-      export interface VideoAbuseReport {
+      interface VideoAbuseReport {
         comments?: string;
         language?: string;
         reasonId?: string;
         secondaryReasonId?: string;
         videoId?: string;
       }
-      export interface VideoAbuseReportReason {
+      interface VideoAbuseReportReason {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.VideoAbuseReportReasonSnippet;
       }
-      export interface VideoAbuseReportReasonListResponse {
+      interface VideoAbuseReportReasonListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.VideoAbuseReportReason[];
         kind?: string;
         visitorId?: string;
       }
-      export interface VideoAbuseReportReasonSnippet {
+      interface VideoAbuseReportReasonSnippet {
         label?: string;
         secondaryReasons?: YouTube.Schema.VideoAbuseReportSecondaryReason[];
       }
-      export interface VideoAbuseReportSecondaryReason {
+      interface VideoAbuseReportSecondaryReason {
         id?: string;
         label?: string;
       }
-      export interface VideoAgeGating {
+      interface VideoAgeGating {
         alcoholContent?: boolean;
         restricted?: boolean;
         videoGameRating?: string;
       }
-      export interface VideoCategory {
+      interface VideoCategory {
         etag?: string;
         id?: string;
         kind?: string;
         snippet?: YouTube.Schema.VideoCategorySnippet;
       }
-      export interface VideoCategoryListResponse {
+      interface VideoCategoryListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.VideoCategory[];
@@ -1451,12 +1451,12 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface VideoCategorySnippet {
+      interface VideoCategorySnippet {
         assignable?: boolean;
         channelId?: string;
         title?: string;
       }
-      export interface VideoContentDetails {
+      interface VideoContentDetails {
         caption?: string;
         contentRating?: YouTube.Schema.ContentRating;
         countryRestriction?: YouTube.Schema.AccessPolicy;
@@ -1468,11 +1468,11 @@ declare namespace GoogleAppsScript {
         projection?: string;
         regionRestriction?: YouTube.Schema.VideoContentDetailsRegionRestriction;
       }
-      export interface VideoContentDetailsRegionRestriction {
+      interface VideoContentDetailsRegionRestriction {
         allowed?: string[];
         blocked?: string[];
       }
-      export interface VideoFileDetails {
+      interface VideoFileDetails {
         audioStreams?: YouTube.Schema.VideoFileDetailsAudioStream[];
         bitrateBps?: string;
         container?: string;
@@ -1483,30 +1483,30 @@ declare namespace GoogleAppsScript {
         fileType?: string;
         videoStreams?: YouTube.Schema.VideoFileDetailsVideoStream[];
       }
-      export interface VideoFileDetailsAudioStream {
+      interface VideoFileDetailsAudioStream {
         bitrateBps?: string;
         channelCount?: number;
         codec?: string;
         vendor?: string;
       }
-      export interface VideoFileDetailsVideoStream {
-        aspectRatio?: Number;
+      interface VideoFileDetailsVideoStream {
+        aspectRatio?: number;
         bitrateBps?: string;
         codec?: string;
-        frameRateFps?: Number;
+        frameRateFps?: number;
         heightPixels?: number;
         rotation?: string;
         vendor?: string;
         widthPixels?: number;
       }
-      export interface VideoGetRatingResponse {
+      interface VideoGetRatingResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.VideoRating[];
         kind?: string;
         visitorId?: string;
       }
-      export interface VideoListResponse {
+      interface VideoListResponse {
         etag?: string;
         eventId?: string;
         items?: YouTube.Schema.Video[];
@@ -1517,7 +1517,7 @@ declare namespace GoogleAppsScript {
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
-      export interface VideoLiveStreamingDetails {
+      interface VideoLiveStreamingDetails {
         activeLiveChatId?: string;
         actualEndTime?: string;
         actualStartTime?: string;
@@ -1525,19 +1525,19 @@ declare namespace GoogleAppsScript {
         scheduledEndTime?: string;
         scheduledStartTime?: string;
       }
-      export interface VideoLocalization {
+      interface VideoLocalization {
         description?: string;
         title?: string;
       }
-      export interface VideoMonetizationDetails {
+      interface VideoMonetizationDetails {
         access?: YouTube.Schema.AccessPolicy;
       }
-      export interface VideoPlayer {
+      interface VideoPlayer {
         embedHeight?: string;
         embedHtml?: string;
         embedWidth?: string;
       }
-      export interface VideoProcessingDetails {
+      interface VideoProcessingDetails {
         editorSuggestionsAvailability?: string;
         fileDetailsAvailability?: string;
         processingFailureReason?: string;
@@ -1547,24 +1547,24 @@ declare namespace GoogleAppsScript {
         tagSuggestionsAvailability?: string;
         thumbnailsAvailability?: string;
       }
-      export interface VideoProcessingDetailsProcessingProgress {
+      interface VideoProcessingDetailsProcessingProgress {
         partsProcessed?: string;
         partsTotal?: string;
         timeLeftMs?: string;
       }
-      export interface VideoProjectDetails {
+      interface VideoProjectDetails {
         tags?: string[];
       }
-      export interface VideoRating {
+      interface VideoRating {
         rating?: string;
         videoId?: string;
       }
-      export interface VideoRecordingDetails {
+      interface VideoRecordingDetails {
         location?: YouTube.Schema.GeoPoint;
         locationDescription?: string;
         recordingDate?: string;
       }
-      export interface VideoSnippet {
+      interface VideoSnippet {
         categoryId?: string;
         channelId?: string;
         channelTitle?: string;
@@ -1578,14 +1578,14 @@ declare namespace GoogleAppsScript {
         thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
-      export interface VideoStatistics {
+      interface VideoStatistics {
         commentCount?: string;
         dislikeCount?: string;
         favoriteCount?: string;
         likeCount?: string;
         viewCount?: string;
       }
-      export interface VideoStatus {
+      interface VideoStatus {
         embeddable?: boolean;
         failureReason?: string;
         license?: string;
@@ -1595,30 +1595,30 @@ declare namespace GoogleAppsScript {
         rejectionReason?: string;
         uploadStatus?: string;
       }
-      export interface VideoSuggestions {
+      interface VideoSuggestions {
         editorSuggestions?: string[];
         processingErrors?: string[];
         processingHints?: string[];
         processingWarnings?: string[];
         tagSuggestions?: YouTube.Schema.VideoSuggestionsTagSuggestion[];
       }
-      export interface VideoSuggestionsTagSuggestion {
+      interface VideoSuggestionsTagSuggestion {
         categoryRestricts?: string[];
         tag?: string;
       }
-      export interface VideoTopicDetails {
+      interface VideoTopicDetails {
         relevantTopicIds?: string[];
         topicCategories?: string[];
         topicIds?: string[];
       }
-      export interface WatchSettings {
+      interface WatchSettings {
         backgroundColor?: string;
         featuredPlaylistId?: string;
         textColor?: string;
       }
     }
   }
-  export interface YouTube {
+  interface YouTube {
     Activities?: YouTube.Collection.ActivitiesCollection;
     Captions?: YouTube.Collection.CaptionsCollection;
     ChannelBanners?: YouTube.Collection.ChannelBannersCollection;

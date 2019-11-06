@@ -3,6 +3,7 @@
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 //                 Roman Hotsiy <https://github.com/RomanGotsiy>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Joao Lourenco <https://github.com/blackstarzes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,12 +12,17 @@
 declare namespace Mark {
     type MarkAccuracy = 'partially' | 'complementary' | 'exactly';
 
+    interface MarkAccuracyObject {
+        value: MarkAccuracy;
+        limiters?: string[];
+    }
+
     interface MarkOptions {
         element?: string;
         className?: string;
         exclude?: string[];
         separateWordSearch?: boolean;
-        accuracy?: MarkAccuracy | { value: MarkAccuracy };
+        accuracy?: MarkAccuracy | MarkAccuracyObject;
         diacritics?: boolean;
         synonyms?: { [index: string]: string };
         iframes?: boolean;

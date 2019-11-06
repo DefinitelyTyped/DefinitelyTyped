@@ -37,6 +37,7 @@ import isISSNFunc = require('validator/lib/isISSN');
 import isISINFunc = require('validator/lib/isISIN');
 import isISO8601Func = require('validator/lib/isISO8601');
 import isISO31661Alpha2Func = require('validator/lib/isISO31661Alpha2');
+import isISO31661Alpha3Func = require('validator/lib/isISO31661Alpha3');
 import isISRCFunc = require('validator/lib/isISRC');
 import isInFunc = require('validator/lib/isIn');
 import isIntFunc = require('validator/lib/isInt');
@@ -169,6 +170,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isISO31661Alpha2 = validator.isISO31661Alpha2;
   _isISO31661Alpha2 = isISO31661Alpha2Func;
+
+  let _isISO31661Alpha3 = validator.isISO31661Alpha3;
+  _isISO31661Alpha3 = isISO31661Alpha3Func;
 
   let _isISRC = validator.isISRC;
   _isISRC = isISRCFunc;
@@ -480,6 +484,7 @@ let any: any;
   result = validator.isISO8601('sample', isISO8601Options);
 
   result = validator.isISO31661Alpha2('sample');
+  result = validator.isISO31661Alpha3('sample');
 
   result = validator.isISRC('sample');
 
@@ -567,6 +572,8 @@ let any: any;
   result = validator.isMobilePhone('sample', 'zh-HK');
   result = validator.isMobilePhone('sample', 'zh-TW');
   result = validator.isMobilePhone('sample', 'any');
+  result = validator.isMobilePhone("sample");
+  result = validator.isMobilePhone("sample", [ "pl-PL", "pt-PT" ]);
 
   result = validator.isMongoId('sample');
 

@@ -6,6 +6,7 @@
 //                 Carlos Villavicencio <https://github.com/po5i>
 //                 Eric Camellini <https://github.com/ecamellini>
 //                 SardineFish <https://github.com/SardineFish>
+//                 Ryo Ota <https://github.com/nwtgck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import BN = require("bn.js")
@@ -1634,6 +1635,8 @@ export namespace key {
          */
         constructor(packetlist: packet.List);
 
+        primaryKey: Key;
+
         /**
          * Transforms packetlist to structured key data
          * @param packetlist The packets that form a key
@@ -2965,7 +2968,7 @@ export namespace packet {
          * class instance.
          * @returns A Uint8Array containing valid openpgp packets.
          */
-        write(): Uint8Array;
+        write(): Uint8Array | ReadableStream<Uint8Array>;
 
         /**
          * Adds a packet to the list. This is the only supported method of doing so;
@@ -4807,8 +4810,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
 }
 
 export interface KeyOptions {
@@ -5060,8 +5063,8 @@ export interface DecryptResult {
  *          ]
  *          }
  */
-export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptOptions & { data: string | ReadableStream<String> | NodeStream}>
-export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptOptions & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream}>
+export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
 export interface SignOptions {

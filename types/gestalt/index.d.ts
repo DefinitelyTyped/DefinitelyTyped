@@ -2,6 +2,7 @@
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
+//                 Calvin Chhour <https://github.com/calvinchhour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -59,6 +60,7 @@ export interface BoxProps {
         | "purple"
         | "red"
         | "transparent"
+        | "transparentDarkGray"
         | "watermelon"
         | "white";
     column?: UnsignedUpTo12;
@@ -231,7 +233,7 @@ export interface FlyoutProps {
     anchor: React.RefObject<any>;
     onDismiss: () => void;
     children?: React.ReactNode;
-    color?: "blue" | "orange" | "white";
+    color?: "blue" | "orange" | "red" | "white" | "darkGray";
     idealDirection?: "up" | "right" | "down" | "left";
     positionRelativeToAnchor?: boolean;
     size?: "xs" | "sm" | "md" | "lg" | "xl" | number;
@@ -289,20 +291,40 @@ https://pinterest.github.io/gestalt/#/Icon
 */
 
 export type Icons =
+    | "ad"
+    | "ad-group"
     | "add"
     | "add-circle"
     | "add-pin"
+    | "alert"
+    | "align-bottom-center"
+    | "align-bottom-left"
+    | "align-bottom-right"
+    | "align-bottom"
+    | "align-middle"
+    | "align-top-center"
+    | "align-top-left"
+    | "align-top-right"
+    | "align-top"
     | "angled-pin"
+    | "apps"
     | "arrow-back"
     | "arrow-circle-down"
     | "arrow-circle-forward"
+    | "arrow-circle-up"
     | "arrow-down"
+    | "arrow-end"
     | "arrow-forward"
+    | "arrow-start"
     | "arrow-up"
     | "arrow-up-right"
     | "bell"
+    | "calendar"
     | "camera"
+    | "camera-roll"
     | "cancel"
+    | "canonical-pin"
+    | "color-picker"
     | "check"
     | "check-circle"
     | "circle-outline"
@@ -310,36 +332,58 @@ export type Icons =
     | "clock"
     | "cog"
     | "compass"
+    | "compose"
+    | "crop"
     | "dash"
+    | "download"
+    | "duplicate"
     | "edit"
     | "ellipsis"
     | "ellipsis-circle-outline"
+    | "envelope"
     | "eye"
     | "facebook"
     | "face-happy"
     | "face-sad"
     | "face-smiley"
+    | "fill-opaque"
+    | "fill-transparent"
     | "filter"
     | "flag"
     | "flashlight"
+    | "flipHorizontal"
+    | "flipVertical"
     | "gif"
     | "globe"
     | "globe-checked"
+    | "gmail"
+    | "google-plus"
     | "graph-bar"
     | "handle"
     | "hand-pointing"
     | "heart"
     | "heart-broken"
+    | "impressum"
+    | "key"
     | "knoop"
     | "lightbulb"
+    | "lightning-bolt-circle"
     | "link"
     | "location"
     | "lock"
+    | "logo-large"
+    | "logo-small"
+    | "logout"
+    | "margins-large"
+    | "margins-medium"
+    | "margins-small"
     | "maximize"
+    | "megaphone"
     | "menu"
     | "minimize"
     | "move"
     | "mute"
+    | "overlay-text"
     | "pause"
     | "people"
     | "person"
@@ -348,24 +392,43 @@ export type Icons =
     | "pin-hide"
     | "pinterest"
     | "play"
+    | "refresh"
     | "question-mark"
     | "remove"
+    | "reorder-images"
     | "report"
+    | "rotate"
     | "search"
+    | "security"
     | "shopping-bag"
     | "smiley"
     | "smiley-outline"
     | "send"
     | "share"
     | "sound"
+    | "sort-ascending"
+    | "sort-descending"
     | "speech"
     | "speech-ellipsis"
+    | "star"
+    | "switch-account"
     | "tag"
     | "terms"
     | "text-align-left"
     | "text-align-center"
     | "text-align-right"
+    | "text-all-caps"
+    | "text-extra-small"
+    | "text-large"
+    | "text-line-height"
+    | "text-medium"
+    | "text-sentence-case"
+    | "text-size"
+    | "text-small"
+    | "text-spacing"
+    | "trash-can"
     | "twitter"
+    | "video-camera"
     | "view-type-default"
     | "view-type-dense"
     | "view-type-list";
@@ -403,10 +466,12 @@ https://pinterest.github.io/gestalt/#/IconButton
 
 export interface IconButtonProps {
     accessibilityLabel: string;
-    icon: Icons;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
-    bgColor?: "transparent" | "lightGray" | "white";
+    bgColor?: "transparent" | "transparentDarkGray" | "gray" | "lightGray" | "white" | "blue";
+    dangerouslySetSvgPath?: { __path: string};
+    disabled?: boolean;
+    icon: Icons;
     iconColor?: "blue" | "darkGray" | "gray" | "red" | "white";
     onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
     size?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -704,6 +769,7 @@ export interface TextProps {
         | "white";
     inline?: boolean;
     italic?: boolean;
+    leading?: "short" | "tall";
     overflow?: "normal" | "breakWord";
     size?: "xs" | "sm" | "md" | "lg" | "xl";
     smSize?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -784,7 +850,7 @@ https://pinterest.github.io/gestalt/#/Toast
 */
 
 export interface ToastProps {
-    color?: "darkGray" | "orange";
+    color?: "darkGray" | "orange" | "red";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
     thumbnail?: React.ReactElement;

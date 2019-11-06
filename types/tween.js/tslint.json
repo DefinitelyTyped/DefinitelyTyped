@@ -6,7 +6,7 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "callable-types": false,
-        "comment-format": false,        
+        "comment-format": false,
         "eofline": false,
         "export-just-namespace": false,
         "import-spacing": false,
@@ -73,6 +73,7 @@
         "typedef-whitespace": false,
         "unified-signatures": false,
         "void-return": false,
-        "whitespace": false
+        "whitespace": false,
+        "npm-naming": false
     }
 }

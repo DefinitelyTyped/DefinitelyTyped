@@ -26,7 +26,7 @@ memoized.clear('bar', 7); // Dispose called with bar7 value
 memoized.delete('foo', 0);
 const mFn = memoize((hash: any) => {
     // body of memoized function
-}, { normalizer: (args: any) => {
+}, { normalizer: (args: any[]) => {
     // args is arguments object as accessible in memoized function
     return JSON.stringify(args[0]);
 } });

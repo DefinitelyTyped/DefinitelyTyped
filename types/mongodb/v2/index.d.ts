@@ -886,7 +886,7 @@ export interface MongoCountPreferences {
     // The limit of documents to count.
     limit?: number;
     // The number of documents to skip for the count.
-    skip?: boolean;
+    skip?: number;
     // An index name hint for the query.
     hint?: string;
     // The preferred read preference
@@ -1073,7 +1073,7 @@ export interface FindOneOptions {
     raw?: boolean,
     readPreference?: ReadPreference | string,
     partial?: boolean,
-    maxTimeMs?: number
+    maxTimeMS?: number
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult

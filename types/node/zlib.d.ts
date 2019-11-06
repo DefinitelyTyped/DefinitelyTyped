@@ -18,7 +18,7 @@ declare module "zlib" {
         level?: number; // compression only
         memLevel?: number; // compression only
         strategy?: number; // compression only
-        dictionary?: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
     }
 
     interface BrotliOptions {
@@ -79,7 +79,7 @@ declare module "zlib" {
     function createInflateRaw(options?: ZlibOptions): InflateRaw;
     function createUnzip(options?: ZlibOptions): Unzip;
 
-    type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
+    type InputType = string | ArrayBuffer | NodeJS.ArrayBufferView;
 
     type CompressCallback = (error: Error | null, result: Buffer) => void;
 

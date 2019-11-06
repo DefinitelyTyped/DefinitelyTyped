@@ -269,8 +269,17 @@ adapter.subscribeStatesAsync("*").catch(handleError);
 adapter.subscribeForeignStatesAsync("*").catch(handleError);
 adapter.unsubscribeStatesAsync("*").catch(handleError);
 adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
+adapter.subscribeObjectsAsync("*").catch(handleError);
+adapter.subscribeForeignObjectsAsync("*").catch(handleError);
+adapter.unsubscribeObjectsAsync("*").catch(handleError);
+adapter.unsubscribeForeignObjectsAsync("*").catch(handleError);
 
 adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
+
+adapter.terminate();
+adapter.terminate(1);
+adapter.terminate("Reason");
+adapter.terminate("Reason", 4);
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {

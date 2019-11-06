@@ -1,4 +1,11 @@
-const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>('AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA');
+const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>(
+    'AMEX',
+    'DISCOVER',
+    'JCB',
+    'MASTERCARD',
+    'VISA',
+    'INTERAC'
+);
 
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethod>({
     type: 'CARD',

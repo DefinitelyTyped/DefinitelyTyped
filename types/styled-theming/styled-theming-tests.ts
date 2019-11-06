@@ -33,3 +33,30 @@ const cssPropsTheme = theme("mode", {
         background: white;
     `
 });
+
+interface buttonProps {
+    hidden?: boolean;
+}
+
+const button = theme.variants('mode', 'type', {
+    primary: {
+        light: (props: buttonProps) =>
+            css`
+              background: ${props.hidden ? 'transparent' : 'blue'};
+            `,
+        dark: (props: buttonProps) =>
+            css`
+              background: ${props.hidden ? 'transparent' : 'black'};
+            `,
+    },
+    secondary: {
+        light: (props: buttonProps) =>
+            css`
+              background: ${props.hidden ? 'transparent' : 'skyblue'};
+            `,
+        dark: (props: buttonProps) =>
+            css`
+              background: ${props.hidden ? 'transparent' : 'grey'};
+            `,
+    },
+});

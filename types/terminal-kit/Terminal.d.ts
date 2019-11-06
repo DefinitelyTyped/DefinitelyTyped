@@ -37,13 +37,13 @@ declare namespace Terminal {
     brightMagenta: CTerminal;
     brightCyan: CTerminal;
     brightWhite: CTerminal;
-    color: (register: number) => Terminal;
-    darkColor: (register: number) => Terminal;
-    brightColor: (register: number) => Terminal;
-    color256: (register: number) => Terminal;
-    colorRgb: (r: number, g: number, b: number) => Terminal;
-    colorRgbHex: (rgb: string) => Terminal;
-    colorGrayscale: (I: number) => Terminal;
+    color: (color: number | string, str?: string) => Terminal;
+    darkColor: (color: number | string, str?: string) => Terminal;
+    brightColor: (color: number | string, str?: string) => Terminal;
+    color256: (color: number | string, str?: string) => Terminal;
+    colorRgb: (r: number, g: number, b: number, str?: string) => Terminal;
+    colorRgbHex: (rgb: string, str?: string) => Terminal;
+    colorGrayscale: (I: number, str?: string) => Terminal;
 
     bgDefaultColor: CTerminal;
     bgBlack: CTerminal;
@@ -64,13 +64,13 @@ declare namespace Terminal {
     bgBrightMagenta: CTerminal;
     bgBrightCyan: CTerminal;
     bgBrightWhite: CTerminal;
-    bgColor: (register: number) => Terminal;
-    bgDarkColor: (register: number) => Terminal;
-    bgBrightColor: (register: number) => Terminal;
-    bgColor256: (register: number) => Terminal;
-    bgColorRgb: (r: number, g: number, b: number) => Terminal;
-    bgColorRgbHex: (rgb: string) => Terminal;
-    bgColorGrayscale: (I: number) => Terminal;
+    bgColor: (color: number | string, str?: string) => Terminal;
+    bgDarkColor: (color: number | string, str?: string) => Terminal;
+    bgBrightColor: (color: number | string, str?: string) => Terminal;
+    bgColor256: (color: number | string, str?: string) => Terminal;
+    bgColorRgb: (r: number, g: number, b: number, str?: string) => Terminal;
+    bgColorRgbHex: (rgb: string, str?: string) => Terminal;
+    bgColorGrayscale: (I: number, str?: string) => Terminal;
 
     styleReset: CTerminal;
     bold: CTerminal;
@@ -142,8 +142,8 @@ declare namespace Terminal {
 
     error: Terminal;
     str: Terminal;
-    noFormat: (str: string) => Terminal;
-    markupOnly: (str: string) => Terminal;
+    noFormat: CTerminal;
+    markupOnly: CTerminal;
     wrap: CTerminal;
     bindArgs: (...args: any[]) => Terminal;
 
@@ -488,7 +488,7 @@ declare namespace Terminal {
   interface GridMenuOptions {
     y?: number;
     x?: number;
-    width: number;
+    width?: number;
     style?: CTerminal;
     selectedStyle?: CTerminal;
     leftPadding?: string;

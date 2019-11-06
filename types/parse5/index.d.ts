@@ -131,11 +131,21 @@ export interface DefaultTreeNode {
 /**
  * Default tree adapter ParentNode interface.
  */
-export interface DefaultTreeParentNode {
+export interface DefaultTreeParentNode extends DefaultTreeNode {
     /**
      * Child nodes.
      */
     childNodes: DefaultTreeNode[];
+}
+
+/**
+ * Default tree adapter ChildNode interface.
+ */
+export interface DefaultTreeChildNode extends DefaultTreeNode {
+    /**
+     * Parent node.
+     */
+    parentNode: DefaultTreeParentNode;
 }
 
 /**
@@ -187,7 +197,7 @@ export interface DefaultTreeDocumentFragment extends DefaultTreeParentNode {
 /**
  * Default tree adapter Element interface.
  */
-export interface DefaultTreeElement extends DefaultTreeParentNode {
+export interface DefaultTreeElement extends DefaultTreeChildNode, DefaultTreeParentNode {
     /**
      * The name of the node. Equals to element {@link tagName}.
      */
@@ -205,10 +215,6 @@ export interface DefaultTreeElement extends DefaultTreeParentNode {
      */
     attrs: Attribute[];
     /**
-     * Parent node.
-     */
-    parentNode: DefaultTreeParentNode;
-    /**
      * Element source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
     sourceCodeLocation?: ElementLocation;
@@ -217,7 +223,7 @@ export interface DefaultTreeElement extends DefaultTreeParentNode {
 /**
  * Default tree adapter CommentNode interface.
  */
-export interface DefaultTreeCommentNode extends DefaultTreeNode {
+export interface DefaultTreeCommentNode extends DefaultTreeChildNode {
     /**
      * The name of the node.
      */
@@ -227,10 +233,6 @@ export interface DefaultTreeCommentNode extends DefaultTreeNode {
      */
     data: string;
     /**
-     * Parent node.
-     */
-    parentNode: DefaultTreeParentNode;
-    /**
      * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
     sourceCodeLocation?: Location;
@@ -239,7 +241,7 @@ export interface DefaultTreeCommentNode extends DefaultTreeNode {
 /**
  * Default tree adapter TextNode interface.
  */
-export interface DefaultTreeTextNode extends DefaultTreeNode {
+export interface DefaultTreeTextNode extends DefaultTreeChildNode {
     /**
      * The name of the node.
      */
@@ -248,10 +250,6 @@ export interface DefaultTreeTextNode extends DefaultTreeNode {
      * Text content.
      */
     value: string;
-    /**
-     * Parent node.
-     */
-    parentNode: DefaultTreeParentNode;
     /**
      * Text node source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
@@ -264,6 +262,11 @@ export interface DefaultTreeTextNode extends DefaultTreeNode {
  * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeNode}) to get access to the properties.
  */
 export type Node = DefaultTreeNode | object;
+/**
+ * Generic ChildNode interface.
+ * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeChildNode}) to get access to the properties.
+ */
+export type ChildNode = DefaultTreeChildNode | object;
 /**
  * Generic ParentNode interface.
  * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeParentNode}) to get access to the properties.
@@ -450,7 +453,7 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    getParentNode(node: Node): ParentNode;
+    getParentNode(node: ChildNode): ParentNode;
     /**
      * Returns the given element's attributes in an array, in the form of name-value pairs.
      * Foreign attributes may contain `namespace` and `prefix` fields as well.

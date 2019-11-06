@@ -364,6 +364,6 @@ $("#tooltip").tooltip({
     boundary: aHtmlElement,
 });
 
-$("#popover").popover({
+$("#tooltip").tooltip({
     sanitizeFn: null,
 });

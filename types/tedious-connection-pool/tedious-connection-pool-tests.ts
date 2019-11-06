@@ -2,12 +2,17 @@ import ConnectionPool = require("tedious-connection-pool");
 import tedious = require("tedious");
 
 const config: tedious.ConnectionConfig = {
-	userName: "rogier",
-	password: "rogiers password",
 	server: "127.0.0.1",
 	options: {
 		database: "somedb",
 		instanceName: "someinstance"
+	},
+	authentication: {
+		type: 'default',
+		options: {
+			userName: "rogier",
+			password: "rogiers password"
+		}
 	}
 };
 

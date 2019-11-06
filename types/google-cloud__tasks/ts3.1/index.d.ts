@@ -22,9 +22,9 @@ export interface AppEngineHttpQueue {
 }
 
 export interface AppEngineHttpRequest {
-  appEngineRouting: AppEngineRouting;
+  appEngineRouting?: AppEngineRouting;
   body: string;
-  headers: {
+  headers?: {
     [key: string]: string;
   };
   httpMethod: string;
@@ -52,7 +52,8 @@ export interface Binding {
 }
 
 export interface CreateTaskRequest {
-  responseView: View;
+  responseView?: View;
+  parent: string;
   task: Partial<Task>;
 }
 

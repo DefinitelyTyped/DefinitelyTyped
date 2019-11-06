@@ -1,10 +1,10 @@
-// Type definitions for N3 1.0
+// Type definitions for N3 1.1
 // Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 
@@ -205,9 +205,9 @@ export interface StreamWriterConstructor {
 }
 export const StreamWriter: StreamWriterConstructor;
 
-export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Source {}
+export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<Q> {}
 
-export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Sink {
+export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Store<Q_RDF> {
     readonly size: number;
     addQuad(subject: Q_RDF['subject'], predicate: Q_RDF['predicate'], object: Q_RDF['object'] | Array<Q_RDF['object']>, graph?: Q_RDF['graph'], done?: () => void): void;
     addQuad(quad: Q_RDF): void;
@@ -229,9 +229,6 @@ export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends Bas
     getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): Array<Q_N3['graph']>;
     forGraphs(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
-
-    // match, removeMatches and deleteGraph are missing for full RDF.Store adherence
-    remove(stream: stream.Stream): EventEmitter;
 }
 export interface StoreConstructor {
   new<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> (triples?: Q_RDF[], options?: StoreOptions): N3Store<Q_RDF, Q_N3>;

@@ -4,7 +4,7 @@ import { Tree } from './tree';
 import { TreeEntry } from './tree-entry';
 
 export class Treebuilder {
-    static create(repo: Repository, source: Tree): Promise<Treebuilder>;
+    static create(repo: Repository, source?: Tree): Promise<Treebuilder>;
     clear(): void;
     entrycount(): number;
     free(): void;

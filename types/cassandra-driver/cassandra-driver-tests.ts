@@ -1,5 +1,4 @@
 import * as cassandra from 'cassandra-driver';
-import * as util from 'util';
 import * as fs from 'fs';
 
 class CustomRequestLogger implements cassandra.metrics.ClientMetrics {
@@ -134,3 +133,16 @@ class MyLoadBalancingPolicy extends cassandra.policies.loadBalancing.LoadBalanci
 const myPolicy: cassandra.policies.loadBalancing.LoadBalancingPolicy = new MyLoadBalancingPolicy();
 let existingPolicy: cassandra.policies.loadBalancing.LoadBalancingPolicy = new cassandra.policies.loadBalancing.DCAwareRoundRobinPolicy();
 existingPolicy = new cassandra.policies.loadBalancing.DCAwareRoundRobinPolicy("dc");
+
+const values = Array.from(new Array(10000).keys()).map(x => [ cassandra.types.Uuid.random(), x.toString() ]);
+
+async function example() {
+  try {
+    const query = 'INSERT INTO tbl_sample_kv (id, value) VALUES (?, ?)';
+    await cassandra.concurrent.executeConcurrent(client, query, values, {
+      raiseOnFirstError: false,
+    });
+  } finally {
+    client.shutdown();
+  }
+}

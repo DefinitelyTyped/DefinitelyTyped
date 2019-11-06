@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "ajv": "^4.11.5"
+        "ajv": "^6.10.2"
     }
 }
