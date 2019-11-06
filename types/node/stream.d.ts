@@ -307,7 +307,9 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            unref(): void;
+        }
     }
 
     export = internal;
