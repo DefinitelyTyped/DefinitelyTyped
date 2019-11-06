@@ -5,8 +5,8 @@ import { Intrinsics } from './GetIntrinsic';
 import { PropertyKey as ESPropertyKey } from './index';
 
 type TSPropertyKey = PropertyKey;
-type AnyFunction = (...args: unknown[]) => unknown;
-type AnyConstructor = new (...args: unknown[]) => unknown;
+type AnyFunction = (...args: any) => unknown;
+type AnyConstructor = new (...args: any) => unknown;
 
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
 	Call<F extends (this: T, ...args: A) => unknown, T, A extends unknown[]>(F: F, thisArg: T, args?: A): ReturnType<F>;
@@ -35,7 +35,12 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	GetV<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : unknown;
 	GetV(O: unknown, P: ESPropertyKey): unknown;
 
-	GetMethod<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] & AnyFunction : AnyFunction | undefined;
+	GetMethod<O, P extends ESPropertyKey>(
+		O: O,
+		P: P,
+	): P extends keyof O
+		? (NonNullable<O[P]> extends AnyFunction ? O[P] : never)
+		: AnyFunction | undefined;
 	GetMethod(O: unknown, P: ESPropertyKey): AnyFunction | undefined;
 
 	Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : unknown;

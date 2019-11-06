@@ -43,5 +43,11 @@ ES2015.IteratorValue(iteratorReturnResult); // $ExpectType string
 ES2015.IteratorValue(iteratorResult); // $ExpectType string | number
 ES2015.IteratorValue(iteratorNeverUnknownResult); // $ExpectType unknown
 
+const anyIterator = any as Iterator<unknown, unknown, unknown>;
+
+ES2015.GetMethod(anyIterator, 'next'); // $ExpectType (...args: [] | [unknown]) => IteratorResult<unknown, unknown>
+ES2015.GetMethod(anyIterator, 'throw'); // $ExpectType ((e?: any) => IteratorResult<unknown, unknown>) | undefined
+ES2015.GetMethod(anyIterator, 'return'); // $ExpectType ((value?: unknown) => IteratorResult<unknown, unknown>) | undefined
+
 // Removed in ES2015:
 ES2015.CheckObjectCoercible; // $ExpectError
