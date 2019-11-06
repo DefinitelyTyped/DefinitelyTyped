@@ -1177,6 +1177,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "expect",
+            "typingsPackageName": "expect",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "expo-localization",
             "typingsPackageName": "expo-localization",
             "sourceRepoURL": "https://docs.expo.io/versions/latest/sdk/localization",
