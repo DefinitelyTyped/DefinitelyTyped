@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-07-30
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,16 +7,16 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Maps {
+  namespace Maps {
     /**
      * An enum representing the types of restrictions to avoid when finding directions.
      */
-    export enum Avoid { TOLLS, HIGHWAYS }
+    enum Avoid { TOLLS, HIGHWAYS }
 
     /**
      * An enum representing the named colors available to use in map images.
      */
-    export enum Color { BLACK, BROWN, GREEN, PURPLE, YELLOW, BLUE, GRAY, ORANGE, RED, WHITE }
+    enum Color { BLACK, BROWN, GREEN, PURPLE, YELLOW, BLUE, GRAY, ORANGE, RED, WHITE }
 
     /**
      * Allows for the retrieval of directions between locations.
@@ -73,7 +73,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Directions API
      */
-    export interface DirectionFinder {
+    interface DirectionFinder {
       addWaypoint(latitude: number, longitude: number): DirectionFinder;
       addWaypoint(address: string): DirectionFinder;
       clearWaypoints(): DirectionFinder;
@@ -95,7 +95,7 @@ declare namespace GoogleAppsScript {
     /**
      * A collection of enums used by DirectionFinder.
      */
-    export interface DirectionFinderEnums {
+    interface DirectionFinderEnums {
       Avoid: typeof Avoid;
       Mode: typeof Mode;
     }
@@ -141,7 +141,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Elevation API
      */
-    export interface ElevationSampler {
+    interface ElevationSampler {
       sampleLocation(latitude: number, longitude: number): any;
       sampleLocations(points: number[]): any;
       sampleLocations(encodedPolyline: string): any;
@@ -155,7 +155,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
+    enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
 
     /**
      * Allows for the conversion between an address and geographical coordinates.
@@ -187,7 +187,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Geocoding API
      */
-    export interface Geocoder {
+    interface Geocoder {
       geocode(address: string): any;
       reverseGeocode(latitude: number, longitude: number): any;
       reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): any;
@@ -200,7 +200,7 @@ declare namespace GoogleAppsScript {
      * Allows for direction finding, geocoding, elevation sampling and the creation of static map
      * images.
      */
-    export interface Maps {
+    interface Maps {
       DirectionFinder: DirectionFinderEnums;
       StaticMap: StaticMapEnums;
       decodePolyline(polyline: string): number[];
@@ -218,12 +218,12 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum MarkerSize { TINY, MID, SMALL }
+    enum MarkerSize { TINY, MID, SMALL }
 
     /**
      * An enum representing the mode of travel to use when finding directions.
      */
-    export enum Mode { DRIVING, WALKING, BICYCLING, TRANSIT }
+    enum Mode { DRIVING, WALKING, BICYCLING, TRANSIT }
 
     /**
      * Allows for the creation and decoration of static map images.
@@ -260,7 +260,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export interface StaticMap {
+    interface StaticMap {
       addAddress(address: string): StaticMap;
       addMarker(latitude: number, longitude: number): StaticMap;
       addMarker(address: string): StaticMap;
@@ -294,7 +294,7 @@ declare namespace GoogleAppsScript {
     /**
      * A collection of enums used by StaticMap.
      */
-    export interface StaticMapEnums {
+    interface StaticMapEnums {
       Color: typeof Color;
       Format: typeof Format;
       MarkerSize: typeof MarkerSize;
@@ -307,8 +307,7 @@ declare namespace GoogleAppsScript {
      *
      * Google Static Maps API
      */
-    export enum Type { ROADMAP, SATELLITE, TERRAIN, HYBRID }
-
+    enum Type { ROADMAP, SATELLITE, TERRAIN, HYBRID }
   }
 }
 

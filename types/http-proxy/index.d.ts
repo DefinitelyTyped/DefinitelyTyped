@@ -55,7 +55,8 @@ declare class Server extends events.EventEmitter {
     req: http.IncomingMessage,
     socket: any,
     head: any,
-    options?: Server.ServerOptions
+    options?: Server.ServerOptions,
+    callback?: ErrorCallback
   ): void;
 
   /**

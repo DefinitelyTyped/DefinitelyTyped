@@ -120,7 +120,6 @@ export interface Props {
  */
 export interface RelayContext {
     environment: Environment;
-    variables: Variables;
 }
 
 /**
