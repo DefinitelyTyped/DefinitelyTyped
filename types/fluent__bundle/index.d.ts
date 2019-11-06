@@ -16,6 +16,7 @@ export interface FluentBundleAddResourceOptions {
     allowOverrides?: boolean;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface Pattern {}
 
 export interface RawMessage {
@@ -24,6 +25,7 @@ export interface RawMessage {
     attributes: Record<string, Pattern>;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 export class FluentResource {
     constructor(source: string);
 }

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-declare function FluentDedent(/* ... */): string;
+declare function FluentDedent(strings: TemplateStringsArray, ...values: any[]): string;
 
 export = FluentDedent;
 
