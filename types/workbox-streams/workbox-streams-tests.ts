@@ -1,3 +1,5 @@
+"use strict";
+
 import * as WorkboxStreams from "workbox-streams";
 import { createHeaders } from "workbox-streams/utils/createHeaders";
 
