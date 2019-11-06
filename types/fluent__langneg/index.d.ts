@@ -23,3 +23,5 @@ export function negotiateLanguages(
 export function acceptedLanguages(
     acceptedLanguages: string
 ): string[];
+
+export as namespace FluentLangNeg;

@@ -4,5 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-// tslint:disable-next-line:npm-naming
-export default function ftl(strings: TemplateStringsArray, ...values: any[]): string;
+declare function FluentDedent(/* ... */): string;
+
+export = FluentDedent;
+
+export as namespace FluentDedent;
