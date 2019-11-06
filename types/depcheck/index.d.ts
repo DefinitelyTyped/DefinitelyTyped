@@ -1,7 +1,8 @@
-// Type definitions for depcheck 0.8
+// Type definitions for depcheck 0.9
 // Project: https://github.com/depcheck/depcheck
 // Definitions by: ark120202 <https://github.com/ark120202>
 //                 jrnail23 <https://github.com/jrnail23>
+//                 rumpl <https://github.com/rumpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function depcheck(rootDir: string, options: depcheck.Options): Promise<depcheck.Results>;
@@ -22,8 +23,8 @@ declare namespace depcheck {
     type Detector = (node: Node) => ReadonlyArray<string> | string;
 
     interface Options {
-        withoutDev?: boolean;
         ignoreBinPackage?: boolean;
+        skipMissing?: boolean;
         ignoreDirs?: ReadonlyArray<string>;
         ignoreMatches?: ReadonlyArray<string>;
         parsers?: {
@@ -57,14 +58,19 @@ declare namespace depcheck {
         jsx: Parser;
         sass: Parser;
         typescript: Parser;
+        vue: Parser;
     };
 
     const detector: {
+        exportDeclaration: Detector;
         expressViewEngine: Detector;
         gruntLoadTaskCallExpression: Detector;
+        importCallExpression: Detector;
         importDeclaration: Detector;
         requireCallExpression: Detector;
         requireResolveCallExpression: Detector;
+        typescriptImportEqualsDeclaration: Detector;
+        detectTypescriptImportType: Detector;
     };
 
     const special: {
@@ -73,8 +79,12 @@ declare namespace depcheck {
         commitizen: Parser;
         eslint: Parser;
         'feross-standard': Parser;
+        gatsby: Parser;
         'gulp-load-plugins': Parser;
+        jest: Parser;
+        karma: Parser;
         mocha: Parser;
+        tslint: Parser;
         webpack: Parser;
     };
 }
