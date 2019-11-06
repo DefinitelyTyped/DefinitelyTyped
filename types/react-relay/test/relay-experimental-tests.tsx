@@ -292,11 +292,7 @@ function NullableArrayFragment() {
             props.users,
         );
 
-        if (data === null) {
-            return null;
-        }
-
-        return data.map(d => (
+        return data!.map(d => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -327,9 +323,9 @@ function ArrayOfNullableFragment() {
 
         return data.map(d => (
             <>
-                <h1>{d!.name}</h1>
+                <h1>{d.name}</h1>
                 <div>
-                    <img src={d!.profile_picture.uri} />
+                    <img src={d.profile_picture.uri} />
                 </div>
             </>
         ));
