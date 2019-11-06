@@ -1,12 +1,10 @@
-import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from '@fluent/bundle';
-import Scope from '@fluent/bundle/scope';
-import ftl from '@fluent/dedent';
+import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource, Scope } from '@fluent/bundle';
 
 // FluentBundle examples:
 const bundle = new FluentBundle(['en-US']);
 
 // FluentResource examples:
-const resource = new FluentResource(ftl`test=Some other message`);
+const resource = new FluentResource(`test=Some other message`);
 bundle.addResource(resource, { allowOverrides: true });
 const msg = bundle.getMessage('test');
 if (msg && msg.value) {
@@ -19,7 +17,20 @@ const err = new FluentError('argh');
 const dt = new FluentDateTime(new Date(2000, 0, 1));
 
 // Scope examples:
-const scope = new Scope(bundle, [], {}, false, new WeakSet());
+class DummyScope implements Scope {
+    cloneForTermReference(args: object): Scope {
+        return this;
+    }
+    reportError(error: string): void {
+    }
+    memoizeIntlObject<OptsType, ObjectType>(
+        ctor: new (locales: string[], opts: OptsType) => ObjectType,
+        opts: OptsType,
+    ): ObjectType {
+        return new ctor([], opts);
+    }
+}
+const scope = new DummyScope();
 const test = `${num.toString(scope)} ${dt.toString(scope)}`;
 
 interface IntlOpts {

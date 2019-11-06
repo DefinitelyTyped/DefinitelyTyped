@@ -21,26 +21,13 @@
             "@fluent/bundle": [
                 "fluent__bundle"
             ],
-            "@fluent/dedent": [
-                "fluent__dedent"
-            ],
             "@fluent/react": [
                 "fluent__react"
-            ],
-            "@fluent/react/localization": [
-                "fluent__react/localization"
-            ],
-            "@fluent/react/markup": [
-                "fluent__react/markup"
             ]
         }
     },
     "files": [
         "fluent__react-tests.tsx",
-        "index.d.ts",
-        "localization.d.ts",
-        "localized.d.ts",
-        "provider.d.ts",
-        "with_localization.d.ts"
+        "index.d.ts"
     ]
 }
