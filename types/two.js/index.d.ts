@@ -1,6 +1,7 @@
 // Type definitions for js 0.7
 // Project: https://two.js.org
 // Definitions by: Carlos Precioso <https://github.com/cprecioso>
+//                 Wayne Van Son <https://github.com/waynevanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,39 +30,12 @@ declare class Two {
     remove(objects: ReadonlyArray<Two.Object>): this;
     clear(): this;
     makeLine(x1: number, y1: number, x2: number, y2: number): Two.Line;
-    makeRectangle(
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ): Two.Rectangle;
-    makeRoundedRectangle(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        radius: number
-    ): Two.RoundedRectangle;
+    makeRectangle(x: number, y: number, width: number, height: number): Two.Rectangle;
+    makeRoundedRectangle(x: number, y: number, width: number, height: number, radius: number): Two.RoundedRectangle;
     makeCircle(x: number, y: number, radius: number): Two.Circle;
-    makeEllipse(
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ): Two.Ellipse;
-    makeStar(
-        ox: number,
-        oy: number,
-        or: number,
-        ir: number,
-        sides: number
-    ): Two.Star;
-    makePolygon(
-        x: number,
-        y: number,
-        radius: number,
-        sides: number
-    ): Two.Polygon;
+    makeEllipse(x: number, y: number, width: number, height: number): Two.Ellipse;
+    makeStar(ox: number, oy: number, or: number, ir: number, sides: number): Two.Star;
+    makePolygon(x: number, y: number, radius: number, sides: number): Two.Polygon;
     makeArcSegment(
         ox: number,
         oy: number,
@@ -79,10 +53,7 @@ declare class Two {
     makeGroup(...objects: Two.Object[]): Two.Group;
     interpret(svgNode: SVGElement): Two.Group;
     bind(event: string, callback: (...args: any[]) => void): this;
-    unbind(
-        event: string | null,
-        callback: ((...args: any[]) => void) | null
-    ): this;
+    unbind(event: string | null, callback: ((...args: any[]) => void) | null): this;
 
     static Array: typeof Float32Array | typeof Array;
 }
@@ -143,12 +114,7 @@ declare namespace Two {
     }
 
     class Path {
-        constructor(
-            vertices: ReadonlyArray<Vector>,
-            closed: boolean,
-            curved: boolean,
-            manual?: boolean
-        );
+        constructor(vertices: ReadonlyArray<Vector>, closed: boolean, curved: boolean, manual?: boolean);
 
         id: number;
         stroke: Color;
@@ -192,13 +158,7 @@ declare namespace Two {
     }
 
     class RoundedRectangle extends Path {
-        constructor(
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            radius?: number
-        );
+        constructor(x: number, y: number, width: number, height: number, radius?: number);
     }
 
     class Ellipse extends Path {
@@ -206,13 +166,7 @@ declare namespace Two {
     }
 
     class Star extends Path {
-        constructor(
-            ox: number,
-            oy: number,
-            or: number,
-            ir?: number,
-            sides?: number
-        );
+        constructor(ox: number, oy: number, or: number, ir?: number, sides?: number);
     }
 
     class Polygon extends Path {
@@ -224,15 +178,7 @@ declare namespace Two {
     }
 
     class ArcSegment extends Path {
-        constructor(
-            ox: number,
-            oy: number,
-            ir: number,
-            or: number,
-            sa: number,
-            ea: number,
-            res?: number
-        );
+        constructor(ox: number, oy: number, ir: number, or: number, sa: number, ea: number, res?: number);
     }
 
     class Group {
@@ -267,11 +213,7 @@ declare namespace Two {
         static MakeObservable(obj: any): any;
     }
 
-    interface BoundingClientRect
-        extends Record<
-            "top" | "left" | "right" | "bottom" | "width" | "height",
-            number
-        > {}
+    interface BoundingClientRect extends Record<'top' | 'left' | 'right' | 'bottom' | 'width' | 'height', number> {}
 
     type Object = Path | Group;
 
@@ -306,15 +248,7 @@ declare namespace Two {
     }
 
     class Anchor extends Vector {
-        constructor(
-            x: number,
-            y: number,
-            lx: number,
-            ly: number,
-            rx: number,
-            ry: number,
-            command: Commands | string
-        );
+        constructor(x: number, y: number, lx: number, ly: number, rx: number, ry: number, command: Commands | string);
 
         command: string;
         controls?: { right: Vector; left: Vector };
@@ -338,13 +272,7 @@ declare namespace Two {
     type Color = string | LinearGradient | RadialGradient;
 
     class LinearGradient {
-        constructor(
-            x1: number,
-            y1: number,
-            x2: number,
-            y2: number,
-            stops: ReadonlyArray<Stop>
-        );
+        constructor(x1: number, y1: number, x2: number, y2: number, stops: ReadonlyArray<Stop>);
 
         left: Vector;
         right: Vector;
@@ -355,14 +283,7 @@ declare namespace Two {
     }
 
     class RadialGradient {
-        constructor(
-            x: number,
-            y: number,
-            radius: number,
-            stops: ReadonlyArray<Stop>,
-            fx?: number,
-            fy?: number
-        );
+        constructor(x: number, y: number, radius: number, stops: ReadonlyArray<Stop>, fx?: number, fy?: number);
 
         center: Vector;
         radius: number;
