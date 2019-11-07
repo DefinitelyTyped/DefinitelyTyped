@@ -5179,6 +5179,12 @@
             "asOfVersion": "3.1.2"
         },
         {
+            "libraryName": "zipkin-transport-http",
+            "typingsPackageName": "zipkin-transport-http",
+            "sourceRepoURL": "https://github.com/openzipkin/zipkin-js#readme",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "zipkin-instrumentation-express",
             "typingsPackageName": "zipkin-instrumentation-express",
             "sourceRepoURL": "https://github.com/openzipkin/zipkin-js#readme",
