@@ -6455,31 +6455,37 @@ declare namespace Stripe {
              * The display name of the tax rate, which will be shown to users.
              */
             display_name: string;
+
             /**
              * This specifies if the tax rate is inclusive or exclusive.
              */
             inclusive: boolean;
+
             /**
              * This represents the tax rate percent out of 100.
              */
             percentage: number;
+
             /**
              * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
              */
             active?: boolean;
+
             /**
              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
              */
             description?: string;
+
             /**
              * The jurisdiction for the tax rate.
              */
             jurisdiction?: string;
+
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
              */
-            metadata?: IMetadata;
+            metadata?: IOptionsMetadata;
         }
 
         interface ITaxRateUpdateOptions {
@@ -6506,29 +6512,29 @@ declare namespace Stripe {
             metadata?: IMetadata;
         }
 
-        interface ItaxRateSearchOptions {
+        interface ItaxRateSearchOptions extends IListOptions {
             /**
              * Optional flag to filter by tax rates that are either active or not active (archived)
              */
             active?: boolean;
+
             /**
              * A filter on the list based on the object created field.
              */
             created?: string | IDateFilter;
+
             /**
              * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make
              * a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in
              * order to fetch the previous page of the list.
              */
-            ending_before?: string;
-            /**
-             * Optional flag to filter by tax rates that are inclusive (or those that are not inclusive)
-             */
             inclusive?: boolean;
+
             /**
              * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
              */
             limit: number;
+
             /**
              * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
              */
@@ -10375,7 +10381,9 @@ declare namespace Stripe {
         }
 
         class TaxRates extends StripeResource {
-            /** Create TaxRate: https://stripe.com/docs/api/tax_rates/create */
+            /**
+             * Creates a new tax rate.
+             */
             create(
                 data: taxRates.ITaxRateCreationOptions,
                 response?: IResponseFn<taxRates.ITaxRate>,
@@ -10386,7 +10394,9 @@ declare namespace Stripe {
                 response?: IResponseFn<taxRates.ITaxRate>,
             ): Promise<taxRates.ITaxRate>;
 
-            /** Update TaxRate: https://stripe.com/docs/api/tax_rates/update */
+            /**
+             * Updates an existing tax rate.
+             */
             update(
                 id: string,
                 data: taxRates.ITaxRateUpdateOptions,
@@ -10399,7 +10409,9 @@ declare namespace Stripe {
                 response?: IResponseFn<taxRates.ITaxRate>,
             ): Promise<taxRates.ITaxRate>;
 
-            /** Retieve a TaxRate: https://stripe.com/docs/api/tax_rates/retrieve */
+            /**
+             * Retrieves a tax rate with the given ID
+             */
             retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
             retrieve(
                 id: string,
@@ -10407,7 +10419,10 @@ declare namespace Stripe {
                 response?: IResponseFn<taxRates.ITaxRate>,
             ): Promise<taxRates.ITaxRate>;
 
-            /** https://stripe.com/docs/api/tax_rates/list */
+            /**
+             * Returns a list of your tax rates.
+             * Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
+             */
             list(
                 data: taxRates.ItaxRateSearchOptions,
                 response?: IResponseFn<IList<taxRates.ITaxRate>>,
