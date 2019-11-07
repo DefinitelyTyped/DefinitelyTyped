@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "ink": "^2.0.2"
+        "@types/ink": "^0.5.2"
     }
 }
