@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,12 +21,10 @@ declare namespace GoogleAppsScript {
       createTextOutput(): TextOutput;
       createTextOutput(content: string): TextOutput;
     }
-
     /**
      * An enum for mime types that can be served from a script.
      */
     enum MimeType { ATOM, CSV, ICAL, JAVASCRIPT, JSON, RSS, TEXT, VCARD, XML }
-
     /**
      * A TextOutput object that can be served from a script.
      *
