@@ -1300,6 +1300,8 @@ mongoose.Schema.Types.DocumentArray.schemaName.toLowerCase();
 documentarray.sparse(true);
 /* http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators */
 documentarray.discriminator('name', new mongoose.Schema({ foo: String }));
+/* https://mongoosejs.com/docs/api.html#documentarraypath_DocumentArrayPath-discriminator */
+documentarray.discriminator('name2', new mongoose.Schema({ bar: String }), "circle");
 
 /*
  * section schema/number.js

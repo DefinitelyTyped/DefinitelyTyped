@@ -56,6 +56,7 @@ const inputDate = moment();
     options.numberOfColumns = 1;
     options.orientation = 'top right';
     options.parentEl = 'body';
+    options.parentEl = document.body;
     options.repick = true;
     options.selectForward = true;
     options.selectBackward = true;
@@ -69,6 +70,16 @@ const inputDate = moment();
     options.onSelect = (from: Lightpick.OutputDate, to: Lightpick.OutputDate) => {
         let str = '';
         str += from ? from.format('Do MMMM YYYY') + ' to ' : '';
+        str += to ? to.format('Do MMMM YYYY') : '...';
+        console.log(`str: ${str}`);
+    };
+    options.onSelectStart = (from: Lightpick.OutputDate) => {
+        let str = '';
+        str += from ? from.format('Do MMMM YYYY') + ' to ' : '';
+        console.log(`str: ${str}`);
+    };
+    options.onSelectEnd = (to: Lightpick.OutputDate) => {
+        let str = '';
         str += to ? to.format('Do MMMM YYYY') : '...';
         console.log(`str: ${str}`);
     };
