@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Properties {
+  namespace Properties {
     /**
      * The properties object acts as the interface to access user, document, or script properties. The
      * specific property type depends on which of the three methods of PropertiesService the
@@ -14,7 +14,7 @@ declare namespace GoogleAppsScript {
      * Properties cannot be shared between scripts. For more information about property types, see the
      * guide to the Properties service.
      */
-    export interface Properties {
+    interface Properties {
       deleteAllProperties(): Properties;
       deleteProperty(key: string): Properties;
       getKeys(): string[];
@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
      *     scriptProperties.setProperty('SERVER_URL', 'http://www.example.com/MyWeatherService/');
      *     userProperties.setProperty('DISPLAY_UNITS', 'metric');
      */
-    export interface PropertiesService {
+    interface PropertiesService {
       getDocumentProperties(): Properties;
       getScriptProperties(): Properties;
       getUserProperties(): Properties;
@@ -51,7 +51,7 @@ declare namespace GoogleAppsScript {
      * Script Properties are key-value pairs stored by a script in a persistent store. Script Properties
      * are scoped per script, regardless of which user runs the script.
      */
-    export interface ScriptProperties {
+    interface ScriptProperties {
       deleteAllProperties(): ScriptProperties;
       deleteProperty(key: string): ScriptProperties;
       getKeys(): string[];
@@ -68,7 +68,7 @@ declare namespace GoogleAppsScript {
      * User Properties are key-value pairs unique to a user. User Properties are scoped per user; any
      * script running under the identity of a user can access User Properties for that user only.
      */
-    export interface UserProperties {
+    interface UserProperties {
       deleteAllProperties(): UserProperties;
       deleteProperty(key: string): UserProperties;
       getKeys(): string[];
@@ -78,7 +78,6 @@ declare namespace GoogleAppsScript {
       setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
       setProperty(key: string, value: string): UserProperties;
     }
-
   }
 }
 

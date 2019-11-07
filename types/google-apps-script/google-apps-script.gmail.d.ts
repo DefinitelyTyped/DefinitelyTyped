@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,11 +7,11 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Gmail {
+  namespace Gmail {
     /**
      * Provides access to Gmail threads, messages, and labels.
      */
-    export interface GmailApp {
+    interface GmailApp {
       createDraft(recipient: string, subject: string, body: string): GmailDraft;
       createDraft(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailDraft;
       createLabel(name: string): GmailLabel;
@@ -96,7 +96,7 @@ declare namespace GoogleAppsScript {
      *       }
      *     }
      */
-    export interface GmailAttachment {
+    interface GmailAttachment {
       copyBlob(): Base.Blob;
       getAs(contentType: string): Base.Blob;
       getBytes(): Byte[];
@@ -120,7 +120,7 @@ declare namespace GoogleAppsScript {
     /**
      * A user-created draft message in a user's Gmail account.
      */
-    export interface GmailDraft {
+    interface GmailDraft {
       /**
        * Deletes this draft message.
        */
@@ -154,7 +154,7 @@ declare namespace GoogleAppsScript {
     /**
      * Options for a Gmail draft.
      */
-    export type GmailAdvancedOptions = {
+    interface GmailAdvancedOptions {
       /**
        * An array of files to send with the email.
        */
@@ -189,12 +189,12 @@ declare namespace GoogleAppsScript {
       replyTo?: string;
     }
     /** alias to GmailAdvancedOptions */
-    export type GmailDraftOptions = GmailAdvancedOptions;
+    type GmailDraftOptions = GmailAdvancedOptions;
 
     /**
      * Options for a Gmail Attachments.
      */
-    export type GmailAttachmentOptions = {
+    interface GmailAttachmentOptions {
       /**
        * If the returned array of Blob attachments should include inline images.
        */
@@ -211,7 +211,7 @@ declare namespace GoogleAppsScript {
     /**
      * A user-created label in a user's Gmail account.
      */
-    export interface GmailLabel {
+    interface GmailLabel {
       addToThread(thread: GmailThread): GmailLabel;
       addToThreads(threads: GmailThread[]): GmailLabel;
       deleteLabel(): void;
@@ -226,7 +226,7 @@ declare namespace GoogleAppsScript {
     /**
      * A message in a user's Gmail account.
      */
-    export interface GmailMessage {
+    interface GmailMessage {
       createDraftReply(body: string): GmailDraft;
       createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
@@ -238,7 +238,7 @@ declare namespace GoogleAppsScript {
       getBcc(): string;
       getBody(): string;
       getCc(): string;
-      getDate(): Date;
+      getDate(): Base.Date;
       getFrom(): string;
       getHeader(name: string): string;
       getId(): string;
@@ -270,7 +270,7 @@ declare namespace GoogleAppsScript {
     /**
      * A thread in a user's Gmail account.
      */
-    export interface GmailThread {
+    interface GmailThread {
       addLabel(label: GmailLabel): GmailThread;
       createDraftReply(body: string): GmailDraft;
       createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
@@ -279,7 +279,7 @@ declare namespace GoogleAppsScript {
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
-      getLastMessageDate(): Date;
+      getLastMessageDate(): Base.Date;
       getMessageCount(): Integer;
       getMessages(): GmailMessage[];
       getPermalink(): string;

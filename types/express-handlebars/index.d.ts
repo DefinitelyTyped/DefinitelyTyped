@@ -1,6 +1,8 @@
-// Type definitions for express-handlebars
+// Type definitions for express-handlebars 3.1.0
 // Project: https://github.com/ericf/express-handlebars
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
+// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
+//                 Igor Dultsev <https://github.com/yhaskell>
+//                 Dennis Bartlett <https://github.com/dcbartlett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,7 +33,7 @@ interface ExphbsCallback {
 }
 
 interface Exphbs {
-    engine: Function;
+    engine: (path: string, options: object, callback: (e: any, rendered: string) => void) => void;
     extname: string;
     compiled: Object;
     precompiled: Object;
