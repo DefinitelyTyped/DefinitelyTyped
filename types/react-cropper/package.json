@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "aws-sdk": "^2.37.0"
+        "cropperjs": "^1.3.0"
     }
 }

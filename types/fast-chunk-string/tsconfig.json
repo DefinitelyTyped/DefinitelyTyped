@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "json-rules-engine-tests.ts"
+        "fast-chunk-string-tests.ts"
     ]
 }
