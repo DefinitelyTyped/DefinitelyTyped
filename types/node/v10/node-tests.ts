@@ -2775,6 +2775,21 @@ async function asyncStreamPipelineFinished() {
         childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
+    {
+        const forked = childProcess.fork('./', ['asd'], {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: "inherit",
+            execPath: '',
+            execArgv: ['asda']
+        });
+        const ipc: stream.Pipe = forked.channel!;
+        const hasRef: boolean = ipc.hasRef();
+        ipc.close();
+        ipc.unref();
+        ipc.ref();
+    }
+
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
