@@ -592,7 +592,7 @@ declare namespace PouchDB {
              * Setting it to false will mean that the revision number will be a random UUID.
              * Defaults to true.
              */
-            deterministic_revs: boolean
+            deterministic_revs: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
