@@ -1141,6 +1141,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ethereumjs-util",
+            "typingsPackageName": "ethereumjs-util",
+            "sourceRepoURL": "https://github.com/ethereumjs/ethereumjs-util#readme",
+            "asOfVersion": "6.1.0"
+        },
+        {
             "libraryName": "ethereumjs-tx",
             "typingsPackageName": "ethereumjs-tx",
             "sourceRepoURL": "https://github.com/ethereumjs/ethereumjs-tx",
