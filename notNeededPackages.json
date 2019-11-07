@@ -439,6 +439,12 @@
             "asOfVersion": "5.1.0"
         },
         {
+            "libraryName": "cassandra-driver",
+            "typingsPackageName": "cassandra-driver",
+            "sourceRepoURL": "https://github.com/datastax/nodejs-driver",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "camljs",
             "typingsPackageName": "camljs",
             "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
