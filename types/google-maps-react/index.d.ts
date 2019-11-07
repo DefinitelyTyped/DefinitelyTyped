@@ -103,9 +103,9 @@ export class HeatMap extends React.Component<any, any> {
 }
 
 export interface InfoWindowProps extends Partial<google.maps.InfoWindowOptions> {
-  google?: typeof google;
-  map?: google.maps.Map;
-  marker?: google.maps.Marker;
+  google: typeof google;
+  map: google.maps.Map;
+  marker: google.maps.Marker;
 
   mapCenter?: google.maps.LatLng | google.maps.LatLngLiteral;
   visible?: boolean;
