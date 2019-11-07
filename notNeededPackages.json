@@ -1813,6 +1813,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "ink",
+            "typingsPackageName": "ink",
+            "sourceRepoURL": "https://github.com/vadimdemedes/ink#readme",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "instabug-reactnative",
             "typingsPackageName": "instabug-reactnative",
             "sourceRepoURL": "https://github.com/Instabug/instabug-reactnative#readme",
