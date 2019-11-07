@@ -27,7 +27,7 @@ declare namespace OfficeRuntime {
   /**
    * Asynchronous, global, and persistent key-value storage.
    *
-   * [Api set: ExcelApi 1.9]
+   * [Api set: CustomFunctionsRuntime 1.1]
    *
    * @remarks
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
@@ -37,7 +37,7 @@ declare namespace OfficeRuntime {
      * Retrieves an item from storage based on its key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -46,7 +46,7 @@ declare namespace OfficeRuntime {
      * Sets a key-value pair into storage or updates an existing key-value pair.
      * Returns a Promise.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -56,7 +56,7 @@ declare namespace OfficeRuntime {
      * Removes an item from storage based on its key.
      * Returns a Promise.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -65,7 +65,7 @@ declare namespace OfficeRuntime {
      * Retrieves multiple items from storage based on their key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -74,7 +74,7 @@ declare namespace OfficeRuntime {
      * Sets multiple items into storage or updates multiple items within storage.
      * Returns a Promise.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -83,7 +83,7 @@ declare namespace OfficeRuntime {
      * Removes multiple items from storage.
      * Returns a Promise.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -92,7 +92,7 @@ declare namespace OfficeRuntime {
      * Retrieves an array of all keys from storage.
      *  Returns a Promise.
      *
-     * [Api set: ExcelApi 1.9]
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     getKeys(): Promise<string[]>;
