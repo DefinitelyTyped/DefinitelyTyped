@@ -415,11 +415,10 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
 const ThemedMyComponent = withTheme(MyComponent);
 
-// TODO: passes in TS@3.1, not in TS@3.0
-// <ThemedMyComponent ref={ref => {
-//     // $ExpectType MyComponent | null
-//     ref;
-// }}/>;
+<ThemedMyComponent ref={ref => {
+    // $ExpectType MyComponent | null
+    ref;
+}}/>;
 const themedRef = React.createRef<MyComponent>();
 <ThemedMyComponent ref={themedRef} />;
 
@@ -612,9 +611,7 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = (
-    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
-    // <StyledTestContainer as={Test2Container} type='foo' />
-    <StyledTestContainer as={Test2Container} size="small" />
+    <StyledTestContainer as={Test2Container} type='foo' />
 );
 
 // 4.0 refs
@@ -989,8 +986,7 @@ function validateDefaultProps() {
         color: red
     `;
 
-    // this test is failing in TS 2.9 but not in 3.0
-    // <MyComponent requiredProp />;
+    <MyComponent requiredProp />;
 
     <StyledComponent requiredProp optionalProp="x" />;
 
@@ -1011,8 +1007,7 @@ function validateDefaultProps() {
         { requiredProp: true }
     );
 
-    // this test is failing in TS 3.1 but not in 3.2
-    // <OtherStyledComponent />;
+    <OtherStyledComponent />;
 
     <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }
