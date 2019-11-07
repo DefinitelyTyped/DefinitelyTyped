@@ -64,7 +64,7 @@
     type Middleware<StateT = any, CustomT = {}> = Koa.Middleware<StateT, CustomT & RouterParamContext<StateT, CustomT>>;
 
     interface ParamMiddleware {
-        (param: string, ctx: RouterContext, next: () => Promise<any>): any;
+        (param: string, ctx: RouterContext, next: Koa.Next): any;
     }
 
     interface RouterAllowedMethodsOptions {
