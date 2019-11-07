@@ -13,5 +13,5 @@ expect(123).to.not.be.like(456);
 chaiLike.extend({
     match: (object, expected) => typeof object === 'string' && expected instanceof RegExp,
     assert: (object, expected) => (<RegExp> expected).test(object),
-})
+});
 chaiLike.clearPlugins();
