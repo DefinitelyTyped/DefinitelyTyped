@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "base-x": "^3.0.6"
+        "@types/base-x": "^1.0.30"
     }
 }
