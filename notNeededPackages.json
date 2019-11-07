@@ -4897,6 +4897,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "vfile-message",
+            "typingsPackageName": "vfile-message",
+            "sourceRepoURL": "https://github.com/vfile/vfile-message#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "vfile",
             "typingsPackageName": "vfile",
             "sourceRepoURL": "https://github.com/vfile/vfile",
