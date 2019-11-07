@@ -308,6 +308,9 @@ declare module "stream" {
         }
 
         interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
             unref(): void;
         }
     }
