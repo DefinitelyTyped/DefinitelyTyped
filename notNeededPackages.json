@@ -2761,6 +2761,12 @@
             "asOfVersion": "11.1.0"
         },
         {
+            "libraryName": "node-json-db",
+            "typingsPackageName": "node-json-db",
+            "sourceRepoURL": "https://github.com/Belphemur/node-json-db",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "node-cache",
             "typingsPackageName": "node-cache",
             "sourceRepoURL": "https://github.com/mpneuried/nodecache",
