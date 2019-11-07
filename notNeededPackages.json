@@ -3667,6 +3667,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-json-pretty",
+            "typingsPackageName": "react-json-pretty",
+            "sourceRepoURL": "https://github.com/chenckang/react-json-pretty",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "react-joyride",
             "typingsPackageName": "react-joyride",
             "sourceRepoURL": "https://github.com/gilbarbara/react-joyride",
@@ -3695,6 +3701,12 @@
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
             "asOfVersion": "0.18.0"
+        },
+        {
+            "libraryName": "react-native-fs",
+            "typingsPackageName": "react-native-fs",
+            "sourceRepoURL": "https://github.com/itinance/react-native-fs",
+            "asOfVersion": "2.13.0"
         },
         {
             "libraryName": "react-native-fabric",
@@ -3743,6 +3755,12 @@
             "typingsPackageName": "react-native-navigation",
             "sourceRepoURL": "https://github.com/wix/react-native-navigation",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-native-swipe-gestures",
+            "typingsPackageName": "react-native-swipe-gestures",
+            "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
+            "asOfVersion": "1.0.4"
         },
         {
             "libraryName": "react-native-safe-area",
