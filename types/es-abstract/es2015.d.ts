@@ -88,7 +88,7 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 		iterator: Iterator<T, TReturn, TNext> | AsyncIterator<T, TReturn, TNext>,
 		value?: TNext,
 	): IteratorResult<T, TReturn> | Promise<IteratorResult<T, TReturn>>;
-	IteratorComplete(iterResult: IteratorResult<unknown>): boolean;
+	IteratorComplete(iterResult: IteratorResult<unknown, unknown>): iterResult is IteratorReturnResult<unknown>;
 	IteratorValue<T = never, TReturn = never>(iterResult: IteratorResult<T, TReturn>): T | TReturn;
 	IteratorStep<T>(iterator: Iterator<T>): IteratorYieldResult<T> | false;
 	IteratorClose<T>(iterator: Iterator<unknown, unknown, unknown>, completion: () => T): T;

@@ -43,6 +43,12 @@ ES2015.IteratorValue(iteratorReturnResult); // $ExpectType string
 ES2015.IteratorValue(iteratorResult); // $ExpectType string | number
 ES2015.IteratorValue(iteratorNeverUnknownResult); // $ExpectType unknown
 
+if (ES2015.IteratorComplete(iteratorResult)) {
+	iteratorResult; // $ExpectType IteratorReturnResult<string>
+} else {
+	iteratorResult; // $ExpectType IteratorYieldResult<number>
+}
+
 const anyIterator = any as Iterator<unknown, unknown, unknown>;
 
 ES2015.GetMethod(anyIterator, 'next'); // $ExpectType (...args: [] | [unknown]) => IteratorResult<unknown, unknown>
