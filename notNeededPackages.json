@@ -2725,6 +2725,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "neffos.js",
+            "typingsPackageName": "neffos.js",
+            "sourceRepoURL": "https://github.com/kataras/neffos.js",
+            "asOfVersion": "0.1.2"
+        },
+        {
             "libraryName": "nblas",
             "typingsPackageName": "nblas",
             "sourceRepoURL": "https://github.com/mateogianolio/nblas",
