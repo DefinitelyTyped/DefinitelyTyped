@@ -10258,7 +10258,7 @@ export class OrdersApi {
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
      */
-    batchRetrieveOrders(params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
+    batchRetrieveOrders(locationId: string, params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
     /**
      * Creates an [Order](#type-order) that can then be referenced as `order_id` in a request to the [Charge](#endpoint-charge)
      * endpoint. Orders specify products for purchase, along with discounts, taxes, and other settings to apply to the purchase.
@@ -10266,7 +10266,7 @@ export class OrdersApi {
      * your request. You cannot modify an order after you create it. If you need to modify an order, instead create a new order
      * with modified details. To learn more about the Orders API, see the [Orders API Overview](/products/orders/overview).
      */
-    createOrder(params: CreateOrderRequest): Promise<CreateOrderResponse>;
+    createOrder(locationId: string, params: CreateOrderRequest): Promise<CreateOrderResponse>;
     /**
      * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or settle an order with a total of `0`.
      * The total of the `payment_ids` listed in the request must be equal to the order total. Orders with a total amount

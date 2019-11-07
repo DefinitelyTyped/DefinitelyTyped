@@ -55,6 +55,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "angular-dynamic-locale",
+            "typingsPackageName": "angular-dynamic-locale",
+            "sourceRepoURL": "https://github.com/lgalfaso/angular-dynamic-locale",
+            "asOfVersion": "0.1.35"
+        },
+        {
             "libraryName": "angular-touchspin",
             "typingsPackageName": "angular-touchspin",
             "sourceRepoURL": "https://github.com/nkovacic/angular-touchspin",
@@ -71,6 +77,12 @@
             "typingsPackageName": "angular-ui-router-uib-modal",
             "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-uib-modal",
             "asOfVersion": "0.0.11"
+        },
+        {
+            "libraryName": "ansi-colors",
+            "typingsPackageName": "ansi-colors",
+            "sourceRepoURL": "https://github.com/doowb/ansi-colors",
+            "asOfVersion": "3.2.1"
         },
         {
             "libraryName": "ansi-escapes",
@@ -335,6 +347,12 @@
             "typingsPackageName": "bitwise",
             "sourceRepoURL": "https://github.com/dodekeract/bitwise",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "bootstrap-table",
+            "typingsPackageName": "bootstrap-table",
+            "sourceRepoURL": "http://bootstrap-table.wenzhixin.net.cn/",
+            "asOfVersion": "1.12.0"
         },
         {
             "libraryName": "blob-util",
@@ -1163,6 +1181,12 @@
             "typingsPackageName": "exit-hook",
             "sourceRepoURL": "https://github.com/sindresorhus/exit-hook",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "expect",
+            "typingsPackageName": "expect",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
         },
         {
             "libraryName": "expo-localization",
@@ -2185,6 +2209,12 @@
             "asOfVersion": "1.0.5"
         },
         {
+            "libraryName": "jss",
+            "typingsPackageName": "jss",
+            "sourceRepoURL": "https://github.com/cssinjs/jss#readme",
+            "asOfVersion": "10.0.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
@@ -2321,6 +2351,12 @@
             "typingsPackageName": "leven",
             "sourceRepoURL": "https://github.com/sindresorhus/leven",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "libra-core",
+            "typingsPackageName": "libra-core",
+            "sourceRepoURL": "https://github.com/perfectmak/libra-core#readme",
+            "asOfVersion": "1.0.5"
         },
         {
             "libraryName": "line-column-path",
@@ -3637,6 +3673,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-json-pretty",
+            "typingsPackageName": "react-json-pretty",
+            "sourceRepoURL": "https://github.com/chenckang/react-json-pretty",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "react-joyride",
             "typingsPackageName": "react-joyride",
             "sourceRepoURL": "https://github.com/gilbarbara/react-joyride",
@@ -3667,6 +3709,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-fs",
+            "typingsPackageName": "react-native-fs",
+            "sourceRepoURL": "https://github.com/itinance/react-native-fs",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "react-native-fabric",
             "typingsPackageName": "react-native-fabric",
             "sourceRepoURL": "https://github.com/corymsmith/react-native-fabric",
@@ -3683,6 +3731,12 @@
             "typingsPackageName": "react-native-google-analytics-bridge",
             "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
+        },
+        {
+            "libraryName": "react-native-keychain",
+            "typingsPackageName": "react-native-keychain",
+            "sourceRepoURL": "https://github.com/oblador/react-native-keychain",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "react-native-linear-gradient",
@@ -3707,6 +3761,12 @@
             "typingsPackageName": "react-native-navigation",
             "sourceRepoURL": "https://github.com/wix/react-native-navigation",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-native-swipe-gestures",
+            "typingsPackageName": "react-native-swipe-gestures",
+            "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
+            "asOfVersion": "1.0.4"
         },
         {
             "libraryName": "react-native-safe-area",
@@ -4615,6 +4675,12 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "theming",
+            "typingsPackageName": "theming",
+            "sourceRepoURL": "https://github.com/cssinjs/theming",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "text-clipper",
             "typingsPackageName": "text-clipper",
             "sourceRepoURL": "https://github.com/arendjr/text-clipper",
@@ -4801,6 +4867,12 @@
             "asOfVersion": "2.33.0"
         },
         {
+            "libraryName": "use-dark-mode",
+            "typingsPackageName": "use-dark-mode",
+            "sourceRepoURL": "https://github.com/donavon/use-dark-mode#readme",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "UUID.js",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
@@ -4829,6 +4901,12 @@
             "typingsPackageName": "vega",
             "sourceRepoURL": "https://github.com/vega/vega",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "vfile",
+            "typingsPackageName": "vfile",
+            "sourceRepoURL": "https://github.com/vfile/vfile",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "viewerjs",
