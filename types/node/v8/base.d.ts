@@ -2006,7 +2006,7 @@ declare module "child_process" {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        readonly channel?: stream.Pipe;
+        readonly channel?: stream.Pipe | null;
         stdio: StdioStreams;
         killed: boolean;
         pid: number;
