@@ -3,7 +3,7 @@
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
-// Last Update  : 19-09-2019
+// Last Update  : 02-11-2019
 // Developed in www.nowcando.com
 
 /// <reference types="node" />
@@ -76,7 +76,7 @@ declare namespace orientjs {
             name: string;
             server: OServer;
             db: ODB;
-            configure(config?: any): void;
+
             up(): Promise<any>;
             down(): Promise<any>;
         }
@@ -270,7 +270,6 @@ declare namespace orientjs {
             fields?: CustomField[]
         };
 
-        configure(config?: any): void;
         reload(): Promise<OClassProperty>;
         list(): Promise<OClassProperty[]>;
         /**
@@ -321,7 +320,7 @@ declare namespace orientjs {
          * Configure the class instance.
          * @param  config The configuration object.
          */
-        configure(config?: any): void;
+
         /**
          * Retreive a list of classes from the database.
          *
@@ -429,7 +428,7 @@ declare namespace orientjs {
          * Configure the sequence instance.
          * @param  config The configuration object.
          */
-        configure(config?: any): void;
+
         /**
          * Retreive a list of sequences from the database.
          *
@@ -770,12 +769,7 @@ declare namespace orientjs {
          * @promise {Db} The open db instance.
          */
         open(): Promise<ODB>;
-        /**
-         * Close the database.
-         *
-         * @promise {Db} The now closed db instance.
-         */
-        close(): Promise<ODB>;
+
         /**
          * Send the given operation to the server, ensuring the
          * database is open first.
@@ -791,12 +785,7 @@ declare namespace orientjs {
          * @promise {Db}  The database with reloaded configuration.
          */
         reload(): Promise<ODB>;
-        /**
-         * Begin a new transaction.
-         *
-         * @return The transaction instance.
-         */
-        begin(): OTransaction;
+
         /**
          * Execute an SQL query against the database and retreive the raw, parsed response.
          *
@@ -806,22 +795,6 @@ declare namespace orientjs {
          */
         exec<R>(query: string, options?: QueryOptions): Promise<R>;
 
-        /**
-         * Execute an SQL query against the database and retreive the results
-         *
-         * @param   query   The query or command to execute.
-         * @param   options The options for the query / command.
-         * @promise {Mixed}          The results of the query / command.
-         */
-        query<R>(command: string, options?: QueryOptions): Promise<R>;
-        /**
-         * Execute a live query against the database
-         *
-         * @param   query   The query or command to execute.
-         * @param   options The options for the query / command.
-         * @promise {Mixed}          The token of the live query.
-         */
-        liveQuery<R>(command: string, options?: QueryOptions): Promise<R>;
         /**
          * Normalize a result, where possible.
          * @param  result The result to normalize.
@@ -1113,7 +1086,7 @@ declare namespace orientjs {
 
     class BasePool<T> extends events.EventEmitter {
         constructor(config: BasePoolConfig, params?: any);
-        acquire(): Promise<ODatabase>;
+        acquire(): Promise<ODatabaseSession>;
         hasError(): boolean;
         release(resource: any): boolean;
         size(): number;
@@ -1129,7 +1102,7 @@ declare namespace orientjs {
     }
 
     class ODatabaseSessionPool extends BasePool<ODatabasePoolFactory> {}
-    class SessionManager {
+    class OSessionManager {
         client: any;
         config: any;
 
@@ -1185,13 +1158,23 @@ declare namespace orientjs {
         password?: string;
         pool?: { max?: number, min?: number };
     }
-    class ODatabaseSession {
+    class ODatabaseSession extends ODatabase {
         constructor(client?: OrientDBClient, options?: ODatabaseSessionOptions);
+
+        pool: ODatabaseSessionPool;
+        sessionManager: OSessionManager;
         /**
          * Get the current transaction
          * @returns The new transaction
          */
         tx(): ODatabaseTransaction;
+
+        /**
+         * Begin a transaction in this database session. ODatabaseSession supports only 1 transaction at time.
+         * Use multiple sessions if you want to run concurrent transactions.
+         * @returns {ODatabaseTransaction} The new transaction
+         */
+        begin(): ODatabaseTransaction;
 
         /**
          * Execute an SQL batch script against the database and retreive the results

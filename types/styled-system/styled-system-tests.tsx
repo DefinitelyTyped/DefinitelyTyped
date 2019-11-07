@@ -258,7 +258,11 @@ const test = () => (
         <Flex flexWrap="wrap" />
         <Flex flexWrap={['wrap']} />
         <Flex flexWrap={{ sm: 'wrap' }} />
-        // flexBasis (responsive)
+        // flexShrink
+        <Flex flexShrink={0} />
+        // flexGrow
+        <Flex flexGrow={0} />
+        // flexBasis
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
         <Flex flexDirection="column" />

@@ -85,6 +85,10 @@ export interface ChromeOptions {
      * A list of window types that will appear in the list of window handles. For access to <webview> elements, include "webview" in this list.
      */
     windowTypes?: string[];
+    /**
+     * Flag to activate W3C WebDriver API. Chromedriver (as of version 2.41 at least) simply does not support the W3C WebDriver API.
+     */
+    w3c?: boolean;
 }
 
 export interface NightwatchDesiredCapabilities {
