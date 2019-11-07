@@ -714,6 +714,22 @@ async function typedThemes() {
         ${themedCssWithNesting}
     `;
 
+    const WithProp = styled.div`
+        ${({ ok, theme: { color } }: { ok: boolean; theme: typeof theme }) =>
+            ok &&
+            css`
+                color: ${color};
+            `}
+    `;
+
+    const WithPropNested = styled.div`
+        ${({ ok }: { ok: boolean }) =>
+            ok &&
+            css`
+                color: ${({ theme: { color } }) => color};
+            `}
+    `;
+
     return (
         <ThemeProvider theme={theme}>
             <>
@@ -728,6 +744,8 @@ async function typedThemes() {
                         return theme.color;
                     }}
                 </ThemeConsumer>
+                <WithProp ok />
+                <WithPropNested ok />
             </>
         </ThemeProvider>
     );
