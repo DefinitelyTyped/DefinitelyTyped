@@ -7,7 +7,7 @@ declare module "child_process" {
         stdin: Writable | null;
         stdout: Readable | null;
         stderr: Readable | null;
-        readonly channel?: Pipe | null;
+        readonly channel?: Pipe;
         readonly stdio: [
             Writable | null, // stdin
             Readable | null, // stdout
