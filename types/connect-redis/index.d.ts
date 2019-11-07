@@ -30,6 +30,7 @@ declare module "connect-redis" {
             url?: string;
             ttl?: number | string | ((store: RedisStore, sess: Express.SessionData, sid: string) => number);
             disableTTL?: boolean;
+            disableTouch?: boolean;
             db?: number;
             pass?: string;
             prefix?: string;
