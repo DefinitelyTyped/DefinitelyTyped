@@ -7,6 +7,7 @@
 //                 Brian Ng <https://github.com/existentialism>
 //                 Airat Aminev <https://github.com/airato>
 //                 Simon Jespersen <https://github.com/simjes>
+//                 Carlos Perez Gutierrez <https://github.com/algusdark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -16,6 +17,7 @@ import {
     MatcherOptions as DTLMatcherOptions,
     SelectorMatcherOptions as DTLSelectorMatcherOptions,
 } from '@testing-library/dom';
+import 'cypress/types/jquery'
 
 export interface CTLMatcherOptions {
     timeout?: number;
