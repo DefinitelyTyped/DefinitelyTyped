@@ -4189,6 +4189,12 @@
             "asOfVersion": "1.6.3"
         },
         {
+            "libraryName": "sass-webpack-plugin",
+            "typingsPackageName": "sass-webpack-plugin",
+            "sourceRepoURL": "https://github.com/jalkoby/sass-webpack-plugin",
+            "asOfVersion": "1.0.2"
+        },
+        {
             "libraryName": "sauronjs",
             "typingsPackageName": "sauronjs",
             "sourceRepoURL": "https://github.com/Fullscript/sauronjs",
