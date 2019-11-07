@@ -1,8 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-type-assertion": false,
-        "no-void-expression": false,
-        "void-return": false
-    }
+    "extends": "dtslint/dt.json"
  }
