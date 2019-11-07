@@ -1884,7 +1884,7 @@ declare abstract class OutputStream {
     close(): Promise<void>;
 
     /**
-     * Tries to write `data` to the stream. Returns how how many bytes of `data` were written to the stream.
+     * Tries to write `data` to the stream. Returns how many bytes of `data` were written to the stream.
      */
     write(data: ArrayBuffer | number[]): Promise<number>;
 
@@ -1894,6 +1894,13 @@ declare abstract class OutputStream {
      * before the error occurred.
      */
     writeAll(data: ArrayBuffer | number[]): Promise<void>;
+
+    /**
+     * Tries to write `size` bytes to the stream, reading them from `address`. Returns how many bytes were written
+     * to the stream. Premature error or end of stream results in an `Error` object with a `partialSize` property
+     * specifying how many bytes of `data` were written to the stream before the error occurred.
+     */
+    writeMemoryRegion(address: NativePointerValue, size: number): Promise<number>;
 }
 
 /**

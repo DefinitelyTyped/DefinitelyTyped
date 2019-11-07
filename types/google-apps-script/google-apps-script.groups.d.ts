@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-08-09
+// Type definitions for Google Apps Script 2019-10-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Groups {
+  namespace Groups {
     /**
      * A group object whose members and those members' roles within the group can be queried.
      *
@@ -25,11 +25,12 @@ declare namespace GoogleAppsScript {
      *       Logger.log(str);
      *     }
      */
-    export interface Group {
+    interface Group {
       getEmail(): string;
       getGroups(): Group[];
       getRole(email: string): Role;
       getRole(user: Base.User): Role;
+      getRoles(users: Base.User[]): Role[];
       getUsers(): Base.User[];
       hasGroup(group: Group): boolean;
       hasGroup(email: string): boolean;
@@ -46,7 +47,7 @@ declare namespace GoogleAppsScript {
      *     var groups = GroupsApp.getGroups();
      *     Logger.log('You belong to ' + groups.length + ' groups.');
      */
-    export interface GroupsApp {
+    interface GroupsApp {
       Role: typeof Role;
       getGroupByEmail(email: string): Group;
       getGroups(): Group[];
@@ -59,8 +60,7 @@ declare namespace GoogleAppsScript {
      *
      * Group.getRole(email)
      */
-    export enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
-
+    enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
   }
 }
 

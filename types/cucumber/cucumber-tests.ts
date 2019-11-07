@@ -60,6 +60,13 @@ function StepSampleWithoutDefineSupportCode() {
         callback();
     });
 
+    After((scenarioResult: HookScenarioResult, callback: Callback) => {
+        if (scenarioResult.result.exception) {
+            console.error(scenarioResult.result.exception);
+        }
+        callback();
+    });
+
     After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
         console.log("After");
         callback();

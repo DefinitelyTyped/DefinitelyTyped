@@ -624,6 +624,7 @@ declare namespace Chart {
         showLine?: boolean;
         stack?: string;
         spanGaps?: boolean;
+        weight?: number;
     }
 
     interface ChartScales {

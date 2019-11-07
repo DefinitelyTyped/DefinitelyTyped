@@ -89,7 +89,7 @@ declare namespace next {
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
-        err?: Error;
+        err?: Error & { statusCode?: number };
     }
 
     /**
