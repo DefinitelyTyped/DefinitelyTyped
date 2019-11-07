@@ -3577,6 +3577,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "react-daum-postcode",
+            "typingsPackageName": "react-daum-postcode",
+            "sourceRepoURL": "https://github.com/kimminsik-bernard/react-daum-postcode",
+            "asOfVersion": "1.6.1"
+        },
+        {
             "libraryName": "react-collapsible",
             "typingsPackageName": "react-collapsible",
             "sourceRepoURL": "https://github.com/glennflanagan/react-collapsible#readme",
