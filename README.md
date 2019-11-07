@@ -63,7 +63,33 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on Typescript 2.8 and later, as of November 2019.
 If you're using Typescript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new Typescript features.
 But there's no guarantee that they'll work.
-Packages that existed before November 2019 may have older versions that are explicitly marked compatible with older versions of Typescript; use the tag "ts2.5" for Typescript 2.5, for example.
+Packages that existed before November 2019 may have older versions that are explicitly marked compatible with older versions of Typescript; use the tag "ts2.6" for Typescript 2.6, for example.
+
+For example, if you run `npm dist-tags @types/react`, you'll see the following table that shows that react@16.4 has types for Typescript 2.6:
+
+|Tag | Version|
+|----|---------|
+|latest| 16.9.11|
+|ts2.0| 15.0.1|
+|ts2.1| 15.0.20|
+|ts2.2| 15.0.30|
+|ts2.3| 16.0.36|
+|ts2.4| 16.0.36|
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+|ts2.8| 16.9.11|
+|ts2.9| 16.9.11|
+|ts3.0| 16.9.11|
+|ts3.1| 16.9.11|
+|ts3.2| 16.9.11|
+|ts3.3| 16.9.11|
+|ts3.4| 16.9.11|
+|ts3.5| 16.9.11|
+|ts3.6| 16.9.11|
+|ts3.7| 16.9.11|
+|ts3.8| 16.9.11|
+
 
 ### Other methods
 
