@@ -1603,6 +1603,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "gulp-pug",
+            "typingsPackageName": "gulp-pug",
+            "sourceRepoURL": "https://github.com/gulp-community/gulp-pug",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "gulp-shell",
             "typingsPackageName": "gulp-shell",
             "sourceRepoURL": "https://github.com/sun-zheng-an/gulp-shell",
