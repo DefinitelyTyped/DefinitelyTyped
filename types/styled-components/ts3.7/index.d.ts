@@ -94,7 +94,7 @@ export type InterpolationValue =
 export type SimpleInterpolation =
     | InterpolationValue
     | FlattenSimpleInterpolation;
-export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>
+export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>;
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
@@ -155,10 +155,10 @@ export interface StyledComponentBase<
     // add our own fake call signature to implement the polymorphic 'as' prop
     (
         props: StyledComponentProps<C, T, O, A> & { as?: never }
-      ): React.ReactElement<StyledComponentProps<C, T, O, A>>
+      ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
     <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
       props: StyledComponentPropsWithAs<AsC, T, O, A>
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
