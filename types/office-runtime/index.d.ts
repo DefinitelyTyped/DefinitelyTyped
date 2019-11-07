@@ -13,9 +13,9 @@ Copyright (c) Microsoft Corporation
 declare namespace OfficeRuntime {
   /**
    * Method that enables a pop up web dialog box.
-   * 
+   *
    * [Api set: CustomFunctionsRuntime 1.1]
-   * 
+   *
    * @param url Must be a string.
    * @param options Optional parameter. Must be of type DisplayWebDialogOptions.
    */
