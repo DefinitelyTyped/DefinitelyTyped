@@ -100,7 +100,7 @@ declare namespace OfficeRuntime {
   /** Object representing the dialog box. */
   interface Dialog {
     /**
-     *  Method to close a dialog box. Returns a Promise. 
+     * Method to close a dialog box. Returns a Promise.
      *
      * [Api set: CustomFunctionsRuntime 1.1]
      *
