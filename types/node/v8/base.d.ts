@@ -2006,6 +2006,7 @@ declare module "child_process" {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
+        readonly channel?: stream.Pipe;
         stdio: StdioStreams;
         killed: boolean;
         pid: number;
@@ -5625,6 +5626,13 @@ declare module "stream" {
         }
 
         export class PassThrough extends Transform { }
+
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;
