@@ -3649,6 +3649,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-hot-loader",
+            "typingsPackageName": "react-hot-loader",
+            "sourceRepoURL": "https://github.com/gaearon/react-hot-loader",
+            "asOfVersion": "4.1.1"
+        },
+        {
             "libraryName": "react-helmet-async",
             "typingsPackageName": "react-helmet-async",
             "sourceRepoURL": "https://github.com/staylor/react-helmet-async",
