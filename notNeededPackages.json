@@ -739,6 +739,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "cropperjs",
+            "typingsPackageName": "cropperjs",
+            "sourceRepoURL": "https://github.com/fengyuanchen/cropperjs",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "crypto-hash",
             "typingsPackageName": "crypto-hash",
             "sourceRepoURL": "https://github.com/sindresorhus/crypto-hash",
@@ -2183,6 +2189,12 @@
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
             "asOfVersion": "2.17.2"
+        },
+        {
+            "libraryName": "json-rules-engine",
+            "typingsPackageName": "json-rules-engine",
+            "sourceRepoURL": "https://github.com/cachecontrol/json-rules-engine",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "jsonata",
@@ -3673,6 +3685,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-json-pretty",
+            "typingsPackageName": "react-json-pretty",
+            "sourceRepoURL": "https://github.com/chenckang/react-json-pretty",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "react-joyride",
             "typingsPackageName": "react-joyride",
             "sourceRepoURL": "https://github.com/gilbarbara/react-joyride",
@@ -3701,6 +3719,12 @@
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
             "asOfVersion": "0.18.0"
+        },
+        {
+            "libraryName": "react-native-fs",
+            "typingsPackageName": "react-native-fs",
+            "sourceRepoURL": "https://github.com/itinance/react-native-fs",
+            "asOfVersion": "2.13.0"
         },
         {
             "libraryName": "react-native-fabric",
@@ -3749,6 +3773,12 @@
             "typingsPackageName": "react-native-navigation",
             "sourceRepoURL": "https://github.com/wix/react-native-navigation",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-native-swipe-gestures",
+            "typingsPackageName": "react-native-swipe-gestures",
+            "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
+            "asOfVersion": "1.0.4"
         },
         {
             "libraryName": "react-native-safe-area",
@@ -4885,6 +4915,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "vfile-message",
+            "typingsPackageName": "vfile-message",
+            "sourceRepoURL": "https://github.com/vfile/vfile-message#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "vfile",
             "typingsPackageName": "vfile",
             "sourceRepoURL": "https://github.com/vfile/vfile",
@@ -5159,6 +5195,12 @@
             "typingsPackageName": "zetapush-js",
             "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
             "asOfVersion": "3.1.2"
+        },
+        {
+            "libraryName": "zipkin-transport-http",
+            "typingsPackageName": "zipkin-transport-http",
+            "sourceRepoURL": "https://github.com/openzipkin/zipkin-js#readme",
+            "asOfVersion": "0.12.0"
         },
         {
             "libraryName": "zipkin-instrumentation-express",
