@@ -547,6 +547,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "composer-concerto",
+            "typingsPackageName": "composer-concerto",
+            "sourceRepoURL": "https://github.com/hyperledger/composer-concerto#readme",
+            "asOfVersion": "0.71.1"
+        },
+        {
             "libraryName": "compare-versions",
             "typingsPackageName": "compare-versions",
             "sourceRepoURL": "https://github.com/omichelsen/compare-versions",
