@@ -84,7 +84,7 @@ export interface TaskService {
 export interface HandleFailureOptions {
     errorMessage?: string;
     errorDetails?: string;
-    retires?: number;
+    retries?: number;
     retryTimeout?: number;
 }
 

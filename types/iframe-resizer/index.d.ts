@@ -310,8 +310,9 @@ declare namespace iframeResizer {
     x: number;
     y: number;
   }
+  function iframeResizer(options: IFrameOptions, target: string | HTMLElement): IFrameComponent[];
 }
-
+// leave this declaration outside the namespace so the 'require'd import is still callable
 declare function iframeResizer(options: iframeResizer.IFrameOptions, target: string | HTMLElement): iframeResizer.IFrameComponent[];
 export = iframeResizer;
 export as namespace iframeResizer;

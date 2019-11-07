@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace AdminLicenseManager {
     namespace Collection {
-      export interface LicenseAssignmentsCollection {
+      interface LicenseAssignmentsCollection {
         // Get license assignment of a particular product and sku for a user
         get(productId: string, skuId: string, userId: string): AdminLicenseManager.Schema.LicenseAssignment;
         // Assign License.
@@ -29,7 +29,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface LicenseAssignment {
+      interface LicenseAssignment {
         etags?: string;
         kind?: string;
         productId?: string;
@@ -39,10 +39,10 @@ declare namespace GoogleAppsScript {
         skuName?: string;
         userId?: string;
       }
-      export interface LicenseAssignmentInsert {
+      interface LicenseAssignmentInsert {
         userId?: string;
       }
-      export interface LicenseAssignmentList {
+      interface LicenseAssignmentList {
         etag?: string;
         items?: AdminLicenseManager.Schema.LicenseAssignment[];
         kind?: string;
@@ -50,7 +50,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface AdminLicenseManager {
+  interface AdminLicenseManager {
     LicenseAssignments?: AdminLicenseManager.Collection.LicenseAssignmentsCollection;
     // Create a new instance of LicenseAssignment
     newLicenseAssignment(): AdminLicenseManager.Schema.LicenseAssignment;
