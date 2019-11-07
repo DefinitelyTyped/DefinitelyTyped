@@ -4363,6 +4363,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "sqs-consumer",
+            "typingsPackageName": "sqs-consumer",
+            "sourceRepoURL": "https://github.com/BBC/sqs-consumer",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "srcset",
             "typingsPackageName": "srcset",
             "sourceRepoURL": "https://github.com/sindresorhus/srcset",
