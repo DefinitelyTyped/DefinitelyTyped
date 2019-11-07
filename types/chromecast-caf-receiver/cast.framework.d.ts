@@ -645,14 +645,17 @@ export class PlayerManager {
 
     /**
      * Provide an interceptor of incoming and outgoing messages.
-     * The interceptor can update the request data; and return updated data; a promise of
-     * updated data if need to get more data from the server; or null if the request should not be handled.
-     * Note that if load message interceptor is provided; and no interceptor is provided for preload -
-     * the load interceptor will be called for preload messages.
+     * The interceptor can update the request data and return updated data,
+     * a promise of updated data if need to get more data from the server,
+     * or null if the request should not be handled.
+     * If the load message interceptor is provided and no interceptor is provided for preload, the load interceptor will be called for preload messages.
      */
     setMessageInterceptor(
         type: messages.MessageType,
-        interceptor: (requestData: messages.RequestData) => Promise<any>,
+        interceptor:
+            | ((requestData: messages.RequestData) => messages.RequestData)
+            | ((requestData: messages.RequestData) => Promise<any>)
+            | null,
     ): void;
 
     /**

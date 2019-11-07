@@ -9,7 +9,7 @@ declare namespace GoogleAppsScript {
     namespace Collection {
       namespace Courses {
         namespace CourseWork {
-          export interface StudentSubmissionsCollection {
+          interface StudentSubmissionsCollection {
             // Returns a student submission.
             // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
             // requested course, course work, or student submission or for
@@ -140,7 +140,7 @@ declare namespace GoogleAppsScript {
             turnIn(resource: any, courseId: string, courseWorkId: string, id: string): void;
           }
         }
-        export interface AliasesCollection {
+        interface AliasesCollection {
           // Creates an alias for a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to create the
@@ -173,7 +173,7 @@ declare namespace GoogleAppsScript {
           //   attempts to delete a domain-scoped alias).
           remove(courseId: string, alias: string): void;
         }
-        export interface AnnouncementsCollection {
+        interface AnnouncementsCollection {
           // Creates an announcement.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
@@ -249,7 +249,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if no course exists with the requested ID.
           remove(courseId: string, id: string): void;
         }
-        export interface CourseWorkCollection {
+        interface CourseWorkCollection {
           StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection;
           // Creates course work.
           // The resulting course work (and corresponding student submissions) are
@@ -348,7 +348,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if no course exists with the requested ID.
           remove(courseId: string, id: string): void;
         }
-        export interface StudentsCollection {
+        interface StudentsCollection {
           // Adds a user as a student of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to create
@@ -402,7 +402,7 @@ declare namespace GoogleAppsScript {
           // course does not exist.
           remove(courseId: string, userId: string): void;
         }
-        export interface TeachersCollection {
+        interface TeachersCollection {
           // Creates a teacher of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not  permitted to create
@@ -448,7 +448,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace UserProfiles {
-        export interface GuardianInvitationsCollection {
+        interface GuardianInvitationsCollection {
           // Creates a guardian invitation, and sends an email to the guardian asking
           // them to confirm that they are the student's guardian.
           // Once the guardian accepts the invitation, their `state` will change to
@@ -552,7 +552,7 @@ declare namespace GoogleAppsScript {
           //   refer to a guardian invitation known to Classroom.
           patch(resource: Schema.GuardianInvitation, studentId: string, invitationId: string, optionalArgs: object): Classroom.Schema.GuardianInvitation;
         }
-        export interface GuardiansCollection {
+        interface GuardiansCollection {
           // Returns a specific guardian.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if no user that matches the provided `student_id`
@@ -621,7 +621,7 @@ declare namespace GoogleAppsScript {
           remove(studentId: string, guardianId: string): void;
         }
       }
-      export interface CoursesCollection {
+      interface CoursesCollection {
         Aliases?: Classroom.Collection.Courses.AliasesCollection;
         Announcements?: Classroom.Collection.Courses.AnnouncementsCollection;
         CourseWork?: Classroom.Collection.Courses.CourseWorkCollection;
@@ -697,7 +697,7 @@ declare namespace GoogleAppsScript {
         //     * CourseNotModifiable
         update(resource: Schema.Course, id: string): Classroom.Schema.Course;
       }
-      export interface InvitationsCollection {
+      interface InvitationsCollection {
         // Accepts an invitation, removing it and adding the invited user to the
         // teachers or students (as appropriate) of the specified course. Only the
         // invited user may accept an invitation.
@@ -749,7 +749,7 @@ declare namespace GoogleAppsScript {
         // * `NOT_FOUND` if no invitation exists with the requested ID.
         remove(id: string): void;
       }
-      export interface RegistrationsCollection {
+      interface RegistrationsCollection {
         // Creates a `Registration`, causing Classroom to start sending notifications
         // from the provided `feed` to the destination provided in `cloudPubSubTopic`.
         // Returns the created `Registration`. Currently, this will be the same as
@@ -781,7 +781,7 @@ declare namespace GoogleAppsScript {
         // for that `Registration`.
         remove(registrationId: string): void;
       }
-      export interface UserProfilesCollection {
+      interface UserProfilesCollection {
         GuardianInvitations?: Classroom.Collection.UserProfiles.GuardianInvitationsCollection;
         Guardians?: Classroom.Collection.UserProfiles.GuardiansCollection;
         // Returns a user profile.
@@ -793,7 +793,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Announcement {
+      interface Announcement {
         alternateLink?: string;
         assigneeMode?: string;
         courseId?: string;
@@ -807,22 +807,22 @@ declare namespace GoogleAppsScript {
         text?: string;
         updateTime?: string;
       }
-      export interface Assignment {
+      interface Assignment {
         studentWorkFolder?: Classroom.Schema.DriveFolder;
       }
-      export interface AssignmentSubmission {
+      interface AssignmentSubmission {
         attachments?: Classroom.Schema.Attachment[];
       }
-      export interface Attachment {
+      interface Attachment {
         driveFile?: Classroom.Schema.DriveFile;
         form?: Classroom.Schema.Form;
         link?: Classroom.Schema.Link;
         youTubeVideo?: Classroom.Schema.YouTubeVideo;
       }
-      export interface CloudPubsubTopic {
+      interface CloudPubsubTopic {
         topicName?: string;
       }
-      export interface Course {
+      interface Course {
         alternateLink?: string;
         calendarId?: string;
         courseGroupEmail?: string;
@@ -842,23 +842,23 @@ declare namespace GoogleAppsScript {
         teacherGroupEmail?: string;
         updateTime?: string;
       }
-      export interface CourseAlias {
+      interface CourseAlias {
         alias?: string;
       }
-      export interface CourseMaterial {
+      interface CourseMaterial {
         driveFile?: Classroom.Schema.DriveFile;
         form?: Classroom.Schema.Form;
         link?: Classroom.Schema.Link;
         youTubeVideo?: Classroom.Schema.YouTubeVideo;
       }
-      export interface CourseMaterialSet {
+      interface CourseMaterialSet {
         materials?: Classroom.Schema.CourseMaterial[];
         title?: string;
       }
-      export interface CourseRosterChangesInfo {
+      interface CourseRosterChangesInfo {
         courseId?: string;
       }
-      export interface CourseWork {
+      interface CourseWork {
         alternateLink?: string;
         assigneeMode?: string;
         assignment?: Classroom.Schema.Assignment;
@@ -881,170 +881,170 @@ declare namespace GoogleAppsScript {
         updateTime?: string;
         workType?: string;
       }
-      export interface CourseWorkChangesInfo {
+      interface CourseWorkChangesInfo {
         courseId?: string;
       }
-      export interface Date {
+      interface Date {
         day?: number;
         month?: number;
         year?: number;
       }
-      export interface DriveFile {
+      interface DriveFile {
         alternateLink?: string;
         id?: string;
         thumbnailUrl?: string;
         title?: string;
       }
-      export interface DriveFolder {
+      interface DriveFolder {
         alternateLink?: string;
         id?: string;
         title?: string;
       }
-      export interface Feed {
+      interface Feed {
         courseRosterChangesInfo?: Classroom.Schema.CourseRosterChangesInfo;
         courseWorkChangesInfo?: Classroom.Schema.CourseWorkChangesInfo;
         feedType?: string;
       }
-      export interface Form {
+      interface Form {
         formUrl?: string;
         responseUrl?: string;
         thumbnailUrl?: string;
         title?: string;
       }
-      export interface GlobalPermission {
+      interface GlobalPermission {
         permission?: string;
       }
-      export interface GradeHistory {
+      interface GradeHistory {
         actorUserId?: string;
         gradeChangeType?: string;
         gradeTimestamp?: string;
         maxPoints?: number;
         pointsEarned?: number;
       }
-      export interface Guardian {
+      interface Guardian {
         guardianId?: string;
         guardianProfile?: Classroom.Schema.UserProfile;
         invitedEmailAddress?: string;
         studentId?: string;
       }
-      export interface GuardianInvitation {
+      interface GuardianInvitation {
         creationTime?: string;
         invitationId?: string;
         invitedEmailAddress?: string;
         state?: string;
         studentId?: string;
       }
-      export interface IndividualStudentsOptions {
+      interface IndividualStudentsOptions {
         studentIds?: string[];
       }
-      export interface Invitation {
+      interface Invitation {
         courseId?: string;
         id?: string;
         role?: string;
         userId?: string;
       }
-      export interface Link {
+      interface Link {
         thumbnailUrl?: string;
         title?: string;
         url?: string;
       }
-      export interface ListAnnouncementsResponse {
+      interface ListAnnouncementsResponse {
         announcements?: Classroom.Schema.Announcement[];
         nextPageToken?: string;
       }
-      export interface ListCourseAliasesResponse {
+      interface ListCourseAliasesResponse {
         aliases?: Classroom.Schema.CourseAlias[];
         nextPageToken?: string;
       }
-      export interface ListCourseWorkResponse {
+      interface ListCourseWorkResponse {
         courseWork?: Classroom.Schema.CourseWork[];
         nextPageToken?: string;
       }
-      export interface ListCoursesResponse {
+      interface ListCoursesResponse {
         courses?: Classroom.Schema.Course[];
         nextPageToken?: string;
       }
-      export interface ListGuardianInvitationsResponse {
+      interface ListGuardianInvitationsResponse {
         guardianInvitations?: Classroom.Schema.GuardianInvitation[];
         nextPageToken?: string;
       }
-      export interface ListGuardiansResponse {
+      interface ListGuardiansResponse {
         guardians?: Classroom.Schema.Guardian[];
         nextPageToken?: string;
       }
-      export interface ListInvitationsResponse {
+      interface ListInvitationsResponse {
         invitations?: Classroom.Schema.Invitation[];
         nextPageToken?: string;
       }
-      export interface ListStudentSubmissionsResponse {
+      interface ListStudentSubmissionsResponse {
         nextPageToken?: string;
         studentSubmissions?: Classroom.Schema.StudentSubmission[];
       }
-      export interface ListStudentsResponse {
+      interface ListStudentsResponse {
         nextPageToken?: string;
         students?: Classroom.Schema.Student[];
       }
-      export interface ListTeachersResponse {
+      interface ListTeachersResponse {
         nextPageToken?: string;
         teachers?: Classroom.Schema.Teacher[];
       }
-      export interface Material {
+      interface Material {
         driveFile?: Classroom.Schema.SharedDriveFile;
         form?: Classroom.Schema.Form;
         link?: Classroom.Schema.Link;
         youtubeVideo?: Classroom.Schema.YouTubeVideo;
       }
-      export interface ModifyAnnouncementAssigneesRequest {
+      interface ModifyAnnouncementAssigneesRequest {
         assigneeMode?: string;
         modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
       }
-      export interface ModifyAttachmentsRequest {
+      interface ModifyAttachmentsRequest {
         addAttachments?: Classroom.Schema.Attachment[];
       }
-      export interface ModifyCourseWorkAssigneesRequest {
+      interface ModifyCourseWorkAssigneesRequest {
         assigneeMode?: string;
         modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
       }
-      export interface ModifyIndividualStudentsOptions {
+      interface ModifyIndividualStudentsOptions {
         addStudentIds?: string[];
         removeStudentIds?: string[];
       }
-      export interface MultipleChoiceQuestion {
+      interface MultipleChoiceQuestion {
         choices?: string[];
       }
-      export interface MultipleChoiceSubmission {
+      interface MultipleChoiceSubmission {
         answer?: string;
       }
-      export interface Name {
+      interface Name {
         familyName?: string;
         fullName?: string;
         givenName?: string;
       }
-      export interface Registration {
+      interface Registration {
         cloudPubsubTopic?: Classroom.Schema.CloudPubsubTopic;
         expiryTime?: string;
         feed?: Classroom.Schema.Feed;
         registrationId?: string;
       }
-      export interface SharedDriveFile {
+      interface SharedDriveFile {
         driveFile?: Classroom.Schema.DriveFile;
         shareMode?: string;
       }
-      export interface ShortAnswerSubmission {
+      interface ShortAnswerSubmission {
         answer?: string;
       }
-      export interface StateHistory {
+      interface StateHistory {
         actorUserId?: string;
         state?: string;
         stateTimestamp?: string;
       }
-      export interface Student {
+      interface Student {
         courseId?: string;
         profile?: Classroom.Schema.UserProfile;
         studentWorkFolder?: Classroom.Schema.DriveFolder;
         userId?: string;
       }
-      export interface StudentSubmission {
+      interface StudentSubmission {
         alternateLink?: string;
         assignedGrade?: number;
         assignmentSubmission?: Classroom.Schema.AssignmentSubmission;
@@ -1063,22 +1063,22 @@ declare namespace GoogleAppsScript {
         updateTime?: string;
         userId?: string;
       }
-      export interface SubmissionHistory {
+      interface SubmissionHistory {
         gradeHistory?: Classroom.Schema.GradeHistory;
         stateHistory?: Classroom.Schema.StateHistory;
       }
-      export interface Teacher {
+      interface Teacher {
         courseId?: string;
         profile?: Classroom.Schema.UserProfile;
         userId?: string;
       }
-      export interface TimeOfDay {
+      interface TimeOfDay {
         hours?: number;
         minutes?: number;
         nanos?: number;
         seconds?: number;
       }
-      export interface UserProfile {
+      interface UserProfile {
         emailAddress?: string;
         id?: string;
         name?: Classroom.Schema.Name;
@@ -1086,7 +1086,7 @@ declare namespace GoogleAppsScript {
         photoUrl?: string;
         verifiedTeacher?: boolean;
       }
-      export interface YouTubeVideo {
+      interface YouTubeVideo {
         alternateLink?: string;
         id?: string;
         thumbnailUrl?: string;
@@ -1094,7 +1094,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Classroom {
+  interface Classroom {
     Courses?: Classroom.Collection.CoursesCollection;
     Invitations?: Classroom.Collection.InvitationsCollection;
     Registrations?: Classroom.Collection.RegistrationsCollection;

@@ -31,6 +31,9 @@ videoQueue.process((job, done) => {
     // transcode video asynchronously and report progress
     job.progress(42);
 
+    // get current job progress
+    const progress = job.progress();
+
     job.log('loglog');
     job.isCompleted();
     job.isFailed();
@@ -59,6 +62,9 @@ videoQueue.process((job, done) => {
 audioQueue.process((job, done) => {
     // transcode audio asynchronously and report progress
     job.progress(42);
+
+    // get current job progress
+    const progress = job.progress();
 
     // call done when finished
     done();

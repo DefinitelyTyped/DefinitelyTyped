@@ -245,7 +245,7 @@ declare module "crypto" {
         private constructor();
         update(data: NodeJS.ArrayBufferView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: NodeJS.ArrayBufferView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
