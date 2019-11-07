@@ -3553,6 +3553,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "http://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.0.5"
+        },
+        {
             "libraryName": "rc-progress",
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
