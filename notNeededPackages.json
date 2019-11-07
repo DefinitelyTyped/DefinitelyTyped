@@ -2695,6 +2695,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "nats-hemera",
+            "typingsPackageName": "nats-hemera",
+            "sourceRepoURL": "https://github.com/hemerajs/hemera",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "navigation",
             "typingsPackageName": "navigation",
             "sourceRepoURL": "http://grahammendick.github.io/navigation/",
