@@ -19,9 +19,11 @@ declare namespace ChaiLike {
         assert(object: any, expected: any): boolean;
     }
 
-    function extend(plugin: Plugin): void;
-    function clearPlugins(): void;
+    interface ChaiLike extends Chai.ChaiPlugin {
+        extend(plugin: Plugin): void;
+        clearPlugins(): void;
+    }
 }
 
-declare const chaiLike: Chai.ChaiPlugin;
+declare const chaiLike: ChaiLike.ChaiLike;
 export = chaiLike;
