@@ -2783,7 +2783,7 @@ async function asyncStreamPipelineFinished() {
             execPath: '',
             execArgv: ['asda']
         });
-        const ipc: stream.Pipe = forked.channel!;
+        const ipc: stream.Pipe = forked.channel;
         const hasRef: boolean = ipc.hasRef();
         ipc.close();
         ipc.unref();
