@@ -28,4 +28,4 @@ interface UIDGeneratorClass {
 
 declare const UIDGenerator: UIDGeneratorClass;
 
-export { UIDGenerator as default, UIDGeneratorClass, UIDGeneratorInstance };
+export = UIDGenerator;

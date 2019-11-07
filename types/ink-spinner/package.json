@@ -1,6 +1,8 @@
 {
   "private": true,
   "dependencies": {
+    "@types/ink": "^0.5.2",
     "chalk": "^2.1.0"
   }
 }
+

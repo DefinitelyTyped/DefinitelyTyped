@@ -77,6 +77,11 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.BlockIcon icon={<i>foo</i>} showColors />;
 
 //
+// block-list
+//
+<be.BlockList className="my-custom-class" />;
+
+//
 // block-mover
 //
 <be.BlockMover clientIds={['foo', 'bar']} />;

@@ -102,7 +102,7 @@ export function unfreeze(namespace?: string): void;
  *
  * https://support.rollout.io/docs/javascript-browser-api#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Opens the flag override view, providing a debug UI for the application's set of feature flags.
