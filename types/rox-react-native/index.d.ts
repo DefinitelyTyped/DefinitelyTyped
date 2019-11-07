@@ -2,6 +2,7 @@
 // Project: https://rollout.io
 // Definitions by: ahanriat <https://github.com/ahanriat>
 //                 g-guirado <https://github.com/g-guirado>
+//                 glenna <https://github.com/glenna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -109,7 +110,7 @@ export function unfreeze(namespace?: string): void;
  *
  * https://support.rollout.io/docs/reactnative#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Default is untilForeground

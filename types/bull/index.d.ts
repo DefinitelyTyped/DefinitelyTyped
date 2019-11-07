@@ -51,7 +51,7 @@ declare namespace Bull {
     /**
      * Options passed directly to the `ioredis` constructor
      */
-    redis?: Redis.RedisOptions;
+    redis?: Redis.RedisOptions | string;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -169,6 +169,11 @@ declare namespace Bull {
     stacktrace: string[];
 
     returnvalue: any;
+
+    /**
+     * Get progress on a job
+     */
+    progress(): any;
 
     /**
      * Report progress on a job

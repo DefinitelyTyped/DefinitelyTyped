@@ -7,7 +7,7 @@
 declare namespace GoogleAppsScript {
   namespace YoutubePartner {
     namespace Collection {
-      export interface AssetLabelsCollection {
+      interface AssetLabelsCollection {
         // Insert an asset label for an owner.
         insert(resource: Schema.AssetLabel): YoutubePartner.Schema.AssetLabel;
         // Insert an asset label for an owner.
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of all asset labels for an owner.
         list(optionalArgs: object): YoutubePartner.Schema.AssetLabelListResponse;
       }
-      export interface AssetMatchPolicyCollection {
+      interface AssetMatchPolicyCollection {
         // Retrieves the match policy assigned to the specified asset by the content owner associated with the authenticated user. This information is only accessible to an owner of the asset.
         get(assetId: string): YoutubePartner.Schema.AssetMatchPolicy;
         // Retrieves the match policy assigned to the specified asset by the content owner associated with the authenticated user. This information is only accessible to an owner of the asset.
@@ -31,7 +31,7 @@ declare namespace GoogleAppsScript {
         // Updates the asset's match policy. If an asset has multiple owners, each owner may set its own match policy for the asset. YouTube then computes the match policy that is actually applied for the asset based on the territories where each owner owns the asset.
         update(resource: Schema.AssetMatchPolicy, assetId: string, optionalArgs: object): YoutubePartner.Schema.AssetMatchPolicy;
       }
-      export interface AssetRelationshipsCollection {
+      interface AssetRelationshipsCollection {
         // Creates a relationship that links two assets.
         insert(resource: Schema.AssetRelationship): YoutubePartner.Schema.AssetRelationship;
         // Creates a relationship that links two assets.
@@ -45,19 +45,19 @@ declare namespace GoogleAppsScript {
         // Deletes a relationship between two assets.
         remove(assetRelationshipId: string, optionalArgs: object): void;
       }
-      export interface AssetSearchCollection {
+      interface AssetSearchCollection {
         // Searches for assets based on asset metadata. The method can retrieve all assets or only assets owned by the content owner. This method mimics the functionality of the advanced search feature on the Assets page in CMS.
         list(): YoutubePartner.Schema.AssetSearchResponse;
         // Searches for assets based on asset metadata. The method can retrieve all assets or only assets owned by the content owner. This method mimics the functionality of the advanced search feature on the Assets page in CMS.
         list(optionalArgs: object): YoutubePartner.Schema.AssetSearchResponse;
       }
-      export interface AssetSharesCollection {
+      interface AssetSharesCollection {
         // This method either retrieves a list of asset shares the partner owns and that map to a specified asset view ID or it retrieves a list of asset views associated with a specified asset share ID owned by the partner.
         list(assetId: string): YoutubePartner.Schema.AssetShareListResponse;
         // This method either retrieves a list of asset shares the partner owns and that map to a specified asset view ID or it retrieves a list of asset views associated with a specified asset share ID owned by the partner.
         list(assetId: string, optionalArgs: object): YoutubePartner.Schema.AssetShareListResponse;
       }
-      export interface AssetsCollection {
+      interface AssetsCollection {
         // Retrieves the metadata for the specified asset. Note that if the request identifies an asset that has been merged with another asset, meaning that YouTube identified the requested asset as a duplicate, then the request retrieves the merged, or synthesized, asset.
         get(assetId: string): YoutubePartner.Schema.Asset;
         // Retrieves the metadata for the specified asset. Note that if the request identifies an asset that has been merged with another asset, meaning that YouTube identified the requested asset as a duplicate, then the request retrieves the merged, or synthesized, asset.
@@ -81,7 +81,7 @@ declare namespace GoogleAppsScript {
         // Updates the metadata for the specified asset.
         update(resource: Schema.Asset, assetId: string, optionalArgs: object): YoutubePartner.Schema.Asset;
       }
-      export interface CampaignsCollection {
+      interface CampaignsCollection {
         // Retrieves a particular campaign for an owner.
         get(campaignId: string): YoutubePartner.Schema.Campaign;
         // Retrieves a particular campaign for an owner.
@@ -107,19 +107,19 @@ declare namespace GoogleAppsScript {
         // Update the data for a specific campaign.
         update(resource: Schema.Campaign, campaignId: string, optionalArgs: object): YoutubePartner.Schema.Campaign;
       }
-      export interface ClaimHistoryCollection {
+      interface ClaimHistoryCollection {
         // Retrieves the claim history for a specified claim.
         get(claimId: string): YoutubePartner.Schema.ClaimHistory;
         // Retrieves the claim history for a specified claim.
         get(claimId: string, optionalArgs: object): YoutubePartner.Schema.ClaimHistory;
       }
-      export interface ClaimSearchCollection {
+      interface ClaimSearchCollection {
         // Retrieves a list of claims that match the search criteria. You can search for claims that are associated with a specific asset or video or that match a specified query string.
         list(): YoutubePartner.Schema.ClaimSearchResponse;
         // Retrieves a list of claims that match the search criteria. You can search for claims that are associated with a specific asset or video or that match a specified query string.
         list(optionalArgs: object): YoutubePartner.Schema.ClaimSearchResponse;
       }
-      export interface ClaimsCollection {
+      interface ClaimsCollection {
         // Retrieves a specific claim by ID.
         get(claimId: string): YoutubePartner.Schema.Claim;
         // Retrieves a specific claim by ID.
@@ -145,7 +145,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing claim by either changing its policy or its status. You can update a claim's status from active to inactive to effectively release the claim.
         update(resource: Schema.Claim, claimId: string, optionalArgs: object): YoutubePartner.Schema.Claim;
       }
-      export interface ContentOwnerAdvertisingOptionsCollection {
+      interface ContentOwnerAdvertisingOptionsCollection {
         // Retrieves advertising options for the content owner associated with the authenticated user.
         get(): YoutubePartner.Schema.ContentOwnerAdvertisingOption;
         // Retrieves advertising options for the content owner associated with the authenticated user.
@@ -159,7 +159,7 @@ declare namespace GoogleAppsScript {
         // Updates advertising options for the content owner associated with the authenticated API user.
         update(resource: Schema.ContentOwnerAdvertisingOption, optionalArgs: object): YoutubePartner.Schema.ContentOwnerAdvertisingOption;
       }
-      export interface ContentOwnersCollection {
+      interface ContentOwnersCollection {
         // Retrieves information about the specified content owner.
         get(contentOwnerId: string): YoutubePartner.Schema.ContentOwner;
         // Retrieves information about the specified content owner.
@@ -169,19 +169,19 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of content owners that match the request criteria.
         list(optionalArgs: object): YoutubePartner.Schema.ContentOwnerListResponse;
       }
-      export interface LiveCuepointsCollection {
+      interface LiveCuepointsCollection {
         // Inserts a cuepoint into a live broadcast.
         insert(resource: Schema.LiveCuepoint, channelId: string): YoutubePartner.Schema.LiveCuepoint;
         // Inserts a cuepoint into a live broadcast.
         insert(resource: Schema.LiveCuepoint, channelId: string, optionalArgs: object): YoutubePartner.Schema.LiveCuepoint;
       }
-      export interface MetadataHistoryCollection {
+      interface MetadataHistoryCollection {
         // Retrieves a list of all metadata provided for an asset, regardless of which content owner provided the data.
         list(assetId: string): YoutubePartner.Schema.MetadataHistoryListResponse;
         // Retrieves a list of all metadata provided for an asset, regardless of which content owner provided the data.
         list(assetId: string, optionalArgs: object): YoutubePartner.Schema.MetadataHistoryListResponse;
       }
-      export interface OrdersCollection {
+      interface OrdersCollection {
         // Retrieve the details of an existing order.
         get(orderId: string): YoutubePartner.Schema.Order;
         // Retrieve the details of an existing order.
@@ -207,7 +207,7 @@ declare namespace GoogleAppsScript {
         // Update the values in an existing order.
         update(resource: Schema.Order, orderId: string, optionalArgs: object): YoutubePartner.Schema.Order;
       }
-      export interface OwnershipCollection {
+      interface OwnershipCollection {
         // Retrieves the ownership data provided for the specified asset by the content owner associated with the authenticated user.
         get(assetId: string): YoutubePartner.Schema.RightsOwnership;
         // Retrieves the ownership data provided for the specified asset by the content owner associated with the authenticated user.
@@ -221,13 +221,13 @@ declare namespace GoogleAppsScript {
         // Provides new ownership information for the specified asset. Note that YouTube may receive ownership information from multiple sources. For example, if an asset has multiple owners, each owner might send ownership data for the asset. YouTube algorithmically combines the ownership data received from all of those sources to generate the asset's canonical ownership data, which should provide the most comprehensive and accurate representation of the asset's ownership.
         update(resource: Schema.RightsOwnership, assetId: string, optionalArgs: object): YoutubePartner.Schema.RightsOwnership;
       }
-      export interface OwnershipHistoryCollection {
+      interface OwnershipHistoryCollection {
         // Retrieves a list of the ownership data for an asset, regardless of which content owner provided the data. The list only includes the most recent ownership data for each content owner. However, if the content owner has submitted ownership data through multiple data sources (API, content feeds, etc.), the list will contain the most recent data for each content owner and data source.
         list(assetId: string): YoutubePartner.Schema.OwnershipHistoryListResponse;
         // Retrieves a list of the ownership data for an asset, regardless of which content owner provided the data. The list only includes the most recent ownership data for each content owner. However, if the content owner has submitted ownership data through multiple data sources (API, content feeds, etc.), the list will contain the most recent data for each content owner and data source.
         list(assetId: string, optionalArgs: object): YoutubePartner.Schema.OwnershipHistoryListResponse;
       }
-      export interface PackageCollection {
+      interface PackageCollection {
         // Retrieves information for the specified package.
         get(packageId: string): YoutubePartner.Schema.Package;
         // Retrieves information for the specified package.
@@ -237,7 +237,7 @@ declare namespace GoogleAppsScript {
         // Inserts a metadata-only package.
         insert(resource: Schema.Package, optionalArgs: object): YoutubePartner.Schema.PackageInsertResponse;
       }
-      export interface PoliciesCollection {
+      interface PoliciesCollection {
         // Retrieves the specified saved policy.
         get(policyId: string): YoutubePartner.Schema.Policy;
         // Retrieves the specified saved policy.
@@ -259,7 +259,7 @@ declare namespace GoogleAppsScript {
         // Updates the specified saved policy.
         update(resource: Schema.Policy, policyId: string, optionalArgs: object): YoutubePartner.Schema.Policy;
       }
-      export interface PublishersCollection {
+      interface PublishersCollection {
         // Retrieves information about the specified publisher.
         get(publisherId: string): YoutubePartner.Schema.Publisher;
         // Retrieves information about the specified publisher.
@@ -269,7 +269,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of publishers that match the request criteria. This method is analogous to a publisher search function.
         list(optionalArgs: object): YoutubePartner.Schema.PublisherList;
       }
-      export interface ReferenceConflictsCollection {
+      interface ReferenceConflictsCollection {
         // Retrieves information about the specified reference conflict.
         get(referenceConflictId: string): YoutubePartner.Schema.ReferenceConflict;
         // Retrieves information about the specified reference conflict.
@@ -279,7 +279,7 @@ declare namespace GoogleAppsScript {
         // Retrieves a list of unresolved reference conflicts.
         list(optionalArgs: object): YoutubePartner.Schema.ReferenceConflictListResponse;
       }
-      export interface ReferencesCollection {
+      interface ReferencesCollection {
         // Retrieves information about the specified reference.
         get(referenceId: string): YoutubePartner.Schema.Reference;
         // Retrieves information about the specified reference.
@@ -309,19 +309,19 @@ declare namespace GoogleAppsScript {
         // Updates a reference.
         update(resource: Schema.Reference, referenceId: string, optionalArgs: object): YoutubePartner.Schema.Reference;
       }
-      export interface SpreadsheetTemplateCollection {
+      interface SpreadsheetTemplateCollection {
         // Retrieves a list of spreadsheet templates for a content owner.
         list(): YoutubePartner.Schema.SpreadsheetTemplateListResponse;
         // Retrieves a list of spreadsheet templates for a content owner.
         list(optionalArgs: object): YoutubePartner.Schema.SpreadsheetTemplateListResponse;
       }
-      export interface UploaderCollection {
+      interface UploaderCollection {
         // Retrieves a list of uploaders for a content owner.
         list(): YoutubePartner.Schema.UploaderListResponse;
         // Retrieves a list of uploaders for a content owner.
         list(optionalArgs: object): YoutubePartner.Schema.UploaderListResponse;
       }
-      export interface ValidatorCollection {
+      interface ValidatorCollection {
         // Validate a metadata file.
         validate(resource: Schema.ValidateRequest): YoutubePartner.Schema.ValidateResponse;
         // Validate a metadata file.
@@ -335,7 +335,7 @@ declare namespace GoogleAppsScript {
         // Get the asynchronous validation status.
         validateAsyncStatus(resource: Schema.ValidateStatusRequest, optionalArgs: object): YoutubePartner.Schema.ValidateStatusResponse;
       }
-      export interface VideoAdvertisingOptionsCollection {
+      interface VideoAdvertisingOptionsCollection {
         // Retrieves advertising settings for the specified video.
         get(videoId: string): YoutubePartner.Schema.VideoAdvertisingOption;
         // Retrieves advertising settings for the specified video.
@@ -353,7 +353,7 @@ declare namespace GoogleAppsScript {
         // Updates the advertising settings for the specified video.
         update(resource: Schema.VideoAdvertisingOption, videoId: string, optionalArgs: object): YoutubePartner.Schema.VideoAdvertisingOption;
       }
-      export interface WhitelistsCollection {
+      interface WhitelistsCollection {
         // Retrieves a specific whitelisted channel by ID.
         get(id: string): YoutubePartner.Schema.Whitelist;
         // Retrieves a specific whitelisted channel by ID.
@@ -373,22 +373,22 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AdBreak {
+      interface AdBreak {
         midrollSeconds?: number;
         position?: string;
         slot?: YoutubePartner.Schema.AdSlot[];
       }
-      export interface AdSlot {
+      interface AdSlot {
         id?: string;
         type?: string;
       }
-      export interface AllowedAdvertisingOptions {
+      interface AllowedAdvertisingOptions {
         adsOnEmbeds?: boolean;
         kind?: string;
         licAdFormats?: string[];
         ugcAdFormats?: string[];
       }
-      export interface Asset {
+      interface Asset {
         aliasId?: string[];
         id?: string;
         kind?: string;
@@ -407,53 +407,53 @@ declare namespace GoogleAppsScript {
         timeCreated?: string;
         type?: string;
       }
-      export interface AssetLabel {
+      interface AssetLabel {
         kind?: string;
         labelName?: string;
       }
-      export interface AssetLabelListResponse {
+      interface AssetLabelListResponse {
         items?: YoutubePartner.Schema.AssetLabel[];
         kind?: string;
       }
-      export interface AssetListResponse {
+      interface AssetListResponse {
         items?: YoutubePartner.Schema.Asset[];
         kind?: string;
       }
-      export interface AssetMatchPolicy {
+      interface AssetMatchPolicy {
         kind?: string;
         policyId?: string;
         rules?: YoutubePartner.Schema.PolicyRule[];
       }
-      export interface AssetRelationship {
+      interface AssetRelationship {
         childAssetId?: string;
         id?: string;
         kind?: string;
         parentAssetId?: string;
       }
-      export interface AssetRelationshipListResponse {
+      interface AssetRelationshipListResponse {
         items?: YoutubePartner.Schema.AssetRelationship[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface AssetSearchResponse {
+      interface AssetSearchResponse {
         items?: YoutubePartner.Schema.AssetSnippet[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface AssetShare {
+      interface AssetShare {
         kind?: string;
         shareId?: string;
         viewId?: string;
       }
-      export interface AssetShareListResponse {
+      interface AssetShareListResponse {
         items?: YoutubePartner.Schema.AssetShare[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface AssetSnippet {
+      interface AssetSnippet {
         customId?: string;
         id?: string;
         isrc?: string;
@@ -463,7 +463,7 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface Campaign {
+      interface Campaign {
         campaignData?: YoutubePartner.Schema.CampaignData;
         id?: string;
         kind?: string;
@@ -471,26 +471,26 @@ declare namespace GoogleAppsScript {
         timeCreated?: string;
         timeLastModified?: string;
       }
-      export interface CampaignData {
+      interface CampaignData {
         campaignSource?: YoutubePartner.Schema.CampaignSource;
         expireTime?: string;
         name?: string;
         promotedContent?: YoutubePartner.Schema.PromotedContent[];
         startTime?: string;
       }
-      export interface CampaignList {
+      interface CampaignList {
         items?: YoutubePartner.Schema.Campaign[];
         kind?: string;
       }
-      export interface CampaignSource {
+      interface CampaignSource {
         sourceType?: string;
         sourceValue?: string[];
       }
-      export interface CampaignTargetLink {
+      interface CampaignTargetLink {
         targetId?: string;
         targetType?: string;
       }
-      export interface Claim {
+      interface Claim {
         appliedPolicy?: YoutubePartner.Schema.Policy;
         assetId?: string;
         blockOutsideOwnership?: boolean;
@@ -505,7 +505,7 @@ declare namespace GoogleAppsScript {
         timeCreated?: string;
         videoId?: string;
       }
-      export interface ClaimEvent {
+      interface ClaimEvent {
         kind?: string;
         reason?: string;
         source?: YoutubePartner.Schema.ClaimEventSource;
@@ -513,56 +513,56 @@ declare namespace GoogleAppsScript {
         type?: string;
         typeDetails?: YoutubePartner.Schema.ClaimEventTypeDetails;
       }
-      export interface ClaimEventSource {
+      interface ClaimEventSource {
         contentOwnerId?: string;
         type?: string;
         userEmail?: string;
       }
-      export interface ClaimEventTypeDetails {
+      interface ClaimEventTypeDetails {
         appealExplanation?: string;
         disputeNotes?: string;
         disputeReason?: string;
         updateStatus?: string;
       }
-      export interface ClaimHistory {
+      interface ClaimHistory {
         event?: YoutubePartner.Schema.ClaimEvent[];
         id?: string;
         kind?: string;
         uploaderChannelId?: string;
       }
-      export interface ClaimListResponse {
+      interface ClaimListResponse {
         items?: YoutubePartner.Schema.Claim[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
         previousPageToken?: string;
       }
-      export interface ClaimMatchInfo {
+      interface ClaimMatchInfo {
         longestMatch?: YoutubePartner.Schema.ClaimMatchInfoLongestMatch;
         matchSegments?: YoutubePartner.Schema.MatchSegment[];
         referenceId?: string;
         totalMatch?: YoutubePartner.Schema.ClaimMatchInfoTotalMatch;
       }
-      export interface ClaimMatchInfoLongestMatch {
+      interface ClaimMatchInfoLongestMatch {
         durationSecs?: string;
         referenceOffset?: string;
         userVideoOffset?: string;
       }
-      export interface ClaimMatchInfoTotalMatch {
+      interface ClaimMatchInfoTotalMatch {
         referenceDurationSecs?: string;
         userVideoDurationSecs?: string;
       }
-      export interface ClaimOrigin {
+      interface ClaimOrigin {
         source?: string;
       }
-      export interface ClaimSearchResponse {
+      interface ClaimSearchResponse {
         items?: YoutubePartner.Schema.ClaimSnippet[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
         previousPageToken?: string;
       }
-      export interface ClaimSnippet {
+      interface ClaimSnippet {
         assetId?: string;
         contentType?: string;
         id?: string;
@@ -577,16 +577,16 @@ declare namespace GoogleAppsScript {
         videoTitle?: string;
         videoViews?: string;
       }
-      export interface ClaimSnippetOrigin {
+      interface ClaimSnippetOrigin {
         source?: string;
       }
-      export interface ClaimedVideoDefaults {
+      interface ClaimedVideoDefaults {
         autoGeneratedBreaks?: boolean;
         channelOverride?: boolean;
         kind?: string;
         newVideoDefaults?: string[];
       }
-      export interface Conditions {
+      interface Conditions {
         contentMatchType?: string[];
         matchDuration?: YoutubePartner.Schema.IntervalCondition[];
         matchPercent?: YoutubePartner.Schema.IntervalCondition[];
@@ -594,11 +594,11 @@ declare namespace GoogleAppsScript {
         referencePercent?: YoutubePartner.Schema.IntervalCondition[];
         requiredTerritories?: YoutubePartner.Schema.TerritoryCondition;
       }
-      export interface ConflictingOwnership {
+      interface ConflictingOwnership {
         owner?: string;
         ratio?: number;
       }
-      export interface ContentOwner {
+      interface ContentOwner {
         conflictNotificationEmail?: string;
         displayName?: string;
         disputeNotificationEmails?: string[];
@@ -607,58 +607,58 @@ declare namespace GoogleAppsScript {
         kind?: string;
         primaryNotificationEmails?: string[];
       }
-      export interface ContentOwnerAdvertisingOption {
+      interface ContentOwnerAdvertisingOption {
         allowedOptions?: YoutubePartner.Schema.AllowedAdvertisingOptions;
         claimedVideoOptions?: YoutubePartner.Schema.ClaimedVideoDefaults;
         id?: string;
         kind?: string;
       }
-      export interface ContentOwnerListResponse {
+      interface ContentOwnerListResponse {
         items?: YoutubePartner.Schema.ContentOwner[];
         kind?: string;
       }
-      export interface CountriesRestriction {
+      interface CountriesRestriction {
         adFormats?: string[];
         territories?: string[];
       }
-      export interface CuepointSettings {
+      interface CuepointSettings {
         cueType?: string;
         durationSecs?: number;
         offsetTimeMs?: string;
         walltime?: string;
       }
-      export interface Date {
+      interface Date {
         day?: number;
         month?: number;
         year?: number;
       }
-      export interface DateRange {
+      interface DateRange {
         end?: YoutubePartner.Schema.Date;
         kind?: string;
         start?: YoutubePartner.Schema.Date;
       }
-      export interface ExcludedInterval {
+      interface ExcludedInterval {
         high?: number;
         low?: number;
         origin?: string;
         timeCreated?: string;
       }
-      export interface IntervalCondition {
+      interface IntervalCondition {
         high?: number;
         low?: number;
       }
-      export interface LiveCuepoint {
+      interface LiveCuepoint {
         broadcastId?: string;
         id?: string;
         kind?: string;
         settings?: YoutubePartner.Schema.CuepointSettings;
       }
-      export interface MatchSegment {
+      interface MatchSegment {
         channel?: string;
         reference_segment?: YoutubePartner.Schema.Segment;
         video_segment?: YoutubePartner.Schema.Segment;
       }
-      export interface Metadata {
+      interface Metadata {
         actor?: string[];
         album?: string;
         artist?: string[];
@@ -699,17 +699,17 @@ declare namespace GoogleAppsScript {
         upc?: string;
         writer?: string[];
       }
-      export interface MetadataHistory {
+      interface MetadataHistory {
         kind?: string;
         metadata?: YoutubePartner.Schema.Metadata;
         origination?: YoutubePartner.Schema.Origination;
         timeProvided?: string;
       }
-      export interface MetadataHistoryListResponse {
+      interface MetadataHistoryListResponse {
         items?: YoutubePartner.Schema.MetadataHistory[];
         kind?: string;
       }
-      export interface Order {
+      interface Order {
         availGroupId?: string;
         channelId?: string;
         contentType?: string;
@@ -731,29 +731,29 @@ declare namespace GoogleAppsScript {
         videoId?: string;
         vodDates?: YoutubePartner.Schema.DateRange;
       }
-      export interface OrderListResponse {
+      interface OrderListResponse {
         items?: YoutubePartner.Schema.Order[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
         previousPageToken?: string;
       }
-      export interface Origination {
+      interface Origination {
         owner?: string;
         source?: string;
       }
-      export interface OwnershipConflicts {
+      interface OwnershipConflicts {
         general?: YoutubePartner.Schema.TerritoryConflicts[];
         kind?: string;
         mechanical?: YoutubePartner.Schema.TerritoryConflicts[];
         performance?: YoutubePartner.Schema.TerritoryConflicts[];
         synchronization?: YoutubePartner.Schema.TerritoryConflicts[];
       }
-      export interface OwnershipHistoryListResponse {
+      interface OwnershipHistoryListResponse {
         items?: YoutubePartner.Schema.RightsOwnershipHistory[];
         kind?: string;
       }
-      export interface Package {
+      interface Package {
         content?: string;
         customIds?: string[];
         id?: string;
@@ -766,18 +766,18 @@ declare namespace GoogleAppsScript {
         type?: string;
         uploaderName?: string;
       }
-      export interface PackageInsertResponse {
+      interface PackageInsertResponse {
         errors?: YoutubePartner.Schema.ValidateError[];
         kind?: string;
         resource?: YoutubePartner.Schema.Package;
         status?: string;
       }
-      export interface PageInfo {
+      interface PageInfo {
         resultsPerPage?: number;
         startIndex?: number;
         totalResults?: number;
       }
-      export interface Policy {
+      interface Policy {
         description?: string;
         id?: string;
         kind?: string;
@@ -785,36 +785,36 @@ declare namespace GoogleAppsScript {
         rules?: YoutubePartner.Schema.PolicyRule[];
         timeUpdated?: string;
       }
-      export interface PolicyList {
+      interface PolicyList {
         items?: YoutubePartner.Schema.Policy[];
         kind?: string;
       }
-      export interface PolicyRule {
+      interface PolicyRule {
         action?: string;
         conditions?: YoutubePartner.Schema.Conditions;
         subaction?: string[];
       }
-      export interface PromotedContent {
+      interface PromotedContent {
         link?: YoutubePartner.Schema.CampaignTargetLink[];
       }
-      export interface Publisher {
+      interface Publisher {
         caeNumber?: string;
         id?: string;
         ipiNumber?: string;
         kind?: string;
         name?: string;
       }
-      export interface PublisherList {
+      interface PublisherList {
         items?: YoutubePartner.Schema.Publisher[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface Rating {
+      interface Rating {
         rating?: string;
         ratingSystem?: string;
       }
-      export interface Reference {
+      interface Reference {
         assetId?: string;
         audioswapEnabled?: boolean;
         claimId?: string;
@@ -833,7 +833,7 @@ declare namespace GoogleAppsScript {
         urgent?: boolean;
         videoId?: string;
       }
-      export interface ReferenceConflict {
+      interface ReferenceConflict {
         conflictingReferenceId?: string;
         expiryTime?: string;
         id?: string;
@@ -842,25 +842,25 @@ declare namespace GoogleAppsScript {
         originalReferenceId?: string;
         status?: string;
       }
-      export interface ReferenceConflictListResponse {
+      interface ReferenceConflictListResponse {
         items?: YoutubePartner.Schema.ReferenceConflict[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface ReferenceConflictMatch {
+      interface ReferenceConflictMatch {
         conflicting_reference_offset_ms?: string;
         length_ms?: string;
         original_reference_offset_ms?: string;
         type?: string;
       }
-      export interface ReferenceListResponse {
+      interface ReferenceListResponse {
         items?: YoutubePartner.Schema.Reference[];
         kind?: string;
         nextPageToken?: string;
         pageInfo?: YoutubePartner.Schema.PageInfo;
       }
-      export interface Requirements {
+      interface Requirements {
         caption?: boolean;
         hdTranscode?: boolean;
         posterArt?: boolean;
@@ -868,84 +868,84 @@ declare namespace GoogleAppsScript {
         spotlightReview?: boolean;
         trailer?: boolean;
       }
-      export interface RightsOwnership {
+      interface RightsOwnership {
         general?: YoutubePartner.Schema.TerritoryOwners[];
         kind?: string;
         mechanical?: YoutubePartner.Schema.TerritoryOwners[];
         performance?: YoutubePartner.Schema.TerritoryOwners[];
         synchronization?: YoutubePartner.Schema.TerritoryOwners[];
       }
-      export interface RightsOwnershipHistory {
+      interface RightsOwnershipHistory {
         kind?: string;
         origination?: YoutubePartner.Schema.Origination;
         ownership?: YoutubePartner.Schema.RightsOwnership;
         timeProvided?: string;
       }
-      export interface Segment {
+      interface Segment {
         duration?: string;
         kind?: string;
         start?: string;
       }
-      export interface ShowDetails {
+      interface ShowDetails {
         episodeNumber?: string;
         episodeTitle?: string;
         seasonNumber?: string;
         title?: string;
       }
-      export interface SpreadsheetTemplate {
+      interface SpreadsheetTemplate {
         kind?: string;
         status?: string;
         templateContent?: string;
         templateName?: string;
         templateType?: string;
       }
-      export interface SpreadsheetTemplateListResponse {
+      interface SpreadsheetTemplateListResponse {
         items?: YoutubePartner.Schema.SpreadsheetTemplate[];
         kind?: string;
         status?: string;
       }
-      export interface StateCompleted {
+      interface StateCompleted {
         state?: string;
         timeCompleted?: string;
       }
-      export interface StatusReport {
+      interface StatusReport {
         statusContent?: string;
         statusFileName?: string;
       }
-      export interface TerritoryCondition {
+      interface TerritoryCondition {
         territories?: string[];
         type?: string;
       }
-      export interface TerritoryConflicts {
+      interface TerritoryConflicts {
         conflictingOwnership?: YoutubePartner.Schema.ConflictingOwnership[];
         territory?: string;
       }
-      export interface TerritoryOwners {
+      interface TerritoryOwners {
         owner?: string;
         publisher?: string;
         ratio?: number;
         territories?: string[];
         type?: string;
       }
-      export interface Uploader {
+      interface Uploader {
         kind?: string;
         uploaderName?: string;
       }
-      export interface UploaderListResponse {
+      interface UploaderListResponse {
         items?: YoutubePartner.Schema.Uploader[];
         kind?: string;
       }
-      export interface ValidateAsyncRequest {
+      interface ValidateAsyncRequest {
         content?: string;
         kind?: string;
         uploaderName?: string;
       }
-      export interface ValidateAsyncResponse {
+      interface ValidateAsyncResponse {
         kind?: string;
         status?: string;
         validationId?: string;
       }
-      export interface ValidateError {
+      interface ValidateError {
         columnName?: string;
         columnNumber?: number;
         lineNumber?: number;
@@ -953,29 +953,29 @@ declare namespace GoogleAppsScript {
         messageCode?: number;
         severity?: string;
       }
-      export interface ValidateRequest {
+      interface ValidateRequest {
         content?: string;
         kind?: string;
         locale?: string;
         uploaderName?: string;
       }
-      export interface ValidateResponse {
+      interface ValidateResponse {
         errors?: YoutubePartner.Schema.ValidateError[];
         kind?: string;
         status?: string;
       }
-      export interface ValidateStatusRequest {
+      interface ValidateStatusRequest {
         kind?: string;
         locale?: string;
         validationId?: string;
       }
-      export interface ValidateStatusResponse {
+      interface ValidateStatusResponse {
         errors?: YoutubePartner.Schema.ValidateError[];
         isMetadataOnly?: boolean;
         kind?: string;
         status?: string;
       }
-      export interface VideoAdvertisingOption {
+      interface VideoAdvertisingOption {
         adBreaks?: YoutubePartner.Schema.AdBreak[];
         adFormats?: string[];
         autoGeneratedBreaks?: boolean;
@@ -986,19 +986,19 @@ declare namespace GoogleAppsScript {
         tpTargetingUrl?: string;
         tpUrlParameters?: string;
       }
-      export interface VideoAdvertisingOptionGetEnabledAdsResponse {
+      interface VideoAdvertisingOptionGetEnabledAdsResponse {
         adBreaks?: YoutubePartner.Schema.AdBreak[];
         adsOnEmbeds?: boolean;
         countriesRestriction?: YoutubePartner.Schema.CountriesRestriction[];
         id?: string;
         kind?: string;
       }
-      export interface Whitelist {
+      interface Whitelist {
         id?: string;
         kind?: string;
         title?: string;
       }
-      export interface WhitelistListResponse {
+      interface WhitelistListResponse {
         items?: YoutubePartner.Schema.Whitelist[];
         kind?: string;
         nextPageToken?: string;
@@ -1006,7 +1006,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface YoutubePartner {
+  interface YoutubePartner {
     AssetLabels?: YoutubePartner.Collection.AssetLabelsCollection;
     AssetMatchPolicy?: YoutubePartner.Collection.AssetMatchPolicyCollection;
     AssetRelationships?: YoutubePartner.Collection.AssetRelationshipsCollection;

@@ -9,14 +9,14 @@ declare namespace GoogleAppsScript {
     namespace Collection {
       namespace Users {
         namespace Messages {
-          export interface AttachmentsCollection {
+          interface AttachmentsCollection {
             // Gets the specified message attachment.
             get(userId: string, messageId: string, id: string): Gmail.Schema.MessagePartBody;
           }
         }
         namespace Settings {
           namespace SendAs {
-            export interface SmimeInfoCollection {
+            interface SmimeInfoCollection {
               // Gets the specified S/MIME config for the specified send-as alias.
               get(userId: string, sendAsEmail: string, id: string): Gmail.Schema.SmimeInfo;
               // Insert (upload) the given S/MIME config for the specified send-as alias. Note that pkcs12 format is required for the key.
@@ -29,7 +29,7 @@ declare namespace GoogleAppsScript {
               setDefault(userId: string, sendAsEmail: string, id: string): void;
             }
           }
-          export interface DelegatesCollection {
+          interface DelegatesCollection {
             // Adds a delegate with its verification status set directly to accepted, without sending any verification email. The delegate user must be a member of the same G Suite organization as the delegator user.
             // Gmail imposes limtations on the number of delegates and delegators each user in a G Suite organization can have. These limits depend on your organization, but in general each user can have up to 25 delegates and up to 10 delegators.
             // Note that a delegate user must be referred to by their primary email address, and not an email alias.
@@ -48,7 +48,7 @@ declare namespace GoogleAppsScript {
             // This method is only available to service account clients that have been delegated domain-wide authority.
             remove(userId: string, delegateEmail: string): void;
           }
-          export interface FiltersCollection {
+          interface FiltersCollection {
             // Creates a filter.
             create(resource: Schema.Filter, userId: string): Gmail.Schema.Filter;
             // Gets a filter.
@@ -58,7 +58,7 @@ declare namespace GoogleAppsScript {
             // Deletes a filter.
             remove(userId: string, id: string): void;
           }
-          export interface ForwardingAddressesCollection {
+          interface ForwardingAddressesCollection {
             // Creates a forwarding address. If ownership verification is required, a message will be sent to the recipient and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted.
             // This method is only available to service account clients that have been delegated domain-wide authority.
             create(resource: Schema.ForwardingAddress, userId: string): Gmail.Schema.ForwardingAddress;
@@ -70,7 +70,7 @@ declare namespace GoogleAppsScript {
             // This method is only available to service account clients that have been delegated domain-wide authority.
             remove(userId: string, forwardingEmail: string): void;
           }
-          export interface SendAsCollection {
+          interface SendAsCollection {
             SmimeInfo?: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection;
             // Creates a custom "from" send-as alias. If an SMTP MSA is specified, Gmail will attempt to connect to the SMTP service to validate the configuration before creating the alias. If ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
             // This method is only available to service account clients that have been delegated domain-wide authority.
@@ -93,7 +93,7 @@ declare namespace GoogleAppsScript {
             verify(userId: string, sendAsEmail: string): void;
           }
         }
-        export interface DraftsCollection {
+        interface DraftsCollection {
           // Creates a new draft with the DRAFT label.
           create(resource: Schema.Draft, userId: string): Gmail.Schema.Draft;
           // Creates a new draft with the DRAFT label.
@@ -117,13 +117,13 @@ declare namespace GoogleAppsScript {
           // Replaces a draft's content.
           update(resource: Schema.Draft, userId: string, id: string, mediaData: any): Gmail.Schema.Draft;
         }
-        export interface HistoryCollection {
+        interface HistoryCollection {
           // Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
           list(userId: string): Gmail.Schema.ListHistoryResponse;
           // Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
           list(userId: string, optionalArgs: object): Gmail.Schema.ListHistoryResponse;
         }
-        export interface LabelsCollection {
+        interface LabelsCollection {
           // Creates a new label.
           create(resource: Schema.Label, userId: string): Gmail.Schema.Label;
           // Gets the specified label.
@@ -137,7 +137,7 @@ declare namespace GoogleAppsScript {
           // Updates the specified label.
           update(resource: Schema.Label, userId: string, id: string): Gmail.Schema.Label;
         }
-        export interface MessagesCollection {
+        interface MessagesCollection {
           Attachments?: Gmail.Collection.Users.Messages.AttachmentsCollection;
           // Deletes many messages by message ID. Provides no guarantees that messages were not already deleted or even existed at all.
           batchDelete(resource: Schema.BatchDeleteMessagesRequest, userId: string): void;
@@ -176,7 +176,7 @@ declare namespace GoogleAppsScript {
           // Removes the specified message from the trash.
           untrash(userId: string, id: string): Gmail.Schema.Message;
         }
-        export interface SettingsCollection {
+        interface SettingsCollection {
           Delegates?: Gmail.Collection.Users.Settings.DelegatesCollection;
           Filters?: Gmail.Collection.Users.Settings.FiltersCollection;
           ForwardingAddresses?: Gmail.Collection.Users.Settings.ForwardingAddressesCollection;
@@ -199,7 +199,7 @@ declare namespace GoogleAppsScript {
           // Updates vacation responder settings.
           updateVacation(resource: Schema.VacationSettings, userId: string): Gmail.Schema.VacationSettings;
         }
-        export interface ThreadsCollection {
+        interface ThreadsCollection {
           // Gets the specified thread.
           get(userId: string, id: string): Gmail.Schema.Thread;
           // Gets the specified thread.
@@ -218,7 +218,7 @@ declare namespace GoogleAppsScript {
           untrash(userId: string, id: string): Gmail.Schema.Thread;
         }
       }
-      export interface UsersCollection {
+      interface UsersCollection {
         Drafts?: Gmail.Collection.Users.DraftsCollection;
         History?: Gmail.Collection.Users.HistoryCollection;
         Labels?: Gmail.Collection.Users.LabelsCollection;
@@ -234,38 +234,38 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AutoForwarding {
+      interface AutoForwarding {
         disposition?: string;
         emailAddress?: string;
         enabled?: boolean;
       }
-      export interface BatchDeleteMessagesRequest {
+      interface BatchDeleteMessagesRequest {
         ids?: string[];
       }
-      export interface BatchModifyMessagesRequest {
+      interface BatchModifyMessagesRequest {
         addLabelIds?: string[];
         ids?: string[];
         removeLabelIds?: string[];
       }
-      export interface Delegate {
+      interface Delegate {
         delegateEmail?: string;
         verificationStatus?: string;
       }
-      export interface Draft {
+      interface Draft {
         id?: string;
         message?: Gmail.Schema.Message;
       }
-      export interface Filter {
+      interface Filter {
         action?: Gmail.Schema.FilterAction;
         criteria?: Gmail.Schema.FilterCriteria;
         id?: string;
       }
-      export interface FilterAction {
+      interface FilterAction {
         addLabelIds?: string[];
         forward?: string;
         removeLabelIds?: string[];
       }
-      export interface FilterCriteria {
+      interface FilterCriteria {
         excludeChats?: boolean;
         from?: string;
         hasAttachment?: boolean;
@@ -276,11 +276,11 @@ declare namespace GoogleAppsScript {
         subject?: string;
         to?: string;
       }
-      export interface ForwardingAddress {
+      interface ForwardingAddress {
         forwardingEmail?: string;
         verificationStatus?: string;
       }
-      export interface History {
+      interface History {
         id?: string;
         labelsAdded?: Gmail.Schema.HistoryLabelAdded[];
         labelsRemoved?: Gmail.Schema.HistoryLabelRemoved[];
@@ -288,27 +288,27 @@ declare namespace GoogleAppsScript {
         messagesAdded?: Gmail.Schema.HistoryMessageAdded[];
         messagesDeleted?: Gmail.Schema.HistoryMessageDeleted[];
       }
-      export interface HistoryLabelAdded {
+      interface HistoryLabelAdded {
         labelIds?: string[];
         message?: Gmail.Schema.Message;
       }
-      export interface HistoryLabelRemoved {
+      interface HistoryLabelRemoved {
         labelIds?: string[];
         message?: Gmail.Schema.Message;
       }
-      export interface HistoryMessageAdded {
+      interface HistoryMessageAdded {
         message?: Gmail.Schema.Message;
       }
-      export interface HistoryMessageDeleted {
+      interface HistoryMessageDeleted {
         message?: Gmail.Schema.Message;
       }
-      export interface ImapSettings {
+      interface ImapSettings {
         autoExpunge?: boolean;
         enabled?: boolean;
         expungeBehavior?: string;
         maxFolderSize?: number;
       }
-      export interface Label {
+      interface Label {
         color?: Gmail.Schema.LabelColor;
         id?: string;
         labelListVisibility?: string;
@@ -320,49 +320,49 @@ declare namespace GoogleAppsScript {
         threadsUnread?: number;
         type?: string;
       }
-      export interface LabelColor {
+      interface LabelColor {
         backgroundColor?: string;
         textColor?: string;
       }
-      export interface ListDelegatesResponse {
+      interface ListDelegatesResponse {
         delegates?: Gmail.Schema.Delegate[];
       }
-      export interface ListDraftsResponse {
+      interface ListDraftsResponse {
         drafts?: Gmail.Schema.Draft[];
         nextPageToken?: string;
         resultSizeEstimate?: number;
       }
-      export interface ListFiltersResponse {
+      interface ListFiltersResponse {
         filter?: Gmail.Schema.Filter[];
       }
-      export interface ListForwardingAddressesResponse {
+      interface ListForwardingAddressesResponse {
         forwardingAddresses?: Gmail.Schema.ForwardingAddress[];
       }
-      export interface ListHistoryResponse {
+      interface ListHistoryResponse {
         history?: Gmail.Schema.History[];
         historyId?: string;
         nextPageToken?: string;
       }
-      export interface ListLabelsResponse {
+      interface ListLabelsResponse {
         labels?: Gmail.Schema.Label[];
       }
-      export interface ListMessagesResponse {
+      interface ListMessagesResponse {
         messages?: Gmail.Schema.Message[];
         nextPageToken?: string;
         resultSizeEstimate?: number;
       }
-      export interface ListSendAsResponse {
+      interface ListSendAsResponse {
         sendAs?: Gmail.Schema.SendAs[];
       }
-      export interface ListSmimeInfoResponse {
+      interface ListSmimeInfoResponse {
         smimeInfo?: Gmail.Schema.SmimeInfo[];
       }
-      export interface ListThreadsResponse {
+      interface ListThreadsResponse {
         nextPageToken?: string;
         resultSizeEstimate?: number;
         threads?: Gmail.Schema.Thread[];
       }
-      export interface Message {
+      interface Message {
         historyId?: string;
         id?: string;
         internalDate?: string;
@@ -373,7 +373,7 @@ declare namespace GoogleAppsScript {
         snippet?: string;
         threadId?: string;
       }
-      export interface MessagePart {
+      interface MessagePart {
         body?: Gmail.Schema.MessagePartBody;
         filename?: string;
         headers?: Gmail.Schema.MessagePartHeader[];
@@ -381,34 +381,34 @@ declare namespace GoogleAppsScript {
         partId?: string;
         parts?: Gmail.Schema.MessagePart[];
       }
-      export interface MessagePartBody {
+      interface MessagePartBody {
         attachmentId?: string;
         data?: string;
         size?: number;
       }
-      export interface MessagePartHeader {
+      interface MessagePartHeader {
         name?: string;
         value?: string;
       }
-      export interface ModifyMessageRequest {
+      interface ModifyMessageRequest {
         addLabelIds?: string[];
         removeLabelIds?: string[];
       }
-      export interface ModifyThreadRequest {
+      interface ModifyThreadRequest {
         addLabelIds?: string[];
         removeLabelIds?: string[];
       }
-      export interface PopSettings {
+      interface PopSettings {
         accessWindow?: string;
         disposition?: string;
       }
-      export interface Profile {
+      interface Profile {
         emailAddress?: string;
         historyId?: string;
         messagesTotal?: number;
         threadsTotal?: number;
       }
-      export interface SendAs {
+      interface SendAs {
         displayName?: string;
         isDefault?: boolean;
         isPrimary?: boolean;
@@ -419,7 +419,7 @@ declare namespace GoogleAppsScript {
         treatAsAlias?: boolean;
         verificationStatus?: string;
       }
-      export interface SmimeInfo {
+      interface SmimeInfo {
         encryptedKeyPassword?: string;
         expiration?: string;
         id?: string;
@@ -428,20 +428,20 @@ declare namespace GoogleAppsScript {
         pem?: string;
         pkcs12?: string;
       }
-      export interface SmtpMsa {
+      interface SmtpMsa {
         host?: string;
         password?: string;
         port?: number;
         securityMode?: string;
         username?: string;
       }
-      export interface Thread {
+      interface Thread {
         historyId?: string;
         id?: string;
         messages?: Gmail.Schema.Message[];
         snippet?: string;
       }
-      export interface VacationSettings {
+      interface VacationSettings {
         enableAutoReply?: boolean;
         endTime?: string;
         responseBodyHtml?: string;
@@ -451,18 +451,18 @@ declare namespace GoogleAppsScript {
         restrictToDomain?: boolean;
         startTime?: string;
       }
-      export interface WatchRequest {
+      interface WatchRequest {
         labelFilterAction?: string;
         labelIds?: string[];
         topicName?: string;
       }
-      export interface WatchResponse {
+      interface WatchResponse {
         expiration?: string;
         historyId?: string;
       }
     }
   }
-  export interface Gmail {
+  interface Gmail {
     Users?: Gmail.Collection.UsersCollection;
     // Create a new instance of AutoForwarding
     newAutoForwarding(): Gmail.Schema.AutoForwarding;

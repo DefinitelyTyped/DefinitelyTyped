@@ -40,17 +40,20 @@ export interface LevelDown extends AbstractLevelDOWN<Bytes, Bytes> {
   batch(array: AbstractBatch[], cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
   batch(array: AbstractBatch[], options: LevelDownBatchOptions, cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
 
+  clear(cb: ErrorCallback): void;
+  clear(options: LevelDownClearOptions, cb: ErrorCallback): void;
+
   approximateSize(start: Bytes, end: Bytes, cb: ErrorSizeCallback): void;
   compactRange(start: Bytes, end: Bytes, cb: ErrorCallback): void;
   getProperty(property: string): string;
-  destroy(location: string, cb: ErrorCallback): void;
-  repair(location: string, cb: ErrorCallback): void;
   iterator(options?: LevelDownIteratorOptions): LevelDownIterator;
 }
 
 interface LevelDownConstructor {
   new(location: string): LevelDown;
   (location: string): LevelDown;
+  destroy(location: string, cb: ErrorCallback): void;
+  repair(location: string, cb: ErrorCallback): void;
 }
 
 export interface LevelDownOpenOptions extends AbstractOpenOptions {
@@ -81,6 +84,15 @@ export interface LevelDownBatchOptions extends AbstractOptions {
 
 export interface LevelDownIteratorOptions extends AbstractIteratorOptions<Bytes> {
   fillCache?: boolean;
+}
+
+export interface LevelDownClearOptions {
+  gt?: Bytes;
+  gte?: Bytes;
+  lt?: Bytes;
+  lte?: Bytes;
+  reverse?: boolean;
+  limit?: number;
 }
 
 export interface LevelDownIterator extends AbstractIterator<Bytes, Bytes> {

@@ -8,6 +8,7 @@
 //                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 //                 Paul Hawxby <https://github.com/phawxby>
 //                 Ivy Witter <https://github.com/ivywit>
+//                 Huachao Mao <https://github.com/Huachao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -60,6 +61,7 @@ declare class CancelError extends StdError {
 
 declare class TimeoutError extends StdError {
     name: 'TimeoutError';
+    event: keyof got.TimeoutOptions;
 }
 
 declare class StdError extends Error {
@@ -291,7 +293,7 @@ declare namespace got {
         dns: number;
         tcp: number;
         request: number;
-        fistByte: number;
+        firstByte: number;
         download: number;
         total: number;
     }
