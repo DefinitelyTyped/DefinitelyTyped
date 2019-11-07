@@ -17,7 +17,7 @@ import {
     MatcherOptions as DTLMatcherOptions,
     SelectorMatcherOptions as DTLSelectorMatcherOptions,
 } from '@testing-library/dom';
-import 'cypress/types/jquery'
+import 'cypress/types/jquery';
 
 export interface CTLMatcherOptions {
     timeout?: number;
