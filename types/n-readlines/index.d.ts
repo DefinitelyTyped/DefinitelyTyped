@@ -1,4 +1,4 @@
-// Type definitions for socket.io-file 1.0
+// Type definitions for n-readlines 1.0
 // Project: https://github.com/nacholibre/node-readlines
 // Definitions by: Dief Bell <https://github.com/merrickking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
