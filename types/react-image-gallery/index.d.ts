@@ -1,26 +1,13 @@
-// Type definitions for react-image-gallery 0.8
+// Type definitions for react-image-gallery 0.9
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: Adam Webb <https://github.com/adamwpc>
+//                 William Tio <https://github.com/WToa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export interface ReactImageGalleryItem {
-    original?: string;
-    thumbnail?: string;
-    originalClass?: string;
-    thumbnailClass?: string;
-    renderItem?(item?: ReactImageGalleryItem): React.ReactNode;
-    renderThumbInner?(item?: ReactImageGalleryItem): React.ReactNode;
-    originalAlt?: string;
-    thumbnailAlt?: string;
-    originalTitle?: string;
-    thumbnailTitle?: string;
-    thumbnailLabel?: string;
-    description?: string;
-    srcSet?: string;
-    sizes?: string;
     bulletClass?: string;
     bulletOnClick?({
         item,
@@ -31,56 +18,73 @@ export interface ReactImageGalleryItem {
         itemIndex: number;
         currentIndex: number;
     }): void;
+    description?: string;
+    original?: string;
+    originalAlt?: string;
+    originalTitle?: string;
+    thumbnail?: string;
+    thumbnailAlt?: string;
+    thumbnailLabel?: string;
+    thumbnailTitle?: string;
+    originalClass?: string;
+    thumbnailClass?: string;
+    renderItem?(item?: ReactImageGalleryItem): React.ReactNode;
+    renderThumbInner?(item?: ReactImageGalleryItem): React.ReactNode;
+    srcSet?: string;
+    sizes?: string;
 }
 
 export interface ReactImageGalleryProps {
+    flickThreshold?: number;
     items: ReactImageGalleryItem[];
-    infinite?: boolean;
-    lazyLoad?: boolean;
     showNav?: boolean;
-    showThumbnails?: boolean;
-    thumbnailPosition?: 'top' | 'right' | 'bottom' | 'left';
-    showFullscreenButton?: boolean;
-    useBrowserFullscreen?: boolean;
-    showPlayButton?: boolean;
-    showBullets?: boolean;
-    showIndex?: boolean;
     autoPlay?: boolean;
+
+    lazyLoad?: boolean;
+    infinite?: boolean;
+    showIndex?: boolean;
+    showBullets?: boolean;
+    showThumbnails?: boolean;
+    showPlayButton?: boolean;
+    showFullscreenButton?: boolean;
     disableThumbnailScroll?: boolean;
-    slideOnThumbnailHover?: boolean;
     disableArrowKeys?: boolean;
     disableSwipe?: boolean;
-    defaultImage?: string;
-    indexSeparator?: string;
-    slideDuration?: number;
-    swipingTransitionDuration?: number;
-    slideInterval?: number;
-    flickThreshold?: number;
-    swipeThreshold?: number;
-    stopPropagation?: boolean;
+    useBrowserFullscreen?: boolean;
     preventDefaultTouchmoveEvent?: boolean;
+    onErrorImage?: string;
+    indexSeparator?: string;
+    thumbnailPosition?: 'top' | 'right' | 'bottom' | 'left';
     startIndex?: number;
-    onImageError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
-    onThumbnailError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
-    onThumbnailClick?: (event: React.MouseEventHandler<HTMLAnchorElement>, index: number) => void;
-    onImageLoad?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
+    slideDuration?: number;
+    slideInterval?: number;
+    slideOnThumbnailHover?: boolean;
+    swipeThreshold?: number;
+    swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;
     onScreenChange?: (fullScreenElement: Element) => void;
     onPause?: (currentIndex: number) => void;
     onPlay?: (currentIndex: number) => void;
     onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
+    onImageLoad?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
+    onImageError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
     onTouchMove?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
     onTouchEnd?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
     onTouchStart?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
     onMouseOver?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
     onMouseLeave?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
+    onThumbnailError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
+    onThumbnailClick?: (event: React.MouseEventHandler<HTMLAnchorElement>, index: number) => void;
     renderCustomControls?: () => React.ReactNode;
-    renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
-    renderThumbInner?: (item: ReactImageGalleryItem) => React.ReactNode;
     renderLeftNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
     renderRightNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
     renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
     renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
+    renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
+    stopPropagation?: boolean;
+    additionalClass?: string;
+    useTranslate3D?: boolean;
+    isRTL?: boolean;
 }
 
 declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> {

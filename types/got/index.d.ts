@@ -61,6 +61,7 @@ declare class CancelError extends StdError {
 
 declare class TimeoutError extends StdError {
     name: 'TimeoutError';
+    event: keyof got.TimeoutOptions;
 }
 
 declare class StdError extends Error {

@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -18,6 +18,8 @@ declare namespace google {
     // https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
 
+        export function dataTableToCsv(data: DataTable | DataView): string;
+        
         export interface ChartSpecs {
             chartType: string;
             container?: HTMLElement;
@@ -38,7 +40,6 @@ declare namespace google {
         }
 
         //#region ChartWrapper
-
         // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
         export class ChartWrapper {
             constructor(spec?: ChartSpecs);
@@ -67,10 +68,45 @@ declare namespace google {
             setOptions(options: Object): void;
             setView(view_spec: string): void;
         }
-
         //#endregion
-        //#region DataTable
+        
+        //#region data
+        // https://developers.google.com/chart/interactive/docs/reference#google_visualization_data_group
+        export interface GroupKeyOptions {
+            column: number;
+            type: string;
+            modifier?: (value: any) => any;
+            label?: string;
+            id?: any;
+        }
 
+        export interface GroupColumnOptions {
+            column: number;
+            aggregation: (values: any[]) => any;
+            type: string;
+            label?: string;
+            id?: any;
+        }
+        
+        export class data {
+            // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
+            static month(value: Date): number;
+            
+            // https://developers.google.com/chart/interactive/docs/reference#group
+            static sum(values: number[] | string[] | Date[]): number;
+            static avg(values: number[] | string[] | Date[]): number;
+            static min(values: number[] | string[] | Date[]): number | string | Date;
+            static max(values: number[] | string[] | Date[]): number | string | Date;
+            static count(values: any[]): number;
+
+            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+                        
+            // https://developers.google.com/chart/interactive/docs/reference#join
+            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+        }
+        //#endregion
+        
+        //#region DataTable
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
         export class DataTable {
             constructor(data?: any, version?: any);
@@ -98,7 +134,7 @@ declare namespace google {
             getProperty(rowIndex: number, columnIndex: number, name: string): any;
             getProperties(rowIndex: number, columnIndex: number): Properties;
             getRowProperties(rowIndex: number): Properties;
-            getRowProperty(rowIndex: number, name: string): Properties;
+            getRowProperty(rowIndex: number, name: string): any;
             getSortedRows(sortColumn: number): number[];
             getSortedRows(sortColumn: SortByColumn): number[];
             getSortedRows(sortColumns: number[]): number[];
@@ -262,6 +298,7 @@ declare namespace google {
             getTableRowIndex(viewRowIndex: number): number;
             getViewColumnIndex(tableColumnIndex: number): number;
             getViewColumns(): number[];
+            getViewColumns(): ColumnSpec[];
             getViewRowIndex(tableRowIndex: number): number;
             getViewRows(): number[];
 
@@ -280,8 +317,8 @@ declare namespace google {
         }
 
         export interface ColumnSpec {
-            calc: (dataTable: DataTable, row: number) => any;
-            type: string;
+            calc?: (dataTable: DataTable, row: number) => any;
+            type?: string;
             label?: string;
             id?: string;
             sourceColumn?: number;
@@ -626,6 +663,20 @@ declare namespace google {
             draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
 
+        // https://developers.google.com/chart/interactive/docs/gallery/trendlines
+        export interface LineChartTrendlineOptions {
+            type?: 'linear' | 'exponential' | 'polynomial';
+            degree?: number;
+            color?: string;
+            lineWidth?: number;
+            opacity?: number;
+            pointSize?: number;
+            pointsVisible?: boolean;
+            labelInLegend?: string;
+            visibleInLegend?: boolean;
+            showR2?: boolean
+        }
+        
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -654,6 +705,11 @@ declare namespace google {
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
             series?: any;
+            domainAxis?: { type: string };
+            trendlines?: { [key: number]: LineChartTrendlineOptions; };
+            pointShape?: string | 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
+            intervals?: { style: string };
+            interval?: any;
             theme?: string;
             title?: string;
             titlePosition?: string;
