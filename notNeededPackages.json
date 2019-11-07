@@ -5011,6 +5011,12 @@
             "asOfVersion": "3.0.1"
         },
         {
+            "libraryName": "web3-eth-abi",
+            "typingsPackageName": "web3-eth-abi",
+            "sourceRepoURL": "https://github.com/ethereum/web3.js/tree/1.0/packages/web3-eth-abi",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "web3",
             "typingsPackageName": "web3",
             "sourceRepoURL": "https://github.com/ethereum/web3.js",
