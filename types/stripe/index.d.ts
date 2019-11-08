@@ -4291,6 +4291,11 @@ declare namespace Stripe {
             tax_amounts: taxRates.ITaxAmount[];
 
             /**
+             * The tax rates which apply to the line item.
+             */
+            tax_rates: taxRates.ITaxRate[];
+
+            /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
              */
             type: 'invoiceitem' | 'subscription';
