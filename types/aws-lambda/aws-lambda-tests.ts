@@ -108,6 +108,7 @@ strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
 strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityId;
 strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+strOrNull = apiGwEvtReqCtx.identity.principalOrgId;
 str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
