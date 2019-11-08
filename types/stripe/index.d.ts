@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.11.1
+// Type definitions for stripe 7.12
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
