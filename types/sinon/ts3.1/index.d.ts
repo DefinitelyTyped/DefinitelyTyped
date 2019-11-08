@@ -335,6 +335,8 @@ declare namespace Sinon {
         restore(): void;
     }
 
+    type PropertyAccessorType = 'get' | 'set';
+
     interface SinonSpyStatic {
         /**
          * Creates an anonymous function that records arguments, this value, exceptions and return values for all calls.
@@ -351,11 +353,23 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K, types?: string[]): T[K] extends (
+        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
             ...args: infer TArgs
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
+
+        <T, K extends keyof T>(obj: T, method: K, types: PropertyAccessorType[]): {
+            [P in PropertyAccessorType]?: T[K] extends (
+                ...args: infer TArgs
+            ) => infer TReturnValue
+                    ? SinonSpy<TArgs, TReturnValue>
+                    : SinonSpy;
+        } & {
+            value?: typeof obj[K],
+            enumerable: boolean,
+            configurable: boolean,
+        };
     }
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>
