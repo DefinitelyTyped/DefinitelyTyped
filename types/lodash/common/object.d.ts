@@ -3062,26 +3062,18 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
+        omit<T extends {}, P extends Array<Many<PropertyName>>>(
+            object: T | null | undefined,
+            ...paths: P
+        ): Pick<T, Exclude<keyof T, P[number]>>
+
+        /**
+         * @see _.omit
+         */
         omit<T extends AnyKindOfDictionary>(
             object: T | null | undefined,
             ...paths: Array<Many<PropertyName>>
         ): T;
-
-        /**
-         * @see _.omit
-         */
-        omit<T extends object, K extends keyof T>(
-            object: T | null | undefined,
-            ...paths: Array<Many<K>>
-        ): Omit<T, K>;
-
-        /**
-         * @see _.omit
-         */
-        omit<T extends object, K extends Array<Many<PropertyName>>>(
-            object: T | null | undefined,
-            ...paths: Array<Many<PropertyName>>
-        ): Pick<T, Exclude<keyof T, K[number]>>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
