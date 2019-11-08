@@ -1,7 +1,7 @@
 // Type definitions for command-line-args 5.0
 // Project: https://github.com/75lb/command-line-args
-// Definitions by: Lloyd Brookes <https://github.com/75lb>
-// Definitions by: Emanuele Stoppa <https://github.com/ematipico>
+// Definitions by: Lloyd Brookes <https://github.com/75lb>,
+//                 Emanuele Stoppa <https://github.com/ematipico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9,8 +9,8 @@
  * Returns an object containing option values parsed from the command line. By default it parses the global `process.argv` array.
  * Parsing is strict by default. To be more permissive, enable `partial` or `stopAtFirstUnknown` modes.
  */
-declare function commandLineArgs<OptionDefinition = commandLineArgs.OptionDefinition>(
-    optionDefinitions: OptionDefinition[],
+declare function commandLineArgs(
+    optionDefinitions: commandLineArgs.OptionDefinition[] | Array<object & commandLineArgs.OptionDefinition>,
     options?: commandLineArgs.ParseOptions,
 ): commandLineArgs.CommandLineOptions;
 
