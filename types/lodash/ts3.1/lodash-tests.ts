@@ -7093,3 +7093,11 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
     fp.stubTrue(); // $ExpectType true
 }
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
+}
