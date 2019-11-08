@@ -43,7 +43,7 @@ export type Scope =
 
 export interface ApiResponse {
     body: any;
-    headers: { [index: string]: string };
+    headers: { [header: string]: string };
     statusCode: number;
 }
 
@@ -717,11 +717,6 @@ export interface CreateItem {
     jsonapi?: JsonApiVersionJsonapi;
     data?: CreateItemData;
     included: CreateItemIncluded[];
-}
-
-export interface CreateRef {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateRefData;
 }
 
 export class ItemsApi {
