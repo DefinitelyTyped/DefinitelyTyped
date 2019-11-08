@@ -14,7 +14,20 @@ import text = require('pdfkit/js/mixins/text');
 font.registerFont('Arial');
 text.widthOfString('Kila', { ellipsis: true });
 
-var doc = new PDFDocument({ compress: false, size: [526, 525], autoFirstPage: true });
+var doc = new PDFDocument({
+    compress: false,
+    size: [526, 525],
+    autoFirstPage: true,
+    pdfVersion: '1.6',
+    security: {
+        ownerPassword: 'ownerPassword',
+        permissions: {
+            modifying: true,
+            annotating: false,
+            printing: 'lowResolution'
+        }
+    }
+});
 
 doc.addPage({
     margin: 50,

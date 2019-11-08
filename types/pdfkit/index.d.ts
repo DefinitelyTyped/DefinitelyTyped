@@ -4,6 +4,7 @@
 //                 Erik Berreßem <https://github.com/she11sh0cked>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
 //                 Thales Agapito <https://github.com/thalesagapito/>
+//                 Evgeny Baram <https://github.com/r4tz52/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -249,9 +250,27 @@ declare namespace PDFKit {
         ModDate?: Date;
     }
 
+    interface DocumentSecurity {
+        userPassword?: string;
+        ownerPassword?: string;
+        permissions?: DocumentPermissions;
+    }
+
+    interface DocumentPermissions {
+        modifying?: boolean;
+        copying?: boolean;
+        annotating?: boolean;
+        fillingForms?: boolean;
+        contentAccessibility?: boolean;
+        documentAssembly?: boolean;
+        printing?: 'lowResolution' | 'highResolution';
+    }
+
     interface PDFDocumentOptions {
         compress?: boolean;
         info?: DocumentInfo;
+        security?: DocumentSecurity;
+        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
         autoFirstPage?: boolean;
         size?: number[] | string;
         margin?: number;
