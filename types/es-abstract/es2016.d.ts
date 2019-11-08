@@ -7,7 +7,10 @@ interface ES2016 extends ES2015 {
 	 *
 	 * @throws {TypeError} If `x` or `y` is a `number` or they're different types.
 	 */
-	SameValueNonNumber(x: object | null | undefined | string | boolean | symbol, y: object | null | undefined | string | boolean | symbol): boolean;
+	SameValueNonNumber(
+		x: object | null | undefined | string | boolean | symbol,
+		y: object | null | undefined | string | boolean | symbol,
+	): boolean;
 
 	IterableToArrayLike<T extends Iterable<unknown> | ArrayLike<unknown>>(
 		items: T,

@@ -52,9 +52,16 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 		defaultConstructor?: C,
 	): AnyConstructor | C;
 
-	CompletePropertyDescriptor<D extends ES5.DataDescriptor>(Desc: D): Required<D>;
-	CompletePropertyDescriptor<D extends ES5.AccessorDescriptor>(Desc: D): Required<D>;
-	CompletePropertyDescriptor(Desc: ES5.PropertyDescriptor): Required<ES5.PropertyDescriptor>;
+	CompletePropertyDescriptor<D extends ES5.PropertyDescriptor>(
+		Desc: D & ThisType<any>,
+	): Required<
+		D extends { '[[Value]]': unknown } | { '[[Writable]]': boolean }
+			? D & ES5.DataDescriptor
+			: D extends { '[[Get]]': () => unknown } | { '[[Set]]': (value: unknown) => void }
+			? D & ES5.AccessorDescriptor
+			: D & ES5.PropertyDescriptor
+	>;
+	CompletePropertyDescriptor(Desc: ES5.PropertyDescriptor & ThisType<any>): Required<ES5.PropertyDescriptor>;
 
 	Set(O: object, P: ESPropertyKey, V: unknown, Throw: true): true | never;
 	Set(O: object, P: ESPropertyKey, V: unknown, Throw: boolean): boolean;
@@ -104,7 +111,7 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	AdvanceStringIndex(S: string, index: number, unicode: boolean): number;
 
 	CreateMethodProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
-	DefinePropertyOrThrow(O: object, P: ESPropertyKey, desc: ES5.PropertyDescriptor): boolean;
+	DefinePropertyOrThrow(O: object, P: ESPropertyKey, desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
 	DeletePropertyOrThrow(O: object, P: ESPropertyKey): boolean;
 
 	readonly EnumerableOwnNames: typeof Object.keys;
@@ -133,21 +140,21 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 		O: undefined,
 		P: unknown,
 		extensible: boolean,
-		Desc: ES5.PropertyDescriptor,
-		current?: ES5.PropertyDescriptor,
+		Desc: ES5.PropertyDescriptor & ThisType<any>,
+		current?: ES5.PropertyDescriptor & ThisType<any>,
 	): boolean;
 	ValidateAndApplyPropertyDescriptor(
 		O: object | undefined,
 		P: ESPropertyKey,
 		extensible: boolean,
-		Desc: ES5.PropertyDescriptor,
-		current?: ES5.PropertyDescriptor,
+		Desc: ES5.PropertyDescriptor & ThisType<any>,
+		current?: ES5.PropertyDescriptor & ThisType<any>,
 	): boolean;
-	OrdinaryDefineOwnProperty(O: object, P: ESPropertyKey, Desc: ES5.PropertyDescriptor): boolean;
+	OrdinaryDefineOwnProperty(O: object, P: ESPropertyKey, Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
 	OrdinaryGetOwnProperty(O: object, P: ESPropertyKey): ES5.PropertyDescriptor | undefined;
 
 	ArrayCreate(length: number, proto?: object | null): unknown[];
-	ArraySetLength(A: unknown[], Desc: ES5.PropertyDescriptor): boolean;
+	ArraySetLength(A: unknown[], Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
 	CreateHTML(string: unknown, tag: string, attribute: string, value?: unknown): string;
 
 	GetOwnPropertyKeys(O: object, Type: 'String'): string[];
