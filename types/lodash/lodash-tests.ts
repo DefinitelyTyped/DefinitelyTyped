@@ -6841,10 +6841,10 @@ fp.now(); // $ExpectType number
 // _.overEvery
 // _.overSome
 {
-    const userDefinedTypeGuard1 = (item: any): item is number => typeof item === "number";
-    const userDefinedTypeGuard2 = (item: any): item is string => typeof item === "string";
+    const userDefinedTypeGuard1: (item: object) => item is { a: 1 } = anything;
+    const userDefinedTypeGuard2: (item: object) => item is { b: 1 } = anything;
 
-    _.overEvery(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: any) => number & string
+    _.overEvery(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => { a: 1; } & { b: 1; }
 
     _.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
@@ -6862,7 +6862,7 @@ fp.now(); // $ExpectType number
     fp.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     fp.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
 
-    _.overSome(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: any) => string | number
+    _.overSome(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => { a: 1; } | { b: 1; }
 
     _.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overSome((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
