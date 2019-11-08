@@ -27,4 +27,6 @@ declare class BunyanFormatWritable extends Writable {
     constructor(options: BunyanFormatWritable.Options, output?: Writable);
 }
 
+declare function BunyanFormatWritable(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+
 export = BunyanFormatWritable;
