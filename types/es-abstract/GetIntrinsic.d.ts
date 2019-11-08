@@ -38,7 +38,7 @@ declare namespace GetIntrinsic {
 		'%AsyncGenerator%': AsyncGenerator;
 		'%AsyncGeneratorFunction%': AsyncGeneratorFunctionConstructor;
 		'%AsyncGeneratorPrototype%': AsyncGeneratorFunction;
-		'%AsyncIteratorPrototype%': AsyncGenerator;
+		'%AsyncIteratorPrototype%': AsyncIterable<any>;
 		'%Atomics%': Atomics;
 		'%Boolean%': BooleanConstructor;
 		'%BooleanPrototype%': typeof Boolean.prototype;
@@ -72,7 +72,7 @@ declare namespace GetIntrinsic {
 		'%Int32ArrayPrototype%': Int32Array;
 		'%isFinite%': typeof isFinite;
 		'%isNaN%': typeof isNaN;
-		'%IteratorPrototype%': Generator;
+		'%IteratorPrototype%': Iterable<any>;
 		'%JSON%': JSON;
 		'%JSONParse%': typeof JSON.parse;
 		'%Map%': MapConstructor;

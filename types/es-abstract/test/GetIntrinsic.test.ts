@@ -19,7 +19,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%AsyncGenerator%'); // $ExpectType AsyncGenerator<unknown, any, unknown>
 	GetIntrinsic('%AsyncGeneratorFunction%'); // $ExpectType AsyncGeneratorFunctionConstructor
 	GetIntrinsic('%AsyncGeneratorPrototype%'); // $ExpectType AsyncGeneratorFunction
-	GetIntrinsic('%AsyncIteratorPrototype%'); // $ExpectType AsyncGenerator<unknown, any, unknown>
+	GetIntrinsic('%AsyncIteratorPrototype%'); // $ExpectType AsyncIterable<any>
 	GetIntrinsic('%Atomics%'); // $ExpectType Atomics
 	GetIntrinsic('%Boolean%'); // $ExpectType BooleanConstructor
 	GetIntrinsic('%BooleanPrototype%'); // $ExpectType Boolean
@@ -53,7 +53,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%Int32ArrayPrototype%'); // $ExpectType Int32Array
 	GetIntrinsic('%isFinite%'); // $ExpectType (number: number) => boolean
 	GetIntrinsic('%isNaN%'); // $ExpectType (number: number) => boolean
-	GetIntrinsic('%IteratorPrototype%'); // $ExpectType Generator<unknown, any, unknown>
+	GetIntrinsic('%IteratorPrototype%'); // $ExpectType Iterable<any>
 	GetIntrinsic('%JSON%'); // $ExpectType JSON
 	GetIntrinsic('%JSONParse%'); // $ExpectType (text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any
 	GetIntrinsic('%Map%'); // $ExpectType MapConstructor
@@ -131,7 +131,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%AsyncGenerator%', false); // $ExpectType AsyncGenerator<unknown, any, unknown>
 	GetIntrinsic('%AsyncGeneratorFunction%', false); // $ExpectType AsyncGeneratorFunctionConstructor
 	GetIntrinsic('%AsyncGeneratorPrototype%', false); // $ExpectType AsyncGeneratorFunction
-	GetIntrinsic('%AsyncIteratorPrototype%', false); // $ExpectType AsyncGenerator<unknown, any, unknown>
+	GetIntrinsic('%AsyncIteratorPrototype%', false); // $ExpectType AsyncIterable<any>
 	GetIntrinsic('%Atomics%', false); // $ExpectType Atomics
 	GetIntrinsic('%Boolean%', false); // $ExpectType BooleanConstructor
 	GetIntrinsic('%BooleanPrototype%', false); // $ExpectType Boolean
@@ -165,7 +165,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%Int32ArrayPrototype%', false); // $ExpectType Int32Array
 	GetIntrinsic('%isFinite%', false); // $ExpectType (number: number) => boolean
 	GetIntrinsic('%isNaN%', false); // $ExpectType (number: number) => boolean
-	GetIntrinsic('%IteratorPrototype%', false); // $ExpectType Generator<unknown, any, unknown>
+	GetIntrinsic('%IteratorPrototype%', false); // $ExpectType Iterable<any>
 	GetIntrinsic('%JSON%', false); // $ExpectType JSON
 	GetIntrinsic('%JSONParse%', false); // $ExpectType (text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any
 	GetIntrinsic('%Map%', false); // $ExpectType MapConstructor
@@ -243,7 +243,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%AsyncGenerator%', true); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
 	GetIntrinsic('%AsyncGeneratorFunction%', true); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
 	GetIntrinsic('%AsyncGeneratorPrototype%', true); // $ExpectType AsyncGeneratorFunction | undefined
-	GetIntrinsic('%AsyncIteratorPrototype%', true); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
+	GetIntrinsic('%AsyncIteratorPrototype%', true); // $ExpectType AsyncIterable<any> | undefined
 	GetIntrinsic('%Atomics%', true); // $ExpectType Atomics | undefined
 	GetIntrinsic('%Boolean%', true); // $ExpectType BooleanConstructor | undefined
 	GetIntrinsic('%BooleanPrototype%', true); // $ExpectType Boolean | undefined
@@ -277,7 +277,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%Int32ArrayPrototype%', true); // $ExpectType Int32Array | undefined
 	GetIntrinsic('%isFinite%', true); // $ExpectType ((number: number) => boolean) | undefined
 	GetIntrinsic('%isNaN%', true); // $ExpectType ((number: number) => boolean) | undefined
-	GetIntrinsic('%IteratorPrototype%', true); // $ExpectType Generator<unknown, any, unknown> | undefined
+	GetIntrinsic('%IteratorPrototype%', true); // $ExpectType Iterable<any> | undefined
 	GetIntrinsic('%JSON%', true); // $ExpectType JSON | undefined
 	GetIntrinsic('%JSONParse%', true); // $ExpectType ((text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any) | undefined
 	GetIntrinsic('%Map%', true); // $ExpectType MapConstructor | undefined
@@ -355,7 +355,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%AsyncGenerator%', boolean); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
 	GetIntrinsic('%AsyncGeneratorFunction%', boolean); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
 	GetIntrinsic('%AsyncGeneratorPrototype%', boolean); // $ExpectType AsyncGeneratorFunction | undefined
-	GetIntrinsic('%AsyncIteratorPrototype%', boolean); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
+	GetIntrinsic('%AsyncIteratorPrototype%', boolean); // $ExpectType AsyncIterable<any> | undefined
 	GetIntrinsic('%Atomics%', boolean); // $ExpectType Atomics | undefined
 	GetIntrinsic('%Boolean%', boolean); // $ExpectType BooleanConstructor | undefined
 	GetIntrinsic('%BooleanPrototype%', boolean); // $ExpectType Boolean | undefined
@@ -389,7 +389,7 @@ const boolean = Math.random() >= 0.5;
 	GetIntrinsic('%Int32ArrayPrototype%', boolean); // $ExpectType Int32Array | undefined
 	GetIntrinsic('%isFinite%', boolean); // $ExpectType ((number: number) => boolean) | undefined
 	GetIntrinsic('%isNaN%', boolean); // $ExpectType ((number: number) => boolean) | undefined
-	GetIntrinsic('%IteratorPrototype%', boolean); // $ExpectType Generator<unknown, any, unknown> | undefined
+	GetIntrinsic('%IteratorPrototype%', boolean); // $ExpectType Iterable<any> | undefined
 	GetIntrinsic('%JSON%', boolean); // $ExpectType JSON | undefined
 	GetIntrinsic('%JSONParse%', boolean); // $ExpectType ((text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any) | undefined
 	GetIntrinsic('%Map%', boolean); // $ExpectType MapConstructor | undefined
