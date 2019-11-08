@@ -3078,10 +3078,10 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit<T extends object, K extends Array<Many<PropertyName>>>(
+        omit<T extends object>(
             object: T | null | undefined,
             ...paths: Array<Many<PropertyName>>
-        ): Pick<T, Exclude<keyof T, K[number]>>;
+        ): PartialObject<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
