@@ -72,7 +72,9 @@ declare namespace passport {
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
         authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
+        serializeUser<TUser, TID, TR extends http.IncomingMessage = Express.Request>(fn: (req: TR, user: TUser, done: (err: any, id?: TID) => void) => void): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
+        deserializeUser<TUser, TID, TR extends http.IncomingMessage = Express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
