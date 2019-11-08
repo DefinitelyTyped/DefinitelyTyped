@@ -6489,7 +6489,6 @@ declare namespace Stripe {
         }
 
         interface ITaxRateUpdateOptions {
-
             /**
              * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
              */
@@ -6509,7 +6508,7 @@ declare namespace Stripe {
              * The jurisdiction for the tax rate.
              */
             jurisdiction?: string;
-            
+
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
