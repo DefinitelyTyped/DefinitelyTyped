@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.1
+// Type definitions for styled-components 4.4
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
