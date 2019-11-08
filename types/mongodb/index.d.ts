@@ -1208,7 +1208,7 @@ export type PushOperator<TSchema> = ({
 };
 
 export type PullOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | QuerySelector<Unpacked<TSchema[key]>>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: QuerySelector<any> | any;
@@ -1364,6 +1364,8 @@ export type RootQuerySelector<T> = {
     // this will mark all unrecognized properties as any (including nested queries)
     [key: string]: any;
 };
+
+export type ObjectQuerySelector<T> = T extends object ? {[key in keyof T]?: QuerySelector<T[key]> } : QuerySelector<T>;
 
 export type Condition<T> = MongoAltQuery<T> | QuerySelector<MongoAltQuery<T>>;
 
