@@ -243,7 +243,7 @@ declare module "../index" {
     }
 
     type PartialDeep<T> = {
-        [P in keyof T]?: PartialDeep<T[P]>;
+        [P in keyof T]?: PartialDeep<T[P]> | T[P];
     };
 
     // For backwards compatibility
