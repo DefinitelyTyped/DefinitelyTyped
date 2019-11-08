@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    articleOnly?: boolean,
+    articleOnly?: boolean;
     capitalize?: boolean;
     caseInsensitive?: boolean;
     numbers?: "colloquial";
