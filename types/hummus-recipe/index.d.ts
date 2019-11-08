@@ -188,6 +188,23 @@ declare namespace Recipe {
         rotation?: number;
         rotationOrigin?: number[];
     }
+    
+    interface PageInfo {
+        pageNumber: number;
+        mediaBox: Array<number>;
+        layout: string;
+        rotate: number;
+        width: number;
+        height: number;
+        size: Array<number>;
+        offsetX: number;
+        offsetY: number;
+  }
+
+  interface Metadata {
+    pages: number;
+    [PagesIndex: number]: PageInfo;
+  }
 
     type EndPDFCallback1 = () => any;
     type EndPDFCallback2 = (buffer: Buffer) => any;
@@ -199,6 +216,8 @@ declare class Recipe {
 
     constructor(buffer: Buffer, options?: Recipe.RecipeOptions);
 
+    readonly metadata: Recipe.Metadata;
+    
     comment(
         text: string,
         x: number,
