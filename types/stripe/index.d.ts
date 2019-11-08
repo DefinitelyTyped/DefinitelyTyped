@@ -7540,12 +7540,13 @@ declare namespace Stripe {
 
         interface IBankAccountTokenCreationOptions extends ITokenCreationOptionsBase {
             /**
-             * The card this token will represent. If you also pass in a customer,
-             * the card must be the ID of a card belonging to the customer.
-             * Otherwise, if you do not pass a customer, a object containing a
-             * user's credit card details, with the options described below.
+             * The bank account this token will represent. If you also pass in
+             * a customer, the bank account must be the ID of a bank account
+             * belonging to the customer.  Otherwise, if you do not pass a
+             * customer, a object containing a user's bank account details,
+             * with the options described below.
              */
-            bank_account: bankAccounts.ISourceCreationOptions;
+            bank_account: string | bankAccounts.ISourceCreationOptions;
         }
 
         interface IPiiTokenCreationOptions extends IDataOptions {
