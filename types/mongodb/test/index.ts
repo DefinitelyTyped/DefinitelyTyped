@@ -11,7 +11,7 @@ const options: mongodb.MongoClientOptions = {
   wtimeout: 300,
   j: true,
   bufferMaxEntries: 1000,
-  readPreference: true ? mongodb.ReadPreference.NEAREST : 'string',
+  readPreference: true ? mongodb.ReadPreference.NEAREST : 'secondaryPreferred',
   promoteValues: true,
   pkFactory: {},
   poolSize: 1,

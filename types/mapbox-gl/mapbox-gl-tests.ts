@@ -13,6 +13,27 @@ mapboxgl.accessToken = 'foo';
 mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
+ * Set amount of workers
+ */
+mapboxgl.workerCount = 3;
+
+/**
+ * Set max amount of parallel images requests 
+ */
+mapboxgl.maxParallelImageRequests = 10;
+
+/**
+ * Clears browser storage used by this library 
+ */
+mapboxgl.clearStorage(() => {});
+
+/**
+ * Get RTL Text Plugin Status
+ */
+expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
+
+
+/**
  * Display a Map
  */
 let map = new mapboxgl.Map({
@@ -569,6 +590,11 @@ map = new mapboxgl.Map({
 	bearing: -96,
 	style: videoStyle,
 	hash: false
+});
+
+map = new mapboxgl.Map({
+    container: 'map',
+	hash: 'customHash'
 });
 
 /**
