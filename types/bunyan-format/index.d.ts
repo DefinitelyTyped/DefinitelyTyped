@@ -1,4 +1,4 @@
-// Type definitions for bunyan-format 0.2
+// Type definitions for bunyan-format 0.2.1
 // Project: https://github.com/thlorenz/bunyan-format
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 //                 Ashley Abbott <https://github.com/ashpabb>
