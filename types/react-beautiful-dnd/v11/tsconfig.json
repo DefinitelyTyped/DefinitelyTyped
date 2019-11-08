@@ -5,14 +5,16 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "react-beautiful-dnd": ["react-beautiful-dnd/v11"]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "noUnusedLocals": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "jsx": "react",
