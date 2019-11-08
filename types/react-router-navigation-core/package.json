@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "react-native-tab-view": "^2.3.0"
+        "@types/react-native-tab-view": "^1.0.6"
     }
 }
