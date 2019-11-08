@@ -999,10 +999,10 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
      */
     function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, deps?: DependencyList): void;
-    // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
+    // I made 'deps' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
-     * `useCallback` will return a memoized version of the callback that only changes if one of the `inputs`
+     * `useCallback` will return a memoized version of the callback that only changes if one of the `deps`
      * has changed.
      *
      * @version 16.8.0
