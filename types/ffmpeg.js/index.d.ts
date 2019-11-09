@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ffmpeg.js 3.1
+// Type definitions for package ffmpeg.js 3.1
 // Project: https://github.com/Kagami/ffmpeg.js
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
