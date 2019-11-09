@@ -1,18 +1,76 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxCore from "workbox-core";
+import {
+    CacheNameDetails,
+    cacheNames,
+    clientsClaim,
+    registerQuotaErrorCallback,
+    setCacheNameDetails,
+    skipWaiting,
+} from "workbox-core";
 
-// $ExpectType CacheNames
-WorkboxCore.cacheNames;
+//==============================================================================
+// WorkboxCore.cacheNames
+//==============================================================================
 
-// $ExpectType void
-WorkboxCore.clientsClaim();
+export namespace CacheNamesTest {
+    // $ExpectType CacheNames
+    cacheNames;
 
-// $ExpectType void
-WorkboxCore.registerQuotaErrorCallback(() => {});
+    // $ExpectType string
+    cacheNames.googleAnalytics;
 
-// $ExpectType void
-WorkboxCore.setCacheNameDetails({});
+    // $ExpectType string
+    cacheNames.precache;
 
-// $ExpectType void
-WorkboxCore.skipWaiting();
+    // $ExpectType string
+    cacheNames.prefix;
+
+    // $ExpectType string
+    cacheNames.runtime;
+
+    // $ExpectType string
+    cacheNames.suffix;
+}
+
+//==============================================================================
+// WorkboxCore.clientsClaim
+//==============================================================================
+
+export namespace ClientsClaimTest {
+    // $ExpectType void
+    clientsClaim();
+}
+
+//==============================================================================
+// WorkboxCore.registerQuotaErrorCallback
+//==============================================================================
+
+export namespace RegisterQuotaErrorCallbackTest {
+    declare const callback: () => void;
+
+    // $ExpectType void
+    registerQuotaErrorCallback(callback);
+}
+
+//==============================================================================
+// WorkboxCore.setCacheNameDetails
+//==============================================================================
+
+export namespace SetCacheNameDetailsTest {
+    declare const details: CacheNameDetails;
+
+    // $ExpectType void
+    setCacheNameDetails(details);
+}
+
+//==============================================================================
+// WorkboxCore.skipWaiting
+//==============================================================================
+
+export namespace SkipWaitingTest {
+    // $ExpectType void
+    skipWaiting();
+}

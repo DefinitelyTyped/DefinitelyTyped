@@ -9,3 +9,5 @@ export * from "./clientsClaim";
 export * from "./registerQuotaErrorCallback";
 export * from "./setCacheNameDetails";
 export * from "./skipWaiting";
+
+export { WorkboxPlugin } from "./types/WorkboxPlugin";

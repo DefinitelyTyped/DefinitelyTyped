@@ -24,9 +24,6 @@
         "registerQuotaErrorCallback.d.ts",
         "setCacheNameDetails.d.ts",
         "skipWaiting.d.ts",
-        "types.d.ts",
-        "types/RouteHandler.d.ts",
-        "types/RouteMatchCallback.d.ts",
         "types/WorkboxPlugin.d.ts",
         "workbox-core-tests.ts"
     ]
