@@ -20,7 +20,7 @@
     "files": [
         "index.d.ts",
         "CacheableResponse.d.ts",
-        "CacheableResponsePlugin.d.ts",
+        "Plugin.d.ts",
         "workbox-cacheable-response-tests.ts"
     ]
 }

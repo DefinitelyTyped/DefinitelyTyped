@@ -5,4 +5,4 @@
 // TypeScript Version: 2.3
 
 export * from "./CacheableResponse";
-export * from "./CacheableResponsePlugin";
+export * from "./Plugin";

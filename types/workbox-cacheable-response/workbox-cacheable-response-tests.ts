@@ -1,12 +1,41 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxCacheableResponse from "workbox-cacheable-response";
+import {
+    CacheableResponse,
+    CacheableResponseConfig,
+    Plugin,
+} from "workbox-cacheable-response";
 
-declare const response: Response;
+//==============================================================================
+// WorkboxCacheableResponse.CacheableResponse
+//==============================================================================
 
-// $ExpectType CacheableResponse
-const cacheable = new WorkboxCacheableResponse.CacheableResponse();
-cacheable.isResponseCacheable(response); // $ExpectType boolean
+export namespace CacheableResponseTest {
+    declare const config: CacheableResponseConfig;
 
-// $ExpectType CacheableResponsePlugin
-const plugin = new WorkboxCacheableResponse.CacheableResponsePlugin();
+    // $ExpectType CacheableResponse
+    new CacheableResponse();
+    // $ExpectType CacheableResponse
+    new CacheableResponse(config);
+
+    declare const cacheable: CacheableResponse;
+    declare const response: Response;
+
+    // $ExpectType boolean
+    cacheable.isResponseCacheable(response);
+}
+
+//==============================================================================
+// WorkboxCacheableResponse.Plugin
+//==============================================================================
+
+export namespace CacheableResponsePluginTest {
+    declare const config: CacheableResponseConfig;
+
+    // $ExpectType Plugin
+    new Plugin();
+    // $ExpectType Plugin
+    new Plugin(config);
+}
