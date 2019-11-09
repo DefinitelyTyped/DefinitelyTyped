@@ -8,10 +8,10 @@ const theme = {
 };
 
 // return a funtion
-themeGet('')
+themeGet('');
 
 // return a any
-themeGet('')({})
+themeGet('')({});
 
 // return a any
-themeGet('colors.primary')({ theme })
+themeGet('colors.primary')({ theme });
