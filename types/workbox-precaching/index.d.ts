@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export * from "./PrecacheController";
 export * from "./addPlugins";
 export { addRoute } from "./addRoute";
 export * from "./cleanupOutdatedCaches";
