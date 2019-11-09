@@ -1,19 +1,62 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxBackgroundSync from "workbox-background-sync";
+import {
+    Plugin,
+    Queue,
+    QueueEntry,
+    QueueOptions,
+} from "workbox-background-sync";
 
-declare const entry: WorkboxBackgroundSync.QueueEntry;
-declare const name: string;
+//==============================================================================
+// WorkboxBackgroundSync.Queue
+//==============================================================================
 
-// $ExpectType Queue
-const queue = new WorkboxBackgroundSync.Queue(name);
-queue.name; // $ExpectType string
-queue.getAll(); // $ExpectType Promise<QueueEntry<any>[]>
-queue.popRequest(); // $ExpectType Promise<QueueEntry<any>>
-queue.pushRequest(entry); // $ExpectType Promise<void>
-queue.registerSync(); // $ExpectType Promise<void>
-queue.shiftRequest(); // $ExpectType Promise<QueueEntry<any>>
-queue.unshiftRequest(entry); // $ExpectType Promise<void>
+export namespace QueueTest {
+    declare const name: string;
+    declare const options: QueueOptions;
 
-// $ExpectType BackgroundSyncPlugin
-const plugin = new WorkboxBackgroundSync.BackgroundSyncPlugin(name);
+    // $ExpectType Queue
+    new Queue(name);
+    // $ExpectType Queue
+    new Queue(name, options);
+
+    declare const queue: Queue;
+    declare const queueEntry: QueueEntry;
+
+    // $ExpectType string
+    queue.name;
+
+    // $ExpectType Promise<QueueEntry<any>[]>
+    queue.getAll();
+
+    // $ExpectType Promise<QueueEntry<any>>
+    queue.popRequest();
+
+    // $ExpectType Promise<void>
+    queue.pushRequest(queueEntry);
+
+    // $ExpectType Promise<void>
+    queue.registerSync();
+
+    // $ExpectType Promise<QueueEntry<any>>
+    queue.shiftRequest();
+
+    // $ExpectType Promise<void>
+    queue.unshiftRequest(queueEntry);
+}
+
+//==============================================================================
+// WorkboxBackgroundSync.Plugin
+//==============================================================================
+
+export namespace BackgroundSyncPluginTest {
+    declare const name: string;
+    declare const options: QueueOptions;
+
+    // $ExpectType Plugin
+    new Plugin(name);
+    // $ExpectType Plugin
+    new Plugin(name, options);
+}

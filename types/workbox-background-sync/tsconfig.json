@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "BackgroundSyncPlugin.d.ts",
+        "Plugin.d.ts",
         "Queue.d.ts",
         "workbox-background-sync-tests.ts"
     ]

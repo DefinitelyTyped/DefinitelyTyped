@@ -2,10 +2,10 @@ export class Queue {
     constructor(name: string, options?: QueueOptions);
     readonly name: string;
     getAll(): Promise<QueueEntry[]>;
-    popRequest<M = any>(): Promise<QueueEntry<M>>;
+    popRequest(): Promise<QueueEntry>;
     pushRequest(entry: QueueEntry): Promise<void>;
     registerSync(): Promise<void>;
-    shiftRequest<M = any>(): Promise<QueueEntry<M>>;
+    shiftRequest(): Promise<QueueEntry>;
     unshiftRequest(entry: QueueEntry): Promise<void>;
 }
 
@@ -14,8 +14,8 @@ export interface QueueOptions {
     onSync?: () => void;
 }
 
-export interface QueueEntry<M = any> {
+export interface QueueEntry<Metadata = any> {
     request: Request;
-    metadata?: M;
+    metadata?: Metadata;
     timestamp?: number;
 }
