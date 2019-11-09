@@ -26,3 +26,5 @@ export declare class Worker {
     postMessage(opts: Worker.PostMessageOptions): void;
     terminate(): void;
 }
+
+export default Worker;
