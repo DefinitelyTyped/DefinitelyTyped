@@ -1,4 +1,4 @@
-// Type definitions for workbox-window 4.3.1
+// Type definitions for workbox-window 4.3
 // Project: https://github.com/GoogleChrome/workbox/tree/master/packages/workbox-window, https://github.com/GoogleChrome/workbox
 // Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
 //                 Jason Kwok <https://github.com/JasonHK>
