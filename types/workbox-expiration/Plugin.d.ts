@@ -1,6 +1,10 @@
-import { CacheDidUpdateCallback, CachedResponseWillBeUsedCallback, WorkboxPlugin } from "workbox-core/types/WorkboxPlugin";
+import {
+    CacheDidUpdateCallback,
+    CachedResponseWillBeUsedCallback,
+    WorkboxPlugin,
+} from "workbox-core/types/WorkboxPlugin";
 
-export class ExpirationPlugin implements WorkboxPlugin {
+export class Plugin implements WorkboxPlugin {
     constructor(config?: ExpirationPluginConfig);
     cacheDidUpdate: CacheDidUpdateCallback;
     cachedResponseWillBeUsed: CachedResponseWillBeUsedCallback;

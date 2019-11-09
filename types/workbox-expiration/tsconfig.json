@@ -20,7 +20,7 @@
     "files": [
         "index.d.ts",
         "CacheExpiration.d.ts",
-        "ExpirationPlugin.d.ts",
+        "Plugin.d.ts",
         "workbox-expiration-tests.ts"
     ]
 }

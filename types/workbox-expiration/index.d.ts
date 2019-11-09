@@ -5,4 +5,4 @@
 // TypeScript Version: 2.3
 
 export * from "./CacheExpiration";
-export * from "./ExpirationPlugin";
+export * from "./Plugin";
