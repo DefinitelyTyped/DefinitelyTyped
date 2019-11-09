@@ -6,3 +6,4 @@
 
 export * from "./BroadcastCacheUpdate";
 export * from "./Plugin";
+export * from "./broadcastUpdate";

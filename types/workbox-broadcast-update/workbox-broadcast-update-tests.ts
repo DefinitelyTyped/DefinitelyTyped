@@ -5,7 +5,9 @@
 import {
     BroadcastCacheUpdate,
     BroadcastCacheUpdateOptions,
+    BroadcastUpdateOptions,
     Plugin,
+    broadcastUpdate,
 } from "workbox-broadcast-update";
 
 //==============================================================================
@@ -38,4 +40,15 @@ export namespace BroadcastUpdatePluginTest {
     new Plugin();
     // $ExpectType Plugin
     new Plugin(options);
+}
+
+//==============================================================================
+// WorkboxBroadcastUpdate.broadcastUpdate
+//==============================================================================
+
+export namespace BroadcastUpdateTest {
+    declare const options: BroadcastUpdateOptions;
+
+    // $ExpectType Promise<void>
+    broadcastUpdate(options);
 }
