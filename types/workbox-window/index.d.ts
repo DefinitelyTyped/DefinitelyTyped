@@ -4,5 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export { Workbox } from './Workbox';
-export { messageSW } from './messageSW';
+export * from './Workbox';
+export * from './messageSW';
+
+export * from "./types/WorkboxEvent";
+export * from "./types/WorkboxEventMap";
