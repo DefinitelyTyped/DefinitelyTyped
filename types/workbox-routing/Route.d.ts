@@ -1,10 +1,10 @@
-import { RouteHandler } from "workbox-core/types/RouteHandler";
-import { RouteMatchCallback } from "workbox-core/types/RouteMatchCallback";
-
 import { HTTPMethod } from "./types/HTTPMethod";
+import { RouteHandler } from "./types/RouteHandler";
+import { RouteMatchCallback } from "./types/RouteMatchCallback";
 
-export class Route {
-    constructor(match: RouteMatchCallback, handler: RouteHandler, method?: HTTPMethod);
+export class Route<MatchReturn = any> {
+    readonly handler: RouteHandler;
+    readonly match: RouteMatchCallback<MatchReturn>;
+    readonly method: HTTPMethod;
+    constructor(match: RouteMatchCallback<MatchReturn>, handler: RouteHandler, method?: HTTPMethod);
 }
-
-export { HTTPMethod } from "./types/HTTPMethod";

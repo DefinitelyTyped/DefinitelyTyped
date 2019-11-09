@@ -1,42 +1,164 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import { RouteHandlerObject } from "workbox-core/types/RouteHandler";
-import { RouteMatchCallback } from "workbox-core/types/RouteMatchCallback";
+import {
+    HTTPMethod,
+    NavigationRoute,
+    NavigationRouteOptions,
+    RegExpRoute,
+    RegisterNavigationRouteOptions,
+    RegisterRouteCapture,
+    Route,
+    RouteHandler,
+    RouteMatchCallback,
+    Router,
+    registerNavigationRoute,
+    registerRoute,
+    setCatchHandler,
+    setDefaultHandler
+} from "workbox-routing";
 
-import * as WorkboxRouting from "workbox-routing";
+declare const findMatchingRouteOptions: Router.FindMatchingRouteOptions;
+declare const handleRequestOptions: Router.HandleRequestOptions;
+declare const httpMethod: HTTPMethod;
+declare const routeHandler: RouteHandler;
+declare const routeMatchCallback: RouteMatchCallback;
 
-declare const options: WorkboxRouting.FindMatchingRoute;
+//==============================================================================
+// WorkboxRouting.NavigationRoute
+//==============================================================================
 
-async function handler(): Promise<Response> { return new Response(); }
+export namespace NavigationRouteTest {
+    declare const handler: RouteHandler;
+    declare const options: NavigationRouteOptions;
 
-function match(): void {}
+    // $ExpectType NavigationRoute
+    new NavigationRoute(handler);
+    // $ExpectType NavigationRoute
+    new NavigationRoute(handler, options);
+}
 
-// $ExpectType NavigationRoute
-const navigationRoute = new WorkboxRouting.NavigationRoute(handler);
+//==============================================================================
+// WorkboxRouting.RegExpRoute
+//==============================================================================
 
-// $ExpectType RegExpRoute
-const regexpRoute = new WorkboxRouting.RegExpRoute(/./, handler);
+export namespace RegExpRouteTest {
+    declare const handler: RouteHandler;
+    declare const method: HTTPMethod;
+    declare const regExp: RegExp;
 
-// $ExpectType Route
-const route = new WorkboxRouting.Route(match, handler);
+    // $ExpectType RegExpRoute
+    new RegExpRoute(regExp, handler);
+    // $ExpectType RegExpRoute
+    new RegExpRoute(regExp, handler, method);
+}
 
-// $ExpectType Router
-const router = new WorkboxRouting.Router();
-router.routes; // $ExpectType Map<HTTPMethod, Route[]>
-router.addCacheListener(); // $ExpectType void
-router.addFetchListener(); // $ExpectType void
-router.findMatchingRoute(options); // $ExpectType Promise<void>
-router.handleRequest(options); // $ExpectType Promise<Response | undefined>
-router.registerRoute(route); // $ExpectType void
-router.setCatchHandler(handler); // $ExpectType void
-router.setDefaultHandler(handler); // $ExpectType void
-router.unregisterRoute(route); // $ExpectType void
+//==============================================================================
+// WorkboxRouting.Route
+//==============================================================================
 
-// $ExpectType Route
-WorkboxRouting.registerRoute(route);
+export namespace RouteTest {
+    declare const handler: RouteHandler;
+    declare const match: RouteMatchCallback;
+    declare const method: HTTPMethod;
 
-// $ExpectType void
-WorkboxRouting.setCatchHandler(handler);
+    // $ExpectType Route<any>
+    new Route(match, handler);
+    // $ExpectType Route<any>
+    new Route(match, handler, method);
+}
 
-// $ExpectType void
-WorkboxRouting.setDefaultHandler(handler);
+//==============================================================================
+// WorkboxRouting.Router
+//==============================================================================
+
+export namespace RouterTest {
+    // $ExpectType Router
+    new Router();
+
+    declare const router: Router;
+    declare const findMatchingRouteOptions: Router.FindMatchingRouteOptions;
+    declare const handleRequestOptions: Router.HandleRequestOptions;
+    declare const route: Route;
+
+    // $ExpectType Map<HTTPMethod, Route<any>[]>
+    router.routes;
+
+    // $ExpectType void
+    router.addCacheListener();
+
+    // $ExpectType void
+    router.addFetchListener();
+
+    // $ExpectType {} | FindMatchingRouteReturn<any>
+    router.findMatchingRoute(findMatchingRouteOptions);
+
+    // $ExpectType Promise<Response | undefined>
+    router.handleRequest(handleRequestOptions);
+
+    // $ExpectType void
+    router.registerRoute(route);
+
+    // $ExpectType void
+    router.setCatchHandler(routeHandler);
+
+    // $ExpectType void
+    router.setDefaultHandler(routeHandler);
+
+    // $ExpectType void
+    router.unregisterRoute(route);
+}
+
+//==============================================================================
+// WorkboxRouting.registerRoute
+//==============================================================================
+
+export namespace RegisterNavigationRouteTest {
+    declare const url: string;
+    declare const options: RegisterNavigationRouteOptions;
+
+    // $ExpectType NavigationRoute
+    registerNavigationRoute(url);
+    // $ExpectType NavigationRoute
+    registerNavigationRoute(url, options);
+}
+
+//==============================================================================
+// WorkboxRouting.registerRoute
+//==============================================================================
+
+export namespace RegisterRouteTest {
+    declare const capture: RegisterRouteCapture;
+    declare const handler: RouteHandler;
+    declare const method: HTTPMethod;
+
+    // $ExpectType Route<any>
+    registerRoute(capture);
+    // $ExpectType Route<any>
+    registerRoute(capture, handler);
+    // $ExpectType Route<any>
+    registerRoute(capture, handler, method);
+}
+
+//==============================================================================
+// WorkboxRouting.setCatchHandler
+//==============================================================================
+
+export namespace SetCatchHandler {
+    declare const handler: RouteHandler;
+
+    // $ExpectType void
+    setCatchHandler(handler);
+}
+
+//==============================================================================
+// WorkboxRouting.setDefaultHandler
+//==============================================================================
+
+export namespace SetDefaultHandler {
+    declare const handler: RouteHandler;
+
+    // $ExpectType void
+    setDefaultHandler(handler);
+}

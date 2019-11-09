@@ -4,12 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export { NavigationRoute } from "./NavigationRoute";
-export { RegExpRoute } from "./RegExpRoute";
-export { Route } from "./Route";
+export * from "./NavigationRoute";
+export * from "./RegExpRoute";
+export * from "./Route";
 export * from "./Router";
+export * from "./registerNavigationRoute";
 export * from "./registerRoute";
 export * from "./setCatchHandler";
 export * from "./setDefaultHandler";
 
 export * from "./types/HTTPMethod";
+export * from "./types/RouteHandler";
+export * from "./types/RouteMatchCallback";
