@@ -3,8 +3,6 @@ export interface MakeRequestCallback {
 }
 
 export interface MakeRequestCallbackOptions {
-    request: Request | string;
+    request: string | Request;
     event?: ExtendableEvent;
-    params?: string[] | Record<string, string>;
-    url?: URL;
 }

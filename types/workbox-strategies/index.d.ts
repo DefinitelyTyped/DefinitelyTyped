@@ -9,3 +9,5 @@ export * from "./CacheOnly";
 export * from "./NetworkFirst";
 export * from "./NetworkOnly";
 export * from "./StaleWhileRevalidate";
+
+export * from "./types/MakeRequestCallback";
