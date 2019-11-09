@@ -1,16 +1,42 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxNavigationPreload from "workbox-navigation-preload";
+import {
+    disable,
+    enable,
+    isSupported,
+} from "workbox-navigation-preload";
 
 declare const headerValue: string;
 
-// $ExpectType void
-WorkboxNavigationPreload.disable();
+//==============================================================================
+// WorkboxNavigationPreload.disable
+//==============================================================================
 
-// $ExpectType void
-WorkboxNavigationPreload.enable();
-// $ExpectType void
-WorkboxNavigationPreload.enable(headerValue);
+export namespace DisableTest {
+    // $ExpectType void
+    disable();
+}
 
-// $ExpectType boolean
-WorkboxNavigationPreload.isSupported();
+//==============================================================================
+// WorkboxNavigationPreload.enable
+//==============================================================================
+
+export namespace EnableTest {
+    declare const header: string;
+
+    // $ExpectType void
+    enable();
+    // $ExpectType void
+    enable(header);
+}
+
+//==============================================================================
+// WorkboxNavigationPreload.isSupported
+//==============================================================================
+
+export namespace IsSupportedTest {
+    // $ExpectType boolean
+    isSupported();
+}
