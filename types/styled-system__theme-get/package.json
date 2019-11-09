@@ -1,6 +1,3 @@
 {
-  "private": true,
-  "devDependencies": {
-    "@styled-system/theme-get": "^5.1.2"
-  }
+  "private": true
 }
