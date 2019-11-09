@@ -136,14 +136,19 @@ declare namespace webpack {
         optimization?: Options.Optimization;
     }
 
+    type Args = Record<string, string> & {
+        /** See https://webpack.js.org/configuration/mode/ */
+        mode: Configuration['mode'];
+    };
+
     type ConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
-        args: Record<string, string>,
+        args: Args,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
-        args: Record<string, string>,
+        args: Args,
     ) => Configuration[] | Promise<Configuration[]>);
 
     interface Entry {
