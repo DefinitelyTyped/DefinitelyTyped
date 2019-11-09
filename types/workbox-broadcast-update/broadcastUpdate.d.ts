@@ -1,4 +1,4 @@
-export function broadcastUpdate(options): Promise<void>;
+export function broadcastUpdate(options: BroadcastUpdateOptions): Promise<void>;
 
 export interface BroadcastUpdateOptions {
     cacheName: string;
