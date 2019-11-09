@@ -119,6 +119,7 @@ interface Howl {
     once(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
 
     off(event: string, callback?: Function, id?: number): this;
+    off(): this;
 
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;
