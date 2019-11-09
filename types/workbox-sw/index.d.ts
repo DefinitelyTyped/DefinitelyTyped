@@ -1,4 +1,4 @@
-// Type definitions for workbox-sw 4.2
+// Type definitions for workbox-sw 4.3
 // Project: https://github.com/GoogleChrome/workbox
 // Definitions by: Frederik Wessberg <https://github.com/wessberg>
 //				   Jason Kwok <https://github.com/JasonHK>
