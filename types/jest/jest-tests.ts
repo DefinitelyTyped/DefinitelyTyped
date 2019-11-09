@@ -725,21 +725,15 @@ expect.extend({
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
 
-        const diff: string = this.utils.diff({}, {});
+        const diff: string | null = this.utils.diff({}, {});
 
-        this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, 'matcher');
 
-        this.utils.ensureExpectedIsNumber({});
         this.utils.ensureExpectedIsNumber({}, 'matcher');
 
-        this.utils.ensureNoExpected({});
         this.utils.ensureNoExpected({}, 'matcher');
 
-        this.utils.ensureNumbers({}, {});
         this.utils.ensureNumbers({}, {}, 'matcher');
-
-        const valueType: string = this.utils.getType({});
 
         this.utils.matcherHint('matcher');
         this.utils.matcherHint('matcher', 'received');
@@ -819,6 +813,11 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
+
+        // $ExpectError
+        expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
+        // $ExpectError
+        expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
 
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
@@ -1497,6 +1496,24 @@ test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
     },
     5000
 );
+
+declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
+test.each(constCases)('%s + %s', (...args) => {
+    // following assertion is skipped because of flaky testing
+    // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
+    args;
+});
+
+declare const constCasesWithMoreThanTen: [
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+];
+
+test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
+    // following assertion is skipped because of flaky testing
+    // _$ExpectType [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] | [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+    args;
+});
 
 test.each`
     a    | b    | expected

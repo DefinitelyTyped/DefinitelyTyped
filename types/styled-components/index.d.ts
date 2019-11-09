@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.1
+// Type definitions for styled-components 4.4
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -346,7 +346,7 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 >;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
@@ -414,7 +414,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<

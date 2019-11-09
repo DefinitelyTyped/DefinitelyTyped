@@ -65,6 +65,8 @@ export {
     Variable,
 } from './lib/core/GraphQLIR';
 
+export { createUserError } from './lib/core/RelayCompilerError';
+
 export {
     EnumTypeID,
     FieldID,

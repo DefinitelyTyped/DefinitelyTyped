@@ -31,6 +31,7 @@
 //                 Juan Carbonel <https://github.com/juancarbonel>
 //                 Peter McIntyre <https://github.com/pwmcintyre>
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
+//                 Marian Zange <https://github.com/marianzange>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -56,6 +57,7 @@ export interface APIGatewayEventRequestContext {
         cognitoAuthenticationType: string | null;
         cognitoIdentityId: string | null;
         cognitoIdentityPoolId: string | null;
+        principalOrgId: string | null;
         sourceIp: string;
         user: string | null;
         userAgent: string | null;

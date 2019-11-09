@@ -35,7 +35,6 @@ stripe.balance.listTransactions().then(items => {
 stripe.balance.listTransactions().autoPagingEach(async item => {
     item; // $ExpectType IBalanceTransaction
 });
-stripe.balance.listTransactions().autoPagingToArray({}); // $ExpectError
 stripe.balance
     .listTransactions()
     .autoPagingToArray({ limit: 1 })
@@ -174,7 +173,7 @@ stripe.charges.update(
     'ch_15fvyXEe31JkLCeQOo0SwFk9',
     {
         description: 'Charge for test@example.com',
-        transfer_group: "Transfer group for this charge",
+        transfer_group: 'Transfer group for this charge',
     },
     (err, charge) => {
         // asynchronously called
@@ -319,12 +318,14 @@ stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] })
 stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
-        line_items: [{
-            name: "Cucumber from Roger's Farm",
-            amount: 200,
-            currency: 'usd',
-            quantity: 10,
-        }],
+        line_items: [
+            {
+                name: "Cucumber from Roger's Farm",
+                amount: 200,
+                currency: 'usd',
+                quantity: 10,
+            },
+        ],
         payment_intent_data: {
             application_fee_amount: 200,
         },
@@ -336,7 +337,7 @@ stripe.checkout.sessions.create(
     },
     (err, session) => {
         // asynchronously called
-    }
+    },
 );
 
 // Destination charges with destination
@@ -397,9 +398,11 @@ stripe.checkout.sessions.create(
     {
         payment_method_types: ['card'],
         subscription_data: {
-            items: [{
-                plan: 'plan_123',
-            }],
+            items: [
+                {
+                    plan: 'plan_123',
+                },
+            ],
             application_fee_percent: 10,
         },
         success_url: 'https://example.com/success',
@@ -410,7 +413,7 @@ stripe.checkout.sessions.create(
     },
     (err, session) => {
         // asynchronously called
-    }
+    },
 );
 //#endregion
 
@@ -492,9 +495,9 @@ stripe.customers.create(
         tax_id_data: [
             {
                 type: 'eu_vat',
-                value: 'DE123456789'
-            }
-        ]
+                value: 'DE123456789',
+            },
+        ],
     },
     (err, customer) => {
         // asynchronously called
@@ -1077,18 +1080,17 @@ stripe.transfers.createReversal('tr_17F2JBFuhr4V1legrq97JrFE').then(reversal => 
 //#region Accounts test
 // ##################################################################################
 
-stripe.accounts
-    .create({
+stripe.accounts.create(
+    {
         type: 'custom',
         country: 'US',
         email: 'bob@example.com',
-        requested_capabilities: [
-            'card_payments',
-            'transfers'
-        ]
-    }, (err, account) => {
+        requested_capabilities: ['card_payments', 'transfers'],
+    },
+    (err, account) => {
         // asynchronously called
-    });
+    },
+);
 stripe.accounts
     .create({
         type: 'custom',
@@ -1302,7 +1304,7 @@ stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk').then(loginLink => {
     const created: number = loginLink.created;
     const url: string = loginLink.url;
 });
-stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', 'http://localhost:3000').then(loginLink => {
+stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', { redirect_url: 'http://localhost:3000' }).then(loginLink => {
     const object: string = loginLink.object;
     const created: number = loginLink.created;
     const url: string = loginLink.url;
@@ -1313,41 +1315,51 @@ stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', 'http://localhost:3000'
 //#region Connect Account Person tests
 // ##################################################################################
 
-stripe.accounts.createPerson('acct_17wV8KBoqMA9o2xk', {
-    email: 'test@example.com',
-    relationship: {
-        executive: true
-    }
-}).then((person) => {
+stripe.accounts
+    .createPerson('acct_17wV8KBoqMA9o2xk', {
+        email: 'test@example.com',
+        relationship: {
+            executive: true,
+        },
+    })
+    .then(person => {
+        const email: string = person.email;
+    });
+stripe.accounts
+    .updatePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37', {
+        first_name: 'John',
+        last_name: 'Doe',
+        phone: '15551234567',
+    })
+    .then(person => {
+        const first_name: string = person.first_name;
+        const last_name: string = person.last_name;
+    });
+
+stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then(person => {
     const email: string = person.email;
 });
-stripe.accounts.updatePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37', {
-    first_name: 'John',
-    last_name: 'Doe',
-    phone: '15551234567',
-}).then((person) => {
-    const first_name: string = person.first_name;
-    const last_name: string = person.last_name;
-});
 
-stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
+stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then(person => {
     const email: string = person.email;
 });
 
-stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
-    const email: string = person.email;
-});
-
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }, { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
+stripe.accounts
+    .listPersons(
+        'acct_17wV8KBoqMA9o2xk',
+        { relationship: { executive: true }, limit: 3 },
+        { stripe_account: 'acct_17wV8KOoqMF9a2xk' },
+    )
+    .then(persons => {
+        const email: string = persons.data[0].email;
+    });
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }).then(persons => {
     const email: string = persons.data[0].email;
 });
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }).then((persons) => {
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then(persons => {
     const email: string = persons.data[0].email;
 });
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
-    const email: string = persons.data[0].email;
-});
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then((persons) => {
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then(persons => {
     const email: string = persons.data[0].email;
 });
 //#endregion

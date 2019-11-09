@@ -753,7 +753,7 @@ subscription.on('close', () => {});
         static current(): User | undefined;
         static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
+        static logIn(username: string, password: string, options?: FullOptions): Promise<User>;
         static logOut(): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
@@ -761,7 +761,7 @@ subscription.on('close', () => {});
         static enableUnsafeCurrentUser(): void;
 
         signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
-        logIn(options?: SuccessFailureOptions): Promise<this>;
+        logIn(options?: FullOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
@@ -914,7 +914,7 @@ subscription.on('close', () => {});
         function init(options?: any): void;
         function isLinked(user: User): boolean;
         function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
-        function logIn(permissions: any, options?: SuccessFailureOptions): void;
+        function logIn(permissions: any, options?: FullOptions): void;
         function unlink(user: User, options?: SuccessFailureOptions): void;
     }
 
@@ -950,7 +950,7 @@ subscription.on('close', () => {});
         }
 
         interface FunctionRequest {
-            installationId?: String;
+            installationId?: string;
             master?: boolean;
             params?: any;
             user?: User;
@@ -963,7 +963,7 @@ subscription.on('close', () => {});
         }
 
         interface TriggerRequest {
-            installationId?: String;
+            installationId?: string;
             master?: boolean;
             user?: User;
             ip: string;

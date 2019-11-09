@@ -1,7 +1,6 @@
 import depcheck = require('depcheck');
 
 const options: depcheck.Options = {
-    withoutDev: false,
     ignoreBinPackage: false,
     ignoreDirs: ['sandbox', 'dist', 'bower_components'],
     ignoreMatches: ['grunt-*'],
