@@ -1,12 +1,29 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxRangeRequests from "workbox-range-requests";
+import {
+    Plugin,
+    createPartialResponse,
+} from "workbox-range-requests";
 
-declare const request: Request;
-declare const response: Response;
+//==============================================================================
+// WorkboxRangeRequests.Plugin
+//==============================================================================
 
-// $ExpectType RangeRequestsPlugin
-const plugin = new WorkboxRangeRequests.RangeRequestsPlugin();
+export namespace RangeRequestsPluginTest {
+    // $ExpectType Plugin
+    new Plugin();
+}
 
-// $ExpectType Promise<Response>
-WorkboxRangeRequests.createPartialResponse(request, response);
+//==============================================================================
+// WorkboxRangeRequests.createPartialResponse
+//==============================================================================
+
+export namespace CreatePartialResponseTest {
+    declare const request: Request;
+    declare const response: Response;
+
+    // $ExpectType Promise<Response>
+    createPartialResponse(request, response);
+}

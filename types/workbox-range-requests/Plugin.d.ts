@@ -1,6 +1,6 @@
 import { CachedResponseWillBeUsedCallback, WorkboxPlugin } from "workbox-core/types/WorkboxPlugin";
 
-export class RangeRequestsPlugin implements WorkboxPlugin {
+export class Plugin implements WorkboxPlugin {
     constructor();
     cachedResponseWillBeUsed: CachedResponseWillBeUsedCallback;
 }
