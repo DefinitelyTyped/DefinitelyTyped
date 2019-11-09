@@ -1,8 +1,9 @@
-// Type definitions for simple-peer 6.1
+// Type definitions for simple-peer 9.6
 // Project: https://github.com/feross/simple-peer
 // Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 xWiiLLz <https://github.com/xWiiLLz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
