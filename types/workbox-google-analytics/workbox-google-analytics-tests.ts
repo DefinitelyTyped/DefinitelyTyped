@@ -1,6 +1,21 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxGoogleAnalytics from "workbox-google-analytics";
+import {
+    InitializeOptions,
+    initialize,
+} from "workbox-google-analytics";
 
-// $ExpectType void
-WorkboxGoogleAnalytics.initialize();
+//==============================================================================
+// WorkboxGoogleAnalytics.initialize
+//==============================================================================
+
+export namespace InitializeTest {
+    declare const options: InitializeOptions;
+
+    // $ExpectType void
+    initialize();
+    // $ExpectType void
+    initialize(options);
+}
