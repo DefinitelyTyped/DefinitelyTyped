@@ -5,4 +5,4 @@
 // TypeScript Version: 2.3
 
 export * from "./BroadcastCacheUpdate";
-export * from "./BroadcastUpdatePlugin";
+export * from "./Plugin";

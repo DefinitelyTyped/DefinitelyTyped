@@ -1,11 +1,20 @@
-import { CacheDidUpdateCallbackParam } from "workbox-core/types/WorkboxPlugin";
-
-export class BroadcastCacheUpdate<P = void> {
-    constructor(options?: BroadcastCacheUpdateOptions<P>);
-    notifyIfUpdated(param: CacheDidUpdateCallbackParam): Promise<void>;
+export class BroadcastCacheUpdate {
+    constructor(options?: BroadcastCacheUpdateOptions);
+    notifyIfUpdated(options: BroadcastCacheUpdate.NotifyIfUpdatedOptions): Promise<void>;
 }
 
-export interface BroadcastCacheUpdateOptions<P = void> {
+export namespace BroadcastCacheUpdate {
+    interface NotifyIfUpdatedOptions {
+        cacheName: string;
+        newResponse: Response;
+        oldResponse?: Response;
+        url: string;
+        event?: Event;
+    }
+}
+
+export interface BroadcastCacheUpdateOptions {
+    channelName?: string;
+    deferNoticationTimeout?: number;
     headersToCheck?: string[];
-    generatePayload?: (param: CacheDidUpdateCallbackParam) => P;
 }

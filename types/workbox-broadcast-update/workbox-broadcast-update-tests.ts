@@ -1,13 +1,41 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxBroadcastUpdate from "workbox-broadcast-update";
-import { CacheDidUpdateCallbackParam } from "workbox-core/types/WorkboxPlugin";
+import {
+    BroadcastCacheUpdate,
+    BroadcastCacheUpdateOptions,
+    Plugin,
+} from "workbox-broadcast-update";
 
-declare const param: CacheDidUpdateCallbackParam;
+//==============================================================================
+// WorkboxBroadcastUpdate.BroadcastCacheUpdate
+//==============================================================================
 
-// $ExpectType BroadcastCacheUpdate<void>
-const broadcast = new WorkboxBroadcastUpdate.BroadcastCacheUpdate();
-broadcast.notifyIfUpdated(param); // $ExpectType Promise<void>
+export namespace BroadcastCacheUpdateTest {
+    declare const options: BroadcastCacheUpdateOptions;
 
-// $ExpectType BroadcastUpdatePlugin<void>
-const plugin = new WorkboxBroadcastUpdate.BroadcastUpdatePlugin();
+    // $ExpectType BroadcastCacheUpdate
+    new BroadcastCacheUpdate();
+    // $ExpectType BroadcastCacheUpdate
+    new BroadcastCacheUpdate(options);
+
+    declare const broadcast: BroadcastCacheUpdate;
+    declare const notifyOptions: BroadcastCacheUpdate.NotifyIfUpdatedOptions;
+
+    // $ExpectType Promise<void>
+    broadcast.notifyIfUpdated(notifyOptions);
+}
+
+//==============================================================================
+// WorkboxBroadcastUpdate.Plugin
+//==============================================================================
+
+export namespace BroadcastUpdatePluginTest {
+    declare const options: BroadcastCacheUpdateOptions;
+
+    // $ExpectType Plugin
+    new Plugin();
+    // $ExpectType Plugin
+    new Plugin(options);
+}

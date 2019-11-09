@@ -20,7 +20,7 @@
     "files": [
         "index.d.ts",
         "BroadcastCacheUpdate.d.ts",
-        "BroadcastUpdatePlugin.d.ts",
+        "Plugin.d.ts",
         "workbox-broadcast-update-tests.ts"
     ]
 }
