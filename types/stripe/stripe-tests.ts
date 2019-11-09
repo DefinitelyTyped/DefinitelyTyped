@@ -1050,14 +1050,14 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 // ##################################################################################
 
 stripe.transfers.create(
-    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' },
+    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' },
     (err, reversal) => {
         // asynchronously called
     },
 );
 
 stripe.transfers
-    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' })
+    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' })
     .then(reversal => {
         // asynchronously called
     });
