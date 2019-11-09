@@ -24,7 +24,6 @@
         "isSupported.d.ts",
         "strategy.d.ts",
         "types/StreamSource.d.ts",
-        "utils/createHeaders.d.ts",
         "workbox-streams-tests.ts"
     ]
 }

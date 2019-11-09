@@ -1,23 +1,57 @@
+/* tslint:disable:comment-format no-namespace */
+
 "use strict";
 
-import * as WorkboxStreams from "workbox-streams";
-import { createHeaders } from "workbox-streams/utils/createHeaders";
+import {
+    StreamSource,
+    StreamsHandlerCallback,
+    concatenate,
+    concatenateToResponse,
+    isSupported,
+    strategy
+} from "workbox-streams";
 
-declare const headersInit: HeadersInit;
-declare const sourceFunctions: WorkboxStreams.StreamsHandlerCallback[];
-declare const sourcePromises: Array<Promise<WorkboxStreams.StreamSource>>;
+//==============================================================================
+// WorkboxStreams.concatenate
+//==============================================================================
 
-// $ExpectType ConcatenateReturn
-WorkboxStreams.concatenate(sourcePromises);
+export namespace ConcatenateTest {
+    declare const sources: Array<Promise<StreamSource>>;
 
-// $ExpectType ConcatenateToResponseReturn
-WorkboxStreams.concatenateToResponse(sourcePromises);
+    // $ExpectType ConcatenateReturn
+    concatenate(sources);
+}
 
-// $ExpectType boolean
-WorkboxStreams.isSupported();
+//==============================================================================
+// WorkboxStreams.concatenateToResponse
+//==============================================================================
 
-// $ExpectType RouteHandlerCallback
-WorkboxStreams.strategy(sourceFunctions);
+export namespace ConcatenateToResponseTest {
+    declare const sources: Array<Promise<StreamSource>>;
 
-// $ExpectType boolean
-createHeaders(headersInit);
+    // $ExpectType ConcatenateToResponseReturn
+    concatenateToResponse(sources);
+}
+
+//==============================================================================
+// WorkboxStreams.concatenate
+//==============================================================================
+
+export namespace IsSupportedTest {
+    // $ExpectType boolean
+    isSupported();
+}
+
+//==============================================================================
+// WorkboxStreams.strategy
+//==============================================================================
+
+export namespace StrategyTest {
+    declare const headers: HeadersInit;
+    declare const sources: StreamsHandlerCallback[];
+
+    // $ExpectType RouteHandlerCallback
+    strategy(sources);
+    // $ExpectType RouteHandlerCallback
+    strategy(sources, headers);
+}
