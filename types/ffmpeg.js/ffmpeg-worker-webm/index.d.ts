@@ -3,7 +3,7 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare namespace Worker {
+export namespace Worker {
     interface Data {
         type: string;
         data: string;
@@ -19,7 +19,7 @@ export declare namespace Worker {
     }
 }
 
-export declare class Worker {
+export class Worker {
     constructor(someParam?: string);
 
     onmessage(opts: Worker.OnMessageOptions): void;
