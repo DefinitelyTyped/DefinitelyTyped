@@ -63,6 +63,14 @@ declare namespace AdazzleReactDataGrid {
          */
         onCellsDragged?: (e: CellDragEvent) => void
         /**
+         * Invoked when the user clicks on one cell to expand it.
+         * @param e Information about the event
+         */
+        onCellExpand?: (e:CellExpandEvent) => void
+
+        getSubRowDetails?: (e: any) => SubRowDetails
+
+        /**
          * Invoked when the user double clicks on the drag handle of an editable cell.
          * Should update the values of the cells beneath the selected cell.
          * @param e Information about the event
@@ -457,6 +465,54 @@ declare namespace AdazzleReactDataGrid {
     }
 
     /**
+    *   Information about a cell expanded.
+    */
+    interface CellExpandEvent<T = any> {
+        /**
+         * The row index where the cell is being expanded.
+         */
+        rowIdx: number
+        /**
+         * The column index where the cell is being expanded.
+         */
+        idx: number
+        /**
+         * The values of the row.
+         */
+        rowData: T
+        /**
+         * Expand data.
+         */
+        expandArgs: any
+    }
+
+    /**
+     * Information about subrows.
+     */
+    interface SubRowDetails<T = any> {
+        /**
+         * Determines if the cell can expand.
+         */
+        canExpand?: boolean;
+        /**
+         * Sets the field/column that will be use to expand the subrows.
+         */
+        field: string;
+        /**
+         * Determines if the row has already expanded.
+         */
+        expanded: boolean;
+        /**
+         * Children data.
+         */
+        children?: T[];
+        treeDepth?: number;
+        siblingIndex?: number;
+        numberSiblings?: number;
+        group?: boolean;
+    }
+
+    /**
      * Information about a drag handle double click. Generic event type returns untyped row, use parameterized type with the row type as the parameter
      * @default T = any
      */
@@ -584,6 +640,7 @@ declare namespace AdazzleReactDataGrid {
         export import RowUpdateEvent = AdazzleReactDataGrid.RowUpdateEvent;
         export import SelectionParams = AdazzleReactDataGrid.SelectionParams;
         export import CellDragEvent = AdazzleReactDataGrid.CellDragEvent;
+        export import CellExpandEvent = AdazzleReactDataGrid.CellExpandEvent;
         export import DragHandleDoubleClickEvent = AdazzleReactDataGrid.DragHandleDoubleClickEvent;
         export import CellCopyPasteEvent = AdazzleReactDataGrid.CellCopyPasteEvent;
         export import GridRowsUpdatedEvent = AdazzleReactDataGrid.GridRowsUpdatedEvent;
