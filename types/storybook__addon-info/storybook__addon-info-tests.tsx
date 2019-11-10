@@ -1,4 +1,4 @@
-import React, { Component, FunctionComponent } from 'react';
+import React, { Component, FunctionComponent, HTMLAttributes } from 'react';
 import { addDecorator, addParameters, storiesOf } from '@storybook/react';
 import { setDefaults, withInfo, TableComponentOptionProps } from '@storybook/addon-info';
 
@@ -26,6 +26,16 @@ const TableComponent: FunctionComponent<TableComponentOptionProps> = ({ propDefi
     </table>
 );
 
+const BaseButton: FunctionComponent<HTMLAttributes<HTMLButtonElement> & { label: string }> = ({ label }) => (
+    <button type="button">{label}</button>
+);
+
+const CustomButton: FunctionComponent<HTMLAttributes<HTMLButtonElement> & { label: string }> = ({ label, style }) => (
+    <button type="button" style={style}>
+        {label}
+    </button>
+);
+
 // `withInfo` used as global decorator
 addDecorator(withInfo);
 
@@ -36,10 +46,10 @@ addParameters({
         inline: true,
         header: true,
         source: true,
-        propTables: false,
-        propTablesExclude: [TableComponent],
+        propTables: [CustomButton],
+        propTablesExclude: [BaseButton],
         styles: {},
-        components: { table: TableComponent },
+        components: {},
         marksyConf: {},
         maxPropObjectKeys: 1,
         maxPropArrayLength: 2,
