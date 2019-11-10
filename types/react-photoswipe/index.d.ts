@@ -2,7 +2,7 @@
 // Project: https://github.com/minhtranite/react-photoswipe
 // Definitions by: kwzm <https://github.com/kwzm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6.4
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import { Item, Options } from 'photoswipe';
