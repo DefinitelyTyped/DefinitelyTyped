@@ -212,6 +212,7 @@ declare module "stream" {
             writableObjectMode?: boolean;
             readableHighWaterMark?: number;
             writableHighWaterMark?: number;
+            writableCorked?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;

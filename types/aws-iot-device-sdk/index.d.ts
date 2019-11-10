@@ -8,6 +8,7 @@
 
 import * as mqtt from "mqtt";
 import * as WebSocket from "ws";
+import { EventEmitter } from 'events';
 
 export interface DeviceOptions extends mqtt.IClientOptions {
   /** the AWS IoT region you will operate in (default "us-east-1") */
@@ -140,7 +141,7 @@ export interface DeviceOptions extends mqtt.IClientOptions {
   debug?: boolean;
 }
 
-export class device extends NodeJS.EventEmitter {
+export class device extends EventEmitter {
   /**
    * Returns a wrapper for the mqtt.Client() class, configured for a TLS
    * connection with the AWS IoT platform and with arguments as specified
@@ -241,7 +242,7 @@ export interface RegisterOptions {
  * The thingShadow class wraps an instance of the device class with
  * additional functionality to operate on Thing Shadows via the AWS IoT API.
  */
-export class thingShadow extends NodeJS.EventEmitter {
+export class thingShadow extends EventEmitter {
 
   constructor(options?: ThingShadowOptions);
 

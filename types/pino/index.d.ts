@@ -16,7 +16,7 @@
 
 import stream = require('stream');
 import http = require('http');
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 import SonicBoom = require('sonic-boom');
 import * as pinoStdSerializers from 'pino-std-serializers';
 

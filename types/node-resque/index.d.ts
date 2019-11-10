@@ -5,6 +5,7 @@
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
 export interface ConnectionOptions {
     pkg?: string;
@@ -17,7 +18,7 @@ export interface ConnectionOptions {
     redis?: any;
 }
 
-export class Connection extends NodeJS.EventEmitter {
+export class Connection extends EventEmitter {
     constructor(options: ConnectionOptions);
 
     connect(): Promise<void>;
@@ -49,7 +50,7 @@ export interface WorkerStatus {
     worker: string;
 }
 
-export class Queue extends NodeJS.EventEmitter {
+export class Queue extends EventEmitter {
     constructor(options: QueueOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -94,7 +95,7 @@ export interface WorkerOptions {
 
 export type WorkerEvent = 'start' | 'end' | 'cleaning_worker' | 'poll' | 'ping' | 'job' | 'reEnqueue' | 'success' | 'failure' | 'error' | 'pause';
 
-export class Worker extends NodeJS.EventEmitter {
+export class Worker extends EventEmitter {
     constructor(options: WorkerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -134,7 +135,7 @@ export interface SchedulerOptions {
 
 export type SchedulerEvent = 'start' | 'end' | 'poll' | 'master' | 'cleanStuckWorker' | 'error' | 'workingTimestamp' | 'transferredJob';
 
-export class Scheduler extends NodeJS.EventEmitter {
+export class Scheduler extends EventEmitter {
     constructor(options: SchedulerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;

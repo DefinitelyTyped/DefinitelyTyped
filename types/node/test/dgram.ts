@@ -106,3 +106,11 @@ import * as dns from 'dns';
     size = ds.getSendBufferSize();
     ds.setSendBufferSize(size);
 }
+
+{
+    const ds: dgram.Socket = dgram.createSocket({
+        type: 'udp4',
+    });
+    ds.addSourceSpecificMembership('127.0.0.1', '127.0.0.1', 'test');
+    ds.dropSourceSpecificMembership('127.0.0.1', '127.0.0.1', 'test');
+}

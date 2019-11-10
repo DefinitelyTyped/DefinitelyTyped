@@ -8,7 +8,7 @@
 
 import { EventEmitter } from "events";
 
-export abstract class AsyncIterator<T> extends NodeJS.EventEmitter {
+export abstract class AsyncIterator<T> extends EventEmitter {
     static STATES: ['INIT', 'OPEN', 'CLOSING', 'CLOSED', 'ENDED'];
     static INIT: 0;
     static OPEN: 1;
