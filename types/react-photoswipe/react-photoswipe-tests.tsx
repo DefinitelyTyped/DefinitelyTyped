@@ -1,5 +1,3 @@
-// TypeScript Version: 3.5
-
 import * as React from 'react';
 import { Item } from 'photoswipe';
 import { PhotoSwipe, PhotoSwipeGalleryItem, PhotoSwipeGallery } from 'react-photoswipe';
