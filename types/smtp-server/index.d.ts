@@ -150,11 +150,6 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /** indicate an TLS server where TLS is handled upstream */
     secured?: boolean;
     /** optional private keys in PEM format */
-    key?: string | string[] | Buffer | Buffer[] | Array<{ pem: string | Buffer, passphrase: string }>;
-    /** optional cert chains in PEM format */
-    cert?: string | string[] | Buffer | Buffer[];
-    /** optionally override the trusted CA certificates */
-    ca?: string | string[] | Buffer | Buffer[];
     /**
      * optional hostname of the server,
      * used for identifying to the client (defaults to os.hostname())

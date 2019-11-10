@@ -3,6 +3,10 @@ import * as assert from 'assert';
 import { promisify } from 'util';
 
 {
+    const copied: crypto.Hash = crypto.createHash('md5').copy();
+}
+
+{
     // crypto_hash_string_test
     let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
     hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');

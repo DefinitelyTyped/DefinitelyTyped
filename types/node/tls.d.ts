@@ -352,8 +352,8 @@ declare module "tls" {
     type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
 
     interface SecureContextOptions {
-        pfx?: string | Buffer | Array<string | Buffer | Object>;
-        key?: string | Buffer | Array<Buffer | Object>;
+        pfx?: string | Buffer | Array<string | Buffer | object>;
+        key?: string | Buffer | Array<Buffer | object>;
         passphrase?: string;
         cert?: string | Buffer | Array<string | Buffer>;
         ca?: string | Buffer | Array<string | Buffer>;

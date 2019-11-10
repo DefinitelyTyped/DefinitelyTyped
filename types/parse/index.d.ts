@@ -23,6 +23,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 declare enum ErrorCode {
     OTHER_CAUSE = -1,
     INTERNAL_SERVER_ERROR = 1,
@@ -81,7 +83,8 @@ declare enum ErrorCode {
     X_DOMAIN_REQUEST = 602,
 }
 
-declare namespace Parse {
+declare global {
+namespace Parse {
     let applicationId: string;
     let javaScriptKey: string | undefined;
     let masterKey: string | undefined;
@@ -699,7 +702,7 @@ subscription.on('delete', (object: Parse.Object) => {});
 subscription.on('close', () => {});
 ```
      */
-    class LiveQuerySubscription extends NodeJS.EventEmitter {
+    class LiveQuerySubscription extends EventEmitter {
         /**
          * Creates an instance of LiveQuerySubscription.
          *
@@ -1259,17 +1262,13 @@ subscription.on('close', () => {});
 
     function setLocalDatastoreController(controller: any): void;
 }
-
+}
 declare module 'parse/node' {
     export = Parse;
 }
 
-declare module 'parse' {
-    import * as parse from 'parse/node';
-    export = parse;
+declare module 'parse/react-native' {
+    export = Parse;
 }
 
-declare module 'parse/react-native' {
-    import * as parse from 'parse/node';
-    export = parse;
-}
+export = Parse;
