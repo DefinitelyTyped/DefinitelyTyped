@@ -1459,6 +1459,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "fsevents",
+            "typingsPackageName": "fsevents",
+            "sourceRepoURL": "https://github.com/fsevents/fsevents",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "FullCalendar",
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
