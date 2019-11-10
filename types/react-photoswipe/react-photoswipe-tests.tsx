@@ -1,3 +1,5 @@
+// TypeScript Version: 3.5
+
 import * as React from 'react';
 import { Item } from 'photoswipe';
 import { PhotoSwipe, PhotoSwipeGalleryItem, PhotoSwipeGallery } from 'react-photoswipe';
@@ -11,7 +13,7 @@ class MyApp extends React.Component<{}, State> {
     state = {
         openPhotoSwipe: false,
         openPhotoSwipeGallery: false,
-    }
+    };
 
     itemsInPhotoSwipe = [
         {
@@ -59,41 +61,41 @@ class MyApp extends React.Component<{}, State> {
         );
     }
 
-    handleClose = () => { }
+    handleClose = () => { };
 
-    handleBeforeChange = (item: PhotoSwipe) => { console.log(item) }
+    handleBeforeChange = (item: PhotoSwipe) => { console.log(item); };
 
-    handleAfterChange = (item: PhotoSwipe) => { console.log(item) }
+    handleAfterChange = (item: PhotoSwipe) => { console.log(item); };
 
-    handleImageLoadComplete = (instance: PhotoSwipe, index: number, item: Item) => { console.log(instance, index, item) }
+    handleImageLoadComplete = (instance: PhotoSwipe, index: number, item: Item) => { console.log(instance, index, item); };
 
-    handleResize = (instance: PhotoSwipe) => { console.log(instance) }
+    handleResize = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleGettingData = (instance: PhotoSwipe, index: number, item: Item) => { console.log(instance, index, item) }
+    handleGettingData = (instance: PhotoSwipe, index: number, item: Item) => { console.log(instance, index, item); };
 
-    handleMouseUsed = (instance: PhotoSwipe) => { console.log(instance) }
+    handleMouseUsed = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleInitialZoomIn = (instance: PhotoSwipe) => { console.log(instance) }
+    handleInitialZoomIn = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleInitialZoomInEnd = (instance: PhotoSwipe) => { console.log(instance) }
+    handleInitialZoomInEnd = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleInitialZoomOut = (instance: PhotoSwipe) => { console.log(instance) }
+    handleInitialZoomOut = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleInitialZoomOutEnd = (instance: PhotoSwipe) => { console.log(instance) }
+    handleInitialZoomOutEnd = (instance: PhotoSwipe) => { console.log(instance); };
 
-    parseVerticalMargin = (instance: PhotoSwipe, item: Item) => { console.log(instance, item) }
+    parseVerticalMargin = (instance: PhotoSwipe, item: Item) => { console.log(instance, item); };
 
-    close = (instance: PhotoSwipe) => { console.log(instance) }
+    close = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleUnbindEvents = (instance: PhotoSwipe) => { console.log(instance) }
+    handleUnbindEvents = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleDestroy = (instance: PhotoSwipe) => { console.log(instance) }
+    handleDestroy = (instance: PhotoSwipe) => { console.log(instance); };
 
-    handleUpdateScrollOffset = (instance: PhotoSwipe, _offset: { x: number; y: number }) => { console.log(instance, _offset) }
+    handleUpdateScrollOffset = (instance: PhotoSwipe, _offset: { x: number; y: number }) => { console.log(instance, _offset); };
 
-    handlePreventDragEvent = (instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => { console.log(instance, e, isDown, preventObj) }
+    handlePreventDragEvent = (instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => { console.log(instance, e, isDown, preventObj); };
 
-    handleShareLinkClick = (instance: PhotoSwipe, e: MouseEvent, item: Item) => { console.log(instance, e, item) }
+    handleShareLinkClick = (instance: PhotoSwipe, e: MouseEvent, item: Item) => { console.log(instance, e, item); };
 
     render() {
         const { openPhotoSwipe, openPhotoSwipeGallery } = this.state;
@@ -152,7 +154,7 @@ class MyApp extends React.Component<{}, State> {
                     shareLinkClick={this.handleShareLinkClick}
                 />
             </div>
-        )
+        );
     }
 }
 
