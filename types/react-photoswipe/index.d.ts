@@ -1,8 +1,8 @@
-// Type definitions for react-photoswipe 1.3.0
+// Type definitions for react-photoswipe 1.3
 // Project: https://github.com/minhtranite/react-photoswipe
 // Definitions by: kwzm <https://github.com/kwzm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { Item, Options } from 'photoswipe';
@@ -52,7 +52,7 @@ export interface PhotoSwipeProps {
      * photoswipe item
      * {@link http://photoswipe.com/documentation/getting-started.html}
      */
-    items: Array<Item>;
+    items: Item[];
     /**
      * photoswipe options
      * {@link http://photoswipe.com/documentation/options.html}
@@ -200,7 +200,7 @@ export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> 
      * photoswipe item
      * {@link http://photoswipe.com/documentation/getting-started.html}
      */
-    items: Array<PhotoSwipeGalleryItem>;
+    items: PhotoSwipeGalleryItem[];
     /**
      * is open
      * @default false
@@ -221,4 +221,3 @@ export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> 
 export class PhotoSwipe extends React.Component<PhotoSwipeProps> { }
 
 export class PhotoSwipeGallery extends React.Component<PhotoSwipeGalleryProps> { }
-
