@@ -2,7 +2,7 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
-declare namespace JQuery {
+export declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment | DocumentFragment;
 

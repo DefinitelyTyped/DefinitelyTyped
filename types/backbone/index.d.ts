@@ -14,7 +14,7 @@ export = Backbone;
 export as namespace Backbone;
 
 import * as _ from 'underscore';
-import * as JQuery from 'jquery';
+import { JQuery } from 'jquery';
 
 declare namespace Backbone {
 

@@ -32,4 +32,4 @@
 /// <reference path="misc.d.ts" />
 /// <reference path="legacy.d.ts" />
 
-export { $, jQuery } from "./misc";
+export { $, jQuery, JQuery } from "./misc";
