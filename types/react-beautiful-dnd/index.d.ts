@@ -106,7 +106,7 @@ export interface StopDragOptions {
     shouldBlockNextClick: boolean;
 }
 
-interface DragActions {
+export interface DragActions {
     drop: (args?: StopDragOptions) => void;
     cancel: (args?: StopDragOptions) => void;
     isActive: () => boolean;
