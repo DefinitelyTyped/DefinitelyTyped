@@ -3913,6 +3913,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-swipeable",
+            "typingsPackageName": "react-swipeable",
+            "sourceRepoURL": "https://github.com/dogfessional/react-swipeable",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "react-toastify",
             "typingsPackageName": "react-toastify",
             "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
