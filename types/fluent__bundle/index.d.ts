@@ -36,7 +36,7 @@ export class FluentBundle {
     hasMessage(id: string): boolean;
     getMessage(id: string): RawMessage;
     addResource(res: FluentResource, options?: FluentBundleAddResourceOptions): string[];
-    formatPattern(pattern: Pattern | string, args?: object, errors?: string[]): string[];
+    formatPattern(pattern: Pattern | string, args?: object, errors?: Error[]): string;
 }
 
 export interface Scope {

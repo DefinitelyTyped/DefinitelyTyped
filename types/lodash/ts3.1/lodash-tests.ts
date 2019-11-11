@@ -6967,14 +6967,6 @@ fp.now(); // $ExpectType number
     fp.stubArray(); // $ExpectType any[]
 }
 
-// _.stubFalse
-{
-    _.stubFalse(); // $ExpectType false
-    _(anything).stubFalse(); // $ExpectType false
-    _.chain(anything).stubFalse(); // $ExpectType PrimitiveChain<false>
-    fp.stubFalse(); // $ExpectType false
-}
-
 // _.stubObject
 {
     _.stubObject(); // $ExpectType any
@@ -7092,4 +7084,12 @@ _.templateSettings; // $ExpectType TemplateSettings
     _("").stubTrue(); // $ExpectType true
     _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
     fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }
