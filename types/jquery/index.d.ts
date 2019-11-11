@@ -22,6 +22,7 @@
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Terry Mun <https://github.com/terrymun>
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,5 +32,4 @@
 /// <reference path="misc.d.ts" />
 /// <reference path="legacy.d.ts" />
 
-export const $: JQueryStatic;
-export const jQuery: JQueryStatic;
+export = JQuery;

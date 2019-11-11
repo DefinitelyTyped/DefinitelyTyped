@@ -1,4 +1,4 @@
 /// <reference types="jquery" />
 
-import { jQuery } from "jquery";
+import * as jQuery from "jquery";
 export = jQuery;
