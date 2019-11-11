@@ -4,20 +4,72 @@
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.3
+
+/// <reference types="nodemailer"/>
+/// <reference types="html-to-text"/>
+
+import JSONTransport = require('nodemailer/lib/json-transport');
+import Mail = require('nodemailer/lib/mailer');
+import SendmailTransport = require('nodemailer/lib/sendmail-transport');
+import SESTransport = require('nodemailer/lib/ses-transport');
+import SMTPPool = require('nodemailer/lib/smtp-pool');
+import SMTPTransport = require('nodemailer/lib/smtp-transport');
+import StreamTransport = require('nodemailer/lib/stream-transport');
+
+// email-templates accepts nodemailer.createTransport options directly
+// too and calls createTransport if given a non-function, thus a lot
+// of different types accepted for transport
+type NodeMailerTransportOptions =
+    Mail |
+    SMTPPool | SMTPPool.Options |
+    SendmailTransport | SendmailTransport.Options |
+    StreamTransport | StreamTransport.Options |
+    JSONTransport | JSONTransport.Options |
+    SESTransport | SESTransport.Options |
+    SMTPTransport | SMTPTransport.Options |
+    string;
+
+interface ViewOptions {
+    /**
+     *  View extansion. defaults to 'pug', and is the default file extension for templates
+     */
+    extension?: string;
+
+    /**
+     * a template file extension mapping, defaults to { hbs: 'handlebars', njk: 'nunjucks' }
+     * (this is useful if you use different file extension naming conventions)
+     */
+    map?: any;
+
+    /**
+     *  the default template engine source, defaults to consolidate
+     */
+    engineSource?: any;
+}
+
+interface View {
+    /**
+     * View root. Defaults to the current working directory's "emails" folder via path.resolve('emails')
+     */
+    root: string;
+
+    options?: ViewOptions;
+}
 
 interface EmailConfig {
     /**
      * The message <Nodemailer.com/message/>
      */
-    message: any;
+    message: Mail.Options;
     /**
      * The nodemailer Transport created via nodemailer.createTransport
      */
-    transport?: any;
+    transport?: NodeMailerTransportOptions;
     /**
      * The email template directory and engine information
      */
-    views?: any;
+    views?: ViewOptions;
     /**
      *     Do you really want to send, false for test or development
      */
@@ -40,13 +92,15 @@ interface EmailConfig {
     textOnly?: boolean;
     /**
      * <Https://github.com/werk85/node-html-to-text>
+     *
+     * configuration object for html-to-text
      */
-    htmlToText?: any;
+    htmlToText?: HtmlToTextOptions|false;
     /**
      * You can pass an option to prefix subject lines with a string
      * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
      */
-    subjectPrefix?: any;
+    subjectPrefix?: string|false;
     /**
      * <https://github.com/Automattic/juice>
      */
@@ -57,19 +111,21 @@ interface EmailConfig {
     juiceResources?: any;
 }
 
-interface EmailOptions {
+interface EmailOptions<T = any> {
     /**
      * The template name
      */
     template: string;
     /**
      * Nodemailer Message <Nodemailer.com/message/>
+     *
+     * Overrides what is given for constructor
      */
-    message: any;
+    message: Mail.Options;
     /**
      * The Template Variables
      */
-    locals: any;
+    locals: T;
 }
 
 declare class EmailTemplate {
@@ -92,22 +148,22 @@ declare class EmailTemplate {
 }
 
 declare namespace EmailTemplate {
-        /**
-         *   shorthand use of `juiceResources` with the config
-         *   mainly for custom renders like from a database).
-         */
-        function juiceResources(html: string): Promise<string> ;
+    /**
+     *   shorthand use of `juiceResources` with the config
+     *   mainly for custom renders like from a database).
+     */
+    function juiceResources(html: string): Promise<string> ;
 
-        /**
-         *
-         * @param view The Html pug to render
-         * @param locals The template Variables
-         */
-        function render(view: string, locals: any): Promise<string>;
+    /**
+     *
+     * @param view The Html pug to render
+     * @param locals The template Variables
+     */
+    function render(view: string, locals: any): Promise<string>;
 
-        /**
-         * Send the Email
-         */
-        function send(options: EmailOptions): any;
+    /**
+     * Send the Email
+     */
+    function send(options: EmailOptions): any;
 }
 export = EmailTemplate;
