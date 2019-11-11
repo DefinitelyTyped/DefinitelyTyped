@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.8.1
+// Type definitions for node-forge 0.9.1
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal    <https://github.com/westy92>
 //                 Kay Schecker     <https://github.com/flynetworks>
@@ -11,6 +11,7 @@
 //                 supaiku0         <https://github.com/supaiku0>
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
+//                 Rogier Schouten  <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -247,6 +248,58 @@ declare module "node-forge" {
              */
             verify(child: Certificate): boolean;
 
+            /**
+             * Gets an issuer or subject attribute from its name, type, or short name.
+             *
+             * @param options a short name string or an object with:
+             *          shortName the short name for the attribute.
+             *          name the name for the attribute.
+             *          type the type for the attribute.
+             *
+             * @return the attribute.
+             */
+            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+        }
+
+        /**
+         * Attribute members to search on; any one hit will return the attribute
+         */
+        interface GetAttributeOpts {
+            /**
+             * OID
+             */
+            type?: string;
+            /**
+             * Long name
+             */
+            name?: string;
+            /**
+             * Short name
+             */
+            shortName?: string;
+        }
+
+        interface Attribute {
+            /**
+             * e.g. challengePassword
+             */
+            name: string;
+            /**
+             * Short name, if available (e.g. 'CN' for 'commonName')
+             */
+            shortName?: string;
+            /**
+             * OID, e.g. '1.2.840.113549.1.9.7'
+             */
+            type: string;
+            /**
+             * Attribute value
+             */
+            value: any;
+            /**
+             * Attribute value data type
+             */
+            valueTagClass: number;
         }
 
         interface CAStore {

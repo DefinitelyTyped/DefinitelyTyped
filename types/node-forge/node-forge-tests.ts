@@ -187,6 +187,9 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
+    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+
+
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
 }
@@ -373,7 +376,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         message: toSign,
         privateKey
     });
-    
+
     const toSign2 = 'foo';
     forge.pki.ed25519.sign({
         message: toSign2,
