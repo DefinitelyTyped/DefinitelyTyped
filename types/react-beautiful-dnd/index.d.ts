@@ -94,6 +94,70 @@ export interface DragDropContextProps {
 export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 /**
+ *  Sensors
+ */
+export type Sensor = (api: SensorAPI) => void;
+
+export interface TryGetLockOptions {
+    sourceEvent?: Event;
+}
+
+export interface StopDragOptions {
+    shouldBlockNextClick: boolean;
+}
+
+interface DragActions {
+    drop: (args?: StopDragOptions) => void;
+    cancel: (args?: StopDragOptions) => void;
+    isActive: () => boolean;
+    shouldRespectForcePress: () => boolean;
+}
+
+export interface FluidDragActions extends DragActions {
+    move: (clientSelection: Position) => void;
+}
+
+export interface SnapDragActions extends DragActions {
+    moveUp: () => void;
+    moveDown: () => void;
+    moveRight: () => void;
+    moveLeft: () => void;
+}
+
+export interface PreDragActions {
+    // discover if the lock is still active
+    isActive: () => boolean;
+    // whether it has been indicated if force press should be respected
+    shouldRespectForcePress: () => boolean;
+    // lift the current item
+    fluidLift: (clientSelection: Position) => FluidDragActions;
+    snapLift: () => SnapDragActions;
+    // cancel the pre drag without starting a drag. Releases the lock
+    abort: () => void;
+}
+
+export type TryGetLock = (
+    draggableId: DraggableId,
+    forceStop?: () => void,
+    options?: TryGetLockOptions,
+) => PreDragActions | null;
+
+export interface DraggableOptions {
+    canDragInteractiveElements: boolean;
+    shouldRespectForcePress: boolean;
+    isEnabled: boolean;
+}
+
+export interface SensorAPI {
+    tryGetLock: TryGetLock;
+    canGetLock: (id: DraggableId) => boolean;
+    isLockClaimed: () => boolean;
+    tryReleaseLock: () => void;
+    findClosestDraggableId: (event: Event) => DraggableId | null;
+    findOptionsForDraggable: (id: DraggableId) => DraggableOptions | null;
+}
+
+/**
  *  Droppable
  */
 
