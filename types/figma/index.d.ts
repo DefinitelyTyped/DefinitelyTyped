@@ -89,7 +89,7 @@ interface PluginAPI {
 }
 
 interface ClientStorageAPI {
-    getAsync(key: string): Promise<any | undefined>;
+    getAsync(key: string): Promise<any>;
     setAsync(key: string, value: any): Promise<void>;
 }
 
