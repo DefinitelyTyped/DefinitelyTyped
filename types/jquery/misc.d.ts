@@ -3,6 +3,9 @@
 // tslint:disable:no-irregular-whitespace
 
 declare namespace JQuery {
+    const $: JQueryStatic;
+    const jQuery: JQueryStatic;
+
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment | DocumentFragment;
 
