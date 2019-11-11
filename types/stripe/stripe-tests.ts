@@ -1488,6 +1488,11 @@ const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
     webhookSecret,
 );
 
+const header: string = stripe.webhooks.generateTestHeaderString({
+    payload: JSON.stringify(event),
+    secret: webhookSecret,
+});
+
 //#endregion
 
 //#region Coupons tests
