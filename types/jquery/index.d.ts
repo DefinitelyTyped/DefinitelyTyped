@@ -31,4 +31,5 @@
 /// <reference path="misc.d.ts" />
 /// <reference path="legacy.d.ts" />
 
-export = jQuery;
+export const $: JQueryStatic;
+export const jQuery: JQueryStatic;

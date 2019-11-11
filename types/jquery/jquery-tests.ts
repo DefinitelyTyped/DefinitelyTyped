@@ -1,3 +1,5 @@
+import { $ } from "jquery";
+
 function JQueryStatic() {
     function type_annotation() {
         const jq: JQueryStatic = $;
