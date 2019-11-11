@@ -61,7 +61,7 @@ interface DescriptionProps {
     children: string;
 }
 
-type reactNativeModalContainerProps = Pick<reactNativeModal.ModalProps, Exclude<keyof reactNativeModal.ModalProps, "isVisible">>;
+type reactNativeModalContainerProps = Partial<Pick<reactNativeModal.ModalProps, Exclude<keyof reactNativeModal.ModalProps, "isVisible">>>;
 
 export namespace Dialog {
     class Button extends PureComponent<

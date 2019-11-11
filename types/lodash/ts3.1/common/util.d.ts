@@ -1183,4 +1183,29 @@ declare module "../index" {
          */
         stubTrue(): LoDashExplicitWrapper<true>;
     }
+
+    // stubFalse
+
+    interface LoDashStatic {
+        /**
+         * This method returns false.
+         *
+         * @return Returns false.
+         */
+        stubFalse(): false;
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): false;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): LoDashExplicitWrapper<false>;
+    }
 }
