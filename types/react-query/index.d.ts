@@ -18,7 +18,7 @@ export type QueryFunction<TResult, TVariables extends object> = (variables: TVar
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
-    pagination?: boolean;
+    paginated?: boolean;
     getCanFetchMore?: (lastPage: number, allPages: number) => boolean;
     retry?: boolean | number;
     retryDelay?: (retryAttempt: number) => number;
@@ -119,3 +119,5 @@ export interface ReactQueryProviderConfig {
     refetchInterval: boolean;
     suspense: boolean;
 }
+
+export function clearQueryCache(): void;
