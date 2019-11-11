@@ -7,6 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+/// <reference lib='dom' />
+
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
