@@ -1,3 +1,5 @@
+import { $ } from 'jquery';
+
 function test_events() {
 
     var object = Backbone.Events;

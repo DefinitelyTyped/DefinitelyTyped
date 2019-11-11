@@ -3,9 +3,6 @@
 // tslint:disable:no-irregular-whitespace
 
 declare namespace JQuery {
-    const $: JQueryStatic;
-    const jQuery: JQueryStatic;
-
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment | DocumentFragment;
 
@@ -6632,6 +6629,9 @@ $( "#checkMetaKey" ).click(function( event ) {
 
     type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
 }
+
+export const jQuery: JQueryStatic;
+export const $: JQueryStatic;
 
 type _Event = Event;
 type _UIEvent = UIEvent;

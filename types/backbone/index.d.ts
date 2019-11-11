@@ -10,8 +10,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="jquery" />
-
 export = Backbone;
 export as namespace Backbone;
 

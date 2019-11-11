@@ -1,5 +1,4 @@
-/// <reference types="jquery"/>
-
+import { $ } from 'jquery';
 
 /**
  * @summary Test for "accwizard" without options.
