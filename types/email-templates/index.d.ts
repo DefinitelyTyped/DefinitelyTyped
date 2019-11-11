@@ -30,6 +30,29 @@ type NodeMailerTransportOptions =
     SMTPTransport | SMTPTransport.Options |
     string;
 
+// No typedef for https://github.com/niftylettuce/preview-email
+interface PreviewEmailOpts {
+    /**
+     * a path to a directory for saving the generated email previews (defaults to os.tmpdir()
+     */
+    dir?: string;
+
+    /**
+     * https://github.com/sindresorhus/open
+     */
+    open?: any;
+
+    /**
+     * a unique ID for the file name created for the preview in dir (defaults to uuid.v4() from uuid)
+     */
+    id?: string;
+
+    /**
+     * a file path to a pug template file (defaults to preview-email's template.pug by default)
+     */
+    template?: string;
+}
+
 interface ViewOptions {
     /**
      *  View extansion. defaults to 'pug', and is the default file extension for templates
@@ -77,7 +100,7 @@ interface EmailConfig {
     /**
      * Preview the email
      */
-    preview?: boolean;
+    preview?: boolean|PreviewEmailOpts;
     /**
      * Set to object to configure and Enable <https://github.com/ladjs/il8n>
      */
