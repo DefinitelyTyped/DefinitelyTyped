@@ -191,6 +191,13 @@ adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase()
 adapter.getForeignObjects("*", (err, objs) => objs["foo"]._id.toLowerCase());
 adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
 
+adapter.getObjectView("system", "admin", {startkey: "foo", endkey: "bar"}, (err, docs) => {
+    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+});
+adapter.getObjectViewAsync("system", "admin", {startkey: "foo", endkey: "bar"}).then(docs => {
+    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+});
+
 adapter.subscribeObjects("*");
 adapter.subscribeStates("*");
 adapter.subscribeForeignObjects("*");
