@@ -2,7 +2,9 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
-interface JQueryStatic {
+import { JQuery } from 'jquery';
+
+export interface JQueryStatic {
     /**
      * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
      * @deprecated ​ Deprecated. Use \`{@link ajaxSetup }\`.

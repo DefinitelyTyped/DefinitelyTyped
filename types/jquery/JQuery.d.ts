@@ -2,6 +2,8 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
+import { JQuery } from 'jquery';
+
 interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.

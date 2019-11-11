@@ -2,14 +2,7 @@
 
 // Basic Plugin Authoring
 
-interface JQuery {
-    greenify: GreenifyPlugin;
-}
-
-interface GreenifyPlugin {
-    // tslint:disable-next-line:callable-types
-    (this: JQuery): void;
-}
+import { jQuery, $ } from 'jquery';
 
 jQuery.fn.greenify = function() {
     this.css("color", "green");

@@ -1,5 +1,7 @@
 // tslint:disable:no-irregular-whitespace
 
+import { JQuery } from 'jquery';
+
 // tslint:disable-next-line:no-empty-interface
 interface JQueryCallback extends JQuery.Callbacks { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
@@ -48,7 +50,7 @@ interface JQueryParam {
 /**
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
-interface BaseJQueryEventObject extends Event {
+export interface BaseJQueryEventObject extends Event {
     /**
      * The current DOM element within the event bubbling phase.
      * @see \`{@link https://api.jquery.com/event.currentTarget/ }\`
@@ -178,7 +180,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
 /**
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
+export interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
  * @deprecated ​ Deprecated.
  */

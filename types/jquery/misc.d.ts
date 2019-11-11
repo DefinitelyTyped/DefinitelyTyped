@@ -2,6 +2,8 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
+import { JQueryStatic } from "./JQueryStatic";
+
 export declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment | DocumentFragment;
@@ -6655,7 +6657,5 @@ interface SymbolConstructor {
      */
     readonly toStringTag: symbol;
 }
-
-declare var Symbol: SymbolConstructor;
 
 // #endregion
