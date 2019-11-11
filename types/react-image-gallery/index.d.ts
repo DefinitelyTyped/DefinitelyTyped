@@ -58,7 +58,7 @@ export interface ReactImageGalleryProps {
     startIndex?: number;
     slideDuration?: number;
     slideInterval?: number;
-    slideOnThumbnailHover?: boolean;
+    slideOnThumbnailOver?: boolean;
     swipeThreshold?: number;
     swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;

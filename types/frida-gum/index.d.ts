@@ -3612,11 +3612,13 @@ declare namespace ObjC {
     }
 
     /**
-     * Dynamically generated language binding for any Objective-C block. Also supports implementing a block from
-     * scratch by passing in a MethodDefinition.
+     * Dynamically generated language binding for any Objective-C block.
+     *
+     * Also supports implementing a block from scratch by passing in an
+     * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec);
+        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>);
 
         handle: NativePointer;
 
@@ -3625,6 +3627,8 @@ declare namespace ObjC {
          */
         implementation: AnyFunction;
     }
+
+    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -3742,7 +3746,7 @@ declare namespace ObjC {
      */
     function selectorAsString(sel: NativePointerValue): string;
 
-    interface ProxySpec {
+    interface ProxySpec<D extends ProxyData = ProxyData, T = ObjC.Object, S = ObjC.Object> {
         /**
          * Protocols this proxy class conforms to.
          */
@@ -3752,22 +3756,34 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
 
         /**
          * Callbacks for getting notified about events.
          */
-        events?: {
-            /**
-             * Gets notified about the method name that we’re about to forward a call to. This might be where you’d
-             * start out with a temporary callback that just logs the names to help you decide which methods to
-             * override.
-             *
-             * @param name Name of method that is about to get called.
-             */
-            forward?(name: string): void;
-        };
+        events?: ProxyEventCallbacks<D, T, S>;
+    }
+
+    interface ProxyEventCallbacks<D, T, S> {
+        /**
+         * Gets notified right after the object has been deallocated.
+         *
+         * This is where you might clean up any associated state.
+         */
+        dealloc?(this: UserMethodInvocation<D, T, S>): void;
+
+        /**
+         * Gets notified about the method name that we’re about to forward
+         * a call to.
+         *
+         * This might be where you’d start out with a temporary callback
+         * that just logs the names to help you decide which methods to
+         * override.
+         *
+         * @param name Name of method that is about to get called.
+         */
+        forward?(this: UserMethodInvocation<D, T, S>, name: string): void;
     }
 
     /**
@@ -3776,9 +3792,27 @@ declare namespace ObjC {
      * @param target Target object to proxy to.
      * @param data Object with arbitrary data.
      */
-    type ProxyConstructor = (target: ObjC.Object | NativePointer, data: InstanceData) => void;
+    interface ProxyConstructor {
+        new (target: ObjC.Object | NativePointer, data?: InstanceData): ProxyInstance;
+    }
 
-    interface ClassSpec {
+    interface ProxyInstance {
+        handle: NativePointer;
+    }
+
+    interface ProxyData extends InstanceData {
+        /**
+         * This proxy's target object.
+         */
+        target: ObjC.Object;
+
+        /**
+         * Used by the implementation.
+         */
+        events: {};
+    }
+
+    interface ClassSpec<D = InstanceData, T = ObjC.Object, S = ObjC.Object> {
         /**
          * Name of the class.
          *
@@ -3801,13 +3835,13 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
     }
 
-    type MethodSpec = SimpleMethodSpec | DetailedMethodSpec;
+    type MethodSpec<I> = SimpleMethodSpec<I> | DetailedMethodSpec<I>;
 
-    interface SimpleMethodSpec {
+    interface SimpleMethodSpec<I> {
         /**
          * Return type.
          */
@@ -3821,10 +3855,10 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
     }
 
-    interface DetailedMethodSpec {
+    interface DetailedMethodSpec<I> {
         /**
          * Signature.
          */
@@ -3833,7 +3867,15 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
+    }
+
+    type UserMethodImplementation<D, T, S> = (this: UserMethodInvocation<D, T, S>, ...args: any[]) => any;
+
+    interface UserMethodInvocation<D, T, S> {
+        self: T;
+        super: S;
+        data: D;
     }
 
     /**
