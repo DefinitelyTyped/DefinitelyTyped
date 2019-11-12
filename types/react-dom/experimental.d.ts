@@ -74,7 +74,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
      */
-    function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
+    function createRoot(container: Element | Document | DocumentFragment | Comment | null, options?: RootOptions): Root;
 
     function unstable_discreteUpdates<R>(callback: () => R): R;
 
@@ -98,5 +98,5 @@ declare module '.' {
     /**
      * @see https://github.com/facebook/react/commit/3a2b5f148d450c69aab67f055fc441d294c23518
      */
-    function unstable_scheduleHydration(target: Element | Document | DocumentFragment | Comment): void;
+    function unstable_scheduleHydration(target: Element | Document | DocumentFragment | Comment | null): void;
 }

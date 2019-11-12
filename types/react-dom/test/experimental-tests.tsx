@@ -2,15 +2,29 @@ import React = require('react');
 import ReactDOM = require('react-dom');
 
 function createRoot() {
-    const root = ReactDOM.createRoot(document);
+    {
+        const root = ReactDOM.createRoot(document);
 
-    // NOTE: I don't know yet how to use this; this is just the type it expects
-    // in reality it will do nothing because the root isn't hydrate: true
-    ReactDOM.unstable_scheduleHydration(document);
+        // NOTE: I don't know yet how to use this; this is just the type it expects
+        // in reality it will do nothing because the root isn't hydrate: true
+        ReactDOM.unstable_scheduleHydration(document);
 
-    root.render(<div>initial render</div>, () => {
-        console.log('callback');
-    });
+        root.render(<div>initial render</div>, () => {
+            console.log('callback');
+        });
+    }
+
+    {
+        // baasic sanity checks here since things like *.getElementById can potentially return null.
+        // the type null should not be restricted since we have checks like isValidContainer
+        const root = ReactDOM.createRoot(null);
+
+        ReactDOM.unstable_scheduleHydration(null);
+
+        root.render(<div>initial render</div>, () => {
+            console.log('callback');
+        });
+    }
 }
 
 function createBlockingRoot() {
