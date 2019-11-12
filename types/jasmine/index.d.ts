@@ -273,6 +273,7 @@ declare namespace jasmine {
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
     function addMatchers(matchers: CustomMatcherFactories): void;
+    function addAsyncMatchers(matchers: CustomMatcherFactories): void;
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
