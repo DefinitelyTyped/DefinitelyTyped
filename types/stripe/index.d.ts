@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.10
+// Type definitions for stripe 7.12
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -7138,10 +7138,11 @@ declare namespace Stripe {
             statement_descriptor: string;
 
             /**
-             * The type of the product. The product is either of type good, which is eligible for use with Orders and SKUs, or service, which is eligible for
-             * use with Subscriptions and Plans.
+             * The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product
+             * withSubscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API
+             * versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
              */
-            type: ProductType;
+            type?: ProductType;
 
             /**
              * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
@@ -7169,10 +7170,11 @@ declare namespace Stripe {
             name: string;
 
             /**
-             * The type of the product. The product is either of type service, which is eligible for use with Subscriptions
-             * and Plans or good, which is eligible for use with Orders and SKUs.
+             * The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product
+             * withSubscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API
+             * versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
              */
-            type: ProductType;
+            type?: ProductType;
 
             /**
              * Whether or not the product is currently available for purchase. Defaults to true. May only be set if type=good.
@@ -7648,12 +7650,13 @@ declare namespace Stripe {
 
         interface IBankAccountTokenCreationOptions extends ITokenCreationOptionsBase {
             /**
-             * The card this token will represent. If you also pass in a customer,
-             * the card must be the ID of a card belonging to the customer.
-             * Otherwise, if you do not pass a customer, a object containing a
-             * user's credit card details, with the options described below.
+             * The bank account this token will represent. If you also pass in
+             * a customer, the bank account must be the ID of a bank account
+             * belonging to the customer.  Otherwise, if you do not pass a
+             * customer, a object containing a user's bank account details,
+             * with the options described below.
              */
-            bank_account: bankAccounts.ISourceCreationOptions;
+            bank_account: string | bankAccounts.ISourceCreationOptions;
         }
 
         interface IPiiTokenCreationOptions extends IDataOptions {
@@ -14053,6 +14056,38 @@ declare namespace Stripe {
                 endpointSecret: string,
                 tolerance?: number,
             ): events.IEvent;
+
+            /**
+             * Generates a header to be used for webhook mocking
+             */
+            generateTestHeaderString(options: IWebHookGenerateTestHeaderStringOptions): string;
+        }
+
+        interface IWebHookGenerateTestHeaderStringOptions {
+            /**
+             * Timestamp of the header. Defaults to Date.now()
+             */
+            timestamp?: number;
+
+            /**
+             * JSON stringified payload object, containing the 'id' and 'object' parameters
+             */
+            payload?: string;
+
+            /**
+             * Stripe webhook secret 'whsec_...'
+             */
+            secret?: string;
+
+            /**
+             * Version of API to hit. Defaults to 'v1'.
+             */
+            scheme?: string;
+
+            /**
+             * Computed webhook signature
+             */
+            signature?: string;
         }
 
         class EphemeralKeys {
