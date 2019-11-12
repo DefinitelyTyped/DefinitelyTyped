@@ -2695,6 +2695,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "moment-range",
+            "typingsPackageName": "moment-range",
+            "sourceRepoURL": "https://github.com/rotaready/moment-range",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "mongodb-memory-server",
             "typingsPackageName": "mongodb-memory-server",
             "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
