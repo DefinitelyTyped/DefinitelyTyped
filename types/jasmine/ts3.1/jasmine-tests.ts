@@ -115,6 +115,18 @@ describe("Included matchers:", () => {
         expect(foo).not.toBeFalsy();
     });
 
+    it("The 'toBeTrue' matcher is for matching with true", () => {
+        expect(true).toBeTrue();
+        expect(false).not.toBeTrue();
+        expect({}).not.toBeTrue();
+    });
+
+    it("The 'toBeTrue' matcher is for matching with true", () => {
+        expect(false).toBeFalse();
+        expect(true).not.toBeFalse();
+        expect(undefined).not.toBeFalse();
+    });
+
     it("The 'toContain' matcher is for finding an item in an Array", () => {
         const a = ["foo", "bar", "baz"];
 
@@ -177,6 +189,15 @@ describe("Included matchers:", () => {
         expect(foo).toThrowError(/bar/);
         expect(foo).toThrowError(TypeError);
         expect(foo).toThrowError(TypeError, "foo bar baz");
+    });
+
+    it("The 'toBeInstanceOf' matcher is for testing if the actual is of the expected class", () => {
+        class MyClass {}
+
+        expect(new MyClass()).toBeInstanceOf(MyClass);
+        expect('foo').toBeInstanceOf(String);
+        expect(3).toBeInstanceOf(Number);
+        expect(new Error()).toBeInstanceOf(Error);
     });
 
     it("async matchers", async () => {
@@ -1479,6 +1500,39 @@ describe("createSpyObj", function() {
             jasmine.createSpyObj('BaseName', {});
         }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
+
+    it("creates an object with spy properties if a second list is passed", function() {
+        var spyObj = jasmine.createSpyObj('base', ['method1'], ['prop1']);
+  
+        expect(spyObj).toEqual({
+          method1: jasmine.any(Function)
+        });
+    
+        expect(spyObj.prop1).toBeUndefined();
+      });
+  
+      it("creates an object with property names and return values if second object is passed", function() {
+        var spyObj = jasmine.createSpyObj('base', ['method1'], {
+          prop1: 'foo',
+          prop2: 37
+        });
+  
+        expect(spyObj).toEqual({
+          method1: jasmine.any(Function)
+        });
+  
+        expect(spyObj.prop1).toEqual('foo');
+        expect(spyObj.prop2).toEqual(37);
+        spyObj.prop2 = 4;
+        expect(spyObj.prop2).toEqual(37);
+      });
+  
+      it("allows base name to be ommitted when assigning methods and properties", function() {
+        var spyObj = jasmine.createSpyObj({ m: 3 }, { p: 4 });
+  
+        expect(spyObj.m()).toEqual(3);
+        expect(spyObj.p).toEqual(4);
+      });
 });
 
 describe('Static Matcher Test', function() {
