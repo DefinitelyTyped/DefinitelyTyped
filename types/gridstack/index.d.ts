@@ -19,7 +19,7 @@ interface JQuery {
 * Events
 */
 
-type GridStackWidgetType = string | HTMLElement | JQuery;
+type GridStackElement = string | HTMLElement | JQuery;
 
 interface GridStack {
     /**
@@ -29,11 +29,12 @@ interface GridStack {
     * You need to use willItFit method before calling addWidget for additional check.
     * See also makeWidget.
     *
+    * @example
     * $('.grid-stack').gridstack();
     * var grid = $('.grid-stack').data('gridstack');
     * grid.addWidget(el, 0, 0, 3, 2, true);
     *
-    * @param {GridStackWidgetType} el widget to add
+    * @param {GridStackElement} el widget to add
     * @param {number} x widget position x (optional)
     * @param {number} y widget position y (optional)
     * @param {number} width  widget dimension width (optional)
@@ -45,7 +46,7 @@ interface GridStack {
     * @param {number} maxHeight maximum height allowed during resize/creation (optional)
     * @param {number | string} id value for `data-gs-id` (optional)
     */
-    addWidget(el: GridStackWidgetType, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean,
+    addWidget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean,
         minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery;
 
     /**
@@ -59,14 +60,17 @@ interface GridStack {
     cellHeight(): number;
 
     /**
-    * Update current cell height. This method rebuilds an internal CSS style sheet.
+    * Update current cell height - see `IGridstackOptions.cellHeight` for format.
+    * This method rebuilds an internal CSS style sheet.
     * Note: You can expect performance issues if call this method too often.
-    * @param {number} val the cell height
+    *
+    * @param {number | string} val the cell height
     * @param {boolean} noUpdate (Optional) if true, styles will not be updated
     *
+    * @example
     * grid.cellHeight(grid.cellWidth() * 1.2);
     */
-    cellHeight(val: number, noUpdate?: boolean): void;
+    cellHeight(val: number | string, noUpdate?: boolean): void;
 
     /**
     * Gets current cell width.
@@ -141,75 +145,75 @@ interface GridStack {
 
     /**
     * Locks/unlocks widget.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {boolean} val if true widget will be locked.
     */
-    locked(el: GridStackWidgetType, val: boolean): void;
+    locked(el: GridStackElement, val: boolean): void;
 
     /**
     * If you add elements to your gridstack container by hand, you have to tell gridstack afterwards to make them widgets.
     * If you want gridstack to add the elements for you, use addWidget instead.
     * Makes the given element a widget and returns it.
-    * @param {GridStackWidgetType} el widget to convert.
+    * @param {GridStackElement} el widget to convert.
     *
+    * @example
     * $('.grid-stack').gridstack();
     * $('.grid-stack').append('<div id="gsi-1" data-gs-x="0" data-gs-y="0" data-gs-width="3" data-gs-height="2"
     *                     data-gs-auto-position="1"></div>')
     * var grid = $('.grid-stack').data('gridstack');
     * grid.makeWidget('gsi-1');
     */
-    makeWidget(el: GridStackWidgetType): JQuery;
+    makeWidget(el: GridStackElement): JQuery;
 
     /**
     * Set the maxWidth for a widget.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    maxWidth(el: GridStackWidgetType, val: number): void;
+    maxWidth(el: GridStackElement, val: number): void;
 
     /**
     * Set the minWidth for a widget.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    minWidth(el: GridStackWidgetType, val: number): void;
+    minWidth(el: GridStackElement, val: number): void;
 
     /**
     * Set the maxHeight for a widget.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    maxHeight(el: GridStackWidgetType, val: number): void;
+    maxHeight(el: GridStackElement, val: number): void;
 
     /**
     * Set the minHeight for a widget.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    minHeight(el: GridStackWidgetType, val: number): void;
+    minHeight(el: GridStackElement, val: number): void;
 
     /**
     * Enables/Disables moving.
-    * @param {GridStackWidgetType} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val if true widget will be draggable.
     */
-    movable(el: GridStackWidgetType, val: boolean): void;
+    movable(el: GridStackElement, val: boolean): void;
 
     /**
     * Changes widget position
-    * @param {GridStackWidgetType} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
-    *
     */
-    move(el: GridStackWidgetType, x: number, y: number): void;
+    move(el: GridStackElement, x: number, y: number): void;
 
     /**
     * Removes widget from the grid.
-    * @param {GridStackWidgetType} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {boolean} detachNode if false DOM node won't be removed from the tree (Default? true).
     */
-    removeWidget(el: GridStackWidgetType, detachNode?: boolean): void;
+    removeWidget(el: GridStackElement, detachNode?: boolean): void;
 
     /**
     * Removes all widgets from the grid.
@@ -219,18 +223,18 @@ interface GridStack {
 
     /**
     * Changes widget size
-    * @param {GridStackWidgetType} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    resize(el: GridStackWidgetType, width: number, height: number): void;
+    resize(el: GridStackElement, width: number, height: number): void;
 
     /**
     * Enables/Disables resizing.
-    * @param {GridStackWidgetType} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {boolean} val  if true widget will be resizable.
     */
-    resizable(el: GridStackWidgetType, val: boolean): void;
+    resizable(el: GridStackElement, val: boolean): void;
 
     /**
     * Toggle the grid animation state.  Toggles the `grid-stack-animate` class.
@@ -254,13 +258,13 @@ interface GridStack {
 
     /**
     * Updates widget position/size.
-    * @param {GridStackWidgetType} el widget to modify
+    * @param {GridStackElement} el widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    update(el: GridStackWidgetType, x: number, y: number, width: number, height: number): void;
+    update(el: GridStackElement, x: number, y: number, width: number, height: number): void;
 
     /**
     * returns current vertical margin value
@@ -268,8 +272,9 @@ interface GridStack {
     verticalMargin(): number;
 
     /**
-    * Updates the vertical margin
-    * @param {number|string} value new vertical margin value
+    * Updates the vertical margin - see `IGridstackOptions.verticalMargin` for format options.
+    *
+    * @param {number | string} value new vertical margin value
     * @param {boolean} noUpdate (optional) if true, styles will not be updated
     */
     verticalMargin(value: number | string, noUpdate?: boolean): void;
@@ -284,6 +289,7 @@ interface GridStack {
     * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget
     * will be places on the first available position
     *
+    * @example
     * if (grid.willItFit(newNode.x, newNode.y, newNode.width, newNode.height, true)) {
     *   grid.addWidget(newNode.el, newNode.x, newNode.y, newNode.width, newNode.height, true);
     * } else {
@@ -354,7 +360,7 @@ interface IGridstackOptions {
     *  0 or null, in which case the library will not generate styles for rows. Everything must be defined in CSS files.
     *  'auto' - height will be calculated from cell width.
     */
-    cellHeight?: number | null | string;
+    cellHeight?: number | string;
 
     /**
     * (internal?) unit for cellHeight (default? 'px')
@@ -464,7 +470,7 @@ interface IGridstackOptions {
     verticalMarginUnit?: string;
 
     /**
-    * amount of columns (default?: 12)
+    * number of columns (default?: 12)
     */
     width?: number;
 }
