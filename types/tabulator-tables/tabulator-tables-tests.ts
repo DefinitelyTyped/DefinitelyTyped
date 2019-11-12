@@ -525,3 +525,11 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     const successful: boolean = success('test');
     return editor;
 };
+
+let groupColDef: Tabulator.ColumnDefinition = { 
+    title: 'Full name', field: '',
+    columns: [
+        {title: "First name", field: ''},
+        {title: "Last name", field: ''}
+    ]
+};
