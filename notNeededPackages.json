@@ -2809,6 +2809,18 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "next",
+            "typingsPackageName": "next",
+            "sourceRepoURL": "https://github.com/zeit/next.js",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "next-server",
+            "typingsPackageName": "next-server",
+            "sourceRepoURL": "https://github.com/zeit/next.js",
+            "asOfVersion": "9.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
