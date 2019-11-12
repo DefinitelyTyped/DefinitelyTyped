@@ -98,43 +98,31 @@ interface AlloyController extends Backbone.Events {
 }
 
 /**
- * Top-level configuration for Alloy.
- */
-interface AlloyConfig {
-}
-
-/**
- * Top-level globals for Alloy.
- */
-interface AlloyGlobals {
-}
-
-/**
  * Top-level module for Alloy functions.
  */
 interface AlloyInterface {
   /**
    * An object that stores Alloy configuration values as defined in your app's app/config.json file
    */
-  CFG: AlloyConfig;
+  CFG: unknown;
 
   /**
    * An object for storing globally accessible Alloy collections. Singleton collections created via markup will be stored on this object.
    */
   Collections: {
-    [k: string]: any;
-    instance(name: string): any;
+    [k: string]: unknown;
+    instance(name: string): unknown;
   };
 
   /**
    * An object for storing globally accessible variables and functions.
    */
-  Globals: AlloyGlobals;
+  Globals: unknown;
 
   /**
    * An object for storing globally accessible Alloy models. Singleton models created via markup will be stored on this object.
    */
-  Models: any;
+  Models: unknown;
 
   /**
    * Returns true if the current device is a handheld device (not a tablet).
@@ -186,7 +174,6 @@ interface AlloyInterface {
  */
 declare const Alloy: AlloyInterface;
 
-
 /**
  * Top-level module for Alloy widget.
  */
@@ -198,7 +185,6 @@ declare interface WidgetInterface {
    * @param args Arguments to pass to the controller
    */
   createController(name: string, args?: any): AlloyController;
-
 }
 
 /**
