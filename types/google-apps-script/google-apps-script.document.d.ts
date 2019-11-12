@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,6 @@ declare namespace GoogleAppsScript {
      *       .setAttributes(0, 4, highlightStyle);
      */
     enum Attribute { BACKGROUND_COLOR, BOLD, BORDER_COLOR, BORDER_WIDTH, CODE, FONT_FAMILY, FONT_SIZE, FOREGROUND_COLOR, HEADING, HEIGHT, HORIZONTAL_ALIGNMENT, INDENT_END, INDENT_FIRST_LINE, INDENT_START, ITALIC, GLYPH_TYPE, LEFT_TO_RIGHT, LINE_SPACING, LINK_URL, LIST_ID, MARGIN_BOTTOM, MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, NESTING_LEVEL, MINIMUM_HEIGHT, PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, PAGE_HEIGHT, PAGE_WIDTH, SPACING_AFTER, SPACING_BEFORE, STRIKETHROUGH, UNDERLINE, VERTICAL_ALIGNMENT, WIDTH }
-
     /**
      * An element representing a document body. The Body may contain ListItem, Paragraph, Table, and TableOfContents elements. For more information on document
      * structure, see the guide to extending
@@ -102,20 +101,13 @@ declare namespace GoogleAppsScript {
       setPageWidth(pageWidth: number): Body;
       setText(text: string): Body;
       setTextAlignment(textAlignment: TextAlignment): Body;
-      /** @deprecated DO NOT USE */
-      getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */
-      getLinkUrl(): string;
-      /** @deprecated DO NOT USE */
-      getNextSibling(): Element;
-      /** @deprecated DO NOT USE */
-      getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */
-      isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */
-      setLinkUrl(url: string): Body;
+      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */getLinkUrl(): string;
+      /** @deprecated DO NOT USE */getNextSibling(): Element;
+      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */setLinkUrl(url: string): Body;
     }
-
     /**
      * An object representing a bookmark.
      *
@@ -130,7 +122,6 @@ declare namespace GoogleAppsScript {
       getPosition(): Position;
       remove(): void;
     }
-
     /**
      * A generic element that may contain other elements. All elements that may contain child elements,
      * such as Paragraph, inherit from ContainerElement.
@@ -173,7 +164,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): ContainerElement;
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
     }
-
     /**
      * A document, containing rich text and elements such as tables and lists.
      *
@@ -228,7 +218,6 @@ declare namespace GoogleAppsScript {
       setName(name: string): Document;
       setSelection(range: Range): Document;
     }
-
     /**
      * The document service creates and opens Documents that can be edited.
      *
@@ -241,8 +230,7 @@ declare namespace GoogleAppsScript {
     interface DocumentApp {
       Attribute: typeof Attribute;
       ElementType: typeof ElementType;
-      /** @deprecated DO NOT USE */
-      FontFamily: typeof FontFamily;
+      /** @deprecated DO NOT USE */FontFamily: typeof FontFamily;
       GlyphType: typeof GlyphType;
       HorizontalAlignment: typeof HorizontalAlignment;
       ParagraphHeading: typeof ParagraphHeading;
@@ -255,7 +243,6 @@ declare namespace GoogleAppsScript {
       openById(id: string): Document;
       openByUrl(url: string): Document;
     }
-
     /**
      * A generic element. Document contents are
      * represented as elements. For example, ListItem, Paragraph, and Table are
@@ -341,7 +328,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): Element;
       setAttributes(attributes: any): Element;
     }
-
     /**
      * An enumeration of all the element types.
      *
@@ -354,7 +340,6 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
-
     /**
      * An element representing a mathematical expression. An Equation may contain EquationFunction, EquationSymbol, and Text elements. For more information on
      * document structure, see the guide to
@@ -387,7 +372,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): Equation;
       setTextAlignment(textAlignment: TextAlignment): Equation;
     }
-
     /**
      * An element representing a function in a mathematical Equation. An EquationFunction may contain EquationFunction, EquationFunctionArgumentSeparator, EquationSymbol, and Text elements. For more
      * information on document structure, see the guide to extending Google Docs.
@@ -420,7 +404,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): EquationFunction;
       setTextAlignment(textAlignment: TextAlignment): EquationFunction;
     }
-
     /**
      * An element representing a function separator in a mathematical Equation. An EquationFunctionArgumentSeparator cannot contain any other element. For more information on
      * document structure, see the guide to
@@ -438,7 +421,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): EquationFunctionArgumentSeparator;
       setAttributes(attributes: any): EquationFunctionArgumentSeparator;
     }
-
     /**
      * An element representing a symbol in a mathematical Equation. An EquationSymbol
      * cannot contain any other element. For more information on document structure, see the guide to extending Google Docs.
@@ -456,7 +438,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): EquationSymbol;
       setAttributes(attributes: any): EquationSymbol;
     }
-
     /**
      *
      * Deprecated. The methods getFontFamily() and setFontFamily(String) now use string
@@ -485,7 +466,6 @@ declare namespace GoogleAppsScript {
      *     body.editAsText().setFontFamily(a, b, DocumentApp.FontFamily.COMIC_SANS_MS);
      */
     enum FontFamily { AMARANTH, ARIAL, ARIAL_BLACK, ARIAL_NARROW, ARVO, CALIBRI, CAMBRIA, COMIC_SANS_MS, CONSOLAS, CORSIVA, COURIER_NEW, DANCING_SCRIPT, DROID_SANS, DROID_SERIF, GARAMOND, GEORGIA, GLORIA_HALLELUJAH, GREAT_VIBES, LOBSTER, MERRIWEATHER, PACIFICO, PHILOSOPHER, POIRET_ONE, QUATTROCENTO, ROBOTO, SHADOWS_INTO_LIGHT, SYNCOPATE, TAHOMA, TIMES_NEW_ROMAN, TREBUCHET_MS, UBUNTU, VERDANA }
-
     /**
      * An element representing a footer section. A Document typically contains at most one FooterSection. The FooterSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
@@ -536,20 +516,13 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FooterSection;
       setText(text: string): FooterSection;
       setTextAlignment(textAlignment: TextAlignment): FooterSection;
-      /** @deprecated DO NOT USE */
-      getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */
-      getLinkUrl(): string;
-      /** @deprecated DO NOT USE */
-      getNextSibling(): Element;
-      /** @deprecated DO NOT USE */
-      getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */
-      isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */
-      setLinkUrl(url: string): FooterSection;
+      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */getLinkUrl(): string;
+      /** @deprecated DO NOT USE */getNextSibling(): Element;
+      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */setLinkUrl(url: string): FooterSection;
     }
-
     /**
      * An element representing a footnote. Each Footnote is contained within a ListItem
      * or Paragraph and has a corresponding FootnoteSection element for the footnote's
@@ -569,7 +542,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): Footnote;
       setAttributes(attributes: any): Footnote;
     }
-
     /**
      * An element representing a footnote section. A FootnoteSection contains the text that
      * corresponds to a Footnote. The FootnoteSection may contain ListItem or
@@ -604,16 +576,11 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FootnoteSection;
       setText(text: string): FootnoteSection;
       setTextAlignment(textAlignment: TextAlignment): FootnoteSection;
-      /** @deprecated DO NOT USE */
-      getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */
-      getLinkUrl(): string;
-      /** @deprecated DO NOT USE */
-      isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */
-      setLinkUrl(url: string): FootnoteSection;
+      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */getLinkUrl(): string;
+      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */setLinkUrl(url: string): FootnoteSection;
     }
-
     /**
      * An enumeration of the supported glyph types.
      *
@@ -630,7 +597,6 @@ declare namespace GoogleAppsScript {
      *          .setGlyphType(DocumentApp.GlyphType.SQUARE_BULLET);
      */
     enum GlyphType { BULLET, HOLLOW_BULLET, SQUARE_BULLET, NUMBER, LATIN_UPPER, LATIN_LOWER, ROMAN_UPPER, ROMAN_LOWER }
-
     /**
      * An element representing a header section. A Document typically contains at most one HeaderSection. The HeaderSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
@@ -681,20 +647,13 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): HeaderSection;
       setText(text: string): HeaderSection;
       setTextAlignment(textAlignment: TextAlignment): HeaderSection;
-      /** @deprecated DO NOT USE */
-      getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */
-      getLinkUrl(): string;
-      /** @deprecated DO NOT USE */
-      getNextSibling(): Element;
-      /** @deprecated DO NOT USE */
-      getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */
-      isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */
-      setLinkUrl(url: string): HeaderSection;
+      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */getLinkUrl(): string;
+      /** @deprecated DO NOT USE */getNextSibling(): Element;
+      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */setLinkUrl(url: string): HeaderSection;
     }
-
     /**
      * An enumeration of the supported horizontal alignment types.
      *
@@ -718,7 +677,6 @@ declare namespace GoogleAppsScript {
      *     par3.setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
      */
     enum HorizontalAlignment { LEFT, CENTER, RIGHT, JUSTIFY }
-
     /**
      * An element representing an horizontal rule. A HorizontalRule can be contained within a
      * ListItem or Paragraph, but cannot itself contain any other element. For more
@@ -735,7 +693,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): HorizontalRule;
       setAttributes(attributes: any): HorizontalRule;
     }
-
     /**
      * An element representing an embedded drawing. An InlineDrawing can be contained within a
      * ListItem or Paragraph, unless the ListItem or Paragraph is within
@@ -758,7 +715,6 @@ declare namespace GoogleAppsScript {
       setAltTitle(title: string): InlineDrawing;
       setAttributes(attributes: any): InlineDrawing;
     }
-
     /**
      * An element representing an embedded image. An InlineImage can be contained within a
      * ListItem or Paragraph, unless the ListItem or Paragraph is within
@@ -789,7 +745,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): InlineImage;
       setWidth(width: Integer): InlineImage;
     }
-
     /**
      * An element representing a list item. A ListItem is a Paragraph that is associated
      * with a list ID. A ListItem may contain Equation, Footnote, HorizontalRule, InlineDrawing, InlineImage, PageBreak, and Text
@@ -892,7 +847,6 @@ declare namespace GoogleAppsScript {
       setText(text: string): void;
       setTextAlignment(textAlignment: TextAlignment): ListItem;
     }
-
     /**
      * A Range that has a name and ID to allow later retrieval. Names are not
      * necessarily unique; several different ranges in the same document may share the same name, much
@@ -917,7 +871,6 @@ declare namespace GoogleAppsScript {
       getRange(): Range;
       remove(): void;
     }
-
     /**
      * An element representing a page break. A PageBreak can be contained within a ListItem or Paragraph, unless the ListItem or Paragraph is within a
      * Table, HeaderSection, FooterSection, or FootnoteSection. A PageBreak cannot itself contain any other element. For more information on document structure,
@@ -935,7 +888,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): PageBreak;
       setAttributes(attributes: any): PageBreak;
     }
-
     /**
      * An element representing a paragraph. A Paragraph may contain Equation, Footnote, HorizontalRule, InlineDrawing, InlineImage, PageBreak,
      * and Text elements. For more information on document structure, see the guide to extending Google Docs.
@@ -1021,7 +973,6 @@ declare namespace GoogleAppsScript {
       setText(text: string): void;
       setTextAlignment(textAlignment: TextAlignment): Paragraph;
     }
-
     /**
      * An enumeration of the standard paragraph headings.
      *
@@ -1042,7 +993,6 @@ declare namespace GoogleAppsScript {
      *     par3.setHeading(DocumentApp.ParagraphHeading.NORMAL);
      */
     enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
-
     /**
      * A reference to a location in the document, relative to a specific element. The user's cursor is
      * represented as a Position, among other uses. Scripts can only access the cursor of the
@@ -1072,7 +1022,6 @@ declare namespace GoogleAppsScript {
       insertInlineImage(image: Base.BlobSource): InlineImage;
       insertText(text: string): Text;
     }
-
     /**
      * Fixed position image anchored to a Paragraph. Unlike an InlineImage, a PositionedImage is
      * not an Element. It does not have a
@@ -1109,13 +1058,11 @@ declare namespace GoogleAppsScript {
       setTopOffset(offset: number): PositionedImage;
       setWidth(width: Integer): PositionedImage;
     }
-
     /**
      * An enumeration that specifies how to lay out a PositionedImage in relation to surrounding
      * text.
      */
     enum PositionedLayout { ABOVE_TEXT, BREAK_BOTH, BREAK_LEFT, BREAK_RIGHT, WRAP_TEXT }
-
     /**
      * A range of elements in a document. The user's selection is represented as a Range, among
      * other uses. Scripts can only access the selection of the user who is running the script, and only
@@ -1144,10 +1091,8 @@ declare namespace GoogleAppsScript {
      */
     interface Range {
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */
-      getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
     }
-
     /**
      * A builder used to construct Range objects from document elements.
      *
@@ -1168,10 +1113,8 @@ declare namespace GoogleAppsScript {
       addRange(range: Range): RangeBuilder;
       build(): Range;
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */
-      getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
     }
-
     /**
      * A wrapper around an Element with a possible start and end offset. These offsets allow a
      * range of characters within a Text
@@ -1183,7 +1126,6 @@ declare namespace GoogleAppsScript {
       getStartOffset(): Integer;
       isPartial(): boolean;
     }
-
     /**
      * An element representing a table. A Table may only contain TableRow elements. For
      * more information on document structure, see the guide to extending Google Docs.
@@ -1243,7 +1185,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): Table;
       setTextAlignment(textAlignment: TextAlignment): Table;
     }
-
     /**
      * An element representing a table cell. A TableCell is always contained within a TableRow and may contain ListItem, Paragraph, or Table elements. For
      * more information on document structure, see the guide to extending Google Docs.
@@ -1315,7 +1256,6 @@ declare namespace GoogleAppsScript {
       setVerticalAlignment(alignment: VerticalAlignment): TableCell;
       setWidth(width: number): TableCell;
     }
-
     /**
      * An element containing a table of contents. A TableOfContents may contain ListItem, Paragraph, and Table elements, although the contents of a TableOfContents are usually generated automatically by Google Docs. For more information on
      * document structure, see the guide to
@@ -1347,7 +1287,6 @@ declare namespace GoogleAppsScript {
       setLinkUrl(url: string): TableOfContents;
       setTextAlignment(textAlignment: TextAlignment): TableOfContents;
     }
-
     /**
      * An element representing a table row. A TableRow is always contained within a Table and may only contain TableCell elements. For more information on document
      * structure, see the guide to extending
@@ -1393,7 +1332,6 @@ declare namespace GoogleAppsScript {
       setMinimumHeight(minHeight: Integer): TableRow;
       setTextAlignment(textAlignment: TextAlignment): TableRow;
     }
-
     /**
      * An element representing a rich text region. All text in a Document is contained within Text elements.
      * A Text element can be contained within an Equation, EquationFunction,
@@ -1479,7 +1417,6 @@ declare namespace GoogleAppsScript {
       setUnderline(underline: boolean): Text;
       setUnderline(startOffset: Integer, endOffsetInclusive: Integer, underline: boolean): Text;
     }
-
     /**
      * An enumeration of the type of text alignments.
      *
@@ -1488,7 +1425,6 @@ declare namespace GoogleAppsScript {
      *     text.setTextAlignment(0, 0, DocumentApp.TextAlignment.SUPERSCRIPT);
      */
     enum TextAlignment { NORMAL, SUPERSCRIPT, SUBSCRIPT }
-
     /**
      * An element representing a region that is unknown or cannot be affected by a script, such as a
      * page number.
@@ -1505,7 +1441,6 @@ declare namespace GoogleAppsScript {
       removeFromParent(): UnsupportedElement;
       setAttributes(attributes: any): UnsupportedElement;
     }
-
     /**
      * An enumeration of the supported vertical alignment types.
      *
