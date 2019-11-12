@@ -188,7 +188,7 @@ interface WidgetInterface {
 }
 
 /**
- * The global Alloy module.
+ * The global Widget module.
  */
 declare const Widget: WidgetInterface;
 
