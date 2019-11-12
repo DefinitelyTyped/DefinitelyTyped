@@ -883,6 +883,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "depcheck",
+            "typingsPackageName": "depcheck",
+            "sourceRepoURL": "https://github.com/depcheck/depcheck",
+            "asOfVersion": "0.9.1"
+        },
+        {
             "libraryName": "detect-browser",
             "typingsPackageName": "detect-browser",
             "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
