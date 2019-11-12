@@ -98,13 +98,25 @@ interface AlloyController extends Backbone.Events {
 }
 
 /**
+ * Top-level configuration for Alloy.
+ */
+interface AlloyConfig {
+}
+
+/**
+ * Top-level globals for Alloy.
+ */
+interface AlloyGlobals {
+}
+
+/**
  * Top-level module for Alloy functions.
  */
 interface AlloyInterface {
   /**
    * An object that stores Alloy configuration values as defined in your app's app/config.json file
    */
-  CFG: any;
+  CFG: AlloyConfig;
 
   /**
    * An object for storing globally accessible Alloy collections. Singleton collections created via markup will be stored on this object.
@@ -117,7 +129,7 @@ interface AlloyInterface {
   /**
    * An object for storing globally accessible variables and functions.
    */
-  Globals: any;
+  Globals: AlloyGlobals;
 
   /**
    * An object for storing globally accessible Alloy models. Singleton models created via markup will be stored on this object.
@@ -173,6 +185,26 @@ interface AlloyInterface {
  * The global Alloy module.
  */
 declare const Alloy: AlloyInterface;
+
+
+/**
+ * Top-level module for Alloy widget.
+ */
+declare interface WidgetInterface {
+  /**
+   * Factory method for instantiating a controller. Creates and returns an instance of the named controller.
+   *
+   * @param name Name of controller to instantiate.
+   * @param args Arguments to pass to the controller
+   */
+  createController(name: string, args?: any): AlloyController;
+
+}
+
+/**
+ * The global Alloy module.
+ */
+declare const Widget: WidgetInterface;
 
 /**
  * Shows an AlertDialog with the specified message.
