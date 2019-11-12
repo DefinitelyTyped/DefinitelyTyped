@@ -2149,6 +2149,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-diff",
+            "typingsPackageName": "jest-diff",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-diff",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-get-type",
             "typingsPackageName": "jest-get-type",
             "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-get-type",
