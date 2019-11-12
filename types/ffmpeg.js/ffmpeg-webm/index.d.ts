@@ -36,4 +36,4 @@ declare namespace ffmpeg {
 
 declare function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
 
-export default ffmpeg;
+export = ffmpeg;
