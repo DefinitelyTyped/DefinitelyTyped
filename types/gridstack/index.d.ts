@@ -11,15 +11,17 @@
 interface JQuery {
     gridstack(options: IGridstackOptions): JQuery;
     data(key: 'gridstack'): GridStack;
-  }
+}
 
-  /* Other items in https://github.com/gridstack/gridstack.js/blob/develop/doc/README.md
-  * Grid attributes
-  * Item attributes
-  * Events
-  */
+/* Other items in https://github.com/gridstack/gridstack.js/blob/develop/doc/README.md
+* Grid attributes
+* Item attributes
+* Events
+*/
 
-  interface GridStack {
+type GridStackWidgetType = string | HTMLElement | JQuery;
+
+interface GridStack {
     /**
     * Creates new widget and returns it.
     *
@@ -31,7 +33,7 @@ interface JQuery {
     * var grid = $('.grid-stack').data('gridstack');
     * grid.addWidget(el, 0, 0, 3, 2, true);
     *
-    * @param {string | HTMLElement | JQuery} el widget to add
+    * @param {GridStackWidgetType} el widget to add
     * @param {number} x widget position x (optional)
     * @param {number} y widget position y (optional)
     * @param {number} width  widget dimension width (optional)
@@ -43,8 +45,8 @@ interface JQuery {
     * @param {number} maxHeight maximum height allowed during resize/creation (optional)
     * @param {number | string} id value for `data-gs-id` (optional)
     */
-    addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean,
-          minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?:  number | string): JQuery;
+    addWidget(el: GridStackWidgetType, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean,
+        minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery;
 
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
@@ -139,16 +141,16 @@ interface JQuery {
 
     /**
     * Locks/unlocks widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {boolean} val if true widget will be locked.
     */
-    locked(el: HTMLElement, val: boolean): void;
+    locked(el: GridStackWidgetType, val: boolean): void;
 
     /**
     * If you add elements to your gridstack container by hand, you have to tell gridstack afterwards to make them widgets.
     * If you want gridstack to add the elements for you, use addWidget instead.
     * Makes the given element a widget and returns it.
-    * @param {string | HTMLElement | JQuery} el widget to convert.
+    * @param {GridStackWidgetType} el widget to convert.
     *
     * $('.grid-stack').gridstack();
     * $('.grid-stack').append('<div id="gsi-1" data-gs-x="0" data-gs-y="0" data-gs-width="3" data-gs-height="2"
@@ -156,58 +158,58 @@ interface JQuery {
     * var grid = $('.grid-stack').data('gridstack');
     * grid.makeWidget('gsi-1');
     */
-    makeWidget(el: string | HTMLElement | JQuery): JQuery;
+    makeWidget(el: GridStackWidgetType): JQuery;
 
     /**
     * Set the maxWidth for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    maxWidth(el: HTMLElement, val: number): void;
+    maxWidth(el: GridStackWidgetType, val: number): void;
 
     /**
     * Set the minWidth for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    minWidth(el: HTMLElement, val: number): void;
+    minWidth(el: GridStackWidgetType, val: number): void;
 
     /**
     * Set the maxHeight for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    maxHeight(el: HTMLElement, val: number): void;
+    maxHeight(el: GridStackWidgetType, val: number): void;
 
     /**
     * Set the minHeight for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    minHeight(el: HTMLElement, val: number): void;
+    minHeight(el: GridStackWidgetType, val: number): void;
 
     /**
     * Enables/Disables moving.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackWidgetType} el widget to modify.
     * @param {number} val if true widget will be draggable.
     */
-    movable(el: HTMLElement, val: boolean): void;
+    movable(el: GridStackWidgetType, val: boolean): void;
 
     /**
     * Changes widget position
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackWidgetType} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     *
     */
-    move(el: HTMLElement, x: number, y: number): void;
+    move(el: GridStackWidgetType, x: number, y: number): void;
 
     /**
     * Removes widget from the grid.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackWidgetType} el  widget to modify
     * @param {boolean} detachNode if false DOM node won't be removed from the tree (Default? true).
     */
-    removeWidget(el: HTMLElement, detachNode?: boolean): void;
+    removeWidget(el: GridStackWidgetType, detachNode?: boolean): void;
 
     /**
     * Removes all widgets from the grid.
@@ -217,18 +219,18 @@ interface JQuery {
 
     /**
     * Changes widget size
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackWidgetType} el  widget to modify
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    resize(el: HTMLElement, width: number, height: number): void;
+    resize(el: GridStackWidgetType, width: number, height: number): void;
 
     /**
     * Enables/Disables resizing.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackWidgetType} el  widget to modify
     * @param {boolean} val  if true widget will be resizable.
     */
-    resizable(el: HTMLElement, val: boolean): void;
+    resizable(el: GridStackWidgetType, val: boolean): void;
 
     /**
     * Toggle the grid animation state.  Toggles the `grid-stack-animate` class.
@@ -252,13 +254,13 @@ interface JQuery {
 
     /**
     * Updates widget position/size.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackWidgetType} el widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    update(el: HTMLElement, x: number, y: number, width: number, height: number): void;
+    update(el: GridStackWidgetType, x: number, y: number, width: number, height: number): void;
 
     /**
     * returns current vertical margin value
@@ -289,25 +291,25 @@ interface JQuery {
     * }
     */
     willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean;
-  }
+}
 
-  /**
-  * Defines the coordinates of an object
-  */
-  interface MousePosition {
+/**
+ * Defines the coordinates of an object
+ */
+interface MousePosition {
     top: number;
     left: number;
-  }
+}
 
-  /**
-  *   Defines the position of a cell inside the grid
-  */
-  interface CellPosition {
+/**
+ *   Defines the position of a cell inside the grid
+ */
+interface CellPosition {
     x: number;
     y: number;
-  }
+}
 
-  declare namespace GridStackUI {
+declare namespace GridStackUI {
     interface Utils {
         /**
         * Sorts array of nodes
@@ -317,13 +319,13 @@ interface JQuery {
         **/
         sort(nodes: HTMLElement[], dir?: number, width?: number): void;
     }
-  }
+}
 
-  /**
-  * Gridstack Options
-  * Defines the options for a Gridstack
-  */
-  interface IGridstackOptions {
+/**
+ * Gridstack Options
+ * Defines the options for a Gridstack
+ */
+interface IGridstackOptions {
     /**
     * if true of jquery selector the grid will accept widgets dragged from other grids or from
     * outside (default: false) See [example](http://gridstack.github.io/gridstack.js/demo/two.html)
@@ -465,4 +467,4 @@ interface JQuery {
     * amount of columns (default?: 12)
     */
     width?: number;
-  }
+}
