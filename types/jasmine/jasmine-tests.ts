@@ -179,6 +179,15 @@ describe("Included matchers:", () => {
         expect(foo).toThrowError(TypeError, "foo bar baz");
     });
 
+    it("The 'toBeInstanceOf' matcher is for testing if the actual is of the expected class", () => {
+        class MyClass {}
+        
+        expect(new MyClass()).toBeInstanceOf(MyClass);
+        expect('foo').toBeInstanceOf(String);
+        expect(3).toBeInstanceOf(Number);
+        expect(new Error()).toBeInstanceOf(Error);
+    });
+
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
