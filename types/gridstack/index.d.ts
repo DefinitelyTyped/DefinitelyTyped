@@ -292,19 +292,19 @@ interface JQuery {
   }
 
   /**
-  * Defines the coordinates of a object
+  * Defines the coordinates of an object
   */
   interface MousePosition {
-  top: number;
-  left: number;
+    top: number;
+    left: number;
   }
 
   /**
   *   Defines the position of a cell inside the grid
   */
   interface CellPosition {
-  x: number;
-  y: number;
+    x: number;
+    y: number;
   }
 
   declare namespace GridStackUI {
