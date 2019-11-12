@@ -603,6 +603,7 @@ declare namespace Chart {
         hoverBorderWidth?: number | number[] | Scriptable<number>;
         label?: string;
         lineTension?: number;
+        maxBarThickness?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -648,7 +649,6 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        maxBarThickness?: number;
         minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
