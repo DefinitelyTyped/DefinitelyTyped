@@ -1502,34 +1502,34 @@ describe("createSpyObj", function() {
     });
 
     it("creates an object with spy properties if a second list is passed", function() {
-        var spyObj = jasmine.createSpyObj('base', ['method1'], ['prop1']);
-  
+        const spyObj = jasmine.createSpyObj('base', ['method1'], ['prop1']);
+
         expect(spyObj).toEqual({
           method1: jasmine.any(Function)
         });
-    
+
         expect(spyObj.prop1).toBeUndefined();
       });
-  
+
       it("creates an object with property names and return values if second object is passed", function() {
-        var spyObj = jasmine.createSpyObj('base', ['method1'], {
+        const spyObj = jasmine.createSpyObj('base', ['method1'], {
           prop1: 'foo',
           prop2: 37
         });
-  
+
         expect(spyObj).toEqual({
           method1: jasmine.any(Function)
         });
-  
+
         expect(spyObj.prop1).toEqual('foo');
         expect(spyObj.prop2).toEqual(37);
         spyObj.prop2 = 4;
         expect(spyObj.prop2).toEqual(37);
       });
-  
+
       it("allows base name to be ommitted when assigning methods and properties", function() {
-        var spyObj = jasmine.createSpyObj({ m: 3 }, { p: 4 });
-  
+        const spyObj = jasmine.createSpyObj({ m: 3 }, { p: 4 });
+
         expect(spyObj.m()).toEqual(3);
         expect(spyObj.p).toEqual(4);
       });

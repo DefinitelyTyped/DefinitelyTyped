@@ -219,7 +219,7 @@ declare namespace jasmine {
         random?: boolean;
         seed?: number;
         failFast?: boolean;
-        failSpecWithNoExpectations?: boolean,
+        failSpecWithNoExpectations?: boolean;
         oneFailurePerSpec?: boolean;
         hideDisabled?: boolean;
         specFilter?: Function;
@@ -267,8 +267,8 @@ declare namespace jasmine {
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
 
-    function setDefaultSpyStrategy(and: SpyAnd): void;
-    function createSpy(name?: string, originalFn?: Function): Spy;
+    function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
+    function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
     function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
