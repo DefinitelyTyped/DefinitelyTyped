@@ -29,6 +29,7 @@ const chart: Chart = new Chart(ctx, {
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
                 label: 'test',
                 data: [1, 3, 5],
+                barThickness: 'flex'
             }
         ],
     },

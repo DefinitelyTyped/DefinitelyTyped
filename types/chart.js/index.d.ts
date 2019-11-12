@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.8
+// Type definitions for Chart.js 2.9
 // Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -586,6 +586,7 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        barThickness?: number | "flex";
         borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
         borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -647,7 +648,6 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number | "flex";
         maxBarThickness?: number;
         minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
