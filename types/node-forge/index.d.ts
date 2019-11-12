@@ -300,6 +300,10 @@ declare module "node-forge" {
              * Attribute value data type
              */
             valueTagClass: number;
+            /**
+             * Extensions
+             */
+            extensions?: any[]
         }
 
         interface CAStore {
