@@ -1,4 +1,4 @@
-// Type definitions for react-burger-menu 2.6.11
+// Type definitions for react-burger-menu 2.6
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
