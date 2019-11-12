@@ -163,6 +163,7 @@ export function useLocation<S = H.LocationState>(): H.Location<S>;
 
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: string };
 
+export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
-    path?: string | string[] | RouteProps,
+    path: string | string[] | RouteProps,
 ): match<Params> | null;
