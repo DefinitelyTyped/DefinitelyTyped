@@ -36,7 +36,7 @@ export interface Props {
     customOnKeyDown?(event: React.KeyboardEvent): void;
     disableAutoFocus?: boolean;
     disableCloseOnEsc?: boolean;
-    disableOverlayClick?: boolean;
+    disableOverlayClick?: boolean | (() => boolean);
     htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
