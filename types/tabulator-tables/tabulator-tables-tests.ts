@@ -533,5 +533,3 @@ let groupColDef: Tabulator.ColumnDefinition = {
         {title: "Last name", field: ''}
     ]
 };
-    
-    
