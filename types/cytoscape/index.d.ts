@@ -3740,6 +3740,31 @@ declare namespace cytoscape {
              * The style of the edge’s line.
              */
             "line-style"?: PropertyValueEdge<LineStyle>;
+            /**
+             * The cap of the edge's line.
+             */
+            "line-cap"?: PropertyValueEdge<"butt" | "round" | "square">;
+            /**
+             * The filling style of the edge's line.
+             */
+            "line-fill"?: PropertyValueEdge<"solid" | "linear-gradient" | "radial-gradient">;
+            /**
+             * The dashed line pattern which specifies alternating lengths of lines and gaps.
+             */
+            "line-dash-pattern"?: PropertyValueEdge<number>[];
+            /**
+             * The dashed line offset.
+             */
+            "line-dash-offset"?: PropertyValueEdge<number>;
+            /**
+             * The colours of the gradient stops.
+             */
+            "line-gradient-stop-colours"?: PropertyValueEdge<Colour>[];
+            /**
+             * The positions of the gradient stops.
+             * If not specified (or invalid), the stops will divide equally.
+             */
+            "line-gradient-stop-positions"?: PropertyValueEdge<number>[];
         }
 
         /**
