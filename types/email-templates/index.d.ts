@@ -93,7 +93,7 @@ interface EmailConfig<T = any> {
     /**
      * The email template directory and engine information
      */
-    views?: ViewOptions;
+    views?: View;
     /**
      * Do you really want to send, false for test or development
      */
