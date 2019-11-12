@@ -80,7 +80,7 @@ export interface User extends BaseUser {
 }
 
 export interface CreateUpdateUser extends BaseUser {
-    companies: Partial<Company>[];
+    companies: (Partial<Company> & { remove?: boolean })[];
 }
 
 export interface List {

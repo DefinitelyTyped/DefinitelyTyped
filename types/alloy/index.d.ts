@@ -11,7 +11,7 @@
 /**
  * The base class for Alloy controllers.
  */
-interface AlloyController extends Backbone.Model {
+interface AlloyController extends Backbone.Events {
   /**
    *
    * @param proxy View object to which to add class(es).
