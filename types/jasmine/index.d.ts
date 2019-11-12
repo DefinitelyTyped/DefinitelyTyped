@@ -258,6 +258,7 @@ declare namespace jasmine {
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function setDefaultSpyStrategy(and: SpyAnd): void;
     function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
