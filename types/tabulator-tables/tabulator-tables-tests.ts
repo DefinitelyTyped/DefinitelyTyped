@@ -526,7 +526,7 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     return editor;
 };
 
-let groupColDef: Tabulator.ColumnDefinition = { 
+let groupColDef: Tabulator.ColumnDefinition = {
     title: 'Full name', field: '',
     columns: [
         {title: "First name", field: ''},
