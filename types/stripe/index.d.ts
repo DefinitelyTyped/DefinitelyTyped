@@ -7540,12 +7540,13 @@ declare namespace Stripe {
 
         interface IBankAccountTokenCreationOptions extends ITokenCreationOptionsBase {
             /**
-             * The card this token will represent. If you also pass in a customer,
-             * the card must be the ID of a card belonging to the customer.
-             * Otherwise, if you do not pass a customer, a object containing a
-             * user's credit card details, with the options described below.
+             * The bank account this token will represent. If you also pass in
+             * a customer, the bank account must be the ID of a bank account
+             * belonging to the customer.  Otherwise, if you do not pass a
+             * customer, a object containing a user's bank account details,
+             * with the options described below.
              */
-            bank_account: bankAccounts.ISourceCreationOptions;
+            bank_account: string | bankAccounts.ISourceCreationOptions;
         }
 
         interface IPiiTokenCreationOptions extends IDataOptions {
@@ -13887,6 +13888,38 @@ declare namespace Stripe {
                 endpointSecret: string,
                 tolerance?: number,
             ): events.IEvent;
+
+            /**
+             * Generates a header to be used for webhook mocking
+             */
+            generateTestHeaderString(options: IWebHookGenerateTestHeaderStringOptions): string;
+        }
+
+        interface IWebHookGenerateTestHeaderStringOptions {
+            /**
+             * Timestamp of the header. Defaults to Date.now()
+             */
+            timestamp?: number;
+
+            /**
+             * JSON stringified payload object, containing the 'id' and 'object' parameters
+             */
+            payload?: string;
+
+            /**
+             * Stripe webhook secret 'whsec_...'
+             */
+            secret?: string;
+
+            /**
+             * Version of API to hit. Defaults to 'v1'.
+             */
+            scheme?: string;
+
+            /**
+             * Computed webhook signature
+             */
+            signature?: string;
         }
 
         class EphemeralKeys {

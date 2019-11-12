@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.1
+// Type definitions for styled-components 4.4
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -414,7 +414,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<

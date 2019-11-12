@@ -383,7 +383,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<

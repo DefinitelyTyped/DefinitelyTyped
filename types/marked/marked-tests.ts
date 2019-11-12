@@ -3,7 +3,6 @@ import * as marked from 'marked';
 let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,
-    tables: true,
     breaks: false,
     pedantic: false,
     sanitize: true,
@@ -14,14 +13,14 @@ let options: marked.MarkedOptions = {
     },
     langPrefix: 'lang-',
     smartypants: false,
-    renderer: new marked.Renderer()
+    renderer: new marked.Renderer(),
 };
 
 options = marked.getDefaults();
 options = marked.defaults;
 
 function callback(err: string, markdown: string) {
-    console.log("Callback called!");
+    console.log('Callback called!');
     return markdown;
 }
 
@@ -64,7 +63,7 @@ const rendererOptions: marked.MarkedOptions = renderer.options;
 const textRenderer = new marked.TextRenderer();
 console.log(textRenderer.strong(text));
 
-const parseTestText = "- list1\n  - list1.1\n\n listend";
+const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
@@ -73,7 +72,7 @@ const parserOptions: marked.MarkedOptions = parser.options;
 
 const links = ['http', 'image'];
 const inlineLexer = new marked.InlineLexer(links);
-console.log(inlineLexer.output("http://"));
-console.log(marked.InlineLexer.output("http://", links));
+console.log(inlineLexer.output('http://'));
+console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
