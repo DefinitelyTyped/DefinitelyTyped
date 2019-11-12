@@ -45,6 +45,7 @@ export interface Props {
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
+    noTransition?: boolean;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string
