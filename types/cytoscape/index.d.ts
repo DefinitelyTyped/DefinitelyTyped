@@ -6,6 +6,7 @@
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
+//                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -3751,7 +3752,7 @@ declare namespace cytoscape {
             /**
              * The dashed line pattern which specifies alternating lengths of lines and gaps.
              */
-            "line-dash-pattern"?: PropertyValueEdge<number>[];
+            "line-dash-pattern"?: Array<PropertyValueEdge<number>>;
             /**
              * The dashed line offset.
              */
@@ -3759,12 +3760,12 @@ declare namespace cytoscape {
             /**
              * The colours of the gradient stops.
              */
-            "line-gradient-stop-colours"?: PropertyValueEdge<Colour>[];
+            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
             /**
              * The positions of the gradient stops.
              * If not specified (or invalid), the stops will divide equally.
              */
-            "line-gradient-stop-positions"?: PropertyValueEdge<number>[];
+            "line-gradient-stop-positions"?: Array<PropertyValueEdge<number>>;
         }
 
         /**
