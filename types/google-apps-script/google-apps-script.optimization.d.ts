@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,7 +29,6 @@ declare namespace GoogleAppsScript {
     interface LinearOptimizationConstraint {
       setCoefficient(variableName: string, coefficient: number): LinearOptimizationConstraint;
     }
-
     /**
      * The engine used to model and solve a linear program. The example below solves the following
      * linear program:
@@ -95,7 +94,6 @@ declare namespace GoogleAppsScript {
       solve(): LinearOptimizationSolution;
       solve(seconds: number): LinearOptimizationSolution;
     }
-
     /**
      * The linear optimization service, used to model and solve linear and mixed-integer linear
      * programs. The example below solves the following linear program:
@@ -153,7 +151,6 @@ declare namespace GoogleAppsScript {
       VariableType: typeof VariableType;
       createEngine(): LinearOptimizationEngine;
     }
-
     /**
      * The solution of a linear program. The example below solves the following linear program:
      *
@@ -212,14 +209,12 @@ declare namespace GoogleAppsScript {
       getVariableValue(variableName: string): number;
       isValid(): boolean;
     }
-
     /**
      * Status of the solution. Before solving a problem the status will be NOT_SOLVED;
      * afterwards it will take any of the other values depending if it successfully found a solution and
      * if the solution is optimal.
      */
     enum Status { OPTIMAL, FEASIBLE, INFEASIBLE, UNBOUNDED, ABNORMAL, MODEL_INVALID, NOT_SOLVED }
-
     /**
      * Type of variables created by the engine.
      */

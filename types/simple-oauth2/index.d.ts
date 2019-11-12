@@ -77,7 +77,7 @@ export interface AuthorizationTokenConfig {
     /** A string that represents the callback uri */
     redirect_uri: string;
     /** A string or array of strings that represents the application privileges */
-    scope: string | string[];
+    scope?: string | string[];
 }
 
 export interface PasswordTokenConfig {

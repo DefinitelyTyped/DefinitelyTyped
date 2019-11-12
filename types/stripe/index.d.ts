@@ -13888,6 +13888,38 @@ declare namespace Stripe {
                 endpointSecret: string,
                 tolerance?: number,
             ): events.IEvent;
+
+            /**
+             * Generates a header to be used for webhook mocking
+             */
+            generateTestHeaderString(options: IWebHookGenerateTestHeaderStringOptions): string;
+        }
+
+        interface IWebHookGenerateTestHeaderStringOptions {
+            /**
+             * Timestamp of the header. Defaults to Date.now()
+             */
+            timestamp?: number;
+
+            /**
+             * JSON stringified payload object, containing the 'id' and 'object' parameters
+             */
+            payload?: string;
+
+            /**
+             * Stripe webhook secret 'whsec_...'
+             */
+            secret?: string;
+
+            /**
+             * Version of API to hit. Defaults to 'v1'.
+             */
+            scheme?: string;
+
+            /**
+             * Computed webhook signature
+             */
+            signature?: string;
         }
 
         class EphemeralKeys {
