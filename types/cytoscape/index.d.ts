@@ -3761,10 +3761,10 @@ declare namespace cytoscape {
 
         /**
          * These properties specify the gradient colouration of an edge's line:
-         * 
+         *
          * https://js.cytoscape.org/#style/gradient
          */
-        interface Gradient{
+        interface Gradient {
             /**
              * The colours of the gradient stops.
              */
