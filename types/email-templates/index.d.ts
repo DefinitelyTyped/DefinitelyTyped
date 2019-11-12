@@ -80,7 +80,7 @@ interface View {
     options?: ViewOptions;
 }
 
-interface EmailConfig {
+interface EmailConfig<T = any> {
     /**
      * The message <Nodemailer.com/message/>
      */
@@ -94,7 +94,7 @@ interface EmailConfig {
      */
     views?: ViewOptions;
     /**
-     *     Do you really want to send, false for test or development
+     * Do you really want to send, false for test or development
      */
     send?: boolean;
     /**
@@ -108,7 +108,7 @@ interface EmailConfig {
     /**
      * Pass a custom render function if necessary
      */
-    render?: (view: string, locals: any) => Promise<any>;
+    render?: (view: string, locals: T) => Promise<any>;
     /**
      * force text-only rendering of template (disregards template folder)
      */
@@ -151,7 +151,7 @@ interface EmailOptions<T = any> {
     locals: T;
 }
 
-declare class EmailTemplate {
+declare class EmailTemplate<T = any> {
     constructor(config: EmailConfig);
     /**
      *   shorthand use of `juiceResources` with the config
@@ -163,11 +163,11 @@ declare class EmailTemplate {
      * @param view The Html pug to render
      * @param locals The template Variables
      */
-    render(view: string, locals: any): Promise<string>;
+    render(view: string, locals: T): Promise<string>;
     /**
      * Send the Email
      */
-    send(options: EmailOptions): any;
+    send(options: EmailOptions<T>): any;
 }
 
 declare namespace EmailTemplate {
