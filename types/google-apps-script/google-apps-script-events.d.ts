@@ -1,6 +1,6 @@
 // Type definitions for Google Apps Script 2019-04-02
 // Project: https://developers.google.com/apps-script/
-//                 oshliaer <https://github.com/oshliaer>
+// Definitions by: oshliaer <https://github.com/oshliaer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.script.d.ts" />
