@@ -17,6 +17,7 @@
 //                 Jack Caldwell <https://github.com/jackcaldwell>
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
 //                 Craig Michael Thompson <https://github.com/craga89>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,9 +49,7 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 export function style<N = string | number, S = Scale>(
     // tslint:disable-next-line no-unnecessary-generics
     args: LowLevelStyleFunctionArguments<N, S>,
-): {
-    [cssProp: string]: string;
-};
+): styleFn;
 
 export interface styleFn {
     (...args: any[]): any;
