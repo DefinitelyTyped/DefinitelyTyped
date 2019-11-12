@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.13
+// Type definitions for stripe 7.12
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -33,7 +33,6 @@
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
-//                 Felix Robles <https://github.com/findeton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
