@@ -177,7 +177,7 @@ declare const Alloy: AlloyInterface;
 /**
  * Top-level module for Alloy widget.
  */
-declare interface WidgetInterface {
+interface WidgetInterface {
   /**
    * Factory method for instantiating a controller. Creates and returns an instance of the named controller.
    *
