@@ -5041,6 +5041,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "velocity-animate",
+            "typingsPackageName": "velocity-animate",
+            "sourceRepoURL": "http://velocityjs.org/",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "vfile-message",
             "typingsPackageName": "vfile-message",
             "sourceRepoURL": "https://github.com/vfile/vfile-message#readme",
