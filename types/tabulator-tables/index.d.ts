@@ -1051,8 +1051,11 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** Show/Hide a particular column in the HTML output*/
         htmlOutput?: boolean;
 
-        /**If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false */
+        /** If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false */
         clipboard?: boolean;
+
+        /** A column can be a "group" of columns (Example: group header column -> Measurements, grouped column -> Length, Width, Height) */
+        columns?: ColumnDefinition[];
     }
 
     interface CellCallbacks {
