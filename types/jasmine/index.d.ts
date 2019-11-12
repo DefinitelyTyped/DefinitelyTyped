@@ -571,6 +571,8 @@ declare namespace jasmine {
         toBeNaN(): boolean;
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
+        toBeTrue(): boolean;
+        toBeFalse(): boolean;
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledBefore(expected: Spy): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;

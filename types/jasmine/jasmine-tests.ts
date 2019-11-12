@@ -115,6 +115,18 @@ describe("Included matchers:", () => {
         expect(foo).not.toBeFalsy();
     });
 
+    it("The 'toBeTrue' matcher is for matching with true", () => {
+        expect(true).toBeTrue();
+        expect(false).not.toBeTrue();
+        expect({}).not.toBeTrue();
+    });
+
+    it("The 'toBeTrue' matcher is for matching with true", () => {
+        expect(false).toBeFalse();
+        expect(true).not.toBeFalse();
+        expect(undefined).not.toBeFalse();
+    });
+
     it("The 'toContain' matcher is for finding an item in an Array", () => {
         const a = ["foo", "bar", "baz"];
 
@@ -181,7 +193,7 @@ describe("Included matchers:", () => {
 
     it("The 'toBeInstanceOf' matcher is for testing if the actual is of the expected class", () => {
         class MyClass {}
-        
+
         expect(new MyClass()).toBeInstanceOf(MyClass);
         expect('foo').toBeInstanceOf(String);
         expect(3).toBeInstanceOf(Number);
