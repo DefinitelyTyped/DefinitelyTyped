@@ -138,12 +138,12 @@ declare namespace webpack {
 
     interface CliConfigOptions {
         config?: string;
-        mode?: Configuration["mode"],
-        env?: string,
+        mode?: Configuration["mode"];
+        env?: string;
         'config-register'?: string;
         configRegister?: string;
         'config-name'?: string;
-        configName?: string
+        configName?: string;
     }
 
     type ConfigurationFactory = ((
