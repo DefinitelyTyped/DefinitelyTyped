@@ -79,18 +79,56 @@ export interface TracingOptions {
     tags?: any;
 }
 
+export interface Injector {
+    inject(spanContext: opentracing.SpanContext, carrier: any): void;
+}
+
+export interface Extractor {
+    extract(carrier: any): opentracing.SpanContext | null;
+}
+
+export class JaegerTracer extends opentracing.Tracer {
+    registerInjector(format: string, injector: Injector): void;
+    registerExtractor(format: string, extractor: Extractor): void;
+}
+
 export function initTracer(
     tracingConfig: TracingConfig,
     tracingOptions: TracingOptions
-): opentracing.Tracer;
+): JaegerTracer;
 
 export function initTracerFromEnv(
     tracingConfig: TracingConfig,
     tracingOptions: TracingOptions
-): opentracing.Tracer;
+): JaegerTracer;
 
 export class PrometheusMetricsFactory {
     constructor(client: typeof prometheus, serviceName: string);
     createCounter(name: string, tags: {}): Counter;
     createGauge(name: string, tags: {}): Gauge;
+}
+
+export interface TextMapCodecOptions {
+    urlEncoding?: boolean;
+    contextKey?: string;
+    baggagePrefix?: string;
+    metrics?: MetricsFactory;
+}
+
+export class TextMapCodec implements Injector, Extractor {
+    constructor(options: TextMapCodecOptions);
+    inject(spanContext: opentracing.SpanContext, carrier: any): void;
+    extract(carrier: any): opentracing.SpanContext | null;
+}
+
+export interface ZipkinB3TextMapCodecOptions {
+    urlEncoding?: boolean;
+    baggagePrefix?: string;
+    metrics?: MetricsFactory;
+}
+
+export class ZipkinB3TextMapCodec implements Injector, Extractor {
+    constructor(options: ZipkinB3TextMapCodecOptions);
+    inject(spanContext: opentracing.SpanContext, carrier: any): void;
+    extract(carrier: any): opentracing.SpanContext | null;
 }
