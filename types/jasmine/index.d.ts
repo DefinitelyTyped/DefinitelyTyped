@@ -211,6 +211,7 @@ declare namespace jasmine {
         random?: boolean;
         seed?: number;
         failFast?: boolean;
+        failSpecWithNoExpectations?: boolean,
         oneFailurePerSpec?: boolean;
         hideDisabled?: boolean;
         specFilter?: Function;
