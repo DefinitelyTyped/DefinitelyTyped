@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.12
+// Type definitions for stripe 7.13
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -9624,9 +9624,27 @@ declare namespace Stripe {
 
     namespace webhookEndpoints {
         interface IWebhookCreateOptions {
+            /**
+             * The URL of the webhook endpoint
+             */
+
             url: string;
-            enabled_events: string[];
+
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
+            enabled_events: events.EventType[];
+
+            /**
+             * Events sent to this endpoint will be generated with this Stripe Version instead of your
+             * account’s default Stripe Version.
+             */
             api_version?: string;
+
+            /**
+             * If true, this endpoint will receive events from connected accounts instead of just your account.
+             */
             connect?: boolean;
         }
 
@@ -9634,30 +9652,82 @@ declare namespace Stripe {
             /**
              * Value is 'webhook_endpoint'
              */
-            object: string;
+            object: "webhook_endpoint";
+
             id: string;
+            /**
+             * The Stripe API version used to render data.
+             */
+
             api_version: string;
+
+            /**
+             * ID of the Application.
+             */
             application: string | null;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: number;
+
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
             enabled_events: events.EventType[];
+
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
             livemode: boolean;
+
+            /**
+             * The status of the webhook.
+             */
             status: "enabled" | "disabled";
+
+            /**
+             * The URL of the webhook endpoint.
+             */
             url: string;
+
+            /**
+             * The endpoint’s secret, used to generate webhook signatures. Only returned at creation.
+             */
             secret?: string;
-            metadata?: object;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IMetadata;
         }
 
         interface IWebhookUpdateOptions {
+            /**
+             * If true, it disables the webhookendpoint.
+             */
             disabled?: boolean;
-            enabled_events?: events.EventType[];
-            url?: string;
-            metadata?: any;
-        }
 
-        interface IWebhookListOptions {
-            ending_before?: string;
-            limit?: number;
-            starting_after?: string;
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
+            enabled_events?: events.EventType[];
+
+            /**
+             * The URL of the webhook endpoint.
+             */
+            url?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IMetadata;
         }
     }
 
@@ -14099,7 +14169,7 @@ declare namespace Stripe {
             create(data: webhookEndpoints.IWebhookCreateOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
-             * Retrieves the webhook endpoint with the given ID
+             * Retrieves the details of an existing webhook
              */
             retrieve(
                 webhookId: string,
@@ -14112,9 +14182,9 @@ declare namespace Stripe {
             retrieve(webhookId: string, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
-             * Updates the webhook endpoint
+             * Updates the specific webhook endpoint by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
              *
-             * You may edit the url, the list of enabled_events, and the status of your endpoint
+             * The parameters that can be edited are the url, the list of enabled_events, and the status of your endpoint
              */
             update(
                 webhookId: string,
@@ -14128,16 +14198,18 @@ declare namespace Stripe {
              * Returns a list of your webhook endpoints
              */
             list(
-                data: webhookEndpoints.IWebhookListOptions,
+                data: IListOptions,
                 options: HeaderOptions,
                 response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
             ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
-            list(data: webhookEndpoints.IWebhookListOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(data: IListOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
             list(options: HeaderOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
             list(response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
-             * You can also delete webhook endpoints via the webhook endpoint management page of the Stripe dashboard
+             * Deletes a webhook endpoint.
+             *
+             * Webhook endpoints can also be deleted from the Stripe dashboard
              */
             del(
                 webhookId: string,
