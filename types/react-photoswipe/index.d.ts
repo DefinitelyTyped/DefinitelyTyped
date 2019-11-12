@@ -7,42 +7,6 @@
 import * as React from 'react';
 import { Item, Options } from 'photoswipe';
 
-export function onClose(): void;
-
-export function beforeChange(instance: PhotoSwipe): void;
-
-export function afterChange(instance: PhotoSwipe): void;
-
-export function imageLoadComplete(instance: PhotoSwipe, index: number, item: Item): void;
-
-export function resize(instance: PhotoSwipe): void;
-
-export function gettingData(instance: PhotoSwipe, index: number, item: Item): void;
-
-export function mouseUsed(instance: PhotoSwipe): void;
-
-export function initialZoomIn(instance: PhotoSwipe): void;
-
-export function initialZoomInEnd(instance: PhotoSwipe): void;
-
-export function initialZoomOut(instance: PhotoSwipe): void;
-
-export function initialZoomOutEnd(instance: PhotoSwipe): void;
-
-export function parseVerticalMargin(instance: PhotoSwipe, item: Item): void;
-
-export function close(instance: PhotoSwipe): void;
-
-export function unbindEvents(instance: PhotoSwipe): void;
-
-export function destroy(instance: PhotoSwipe): void;
-
-export function updateScrollOffset(instance: PhotoSwipe, _offset: { x: number; y: number }): void;
-
-export function preventDragEvent(instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }): void;
-
-export function shareLinkClick(instance: PhotoSwipe, e: MouseEvent, item: Item): void;
-
 export interface PhotoSwipeProps {
     /**
      * is open
@@ -62,7 +26,7 @@ export interface PhotoSwipeProps {
     /**
      * Callback after PhotoSwipe close
      */
-    onClose?: typeof onClose;
+    onClose?: () => void;
     /**
      * id
      */
@@ -79,26 +43,26 @@ export interface PhotoSwipeProps {
      * Update UI here (like "1 of X" indicator)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    beforeChange?: typeof beforeChange;
+    beforeChange?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * After slides change
      * (after content changed)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    afterChange?: typeof afterChange;
+    afterChange?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Image loaded
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    imageLoadComplete?: typeof imageLoadComplete;
+    imageLoadComplete?: (instance: PhotoSwipe, index: number, item: Item) => void;
     /**
      * Photoswipe event listener
      * Viewport size changed
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    resize?: typeof resize;
+    resize?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Triggers when PhotoSwipe "reads" slide object data,
@@ -106,63 +70,63 @@ export interface PhotoSwipeProps {
      * Use it to dynamically change properties
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    gettingData?: typeof gettingData;
+    gettingData?: (instance: PhotoSwipe, index: number, item: Item) => void;
     /**
      * Photoswipe event listener
      * Mouse was used (triggers only once)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    mouseUsed?: typeof mouseUsed;
+    mouseUsed?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Opening zoom in animation starting
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomIn?: typeof initialZoomIn;
+    initialZoomIn?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Opening zoom in animation finished
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomInEnd?: typeof initialZoomInEnd;
+    initialZoomInEnd?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Closing zoom out animation started
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomOut?: typeof initialZoomOut;
+    initialZoomOut?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Closing zoom out animation finished
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomOutEnd?: typeof initialZoomOutEnd;
+    initialZoomOutEnd?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Allows overriding vertical margin for individual items
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    parseVerticalMargin?: typeof parseVerticalMargin;
+    parseVerticalMargin?: (instance: PhotoSwipe, item: Item) => void;
     /**
      * Photoswipe event listener
      * Gallery starts closing
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    close?: typeof close;
+    close?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Gallery unbinds events
      * (triggers before closing animation)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    unbindEvents?: typeof unbindEvents;
+    unbindEvents?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * After gallery is closed and closing animation finished.
      * Clean up your stuff here.
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    destroy?: typeof destroy;
+    destroy?: (instance: PhotoSwipe) => void;
     /**
      * Photoswipe event listener
      * Called when the page scrolls.
@@ -176,19 +140,19 @@ export interface PhotoSwipeProps {
      * Look at the "Implementing inline gallery display" FAQ section for more info.
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    updateScrollOffset?: typeof updateScrollOffset;
+    updateScrollOffset?: (instance: PhotoSwipe, _offset: { x: number; y: number }) => void;
     /**
      * Photoswipe event listener
      * Allow to call preventDefault on down and up events
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    preventDragEvent?: typeof preventDragEvent;
+    preventDragEvent?: (instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void;
     /**
      * Photoswipe event listener
      * Share link clicked
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    shareLinkClick?: typeof shareLinkClick;
+    shareLinkClick?: (instance: PhotoSwipe, e: MouseEvent, item: Item) => void;
 }
 
 export interface PhotoSwipeGalleryItem extends Item {
