@@ -20,7 +20,9 @@ declare module '@keystonejs/auth-passport' {
             strategy: any
         );
 
-        public static authType: string;
+        static authType: string;
+
+        getInputFragment(): string;
     }
 
     class GoogleAuthStrategy extends PassportAuthStrategy {}
