@@ -1,6 +1,12 @@
 import { Keystone } from '@keystonejs/keystone';
 import { KnexAdapter } from '@keystonejs/adapter-knex';
-import { GoogleAuthStrategy } from '@keystonejs/auth-passport';
+import {
+    GoogleAuthStrategy,
+    FacebookAuthStrategy,
+    GitHubAuthStrategy,
+    TwitterAuthStrategy,
+    PassportAuthStrategy,
+} from '@keystonejs/auth-passport';
 
 const keystone = new Keystone({
     name: 'Typescript Test',
@@ -69,4 +75,24 @@ keystone.createAuthStrategy({
             res.redirect('/?error=Uh-oh');
         },
     },
+});
+
+keystone.createAuthStrategy({
+    type: FacebookAuthStrategy,
+    list: 'User',
+});
+
+keystone.createAuthStrategy({
+    type: GitHubAuthStrategy,
+    list: 'User',
+});
+
+keystone.createAuthStrategy({
+    type: TwitterAuthStrategy,
+    list: 'User',
+});
+
+keystone.createAuthStrategy({
+    type: PassportAuthStrategy,
+    list: 'User',
 });

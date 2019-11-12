@@ -1,4 +1,4 @@
-// Type definitions for @keystonejs/auth-passport 5.1
+// Type definitions for @keystonejs/auth-passport 5.0
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,6 @@
 declare module '@keystonejs/auth-passport' {
     import { Keystone } from '@keystonejs/keystone';
 
-    class GoogleAuthStrategy {}
     class PassportAuthStrategy {
         // TODO: Better types here: https://www.keystonejs.com/keystonejs/auth-passport/
         constructor(
@@ -20,5 +19,12 @@ declare module '@keystonejs/auth-passport' {
             config: any,
             strategy: any
         );
+
+        public static authType: string;
     }
+
+    class GoogleAuthStrategy extends PassportAuthStrategy {}
+    class FacebookAuthStrategy extends PassportAuthStrategy {}
+    class GitHubAuthStrategy extends PassportAuthStrategy {}
+    class TwitterAuthStrategy extends PassportAuthStrategy {}
 }
