@@ -7669,7 +7669,7 @@ declare namespace Stripe {
             /**
              * A string that identifies this transaction as part of a group.
              */
-            transfer_group: string;
+            transfer_group: string | null;
 
             /**
              *  Can be card, bank_account, or stripe_account.
