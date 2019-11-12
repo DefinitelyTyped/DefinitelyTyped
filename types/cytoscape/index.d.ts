@@ -3708,7 +3708,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
         Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
 
         /**
@@ -3757,6 +3757,14 @@ declare namespace cytoscape {
              * The dashed line offset.
              */
             "line-dash-offset"?: PropertyValueEdge<number>;
+        }
+
+        /**
+         * These properties specify the gradient colouration of an edge's line:
+         * 
+         * https://js.cytoscape.org/#style/gradient
+         */
+        interface Gradient{
             /**
              * The colours of the gradient stops.
              */
