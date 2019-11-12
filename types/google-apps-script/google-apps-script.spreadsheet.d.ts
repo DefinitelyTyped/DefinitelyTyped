@@ -1267,6 +1267,7 @@ declare namespace GoogleAppsScript {
       removeEditor(emailAddress: string): Protection;
       removeEditor(user: Base.User): Protection;
       removeEditors(emailAddresses: string[]): Protection;
+      removeEditors(users: Base.User[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
       setNamedRange(namedRange: NamedRange): Protection;
