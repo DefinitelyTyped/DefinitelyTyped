@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.12
+// Type definitions for stripe 7.13
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -6760,6 +6760,11 @@ declare namespace Stripe {
             amount: number | null;
 
             /**
+             * Same as `amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            amount_decimal: string | null;
+
+            /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
              */
             billing_scheme: 'per_unit' | 'tiered';
@@ -6839,11 +6844,6 @@ declare namespace Stripe {
             id?: string;
 
             /**
-             * A positive integer in cents/pence (or 0 for a free plan) representing how much to charge (on a recurring basis).
-             */
-            amount: number;
-
-            /**
              * 3-letter ISO code for currency.
              */
             currency: string;
@@ -6860,15 +6860,9 @@ declare namespace Stripe {
             product: string | IPlanCreationOptionsProductHash;
 
             /**
-             * The number of intervals between each subscription billing. For example, interval=month and interval_count=3 bills every 3 months.
-             * Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+             * Whether the plan is currently available for new subscriptions. Defaults to `true`.
              */
-            interval_count?: number;
-
-            /**
-             * A brief description of the plan, hidden from customers.
-             */
-            nickname?: string;
+            active?: boolean;
 
             /**
              * Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for picking the last usage record reported within a period, `last_ever` for picking the last usage record ever (across period bounds) or `max` which picks the usage record with the maximum reported usage during a period. Defaults to `sum`.
@@ -6876,19 +6870,35 @@ declare namespace Stripe {
             aggregate_usage?: 'sum' | 'last_during_period' | 'last_ever' | 'max';
 
             /**
+             * A positive integer in cents (or 0 for a free plan) representing how much to charge on a recurring basis.
+             */
+            amount?: number;
+
+            /**
+             * Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
+             */
+            amount_decimal?: number;
+
+            /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
              */
             billing_scheme?: 'per_unit' | 'tiered';
 
             /**
-             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             * The number of intervals between each subscription billing. For example, interval=month and interval_count=3 bills every 3 months.
+             * Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
              */
-            livemode?: boolean;
+            interval_count?: number;
 
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              */
             metadata?: IMetadata;
+
+            /**
+             * A brief description of the plan, hidden from customers.
+             */
+            nickname?: string;
 
             /**
              * Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
@@ -7667,7 +7677,12 @@ declare namespace Stripe {
             status: Statuses;
 
             /**
-             * Can be card, bank_account, or stripe_account.
+             * A string that identifies this transaction as part of a group.
+             */
+            transfer_group: string | null;
+
+            /**
+             *  Can be card, bank_account, or stripe_account.
              */
             type: 'card' | 'bank_account' | 'stripe_account';
         }
