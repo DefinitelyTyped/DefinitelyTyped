@@ -7677,7 +7677,12 @@ declare namespace Stripe {
             status: Statuses;
 
             /**
-             * Can be card, bank_account, or stripe_account.
+             * A string that identifies this transaction as part of a group.
+             */
+            transfer_group: string | null;
+
+            /**
+             *  Can be card, bank_account, or stripe_account.
              */
             type: 'card' | 'bank_account' | 'stripe_account';
         }
