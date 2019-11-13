@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,22 +12,18 @@ declare namespace GoogleAppsScript {
      * A typesafe enum for character sets.
      */
     enum Charset { US_ASCII, UTF_8 }
-
     /**
      * Selector of Digest algorithm.
      */
     enum DigestAlgorithm { MD2, MD5, SHA_1, SHA_256, SHA_384, SHA_512 }
-
     /**
      * Selector of MAC algorithm
      */
     enum MacAlgorithm { HMAC_MD5, HMAC_SHA_1, HMAC_SHA_256, HMAC_SHA_384, HMAC_SHA_512 }
-
     /**
      * Selector of RSA algorithm
      */
     enum RsaAlgorithm { RSA_SHA_1, RSA_SHA_256 }
-
     /**
      * This service provides utilities for string encoding/decoding, date formatting, JSON manipulation,
      * and other miscellaneous tasks.
@@ -80,10 +76,8 @@ declare namespace GoogleAppsScript {
       unzip(blob: Base.BlobSource): Base.Blob[];
       zip(blobs: Base.BlobSource[]): Base.Blob;
       zip(blobs: Base.BlobSource[], name: string): Base.Blob;
-      /** @deprecated DO NOT USE */
-      jsonParse(jsonString: string): any;
-      /** @deprecated DO NOT USE */
-      jsonStringify(obj: any): string;
+      /** @deprecated DO NOT USE */jsonParse(jsonString: string): any;
+      /** @deprecated DO NOT USE */jsonStringify(obj: any): string;
     }
   }
 }

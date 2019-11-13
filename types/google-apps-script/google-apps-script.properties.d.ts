@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,6 @@ declare namespace GoogleAppsScript {
       setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): Properties;
       setProperty(key: string, value: string): Properties;
     }
-
     /**
      * Allows scripts to store simple data in key-value pairs scoped to one script, one user of a
      * script, or one document in which an add-on is used. Properties cannot be shared between scripts.
@@ -44,7 +43,6 @@ declare namespace GoogleAppsScript {
       getScriptProperties(): Properties;
       getUserProperties(): Properties;
     }
-
     /**
      *
      * Deprecated. This class is deprecated and should not be used in new scripts.
@@ -52,16 +50,15 @@ declare namespace GoogleAppsScript {
      * are scoped per script, regardless of which user runs the script.
      */
     interface ScriptProperties {
-      deleteAllProperties(): ScriptProperties;
-      deleteProperty(key: string): ScriptProperties;
-      getKeys(): string[];
-      getProperties(): { [key: string]: string };
-      getProperty(key: string): string | null;
-      setProperties(properties: { [key: string]: string }): ScriptProperties;
-      setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): ScriptProperties;
-      setProperty(key: string, value: string): ScriptProperties;
+      /** @deprecated DO NOT USE */deleteAllProperties(): ScriptProperties;
+      /** @deprecated DO NOT USE */deleteProperty(key: string): ScriptProperties;
+      /** @deprecated DO NOT USE */getKeys(): string[];
+      /** @deprecated DO NOT USE */getProperties(): { [key: string]: string };
+      /** @deprecated DO NOT USE */getProperty(key: string): string | null ;
+      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }): ScriptProperties;
+      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): ScriptProperties;
+      /** @deprecated DO NOT USE */setProperty(key: string, value: string): ScriptProperties;
     }
-
     /**
      *
      * Deprecated. This class is deprecated and should not be used in new scripts.
@@ -69,14 +66,14 @@ declare namespace GoogleAppsScript {
      * script running under the identity of a user can access User Properties for that user only.
      */
     interface UserProperties {
-      deleteAllProperties(): UserProperties;
-      deleteProperty(key: string): UserProperties;
-      getKeys(): string[];
-      getProperties(): { [key: string]: string };
-      getProperty(key: string): string | null;
-      setProperties(properties: { [key: string]: string }): UserProperties;
-      setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
-      setProperty(key: string, value: string): UserProperties;
+      /** @deprecated DO NOT USE */deleteAllProperties(): UserProperties;
+      /** @deprecated DO NOT USE */deleteProperty(key: string): UserProperties;
+      /** @deprecated DO NOT USE */getKeys(): string[];
+      /** @deprecated DO NOT USE */getProperties(): { [key: string]: string };
+      /** @deprecated DO NOT USE */getProperty(key: string): string | null;
+      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }): UserProperties;
+      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
+      /** @deprecated DO NOT USE */setProperty(key: string, value: string): UserProperties;
     }
   }
 }

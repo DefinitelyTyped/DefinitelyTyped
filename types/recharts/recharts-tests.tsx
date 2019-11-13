@@ -5,7 +5,7 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
 } from 'recharts';
 
 interface ComponentState {
@@ -29,6 +29,10 @@ class Component extends React.Component<{}, ComponentState> {
         );
     }
 
+    private renderCustomizedElement(props: any) {
+        console.log('Customized props', props);
+        return (<Text x={0} y={0} width={100} height={20}>Customized element</Text>);
+    }
     render() {
         const data = [
             { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -116,6 +120,7 @@ class Component extends React.Component<{}, ComponentState> {
                             strokeOpacity={0.2}
                             fillOpacity={0.1}
                         />
+                        <Customized component={<Text x={0} y={0} width={100} height={20}>Customized element</Text>} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
@@ -139,6 +144,7 @@ class Component extends React.Component<{}, ComponentState> {
                             strokeOpacity={0.2}
                             fillOpacity={0.1}
                         />
+                        <Customized component={this.renderCustomizedElement} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>

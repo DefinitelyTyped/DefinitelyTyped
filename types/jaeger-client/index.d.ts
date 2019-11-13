@@ -1,6 +1,6 @@
 // Type definitions for jaeger-client 3.15
 // Project: https://github.com/jaegertracing/jaeger-client-node#readme
-// Definitions by: jgeth <https://github.com/jgeth>
+// Definitions by: jgeth <https://github.com/jgeth>, tsachis <https://github.com/tsachis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -68,6 +68,8 @@ export interface TracingConfig {
     disable?: boolean;
     sampler?: SamplerConfig;
     reporter?: ReporterConfig;
+    traceId128bit?: boolean;
+    shareRpcSpan?: boolean;
 }
 
 export interface TracingOptions {

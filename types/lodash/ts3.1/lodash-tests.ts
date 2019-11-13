@@ -6967,14 +6967,6 @@ fp.now(); // $ExpectType number
     fp.stubArray(); // $ExpectType any[]
 }
 
-// _.stubFalse
-{
-    _.stubFalse(); // $ExpectType false
-    _(anything).stubFalse(); // $ExpectType false
-    _.chain(anything).stubFalse(); // $ExpectType PrimitiveChain<false>
-    fp.stubFalse(); // $ExpectType false
-}
-
 // _.stubObject
 {
     _.stubObject(); // $ExpectType any
@@ -6989,14 +6981,6 @@ fp.now(); // $ExpectType number
     _(anything).stubString(); // $ExpectType string
     _.chain(anything).stubString(); // $ExpectType StringChain
     fp.stubString(); // $ExpectType string
-}
-
-// _.stubTrue
-{
-    _.stubTrue(); // $ExpectType true
-    _(anything).stubTrue(); // $ExpectType true
-    _.chain(anything).stubTrue(); // $ExpectType PrimitiveChain<true>
-    fp.stubTrue(); // $ExpectType true
 }
 
 // _.times
@@ -7092,4 +7076,20 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
     fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
+}
+
+// _.stubTrue
+{
+    _.stubTrue(); // $ExpectType true
+    _("").stubTrue(); // $ExpectType true
+    _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }

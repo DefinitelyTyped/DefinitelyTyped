@@ -92,7 +92,7 @@ export function setDynamicCustomPropertyRule(
  *
  * https://support.rollout.io/docs/nodejs-api#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Creates a new Flag
