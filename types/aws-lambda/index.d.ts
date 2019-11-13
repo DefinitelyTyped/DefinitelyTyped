@@ -871,7 +871,7 @@ export interface CloudFrontResultResponse {
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            request: Omit<CloudFrontRequest, 'body'>;
+            readonly request: Omit<CloudFrontRequest, 'body'>;
             response: CloudFrontResponse;
         };
     }>;
