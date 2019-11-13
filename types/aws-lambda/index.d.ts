@@ -837,8 +837,8 @@ export interface CloudFrontRequest {
         encoding: 'base64' | 'text';
         readonly inputTruncated: boolean;
     };
-    clientIp: string;
-    method: string;
+    readonly clientIp: string;
+    readonly method: string;
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
