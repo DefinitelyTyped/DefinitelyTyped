@@ -1,4 +1,4 @@
-import { Event, DetailedErrorCode } from './cast.framework.events';
+import { DetailedErrorCode, Event, EventType } from './cast.framework.events';
 
 export as namespace messages;
 
@@ -498,10 +498,17 @@ export class VastAdsRequest {
 /**
  * UserAction request data.
  */
-export class UserActionRequestData {
+export class UserActionRequestData extends RequestData {
+    constructor()
+
     /**
-     * Optional request source.
-     * It contain the assistent query that initiate the request.
+     * Indicate request for clearing of a user action (i.e. undo like).
+     */
+    clear?: boolean;
+
+    /**
+     * Optional request source. It contain the assistent query that initiate the
+     * request.
      */
     source?: string;
 
@@ -688,6 +695,28 @@ export class TextTrackStyle {
 }
 
 /**
+ * Response data for SESSION_STATE command.
+ */
+export class StoreSessionResponseData extends RequestData {
+    /**
+     * @param sessionState The SessionState object to be returned.
+     */
+    constructor(sessionState: SessionState);
+
+    /**
+     * The SessionState object to be returned.
+     */
+    sessionState: SessionState;
+}
+
+/**
+ * STORE_SESSION request data
+ */
+export class StoreSessionRequestData extends RequestData {
+    constructor();
+}
+
+/**
  * Media event playback rate request data.
  */
 export class SetPlaybackRateRequestData extends RequestData {
@@ -699,10 +728,10 @@ export class SetPlaybackRateRequestData extends RequestData {
     playbackRate?: number;
 
     /**
-     * New playback rate relative to current playback rate.
-     * New rate will be the result of multiplying the current rate with the value.
-     * For example a value of 1.1 will increase rate by 10%.
-     * (Only used if the playbackRate value is not provided).
+     * New playback rate relative to current playback rate. New rate will be the
+     * result of multiplying the current rate with the value. For example a
+     * value of 1.1 will increase rate by 10%. (Only used if the playbackRate
+     * value is not provided).
      */
     relativePlaybackRate?: number;
 }
@@ -711,21 +740,40 @@ export class SetPlaybackRateRequestData extends RequestData {
  * SetCredentials request data.
  */
 export class SetCredentialsRequestData extends RequestData {
+    constructor()
+
     /**
      * Credentials to use by receiver.
      */
     credentials?: string;
 
     /**
-     * If it is a response for refresh credentials; it will indicate the request id
-     * of the refresh credentials request.
+     * If it is a response for refresh credentials, it will indicate the request
+     * id of the refresh credentials request.
      */
     forRequestId?: number;
 
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contain the assistent query that initiate the
+     * request.
      */
     source?: string;
+}
+
+/**
+ * A state object containing all data to be stored in StoreSession and to be
+ * recovered in ResumeSession.
+ * [Description]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SessionState.html}
+ */
+export class SessionState {
+    constructor();
+
+    /**
+     * Customizable object for storing the state.
+     */
+    customData?: object;
+
+    loadRequestData?: LoadRequestData;
 }
 
 /**
@@ -740,8 +788,8 @@ export class SeekRequestData extends RequestData {
     currentTime?: number;
 
     /**
-     * Seconds relative to the current playback position. If this field is defined;
-     * the currentTime field will be ignored.
+     * Seconds relative to the current playback position. If this field is
+     * defined, the currentTime field will be ignored.
      */
     relativeTime?: number;
 
@@ -769,10 +817,22 @@ export class SeekableRange {
 }
 
 /**
+ * RESUME_SESSION request data
+ */
+export class ResumeSessionRequestData extends RequestData {
+    constructor();
+
+    /**
+     * The SessionState object returned by StoreSession command.
+     */
+    sessionState?: SessionState;
+}
+
+/**
  * Media event request data.
  */
 export class RequestData {
-    constructor(type: MessageType);
+    constructor(type: MessageType | EventType);
 
     /**
      * Application-specific data for this request.
@@ -790,42 +850,49 @@ export class RequestData {
      * Id of the request; used to correlate request/response.
      */
     requestId: number;
+
+    /**
+     * Message type.
+     */
+    type: MessageType | EventType;
 }
 
 /**
  * Media event UPDATE queue request data.
  */
 export class QueueUpdateRequestData extends RequestData {
+    constructor();
+
     /**
-     * ID of the current media Item after the deletion
-     * (if not provided; the currentItem value will be the same as before the deletion;
-     *  if it does not exist because it has been deleted; the currentItem will point to
-     * the next logical item in the list).
+     * ID of the current media Item after the changes (if not provided or not
+     * found, the currentItem value will be the same as before the update).
      */
     currentItemId?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     *  If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     *  This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     * QueueItem startTime does. It avoids having to reset the startTime dynamically
-     *  (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
-     * List of queue items to be updated. No reordering will happen; the items will
-     * retain the existing order.
+     * List of queue items to be updated. No reordering will happen, the items
+     * will retain the existing order.
      */
     items?: QueueItem[];
 
     /**
      * Skip/Go back number of items with respect to the position of currentItem
-     * (it can be negative). If it is out of boundaries; the currentItem will be the
-     * next logical item in the queue wrapping around the boundaries.
-     * The new currentItem position will follow the rules of the queue repeat behavior.
+     * (it can be negative). If it is out of boundaries, the currentItem will be
+     * the next logical item in the queue wrapping around the boundaries. The
+     * new currentItem position will follow the rules of the queue repeat
+     * behavior.
      */
     jump?: number;
 
@@ -835,9 +902,8 @@ export class QueueUpdateRequestData extends RequestData {
     repeatMode?: RepeatMode;
 
     /**
-     * Shuffle the queue items when the update is processed.
-     * After the queue items are shuffled; the item at the currentItem position will
-     *  be loaded.
+     * Shuffle the queue items when the update is processed. After the queue
+     * items are shuffled, the item at the currentItem position will be loaded.
      */
     shuffle?: boolean;
 }
@@ -893,70 +959,79 @@ export class QueueReorderRequestData extends RequestData {
  * Media event queue REMOVE request data.
  */
 export class QueueRemoveRequestData extends RequestData {
+    /**
+     * @param itemIds IDs of queue items to be deleted.
+     */
     constructor(itemIds: number[]);
 
     /**
-     * ID of the current media Item after the deletion
-     * (if not provided; the currentItem value will be the same as before the deletion;
-     * if it does not exist because it has been deleted;
-     * the currentItem will point to the next logical item in the list).
+     * ID of the current media Item after the deletion (if not provided, the
+     * currentItem value will be the same as before the deletion; if it does not
+     * exist because it has been deleted, the currentItem will point to the next
+     * logical item in the list).
      */
     currentItemId?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     *  If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     * This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     *  QueueItem startTime does. It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
      * IDs of queue items to be deleted.
      */
-    itemIds?: number[];
+    itemIds: number[];
 }
 /**
  * Media event queue LOAD request data.
  */
 export class QueueLoadRequestData extends RequestData {
+    /**
+     * @param items List of queue items. The itemId field of the items should be
+     * empty or the request will fail with an INVALID_PARAMS error. It is sorted
+     * (first element will be played first).
+     */
     constructor(items: QueueItem[]);
 
     /**
-     * Seconds (since the beginning of content) to start playback of the first item to
-     *  be played. If provided; this value will take precedence over the
-     * startTime value provided at the QueueItem level but only the first
-     * time the item is played. This is to cover the common case where the user
-     * casts the item that was playing locally so the currentTime does not apply
-     * to the item permanently like the QueueItem startTime does.
-     * It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds (since the beginning of content) to start playback of the first
+     * item to be played. If provided, this value will take precedence over the
+     * startTime value provided at the QueueItem level but only the first time
+     * the item is played. This is to cover the common case where the user casts
+     * the item that was playing locally so the currentTime does not apply to
+     * the item permanently like the QueueItem startTime does. It avoids having
+     * to reset the startTime dynamically (that may not be possible if the phone
+     * has gone to sleep).
      */
     currentTime?: number;
 
     /**
-     * Behavior of the queue when all items have been played.
+     * Array of queue items. It is sorted (first element will be played first).
      */
     items: QueueItem[];
 
     /**
-     * Id of the request; used to correlate request/response.
+     * Behavior of the queue when all items have been played.
      */
     repeatMode?: RepeatMode;
 
     /**
-     * The index of the item in the items array that must be the first currentItem
-     * (the item that will be played first). Note this is the index of the array
-     *  (starts at 0) and not the itemId (as it is not known until the queue is created).
-     * If repeatMode is REPEAT_OFF playback will end when the last item in the array is
-     * played (elements before the startIndex will not be played).
-     * This may be useful for continuation scenarios where the user was already
-     * using the sender app and in the middle decides to cast.
-     * In this way the sender app does not need to map between the local and remote queue
-     * positions or saves one extra QUEUE_UPDATE request.
+     * The index of the item in the items array that must be the first
+     * currentItem (the item that will be played first). Note this is the index
+     * of the array (starts at 0) and not the itemId (as it is not known until
+     * the queue is created). If repeatMode is REPEAT_OFF playback will end when
+     * the last item in the array is played (elements before the startIndex will
+     * not be played). This may be useful for continuation scenarios where the
+     * user was already using the sender app and in the middle decides to cast.
+     * In this way the sender app does not need to map between the local and
+     * remote queue positions or saves one extra QUEUE_UPDATE request.
      */
     startIndex?: number;
 }
@@ -1038,45 +1113,52 @@ export class QueueItem {
  * Media event queue INSERT request data.
  */
 export class QueueInsertRequestData extends RequestData {
+    /**
+     * @param items List of queue items. The itemId field of the items should be
+     * empty or the request will fail with an INVALID_PARAMS error. It is sorted
+     * (first element will be played first).
+     */
     constructor(items: QueueItem[]);
 
     /**
-     * ID of the current media Item after the insertion (if not provided;
-     * the currentItem value will be the same as before the insertion).
+     * ID of the current media Item after the insertion (if not provided, the
+     * currentItem value will be the same as before the insertion).
      */
     currentItemId?: number;
 
     /**
-     * Index (relative to the items array; starting with 0) of the new current media Item.
-     *  For inserted items we use the index (similar to startIndex in QUEUE_LOAD) and not
-     * currentItemId; because the itemId is unknown until the items are inserted.
-     * If not provided; the currentItem value will be the same as before the insertion
-     * (unless currentItemId is provided). This param allows to make atomic the common use
-     * case of insert and play an item.
+     * Index (relative to the items array, starting with 0) of the new current
+     * media Item. For inserted items we use the index (similar to startIndex in
+     * QUEUE_LOAD) and not currentItemId, because the itemId is unknown until
+     * the items are inserted. If not provided, the currentItem value will be
+     * the same as before the insertion (unless currentItemId is provided). This
+     * param allows to make atomic the common use case of insert and play an
+     * item.
      */
     currentItemIndex?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     * If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     * This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     * QueueItem startTime does. It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
      * ID of the item that will be located immediately after the inserted list.
-     *  If the ID is not found or it is not provided; the list will be appended at
-     *  the end of the existing list.
+     * If the ID is not found or it is not provided, the list will be appended
+     * at the end of the existing list.
      */
     insertBefore?: number;
 
     /**
-     * List of queue items. The itemId field of the items should be empty.
-     *  It is sorted (first element will be played first).
+     * List of queue items. The itemId field of the items should be empty. It is
+     * sorted (first element will be played first).
      */
     items: QueueItem[];
 }
@@ -1085,6 +1167,8 @@ export class QueueInsertRequestData extends RequestData {
  * Represents a data message containing the full list of queue ids.
  */
 export class QueueIds {
+    constructor()
+
     /**
      * List of queue item ids.
      */
@@ -1095,6 +1179,9 @@ export class QueueIds {
      */
     requestId?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 }
 
@@ -1200,9 +1287,11 @@ export class QueueData {
 }
 
 /**
- * Represents a queue change message; such as insert; remove; and update.
+ * Represents a queue change message, such as insert, remove, and update.
  */
 export class QueueChange {
+    constructor()
+
     /**
      * The actual queue change type.
      */
@@ -1229,6 +1318,9 @@ export class QueueChange {
      */
     sequenceNumber?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 }
 
@@ -1237,58 +1329,8 @@ export class QueueChange {
  */
 export class PreloadRequestData extends LoadRequestData {
     /**
-     * Array of trackIds that are active. If the array is not provided;
-     *  the default tracks will be active.
+     * @param itemId The ID of the queue item.
      */
-    activeTrackIds: number[];
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;the media player
-     *  implementation may choose to begin playback immediately.
-     */
-    autoplay?: boolean;
-    /**
-     * Optional user credentials.
-     */
-    credentials?: string;
-    /**
-     * Optional credentials type. The type 'cloud' is a reserved type used by load
-     * requests that were originated by voice assistant commands.
-     */
-    credentialsType?: string;
-    /**
-     * Seconds since beginning of content. If the content is live content;
-     * and currentTime is not specified; the stream will start at the live position.
-     */
-    currentTime?: number;
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified; the media
-     *  player implementation may choose to begin playback immediately.
-     */
-    media: MediaInformation;
-    /**
-     * The media playback rate.
-     */
-    playbackRate?: number;
-    /**
-     * Queue data.
-     */
-    queueData: QueueData;
-    /**
-     * Application-specific data for this request.
-     * It enables the sender and receiver to easily extend the media protocol
-     * without having to use a new namespace with custom messages.
-     */
-    customData?: any;
-    /**
-     * Id of the media session that the request applies to.
-     */
-    mediaSessionId?: number;
-    /**
-     * Id of the request; used to correlate request/response.
-     */
-    requestId: number;
     constructor(itemId: number);
 
     /**
@@ -1298,64 +1340,14 @@ export class PreloadRequestData extends LoadRequestData {
 }
 
 /**
- * Media event PRECACHE request data. (Some fields of the load request;
- * like autoplay and queueData; are ignored).
+ * Media event PRECACHE request data. (Some fields of the load request, like
+ * autoplay and queueData, are ignored).
  */
 export class PrecacheRequestData extends LoadRequestData {
     /**
-     * Array of trackIds that are active. If the array is not provided;
-     * the default tracks will be active.
+     * @param data Application precache data.
      */
-    activeTrackIds: number[];
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;the media player
-     * implementation may choose to begin playback immediately.
-     */
-    autoplay?: boolean;
-    /**
-     * Optional user credentials.
-     */
-    credentials?: string;
-    /**
-     * Optional credentials type. The type 'cloud' is a reserved type used by load
-     * requests that were originated by voice assistant commands.
-     */
-    credentialsType?: string;
-    /**
-     * Seconds since beginning of content. If the content is live content; and
-     * currentTime is not specified; the stream will start at the live position.
-     */
-    currentTime?: number;
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;
-     * the media player implementation may choose to begin playback immediately.
-     */
-    media: MediaInformation;
-    /**
-     * The media playback rate.
-     */
-    playbackRate?: number;
-    /**
-     * Queue data.
-     */
-    queueData: QueueData;
-    /**
-     * Application-specific data for this request.
-     * It enables the sender and receiver to easily extend the media protocol
-     * without having to use a new namespace with custom messages.
-     */
-    customData?: any;
-    /**
-     * Id of the media session that the request applies to.
-     */
-    mediaSessionId?: number;
-    /**
-     * Id of the request; used to correlate request/response.
-     */
-    requestId: number;
-    constructor(data?: string);
+    constructor(data?: string)
 
     /**
      * Application precache data.
@@ -1531,20 +1523,24 @@ export class MovieMediaMetadata {
      */
     title?: string;
 }
+
 /**
  * Represents the status of a media session.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.MediaStatus}
  */
 export class MediaStatus {
+    constructor();
+
     /**
      * List of IDs corresponding to the active tracks.
      */
-    activeTrackIds: number[];
+    activeTrackIds?: number[];
 
     /**
-     * Status of break; if receiver is playing break.
-     * This field will be defined only when receiver is playing break.
+     * Status of break, if receiver is playing break. This field will be defined
+     * only when receiver is playing break.
      */
-    breakStatus: BreakStatus;
+    breakStatus?: BreakStatus;
 
     /**
      * ID of this media item (the item that originated the status change).
@@ -1564,26 +1560,26 @@ export class MediaStatus {
     /**
      * Extended media status information.
      */
-    extendedStatus: ExtendedMediaStatus;
+    extendedStatus?: ExtendedMediaStatus;
 
     /**
-     * If the state is IDLE; the reason the player went to IDLE state.
+     * If the state is IDLE, the reason the player went to IDLE state.
      */
-    idleReason: IdleReason;
+    idleReason?: IdleReason;
 
     /**
      * List of media queue items.
      */
-    items: QueueItem[];
+    items?: QueueItem[];
 
     /**
-     * Seekable range of a live or event stream. It uses relative media time in seconds.
-     * It will be undefined for VOD streams.
+     * Seekable range of a live or event stream. It uses relative media time in
+     * seconds. It will be undefined for VOD streams.
      */
-    liveSeekableRange: LiveSeekableRange;
+    liveSeekableRange?: LiveSeekableRange;
 
     /**
-     * ID of the media Item currently loading. If there is no item being loaded;
+     * ID of the media Item currently loading. If there is no item being loaded,
      * it will be undefined.
      */
     loadingItemId?: number;
@@ -1591,7 +1587,7 @@ export class MediaStatus {
     /**
      * The media information.
      */
-    media: MediaInformation;
+    media?: MediaInformation;
 
     /**
      * Unique id for the session.
@@ -1609,40 +1605,44 @@ export class MediaStatus {
     playerState: PlayerState;
 
     /**
-     * ID of the next Item; only available if it has been preloaded.
-     * Media items can be preloaded and cached temporarily in memory;
-     * so when they are loaded later on; the process is faster
-     * (as the media does not have to be fetched from the network).
+     * ID of the next Item, only available if it has been preloaded. Media items
+     * can be preloaded and cached temporarily in memory, so when they are
+     * loaded later on, the process is faster (as the media does not have to be
+     * fetched from the network).
      */
     preloadedItemId?: number;
 
     /**
      * Queue data.
      */
-    queueData: QueueData;
+    queueData?: QueueData;
 
     /**
      * The behavior of the queue when all items have been played.
      */
-    repeatMode: RepeatMode;
+    repeatMode?: RepeatMode;
 
     /**
      * The commands supported by this player.
      */
     supportedMediaCommands: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 
     /**
      * The video information.
      */
-    videoInfo: VideoInformation;
+    videoInfo?: VideoInformation;
 
     /**
      * The current stream volume.
      */
     volume: Volume;
 }
+
 /**
  * Common media metadata used as part of MediaInformation
  */
@@ -1748,16 +1748,15 @@ export class LoadRequestData extends RequestData {
     constructor();
 
     /**
-     * Array of trackIds that are active. If the array is not provided; the
+     * Array of trackIds that are active. If the array is not provided, the
      * default tracks will be active.
      */
     activeTrackIds: number[];
 
     /**
-     * If the autoplay parameter is specified; the media player will begin
-     * playing the content when it is loaded. Even if autoplay is not
-     * specified;the media player implementation may choose to begin playback
-     * immediately.
+     * If the autoplay parameter is specified, the media player will begin
+     * playing the content when it is loaded. Even if autoplay is not specified,
+     * the media player implementation may choose to begin playback immediately.
      */
     autoplay?: boolean;
 
@@ -1773,15 +1772,20 @@ export class LoadRequestData extends RequestData {
     credentialsType?: string;
 
     /**
-     * Seconds since beginning of content. If the content is live content;
-     * and currentTime is not specified; the stream will start at the live position.
+     * Seconds since beginning of content. If the content is live content, and
+     * currentTime is not specified, the stream will start at the live position.
      */
     currentTime?: number;
 
     /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified; the media
-     * player implementation may choose to begin playback immediately.
+     * Added load options.
+     */
+    loadOptions?: LoadOptions;
+
+    /**
+     * If the autoplay parameter is specified, the media player will begin
+     * playing the content when it is loaded. Even if autoplay is not specified,
+     * the media player implementation may choose to begin playback immediately.
      */
     media: MediaInformation;
 
@@ -1794,6 +1798,18 @@ export class LoadRequestData extends RequestData {
      * Queue data.
      */
     queueData: QueueData;
+}
+
+/**
+ * Provides additional options for load requests.
+ */
+export class LoadOptions {
+    constructor();
+
+    /**
+     * The content filtering mode to apply for which items to play.
+     */
+    contentFilteringMode?: ContentFilteringMode;
 }
 
 /**
@@ -1841,16 +1857,21 @@ export class LiveSeekableRange {
  * Represents a data message containing item information for each requested ids.
  */
 export class ItemsInfo {
+    constructor()
+
     /**
      * List of changed itemIds.
      */
-    items: QueueItem[];
+    items?: QueueItem[];
 
     /**
      * The corresponding request id.
      */
     requestId?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 }
 
@@ -1883,7 +1904,7 @@ export class GetStatusRequestData extends RequestData {
     /**
      * The options of a GET_STATUS request.
      */
-    options: GetStatusOptions;
+    options?: GetStatusOptions;
 }
 
 /**
@@ -1933,11 +1954,13 @@ export class GenericMediaMetadata extends MediaMetadata {
 /**
  * Focus state change message.
  */
-export class FocusStateRequestData {
+export class FocusStateRequestData extends RequestData {
+    constructor();
+
     /**
      * The focus state of the app.
      */
-    state: FocusState;
+    state?: FocusState;
 }
 
 /** Fetch items request data. */
@@ -2005,78 +2028,105 @@ export class ErrorData {
     requestId?: number;
 }
 
-/**  Media event EDIT_TRACKS_INFO request data. */
+/**
+ * Media event EDIT_TRACKS_INFO request data.
+ */
 export class EditTracksInfoRequestData extends RequestData {
     constructor();
 
     /**
-     * Array of the Track trackIds that should be active.
-     * If it is not provided; the active tracks will not change.
-     * If the array is empty; no track will be active.
+     * Array of the `Track` `trackId`s that should be active. If it is not
+     * provided, the active tracks will not change. If the array is empty, no
+     * track will be active.
      */
     activeTrackIds?: number[];
 
     /**
-     * Flag to enable or disable text tracks.
-     * If false it will disable all text tracks;
-     * if true it will enable the first text track; or the previous active text tracks.
-     * This flag is ignored if activeTrackIds or language is provided.
+     * Flag to enable or disable text tracks. If `false` it will disable all
+     * text tracks. If `true` it will enable the first text track, or the
+     * previous active text tracks. This flag is ignored if `activeTrackIds` or
+     * `language` is provided.
      */
     enableTextTracks?: boolean;
 
     /**
-     * Indicates that the provided language was not explicit user request; but rather
-     * inferred from used language in voice query.
-     * It allows receiver apps to use user saved preference instead of spoken language.
+     * Indicates that the provided language was not an explicit user request,
+     * but rather inferred from used language in voice query. It allows receiver
+     * apps to use user saved preference instead of spoken language.
      */
     isSuggestedLanguage?: boolean;
 
     /**
-     * Language for the tracks that should be active. The language field will take
-     * precedence over activeTrackIds if both are specified.
+     * Language for the tracks that should be active. The language field will
+     * take precedence over activeTrackIds if both are specified.
      */
     language?: string;
 
+    /**
+     * The requested text track style. If it is not provided the existing style
+     * will be used (if no style was provided in previous calls, it will be the
+     * default receiver style).
+     */
     textTrackStyle?: TextTrackStyle;
 }
 
 /**
- * Media event EDIT_AUDIO_TRACKS request data. If language is not provided;
- * the default audio track for the media will be enabled.
+ * Media event EDIT_AUDIO_TRACKS request data. If language is not provided the
+ * default audio track for the media will be enabled.
  */
 export class EditAudioTracksRequestData extends RequestData {
     constructor();
 
     /**
-     * Indicates that the provided language was not explicit user request;
-     * but rather inferred from used language in voice query.
-     * It allows receiver apps to use user saved preference instead of spoken language.
+     * Indicates that the provided language was not an explicit user request,
+     * but rather inferred from used language in voice query. It allows receiver
+     * apps to use user saved preference instead of spoken language.
      */
     isSuggestedLanguage?: boolean;
 
+    /**
+     * Language for the track that should be active.
+     * The language field will take precedence over `activeTrackIds` if both are
+     * specified.
+     */
     language?: string;
 }
 
-/** DisplayStatus request data. */
-export class DisplayStatusRequestData {
+/**
+ * DisplayStatus request data.
+ * Note as of November 2019: Docs don't mention this extending RequestData.
+ */
+export class DisplayStatusRequestData extends RequestData {
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contains the assistant query that initiated
+     * the request.
      */
-    source: string;
+    source?: string;
 }
 
-/** CustomCommand request data. */
-export class CustomCommandRequestData {
+/**
+ * CustomCommand request data.
+ * Note as of November 2019: Docs don't mention this extending RequestData.
+ */
+export class CustomCommandRequestData extends RequestData {
     /**
-     * Custom Data; typically represented by a stringified JSON object.
+     * Custom data typically represented by a stringified JSON object.
      */
     data: string;
 
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contains the assistant query that initiated
+     * the request.
      */
-    source: string;
+    source?: string;
 }
+
+/**
+ * Cloud media status. Media status that is only sent to the cloud sender.
+ * Note as of November 2019: This message's `type` parameter shows as
+ * `MEDIA_STATUS`, not `CLOUD_STATUS`.
+ */
+export class CloudMediaStatus extends MediaStatus {}
 
 export class BreakStatus {
     constructor(currentBreakTime: number, currentBreakClipTime: number);
