@@ -863,6 +863,11 @@ export interface CloudFrontResultResponse {
     body?: string;
 }
 
+/**
+ * CloudFront viewer response or origin response event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-response
+ */
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
@@ -874,6 +879,11 @@ export interface CloudFrontResponseEvent {
 
 export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse | CloudFrontRequest;
 
+/**
+ * CloudFront viewer request or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-request
+ */
 export interface CloudFrontRequestEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
