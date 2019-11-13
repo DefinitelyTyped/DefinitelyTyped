@@ -9,7 +9,7 @@
 // TypeScript Version: 2.3
 
 interface JQuery {
-    gridstack(options: IGridstackOptions): JQuery;
+    gridstack(options: GridstackOptions): JQuery;
     data(key: 'gridstack'): GridStack;
 }
 
@@ -60,7 +60,7 @@ interface GridStack {
     cellHeight(): number;
 
     /**
-    * Update current cell height - see `IGridstackOptions.cellHeight` for format.
+    * Update current cell height - see `GridstackOptions.cellHeight` for format.
     * This method rebuilds an internal CSS style sheet.
     * Note: You can expect performance issues if call this method too often.
     *
@@ -277,7 +277,7 @@ interface GridStack {
     verticalMargin(): number;
 
     /**
-    * Updates the vertical margin - see `IGridstackOptions.verticalMargin` for format options.
+    * Updates the vertical margin - see `GridstackOptions.verticalMargin` for format options.
     *
     * @param {number | string} value new vertical margin value
     * @param {boolean} noUpdate (optional) if true, styles will not be updated
@@ -336,7 +336,7 @@ declare namespace GridStackUI {
  * Gridstack Options
  * Defines the options for a Gridstack
  */
-interface IGridstackOptions {
+interface GridstackOptions {
     /**
     * if true of jquery selector the grid will accept widgets dragged from other grids or from
     * outside (default: false) See [example](http://gridstack.github.io/gridstack.js/demo/two.html)
