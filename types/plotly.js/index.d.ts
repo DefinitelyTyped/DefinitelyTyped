@@ -267,7 +267,7 @@ export interface Layout {
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
-	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
 	shapes: Array<Partial<Shape>>;
