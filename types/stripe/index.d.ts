@@ -9626,7 +9626,6 @@ declare namespace Stripe {
             /**
              * The URL of the webhook endpoint
              */
-
             url: string;
 
             /**
@@ -9654,10 +9653,10 @@ declare namespace Stripe {
             object: "webhook_endpoint";
 
             id: string;
+
             /**
              * The Stripe API version used to render data.
              */
-
             api_version: string;
 
             /**
