@@ -4023,7 +4023,7 @@ declare namespace Stripe {
              * @deprecated Stripe API Version 2019-03-14 changed the name of this property
              * @see application_fee_amount
              */
-            application_fee: number;
+            application_fee?: number;
 
             /**
              * The fee in pence that will be applied to the invoice and transferred to the application owner’s
@@ -4131,13 +4131,13 @@ declare namespace Stripe {
              * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_email: string;
+            customer_email: string | null;
 
             /**
              * The customer’s name. Until the invoice is finalized, this field will equal customer.name.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_name: string;
+            customer_name: string | null;
 
             /**
              * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
@@ -4149,13 +4149,13 @@ declare namespace Stripe {
              * The customer’s shipping information. Until the invoice is finalized, this field will equal customer.shipping.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_shipping: IShippingInformation;
+            customer_shipping: IShippingInformation | null;
 
             /**
              * The customer’s tax exempt status. Until the invoice is finalized, this field will equal customer.tax_exempt.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_tax_exempt: string;
+            customer_tax_exempt: string | null;
 
             /**
              * The customer’s tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as customer.tax_ids.
@@ -4173,7 +4173,7 @@ declare namespace Stripe {
              * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
              * the customer’s invoice settings.
              */
-            default_payment_method: string | null;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the invoice. It must belong to the customer
@@ -4325,7 +4325,7 @@ declare namespace Stripe {
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
              */
-            subscription_proration_date: number;
+            subscription_proration_date?: number | null;
 
             /**
              * Total of all subscriptions, invoice items, and prorations on the invoice before any discount is applied
@@ -4349,7 +4349,7 @@ declare namespace Stripe {
              * If `billing_reason` is set to `subscription_threshold` this returns more information
              * on which threshold rules triggered the invoice.
              */
-            threshold_reason: IThresholdReason;
+            threshold_reason?: IThresholdReason;
 
             /**
              * Total after discount
@@ -4436,6 +4436,16 @@ declare namespace Stripe {
              * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
              */
             subscription_item: string;
+
+            /**
+             * The amount of tax calculated per tax rate for this line item
+             */
+            tax_amounts: taxRates.ITaxAmount[];
+
+            /**
+             * The tax rates which apply to the line item.
+             */
+            tax_rates: taxRates.ITaxRate[];
 
             /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
@@ -6564,7 +6574,7 @@ declare namespace Stripe {
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            created: number;
+            created: number | null;
 
             /**
              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
@@ -6600,6 +6610,101 @@ declare namespace Stripe {
              * This represents the tax rate percent out of 100.
              */
             percentage: number | null;
+        }
+
+        interface ITaxRateCreationOptions {
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name: string;
+
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
+
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number;
+
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+        }
+
+        interface ITaxRateUpdateOptions {
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name?: string;
+
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+        }
+
+        interface ItaxRateSearchOptions extends IListOptions {
+            /**
+             * Optional flag to filter by tax rates that are either active or not active (archived)
+             */
+            active?: boolean;
+
+            /**
+             * A filter on the list based on the object created field.
+             */
+            created?: string | IDateFilter;
+
+            /**
+             * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make
+             * a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in
+             * order to fetch the previous page of the list.
+             */
+            inclusive?: boolean;
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit: number;
+
+            /**
+             * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+             */
+            starting_after?: string;
         }
     }
     namespace paymentMethods {
@@ -8669,7 +8774,7 @@ declare namespace Stripe {
              * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription.
              * If not set, invoices will use the default payment method in the customer’s invoice settings. [Expandable]
              */
-            default_payment_method: string | null;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the subscription.
@@ -8677,7 +8782,11 @@ declare namespace Stripe {
              * If not set, defaults to the customer’s default source. [Expandable]
              */
             default_source: string | null;
-
+            /**
+             * The tax rates that will apply to any subscription item that does not have tax_rates set.
+             * Invoices created will have their default_tax_rates populated from the subscription.
+             */
+            default_tax_rates: taxRates.ITaxRate[];
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
@@ -10556,6 +10665,60 @@ declare namespace Stripe {
                 data: string,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+        }
+
+        class TaxRates extends StripeResource {
+            /**
+             * Creates a new tax rate.
+             */
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Updates an existing tax rate.
+             */
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Retrieves a tax rate with the given ID
+             */
+            retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Returns a list of your tax rates.
+             * Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
+             */
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
         }
 
         class Charges extends StripeResource {
