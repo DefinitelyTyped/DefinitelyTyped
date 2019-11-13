@@ -90,6 +90,7 @@ interface GridStack {
 
     /**
     * Disables widgets moving/resizing. This is a shortcut for:
+    * @example
     *  grid.movable('.grid-stack-item', false);
     *  grid.resizable('.grid-stack-item', false);
     */
@@ -97,6 +98,7 @@ interface GridStack {
 
     /**
     * Enables widgets moving/resizing. This is a shortcut for:
+    * @example
     *  grid.movable('.grid-stack-item', true);
     *  grid.resizable('.grid-stack-item', true);
     */
@@ -105,7 +107,9 @@ interface GridStack {
     /**
     * Enables/disables widget moving.
     * This is a shortcut for:
+    * @example
     * grid.movable(this.container.children('.' + this.opts.itemClass), doEnable);
+    *
     * @param {boolean} doEnable
     * @param {boolean} includeNewWidgets will force new widgets to be draggable as per
     * doEnable`s value by changing the disableDrag grid option.
@@ -119,6 +123,7 @@ interface GridStack {
     * doEnable`s value by changing the disableResize grid option.
     *
     * This is a shortcut for:
+    * @example
     *  grid.resizable(this.container.children('.' + this.opts.itemClass), doEnable);
     */
     enableResize(doEnable: boolean, includeNewWidgets: boolean): void;
