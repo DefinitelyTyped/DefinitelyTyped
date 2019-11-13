@@ -5,13 +5,12 @@
 
 export = hash;
 
+type PromiseHash<T> = { [P in keyof T]: PromiseLike<T[P]> | T[P] };
+
 declare global {
     interface PromiseConstructor {
-        hash<T>(promiseHash: { [P in keyof T]: PromiseLike<T[P]> | T[P] }):
-            Promise<{ [P in keyof T]: T[P] }>;
+        hash<T>(promiseHash: PromiseHash<T>): Promise<{ [P in keyof T]: T[P] }>;
     }
 }
 
-declare function hash<T>(
-    promiseHash: { [P in keyof T]: PromiseLike<T[P]> | T[P]}):
-    Promise<{ [P in keyof T]: T[P] }>;
+declare function hash<T>(promiseHash: PromiseHash<T>): Promise<{ [P in keyof T]: T[P] }>;
