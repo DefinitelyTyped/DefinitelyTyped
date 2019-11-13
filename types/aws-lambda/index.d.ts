@@ -847,10 +847,10 @@ export interface CloudFrontRequest {
 
 export interface CloudFrontEvent {
     config: {
-        distributionDomainName: string;
-        distributionId: string;
-        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
-        requestId: string;
+        readonly distributionDomainName: string;
+        readonly distributionId: string;
+        readonly eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
+        readonly requestId: string;
     };
 }
 
