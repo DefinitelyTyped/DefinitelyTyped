@@ -25,6 +25,7 @@ declare namespace Tabulator {
             OptionsClipboard,
             OptionsDataTree,
             OptionsCell,
+            OptionsCells,
             OptionsHTML {}
 
     interface OptionsCells extends CellCallbacks {
@@ -834,7 +835,7 @@ declare namespace Tabulator {
         /** title - Required This is the title that will be displayed in the header for this column */
         title: string;
         /** field - Required (not required in icon/button columns) this is the key for this column in the data array*/
-        field: string;
+        field?: string;
         /** visible - (boolean, default - true) determines if the column is visible. (see Column Visibility for more details */
         visible?: boolean;
 
@@ -1050,8 +1051,11 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** Show/Hide a particular column in the HTML output*/
         htmlOutput?: boolean;
 
-        /**If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false */
+        /** If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false */
         clipboard?: boolean;
+
+        /** A column can be a "group" of columns (Example: group header column -> Measurements, grouped column -> Length, Width, Height) */
+        columns?: ColumnDefinition[];
     }
 
     interface CellCallbacks {

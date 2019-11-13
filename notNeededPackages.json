@@ -121,6 +121,12 @@
             "asOfVersion": "2.1.1"
         },
         {
+            "libraryName": "aphrodite",
+            "typingsPackageName": "aphrodite",
+            "sourceRepoURL": "https://github.com/Khan/aphrodite",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "apn",
             "typingsPackageName": "apn",
             "sourceRepoURL": "https://github.com/node-apn/node-apn",
@@ -439,6 +445,12 @@
             "asOfVersion": "5.1.0"
         },
         {
+            "libraryName": "cassandra-driver",
+            "typingsPackageName": "cassandra-driver",
+            "sourceRepoURL": "https://github.com/datastax/nodejs-driver",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "camljs",
             "typingsPackageName": "camljs",
             "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
@@ -545,6 +557,12 @@
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
             "asOfVersion": "2.12.2"
+        },
+        {
+            "libraryName": "commons-validator-js",
+            "typingsPackageName": "commons-validator-js",
+            "sourceRepoURL": "https://github.com/wix/commons-validator-js",
+            "asOfVersion": "1.0.1266"
         },
         {
             "libraryName": "composer-concerto",
@@ -721,6 +739,12 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "cosmiconfig",
+            "typingsPackageName": "cosmiconfig",
+            "sourceRepoURL": "https://github.com/davidtheclark/cosmiconfig",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "countup.js",
             "typingsPackageName": "countup.js",
             "sourceRepoURL": "https://github.com/inorganik/CountUp.js",
@@ -875,6 +899,12 @@
             "typingsPackageName": "delegated-events",
             "sourceRepoURL": "https://github.com/dgraham/delegated-events#readme",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "depcheck",
+            "typingsPackageName": "depcheck",
+            "sourceRepoURL": "https://github.com/depcheck/depcheck",
+            "asOfVersion": "0.9.1"
         },
         {
             "libraryName": "detect-browser",
@@ -2137,6 +2167,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-diff",
+            "typingsPackageName": "jest-diff",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-diff",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-get-type",
             "typingsPackageName": "jest-get-type",
             "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-get-type",
@@ -2545,6 +2581,12 @@
             "asOfVersion": "0.9.2"
         },
         {
+            "libraryName": "@malijs/compose",
+            "typingsPackageName": "mali-compose",
+            "sourceRepoURL": "https://github.com/malijs/mali-compose",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "mali-onerror",
             "typingsPackageName": "mali-onerror",
             "sourceRepoURL": "https://github.com/malijs/onerror",
@@ -2671,6 +2713,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "moment-range",
+            "typingsPackageName": "moment-range",
+            "sourceRepoURL": "https://github.com/rotaready/moment-range",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "mongodb-memory-server",
             "typingsPackageName": "mongodb-memory-server",
             "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
@@ -2789,6 +2837,18 @@
             "typingsPackageName": "new-github-release-url",
             "sourceRepoURL": "https://github.com/sindresorhus/new-github-release-url",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "next",
+            "typingsPackageName": "next",
+            "sourceRepoURL": "https://github.com/zeit/next.js",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "next-server",
+            "typingsPackageName": "next-server",
+            "sourceRepoURL": "https://github.com/zeit/next.js",
+            "asOfVersion": "9.0.0"
         },
         {
             "libraryName": "ng-table",
@@ -3901,6 +3961,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-swipeable",
+            "typingsPackageName": "react-swipeable",
+            "sourceRepoURL": "https://github.com/dogfessional/react-swipeable",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "react-toastify",
             "typingsPackageName": "react-toastify",
             "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
@@ -4991,6 +5057,12 @@
             "typingsPackageName": "vexdb",
             "sourceRepoURL": "https://github.com/MayorMonty/vexdb#readme",
             "asOfVersion": "1.7.1"
+        },
+        {
+            "libraryName": "velocity-animate",
+            "typingsPackageName": "velocity-animate",
+            "sourceRepoURL": "http://velocityjs.org/",
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "vfile-message",
