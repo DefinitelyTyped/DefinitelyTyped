@@ -261,6 +261,8 @@
         "spread.d.ts",
         "startCase.d.ts",
         "startsWith.d.ts",
+        "stubFalse.d.ts",
+        "stubTrue.d.ts",
         "subtract.d.ts",
         "sum.d.ts",
         "sumBy.d.ts",

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,6 @@ declare namespace GoogleAppsScript {
       setLabel(field: Field): AddressField;
       setLabel(label: string): AddressField;
     }
-
     /**
      * Company field in a Contact.
      */
@@ -34,7 +33,6 @@ declare namespace GoogleAppsScript {
       setCompanyName(company: string): CompanyField;
       setJobTitle(title: string): CompanyField;
     }
-
     /**
      * A Contact contains the name, address, and various contact details of a contact.
      */
@@ -91,52 +89,29 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      /** @deprecated DO NOT USE */
-      getEmailAddresses(): string[];
-      /** @deprecated DO NOT USE */
-      getHomeAddress(): string;
-      /** @deprecated DO NOT USE */
-      getHomeFax(): string;
-      /** @deprecated DO NOT USE */
-      getHomePhone(): string;
-      /** @deprecated DO NOT USE */
-      getMobilePhone(): string;
-      /** @deprecated DO NOT USE */
-      getPager(): string;
-      /** @deprecated DO NOT USE */
-      getUserDefinedField(key: string): string;
-      /** @deprecated DO NOT USE */
-      getUserDefinedFields(): any;
-      /** @deprecated DO NOT USE */
-      getWorkAddress(): string;
-      /** @deprecated DO NOT USE */
-      getWorkFax(): string;
-      /** @deprecated DO NOT USE */
-      getWorkPhone(): string;
-      /** @deprecated DO NOT USE */
-      setHomeAddress(addr: string): void;
-      /** @deprecated DO NOT USE */
-      setHomeFax(phone: string): void;
-      /** @deprecated DO NOT USE */
-      setHomePhone(phone: string): void;
-      /** @deprecated DO NOT USE */
-      setMobilePhone(phone: string): void;
-      /** @deprecated DO NOT USE */
-      setPager(phone: string): void;
-      /** @deprecated DO NOT USE */
-      setPrimaryEmail(primaryEmail: string): void;
-      /** @deprecated DO NOT USE */
-      setUserDefinedField(key: string, value: string): void;
-      /** @deprecated DO NOT USE */
-      setUserDefinedFields(o: any): void;
-      /** @deprecated DO NOT USE */
-      setWorkAddress(addr: string): void;
-      /** @deprecated DO NOT USE */
-      setWorkFax(phone: string): void;
-      /** @deprecated DO NOT USE */
-      setWorkPhone(phone: string): void;
+      /** @deprecated DO NOT USE */getEmailAddresses(): string[];
+      /** @deprecated DO NOT USE */getHomeAddress(): string;
+      /** @deprecated DO NOT USE */getHomeFax(): string;
+      /** @deprecated DO NOT USE */getHomePhone(): string;
+      /** @deprecated DO NOT USE */getMobilePhone(): string;
+      /** @deprecated DO NOT USE */getPager(): string;
+      /** @deprecated DO NOT USE */getUserDefinedField(key: string): string;
+      /** @deprecated DO NOT USE */getUserDefinedFields(): any;
+      /** @deprecated DO NOT USE */getWorkAddress(): string;
+      /** @deprecated DO NOT USE */getWorkFax(): string;
+      /** @deprecated DO NOT USE */getWorkPhone(): string;
+      /** @deprecated DO NOT USE */setHomeAddress(addr: string): void;
+      /** @deprecated DO NOT USE */setHomeFax(phone: string): void;
+      /** @deprecated DO NOT USE */setHomePhone(phone: string): void;
+      /** @deprecated DO NOT USE */setMobilePhone(phone: string): void;
+      /** @deprecated DO NOT USE */setPager(phone: string): void;
+      /** @deprecated DO NOT USE */setPrimaryEmail(primaryEmail: string): void;
+      /** @deprecated DO NOT USE */setUserDefinedField(key: string, value: string): void;
+      /** @deprecated DO NOT USE */setUserDefinedFields(o: any): void;
+      /** @deprecated DO NOT USE */setWorkAddress(addr: string): void;
+      /** @deprecated DO NOT USE */setWorkFax(phone: string): void;
+      /** @deprecated DO NOT USE */setWorkPhone(phone: string): void;
     }
-
     /**
      * A ContactGroup is is a group of contacts.
      */
@@ -149,12 +124,9 @@ declare namespace GoogleAppsScript {
       isSystemGroup(): boolean;
       removeContact(contact: Contact): ContactGroup;
       setName(name: string): ContactGroup;
-      /** @deprecated DO NOT USE */
-      getGroupName(): string;
-      /** @deprecated DO NOT USE */
-      setGroupName(name: string): void;
+      /** @deprecated DO NOT USE */getGroupName(): string;
+      /** @deprecated DO NOT USE */setGroupName(name: string): void;
     }
-
     /**
      * This class allows users to access their own Google Contacts and create, remove, and update
      * contacts listed therein.
@@ -202,14 +174,10 @@ declare namespace GoogleAppsScript {
       getContactsByUrl(query: string): Contact[];
       getContactsByUrl(query: string, label: Field): Contact[];
       getContactsByUrl(query: string, label: string): Contact[];
-      /** @deprecated DO NOT USE */
-      findByEmailAddress(email: string): Contact;
-      /** @deprecated DO NOT USE */
-      findContactGroup(name: string): ContactGroup;
-      /** @deprecated DO NOT USE */
-      getAllContacts(): Contact[];
+      /** @deprecated DO NOT USE */findByEmailAddress(email: string): Contact;
+      /** @deprecated DO NOT USE */findContactGroup(name: string): ContactGroup;
+      /** @deprecated DO NOT USE */getAllContacts(): Contact[];
     }
-
     /**
      * A custom field in a Contact.
      */
@@ -221,7 +189,6 @@ declare namespace GoogleAppsScript {
       setLabel(label: string): CustomField;
       setValue(value: any): CustomField;
     }
-
     /**
      * A date field in a Contact.
      *
@@ -240,7 +207,6 @@ declare namespace GoogleAppsScript {
       setLabel(label: Field): DateField;
       setLabel(label: string): DateField;
     }
-
     /**
      * An email field in a Contact.
      */
@@ -256,22 +222,18 @@ declare namespace GoogleAppsScript {
       setLabel(field: Field): EmailField;
       setLabel(label: string): EmailField;
     }
-
     /**
      * An enum for extended contacts fields.
      */
     enum ExtendedField { HOBBY, MILEAGE, LANGUAGE, GENDER, BILLING_INFORMATION, DIRECTORY_SERVER, SENSITIVITY, PRIORITY, HOME, WORK, USER, OTHER }
-
     /**
      * An enum for contacts fields.
      */
     enum Field { FULL_NAME, GIVEN_NAME, MIDDLE_NAME, FAMILY_NAME, MAIDEN_NAME, NICKNAME, SHORT_NAME, INITIALS, PREFIX, SUFFIX, HOME_EMAIL, WORK_EMAIL, BIRTHDAY, ANNIVERSARY, HOME_ADDRESS, WORK_ADDRESS, ASSISTANT_PHONE, CALLBACK_PHONE, MAIN_PHONE, PAGER, HOME_FAX, WORK_FAX, HOME_PHONE, WORK_PHONE, MOBILE_PHONE, GOOGLE_VOICE, NOTES, GOOGLE_TALK, AIM, YAHOO, SKYPE, QQ, MSN, ICQ, JABBER, BLOG, FTP, PROFILE, HOME_PAGE, WORK_WEBSITE, HOME_WEBSITE, JOB_TITLE, COMPANY }
-
     /**
      * An enum for contact gender.
      */
     enum Gender { MALE, FEMALE }
-
     /**
      * An instant messaging field in a Contact.
      */
@@ -286,7 +248,6 @@ declare namespace GoogleAppsScript {
       setLabel(field: Field): IMField;
       setLabel(label: string): IMField;
     }
-
     /**
      * A phone number field in a Contact.
      */
@@ -300,17 +261,14 @@ declare namespace GoogleAppsScript {
       setLabel(label: string): PhoneField;
       setPhoneNumber(number: string): PhoneField;
     }
-
     /**
      * An enum for contact priority.
      */
     enum Priority { HIGH, LOW, NORMAL }
-
     /**
      * An enum for contact sensitivity.
      */
     enum Sensitivity { CONFIDENTIAL, NORMAL, PERSONAL, PRIVATE }
-
     /**
      * A URL field in a Contact.
      */

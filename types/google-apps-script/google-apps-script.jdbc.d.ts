@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,7 +58,6 @@ declare namespace GoogleAppsScript {
       parseTime(time: string): JdbcTime;
       parseTimestamp(timestamp: string): JdbcTimestamp;
     }
-
     /**
      * A JDBC Array. For documentation of this class, see java.sql.Array
      * .
@@ -72,7 +71,6 @@ declare namespace GoogleAppsScript {
       getResultSet(): JdbcResultSet;
       getResultSet(index: Integer, count: Integer): JdbcResultSet;
     }
-
     /**
      * A JDBC Blob. For documentation of this class, see java.sql.Blob
      * .
@@ -91,7 +89,6 @@ declare namespace GoogleAppsScript {
       setBytes(position: Integer, bytes: Byte[], offset: Integer, length: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
      * A JDBC CallableStatement. For documentation of this class, see
      * java.sql.CallableStatement.
@@ -262,7 +259,6 @@ declare namespace GoogleAppsScript {
       setURL(parameterName: string, val: string): void;
       wasNull(): boolean;
     }
-
     /**
      * A JDBC Clob. For documentation of this class, see java.sql.Clob
      * .
@@ -281,7 +277,6 @@ declare namespace GoogleAppsScript {
       setString(position: Integer, value: string, offset: Integer, len: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
      * A JDBC Connection. For documentation of this class, see
      * java.sql.Connection.
@@ -329,7 +324,6 @@ declare namespace GoogleAppsScript {
       setSavepoint(name: string): JdbcSavepoint;
       setTransactionIsolation(level: Integer): void;
     }
-
     /**
      * A JDBC database metadata object. For documentation of this class, see
      * java.sql.DatabaseMetaData.
@@ -508,7 +502,6 @@ declare namespace GoogleAppsScript {
       usesLocalFilePerTable(): boolean;
       usesLocalFiles(): boolean;
     }
-
     /**
      * A JDBC Date. For documentation of this class, see java.sql.Date
      * .
@@ -525,7 +518,6 @@ declare namespace GoogleAppsScript {
       setTime(milliseconds: Integer): void;
       setYear(year: Integer): void;
     }
-
     /**
      * A JDBC ParameterMetaData. For documentation of this class, see
      * java.sql.ParameterMetaData.
@@ -541,7 +533,6 @@ declare namespace GoogleAppsScript {
       isNullable(param: Integer): Integer;
       isSigned(param: Integer): boolean;
     }
-
     /**
      * A JDBC PreparedStatement. For documentation of this class, see
      * java.sql.PreparedStatement.
@@ -625,7 +616,6 @@ declare namespace GoogleAppsScript {
       setTimestamp(parameterIndex: Integer, x: JdbcTimestamp, timeZone: string): void;
       setURL(parameterIndex: Integer, x: string): void;
     }
-
     /**
      * A JDBC Ref. For documentation of this class, see java.sql.Ref.
      */
@@ -634,7 +624,6 @@ declare namespace GoogleAppsScript {
       getObject(): any;
       setObject(object: any): void;
     }
-
     /**
      * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet
      * .
@@ -780,7 +769,6 @@ declare namespace GoogleAppsScript {
       updateTimestamp(columnLabel: string, x: JdbcTimestamp): void;
       wasNull(): boolean;
     }
-
     /**
      * A JDBC ResultSetMetaData. For documentation of this class, see
      * java.sql.ResultSetMetaData.
@@ -808,7 +796,6 @@ declare namespace GoogleAppsScript {
       isSigned(column: Integer): boolean;
       isWritable(column: Integer): boolean;
     }
-
     /**
      * A JDBC RowId. For documentation of this class, see java.sql.RowId
      * .
@@ -816,7 +803,6 @@ declare namespace GoogleAppsScript {
     interface JdbcRowId {
       getBytes(): Byte[];
     }
-
     /**
      * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML
      * .
@@ -826,7 +812,6 @@ declare namespace GoogleAppsScript {
       getString(): string;
       setString(value: string): void;
     }
-
     /**
      * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint
      * .
@@ -835,7 +820,6 @@ declare namespace GoogleAppsScript {
       getSavepointId(): Integer;
       getSavepointName(): string;
     }
-
     /**
      * A JDBC Statement. For documentation of this class, see java.sql.Statement
      * .
@@ -882,7 +866,6 @@ declare namespace GoogleAppsScript {
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
     }
-
     /**
      * A JDBC Struct. For documentation of this class, see java.sql.Struct
      * .
@@ -891,7 +874,6 @@ declare namespace GoogleAppsScript {
       getAttributes(): any[];
       getSQLTypeName(): string;
     }
-
     /**
      * A JDBC Time. For documentation of this class, see java.sql.Time
      * .
@@ -908,7 +890,6 @@ declare namespace GoogleAppsScript {
       setSeconds(seconds: Integer): void;
       setTime(milliseconds: Integer): void;
     }
-
     /**
      * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp
      * .

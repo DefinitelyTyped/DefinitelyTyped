@@ -26,6 +26,7 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
+//                 Rauno Viskus <https://github.com/Rauno56>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -71,8 +72,8 @@ export class MongoClient extends EventEmitter {
     logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
+    /** http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
+    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
@@ -683,6 +684,8 @@ export class Db extends EventEmitter {
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch */
+    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
 export interface CommonOptions extends WriteConcern {
@@ -1135,10 +1138,10 @@ export interface Collection<TSchema = Default> {
         options: UpdateOneOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
+    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
     watch(
         pipeline?: object[],
-        options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp; session?: ClientSession },
+        options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream;
 }
 
@@ -1205,7 +1208,7 @@ export type PushOperator<TSchema> = ({
 };
 
 export type PullOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | QuerySelector<Unpacked<TSchema[key]>>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: QuerySelector<any> | any;
@@ -1361,6 +1364,8 @@ export type RootQuerySelector<T> = {
     // this will mark all unrecognized properties as any (including nested queries)
     [key: string]: any;
 };
+
+export type ObjectQuerySelector<T> = T extends object ? {[key in keyof T]?: QuerySelector<T[key]> } : QuerySelector<T>;
 
 export type Condition<T> = MongoAltQuery<T> | QuerySelector<MongoAltQuery<T>>;
 
@@ -2259,8 +2264,10 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     disableMD5?: boolean;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html */
+/** http://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
 export class ChangeStream extends Readable {
+    resumeToken: ResumeToken;
+
     constructor(changeDomain: Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#close */
@@ -2282,14 +2289,18 @@ export class ChangeStream extends Readable {
     stream(options?: { transform?: Function }): Cursor;
 }
 
+export class ResumeToken {}
+
+/** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
     fullDocument?: string;
     maxAwaitTimeMS?: number;
     resumeAfter?: object;
+    startAfter?: object;
+    startAtOperationTime?: Timestamp;
     batchSize?: number;
     collation?: CollationDocument;
     readPreference?: ReadPreferenceOrMode;
-    startAfter?: object;
 }
 
 type GridFSBucketWriteStreamId = string | number | object | ObjectId;

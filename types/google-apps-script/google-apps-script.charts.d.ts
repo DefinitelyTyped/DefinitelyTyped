@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,7 +68,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
       useLogScale(): AreaChartBuilder;
     }
-
     /**
      * Builder for bar charts. For more details, see the Google Charts documentation.
      *
@@ -115,7 +114,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
       useLogScale(): BarChartBuilder;
     }
-
     /**
      * A Chart object, which can be converted to a static image. For charts embedded in spreadsheets,
      * see EmbeddedChart.
@@ -125,17 +123,14 @@ declare namespace GoogleAppsScript {
       getBlob(): Base.Blob;
       getOptions(): ChartOptions;
     }
-
     /**
      * An enumeration of how hidden dimensions in a source are expressed in a chart.
      */
     enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
-
     /**
      * An enumeration of how multiple ranges in the source are expressed in a chart.
      */
     enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
-
     /**
      * Exposes options currently configured for a Chart, such as height, color, etc.
      *
@@ -148,12 +143,10 @@ declare namespace GoogleAppsScript {
     interface ChartOptions {
       get(option: string): any;
     }
-
     /**
      * Chart types supported by the Charts service.
      */
     enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
-
     /**
      * Entry point for creating Charts in scripts.
      *
@@ -206,7 +199,6 @@ declare namespace GoogleAppsScript {
       newTableChart(): TableChartBuilder;
       newTextStyle(): TextStyleBuilder;
     }
-
     /**
      * Builder for column charts. For more details, see the Google Charts documentation.
      *
@@ -260,17 +252,14 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
       useLogScale(): ColumnChartBuilder;
     }
-
     /**
      * An enumeration of the valid data types for columns in a DataTable.
      */
     enum ColumnType { DATE, NUMBER, STRING }
-
     /**
      * An enumeration of the styles for curves in a chart.
      */
     enum CurveStyle { NORMAL, SMOOTH }
-
     /**
      * A Data Table to be used in charts. A DataTable can come from sources such as Google
      * Sheets or specified data-table URLs, or can be filled in by hand. This class intentionally has no
@@ -278,9 +267,7 @@ declare namespace GoogleAppsScript {
      */
     // tslint:disable-next-line: no-empty-interface
     interface DataTable {
-      // tslint:disable-next-line: no-empty-interface
     }
-
     /**
      * Builder of DataTable objects. Building a data table consists of first specifying its columns, and
      * then adding its rows, one at a time. Example:
@@ -302,7 +289,6 @@ declare namespace GoogleAppsScript {
       build(): DataTable;
       setValue(row: Integer, column: Integer, value: any): DataTableBuilder;
     }
-
     /**
      * Interface for objects that can represent their data as a DataTable.
      * Implementing classes
@@ -316,7 +302,6 @@ declare namespace GoogleAppsScript {
     interface DataTableSource {
       getDataTable(): DataTable;
     }
-
     /**
      * A data view definition for visualizing chart data.
      *
@@ -328,9 +313,7 @@ declare namespace GoogleAppsScript {
      */
     // tslint:disable-next-line: no-empty-interface
     interface DataViewDefinition {
-      // tslint:disable-next-line: no-empty-interface
     }
-
     /**
      * Builder for DataViewDefinition objects.
      *
@@ -376,7 +359,6 @@ declare namespace GoogleAppsScript {
       build(): DataViewDefinition;
       setColumns(columns: any[]): DataViewDefinitionBuilder;
     }
-
     /**
      * Builder for line charts. For more details, see the Google Charts documentation.
      *
@@ -423,7 +405,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       useLogScale(): LineChartBuilder;
     }
-
     /**
      * An enumeration of how a string value should be matched. Matching a string is a boolean operation.
      * Given a string, a match term (string), and a match type, the operation outputs true in
@@ -440,7 +421,6 @@ declare namespace GoogleAppsScript {
      * in the filter input box, using one of the above matching types.
      */
     enum MatchType { EXACT, PREFIX, ANY }
-
     /**
      * A builder for number range filter controls.
      *
@@ -458,17 +438,14 @@ declare namespace GoogleAppsScript {
       setShowRangeValues(showRangeValues: boolean): NumberRangeFilterBuilder;
       setTicks(ticks: Integer): NumberRangeFilterBuilder;
     }
-
     /**
      * An enumeration of the orientation of an object.
      */
     enum Orientation { HORIZONTAL, VERTICAL }
-
     /**
      * An enumeration of how to display selected values in picker widget.
      */
     enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
-
     /**
      * A builder for pie charts. For more details, see the Google Charts documentation.
      *
@@ -503,17 +480,14 @@ declare namespace GoogleAppsScript {
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
-
     /**
      * An enumeration of the styles of points in a line.
      */
     enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
-
     /**
      * An enumeration of legend positions within a chart.
      */
     enum Position { TOP, RIGHT, BOTTOM, NONE }
-
     /**
      * Builder for scatter charts. For more details, see the Google Charts documentation.
      *
@@ -559,7 +533,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitle(title: string): ScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
     }
-
     /**
      * A builder for string filter controls.
      *
@@ -575,7 +548,6 @@ declare namespace GoogleAppsScript {
       setMatchType(matchType: MatchType): StringFilterBuilder;
       setRealtimeTrigger(realtimeTrigger: boolean): StringFilterBuilder;
     }
-
     /**
      * A builder for table charts. For more details, see the Google Charts documentation.
      *
@@ -611,7 +583,6 @@ declare namespace GoogleAppsScript {
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }
-
     /**
      * A text style configuration object. Used in charts options to configure text style for elements
      * that accepts it, such as title, horizontal axis, vertical axis, legend and tooltip.
@@ -648,7 +619,6 @@ declare namespace GoogleAppsScript {
       getFontName(): string;
       getFontSize(): number;
     }
-
     /**
      * A builder used to create TextStyle objects. It allows configuration of the text's
      * properties such as name, color, and size.

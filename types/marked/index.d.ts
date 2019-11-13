@@ -112,7 +112,7 @@ declare namespace marked {
         code(code: string, language: string, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
-        heading(text: string, level: number, raw: string, slugger: Slugger): string;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
@@ -356,11 +356,6 @@ declare namespace marked {
          * Use "smart" typograhic punctuation for things like quotes and dashes.
          */
         smartypants?: boolean;
-
-        /**
-         * Enable GFM tables. This option requires the gfm option to be true.
-         */
-        tables?: boolean;
 
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
