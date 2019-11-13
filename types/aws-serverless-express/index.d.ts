@@ -5,7 +5,7 @@
 //                 Matthias Meyer <https://github.com/mattmeye>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.5
 
 /// <reference types="node"/>
 import * as http from 'http';
