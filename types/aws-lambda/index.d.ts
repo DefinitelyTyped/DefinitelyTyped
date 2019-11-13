@@ -831,6 +831,12 @@ export interface CloudFrontResponse {
 }
 
 export interface CloudFrontRequest {
+    body?: {
+        action: 'read-only' | 'replace';
+        data: string;
+        encoding: 'base64' | 'text';
+        readonly inputTruncated: boolean;
+    };
     clientIp: string;
     method: string;
     uri: string;
@@ -860,7 +866,7 @@ export interface CloudFrontResultResponse {
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            request: CloudFrontRequest;
+            request: Omit<CloudFrontRequest, 'body'>;
             response: CloudFrontResponse;
         };
     }>;
