@@ -854,7 +854,11 @@ export interface CloudFrontEvent {
         | { readonly eventType: 'viewer-request' | 'viewer-response'; readonly requestId: string });
 }
 
-// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
+/**
+ * Generated HTTP response in viewer request event or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses-in-requests.html#lambda-generating-http-responses-object
+ */
 export interface CloudFrontResultResponse {
     status: string;
     statusDescription?: string;
