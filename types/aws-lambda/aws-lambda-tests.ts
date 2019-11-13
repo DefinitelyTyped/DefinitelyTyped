@@ -725,9 +725,9 @@ const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent =
                         inputTruncated: false,
                     },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {
@@ -785,9 +785,9 @@ const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
                         inputTruncated: false,
                     },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {
