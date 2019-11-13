@@ -3895,6 +3895,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-navigation",
+            "typingsPackageName": "react-navigation",
+            "sourceRepoURL": "https://github.com/react-navigation/react-navigation",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "react-native-swipe-gestures",
             "typingsPackageName": "react-native-swipe-gestures",
             "sourceRepoURL": "https://github.com/glepur/react-native-swipe-gestures",
