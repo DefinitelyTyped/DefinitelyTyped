@@ -149,6 +149,9 @@ const request: GoogleAppsScript.Data_Studio.Request<any> = {
   ]
 };
 
+const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
+tableCell.getParentRow().getChildIndex(tableCell);
+
 XmlService.createElement("")
   .addContent(XmlService.createCdata(""))
   .addContent(XmlService.createComment(""))

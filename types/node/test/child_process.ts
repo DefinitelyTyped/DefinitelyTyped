@@ -46,6 +46,10 @@ import { Writable, Readable, Pipe } from 'stream';
         execArgv: ['asda']
     });
     const ipc: Pipe = forked.channel!;
+    const hasRef: boolean = ipc.hasRef();
+    ipc.close();
+    ipc.unref();
+    ipc.ref();
 }
 
 async function testPromisify() {

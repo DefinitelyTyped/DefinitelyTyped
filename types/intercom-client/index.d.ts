@@ -1,11 +1,14 @@
 // Type definitions for intercom-client 2.11
 // Project: https://github.com/intercom/intercom-node
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>, Josef Hornych <https://github.com/peping>, Mikhail Monchak <https://github.com/mikhail-monchak>
+// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
+//                 Josef Hornych <https://github.com/peping>
+//                 Mikhail Monchak <https://github.com/mikhail-monchak>
+//                 Chris Doe <https://github.com/cdoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { List as UserList, User, UserIdentifier } from './User';
+import { List as UserList, User, UserIdentifier, CreateUpdateUser } from './User';
 import { List as LeadList, Lead, LeadIdentifier } from './Lead';
 import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
@@ -47,11 +50,11 @@ export class ApiResponse<T> extends IncomingMessage {
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
 
 export class Users {
-    create(user: Partial<User>): Promise<ApiResponse<User>>;
-    create(user: Partial<User>, cb: callback<ApiResponse<User>>): void;
+    create(user: Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
+    create(user: Partial<CreateUpdateUser>, cb: callback<ApiResponse<User>>): void;
 
-    update(user: UserIdentifier & Partial<User>): Promise<ApiResponse<User>>;
-    update(user: UserIdentifier & Partial<User>, cb: callback<ApiResponse<User>>): void;
+    update(user: UserIdentifier & Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
+    update(user: UserIdentifier & Partial<CreateUpdateUser>, cb: callback<ApiResponse<User>>): void;
 
     find(identifier: UserIdentifier): Promise<ApiResponse<User>>;
     find(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;

@@ -1,4 +1,4 @@
-// Type definitions for roarr 2.13
+// Type definitions for roarr 2.14
 // Project: https://github.com/gajus/roarr#readme
 // Definitions by: Philip Saxton <https://github.com/psaxton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,8 @@ declare namespace Roarr {
 		logLevel?: number;
 		[name: string]: any;
 	}
+
+    type TranslateMessageFunctionType = (message: MessageContextType) => MessageContextType;
 
 	interface SprintfArgumentType { toString(): string; }
 
@@ -47,7 +49,7 @@ declare namespace Roarr {
 		/**
 		 * Creates a child logger appending the provided context object to the previous logger context.
 		 *
-		 * @param context
+		 * @param contextOrFunction
 		 * @example
 		 * import Roarr from 'roarr';
 		 *
@@ -58,7 +60,7 @@ declare namespace Roarr {
 		 *
 		 * @see https://www.npmjs.com/package/roarr#child
 		 */
-		child(context: MessageContextType): RoarrType;
+		child(contextOrFunction: MessageContextType | TranslateMessageFunctionType): RoarrType;
 
 		/**
 		 * Returns the current context.

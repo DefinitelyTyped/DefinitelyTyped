@@ -2000,7 +2000,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param {Boolean|Object} bool defaults to true
      */
-    lean(bool?: boolean | object): Query<any> & QueryHelpers;
+    lean<T>(bool?: boolean | object): Query<T> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
