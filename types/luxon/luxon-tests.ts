@@ -160,6 +160,7 @@ dur.as('seconds'); // $ExpectType number
 dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration

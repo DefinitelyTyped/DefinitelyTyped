@@ -332,6 +332,7 @@ export class Duration {
     reconfigure(objectPattern: DurationOptions): Duration;
     set(values: DurationObjectUnits): Duration;
     shiftTo(...units: DurationUnit[]): Duration;
+    mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
     toISO(): string;
     toJSON(): string;
