@@ -10,6 +10,7 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
+/// <reference types="formidable" />
 import http = require('http');
 import https = require('https');
 import Logger = require('bunyan');
@@ -17,6 +18,7 @@ import url = require('url');
 import spdy = require('spdy');
 import stream = require('stream');
 import zlib = require('zlib');
+import { File } from 'formidable';
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer>;
@@ -418,11 +420,6 @@ export class Router {
     strictNext: boolean;
 }
 
-export interface RequestFileInterface {
-    path: string;
-    type: string;
-}
-
 export interface RequestAuthorization {
     scheme: string;
     credentials: string;
@@ -644,8 +641,8 @@ export interface Request extends http.IncomingMessage {
     /** available when queryParser or bodyParser plugin is used with mapParams enabled. */
     params?: any;
 
-    /** available when serveStatic plugin is used. */
-    files?: { [name: string]: RequestFileInterface };
+    /** available when multipartBodyParser plugin is used. */
+    files?: { [name: string]: File | undefined; };
 
     /** available when authorizationParser plugin is used */
     username?: string;
