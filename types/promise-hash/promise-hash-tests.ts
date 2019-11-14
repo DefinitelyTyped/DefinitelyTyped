@@ -1,15 +1,20 @@
 import hash = require('promise-hash');
 
 const result = Promise.hash({
-    a: Promise.resolve(5),
+    a: 5,
     b: Promise.resolve("test"),
-    c: hash({
+    c: Promise.hash({
         d: Promise.resolve(true),
         e: Promise.resolve("again")
     })
 });
 
-result; // $ExpectType Promise<{ a: number; b: string; c: { d: boolean; e: string; }; }>
+type expectedType = Promise<{ a: number; b: string; c: { d: boolean; e: string; } }>;
+type resultIsExpected = typeof result extends expectedType ? true : false; // $ExpectType true
+type expectedIsResult = expectedType extends typeof result ? true : false; // $ExpectType true
+
+const dResult = result.then(x => x.c.d);
+dResult; // $ExpectType Promise<boolean>
 
 const result2 = hash({
     test: Promise.resolve("hello world")
