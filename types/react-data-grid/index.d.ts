@@ -66,9 +66,9 @@ declare namespace AdazzleReactDataGrid {
          * Invoked when the user clicks on one cell to expand it.
          * @param e Information about the event
          */
-        onCellExpand?: (e:CellExpandEvent) => void
+        onCellExpand?: (e:CellExpandEvent<T>) => void
 
-        getSubRowDetails?: (e: any) => SubRowDetails
+        getSubRowDetails?: (row: T) => SubRowDetails
 
         /**
          * Invoked when the user double clicks on the drag handle of an editable cell.
