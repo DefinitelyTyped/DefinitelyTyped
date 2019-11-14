@@ -10,7 +10,6 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="formidable" />
 import http = require('http');
 import https = require('https');
 import Logger = require('bunyan');
