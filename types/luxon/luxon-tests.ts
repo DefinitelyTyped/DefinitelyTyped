@@ -176,6 +176,8 @@ i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
+i.toISODate(); // $ExpectType string
+i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
