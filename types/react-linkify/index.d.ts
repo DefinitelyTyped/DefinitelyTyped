@@ -7,7 +7,7 @@
 
 import * as React from "react";
 
-declare namespace ReactLinkify {
+export declare namespace ReactLinkify {
     /**
      * Matching information
      */
