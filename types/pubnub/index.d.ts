@@ -22,6 +22,8 @@ declare class Pubnub {
 
     channelGroups: Pubnub.ChannelGroups;
 
+    push: Pubnub.Push;
+
     setUUID(uuid: string): void;
 
     getUUID(): string;
@@ -497,6 +499,42 @@ declare namespace Pubnub {
         channels: {
             [channel: string]: number;
         };
+    }
+
+    interface Push {
+        addChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+
+        addChannels(params: PushChannelParameters): Promise<{}>;
+
+        listChannels(
+            params: PushDeviceParameters,
+            callback: (status: PubnubStatus, response: PushListChannelsResponse) => void,
+        ): void;
+
+        listChannels(params: PushDeviceParameters): Promise<PushListChannelsResponse>;
+
+        removeChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+
+        removeChannels(params: PushChannelParameters): Promise<{}>;
+
+        deleteDevice(params: PushDeviceParameters, callback: (status: PubnubStatus) => void): void;
+
+        deleteDevice(params: PushDeviceParameters): Promise<{}>;
+    }
+
+    interface PushChannelParameters {
+        channels: string[];
+        device: string;
+        pushGateway: string;
+    }
+
+    interface PushDeviceParameters {
+        device: string;
+        pushGateway: string;
+    }
+
+    interface PushListChannelsResponse {
+        channels: string[];
     }
 
     interface PubnubStatus {

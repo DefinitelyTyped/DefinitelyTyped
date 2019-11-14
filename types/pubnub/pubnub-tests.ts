@@ -198,6 +198,69 @@ pubnub
     })
     .then(res => console.log(res));
 
+pubnub.push.addChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .addChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then();
+
+pubnub.push.listChannels(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    (status, { channels = [] }) => channels.forEach(channel => console.log(channel)),
+);
+
+pubnub.push
+    .listChannels({
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then(res => console.log(res));
+
+pubnub.push.removeChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+pubnub.push
+    .removeChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
+
+pubnub.push.deleteDevice(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .deleteDevice({
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
+
 const cryptoOptions = {
     encryptKey: true,
     keyEncoding: 'utf8',
