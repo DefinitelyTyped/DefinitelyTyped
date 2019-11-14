@@ -427,6 +427,20 @@ export class NodePath<T = Node> {
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
 
+    /**
+     * Insert child nodes at the start of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    unshiftContainer(listKey: string, nodes: Node | Node[]): void;
+
+    /**
+     * Insert child nodes at the end of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    pushContainer(listKey: string, nodes: Node | Node[]): void;
+
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;
 
