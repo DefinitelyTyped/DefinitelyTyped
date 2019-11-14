@@ -2,6 +2,7 @@
 // Project: https://github.com/crysalead-js/string-placeholder#readme
 // Definitions by: Filipe Ferreira <https://github.com/iTsFILIPOficial>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 export = template;
 export as namespace template;
