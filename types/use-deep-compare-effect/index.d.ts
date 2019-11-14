@@ -5,6 +5,8 @@
 
 import { useEffect } from 'react';
 
-export const useDeepCompareNoEffect: typeof useEffect;
+export const useDeepCompareEffectNoCheck: typeof useEffect;
 
-export default useEffect;
+declare const useDeepCompareEffect: typeof useEffect;
+
+export default useDeepCompareEffect;
