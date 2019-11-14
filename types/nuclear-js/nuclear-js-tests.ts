@@ -19,8 +19,8 @@ Reactor();
 new Reactor({ debug: true });
 Reactor({ debug: undefined });
 // Make sure that type checking succeeds with or without `new`.
-const r1 = new Reactor();
-const r2 = Reactor();
+const r1: Reactor = new Reactor();
+const r2: Reactor = Reactor();
 r1.dispatch('FETCH_ENTITY_SUCCESS');
 r1.dispatch('FETCH_ENTITY_SUCCESS', { data: 5 });
 r1.batch(() => null);
@@ -106,7 +106,7 @@ Store({ getInitialState() {}, initialize() {} });
 new Store({ getInitialState() {}, initialize() {} });
 Store({ getInitialState() {}, initialize() {} });
 // Make sure that type checking succeeds with or without `new`.
-const s1 = new Store<number>({
+const s1: Store<number> = new Store<number>({
     getInitialState() {
         return 5;
     },
@@ -114,7 +114,7 @@ const s1 = new Store<number>({
         this.on('FETCH_THING', (s: number, x: any) => 5);
     },
 });
-const s2 = Store<string>({
+const s2: Store<string> = Store<string>({
     getInitialState() {
         return '';
     },
@@ -124,6 +124,14 @@ const s2 = Store<string>({
     handleReset(s: string) {
         return '15';
     },
+});
+const s3: Store = new Store({
+    getInitialState() {},
+    initialize() {},
+});
+const s4: Store = Store({
+    getInitialState() {},
+    initialize() {},
 });
 s1.getInitialState();
 s1.initialize();
