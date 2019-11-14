@@ -4,6 +4,7 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Dean L. <https://github.com/dlgrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
