@@ -170,7 +170,9 @@ export { readInlineData } from './lib/store/readInlineData';
 
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
-export { DefaultMissingFieldHandlers } from './lib/handlers/RelayDefaultMissingFieldHandlers';
+
+import DefaultMissingFieldHandlers from './lib/handlers/RelayDefaultMissingFieldHandlers';
+export { DefaultMissingFieldHandlers };
 import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
 export { ConnectionHandler };
 
