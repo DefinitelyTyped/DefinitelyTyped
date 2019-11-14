@@ -2,7 +2,6 @@
 // Project: https://github.com/optimizely/nuclear-js
 // Definitions by: Pat Lillis <https://github.com/patlillis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as _Immutable from 'immutable';
 
@@ -110,7 +109,7 @@ export interface Reactor {
     /**
      * Registers stores.
      */
-    registerStores(stores: { [storeName: string]: Store<any> }): void;
+    registerStores(stores: { [storeName: string]: Store }): void;
 
     /**
      * Replace store implementation (handlers) without modifying the app
@@ -118,7 +117,7 @@ export interface Reactor {
      *
      * Useful for hot reloading
      */
-    replaceStores(stores: { [storeName: string]: Store<any> }): void;
+    replaceStores(stores: { [storeName: string]: Store }): void;
 
     /**
      * Resets the state of a reactor and returns it back to initial state.

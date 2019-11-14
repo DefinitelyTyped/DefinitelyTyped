@@ -101,10 +101,30 @@ r2.ReactMixin.componentWillUnmount();
 r2.ReactMixin.getInitialState();
 
 // Callable with or without `new`.
-new Store({ getInitialState() {}, initialize() {} });
-Store({ getInitialState() {}, initialize() {} });
-new Store({ getInitialState() {}, initialize() {} });
-Store({ getInitialState() {}, initialize() {} });
+new Store({
+    getInitialState() {
+        return {};
+    },
+    initialize() {},
+});
+Store({
+    getInitialState() {
+        return {};
+    },
+    initialize() {},
+});
+new Store({
+    getInitialState() {
+        return {};
+    },
+    initialize() {},
+});
+Store({
+    getInitialState() {
+        return {};
+    },
+    initialize() {},
+});
 // Make sure that type checking succeeds with or without `new`.
 const s1: Store<number> = new Store<number>({
     getInitialState() {
@@ -126,11 +146,15 @@ const s2: Store<string> = Store<string>({
     },
 });
 const s3: Store = new Store({
-    getInitialState() {},
+    getInitialState() {
+        return {};
+    },
     initialize() {},
 });
 const s4: Store = Store({
-    getInitialState() {},
+    getInitialState() {
+        return {};
+    },
     initialize() {},
 });
 s1.getInitialState();
@@ -180,7 +204,12 @@ createReactMixin(r2);
 import Nuclear = require('nuclear-js');
 Nuclear.Immutable.Map({ a: 1 });
 Nuclear.Reactor({ debug: true });
-Nuclear.Store({ getInitialState() {}, initialize() {} });
+Nuclear.Store({
+    getInitialState() {
+        return {};
+    },
+    initialize() {},
+});
 Nuclear.isKeyPath({});
 Nuclear.isGetter({});
 Nuclear.toJS({});
