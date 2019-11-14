@@ -7,11 +7,11 @@
 export = template;
 export as namespace template;
 
-declare function template(str: string, data: [] | {}, options?: Options): string;
+declare function template(str: string, data: Readonly<[]> | Readonly<{}>, options?: Options): string;
 
 interface Options {
     before?: string;
     after?: string;
     escape?: string;
-    clean?: boolean | [];
+    clean?: boolean | Readonly<[]>;
 }
