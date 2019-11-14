@@ -9,6 +9,9 @@ querySimple.data; // $ExpectType string | null
 querySimple.error; // $ExpectType Error | null
 querySimple.isLoading; // $ExpectType boolean
 querySimple.refetch(); // $ExpectType void
+queryPaginated.fetchMore; // $ExpectError
+queryPaginated.canFetchMore; // $ExpectError
+queryPaginated.isFetchingMore; // $ExpectError
 
 // Query Variables
 const param = 'test';
@@ -32,6 +35,19 @@ const queryNested = useQuery(['key', {
     }
 }], (variables) => Promise.resolve(variables.nested.props[0]));
 queryNested.data; // $ExpectType number | null
+
+// Paginated mode
+const queryPaginated = useQuery('key', () => Promise.resolve([1, 2, 3]), {
+    paginated: true,
+    getCanFetchMore: (lastPage, allPages) => true
+});
+queryPaginated.data; // $ExpectType number[][] | null
+queryPaginated.fetchMore; // $ExpectType (variables?: {} | undefined) => Promise<number[]> || (variables?: object | undefined) => Promise<number[]>
+queryPaginated.canFetchMore; // $ExpectType boolean
+queryPaginated.isFetchingMore; // $ExpectType boolean
+
+// Paginated mode - check if getCanFetchMore is required
+useQuery('key', () => Promise.resolve(), {paginated: true}); // $ExpectError
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 1]);
