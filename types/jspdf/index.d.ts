@@ -72,9 +72,12 @@ declare module 'jspdf' {
         getFontList():any;
         addFont(postScriptName:string, fontName:string, fontStyle:string):string;
         setLineWidth(width:number):jsPDF;
-        setDrawColor(ch1:number|string, ch2?:number, ch3?:number, ch4?:number):jsPDF;
-        setFillColor(ch1:number|string, ch2?:number, ch3?:number, ch4?:number):jsPDF;
-        setTextColor(r?:number, g?:number, b?:number):jsPDF;
+        setDrawColor(ch1:number|string):jsPDF;
+        setDrawColor(ch1:number, ch2:number, ch3:number, ch4?:number):jsPDF;
+        setFillColor(ch1:number|string):jsPDF;
+        setFillColor(ch1:number, ch2:number, ch3:number, ch4?:number):jsPDF;
+        setTextColor(ch1:number|string):jsPDF;
+        setTextColor(ch1:number, ch2:number, ch3:number, ch4?: number):jsPDF;
         setLineCap(style:string|number):jsPDF;
         setLineJoin(style:string|number):jsPDF;
         output(type?:string, options?:any):any;
