@@ -1,4 +1,4 @@
-// Type definitions for react-query 0.3.12
+// Type definitions for react-query 0.3
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
