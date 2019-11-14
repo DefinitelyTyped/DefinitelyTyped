@@ -4,10 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-export = template;
-export as namespace template;
-
-declare function template(str: string, data: Readonly<[]> | Readonly<{}>, options?: Options): string;
+export function template(str: string, data: Readonly<[]> | Readonly<{}>, options?: Options): string;
 
 interface Options {
     before?: string;
@@ -15,3 +12,5 @@ interface Options {
     escape?: string;
     clean?: boolean | Readonly<[]>;
 }
+
+export default template;

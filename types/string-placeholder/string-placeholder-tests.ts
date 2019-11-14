@@ -1,4 +1,4 @@
-import template = require('string-placeholder');
+import template from 'string-placeholder';
 
 // $ExpectType string
 template('{0} test', ['here']);
