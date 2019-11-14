@@ -125,9 +125,78 @@ pubnub.grant(grantOptions).then(status => {
     console.log(status);
 });
 
-pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => {
-    console.log(status, res);
-});
+pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
+
+pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
+
+pubnub.fetchMessages(
+    {
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+        includeMeta: true,
+        includeMessageActions: true,
+    },
+    (status, { channels }) =>
+        Object.keys(channels).forEach(channel =>
+            channels[channel].forEach(({ message, timetoken, meta, actions = {} }) => {
+                console.log({ message, timetoken, meta });
+                Object.keys(actions).forEach(type =>
+                    Object.keys(actions[type]).forEach(value =>
+                        actions[type][value].forEach(({ uuid, actionTimetoken }) =>
+                            console.log({ uuid, actionTimetoken }),
+                        ),
+                    ),
+                );
+            }),
+        ),
+);
+
+pubnub
+    .fetchMessages({
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+    })
+    .then(res => console.log(res));
+
+pubnub.deleteMessages(
+    {
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    },
+    status => console.log(status),
+);
+
+pubnub
+    .deleteMessages({
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    })
+    .then();
+
+pubnub.messageCounts(
+    {
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    },
+    (status, { channels }) => {
+        Object.keys(channels).forEach(channel => {
+            console.log(channels[channel]);
+        });
+    },
+);
+
+pubnub
+    .messageCounts({
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    })
+    .then(res => console.log(res));
 
 const cryptoOptions = {
     encryptKey: true,

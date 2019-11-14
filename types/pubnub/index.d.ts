@@ -58,6 +58,26 @@ declare class Pubnub {
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.HistoryResponse) => void,
     ): void;
 
+    history(params: Pubnub.HistoryParameters): Promise<Pubnub.HistoryResponse>;
+
+    fetchMessages(
+        params: Pubnub.FetchMessagesParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchMessagesResponse) => void,
+    ): void;
+
+    fetchMessages(params: Pubnub.FetchMessagesParameters): Promise<Pubnub.FetchMessagesResponse>;
+
+    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: (status: Pubnub.PubnubStatus) => void): void;
+
+    deleteMessages(params: Pubnub.DeleteMessagesParameters): Promise<void>;
+
+    messageCounts(
+        params: Pubnub.MessageCountsParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.MessageCountsResponse) => void,
+    ): void;
+
+    messageCounts(params: Pubnub.MessageCountsParameters): Promise<Pubnub.MessageCountsResponse>;
+
     subscribe(params: Pubnub.SubscribeParameters): void;
 
     unsubscribe(params: Pubnub.UnsubscribeParameters): void;
@@ -416,19 +436,67 @@ declare namespace Pubnub {
         stringifiedTimeToken?: boolean;
         includeTimetoken?: boolean;
         reverse?: boolean;
-        start?: number; // timetoken
-        end?: number; // timetoken
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+        includeMeta?: boolean;
     }
 
     interface HistoryMessage {
         entry: any;
         timetoken?: string | number;
+        meta?: object;
     }
 
     interface HistoryResponse {
-        endTimeToken?: number;
-        startTimeToken?: number;
+        endTimeToken?: string | number;
+        startTimeToken?: string | number;
         messages: HistoryMessage[];
+    }
+
+    interface FetchMessagesParameters {
+        channels: string[];
+        count?: number;
+        stringifiedTimeToken?: boolean;
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+        withMessageActions?: boolean;
+        includeMeta?: boolean;
+        includeMessageActions?: boolean;
+    }
+
+    interface FetchMessagesResponse {
+        channels: {
+            [channel: string]: Array<{
+                message: any;
+                timetoken: string | number;
+                meta?: object;
+                actions: {
+                    [type: string]: {
+                        [value: string]: Array<{
+                            uuid: string;
+                            actionTimetoken: string | number; // timetoken
+                        }>;
+                    };
+                };
+            }>;
+        };
+    }
+
+    interface DeleteMessagesParameters {
+        channel: string;
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+    }
+
+    interface MessageCountsParameters {
+        channels: string[];
+        channelTimetokens: string[] | number[];
+    }
+
+    interface MessageCountsResponse {
+        channels: {
+            [channel: string]: number;
+        };
     }
 
     interface PubnubStatus {
@@ -822,6 +890,7 @@ declare namespace Pubnub {
         PNHistoryOperation: string;
         PNDeleteMessagesOperation: string;
         PNFetchMessagesOperation: string;
+        PNMessageCountsOperation: string;
         PNSubscribeOperation: string;
         PNUnsubscribeOperation: string;
         PNPublishOperation: string;
