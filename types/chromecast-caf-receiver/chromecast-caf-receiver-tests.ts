@@ -1,4 +1,13 @@
-import { MediaMetadata, LoadRequestData, StreamType, HlsSegmentFormat, Track, TrackType } from 'chromecast-caf-receiver/cast.framework.messages';
+import {
+    MediaMetadata,
+    LoadRequestData,
+    StreamType,
+    HlsSegmentFormat,
+    Track,
+    TrackType,
+    MessageType,
+    RequestData,
+} from 'chromecast-caf-receiver/cast.framework.messages';
 import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
@@ -24,6 +33,7 @@ const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
 // tslint:disable-next-line
 const rEvent = new cast.framework.events.RequestEvent(EventType.BITRATE_CHANGED, {
     requestId: 2,
+    type: EventType.BITRATE_CHANGED,
 });
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
@@ -134,6 +144,7 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
 
 const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
 
+// PlayerManager message interceptors
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
     .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new Promise((resolve, reject) => {}));
@@ -143,3 +154,22 @@ cast.framework.CastReceiverContext.getInstance()
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
     .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, null);
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.CUSTOM_COMMAND, customCommandRequestData => {
+        const data = customCommandRequestData.data;
+        return customCommandRequestData;
+    });
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLUME, volumeRequestData => {
+        const volume = volumeRequestData.volume;
+        return volumeRequestData;
+    });
+
+// PlayerManager event listeners
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, bitrateChangedEvent => {
+        const bitrate = bitrateChangedEvent.totalBitrate;
+    });

@@ -29,6 +29,8 @@ const chart: Chart = new Chart(ctx, {
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
                 label: 'test',
                 data: [1, 3, 5],
+                barThickness: 'flex',
+                minBarLength: 2,
             }
         ],
     },
@@ -67,7 +69,6 @@ const chart: Chart = new Chart(ctx, {
                     ticks: {
                         callback: Math.floor,
                     },
-                    minBarLength: 2,
                     gridLines: {
                         display: false,
                         borderDash: [5, 15],

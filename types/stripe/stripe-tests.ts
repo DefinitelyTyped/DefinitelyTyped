@@ -1050,14 +1050,14 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 // ##################################################################################
 
 stripe.transfers.create(
-    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' },
+    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' },
     (err, reversal) => {
         // asynchronously called
     },
 );
 
 stripe.transfers
-    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' })
+    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' })
     .then(reversal => {
         // asynchronously called
     });
@@ -1491,6 +1491,63 @@ const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
 const header: string = stripe.webhooks.generateTestHeaderString({
     payload: JSON.stringify(event),
     secret: webhookSecret,
+});
+
+//#endregion
+
+//#region WebHook Endpoints tests
+// ##################################################################################
+
+stripe.webhookEndpoints.create(
+    {
+        url: "https://example.com/success",
+        enabled_events: ["plan.updated"],
+    },
+    (err, webhookEndpoint) => {
+        // asynchronously called
+    },
+);
+stripe.webhookEndpoints
+    .create({
+        url: "https://example.com/success",
+        enabled_events: ["plan.updated"],
+    })
+    .then(webhookEndpoint => {
+        // asynchronously called
+    });
+
+stripe.webhookEndpoints.retrieve('we_1FdwxEJmFhanyRvFIL756jiC', (err, webhookEndpoint) => {
+    // asynchronously called
+});
+stripe.webhookEndpoints.retrieve('we_1FdwxEJmFhanyRvFIL756jiC').then(webhookEndpoint => {
+    // asynchronously called
+});
+
+stripe.webhookEndpoints.update(
+    'we_1FdwxEJmFhanyRvFIL756jiC',
+    {
+        metadata: { key: 'value' },
+    },
+    (err: Stripe.IStripeError, webhook: Stripe.webhookEndpoints.IWebhookEndpoint) => {
+        // asynchronously called
+    },
+);
+stripe.webhookEndpoints
+    .update('we_1FdwxEJmFhanyRvFIL756jiC', {
+        metadata: { key: 'value' },
+    })
+    .then(coupon => {
+        // asynchronously called
+    });
+
+stripe.webhookEndpoints.del('we_1FdwxEJmFhanyRvFIL756jiC', (err, confirmation) => {});
+stripe.webhookEndpoints.del('we_1FdwxEJmFhanyRvFIL756jiC').then(confirmation => {});
+
+stripe.webhookEndpoints.list({ limit: 3 }, (err, coupons) => {
+    // asynchronously called
+});
+stripe.webhookEndpoints.list({ limit: 3 }).then(coupons => {
+    // asynchronously called
 });
 
 //#endregion
