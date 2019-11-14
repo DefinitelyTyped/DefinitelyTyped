@@ -2,7 +2,7 @@
 // Project: https://github.com/LukeMizuhashi/cfn-response
 // Definitions by: Ivo Murrell <https://github.com/ivoisbelongtous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 
 import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
 

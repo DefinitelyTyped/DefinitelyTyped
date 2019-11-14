@@ -34,7 +34,7 @@
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 
 // API Gateway "event" request context
 export interface APIGatewayEventRequestContext {

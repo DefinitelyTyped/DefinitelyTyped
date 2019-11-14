@@ -4,7 +4,7 @@
 //                 Hajo Aho-Mantila <https://github.com/HajoAhoMantila>
 //                 Suntharesan Mohan <https://github.com/msuntharesan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.1
 
 /* tslint:disable:no-unnecessary-generics */
 
