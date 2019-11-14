@@ -12,18 +12,18 @@
 declare module "connect-redis" {
     import * as express from "express";
     import * as session from "express-session";
+    import * as ioRedis from "ioredis";
     import * as redis from "redis";
-
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
     namespace s {
         interface RedisStore extends session.Store {
             new (options: RedisStoreOptions): RedisStore;
-            client: redis.RedisClient;
+            client: redis.RedisClient | ioRedis.Redis;
         }
         interface RedisStoreOptions {
-            client?: redis.RedisClient;
+            client?: redis.RedisClient | ioRedis.Redis;
             host?: string;
             port?: number;
             socket?: string;
