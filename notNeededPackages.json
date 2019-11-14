@@ -2359,6 +2359,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "ladda",
+            "typingsPackageName": "ladda",
+            "sourceRepoURL": "https://github.com/hakimel/Ladda",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "koa-requestid",
             "typingsPackageName": "koa-requestid",
             "sourceRepoURL": "https://github.com/seegno/koa-requestid/",
