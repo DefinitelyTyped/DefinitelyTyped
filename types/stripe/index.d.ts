@@ -5935,6 +5935,11 @@ declare namespace Stripe {
             confirmation_method?: 'automatic' | 'manual';
 
             /**
+             * Set to true to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and charge them later.
+             */
+            off_session?: boolean;
+
+            /**
              * The Stripe account ID for which these funds are intended.
              */
             on_behalf_of?: string;
