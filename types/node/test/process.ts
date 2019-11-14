@@ -30,7 +30,7 @@ import { EventEmitter } from "events";
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
-    process.on("customEvent", (req: any) => { });
+    process.on("customEvent", () => { });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
