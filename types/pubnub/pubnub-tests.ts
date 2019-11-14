@@ -501,3 +501,67 @@ pubnub
         users: ['user-1', 'user-2'],
     })
     .then(res => console.log(res));
+
+pubnub.addMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    },
+    (status, { data: { type, value, uuid, actionTimetoken, messageTimetoken } }) =>
+        console.log({ type, value, uuid, actionTimetoken, messageTimetoken }),
+);
+
+pubnub
+    .addMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    })
+    .then(res => console.log(res));
+
+pubnub.removeMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    },
+    (status, data) => console.log(status, data),
+);
+
+pubnub
+    .removeMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    })
+    .then(res => console.log(res));
+
+pubnub.getMessageActions(
+    {
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
+    },
+    (status, { data }) => {
+        data.forEach(({ type, value, uuid, actionTimetoken, messageTimetoken }, index) => {
+            console.log(index, { type, value, uuid, actionTimetoken, messageTimetoken });
+        });
+    },
+);
+
+pubnub
+    .getMessageActions({
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
+    })
+    .then(res => console.log(res));

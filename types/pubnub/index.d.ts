@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.26
+// Type definitions for pubnub 4.27
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -227,6 +227,27 @@ declare class Pubnub {
     ): void;
 
     removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
+
+    addMessageAction(
+        params: Pubnub.AddMessageActionParameters,
+        callback: (status: Pubnub.PubnubStatus, response: { data: Pubnub.MessageAction }) => void,
+    ): void;
+
+    addMessageAction(params: Pubnub.AddMessageActionParameters): Promise<{ data: Pubnub.MessageAction }>;
+
+    removeMessageAction(
+        params: Pubnub.RemoveMessageActionParameters,
+        callback: (status: Pubnub.PubnubStatus, response: { data: {} }) => void,
+    ): void;
+
+    removeMessageAction(params: Pubnub.RemoveMessageActionParameters): Promise<{ data: {} }>;
+
+    getMessageActions(
+        params: Pubnub.GetMessageActionsParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMessageActionsResponse) => void,
+    ): void;
+
+    getMessageActions(params: Pubnub.GetMessageActionsParameters): Promise<Pubnub.GetMessageActionsResponse>;
 
     encrypt(data: string, customCipherKey?: string, options?: Pubnub.CryptoParameters): any;
 
@@ -734,6 +755,42 @@ declare namespace Pubnub {
         users: string[];
     }
 
+    interface AddMessageActionParameters {
+        channel: string;
+        messageTimetoken: string;
+        action: {
+            type: string;
+            value: string;
+        };
+    }
+
+    interface MessageAction {
+        type: string;
+        value: string;
+        uuid: string;
+        actionTimetoken: string;
+        messageTimetoken: string;
+    }
+
+    interface RemoveMessageActionParameters {
+        channel: string;
+        messageTimetoken: string;
+        actionTimetoken: string;
+    }
+
+    interface GetMessageActionsParameters {
+        channel: string;
+        start?: string;
+        end?: string;
+        limit?: number;
+    }
+
+    interface GetMessageActionsResponse {
+        data: MessageAction[];
+        start?: string;
+        end?: string;
+    }
+
     // encrypt & decrypt
     interface CryptoParameters {
         encryptKey?: boolean;
@@ -793,6 +850,9 @@ declare namespace Pubnub {
         PNGetMembershipsOperation: string;
         PNGetMembersOperation: string;
         PNUpdateMembershipsOperation: string;
+        PNAddMessageActionOperation: string;
+        PNRemoveMessageActionOperation: string;
+        PNGetMessageActionsOperation: string;
     }
 }
 
