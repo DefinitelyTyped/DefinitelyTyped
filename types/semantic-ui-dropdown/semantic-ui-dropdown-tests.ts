@@ -80,6 +80,7 @@ function test_dropdown() {
         placeholder: 'value',
         apiSettings: {
             on: 'on',
+            values: [],
             cache: true,
             stateContext: $(),
             encodeParameters: false,
