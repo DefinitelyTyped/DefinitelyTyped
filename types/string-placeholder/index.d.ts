@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-export function template(str: string, data: Readonly<[]> | Readonly<{}>, options?: Options): string;
+export function template(str: string, data: Readonly<unknown>, options?: Readonly<Options>): string;
 
 interface Options {
     before?: string;
