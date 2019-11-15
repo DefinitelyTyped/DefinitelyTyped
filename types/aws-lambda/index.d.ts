@@ -32,8 +32,9 @@
 //                 Peter McIntyre <https://github.com/pwmcintyre>
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 //                 Marian Zange <https://github.com/marianzange>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // API Gateway "event" request context
 export interface APIGatewayEventRequestContext {
@@ -831,8 +832,14 @@ export interface CloudFrontResponse {
 }
 
 export interface CloudFrontRequest {
-    clientIp: string;
-    method: string;
+    body?: {
+        action: 'read-only' | 'replace';
+        data: string;
+        encoding: 'base64' | 'text';
+        readonly inputTruncated: boolean;
+    };
+    readonly clientIp: string;
+    readonly method: string;
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
@@ -841,14 +848,18 @@ export interface CloudFrontRequest {
 
 export interface CloudFrontEvent {
     config: {
-        distributionDomainName: string;
-        distributionId: string;
-        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
-        requestId: string;
-    };
+        readonly distributionDomainName: string;
+        readonly distributionId: string;
+    } & (
+        | { readonly eventType: 'origin-request' | 'origin-response' }
+        | { readonly eventType: 'viewer-request' | 'viewer-response'; readonly requestId: string });
 }
 
-// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
+/**
+ * Generated HTTP response in viewer request event or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses-in-requests.html#lambda-generating-http-responses-object
+ */
 export interface CloudFrontResultResponse {
     status: string;
     statusDescription?: string;
@@ -857,10 +868,15 @@ export interface CloudFrontResultResponse {
     body?: string;
 }
 
+/**
+ * CloudFront viewer response or origin response event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-response
+ */
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            request: CloudFrontRequest;
+            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, 'body'>>;
             response: CloudFrontResponse;
         };
     }>;
@@ -868,6 +884,11 @@ export interface CloudFrontResponseEvent {
 
 export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse | CloudFrontRequest;
 
+/**
+ * CloudFront viewer request or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-request
+ */
 export interface CloudFrontRequestEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
