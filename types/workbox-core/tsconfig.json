@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es2015",
+            "webworker"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "cacheNames.d.ts",
+        "clientsClaim.d.ts",
+        "registerQuotaErrorCallback.d.ts",
+        "setCacheNameDetails.d.ts",
+        "skipWaiting.d.ts",
+        "types/WorkboxPlugin.d.ts",
+        "workbox-core-tests.ts"
+    ]
+}
