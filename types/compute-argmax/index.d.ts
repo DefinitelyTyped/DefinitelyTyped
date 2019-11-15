@@ -3,6 +3,6 @@
 // Definitions by: Eric Crosson <https://github.com/EricCrosson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function argmax(values: number[]): number[];
+declare function argmax(values: ArrayLike<number>): number[];
 
 export = argmax;
