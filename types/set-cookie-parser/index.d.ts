@@ -25,6 +25,7 @@ declare module "set-cookie-parser" {
             domain?: string;
             secure?: boolean;
             httpOnly?: boolean;
+            sameSite?: string;
         }
 
         type Options = {
