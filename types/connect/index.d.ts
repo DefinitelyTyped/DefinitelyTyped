@@ -1,4 +1,4 @@
-// Type definitions for connect v3.4.0
+// Type definitions for connect 3.7
 // Project: https://github.com/senchalabs/connect
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Evan Hahn <https://github.com/EvanHahn>
@@ -6,7 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 
 import * as http from "http";
 import connect = createServer;
@@ -52,9 +51,9 @@ declare namespace createServer {
 
     /** @deprecated `next` is always available to the handler */ export type SimpleHandleFunction = NextHandleFunction;
     export type NextHandleFunction =
-        (req: Request, res: http.ServerResponse, next: NextFunction) => void;
+        (req: Request | http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type ErrorHandleFunction =
-        (err: any, req: Request, res: http.ServerResponse, next: NextFunction) => void;
+        (err: any, req: Request | http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type HandleFunction = NextHandleFunction | ErrorHandleFunction;
 
     export interface ServerStackItem {
@@ -134,6 +133,11 @@ declare namespace createServer {
             /** The Node.js http response object. */ res: http.ServerResponse,
             /** A function to call to invoke the next middleware. */ next: NextFunction
         ) => void): Server;
+
+        /** Register a middleware. */
+        use(fn: HandleFunction): Server;
+        /** Mount a middleware on the specified route. */
+        use(route: string, fn: HandleFunction): Server;
 
         /**
          * Calling the function will run the middleware stack against the given Node.js http request (`req`)
