@@ -136,14 +136,24 @@ declare namespace webpack {
         optimization?: Options.Optimization;
     }
 
+    interface CliConfigOptions {
+        config?: string;
+        mode?: Configuration["mode"];
+        env?: string;
+        'config-register'?: string;
+        configRegister?: string;
+        'config-name'?: string;
+        configName?: string;
+    }
+
     type ConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
-        args: Record<string, string>,
+        args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
         env: string | Record<string, boolean | number | string>,
-        args: Record<string, string>,
+        args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
     interface Entry {
