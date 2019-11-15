@@ -1,4 +1,4 @@
-// Type definitions for parse 2.2.9
+// Type definitions for parse 2.9
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -10,6 +10,8 @@
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
+//                  Colin Ulin <https://github.com/pocketcolin>
+//                  Robert Helms <https://github.com/rdhelms>
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
@@ -339,17 +341,17 @@ declare namespace Parse {
      *
      * Creates a new model with defined attributes.
      */
-    class Object extends BaseObject {
+    class Object<T extends any = any> extends BaseObject {
+
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        attributes: any;
+        attributes: T;
         cid: string;
         changed: boolean;
         className: string;
 
-        constructor(className?: string, options?: any);
-        constructor(attributes?: string[], options?: any);
+        constructor(className?: string, attributes?: T, options?: any);
 
         static createWithoutData<T extends Object>(id: string): T;
         static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
@@ -388,7 +390,7 @@ declare namespace Parse {
         fetch(options?: Object.FetchOptions): Promise<this>;
         fetchFromLocalDatastore(): Promise<this> | void;
         fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
-        get(attr: string): any | undefined;
+        get<K extends Exclude<keyof T, symbol | number>>(attr: K): T[K];
         getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
@@ -407,11 +409,24 @@ declare namespace Parse {
         removeAll(attr: string, items: any): this | false;
         revert(): void;
         revert(...keys: string[]): void;
-        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
-        save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
-        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): this | false;
-        set(attrs: object, options?: Object.SetOptions): this | false;
+        save(
+            attrs?: Partial<T> | null,
+            options?: Object.SaveOptions
+        ): Promise<this>;
+        save<K extends keyof T>(
+            key: K,
+            value: T[K],
+            options?: Object.SaveOptions
+        ): Promise<this>;
+        set(
+            attrs: Partial<T>,
+            options?: Object.SetOptions
+        ): this | false;
+        set<K extends keyof T>(
+            key: K,
+            value: T[K],
+            options?: Object.SetOptions
+        ): this | false;
         setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
         unPin(): Promise<void>;
@@ -452,7 +467,8 @@ declare namespace Parse {
      * Every Parse application installed on a device registered for
      * push notifications has an associated Installation object.
      */
-    class Installation extends Object {
+    class Installation<T extends any = any> extends Object<T> {
+
         badge: any;
         channels: string[];
         timeZone: any;
@@ -713,7 +729,8 @@ subscription.on('close', () => {});
      * A Parse.Role is a local representation of a role persisted to the Parse
      * cloud.
      */
-    class Role extends Object {
+    class Role<T extends any = any> extends Object<T> {
+
         constructor(name: string, acl: ACL);
 
         getRoles(): Relation<Role, Role>;
@@ -722,7 +739,7 @@ subscription.on('close', () => {});
         setName(name: string, options?: SuccessFailureOptions): any;
     }
 
-    class Config extends Object {
+    class Config<T extends any = any> extends Object<T> {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
         static save(attr: any): Promise<Config>;
@@ -731,7 +748,7 @@ subscription.on('close', () => {});
         escape(attr: string): any;
     }
 
-    class Session extends Object {
+    class Session<T extends any = any> extends Object<T> {
         static current(): Promise<Session>;
 
         getSessionToken(): string;
@@ -747,7 +764,8 @@ subscription.on('close', () => {});
      * user specific methods, like authentication, signing up, and validation of
      * uniqueness.</p>
      */
-    class User extends Object {
+    class User<T extends any = any> extends Object<T> {
+
         static allowCustomUserClass(isAllowed: boolean): void;
         static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
