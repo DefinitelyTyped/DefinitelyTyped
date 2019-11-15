@@ -1,6 +1,7 @@
-// Type definitions for react-slider 0.8
-// Project: https://github.com/mpowaga/react-slider
+// Type definitions for react-slider 1.0
+// Project: https://github.com/zillow/react-slider
 // Definitions by: Jason Unger <https://github.com/jsonunger>
+//                 Björgvin Bæhrenz Þórðarson <https://github.com/bjorgvin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -12,15 +13,16 @@ declare namespace ReactSlider {
         min?: number;
         max?: number;
         step?: number;
+        pageFn?: (step: number) => number;
         minDistance?: number;
         defaultValue?: number | number[];
         value?: number | number[];
         orientation?: 'horizontal' | 'vertical';
         className?: string;
-        handleClassName?: string;
-        handleActiveClassName?: string;
-        withBars?: boolean;
-        barClassName?: string;
+        thumbClassName?: string;
+        thumbActiveClassName?: string;
+        trackClassName?: string;
+        withTracks?: boolean;
         pearling?: boolean;
         disabled?: boolean;
         snapDragDisabled?: boolean;
@@ -29,6 +31,10 @@ declare namespace ReactSlider {
         onChange?: (value: number | number[] | undefined | null) => void;
         onAfterChange?: (value: number | number[] | undefined | null) => void;
         onSliderClick?: (value: number) => void;
+        ariaLabel?: string | string[];
+        ariaValuetext?: string | ((value: {index: number, value: number | number[], valueNow: number }) => string);
+        renderTrack?: (props: object, state: {index: number, value: number | number[] }) => JSX.Element;
+        renderThumb?: (props: object, state: {index: number, value: number | number[], valueNow: number }) => JSX.Element;
     }
 }
 
