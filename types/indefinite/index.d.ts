@@ -3,10 +3,13 @@
 // Definitions by: omaishar <https://github.com/omaishar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
+interface Options {
     articleOnly?: boolean;
     capitalize?: boolean;
     caseInsensitive?: boolean;
-    numbers?: "colloquial";
+    numbers?: 'colloquial';
 }
-export default function(word: string | number, opts?: Options): string;
+
+declare function indefinite(word: string | number, opts?: Options): string;
+
+export = indefinite;
