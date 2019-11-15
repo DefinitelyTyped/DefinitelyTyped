@@ -6967,7 +6967,7 @@ declare namespace Stripe {
             /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number | null;
+            up_to: number | null | 'inf';
 
             /**
              * Price for the entire tier.
