@@ -3907,6 +3907,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-tab-view",
+            "typingsPackageName": "react-native-tab-view",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-tab-view",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-navigation",
             "typingsPackageName": "react-navigation",
             "sourceRepoURL": "https://github.com/react-navigation/react-navigation",
