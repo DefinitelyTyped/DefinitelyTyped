@@ -33,7 +33,7 @@ declare namespace Mark {
         ignorePunctuation?: string[];
         wildcards?: 'disabled' | 'enabled' | 'withSpaces';
 
-        each?(element: Element): void;
+        each?(element: Element, range: Range): void;
 
         filter?(
             textNode: Element,
