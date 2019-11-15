@@ -10,7 +10,7 @@ interface Options {
     before?: string;
     after?: string;
     escape?: string;
-    clean?: boolean | Readonly<[]>;
+    clean?: boolean;
 }
 
 export default template;
