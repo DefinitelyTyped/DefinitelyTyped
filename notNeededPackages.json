@@ -2167,6 +2167,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-cli",
+            "typingsPackageName": "jest-cli",
+            "sourceRepoURL": "https://jestjs.io/",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-diff",
             "typingsPackageName": "jest-diff",
             "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-diff",
