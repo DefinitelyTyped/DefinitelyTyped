@@ -533,7 +533,7 @@ declare namespace SemanticUI {
         }
     }
 
-    namespace Dropdown {        
+    namespace Dropdown {
         type FieldsSettings = FieldsSettings.Param;
 
         namespace FieldsSettings {
