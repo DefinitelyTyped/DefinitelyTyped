@@ -832,7 +832,7 @@ export class ResumeSessionRequestData extends RequestData {
  * Media event request data.
  */
 export class RequestData {
-    constructor(type: MessageType | EventType);
+    constructor(type: MessageType);
 
     /**
      * Application-specific data for this request.
@@ -854,7 +854,7 @@ export class RequestData {
     /**
      * Message type.
      */
-    type: MessageType | EventType;
+    type: MessageType;
 }
 
 /**

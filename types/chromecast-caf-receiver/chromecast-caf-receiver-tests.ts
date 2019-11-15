@@ -31,9 +31,11 @@ const breakClip = new cast.framework.messages.BreakClip('id');
 // tslint:disable-next-line
 const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
 // tslint:disable-next-line
-const rEvent = new cast.framework.events.RequestEvent(EventType.BITRATE_CHANGED, {
+const rEvent = new cast.framework.events.RequestEvent(EventType.LOAD_START, {
     requestId: 2,
-    type: EventType.BITRATE_CHANGED,
+    type: MessageType.LOAD,
+    // TODO: Do some testing on the receiver and see what a real world
+    // TODO: `RequestEvent` looks like.
 });
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
