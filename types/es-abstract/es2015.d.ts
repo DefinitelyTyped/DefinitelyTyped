@@ -174,7 +174,7 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 		intrinsicDefaultProto: K,
 	): Intrinsics[K];
 	GetPrototypeFromConstructor(constructor: AnyConstructor, intrinsicDefaultProto: string): unknown;
-	SetFunctionName(F: AnyFunction | AnyConstructor, name: string): boolean;
+	SetFunctionName(F: AnyFunction | AnyConstructor, name: string | symbol, prefix?: string): boolean;
 }
 
 declare namespace ES2015 {
