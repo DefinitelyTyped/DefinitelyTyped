@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-relative-import-in-test
-import fp = require("lodash/fp");
+import fp = require("./fp");
 import _ = require("lodash");
 
 declare const anything: any;
