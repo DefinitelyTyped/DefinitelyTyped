@@ -5306,13 +5306,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T, V>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator: string, context?: any): _Chain<T>;
+        sortBy(iterator: string, context?: any): _Chain<T, V>;
 
         /**
         * Wrapped type `any[]`.
