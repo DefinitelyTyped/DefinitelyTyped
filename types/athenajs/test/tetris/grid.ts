@@ -1,5 +1,5 @@
 import { Scene, Map, Tile, Dom, SimpleText, AudioManager as AM, Deferred } from "athenajs";
-import Shape from "./shape";
+import Shape from "athenajs/shape";
 import FlashLines from "./flash_lines";
 
 // size constants
