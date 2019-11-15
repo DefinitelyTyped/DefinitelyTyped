@@ -1,4 +1,4 @@
-// Type definitions for @xstyled/system 1.11
+// Type definitions for @xstyled/system 1.14
 // Project: https://github.com/smooth-code/xstyled
 // Definitions by: Steve Johns <https://github.com/stevejay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
