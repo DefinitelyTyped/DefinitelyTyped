@@ -31,9 +31,7 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="validator" />
-
-
+import * as ValidatorJS from "validator";
 import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
