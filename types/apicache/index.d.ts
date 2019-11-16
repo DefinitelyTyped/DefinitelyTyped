@@ -29,7 +29,7 @@ export function getIndex(): any;
  * Third param is the options that will override global ones and affect this middleware only.
  */
 export function middleware(
-  duration?: string,
+  duration?: string | number,
   toggleMiddleware?: any,
   localOptions?: Options
 ): any;
