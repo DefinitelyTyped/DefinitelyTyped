@@ -11,6 +11,13 @@ export function useQuery<TResult, TVariables extends object>(
     options?: QueryOptions<TResult>
 ): QueryResult<TResult, TVariables>;
 
+// overloaded useQuery function with pagination
+export function useQuery<TResult, TVariables extends object>(
+    queryKey: QueryKey<TVariables>,
+    queryFn: QueryFunction<TResult, TVariables>,
+    options?: QueryOptionsPaginated<TResult>
+): QueryResultPaginated<TResult, TVariables>;
+
 export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
 export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;
 
@@ -18,8 +25,6 @@ export type QueryFunction<TResult, TVariables extends object> = (variables: TVar
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
-    paginated?: boolean;
-    getCanFetchMore?: (lastPage: number, allPages: number) => boolean;
     retry?: boolean | number;
     retryDelay?: (retryAttempt: number) => number;
     staleTime?: number;
@@ -30,6 +35,11 @@ export interface QueryOptions<TResult> {
     suspense?: boolean;
 }
 
+export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
+    paginated: true;
+    getCanFetchMore: (lastPage: number, allPages: number) => boolean;
+}
+
 export interface QueryResult<TResult, TVariables> {
     data: null | TResult;
     error: null | Error;
@@ -38,6 +48,9 @@ export interface QueryResult<TResult, TVariables> {
     isCached: boolean;
     failureCount: number;
     refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => void;
+}
+
+export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<TResult[], TVariables> {
     isFetchingMore: boolean;
     canFetchMore: boolean;
     fetchMore: (variables?: TVariables) => Promise<TResult>;
