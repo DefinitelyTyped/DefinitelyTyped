@@ -99,7 +99,7 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook<T = Event> = (event: T, editor: CoreEditor, next: () => any) => any;
+export type EventHook<T = Event> = (event: T, editor: Editor, next: () => any) => any;
 
 export interface Plugin extends CorePlugin {
     decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;

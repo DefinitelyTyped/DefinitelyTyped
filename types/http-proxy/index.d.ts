@@ -5,6 +5,7 @@
 //                 Daniel Schmidt <https://github.com/DanielMSchmidt>
 //                 Jordan Abreu <https://github.com/jabreu610>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -15,7 +16,7 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
-type ProxyTargetUrl = string | url.Url;
+type ProxyTargetUrl = string | Partial<url.Url>;
 
 type ErrorCallback = (
   err: Error,

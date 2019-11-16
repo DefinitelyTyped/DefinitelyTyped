@@ -1,4 +1,4 @@
-import mapboxgl = require('.');
+import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 

@@ -42,13 +42,19 @@ See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declar
 
 ### npm
 
-This is the preferred method. This is only available for TypeScript 2.0+ users. For example:
+This is the preferred method. For example:
 
 ```sh
 npm install --save-dev @types/node
 ```
 
 The types should then be automatically included by the compiler.
+You may need to add a `types` reference if you're not using modules:
+
+```ts
+/// <reference types="node" />
+```
+
 See more in the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 For an NPM package "foo", typings for it will be at "@types/foo".
@@ -60,7 +66,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 
 #### Typescript 2.7 and earlier
 
-Definitely Typed only tests packages on Typescript 2.8 and later, as of November 2019.
+Definitely Typed only tests packages on Typescript 2.8 and later as of November 2019.
 If you're using Typescript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new Typescript features.
 But there's no guarantee that they'll work.
 Packages that existed before November 2019 may have older versions that are explicitly marked compatible with older versions of Typescript; use the tag "ts2.6" for Typescript 2.6, for example.
@@ -76,9 +82,7 @@ For example, if you run `npm dist-tags @types/react`, you'll see the following t
 | ... | ... |
 
 
-### Other methods
-
-These can be used by TypeScript 1.0.
+### Typescript 1.8 and earlier
 
 * [Typings](https://github.com/typings/typings)
 * ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)

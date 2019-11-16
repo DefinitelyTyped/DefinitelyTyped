@@ -1123,7 +1123,8 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
     SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
     SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
-    SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts |
+    SchemaTypeOpts.AsyncPromiseValidationFn<T> | [SchemaTypeOpts.AsyncPromiseValidationFn<T>, string] |
+    SchemaTypeOpts.AsyncPromiseValidationOpts |
     (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
       SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts)[];
 
@@ -1198,6 +1199,7 @@ declare module "mongoose" {
 
     interface ValidateOptsBase {
       msg?: string;
+      message?: string;
       type?: string;
     }
 
@@ -2000,7 +2002,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param {Boolean|Object} bool defaults to true
      */
-    lean<T>(bool?: boolean | object): Query<T> & QueryHelpers;
+    lean<P = any>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;

@@ -122,6 +122,7 @@ declare class Stripe {
     setupIntents: Stripe.resources.SetupIntents;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
+    webhookEndpoints: Stripe.resources.WebhookEndpoints;
     ephemeralKeys: Stripe.resources.EphemeralKeys;
     usageRecords: Stripe.resources.UsageRecords;
     usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
@@ -3677,6 +3678,157 @@ declare namespace Stripe {
     }
 
     namespace events {
+        type EventType =
+            | "*"
+            | "account.updated"
+            | "account.application.authorized"
+            | "account.application.deauthorized"
+            | "account.external_account.created"
+            | "account.external_account.deleted"
+            | "account.external_account.updated"
+            | "application_fee.created"
+            | "application_fee.refunded"
+            | "application_fee.refund.updated"
+            | "balance.available"
+            | "capability.updated"
+            | "charge.captured"
+            | "charge.expired"
+            | "charge.failed"
+            | "charge.pending"
+            | "charge.refunded"
+            | "charge.succeeded"
+            | "charge.updated"
+            | "charge.dispute.closed"
+            | "charge.dispute.created"
+            | "charge.dispute.funds_reinstated"
+            | "charge.dispute.funds_withdrawn"
+            | "charge.dispute.updated"
+            | "charge.refund.updated"
+            | "checkout.session.completed"
+            | "coupon.created"
+            | "coupon.deleted"
+            | "coupon.updated"
+            | "credit_note.created"
+            | "credit_note.updated"
+            | "credit_note.voided"
+            | "customer.created"
+            | "customer.deleted"
+            | "customer.updated"
+            | "customer.discount.created"
+            | "customer.discount.deleted"
+            | "customer.discount.updated"
+            | "customer.source.created"
+            | "customer.source.deleted"
+            | "customer.source.expiring"
+            | "customer.source.updated"
+            | "customer.subscription.created"
+            | "customer.subscription.deleted"
+            | "customer.subscription.trial_will_end"
+            | "customer.subscription.updated"
+            | "customer.tax_id.created"
+            | "customer.tax_id.deleted"
+            | "customer.tax_id.updated"
+            | "file.created"
+            | "invoice.created"
+            | "invoice.deleted"
+            | "invoice.finalized"
+            | "invoice.marked_uncollectible"
+            | "invoice.payment_action_required"
+            | "invoice.payment_failed"
+            | "invoice.payment_succeeded"
+            | "invoice.sent"
+            | "invoice.upcoming"
+            | "invoice.updated"
+            | "invoice.voided"
+            | "invoiceitem.created"
+            | "invoiceitem.deleted"
+            | "invoiceitem.updated"
+            | "issuing_authorization.created"
+            | "issuing_authorization.request"
+            | "issuing_authorization.updated"
+            | "issuing_card.created"
+            | "issuing_card.updated"
+            | "issuing_cardholder.created"
+            | "issuing_cardholder.updated"
+            | "issuing_dispute.created"
+            | "issuing_dispute.updated"
+            | "issuing_settlement.created"
+            | "issuing_settlement.updated"
+            | "issuing_transaction.created"
+            | "issuing_transaction.updated"
+            | "mandate.updated"
+            | "order.created"
+            | "order.payment_failed"
+            | "order.payment_succeeded"
+            | "order.updated"
+            | "order_return.created"
+            | "payment_intent.amount_capturable_updated"
+            | "payment_intent.canceled"
+            | "payment_intent.created"
+            | "payment_intent.payment_failed"
+            | "payment_intent.succeeded"
+            | "payment_method.attached"
+            | "payment_method.card_automatically_updated"
+            | "payment_method.detached"
+            | "payment_method.updated"
+            | "payout.canceled"
+            | "payout.created"
+            | "payout.failed"
+            | "payout.paid"
+            | "payout.updated"
+            | "person.created"
+            | "person.deleted"
+            | "person.updated"
+            | "plan.created"
+            | "plan.deleted"
+            | "plan.updated"
+            | "product.created"
+            | "product.deleted"
+            | "product.updated"
+            | "radar.early_fraud_warning.created"
+            | "radar.early_fraud_warning.updated"
+            | "recipient.created"
+            | "recipient.deleted"
+            | "recipient.updated"
+            | "reporting.report_run.failed"
+            | "reporting.report_run.succeeded"
+            | "reporting.report_type.updated"
+            | "review.closed"
+            | "review.opened"
+            | "setup_intent.canceled"
+            | "setup_intent.created"
+            | "setup_intent.setup_failed"
+            | "setup_intent.succeeded"
+            | "sigma.scheduled_query_run.created"
+            | "sku.created"
+            | "sku.deleted"
+            | "sku.updated"
+            | "source.canceled"
+            | "source.chargeable"
+            | "source.failed"
+            | "source.mandate_notification"
+            | "source.refund_attributes_required"
+            | "source.transaction.created"
+            | "source.transaction.updated"
+            | "subscription_schedule.aborted"
+            | "subscription_schedule.canceled"
+            | "subscription_schedule.completed"
+            | "subscription_schedule.created"
+            | "subscription_schedule.expiring"
+            | "subscription_schedule.released"
+            | "subscription_schedule.updated"
+            | "tax_rate.created"
+            | "tax_rate.updated"
+            | "topup.created"
+            | "topup.failed"
+            | "topup.reversed"
+            | "topup.succeeded"
+            | "transfer.created"
+            | "transfer.failed"
+            | "transfer.paid"
+            | "transfer.reversed"
+            | "transfer.updated";
+
         interface IEvent extends IResourceObject {
             /**
              * Value is "event"
@@ -3871,7 +4023,7 @@ declare namespace Stripe {
              * @deprecated Stripe API Version 2019-03-14 changed the name of this property
              * @see application_fee_amount
              */
-            application_fee: number;
+            application_fee?: number;
 
             /**
              * The fee in pence that will be applied to the invoice and transferred to the application owner’s
@@ -3979,13 +4131,13 @@ declare namespace Stripe {
              * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_email: string;
+            customer_email: string | null;
 
             /**
              * The customer’s name. Until the invoice is finalized, this field will equal customer.name.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_name: string;
+            customer_name: string | null;
 
             /**
              * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
@@ -3997,13 +4149,13 @@ declare namespace Stripe {
              * The customer’s shipping information. Until the invoice is finalized, this field will equal customer.shipping.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_shipping: IShippingInformation;
+            customer_shipping: IShippingInformation | null;
 
             /**
              * The customer’s tax exempt status. Until the invoice is finalized, this field will equal customer.tax_exempt.
              * Once the invoice is finalized, this field will no longer be updated.
              */
-            customer_tax_exempt: string;
+            customer_tax_exempt: string | null;
 
             /**
              * The customer’s tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as customer.tax_ids.
@@ -4021,7 +4173,7 @@ declare namespace Stripe {
              * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
              * the customer’s invoice settings.
              */
-            default_payment_method: string | null;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the invoice. It must belong to the customer
@@ -4173,7 +4325,7 @@ declare namespace Stripe {
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
              */
-            subscription_proration_date: number;
+            subscription_proration_date?: number | null;
 
             /**
              * Total of all subscriptions, invoice items, and prorations on the invoice before any discount is applied
@@ -4197,7 +4349,7 @@ declare namespace Stripe {
              * If `billing_reason` is set to `subscription_threshold` this returns more information
              * on which threshold rules triggered the invoice.
              */
-            threshold_reason: IThresholdReason;
+            threshold_reason?: IThresholdReason;
 
             /**
              * Total after discount
@@ -4284,6 +4436,16 @@ declare namespace Stripe {
              * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
              */
             subscription_item: string;
+
+            /**
+             * The amount of tax calculated per tax rate for this line item
+             */
+            tax_amounts: taxRates.ITaxAmount[];
+
+            /**
+             * The tax rates which apply to the line item.
+             */
+            tax_rates: taxRates.ITaxRate[];
 
             /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
@@ -5773,6 +5935,11 @@ declare namespace Stripe {
             confirmation_method?: 'automatic' | 'manual';
 
             /**
+             * Set to true to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and charge them later.
+             */
+            off_session?: boolean;
+
+            /**
              * The Stripe account ID for which these funds are intended.
              */
             on_behalf_of?: string;
@@ -6412,7 +6579,7 @@ declare namespace Stripe {
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            created: number;
+            created: number | null;
 
             /**
              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
@@ -6448,6 +6615,101 @@ declare namespace Stripe {
              * This represents the tax rate percent out of 100.
              */
             percentage: number | null;
+        }
+
+        interface ITaxRateCreationOptions {
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name: string;
+
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
+
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number;
+
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+        }
+
+        interface ITaxRateUpdateOptions {
+            /**
+             * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+             */
+            active?: boolean;
+
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description?: string;
+
+            /**
+             * The display name of the tax rate, which will be shown to users.
+             */
+            display_name?: string;
+
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+        }
+
+        interface ItaxRateSearchOptions extends IListOptions {
+            /**
+             * Optional flag to filter by tax rates that are either active or not active (archived)
+             */
+            active?: boolean;
+
+            /**
+             * A filter on the list based on the object created field.
+             */
+            created?: string | IDateFilter;
+
+            /**
+             * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make
+             * a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in
+             * order to fetch the previous page of the list.
+             */
+            inclusive?: boolean;
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit: number;
+
+            /**
+             * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+             */
+            starting_after?: string;
         }
     }
     namespace paymentMethods {
@@ -8517,7 +8779,7 @@ declare namespace Stripe {
              * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription.
              * If not set, invoices will use the default payment method in the customer’s invoice settings. [Expandable]
              */
-            default_payment_method: string | null;
+            default_payment_method: string | paymentMethods.IPaymentMethod | null;
 
             /**
              * ID of the default payment source for the subscription.
@@ -8525,7 +8787,11 @@ declare namespace Stripe {
              * If not set, defaults to the customer’s default source. [Expandable]
              */
             default_source: string | null;
-
+            /**
+             * The tax rates that will apply to any subscription item that does not have tax_rates set.
+             * Invoices created will have their default_tax_rates populated from the subscription.
+             */
+            default_tax_rates: taxRates.ITaxRate[];
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
@@ -9484,6 +9750,114 @@ declare namespace Stripe {
         }
     }
 
+    namespace webhookEndpoints {
+        interface IWebhookCreateOptions {
+            /**
+             * The URL of the webhook endpoint
+             */
+            url: string;
+
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
+            enabled_events: events.EventType[];
+
+            /**
+             * Events sent to this endpoint will be generated with this Stripe Version instead of your
+             * account’s default Stripe Version.
+             */
+            api_version?: string;
+
+            /**
+             * If true, this endpoint will receive events from connected accounts instead of just your account.
+             */
+            connect?: boolean;
+        }
+
+        interface IWebhookEndpoint extends IObject {
+            /**
+             * Value is 'webhook_endpoint'
+             */
+            object: "webhook_endpoint";
+
+            id: string;
+
+            /**
+             * The Stripe API version used to render data.
+             */
+            api_version: string;
+
+            /**
+             * ID of the Application.
+             */
+            application: string | null;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
+            enabled_events: events.EventType[];
+
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * The status of the webhook.
+             */
+            status: "enabled" | "disabled";
+
+            /**
+             * The URL of the webhook endpoint.
+             */
+            url: string;
+
+            /**
+             * The endpoint’s secret, used to generate webhook signatures. Only returned at creation.
+             */
+            secret?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+
+        interface IWebhookUpdateOptions {
+            /**
+             * If true, it disables the webhookendpoint.
+             */
+            disabled?: boolean;
+
+            /**
+             * The list of enabled events for this webhook endpoint.
+             * Use '*' to enable all events, except those that require explicit selection.
+             */
+            enabled_events?: events.EventType[];
+
+            /**
+             * The URL of the webhook endpoint.
+             */
+            url?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+    }
+
     // tslint:disable-next-line:no-unnecessary-class
     class StripeResource {
         constructor(stripe: Stripe, urlData: any);
@@ -10296,6 +10670,60 @@ declare namespace Stripe {
                 data: string,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+        }
+
+        class TaxRates extends StripeResource {
+            /**
+             * Creates a new tax rate.
+             */
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            create(
+                data: taxRates.ITaxRateCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Updates an existing tax rate.
+             */
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+            update(
+                id: string,
+                data: taxRates.ITaxRateUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Retrieves a tax rate with the given ID
+             */
+            retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<taxRates.ITaxRate>,
+            ): Promise<taxRates.ITaxRate>;
+
+            /**
+             * Returns a list of your tax rates.
+             * Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
+             */
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
+            list(
+                data: taxRates.ItaxRateSearchOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<taxRates.ITaxRate>>,
+            ): IListPromise<taxRates.ITaxRate>;
         }
 
         class Charges extends StripeResource {
@@ -13908,6 +14336,68 @@ declare namespace Stripe {
              * Generates a header to be used for webhook mocking
              */
             generateTestHeaderString(options: IWebHookGenerateTestHeaderStringOptions): string;
+        }
+
+        class WebhookEndpoints {
+            /**
+             * Creates a new Webhook Endpoint
+             */
+            create(
+                data: webhookEndpoints.IWebhookCreateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
+            create(data: webhookEndpoints.IWebhookCreateOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+
+            /**
+             * Retrieves the details of an existing webhook
+             */
+            retrieve(
+                webhookId: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(webhookId: string, data: IDataOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(webhookId: string, options: HeaderOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(webhookId: string, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+
+            /**
+             * Updates the specific webhook endpoint by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             *
+             * The parameters that can be edited are the url, the list of enabled_events, and the status of your endpoint
+             */
+            update(
+                webhookId: string,
+                data: webhookEndpoints.IWebhookUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
+            update(webhookId: string, data: webhookEndpoints.IWebhookUpdateOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+
+            /**
+             * Returns a list of your webhook endpoints
+             */
+            list(
+                data: IListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
+            ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(data: IListOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+
+            /**
+             * Deletes a webhook endpoint.
+             *
+             * Webhook endpoints can also be deleted from the Stripe dashboard
+             */
+            del(
+                webhookId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<IDeleteConfirmation>,
+            ): Promise<IDeleteConfirmation>;
+            del(webhookId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
         }
 
         interface IWebHookGenerateTestHeaderStringOptions {

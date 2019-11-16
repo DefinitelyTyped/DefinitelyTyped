@@ -1,55 +1,55 @@
-import Core = require('../core');
-import X64Core = require('../x64-core');
-import LibTypedarrays = require('../lib-typedarrays');
+import Core = require('crypto-js/core');
+import X64Core = require('crypto-js/x64-core');
+import LibTypedarrays = require('crypto-js/lib-typedarrays');
 // ---
-import MD5 = require('../md5');
-import SHA1 = require('../sha1');
-import SHA256 = require('../sha256');
-import SHA224 = require('../sha224');
-import SHA512 = require('../sha512');
-import SHA384 = require('../sha384');
-import SHA3 = require('../sha3');
-import RIPEMD160 = require('../ripemd160');
+import MD5 = require('crypto-js/md5');
+import SHA1 = require('crypto-js/sha1');
+import SHA256 = require('crypto-js/sha256');
+import SHA224 = require('crypto-js/sha224');
+import SHA512 = require('crypto-js/sha512');
+import SHA384 = require('crypto-js/sha384');
+import SHA3 = require('crypto-js/sha3');
+import RIPEMD160 = require('crypto-js/ripemd160');
 // ---
-import HmacMD5 = require('../hmac-md5');
-import HmacSHA1 = require('../hmac-sha1');
-import HmacSHA256 = require('../hmac-sha256');
-import HmacSHA224 = require('../hmac-sha224');
-import HmacSHA512 = require('../hmac-sha512');
-import HmacSHA384 = require('../hmac-sha384');
-import HmacSHA3 = require('../hmac-sha3');
-import HmacRIPEMD160 = require('../hmac-ripemd160');
+import HmacMD5 = require('crypto-js/hmac-md5');
+import HmacSHA1 = require('crypto-js/hmac-sha1');
+import HmacSHA256 = require('crypto-js/hmac-sha256');
+import HmacSHA224 = require('crypto-js/hmac-sha224');
+import HmacSHA512 = require('crypto-js/hmac-sha512');
+import HmacSHA384 = require('crypto-js/hmac-sha384');
+import HmacSHA3 = require('crypto-js/hmac-sha3');
+import HmacRIPEMD160 = require('crypto-js/hmac-ripemd160');
 // ---
-import PBKDF2 = require('../pbkdf2');
+import PBKDF2 = require('crypto-js/pbkdf2');
 // ---
-import AES = require('../aes');
-import TripleDES = require('../tripledes');
-import RC4 = require('../rc4');
-import Rabbit = require('../rabbit');
-import RabbitLegacy = require('../rabbit-legacy');
-import EvpKDF = require('../evpkdf');
+import AES = require('crypto-js/aes');
+import TripleDES = require('crypto-js/tripledes');
+import RC4 = require('crypto-js/rc4');
+import Rabbit = require('crypto-js/rabbit');
+import RabbitLegacy = require('crypto-js/rabbit-legacy');
+import EvpKDF = require('crypto-js/evpkdf');
 // ---
-import FormatOpenSSL = require('../format-openssl');
-import FormatHex = require('../format-hex');
+import FormatOpenSSL = require('crypto-js/format-openssl');
+import FormatHex = require('crypto-js/format-hex');
 // ---
-import EncLatin1 = require('../enc-latin1');
-import EncUtf8 = require('../enc-utf8');
-import EncHex = require('../enc-hex');
-import EncUtf16 = require('../enc-utf16');
-import EncBase64 = require('../enc-base64');
+import EncLatin1 = require('crypto-js/enc-latin1');
+import EncUtf8 = require('crypto-js/enc-utf8');
+import EncHex = require('crypto-js/enc-hex');
+import EncUtf16 = require('crypto-js/enc-utf16');
+import EncBase64 = require('crypto-js/enc-base64');
 // ---
-import ModeCFB = require('../mode-cfb');
-import ModeCTR = require('../mode-ctr');
-import ModeCTRGladman = require('../mode-ctr-gladman');
-import ModeOFB = require('../mode-ofb');
-import ModeECB = require('../mode-ecb');
+import ModeCFB = require('crypto-js/mode-cfb');
+import ModeCTR = require('crypto-js/mode-ctr');
+import ModeCTRGladman = require('crypto-js/mode-ctr-gladman');
+import ModeOFB = require('crypto-js/mode-ofb');
+import ModeECB = require('crypto-js/mode-ecb');
 // ---
-import PadPkcs7 = require('../pad-pkcs7');
-import PadAnsiX923 = require('../pad-ansix923');
-import PadIso10126 = require('../pad-iso10126');
-import PadIso97971 = require('../pad-iso97971');
-import PadZeroPadding = require('../pad-zeropadding');
-import PadNoPadding = require('../pad-nopadding');
+import PadPkcs7 = require('crypto-js/pad-pkcs7');
+import PadAnsiX923 = require('crypto-js/pad-ansix923');
+import PadIso10126 = require('crypto-js/pad-iso10126');
+import PadIso97971 = require('crypto-js/pad-iso97971');
+import PadZeroPadding = require('crypto-js/pad-zeropadding');
+import PadNoPadding = require('crypto-js/pad-nopadding');
 
 // Hashers
 var wordArray: CryptoJS.WordArray;
