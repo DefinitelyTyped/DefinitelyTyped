@@ -139,7 +139,7 @@ import * as net from 'net';
     http.request({ agent: false });
     http.request({ agent });
     http.request({ agent: undefined });
-    // ensure compatibility wiht url.parse()
+    // ensure compatibility with url.parse()
     http.request(url.parse("http://www.example.org/xyz"));
 }
 
