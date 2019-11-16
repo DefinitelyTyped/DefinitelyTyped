@@ -869,10 +869,10 @@ undef = d3Array.histogram()([])[0].x0 as undefined;
 undef = d3Array.histogram<number | undefined, number | undefined>()([undefined])[0].x0 as undefined;
 
 // number - number
-let binsNumber_Number: Array<d3Array.Bin<number, number>>;
+let binsNumber_Number: Array<d3Array.bin<number, number>>;
 binsNumber_Number = histoNumber_Number([-1, 0, 1, 1, 3, 20, 234]);
 
-let binNumber_Number: d3Array.Bin<number, number>;
+let binNumber_Number: d3Array.bin<number, number>;
 binNumber_Number = binsNumber_Number[0];
 
 num = binNumber_Number.length;
@@ -881,10 +881,10 @@ numOrUndefined = binNumber_Number.x0;
 numOrUndefined = binNumber_Number.x1;
 
 // MixedObject - number | undefined
-let binsNumberMixed_NumberOrUndefined: Array<d3Array.Bin<MixedObject, number | undefined>>;
+let binsNumberMixed_NumberOrUndefined: Array<d3Array.bin<MixedObject, number | undefined>>;
 binsNumberMixed_NumberOrUndefined = histoMixed_NumberOrUndefined(mixedObjectArray);
 
-let binNumberMixed_NumberOrUndefined: d3Array.Bin<MixedObject, number | undefined>;
+let binNumberMixed_NumberOrUndefined: d3Array.bin<MixedObject, number | undefined>;
 binNumberMixed_NumberOrUndefined = binsNumberMixed_NumberOrUndefined[0];
 
 num = binNumberMixed_NumberOrUndefined.length;
@@ -893,10 +893,10 @@ numOrUndefined = binNumberMixed_NumberOrUndefined.x0;
 numOrUndefined = binNumberMixed_NumberOrUndefined.x1;
 
 // MixedObject | undefined - number | undefined
-let binsNumberMixedOrUndefined_NumberOrUndefined: Array<d3Array.Bin<MixedObject | undefined, number | undefined>>;
+let binsNumberMixedOrUndefined_NumberOrUndefined: Array<d3Array.bin<MixedObject | undefined, number | undefined>>;
 binsNumberMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined(mixedObjectArray);
 
-let binNumberMixedOrUndefined_NumberOrUndefined: d3Array.Bin<MixedObject | undefined, number | undefined>;
+let binNumberMixedOrUndefined_NumberOrUndefined: d3Array.bin<MixedObject | undefined, number | undefined>;
 binNumberMixedOrUndefined_NumberOrUndefined = binsNumberMixedOrUndefined_NumberOrUndefined[0];
 
 num = binNumberMixedOrUndefined_NumberOrUndefined.length;
@@ -905,10 +905,10 @@ numOrUndefined = binNumberMixedOrUndefined_NumberOrUndefined.x0;
 numOrUndefined = binNumberMixedOrUndefined_NumberOrUndefined.x1;
 
 // MixedObject | undefined - number
-let binsNumberMixedOrUndefined_Number: Array<d3Array.Bin<MixedObject | undefined, number>>;
+let binsNumberMixedOrUndefined_Number: Array<d3Array.bin<MixedObject | undefined, number>>;
 binsNumberMixedOrUndefined_Number = histoMixedOrUndefined_Number(mixedObjectArray);
 
-let binNumberMixedOrUndefined_Number: d3Array.Bin<MixedObject | undefined, number>;
+let binNumberMixedOrUndefined_Number: d3Array.bin<MixedObject | undefined, number>;
 binNumberMixedOrUndefined_Number = binsNumberMixedOrUndefined_Number[0];
 
 num = binNumberMixedOrUndefined_Number.length;
@@ -917,11 +917,11 @@ numOrUndefined = binNumberMixedOrUndefined_Number.x0;
 numOrUndefined = binNumberMixedOrUndefined_Number.x1;
 
 // MixedObject - Date
-let binsMixedObject_Date: Array<d3Array.Bin<MixedObject, Date>>;
+let binsMixedObject_Date: Array<d3Array.bin<MixedObject, Date>>;
 binsMixedObject_Date = histoMixedObject_Date(mixedObjectArray);
 binsMixedObject_Date = histoMixedObject_Date(readonlyMixedObjectArray);
 
-let binMixedObject_Date: d3Array.Bin<MixedObject, Date>;
+let binMixedObject_Date: d3Array.bin<MixedObject, Date>;
 binMixedObject_Date = binsMixedObject_Date[0];
 
 num = binMixedObject_Date.length;
@@ -930,10 +930,10 @@ dateOrUndefined = binMixedObject_Date.x0;
 dateOrUndefined = binMixedObject_Date.x1;
 
 // MixedObject - Date | undefined
-let binsMixedObject_DateOrUndefined: Array<d3Array.Bin<MixedObject, Date | undefined>>;
+let binsMixedObject_DateOrUndefined: Array<d3Array.bin<MixedObject, Date | undefined>>;
 binsMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined(mixedObjectArray);
 
-let binMixedObject_DateOrUndefined: d3Array.Bin<MixedObject, Date | undefined>;
+let binMixedObject_DateOrUndefined: d3Array.bin<MixedObject, Date | undefined>;
 binMixedObject_DateOrUndefined = binsMixedObject_DateOrUndefined[0];
 
 num = binMixedObject_DateOrUndefined.length;
