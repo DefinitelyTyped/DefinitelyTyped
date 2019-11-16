@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare module ffmpeg {
+declare namespace ffmpeg {
     interface Options {
         arguments: string[];
         MEMFS?: Video[];
@@ -51,6 +51,8 @@ declare module ffmpeg {
             data: Data;
         }
     }
+
+    function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
 
     class Worker {
         constructor(someParam?: string);
