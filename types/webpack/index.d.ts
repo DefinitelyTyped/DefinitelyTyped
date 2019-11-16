@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.39
+// Type definitions for webpack 4.41
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
