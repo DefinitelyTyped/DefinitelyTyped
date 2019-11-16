@@ -383,7 +383,7 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 // Histogram
 // --------------------------------------------------------------------------------------
 
-export interface Bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {
+export interface bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {
     x0: Value | undefined;
     x1: Value | undefined;
 }
@@ -407,7 +407,7 @@ export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
     (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
 
 export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
-    (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+    (data: ArrayLike<Datum>): Array<bin<Datum, Value>>;
 
     value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
     value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
