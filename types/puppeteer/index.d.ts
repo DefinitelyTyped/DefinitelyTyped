@@ -514,9 +514,9 @@ export interface Viewport {
 /** Page emulation options. */
 export interface EmulateOptions {
   /** The viewport emulation options. */
-  viewport?: Viewport;
+  viewport: Viewport;
   /** The emulated user-agent. */
-  userAgent?: string;
+  userAgent: string;
 }
 
 export type EvaluateFn<T = any> = string | ((arg1: T, ...args: any[]) => any);
@@ -1587,7 +1587,7 @@ export interface Page extends EventEmitter, FrameBase {
    * Given an array of media feature objects, emulates CSS media features on the page.
    * Passing null resets all.
    */
-  emulateMediaFeatures(features: Array<MediaFeature> | null): Promise<void>;
+  emulateMediaFeatures(features: MediaFeature[] | null): Promise<void>;
 
   /**
    * Changes the timezone of the page.
