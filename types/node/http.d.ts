@@ -2,7 +2,7 @@ declare module "http" {
     import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+    import { NetConnectOpts, Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
@@ -68,7 +68,7 @@ declare module "http" {
         [header: string]: number | string | string[] | undefined;
     }
 
-    interface ClientRequestArgs {
+    type ClientRequestArgs = NetConnectOpts & {
         protocol?: string;
         host?: string;
         hostname?: string;
@@ -87,7 +87,7 @@ declare module "http" {
         setHost?: boolean;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket;
-    }
+    };
 
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage;
@@ -354,8 +354,8 @@ declare module "http" {
     function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
-    // create interface RequestOptions would make the naming more clear to developers
-    interface RequestOptions extends ClientRequestArgs { }
+    // create type RequestOptions would make the naming more clear to developers
+    type RequestOptions = ClientRequestArgs;
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
