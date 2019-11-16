@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare namespace ffmpeg {
+declare module ffmpeg {
     interface Options {
         arguments: string[];
         MEMFS?: Video[];
