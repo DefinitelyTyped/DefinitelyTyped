@@ -15,6 +15,9 @@
 
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
+// @ts-ignore: suppress error if using an older version of puppeteer, which don't
+// publish types for the protocol.
+import Protocol from 'puppeteer/lib/protocol';
 
 import * as errors from "./Errors";
 import * as devices from "./DeviceDescriptors";
@@ -2155,10 +2158,13 @@ export interface CDPSession extends EventEmitter {
    */
   detach(): Promise<void>;
 
+  on<T extends keyof Protocol.Events>(event: T, listener: (arg: Protocol.Events[T]) => void): this;
+
   /**
    * @param method Protocol method name
+   * @param parameters Protocol parameters
    */
-  send(method: string, params?: object): Promise<object>;
+  send<T extends keyof Protocol.CommandParameters>(method: T, parameters?: Protocol.CommandParameters[T]): Promise<Protocol.CommandReturnValues[T]>;
 }
 
 export interface Coverage {
