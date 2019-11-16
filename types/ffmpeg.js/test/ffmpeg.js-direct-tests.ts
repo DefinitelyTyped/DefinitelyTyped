@@ -1,4 +1,4 @@
-import { ffmpeg, Worker } from 'ffmpeg.js';
+import ffmpeg, { Worker } from 'ffmpeg.js';
 
 // test data
 let stdout = "";

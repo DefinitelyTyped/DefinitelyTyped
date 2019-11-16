@@ -52,7 +52,7 @@ declare namespace ffmpeg {
         }
     }
 
-    function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
+    function ffmpeg(opts: Options): Result;
 
     class Worker {
         constructor(someParam?: string);
