@@ -15,7 +15,7 @@ export function clear(target: string | any[]): any;
 /** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;
 
-export function getDuration(duration: string): any;
+export function getDuration(duration: string | number): any;
 
 /**
  * returns current cache index [of keys]
