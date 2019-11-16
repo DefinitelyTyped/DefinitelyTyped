@@ -1,6 +1,6 @@
 // Type definitions for parse 2.9
 // Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
+// Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
 //                  Flavio Negrão <https://github.com/flavionegrao>
