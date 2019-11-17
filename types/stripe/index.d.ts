@@ -1,4 +1,4 @@
-// Type definitions for stripe 7.13
+// Type definitions for stripe 7.14
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -100,6 +100,8 @@ declare class Stripe {
     paymentMethods: Stripe.resources.PaymentMethods;
     payouts: Stripe.resources.Payouts;
     plans: Stripe.resources.Plans;
+    oauth: Stripe.resources.OAuth;
+
     /**
      * @deprecated
      */
@@ -7746,6 +7748,55 @@ declare namespace Stripe {
         }
     }
 
+    namespace oauth {
+        interface IOAuthAuthorizationCodeTokenRequest {
+            /** 	
+authorization_code when turning an authorization code into an access token */
+            grant_type: 'authorization_code';
+            /** The value of the code */
+            code: string;
+            /**  Has no effect when requesting an access token from an authorization code. */
+            scope?: string;
+            /** Check whether the suggested_capabilities were applied to the connected account. */
+            assert_capabilities?: string
+        }
+
+        interface IOAuthRefreshTokenRequest {
+            /** use a refresh token to get a new access token. */
+            grant_type: 'refresh_token';
+            /** The value of the refresh_token */
+            code: string;
+            /** When requesting a new access token from a refresh token, any scope that has an equal or lesser scope as the refresh token.
+
+Defaults to the scope of the refresh token. */
+            scope?: string;
+            /** Check whether the suggested_capabilities were applied to the connected account. */
+            assert_capabilities?: string
+        }
+
+
+        interface IOAuthToken {
+            /** The unique id of the account you have been granted access to, as a string. */
+            stripe_user_id: string;
+            /** The access token you can use to make requests on behalf of this Stripe account. Use it as you would any Stripe secret API key.
+
+This key does not expire, but may be revoked by the user at any time (you'll get a account.application.deauthorized webhook event when this happens). */
+            access_token: string;
+            /**The scope granted to the access token, depending on the scope of the authorization code and scope parameter. */
+            scope: string;
+            /** The live mode indicator for the token. If true, the access_token can be used as a live secret key. If false, the access_token can be used as a test secret key.
+
+Depends on the mode of the secret API key used to make the request. */
+            livemode: boolean;
+            /** Will always have a value of bearer. */
+            token_type: 'bearer';
+            /** Can be used to get a new access token of an equal or lesser scope, or of a different live mode (where applicable). */
+            refresh_token: string;
+            /** A publishable key that can be used with this account. Matches the mode—live or test—of the token. */
+            stripe_publishable_key: string
+        }
+    }
+
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken {}
 
@@ -13753,6 +13804,12 @@ declare namespace Stripe {
                 response?: IResponseFn<tokens.IToken>,
             ): Promise<tokens.IToken>;
             retrieve(tokenId: string, response?: IResponseFn<tokens.IToken>): Promise<tokens.IToken>;
+        }
+
+        class OAuth extends StripeResource {
+            token(data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
+                response?: IResponseFn<oauth.IOAuthToken>,
+            ): Promise<oauth.IOAuthToken>;
         }
 
         class Transfers extends StripeResource {
