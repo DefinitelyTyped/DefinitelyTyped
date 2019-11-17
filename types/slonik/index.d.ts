@@ -300,7 +300,7 @@ export interface SqlTaggedTemplateType {
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
-        memberType: string
+        memberType: TypeNameIdentifierType | SqlTokenType
     ) => ArraySqlTokenType;
     identifier: (
         names: string[]
