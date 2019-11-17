@@ -4,18 +4,20 @@
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference types="node"/>
+
 /**
  * Asynchronous flock(2). No arguments other than a possible error are passed to the callback.
- * @param fd File descriptor
+ * @param fd File descriptor.
  * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH,
  *      LOCK_EX, LOCK_SH | LOCK_NB, etc.
  */
-export function flock(fd: number, flags: 'sh' | 'ex' | 'shnb' | 'exnb' | 'un', callback: (err: Error | null) => void): void;
-export function flock(fd: number, flags: number, callback: (err: Error | null) => void): void;
+export function flock(fd: number, flags: 'sh' | 'ex' | 'shnb' | 'exnb' | 'un', callback: (err: NodeJS.ErrnoException | null) => void): void;
+export function flock(fd: number, flags: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
 /**
  * Synchronous flock(2). Throws an exception on error.
- * @param fd File descriptor
+ * @param fd File descriptor.
  * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH,
  *      LOCK_EX, LOCK_SH | LOCK_NB, etc.
  */
@@ -29,10 +31,10 @@ export function flockSync(fd: number, flags: number): void;
  *      'setlkw' (F_SETLKW), 'getlk' (F_GETLK).
  * @param arg
  */
-export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', arg: number, callback: (err: Error | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: number, arg: number, callback: (err: Error | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', callback: (err: Error | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: number, callback: (err: Error | null, result: number) => void): void;
+export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', arg: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
+export function fcntl(fd: number, cmd: number, arg: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
+export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
+export function fcntl(fd: number, cmd: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
 
 /**
  * Synchronous fcntl(2). Throws an exception on error.
@@ -58,7 +60,7 @@ export function fcntlSync(fd: number, cmd: number, arg?: number): number;
  *      (SEEK_END) to set to the end of the file plus offset bytes (usually negative or zero to seek
  *      to the end of the file).
  */
-export function seek(fd: number, offset: number, whence: number, callback: (err: Error | null, currFilePos: number) => void): void;
+export function seek(fd: number, offset: number, whence: number, callback: (err: NodeJS.ErrnoException | null, currFilePos: number) => void): void;
 
 /**
  * Synchronous lseek(2). Throws an exception on error. Returns current file position.
@@ -76,8 +78,8 @@ export function seekSync(fd: number, offset: number, whence: number): number;
  * Asynchronous/synchronous statvfs(2).
  * @param path Pathname of any file within the mounted file system. Default is `/`.
  */
-export function statVFS(path: string, callback: (err: Error | null, stat: StatFVS) => void): void;
-export function statVFS(callback: (err: Error | null, stat: StatFVS) => void): void;
+export function statVFS(path: string, callback: (err: NodeJS.ErrnoException | null, stat: StatFVS) => void): void;
+export function statVFS(callback: (err: NodeJS.ErrnoException | null, stat: StatFVS) => void): void;
 export function statVFS(path?: string): StatFVS;
 
 /**
