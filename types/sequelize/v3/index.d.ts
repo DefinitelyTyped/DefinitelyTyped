@@ -13,7 +13,7 @@
 import * as _ from "lodash";
 import * as Promise from "bluebird";
 
-type ValidatorJS = typeof import('validator')
+import * as ValidatorJS from 'validator'
 
 declare namespace sequelize {
 
@@ -5796,10 +5796,12 @@ declare namespace sequelize {
     //  Validator
     // ~~~~~~~~~~~
 
+    type ValidatorJSType = typeof ValidatorJS
+
     /**
      * Validator Interface
      */
-    interface Validator extends ValidatorJS {
+    interface Validator extends ValidatorJSType {
 
         notEmpty(str: string): boolean;
         len(str: string, min: number, max: number): boolean;
