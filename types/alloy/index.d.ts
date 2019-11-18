@@ -148,7 +148,7 @@ interface AlloyInterface {
    * @param name Name of controller to instantiate.
    * @param args Arguments to pass to the controller
    */
-  createController(name: string, args?: any): AlloyController;
+  createController(name: string, args?: any): AlloyController & any;
 
   /**
    * Factory method for instantiating a Backbone Model object. Creates and returns an instance of the named model.
@@ -165,8 +165,8 @@ interface AlloyInterface {
    * @param name Name of the view within the widget to instantiate ('widget' by default)
    * @param args Arguments to pass to the widget.
    */
-  createWidget(id: string, args?: any): AlloyController;
-  createWidget(id: string, name?: string, args?: any): AlloyController;
+  createWidget(id: string, args?: any): AlloyController & any;
+  createWidget(id: string, name?: string, args?: any): AlloyController & any;
 }
 
 /**
@@ -184,7 +184,7 @@ interface WidgetInterface {
    * @param name Name of controller to instantiate.
    * @param args Arguments to pass to the controller
    */
-  createController(name: string, args?: any): AlloyController;
+  createController(name: string, args?: any): AlloyController & any;
 }
 
 /**
