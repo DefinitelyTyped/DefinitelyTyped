@@ -1483,7 +1483,7 @@ declare namespace R {
          */
         head(str: string): string;
         head(list: readonly []): undefined;
-        head<T extends any>(list: readonly T[]): T;
+        head<T extends any>(list: readonly T[]): T | undefined;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1672,7 +1672,7 @@ declare namespace R {
          */
         last(str: string): string;
         last(list: readonly []): undefined;
-        last<T extends any>(list: readonly T[]): T;
+        last<T extends any>(list: readonly T[]): T | undefined;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
