@@ -17,7 +17,10 @@ class HashringBalance extends yogRal.Balance {
         return 'hashring';
     }
     fetchServer(balanceContext: yogRal.Balance.BalanceContextClass, conf: {}, prevBackend: yogRal.Server): yogRal.Server {
-        return {};
+        return {
+            host: '127.0.0.1',
+            port: 8888,
+        };
     }
 }
 
