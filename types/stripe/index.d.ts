@@ -7754,14 +7754,17 @@ declare namespace Stripe {
              * authorization_code when turning an authorization code into an access token
              */
             grant_type: 'authorization_code';
+
             /**
              * The value of the code
              */
             code: string;
+
             /**
              * Has no effect when requesting an access token from an authorization code.
              */
             scope?: string;
+
             /**
              * Check whether the suggested_capabilities were applied to the connected account.
              */
@@ -7773,16 +7776,19 @@ declare namespace Stripe {
              * use a refresh token to get a new access token.
              */
             grant_type: 'refresh_token';
+
             /**
              * The value of the refresh_token
              */
             code: string;
+
             /**
              * When requesting a new access token from a refresh token, any scope that has an equal or lesser scope as the refresh token.
              *
              * Defaults to the scope of the refresh token.
              */
             scope?: string;
+
             /**
              * Check whether the suggested_capabilities were applied to the connected account.
              */
@@ -7794,34 +7800,47 @@ declare namespace Stripe {
              * The unique id of the account you have been granted access to, as a string.
              */
             stripe_user_id: string;
+
             /**
              * The access token you can use to make requests on behalf of this Stripe account. Use it as you would any Stripe secret API key.
              *
              * This key does not expire, but may be revoked by the user at any time (you'll get a account.application.deauthorized webhook event when this happens).
              */
             access_token: string;
+
             /**
              * The scope granted to the access token, depending on the scope of the authorization code and scope parameter.
              */
             scope: string;
+
             /**
              * The live mode indicator for the token. If true, the access_token can be used as a live secret key. If false, the access_token can be used as a test secret key.
              *
              * Depends on the mode of the secret API key used to make the request.
              */
             livemode: boolean;
+
             /**
              * Will always have a value of bearer.
              */
             token_type: 'bearer';
+
             /**
              * Can be used to get a new access token of an equal or lesser scope, or of a different live mode (where applicable).
              */
             refresh_token: string;
+
             /**
              * A publishable key that can be used with this account. Matches the mode—live or test—of the token.
              */
             stripe_publishable_key: string;
+        }
+
+        interface IOAuthDeauthorizationResponse {
+            /**
+             * The unique id of the account you have revoked access to, as a string. This is the same as the stripe_user_id you passed in. If this is returned, the revocation was successful.
+             */
+            stripe_user_id: string;
         }
     }
 
@@ -13835,11 +13854,37 @@ declare namespace Stripe {
         }
 
         class OAuth extends StripeResource {
+            /**
+             * Used both for turning an authorization_code into an access_token, and for getting a new access token using a refresh_token.
+             *
+             * @param {(oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest)} data
+             * @param {HeaderOptions} options
+             * @param {IResponseFn<oauth.IOAuthToken>} [response]
+             * @returns {Promise<oauth.IOAuthToken>}
+             * @memberof OAuth
+             */
             token(
                 data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
                 options: HeaderOptions,
                 response?: IResponseFn<oauth.IOAuthToken>,
             ): Promise<oauth.IOAuthToken>;
+
+            /**
+             * When revoking access to an account, you must use an API key that matches the mode—live or test—of the authorization code (which depends on whether the client_id used was production or development).
+             *
+             * @param {string} client_id The client_id of the application that you'd like to disconnect the account from. The account must be connected to this application.
+             * @param {string} stripe_user_id The account you'd like to disconnect from.
+             * @param {HeaderOptions} options
+             * @param {IResponseFn<oauth.IOAuthDeauthorizationResponse>} [response]
+             * @returns {Promise<oauth.IOAuthDeauthorizationResponse>}
+             * @memberof OAuth
+             */
+            deauthorize(
+                client_id: string,
+                stripe_user_id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
+            ): Promise<oauth.IOAuthDeauthorizationResponse>;
         }
 
         class Transfers extends StripeResource {
