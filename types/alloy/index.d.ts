@@ -109,22 +109,12 @@ interface AlloyController extends Backbone.Events {
  */
 interface AlloyInterface {
   /**
-   * An object that stores Alloy configuration values as defined in your app's app/config.json file
-   */
-  CFG: unknown;
-
-  /**
    * An object for storing globally accessible Alloy collections. Singleton collections created via markup will be stored on this object.
    */
   Collections: {
     [k: string]: unknown;
     instance(name: string): unknown;
   };
-
-  /**
-   * An object for storing globally accessible variables and functions.
-   */
-  Globals: unknown;
 
   /**
    * An object for storing globally accessible Alloy models. Singleton models created via markup will be stored on this object.
