@@ -13837,6 +13837,7 @@ declare namespace Stripe {
         class OAuth extends StripeResource {
             token(
                 data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
+                options: HeaderOptions,
                 response?: IResponseFn<oauth.IOAuthToken>,
             ): Promise<oauth.IOAuthToken>;
         }
