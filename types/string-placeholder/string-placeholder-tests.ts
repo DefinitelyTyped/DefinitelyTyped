@@ -17,6 +17,3 @@ template('${0} test', ['here'], { escape: '\\' });
 
 // $ExpectType string
 template('${0} test', ['here'], { clean: true });
-
-// $ExpectType string
-template('${0} test', ['here'], { clean: []});
