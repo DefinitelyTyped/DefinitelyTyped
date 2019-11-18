@@ -25,4 +25,4 @@ siema.prepend(elem, () => {});
 siema.append(elem, () => {});
 siema.destroy();
 siema.destroy(true, () => {});
-assert.equal(siema.perPage, 1);
+siema.goTo(siema.perPage);
