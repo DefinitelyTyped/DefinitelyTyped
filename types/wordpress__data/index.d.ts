@@ -31,6 +31,7 @@ export interface GenericStoreConfig {
     getSelectors(): SelectorMap;
     subscribe: Subscriber;
 }
+
 export interface StoreConfig<S> {
     reducer: Reducer<S>;
     actions?: {
@@ -46,7 +47,9 @@ export interface StoreConfig<S> {
         [k: string]: (action: Action) => any;
     };
     initialState?: S;
+    persist?: (keyof S)[];
 }
+
 export interface Store<S, A extends Action = Action> {
     getState(): S;
     subscribe: Subscriber;
