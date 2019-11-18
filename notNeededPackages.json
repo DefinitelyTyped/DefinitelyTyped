@@ -2857,6 +2857,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "next-redux-wrapper",
+            "typingsPackageName": "next-redux-wrapper",
+            "sourceRepoURL": "https://github.com/kirill-konshin/next-redux-wrapper",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "next",
             "typingsPackageName": "next",
             "sourceRepoURL": "https://github.com/zeit/next.js",
