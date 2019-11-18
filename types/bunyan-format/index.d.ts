@@ -23,6 +23,7 @@ declare namespace BunyanFormatWritable {
     }
 }
 
+// tslint:disable-next-line no-empty-interface
 interface BunyanFormatWritable extends Writable {}
 
 declare var BunyanFormatWritable: {
