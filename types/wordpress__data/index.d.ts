@@ -47,7 +47,7 @@ export interface StoreConfig<S> {
         [k: string]: (action: Action) => any;
     };
     initialState?: S;
-    persist?: (keyof S)[];
+    persist?: Array<keyof S>;
 }
 
 export interface Store<S, A extends Action = Action> {
