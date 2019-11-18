@@ -1,4 +1,6 @@
+import * as React from 'react';
 import {
+    FacebookShareButton,
     FacebookShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps> || StatelessComponent<ShareCountComponentProps>
     PinterestShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps> || StatelessComponent<ShareCountComponentProps>
     VKShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps> || StatelessComponent<ShareCountComponentProps>
@@ -24,3 +26,12 @@ import {
     InstapaperIcon, // $ExpectType FunctionComponent<IconComponentProps> || StatelessComponent<IconComponentProps>
     EmailIcon, // $ExpectType FunctionComponent<IconComponentProps> || StatelessComponent<IconComponentProps>
 } from 'react-share';
+
+export function MyComponent(): React.ReactNode {
+    const [isSharing, setIsSharing] = React.useState(false);
+    return <FacebookShareButton
+        url="https://www.facebook.com"
+        beforeOnClick={() => {
+            setIsSharing(true);
+        }} />;
+}

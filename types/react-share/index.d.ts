@@ -29,7 +29,7 @@ export interface CommonShareButtonProps {
      *  Takes a function that returns a Promise to be fulfilled before calling
      * `onClick`. If you do not return promise, `onClick` is called immediately.
      */
-    beforeOnClick?: () => Promise<void>;
+    beforeOnClick?: () => Promise<void>|void;
     /**
      * Takes a function to be called after closing share dialog.
      */
