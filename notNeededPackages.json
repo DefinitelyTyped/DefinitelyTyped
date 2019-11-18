@@ -259,6 +259,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "base-x",
+            "typingsPackageName": "base-x",
+            "sourceRepoURL": "https://github.com/cryptocoinjs/base-x",
+            "asOfVersion": "3.0.6"
+        },
+        {
             "libraryName": "baconjs",
             "typingsPackageName": "baconjs",
             "sourceRepoURL": "https://baconjs.github.io/",
@@ -2167,6 +2173,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "jest-cli",
+            "typingsPackageName": "jest-cli",
+            "sourceRepoURL": "https://jestjs.io/",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-diff",
             "typingsPackageName": "jest-diff",
             "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-diff",
@@ -2357,6 +2369,12 @@
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
             "asOfVersion": "3.3.0"
+        },
+        {
+            "libraryName": "ladda",
+            "typingsPackageName": "ladda",
+            "sourceRepoURL": "https://github.com/hakimel/Ladda",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "koa-requestid",
@@ -2837,6 +2855,12 @@
             "typingsPackageName": "new-github-release-url",
             "sourceRepoURL": "https://github.com/sindresorhus/new-github-release-url",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "next-redux-wrapper",
+            "typingsPackageName": "next-redux-wrapper",
+            "sourceRepoURL": "https://github.com/kirill-konshin/next-redux-wrapper",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "next",
@@ -3893,6 +3917,18 @@
             "typingsPackageName": "react-native-navigation",
             "sourceRepoURL": "https://github.com/wix/react-native-navigation",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-native-tab-view",
+            "typingsPackageName": "react-native-tab-view",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-tab-view",
+            "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-navigation",
+            "typingsPackageName": "react-navigation",
+            "sourceRepoURL": "https://github.com/react-navigation/react-navigation",
+            "asOfVersion": "3.4.0"
         },
         {
             "libraryName": "react-native-swipe-gestures",
@@ -5051,6 +5087,12 @@
             "typingsPackageName": "vega",
             "sourceRepoURL": "https://github.com/vega/vega",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "vexdb",
+            "typingsPackageName": "vexdb",
+            "sourceRepoURL": "https://github.com/MayorMonty/vexdb#readme",
+            "asOfVersion": "1.7.1"
         },
         {
             "libraryName": "velocity-animate",

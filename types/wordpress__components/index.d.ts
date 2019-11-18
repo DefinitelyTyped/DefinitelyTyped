@@ -1,6 +1,7 @@
 // Type definitions for @wordpress/components 7.4
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

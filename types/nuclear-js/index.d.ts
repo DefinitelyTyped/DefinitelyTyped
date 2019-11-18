@@ -2,7 +2,6 @@
 // Project: https://github.com/optimizely/nuclear-js
 // Definitions by: Pat Lillis <https://github.com/patlillis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as _Immutable from 'immutable';
 
@@ -27,7 +26,15 @@ interface ReactMixin {
     componentWillUnmount(): void;
 }
 
-interface Reactor {
+/**
+ * State is stored in NuclearJS Reactors. Reactors contain a `state` object
+ * which is an Immutable.Map
+ *
+ * The only way Reactors can change state is by reacting to messages. To
+ * update state, Reactor's dispatch messages to all registered stores, and
+ * the store returns it's new state based on the message
+ */
+export interface Reactor {
     prevReactorState: any;
     reactorState: any;
     observerState: any;
@@ -102,7 +109,7 @@ interface Reactor {
     /**
      * Registers stores.
      */
-    registerStores(stores: { [storeName: string]: Store<any> }): void;
+    registerStores(stores: { [storeName: string]: Store }): void;
 
     /**
      * Replace store implementation (handlers) without modifying the app
@@ -110,7 +117,7 @@ interface Reactor {
      *
      * Useful for hot reloading
      */
-    replaceStores(stores: { [storeName: string]: Store<any> }): void;
+    replaceStores(stores: { [storeName: string]: Store }): void;
 
     /**
      * Resets the state of a reactor and returns it back to initial state.
@@ -140,7 +147,13 @@ export const Reactor: {
     (config?: ReactorConfig): Reactor;
 };
 
-interface Store<T> extends StoreLike<T> {
+/**
+ * A Store defines how a certain domain of the application should respond to
+ * actions taken on the whole system. They manage their own section of the
+ * entire app state and have no knowledge about the other parts of the
+ * application state.
+ */
+export interface Store<T = any> extends StoreLike<T> {
     /**
      * Takes a current reactor state, action type and payload, does the
      * reaction, and returns the new state.
@@ -219,7 +232,7 @@ export const Store: {
      * entire app state and have no knowledge about the other parts of the
      * application state.
      */
-    new <T = any>(config: StoreLike<T>): Store<T>;
+    new <T>(config: StoreLike<T>): Store<T>;
 
     /**
      * A Store defines how a certain domain of the application should respond to
@@ -227,7 +240,7 @@ export const Store: {
      * entire app state and have no knowledge about the other parts of the
      * application state.
      */
-    <T = any>(config: StoreLike<T>): Store<T>;
+    <T>(config: StoreLike<T>): Store<T>;
 };
 
 /**

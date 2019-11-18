@@ -644,17 +644,228 @@ export class PlayerManager {
     setMediaUrlResolver(resolver: (loadRequestData: messages.LoadRequestData) => void): void;
 
     /**
-     * Provide an interceptor of incoming and outgoing messages.
-     * The interceptor can update the request data and return updated data,
-     * a promise of updated data if need to get more data from the server,
-     * or null if the request should not be handled.
-     * If the load message interceptor is provided and no interceptor is provided for preload, the load interceptor will be called for preload messages.
+     * Provide an interceptor of incoming and outgoing messages. The interceptor
+     * can update the request data, and return updated data, a promise of
+     * updated data if need to get more data from the server, or null if the
+     * request should not be handled. Note that if load message interceptor is
+     * provided, and no interceptor is provided for preload - the load
+     * interceptor will be called for preload messages.
      */
+    setMessageInterceptor(
+        type: messages.MessageType.CLOUD_STATUS,
+        interceptor:
+            | ((messageData: messages.CloudMediaStatus) => messages.CloudMediaStatus)
+            | ((messageData: messages.CloudMediaStatus) => Promise<messages.CloudMediaStatus>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.CUSTOM_COMMAND,
+        interceptor:
+            | ((messageData: messages.CustomCommandRequestData) => messages.CustomCommandRequestData)
+            | ((messageData: messages.CustomCommandRequestData) => Promise<messages.CustomCommandRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.DISPLAY_STATUS,
+        interceptor:
+            | ((messageData: messages.DisplayStatusRequestData) => messages.DisplayStatusRequestData)
+            | ((messageData: messages.DisplayStatusRequestData) => Promise<messages.DisplayStatusRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.EDIT_AUDIO_TRACKS,
+        interceptor:
+            | ((messageData: messages.EditAudioTracksRequestData) => messages.EditAudioTracksRequestData)
+            | ((messageData: messages.EditAudioTracksRequestData) => Promise<messages.EditAudioTracksRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.EDIT_TRACKS_INFO,
+        interceptor:
+            | ((messageData: messages.EditTracksInfoRequestData) => messages.EditTracksInfoRequestData)
+            | ((messageData: messages.EditTracksInfoRequestData) => Promise<messages.EditTracksInfoRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.FOCUS_STATE,
+        interceptor:
+            | ((messageData: messages.FocusStateRequestData) => messages.FocusStateRequestData)
+            | ((messageData: messages.FocusStateRequestData) => Promise<messages.FocusStateRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.GET_STATUS,
+        interceptor:
+            | ((messageData: messages.GetStatusRequestData) => messages.GetStatusRequestData)
+            | ((messageData: messages.GetStatusRequestData) => Promise<messages.GetStatusRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.LOAD,
+        interceptor:
+            | ((messageData: messages.LoadRequestData) => messages.LoadRequestData)
+            | ((messageData: messages.LoadRequestData) => Promise<messages.LoadRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.LOAD_BY_ENTITY,
+        interceptor:
+            | ((messageData: messages.LoadByEntityRequestData) => messages.LoadByEntityRequestData)
+            | ((messageData: messages.LoadByEntityRequestData) => Promise<messages.LoadByEntityRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.MEDIA_STATUS,
+        interceptor:
+            | ((messageData: messages.MediaStatus) => messages.MediaStatus)
+            | ((messageData: messages.MediaStatus) => Promise<messages.MediaStatus>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.PRECACHE,
+        interceptor:
+            | ((messageData: messages.PrecacheRequestData) => messages.PrecacheRequestData)
+            | ((messageData: messages.PrecacheRequestData) => Promise<messages.PrecacheRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.PRELOAD,
+        interceptor:
+            | ((messageData: messages.PreloadRequestData) => messages.PreloadRequestData)
+            | ((messageData: messages.PreloadRequestData) => Promise<messages.PreloadRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_CHANGE,
+        interceptor:
+            | ((messageData: messages.QueueChange) => messages.QueueChange)
+            | ((messageData: messages.QueueChange) => Promise<messages.QueueChange>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_GET_ITEMS,
+        interceptor:
+            | ((messageData: messages.GetItemsInfoRequestData) => messages.GetItemsInfoRequestData)
+            | ((messageData: messages.GetItemsInfoRequestData) => Promise<messages.GetItemsInfoRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_GET_ITEM_RANGE,
+        interceptor:
+            | ((messageData: messages.FetchItemsRequestData) => messages.FetchItemsRequestData)
+            | ((messageData: messages.FetchItemsRequestData) => Promise<messages.FetchItemsRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_INSERT,
+        interceptor:
+            | ((messageData: messages.QueueInsertRequestData) => messages.QueueInsertRequestData)
+            | ((messageData: messages.QueueInsertRequestData) => Promise<messages.QueueInsertRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_ITEMS,
+        interceptor:
+            | ((messageData: messages.ItemsInfo) => messages.ItemsInfo)
+            | ((messageData: messages.ItemsInfo) => Promise<messages.ItemsInfo>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_ITEM_IDS,
+        interceptor:
+            | ((messageData: messages.QueueIds) => messages.QueueIds)
+            | ((messageData: messages.QueueIds) => Promise<messages.QueueIds>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_LOAD,
+        interceptor:
+            | ((messageData: messages.QueueLoadRequestData) => messages.QueueLoadRequestData)
+            | ((messageData: messages.QueueLoadRequestData) => Promise<messages.QueueLoadRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_REMOVE,
+        interceptor:
+            | ((messageData: messages.QueueRemoveRequestData) => messages.QueueRemoveRequestData)
+            | ((messageData: messages.QueueRemoveRequestData) => Promise<messages.QueueRemoveRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_REORDER,
+        interceptor:
+            | ((messageData: messages.QueueReorderRequestData) => messages.QueueReorderRequestData)
+            | ((messageData: messages.QueueReorderRequestData) => Promise<messages.QueueReorderRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_UPDATE,
+        interceptor:
+            | ((messageData: messages.QueueUpdateRequestData) => messages.QueueUpdateRequestData)
+            | ((messageData: messages.QueueUpdateRequestData) => Promise<messages.QueueUpdateRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.RESUME_SESSION,
+        interceptor:
+            | ((messageData: messages.ResumeSessionRequestData) => messages.ResumeSessionRequestData)
+            | ((messageData: messages.ResumeSessionRequestData) => Promise<messages.ResumeSessionRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SEEK,
+        interceptor:
+            | ((messageData: messages.SeekRequestData) => messages.SeekRequestData)
+            | ((messageData: messages.SeekRequestData) => Promise<messages.SeekRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SESSION_STATE,
+        interceptor:
+            | ((messageData: messages.StoreSessionResponseData) => messages.StoreSessionResponseData)
+            | ((messageData: messages.StoreSessionResponseData) => Promise<messages.StoreSessionResponseData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_CREDENTIALS,
+        interceptor:
+            | ((messageData: messages.SetCredentialsRequestData) => messages.SetCredentialsRequestData)
+            | ((messageData: messages.SetCredentialsRequestData) => Promise<messages.SetCredentialsRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_PLAYBACK_RATE,
+        interceptor:
+            | ((messageData: messages.SetPlaybackRateRequestData) => messages.SetPlaybackRateRequestData)
+            | ((messageData: messages.SetPlaybackRateRequestData) => Promise<messages.SetPlaybackRateRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_VOLUME,
+        interceptor:
+            | ((messageData: messages.VolumeRequestData) => messages.VolumeRequestData)
+            | ((messageData: messages.VolumeRequestData) => Promise<messages.VolumeRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.STORE_SESSION,
+        interceptor:
+            | ((messageData: messages.StoreSessionRequestData) => messages.StoreSessionRequestData)
+            | ((messageData: messages.StoreSessionRequestData) => Promise<messages.StoreSessionRequestData>)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.USER_ACTION,
+        interceptor:
+            | ((messageData: messages.UserActionRequestData) => messages.UserActionRequestData)
+            | ((messageData: messages.UserActionRequestData) => Promise<messages.UserActionRequestData>)
+            | null,
+    ): void;
     setMessageInterceptor(
         type: messages.MessageType,
         interceptor:
-            | ((requestData: messages.RequestData) => messages.RequestData)
-            | ((requestData: messages.RequestData) => Promise<any>)
+            | ((messageData: messages.RequestData) => messages.RequestData)
+            | ((messageData: messages.RequestData) => Promise<messages.RequestData>)
             | null,
     ): void;
 

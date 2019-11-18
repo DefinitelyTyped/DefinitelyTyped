@@ -14,6 +14,7 @@
 //                 Kay Delaney <https://github.com/kaydelaney>
 //                 Yuichiro Tsuchiya <https://github.com/tuttieee>
 //                 Kamil Kamiński <https://github.com/0ctothorp>
+//                 Jay Chen <https://github.com/Jay0328>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -1827,6 +1828,8 @@ export class Editor implements Controller {
     save(operation: Operation): void;
     snapshotSelection(): Editor;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Editor;
+    hasCommand(type: string): boolean;
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
@@ -3035,6 +3038,14 @@ export interface Controller {
      */
     snapshotSelection(): Controller;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Controller;
+    /**
+     * Check if a command by type has been registered.
+     */
+    hasCommand(type: string): boolean;
+    /**
+     * Check if a query by type has been registered.
+     */
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     /**
      * Add a new command by type to the controller. This will make the command available as a top-level method on the controller

@@ -1,4 +1,4 @@
-// Type definitions for Express 4.16
+// Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Michał Lytek <https://github.com/19majkel94>
@@ -6,6 +6,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 //                 aereal <https://github.com/aereal>
+//                 Jose Luis Leon <https://github.com/JoseLion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,22 +38,26 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-export interface RequestHandler<P extends Params = ParamsDictionary> {
+export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request<P>, res: Response, next: NextFunction): any;
+    (req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler<P extends Params = ParamsDictionary> = (err: any, req: Request<P>, res: Response, next: NextFunction) => any;
+export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> = (err: any, req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams<P extends Params = ParamsDictionary> = RequestHandler<P> | ErrorRequestHandler<P> | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
+export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>
+    = RequestHandler<P, ResBody, ReqBody>
+    | ErrorRequestHandler<P, ResBody, ReqBody>
+    | Array<RequestHandler<P>
+    | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T> {
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandler<P>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody>>): T;
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandlerParams<P>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody>>): T;
     (path: PathParams, subApplication: Application): T;
 }
 
@@ -202,7 +207,7 @@ export type Errback = (err: Error) => void;
  *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
  *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
  */
-export interface Request<P extends Params = ParamsDictionary> extends http.IncomingMessage, Express.Request {
+export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -447,7 +452,7 @@ export interface Request<P extends Params = ParamsDictionary> extends http.Incom
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    body: ReqBody;
 
     //cookies: { string; remember: boolean; };
     cookies: any;
@@ -474,7 +479,7 @@ export interface Request<P extends Params = ParamsDictionary> extends http.Incom
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response;
+    res?: Response<ResBody>;
     next?: NextFunction;
 }
 
@@ -485,9 +490,9 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send<T = Response> = (body?: any) => T;
+export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface Response extends http.ServerResponse, Express.Response {
+export interface Response<ResBody = any> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
@@ -528,7 +533,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send('<p>some html</p>');
      *     res.status(404).send('Sorry, cant find that');
      */
-    send: Send<this>;
+    send: Send<ResBody, this>;
 
     /**
      * Send JSON response.
@@ -540,7 +545,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.status(500).json('oh noes!');
      *     res.status(404).json('I dont have that');
      */
-    json: Send<this>;
+    json: Send<ResBody, this>;
 
     /**
      * Send JSON response with JSONP callback support.
@@ -552,7 +557,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.status(500).jsonp('oh noes!');
      *     res.status(404).jsonp('I dont have that');
      */
-    jsonp: Send<this>;
+    jsonp: Send<ResBody, this>;
 
     /**
      * Transfer the file at the given `path`.

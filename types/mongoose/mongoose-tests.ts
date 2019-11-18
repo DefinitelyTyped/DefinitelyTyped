@@ -631,6 +631,14 @@ new mongoose.Schema({
     }
   },
 });
+new mongoose.Schema({
+  fnOnly: { type: String, validate: () => true },
+  fnStringArray: { type: String, validate: [() => true, 'failed'] },
+  fnStringObject: { type: String, validate: { validator: () => true, message: 'failed' } },
+  promiseFnOnly: { type: String, validate: () => Promise.reject(new Error('oops')) },
+  promiseFnStringArray: { type: String, validate: [() => Promise.reject(), 'oops'] },
+  promiseFnStringObject: { type: String, validate: { validator: () => Promise.reject(), message: 'oops' } },
+});
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
   { validator: () => {return true}, msg: 'failed' }

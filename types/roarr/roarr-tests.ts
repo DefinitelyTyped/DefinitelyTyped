@@ -1,4 +1,16 @@
-import Roarr from "roarr";
+import { default as Roarr, MessageType, MessageContextType } from "roarr";
+
+const messageContextType = {
+    foo: "bar",
+};
+
+const messageType: MessageType = {
+    context: messageContextType,
+    message: "a message",
+    sequence: 1,
+    time: 1,
+    version: "1",
+};
 
 const log = Roarr.child({ module: "roarr-tests" });
 
@@ -15,9 +27,10 @@ log.error("Error log statement");
 log.error({ context: "error" }, "Error log statement");
 log.fatal("Fatal log statement");
 log.fatal({ context: "fatal" }, "Fatal log statement");
+log("Statement without context");
 
 // TS2.0-compatible reformulation of example at https://github.com/gajus/roarr#function-parameter
-const alternativeLog = Roarr.child((message) => {
+const alternativeLog = Roarr.child((message: MessageType) => {
     message["message"] = message["message"].replace("foo", "bar");
 
     return message;
@@ -26,3 +39,12 @@ const alternativeLog = Roarr.child((message) => {
 alternativeLog({ logLevel: 60 }, "Something critical");
 alternativeLog.debug({ foo: "bar" }, 'foo 1');
 alternativeLog.fatal('foo 2');
+
+const implicitLog = Roarr.child((message) => {
+    message;                    // $Expect MessageType
+    message["message"] = message["message"].replace("foo", "bar");
+
+    return message;
+});
+
+implicitLog("Implicit logger without context");
