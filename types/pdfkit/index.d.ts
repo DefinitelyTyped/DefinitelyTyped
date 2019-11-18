@@ -250,12 +250,6 @@ declare namespace PDFKit {
         ModDate?: Date;
     }
 
-    interface DocumentSecurity {
-        userPassword?: string;
-        ownerPassword?: string;
-        permissions?: DocumentPermissions;
-    }
-
     interface DocumentPermissions {
         modifying?: boolean;
         copying?: boolean;
@@ -269,7 +263,9 @@ declare namespace PDFKit {
     interface PDFDocumentOptions {
         compress?: boolean;
         info?: DocumentInfo;
-        security?: DocumentSecurity;
+        userPassword?: string;
+        ownerPassword?: string;
+        permissions?: DocumentPermissions;
         pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
         autoFirstPage?: boolean;
         size?: number[] | string;

@@ -18,14 +18,11 @@ var doc = new PDFDocument({
     compress: false,
     size: [526, 525],
     autoFirstPage: true,
-    pdfVersion: '1.6',
-    security: {
-        ownerPassword: 'ownerPassword',
-        permissions: {
-            modifying: true,
-            annotating: false,
-            printing: 'lowResolution'
-        }
+    ownerPassword: 'ownerPassword',
+    permissions: {
+        modifying: true,
+        annotating: false,
+        printing: 'lowResolution'
     }
 });
 
