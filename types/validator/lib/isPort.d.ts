@@ -1,3 +1,1 @@
-import * as validator from "validator";
-declare const isPort: typeof validator.isPort;
-export = isPort;
+export { isPort as default } from '../';
