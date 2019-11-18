@@ -2892,7 +2892,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: Partial<T>): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
