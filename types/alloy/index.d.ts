@@ -8,11 +8,16 @@
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 
+interface AlloyControllerUI {
+  create(apiName: string, opts?: any): AlloyController & any;
+}
+
 /**
  * The base class for Alloy controllers.
  */
 interface AlloyController extends Backbone.Events {
   args: any;
+  UI: AlloyControllerUI;
 
   /**
    *
