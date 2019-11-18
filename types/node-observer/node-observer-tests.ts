@@ -6,7 +6,7 @@ class Demo {
     }
 }
 
-let obj = new Demo();
+const obj = new Demo();
 
 for (let i = 0; i < 3; i++) {
     observer.subscribe(obj, "hello", obj.sayHello);
