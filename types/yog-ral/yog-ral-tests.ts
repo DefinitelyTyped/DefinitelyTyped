@@ -16,8 +16,8 @@ class HashringBalance extends yogRal.Balance {
     getName() {
         return 'hashring';
     }
-    fetchServer(balanceContext: yogRal.Balance.BalanceContextClass, conf: {}, prevBackend: yogRal.Server) {
-        return {} as yogRal.Server;
+    fetchServer(balanceContext: yogRal.Balance.BalanceContextClass, conf: {}, prevBackend: yogRal.Server): yogRal.Server {
+        return {};
     }
 }
 
@@ -43,7 +43,7 @@ class DefaultConfigNormalizer extends yogRal.ConfigNormalizer {
 }
 
 const runner = yogRal.RAL('test', {});
-runner.on('data', function() {
+runner.on('data', () => {
     // yeap
 });
 runner.doRequest();
