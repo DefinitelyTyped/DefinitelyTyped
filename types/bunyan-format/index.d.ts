@@ -1,8 +1,9 @@
 // Type definitions for bunyan-format 0.2
 // Project: https://github.com/thlorenz/bunyan-format
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
+//                 Ashley Abbott <https://github.com/ashpabb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 
@@ -26,5 +27,7 @@ declare class BunyanFormatWritable extends Writable {
     /** Creates a writable stream that formats bunyan records written to it. */
     constructor(options: BunyanFormatWritable.Options, output?: Writable);
 }
+
+declare function BunyanFormatWritable(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
 
 export = BunyanFormatWritable;

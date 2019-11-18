@@ -63,6 +63,10 @@ const gchildWithNs = xmlDocWithNs.get('//a:grandchild', {a: 'http://test.com/tes
 
 console.log(gchildWithNs.text());  // prints "grandchild content"
 
+// xpath queries on element
+const childElWithNs = xmlDocWithNs.get('//child')!;
+const gchilEldWithNs = childElWithNs.get('//a:grandchild', { a: 'http://test.com/test' })!;
+
 const validated: boolean = doc.validate(doc);
 doc.validationErrors[0].message; // inherited from Error
 doc.validationErrors[0].line;

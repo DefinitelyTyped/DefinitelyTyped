@@ -1,4 +1,3 @@
-import { EscapeCode } from './escape-code';
 import AnsiStyles = require('ansi-styles');
 
 let ansiStyles = AnsiStyles as any,

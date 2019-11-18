@@ -108,9 +108,15 @@ export interface ShortcutTags {
     comment?: string;
     track?: string;
     genre?: string;
-    picture?: string;
+    picture?: PictureType;
     lyrics?: string;
 }
+
+export interface PictureType {
+    format: string;
+    data: number[];
+}
+
 export type Tags = ShortcutTags & TagFrames;
 
 export interface FrameType {

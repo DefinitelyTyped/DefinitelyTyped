@@ -1,13 +1,12 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Bigquery {
     namespace Collection {
-      export interface DatasetsCollection {
+      interface DatasetsCollection {
         // Returns the dataset specified by datasetID.
         get(projectId: string, datasetId: string): Bigquery.Schema.Dataset;
         // Creates a new empty dataset.
@@ -25,7 +24,7 @@ declare namespace GoogleAppsScript {
         // Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that are provided in the submitted dataset resource.
         update(resource: Bigquery.Schema.Dataset, projectId: string, datasetId: string): Bigquery.Schema.Dataset;
       }
-      export interface JobsCollection {
+      interface JobsCollection {
         // Requests that a job be cancelled. This call will return immediately, and the client will need to poll for the job status to see if the cancel completed successfully. Cancelled jobs may still incur costs.
         cancel(projectId: string, jobId: string): Bigquery.Schema.JobCancelResponse;
         // Requests that a job be cancelled. This call will return immediately, and the client will need to poll for the job status to see if the cancel completed successfully. Cancelled jobs may still incur costs.
@@ -49,7 +48,7 @@ declare namespace GoogleAppsScript {
         // Runs a BigQuery SQL query synchronously and returns query results if the query completes within a specified timeout.
         query(resource: Bigquery.Schema.QueryRequest, projectId: string): Bigquery.Schema.QueryResponse;
       }
-      export interface ProjectsCollection {
+      interface ProjectsCollection {
         // Returns the email address of the service account for your project used for interactions with Google Cloud KMS.
         getServiceAccount(projectId: string): Bigquery.Schema.GetServiceAccountResponse;
         // Lists all projects to which you have been granted any project role.
@@ -57,7 +56,7 @@ declare namespace GoogleAppsScript {
         // Lists all projects to which you have been granted any project role.
         list(optionalArgs: object): Bigquery.Schema.ProjectList;
       }
-      export interface TabledataCollection {
+      interface TabledataCollection {
         // Streams data into BigQuery one record at a time without needing to run a load job. Requires the WRITER dataset role.
         insertAll(resource: Bigquery.Schema.TableDataInsertAllRequest, projectId: string, datasetId: string, tableId: string): Bigquery.Schema.TableDataInsertAllResponse;
         // Retrieves table data from a specified set of rows. Requires the READER dataset role.
@@ -65,7 +64,7 @@ declare namespace GoogleAppsScript {
         // Retrieves table data from a specified set of rows. Requires the READER dataset role.
         list(projectId: string, datasetId: string, tableId: string, optionalArgs: object): Bigquery.Schema.TableDataList;
       }
-      export interface TablesCollection {
+      interface TablesCollection {
         // Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes the structure of this table.
         get(projectId: string, datasetId: string, tableId: string): Bigquery.Schema.Table;
         // Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes the structure of this table.
@@ -85,11 +84,11 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface BigQueryModelTraining {
+      interface BigQueryModelTraining {
         currentIteration?: number;
         expectedTotalIterations?: string;
       }
-      export interface BigtableColumn {
+      interface BigtableColumn {
         encoding?: string;
         fieldName?: string;
         onlyReadLatest?: boolean;
@@ -97,32 +96,32 @@ declare namespace GoogleAppsScript {
         qualifierString?: string;
         type?: string;
       }
-      export interface BigtableColumnFamily {
+      interface BigtableColumnFamily {
         columns?: Bigquery.Schema.BigtableColumn[];
         encoding?: string;
         familyId?: string;
         onlyReadLatest?: boolean;
         type?: string;
       }
-      export interface BigtableOptions {
+      interface BigtableOptions {
         columnFamilies?: Bigquery.Schema.BigtableColumnFamily[];
         ignoreUnspecifiedColumnFamilies?: boolean;
         readRowkeyAsString?: boolean;
       }
-      export interface BqmlIterationResult {
+      interface BqmlIterationResult {
         durationMs?: string;
         evalLoss?: number;
         index?: number;
         learnRate?: number;
         trainingLoss?: number;
       }
-      export interface BqmlTrainingRun {
+      interface BqmlTrainingRun {
         iterationResults?: Bigquery.Schema.BqmlIterationResult[];
         startTime?: string;
         state?: string;
         trainingOptions?: Bigquery.Schema.BqmlTrainingRunTrainingOptions;
       }
-      export interface BqmlTrainingRunTrainingOptions {
+      interface BqmlTrainingRunTrainingOptions {
         earlyStop?: boolean;
         l1Reg?: number;
         l2Reg?: number;
@@ -133,10 +132,10 @@ declare namespace GoogleAppsScript {
         minRelProgress?: number;
         warmStart?: boolean;
       }
-      export interface Clustering {
+      interface Clustering {
         fields?: string[];
       }
-      export interface CsvOptions {
+      interface CsvOptions {
         allowJaggedRows?: boolean;
         allowQuotedNewlines?: boolean;
         encoding?: string;
@@ -144,7 +143,7 @@ declare namespace GoogleAppsScript {
         quote?: string;
         skipLeadingRows?: string;
       }
-      export interface Dataset {
+      interface Dataset {
         access?: Bigquery.Schema.DatasetAccess[];
         creationTime?: string;
         datasetReference?: Bigquery.Schema.DatasetReference;
@@ -160,7 +159,7 @@ declare namespace GoogleAppsScript {
         location?: string;
         selfLink?: string;
       }
-      export interface DatasetAccess {
+      interface DatasetAccess {
         domain?: string;
         groupByEmail?: string;
         iamMember?: string;
@@ -169,13 +168,13 @@ declare namespace GoogleAppsScript {
         userByEmail?: string;
         view?: Bigquery.Schema.TableReference;
       }
-      export interface DatasetList {
+      interface DatasetList {
         datasets?: Bigquery.Schema.DatasetListDatasets[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
       }
-      export interface DatasetListDatasets {
+      interface DatasetListDatasets {
         datasetReference?: Bigquery.Schema.DatasetReference;
         friendlyName?: string;
         id?: string;
@@ -183,25 +182,25 @@ declare namespace GoogleAppsScript {
         labels?: object;
         location?: string;
       }
-      export interface DatasetReference {
+      interface DatasetReference {
         datasetId?: string;
         projectId?: string;
       }
-      export interface DestinationTableProperties {
+      interface DestinationTableProperties {
         description?: string;
         friendlyName?: string;
         labels?: object;
       }
-      export interface EncryptionConfiguration {
+      interface EncryptionConfiguration {
         kmsKeyName?: string;
       }
-      export interface ErrorProto {
+      interface ErrorProto {
         debugInfo?: string;
         location?: string;
         message?: string;
         reason?: string;
       }
-      export interface ExplainQueryStage {
+      interface ExplainQueryStage {
         completedParallelInputs?: string;
         computeMsAvg?: string;
         computeMsMax?: string;
@@ -232,11 +231,11 @@ declare namespace GoogleAppsScript {
         writeRatioAvg?: number;
         writeRatioMax?: number;
       }
-      export interface ExplainQueryStep {
+      interface ExplainQueryStep {
         kind?: string;
         substeps?: string[];
       }
-      export interface ExternalDataConfiguration {
+      interface ExternalDataConfiguration {
         autodetect?: boolean;
         bigtableOptions?: Bigquery.Schema.BigtableOptions;
         compression?: string;
@@ -249,7 +248,7 @@ declare namespace GoogleAppsScript {
         sourceFormat?: string;
         sourceUris?: string[];
       }
-      export interface GetQueryResultsResponse {
+      interface GetQueryResultsResponse {
         cacheHit?: boolean;
         errors?: Bigquery.Schema.ErrorProto[];
         etag?: string;
@@ -263,15 +262,15 @@ declare namespace GoogleAppsScript {
         totalBytesProcessed?: string;
         totalRows?: string;
       }
-      export interface GetServiceAccountResponse {
+      interface GetServiceAccountResponse {
         email?: string;
         kind?: string;
       }
-      export interface GoogleSheetsOptions {
+      interface GoogleSheetsOptions {
         range?: string;
         skipLeadingRows?: string;
       }
-      export interface Job {
+      interface Job {
         configuration?: Bigquery.Schema.JobConfiguration;
         etag?: string;
         id?: string;
@@ -282,11 +281,11 @@ declare namespace GoogleAppsScript {
         status?: Bigquery.Schema.JobStatus;
         user_email?: string;
       }
-      export interface JobCancelResponse {
+      interface JobCancelResponse {
         job?: Bigquery.Schema.Job;
         kind?: string;
       }
-      export interface JobConfiguration {
+      interface JobConfiguration {
         copy?: Bigquery.Schema.JobConfigurationTableCopy;
         dryRun?: boolean;
         extract?: Bigquery.Schema.JobConfigurationExtract;
@@ -296,7 +295,7 @@ declare namespace GoogleAppsScript {
         load?: Bigquery.Schema.JobConfigurationLoad;
         query?: Bigquery.Schema.JobConfigurationQuery;
       }
-      export interface JobConfigurationExtract {
+      interface JobConfigurationExtract {
         compression?: string;
         destinationFormat?: string;
         destinationUri?: string;
@@ -305,7 +304,7 @@ declare namespace GoogleAppsScript {
         printHeader?: boolean;
         sourceTable?: Bigquery.Schema.TableReference;
       }
-      export interface JobConfigurationLoad {
+      interface JobConfigurationLoad {
         allowJaggedRows?: boolean;
         allowQuotedNewlines?: boolean;
         autodetect?: boolean;
@@ -334,7 +333,7 @@ declare namespace GoogleAppsScript {
         useAvroLogicalTypes?: boolean;
         writeDisposition?: string;
       }
-      export interface JobConfigurationQuery {
+      interface JobConfigurationQuery {
         allowLargeResults?: boolean;
         clustering?: Bigquery.Schema.Clustering;
         createDisposition?: string;
@@ -358,7 +357,7 @@ declare namespace GoogleAppsScript {
         userDefinedFunctionResources?: Bigquery.Schema.UserDefinedFunctionResource[];
         writeDisposition?: string;
       }
-      export interface JobConfigurationTableCopy {
+      interface JobConfigurationTableCopy {
         createDisposition?: string;
         destinationEncryptionConfiguration?: Bigquery.Schema.EncryptionConfiguration;
         destinationTable?: Bigquery.Schema.TableReference;
@@ -366,13 +365,13 @@ declare namespace GoogleAppsScript {
         sourceTables?: Bigquery.Schema.TableReference[];
         writeDisposition?: string;
       }
-      export interface JobList {
+      interface JobList {
         etag?: string;
         jobs?: Bigquery.Schema.JobListJobs[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface JobListJobs {
+      interface JobListJobs {
         configuration?: Bigquery.Schema.JobConfiguration;
         errorResult?: Bigquery.Schema.ErrorProto;
         id?: string;
@@ -383,12 +382,12 @@ declare namespace GoogleAppsScript {
         status?: Bigquery.Schema.JobStatus;
         user_email?: string;
       }
-      export interface JobReference {
+      interface JobReference {
         jobId?: string;
         location?: string;
         projectId?: string;
       }
-      export interface JobStatistics {
+      interface JobStatistics {
         completionRatio?: number;
         creationTime?: string;
         endTime?: string;
@@ -403,7 +402,7 @@ declare namespace GoogleAppsScript {
         totalBytesProcessed?: string;
         totalSlotMs?: string;
       }
-      export interface JobStatistics2 {
+      interface JobStatistics2 {
         billingTier?: number;
         cacheHit?: boolean;
         ddlOperationPerformed?: string;
@@ -427,81 +426,81 @@ declare namespace GoogleAppsScript {
         totalSlotMs?: string;
         undeclaredQueryParameters?: Bigquery.Schema.QueryParameter[];
       }
-      export interface JobStatistics2ReservationUsage {
+      interface JobStatistics2ReservationUsage {
         name?: string;
         slotMs?: string;
       }
-      export interface JobStatistics3 {
+      interface JobStatistics3 {
         badRecords?: string;
         inputFileBytes?: string;
         inputFiles?: string;
         outputBytes?: string;
         outputRows?: string;
       }
-      export interface JobStatistics4 {
+      interface JobStatistics4 {
         destinationUriFileCounts?: string[];
         inputBytes?: string;
       }
-      export interface JobStatisticsReservationUsage {
+      interface JobStatisticsReservationUsage {
         name?: string;
         slotMs?: string;
       }
-      export interface JobStatus {
+      interface JobStatus {
         errorResult?: Bigquery.Schema.ErrorProto;
         errors?: Bigquery.Schema.ErrorProto[];
         state?: string;
       }
-      export interface MaterializedViewDefinition {
+      interface MaterializedViewDefinition {
         lastRefreshTime?: string;
         query?: string;
       }
-      export interface ModelDefinition {
+      interface ModelDefinition {
         modelOptions?: Bigquery.Schema.ModelDefinitionModelOptions;
         trainingRuns?: Bigquery.Schema.BqmlTrainingRun[];
       }
-      export interface ModelDefinitionModelOptions {
+      interface ModelDefinitionModelOptions {
         labels?: string[];
         lossType?: string;
         modelType?: string;
       }
-      export interface ProjectList {
+      interface ProjectList {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
         projects?: Bigquery.Schema.ProjectListProjects[];
         totalItems?: number;
       }
-      export interface ProjectListProjects {
+      interface ProjectListProjects {
         friendlyName?: string;
         id?: string;
         kind?: string;
         numericId?: string;
         projectReference?: Bigquery.Schema.ProjectReference;
       }
-      export interface ProjectReference {
+      interface ProjectReference {
         projectId?: string;
       }
-      export interface QueryParameter {
+      interface QueryParameter {
         name?: string;
         parameterType?: Bigquery.Schema.QueryParameterType;
         parameterValue?: Bigquery.Schema.QueryParameterValue;
       }
-      export interface QueryParameterType {
+      interface QueryParameterType {
         arrayType?: Bigquery.Schema.QueryParameterType;
         structTypes?: Bigquery.Schema.QueryParameterTypeStructTypes[];
         type?: string;
       }
-      export interface QueryParameterTypeStructTypes {
+      interface QueryParameterTypeStructTypes {
         description?: string;
         name?: string;
         type?: Bigquery.Schema.QueryParameterType;
       }
-      export interface QueryParameterValue {
+      interface QueryParameterValue {
         arrayValues?: Bigquery.Schema.QueryParameterValue[];
         structValues?: object;
         value?: string;
       }
-      export interface QueryRequest {
+      interface QueryRequest {
         defaultDataset?: Bigquery.Schema.DatasetReference;
         dryRun?: boolean;
         kind?: string;
@@ -515,7 +514,7 @@ declare namespace GoogleAppsScript {
         useLegacySql?: boolean;
         useQueryCache?: boolean;
       }
-      export interface QueryResponse {
+      interface QueryResponse {
         cacheHit?: boolean;
         errors?: Bigquery.Schema.ErrorProto[];
         jobComplete?: boolean;
@@ -528,33 +527,33 @@ declare namespace GoogleAppsScript {
         totalBytesProcessed?: string;
         totalRows?: string;
       }
-      export interface QueryTimelineSample {
+      interface QueryTimelineSample {
         activeUnits?: string;
         completedUnits?: string;
         elapsedMs?: string;
         pendingUnits?: string;
         totalSlotMs?: string;
       }
-      export interface RangePartitioning {
+      interface RangePartitioning {
         field?: string;
         range?: Bigquery.Schema.RangePartitioningRange;
       }
-      export interface RangePartitioningRange {
+      interface RangePartitioningRange {
         end?: string;
         interval?: string;
         start?: string;
       }
-      export interface RoutineReference {
+      interface RoutineReference {
         datasetId?: string;
         projectId?: string;
         routineId?: string;
       }
-      export interface Streamingbuffer {
+      interface Streamingbuffer {
         estimatedBytes?: string;
         estimatedRows?: string;
         oldestEntryTime?: string;
       }
-      export interface Table {
+      interface Table {
         clustering?: Bigquery.Schema.Clustering;
         creationTime?: string;
         description?: string;
@@ -584,36 +583,36 @@ declare namespace GoogleAppsScript {
         type?: string;
         view?: Bigquery.Schema.ViewDefinition;
       }
-      export interface TableCell {
+      interface TableCell {
         v?: object;
       }
-      export interface TableDataInsertAllRequest {
+      interface TableDataInsertAllRequest {
         ignoreUnknownValues?: boolean;
         kind?: string;
         rows?: Bigquery.Schema.TableDataInsertAllRequestRows[];
         skipInvalidRows?: boolean;
         templateSuffix?: string;
       }
-      export interface TableDataInsertAllRequestRows {
+      interface TableDataInsertAllRequestRows {
         insertId?: string;
         json?: object;
       }
-      export interface TableDataInsertAllResponse {
+      interface TableDataInsertAllResponse {
         insertErrors?: Bigquery.Schema.TableDataInsertAllResponseInsertErrors[];
         kind?: string;
       }
-      export interface TableDataInsertAllResponseInsertErrors {
+      interface TableDataInsertAllResponseInsertErrors {
         errors?: Bigquery.Schema.ErrorProto[];
         index?: number;
       }
-      export interface TableDataList {
+      interface TableDataList {
         etag?: string;
         kind?: string;
         pageToken?: string;
         rows?: Bigquery.Schema.TableRow[];
         totalRows?: string;
       }
-      export interface TableFieldSchema {
+      interface TableFieldSchema {
         categories?: Bigquery.Schema.TableFieldSchemaCategories;
         description?: string;
         fields?: Bigquery.Schema.TableFieldSchema[];
@@ -621,17 +620,17 @@ declare namespace GoogleAppsScript {
         name?: string;
         type?: string;
       }
-      export interface TableFieldSchemaCategories {
+      interface TableFieldSchemaCategories {
         names?: string[];
       }
-      export interface TableList {
+      interface TableList {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
         tables?: Bigquery.Schema.TableListTables[];
         totalItems?: number;
       }
-      export interface TableListTables {
+      interface TableListTables {
         clustering?: Bigquery.Schema.Clustering;
         creationTime?: string;
         expirationTime?: string;
@@ -644,38 +643,38 @@ declare namespace GoogleAppsScript {
         type?: string;
         view?: Bigquery.Schema.TableListTablesView;
       }
-      export interface TableListTablesView {
+      interface TableListTablesView {
         useLegacySql?: boolean;
       }
-      export interface TableReference {
+      interface TableReference {
         datasetId?: string;
         projectId?: string;
         tableId?: string;
       }
-      export interface TableRow {
+      interface TableRow {
         f?: Bigquery.Schema.TableCell[];
       }
-      export interface TableSchema {
+      interface TableSchema {
         fields?: Bigquery.Schema.TableFieldSchema[];
       }
-      export interface TimePartitioning {
+      interface TimePartitioning {
         expirationMs?: string;
         field?: string;
         requirePartitionFilter?: boolean;
         type?: string;
       }
-      export interface UserDefinedFunctionResource {
+      interface UserDefinedFunctionResource {
         inlineCode?: string;
         resourceUri?: string;
       }
-      export interface ViewDefinition {
+      interface ViewDefinition {
         query?: string;
         useLegacySql?: boolean;
         userDefinedFunctionResources?: Bigquery.Schema.UserDefinedFunctionResource[];
       }
     }
   }
-  export interface Bigquery {
+  interface Bigquery {
     Datasets?: Bigquery.Collection.DatasetsCollection;
     Jobs?: Bigquery.Collection.JobsCollection;
     Projects?: Bigquery.Collection.ProjectsCollection;

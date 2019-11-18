@@ -1,4 +1,4 @@
-import './index';
+import 'setimmediate';
 
 // $ExpectType number
 const i = setImmediate((...args) => {

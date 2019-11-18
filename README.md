@@ -42,13 +42,19 @@ See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declar
 
 ### npm
 
-This is the preferred method. This is only available for TypeScript 2.0+ users. For example:
+This is the preferred method. For example:
 
 ```sh
 npm install --save-dev @types/node
 ```
 
 The types should then be automatically included by the compiler.
+You may need to add a `types` reference if you're not using modules:
+
+```ts
+/// <reference types="node" />
+```
+
 See more in the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 For an NPM package "foo", typings for it will be at "@types/foo".
@@ -58,10 +64,25 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
+#### Typescript 2.7 and earlier
 
-### Other methods
+Definitely Typed only tests packages on Typescript 2.8 and later as of November 2019.
+If you're using Typescript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new Typescript features.
+But there's no guarantee that they'll work.
+Packages that existed before November 2019 may have older versions that are explicitly marked compatible with older versions of Typescript; use the tag "ts2.6" for Typescript 2.6, for example.
 
-These can be used by TypeScript 1.0.
+For example, if you run `npm dist-tags @types/react`, you'll see the following table that shows that react@16.4 has types for Typescript 2.6:
+
+|Tag | Version|
+|----|---------|
+|latest| 16.9.11|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.6| 16.4.7|
+| ... | ... |
+
+
+### Typescript 1.8 and earlier
 
 * [Typings](https://github.com/typings/typings)
 * ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
@@ -317,9 +338,9 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 2.1 or above.
+#### I want to use features from TypeScript 2.9 or above.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.9`.
 
 #### I want to use features from TypeScript 3.1 or above.
 

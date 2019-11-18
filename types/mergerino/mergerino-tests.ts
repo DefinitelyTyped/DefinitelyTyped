@@ -170,16 +170,16 @@ function deepMergeWithArr() {
     const newState = merge(state, { deep: { arr: { 1: 20 } } });
 }
 
-// ToDo: It shoudn't be allowed, but it occurs when I use "infer" to get array type
-function arrayObjectPatchNonExisitngProperty() {
-    interface State {
-        arr: Array<{
-            prop: boolean;
-        }>;
-    }
-    const state: State = { arr: [{ prop: true }] };
-    const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });
-}
+// Excess property checking for this example only works in TypeScript 3.8 and later
+// function arrayObjectPatchNonExisitngProperty() {
+//     interface State {
+//         arr: Array<{
+//             prop: boolean;
+//         }>;
+//     }
+//     const state: State = { arr: [{ prop: true }] };
+//     const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });  // $ExpectError
+// }
 
 function topLevelFunctionPatch() {
     type State =

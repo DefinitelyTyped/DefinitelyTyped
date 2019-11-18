@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.8
+// Type definitions for Chart.js 2.9
 // Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -586,6 +586,8 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        barPercentage?: number;
+        barThickness?: number | "flex";
         borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
         borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -594,6 +596,7 @@ declare namespace Chart {
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
+        categoryPercentage?: number;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
         hitRadius?: number | number[] | Scriptable<number>;
@@ -602,6 +605,8 @@ declare namespace Chart {
         hoverBorderWidth?: number | number[] | Scriptable<number>;
         label?: string;
         lineTension?: number;
+        maxBarThickness?: number;
+        minBarLength?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -624,6 +629,7 @@ declare namespace Chart {
         showLine?: boolean;
         stack?: string;
         spanGaps?: boolean;
+        weight?: number;
     }
 
     interface ChartScales {
@@ -646,9 +652,6 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number | "flex";
-        maxBarThickness?: number;
-        minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;
@@ -669,8 +672,6 @@ declare namespace Chart {
     }
 
     interface ChartXAxe extends CommonAxe {
-        categoryPercentage?: number;
-        barPercentage?: number;
         distribution?: 'linear' | 'series';
     }
 

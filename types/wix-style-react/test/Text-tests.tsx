@@ -10,7 +10,7 @@ function TextWithAllProps() {
     <Text
       className="cssssss"
       size="tiny"
-      ellipsed
+      ellipsis
       light
       secondary
       showTooltip

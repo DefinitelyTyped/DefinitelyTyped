@@ -1413,15 +1413,19 @@ describe("Randomize Tests", () => {
     it("should allow randomization of the order of tests", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
+            env.configure({
+                random: true
+            });
         }).not.toThrow();
     });
 
     it("should allow a seed to be passed in for randomization", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
-            return env.seed(1234);
+            env.configure({
+                random: true,
+                seed: 1234
+            });
         }).not.toThrow();
     });
 });

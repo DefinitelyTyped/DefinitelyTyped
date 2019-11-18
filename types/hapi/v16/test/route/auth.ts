@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 var routeMoreConfig: Hapi.RouteAdditionalConfigurationOptions = {
     auth: false,
