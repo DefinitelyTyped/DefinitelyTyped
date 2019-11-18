@@ -971,6 +971,30 @@ function testTemplateFn() {
 }
 
 const chunk = new webpack.compilation.Chunk('name');
+
+chunk.sortModules((module1, module2) => {
+  if (module1)
+      return 1;
+  else if (module2)
+      return -1;
+  return 0;
+});
+chunk.addMultiplierAndOverhead(12, {});
+chunk.addMultiplierAndOverhead(12, {
+  chunkOverhead: 1,
+  entryChunkMultiplicator: 2
+});
+chunk.size();
+chunk.size({});
+chunk.size({
+  chunkOverhead: 1,
+  entryChunkMultiplicator: 2
+});
+chunk.hasModuleInGraph(
+  m => m.type === "webassembly/async",
+  chunk => chunk.name === "vendor"
+);
+
 const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
 webpack.Template.renderChunkModules(
   chunk,

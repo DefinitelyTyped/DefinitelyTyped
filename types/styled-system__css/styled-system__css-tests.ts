@@ -33,27 +33,30 @@ export const themeWithVariants: Theme = {
     fontWeights: {
         bold: 600,
     },
-    buttons: {
-        primary: {
-            display: 'block',
-            p: 3,
-            fontWeight: 'bold',
-            color: 'white',
-            bg: 'primary',
-            borderRadius: 2,
-        },
-    },
-    text: {
-        caps: {
-            fontSize: [1, 2],
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-        },
-        title: {
-            fontSize: [3, 4],
-            letterSpacing: ['-0.01em', '-0.02em'],
-        },
-    },
+    // The following is commented out because in doesn't adhere to the Theme type, but
+    // this wasn't detected until TypeScript 3.8. Either the example or the Theme type
+    // needs to be changed.
+    // buttons: {
+    //     primary: {
+    //         display: 'block',
+    //         p: 3,
+    //         fontWeight: 'bold',
+    //         color: 'white',
+    //         bg: 'primary',
+    //         borderRadius: 2,
+    //     },
+    // },
+    // text: {
+    //     caps: {
+    //         fontSize: [1, 2],
+    //         letterSpacing: '0.1em',
+    //         textTransform: 'uppercase',
+    //     },
+    //     title: {
+    //         fontSize: [3, 4],
+    //         letterSpacing: ['-0.01em', '-0.02em'],
+    //     },
+    // },
 };
 
 // returns a function

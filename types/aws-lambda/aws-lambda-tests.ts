@@ -718,10 +718,16 @@ const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent =
                     requestId: 'MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE==',
                 },
                 request: {
+                    body: {
+                        action: 'read-only',
+                        data: 'eyJ1c2VybmFtZSI6IkxhbWJkYUBFZGdlIiwiY29tbWVudCI6IlRoaXMgaXMgcmVxdWVzdCBib2R5In0=',
+                        encoding: 'base64',
+                        inputTruncated: false,
+                    },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {
@@ -772,10 +778,16 @@ const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
                     requestId: 'MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE==',
                 },
                 request: {
+                    body: {
+                        action: 'read-only',
+                        data: 'eyJ1c2VybmFtZSI6IkxhbWJkYUBFZGdlIiwiY29tbWVudCI6IlRoaXMgaXMgcmVxdWVzdCBib2R5In0=',
+                        encoding: 'base64',
+                        inputTruncated: false,
+                    },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {

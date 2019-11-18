@@ -125,9 +125,141 @@ pubnub.grant(grantOptions).then(status => {
     console.log(status);
 });
 
-pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => {
-    console.log(status, res);
-});
+pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
+
+pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
+
+pubnub.fetchMessages(
+    {
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+        includeMeta: true,
+        includeMessageActions: true,
+    },
+    (status, { channels }) =>
+        Object.keys(channels).forEach(channel =>
+            channels[channel].forEach(({ message, timetoken, meta, actions = {} }) => {
+                console.log({ message, timetoken, meta });
+                Object.keys(actions).forEach(type =>
+                    Object.keys(actions[type]).forEach(value =>
+                        actions[type][value].forEach(({ uuid, actionTimetoken }) =>
+                            console.log({ uuid, actionTimetoken }),
+                        ),
+                    ),
+                );
+            }),
+        ),
+);
+
+pubnub
+    .fetchMessages({
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+    })
+    .then(res => console.log(res));
+
+pubnub.deleteMessages(
+    {
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    },
+    status => console.log(status),
+);
+
+pubnub
+    .deleteMessages({
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    })
+    .then();
+
+pubnub.messageCounts(
+    {
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    },
+    (status, { channels }) => {
+        Object.keys(channels).forEach(channel => {
+            console.log(channels[channel]);
+        });
+    },
+);
+
+pubnub
+    .messageCounts({
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    })
+    .then(res => console.log(res));
+
+pubnub.push.addChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .addChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then();
+
+pubnub.push.listChannels(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    (status, { channels = [] }) => channels.forEach(channel => console.log(channel)),
+);
+
+pubnub.push
+    .listChannels({
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then(res => console.log(res));
+
+pubnub.push.removeChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+pubnub.push
+    .removeChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
+
+pubnub.push.deleteDevice(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .deleteDevice({
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
 
 const cryptoOptions = {
     encryptKey: true,
@@ -499,5 +631,69 @@ pubnub
     .removeMembers({
         spaceId: 'space-1',
         users: ['user-1', 'user-2'],
+    })
+    .then(res => console.log(res));
+
+pubnub.addMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    },
+    (status, { data: { type, value, uuid, actionTimetoken, messageTimetoken } }) =>
+        console.log({ type, value, uuid, actionTimetoken, messageTimetoken }),
+);
+
+pubnub
+    .addMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    })
+    .then(res => console.log(res));
+
+pubnub.removeMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    },
+    (status, data) => console.log(status, data),
+);
+
+pubnub
+    .removeMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    })
+    .then(res => console.log(res));
+
+pubnub.getMessageActions(
+    {
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
+    },
+    (status, { data }) => {
+        data.forEach(({ type, value, uuid, actionTimetoken, messageTimetoken }, index) => {
+            console.log(index, { type, value, uuid, actionTimetoken, messageTimetoken });
+        });
+    },
+);
+
+pubnub
+    .getMessageActions({
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
     })
     .then(res => console.log(res));
