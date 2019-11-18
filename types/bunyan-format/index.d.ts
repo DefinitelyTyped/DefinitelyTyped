@@ -3,7 +3,7 @@
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 //                 Ashley Abbott <https://github.com/ashpabb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -23,11 +23,13 @@ declare namespace BunyanFormatWritable {
     }
 }
 
-declare class BunyanFormatWritable extends Writable {
-    /** Creates a writable stream that formats bunyan records written to it. */
-    constructor(options: BunyanFormatWritable.Options, output?: Writable);
-}
+interface BunyanFormatWritable extends Writable {}
 
-declare function BunyanFormatWritable(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+declare var BunyanFormatWritable: {
+    /** Creates a writable stream that formats bunyan records written to it. */
+    (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+    /** Creates a writable stream that formats bunyan records written to it. */
+    new (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+};
 
 export = BunyanFormatWritable;
