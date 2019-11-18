@@ -4267,6 +4267,12 @@
             "asOfVersion": "2.2.9"
         },
         {
+            "libraryName": "rsmq",
+            "typingsPackageName": "rsmq",
+            "sourceRepoURL": "http://smrchy.github.io/rsmq/",
+            "asOfVersion": "0.8.4"
+        },
+        {
             "libraryName": "rvo2",
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
