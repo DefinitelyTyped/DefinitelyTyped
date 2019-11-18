@@ -280,6 +280,7 @@ declare namespace Chart {
     }
 
     interface ChartLegendOptions {
+        align?: 'center' | 'end' | 'start';
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
@@ -288,7 +289,7 @@ declare namespace Chart {
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
-
+    
     interface ChartLegendLabelOptions {
         boxWidth?: number;
         fontSize?: number;
