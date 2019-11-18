@@ -1,32 +1,32 @@
-// Type definitions for node-observer 0.4.4
+// Type definitions for node-observer 0.4
 // Project: https://github.com/hormander/node-observer
 // Definitions by: wjchi <https://github.com/CwjXFH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export =observer;
+export = observer;
 
 declare class Observer {
-    private subscribers: Array<Object>;
+    private subscribers: object[];
     /**
      * subscirpt event
      * @param targetObj objects that subscribe to events
      * @param eventName the event name
      * @param callback callback function executed when an event is fired
      */
-    subscribe(targetObj: Object, eventName: String, callback: Function): void;
+    subscribe(targetObj: object, eventName: string, callback: any): void;
     /**
      * unsubscript event
      * @param targetObj objects that subscribe to events
      * @param eventName the event name
      */
-    unsubscribe(targetObj: Object, eventName: String): void;
+    unsubscribe(targetObj: object, eventName: string): void;
     /**
      * triggering event
      * @param targetObj objects that subscribe to events
      * @param eventName the event name
      * @param data passed to the callback function when the event is fired
      */
-    send(targetObj: Object, eventName: String, data: Object): void;
+    send(targetObj: object, eventName: string, data: any): void;
 }
 
 declare let observer: Observer;

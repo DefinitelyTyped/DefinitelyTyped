@@ -1,7 +1,7 @@
 import observer = require("node-observer");
 
 class Demo {
-    public sayHello(msg: String) {
+    sayHello(msg: string) {
         console.log(`hello ${msg}`);
     }
 }
