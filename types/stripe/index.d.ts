@@ -13857,11 +13857,6 @@ declare namespace Stripe {
             /**
              * Used both for turning an authorization_code into an access_token, and for getting a new access token using a refresh_token.
              *
-             * @param {(oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest)} data
-             * @param {HeaderOptions} options
-             * @param {IResponseFn<oauth.IOAuthToken>} [response]
-             * @returns {Promise<oauth.IOAuthToken>}
-             * @memberof OAuth
              */
             token(
                 data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
@@ -13872,12 +13867,8 @@ declare namespace Stripe {
             /**
              * When revoking access to an account, you must use an API key that matches the mode—live or test—of the authorization code (which depends on whether the client_id used was production or development).
              *
-             * @param {string} client_id The client_id of the application that you'd like to disconnect the account from. The account must be connected to this application.
-             * @param {string} stripe_user_id The account you'd like to disconnect from.
-             * @param {HeaderOptions} options
-             * @param {IResponseFn<oauth.IOAuthDeauthorizationResponse>} [response]
-             * @returns {Promise<oauth.IOAuthDeauthorizationResponse>}
-             * @memberof OAuth
+             * @param client_id The client_id of the application that you'd like to disconnect the account from. The account must be connected to this application.
+             * @param stripe_user_id The account you'd like to disconnect from.
              */
             deauthorize(
                 client_id: string,
