@@ -3,10 +3,12 @@
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
 //                 Pavel Puchkov <https://github.com/0x6368656174>
 //                 Sam Nau <https://github.com/samnau>
+//                 Jonathan Loss <https://github.com/barroudjo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Siema {
     currentSlide: number;
+    perPage: number;
 
     constructor(options?: SiemaOptions);
 
@@ -18,7 +20,6 @@ export default class Siema {
     prepend(item: HTMLElement, callback?: () => void): void;
     append(item: HTMLElement, callback?: () => void): void;
     destroy(restoreMarkup?: boolean, callback?: () => void): void;
-    perPage: number;
 }
 
 export interface PageInterface {
