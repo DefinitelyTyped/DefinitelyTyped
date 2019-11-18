@@ -1838,7 +1838,7 @@ export class Canvas {
 	 */
 	altSelectionKey?: string;
 
-	fire(eventName: string, options: any);
+	fire(eventName: string, options: any): void;
 	/**
 	 * Renders both the top canvas and the secondary container canvas.
 	 * @return {fabric.Canvas} instance
@@ -1978,17 +1978,17 @@ export class Canvas {
 	 *					When not provided, an object is scaled by both dimensions equally
 	 * @return {Boolean} true if the scaling occurred
 	 */
-	_scaleObject(x: number, y: number, by?: 'x' | 'y' | 'equally');
+	_scaleObject(x: number, y: number, by?: 'x' | 'y' | 'equally'): boolean;
 	/**
 	 * @private
 	 * @param {fabric.Object} obj Object that was removed
 	 */
-	_onObjectRemoved(obj: Object);
+	_onObjectRemoved(obj: Object): void;
 	/**
 	 * @private
 	 * @param {fabric.Object} obj Object that was added
 	 */
-	_onObjectAdded(obj: Object);
+	_onObjectAdded(obj: Object): void;
 	/**
 	 * Resets the current transform to its original values and chooses the type of resizing based on the event
 	 * @private
@@ -2006,7 +2006,7 @@ export class Canvas {
 	 * @param {Event} [e] Event (passed along when firing "object:selected")
 	 * @return {Boolean} true if the selection happened
 	 */
-	_setActiveObject(object: fabric.Object, e?: Event);
+	_setActiveObject(object: fabric.Object, e?: Event): boolean;
 	/**
 	 * Returns pointer coordinates relative to canvas.
 	 * Can return coordinates with or without viewportTransform.
@@ -2326,7 +2326,7 @@ export class ActiveSelection {
 	 * @param {Object} [options] Options object
 	 * @return {Object} thisArg
 	 */
-	initialize(objects: ActiveSelection, options?: IObjectOptions);
+	initialize(objects: ActiveSelection, options?: IObjectOptions): Object;
 	/**
 	 * Change te activeSelection to a normal group,
 	 * High level function that automatically adds it to canvas as
@@ -3636,7 +3636,7 @@ export class Object {
 	 */
 	intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
 
-	fire(eventName: string, options?: any);
+	fire(eventName: string, options?: any): void;
 
 	/**
 	 * Animates object's properties
@@ -4489,7 +4489,7 @@ export class Text extends Object {
 	 * @private
 	 * @param {CanvasRenderingContext2D} ctx Context to render on
 	 */
-	_renderText(ctx: CanvasRenderingContext2D);
+	_renderText(ctx: CanvasRenderingContext2D): void;
 
 	/**
 	 * @private
@@ -4531,7 +4531,7 @@ export class Text extends Object {
 	 * @param {Number} top Top position of text
 	 * @param {Number} lineIndex Index of a line in a text
 	 */
-	_renderTextLine(method: string, ctx: CanvasRenderingContext2D, line: string, left: number, top: number, lineIndex: number);
+	_renderTextLine(method: string, ctx: CanvasRenderingContext2D, line: string, left: number, top: number, lineIndex: number): void;
 
 	/**
 	 * @private
