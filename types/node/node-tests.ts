@@ -817,7 +817,23 @@ import moduleModule = require('module');
     let paths: string[] = module.paths;
     paths = m1.paths;
 
-    moduleModule.createRequireFromPath('./test')('test');
+    const customRequire1 = moduleModule.createRequireFromPath('./test');
+    const customRequire2 = moduleModule.createRequire('./test');
+
+    customRequire1('test');
+    customRequire2('test');
+
+    const resolved1: string = customRequire1.resolve('test');
+    const resolved2: string = customRequire2.resolve('test');
+
+    const paths1: string[] | null  = customRequire1.resolve.paths('test');
+    const paths2: string[] | null  = customRequire2.resolve.paths('test');
+
+    const cachedModule1: Module = customRequire1.cache['/path/to/module.js'];
+    const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
+
+    const main1: Module | undefined = customRequire1.main;
+    const main2: Module | undefined = customRequire2.main;
 }
 
 /////////////////////////////////////////////////////////
