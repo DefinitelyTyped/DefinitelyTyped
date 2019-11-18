@@ -48,7 +48,26 @@ export interface StoreConfig<S> {
         [k: string]: (action: Action) => any;
     };
     initialState?: S;
-    persist?: Array<keyof S>;
+
+    /**
+     * Use persist with the persistence plugin to persist state.
+     *
+     * The registry must use the `persistence` plugin.
+     *
+     * Set to `true` to persist all state, or pass an array of state keys to persist.
+     *
+     * @example
+     *
+     * import { plugins, registerStore, use } from '@wordpress/data';
+     *
+     * use( plugins.persistence, { storageKey: 'example' } );
+     *
+     * registerStore( 'my-plugin', {
+     *   // …
+     *   persist: [ 'state-key-to-persist' ],
+     * } );
+     */
+    persist?: true | Array<keyof S>;
 }
 
 export interface Store<S, A extends Action = Action> {
