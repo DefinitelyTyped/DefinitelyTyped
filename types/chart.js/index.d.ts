@@ -285,11 +285,8 @@ declare namespace Chart {
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
-
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
-
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
-
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
