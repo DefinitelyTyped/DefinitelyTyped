@@ -1,4 +1,4 @@
-// Type definitions for qrcode.react 0.9
+// Type definitions for qrcode.react 1.0.0
 // Project: https://github.com/zpao/qrcode.react, http://zpao.github.io/qrcode.react
 // Definitions by: Mleko <https://github.com/mleko>,
 //                 Yonas <https://github.com/yonasadiel>,
