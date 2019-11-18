@@ -18,6 +18,7 @@ export default class Siema {
     prepend(item: HTMLElement, callback?: () => void): void;
     append(item: HTMLElement, callback?: () => void): void;
     destroy(restoreMarkup?: boolean, callback?: () => void): void;
+    perPage: number;
 }
 
 export interface PageInterface {
