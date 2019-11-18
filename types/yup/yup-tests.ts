@@ -512,6 +512,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         max: '${path} must be less than or equal to ${max}',
         lessThan: '${path} must be less than ${less}',
         moreThan: '${path} must be greater than ${more}',
+        notEqual: '${path} must be not equal to ${notEqual}',
         positive: '${path} must be a positive number',
         negative: '${path} must be a negative number',
         integer: '${path} must be an integer',

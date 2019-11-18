@@ -455,6 +455,7 @@ interface NumberLocale {
     max?: TestOptionsMessage<{ max: number }>;
     lessThan?: TestOptionsMessage<{ less: number }>;
     moreThan?: TestOptionsMessage<{ more: number }>;
+    notEqual?: TestOptionsMessage<{ more: number }>;
     positive?: TestOptionsMessage<{ more: number }>;
     negative?: TestOptionsMessage<{ less: number }>;
     integer?: TestOptionsMessage;
