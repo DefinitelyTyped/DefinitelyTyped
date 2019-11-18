@@ -1,6 +1,7 @@
 // Type definitions for @wordpress/data 4.6
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
