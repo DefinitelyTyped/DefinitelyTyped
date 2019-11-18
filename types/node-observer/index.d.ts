@@ -2,7 +2,6 @@
 // Project: https://github.com/hormander/node-observer
 // Definitions by: wjchi <https://github.com/CwjXFH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3.3
 
 export =observer;
 
