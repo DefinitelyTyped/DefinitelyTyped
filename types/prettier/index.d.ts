@@ -344,6 +344,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean
 }
 
 export interface FileInfoResult {
