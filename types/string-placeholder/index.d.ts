@@ -13,4 +13,4 @@ interface Options {
     clean?: boolean;
 }
 
-export default template;
+export = template;
