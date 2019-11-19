@@ -16,8 +16,8 @@ declare namespace webpackNodeExternals {
     type ImportTypeCallback = (moduleName: string) => string;
 
     interface ModulesFromFileType {
-        exclude?: string | string[],
-        include?: string | string[]
+        exclude?: string | string[];
+        include?: string | string[];
     }
 
     interface Options {
