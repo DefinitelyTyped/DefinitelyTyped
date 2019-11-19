@@ -1245,5 +1245,4 @@ declare namespace validator {
      */
     function toString(input: any): string;
 }
-
 export default validator;
