@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isPort
+export default validator.isPort;

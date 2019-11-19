@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isISSN
+export default validator.isISSN;

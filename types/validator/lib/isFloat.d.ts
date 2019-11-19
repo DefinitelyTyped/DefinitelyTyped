@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isFloat
+export default validator.isFloat;

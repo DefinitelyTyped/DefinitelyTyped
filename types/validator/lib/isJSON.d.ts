@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isJSON
+export default validator.isJSON;

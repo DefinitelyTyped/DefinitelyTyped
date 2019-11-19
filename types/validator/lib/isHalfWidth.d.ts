@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isHalfWidth
+export default validator.isHalfWidth;

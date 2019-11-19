@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.matches
+export default validator.matches;

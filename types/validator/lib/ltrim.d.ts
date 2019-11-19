@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.ltrim
+export default validator.ltrim;

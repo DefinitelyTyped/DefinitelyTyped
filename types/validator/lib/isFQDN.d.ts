@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isFQDN
+export default validator.isFQDN;

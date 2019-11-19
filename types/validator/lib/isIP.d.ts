@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isIP
+export default validator.isIP;

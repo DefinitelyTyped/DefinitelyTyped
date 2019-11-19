@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isEmail
+export default validator.isEmail;

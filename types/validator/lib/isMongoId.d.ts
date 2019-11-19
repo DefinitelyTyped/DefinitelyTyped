@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isMongoId
+export default validator.isMongoId;

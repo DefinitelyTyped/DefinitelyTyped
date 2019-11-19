@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isEmpty
+export default validator.isEmpty;

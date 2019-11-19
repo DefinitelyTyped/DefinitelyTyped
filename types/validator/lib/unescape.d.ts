@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.unescape
+export default validator.unescape;

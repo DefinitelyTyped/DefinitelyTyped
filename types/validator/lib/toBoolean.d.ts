@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.toBoolean
+export default validator.toBoolean;

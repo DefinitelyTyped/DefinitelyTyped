@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isHash
+export default validator.isHash;

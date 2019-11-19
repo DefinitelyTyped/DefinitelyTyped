@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isLatLong
+export default validator.isLatLong;

@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isJWT
+export default validator.isJWT;

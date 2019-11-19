@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isMimeType
+export default validator.isMimeType;

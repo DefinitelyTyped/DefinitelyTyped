@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.stripLow
+export default validator.stripLow;

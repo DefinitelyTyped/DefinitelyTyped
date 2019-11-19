@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isIn
+export default validator.isIn;

@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.whitelist
+export default validator.whitelist;

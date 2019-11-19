@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isMACAddress
+export default validator.isMACAddress;

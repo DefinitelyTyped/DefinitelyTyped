@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isDecimal
+export default validator.isDecimal;

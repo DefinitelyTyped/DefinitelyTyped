@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isCurrency
+export default validator.isCurrency;

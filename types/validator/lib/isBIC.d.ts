@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isBIC
+export default validator.isBIC;

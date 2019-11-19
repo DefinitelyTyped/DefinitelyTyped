@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isMultibyte
+export default validator.isMultibyte;

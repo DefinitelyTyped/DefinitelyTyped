@@ -1,2 +1,2 @@
 import validator from '../';
-export default validator.isLowercase
+export default validator.isLowercase;
