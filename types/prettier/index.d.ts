@@ -130,6 +130,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Change when properties in objects are quoted.
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     */
+    vueIndentScriptAndStyle: boolean;
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -344,6 +348,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {
