@@ -24,7 +24,7 @@ declare namespace createHttpError {
 
     type HttpErrorConstructor = new (msg?: string) => HttpError;
 
-    type CreateHttpError = (...args: Array<UnknownError>) => HttpError;
+    type CreateHttpError = (...args: UnknownError[]) => HttpError;
 
     type NamedConstructors = {
         [code: string]: HttpErrorConstructor;
