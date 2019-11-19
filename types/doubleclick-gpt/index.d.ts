@@ -118,6 +118,7 @@ declare namespace googletag {
         setForceSafeFrame(forceSafeFrame: boolean): Slot;
         setSafeFrameConfig(config: SafeFrameConfig): Slot;
         setTargeting(key: string, value: string | string[]): Slot;
+        setPrivacySettings(settings: { restrictDataProcessing: boolean }): Slot;
     }
 
     interface PassbackSlot {
