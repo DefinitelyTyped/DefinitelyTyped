@@ -1,6 +1,6 @@
 import * as convict from 'convict';
-import * as validator from 'validator';
-import { safeLoad } from 'js-yaml';
+const validator: any = void 0;
+const safeLoad: any = void 0;
 
 // define a schema
 
