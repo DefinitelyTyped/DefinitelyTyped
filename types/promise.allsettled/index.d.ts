@@ -2,6 +2,7 @@
 // Project: https://github.com/ljharb/promise.allsettled#readme
 // Definitions by: Martin Jurča <https://github.com/jurca>
 //                 Elizabeth Lorenz <https://github.com/kisaraofpern>
+//		   Nikhil Mashettiwar <https://github.com/nikmash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
