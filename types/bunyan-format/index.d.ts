@@ -23,14 +23,13 @@ declare namespace BunyanFormatWritable {
     }
 }
 
-// tslint:disable-next-line no-empty-interface
-interface BunyanFormatWritable extends Writable {}
-
-declare var BunyanFormatWritable: {
-    /** Creates a writable stream that formats bunyan records written to it. */
-    (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
-    /** Creates a writable stream that formats bunyan records written to it. */
+/** Creates a writable stream that formats bunyan records written to it. */
+declare interface BunyanFormatWritable extends Writable {
+    // tslint:disable-next-line no-misused-new
     new (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
-};
+    (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+}
 
-export = BunyanFormatWritable;
+declare const BunyanFormat: BunyanFormatWritable;
+
+export = BunyanFormat;
