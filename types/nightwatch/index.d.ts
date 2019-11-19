@@ -292,7 +292,7 @@ export interface NightwatchOptions {
         start_process: boolean;
         server_path: string;
         cli_args: string[];
-    }
+    };
 }
 
 export interface NightwatchGlobals {
