@@ -11,13 +11,14 @@ const config: vaultAuthAws.Config = {
     certFilePath: undefined,
     sslRejectUnAuthorized: true
 };
+
 const creds: vaultAuthAws.Creds = {
     accessKeyId: '',
     secretAccessKey: '',
     sessionToken: ''
 };
 
-const vault = vaultAuthAws(config);
+const vault = new vaultAuthAws(config);
 
 vault.getOptions(creds);
 Promise.resolve(vault.authenticate());

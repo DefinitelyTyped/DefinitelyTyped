@@ -5,12 +5,13 @@
 // TypeScript Version: 3.7
 /// <reference types="node" />
 
-declare namespace vaultAuthAws {
-    interface Client {
-        authenticate(): Promise<any>;
-        getOptions(creds: Creds): Options;
-    }
+declare class vaultAuthAws {
+    constructor(config?: vaultAuthAws.Config);
+    authenticate(): Promise<any>;
+    getOptions(creds: vaultAuthAws.Creds): vaultAuthAws.Options;
+}
 
+declare namespace vaultAuthAws {
     interface Config {
         ssl?: boolean;
         host?: string;
@@ -36,7 +37,5 @@ declare namespace vaultAuthAws {
         cert?: Buffer;
     }
 }
-
-declare function vaultAuthAws(config?: vaultAuthAws.Config): vaultAuthAws.Client;
 
 export = vaultAuthAws;
