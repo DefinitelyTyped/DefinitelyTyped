@@ -1,7 +1,7 @@
 // Type definitions for webpack-node-externals 1.7
 // Project: https://github.com/liady/webpack-node-externals
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-//                 Manuel Pogge <hhtps://github.com/mrspoocy>
+//                 Manuel Pogge <https://github.com/MrSpoocy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
