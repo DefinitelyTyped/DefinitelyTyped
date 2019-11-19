@@ -1050,14 +1050,26 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 // ##################################################################################
 
 stripe.transfers.create(
-    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' },
+    {
+        amount: 100,
+        currency: 'USD',
+        destination: 'acct_17wV8KBoqMA9o2xk',
+        source_type: 'bank_account',
+        transfer_group: 'Order_X',
+    },
     (err, reversal) => {
         // asynchronously called
     },
 );
 
 stripe.transfers
-    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account', transfer_group: 'Order_X' })
+    .create({
+        amount: 100,
+        currency: 'USD',
+        destination: 'acct_17wV8KBoqMA9o2xk',
+        source_type: 'bank_account',
+        transfer_group: 'Order_X',
+    })
     .then(reversal => {
         // asynchronously called
     });
@@ -1468,6 +1480,36 @@ stripe.products
 
 //#endregion
 
+//#region Oauth tests
+// ##################################################################################
+
+stripe.oauth
+    .token({
+        grant_type: 'authorization_code',
+        code: 'ac_123456789',
+    })
+    .then(response => {
+        // asynchronously called
+        const connected_account_id = response.stripe_user_id;
+    });
+
+stripe.oauth
+    .token({
+        grant_type: 'refresh_token',
+        refresh_token: 'random_refresh_token',
+    })
+    .then(response => {
+        // asynchronously called
+        const access_token = response.access_token;
+    });
+
+stripe.oauth.deauthorize('ac_123456789', 'userid_123456789').then(response => {
+    // asynchronously called
+    const stripe_user_id = response.stripe_user_id;
+});
+
+//#endregion
+
 //#region SKUs tests
 // ##################################################################################
 
@@ -1500,8 +1542,8 @@ const header: string = stripe.webhooks.generateTestHeaderString({
 
 stripe.webhookEndpoints.create(
     {
-        url: "https://example.com/success",
-        enabled_events: ["plan.updated"],
+        url: 'https://example.com/success',
+        enabled_events: ['plan.updated'],
     },
     (err, webhookEndpoint) => {
         // asynchronously called
@@ -1509,8 +1551,8 @@ stripe.webhookEndpoints.create(
 );
 stripe.webhookEndpoints
     .create({
-        url: "https://example.com/success",
-        enabled_events: ["plan.updated"],
+        url: 'https://example.com/success',
+        enabled_events: ['plan.updated'],
     })
     .then(webhookEndpoint => {
         // asynchronously called
