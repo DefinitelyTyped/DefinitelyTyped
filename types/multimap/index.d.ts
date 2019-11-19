@@ -2,9 +2,9 @@
 // Project: https://github.com/villadora/multi-map
 // Definitions by: Tyler Allen <https://github.com/tallenstudios>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript Version: 3.1
 
 interface Multimap {
-
     /**
      * Number of values
      */
@@ -15,23 +15,14 @@ interface Multimap {
      */
     count: number;
 
-    /**
-     * 
-     */
     clear(): void;
 
     /**
-     * @param {any} key
-     * @param {any} val
-     * @return {boolean} true if any thing changed
+     * @param key
+     * @param val
+     * @return true if any thing changed
      */
-    delete(key: any, val: any): boolean;
-
-    /**
-     * @param {any} key
-     * @return {boolean} true if any thing changed
-     */
-    delete(key: any): boolean;
+    delete(key: any, val?: any): boolean;
 
     /**
      * 
@@ -40,52 +31,42 @@ interface Multimap {
     forEach(iter: any): void;
 
     /**
-     * 
      * @param iter 
      */
     forEachEntry(iter: any): void;
 
     /**
-     * 
-     * @param {any} key 
+     * @param key 
      */
     get(key: any): any;
 
     /**
-     * @param {any} key
-     * @param {any=} val
-     * @return {boolean} whether the map contains 'key' or 'key=>val' pair
+     * @param key
+     * @param val
+     * @return whether the map contains 'key' or 'key=>val' pair
      */
-    has(key: any, val: any): boolean;
+    has(key: any, val?: any): boolean;
 
     /**
-     * @param {any} key
-     * @return {boolean} whether the map contains 'key'
-     */
-    has(key: any): boolean;
-
-    /**
-     * @return {Array} all the keys in the map
+     * @return all the keys in the map
      */
     keys(): { next: () => { value: any, done: boolean } };
 
     /**
      * 
-     * @param {any} key 
-     * @param {any} val 
+     * @param key 
+     * @param val 
      */
     set(key: any, val: any, ...args: any): void;
 
     /**
-     * @return {any[]} all the values in the map
+     * @return all the values in the map
      */
     values(): { next: () => { value: any, done: boolean } };
-
 }
 
 interface multimapConstructor {
-    new(): Multimap;
-    new(iterable: any): Multimap;
+    new(iterable?: any): Multimap;
 }
 
 declare const Multimap: multimapConstructor;
