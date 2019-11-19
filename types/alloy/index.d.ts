@@ -9,7 +9,7 @@
 /// <reference types="titanium" />
 
 interface AlloyControllerUI {
-  create(apiName: string, opts?: any): AlloyController & any;
+  create(apiName: string, opts?: any): any;
 }
 
 /**
@@ -145,7 +145,7 @@ interface AlloyInterface {
    * @param name Name of controller to instantiate.
    * @param args Arguments to pass to the controller
    */
-  createController(name: string, args?: any): AlloyController & any;
+  createController(name: string, args?: any): any;
 
   /**
    * Factory method for instantiating a Backbone Model object. Creates and returns an instance of the named model.
@@ -162,8 +162,8 @@ interface AlloyInterface {
    * @param name Name of the view within the widget to instantiate ('widget' by default)
    * @param args Arguments to pass to the widget.
    */
-  createWidget(id: string, args?: any): AlloyController & any;
-  createWidget(id: string, name?: string, args?: any): AlloyController & any;
+  createWidget(id: string, args?: any): any;
+  createWidget(id: string, name?: string, args?: any): any;
 }
 
 /**
@@ -181,7 +181,7 @@ interface WidgetInterface {
    * @param name Name of controller to instantiate.
    * @param args Arguments to pass to the controller
    */
-  createController(name: string, args?: any): AlloyController & any;
+  createController(name: string, args?: any): any;
 }
 
 /**
