@@ -131,7 +131,7 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
     /**
-     * Whether or not to indent the code inside <script> and <style> tags in Vue files. 
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
      */
     vueIndentScriptAndStyle: boolean;
 }
