@@ -1196,6 +1196,8 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
         }
 
         interface MultiCompilerHooks {
