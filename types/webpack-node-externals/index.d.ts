@@ -14,10 +14,11 @@ declare function webpackNodeExternals(options?: webpackNodeExternals.Options): E
 declare namespace webpackNodeExternals {
     type WhitelistOption = string | RegExp;
     type ImportTypeCallback = (moduleName: string) => string;
-    type ModulesFromFileType = {
+
+    interface ModulesFromFileType {
         exclude?: string | string[],
         include?: string | string[]
-    };
+    }
 
     interface Options {
         /**
