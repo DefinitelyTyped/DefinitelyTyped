@@ -678,3 +678,123 @@ async function test_schema() {
 
     schema.update({ sessionToken: '' }).then(results => {});
 }
+
+function test_generic_object() {
+    // Test Parse.Object instantiation with no type assertion
+    const objAny = new Parse.Object('TestObject')
+    objAny.attributes.whatever    // any
+    objAny.attributes.createdAt   // Date | undefined
+    objAny.attributes.updatedAt   // Date | undefined
+    objAny.attributes.objectId    // string | undefined
+    objAny.attributes.ACL         // Parse.ACL | undefined
+
+    // Test Parse.Object instantiation with manual type assertion
+    const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject')
+    const exampleAttr = objWithTypedAttrs.attributes.example     // string
+    const exampleGet = objWithTypedAttrs.get('example')    // string
+    // const badAttr = objWithTypedAttrs.attributes.other  // error
+
+    // Test Parse.Object instantiation with attributes
+    const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 })
+    const exampleAttrFromOptions = objWithAttrsAndOptions.attributes.example  // number
+    const exampleGetFromOptions = objWithAttrsAndOptions.get('example') // number
+    // const badAttr2 = objWithAttrsAndOptions.attributes.other     // error
+    
+}
+
+function test_to_json_generic() {
+
+    const exampleObjAny = new Parse.Object('TestObject')
+    const exampleJsonAny = exampleObjAny.toJSON()   // Parse.Object.Attributes
+
+    const exampleObjTyped = new Parse.Object('TestObject', {
+        exampleProp: false,
+        regexProp: new RegExp(''),
+        dateProp: new Date(),
+        parseProp: new Parse.Object('nestedObject', {
+            exampleProp: false,
+            regexProp: new RegExp(''),
+            dateProp: new Date(),
+            parseProp2: new Parse.Object('nestedObject', {
+                exampleProp2: false,
+                regexProp2: new RegExp(''),
+                dateProp2: new Date()
+            })
+        })
+    })
+    const exampleJsonTyped = exampleObjTyped.toJSON()
+    exampleJsonTyped.exampleProp           // boolean
+    exampleJsonTyped.dateProp              // string
+    exampleJsonTyped.regexProp             // string
+    exampleJsonTyped.parseProp.dateProp    // string
+    exampleJsonTyped.parseProp.parseProp2.regexProp2    // string
+    exampleJsonTyped.parseProp.ACL         // Parse.ACL | undefined
+    exampleJsonTyped.parseProp.objectId    // string | undefined
+}
+
+async function test_save_generic() {
+    const exampleObjAny = new Parse.Object('TestObject')
+    const savedAny = await exampleObjAny.save()
+    savedAny.attributes.anything    // any
+    const savedNewExampleAttrAny = await exampleObjAny.save({ example: true })
+    savedNewExampleAttrAny.attributes.anythingElse  // any
+
+    // Calling Parse.Object.save({}) with an existing attribute type checks
+    const exampleObjTyped = new Parse.Object<{ example: number; newExample: string }>('TestObject')
+    // const badSavedExampleAttr = await exampleObjTyped.save({ example: 'hello' })     // error
+    const savedExampleAttr = await exampleObjTyped.save({ example: 5 })
+    savedExampleAttr.attributes.example     // number
+
+    // const badSavedExampleAttr = await exampleObjTyped.save({ createdAt: new Date() }) // never
+
+    // Calling Parse.Object.save({}) with a new attribute adds that attribute as a known key
+    const savedNewExampleAttr = await exampleObjTyped.save({ newExample: 'hello' })
+    savedNewExampleAttr.attributes.example      // number
+    savedNewExampleAttr.attributes.newExample    // string
+
+    // Parse.Object.save(key, value) type checks existing keys
+    // const badSavedExampleAttr2 = await exampleObjTyped.save('example', 'hello')    // error
+    const savedExampleAttr2 = await exampleObjTyped.save('example', 10)
+    savedExampleAttr2.attributes.example    // number
+
+    // const badSavedExampleAttr2 = await exampleObjTyped.save('createdAt', 10) // never
+
+    // Parse.Object.save(key, value) with a new attribute adds that attribute as a known key
+    const savedNewExampleAttr2 = await exampleObjTyped.save('newExample', 'hello again')
+    savedNewExampleAttr2.attributes.example     // number
+    savedNewExampleAttr2.attributes.newExample  // string
+}
+
+function test_set_generic() {
+    const exampleObjAny = new Parse.Object('TestObject')
+    exampleObjAny.attributes    // any
+    exampleObjAny.set('propA', 'some value')
+
+    const exampleObjTyped = new Parse.Object<{ example: boolean }>('TestObject')
+    
+    // Parse.Object.set({}) type checks existing keys, does not allow new keys
+    const setThingObj = exampleObjTyped.set({ example: false })
+    setThingObj && setThingObj.attributes.example   // boolean
+    // exampleObjTyped.set({ example: 100 })   // error
+    // const badSetNewThingObj = exampleObjTyped.set({ newExample: 'something' })    // error
+
+    // Parse.Object.set(key, value) does not allow new keys
+    const setThingKeyVal = exampleObjTyped.set('example', false)
+    setThingKeyVal && setThingKeyVal.attributes.example // boolean
+    // const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100)    // error
+}
+
+async function test_query_generic() {
+    const exampleQuery = new Parse.Query<Parse.Object<{ example: string }>>('TestObject')
+
+    const gotExampleObj = await exampleQuery.get('objectId')
+    const gotAttrExample = gotExampleObj.attributes.example // string
+    const gotGetExample = gotExampleObj.get('example')     // string
+    // const badGotGetExample = gotExampleObj.get('anything') // error
+
+    const foundExampleObj = await exampleQuery.find()
+    foundExampleObj[0] && foundExampleObj[0].attributes.example // string
+
+    const firstExampleObj = await exampleQuery.first()
+    firstExampleObj && firstExampleObj.attributes.example   // string
+}
