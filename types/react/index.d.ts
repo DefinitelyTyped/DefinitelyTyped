@@ -110,11 +110,6 @@ declare namespace React {
         key: Key | null;
     }
 
-    interface ReactComponentElement<
-        T extends string | JSXElementConstructor<any>,
-        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
-    > extends ReactElement<P, T> { }
-
     /**
      * @deprecated Please use `FunctionComponentElement`
      */
