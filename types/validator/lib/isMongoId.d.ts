@@ -1,3 +1,1 @@
-import * as validator from "validator";
-declare const isMongoId: typeof validator.isMongoId;
-export = isMongoId;
+export { isMongoId as default } from '../';

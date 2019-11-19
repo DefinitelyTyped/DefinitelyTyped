@@ -1,3 +1,1 @@
-import * as validator from "validator";
-declare const isAlphanumeric: typeof validator.isAlphanumeric;
-export = isAlphanumeric;
+export { isAlphanumeric as default } from '../';

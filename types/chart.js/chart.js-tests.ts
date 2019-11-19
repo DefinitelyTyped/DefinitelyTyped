@@ -81,6 +81,7 @@ const chart: Chart = new Chart(ctx, {
             ],
         },
         legend: {
+            align: 'center',
             display: true,
             labels: {
                 usePointStyle: true,

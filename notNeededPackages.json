@@ -1489,6 +1489,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "fsevents",
+            "typingsPackageName": "fsevents",
+            "sourceRepoURL": "https://github.com/fsevents/fsevents",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "FullCalendar",
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
@@ -2855,6 +2861,12 @@
             "typingsPackageName": "new-github-release-url",
             "sourceRepoURL": "https://github.com/sindresorhus/new-github-release-url",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "next-redux-wrapper",
+            "typingsPackageName": "next-redux-wrapper",
+            "sourceRepoURL": "https://github.com/kirill-konshin/next-redux-wrapper",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "next",
@@ -4261,6 +4273,12 @@
             "asOfVersion": "2.2.9"
         },
         {
+            "libraryName": "rsmq",
+            "typingsPackageName": "rsmq",
+            "sourceRepoURL": "http://smrchy.github.io/rsmq/",
+            "asOfVersion": "0.8.4"
+        },
+        {
             "libraryName": "rvo2",
             "typingsPackageName": "rvo2",
             "sourceRepoURL": "https://github.com/TNOCS/rvo2",
@@ -5081,6 +5099,12 @@
             "typingsPackageName": "vega",
             "sourceRepoURL": "https://github.com/vega/vega",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "vexdb",
+            "typingsPackageName": "vexdb",
+            "sourceRepoURL": "https://github.com/MayorMonty/vexdb#readme",
+            "asOfVersion": "1.7.1"
         },
         {
             "libraryName": "velocity-animate",

@@ -65,6 +65,13 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.BlockControls.Slot />;
 
 //
+// BlockEditorProvider
+//
+<be.BlockEditorProvider value={[]} settings={{ templateLock: 'all' }}>
+    <div />
+</be.BlockEditorProvider>;
+
+//
 // block-format-controls
 //
 <be.BlockFormatControls>Hello World</be.BlockFormatControls>;
