@@ -16,7 +16,6 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
 //                 Tomas Szabo <https://github.com/deftomat>
-//                 Bonggyun Lee <https://github.com/deptno>
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
