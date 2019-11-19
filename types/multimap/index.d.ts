@@ -25,18 +25,17 @@ interface Multimap {
     delete(key: any, val?: any): boolean;
 
     /**
-     * 
-     * @param iter 
+     * @param iter
      */
     forEach(iter: any): void;
 
     /**
-     * @param iter 
+     * @param iter
      */
     forEachEntry(iter: any): void;
 
     /**
-     * @param key 
+     * @param key
      */
     get(key: any): any;
 
@@ -53,9 +52,8 @@ interface Multimap {
     keys(): { next: () => { value: any, done: boolean } };
 
     /**
-     * 
-     * @param key 
-     * @param val 
+     * @param key
+     * @param val
      */
     set(key: any, val: any, ...args: any): void;
 
