@@ -31,5 +31,8 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
+    },
+    "dependencies": {
+        "multimap": "^1.1.0"
     }
 }
