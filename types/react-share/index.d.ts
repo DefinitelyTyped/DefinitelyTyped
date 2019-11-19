@@ -26,6 +26,11 @@ export interface CommonShareButtonProps {
     windowWidth?: number;
     windowHeight?: number;
     /**
+     * Whether to center the share box respectively to the screen or to the window.
+     * @default "windowCenter"
+     */
+    windowPosition?: 'windowCenter' | 'screenCenter';
+    /**
      *  Takes a function that returns a Promise to be fulfilled before calling
      * `onClick`. If you do not return promise, `onClick` is called immediately.
      */
@@ -34,6 +39,34 @@ export interface CommonShareButtonProps {
      * Takes a function to be called after closing share dialog.
      */
     onShareWindowClose?: () => void;
+    /**
+     * A class name to add to the others added by react-share (SocialMediaShareButton, ...).
+     */
+    className?: string;
+    /**
+     * Click callback handler.
+     */
+    onClick?: (link: string) => void;
+    /**
+     * If false, does not open a new window and call the onClick callback instead.
+     * @default true
+     */
+    openWindow?: boolean;
+    /**
+     * The HTML role of the div.
+     * @default "button"
+     */
+    role?: React.HTMLAttributes<HTMLDivElement>['role'];
+    /**
+     * Extra style for the button.
+     */
+    style?: React.HTMLAttributes<HTMLDivElement>['style'];
+    /**
+     * Indicates that its element can be focused, and where it participates in sequential keyboard
+     * navigation.
+     * @default "0"
+     */
+    tabIndex?: React.HTMLAttributes<HTMLDivElement>['tabIndex'];
     /**
      * An object to pass any additional properties, such as `aria-*` attributes.
      */
