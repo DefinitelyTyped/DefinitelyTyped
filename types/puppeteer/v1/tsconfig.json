@@ -11,9 +11,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "puppeteer": [
@@ -25,7 +25,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "Errors.d.ts",
+        "DeviceDescriptors.d.ts",
         "index.d.ts",
-        "html5-to-pdf-tests.ts"
+        "puppeteer-tests.ts"
     ]
 }
