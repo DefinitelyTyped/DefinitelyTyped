@@ -52,7 +52,7 @@ declare namespace GoogleAppsScript {
       value: string;
     }
 
-    interface FormsOnSubmit extends AppsScriptEvent {
+    interface SheetsOnFormSubmit extends AppsScriptEvent {
       namedValues: { [key: string]: string[]; };
       range: Spreadsheet.Range;
       values: string[];
@@ -67,6 +67,11 @@ declare namespace GoogleAppsScript {
     }
 
     interface FormsOnOpen extends AppsScriptEvent {
+      source: Forms.Form;
+    }
+
+    interface FormsOnFormSubmit extends AppsScriptEvent {
+      response: Forms.FormResponse;
       source: Forms.Form;
     }
 
