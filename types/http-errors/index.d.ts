@@ -20,9 +20,11 @@ declare namespace createHttpError {
         [key: string]: any;
     }
 
+    type UnknownError = Error | string | number | { [key: string]: any };
+
     type HttpErrorConstructor = new (msg?: string) => HttpError;
 
-    type CreateHttpError = (...args: Array<Error | string | number | { [key: string]: any }>) => HttpError;
+    type CreateHttpError = (...args: Array<UnknownError>) => HttpError;
 
     type NamedConstructors = {
         [code: string]: HttpErrorConstructor;
