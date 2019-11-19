@@ -152,6 +152,9 @@ export interface QRCode {
     segments: QRCodeSegment[];
 }
 
+export interface QRCodeToBufferOptions extends QRCodeRenderersOptions {
+}
+
 /**
  * Creates QR Code symbol and returns a qrcode object.
  */
@@ -254,6 +257,19 @@ export function toFile(path: string, text: string | QRCodeSegment[], options?: Q
  * Recognized extensions are png, svg, txt.
  */
 export function toFile(path: string, text: string | QRCodeSegment[], options: QRCodeToFileOptions, callback: (error: Error) => void): void;
+
+/**
+ * Output QR Code to Buffer.
+ */
+export function toBuffer(text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Output QR Code to Buffer.
+ */
+export function toBuffer(text: string | QRCodeSegment[], options?: QRCodeToBufferOptions): Promise<any>;
+/**
+ * Output QR Code to Buffer.
+ */
+export function toBuffer(text: string | QRCodeSegment[], options: QRCodeToBufferOptions, callback: (error: Error) => void): void;
 
 /**
  * Writes QR Code image to stream. Only works with png format for now.
