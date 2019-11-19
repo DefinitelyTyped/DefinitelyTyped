@@ -5,6 +5,7 @@ type PromiseResultTuple<T extends [unknown, ...unknown[]]> = {[P in keyof T]: Pr
 
 declare function allSettled(): Promise<[]>;
 declare function allSettled<T extends [unknown, ...unknown[]]>(iterable: PromiseTuple<T>): Promise<PromiseResultTuple<T>>;
+// tslint:disable-next-line no-unnecessary-generics
 declare function allSettled<T, E>(iterable: Iterable<Promise<T> | T>): Promise<Array<PromiseResult<T, E>>>;
 
 export = allSettled;
