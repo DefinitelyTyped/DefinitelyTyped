@@ -10,6 +10,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
+import * as dgram from "dgram";
 import Module = require("module");
 
 ////////////////////////////////////////////////////
@@ -853,6 +854,88 @@ import tty = require('tty');
     const stdin: tty.ReadStream = process.stdin;
     const stdout: tty.WriteStream = process.stdout;
     const stderr: tty.WriteStream = process.stderr;
+}
+
+/////////////////////////////////////////////////////////
+/// dgram tests : https://nodejs.org/api/dgram.html ///
+/////////////////////////////////////////////////////////
+{
+    let sock: dgram.Socket = dgram.createSocket("udp4");
+    sock = dgram.createSocket({ type: "udp4" });
+    sock = dgram.createSocket({
+        type: "udp4",
+        reuseAddr: true,
+        ipv6Only: false,
+        recvBufferSize: 4096,
+        sendBufferSize: 4096,
+        lookup: dns.lookup,
+    });
+    sock = dgram.createSocket("udp6", (msg, rinfo) => {
+        msg; // $ExpectType Buffer
+        rinfo; // $ExpectType RemoteInfo
+    });
+    sock.addMembership("233.252.0.0");
+    sock.addMembership("233.252.0.0", "192.0.2.1");
+    sock.address().address; // $ExpectType string
+    sock.address().family; // $ExpectType string
+    sock.address().port; // $ExpectType number
+    sock.bind();
+    sock.bind(() => undefined);
+    sock.bind(8000);
+    sock.bind(8000, () => undefined);
+    sock.bind(8000, "192.0.2.1");
+    sock.bind(8000, "192.0.2.1", () => undefined);
+    sock.bind({}, () => undefined);
+    sock.bind({ port: 8000, address: "192.0.2.1", exclusive: true });
+    sock.bind({ fd: 7, exclusive: true });
+    sock.close();
+    sock.close(() => undefined);
+    sock.connect(8000);
+    sock.connect(8000, "192.0.2.1");
+    sock.connect(8000, () => undefined);
+    sock.connect(8000, "192.0.2.1", () => undefined);
+    sock.disconnect();
+    sock.dropMembership("233.252.0.0");
+    sock.dropMembership("233.252.0.0", "192.0.2.1");
+    sock.getRecvBufferSize(); // $ExpectType number
+    sock.getSendBufferSize(); // $ExpectType number
+    sock = sock.ref();
+    sock.remoteAddress().address; // $ExpectType string
+    sock.remoteAddress().family; // $ExpectType string
+    sock.remoteAddress().port; // $ExpectType number
+    sock.send("datagram");
+    sock.send(new Uint8Array(256), 8000, (err) => {
+        err; // $ExpectType Error | null
+    });
+    sock.send(Buffer.alloc(256), 8000, "192.0.2.1");
+    sock.send(new Uint8Array(256), 128, 64);
+    sock.send("datagram", 128, 64, (err) => undefined);
+    sock.send(new Uint8Array(256), 128, 64, 8000);
+    sock.send(new Uint8Array(256), 128, 64, 8000, (err) => undefined);
+    sock.send(Buffer.alloc(256), 128, 64, 8000, "192.0.2.1");
+    sock.send("datagram", 128, 64, 8000, "192.0.2.1", (err) => undefined);
+    sock.setBroadcast(true);
+    sock.setMulticastInterface("192.0.2.1");
+    sock.setMulticastLoopback(false);
+    sock.setMulticastTTL(128);
+    sock.setRecvBufferSize(4096);
+    sock.setSendBufferSize(4096);
+    sock.setTTL(128);
+    sock = sock.unref();
+
+    sock.on("close", () => undefined);
+    sock.on("connect", () => undefined);
+    sock.on("error", (exception) => {
+        exception; // $ExpectType Error
+    });
+    sock.on("listening", () => undefined);
+    sock.on("message", (msg, rinfo) => {
+        msg; // $ExpectType Buffer
+        rinfo.address; // $ExpectType string
+        rinfo.family; // $ExpectType "IPv4" | "IPv6"
+        rinfo.port; // $ExpectType number
+        rinfo.size; // $ExpectType number
+    });
 }
 
 ////////////////////////////////////////////////////
