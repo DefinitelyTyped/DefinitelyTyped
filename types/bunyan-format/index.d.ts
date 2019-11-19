@@ -24,7 +24,7 @@ declare namespace BunyanFormatWritable {
 }
 
 /** Creates a writable stream that formats bunyan records written to it. */
-declare interface BunyanFormatWritable extends Writable {
+interface BunyanFormatWritable extends Writable {
     // tslint:disable-next-line no-misused-new
     new (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
     (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
