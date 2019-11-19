@@ -23,7 +23,7 @@ const d: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
-            importType: function (moduleName) {
+            importType: (moduleName) => {
                 return 'commonjs';
             }
         })
@@ -38,7 +38,7 @@ const e: webpack.Configuration = {
             }
         })
     ]
-}
+};
 const f: webpack.Configuration = {
     entry: 'test.js',
     externals: [
@@ -48,7 +48,7 @@ const f: webpack.Configuration = {
             }
         })
     ]
-}
+};
 const g: webpack.Configuration = {
     entry: 'test.js',
     externals: [
@@ -58,7 +58,7 @@ const g: webpack.Configuration = {
             }
         })
     ]
-}
+};
 const h: webpack.Configuration = {
     entry: 'test.js',
     externals: [
@@ -68,4 +68,4 @@ const h: webpack.Configuration = {
             }
         })
     ]
-}
+};

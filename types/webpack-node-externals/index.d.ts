@@ -17,7 +17,7 @@ declare namespace webpackNodeExternals {
     type ModulesFromFileType = {
         exclude?: string | string[],
         include?: string | string[]
-    }
+    };
 
     interface Options {
         /**
