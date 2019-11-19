@@ -13,7 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export const version: string;
+const version: string;
 
 /******************
  *** Validators ***
@@ -24,21 +24,21 @@ export const version: string;
  *
  * @param seed - Seed
  */
-export function contains(str: string, seed: any): boolean;
+function contains(str: string, seed: any): boolean;
 
 /**
  * Check if the string matches the comparison.
  *
  * @param comparison - String to compare
  */
-export function equals(str: string, comparison: string): boolean;
+function equals(str: string, comparison: string): boolean;
 
 /**
  * Check if the string is a date that's after the specified date.
  *
  * @param [date] - Date string (defaults to now)
  */
-export function isAfter(str: string, date?: string): boolean;
+function isAfter(str: string, date?: string): boolean;
 
 export type AlphaLocale =
     | 'en-US'
@@ -95,14 +95,14 @@ export type AlphaLocale =
     | 'pt-BR'
     | 'pl-Pl';
 
-export const isAlphaLocales: AlphaLocale[];
+const isAlphaLocales: AlphaLocale[];
 
 /**
  * Check if the string contains only letters (a-zA-Z).
  *
  * @param [locale] - AlphaLocale
  */
-export function isAlpha(str: string, locale?: AlphaLocale): boolean;
+function isAlpha(str: string, locale?: AlphaLocale): boolean;
 
 export type AlphanumericLocale =
     | 'en-US'
@@ -159,46 +159,46 @@ export type AlphanumericLocale =
     | 'pt-BR'
     | 'pl-Pl';
 
-export const isAlphanumericLocales: AlphanumericLocale[];
+const isAlphanumericLocales: AlphanumericLocale[];
 
 /**
  * Check if the string contains only letters and numbers.
  *
  * @param [locale] - AlphanumericLocale
  */
-export function isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
+function isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
 
 /**
  * Check if the string contains ASCII chars only.
  */
-export function isAscii(str: string): boolean;
+function isAscii(str: string): boolean;
 
 /**
  * Check if a string is base32 encoded.
  */
-export function isBase32(str: string): boolean;
+function isBase32(str: string): boolean;
 
 /**
  * Check if a string is base64 encoded.
  */
-export function isBase64(str: string): boolean;
+function isBase64(str: string): boolean;
 
 /**
  * Check if the string is a date that's before the specified date.
  *
  * @param [date] - Date string (defaults to now)
  */
-export function isBefore(str: string, date?: string): boolean;
+function isBefore(str: string, date?: string): boolean;
 
 /**
  * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
  */
-export function isBIC(str: string): boolean;
+function isBIC(str: string): boolean;
 
 /**
  * check if a string is a boolean.
  */
-export function isBoolean(str: string): boolean;
+function isBoolean(str: string): boolean;
 
 export interface IsByteLengthOptions {
     /**
@@ -216,12 +216,12 @@ export interface IsByteLengthOptions {
  *
  * @param [options] - Options
  */
-export function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
+function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
 /**
  * Check if the string is a credit card.
  */
-export function isCreditCard(str: string): boolean;
+function isCreditCard(str: string): boolean;
 
 export interface IsCurrencyOptions {
     /**
@@ -293,12 +293,12 @@ export interface IsCurrencyOptions {
  *
  * @param [options] - Options
  */
-export function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
+function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
 
 /**
  * Check if the string is a [data uri format](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
  */
-export function isDataURI(str: string): boolean;
+function isDataURI(str: string): boolean;
 
 export type DecimalLocale = FloatLocale;
 
@@ -328,14 +328,14 @@ export interface IsDecimalOptions {
  *
  * @param [options] - Options
  */
-export function isDecimal(str: string, options?: IsDecimalOptions): boolean;
+function isDecimal(str: string, options?: IsDecimalOptions): boolean;
 
 /**
  * Check if the string is a number that's divisible by another.
  *
  * @param number - Divider number
  */
-export function isDivisibleBy(str: string, number: number): boolean;
+function isDivisibleBy(str: string, number: number): boolean;
 
 export interface IsEmailOptions {
     /**
@@ -388,7 +388,7 @@ export interface IsEmailOptions {
  *
  * @param [options] - Options
  */
-export function isEmail(str: string, options?: IsEmailOptions): boolean;
+function isEmail(str: string, options?: IsEmailOptions): boolean;
 
 export interface IsEmptyOptions {
     /**
@@ -402,7 +402,7 @@ export interface IsEmptyOptions {
  *
  * @param [options] - Options
  */
-export function isEmpty(str: string, options?: IsEmptyOptions): boolean;
+function isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
 export type FloatLocale =
     | 'en-US'
@@ -456,7 +456,7 @@ export type FloatLocale =
     | 'pt-BR'
     | 'pl-Pl';
 
-export const isFloatLocales: FloatLocale[];
+const isFloatLocales: FloatLocale[];
 
 export interface IsFloatOptions {
     /**
@@ -486,7 +486,7 @@ export interface IsFloatOptions {
  *
  * @param [options] - Options
  */
-export function isFloat(str: string, options?: IsFloatOptions): boolean;
+function isFloat(str: string, options?: IsFloatOptions): boolean;
 
 export interface IsFQDNOptions {
     /**
@@ -508,17 +508,17 @@ export interface IsFQDNOptions {
  *
  * @param [options] - Options
  */
-export function isFQDN(str: string, options?: IsFQDNOptions): boolean;
+function isFQDN(str: string, options?: IsFQDNOptions): boolean;
 
 /**
  * Check if the string contains any full-width chars.
  */
-export function isFullWidth(str: string): boolean;
+function isFullWidth(str: string): boolean;
 
 /**
  * Check if the string contains any half-width chars.
  */
-export function isHalfWidth(str: string): boolean;
+function isHalfWidth(str: string): boolean;
 
 export type HashAlgorithm =
     | 'md4'
@@ -540,17 +540,17 @@ export type HashAlgorithm =
  *
  * @param algorithm - HashAlgorithm
  */
-export function isHash(str: string, algorithm: HashAlgorithm): boolean;
+function isHash(str: string, algorithm: HashAlgorithm): boolean;
 
 /**
  * Check if the string is a hexadecimal number.
  */
-export function isHexadecimal(str: string): boolean;
+function isHexadecimal(str: string): boolean;
 
 /**
  * Check if the string is a hexadecimal color.
  */
-export function isHexColor(str: string): boolean;
+function isHexColor(str: string): boolean;
 
 export type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
 
@@ -559,14 +559,14 @@ export type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
  *
  * @param [locale="any"] - IdentityCardLocale
  */
-export function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
 
 /**
  * Check if the string is in a array of allowed values.
  *
  * @param values - Allowed values.
  */
-export function isIn(str: string, values: any[]): boolean;
+function isIn(str: string, values: any[]): boolean;
 
 export interface IsIntOptions {
     /**
@@ -597,41 +597,41 @@ export interface IsIntOptions {
  *
  * @param [options] - Options
  */
-export function isInt(str: string, options?: IsIntOptions): boolean;
+function isInt(str: string, options?: IsIntOptions): boolean;
 
 /**
  * Check if the string is an IP (version 4 or 6).
  *
  * @param [version] - IP Version
  */
-export function isIP(str: string, version?: '4' | '6'): boolean;
+function isIP(str: string, version?: '4' | '6'): boolean;
 
 /**
  * Check if the string is an IP Range (version 4 only).
  */
-export function isIPRange(str: string): boolean;
+function isIPRange(str: string): boolean;
 
 /**
  * Check if the string is an ISBN (version 10 or 13).
  *
  * @param [version] - ISBN Version
  */
-export function isISBN(str: string, version?: '10' | '13'): boolean;
+function isISBN(str: string, version?: '10' | '13'): boolean;
 
 /**
  * Check if the string is an [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number) (stock/security identifier).
  */
-export function isISIN(str: string): boolean;
+function isISIN(str: string): boolean;
 
 /**
  * Check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
  */
-export function isISO31661Alpha2(str: string): boolean;
+function isISO31661Alpha2(str: string): boolean;
 
 /**
  * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
  */
-export function isISO31661Alpha3(str: string): boolean;
+function isISO31661Alpha3(str: string): boolean;
 
 export interface IsISO8601Options {
     /**
@@ -648,7 +648,7 @@ export interface IsISO8601Options {
  *
  * @param [options] - Options
  */
-export function isISO8601(str: string, options?: IsISO8601Options): boolean;
+function isISO8601(str: string, options?: IsISO8601Options): boolean;
 
 export interface IsISSNOptions {
     /**
@@ -668,34 +668,34 @@ export interface IsISSNOptions {
  *
  * @param [options] - Options
  */
-export function isISSN(str: string, options?: IsISSNOptions): boolean;
+function isISSN(str: string, options?: IsISSNOptions): boolean;
 
 /**
  * Check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
  */
-export function isISRC(str: string): boolean;
+function isISRC(str: string): boolean;
 
 /**
  * Check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
  */
-export function isRFC3339(str: string): boolean;
+function isRFC3339(str: string): boolean;
 
 /**
  * Check if the string is valid JSON (note: uses `JSON.parse`).
  */
-export function isJSON(str: string): boolean;
+function isJSON(str: string): boolean;
 
 /**
  * Check if the string is valid JWT token.
  */
-export function isJWT(str: string): boolean;
+function isJWT(str: string): boolean;
 
 /**
  * Check if the string is a valid latitude-longitude coordinate in the format:
  *
  * `lat,long` or `lat, long`.
  */
-export function isLatLong(str: string): boolean;
+function isLatLong(str: string): boolean;
 
 export interface IsLengthOptions {
     /**
@@ -715,12 +715,12 @@ export interface IsLengthOptions {
  *
  * @param [options] - Options
  */
-export function isLength(str: string, options?: IsLengthOptions): boolean;
+function isLength(str: string, options?: IsLengthOptions): boolean;
 
 /**
  * Check if the string is lowercase.
  */
-export function isLowercase(str: string): boolean;
+function isLowercase(str: string): boolean;
 
 export interface IsMACAddressOptions {
     /**
@@ -739,22 +739,22 @@ export interface IsMACAddressOptions {
  *
  * @param [options] - Options
  */
-export function isMACAddress(str: string, options?: IsMACAddressOptions): boolean;
+function isMACAddress(str: string, options?: IsMACAddressOptions): boolean;
 
 /**
  * Check if the string is a [magnet uri format](https://en.wikipedia.org/wiki/Magnet_URI_scheme).
  */
-export function isMagnetURI(str: string): boolean;
+function isMagnetURI(str: string): boolean;
 
 /**
  * Check if the string is a MD5 hash.
  */
-export function isMD5(str: string): boolean;
+function isMD5(str: string): boolean;
 
 /**
  * Check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format.
  */
-export function isMimeType(str: string): boolean;
+function isMimeType(str: string): boolean;
 
 export type MobilePhoneLocale =
     | 'ar-AE'
@@ -844,7 +844,7 @@ export type MobilePhoneLocale =
     | 'fr-BE'
     | 'zh-HK';
 
-export const isMobilePhoneLocales: MobilePhoneLocale[];
+const isMobilePhoneLocales: MobilePhoneLocale[];
 
 export interface IsMobilePhoneOptions {
     /**
@@ -861,7 +861,7 @@ export interface IsMobilePhoneOptions {
  * @param [locale] - MobilePhoneLocale(s)
  * @param [options] - Options
  */
-export function isMobilePhone(
+function isMobilePhone(
     str: string,
     locale?: 'any' | MobilePhoneLocale | MobilePhoneLocale[],
     options?: IsMobilePhoneOptions,
@@ -870,12 +870,12 @@ export function isMobilePhone(
 /**
  * Check if the string is a valid hex-encoded representation of a [MongoDB ObjectId](http://docs.mongodb.org/manual/reference/object-id/).
  */
-export function isMongoId(str: string): boolean;
+function isMongoId(str: string): boolean;
 
 /**
  * Check if the string contains one or more multibyte chars.
  */
-export function isMultibyte(str: string): boolean;
+function isMultibyte(str: string): boolean;
 
 export interface IsNumericOptions {
     /**
@@ -891,17 +891,17 @@ export interface IsNumericOptions {
  *
  * @param [options] - Options
  */
-export function isNumeric(str: string, options?: IsNumericOptions): boolean;
+function isNumeric(str: string, options?: IsNumericOptions): boolean;
 
 /**
  * Check if the string is a valid octal number.
  */
-export function isOctal(str: string): boolean;
+function isOctal(str: string): boolean;
 
 /**
  * Check if the string is a valid port number.
  */
-export function isPort(str: string): boolean;
+function isPort(str: string): boolean;
 
 export type PostalCodeLocale =
     | 'AD'
@@ -957,19 +957,19 @@ export type PostalCodeLocale =
     | 'ZA'
     | 'ZM';
 
-export const isPostalCodeLocales: PostalCodeLocale[];
+const isPostalCodeLocales: PostalCodeLocale[];
 
 /**
  * Check if the string is a postal code
  *
  * @param locale - PostalCodeLocale
  */
-export function isPostalCode(str: string, locale: 'any' | PostalCodeLocale): boolean;
+function isPostalCode(str: string, locale: 'any' | PostalCodeLocale): boolean;
 
 /**
  * Check if the string contains any surrogate pairs chars.
  */
-export function isSurrogatePair(str: string): boolean;
+function isSurrogatePair(str: string): boolean;
 
 export interface IsURLOptions {
     /**
@@ -1023,50 +1023,50 @@ export interface IsURLOptions {
  *
  * @param [options] - Options
  */
-export function isURL(str: string, options?: IsURLOptions): boolean;
+function isURL(str: string, options?: IsURLOptions): boolean;
 
 /**
  * Check if the string is uppercase.
  */
-export function isUppercase(str: string): boolean;
+function isUppercase(str: string): boolean;
 
 /**
  * Check if the string is a UUID (version 3, 4 or 5).
  *
  * @param [version="all"] - UUID version
  */
-export function isUUID(str: string, version?: 3 | 4 | 5 | '3' | '4' | '5' | 'all'): boolean;
+function isUUID(str: string, version?: 3 | 4 | 5 | '3' | '4' | '5' | 'all'): boolean;
 
 /**
  * Check if the string contains a mixture of full and half-width chars.
  */
-export function isVariableWidth(str: string): boolean;
+function isVariableWidth(str: string): boolean;
 
 /**
  * Checks characters if they appear in the whitelist.
  *
  * @param chars - whitelist
  */
-export function isWhitelisted(str: string, chars: string | string[]): boolean;
+function isWhitelisted(str: string, chars: string | string[]): boolean;
 
 /**
  * Check if string matches the pattern.
  *
  * @param pattern - `/foo/i`
  */
-export function matches(str: string, pattern: RegExp): boolean;
+function matches(str: string, pattern: RegExp): boolean;
 /**
  * Check if string matches the pattern.
  *
  * @param pattern - `'foo'`
  * @param [modifiers] - `'i'`
  */
-export function matches(str: string, pattern: string, modifiers?: string): boolean;
+function matches(str: string, pattern: string, modifiers?: string): boolean;
 
 /**
  * Check if the string is of type slug.
  */
-export function isSlug(str: string): boolean;
+function isSlug(str: string): boolean;
 
 /******************
  *** Sanitizers ***
@@ -1077,24 +1077,24 @@ export function isSlug(str: string): boolean;
  *
  * @param chars - The characters are used in a `RegExp` and so you will need to escape some chars, e.g. `blacklist(input, '\\[\\]')`.
  */
-export function blacklist(input: string, chars: string): string;
+function blacklist(input: string, chars: string): string;
 
 /**
  * Replace `<`, `>`, `&`, `'`, `"` and `/` with HTML entities.
  */
-export function escape(input: string): string;
+function escape(input: string): string;
 
 /**
  * Replaces HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
  */
-export function unescape(input: string): string;
+function unescape(input: string): string;
 
 /**
  * Trim characters from the left-side of the input.
  *
  * @param [chars] - characters (defaults to whitespace)
  */
-export function ltrim(input: string, chars?: string): string;
+function ltrim(input: string, chars?: string): string;
 
 export interface NormalizeEmailOptions {
     /**
@@ -1183,14 +1183,14 @@ export interface NormalizeEmailOptions {
  *
  * @param [options] - Options
  */
-export function normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
+function normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
 
 /**
  * Trim characters from the right-side of the input.
  *
  * @param [chars] - characters (defaults to whitespace)
  */
-export function rtrim(input: string, chars?: string): string;
+function rtrim(input: string, chars?: string): string;
 
 /**
  * Remove characters with a numerical value < `32` and `127`, mostly control characters.
@@ -1198,7 +1198,7 @@ export function rtrim(input: string, chars?: string): string;
  *
  * @param [keep_new_lines=false] - if `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`).
  */
-export function stripLow(input: string, keep_new_lines?: boolean): string;
+function stripLow(input: string, keep_new_lines?: boolean): string;
 
 /**
  * Convert the input string to a boolean.
@@ -1206,44 +1206,128 @@ export function stripLow(input: string, keep_new_lines?: boolean): string;
  *
  * @param [strict=false] - in `strict` mode, only `'1'` and `'true'` return `true`.
  */
-export function toBoolean(input: string, strict?: boolean): boolean;
+function toBoolean(input: string, strict?: boolean): boolean;
 
 /**
  * Convert the input string to a `Date`, or `null` if the input is not a date.
  */
-export function toDate(input: string): Date | null;
+function toDate(input: string): Date | null;
 
 /**
  * Convert the input string to a float, or `NaN` if the input is not a float.
  */
-export function toFloat(input: string): number;
+function toFloat(input: string): number;
 
 /**
  * Convert the input string to an integer, or `NaN` if the input is not an integer.
  *
  * @param [radix=10] - radix or base (defaults to 10)
  */
-export function toInt(input: string, radix?: number): number;
+function toInt(input: string, radix?: number): number;
 
 /**
  * Trim characters from both sides of the input.
  *
  * @param [chars] - characters (defaults to whitespace)
  */
-export function trim(input: string, chars?: string): string;
+function trim(input: string, chars?: string): string;
 
 /**
  * Remove characters that do not appear in the whitelist.
  *
  * @param chars - The characters are used in a `RegExp` and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
  */
-export function whitelist(input: string, chars: string): string;
+function whitelist(input: string, chars: string): string;
 
 /**
  * Converts to string.
  */
-export function toString(input: any): string;
+function toString(input: any): string;
 
-import * as Validator from './';
+const validator = {
+  version,
+  toDate,
+  toFloat,
+  toInt,
+  toBoolean,
+  equals,
+  contains,
+  matches,
+  isEmail,
+  isURL,
+  isMACAddress,
+  isIP,
+  isIPRange,
+  isFQDN,
+  isBoolean,
+  isBIC,
+  isAlpha,
+  isAlphaLocales,
+  isAlphanumeric,
+  isAlphanumericLocales,
+  isNumeric,
+  isPort,
+  isLowercase,
+  isUppercase,
+  isAscii,
+  isFullWidth,
+  isHalfWidth,
+  isVariableWidth,
+  isMultibyte,
+  isSurrogatePair,
+  isInt,
+  isFloat,
+  isFloatLocales,
+  isDecimal,
+  isHexadecimal,
+  isOctal,
+  isDivisibleBy,
+  isHexColor,
+  isISRC,
+  isMD5,
+  isHash,
+  isJWT,
+  isJSON,
+  isEmpty,
+  isLength,
+  isByteLength,
+  isUUID,
+  isMongoId,
+  isAfter,
+  isBefore,
+  isIn,
+  isCreditCard,
+  isIdentityCard,
+  isISIN,
+  isISBN,
+  isISSN,
+  isMobilePhone,
+  isMobilePhoneLocales,
+  isPostalCode,
+  isPostalCodeLocales,
+  isCurrency,
+  isISO8601,
+  isRFC3339,
+  isISO31661Alpha2,
+  isISO31661Alpha3,
+  isBase32,
+  isBase64,
+  isDataURI,
+  isMagnetURI,
+  isMimeType,
+  isLatLong,
+  ltrim,
+  rtrim,
+  trim,
+  escape,
+  unescape,
+  stripLow,
+  whitelist,
+  blacklist,
+  isWhitelisted,
+  normalizeEmail,
+  toString,
+  isSlug,
+};
 
-export default Validator;
+export default validator;
