@@ -1,1 +1,2 @@
-export { isHexadecimal as default } from '../';
+import validator from '../';
+export default validator.isHexadecimal

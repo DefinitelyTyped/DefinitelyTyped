@@ -1,1 +1,2 @@
-export { contains as default } from '../';
+import validator from '../';
+export default validator.contains

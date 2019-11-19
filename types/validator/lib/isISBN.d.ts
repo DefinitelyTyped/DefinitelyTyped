@@ -1,1 +1,2 @@
-export { isISBN as default } from '../';
+import validator from '../';
+export default validator.isISBN

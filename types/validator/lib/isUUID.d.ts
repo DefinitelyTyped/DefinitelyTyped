@@ -1,1 +1,2 @@
-export { isUUID as default } from '../';
+import validator from '../';
+export default validator.isUUID

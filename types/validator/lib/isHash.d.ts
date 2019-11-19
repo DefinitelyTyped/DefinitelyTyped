@@ -1,1 +1,2 @@
-export { isHash as default } from '../';
+import validator from '../';
+export default validator.isHash

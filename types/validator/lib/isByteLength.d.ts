@@ -1,1 +1,2 @@
-export { isByteLength as default } from '../';
+import validator from '../';
+export default validator.isByteLength

@@ -1,1 +1,2 @@
-export { isFullWidth as default } from '../';
+import validator from '../';
+export default validator.isFullWidth

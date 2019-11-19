@@ -1,1 +1,2 @@
-export { whitelist as default } from '../';
+import validator from '../';
+export default validator.whitelist
