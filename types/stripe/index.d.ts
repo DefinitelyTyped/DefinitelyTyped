@@ -7780,7 +7780,7 @@ declare namespace Stripe {
             /**
              * The value of the refresh_token
              */
-            code: string;
+            refresh_token: string;
 
             /**
              * When requesting a new access token from a refresh token, any scope that has an equal or lesser scope as the refresh token.
@@ -13863,6 +13863,10 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<oauth.IOAuthToken>,
             ): Promise<oauth.IOAuthToken>;
+            token(
+                data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
+                response?: IResponseFn<oauth.IOAuthToken>,
+            ): Promise<oauth.IOAuthToken>;
 
             /**
              * When revoking access to an account, you must use an API key that matches the mode—live or test—of the authorization code (which depends on whether the client_id used was production or development).
@@ -13876,6 +13880,11 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
             ): Promise<oauth.IOAuthDeauthorizationResponse>;
+            deauthorize(
+                client_id: string,
+                stripe_user_id: string,
+                response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
+            ): Promise<oauth.IOAuthDeauthorizationResponse>
         }
 
         class Transfers extends StripeResource {
