@@ -1488,9 +1488,9 @@ stripe.oauth
         grant_type: 'authorization_code',
         code: 'ac_123456789',
     })
-    .then(function(response) {
+    .then(response => {
         // asynchronously called
-        var connected_account_id = response.stripe_user_id;
+        const connected_account_id = response.stripe_user_id;
     });
 
 stripe.oauth
@@ -1498,14 +1498,14 @@ stripe.oauth
         grant_type: 'refresh_token',
         refresh_token: 'random_refresh_token',
     })
-    .then(function(response) {
+    .then(response => {
         // asynchronously called
-        var access_token = response.access_token;
+        const access_token = response.access_token;
     });
 
-stripe.oauth.deauthorize('ac_123456789', 'userid_123456789').then(function(response) {
+stripe.oauth.deauthorize('ac_123456789', 'userid_123456789').then(response => {
     // asynchronously called
-    var stripe_user_id = response.stripe_user_id;
+    const stripe_user_id = response.stripe_user_id;
 });
 
 //#endregion

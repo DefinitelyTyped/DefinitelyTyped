@@ -13884,7 +13884,7 @@ declare namespace Stripe {
                 client_id: string,
                 stripe_user_id: string,
                 response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
-            ): Promise<oauth.IOAuthDeauthorizationResponse>
+            ): Promise<oauth.IOAuthDeauthorizationResponse>;
         }
 
         class Transfers extends StripeResource {
