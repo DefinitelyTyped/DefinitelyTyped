@@ -55,7 +55,9 @@ declare class Chart {
     static plugins: PluginServiceStatic;
 
     static defaults: {
-        global: Chart.ChartOptions & Chart.ChartFontOptions;
+        global: Chart.ChartOptions & Chart.ChartFontOptions & {
+            tooltips: Chart.ChartTooltipOptions
+        };
         [key: string]: any;
     };
 
@@ -65,6 +67,10 @@ declare class Chart {
 
     static helpers: {
         [key: string]: any;
+    };
+
+    static platform: {
+        disableCSSInjection: boolean
     };
 
     // Tooltip Static Options
