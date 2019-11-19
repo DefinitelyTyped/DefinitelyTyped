@@ -2245,3 +2245,14 @@ Animal2.find().byName('fido').exec(function(err, animals) {
 Animal2.findOne().byName('fido').exec(function(err, animal) {
   console.log(animal);
 });
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/40467
+interface TypedModel extends mongoose.Document {
+    name: string;
+}
+
+const typedModel1 = mongoose.model('typedModel', new mongoose.Schema({ name: String }))
+new typedModel1({ name: 'bar' })
+const typedModel2 = mongoose.model<TypedModel>('typedModel', new mongoose.Schema({ name: String }))
+new typedModel2({ name: 'bar', fart: 'bla' })
+
