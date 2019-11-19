@@ -55,7 +55,7 @@ interface Multimap {
      * @param key
      * @param val
      */
-    set(key: any, val: any, ...args: any): void;
+    set(key: any, val: any, ...args: any[]): void;
 
     /**
      * @return all the values in the map
