@@ -468,6 +468,19 @@ declare class Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
+/**
+ * Extend ES native APIs with common usages
+ */
+
+interface JSON {
+    /**
+     * Converts a JavaScript Object Notation (JSON) string into an object.
+     * @param text A valid JSON string
+     * @param reviver A function that transforms the results. This function is called for each member of the object.
+     * If a member contains nested objects, the nested objects are transformed before the parent object is.
+     */
+    parse(text: Buffer, reviver?: (this: any, key: string, value: any) => any): any;
+}
 /*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
