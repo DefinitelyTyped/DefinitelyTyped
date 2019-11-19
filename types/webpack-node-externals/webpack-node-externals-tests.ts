@@ -19,3 +19,53 @@ const c: webpack.Configuration = {
         })
     ]
 };
+const d: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            importType: (moduleName) => {
+                return 'commonjs';
+            }
+        })
+    ]
+};
+const e: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            modulesFromFile: {
+                exclude: 'devDependencies'
+            }
+        })
+    ]
+};
+const f: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            modulesFromFile: {
+                exclude: ['devDependencies']
+            }
+        })
+    ]
+};
+const g: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            modulesFromFile: {
+                include: 'dependencies'
+            }
+        })
+    ]
+};
+const h: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            modulesFromFile: {
+                include: ['dependencies']
+            }
+        })
+    ]
+};
