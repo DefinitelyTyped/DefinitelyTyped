@@ -1,1 +1,2 @@
-export { isIdentityCard as default } from '..';
+import validator from '../';
+export default validator.isIdentityCard;

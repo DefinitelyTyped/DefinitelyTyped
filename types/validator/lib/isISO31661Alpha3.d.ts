@@ -1,1 +1,2 @@
-export { isISO31661Alpha3 as default } from '../';
+import validator from '../';
+export default validator.isISO31661Alpha3;
