@@ -1,4 +1,4 @@
-// Type definitions for react-lazylog 4.4.1
+// Type definitions for react-lazylog 4.4
 // Project: https://github.com/mozilla-frontend-infra/react-lazylog
 // Definitions by: Benjamin Romano <https://github.com/benjaminRomano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
