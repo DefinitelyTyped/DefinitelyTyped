@@ -1,11 +1,6 @@
 /// <reference types="node" />
 
- export type Encoding = "ascii" | "base64" | "hex" | "utf8";
-
-/**
- * Mimimum value that would overflow bitwise operators (2^32).
- */
-export const BITWISE_OVERFLOW = 0x100000000;
+export type Encoding = "ascii" | "base64" | "hex" | "utf8";
 
 /**
  * Read a uint24 from a buffer starting at the given offset.

@@ -51,6 +51,12 @@ export interface ReactiveSocket<D, M> extends Responder<D, M> {
    * Implementations must publish values per the comments on ConnectionStatus.
    */
   connectionStatus(): Flowable<ConnectionStatus>;
+
+  /**
+   * Returns positive number representing the availability of RSocket requester. Higher is better, 0.0
+   * means not available.
+   */
+  availability(): number;
 }
 
 /**
@@ -163,6 +169,7 @@ export interface CancelFrame {
   type: 0x09;
   flags: number;
   streamId: number;
+  length?: number;
 }
 
 export interface ErrorFrame {
@@ -171,6 +178,7 @@ export interface ErrorFrame {
   code: number;
   message: string;
   streamId: number;
+  length?: number;
 }
 
 export interface KeepAliveFrame {
@@ -179,6 +187,7 @@ export interface KeepAliveFrame {
   data?: Encodable;
   lastReceivedPosition: number;
   streamId: 0;
+  length?: number;
 }
 
 export interface LeaseFrame {
@@ -188,6 +197,7 @@ export interface LeaseFrame {
   requestCount: number;
   metadata?: Encodable;
   streamId: 0;
+  length?: number;
 }
 
 export interface PayloadFrame {
@@ -196,6 +206,7 @@ export interface PayloadFrame {
   data?: Encodable;
   metadata?: Encodable;
   streamId: number;
+  length?: number;
 }
 
 export interface RequestChannelFrame {
@@ -205,6 +216,7 @@ export interface RequestChannelFrame {
   flags: number;
   requestN: number;
   streamId: number;
+  length?: number;
 }
 
 export interface RequestFnfFrame {
@@ -213,6 +225,7 @@ export interface RequestFnfFrame {
   metadata?: Encodable;
   flags: number;
   streamId: number;
+  length?: number;
 }
 
 export interface RequestNFrame {
@@ -220,14 +233,16 @@ export interface RequestNFrame {
   flags: number;
   requestN: number;
   streamId: number;
+  length?: number;
 }
-
+// prettier-ignore
 export interface RequestResponseFrame {
   type: 0x04;
   data?: Encodable;
   metadata?: Encodable;
   flags: number;
   streamId: number;
+  length?: number;
 }
 
 export interface RequestStreamFrame {
@@ -237,6 +252,7 @@ export interface RequestStreamFrame {
   flags: number;
   requestN: number;
   streamId: number;
+  length?: number;
 }
 
 export interface ResumeFrame {
@@ -248,6 +264,7 @@ export interface ResumeFrame {
   resumeToken: Encodable;
   serverPosition: number;
   streamId: 0;
+  length?: number;
 }
 
 export interface ResumeOkFrame {
@@ -255,6 +272,7 @@ export interface ResumeOkFrame {
   clientPosition: number;
   flags: number;
   streamId: 0;
+  length?: number;
 }
 
 export interface SetupFrame {
@@ -270,10 +288,12 @@ export interface SetupFrame {
   streamId: 0;
   majorVersion: number;
   minorVersion: number;
+  length?: number;
 }
 
 export interface UnsupportedFrame {
   type: 0x3f | 0x0c | 0x00;
   streamId: 0;
   flags: number;
+  length?: number;
 }
