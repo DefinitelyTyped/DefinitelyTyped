@@ -3,7 +3,7 @@ import WellKnownMimeType from './WellKnownMimeType';
 export class CompositeMetadata {
     constructor(buffer: Buffer);
 
-    [Symbol.iterator](): Generator<Entry>;
+    [Symbol.iterator](): Iterator<Entry>;
 }
 
 /**
@@ -20,11 +20,7 @@ export class CompositeMetadata {
  * @param metadata the metadata value to encode.
  */
 // see #encodeMetadataHeader(ByteBufAllocator, String, int)
-export function encodeAndAddCustomMetadata(
-    compositeMetaData: Buffer,
-    customMimeType: string,
-    metadata: Buffer,
-): Buffer;
+export function encodeAndAddCustomMetadata(compositeMetaData: Buffer, customMimeType: string, metadata: Buffer): Buffer;
 
 /**
  * Encode a new sub-metadata information into a composite metadata {@link CompositeByteBuf
@@ -39,7 +35,7 @@ export function encodeAndAddCustomMetadata(
 export function encodeAndAddWellKnownMetadata(
     compositeMetaData: Buffer,
     knownMimeType: WellKnownMimeType | number,
-    metadata: Buffer,
+    metadata: Buffer
 ): Buffer;
 
 /**
@@ -72,10 +68,7 @@ export function encodeAndAddWellKnownMetadata(
  *     <strong>slice</strong> and the content buffer <strong>slice</strong>, or one of the
  *     zero-length error constant arrays
  */
-export function decodeMimeAndContentBuffersSlices(
-    compositeMetadata: Buffer,
-    entryIndex: number,
-): Buffer[];
+export function decodeMimeAndContentBuffersSlices(compositeMetadata: Buffer, entryIndex: number): Buffer[];
 
 /**
  * Decode a {@link CharSequence} custome mime type from a {@link ByteBuf}, assuming said buffer
@@ -97,10 +90,7 @@ export function decodeMimeAndContentBuffersSlices(
  */
 export function decodeMimeTypeFromMimeBuffer(flyweightMimeBuffer: Buffer): string;
 
-export function encodeCustomMetadataHeader(
-    customMime: string,
-    metadataLength: number,
-): Buffer;
+export function encodeCustomMetadataHeader(customMime: string, metadataLength: number): Buffer;
 
 /**
  * Encode a {@link WellKnownMimeType well known mime type} and a metadata value length into a
@@ -115,10 +105,7 @@ export function encodeCustomMetadataHeader(
  *     integer.
  * @return the encoded mime and metadata length information
  */
-export function encodeWellKnownMetadataHeader(
-    mimeType: number,
-    metadataLength: number,
-): Buffer;
+export function encodeWellKnownMetadataHeader(mimeType: number, metadataLength: number): Buffer;
 
 export interface Entry {
     /**
@@ -139,21 +126,21 @@ export interface Entry {
 export class ExplicitMimeTimeEntry implements Entry {
     constructor(content: Buffer, type: string);
 
-    get content(): Buffer
+    readonly content: Buffer;
 
-    get mimeType(): string
+    readonly mimeType: string;
 }
 
 export class ReservedMimeTypeEntry implements Entry {
     constructor(content: Buffer, type: number);
 
-    get content(): Buffer
+    readonly content: Buffer;
 
     /**
      * {@inheritDoc} Since this entry represents a compressed id that couldn't be decoded, this is
      * always {@code null}.
      */
-    get mimeType(): undefined
+    readonly mimeType: undefined;
 
     /**
      * Returns the reserved, but unknown {@link WellKnownMimeType} for this entry. Range is 0-127
@@ -161,20 +148,20 @@ export class ReservedMimeTypeEntry implements Entry {
      *
      * @return the reserved, but unknown {@link WellKnownMimeType} for this entry
      */
-    get type(): number
+    readonly type: number;
 }
 
 export class WellKnownMimeTypeEntry implements Entry {
     constructor(content: Buffer, type: WellKnownMimeType);
 
-    get content(): Buffer;
+    readonly content: Buffer;
 
-    get mimeType(): string;
+    readonly mimeType: string;
 
     /**
      * Returns the {@link WellKnownMimeType} for this entry.
      *
      * @return the {@link WellKnownMimeType} for this entry
      */
-    get type(): WellKnownMimeType;
+    readonly type: WellKnownMimeType;
 }

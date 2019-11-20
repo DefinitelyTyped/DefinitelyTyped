@@ -2,7 +2,7 @@ import { DuplexConnection, Payload, ReactiveSocket, Responder } from 'rsocket-ty
 import { PayloadSerializers } from './RSocketSerialization';
 
 import { Flowable } from 'rsocket-flowable';
-import { Leases } from "./RSocketLease";
+import { Leases } from './RSocketLease';
 
 export interface TransportServer {
   start: () => Flowable<DuplexConnection>;
@@ -10,11 +10,11 @@ export interface TransportServer {
 }
 
 export interface ServerConfig<D, M> {
-  getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => Partial<Responder<D, M>>;
-  serializers?: PayloadSerializers<D, M>;
-  transport: TransportServer;
-  errorHandler?: (e: Error) => void;
-  leases?: () => Leases<any>;
+    getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => Partial<Responder<D, M>>;
+    serializers?: PayloadSerializers<D, M>;
+    transport: TransportServer;
+    errorHandler?: (e: Error) => void;
+    leases?: () => Leases<any>;
 }
 
 /**

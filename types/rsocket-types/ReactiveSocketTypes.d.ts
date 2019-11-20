@@ -39,24 +39,24 @@ export interface Responder<D, M> {
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
  */
 export interface ReactiveSocket<D, M> extends Responder<D, M> {
-  /**
-   * Close this `ReactiveSocket` and the underlying transport connection.
-   */
-  close(): void;
+    /**
+     * Close this `ReactiveSocket` and the underlying transport connection.
+     */
+    close(): void;
 
-  /**
-   * Returns a Flowable that immediately publishes the current connection
-   * status and thereafter updates as it changes. Once a connection is in
-   * the CLOSED or ERROR state, it may not be connected again.
-   * Implementations must publish values per the comments on ConnectionStatus.
-   */
-  connectionStatus(): Flowable<ConnectionStatus>;
+    /**
+     * Returns a Flowable that immediately publishes the current connection
+     * status and thereafter updates as it changes. Once a connection is in
+     * the CLOSED or ERROR state, it may not be connected again.
+     * Implementations must publish values per the comments on ConnectionStatus.
+     */
+    connectionStatus(): Flowable<ConnectionStatus>;
 
-  /**
-   * Returns positive number representing the availability of RSocket requester. Higher is better, 0.0
-   * means not available.
-   */
-  availability(): number;
+    /**
+     * Returns positive number representing the availability of RSocket requester. Higher is better, 0.0
+     * means not available.
+     */
+    availability(): number;
 }
 
 /**
@@ -166,134 +166,134 @@ export interface FrameWithData {
 }
 
 export interface CancelFrame {
-  type: 0x09;
-  flags: number;
-  streamId: number;
-  length?: number;
+    type: 0x09;
+    flags: number;
+    streamId: number;
+    length?: number;
 }
 
 export interface ErrorFrame {
-  type: 0x0B;
-  flags: number;
-  code: number;
-  message: string;
-  streamId: number;
-  length?: number;
+    type: 0x0b;
+    flags: number;
+    code: number;
+    message: string;
+    streamId: number;
+    length?: number;
 }
 
 export interface KeepAliveFrame {
-  type: 0x03;
-  flags: number;
-  data?: Encodable;
-  lastReceivedPosition: number;
-  streamId: 0;
-  length?: number;
+    type: 0x03;
+    flags: number;
+    data?: Encodable;
+    lastReceivedPosition: number;
+    streamId: 0;
+    length?: number;
 }
 
 export interface LeaseFrame {
-  type: 0x02;
-  flags: number;
-  ttl: number;
-  requestCount: number;
-  metadata?: Encodable;
-  streamId: 0;
-  length?: number;
+    type: 0x02;
+    flags: number;
+    ttl: number;
+    requestCount: number;
+    metadata?: Encodable;
+    streamId: 0;
+    length?: number;
 }
 
 export interface PayloadFrame {
-  type: 0x0A;
-  flags: number;
-  data?: Encodable;
-  metadata?: Encodable;
-  streamId: number;
-  length?: number;
+    type: 0x0a;
+    flags: number;
+    data?: Encodable;
+    metadata?: Encodable;
+    streamId: number;
+    length?: number;
 }
 
 export interface RequestChannelFrame {
-  type: 0x07;
-  data?: Encodable;
-  metadata?: Encodable;
-  flags: number;
-  requestN: number;
-  streamId: number;
-  length?: number;
+    type: 0x07;
+    data?: Encodable;
+    metadata?: Encodable;
+    flags: number;
+    requestN: number;
+    streamId: number;
+    length?: number;
 }
 
 export interface RequestFnfFrame {
-  type: 0x05;
-  data?: Encodable;
-  metadata?: Encodable;
-  flags: number;
-  streamId: number;
-  length?: number;
+    type: 0x05;
+    data?: Encodable;
+    metadata?: Encodable;
+    flags: number;
+    streamId: number;
+    length?: number;
 }
 
 export interface RequestNFrame {
-  type: 0x08;
-  flags: number;
-  requestN: number;
-  streamId: number;
-  length?: number;
+    type: 0x08;
+    flags: number;
+    requestN: number;
+    streamId: number;
+    length?: number;
 }
 // prettier-ignore
 export interface RequestResponseFrame {
-  type: 0x04;
-  data?: Encodable;
-  metadata?: Encodable;
-  flags: number;
-  streamId: number;
-  length?: number;
+    type: 0x04;
+    data?: Encodable;
+    metadata?: Encodable;
+    flags: number;
+    streamId: number;
+    length?: number;
 }
 
 export interface RequestStreamFrame {
-  type: 0x06;
-  data: Encodable;
-  metadata: Encodable;
-  flags: number;
-  requestN: number;
-  streamId: number;
-  length?: number;
+    type: 0x06;
+    data: Encodable;
+    metadata: Encodable;
+    flags: number;
+    requestN: number;
+    streamId: number;
+    length?: number;
 }
 
 export interface ResumeFrame {
-  type: 0x0d;
-  clientPosition: number;
-  flags: number;
-  majorVersion: number;
-  minorVersion: number;
-  resumeToken: Encodable;
-  serverPosition: number;
-  streamId: 0;
-  length?: number;
+    type: 0x0d;
+    clientPosition: number;
+    flags: number;
+    majorVersion: number;
+    minorVersion: number;
+    resumeToken: Encodable;
+    serverPosition: number;
+    streamId: 0;
+    length?: number;
 }
 
 export interface ResumeOkFrame {
-  type: 0x0e;
-  clientPosition: number;
-  flags: number;
-  streamId: 0;
-  length?: number;
+    type: 0x0e;
+    clientPosition: number;
+    flags: number;
+    streamId: 0;
+    length?: number;
 }
 
 export interface SetupFrame {
-  type: 0x01;
-  data?: Encodable;
-  dataMimeType: string;
-  flags: number;
-  keepAlive: number;
-  lifetime: number;
-  metadata?: Encodable;
-  metadataMimeType: string;
-  resumeToken?: Encodable;
-  streamId: 0;
-  majorVersion: number;
-  minorVersion: number;
-  length?: number;
+    type: 0x01;
+    data?: Encodable;
+    dataMimeType: string;
+    flags: number;
+    keepAlive: number;
+    lifetime: number;
+    metadata?: Encodable;
+    metadataMimeType: string;
+    resumeToken?: Encodable;
+    streamId: 0;
+    majorVersion: number;
+    minorVersion: number;
+    length?: number;
 }
 
 export interface UnsupportedFrame {
-  type: 0x3f | 0x0c | 0x00;
-  streamId: 0;
-  flags: number;
-  length?: number;
+    type: 0x3f | 0x0c | 0x00;
+    streamId: 0;
+    flags: number;
+    length?: number;
 }

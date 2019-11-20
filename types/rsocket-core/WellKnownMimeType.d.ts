@@ -23,19 +23,18 @@ export default class WellKnownMimeType {
      * #UNPARSEABLE_MIME_TYPE} is returned.
      *
      * @param mimeType the looked up mime type
-     * @return the matching {@link WellKnownMimeType}, or {@link #UNPARSEABLE_MIME_TYPE} if none
-     *     matches
+     * @return the matching {@link WellKnownMimeType}, or {@link #UNPARSEABLE_MIME_TYPE} if none matches
      */
     static fromString(mimeType: string): WellKnownMimeType;
 
     /** @return the byte identifier of the mime type, guaranteed to be positive or zero. */
-    get identifier(): number;
+    readonly identifier: number;
 
     /**
      * @return the mime type represented as a {@link String}, which is made of US_ASCII compatible
      *     characters only
      */
-    get string(): string;
+    readonly string: string;
 
     /** @see #getString() */
     toString(): string;

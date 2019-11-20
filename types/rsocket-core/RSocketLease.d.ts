@@ -20,11 +20,7 @@ export class Lease {
     expiry: number;
     metadata?: Encodable;
 
-    constructor(
-        timeToLiveMillis: number,
-        allowedRequests: number,
-        metadata?: Encodable,
-    )
+    constructor(timeToLiveMillis: number, allowedRequests: number, metadata?: Encodable);
 
     expired(): boolean;
 
@@ -66,7 +62,7 @@ export class ResponderLeaseHandler implements LeaseHandler {
         leaseSender: (leaseStats?: LeaseStats) => Flowable<Lease>,
         stats?: LeaseStats,
         errorConsumer?: (e: Error) => void
-    )
+    );
 
     use(): boolean;
 
