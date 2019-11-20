@@ -4,8 +4,6 @@
  */
 declare function expectType<T>(value: T): T;
 
-expectType<typeof import('ejs')>(ejs);
-
 // $ExpectType PromiseConstructorLike | undefined
 ejs.promiseImpl;
 
