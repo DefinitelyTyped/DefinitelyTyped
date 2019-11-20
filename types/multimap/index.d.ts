@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 3.1
 
-interface Multimap {
+declare class Multimap {
+    constructor(iterable?: any);
+
     /**
      * Number of values
      */
@@ -62,7 +64,5 @@ interface Multimap {
      */
     values(): { next: () => { value: any, done: boolean } };
 }
-
-declare class Multimap implements Multimap { constructor(iterable?: any); }
 
 export = Multimap;
