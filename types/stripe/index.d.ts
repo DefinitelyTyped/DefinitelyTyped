@@ -6972,18 +6972,29 @@ declare namespace Stripe {
     namespace plans {
         interface ITier {
             /**
-             * A flat fee for the tier to be added into the total amount
-             */
-            flat_amount: number | null;
-
-            /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number | null;
+            up_to: number | null | 'inf';
+
+            /**
+             * Price for the entire tier.
+             */
+            flat_amount?: number | null;
+
+            /**
+             * Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            flat_amount_decimal?: number | null;
+
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number | null;
+            unit_amount?: number | null;
+
+            /**
+             * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            unit_amount_decimal?: number | null;
         }
 
         interface ITransformUsage {
