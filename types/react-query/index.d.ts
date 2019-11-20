@@ -1,6 +1,7 @@
 // Type definitions for react-query 0.3
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
+//                 Jace Hensley <https://github.com/jacehensley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentType } from 'react';
@@ -124,13 +125,13 @@ export const ReactQueryConfigProvider: React.ComponentType<{
 }>;
 
 export interface ReactQueryProviderConfig {
-    retry: number;
-    retryDelay: (attempt: number) => number;
-    staleTime: number;
-    cacheTime: number;
-    refetchAllOnWindowFocus: boolean;
-    refetchInterval: boolean;
-    suspense: boolean;
+    retry?: number;
+    retryDelay?: (attempt: number) => number;
+    staleTime?: number;
+    cacheTime?: number;
+    refetchAllOnWindowFocus?: boolean;
+    refetchInterval?: boolean;
+    suspense?: boolean;
 }
 
 export function clearQueryCache(): void;
