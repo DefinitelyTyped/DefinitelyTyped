@@ -42,7 +42,13 @@ export type HeaderValue = string | string[] | AddressObject | Date | StructuredH
  * A Map object with lowercase header keys.
  */
 export type Headers = Map<string, HeaderValue>;
-
+/**
+ * An array of raw header lines
+ */
+export type HeaderLines = Array<{
+    key: string;
+    line: string
+}>;
 /**
  * Address details.
  */
@@ -108,6 +114,10 @@ interface AttachmentCommon {
 	 * A Map value that holds MIME headers for the attachment node.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines for the attachment node.
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * A MD5 hash of the message content.
 	 */
@@ -177,6 +187,10 @@ interface ParsedMail {
 	 * - `date` value is a Date object.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * The HTML body of the message.
 	 *
