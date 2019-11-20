@@ -1,4 +1,4 @@
-// Type definitions for geobuf 3.0.1
+// Type definitions for geobuf 3.0
 // Project: https://github.com/mapbox/geobuf
 // Definitions by: Chad Burt <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
