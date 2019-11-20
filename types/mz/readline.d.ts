@@ -13,8 +13,6 @@ export class Interface extends readline.Interface {
 // type forwarded for backwards compatibility
 export type ReadLine = Interface;
 
-// Needed to maintain compatibility with TypeScript 2.0:
-// prettier-ignore
 export type AsyncCompleter =
 	((line: string, callback: (err?: null | Error, result?: readline.CompleterResult) => void) => void) |
 	((line: string) => Promise<readline.CompleterResult>);

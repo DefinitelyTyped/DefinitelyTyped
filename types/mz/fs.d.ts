@@ -1324,8 +1324,6 @@ export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: S
  */
 export function watch(
 	filename: PathLike,
-	// Needed to maintain compatibility with TypeScript 2.0:
-	// prettier-ignore
 	options:
 		{ encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } |
 		BufferEncoding |
@@ -1476,7 +1474,7 @@ export function copyFile(src: PathLike, dest: PathLike, flags: number, callback:
  * The only supported flag is fs.constants.COPYFILE_EXCL,
  * which causes the copy operation to fail if dest already exists.
  */
-export function copyFile(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+export function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise<void>;
 
 /**
  * Write an array of ArrayBufferViews to the file specified by fd using writev().
