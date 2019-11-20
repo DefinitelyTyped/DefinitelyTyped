@@ -6,9 +6,7 @@ import {
 	ExecException,
 	ExecOptions,
 	ExecFileOptions,
-	ExecFileOptionsWithBufferEncoding,
 	ExecFileOptionsWithStringEncoding,
-	ExecFileOptionsWithOtherEncoding
 } from "child_process";
 export * from "child_process";
 
@@ -18,33 +16,40 @@ export function exec(
 ): ChildProcess;
 export function exec(
 	command: string,
-	options: { encoding: "buffer" | null } & ExecOptions,
+	options: { encoding: "buffer" | null | undefined } & ExecOptions,
 	callback: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void
 ): ChildProcess;
 export function exec(
 	command: string,
-	options: { encoding: BufferEncoding } & ExecOptions,
+	options: ({ encoding?: BufferEncoding } & ExecOptions) | null | undefined,
 	callback: (error: ExecException | null, stdout: string, stderr: string) => void
 ): ChildProcess;
 export function exec(
 	command: string,
-	options: { encoding: string } & ExecOptions,
+	options: ({ encoding?: string | null } & ExecOptions) | null | undefined,
 	callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void
 ): ChildProcess;
+
 export function exec(
 	command: string,
-	options: ExecOptions,
-	callback: (error: ExecException | null, stdout: string, stderr: string) => void
-): ChildProcess;
-
-export function exec(command: string): Promise<[string, string]>;
-export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<[Buffer, Buffer]>;
-export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<[string, string]>;
-export function exec(command: string, options: ExecOptions): Promise<[string, string]>;
+	options: { encoding: "buffer" | null | undefined } & ExecOptions
+): Promise<[Buffer, Buffer]>;
+export function exec(
+	command: string,
+	options?: ({ encoding?: BufferEncoding } & ExecOptions) | null
+): Promise<[string, string]>;
 export function exec(
 	command: string,
 	options?: ({ encoding?: string | null } & ExecOptions) | null
 ): Promise<[string | Buffer, string | Buffer]>;
+
+interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
+	encoding: "buffer" | null | undefined;
+}
+
+interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
+	encoding?: string | null;
+}
 
 // no `options` definitely means stdout/stderr are `string`.
 export function execFile(
@@ -53,7 +58,7 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
 	file: string,
-	args: ReadonlyArray<string> | undefined | null,
+	args: ReadonlyArray<string> | null | undefined,
 	callback: (error: Error | null, stdout: string, stderr: string) => void
 ): ChildProcess;
 
@@ -65,21 +70,23 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
 	file: string,
-	args: ReadonlyArray<string> | undefined | null,
+	args: ReadonlyArray<string> | null | undefined,
 	options: ExecFileOptionsWithBufferEncoding,
 	callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void
 ): ChildProcess;
 
-// `options` with well known `encoding` means stdout/stderr are definitely `string`.
+// `options` without an or with a well known `encoding` means stdout/stderr are definitely `string`.
 export function execFile(
 	file: string,
-	options: ExecFileOptionsWithStringEncoding,
+	// `options` can't be mixed into `args`
+	// tslint:disable-next-line: unified-signatures
+	options: ExecFileOptions | ExecFileOptionsWithStringEncoding,
 	callback: (error: Error | null, stdout: string, stderr: string) => void
 ): ChildProcess;
 export function execFile(
 	file: string,
-	args: ReadonlyArray<string> | undefined | null,
-	options: ExecFileOptionsWithStringEncoding,
+	args: ReadonlyArray<string> | null | undefined,
+	options: ExecFileOptions | ExecFileOptionsWithStringEncoding,
 	callback: (error: Error | null, stdout: string, stderr: string) => void
 ): ChildProcess;
 
@@ -87,77 +94,37 @@ export function execFile(
 // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
 export function execFile(
 	file: string,
-	options: ExecFileOptionsWithOtherEncoding,
+	options: ExecFileOptionsWithOtherEncoding | null | undefined,
 	callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void
 ): ChildProcess;
 export function execFile(
 	file: string,
-	args: ReadonlyArray<string> | undefined | null,
-	options: ExecFileOptionsWithOtherEncoding,
-	callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void
-): ChildProcess;
-
-// `options` without an `encoding` means stdout/stderr are definitely `string`.
-export function execFile(
-	file: string,
-	options: ExecFileOptions,
-	callback: (error: Error | null, stdout: string, stderr: string) => void
-): ChildProcess;
-export function execFile(
-	file: string,
-	args: ReadonlyArray<string> | undefined | null,
-	options: ExecFileOptions,
-	callback: (error: Error | null, stdout: string, stderr: string) => void
-): ChildProcess;
-
-// fallback if nothing else matches. Worst case is always `string | Buffer`.
-export function execFile(
-	file: string,
-	options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-	callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void
-): ChildProcess;
-export function execFile(
-	file: string,
-	args: ReadonlyArray<string> | undefined | null,
-	options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
+	args: ReadonlyArray<string> | null | undefined,
+	options: ExecFileOptionsWithOtherEncoding | null | undefined,
 	callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void
 ): ChildProcess;
 
-export function execFile(file: string): Promise<[string, string]>;
-export function execFile(file: string, args: string[] | undefined | null): Promise<[string, string]>;
+export function execFile(
+	file: string,
+	args: string[] | null | undefined,
+	options: ExecFileOptionsWithBufferEncoding
+): Promise<[Buffer, Buffer]>;
 export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<[Buffer, Buffer]>;
 export function execFile(
 	file: string,
-	args: string[] | undefined | null,
-	options: ExecFileOptionsWithBufferEncoding
-): Promise<[Buffer, Buffer]>;
-export function execFile(file: string, options: ExecFileOptionsWithStringEncoding): Promise<[string, string]>;
-export function execFile(
-	file: string,
-	args: string[] | undefined | null,
-	options: ExecFileOptionsWithStringEncoding
+	args?: string[] | null,
+	options?: ExecFileOptions | ExecFileOptionsWithStringEncoding | null
 ): Promise<[string, string]>;
 export function execFile(
 	file: string,
-	options: ExecFileOptionsWithOtherEncoding
-): Promise<[string | Buffer, string | Buffer]>;
-export function execFile(
-	file: string,
-	args: string[] | undefined | null,
-	options: ExecFileOptionsWithOtherEncoding
-): Promise<[string | Buffer, string | Buffer]>;
-export function execFile(file: string, options: ExecFileOptions): Promise<[string, string]>;
-export function execFile(
-	file: string,
-	args: string[] | undefined | null,
-	options: ExecFileOptions
+	options?: ExecFileOptions | ExecFileOptionsWithStringEncoding | null
 ): Promise<[string, string]>;
 export function execFile(
 	file: string,
-	options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null
+	args?: string[] | null,
+	options?: ExecFileOptionsWithOtherEncoding | null
 ): Promise<[string | Buffer, string | Buffer]>;
 export function execFile(
 	file: string,
-	args: string[] | undefined | null,
-	options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null
+	options?: ExecFileOptionsWithOtherEncoding | null
 ): Promise<[string | Buffer, string | Buffer]>;

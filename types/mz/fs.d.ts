@@ -10,7 +10,7 @@ import {
 	WriteFileOptions,
 	Stats,
 	symlink as symlinkNS,
-	MakeDirectoryOptions
+	MakeDirectoryOptions,
 } from "fs";
 export * from "fs";
 
@@ -46,7 +46,7 @@ export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param len If not specified, defaults to `0`.
  */
-export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+export function truncate(path: PathLike, len: number | null | undefined, callback: NoParamCallback): void;
 
 /**
  * Asynchronous `truncate(2)`.
@@ -76,7 +76,7 @@ export function truncate(path: PathLike, len?: number | null): Promise<void>;
  * @param fd A file descriptor.
  * @param len If not specified, defaults to `0`.
  */
-export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+export function ftruncate(fd: number, len: number | null | undefined, callback: NoParamCallback): void;
 
 /**
  * Asynchronous `ftruncate(2)`.
@@ -305,7 +305,7 @@ export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
 export function symlink(
 	target: PathLike,
 	path: PathLike,
-	type: symlinkNS.Type | undefined | null,
+	type: symlinkNS.Type | null | undefined,
 	callback: NoParamCallback
 ): void;
 
@@ -341,7 +341,7 @@ export function symlink(target: PathLike, path: PathLike, type?: string | null):
  */
 export function readlink(
 	path: PathLike,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
 ): void;
 
@@ -369,7 +369,7 @@ export function readlink(
  */
 export function readlink(
 	path: PathLike,
-	options: { encoding?: string | null } | string | undefined | null,
+	options: { encoding?: string | null } | string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void
 ): void;
 
@@ -431,7 +431,7 @@ export function readlink(
  */
 export function realpath(
 	path: PathLike,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
 ): void;
 
@@ -459,7 +459,7 @@ export function realpath(
  */
 export function realpath(
 	path: PathLike,
-	options: { encoding?: string | null } | string | undefined | null,
+	options: { encoding?: string | null } | string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
 ): void;
 
@@ -514,7 +514,7 @@ export function realpath(
 export namespace realpath {
 	function native(
 		path: PathLike,
-		options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+		options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
 		callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
 	): void;
 	function native(
@@ -524,21 +524,20 @@ export namespace realpath {
 	): void;
 	function native(
 		path: PathLike,
-		options: { encoding?: string | null } | string | undefined | null,
+		options: { encoding?: string | null } | string | null | undefined,
 		callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
 	): void;
 	function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
 
 	function native(
 		path: PathLike,
-		options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null
+		options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
 	): Promise<string>;
 	function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
 	function native(
 		path: PathLike,
-		options: { encoding?: string | null } | string | undefined | null
+		options: { encoding?: string | null } | string | null | undefined
 	): Promise<string | Buffer>;
-	function native(path: PathLike): Promise<string>;
 }
 
 /**
@@ -597,7 +596,7 @@ export function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void
  */
 export function mkdir(
 	path: PathLike,
-	options: number | string | MakeDirectoryOptions | undefined | null,
+	options: number | string | MakeDirectoryOptions | null | undefined,
 	callback: NoParamCallback
 ): void;
 
@@ -631,7 +630,7 @@ export function mkdir(path: PathLike, options?: number | string | MakeDirectoryO
  */
 export function mkdtemp(
 	prefix: string,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, folder: string) => void
 ): void;
 
@@ -659,7 +658,7 @@ export function mkdtemp(
  */
 export function mkdtemp(
 	prefix: string,
-	options: { encoding?: string | null } | string | undefined | null,
+	options: { encoding?: string | null } | string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void
 ): void;
 
@@ -719,7 +718,7 @@ export function mkdtemp(
  */
 export function readdir(
 	path: PathLike,
-	options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | undefined | null,
+	options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, files: string[]) => void
 ): void;
 
@@ -747,7 +746,7 @@ export function readdir(
  */
 export function readdir(
 	path: PathLike,
-	options: { encoding?: string | null; withFileTypes?: false } | string | undefined | null,
+	options: { encoding?: string | null; withFileTypes?: false } | string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void
 ): void;
 
@@ -852,7 +851,7 @@ export function close(fd: number): Promise<void>;
 export function open(
 	path: PathLike,
 	flags: string | number,
-	mode: string | number | undefined | null,
+	mode: string | number | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, fd: number) => void
 ): void;
 
@@ -954,9 +953,9 @@ export function fsync(fd: number): Promise<void>;
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
 	fd: number,
 	buffer: TBuffer,
-	offset: number | undefined | null,
-	length: number | undefined | null,
-	position: number | undefined | null,
+	offset: number | null | undefined,
+	length: number | null | undefined,
+	position: number | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
@@ -970,8 +969,8 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
 	fd: number,
 	buffer: TBuffer,
-	offset: number | undefined | null,
-	length: number | undefined | null,
+	offset: number | null | undefined,
+	length: number | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
@@ -984,7 +983,7 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
 	fd: number,
 	buffer: TBuffer,
-	offset: number | undefined | null,
+	offset: number | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
@@ -1026,8 +1025,8 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
 export function write(
 	fd: number,
 	data: any,
-	position: number | undefined | null,
-	encoding: string | undefined | null,
+	position: number | null | undefined,
+	encoding: string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
 ): void;
 
@@ -1041,7 +1040,7 @@ export function write(
 export function write(
 	fd: number,
 	data: any,
-	position: number | undefined | null,
+	position: number | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
 ): void;
 
@@ -1117,7 +1116,7 @@ export function read<TBuffer extends NodeJS.ArrayBufferView>(
  */
 export function readFile(
 	path: PathLike | number,
-	options: { encoding?: null; flag?: string } | undefined | null,
+	options: { encoding?: null; flag?: string } | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
 ): void;
 
@@ -1147,7 +1146,7 @@ export function readFile(
  */
 export function readFile(
 	path: PathLike | number,
-	options: { encoding?: string | null; flag?: string } | string | undefined | null,
+	options: { encoding?: string | null; flag?: string } | string | null | undefined,
 	callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void
 ): void;
 

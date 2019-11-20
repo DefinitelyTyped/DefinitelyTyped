@@ -13,7 +13,7 @@ import {
 	NaptrRecord,
 	SoaRecord,
 	SrvRecord,
-	RecordWithTtl
+	RecordWithTtl,
 } from "dns";
 export * from "dns";
 
@@ -25,6 +25,8 @@ export function lookup(
 ): void;
 export function lookup(
 	hostname: string,
+	// `options` can't be mixed into `family`
+	// tslint:disable-next-line: unified-signatures
 	options: LookupOneOptions,
 	callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void
 ): void;
@@ -61,23 +63,13 @@ export function resolve(
 ): void;
 export function resolve(
 	hostname: string,
-	rrtype: "A",
-	callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void
-): void;
-export function resolve(
-	hostname: string,
-	rrtype: "AAAA",
+	rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR",
 	callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void
 ): void;
 export function resolve(
 	hostname: string,
 	rrtype: "ANY",
 	callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void
-): void;
-export function resolve(
-	hostname: string,
-	rrtype: "CNAME",
-	callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void
 ): void;
 export function resolve(
 	hostname: string,
@@ -88,16 +80,6 @@ export function resolve(
 	hostname: string,
 	rrtype: "NAPTR",
 	callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void
-): void;
-export function resolve(
-	hostname: string,
-	rrtype: "NS",
-	callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void
-): void;
-export function resolve(
-	hostname: string,
-	rrtype: "PTR",
-	callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void
 ): void;
 export function resolve(
 	hostname: string,

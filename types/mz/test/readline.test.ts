@@ -11,7 +11,7 @@ const rlc = readline.createInterface({
 	input,
 	output,
 	completer,
-	terminal: true
+	terminal: true,
 });
 
 rl.question('a'); // $ExpectType Promise<string>
