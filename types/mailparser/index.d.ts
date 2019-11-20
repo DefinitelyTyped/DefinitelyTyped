@@ -1,4 +1,4 @@
-// Type definitions for mailparser 2.4
+// Type definitions for mailparser 2.7
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
