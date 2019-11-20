@@ -5,6 +5,7 @@
 //                 Brian Andrews <https://github.com/sbardian>
 //                 Rodrigo Pombo <https://github.com/pomber>
 //                 Justin Hall <https://github.com/wKovacs64>
+//                 Prateek Kathal <https://github.com/prateekkathal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
