@@ -47,7 +47,7 @@ export type Headers = Map<string, HeaderValue>;
  */
 export type HeaderLines = Array<{
     key: string;
-    line: string
+    line: string;
 }>;
 /**
  * Address details.
