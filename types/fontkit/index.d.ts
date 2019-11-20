@@ -278,4 +278,4 @@ export interface BBOX {
 }
 
 export as namespace fontkit;
-export default fontkit;
+export = fontkit;
