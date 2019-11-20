@@ -208,6 +208,11 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).toBeRejected();
         await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
         await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, "badness");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, /badness/);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError("badness");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(/badness/);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
     });
 
@@ -218,6 +223,10 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.resolve(true)).not.toBeResolvedTo(false);
         await expectAsync(Promise.resolve()).not.toBeRejected();
         await expectAsync(Promise.reject(badness)).not.toBeRejectedWith(malady);
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(Error, "malady");
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(Error, /malady/);
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError("malady");
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(/malady/);
         await expectAsync(Promise.reject(badness)).not.withContext("additional info").toBeResolved();
         await expectAsync(Promise.reject(badness)).withContext("additional info").not.toBeResolved();
     });

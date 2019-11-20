@@ -699,6 +699,19 @@ declare namespace jasmine {
         toBeRejectedWith(expected: Expected<U>): Promise<void>;
 
         /**
+         * Expect a promise to be rejected with a value matched to the expected.
+         * @param expected - Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
+         * @param message - The message that should be set on the thrown Error.
+         */
+        toBeRejectedWithError(expected?: Error, message?: string | RegExp): PromiseLike<void>;
+
+        /**
+         * Expect a promise to be rejected with a value matched to the expected.
+         * @param message - The message that should be set on the thrown Error.
+         */
+        toBeRejectedWithError(message?: string | RegExp): PromiseLike<void>;
+
+        /**
          * Add some context for an expect.
          * @param message - Additional context to show when the matcher fails.
          */
