@@ -97,9 +97,9 @@ interface MetaData {
     _chart: Chart;
     _datasetIndex: number;
     _index: number;
-    _model: Model;
+    _model: Chart.ModelType;
     _start?: any;
-    _view: Model;
+    _view: Chart.ModelType;
     _xScale: Chart.ChartScales;
     _yScale: Chart.ChartScales;
     hidden?: boolean;
@@ -148,6 +148,8 @@ declare namespace Chart {
     type BorderAlignment = 'center' | 'inner';
 
     type BorderWidth = number | { [key in PositionType]?: number };
+
+    type ModelType = Model | DoughnutModel;
 
     interface ChartArea {
         top: number;
@@ -800,6 +802,20 @@ declare namespace Chart {
         duration?: number;
         lazy?: boolean;
         easing?: Easing;
+    }
+
+    interface DoughnutModel {
+        backgroundColor: ChartColor;
+        borderAlign: BorderAlignment;
+        borderColor: string;
+        borderWidth: number;
+        circumference: number;
+        endAngle: number;
+        innerRadius: number;
+        outerRadius: number;
+        startAngle: number;
+        x: number;
+        y: number;
     }
 }
 

@@ -305,3 +305,46 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+
+// Testing DoughnutModel
+const doughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [
+            {
+                backgroundColor: '#ff0000',
+                borderColor: '#000000',
+                borderWidth: 3,
+                data: [1, 3, 5]
+            }
+        ]
+    }
+});
+
+if (doughnutChart.getDatasetMeta(0).data.length > 0) {
+    const doughnutChartModel = doughnutChart.getDatasetMeta(0).data[0]._model as Chart.DoughnutModel;
+    console.log(doughnutChartModel.backgroundColor);
+    console.log(doughnutChartModel.borderAlign);
+    console.log(doughnutChartModel.borderColor);
+    console.log(doughnutChartModel.borderWidth);
+    console.log(doughnutChartModel.circumference);
+    console.log(doughnutChartModel.endAngle);
+    console.log(doughnutChartModel.innerRadius);
+    console.log(doughnutChartModel.outerRadius);
+    console.log(doughnutChartModel.startAngle);
+    console.log(doughnutChartModel.x);
+    console.log(doughnutChartModel.y);
+
+    const doughnutChartView = doughnutChart.getDatasetMeta(0).data[0]._view as Chart.DoughnutModel;
+    console.log(doughnutChartView.backgroundColor);
+    console.log(doughnutChartView.borderAlign);
+    console.log(doughnutChartView.borderColor);
+    console.log(doughnutChartView.borderWidth);
+    console.log(doughnutChartView.circumference);
+    console.log(doughnutChartView.endAngle);
+    console.log(doughnutChartView.innerRadius);
+    console.log(doughnutChartView.outerRadius);
+    console.log(doughnutChartView.startAngle);
+    console.log(doughnutChartView.x);
+    console.log(doughnutChartView.y);
+}
