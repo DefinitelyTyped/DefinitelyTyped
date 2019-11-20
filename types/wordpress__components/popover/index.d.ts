@@ -4,10 +4,6 @@ import { Slot } from '@wordpress/components';
 declare namespace Popover {
     interface Props extends HTMLProps<HTMLDivElement> {
         /**
-         * A custom `DOMRect` object at which to position the popover.
-         */
-        anchorRect?: DOMRect | ClientRect;
-        /**
          * Should the popover have an animation?
          * @defaultValue true
          */
