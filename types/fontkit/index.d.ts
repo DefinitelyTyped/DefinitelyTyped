@@ -3,82 +3,84 @@
 // Definitions by: Teoxoy <https://github.com/Teoxoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 /**
  * Opens a font file asynchronously, and calls the callback with a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void
+export function open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void;
 
 /**
  * Opens a font file synchronously, and returns a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function openSync(filename: string, postscriptName?: string): Font
+export function openSync(filename: string, postscriptName?: string): Font;
 
 /**
  * Returns a font object for the given buffer.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function create(buffer: Buffer, postscriptName?: string): Font
+export function create(buffer: Buffer, postscriptName?: string): Font;
 
 /**
  * There are several different types of font objects that are returned by fontkit depending on the font format.
  * They all inherit from the TTFFont class and have the same public API.
  */
 export interface Font {
-    postscriptName: string
-    fullName: string
-    familyName: string
-    subfamilyName: string
-    copyright: string
-    version: number
+    postscriptName: string;
+    fullName: string;
+    familyName: string;
+    subfamilyName: string;
+    copyright: string;
+    version: number;
 
     /** the size of the font’s internal coordinate grid */
-    unitsPerEm: number
+    unitsPerEm: number;
     /** the font’s ascender */
-    ascent: number
+    ascent: number;
     /** the font’s descender */
-    descent: number
+    descent: number;
     /** the amount of space that should be included between lines */
-    lineGap: number
+    lineGap: number;
     /** the offset from the normal underline position that should be used */
-    underlinePosition: number
+    underlinePosition: number;
     /** the weight of the underline that should be used */
-    underlineThickness: number
+    underlineThickness: number;
     /** if this is an italic font, the angle the cursor should be drawn at to match the font design */
-    italicAngle: number
+    italicAngle: number;
     /** the height of capital letters above the baseline */
-    capHeight: number
+    capHeight: number;
     /** the height of lower case letters */
-    xHeight: number
+    xHeight: number;
     /** the font’s bounding box, i.e. the box that encloses all glyphs in the font */
-    bbox: BBOX
+    bbox: BBOX;
 
     /** the number of glyphs in the font */
-    numGlyphs: number
+    numGlyphs: number;
     /** an array of all of the unicode code points supported by the font */
-    characterSet: number[]
+    characterSet: number[];
     /** an array of all OpenType feature tags (or mapped AAT tags) supported by the font */
-    availableFeatures: string[]
+    availableFeatures: string[];
 
     /**
      * Returns an array of strings that map to the given glyph id.
      */
-    stringsForGlyph(gid: number): string[]
+    stringsForGlyph(gid: number): string[];
 
     /**
      * Maps a single unicode code point to a Glyph object.
      * Does not perform any advanced substitutions (there is no context to do so).
      */
-    glyphForCodePoint(codePoint: number): Glyph
+    glyphForCodePoint(codePoint: number): Glyph;
 
     /**
      * Returns whether there is glyph in the font for the given unicode code point.
      */
-    hasGlyphForCodePoint(codePoint: number): boolean
+    hasGlyphForCodePoint(codePoint: number): boolean;
 
     /**
      * Returns an array of Glyph objects for the given string.
@@ -86,12 +88,12 @@ export interface Font {
      * For most uses, you should use font.layout (described below), which
      * provides a much more advanced mapping supporting AAT and OpenType shaping.
      */
-    glyphsForString(string: string): Glyph[]
+    glyphsForString(string: string): Glyph[];
 
     /**
      * Returns the advance width for a single glyph id.
      */
-    widthOfGlyph(glyph_id: number): number
+    widthOfGlyph(glyph_id: number): number;
 
     /**
      * Returns a GlyphRun object, which includes an array of Glyphs and GlyphPositions for the given string.
@@ -102,57 +104,57 @@ export interface Font {
         script?: string,
         language?: string,
         direction?: string
-    ): GlyphRun
+    ): GlyphRun;
 }
 
 export interface GlyphRun {
     /**
      * An array of Glyph objects in the run
      */
-    glyphs: Glyph[]
+    glyphs: Glyph[];
 
     /**
      * An array of GlyphPosition objects for each glyph in the run
      */
-    positions: GlyphPosition[]
+    positions: GlyphPosition[];
 
     /**
      * The script that was requested for shaping. This was either passed in or detected automatically.
      */
-    script: string
+    script: string;
 
     /**
      * The language requested for shaping, as passed in. If `null`, the default language for the
      * script was used.
      */
-    language: string
+    language: string;
 
     /**
      * The direction requested for shaping, as passed in (either ltr or rtl).
      * If `null`, the default direction of the script is used.
      */
-    direction: string
+    direction: string;
 
     /**
      * The features requested during shaping. This is a combination of user
      * specified features and features chosen by the shaper.
      */
-    features: Record<string, boolean>
+    features: Record<string, boolean>;
 
     /**
      * The total advance width of the run.
      */
-    advanceWidth: number
+    advanceWidth: number;
 
     /**
      * The total advance height of the run.
      */
-    advanceHeight: number
+    advanceHeight: number;
 
     /**
      * The bounding box containing all glyphs in the run.
      */
-    bbox: BBOX
+    bbox: BBOX;
 }
 
 /**
@@ -160,16 +162,16 @@ export interface GlyphRun {
  */
 export interface GlyphPosition {
     /** The amount to move the virtual pen in the X direction after rendering this glyph. */
-    xAdvance: number
+    xAdvance: number;
 
     /** The amount to move the virtual pen in the Y direction after rendering this glyph. */
-    yAdvance: number
+    yAdvance: number;
 
     /** The offset from the pen position in the X direction at which to render this glyph. */
-    xOffset: number
+    xOffset: number;
 
     /** The offset from the pen position in the Y direction at which to render this glyph. */
-    yOffset: number
+    yOffset: number;
 }
 
 /**
@@ -182,20 +184,20 @@ export interface GlyphPosition {
  */
 export interface Glyph {
     /** the glyph id in the font */
-    id: number
+    id: number;
 
     /**
      * An array of unicode code points that are represented by this glyph.
      * There can be multiple code points in the case of ligatures and other glyphs
      * that represent multiple visual characters.
      */
-    codePoints: number[]
+    codePoints: number[];
 
     /** a vector Path object representing the glyph */
-    path: Path
+    path: Path;
 
     /** the glyph’s bounding box, i.e. the rectangle that encloses the glyph outline as tightly as possible. */
-    bbox: BBOX
+    bbox: BBOX;
 
     /**
      * The glyph’s control box.
@@ -206,16 +208,16 @@ export interface Glyph {
      * See [here](http://www.freetype.org/freetype2/docs/glyphs/glyphs-6.html#section-2)
      * for a more detailed description.
      */
-    cbox: BBOX
+    cbox: BBOX;
 
     /** the glyph’s advance width */
-    advanceWidth: number
+    advanceWidth: number;
 
     /** is a mark glyph (non-spacing combining glyph) */
-    isMark: boolean
+    isMark: boolean;
 
     /** is a ligature glyph (multiple character, spacing glyph) */
-    isLigature: boolean
+    isLigature: boolean;
 }
 
 /**
@@ -225,13 +227,13 @@ export interface Glyph {
  * render the path to a graphics context.
  */
 export interface Path {
-    commands: PathCommand[]
+    commands: PathCommand[];
 
     /**
      * Gets the exact bounding box of the path by evaluating curve segments.
      * Slower to compute than the control box, but more accurate.
      */
-    bbox: BBOX
+    bbox: BBOX;
 
     /**
      * Gets the "control box" of a path.
@@ -239,38 +241,38 @@ export interface Path {
      * control points of bezier segments and is much faster to compute than
      * the real bounding box.
      */
-    cbox: BBOX
+    cbox: BBOX;
 
     /**
      * Compiles the path to a JavaScript function that can be applied with
      * a graphics context in order to render the path.
      */
-    toFunction(): Function
+    toFunction(): (ctx: CanvasRenderingContext2D) => void;
 
     /** Converts the path to an SVG path data string */
-    toSVG(): string
+    toSVG(): string;
 
     /** Transforms the path by the given matrix */
-    transform(m0: number, m1: number, m2: number, m3: number, m4: number, m5: number): this
+    transform(m0: number, m1: number, m2: number, m3: number, m4: number, m5: number): this;
 
     /** Translates the path by the given offset */
-    translate(x: number, y: number): this
+    translate(x: number, y: number): this;
 
     /** Rotates the path by the given angle (in radians) */
-    rotate(angle: number): this
+    rotate(angle: number): this;
 
     /** Scales the path */
-    scale(scaleX: number, scaleY?: number): this
+    scale(scaleX: number, scaleY?: number): this;
 }
 
 export interface PathCommand {
-    command: 'moveTo' | 'lineTo' | 'quadraticCurveTo' | 'bezierCurveTo' | 'closePath'
-    args: number[]
+    command: 'moveTo' | 'lineTo' | 'quadraticCurveTo' | 'bezierCurveTo' | 'closePath';
+    args: number[];
 }
 
 export interface BBOX {
-    minX: number
-    minY: number
-    maxX: number
-    maxY: number
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
 }
