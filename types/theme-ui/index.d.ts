@@ -84,7 +84,7 @@ export interface Theme extends StyledSystemTheme {
      * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
      */
     useCustomProperties?: boolean;
-    
+
     /**
      * Provide a value here to enable color modes
      */
