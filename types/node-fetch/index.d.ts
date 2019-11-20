@@ -148,9 +148,13 @@ export class Body {
     timeout: number;
 }
 
+interface SystemError extends Error {
+    code?: string;
+}
+
 export class FetchError extends Error {
     name: "FetchError";
-    constructor(message: string, type: string, systemError?: string);
+    constructor(message: string, type: string, systemError?: SystemError);
     type: string;
     code?: string;
     errno?: string;
