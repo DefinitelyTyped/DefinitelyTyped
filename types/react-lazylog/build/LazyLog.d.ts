@@ -3,7 +3,7 @@ import { Range } from "immutable";
 
 export interface LazyLogProps {
     url: string;
-    text: string;
+    text?: string;
     fetchOptions?: RequestInit;
     stream?: boolean;
     height?: string | number;
