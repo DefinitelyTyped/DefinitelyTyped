@@ -33,6 +33,7 @@
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
+//                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
