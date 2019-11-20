@@ -77,6 +77,14 @@ export type ColorMode = {
 
 export interface Theme extends StyledSystemTheme {
     /**
+     * Enable/disable custom CSS properties/variables if lower browser
+     * support is required (for eg. IE 11).
+     *
+     * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
+     */
+    useCustomProperties: boolean;
+    
+    /**
      * Provide a value here to enable color modes
      */
     initialColorMode?: string;
