@@ -16,7 +16,8 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
         * [Create a new package](#create-a-new-package)
         * [Common mistakes](#common-mistakes)
         * [Removing a package](#removing-a-package)
-        * [Lint](#lint)
+        * [Linter](#linter)
+        * [Verifying](#verifying)
 * [FAQ](#faq)
 
 ## Current status
@@ -41,13 +42,19 @@ See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declar
 
 ### npm
 
-This is the preferred method. This is only available for TypeScript 2.0+ users. For example:
+This is the preferred method. For example:
 
 ```sh
 npm install --save-dev @types/node
 ```
 
 The types should then be automatically included by the compiler.
+You may need to add a `types` reference if you're not using modules:
+
+```ts
+/// <reference types="node" />
+```
+
 See more in the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 For an NPM package "foo", typings for it will be at "@types/foo".
@@ -57,10 +64,25 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
+#### Typescript 2.7 and earlier
 
-### Other methods
+Definitely Typed only tests packages on Typescript 2.8 and later as of November 2019.
+If you're using Typescript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new Typescript features.
+But there's no guarantee that they'll work.
+Packages that existed before November 2019 may have older versions that are explicitly marked compatible with older versions of Typescript; use the tag "ts2.6" for Typescript 2.6, for example.
 
-These can be used by TypeScript 1.0.
+For example, if you run `npm dist-tags @types/react`, you'll see the following table that shows that react@16.4 has types for Typescript 2.6:
+
+|Tag | Version|
+|----|---------|
+|latest| 16.9.11|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.6| 16.4.7|
+| ... | ... |
+
+
+### Typescript 1.8 and earlier
 
 * [Typings](https://github.com/typings/typings)
 * ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
@@ -205,7 +227,7 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Lint
+#### Linter
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 ```js
@@ -240,8 +262,11 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Test by running `npm run lint package-name` where `package-name` is the name of your package.
-This script uses [dtslint](https://github.com/Microsoft/dtslint).
+## Verifying
+
+Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+
+This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 
 ## FAQ
@@ -265,10 +290,16 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 #### I notice some packages having a `package.json` here.
 
-Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
-We do not allow other fields, such as `"description"`, to be defined manually.
-Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
+Usually you won't need this.
+Definitely Typed's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+A `package.json` may be included to specify dependencies that are not other `@types` packages.
+[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
+You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+
+In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
+Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
@@ -307,9 +338,9 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 2.1 or above.
+#### I want to use features from TypeScript 2.9 or above.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.9`.
 
 #### I want to use features from TypeScript 3.1 or above.
 

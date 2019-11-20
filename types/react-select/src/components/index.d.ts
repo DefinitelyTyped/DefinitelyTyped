@@ -43,15 +43,16 @@ import MultiValue, {
 import Option, { OptionProps } from './Option';
 import Placeholder, { PlaceholderProps } from './Placeholder';
 import SingleValue, { SingleValueProps } from './SingleValue';
+import { OptionTypeBase } from '../types';
 
-export type PlaceholderOrValue<OptionType> =
+export type PlaceholderOrValue<OptionType extends OptionTypeBase> =
   | Element<ComponentType<PlaceholderProps<OptionType>>>
   | Element<ComponentType<SingleValueProps<OptionType>>>
   | Array<Element<ComponentType<MultiValueProps<OptionType>>>>;
 
-export type IndicatorComponentType<OptionType> = ComponentType<IndicatorProps<OptionType>>;
+export type IndicatorComponentType<OptionType extends OptionTypeBase> = ComponentType<IndicatorProps<OptionType>>;
 
-export interface SelectComponents<OptionType> {
+export interface SelectComponents<OptionType extends OptionTypeBase> {
   ClearIndicator: IndicatorComponentType<OptionType> | null;
   Control: ComponentType<ControlProps<OptionType>>;
   DropdownIndicator: IndicatorComponentType<OptionType> | null;
@@ -79,12 +80,16 @@ export interface SelectComponents<OptionType> {
   ValueContainer: ComponentType<ValueContainerProps<OptionType>>;
 }
 
-export type SelectComponentsConfig<OptionType> = Partial<SelectComponents<OptionType>>;
+export type SelectComponentsConfig<OptionType extends OptionTypeBase> = Partial<SelectComponents<OptionType>>;
 
-export const components: Required<SelectComponents<any>>;
+export type DeepNonNullable<T> = {
+    [P in keyof T]-?: NonNullable<T[P]>;
+};
 
-export interface Props<OptionType> {
+export const components: Required<DeepNonNullable<SelectComponents<any>>>;
+
+export interface Props<OptionType extends OptionTypeBase> {
   components: SelectComponentsConfig<OptionType>;
 }
 
-export function defaultComponents<OptionType>(props: Props<OptionType>): SelectComponents<OptionType>;
+export function defaultComponents<OptionType extends OptionTypeBase>(props: Props<OptionType>): SelectComponents<OptionType>;

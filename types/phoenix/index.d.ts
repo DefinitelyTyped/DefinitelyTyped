@@ -31,7 +31,7 @@ export class Channel {
   onMessage(event: string, payload: any, ref: any): any;
 
   on(event: string, callback: (response?: any) => void): number;
-  off(event: string): void;
+  off(event: string, ref?: number): void;
 
   push(event: string, payload: object, timeout?: number): Push;
 }

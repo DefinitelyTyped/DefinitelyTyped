@@ -12,9 +12,10 @@ declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
 		setLocale(locale: string): void;
-		
+
 		address: {
 			zipCode(format?: string): string;
+			zipCodeByState(state: string): string;
 			city(format?: number): string;
 			cityPrefix(): string;
 			citySuffix(): string;
@@ -78,6 +79,7 @@ declare namespace Faker {
 		finance: {
 			account(length?: number): string;
 			accountName(): string;
+			routingNumber(): string;
 			mask(length?: number, parens?: boolean, elipsis?: boolean): string;
 			amount(min?: number, max?: number, dec?: number, symbol?: string): string;
 			transactionType(): string;
@@ -85,10 +87,20 @@ declare namespace Faker {
 			currencyName(): string;
 			currencySymbol(): string;
 			bitcoinAddress(): string;
+			creditCardNumber(provider?: string): string;
+			creditCardCVV(): string;
 			ethereumAddress(): string;
 			iban(formatted?: boolean): string
 			bic(): string
 		};
+
+		git: {
+			branch(): string;
+			commitEntry(options?: { merge: boolean }): string;
+			commitMessage(): string;
+			commitSha(): string;
+			shortSha(): string;
+		}
 
 		hacker: {
 			abbreviation(): string;
@@ -105,6 +117,9 @@ declare namespace Faker {
 			slugify(string?: string): string;
 			replaceSymbolWithNumber(string?: string, symbol?: string): string;
 			replaceSymbols(string?: string): string;
+			replaceCreditCardSymbols(string: string, symbol?: string): string;
+			repeatString(string: string, num?: number): string;
+			regexpStyleStringParse(string: string): string;
 			shuffle<T>(o: T[]): T[];
 			shuffle(): string[];
 			mustache(str: string, data: { [key: string]: string|((substring: string, ...args: any[]) => string) }): string;
@@ -169,6 +184,7 @@ declare namespace Faker {
 			lastName(gender?: number): string;
 			findName(firstName?: string, lastName?: string, gender?: number): string;
 			jobTitle(): string;
+			gender(): string;
 			prefix(): string;
 			suffix(): string;
 			title(): string;
@@ -184,10 +200,13 @@ declare namespace Faker {
 		};
 
 		random: {
-			number(max: number): number;
+			number(max?: number): number;
 			number(options?: { min?: number, max?: number, precision?: number }): number;
+			float(precision?: number): number;
+			float(options?: { min?: number, max?: number, precision?: number }): number;
 			arrayElement(): string;
 			arrayElement<T>(array: T[]): T;
+			arrayElement<T>(array: ReadonlyArray<T>): T;
 			objectElement(object?: { [key: string]: any }, field?: "key"): string;
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;
@@ -214,6 +233,16 @@ declare namespace Faker {
 		};
 
 		seed(value: number): void;
+
+		vehicle: {
+			vehicle(): string;
+			manufacturer(): string;
+			model(): string;
+			type(): string;
+			fuel(): string;
+			vin(): string;
+			color(): string;
+		}
 	}
 
 	interface Card {

@@ -8,10 +8,8 @@ declare global {
     interface Window {
         Plaid: {
             create(params: Plaid.CreateConfig): Plaid.LinkHandler;
-            open(): void;
-            exit(force?: boolean): void;
+            version: string;
         };
-        linkHandler: Plaid.LinkHandler;
     }
 }
 
@@ -26,44 +24,49 @@ export namespace Plaid {
         onEvent?: OnEvent;
         onLoad?: OnLoad;
         language?: Language;
-        user?: User;
+        countryCodes?: Country[];
+        userLegalName?: string;
+        userEmailAddress?: string;
         token?: string;
         isWebView?: boolean;
     }
 
-    type OnSuccess = (
-        public_token: string,
-        metadata: OnSuccessMetaData
-    ) => void;
+    type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
     type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
     type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
     type OnLoad = () => void;
 
     interface LinkHandler {
         open: () => void;
-        exit: (options: ExitOptions) => void;
+        exit: (options?: ExitOptions) => void;
         institutions: Institution[];
     }
-    type Product = "transactions" | "auth" | "identity" | "income" | "assets";
-    type Environment = "development" | "sandbox" | "production";
-    type Language = "en" | "fr";
-    type VerificationStatus =
-        | "pending_automatic_verification"
-        | "pending_manual_verification"
-        | "manually_verified";
+
+    type Product = 'transactions' | 'auth' | 'identity' | 'income' | 'assets' | 'investments' | 'liabilities';
+    type Environment = 'development' | 'sandbox' | 'production';
+    type Language = 'en' | 'fr' | 'es';
+    type Country = 'US' | 'CA' | 'GB';
+
+    type VerificationStatus = 'pending_automatic_verification' | 'pending_manual_verification' | 'manually_verified';
     type EventName =
-        | "ERROR"
-        | "EXIT"
-        | "HANDOFF"
-        | "OPEN"
-        | "OPEN_MY_PLAID"
-        | "SEARCH_INSTITUTION"
-        | "SELECT_INSTITUTION"
-        | "TRANSITION_VIEW";
-    interface User {
-        legalName: string;
-        emailAddress: string;
-    }
+        | 'ERROR'
+        | 'EXIT'
+        | 'HANDOFF'
+        | 'OPEN'
+        | 'OPEN_MY_PLAID'
+        | 'SEARCH_INSTITUTION'
+        | 'SELECT_INSTITUTION'
+        | 'SUBMIT_CREDENTIALS'
+        | 'SUBMIT_MFA'
+        | 'TRANSITION_VIEW';
+    type ExitStatus =
+        | 'requires_questions'
+        | 'requires_selections'
+        | 'requires_code'
+        | 'choose_device'
+        | 'requires_credentials'
+        | 'institution_not_found';
+
     interface Institution {
         name: string;
         institution_id: string;
@@ -96,13 +99,13 @@ export namespace Plaid {
         link_session_id: string;
         request_id: string;
         institution: Institution;
-        status: string;
+        status: ExitStatus;
     }
     interface OnEventMetaData {
         error_code: string;
         error_message: string;
         error_type: string;
-        exit_status: string;
+        exit_status: ExitStatus;
         institution_id: string;
         institution_name: string;
         institution_search_query: string;

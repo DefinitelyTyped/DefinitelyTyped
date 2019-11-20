@@ -534,7 +534,7 @@ declare namespace tableau {
         getIndex(): number;
     }
 
-    class Worksheet {
+    class Worksheet extends Sheet {
         /** Returns the Dashboard object to which this Worksheet belongs (if it’s on a dashboard). Otherwise, it returns null. */
         getParentDashboard(): Dashboard;
         /**
@@ -624,7 +624,7 @@ declare namespace tableau {
         maxRows: number;
     }
 
-    class Dashboard {
+    class Dashboard extends Sheet {
         /** Gets the collection of objects. */
         getObjects(): DashboardObject[];
         /**

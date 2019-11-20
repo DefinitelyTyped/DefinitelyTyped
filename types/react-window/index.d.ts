@@ -265,6 +265,10 @@ export interface GridProps extends CommonProps {
      */
     onScroll?: (props: GridOnScrollProps) => any;
     /**
+     * @deprecated since version 1.8.2, please use overscanColumnCount
+     */
+    overscanColumnsCount?: number;
+    /**
      * The number of columns to render outside of the visible area. This property can be important for two reasons:
      *
      * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
@@ -272,7 +276,11 @@ export interface GridProps extends CommonProps {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanColumnsCount?: number;
+    overscanColumnCount?: number;
+    /**
+     * @deprecated since version 1.8.2, please use overscanRowCount
+     */
+    overscanRowsCount?: number;
     /**
      * The number of rows to render outside of the visible area. This property can be important for two reasons:
      *
@@ -281,7 +289,7 @@ export interface GridProps extends CommonProps {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanRowsCount?: number;
+    overscanRowCount?: number;
     /**
      * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
      *

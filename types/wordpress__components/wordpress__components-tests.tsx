@@ -458,6 +458,8 @@ const kbshortcuts = {
     Hello World
 </C.Popover>;
 
+<C.Popover.Slot />;
+
 //
 // query-controls
 //
@@ -900,7 +902,7 @@ const MySlotFillProvider = () => {
             render() {
                 return <div>{this.props.foo}</div>;
             }
-        }
+        },
     );
     <EnhancedComponentClassExpression foo="hello world" />;
 

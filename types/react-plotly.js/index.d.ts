@@ -1,27 +1,23 @@
 // Type definitions for react-plotly.js 2.2
 // Project: https://github.com/plotly/react-plotly.js#readme
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
+//                 Mitchell Grice <https://github.com/gricey432>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as Plotly from 'plotly.js';
 import * as React from 'react';
 
-export interface Frame {
-    name: string;
-    data: [{ x: Plotly.Datum, y: Plotly.Datum }];
-    group: 'lower' | 'upper';
-}
-
 export interface Figure {
     data: Plotly.Data[];
     layout: Partial<Plotly.Layout>;
+    frames: Plotly.Frame[] | null;
 }
 
 export interface PlotParams {
     data: Plotly.Data[];
     layout: Partial<Plotly.Layout>;
-    frames?: Frame[];
+    frames?: Plotly.Frame[];
     config?: Partial<Plotly.Config>;
     /**
      * When provided, causes the plot to update only when the revision is incremented.

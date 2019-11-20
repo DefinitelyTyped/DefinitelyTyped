@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/api-fetch": ["wordpress__api-fetch"],
+            "@wordpress/data": ["wordpress__data"],
+            "@wordpress/data-controls": ["wordpress__data-controls"],
+            "@wordpress/element": ["wordpress__element"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "wordpress__data-controls-tests.ts"
+    ]
+}

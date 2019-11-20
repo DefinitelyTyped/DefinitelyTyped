@@ -92,8 +92,23 @@ class CalendarResource {
             showMultiDayTimes
             defaultDate={new Date(2015, 3, 1)}
             localizer={localizer}
+            selectable={true}
+            resizable={true}
             onEventDrop={console.log}
             onEventResize={console.log}
+            onDragStart={console.log}
+            onDropFromOutside={console.log}
+            draggableAccessor={() => true}
+            resizableAccessor={() => true}
+            elementProps={{ id: 'myCalendar' }}
+            components={{
+                event: Event,
+                agenda: {
+                    event: EventAgenda,
+                },
+                toolbar: Toolbar,
+                eventWrapper: EventWrapper,
+            }}
         />
     );
 
@@ -104,13 +119,24 @@ class CalendarResource {
 
 // overriding 'views' props
 {
-    const DaySFC: React.SFC = () => null;
+    interface DayProps {
+        random: string;
+    }
+    class DayComponent extends React.Component<DayProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
     // supplying object to 'views' prop with only some of the supported views.
-    // A view can be a boolean or an SFC
+    // A view can be a boolean or implement title() and navigate()
     ReactDOM.render(<Calendar
                         localizer={momentLocalizer(moment)}
                         views={{
-                            day: DaySFC,
+                            day: DayComponent,
                             work_week: true
                         }}
     />, document.body);

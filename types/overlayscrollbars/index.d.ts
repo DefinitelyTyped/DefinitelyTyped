@@ -1,4 +1,4 @@
-// Type definitions for OverlayScrollbars 1.8
+// Type definitions for OverlayScrollbars 1.9
 // Project: https://kingsora.github.io/OverlayScrollbars
 // Definitions by: KingSora <https://github.com/KingSora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -292,7 +292,7 @@ declare namespace OverlayScrollbars {
         inA<T>(item: T, array: T[]): number;
         isA(obj: any): boolean;
         type(obj: any): string;
-        bind(func: (...args: any[]) => any, thisObj: any, ... args: any[]): any;
+        bind(func: (...args: any[]) => any, thisObj: any, ...args: any[]): any;
     }
 }
 
@@ -363,10 +363,12 @@ interface OverlayScrollbarsStatic {
     extension(
         extensionName: string,
         extensionFactory: (this: OverlayScrollbars, defaultOptions: {},
-        compatibility: OverlayScrollbars.Compatibility, framework: any) => OverlayScrollbars.Extension,
+            compatibility: OverlayScrollbars.Compatibility, framework: any) => OverlayScrollbars.Extension,
         defaultOptions?: {}
     ): void;
     extension(extensionName: string, extensionFactory: null | undefined): void;
+
+    valid(osInstance: any): boolean;
 }
 
 interface JQuery {

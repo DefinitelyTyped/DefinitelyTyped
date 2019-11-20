@@ -283,6 +283,12 @@ rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
 rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
 rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
 rule = { create(context) { return {}; }, meta: { deprecated: true }};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { type: 'layout' },
+};
 
 rule = {
     create(context) {
@@ -370,6 +376,11 @@ linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
 linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
+linter.verify(SOURCE, { processor: 'a-plugin/a-processor' }, 'test.js');
+linter.verify(SOURCE, { plugins: ['a-plugin'] }, 'test.js');
+linter.verify(SOURCE, { root: true }, 'test.js');
+linter.verify(SOURCE, { extends: 'eslint-config-bad-guy' }, 'test.js');
+linter.verify(SOURCE, { extends: ['eslint-config-bad-guy', 'eslint-config-roblox'] }, 'test.js');
 
 linter.verify(SOURCE, { rules: {} }, 'test.js');
 linter.verify(SOURCE, { rules: { quotes: 2 } }, 'test.js');
@@ -378,6 +389,23 @@ linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'te
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
+linter.verify(
+    SOURCE,
+    {
+        rules: { 'no-console': 'error' },
+        overrides: [
+            {
+                extends: ['eslint-config-bad-guy'],
+                excludedFiles: ['*-test.js', '*.spec.js'],
+                files: ['*-test.js', '*.spec.js'],
+                rules: {
+                    'no-unused-expressions': 'off',
+                },
+            },
+        ],
+    },
+    'test.js',
+);
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 
@@ -464,6 +492,7 @@ cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });
+cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });

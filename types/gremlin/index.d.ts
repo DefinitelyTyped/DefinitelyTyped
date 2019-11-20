@@ -46,14 +46,16 @@ declare namespace driver {
     first(): any;
   }
 
-  class Authenticator {
-    constructor(options?: any);
-    evaluateChallenge(challenge: string): any;
-  }
+ namespace auth {
+    class Authenticator {
+        constructor(options?: any);
+        evaluateChallenge(challenge: string): any;
+      }
 
-  class PlainTextSaslAuthenticator extends Authenticator {
-    constructor(username: string, password: string, authzid?: string);
-    evaluateChallenge(challenge: string): Promise<any>;
+      class PlainTextSaslAuthenticator extends Authenticator {
+          constructor(username: string, password: string, authzid?: string);
+          evaluateChallenge(challenge: string): Promise<any>;
+      }
   }
 }
 

@@ -63,6 +63,10 @@ const test: React.SFC = () => (
         rowHeight={40}
         autoFocus={false}
         tabIndex={1}
+        interpolateSelection={(date: Date, selected: Date[]) => {
+            console.log(date, selected);
+            return [new Date()];
+        }}
     />
 );
 

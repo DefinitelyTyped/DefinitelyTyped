@@ -1,3 +1,1 @@
-import * as validator from "validator";
-declare const isEmpty: typeof validator.isEmpty;
-export = isEmpty;
+export { isEmpty as default } from '../';

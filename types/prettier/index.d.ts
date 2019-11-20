@@ -1,7 +1,9 @@
-// Type definitions for prettier 1.16
+// Type definitions for prettier 1.18
 // Project: https://github.com/prettier/prettier, https://prettier.io
-// Definitions by: Ika <https://github.com/ikatyang>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
+// Definitions by: Ika <https://github.com/ikatyang>,
+//                 Ifiok Jr. <https://github.com/ifiokjr>,
+//                 Florian Keller <https://github.com/ffflorian>,
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -40,7 +42,8 @@ export type BuiltInParserName =
     | 'html'
     | 'angular'
     | 'mdx'
-    | 'yaml';
+    | 'yaml'
+    | 'lwc';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -123,6 +126,14 @@ export interface RequiredOptions extends doc.printer.Options {
      * Which end of line characters to apply.
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
+    /**
+     * Change when properties in objects are quoted.
+     */
+    quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     */
+    vueIndentScriptAndStyle: boolean;
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -251,6 +262,22 @@ export namespace resolveConfig {
 }
 
 /**
+ * `resolveConfigFile` can be used to find the path of the Prettier configuration file,
+ * that will be used when resolving the config (i.e. when calling `resolveConfig`).
+ *
+ * A promise is returned which will resolve to:
+ *
+ * - The path of the configuration file.
+ * - `null`, if no file was found.
+ *
+ * The promise will be rejected if there was an error parsing the configuration file.
+ */
+export function resolveConfigFile(filePath?: string): Promise<null | string>;
+export namespace resolveConfigFile {
+    function sync(filePath?: string): null | string;
+}
+
+/**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
@@ -261,15 +288,20 @@ export interface SupportLanguage {
     since?: string;
     parsers: BuiltInParserName[] | string[];
     group?: string;
-    tmScope: string;
-    aceMode: string;
-    codemirrorMode: string;
-    codemirrorMimeType: string;
+    tmScope?: string;
+    aceMode?: string;
+    codemirrorMode?: string;
+    codemirrorMimeType?: string;
     aliases?: string[];
-    extensions: string[];
+    extensions?: string[];
     filenames?: string[];
-    linguistLanguageId: number;
-    vscodeLanguageIds: string[];
+    linguistLanguageId?: number;
+    vscodeLanguageIds?: string[];
+}
+
+export interface SupportOptionDefault {
+    since: string;
+    value: SupportOptionValue;
 }
 
 export interface SupportOption {
@@ -280,9 +312,10 @@ export interface SupportOption {
     redirect?: SupportOptionRedirect;
     description: string;
     oppositeDescription?: string;
-    default: SupportOptionValue;
+    default: SupportOptionValue | SupportOptionDefault[];
     range?: SupportOptionRange;
     choices?: SupportOptionChoice[];
+    category: string;
 }
 
 export interface SupportOptionRedirect {
@@ -315,6 +348,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {

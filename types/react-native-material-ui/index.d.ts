@@ -1,4 +1,4 @@
-// Type definitions for react-native-material-ui 1.31
+// Type definitions for react-native-material-ui 1.32
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -85,6 +85,7 @@ export interface BottomNavigationProps {
 export class BottomNavigation extends Component<BottomNavigationProps, any> {}
 
 export interface BottomNavigationAction {
+    testID?: string;
     icon: JSX.Element | string;
     label?: string;
     key?: string;
@@ -103,6 +104,7 @@ export namespace BottomNavigation {
 }
 
 export interface ButtonProps {
+    testID?: string;
     text: string;
     primary?: boolean;
     accent?: boolean;
@@ -320,6 +322,7 @@ export interface IconProps {
 export class Icon extends Component<IconProps, any> {}
 
 export interface IconToggleProps {
+    testID?: string;
     color?: string;
     underlayColor?: string;
     maxOpacity?: number;
@@ -364,6 +367,7 @@ export interface ListItemStyle {
 }
 
 export interface ListItemProps {
+    testID?: string;
     numberOfLines?: 1 | 2 | 3 | 'dynamic';
     leftElement?: JSX.Element | string;
     rightElement?: JSX.Element | string;

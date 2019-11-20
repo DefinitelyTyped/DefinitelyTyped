@@ -72,4 +72,4 @@ export const defaultStyles: Styles;
 // Merge Utility
 // Allows consumers to extend a base Select with additional styles
 
-export function mergeStyles(source: any, target: any): CSSProperties;
+export function mergeStyles(source: StylesConfig, target: StylesConfig): StylesConfig;

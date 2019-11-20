@@ -134,18 +134,20 @@ function testClock() {
     let clock = sinon.clock.create(1000);
     clock = sinon.clock.create(new Date());
 
-    let now = 0;
+    let now: sinon.SinonTimerId = 0;
     now = clock.now;
 
     const fn = () => { };
+    const fnWithArgs = (a: number, b: string) => {};
 
     clock.setTimeout(fn, 0);
-    clock.setTimeout(fn, 0, 'a', 'b');
     clock.setInterval(fn, 0);
-    clock.setInterval(fn, 0, 'a', 'b');
     clock.setImmediate(fn);
-    clock.setImmediate(fn, 'a', 'b');
     clock.requestAnimationFrame(fn);
+
+    now = clock.setTimeout(fnWithArgs, 0, 1234, 'abc');
+    now = clock.setInterval(fnWithArgs, 0, 1234, 'abc');
+    now = clock.setImmediate(fnWithArgs, 1234, 'abc');
 
     let timer = clock.setTimeout(fn, 0);
     clock.clearTimeout(timer);

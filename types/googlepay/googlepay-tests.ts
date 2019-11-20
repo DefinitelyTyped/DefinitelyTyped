@@ -1,4 +1,11 @@
-const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>('AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA');
+const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>(
+    'AMEX',
+    'DISCOVER',
+    'JCB',
+    'MASTERCARD',
+    'VISA',
+    'INTERAC'
+);
 
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethod>({
     type: 'CARD',
@@ -60,7 +67,21 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         transactionInfo: {
             totalPriceStatus: 'FINAL',
             totalPrice: '123.45',
-            currencyCode: 'USD'
+            currencyCode: 'USD',
+            countryCode: 'US',
+            transactionId: '0123456789',
+            displayItems: [{
+                label: 'Subtotal',
+                type: 'SUBTOTAL',
+                price: '11.00'
+            }, {
+                label: 'Shipping',
+                type: 'LINE_ITEM',
+                price: '0',
+                status: 'PENDING'
+            }],
+            totalPriceLabel: 'Total',
+            checkoutOption: 'COMPLETE_IMMEDIATE_PURCHASE'
         },
         allowedPaymentMethods,
         shippingAddressRequired: true

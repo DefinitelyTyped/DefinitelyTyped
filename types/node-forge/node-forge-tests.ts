@@ -1,6 +1,7 @@
 import * as forge from 'node-forge';
 
 let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
+forge.pki.rsa.setPublicKey(keypair.privateKey.n, keypair.privateKey.e);
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
@@ -186,6 +187,9 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
+    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+
+
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
 }
@@ -363,4 +367,20 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     console.log('created TLS client and server, doing handshake...');
     client.handshake();
+}
+
+{
+    const { privateKey } = forge.pki.ed25519.generateKeyPair();
+    const toSign = Buffer.from('test', 'utf8');
+    forge.pki.ed25519.sign({
+        message: toSign,
+        privateKey
+    });
+
+    const toSign2 = 'foo';
+    forge.pki.ed25519.sign({
+        message: toSign2,
+        encoding: 'utf8',
+        privateKey
+    });
 }

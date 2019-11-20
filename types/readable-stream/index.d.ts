@@ -72,6 +72,7 @@ declare namespace _Readable {
         readable: boolean;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
+        readonly readableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
@@ -91,7 +92,7 @@ declare namespace _Readable {
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
         _undestroy(): void;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         // end-Readable
 
         constructor(options?: DuplexOptions);

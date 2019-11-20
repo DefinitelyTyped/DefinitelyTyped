@@ -1,6 +1,7 @@
-// Type definitions for google-apps-script
+// Type definitions for google-apps-script 1.0
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen>, grant <https://github.com/grant>
+// Definitions by: motemen <https://github.com/motemen>
+//                 PopGoesTheWza <https://github.com/PopGoesTheWza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -35,7 +36,6 @@
 /// <reference path="google-apps-script.optimization.d.ts"/>
 /// <reference path="google-apps-script.properties.d.ts"/>
 /// <reference path="google-apps-script.script.d.ts"/>
-/// <reference path="google-apps-script.ui.d.ts"/>
 /// <reference path="google-apps-script.url-fetch.d.ts"/>
 /// <reference path="google-apps-script.utilities.d.ts"/>
 /// <reference path="google-apps-script.xml-service.d.ts"/>

@@ -1,4 +1,4 @@
-// Type definitions for oracledb v3.1.2
+// Type definitions for oracledb 4.0
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
@@ -10,10 +10,14 @@
 import { Duplex, Readable } from 'stream';
 
 declare namespace OracleDB {
+    /** Deprecated */
+    // const ARRAY: number;
+    // const OBJECT: number;
+
     /** Constant for the query result outFormat option. */
-    const ARRAY: number;
+    const OUT_FORMAT_ARRAY: number;
     /** Constant for the query result outFormat option. */
-    const OBJECT: number;
+    const OUT_FORMAT_OBJECT: number;
 
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
     const BLOB: number;
@@ -33,17 +37,29 @@ declare namespace OracleDB {
     const STRING: number;
 
     /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_BFILE: number;
+    /** Constant which represents the Oracle Database type. */
     const DB_TYPE_BINARY_DOUBLE: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_BINARY_FLOAT: number;
     /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_BINARY_INTEGER: number;
+    /** Constant which represents the Oracle Database type. */
     const DB_TYPE_BLOB: number;
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_BOOLEAN: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_CHAR: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_CLOB: number;
     /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_CURSOR: number;
+    /** Constant which represents the Oracle Database type. */
     const DB_TYPE_DATE: number;
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_INTERVAL_DS: number;
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_INTERVAL_YM: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_LONG: number;
     /** Constant which represents the Oracle Database type. */
@@ -56,6 +72,8 @@ declare namespace OracleDB {
     const DB_TYPE_NUMBER: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_NVARCHAR: number;
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_OBJECT: number;
     /** Constant which represents the Oracle Database type. */
     const DB_TYPE_RAW: number;
     /** Constant which represents the Oracle Database type. */
@@ -77,50 +95,50 @@ declare namespace OracleDB {
     const BIND_OUT: number;
 
     /** Constant for getConnection() privilege properties. */
-    const SYSDBA: number;
-    /** Constant for getConnection() privilege properties. */
-    const SYSOPER: number;
-    /** Constant for getConnection() privilege properties. */
     const SYSASM: number;
     /** Constant for getConnection() privilege properties. */
     const SYSBACKUP: number;
+    /** Constant for getConnection() privilege properties. */
+    const SYSDBA: number;
     /** Constant for getConnection() privilege properties. */
     const SYSDG: number;
     /** Constant for getConnection() privilege properties. */
     const SYSKM: number;
     /** Constant for getConnection() privilege properties. */
+    const SYSOPER: number;
+    /** Constant for getConnection() privilege properties. */
     const SYSRAC: number;
 
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_UNKNOWN: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_SELECT: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_UPDATE: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_DELETE: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_INSERT: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_CREATE: number;
-    /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_DROP: number;
     /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_ALTER: number;
     /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_BEGIN: number;
     /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_DECLARE: number;
-    /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_CALL: number;
     /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_COMMIT: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_CREATE: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_DECLARE: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_DELETE: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_DROP: number;
+    /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_EXPLAIN_PLAN: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_INSERT: number;
     /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_MERGE: number;
     /** Constant for connection.getStatementInfo() properties. */
     const STMT_TYPE_ROLLBACK: number;
     /** Constant for connection.getStatementInfo() properties. */
-    const STMT_TYPE_COMMIT: number;
+    const STMT_TYPE_SELECT: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_UNKNOWN: number;
+    /** Constant for connection.getStatementInfo() properties. */
+    const STMT_TYPE_UPDATE: number;
 
     /** Constant for the Continuous Query Notification message.type. */
     const SUBSCR_EVENT_TYPE_AQ: number;
@@ -130,14 +148,20 @@ declare namespace OracleDB {
     const SUBSCR_EVENT_TYPE_OBJ_CHANGE: number;
     /** Constant for the Continuous Query Notification message.type. */
     const SUBSCR_EVENT_TYPE_QUERY_CHANGE: number;
+    /** Constant for the Continuous Query Notification message.type. */
+    const SUBSCR_EVENT_TYPE_SHUTDOWN: number;
+    /** Constant for the Continuous Query Notification message.type. */
+    const SUBSCR_EVENT_TYPE_SHUTDOWN_ANY: number;
+    /** Constant for the Continuous Query Notification message.type. */
+    const SUBSCR_EVENT_TYPE_STARTUP: number;
 
     /** Constant for the Continuous Query Notification groupingClass. */
     const SUBSCR_GROUPING_CLASS_TIME: number;
 
     /** Constant for the Continuous Query Notification groupingType. */
-    const SUBSCR_GROUPING_TYPE_SUMMARY: number;
-    /** Constant for the Continuous Query Notification groupingType. */
     const SUBSCR_GROUPING_TYPE_LAST: number;
+    /** Constant for the Continuous Query Notification groupingType. */
+    const SUBSCR_GROUPING_TYPE_SUMMARY: number;
 
     /** Constant for the Continuous Query Notification qos Quality of Service. */
     const SUBSCR_QOS_BEST_EFFORT: number;
@@ -154,6 +178,48 @@ declare namespace OracleDB {
     const SUBSCR_NAMESPACE_AQ: number;
     /** Constant for the Continuous Query Notification namespace. */
     const SUBSCR_NAMESPACE_DBCHANGE: number;
+
+    /** Constant for the AqDeqOptions Class 'mode' */
+    const AQ_DEQ_MODE_BROWSE: number;
+    /** Constant for the AqDeqOptions Class 'mode' */
+    const AQ_DEQ_MODE_LOCKED: number;
+    /** Constant for the AqDeqOptions Class 'mode' */
+    const AQ_DEQ_MODE_REMOVE: number;
+    /** Constant for the AqDeqOptions Class 'mode' */
+    const AQ_DEQ_MODE_REMOVE_NO_DAT: number;
+
+    /** Constant for the AqDeqOptions Class 'navigation' */
+    const AQ_DEQ_NAV_FIRST_MSG: number;
+    /** Constant for the AqDeqOptions Class 'navigation' */
+    const AQ_DEQ_NAV_NEXT_TRANSACTION: number;
+    /** Constant for the AqDeqOptions Class 'navigation' */
+    const AQ_DEQ_NAV_NEXT_MS: number;
+
+    /** Constant for the AqDeqOptions Class 'wait' */
+    const AQ_DEQ_NO_WAIT: number;
+    /** Constant for the AqDeqOptions Class 'wait' */
+    const AQ_DEQ_WAIT_FOREVER: number;
+
+    /** Constant for the AqEnqOptions Class 'deliveryMode' */
+    const AQ_DEQ_WAAQ_MSG_DELIV_MODE_PERSISTENTIT_FOREVER: number;
+    /** Constant for the AqEnqOptions Class 'deliveryMode' */
+    const AQ_MSG_DELIV_MODE_BUFFERED: number;
+    /** Constant for the AqEnqOptions Class 'deliveryMode' */
+    const AQ_MSG_DELIV_MODE_PERSISTENT_OR_BUFFERED: number;
+
+    /** Constant for the AqMessage Class 'state' */
+    const AQ_MSG_STATE_READY: number;
+    /** Constant for the AqMessage Class 'state' */
+    const AQ_MSG_STATE_WAITING: number;
+    /** Constant for the AqMessage Class 'state' */
+    const AQ_MSG_STATE_PROCESSED: number;
+    /** Constant for the AqMessage Class 'state' */
+    const AQ_MSG_STATE_EXPIRED: number;
+
+    /** Constant for the AqEnqOptions Class and AqDeqOptions 'visibility' */
+    const AQ_VISIBILITY_IMMEDIATE: number;
+    /** Constant for the AqEnqOptions Class and AqDeqOptions 'visibility' */
+    const AQ_VISIBILITY_ON_COMMIT: number;
 
     /** Constant for the Continuous Query Notification connection.subscribe() option operations, and for the notification message operation properties. */
     const CQN_OPCODE_ALL_OPS: number;
@@ -217,7 +283,7 @@ declare namespace OracleDB {
      *
      * Events mode is required for Continuous Query Notification, Fast Application Notification (FAN) and Runtime Load Balancing (RLB).
      *
-     * @default false
+     * @default true
      * @since 2.2
      */
     let events: boolean;
@@ -476,7 +542,7 @@ declare namespace OracleDB {
          * With IN or IN OUT binds the type can be explicitly set with type or it will default to the type
          * of the input data value. With OUT binds, the type defaults to oracledb.STRING whenever type is not specified.
          */
-        type?: number;
+        type?: number | string;
         /**
          * The input value or variable to be used for an IN or IN OUT bind variable.
          */
@@ -512,7 +578,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | null> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null | undefined> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -543,6 +609,15 @@ declare namespace OracleDB {
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
         clientId?: string;
+        /**
+         * After setting currentSchema, SQL statements using unqualified references to schema objects will resolve to objects in the specified schema.
+         * This setting does not change the session user or the current user, nor does it give the session user any additional system or object privileges for the session.
+         * The value of currentSchema will be empty until it has been explicitly set.
+         * This property is an efficient alternative to ALTER SESSION SET CURRENT_SCHEMA.
+         * 
+         * @since 4.0
+         */
+        currentSchema?: string;
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -676,12 +751,12 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParameters, options: ExecuteOptions): Promise<Result>;
-        execute(
+        execute<T>(sql: string, bindParams: BindParameters, options: ExecuteOptions): Promise<Result<T>>;
+        execute<T>(
             sql: string,
             bindParams: BindParameters,
             options: ExecuteOptions,
-            callback: (error: DBError, result: Result) => void,
+            callback: (error: DBError, result: Result<T>) => void,
         ): void;
 
         /**
@@ -693,11 +768,11 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParameters): Promise<Result>;
-        execute(
+        execute<T>(sql: string, bindParams: BindParameters): Promise<Result<T>>;
+        execute<T>(
             sql: string,
             bindParams: BindParameters,
-            callback: (error: DBError, result: Result) => void,
+            callback: (error: DBError, result: Result<T>) => void,
         ): void;
 
         /**
@@ -708,8 +783,8 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string): Promise<Result>;
-        execute(sql: string, callback: (error: DBError, result: Result) => void): void;
+        execute<T>(sql: string): Promise<Result<T>>;
+        execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
 
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
@@ -750,34 +825,26 @@ declare namespace OracleDB {
          *
          * @since 2.2
          */
-        executeMany(
+        executeMany<T>(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
+            binds: BindParameters[],
             options: ExecuteManyOptions,
-        ): Promise<Results>;
-        executeMany(
+        ): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
+            binds: BindParameters[],
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
-        executeMany(
+        executeMany<T>(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
-        ): Promise<Results>;
-        executeMany(
+            binds: BindParameters[],
+        ): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
-            callback: (error: DBError, result: Results) => void,
+            binds: BindParameters[],
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
         /**
@@ -796,19 +863,49 @@ declare namespace OracleDB {
          * @param iterations The number of times the SQL should be executed.
          * @param options Optional parameter to control the execution.
          */
-        executeMany(sql: string, iterations: number, options: ExecuteManyOptions): Promise<Results>;
-        executeMany(
+        executeMany<T>(sql: string, iterations: number, options: ExecuteManyOptions): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
             iterations: number,
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
-        executeMany(sql: string, iterations: number): Promise<Results>;
-        executeMany(
+        executeMany<T>(sql: string, iterations: number): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
             iterations: number,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
+        ): void;
+
+        /**
+         * Returns a DbObject prototype object representing the named Oracle Database object or collection.
+         * When the definition of a type changes in the database, such as might occur in a development environment,
+         * you should fully close connections to clear the object caches used by node-oracledb and the Oracle client libraries.
+         * 
+         * For example, when using a pool you could use await connection.close({drop: true}), or restart the pool.
+         * Then getDbObjectClass() can be called again to get the updated type information.
+         * 
+         * @param className The name of the Oracle object or collection.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+         * @since 4.0
+         */
+        getDbObjectClass(className: string): Promise<DBObjectClass>;
+        getDbObjectClass(
+            className: string,
+            callback: (error: DBError, dbObject: DBObjectClass) => void
+        ): void;
+
+        getQueue(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue>;
+        getQueue(
+            name: string,
+            callback: (error: DBError, queue: AdvancedQueue) => void
+        ): void;
+        getQueue(
+            name: string,
+            options: GetAdvancedQueueOptions,
+            callback: (error: DBError, queue: AdvancedQueue) => void
         ): void;
 
         /**
@@ -905,29 +1002,29 @@ declare namespace OracleDB {
         rollback(callback: (error: DBError) => void): void;
 
         /**
-         * Register a JavaScript callback method to be invoked when data is changed in the database by any committed
-         * transaction.
-         *
-         * For notification to work, the connection must be created with events mode true.
-         *
+         * Register a JavaScript callback method to be invoked when data is changed in the database by any committed transaction,
+         * or when there are Advanced Queuing messages to be dequeued.
+         * 
+         * For notifications to work, the connection must be created with events mode true, which is the default.
          * The database must be able to connect to the node-oracledb machine for notifications to be received.
-         * Typically this means that the machine running node-oracledb needs a fixed IP address. If there is
-         * any problem sending a notification, then the callback method will not be invoked.
-         *
-         * The connection.subscribe() method may be called multiple times with the same name. In this case,
-         * the second and subsequent invocations ignore all options properties other than sql and binds. Instead,
-         * the new SQL statement is registered to the same subscription, and the same JavaScript notification
-         * callback is used. For performance reasons this can be preferable to creating a new subscription for each query.
-         *
-         * @param name
-         *
-         * For Continuous Query Notification this is an arbitrary name given to the subscription.
-         * For Advanced Queue notifications this must be the queue name.
-         *
-         * @param options Options that control the subscription.
+         * Typically this means that the machine running node-oracledb needs a fixed IP address.
+         * 
+         * If there is any problem sending a notification, then the callback method will not be invoked.
+         * The connection.subscribe() method may be called multiple times with the same name, as long as the same connection is used.
+         * In this case, the second and subsequent invocations ignore all options properties other than sql and binds.
+         * Instead, the new SQL statement is registered to the same subscription, and the same JavaScript notification callback is used.
+         * For performance reasons this can be preferable to creating a new subscription for each query.
+         * 
+         * AQ notifications were added in node-oracledb 4.0.
+         * The result callback parameter was added in node-oracledb 4.0.
+         * 
+         * @param name For Continuous Query Notification this is an arbitrary name given to the subscription. For Advanced Queuing notifications this must be the queue name.
+         * @param options Options that control the subscription. 
+         * 
+         * @since 2.3
          */
-        subscribe(name: string, options: SubscribeOptions): Promise<void>;
-        subscribe(name: string, options: SubscribeOptions, callback: (error: DBError) => void): void;
+        subscribe(name: string, options: SubscribeOptions): Promise<Subscription>;
+        subscribe(name: string, options: SubscribeOptions, callback: (error: DBError, result: Subscription) => void): void;
 
         /**
          * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().
@@ -944,6 +1041,21 @@ declare namespace OracleDB {
          */
         unsubscribe(name: string): Promise<void>;
         unsubscribe(name: string, callback: (error: DBError) => void): void;
+    }
+
+    /**
+     * Result of connection.subscribe() for continous query notification subscriptions.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#cqn
+     * @since 4.0
+     */
+    interface Subscription {
+        /**
+         * Value of REGID in the database view USER_CHANGE_NOTIFICATION_REGS or the value of REG_ID in USER_SUBSCR_REGISTRATIONS.
+         * 
+         * For advanced queue SUBSCR_NAMESPACE_AQ subscriptions, regId is undefined.
+         */
+        regId?: string;
     }
 
     /**
@@ -1005,19 +1117,25 @@ declare namespace OracleDB {
     interface SubscriptionMessage {
         /** Name of the database which sent the notification. */
         dbName?: string;
+        /**
+         * Name of the Advanced Queue. Undefined for CQN.
+         * 
+         * @since 4.0
+         */
+        queueName?: string;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?: {
             /** Array of objects specifying the queries which were affected by the Query Change notification. */
             tables: SubscriptionTables;
         }[];
-        /** Indicates whether the subscription is registerd with the database. */
-        registered?: boolean;
+        /** Indicates whether the subscription is registered with the database. */
+        registered: boolean;
         /** Array of objects specifying the tables which were affected by the notification. */
         tables?: SubscriptionTables[];
         /** Buffer containing the identifier of the transaction which spawned the notification. */
-        txId?: Buffer;
+        txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
-        type?: number;
+        type: number;
     }
 
     /**
@@ -1150,7 +1268,7 @@ declare namespace OracleDB {
         /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
-        errorNum: number;
+        errorNum?: number;
         /**
          * The text of the error message.
          *
@@ -1164,7 +1282,7 @@ declare namespace OracleDB {
          *
          * The value may be 0 in non-SQL contexts. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
-        offset: number;
+        offset?: number;
     }
 
     /**
@@ -1308,6 +1426,17 @@ declare namespace OracleDB {
     }
 
     /**
+     * Options which may be specified when getting an instance of the Advanced Queue class.
+     */
+    interface GetAdvancedQueueOptions {
+        /**
+         * Name of an Oracle Database object type, or a DbObject Class earlier acquired from connection.getDbObjectClass().
+         * If the name of an object type is used, it is recommended that a fully qualified name be used.
+         */
+        payloadType?: string;
+    }
+
+    /**
      * Lob objects can be used to access Oracle Database CLOB and BLOB data.
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#lobhandling
@@ -1366,6 +1495,20 @@ declare namespace OracleDB {
          */
         close(): Promise<void>;
         close(callback: (error: DBError) => void): void;
+
+        /**
+         * Return all the LOB data. CLOBs and NCLOBs will be returned as strings. BLOBs will be returned as a Buffer.
+         * 
+         * This method is usable for LOBs up to 1 GB in length.
+         * 
+         * For queries returning LOB columns, it can be more efficient to use fetchAsString, fetchAsBuffer, or fetchInfo instead of lob.getData().
+         * 
+         * Note it is an asynchronous method and requires a round-trip to the database.
+         * 
+         * @since 4.0
+         */
+        getData(): Promise<string | Buffer>;
+        getData(callback: (error: DBError, data: string | Buffer) => void): void;
     }
 
     /**
@@ -1389,6 +1532,14 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsdbtype
          */
         dbType: number;
+        /**
+         * The class associated with the database type. This is only set if the database type is an object type.
+         */
+        dbTypeClass: DBObjectClass;
+        /**
+         * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
+         */
+        dbTypeName: string;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
@@ -1422,7 +1573,7 @@ declare namespace OracleDB {
         /**
          * The alias of this pool in the connection pool cache. An alias cannot be changed once the pool has been created.
          */
-        readonly poolAlias: string;
+        readonly poolAlias?: string;
         /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          */
@@ -1735,9 +1886,254 @@ declare namespace OracleDB {
     }
 
     /**
+     * Used for enqueuing and dequeuing Oracle Advanced Queuing messages. Each can be used for enqueuing, dequeuing, or for both.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#aq
+     * @since 4.0
+     */
+    interface AdvancedQueue {
+        /** Contains the name of the queue specified in the connection.getQueue() call. */
+        readonly name: string;
+        /** Options to use when dequeuing messages. Attributes can be set before each queue.deqOne() or queue.deqMany(). */
+        deqOptions: DequeueOptions;
+        /** Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.denqMany(). */
+        enqOptions: EnqueueOptions;
+        /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT constants. */
+        readonly payloadType: number;
+        /**
+         * The DBObject Class corresponding to the payload type specified when the queue was created
+         * 
+         * This is defined only if payloadType has the value oracledb.DB_TYPE_OBJECT.
+         */
+        readonly payloadTypeClass?: DBObjectClass;
+        /** Either the string “RAW” or the name of the Oracle Database object type identified when the queue was created. */
+        readonly payloadTypeName: string;
+
+        /**
+         * Dequeues up to the specified number of messages
+         * 
+         * @param maxMessages Maximum number of messages to dequeue.
+         */
+        deqMany(maxMessages: number): Promise<AdvancedQueueMessage[]>;
+        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage[]) => void): void;
+
+        /**
+         * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
+         */
+        deqOne(): Promise<AdvancedQueueMessage | undefined>;
+        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage) => void): void;
+
+        /**
+         * Enqueues multiple messages.
+         * 
+         * Warning: calling enqMany() in parallel on different connections acquired from the same pool may fail due to Oracle bug 29928074.
+         * Ensure that enqMany() is not run in parallel, use standalone connections, or make multiple calls to enqOne().
+         * The deqMany() method is not affected.
+         * 
+         * @param messages Messages to enqueue.
+         */
+        enqMany(messages: EnqueueMessage[]): Promise<void>;
+        enqMany(messages: EnqueueMessage[], callback: (error: DBError) => void): void;
+
+        /**
+         * Enqueues a single message.
+         * 
+         * @param message 
+         */
+        enqOne(message: EnqueueMessage): Promise<void>;
+        enqOne(message: EnqueueMessage, callback: (error: DBError) => void): void;
+    }
+
+    type EnqueueMessage = string | Buffer | DBObject | {
+        /** Correlation that was used during enqueue. */
+        correlation: string;
+        /** Number of seconds the message was delayed before it could be dequeued. */
+        delay: number;
+        /** Name of the exception queue defined when the message was enqueued. */
+        exceptionQueue: string;
+        /** Number of seconds until expiration defined when the message was enqueued. */
+        expiration: number;
+        /** Contains the payload of the message, with type depending on the value of queue.payloadType.
+         * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
+         */
+        payload: Buffer | DBObject;
+        /** Priority of the message when it was enqueued. */
+        priority: number;
+    }
+
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    interface DBObjectClass { new(data: Record<string, any>): DBObject }
+    
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    class DBObject {
+        /**
+         * When dbObject.isCollection is false, this will be an object containing attributes corresponding to the Oracle Database object attributes. 
+         */
+        attributes: Record<string, {
+            /** One of the DB_TYPE constants. */
+            type: number;
+            /** Type, such as 'VARCHAR2' or 'NUMBER'. */
+            typeName: string;
+            /** Set if the value of type is a DBObject. */
+            typeClass?: DBObjectClass;
+        }>;
+        /** When dbObject.isCollection is true, this will be one of the DB_TYPE constants. */
+        readonly elementType: number;
+        readonly elementTypeClass: DBObjectClass;
+        /** When dbObject.isCollection is true, this will have the name of the element type, such as “VARCHAR2” or “NUMBER”. */
+        readonly elementTypeName: string;
+        /** The fully qualified name of the Oracle Database object or collection. */
+        readonly fqn: string;
+        /** True if the object is a collection, false otherwise. */
+        readonly isCollection: boolean;
+        /** When dbObject.isCollection is true, this will have the number of elements in the collection. It is undefined for non-collections. */
+        readonly length?: number;
+        /** Name of the Oracle Database object or collection. */
+        readonly name: string;
+        /** Schema owning the Oracle Database object or collection. */
+        readonly schema: string;
+
+        [key: string]: any;
+
+        /**
+         * Add the given value to the end of the collection.
+         */
+        append(value: any): void;	
+        /**
+         * Deletes the value from collection at the given index.
+         */
+        deleteElement(index: number): void;	
+        /**
+         * Return the value associated with the given index.
+         */
+        getElement(index: number): any;
+        /**
+         * Returns the first index for later use to obtain the value.
+         */
+        getFirstIndex(): number;
+        /**
+         * Returns a JavaScript array containing the ‘index’ keys.
+         */	
+        getKeys(): string[];
+        /**
+         * To obtain the last index for later use to obtain a value.
+         */
+        getLastIndex(): number;
+        /**
+         * Returns the next index value for later use to obtain a value.
+         */
+        getNextIndex(): number;
+        /**
+         * Returns the previous index for later use to obtain the value.
+         */
+        getPrevIndex(): number;
+        /**
+         * Returns true if an element exists in the collection at the given index. Returns false otherwise.
+         */
+        hasElement(): boolean;
+        /**
+         * To set the given value at the position of the given index.
+         */
+        setElement(index: number, value: any): void;
+        /**
+         * Returns an array of element values as a JavaScript array in key order.
+         */	
+        getValues(): any[];
+        /**
+         * Trims the specified number of elements from the end of the collection.
+         */
+        trim(count: number): void;
+    }
+
+    /**
+     * Message dequeued from an advanced queue.
+     * 
+     * @since 4.0
+     */
+    interface AdvancedQueueMessage {
+        /** Correlation that was used during enqueue. */
+        correlation: string;
+        /** Number of seconds the message was delayed before it could be dequeued. */
+        delay: number;
+        /** Delivery mode the messages was enqueued with. */
+        deliveryMode: number;
+        /** Name of the exception queue defined when the message was enqueued. */
+        exceptionQueue: string;
+        /** Number of seconds until expiration defined when the message was enqueued. */
+        expiration: number;
+        /** Contains the unique identifier of the message. */
+        msgId: Buffer;
+        /** Number of attempts that were made to dequeue the message. */
+        numAttempts: number;
+        /** Contains the unique identifier of the message in the last queue that generated it. */
+        originalMsgId: Buffer;
+        /** Contains the payload of the message, with type depending on the value of queue.payloadType.
+         * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
+         */
+        payload: Buffer | DBObject;
+        /** Priority of the message when it was enqueued. */
+        priority: number;
+        /** State of the message. It can be any one of the AQ_MSG_STATE constants. */
+        state: number;
+    }
+
+    /** 
+     * Options to use when dequeuing messages. Attributes can be set before each queue.deqOne() or queue.deqMany().
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#aqoptions
+     * @since 4.0
+     */
+    interface DequeueOptions {
+        /** Condition that must be satisfied in order for a message to be dequeued. */
+        condition: string;
+        /** Name of the consumer that is dequeuing messages. */
+        consumerName: string;
+        /** Correlation to use when dequeuing. */
+        correlation: string;
+        /** Mode to use for dequeuing messages. It can be any one of the AQ_DEQ_MODE constants. */
+        mode: number;
+        /** Unique identifier specifying the message to be dequeued. */
+        msgId: Buffer;
+        /** Position in the queue of the message that is to be dequeued. It can be any one of the AQ_DEQ_NAV constants. */
+        navigation: number;
+        /** Transformation that will take place on messages when they are dequeued. */
+        transformation: string;
+        /** Defines whether the dequeue occurs in the current transaction or as a separate transaction. It can be any one of the AQ_VISIBILITY constants. */
+        visibility: number;
+        /** Number of seconds to wait for a message matching the search criteria to become available. It can be any one of the AQ_DEQ wait constants. */
+        wait: number;
+    }
+
+    /**
+     * Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.enqMany().
+     */
+    interface EnqueueOptions {
+        /** Celivery mode when enqueuing messages. It can be any one of the AQ_MSG_DELIV constants. */
+        deliveryMode: number;
+        /** Transformation that will take place on messages when they are enqueued. */
+        transformation: string;
+        /** Defines whether the enqueue occurs in the current transaction or as a separate transaction. It can be any one of the AQ_VISIBILITY constants. */
+        visibility: number;
+    }
+
+    /**
      * Contains information regarding the outcome of a successful connection.execute().
      */
-    interface Result {
+    interface Result<T> {
+        /**
+         * This property will be defined if the executed statement returned Implicit Results. Depending on the value of resultSet it will either be an array,
+         * each element containing an array of rows from one query, or an array of ResultSets each corresponding to a query.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#implicitresults
+         * @since 4.0
+         */
+        implicitResults?: (T[] | ResultSet<T>)[];
         /**
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
@@ -1745,15 +2141,13 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
          * are true then additional information is included.
          */
-        metaData: Metadata[];
+        metaData?: Metadata[];
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
-        outBinds:
-        | Record<string, any>
-        | any[];
+        outBinds?: T;
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -1763,7 +2157,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsetclass
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsethandling
          */
-        resultSet: ResultSet;
+        resultSet?: ResultSet<T>;
         /**
          * For SELECT statements using direct fetches, rows contains an array of fetched rows.
          * It will be NULL if there is an error or the SQL statement was not a SELECT statement.
@@ -1774,21 +2168,19 @@ declare namespace OracleDB {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: (
-            | any[]
-            | Record<string, any>)[];
+        rows?: T[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
          * rowsAffected is undefined.
          */
-        rowsAffected: number;
+        rowsAffected?: number;
     }
 
     /**
      * Contains information regarding the outcome of a successful connection.executeMany().
      */
-    interface Results {
+    interface Results<T> {
         /**
          * An array of error objects that were reported during execution.
          *
@@ -1799,28 +2191,26 @@ declare namespace OracleDB {
          * data errors to report. Some classes of execution error will always return via the executeMany()
          * callback error object, not in batchErrors.
          */
-        batchErrors: DBError[];
+        batchErrors?: DBError[];
         /**
          * An array of integers identifying the number of rows affected by each record of the binds parameter.
          *
          * It is present only if dmlRowCounts was true in the executeMany() options parameter and a DML statement
          * was executed.
          */
-        dmlRowCounts: number[];
+        dmlRowCounts?: number[];
         /**
          * Contains the value of any returned IN OUT or OUT binds. It is an array of arrays, or an array of objects,
          * depending on the binds parameters structure. The length of the array will correspond to the length of
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: (
-            | Record<string, any>
-            | any[])[];
+        outBinds?: T[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
          */
-        rowsAffected: number;
+        rowsAffected?: number;
     }
 
     /**
@@ -1836,7 +2226,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsethandling
      */
-    interface ResultSet {
+    interface ResultSet<T> {
         /**
          * Contains an array of objects with metadata about the query or REF CURSOR columns.
          *
@@ -1861,16 +2251,11 @@ declare namespace OracleDB {
          * Performance of getRow() can be tuned by adjusting the value of oracledb.fetchArraySize or
          * the execute() option fetchArraySize.
          */
-        getRow(): Promise<
-            | Record<string, any>
-            | any[]
-        >;
+        getRow(): Promise<T>;
         getRow(
             callback: (
                 error: DBError,
-                row:
-                    | Record<string, any>
-                    | any[],
+                row: T,
             ) => void,
         ): void;
 
@@ -1885,8 +2270,8 @@ declare namespace OracleDB {
          *
          * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;
-        getRows(numRows: number, callback: (error: DBError, rows: (Record<string, any> | any[])[]) => void): void;
+        getRows(numRows: number): Promise<T[]>;
+        getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
@@ -1991,8 +2376,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        openCollection(collectionName: string): Promise<SodaCollection>;
-        openCollection(collectionName: string, callback: (error: DBError, collection: SodaCollection) => void): void;
+        openCollection(collectionName: string): Promise<SodaCollection | undefined>;
+        openCollection(collectionName: string, callback: (error: DBError, collection?: SodaCollection) => void): void;
     }
 
     /**
@@ -2147,30 +2532,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOne(newDocument: SodaDocument): Promise<void>;
-        insertOne(newDocument: SodaDocument, callback: (error: DBError) => void): void;
-
-        /**
-         * Inserts a given document to the collection. The input document can be either a JavaScript object representing
-         * the data content, or it can be an existing SodaDocument.
-         *
-         * Note SodaDocuments returned from sodaCollection.insertOneAndGet() or from sodaOperation.replaceOneAndGet()
-         * cannot be passed to insertOne(), since these do not contain any document content. Instead, create a
-         * JavaScript object using the desired attribute values, or use sodaDatabase.createDocument(), or use a
-         * SodaDocument returned by a sodaCollection.find() query.
-         *
-         * If oracledb.autoCommit is true, and insertOne() succeeds, then the new document and any open transaction
-         * on the connection is committed.
-         *
-         * @param newDocumentContent The document to insert.
-         *
-         * @since 3.0
-         */
-        insertOne(newDocumentContent: Record<string, any>): Promise<void>;
-        insertOne(
-            newDocumentContent: Record<string, any>,
-            callback: (error: DBError) => void,
-        ): Promise<void>;
+        insertOne(newDocument: SodaDocument | Record<string, any>): Promise<void>;
+        insertOne(newDocument: SodaDocument | Record<string, any>, callback: (error: DBError) => void): void;
 
         /**
          * Similar to sodaCollection.insertOne() but also returns the inserted document so system managed properties,
@@ -2191,33 +2554,41 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocument: SodaDocument): Promise<SodaDocument>;
-        insertOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document: SodaDocument) => void): void;
+        insertOneAndGet(newDocument: SodaDocument | Record<string, any>): Promise<SodaDocument>;
+        insertOneAndGet(newDocument: SodaDocument | Record<string, any>, callback: (error: DBError, document: SodaDocument) => void): void;
 
         /**
-         * Similar to sodaCollection.insertOne() but also returns the inserted document so system managed properties,
-         * such as the key (in default collections), can be found.
-         *
-         * Inserts a document in a collection. This is similar to sodaCollection.insertOne(), but also returns the
-         * result document, which contains all SodaDocument components (key, version, etc.) except for content.
-         * Content is not returned for performance reasons. The result document has new values for components that
-         * are updated as part of the replace operation (such as version, last-modified timestamp, and media type)
-         *
-         * If you want to insert the returned document again, use the original newDocumentContent or newDocument.
-         * Alternatively construct a new object from the returned document and add content.
-         *
-         * If oracledb.autoCommit is true, and insertOneAndGet() succeeds, then any open transaction on the connection
-         * is committed.
-         *
-         * @param newDocumentContent The document to insert.
-         *
-         * @since 3.0
+         * This is similar to insertOne() however it accepts an array of the Objects or SodaDocuments that insertOne() accepts.
+         * When inserting multiple documents, using insertMany() is recommended in preference to insertOne().
+         * 
+         * If an error occurs, the offset attribute on the Error objects will contain the number of documents that were successfully inserted.
+         * Subsequent documents in the input array will not be inserted
+         * 
+         * This method is in Preview status and should not be used in production.
+         * 
+         * @param documents The documents to insert.
+         * 
+         * @requires Oracle Client 18.5 or higher
+         * @since 4.0
          */
-        insertOneAndGet(newDocumentContent: Record<string, any>): Promise<SodaDocument>;
-        insertOneAndGet(
-            newDocumentContent: Record<string, any>,
-            callback: (error: DBError, document: SodaDocument) => void,
-        ): Promise<void>;
+        insertMany(documents: (SodaDocument | Record<string, any>)[]): Promise<void>;
+        insertMany(documents: (SodaDocument | Record<string, any>)[], callback: (error: DBError) => void): void;
+
+        /**
+         * Similar to sodaCollection.insertMany() but also returns an array of the inserted documents so system managed properties,
+         * such as the keys (in default collections), can be found. Content itself is not returned for performance reasons.
+         * 
+         * When inserting multiple documents, using insertManyAndGet() is recommended in preference to insertOneAndGet().
+         * 
+         * This method is in Preview status and should not be used in production.
+         * 
+         * @param documents 
+         * 
+         * @required Oracle Client 18.5 or higher
+         * @since 4.0
+         */
+        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[]): Promise<SodaDocument[]>;
+        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[], callback: (error: DBError, documents: SodaDocument[]) => void): void;
     }
 
     /**
@@ -2225,9 +2596,9 @@ declare namespace OracleDB {
      */
     interface SodaDocument {
         /** Creation time of the document as a string in the UTC time zone using an ISO8601 format. */
-        readonly createdOn: string;
+        readonly createdOn?: string;
         /** Unique key value for this document. */
-        readonly key: string;
+        readonly key?: string;
         /** Last modified time of the document as a string in the UTC time zone using an ISO8601 format. */
         readonly lastModified: string;
         /**
@@ -2235,8 +2606,10 @@ declare namespace OracleDB {
          * By default, collections store only JSON document content and this property will be ‘application/json’. This property will be null if the media type
          * is unknown, which will only be in the rare case when a collection was created to store mixed or non-JSON content on top of a pre-existing database table,
          * and that table has NULLs in its mediaType column.
+         * 
+         * @default 'application/json'
          */
-        readonly mediaType: string;
+        readonly mediaType?: string;
         /** Version of the document. */
         readonly version: string;
 
@@ -2292,8 +2665,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        getNext(): Promise<SodaDocument>;
-        getNext(callback: (error: DBError, document: SodaDocument) => void): void;
+        getNext(): Promise<SodaDocument | undefined>;
+        getNext(callback: (error: DBError, document?: SodaDocument) => void): void;
     }
 
     /**
@@ -2437,8 +2810,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        getOne(): Promise<SodaDocument>;
-        getOne(callback: (error: DBError, document: SodaDocument) => void): void;
+        getOne(): Promise<SodaDocument | undefined>;
+        getOne(callback: (error: DBError, document?: SodaDocument) => void): void;
         /**
          * Removes a set of documents matching the SodaOperation query criteria.
          *
@@ -2515,8 +2888,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument>;
-        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document: SodaDocument) => void): void;
+        replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument | undefined>;
+        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document?: SodaDocument) => void): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
          * which contains all SodaDocument components (key, version, etc.) except for content.

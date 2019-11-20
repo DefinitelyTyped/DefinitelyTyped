@@ -13,6 +13,7 @@
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
+//                 Michael Adams <https://github.com/mtadams007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -279,6 +280,8 @@ export interface Layout {
 	barmode: "stack" | "group" | "overlay" | "relative";
 	bargap: number;
 	bargroupgap: number;
+	selectdirection: 'h' | 'v' | 'd' | 'any';
+	hiddenlabels: string[];
 }
 
 export interface Legend extends Label {
@@ -405,6 +408,7 @@ export interface Margin {
 	b: number;
 	l: number;
 	r: number;
+	pad: number;
 }
 
 export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
@@ -489,14 +493,15 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
-export type Color = string | Array<string | undefined | null> | Array<Array<string | undefined | null>>;
+export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
+export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
-		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterpolar' | 'scatterternary' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
+	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -526,7 +531,12 @@ export interface PlotData {
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+	'marker.pad.t': number;
+	'marker.pad.b': number;
+	'marker.pad.l': number;
+	'marker.pad.r': number;
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
+	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
 	'x' | 'x+text' | 'x+name' |
@@ -548,15 +558,65 @@ export interface PlotData {
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
+	parents: string[];
 	name: string;
 	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
+	delta: {
+		reference: number;
+		position: 'top' | 'bottom' | 'left' | 'right';
+		relative: boolean
+		valueformat: string
+		increasing: {
+			symbol: string;
+			color: Color;
+		}
+		decreasing: {
+			symbol: string;
+			color: Color;
+		}
+	};
+	gauge: {
+		shape: 'angular' | 'bullet'
+		bar: {
+			color: Color
+			line: {
+				color: Color
+				width: number
+			}
+			thickness: number
+		}
+		bgcolor: Color
+		bordercolor: Color
+		borderwidth: number
+		axis: {
+			range: number[]
+			visible: boolean
+		}
+		threshold: {
+			line: {
+				color: Color
+				width: number
+			}
+			value: number
+		}
+	};
+	number: {
+		valueformat: string
+		font: {
+			family: string
+			size: number
+			color: Color
+		}
+		prefix: string
+		suffix: string
+	};
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];
 	boxmean: boolean | 'sd';
-	colorscale: string | Array<[number, string]>;
+	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
 	xgap: number;
@@ -567,12 +627,14 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
+	value: number;
 	values: Datum[];
 	labels: Datum[];
 	hole: number;
 	rotation: number;
 	theta: Datum[];
 	r: Datum[];
+	customdata: Datum[];
 }
 
 /**
@@ -662,7 +724,7 @@ export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
 	colors: Color[];
-	colorscale: string | string[] | Array<Array<(string | number)>>;
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;
@@ -692,7 +754,7 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
 	width: number | number[];
 	color: Color;
-	colorscale: string | string[];
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;

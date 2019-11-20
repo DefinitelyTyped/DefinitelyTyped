@@ -1,4 +1,4 @@
-// Type definitions for Swiper 4.4
+// Type definitions for Swiper 5.2
 // Project: https://github.com/nolimits4web/Swiper, http://www.idangero.us/swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
@@ -6,6 +6,7 @@
 //                 Luiz M. <https://github.com/odahcam>
 //                 Justin Abene <https://github.com/jmca>
 //                 Asif Rahman <https://github.com/daem0ndev>
+//                 Liad Idan <https://github.com/LiadIdan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -428,13 +429,13 @@ export interface SwiperOptions {
     containerModifierClass?: string;
     slideClass?: string;
     slideActiveClass?: string;
-    slideDuplicatedActiveClass?: string;
+    slideDuplicateActiveClass?: string;
     slideVisibleClass?: string;
     slideDuplicateClass?: string;
     slideNextClass?: string;
-    slideDuplicatedNextClass?: string;
+    slideDuplicateNextClass?: string;
     slidePrevClass?: string;
-    slideDuplicatedPrevClass?: string;
+    slideDuplicatePrevClass?: string;
     wrapperClass?: string;
 
     // Components
@@ -925,7 +926,7 @@ export interface LazyOptions {
  */
 
 export interface FadeEffectOptions {
-    crossfade?: boolean;
+    crossFade?: boolean;
 }
 
 export interface CoverflowEffectOptions {
@@ -978,6 +979,8 @@ export interface MousewheelOptions {
 export interface VirtualOptions {
     slides?: any[];
     cache?: boolean;
+    addSlidesBefore?: number;
+    addSlidesAfter?: number;
     renderSlide?: (slide: any, index: any) => any;
     renderExternal?: (data: any) => any;
 }
@@ -1123,7 +1126,7 @@ import {
     EffectCube,
     EffectFlip,
     EffectCoverflow
-} from './dist/js/swiper.esm';
+} from './js/swiper.esm';
 
 /**
  * Core module
@@ -1239,7 +1242,7 @@ export default class Swiper {
     /**
      * Index number of last clicked slide
      */
-    clickedIdex: number;
+    clickedIndex: number;
 
     /**
      * Link to last clicked slide (HTMLElement)

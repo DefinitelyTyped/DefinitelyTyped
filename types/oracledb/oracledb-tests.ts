@@ -143,7 +143,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
             SELECT 2 FROM DUAL
             UNION
             SELECT 3 FROM DUAL`,
-        {},
+        {
+            test: undefined,
+        },
         {
             resultSet: true,
         },
@@ -298,4 +300,187 @@ const runPromiseTests = async (): Promise<void> => {
     }
 };
 
-runPromiseTests();
+interface One {
+    one: string;
+}
+
+const version4Tests = async () => {
+    console.log(oracledb.OUT_FORMAT_ARRAY, oracledb.OUT_FORMAT_OBJECT);
+
+    const pool = await oracledb.createPool({});
+
+    const connection = await pool.getConnection();
+
+    const implicitResults = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as oracledb.ResultSet<One>[];
+
+    (await implicitResults[0].getRow()).one;
+
+    await implicitResults[0].close()
+
+    const implicitResults2 = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as One[][];
+
+    const results = implicitResults2[0][0];
+
+    console.log(results.one);
+
+    const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
+    
+    const geom = new GeomType(
+        {
+          SDO_GTYPE: 2003,
+          SDO_SRID: null,
+          SDO_POINT: null,
+          SDO_ELEM_INFO: [ 1, 1003, 3 ],
+          SDO_ORDINATES: [ 1, 1, 5, 7 ]
+        }
+      );
+
+      geom.attributes = {
+        STREET_NUMBER: { type: 2, typeName: 'NUMBER' },
+        LOCATION: {
+          type: 2023,
+          typeName: 'MDSYS.SDO_POINT_TYPE',
+          typeClass: GeomType,
+        }
+      }
+
+    new geom.attributes.test.typeClass({});
+
+    geom.S_GTYPE = 2003;
+    
+    await connection.execute(
+        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
+        {id: 1, g: geom}
+      );
+
+    const sub = await connection.subscribe('test', {
+        sql: 'test',
+        callback: (message) => {
+            console.log(message.queueName);
+        }
+    });
+
+    console.log(sub.regId);
+    
+    const queue = await connection.getQueue('test', {
+        payloadType: 'test'
+    })
+
+    const {
+        name,
+        deqOptions,
+        enqOptions,
+        payloadType,
+        payloadTypeClass,
+        payloadTypeName
+    } = queue;
+
+    const {
+        condition,
+        consumerName,
+        correlation,
+        mode,
+        msgId,
+        navigation,
+        transformation,
+        visibility,
+        wait,
+    } = deqOptions;
+
+    const messages = await queue.deqMany(5);
+
+    const lob = await connection.createLob(2);
+
+    await lob.getData();
+    
+        const plsql = `
+    DECLARE
+        c1 SYS_REFCURSOR;
+        c2 SYS_REFCURSOR;
+    BEGIN
+        OPEN c1 FOR SELECT city, postal_code
+                    FROM locations
+                    WHERE location_id < 1200;
+        DBMS_SQL.RETURN_RESULT(c1);
+
+        OPEN C2 FOR SELECT job_id, employee_id, last_name
+                    FROM employees
+                    WHERE employee_id < 103;
+        DBMS_SQL.RETURN_RESULT(c2);
+    END;`;
+
+    let result = await connection.execute(plsql);
+    console.log(result.implicitResults);
+
+    result = await connection.execute(plsql, [], { resultSet: true });
+
+    for (let i = 0; i < result.implicitResults.length; i++) {
+      console.log(' Implicit Result Set', i + 1);
+      const rs = result.implicitResults[i] as oracledb.ResultSet<One>; // get the next ResultSet
+      let row;
+      while ((row = await rs.getRow())) {
+        console.log('  ', row);
+      }
+
+      await rs.close();
+    }
+
+    const queueName = "DEMO_RAW_QUEUE";
+    const queue2 = await connection.getQueue(queueName);
+    await queue2.enqOne("This is my message");
+    await connection.commit();
+
+    const queueName3 = "DEMO_RAW_QUEUE";
+    const queue3 = await connection.getQueue(queueName3);
+    const msg = await queue3.deqOne();
+    await connection.commit();
+    console.log(msg.payload.toString());
+
+    const message = new queue.payloadTypeClass(
+        {
+          NAME: "scott",
+          ADDRESS: "The Kennel"
+        }
+      );
+      await queue.enqOne(message);
+      await connection.commit();
+
+      const queue5 = await connection.getQueue(queueName, {payloadType: "DEMOQUEUE.USER_ADDRESS_TYPE"});
+        const msg5 = await queue.deqOne();
+        await connection.commit();
+}
+
+interface MyTableRow {
+    firstColumn: string;
+    secondColumn: number;
+}
+
+const testGenerics = async () => {
+    const connection = await oracledb.getConnection({
+        user: 'test'
+    });
+
+    const result = await connection.execute<MyTableRow>('SELECT 1 FROM DUAL');
+
+    console.log(result.rows[0].firstColumn);
+    console.log(result.rows[0].secondColumn);
+
+    const result2 = await connection.execute<{test: string}>(' BEGIN DO_SOMETHING END;', {
+        test: {
+            dir: oracledb.BIND_OUT,
+            val: 'something'
+        }
+    })
+
+    console.log(result2.outBinds.test);
+
+    const sql = `SELECT FIRST_COLUMN, SECOND_COLUMN FROM SOMEWHERE`;
+
+    const result3 = await connection.executeMany<MyTableRow>(sql, 5);
+
+    console.log(result3.outBinds[0].firstColumn);
+}

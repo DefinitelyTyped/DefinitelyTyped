@@ -43,6 +43,7 @@ import * as net from 'net';
     const incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
 
     incoming.setEncoding('utf8');
+    incoming.setTimeout(1000).setTimeout(100, () => {});
 
     // stream
     incoming.pause();
@@ -138,6 +139,8 @@ import * as net from 'net';
     http.request({ agent: false });
     http.request({ agent });
     http.request({ agent: undefined });
+    // ensure compatibility with url.parse()
+    http.request(url.parse("http://www.example.org/xyz"));
 }
 
 {

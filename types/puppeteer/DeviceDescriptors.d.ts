@@ -15,8 +15,6 @@ declare namespace devices {
   }
 }
 
-declare const devices: {
-  [key: string]: devices.Device;
-};
+declare const devices: devices.Device[] & { [key: string]: devices.Device };
 
 export = devices;

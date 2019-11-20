@@ -1,7 +1,8 @@
-// Type definitions for non-npm package wegame 2.6
+// Type definitions for non-npm package wegame 2.7
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /**
  * IOS及安卓不支持：
@@ -92,6 +93,39 @@ declare class Stats {
      * 判断当前文件是否一个普通文件
      */
     isFile(): boolean;
+}
+
+/**
+ * 日志管理类，最多保存5M的日志内容，超过5M后，旧的日志内容会被删除。
+ * 对于小程序，用户可以通过使用 button 组件的 open-type="feedback" 来上传打印的日志。
+ * 对于小游戏，用户可以通过使用 wx.createFeedbackButton 来创建上传打印的日志的按钮。
+ * 开发者可以通过小程序管理后台左侧菜单“反馈管理”页面查看相关打印日志。
+ * 基础库默认会把 App、Page 的生命周期函数和 wx 命名空间下的函数调用写入日志。
+ */
+declare class LogManager {
+    /**
+     * 写debug日志
+     * @param args 要记录的日志内容
+     */
+    debug(... args: unknown[]): void;
+
+    /**
+     * 写info日志
+     * @param args 要记录的日志内容
+     */
+    info(... args: unknown[]): void;
+
+    /**
+     * 写log日志
+     * @param args 要记录的日志内容
+     */
+    log(... args: unknown[]): void;
+
+    /**
+     * 写warn日志
+     * @param args 要记录的日志内容
+     */
+    warn(... args: unknown[]): void;
 }
 
 declare class FileSystemManager {
@@ -284,11 +318,11 @@ declare class DownloadTask {
     abort(): void;
     /**
      * 监听下载进度变化事件
-     * @param res.progress 下载进度百分比
+     * @param res.progress 下载进度百分比，值为0至100
      * @param res.totalBytesWritten 已经下载的数据长度，单位 Bytes
      * @param res.totalBytesExpectedToWrite 预期需要下载的数据总长度，单位 Bytes
      */
-    onProgressUpdate(callback: { res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number } }): void;
+    onProgressUpdate(callback: (res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number }) => void): void;
 }
 
 declare class RequestTask {
@@ -323,6 +357,94 @@ declare class SocketTask {
      * 监听WebSocket 接受到服务器的消息事件
      */
     onMessage(callback: wx.types.SocketMessageCallback): void;
+}
+
+/**
+ * 一个 UDP Socket 实例，默认使用 IPv4 协议。
+ * 错误码：
+ *    -1  系统错误
+ *    -2  socket接口错误
+ *    -3  发送失败，无接口权限
+ *     1  发送失败，参数错误，address不合法
+ *     2  发送失败，参数错误，port不合法
+ */
+declare class UDPSocket {
+    /**
+     * 绑定一个系统随机分配的可用端口，或绑定一个指定的端口号
+     * @param port 需要绑定的端口号，不指定时使用随机端口
+     * @returns 绑定成功的端口号
+     */
+    bind(port?: number): number;
+
+    /**
+     * 向指定的 IP 和 port 发送消息
+     */
+    send(param: wx.types.UDPSendParams): void;
+
+    /**
+     * 关闭 UDP Socket 实例，相当于销毁。 在关闭之后，UDP Socket 实例不能再发送消息，每次调用 UDPSocket.send 将会触发错误事件，
+     * 并且 message 事件回调函数也不会再执行。在 UDPSocket 实例被创建后将被 Native 强引用，保证其不被 GC。在 UDPSocket.close 后
+     * 将解除对其的强引用，让 UDPSocket 实例遵从 GC。
+     */
+    close(): void;
+
+    /**
+     * 设置监听关闭事件回调
+     * @param callback 关闭事件的回调函数
+     */
+    onClose(callback: () => void): void;
+
+    /**
+     * 清除监听关闭事件回调
+     * @param callback 之前监听的函数
+     */
+    offClose(callback: () => void): void;
+
+    /**
+     * 监听错误事件
+     * @param callback 错误回调函数
+     */
+    onError(callback: (res: {
+        /**
+         * 错误信息
+         */
+        errMsg: string;
+    }) => void): void;
+
+    /**
+     * 取消监听错误事件
+     * @param callback 之前设置的错误回调函数
+     */
+    offError(callback: (res: {
+        /**
+         * 错误信息
+         */
+        errMsg: string;
+    }) => void): void;
+
+    /**
+     * 监听开始监听数据包消息的事件
+     * @param callback 回调函数
+     */
+    onListening(callback: () => void): void;
+
+    /**
+     * 取消监听开始监听数据包消息的事件
+     * @param callback 之前设置的回调函数
+     */
+    offListening(callback: () => void): void;
+
+    /**
+     * 监听收到消息的事件
+     * @param callback 回调函数
+     */
+    onMessage(callback: (res: wx.types.UDPMessage) => void): void;
+
+    /**
+     * 取消监听收到消息的事件
+     * @param callback 之前设置的回调函数
+     */
+    offMessage(callback: (res: wx.types.UDPMessage) => void): void;
 }
 
 declare class UploadTask {
@@ -879,6 +1001,130 @@ declare class Video {
 }
 
 /**
+ * 相机对象
+ */
+declare class Camera {
+    /**
+     * 相机的左上角横坐标
+     */
+    x: number;
+
+    /**
+     * 相机的左上角纵坐标
+     */
+    y: number;
+
+    /**
+     * 相机的宽度
+     */
+    width: number;
+
+    /**
+     * 相机的高度
+     */
+    height: number;
+
+    /**
+     * 摄像头朝向
+     */
+    devicePosition: "front" | "back";
+
+    /**
+     * 闪光灯状态
+     */
+    flash: "auto" | "on" | "off";
+
+    /**
+     * 帧数据图像尺寸
+     */
+    size: "small" | "medium" | "large";
+
+    /**
+     * 拍照，可指定质量，成功则返回图片
+     * @param quality 图片质量
+     */
+    takePhoto(quality?: "high" | "normal" | "low"): Promise<{
+        /**
+         * 临时图片路径
+         */
+        tempImagePath: string,
+        /**
+         * 图片宽度
+         */
+        width: string,
+        /**
+         * 图片高度
+         */
+        height: string
+    }>;
+
+    /**
+     * 开始录像
+     */
+    startRecord(): Promise<void>;
+
+    /**
+     * 结束录像，成功则返回封面与视频
+     * @param compressed 是否压缩录制视频
+     */
+    stopRecord(compressed: boolean): Promise<{
+        /**
+         * 临时视频路径
+         */
+        tempThumbPath: string,
+        /**
+         * 临时封面路径
+         */
+        tempVideoPath: string
+    }>;
+
+    /**
+     * 监听用户不允许授权使用摄像头的情况
+     * @param callback 回调函数
+     */
+    onAuthCancel(callback: () => void): void;
+
+    /**
+     * 监听摄像头非正常终止事件，如退出后台等情况
+     * @param callback 回调函数
+     */
+    onStop(callback: () => void): void;
+
+    /**
+     * 监听摄像头实时帧数据
+     */
+    onCameraFrame(callback: (res: {
+        /**
+         * 图像数据矩形的宽度
+         */
+        width: number,
+        /**
+         * 图像数据矩形的高度
+         */
+        height: number,
+        /**
+         * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
+         */
+        data: ArrayBuffer
+    }) => void): void;
+
+    /**
+     * 开启监听帧数据
+     */
+    listenFrameChange(): void;
+
+    /**
+     * 关闭监听帧数据
+     */
+    closeFrameChange(): void;
+
+    /**
+     * 销毁相机
+     */
+    destroy(): void;
+}
+
+/**
  * banner 广告组件。banner 广告组件是一个原生组件，层级比上屏 Canvas 高，会覆盖在上屏 Canvas 上。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
  */
 declare class BannerAd {
@@ -929,7 +1175,7 @@ declare class BannerAd {
     offError(callback: (res: { errMsg: string }) => void): void;
 }
 
-declare class RewardedVideoAd extends BannerAd {
+declare class InterstitialAd extends BannerAd {
     /**
      * 加载视频广告
      */
@@ -942,6 +1188,9 @@ declare class RewardedVideoAd extends BannerAd {
      * 监听用户点击 关闭广告 按钮的事件
      */
     offClose(callback: (res: { isEnded: boolean }) => void): void;
+}
+
+declare class RewardedVideoAd extends InterstitialAd {
 }
 
 // --定时器
@@ -965,6 +1214,12 @@ declare namespace wx {
         interface CallbacksWithType<T> {
             success?: (res: T) => void;
             fail?: () => void;
+            complete?: () => void;
+        }
+
+        interface CallbacksWithType2<T, F> {
+            success?: (res: T) => void;
+            fail?: (res: F) => void;
             complete?: () => void;
         }
 
@@ -1300,6 +1555,79 @@ declare namespace wx {
             timeStamp: number;
         }
 
+        // --iBeacon（TODO）
+        /**
+         * 停止搜索附近的 iBeacon 设备
+         */
+        function stopBeaconDiscovery(param: unknown): void;
+        /**
+         * 开始搜索附近的 iBeacon 设备
+         */
+        function startBeaconDiscovery(param: unknown): void;
+        /**
+         * 监听 iBeacon 设备更新事件，仅能注册一个监听
+         */
+        function onBeaconUpdate(callback: unknown): void;
+        /**
+         * 监听 iBeacon 服务状态变化事件，仅能注册一个监听
+         */
+        function onBeaconServiceChange(callback: unknown): void;
+        /**
+         * 取消监听 iBeacon 设备更新事件
+         */
+        function offBeaconUpdate(callback: unknown): void;
+        /**
+         * 取消监听 iBeacon 服务状态变化事件
+         */
+        function offBeaconServiceChange(callback: unknown): void;
+        /**
+         * 获取所有已搜索到的 iBeacon 设备
+         */
+        function getBeacons(param: unknown): void;
+        /*
+        IBeaconInfo
+        属性
+        string uuid
+        iBeacon 设备广播的 uuid
+
+        string major
+        iBeacon 设备的主 id
+
+        string minor
+        iBeacon 设备的次 id
+
+        number proximity
+        表示设备距离的枚举值
+
+        number accuracy
+        iBeacon 设备的距离
+
+        number rssi
+        表示设备的信号强度
+        */
+
+        // --低功耗蓝牙（TODO）
+        function writeBLECharacteristicValue(): void;
+        function readBLECharacteristicValue(): void;
+        function onBLEConnectionStateChange(): void;
+        function onBLECharacteristicValueChange(): void;
+        function notifyBLECharacteristicValueChange(): void;
+        function getBLEDeviceServices(): void;
+        function getBLEDeviceCharacteristics(): void;
+        function createBLEConnection(): void;
+        function closeBLEConnection(): void;
+
+        // --蓝牙（TODO）
+        function stopBluetoothDevicesDiscovery(): void;
+        function startBluetoothDevicesDiscovery(): void;
+        function openBluetoothAdapter(): void;
+        function onBluetoothDeviceFound(): void;
+        function onBluetoothAdapterStateChange(): void;
+        function getConnectedBluetoothDevices(): void;
+        function getBluetoothDevices(): void;
+        function getBluetoothAdapterState(): void;
+        function closeBluetoothAdapter(): void;
+
         // --电量
         interface BatteryInfo {
             /**
@@ -1355,7 +1683,7 @@ declare namespace wx {
              * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
              * res.statusCode 开发者服务器返回的 HTTP 状态码
              */
-            success?: (res: { tempFilePath: string, statusCode: number }) => void;
+            success?: (res: { tempFilePath?: string, statusCode: number }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1425,6 +1753,56 @@ declare namespace wx {
         type SocketOpenCallback = (res: { header?: { [key: string]: string } }) => void;
         type SocketMessageCallback = (res: { data: string | ArrayBuffer }) => void;
         type SocketErrorCallback = (res: { errMsg: string }) => void;
+
+        interface UDPSendParams {
+            /**
+             * 要发消息的地址。可以是一个和本机同网段的 IP 地址，也可以是在安全域名列表内的域名地址
+             */
+            address: string;
+            /**
+             * 要发送消息的端口号
+             */
+            port: number;
+            /**
+             * 要发送的数据
+             */
+            message: string | ArrayBuffer;
+            /**
+             * 发送数据的偏移量，仅当 message 为 ArrayBuffer 类型时有效，默认值0
+             */
+            offset?: number;
+            /**
+             * 发送数据的长度，仅当 message 为 ArrayBuffer 类型时有效，默认值message.byteLength
+             */
+            length?: number;
+        }
+        interface UDPMessage {
+            /**
+             * 收到的消息
+             */
+            message: ArrayBuffer;
+            /**
+             * 消息来源的结构化信息
+             */
+            remoteInfo: {
+                /**
+                 * 发送消息的 socket 的地址
+                 */
+                address: string;
+                /**
+                 * 使用的协议族，为 IPv4 或者 IPv6
+                 */
+                family: string;
+                /**
+                 * 端口号
+                 */
+                port: number;
+                /**
+                 * message 的大小，单位：字节
+                 */
+                size: number;
+            };
+        }
 
         /**
          * wx.getUserInfo的旧版本API参数，随时会被删除，不推荐使用
@@ -1822,6 +2200,87 @@ declare namespace wx {
      */
     function offDeviceOrientationChange(callback: (res: { value: string }) => void): void;
 
+    // --设备方向
+    /**
+     * 停止监听设备方向的变化。
+     */
+    function stopDeviceMotionListening(cb?: types.Callbacks): void;
+    /**
+     * 开始监听设备方向的变化
+     */
+    function startDeviceMotionListening(param: {
+        /**
+         * 开始监听设备方向的变化。默认值normal，
+         * game - 适用于更新游戏的回调频率，在 20ms/次 左右
+         * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
+         * normal - 普通的回调频率，在 200ms/次 左右
+         */
+        interval: "game" | "ui" | "normal"
+    } & types.Callbacks): void;
+    /**
+     * 监听设备方向变化事件。频率根据 wx.startDeviceMotionListening() 的 interval 参数。可以使用 wx.stopDeviceMotionListening() 停止监听。
+     */
+    function onDeviceMotionChange(callback: (res: {
+        /**
+         * 当 手机坐标 X/Y 和 地球 X/Y 重合时，绕着 Z 轴转动的夹角为 alpha，范围值为 [0, 2*PI)。逆时针转动为正。
+         */
+        alpha: number,
+        /**
+         * 当手机坐标 Y/Z 和地球 Y/Z 重合时，绕着 X 轴转动的夹角为 beta。范围值为 [-1*PI, PI) 。顶部朝着地球表面转动为正。也有可能朝着用户为正。
+         */
+        beta: number,
+        /**
+         * 当手机 X/Z 和地球 X/Z 重合时，绕着 Y 轴转动的夹角为 gamma。范围值为 [-1*PI/2, PI/2)。右边朝着地球表面转动为正。
+         */
+        gamma: number
+    }) => void): void;
+    /**
+     * 取消监听设备方向变化事件，参数为空，则取消所有的事件监听。
+     * @param callback 之前添加过的监听回调函数，如果不指定，则清空所有
+     */
+    function offDeviceMotionChange(callback?: unknown): void;
+
+    // --陀螺仪
+    /**
+     * 停止监听陀螺仪数据
+     */
+    function stopGyroscope(cb?: types.Callbacks): void;
+    /**
+     * 开始监听陀螺仪数据。
+     */
+    function startGyroscope(param: {
+        /**
+         * 开始监听设备方向的变化。默认值normal，
+         * game - 适用于更新游戏的回调频率，在 20ms/次 左右
+         * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
+         * normal - 普通的回调频率，在 200ms/次 左右
+         */
+        interval: "game" | "ui" | "normal"
+    } & types.Callbacks): void;
+    /**
+     * 监听陀螺仪数据变化事件。频率根据 wx.startGyroscope() 的 interval 参数。可以使用 wx.stopGyroscope() 停止监听。
+     * @param callback 监听函数
+     */
+    function onGyroscopeChange(callback: (res: {
+        /**
+         * x 轴的角速度
+         */
+        x: number,
+        /**
+         * y 轴的角速度
+         */
+        y: number,
+        /**
+         * z 轴的角速度
+         */
+        z: number
+    }) => void): void;
+    /**
+     * 取消监听陀螺仪数据变化事件。
+     * @param callback 之前监听的回调函数
+     */
+    function offGyroscopeChange(callback: unknown): void;
+
     // --振动
     /**
      * 使手机发生较短时间的振动（15 ms）
@@ -1834,6 +2293,118 @@ declare namespace wx {
 
     // --文件系统
     function getFileSystemManager(): FileSystemManager;
+
+    // --推荐弹窗
+    /**
+     * 创建小游戏推荐弹窗组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.7.5 后再使用该 API。每次调用该方法都会返回一个全新的实例。
+     */
+    function createGamePortal(param: {
+        /**
+         * 推荐单元 id
+         */
+        adUnitId: string
+    }): unknown /* GamePortal */;  // TODO: GamePortal
+    /**
+     * 创建小游戏推荐icon组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.8.2 后再使用该 API。每次调用该方法都会返回一个全新的实例。
+     */
+    function createGameIcon(param: {
+        /**
+         * 推荐单元 id
+         */
+        adUnitId: string,
+        /**
+         * 游戏icon的数量，请注意，正式版下面渲染出来的icon数量会小于等于count，请注册做好样式兼容
+         */
+        count: number,
+        /**
+         * 数组的每一项可以针对对应的icon设置位置和样式等信息，style的每一项称为styleItem
+         */
+        style: ReadonlyArray<{
+            /**
+             * 游戏名称是否隐藏
+             */
+            appNameHidden: boolean,
+            /**
+             * 游戏名称的颜色色值
+             */
+            color: string,
+            /**
+             * 游戏icon的宽高值
+             */
+            size: number,
+            /**
+             * 游戏icon的border尺寸
+             */
+            borderWidth: number,
+            /**
+             * 游戏icon的border颜色色值
+             */
+            borderColor: string,
+            /**
+             * 游戏icon的X轴坐标
+             */
+            left: number,
+            /**
+             * 游戏icon的Y轴坐标
+             */
+            top: number
+        }>
+    }): unknown /* GameIcon */;  // TODO: GameIcon
+    /**
+     * 创建小游戏推荐banner组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.7.5 后再使用该 API。每次调用该方法都会返回一个全新的实例。
+     */
+    function createGameBanner(param: {
+        /**
+         * 推荐单元 id
+         */
+        adUnitId: string,
+        /**
+         * 小游戏推荐banner组件样式
+         */
+        style: {
+            /**
+             * 小游戏推荐banner组件左上角横坐标
+             */
+            left: number,
+            /**
+             * 小游戏推荐banner组件左上角纵坐标
+             */
+            top: number
+        }
+    }): unknown /* GameBanner */; // TODO: GameBanner
+
+    // --游戏对局回放
+    /**
+     * 获取全局唯一的游戏画面录制对象
+     */
+    function getGameRecorder(): unknown /* GameRecorder */;  // TODO: GameRecorder
+    /**
+     * 创建游戏对局回放分享按钮，返回一个单例对象。按钮在被用户点击后会发起对最近一次录制完成的游戏对局回放的分享。
+     */
+    function createGameRecorderShareButton(): unknown /* GameRecorderShareButton */;  // TODO: GameRecorderShareButton
+
+    // --第三方平台
+    /**
+     * 获取第三方平台自定义的数据字段。
+     * Tips: 本接口暂时无法通过 wx.canIUse 判断是否兼容，开发者需要自行判断 wx.getExtConfig 是否存在来兼容，示例：
+     *       if (wx.getExtConfig) {
+     *          wx.getExtConfig({
+     *              success (res) {
+     *                  console.log(res.extConfig)
+     *              }
+     *         })
+     *       }
+     */
+    function getExtConfig(callbacks: types.CallbacksWithType<{
+        /**
+         * 第三方平台自定义的数据
+         */
+        extConfig: unknown
+    }>): void;
+    /**
+     * wx.getExtConfig 的同步版本。
+     */
+    function getExtConfigSync(): unknown;
 
     /**
      * 系统环境变量
@@ -1930,6 +2501,12 @@ declare namespace wx {
      * 通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
      */
     function sendSocketMessage(param: types.SocketSendParams): void;
+
+    // --UDP通信
+    /**
+     * 创建一个 UDP Socket 实例
+     */
+    function createUDPSocket(): UDPSocket;
 
     // --上传
     function uploadFile(param: {
@@ -2029,11 +2606,155 @@ declare namespace wx {
         /**
          * 要修改的 KV 数据列表
          */
-        KVDataList: KVData[],
+        KVDataList: ReadonlyArray<KVData>,
         success?: () => void,
         fail?: () => void,
         complete?: () => void
     }): void;
+    /**
+     * 监听成功修改好友的互动型托管数据事件，该接口在游戏主域使用
+     * @param callback 事件发生的回调函数，只有一个参数为 wx.modifyFriendInteractiveStorage 传入的 key
+     */
+    function onInteractiveStorageModified(callback: (key: string) => void): void;
+    /**
+     * 修改好友的互动型托管数据，该接口只可在开放数据域下使用，示例代码：
+     * wx.modifyFriendInteractiveStorage({
+     *     key: '1',
+     *     opNum: 1,
+     *     operation: 'add',
+     *     toUser: '', // 好友的 openId
+     *     title: '送你 10 个金币，赶快打开游戏看看吧', // 2.9.0 支持
+     *     imageUrl: 'image/xxx' // 2.9.0 支持
+     * });
+     *
+     * 赠送动作的校验：
+     *     调用该接口需要上传 JSServer 函数 "checkInteractiveData"，该函数可用于执行赠送动作的校验逻辑，校验通过后返回结果表示本次赠送是否合法。只有 checkInteractiveData 返回了 {ret: true}，此次修改才会成功。
+     *
+     * 使用模板规则进行交互：
+     *     每次调用该接口会弹窗询问用户是否确认执行该操作，2.9.0 之后版本，需要在 game.json 中设置 modifyFriendInteractiveStorageTemplates 来定制交互的文案。
+     *     modifyFriendInteractiveStorageTemplates是一个模板数组，每一个模板需要有 key, action, object 参数，还有一个可选参数 ratio，详细说明见示例配置：
+     *         {
+     *             "modifyFriendInteractiveStorageTemplates": [
+     *                  {
+     *                      "key": "1", // 这个 key 与接口中同名参数相对应，不同的 key 对应不同的模板
+     *                      "action": "赠送", // 互动行为
+     *                      "object": "金币", // 互动物品
+     *                      "ratio": 10 // 物品比率，opNum * ratio 代表物品个数
+     *                  }
+     *              ]
+     *          }
+     *     最后生成的文案为 "确认 ${action} ${nickname} ${object}？"，或者 "确认 ${action} ${nickname} ${object} x ${opNum * ratio}？"
+     *
+     * 使用自定义文案进行交互：
+     *     2.7.7 之后，2.9.0 之前的版本，文案通过 game.json 的 modifyFriendInteractiveStorageConfirmWording 字段配置。 配置内容可包含 nickname 变量，用 ${nickname} 表示，实际调用时会被替换成好友的昵称。示例配置：
+     *         {
+     *             "modifyFriendInteractiveStorageConfirmWording": "确认送给${nickname}一个体力？"
+     *         }
+     *     2.9.0 之后，在 modifyFriendInteractiveStorageTemplates 和 modifyFriendInteractiveStorageConfirmWording 都存在的情况下，会优先使用前者。
+     */
+    function modifyFriendInteractiveStorage(param: {
+        /**
+         * 需要修改的数据的 key，目前可以为 '1' - '50'
+         */
+        key: string,
+        /**
+         * 需要修改的数值，目前只能为 1
+         */
+        opNum: number,
+        /**
+         * 修改类型
+         */
+        operation: "add",
+        /**
+         * 目标好友的 openId
+         */
+        toUser?: string
+        /**
+         * 分享标题，如果设置了这个值，则在交互成功后自动询问用户是否分享给好友（需要配置模板规则）
+         */
+        title?: string
+        /**
+         * 分享图片地址，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
+         */
+        imageUrl?: string,
+        /**
+         * 分享图片 ID，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
+         */
+        imageUrlId?: string,
+        /**
+         * 是否静默修改（不弹框），静默修改需要用户通过快捷分享消息卡片进入才有效，代表分享反馈操作，无需填写 toUser，直接修改分享者与被分享者交互数据
+         * 默认值false
+         */
+        quiet?: boolean,
+        success?: () => void;
+        fail?: (res: {
+            /**
+             * 错误信息
+             */
+            errMsg: string,
+            /**
+             * 错误码
+             *     -17006	非好友关系
+             *     -17007	非法的 toUser openId
+             *     -17008	非法的 key
+             *     -17009	非法的 operation
+             *     -17010	非法的操作数
+             *     -17011	JSServer 校验写操作失败
+             */
+            errCode: number
+        }) => void;
+        complete?: () => void;
+    }): void;
+    /**
+     * 获取当前用户互动型托管数据对应 key 的数据
+     */
+    function getUserInteractiveStorage(param: {
+        /**
+         * 要获取的 key 列表
+         */
+        keyList: string[]
+    } & types.CallbacksWithType2<{
+        /**
+         * 加密数据，包含互动型托管数据的值。解密后的结果为一个 KVDataList，每一项为一个 KVData。 用户数据的签名验证和加解密
+         */
+        encryptedData: string,
+        /**
+         * 敏感数据对应的云 ID，开通云开发的小程序才会返回，可通过云调用直接获取开放数据，详细见云调用直接获取开放数据
+         */
+        cloudID: string
+    }, {
+        /**
+         * 错误信息
+         */
+        errMsg: string,
+        /**
+         * 错误码
+         *     -17008 非法的 key
+         */
+        errCode: number
+    }>): void;
+    /**
+     * 获取可能对游戏感兴趣的未注册的好友名单。每次调用最多可获得 5 个好友，此接口只能在开放数据域中使用
+     */
+    function getPotentialFriendList(callback: types.CallbacksWithType<{
+        /**
+         * 可能对游戏感兴趣的未注册好友名单
+         */
+        list: ReadonlyArray<{
+            /**
+             * 用户的微信头像 url
+             */
+            avatarUrl: string,
+            /**
+             * 用户的微信昵称
+             */
+            nickname: string,
+            /**
+             * 用户 openid
+             */
+            openid: string
+        }>
+    }>): void;
 
     // --登录
     /**
@@ -2068,6 +2789,35 @@ declare namespace wx {
         fail?: () => void,
         complete?: () => void
     }): void;
+
+    // --小程序跳转
+    /**
+     * 打开另一个小程序
+     * @param param 跳转参数
+     */
+    function navigateToMiniProgram(param: {
+        /**
+         * 要打开的小程序 appId
+         */
+        appId: string,
+        /**
+         * 打开的页面路径，如果为空则打开首页。path 中 ? 后面的部分会成为 query，在小程序的 App.onLaunch、App.onShow
+         * 和 Page.onLoad 的回调函数或小游戏的 wx.onShow 回调函数、wx.getLaunchOptionsSync 中可以获取到 query 数据。
+         * 对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+         */
+        path?: string,
+        /**
+         * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。如果跳转的是小游戏，可以在 wx.onShow、wx.getLaunchOptionsSync 中可以获取到这份数据数据。
+         */
+        extraData?: unknown,
+        /**
+         * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
+         * develop	开发版
+         * trial	体验版
+         * release	正式版
+         */
+        envVersion?: "develop" | "trial" | "release"
+    } & types.Callbacks): void;
 
     // --用户信息
     function createUserInfoButton(param: {
@@ -2139,6 +2889,66 @@ declare namespace wx {
          * 加密算法的初始向量
          */
         iv: string
+    }>): void;
+
+    // --卡券
+    /**
+     * 查看微信卡包中的卡券。只有通过 认证 的小程序或文化互动类目的小游戏才能使用。更多文档请参考：微信卡券接口文档（https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1490190158&version=1&lang=zh_CN&platform=2）
+     */
+    function openCard(param: {
+        /**
+         * 需要打开的卡券列表
+         */
+        cardList: ReadonlyArray<{
+            /**
+             * 卡券 ID
+             */
+            cardId: string,
+            /**
+             * 由 wx.addCard 的返回对象中的加密 code 通过解密后得到，解密请参照：code 解码接口（https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html）
+             */
+            code: string
+        }>
+    } & types.CallbacksWithType<unknown>): void;  // TODO: success回调里的res的结构官方文档没写
+    /**
+     * 批量添加卡券。只有通过 认证 的小程序或文化互动类目的小游戏才能使用。更多文档请参考 微信卡券接口文档（https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1490190158&version=1&lang=zh_CN&platform=2）。
+     */
+    function addCard(param: {
+        /**
+         * 需要添加的卡券列表
+         */
+        cardList: ReadonlyArray<{
+            /**
+             * 卡券 ID
+             */
+            cardId: string,
+            /**
+             * 卡券的扩展参数。需将 CardExt 对象 JSON 序列化为字符串传入
+             */
+            cardExt: string
+        }>
+    } & types.CallbacksWithType<{
+        /**
+         * 卡券添加结果列表
+         */
+        cardList: ReadonlyArray<{
+            /**
+             * 加密 code，为用户领取到卡券的code加密后的字符串，解密请参照：code 解码接口
+             */
+            code: string,
+            /**
+             * 用户领取到卡券的 ID
+             */
+            cardId: string,
+            /**
+             * 卡券的扩展参数，值为一个 JSON 字符串
+             */
+            cardExt: string,
+            /**
+             * 是否成功
+             */
+            isSuccess: boolean
+        }>
     }>): void;
 
     // --授权
@@ -2273,6 +3083,41 @@ declare namespace wx {
      */
     function shareAppMessage(param: types.ShareOption): void;
     /**
+     * 设置 wx.shareMessageToFriend 接口 query 字段的值
+     * @param param 设置参数
+     * @returns 是否设置成功
+     */
+    function setMessageToFriendQuery(param: {
+        /**
+         * 需要传递的代表场景的数字，需要在 0 - 50 之间
+         */
+        shareMessageToFriendScene: number;
+    }): boolean;
+    /**
+     * 给指定的好友分享游戏信息，该接口只可在开放数据域下使用
+     * 定向分享不允许直接在开放数据域设置 query 参数 需要设置时请参见游戏域 wx.setMessageToFriendQuery 接口
+     * @param param 分享参数
+     */
+    function shareMessageToFriend(param: {
+        /**
+         * 发送对象的 openId
+         */
+        openId: string,
+        /**
+         * 转发标题，不传则默认使用当前小游戏的昵称。
+         */
+        title?: string,
+        /**
+         * 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4
+         */
+        imageUrl?: string
+        /**
+         * 审核通过的图片 ID，详见 使用审核通过的转发图片（https://developers.weixin.qq.com/minigame/dev/guide/open-ability/sh
+         * are/share.html#%E4%BD%BF%E7%94%A8%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87%E7%9A%84%E8%BD%AC%E5%8F%91%E5%9B%BE%E7%89%87）
+         */
+        imageUrlId?: string
+    }): void;
+    /**
      * 更新转发属性
      */
     function updateShareMenu(param: {
@@ -2302,6 +3147,12 @@ declare namespace wx {
      */
     function onMemoryWarning(callback: (res: { level: number }) => void): void;
 
+    /**
+     * 标记自定义场景
+     * @param sceneId 在管理后台配置过的场景ID
+     */
+    function markScene(sceneId: number): void;
+
     // --调试
     function setEnableDebug(p: {
         enableDebug: boolean,
@@ -2309,6 +3160,58 @@ declare namespace wx {
         fail?: () => void,
         complete?: () => void
     }): void;
+
+    /**
+     * 获取日志管理器对象
+     * @param param 初始化时的参数
+     */
+    function getLogManager(param?: {
+        /**
+         * 取值为0或1，取值为0时会把 App、Page 的生命周期函数和 wx 命名空间下的函数调用写入日志，取值为1则不会。
+         * 默认值是 0
+         */
+        level?: 0 | 1
+    }): LogManager;
+
+    // --数据上报
+    /**
+     * 自定义业务数据监控上报接口。
+     * 使用前，需要在「小程序管理后台-运维中心-性能监控-业务数据监控」中新建监控事件，配置监控描述与告警类型。每一个监控事件对应唯一的监控ID，开发者最多可以创建128个监控事件。
+     * @param name 监控ID，在「小程序管理后台」新建数据指标后获得
+     * @param value 上报数值，经处理后会在「小程序管理后台」上展示每分钟的上报总量
+     */
+    function reportMonitor(name: string, value: number): void;
+
+    // --订阅消息
+    /**
+     * 调起小游戏订阅消息界面，返回用户订阅消息的操作结果。（需要在 touchend 事件的回调中调用）
+     */
+    function requestSubscribeMessage(param: {
+        /**
+         * 需要订阅的消息模板的id的集合（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅
+         * 只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置
+         */
+        tmplIds: ReadonlyArray<string>;
+    } & types.CallbacksWithType2<{
+        /**
+         * 接口调用成功时errMsg值为'requestSubscribeMessage:ok'
+         */
+        errMsg: string;
+        /**
+         * [TEMPLATE_ID]是动态的键，即模板id，值包括'accept'、'reject'、'ban'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示
+         * 已被后台封禁。例如 { errMsg: "requestSubscribeMessage:ok", zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE: "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息
+         */
+        [TEMPLATE_ID: string]: 'accept' | 'reject' | 'ban' | string;
+    }, {
+        /**
+         * 接口调用失败错误信息
+         */
+        errMsg: string;
+        /**
+         * 接口调用失败错误码
+         */
+        errCode: number;
+    }>): void;
 
     // --数据缓存
     /**
@@ -2736,6 +3639,185 @@ declare namespace wx {
         muted?: boolean
     }): Video;
 
+    // --相机
+    /**
+     * 创建相机
+     * @param param 创建相机所需的初始化信息
+     */
+    function createCamera(param?: types.Callbacks & {
+        /**
+         * 相机的左上角横坐标，默认值0
+         */
+        x?: number;
+        /**
+         * 相机的左上角纵坐标，默认值0
+         */
+        y?: number;
+        /**
+         * 相机的宽度，默认值300
+         */
+        width?: number;
+        /**
+         * 相机的高度，默认值150
+         */
+        height?: number;
+        /**
+         * 摄像头朝向，值为 front, back，默认值back
+         */
+        devicePosition?: "front" | "back";
+        /**
+         * 闪光灯，值为 auto, on, off，默认值auto
+         */
+        flash?: "auto" | "on" | "off";
+        /**
+         * 帧数据图像尺寸，值为 small, medium, large，默认值small
+         */
+        size?: "small" | "medium" | "large";
+    }): Camera;
+
+    // -- VoIP
+    /**
+     * 更新实时语音静音设置
+     * @param param 静音设置
+     */
+    function updateVoIPChatMuteConfig(param: types.Callbacks & {
+        /**
+         * 静音设置
+         */
+        muteConfig: {
+            /**
+             * 是否静音麦克风，默认值false
+             */
+            muteMicrophone?: boolean,
+            /**
+             * 是否静音耳机，默认值false
+             */
+            muteEarphone?: boolean
+        }
+    }): void;
+    /**
+     * 监听实时语音通话成员通话状态变化事件。有成员开始/停止说话时触发回调
+     * @param callback 实时语音通话成员通话状态变化事件的回调函数
+     */
+    function onVoIPChatSpeakersChanged(callback: (res: {
+        /**
+         * 还在实时语音通话中的成员 openId 名单
+         */
+        openIdList: ReadonlyArray<string>,
+        /**
+         * 错误码
+         */
+        errCode: number,
+        /**
+         * 调用结果（错误原因）
+         */
+        errMsg: string
+    }) => void): void;
+    /**
+     * 取消监听实时语音通话成员通话状态变化事件。
+     * @param callback 之前监听的回调函数
+     */
+    function offVoIPChatSpeakersChanged(callback: unknown): void;
+    /**
+     * 监听实时语音通话成员在线状态变化事件。有成员加入/退出通话时触发回调
+     * @param callback 实时语音通话成员在线状态变化事件的回调函数
+     */
+    function onVoIPChatMembersChanged(callback: (res: {
+        /**
+         * 还在实时语音通话中的成员 openId 名单
+         */
+        openIdList: ReadonlyArray<string>,
+        /**
+         * 错误码
+         */
+        errCode: number,
+        /**
+         * 调用结果（错误原因）
+         */
+        errMsg: string
+    }) => void): void;
+    /**
+     * 取消监听实时语音通话成员在线状态变化事件。
+     * @param callback 之前监听的回调函数
+     */
+    function offVoIPChatMembersChanged(callback: unknown): void;
+    /**
+     * 监听被动断开实时语音通话事件。包括小游戏切入后端时断开
+     * @param callback 被动断开实时语音通话事件的回调函数
+     */
+    function onVoIPChatInterrupted(callback: (res: {
+        /**
+         * 错误码
+         */
+        errCode: number,
+        /**
+         * 调用结果（错误原因）
+         */
+        errMsg: string
+    }) => void): void;
+    /**
+     * 取消监听被动断开实时语音通话事件。
+     * @param callback 之前监听的回调函数
+     */
+    function offVoIPChatInterrupted(callback: unknown): void;
+    /**
+     * 加入 (创建) 实时语音通话，更多信息可见：实时语音指南（https://developers.weixin.qq.com/minigame/dev/guide/open-ability/voip-chat.html）
+     * 错误码
+     *    -1    当前已在房间内
+     *    -2    录音设备被占用，可能是当前正在使用微信内语音通话或系统通话
+     *    -3    加入会话期间退出（可能是用户主动退出，或者退后台、来电等原因），因此加入失败
+     *    -1000 系统错误
+     * @param param 加入语音聊天时的初始化参数
+     */
+    function joinVoIPChat(param: types.CallbacksWithType<{
+        /**
+         * 在此通话中的成员 openId 名单
+         */
+        openIdList: ReadonlyArray<string>,
+        /**
+         * 错误码
+         */
+        errCode: number,
+        /**
+         * 调用结果
+         */
+        errMsg: string
+    }> & {
+        /**
+         * 签名，用于验证小游戏的身份
+         */
+        signature: string,
+        /**
+         * 验证所需的随机字符串
+         */
+        nonceStr: string,
+        /**
+         * 验证所需的时间戳
+         */
+        timeStamp: number,
+        /**
+         * 小游戏内此房间/群聊的 ID。同一时刻传入相同 groupId 的用户会进入到同个实时语音房间。
+         */
+        groupId: string,
+        /**
+         * 静音设置
+         */
+        muteConfig?: {
+            /**
+             * 是否静音麦克风，默认值false
+             */
+            muteMicrophone?: boolean,
+            /**
+             * 是否静音耳机，默认值false
+             */
+            muteEarphone?: boolean
+        }
+    }): void;
+    /**
+     * 退出（销毁）实时语音通话
+     */
+    function exitVoIPChat(callbacks?: types.Callbacks): void;
+
     // --广告
     /**
      * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
@@ -2759,6 +3841,15 @@ declare namespace wx {
          */
         adUnitId: string
     }): RewardedVideoAd;
+    /**
+     * 创建插屏广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
+     */
+    function createInterstitialAd(param: {
+        /**
+         * 广告单元 id
+         */
+        adUnitId: string
+    }): InterstitialAd;
 
     // --虚拟支付
     /**

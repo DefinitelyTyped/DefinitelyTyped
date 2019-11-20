@@ -1,14 +1,13 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
-/// <reference path="google-apps-script.ui.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Charts {
+  namespace Charts {
     /**
      * Builder for area charts. For more details, see the Google Charts documentation.
      *
@@ -43,7 +42,7 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    export interface AreaChartBuilder {
+    interface AreaChartBuilder {
       build(): Chart;
       reverseCategories(): AreaChartBuilder;
       setBackgroundColor(cssValue: string): AreaChartBuilder;
@@ -69,7 +68,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
       useLogScale(): AreaChartBuilder;
     }
-
     /**
      * Builder for bar charts. For more details, see the Google Charts documentation.
      *
@@ -90,7 +88,7 @@ declare namespace GoogleAppsScript {
      *
      *      var chart = chartBuilder.build();
      */
-    export interface BarChartBuilder {
+    interface BarChartBuilder {
       build(): Chart;
       reverseCategories(): BarChartBuilder;
       reverseDirection(): BarChartBuilder;
@@ -116,58 +114,23 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
       useLogScale(): BarChartBuilder;
     }
-
     /**
-     * A builder for category filter controls.
-     *
-     * A category filter is a picker to choose one or more between a set of defined values. Given a
-     * column of type string, this control filters out the rows that don't match any of the picked
-     * values.
-     *
-     * For more details, see the Gviz
-     * documentation.
+     * A Chart object, which can be converted to a static image. For charts embedded in spreadsheets,
+     * see EmbeddedChart.
      */
-    export interface CategoryFilterBuilder {
-      build(): Control;
-      setAllowMultiple(allowMultiple: boolean): CategoryFilterBuilder;
-      setAllowNone(allowNone: boolean): CategoryFilterBuilder;
-      setAllowTyping(allowTyping: boolean): CategoryFilterBuilder;
-      setCaption(caption: string): CategoryFilterBuilder;
-      setDataTable(tableBuilder: DataTableBuilder): CategoryFilterBuilder;
-      setDataTable(table: DataTableSource): CategoryFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): CategoryFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): CategoryFilterBuilder;
-      setLabel(label: string): CategoryFilterBuilder;
-      setLabelSeparator(labelSeparator: string): CategoryFilterBuilder;
-      setLabelStacking(orientation: Orientation): CategoryFilterBuilder;
-      setSelectedValuesLayout(layout: PickerValuesLayout): CategoryFilterBuilder;
-      setSortValues(sortValues: boolean): CategoryFilterBuilder;
-      setValues(values: string[]): CategoryFilterBuilder;
-    }
-
-    /**
-     * A Chart object, which can be embedded into documents, UI elements, or used as a static image. For
-     * charts embedded in spreadsheets, see EmbeddedChart.
-     */
-    export interface Chart {
+    interface Chart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getId(): string;
       getOptions(): ChartOptions;
-      getType(): string;
-      setId(id: string): Chart;
     }
-
     /**
      * An enumeration of how hidden dimensions in a source are expressed in a chart.
      */
-    export enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
-
+    enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
     /**
      * An enumeration of how multiple ranges in the source are expressed in a chart.
      */
-    export enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
-
+    enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
     /**
      * Exposes options currently configured for a Chart, such as height, color, etc.
      *
@@ -177,15 +140,13 @@ declare namespace GoogleAppsScript {
      *
      * These options are immutable.
      */
-    export interface ChartOptions {
-      get(option: string): object;
+    interface ChartOptions {
+      get(option: string): any;
     }
-
     /**
      * Chart types supported by the Charts service.
      */
-    export enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
-
+    enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
     /**
      * Entry point for creating Charts in scripts.
      *
@@ -219,33 +180,25 @@ declare namespace GoogleAppsScript {
      *        return htmlOutput;
      *     }
      */
-    export interface Charts {
+    interface Charts {
       ChartHiddenDimensionStrategy: typeof ChartHiddenDimensionStrategy;
       ChartMergeStrategy: typeof ChartMergeStrategy;
       ChartType: typeof ChartType;
       ColumnType: typeof ColumnType;
       CurveStyle: typeof CurveStyle;
-      MatchType: typeof MatchType;
-      Orientation: typeof Orientation;
-      PickerValuesLayout: typeof PickerValuesLayout;
       PointStyle: typeof PointStyle;
       Position: typeof Position;
       newAreaChart(): AreaChartBuilder;
       newBarChart(): BarChartBuilder;
-      newCategoryFilter(): CategoryFilterBuilder;
       newColumnChart(): ColumnChartBuilder;
-      newDashboardPanel(): DashboardPanelBuilder;
       newDataTable(): DataTableBuilder;
       newDataViewDefinition(): DataViewDefinitionBuilder;
       newLineChart(): LineChartBuilder;
-      newNumberRangeFilter(): NumberRangeFilterBuilder;
       newPieChart(): PieChartBuilder;
       newScatterChart(): ScatterChartBuilder;
-      newStringFilter(): StringFilterBuilder;
       newTableChart(): TableChartBuilder;
       newTextStyle(): TextStyleBuilder;
     }
-
     /**
      * Builder for column charts. For more details, see the Google Charts documentation.
      *
@@ -274,7 +227,7 @@ declare namespace GoogleAppsScript {
      *         .setDataTable(sampleData)
      *         .build();
      */
-    export interface ColumnChartBuilder {
+    interface ColumnChartBuilder {
       build(): Chart;
       reverseCategories(): ColumnChartBuilder;
       setBackgroundColor(cssValue: string): ColumnChartBuilder;
@@ -299,84 +252,22 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
       useLogScale(): ColumnChartBuilder;
     }
-
     /**
      * An enumeration of the valid data types for columns in a DataTable.
      */
-    export enum ColumnType { DATE, NUMBER, STRING }
-
-    /**
-     * A user interface control object, that drives the data displayed by a DashboardPanel.
-     *
-     * A control can be embedded in a UI application. Controls are user interface widgets (category
-     * pickers, range sliders, autocompleters, etc.) users interact with in order to drive the data
-     * managed by a dashboard and the charts that are part of it. Controls collect user input and use
-     * the information to decide which of the data the dashboard is managing should be made available to
-     * the charts that are part of it. Given a data table, a control filters out the data that doesn't
-     * comply with the conditions implied by its current state, and exposes the filtered data table as
-     * an output.
-     *
-     * For more details, see the Gviz documentation.
-     */
-    export interface Control {
-      getId(): string;
-      getType(): string;
-      setId(id: string): Control;
-    }
-
+    enum ColumnType { DATE, NUMBER, STRING }
     /**
      * An enumeration of the styles for curves in a chart.
      */
-    export enum CurveStyle { NORMAL, SMOOTH }
-
-    /**
-     * A dashboard is a visual structure that enables the organization and management of multiple charts
-     * that share the same underlying data.
-     *
-     * Controls are user interface widgets (category pickers, range sliders, autocompleters, etc.)
-     * users interact with in order to drive the data managed by a dashboard and the charts that are
-     * part of it. For example, a string filter control is a simple text input field that lets the user
-     * filter data via string matching. Given a column and matching options, the control filters out the
-     * rows that don't match the term that's in the input field.
-     *
-     * The Gviz API defines a dashboard as a set of charts and controls bound together. The bindings
-     * between the different components define the data flow, the state of the controls filters views of
-     * the data which propagate in the dashboard and are eventually visualized with charts. For more
-     * details, see the Gviz documentation.
-     *
-     * The dashboard panel has two purposes, one is being a container for the charts and controls
-     * objects that compose the dashboard, and the other is holding the data and use as an interface for
-     * binding controls to charts.
-     */
-    export interface DashboardPanel {
-      getId(): string;
-      getType(): string;
-      setId(id: string): DashboardPanel;
-      add(widget: UI.Widget): DashboardPanel;
-    }
-
-    /**
-     * A builder for a dashboard panel object. For an example of how to use DashboardPanelBuilder, refer to DashboardPanel.
-     *
-     * For more details, see the Gviz
-     * documentation.
-     */
-    export interface DashboardPanelBuilder {
-      bind(control: Control, chart: Chart, controls: Control[], charts: Chart[]): DashboardPanelBuilder;
-      bind(control: Control, chart: Chart, controls: Control[], charts: Chart[]): DashboardPanelBuilder;
-      build(): DashboardPanel;
-      setDataTable(tableBuilder: DataTableBuilder): DashboardPanelBuilder;
-      setDataTable(source: DataTableSource): DashboardPanelBuilder;
-    }
-
+    enum CurveStyle { NORMAL, SMOOTH }
     /**
      * A Data Table to be used in charts. A DataTable can come from sources such as Google
      * Sheets or specified data-table URLs, or can be filled in by hand. This class intentionally has no
      * methods: a DataTable can be passed around, but not manipulated directly.
      */
-    export interface DataTable {
+    // tslint:disable-next-line: no-empty-interface
+    interface DataTable {
     }
-
     /**
      * Builder of DataTable objects. Building a data table consists of first specifying its columns, and
      * then adding its rows, one at a time. Example:
@@ -392,13 +283,12 @@ declare namespace GoogleAppsScript {
      *         .addRow(["May", 30, 4])
      *         .build();
      */
-    export interface DataTableBuilder {
+    interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
       addRow(values: any[]): DataTableBuilder;
       build(): DataTable;
       setValue(row: Integer, column: Integer, value: any): DataTableBuilder;
     }
-
     /**
      * Interface for objects that can represent their data as a DataTable.
      * Implementing classes
@@ -409,10 +299,9 @@ declare namespace GoogleAppsScript {
      *
      * RangeAccess and modify spreadsheet ranges.
      */
-    export interface DataTableSource {
+    interface DataTableSource {
       getDataTable(): DataTable;
     }
-
     /**
      * A data view definition for visualizing chart data.
      *
@@ -422,9 +311,9 @@ declare namespace GoogleAppsScript {
      * consideration when drawing the chart. See DataViewDefinitionBuilder for an example on how
      * to define and use a DataViewDefinition.
      */
-    export interface DataViewDefinition {
+    // tslint:disable-next-line: no-empty-interface
+    interface DataViewDefinition {
     }
-
     /**
      * Builder for DataViewDefinition objects.
      *
@@ -466,11 +355,10 @@ declare namespace GoogleAppsScript {
      *       return htmlOutput;
      *     }
      */
-    export interface DataViewDefinitionBuilder {
+    interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
-      setColumns(columns: object[]): DataViewDefinitionBuilder;
+      setColumns(columns: any[]): DataViewDefinitionBuilder;
     }
-
     /**
      * Builder for line charts. For more details, see the Google Charts documentation.
      *
@@ -491,7 +379,7 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    export interface LineChartBuilder {
+    interface LineChartBuilder {
       build(): Chart;
       reverseCategories(): LineChartBuilder;
       setBackgroundColor(cssValue: string): LineChartBuilder;
@@ -517,7 +405,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       useLogScale(): LineChartBuilder;
     }
-
     /**
      * An enumeration of how a string value should be matched. Matching a string is a boolean operation.
      * Given a string, a match term (string), and a match type, the operation outputs true in
@@ -533,8 +420,7 @@ declare namespace GoogleAppsScript {
      * of the data table. Given a column to filter on, leave only the rows that match the value entered
      * in the filter input box, using one of the above matching types.
      */
-    export enum MatchType { EXACT, PREFIX, ANY }
-
+    enum MatchType { EXACT, PREFIX, ANY }
     /**
      * A builder for number range filter controls.
      *
@@ -545,32 +431,21 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    export interface NumberRangeFilterBuilder {
-      build(): Control;
-      setDataTable(tableBuilder: DataTableBuilder): NumberRangeFilterBuilder;
-      setDataTable(table: DataTableSource): NumberRangeFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): NumberRangeFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): NumberRangeFilterBuilder;
-      setLabel(label: string): NumberRangeFilterBuilder;
-      setLabelSeparator(labelSeparator: string): NumberRangeFilterBuilder;
-      setLabelStacking(orientation: Orientation): NumberRangeFilterBuilder;
+    interface NumberRangeFilterBuilder {
       setMaxValue(maxValue: Integer): NumberRangeFilterBuilder;
       setMinValue(minValue: Integer): NumberRangeFilterBuilder;
       setOrientation(orientation: Orientation): NumberRangeFilterBuilder;
       setShowRangeValues(showRangeValues: boolean): NumberRangeFilterBuilder;
       setTicks(ticks: Integer): NumberRangeFilterBuilder;
     }
-
     /**
      * An enumeration of the orientation of an object.
      */
-    export enum Orientation { HORIZONTAL, VERTICAL }
-
+    enum Orientation { HORIZONTAL, VERTICAL }
     /**
      * An enumeration of how to display selected values in picker widget.
      */
-    export enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
-
+    enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
     /**
      * A builder for pie charts. For more details, see the Google Charts documentation.
      *
@@ -588,7 +463,7 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    export interface PieChartBuilder {
+    interface PieChartBuilder {
       build(): Chart;
       reverseCategories(): PieChartBuilder;
       set3D(): PieChartBuilder;
@@ -605,17 +480,14 @@ declare namespace GoogleAppsScript {
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
-
     /**
      * An enumeration of the styles of points in a line.
      */
-    export enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
-
+    enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
     /**
      * An enumeration of legend positions within a chart.
      */
-    export enum Position { TOP, RIGHT, BOTTOM, NONE }
-
+    enum Position { TOP, RIGHT, BOTTOM, NONE }
     /**
      * Builder for scatter charts. For more details, see the Google Charts documentation.
      *
@@ -635,7 +507,7 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    export interface ScatterChartBuilder {
+    interface ScatterChartBuilder {
       build(): Chart;
       setBackgroundColor(cssValue: string): ScatterChartBuilder;
       setColors(cssValues: string[]): ScatterChartBuilder;
@@ -661,7 +533,6 @@ declare namespace GoogleAppsScript {
       setYAxisTitle(title: string): ScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
     }
-
     /**
      * A builder for string filter controls.
      *
@@ -672,20 +543,11 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    export interface StringFilterBuilder {
-      build(): Control;
+    interface StringFilterBuilder {
       setCaseSensitive(caseSensitive: boolean): StringFilterBuilder;
-      setDataTable(tableBuilder: DataTableBuilder): StringFilterBuilder;
-      setDataTable(table: DataTableSource): StringFilterBuilder;
-      setFilterColumnIndex(columnIndex: Integer): StringFilterBuilder;
-      setFilterColumnLabel(columnLabel: string): StringFilterBuilder;
-      setLabel(label: string): StringFilterBuilder;
-      setLabelSeparator(labelSeparator: string): StringFilterBuilder;
-      setLabelStacking(orientation: Orientation): StringFilterBuilder;
       setMatchType(matchType: MatchType): StringFilterBuilder;
       setRealtimeTrigger(realtimeTrigger: boolean): StringFilterBuilder;
     }
-
     /**
      * A builder for table charts. For more details, see the Google Charts documentation.
      *
@@ -702,7 +564,7 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    export interface TableChartBuilder {
+    interface TableChartBuilder {
       build(): Chart;
       enablePaging(enablePaging: boolean): TableChartBuilder;
       enablePaging(pageSize: Integer): TableChartBuilder;
@@ -721,7 +583,6 @@ declare namespace GoogleAppsScript {
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }
-
     /**
      * A text style configuration object. Used in charts options to configure text style for elements
      * that accepts it, such as title, horizontal axis, vertical axis, legend and tooltip.
@@ -753,12 +614,11 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    export interface TextStyle {
+    interface TextStyle {
       getColor(): string;
       getFontName(): string;
       getFontSize(): number;
     }
-
     /**
      * A builder used to create TextStyle objects. It allows configuration of the text's
      * properties such as name, color, and size.
@@ -771,13 +631,12 @@ declare namespace GoogleAppsScript {
      *         .setColor('#0000FF').setFontName('Ariel').setFontSize(26);
      *     var style = textStyleBuilder.build();
      */
-    export interface TextStyleBuilder {
+    interface TextStyleBuilder {
       build(): TextStyle;
       setColor(cssValue: string): TextStyleBuilder;
       setFontName(fontName: string): TextStyleBuilder;
       setFontSize(fontSize: number): TextStyleBuilder;
     }
-
   }
 }
 

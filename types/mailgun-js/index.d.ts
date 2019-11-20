@@ -3,6 +3,7 @@
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
 //                 Jiri Balcar <https://github.com/JiriBalcar>
+//                 Ryan Leonard <https://github.com/CodeLenny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -112,6 +113,11 @@ declare namespace Mailgun {
         interface BatchData extends SendData {
             'recipient-variables'?: BatchSendRecipientVars;
         }
+
+        type SendTemplateData = SendData & {
+            template: string;
+            [templateVariable: string]: string;
+        };
 
         interface BatchSendRecipientVars {
             [email: string]: {
@@ -232,7 +238,7 @@ declare namespace Mailgun {
 
     interface Messages {
         send(
-            data: messages.SendData | messages.BatchData,
+            data: messages.SendData | messages.BatchData | messages.SendTemplateData,
             callback?: (error: Error, body: messages.SendResponse) => void
         ): Promise<messages.SendResponse>;
     }

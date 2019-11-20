@@ -36,6 +36,7 @@ module Amplitude.Tests {
         amplitude.setGroup('orgId', '15');
         amplitude.setGroup('orgId', ['15', '16']);
         amplitude.setUserId('joe@gmail.com');
+        amplitude.setUserId(null);
         amplitude.setUserProperties({ 'gender': 'female', 'sign_up_complete': true })
         amplitude.setVersionName('1.12.3');
         amplitude.isNewSession();
@@ -67,6 +68,7 @@ module Amplitude.Tests {
         client.setDeviceId('45f0954f-eb79-4463-ac8a-233a6f45a8f0');
         client.setDomain('.amplitude.com');
         client.setUserId('joe@gmail.com');
+        client.setUserId(null);
         client.setOptOut(true);
         client.setGroup('type', 'name');
         client.setGroup('type', ['name', 'name2']);

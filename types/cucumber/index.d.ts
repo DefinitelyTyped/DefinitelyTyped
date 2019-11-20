@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 4.0
+// Type definitions for cucumber-js 6.0
 // Project: http://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
@@ -7,6 +7,7 @@
 //                 ErikSchierboom <https://github.com/ErikSchierboom>
 //                 Peter Morlion <https://github.com/petermorlion>
 //                 Don Jayamanne <https://github.com/DonJayamanne>
+//                 David Goss <https://github.com/davidjgoss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -97,6 +98,7 @@ export interface SourceLocation {
 export interface ScenarioResult {
     duration: number;
     status: Status;
+    exception?: Error;
 }
 
 export namespace pickle {
@@ -253,8 +255,10 @@ export namespace events {
 }
 
 export interface StepDefinition {
-    // tslint:disable-next-line ban-types
+    // tslint:disable:ban-types
     code: Function;
+    unwrappedCode?: Function;
+    // tslint:enable:ban-types
     line: number;
     options: {};
     pattern: any;

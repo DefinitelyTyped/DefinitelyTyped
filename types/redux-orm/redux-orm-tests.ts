@@ -30,7 +30,7 @@ interface BookFields {
     title: string;
     coverArt: string;
     publisher: Publisher;
-    authors?: MutableQuerySet<Person>;
+    authors: MutableQuerySet<Person>;
 }
 
 class Book extends Model<typeof Book, BookFields> {
@@ -44,6 +44,7 @@ class Book extends Model<typeof Book, BookFields> {
     static options = {
         idAttribute: 'title' as const
     };
+
     static reducer(action: RootAction, Book: ModelType<Book>) {
         switch (action.type) {
             case 'CREATE_BOOK':
@@ -63,7 +64,7 @@ interface PersonFields {
     firstName: string;
     lastName: string;
     nationality?: string;
-    books?: MutableQuerySet<Book>;
+    books: MutableQuerySet<Book>;
 }
 
 class Person extends Model<typeof Person, PersonFields> {
@@ -198,7 +199,7 @@ const sessionFixture = () => {
     /** Upsert requires id to be provided */
     Book.upsert({ publisher: 1 }); // $ExpectError
 
-    // $ExpectType SessionBoundModel<Book, { title: string; publisher: number; }>
+    // $ExpectType SessionBoundModel<Book, Pick<{ title: string; publisher: number; }, never>>
     Book.upsert({ title: 'B1', publisher: 1 });
 
     /* Incompatible property types: */
@@ -260,10 +261,10 @@ const sessionFixture = () => {
 (() => {
     type ExtractId<M extends Model> = [IdKey<M>, IdType<M>];
 
-    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number]
-    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number]
-    type CustomType = ExtractId<Person>; // $ExpectType ["id", string]
-    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string]
+    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number] || ExtractId<Authorship>
+    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number] || ExtractId<Publisher>
+    type CustomType = ExtractId<Person>; // $ExpectType ["id", string] || ExtractId<Person>
+    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string] || ExtractId<Book>
 })();
 
 // Model#create result retains custom properties supplied during call
@@ -274,7 +275,7 @@ const sessionFixture = () => {
 
     type basicBookKeys = Exclude<keyof typeof basicBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors"
     const basicBookTitle = basicBook.title; // $ExpectType string
-    const authors = basicBook.authors; // $ExpectType MutableQuerySet<Person, {}> | undefined
+    const authors = basicBook.authors; // $ExpectType MutableQuerySet<Person, {}>
     const unknownPropertyError = basicBook.customProp; // $ExpectError
 
     const customProp = { foo: 0, bar: true };
@@ -380,6 +381,8 @@ const sessionFixture = () => {
 
     type TestSelector = (state: RootState) => Ref<Book>;
 
+    const selector0 = createOrmSelector(orm, s => s.db, session => session.Book.first()!.ref) as TestSelector;
+
     const selector1 = createOrmSelector(
         orm,
         s => s.db,
@@ -453,6 +456,7 @@ const sessionFixture = () => {
 
     const state = { db: orm.getEmptyState(), foo: 1, bar: 'foo' };
 
+    selector0(state); // $ExpectType Ref<Book>
     selector1(state); // $ExpectType Ref<Book>
     selector2(state); // $ExpectType Ref<Book>
     selector3(state); // $ExpectType Ref<Book>
@@ -460,3 +464,43 @@ const sessionFixture = () => {
     selector5(state); // $ExpectType Ref<Book>
     selector6(state); // $ExpectType Ref<Book>
 })();
+
+// redux-orm-types#7
+(() => {
+    const { Book } = sessionFixture();
+
+    Book.exists({ title: 'foo' });
+    Book.all().exists();
+
+    Book.exists(); // $ExpectError
+    Book.exists('foo'); // $ExpectError
+    Book.all().exists({}); // $ExpectError
+})();
+
+// redux-orm-types#8
+(() => {
+    const { Book } = sessionFixture();
+
+    Book.all().toModelArray();
+    Book.all().toRefArray();
+    Book.toModelArray(); // $ExpectError
+    Book.toRefArray(); // $ExpectError
+})();
+
+// redux-orm-types#9
+(() => {
+    const { Book, Person, Publisher } = sessionFixture();
+
+    const author = Person.create({ id: '1', firstName: 'foo', lastName: 'bar', nationality: 'pl' });
+    const publisher = Publisher.create({ name: 'foo' });
+    Book.create({ title: 'foo', publisher: 1 });
+    Book.create({ title: 'foo', publisher: 1, coverArt: 'bar' });
+    Book.create({ title: 'foo', publisher, coverArt: 'bar', authors: ['foo', author] });
+
+    Book.create({ title: 'foo', publisher: author }); // $ExpectError
+    Book.create({ title: 'foo', publisher: 'error' }); // $ExpectError
+    Book.create({ title: 'foo', publisher, coverArt: 'bar', authors: [3, author] }); // $ExpectError
+})();
+
+// redux-orm-types#18
+(() => many({ to: 'Bar', relatedName: 'foos', through: 'FooBar', throughFields: ['foo', 'bar'] }))();

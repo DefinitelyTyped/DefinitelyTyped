@@ -193,7 +193,7 @@ type FetchServerConfigFunction = (
     headers: (headersString: string) => void,
 ) => void;
 
-interface FilePondServerConfigProps {
+export interface FilePondServerConfigProps {
     instantUpload?: boolean;
     server?: string | {
         process?: string | ServerUrl | ProcessServerConfigFunction;
@@ -204,7 +204,7 @@ interface FilePondServerConfigProps {
     };
 }
 
-interface FilePondDragDropProps {
+export interface FilePondDragDropProps {
     /** FilePond will catch all files dropped on the webpage */
     dropOnPage?: boolean;
     /** Require drop on the FilePond element itself to catch the file. */
@@ -221,7 +221,7 @@ interface FilePondDragDropProps {
     ignoredFiles?: string[];
 }
 
-interface FilePondLabelProps {
+export interface FilePondLabelProps {
     /**
      * The decimal separator used to render numbers.
      * By default this is determined automatically.
@@ -276,7 +276,7 @@ interface FilePondLabelProps {
     labelButtonProcessItem?: string;
 }
 
-interface FilePondSvgIconProps {
+export interface FilePondSvgIconProps {
     iconRemove?: string;
     iconProcess?: string;
     iconRetry?: string;
@@ -288,12 +288,7 @@ interface FilePondErrorDescription {
     sub: string;
 }
 
-/**
- * Note that in my testing, callbacks that include an error prop
- * always give the error as the second prop, with the file as
- * the first prop.    This is contradictory to the current docs.
- */
-interface FilePondCallbackProps {
+export interface FilePondCallbackProps {
     /** FilePond instance has been created and is ready. */
     oninit?: () => void;
     /**
@@ -307,13 +302,13 @@ interface FilePondCallbackProps {
      * FilePond instance throws an error. Optionally receives
      * file if error is related to a file object.
      */
-    onerror?: (file?: File, error?: FilePondErrorDescription, status?: any) => void;
+    onerror?: (error: FilePondErrorDescription, file?: File, status?: any) => void;
     /** Started file load */
     onaddfilestart?: (file: File) => void;
     /** Made progress loading a file */
     onaddfileprogress?: (file: File, progress: number) => void;
     /** If no error, file has been successfully loaded */
-    onaddfile?: (file: File, error: FilePondErrorDescription) => void;
+    onaddfile?: (error: FilePondErrorDescription, file: File) => void;
     /** Started processing a file */
     onprocessfilestart?: (file: File) => void;
     /** Made progress processing a file */
@@ -323,7 +318,7 @@ interface FilePondCallbackProps {
     /** Processing of a file has been undone */
     onprocessfileundo?: (file: File) => void;
     /** If no error, Processing of a file has been completed */
-    onprocessfile?: (file: File, error: FilePondErrorDescription) => void;
+    onprocessfile?: (error: FilePondErrorDescription, file: File) => void;
     /** File has been removed. */
     onremovefile?: (file: File) => void;
     /**
@@ -336,11 +331,11 @@ interface FilePondCallbackProps {
     onupdatefiles?: (fileItems: File[]) => void;
 }
 
-interface FilePondHookProps {
+export interface FilePondHookProps {
     beforeRemoveFile?: (file: File) => boolean;
 }
 
-interface FilePondBaseProps {
+export interface FilePondBaseProps {
     children?: React.ReactElement<File> | Array<React.ReactElement<File>>;
     id?: string;
     name?: string;
@@ -368,6 +363,8 @@ interface FilePondBaseProps {
     maxFiles?: number;
     /** The maximum number of files that can be uploaded in parallel */
     maxParallelUploads?: number;
+    /** List of files for controlled usage */
+    files?: File[];
     acceptedFileTypes?: string[];
     metadata?: {[key: string]: any};
 }

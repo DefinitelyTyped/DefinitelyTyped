@@ -23,7 +23,17 @@ declare namespace StylelintWebpackPlugin {
 
     type Formatter = (messages: Message[], source: string) => string;
 
+    interface Config {
+        rules?: object;
+        extends?: string | string[];
+        plugins?: string[];
+        processors?: string[];
+        ignoreFiles?: string | string[];
+        defaultSeverity?: "warning" | "error";
+    }
+
     interface Options {
+        config?: Config;
         configFile?: string;
         context?: string;
         emitErrors?: boolean;

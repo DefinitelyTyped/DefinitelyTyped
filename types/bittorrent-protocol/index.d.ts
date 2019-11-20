@@ -48,7 +48,7 @@ declare namespace BittorrentProtocol {
 
         setKeepAlive(enable: boolean): void;
 
-        setTimeot(ms: number, unref?: boolean): void;
+        setTimeout(ms: number, unref?: boolean): void;
 
         destroy(): void;
 

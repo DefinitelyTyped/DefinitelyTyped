@@ -5,14 +5,13 @@ import {
 } from "gremlin";
 
 const {
-  RemoteConnection,
-  RemoteStrategy,
-  RemoteTraversal,
-  DriverRemoteConnection,
-  Client,
-  ResultSet,
-  Authenticator,
-  PlainTextSaslAuthenticator,
+    RemoteConnection,
+    RemoteStrategy,
+    RemoteTraversal,
+    DriverRemoteConnection,
+    Client,
+    ResultSet,
+    auth: { Authenticator, PlainTextSaslAuthenticator },
 } = driver;
 
 const {

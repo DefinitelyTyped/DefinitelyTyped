@@ -1,5 +1,5 @@
 import { Validation } from 'vuelidate'
-import { required, integer, decimal,  minLength, sameAs, helpers } from 'vuelidate/lib/validators'
+import { required, integer, decimal,  minLength, sameAs, helpers, CustomRule } from 'vuelidate/lib/validators'
 
 import Vue, { ComponentOptions } from 'vue'
 
@@ -10,17 +10,19 @@ function Component(options: ComponentOptions<Vue> | VueClass<Vue>): any {
     return null; // mocked
 }
 
-const mustBeCool = (value: string) => value.indexOf('cool') >= 0
+const mustBeCool: CustomRule = (value: string) => value.indexOf('cool') >= 0
 
-const mustBeCool2 = (value: string) => !helpers.req(value) || value.indexOf('cool') >= 0
+const mustBeCool2: CustomRule = (value: string) => !helpers.req(value) || value.indexOf('cool') >= 0
 
-const contains = (param: string) =>
+const contains = (param: string): CustomRule =>
     (value: string) => !helpers.req(value) || value.indexOf(param) >= 0
 
 const mustBeCool3 = helpers.withParams(
     { type: 'mustBeCool3' },
-    (value) => !helpers.req(value) || value.indexOf('cool') >= 0
+    (value: any) => !helpers.req(value) || value.indexOf('cool') >= 0
 )
+
+const mustBeCool3Result: boolean = mustBeCool3(50)
 
 const mustBeCool4 = helpers.regex('mustBeCool4', /^.*cool.*$/)
 
@@ -165,6 +167,12 @@ export class ValidComponent extends Vue {
 
     get isRepoValid() {
         return !this.$v.$invalid
+    }
+
+    get isPasswordLengthOk() {
+        if (this.$v.password) {
+            return !this.$v.password.minLength
+        } else return false
     }
 }
 

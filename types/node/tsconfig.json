@@ -51,6 +51,7 @@
         "test/crypto.ts",
         "test/dgram.ts",
         "test/events.ts",
+        "test/fs.ts",
         "test/global.ts",
         "test/http.ts",
         "test/http2.ts",

@@ -26,6 +26,8 @@ declare module "stream" {
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
+            readonly readableObjectMode: boolean;
+            destroyed: boolean;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -116,9 +118,12 @@ declare module "stream" {
 
         class Writable extends Stream implements NodeJS.WritableStream {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
+            readonly writableObjectMode: boolean;
+            destroyed: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -215,9 +220,11 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
+            readonly writableObjectMode: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -300,7 +307,12 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;

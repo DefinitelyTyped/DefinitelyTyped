@@ -1,13 +1,16 @@
-// Type definitions for Rebass 3.0
+// Type definitions for Rebass 4.0
 // Project: https://github.com/rebassjs/rebass
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
 //                 sara f-p <https://github.com/gretzky>
 //                 angusfretwell <https://github.com/angusfretwell>
+//                 orzarchi <https://github.com/orzarchi>
+//                 ilaiwi <https://github.com/ilaiwi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.1
 
+import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from "react";
 import * as StyledComponents from "styled-components";
 import * as StyledSystem from "styled-system";
@@ -16,23 +19,47 @@ export {};
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface BaseProps extends React.Props<any> {
-    as?: React.ReactType;
+export interface BaseProps extends React.RefAttributes<any> {
+    as?: React.ElementType;
     css?:
         | StyledComponents.CSSObject
         | StyledComponents.FlattenSimpleInterpolation
         | string;
 }
 
+/**
+ * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
+ * such that properties that are part of the `Theme` will be transformed to
+ * their corresponding values. Other valid CSS properties are also allowed.
+ */
+export type SxStyleProp = SystemStyleObject |
+    Record<
+        string,
+        | SystemStyleObject
+        | ResponsiveStyleValue<number | string>
+        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
+        >;
+
+export interface SxProps {
+    /**
+     * The sx prop lets you style elements inline, using values from your theme.
+     */
+    sx?: SxStyleProp;
+}
+
 interface BoxKnownProps
     extends BaseProps,
         StyledSystem.SpaceProps,
-        StyledSystem.WidthProps,
+        StyledSystem.LayoutProps,
         StyledSystem.FontSizeProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,
-        StyledSystem.AlignSelfProps {}
+        StyledSystem.AlignSelfProps,
+        SxProps {
+    variant?: StyledSystem.ResponsiveValue<string>;
+    tx?: string;
+}
 export interface BoxProps
     extends BoxKnownProps,
         Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
@@ -41,34 +68,16 @@ export const Box: React.FunctionComponent<BoxProps>;
 interface ButtonKnownProps
     extends BoxKnownProps,
         StyledSystem.FontWeightProps,
-        StyledSystem.BorderProps,
-        StyledSystem.BordersProps,
-        StyledSystem.BorderColorProps,
-        StyledSystem.BorderRadiusProps,
         StyledSystem.ButtonStyleProps {}
 export interface ButtonProps
     extends ButtonKnownProps,
         Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps> {}
 export const Button: React.FunctionComponent<ButtonProps>;
 
-interface CardKnownProps
-    extends BoxKnownProps,
-        StyledSystem.BorderProps,
-        StyledSystem.BordersProps,
-        StyledSystem.BorderColorProps,
-        StyledSystem.BorderRadiusProps,
-        StyledSystem.BoxShadowProps,
-        StyledSystem.BackgroundImageProps,
-        StyledSystem.BackgroundSizeProps,
-        StyledSystem.BackgroundPositionProps,
-        StyledSystem.BackgroundRepeatProps,
-        StyledSystem.OpacityProps {
-    variant?: StyledSystem.ResponsiveValue<string>;
-}
 export interface CardProps
-    extends CardKnownProps,
-        Omit<React.HTMLProps<HTMLDivElement>, keyof CardKnownProps> {}
-export const Card: React.FunctionComponent<CardProps>;
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export const Card: React.FunctionComponent<BoxKnownProps>;
 
 interface FlexKnownProps
     extends BoxKnownProps,
@@ -81,13 +90,9 @@ export interface FlexProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;
 
-interface ImageKnownProps
-    extends BoxKnownProps,
-        StyledSystem.HeightProps,
-        StyledSystem.BorderRadiusProps {}
 export interface ImageProps
-    extends ImageKnownProps,
-        Omit<React.HTMLProps<HTMLImageElement>, keyof ImageKnownProps> {}
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLImageElement>, keyof BoxKnownProps> {}
 export const Image: React.FunctionComponent<ImageProps>;
 
 // tslint:disable-next-line no-empty-interface
@@ -109,9 +114,7 @@ export interface TextProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof TextKnownProps> {}
 export const Text: React.FunctionComponent<TextProps>;
 
-// tslint:disable-next-line no-empty-interface
-interface HeadingKnownProps extends TextKnownProps {}
 export interface HeadingProps
-    extends HeadingKnownProps,
-        Omit<React.HTMLProps<HTMLHeadingElement>, keyof HeadingKnownProps> {}
+    extends TextKnownProps,
+        Omit<React.HTMLProps<HTMLHeadingElement>, keyof TextKnownProps> {}
 export const Heading: React.FunctionComponent<HeadingProps>;

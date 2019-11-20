@@ -145,6 +145,11 @@ declare namespace fetchMock {
         headers?: { [key: string]: string | number };
 
         /**
+         * body to match
+         */
+        body?: string | {};
+
+        /**
          * key/value map of query strings to match, in any order
          */
         query?: { [key: string]: string };
