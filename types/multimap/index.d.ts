@@ -63,6 +63,6 @@ interface Multimap {
     values(): { next: () => { value: any, done: boolean } };
 }
 
-declare class Multimap { constructor(iterable?: any); }
+declare class Multimap implements Multimap { constructor(iterable?: any); }
 
 export = Multimap;
