@@ -1,13 +1,15 @@
-let f = fontkit.openSync('fonts/a-font.ttf');
-let { glyphs, positions } = f.layout('Hello World!');
+import fontkit from 'fontkit'
 
-let res = [];
+let f = fontkit.openSync('fonts/a-font.ttf');
+const { glyphs, positions } = f.layout('Hello World!');
+
+const res = [];
 for (let i = 0; i < glyphs.length; i++) {
-    let glyph = glyphs[i];
-    let pos = positions[i];
+    const glyph = glyphs[i];
+    const pos = positions[i];
     let x = `${glyph.id}`;
     if (pos.xOffset || pos.yOffset) {
-      x += `@${pos.xOffset},${pos.yOffset}`
+      x += `@${pos.xOffset},${pos.yOffset}`;
     }
 
     x += `+${pos.xAdvance}`;
