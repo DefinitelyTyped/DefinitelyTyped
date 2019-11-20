@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-/// <reference types="../react"/>
-/// <reference types="../howler"/>
+/// <reference types="react"/>
+/// <reference types="howler"/>
 
 import * as React from 'react';
 import { Howl } from 'howler';
