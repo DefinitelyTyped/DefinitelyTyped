@@ -276,3 +276,6 @@ export interface BBOX {
     maxX: number;
     maxY: number;
 }
+
+export as namespace fontkit;
+export default fontkit;
