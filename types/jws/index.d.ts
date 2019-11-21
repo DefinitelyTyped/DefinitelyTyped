@@ -150,5 +150,5 @@ export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
 
 export interface Header {
     alg: Algorithm;
-    [name: string]: string;
+    [name: string]: string | string[] | number | undefined;
 }
