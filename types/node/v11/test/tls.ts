@@ -41,6 +41,13 @@ import * as fs from "fs";
 }
 
 {
+    const _server = createServer({}, (socket) => {
+        const _keys: Buffer = _server.getTicketKeys();
+        _server.setTicketKeys(_keys);
+    });
+}
+
+{
     let _server = createServer({});
     let _boolean: boolean;
     const _func1 = (err: Error, resp: Buffer) => { };

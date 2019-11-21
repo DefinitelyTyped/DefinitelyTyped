@@ -277,6 +277,8 @@ declare module "tls" {
 
     class Server extends net.Server {
         addContext(hostName: string, credentials: SecureContextOptions): void;
+        getTicketKeys(): Buffer;
+        setTicketKeys(keys: Buffer): void;
 
         /**
          * events.EventEmitter

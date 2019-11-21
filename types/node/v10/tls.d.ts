@@ -273,6 +273,8 @@ declare module "tls" {
             cert: string;
             ca: string;
         }): void;
+        getTicketKeys(): Buffer;
+        setTicketKeys(keys: Buffer): void;
 
         /**
          * events.EventEmitter
