@@ -3,6 +3,7 @@
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 //                 Diego Chavez <https://github.com/diegochavez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 import {
     CSSProperties,
