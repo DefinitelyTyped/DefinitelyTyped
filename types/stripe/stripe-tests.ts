@@ -1661,6 +1661,8 @@ stripe.coupons.list({ limit: 3 }).then(coupons => {
 // ##################################################################################
 
 stripe.fileLinks.create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O' }, (err, fileLink) => {
+    console.log('Err', err);
+    console.log('FileLink', fileLink);
     // asynchronously called
 });
 
