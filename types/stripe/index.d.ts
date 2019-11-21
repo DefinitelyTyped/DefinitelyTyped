@@ -115,6 +115,7 @@ declare class Stripe {
     subscriptionItems: Stripe.resources.SubscriptionItems;
     taxRates: Stripe.resources.TaxRates;
     tokens: Stripe.resources.Tokens;
+    topups: Stripe.resources.Topups;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
@@ -7929,6 +7930,93 @@ declare namespace Stripe {
                 personal_id_number: string;
             };
         }
+    }
+
+    namespace topups {
+        interface ITopup extends IResourceObject {
+            /**
+             * Value is "topup"
+             */
+            object: 'topup';
+
+            /**
+             * Amount transferred
+             */
+            amount: number
+
+            /**
+             * ID of the balance transaction that describes the impact of this top-up on your account balance.
+             * May not be specified depending on status of top-up.
+             */
+            balance_transaction: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string;
+
+            /**
+             * Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays
+             * like weekends or bank holidays. May not be specified depending on status of top-up.
+             */
+            expected_availability_date: number;
+
+            /**
+             * Error code explaining reason for top-up failure if available
+             */
+            failure_code: string;
+
+            /**
+             * Message to user further explaining reason for top-up failure if available.
+             */
+            failure_message: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists
+             * in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metaData: IMetadata;
+
+            /**
+             * For most Stripe users, the source of every top-up is a bank account. This hash is then the
+             * source object describing that bank account.
+             */
+            source: ISource;
+
+            /**
+             * Extra information about a top-up. This will appear on your source’s bank statement.
+             * It must contain at least one letter.
+             */
+            statement_descriptor: string;
+
+            /**
+             * Status of topup
+             */
+            status: Statuses;
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group: string;
+        }
+
+        type Statuses = 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
     }
 
     namespace transfers {
