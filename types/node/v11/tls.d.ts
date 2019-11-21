@@ -64,6 +64,21 @@ declare module "tls" {
         version: string;
     }
 
+    interface EphemeralKeyInfo {
+        /**
+         * The supported types are 'DH' and 'ECDH'.
+         */
+        type: string;
+        /**
+         * The name property is available only when type is 'ECDH'.
+         */
+        name?: string;
+        /**
+         * The size of parameter of an ephemeral key exchange.
+         */
+        size: number;
+    }
+
     class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
@@ -168,6 +183,17 @@ declare module "tls" {
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
+        /**
+         * Returns an object representing the type, name, and size of parameter
+         * of an ephemeral key exchange in Perfect Forward Secrecy on a client
+         * connection. It returns an empty object when the key exchange is not
+         * ephemeral. As this is only supported on a client socket; null is
+         * returned if called on a server socket. The supported types are 'DH'
+         * and 'ECDH'. The name property is available only when type is 'ECDH'.
+         *
+         * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
+         */
+        getEphemeralKeyInfo(): EphemeralKeyInfo | {} | null;
         /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.

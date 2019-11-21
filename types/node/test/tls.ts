@@ -4,6 +4,7 @@ import {
     ConnectionOptions,
     connect,
     PeerCertificate,
+    EphemeralKeyInfo,
     getCiphers,
     DEFAULT_ECDH_CURVE,
     DEFAULT_MAX_VERSION,
@@ -28,6 +29,7 @@ import * as fs from "fs";
     const tlsSocket = connect(connOpts);
 
     const cert: PeerCertificate | {} | null = tlsSocket.getCertificate();
+    const keyInfo: EphemeralKeyInfo | {} | null = tlsSocket.getEphemeralKeyInfo();
 
     tlsSocket.disableRenegotiation();
     tlsSocket.enableTrace();
