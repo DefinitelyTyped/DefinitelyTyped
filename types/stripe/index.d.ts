@@ -4035,7 +4035,7 @@ declare namespace Stripe {
              * Only return links for the given file.
              */
             file?: string;
-            
+
             /**
              * Filter links by their expiration status. By default, all links are returned.
              */
