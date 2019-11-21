@@ -4019,7 +4019,7 @@ declare namespace Stripe {
         }
 
         interface IFileLinksUpdateOptions extends IDataOptionsWithMetadata {
-            expires_at?: number;
+            expires_at?: number | 'now';
         }
 
         interface IFileLinksListOptions extends IListOptionsCreated {
