@@ -107,12 +107,10 @@ declare class Stripe {
      * @deprecated
      */
     recipientCards: Stripe.resources.RecipientCards;
-
     /**
      * @deprecated
      */
     recipients: Stripe.resources.Recipients;
-
     subscriptions: Stripe.resources.Subscriptions;
     subscriptionItems: Stripe.resources.SubscriptionItems;
     tokens: Stripe.resources.Tokens;
