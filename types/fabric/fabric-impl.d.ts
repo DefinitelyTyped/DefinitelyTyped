@@ -530,6 +530,12 @@ export class Color {
 	static fromSource(source: number[]): Color;
 }
 
+type IGradientOptionsCoords = {x1?: number, y1?: number, x2?: number, y2?: number, r1?: number, r2?: number};
+type IGradientOptionsColorStops = {
+	offset: string,
+	color: string,
+}[];
+
 interface IGradientOptions {
 	/**
 	 * Horizontal offset for aligning gradients coming from SVG when outside pathgroups
@@ -542,15 +548,38 @@ interface IGradientOptions {
 	 */
 	offsetY?: number;
 	type?: string;
-	coords?: {x1?: number, y1?: number, x2?: number, y2?: number, r1?: number, r2?: number};
+	coords?: IGradientOptionsCoords;
 	/**
 	 * Color stops object eg. {0:string; 1:string;
 	 */
-	colorStops?: any;
+	colorStops?: IGradientOptionsColorStops;
 	gradientTransform?: any;
 }
+
+interface OGradientOptions {
+	type?: string;
+	x1?: number;
+	y1?: number;
+	x2?: number;
+	y2?: number;
+	r1?: number;
+	r2?: number;
+	colorStops?: {
+		[key: string]: string
+	};
+	gradientTransform?: any;
+}
+
 export interface Gradient extends IGradientOptions { }
 export class Gradient {
+	/**
+	 * Create new Gradient obj
+	 */
+	constructor(options: {
+		type: string,
+		coords: IGradientOptionsCoords,
+		colorStops: IGradientOptionsColorStops,
+	});
 	/**
 	 * Adds another colorStop
 	 * @param colorStop Object with offset and color
@@ -1160,7 +1189,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setBackgroundColor(backgroundColor: string | Pattern, callback: Function): Canvas;
+	setBackgroundColor(backgroundColor: string | Pattern | Gradient, callback: Function): Canvas;
 
 	/**
 	 * Returns canvas width (in px)
@@ -3224,7 +3253,7 @@ export class Object {
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: "stroke" | "fill", options?: IGradientOptions): Object;
+	setGradient(property: "stroke" | "fill", options?: OGradientOptions): Object;
 
 	/**
 	 * Sets pattern fill of an object
