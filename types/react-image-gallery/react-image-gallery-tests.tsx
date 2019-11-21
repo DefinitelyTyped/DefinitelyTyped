@@ -10,7 +10,7 @@ class ImageGallery extends React.Component {
         }
     }
 
-    renderThumbInner(item: ReactImageGalleryItem) {
+    renderThumbInner(item: ReactImageGalleryItem): React.ReactNode {
         return (
             <div className="image-gallery-thumbnail-inner">
                 <img
