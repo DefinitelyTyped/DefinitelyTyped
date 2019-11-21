@@ -195,6 +195,17 @@ declare module "tls" {
          */
         getEphemeralKeyInfo(): EphemeralKeyInfo | {} | null;
         /**
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_finished routine in OpenSSL and may be
+         * used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getFinished(): Buffer | undefined;
+        /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.
          * If detailed argument is true the full chain with issuer property will be returned,
