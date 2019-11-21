@@ -38,7 +38,7 @@ export interface CommonProps {
     /** Whether the image must be visible from the beginning. */
     visibleByDefault?: boolean;
     /** React element to use as a placeholder. Default is <span>. */
-    placeholder?: ReactElement<any> | null;
+    placeholder?: ReactElement | null;
     /** See trackWindowScroll(). */
     scrollPosition?: ScrollPosition;
 }
@@ -54,7 +54,7 @@ export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<
 
 export const LazyLoadImage: FunctionComponent<LazyLoadImageProps>;
 
-interface LazyComponentProps {
+export interface LazyComponentProps {
     scrollPosition: ScrollPosition;
 }
 
