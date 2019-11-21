@@ -195,6 +195,10 @@ declare module "tls" {
          */
         getEphemeralKeyInfo(): EphemeralKeyInfo | {} | null;
         /**
+         * Returns the latest Finished message that has
+         * been sent to the socket as part of a SSL/TLS handshake, or undefined
+         * if no Finished message has been sent yet.
+         *
          * As the Finished messages are message digests of the complete
          * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
          * 3.0), they can be used for external authentication procedures when
@@ -217,6 +221,21 @@ declare module "tls" {
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
+        /**
+         * Returns the latest Finished message that is expected or has actually
+         * been received from the socket as part of a SSL/TLS handshake, or
+         * undefined if there is no Finished message so far.
+         *
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_peer_finished routine in OpenSSL and may
+         * be used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getPeerFinished(): Buffer | undefined;
         /**
          * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
          * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
