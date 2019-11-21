@@ -153,7 +153,7 @@ export type Header = {
     jwk?: JWK;
     typ?: string;
     cty?: string;
-    crit?: string[];
+    crit?: ReadonlyArray<string>;
 } & CertificateProperties & {
     [name: string]: any
 };
@@ -168,7 +168,7 @@ export type JWK = {
 export interface CertificateProperties {
     kid?: string;
     x5u?: string;
-    x5c?: string[];
+    x5c?: ReadonlyArray<string>;
     x5t?: string;
     'x5t#S256'?: string;
 }
