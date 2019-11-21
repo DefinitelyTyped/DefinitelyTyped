@@ -26,6 +26,7 @@ import * as fs from "fs";
     };
     const tlsSocket = connect(connOpts);
 
+    tlsSocket.disableRenegotiation();
     tlsSocket.enableTrace();
 
     const ciphers: string[] = getCiphers();

@@ -25,6 +25,8 @@ import * as fs from "fs";
     };
     const tlsSocket = connect(connOpts);
 
+    tlsSocket.disableRenegotiation();
+
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;

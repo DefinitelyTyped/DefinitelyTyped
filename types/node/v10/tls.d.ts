@@ -211,6 +211,13 @@ declare module "tls" {
         setMaxSendFragment(size: number): boolean;
 
         /**
+         * Disables TLS renegotiation for this TLSSocket instance. Once called,
+         * attempts to renegotiate will trigger an 'error' event on the
+         * TLSSocket.
+         */
+        disableRenegotiation(): void;
+
+        /**
          * events.EventEmitter
          * 1. OCSPResponse
          * 2. secureConnect
