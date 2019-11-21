@@ -276,8 +276,21 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        /**
+         * The server.addContext() method adds a secure context that will be
+         * used if the client request's SNI name matches the supplied hostname
+         * (or wildcard).
+         */
         addContext(hostName: string, credentials: SecureContextOptions): void;
+        /**
+         * Returns the session ticket keys.
+         */
         getTicketKeys(): Buffer;
+        /**
+         * The server.setSecureContext() method replaces the secure context of
+         * an existing server. Existing connections to the server are not
+         * interrupted.
+         */
         setTicketKeys(keys: Buffer): void;
 
         /**
@@ -395,7 +408,30 @@ declare module "tls" {
     function createSecureContext(details: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
-    const DEFAULT_ECDH_CURVE: string;
-    const DEFAULT_MAX_VERSION: SecureVersion;
-    const DEFAULT_MIN_VERSION: SecureVersion;
+    /**
+     * The default curve name to use for ECDH key agreement in a tls server.
+     * The default value is 'auto'. See tls.createSecureContext() for further
+     * information.
+     */
+    let DEFAULT_ECDH_CURVE: string;
+    /**
+     * The default value of the maxVersion option of
+     * tls.createSecureContext(). It can be assigned any of the supported TLS
+     * protocol versions, 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default:
+     * 'TLSv1.3', unless changed using CLI options. Using --tls-max-v1.2 sets
+     * the default to 'TLSv1.2'. Using --tls-max-v1.3 sets the default to
+     * 'TLSv1.3'. If multiple of the options are provided, the highest maximum
+     * is used.
+     */
+    let DEFAULT_MAX_VERSION: SecureVersion;
+    /**
+     * The default value of the minVersion option of tls.createSecureContext().
+     * It can be assigned any of the supported TLS protocol versions,
+     * 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default: 'TLSv1.2', unless
+     * changed using CLI options. Using --tls-min-v1.0 sets the default to
+     * 'TLSv1'. Using --tls-min-v1.1 sets the default to 'TLSv1.1'. Using
+     * --tls-min-v1.3 sets the default to 'TLSv1.3'. If multiple of the options
+     * are provided, the lowest minimum is used.
+     */
+    let DEFAULT_MIN_VERSION: SecureVersion;
 }

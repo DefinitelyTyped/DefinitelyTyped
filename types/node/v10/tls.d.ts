@@ -268,12 +268,25 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        /**
+         * The server.addContext() method adds a secure context that will be
+         * used if the client request's SNI name matches the supplied hostname
+         * (or wildcard).
+         */
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
+        /**
+         * Returns the session ticket keys.
+         */
         getTicketKeys(): Buffer;
+        /**
+         * The server.setSecureContext() method replaces the secure context of
+         * an existing server. Existing connections to the server are not
+         * interrupted.
+         */
         setTicketKeys(keys: Buffer): void;
 
         /**
@@ -369,5 +382,10 @@ declare module "tls" {
     function createSecureContext(details: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
-    const DEFAULT_ECDH_CURVE: string;
+    /**
+     * The default curve name to use for ECDH key agreement in a tls server.
+     * The default value is 'auto'. See tls.createSecureContext() for further
+     * information.
+     */
+    let DEFAULT_ECDH_CURVE: string;
 }
