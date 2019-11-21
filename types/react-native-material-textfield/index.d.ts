@@ -1,6 +1,7 @@
 // Type definitions for react-native-material-textfield 0.12
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
+//                 Deividi Cavarzan <https://github.com/cavarzan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -59,3 +60,10 @@ export interface TextFieldProps extends TextInputProps {
  * @see https://github.com/n4kz/react-native-material-textfield/blob/master/src/components/field/index.js
  */
 export class TextField extends React.Component<TextFieldProps, any> {}
+
+export class OutlinedTextField extends TextField {
+
+}
+export class FilledTextField extends TextField {
+    
+}
