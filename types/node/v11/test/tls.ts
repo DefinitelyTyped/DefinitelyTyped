@@ -3,6 +3,7 @@ import {
     SecureContext,
     ConnectionOptions,
     connect,
+    PeerCertificate,
     getCiphers,
     DEFAULT_ECDH_CURVE,
     DEFAULT_MAX_VERSION,
@@ -24,6 +25,8 @@ import * as fs from "fs";
         port: 55
     };
     const tlsSocket = connect(connOpts);
+
+    const cert: PeerCertificate | {} | null = tlsSocket.getCertificate();
 
     tlsSocket.disableRenegotiation();
 
