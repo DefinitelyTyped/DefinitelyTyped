@@ -1673,6 +1673,14 @@ stripe.fileLinks
         fileLink; // $ExpectType IFileLink
     });
 
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
+    // asynchronously called
+});
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
+    // asynchronously called
+});
+
 //#endregion
 
 //#region Discounts tests
