@@ -82,7 +82,7 @@ declare class JiraApi {
 
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
-    updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject): Promise<JiraApi.JsonResponse>;
+    updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject, query?: JiraApi.Query): Promise<JiraApi.JsonResponse>;
 
     listComponents(project: string): Promise<JiraApi.JsonResponse>;
 
