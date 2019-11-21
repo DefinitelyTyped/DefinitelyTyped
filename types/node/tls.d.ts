@@ -372,8 +372,22 @@ declare module "tls" {
     }
 
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+        /**
+         * Abort the connection if the SSL/TLS handshake does not finish in the
+         * specified number of milliseconds. A 'tlsClientError' is emitted on
+         * the tls.Server object whenever a handshake times out. Default:
+         * 120000 (120 seconds).
+         */
         handshakeTimeout?: number;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
         sessionTimeout?: number;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         */
         ticketKeys?: Buffer;
     }
 
