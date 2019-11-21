@@ -1657,6 +1657,15 @@ stripe.coupons.list({ limit: 3 }).then(coupons => {
 
 //#endregion
 
+//#region FileLinks tests
+// ##################################################################################
+
+stripe.fileLinks.create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O' }, (err, fileLink) => {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region Discounts tests
 // ##################################################################################
 
