@@ -316,6 +316,7 @@ declare module "tls" {
          * 3. OCSPRequest
          * 4. resumeSession
          * 5. secureConnection
+         * 6. keylog
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
