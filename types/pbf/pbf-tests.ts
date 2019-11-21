@@ -1,7 +1,12 @@
 import Pbf = require('pbf');
 
+Pbf.Varint;
+Pbf.Fixed64;
+Pbf.Bytes;
+Pbf.Fixed32;
 const pbf = new Pbf(new Uint8Array(1));
 new Pbf();
+new Pbf(new ArrayBuffer(8));
 pbf.buf;
 pbf.pos;
 pbf.type;

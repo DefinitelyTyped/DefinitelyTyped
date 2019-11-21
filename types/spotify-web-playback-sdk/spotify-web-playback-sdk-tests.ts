@@ -3,7 +3,7 @@
  * © 2017 Spotify AB
  */
 
-const player = new Spotify.Player({
+const player = new window.Spotify.Player({
     name: "Carly Rae Jepsen Player",
     getOAuthToken: (callback: (t: string) => void) => {
         // Run code to get a fresh access token
@@ -24,10 +24,18 @@ player.addListener("ready", (data) => {
     console.log("The Web Playback SDK is ready to play music!");
 });
 
+player.addListener("not_ready", ({ device_id }) => {
+    console.log("The Web Playback SDK is not ready to play music!");
+});
+
 player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
     if (playbackState) {
         const { current_track, next_tracks } = playbackState.track_window;
         const repeatMode: 0 | 1 | 2 = playbackState.repeat_mode;
+        const images = current_track.album.images;
+        if (images.length) {
+            const { 0: { height, width } } = images;
+        }
 
         console.log("Currently Playing", current_track);
         console.log("Playing Next", next_tracks[0]);
@@ -39,6 +47,10 @@ player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
 player.getVolume().then((volume: number) => {
     const volume_percentage = (volume * 100);
     console.log(`The volume of the player is ${volume_percentage}%`);
+});
+
+player.setName("New player name").then(() => {
+    console.log("Player name updated!");
 });
 
 player.setVolume(0.5).then(() => {
@@ -70,6 +82,11 @@ player.nextTrack().then(() => {
 });
 
 player.on("ready", (data: Spotify.WebPlaybackInstance) => {
+    const { device_id } = data;
+    console.log("Connected with Device ID", device_id);
+});
+
+player.on("not_ready", (data: Spotify.WebPlaybackInstance) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);
 });

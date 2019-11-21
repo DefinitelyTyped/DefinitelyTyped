@@ -1,6 +1,8 @@
-// Type definitions for react-native-auth0 1.2
+// Type definitions for react-native-auth0 2.0
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
+//                 Mark Nelissen <https://github.com/marknelissen>
+//                 Leo Farias <https://github.com/leoafarias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -8,7 +10,7 @@
  * Auth
  */
 
-export interface AuthorizationUrlParams {
+export interface AuthorizeUrlParams {
     responseType: string;
     redirectUri: string;
     state: string;
@@ -54,6 +56,7 @@ export interface PasswordRealmResponse {
     idToken: string;
     scope: string;
     tokenType: "Bearer";
+    refreshToken?: string;
 }
 
 export interface RefreshTokenParams {
@@ -69,7 +72,12 @@ export interface UserInfoParams {
     token: string;
 }
 
-export interface UserInfo {
+export interface ResetPasswordParams {
+    email: string;
+    connection: string;
+}
+
+export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
     name: string;
@@ -77,18 +85,20 @@ export interface UserInfo {
     picture: string;
     sub: string;
     updatedAt: string;
-}
+} & CustomClaims;
+
 export class Auth {
-    authorizationUrl(params: AuthorizationUrlParams): string;
+    authorizeUrl(params: AuthorizeUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<string>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-
     refreshToken(params: RefreshTokenParams): Promise<any>;
+    resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    userInfo(params: UserInfoParams): Promise<UserInfo>;
+    /* tslint:disable-next-line no-unnecessary-generics */
+    userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
 }
 
 /**
@@ -136,6 +146,9 @@ export interface AuthorizeParams {
     nonce?: string;
     audience?: string;
     scope?: string;
+    connection?: string;
+    language?: string;
+    prompt?: string;
 }
 
 export interface ClearSessionParams {

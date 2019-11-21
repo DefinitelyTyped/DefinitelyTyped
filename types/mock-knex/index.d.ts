@@ -1,8 +1,9 @@
-// Type definitions for mock-knex 0.3
+// Type definitions for mock-knex 0.4
 // Project: https://github.com/colonyamerican/mock-knex
 // Definitions by: Jesse Zhang <https://github.com/jessezhang91>
+//                 Scott Cooper <https://github.com/scttcper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 
@@ -52,6 +53,11 @@ export interface Tracker extends EventEmitter {
         event: "query",
         callback: (query: QueryDetails, step: number) => void
     ): this;
+
+    once(
+        event: "query",
+        callback: (query: QueryDetails, step: number) => void
+    ): this;
 }
 
 /**
@@ -73,7 +79,7 @@ export interface QueryDetails extends Knex.Sql {
      *
      * @param values An array of mock data to be returned by database. For Bookshelf this is mostly array of objects. Knex could return any type of data.
      */
-    response(values: any[], options?: QueryDetailsResponseOption): void;
+    response(values: any, options?: QueryDetailsResponseOption): void;
 }
 
 export interface QueryDetailsResponseOption {

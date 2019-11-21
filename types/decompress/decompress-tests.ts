@@ -19,3 +19,24 @@ decompress('unicorn.zip', 'dist', {
 }).then((files: decompress.File[]) => {
 	console.log('done!');
 });
+
+// Test decompress with no output to filesystem
+decompress('unicorn.zip')
+	.then(
+		(files: decompress.File[]) => {
+			console.log(`Decompressed ${files.length} files with no write to filesystem`);
+		}
+	);
+
+// Test decompress with DecompressOptions as second argument
+decompress(
+	'unicorn.zip',
+	{
+		filter: file => path.extname(file.path) !== '.exe'
+	}
+)
+	.then(
+		(files: decompress.File[]) => {
+			console.log(`Decompressed ${files.length} files with filter options`);
+		}
+	);

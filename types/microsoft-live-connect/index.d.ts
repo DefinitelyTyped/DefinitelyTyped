@@ -634,8 +634,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public   the event is visible to anyone who can view the calendar.
+         * - private  the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -696,8 +696,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public  the event is visible to anyone who can view the calendar.
+         * - private the event is visible only to the event owner.
          * @default "public"
          */
         visibility?: string;
@@ -768,8 +768,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public  the event is visible to anyone who can view the calendar.
+         * - private the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -1042,10 +1042,10 @@ declare namespace Microsoft.Live {
         source: string;
         /**
          * The type of this image of this particular size. Valid values are:
-         * full (maximum size: 2048 � 2048 pixels)
-         * - normal (maximum size 800 � 800 pixels)
-         * - album (maximum size 176 � 176 pixels)
-         * - small (maximum size 96 � 96 pixels)
+         * full (maximum size: 2048 x 2048 pixels)
+         * - normal (maximum size 800 x 800 pixels)
+         * - album (maximum size 176 x 176 pixels)
+         * - small (maximum size 96 x 96 pixels)
          */
         type: string;
     }
@@ -2138,12 +2138,12 @@ declare namespace Microsoft.Live {
         backgroundUpload<T>(properties: IBackgroundUploadProperties,
             callback?: (response: any) => void): IPromise<T>;
         /**
-         * Specifies whether the current user can be signed out of his or her
+         * Specifies whether the current user can be signed out of their
          * Microsoft account.
          *
          * For Windows Store apps using JavaScript, you can use this function to
          * determine whether you should display a control to the user to enable
-         * him or her to sign out of his or her Microsoft account. If this
+         * them to sign out of their Microsoft account. If this
          * function returns true, you should display the control. However, if
          * this function returns false, you should not display this control, as
          * attempting to sign out the user in this case will have no effect.
@@ -2177,7 +2177,7 @@ declare namespace Microsoft.Live {
          * Displays the Microsoft SkyDrive file picker, which enables
          * JavaScript-based web apps to display a pre-built, consistent user
          * interface that enables a user to select files to upload and download
-         * to and from his or her SkyDrive storage location.
+         * to and from their SkyDrive storage location.
          * @param properties Required. A JSON object containing properties for
          *   displaying the button.
          * @param callback Optional. A callback function that is executed after
@@ -2249,7 +2249,7 @@ declare namespace Microsoft.Live {
          * Typically, this function is used by apps that define their own
          * sign-in controls, or by apps that ask users to grant additional
          * permissions during an activity. For example, to enable a user to post
-         * his or her status to Live Connect, your app may have to prompt the
+         * their status to Live Connect, your app may have to prompt the
          * user for permission and call this function with an expanded scope.
          *
          * If you call this function when the user has already consented to the
@@ -2291,10 +2291,10 @@ declare namespace Microsoft.Live {
         /**
          * Displays either the Live Connect sign-in button or the Microsoft
          * SkyDrive file picker button. The sign-in button either prompts the
-         * user for his or her Microsoft account credentials if he or she is not
-         * signed in or else signs out the user if he or she is signed in. The
+         * user for their Microsoft account credentials if they are not
+         * signed in or else signs out the user if they are signed in. The
          * file picker button displays the SkyDrive file picker to help the user
-         * select files to upload or download to or from his or her SkyDrive
+         * select files to upload or download to or from their SkyDrive
          * storage location.
          * @param properties Required. A JSON object containing properties for
          *   displaying the button.

@@ -1,21 +1,28 @@
-// Type definitions for ioredis 3.2
+// Type definitions for ioredis 4.0
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
+//                 Whemoon Jang <https://github.com/palindrom615>
+//                 Francis Gulotta <https://github.com/reconbot>
+//                 Dmitry Motovilov <https://github.com/funthing>
+//                 Oleg Repin <https://github.com/iamolegga>
+//                 Ting-Wai To <https://github.com/tingwai-to>
+//                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
-    var redis = new Redis();
+    const redis = new Redis();
  =============================================== */
 
 /// <reference types="node" />
 
-import Promise = require('bluebird');
+import tls = require('tls');
+import { Readable } from 'stream';
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
@@ -24,7 +31,7 @@ interface RedisStatic {
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
-    Cluster: IORedis.Cluster;
+    Cluster: IORedis.ClusterStatic;
     Command: IORedis.Command;
 }
 
@@ -42,6 +49,8 @@ declare class Commander {
 }
 
 declare namespace IORedis {
+    type KeyType = string | Buffer;
+
     interface Command {
         setArgumentTransformer(name: string, fn: (args: any[]) => any[]): void;
         setReplyTransformer(name: string, fn: (result: any) => any): void;
@@ -56,240 +65,277 @@ declare namespace IORedis {
 
         send_command(command: string, ...args: any[]): any;
 
-        bitcount(key: string, callback: (err: Error, res: number) => void): void;
-        bitcount(key: string, start: number, end: number, callback: (err: Error, res: number) => void): void;
-        bitcount(key: string): Promise<number>;
-        bitcount(key: string, start: number, end: number): Promise<number>;
+        bitcount(key: KeyType, callback: (err: Error, res: number) => void): void;
+        bitcount(key: KeyType, start: number, end: number, callback: (err: Error, res: number) => void): void;
+        bitcount(key: KeyType): Promise<number>;
+        bitcount(key: KeyType, start: number, end: number): Promise<number>;
 
-        get(key: string, callback: (err: Error, res: string) => void): void;
-        get(key: string): Promise<string>;
-        getBuffer(key: string, callback: (err: Error, res: Buffer) => void): void;
-        getBuffer(key: string): Promise<Buffer>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
 
-        set(key: string, value: any, ...args: any[]): any;
+        getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        getBuffer(key: KeyType): Promise<Buffer>;
 
-        setnx(key: string, value: any, callback: (err: Error, res: any) => void): void;
-        setnx(key: string, value: any): Promise<any>;
+        set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
 
-        setex(key: string, seconds: number, value: any, callback: (err: Error, res: any) => void): void;
-        setex(key: string, seconds: number, value: any): Promise<any>;
+        set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
 
-        psetex(key: string, milliseconds: number, value: any, callback: (err: Error, res: any) => void): void;
-        psetex(key: string, milliseconds: number, value: any): Promise<any>;
+        setBuffer(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
 
-        append(key: string, value: any, callback: (err: Error, res: number) => void): void;
-        append(key: string, value: any): Promise<number>;
+        setBuffer(key: KeyType, value: any, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, setMode: string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
 
-        strlen(key: string, callback: (err: Error, res: number) => void): void;
-        strlen(key: string): Promise<number>;
+        setnx(key: KeyType, value: any, callback: (err: Error, res: any) => void): void;
+        setnx(key: KeyType, value: any): Promise<any>;
 
-        del(...keys: string[]): any;
+        setex(key: KeyType, seconds: number, value: any, callback: (err: Error, res: any) => void): void;
+        setex(key: KeyType, seconds: number, value: any): Promise<any>;
 
-        exists(...keys: string[]): any;
+        psetex(key: KeyType, milliseconds: number, value: any, callback: (err: Error, res: any) => void): void;
+        psetex(key: KeyType, milliseconds: number, value: any): Promise<any>;
 
-        setbit(key: string, offset: number, value: any, callback: (err: Error, res: number) => void): void;
-        setbit(key: string, offset: number, value: any): Promise<number>;
+        append(key: KeyType, value: any, callback: (err: Error, res: number) => void): void;
+        append(key: KeyType, value: any): Promise<number>;
 
-        getbit(key: string, offset: number, callback: (err: Error, res: number) => void): void;
-        getbit(key: string, offset: number): Promise<number>;
+        strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        strlen(key: KeyType): Promise<number>;
 
-        setrange(key: string, offset: number, value: any, callback: (err: Error, res: number) => void): void;
-        setrange(key: string, offset: number, value: any): Promise<number>;
+        del(...keys: KeyType[]): Promise<number>;
 
-        getrange(key: string, start: number, end: number, callback: (err: Error, res: string) => void): void;
-        getrange(key: string, start: number, end: number): Promise<string>;
+        unlink(...keys: KeyType[]): Promise<number>;
 
-        substr(key: string, start: number, end: number, callback: (err: Error, res: string) => void): void;
-        substr(key: string, start: number, end: number): Promise<string>;
+        exists(...keys: KeyType[]): Promise<number>;
+        exists(key: KeyType, callback: (err: Error, res: number) => void): void;
 
-        incr(key: string, callback: (err: Error, res: number) => void): void;
-        incr(key: string): Promise<number>;
+        setbit(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
+        setbit(key: KeyType, offset: number, value: any): Promise<number>;
 
-        decr(key: string, callback: (err: Error, res: number) => void): void;
-        decr(key: string): Promise<number>;
+        getbit(key: KeyType, offset: number, callback: (err: Error, res: number) => void): void;
+        getbit(key: KeyType, offset: number): Promise<number>;
 
-        mget(...keys: string[]): any;
+        setrange(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
+        setrange(key: KeyType, offset: number, value: any): Promise<number>;
 
-        rpush(key: string, ...values: any[]): any;
+        getrange(key: KeyType, start: number, end: number, callback: (err: Error, res: string) => void): void;
+        getrange(key: KeyType, start: number, end: number): Promise<string>;
 
-        lpush(key: string, ...values: any[]): any;
+        substr(key: KeyType, start: number, end: number, callback: (err: Error, res: string) => void): void;
+        substr(key: KeyType, start: number, end: number): Promise<string>;
 
-        rpushx(key: string, value: any, callback: (err: Error, res: number) => void): void;
-        rpushx(key: string, value: any): Promise<number>;
+        incr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        incr(key: KeyType): Promise<number>;
 
-        lpushx(key: string, value: any, callback: (err: Error, res: number) => void): void;
-        lpushx(key: string, value: any): Promise<number>;
+        decr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        decr(key: KeyType): Promise<number>;
 
-        linsert(key: string, direction: "BEFORE" | "AFTER", pivot: string, value: any, callback: (err: Error, res: number) => void): void;
-        linsert(key: string, direction: "BEFORE" | "AFTER", pivot: string, value: any): Promise<number>;
+        mget(...keys: KeyType[]): any;
 
-        rpop(key: string, callback: (err: Error, res: string) => void): void;
-        rpop(key: string): Promise<string>;
+        rpush(key: KeyType, ...values: any[]): any;
 
-        lpop(key: string, callback: (err: Error, res: string) => void): void;
-        lpop(key: string): Promise<string>;
+        rpushBuffer(key: string, ...values: Buffer[]): any;
 
-        brpop(...keys: string[]): any;
+        lpush(key: KeyType, ...values: any[]): any;
 
-        blpop(...keys: string[]): any;
+        rpushx(key: KeyType, value: any, callback: (err: Error, res: number) => void): void;
+        rpushx(key: KeyType, value: any): Promise<number>;
+
+        lpushx(key: KeyType, value: any, callback: (err: Error, res: number) => void): void;
+        lpushx(key: KeyType, value: any): Promise<number>;
+
+        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: any, callback: (err: Error, res: number) => void): void;
+        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: any): Promise<number>;
+
+        rpop(key: KeyType, callback: (err: Error, res: string) => void): void;
+        rpop(key: KeyType): Promise<string>;
+
+        lpop(key: KeyType, callback: (err: Error, res: string) => void): void;
+        lpop(key: KeyType): Promise<string>;
+
+        lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        lpopBuffer(key: KeyType): Promise<Buffer>;
+
+        brpop(...keys: KeyType[]): any;
+
+        blpop(...keys: KeyType[]): any;
 
         brpoplpush(source: string, destination: string, timeout: number, callback: (err: Error, res: any) => void): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<any>;
 
-        llen(key: string, callback: (err: Error, res: number) => void): void;
-        llen(key: string): Promise<number>;
+        llen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        llen(key: KeyType): Promise<number>;
 
-        lindex(key: string, index: number, callback: (err: Error, res: string) => void): void;
-        lindex(key: string, index: number): Promise<string>;
+        lindex(key: KeyType, index: number, callback: (err: Error, res: string) => void): void;
+        lindex(key: KeyType, index: number): Promise<string>;
 
-        lset(key: string, index: number, value: any, callback: (err: Error, res: any) => void): void;
-        lset(key: string, index: number, value: any): Promise<any>;
+        lset(key: KeyType, index: number, value: any, callback: (err: Error, res: any) => void): void;
+        lset(key: KeyType, index: number, value: any): Promise<any>;
 
-        lrange(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
-        lrange(key: string, start: number, stop: number): Promise<any>;
+        lrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        lrange(key: KeyType, start: number, stop: number): Promise<any>;
 
-        ltrim(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
-        ltrim(key: string, start: number, stop: number): Promise<any>;
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback: (err: Error, res: Buffer[]) => void): void;
+        lrangeBuffer(key: KeyType, start: number, stop: number): Promise<Buffer[]>;
 
-        lrem(key: string, count: number, value: any, callback: (err: Error, res: number) => void): void;
-        lrem(key: string, count: number, value: any): Promise<number>;
+        ltrim(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        ltrim(key: KeyType, start: number, stop: number): Promise<any>;
+
+        lrem(key: KeyType, count: number, value: any, callback: (err: Error, res: number) => void): void;
+        lrem(key: KeyType, count: number, value: any): Promise<number>;
 
         rpoplpush(source: string, destination: string, callback: (err: Error, res: string) => void): void;
         rpoplpush(source: string, destination: string): Promise<string>;
 
-        sadd(key: string, ...members: any[]): any;
+        rpoplpushBuffer(source: string, destination: string, callback: (err: Error, res: Buffer) => void): void;
+        rpoplpushBuffer(source: string, destination: string): Promise<Buffer>;
 
-        srem(key: string, ...members: any[]): any;
+        sadd(key: KeyType, ...members: any[]): any;
+
+        srem(key: KeyType, ...members: any[]): any;
 
         smove(source: string, destination: string, member: string, callback: (err: Error, res: string) => void): void;
         smove(source: string, destination: string, member: string): Promise<string>;
 
-        sismember(key: string, member: string, callback: (err: Error, res: 1 | 0) => void): void;
-        sismember(key: string, member: string): Promise<1 | 0>;
+        sismember(key: KeyType, member: string, callback: (err: Error, res: 1 | 0) => void): void;
+        sismember(key: KeyType, member: string): Promise<1 | 0>;
 
-        scard(key: string, callback: (err: Error, res: number) => void): void;
-        scard(key: string): Promise<number>;
+        scard(key: KeyType, callback: (err: Error, res: number) => void): void;
+        scard(key: KeyType): Promise<number>;
 
-        spop(key: string, callback: (err: Error, res: any) => void): void;
-        spop(key: string, count: number, callback: (err: Error, res: any) => void): void;
-        spop(key: string, count?: number): Promise<any>;
+        spop(key: KeyType, callback: (err: Error, res: any) => void): void;
+        spop(key: KeyType, count: number, callback: (err: Error, res: any) => void): void;
+        spop(key: KeyType, count?: number): Promise<any>;
 
-        srandmember(key: string, callback: (err: Error, res: any) => void): void;
-        srandmember(key: string, count: number, callback: (err: Error, res: any) => void): void;
-        srandmember(key: string, count?: number): Promise<any>;
+        srandmember(key: KeyType, callback: (err: Error, res: any) => void): void;
+        srandmember(key: KeyType, count: number, callback: (err: Error, res: any) => void): void;
+        srandmember(key: KeyType, count?: number): Promise<any>;
 
-        sinter(...keys: string[]): any;
+        sinter(...keys: KeyType[]): any;
 
-        sinterstore(destination: string, ...keys: string[]): any;
+        sinterstore(destination: string, ...keys: KeyType[]): any;
 
-        sunion(...keys: string[]): any;
+        sunion(...keys: KeyType[]): any;
 
-        sunionstore(destination: string, ...keys: string[]): any;
+        sunionstore(destination: string, ...keys: KeyType[]): any;
 
-        sdiff(...keys: string[]): any;
+        sdiff(...keys: KeyType[]): any;
 
-        sdiffstore(destination: string, ...keys: string[]): any;
+        sdiffstore(destination: string, ...keys: KeyType[]): any;
 
-        smembers(key: string, callback: (err: Error, res: any) => void): void;
-        smembers(key: string): Promise<any>;
+        smembers(key: KeyType, callback: (err: Error, res: any) => void): void;
+        smembers(key: KeyType): Promise<any>;
 
-        zadd(key: string, ...args: string[]): any;
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
 
-        zincrby(key: string, increment: number, member: string, callback: (err: Error, res: any) => void): void;
-        zincrby(key: string, increment: number, member: string): Promise<any>;
+        zaddBuffer(key: KeyType, score1: number, member1: Buffer): Promise<string | number>;
 
-        zrem(key: string, ...members: any[]): any;
+        zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
+        zincrby(key: KeyType, increment: number, member: string): Promise<any>;
 
-        zremrangebyscore(key: string, min: number | string, max: number | string, callback: (err: Error, res: any) => void): void;
-        zremrangebyscore(key: string, min: number | string, max: number | string): Promise<any>;
+        zrem(key: KeyType, ...members: any[]): any;
 
-        zremrangebyrank(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
-        zremrangebyrank(key: string, start: number, stop: number): Promise<any>;
+        zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: any) => void): void;
+        zremrangebyscore(key: KeyType, min: number | string, max: number | string): Promise<any>;
 
-        zunionstore(destination: string, numkeys: number, key: string, ...args: string[]): any;
+        zremrangebyrank(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        zremrangebyrank(key: KeyType, start: number, stop: number): Promise<any>;
 
-        zinterstore(destination: string, numkeys: number, key: string, ...args: string[]): any;
+        zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): any;
 
-        zrange(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
-        zrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
-        zrange(key: string, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
+        zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): any;
 
-        zrevrange(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
-        zrevrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
-        zrevrange(key: string, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
+        zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
 
-        zrangebyscore(key: string, min: number | string, max: number | string, ...args: string[]): any;
+        zrevrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
+        zrevrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
 
-        zrevrangebyscore(key: string, max: number | string, min: number | string, ...args: string[]): any;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, ...args: string[]): any;
 
-        zcount(key: string, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
-        zcount(key: string, min: number | string, max: number | string): Promise<number>;
+        zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): any;
 
-        zcard(key: string, callback: (err: Error, res: number) => void): void;
-        zcard(key: string): Promise<number>;
+        zcount(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
+        zcount(key: KeyType, min: number | string, max: number | string): Promise<number>;
 
-        zscore(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zscore(key: string, member: string): Promise<number>;
+        zcard(key: KeyType, callback: (err: Error, res: number) => void): void;
+        zcard(key: KeyType): Promise<number>;
 
-        zrank(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zrank(key: string, member: string): Promise<number>;
+        zscore(key: KeyType, member: string, callback: (err: Error, res: string) => void): void;
+        zscore(key: KeyType, member: string): Promise<string>;
 
-        zrevrank(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zrevrank(key: string, member: string): Promise<number>;
+        zrank(key: KeyType, member: string, callback: (err: Error, res: number | null) => void): void;
+        zrank(key: KeyType, member: string): Promise<number | null>;
 
-        hset(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
-        hset(key: string, field: string, value: any): Promise<0 | 1>;
+        zrevrank(key: KeyType, member: string, callback: (err: Error, res: number | null) => void): void;
+        zrevrank(key: KeyType, member: string): Promise<number | null>;
 
-        hsetnx(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
-        hsetnx(key: string, field: string, value: any): Promise<0 | 1>;
+        hset(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hset(key: KeyType, field: string, value: any): Promise<0 | 1>;
+        hsetBuffer(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hsetBuffer(key: KeyType, field: string, value: any): Promise<Buffer>;
 
-        hget(key: string, field: string, callback: (err: Error, res: string) => void): void;
-        hget(key: string, field: string): Promise<string>;
+        hsetnx(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hsetnx(key: KeyType, field: string, value: any): Promise<0 | 1>;
 
-        hmset(key: string, field: string, value: any, ...args: string[]): Promise<0 | 1>;
-        hmset(key: string, data: any, callback: (err: Error, res: 0 | 1) => void): void;
-        hmset(key: string, data: any): Promise<0 | 1>;
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
+        hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
+        hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmget(key: string, ...fields: string[]): any;
+        hmset(key: KeyType, ...args: any[]): Promise<0 | 1>;
+        hmset(key: KeyType, data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hmset(key: KeyType, data: any): Promise<0 | 1>;
 
-        hincrby(key: string, field: string, increment: number, callback: (err: Error, res: number) => void): void;
-        hincrby(key: string, field: string, increment: number): Promise<number>;
+        hmget(key: KeyType, ...fields: string[]): any;
 
-        hincrbyfloat(key: string, field: string, increment: number, callback: (err: Error, res: number) => void): void;
-        hincrbyfloat(key: string, field: string, increment: number): Promise<number>;
+        hincrby(key: KeyType, field: string, increment: number, callback: (err: Error, res: number) => void): void;
+        hincrby(key: KeyType, field: string, increment: number): Promise<number>;
 
-        hdel(key: string, ...fields: string[]): any;
+        hincrbyfloat(key: KeyType, field: string, increment: number, callback: (err: Error, res: number) => void): void;
+        hincrbyfloat(key: KeyType, field: string, increment: number): Promise<number>;
 
-        hlen(key: string, callback: (err: Error, res: number) => void): void;
-        hlen(key: string): Promise<number>;
+        hdel(key: KeyType, ...fields: string[]): any;
 
-        hkeys(key: string, callback: (err: Error, res: any) => void): void;
-        hkeys(key: string): Promise<any>;
+        hlen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        hlen(key: KeyType): Promise<number>;
 
-        hvals(key: string, callback: (err: Error, res: any) => void): void;
-        hvals(key: string): Promise<any>;
+        hkeys(key: KeyType, callback: (err: Error, res: any) => void): void;
+        hkeys(key: KeyType): Promise<any>;
 
-        hgetall(key: string, callback: (err: Error, res: any) => void): void;
-        hgetall(key: string): Promise<any>;
+        hvals(key: KeyType, callback: (err: Error, res: any) => void): void;
+        hvals(key: KeyType): Promise<any>;
 
-        hexists(key: string, field: string, callback: (err: Error, res: 0 | 1) => void): void;
-        hexists(key: string, field: string): Promise<0 | 1>;
+        hgetall(key: KeyType, callback: (err: Error, res: any) => void): void;
+        hgetall(key: KeyType): Promise<any>;
 
-        incrby(key: string, increment: number, callback: (err: Error, res: number) => void): void;
-        incrby(key: string, increment: number): Promise<number>;
+        hexists(key: KeyType, field: string, callback: (err: Error, res: 0 | 1) => void): void;
+        hexists(key: KeyType, field: string): Promise<0 | 1>;
 
-        incrbyfloat(key: string, increment: number, callback: (err: Error, res: number) => void): void;
-        incrbyfloat(key: string, increment: number): Promise<number>;
+        incrby(key: KeyType, increment: number, callback: (err: Error, res: number) => void): void;
+        incrby(key: KeyType, increment: number): Promise<number>;
 
-        decrby(key: string, decrement: number, callback: (err: Error, res: number) => void): void;
-        decrby(key: string, decrement: number): Promise<number>;
+        incrbyfloat(key: KeyType, increment: number, callback: (err: Error, res: number) => void): void;
+        incrbyfloat(key: KeyType, increment: number): Promise<number>;
 
-        getset(key: string, value: any, callback: (err: Error, res: string) => void): void;
-        getset(key: string, value: any): Promise<string>;
+        decrby(key: KeyType, decrement: number, callback: (err: Error, res: number) => void): void;
+        decrby(key: KeyType, decrement: number): Promise<number>;
 
-        mset(key: string, value: any, ...args: string[]): any;
+        getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
+        getset(key: KeyType, value: any): Promise<string | null>;
 
-        msetnx(key: string, value: any, ...args: string[]): any;
+        mset(...args: any[]): any;
+        mset(data: any, callback: (err: Error, res: string) => void): void;
+        mset(data: any): Promise<string>;
+
+        msetnx(...args: any[]): any;
+        msetnx(data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        msetnx(data: any): Promise<0 | 1>;
 
         randomkey(callback: (err: Error, res: string) => void): void;
         randomkey(): Promise<string>;
@@ -297,26 +343,26 @@ declare namespace IORedis {
         select(index: number, callback: (err: Error, res: string) => void): void;
         select(index: number): Promise<string>;
 
-        move(key: string, db: string, callback: (err: Error, res: 0 | 1) => void): void;
-        move(key: string, db: string): Promise<0 | 1>;
+        move(key: KeyType, db: string, callback: (err: Error, res: 0 | 1) => void): void;
+        move(key: KeyType, db: string): Promise<0 | 1>;
 
-        rename(key: string, newkey: string, callback: (err: Error, res: string) => void): void;
-        rename(key: string, newkey: string): Promise<string>;
+        rename(key: KeyType, newkey: KeyType, callback: (err: Error, res: string) => void): void;
+        rename(key: KeyType, newkey: KeyType): Promise<string>;
 
-        renamenx(key: string, newkey: string, callback: (err: Error, res: 0 | 1) => void): void;
-        renamenx(key: string, newkey: string): Promise<0 | 1>;
+        renamenx(key: KeyType, newkey: KeyType, callback: (err: Error, res: 0 | 1) => void): void;
+        renamenx(key: KeyType, newkey: KeyType): Promise<0 | 1>;
 
-        expire(key: string, seconds: number, callback: (err: Error, res: 0 | 1) => void): void;
-        expire(key: string, seconds: number): Promise<0 | 1>;
+        expire(key: KeyType, seconds: number, callback: (err: Error, res: 0 | 1) => void): void;
+        expire(key: KeyType, seconds: number): Promise<0 | 1>;
 
-        pexpire(key: string, milliseconds: number, callback: (err: Error, res: 0 | 1) => void): void;
-        pexpire(key: string, milliseconds: number): Promise<0 | 1>;
+        pexpire(key: KeyType, milliseconds: number, callback: (err: Error, res: 0 | 1) => void): void;
+        pexpire(key: KeyType, milliseconds: number): Promise<0 | 1>;
 
-        expireat(key: string, timestamp: number, callback: (err: Error, res: 0 | 1) => void): void;
-        expireat(key: string, timestamp: number): Promise<0 | 1>;
+        expireat(key: KeyType, timestamp: number, callback: (err: Error, res: 0 | 1) => void): void;
+        expireat(key: KeyType, timestamp: number): Promise<0 | 1>;
 
-        pexpireat(key: string, millisecondsTimestamp: number, callback: (err: Error, res: 0 | 1) => void): void;
-        pexpireat(key: string, millisecondsTimestamp: number): Promise<0 | 1>;
+        pexpireat(key: KeyType, millisecondsTimestamp: number, callback: (err: Error, res: 0 | 1) => void): void;
+        pexpireat(key: KeyType, millisecondsTimestamp: number): Promise<0 | 1>;
 
         keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
         keys(pattern: string): Promise<string[]>;
@@ -349,8 +395,8 @@ declare namespace IORedis {
         lastsave(callback: (err: Error, res: number) => void): void;
         lastsave(): Promise<number>;
 
-        type(key: string, callback: (err: Error, res: string) => void): void;
-        type(key: string): Promise<string>;
+        type(key: KeyType, callback: (err: Error, res: string) => void): void;
+        type(key: KeyType): Promise<string>;
 
         multi(commands?: string[][], options?: MultiOptions): Pipeline;
         multi(options: { pipeline: false }): Promise<string>;
@@ -370,7 +416,7 @@ declare namespace IORedis {
         flushall(callback: (err: Error, res: string) => void): void;
         flushall(): Promise<string>;
 
-        sort(key: string, ...args: string[]): any;
+        sort(key: KeyType, ...args: string[]): any;
 
         info(callback: (err: Error, res: any) => void): void;
         info(section: string, callback: (err: Error, res: any) => void): void;
@@ -382,11 +428,14 @@ declare namespace IORedis {
         monitor(callback: (err: Error, res: NodeJS.EventEmitter) => void): void;
         monitor(): Promise<NodeJS.EventEmitter>;
 
-        ttl(key: string, callback: (err: Error, res: number) => void): void;
-        ttl(key: string): Promise<number>;
+        ttl(key: KeyType, callback: (err: Error, res: number) => void): void;
+        ttl(key: KeyType): Promise<number>;
 
-        persist(key: string, callback: (err: Error, res: 0 | 1) => void): void;
-        persist(key: string): Promise<0 | 1>;
+        pttl(key: KeyType, callback: (err: Error, res: number) => void): void;
+        pttl(key: KeyType): Promise<number>;
+
+        persist(key: KeyType, callback: (err: Error, res: 0 | 1) => void): void;
+        persist(key: KeyType): Promise<0 | 1>;
 
         slaveof(host: string, port: number, callback: (err: Error, res: string) => void): void;
         slaveof(host: string, port: number): Promise<string>;
@@ -406,7 +455,9 @@ declare namespace IORedis {
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
 
-        watch(...keys: string[]): any;
+        publishBuffer(channel: string, message: Buffer): Promise<number>;
+
+        watch(...keys: KeyType[]): any;
 
         unwatch(callback: (err: Error, res: string) => void): void;
         unwatch(): Promise<string>;
@@ -417,8 +468,8 @@ declare namespace IORedis {
 
         migrate(...args: any[]): any;
 
-        dump(key: string, callback: (err: Error, res: string) => void): void;
-        dump(key: string): Promise<string>;
+        dump(key: KeyType, callback: (err: Error, res: string) => void): void;
+        dump(key: KeyType): Promise<string>;
 
         object(subcommand: string, ...args: any[]): any;
 
@@ -433,218 +484,280 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number, ...args: any[]): any;
+        scan(cursor: number): Promise<[string, string[]]>;
 
-        hscan(key: string, cursor: number, ...args: any[]): any;
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
 
-        zscan(key: string, cursor: number, ...args: any[]): any;
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
 
-        pfmerge(destkey: string, ...sourcekeys: string[]): any;
+        sscan(key: KeyType, cursor: number, ...args: any[]): any;
 
-        pfadd(key: string, ...elements: string[]): any;
+        hscan(key: KeyType, cursor: number, ...args: any[]): any;
 
-        pfcount(...keys: string[]): any;
+        zscan(key: KeyType, cursor: number, ...args: any[]): any;
+
+        pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): any;
+
+        pfadd(key: KeyType, ...elements: string[]): any;
+
+        pfcount(...keys: KeyType[]): any;
 
         pipeline(commands?: string[][]): Pipeline;
 
-        scanStream(options?: ScanStreamOption): NodeJS.EventEmitter;
-        hscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
-        zscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
+        scanStream(options?: ScanStreamOption): Readable;
+        sscanStream(key: KeyType, options?: ScanStreamOption): Readable;
+        hscanStream(key: KeyType, options?: ScanStreamOption): Readable;
+        zscanStream(key: KeyType, options?: ScanStreamOption): Readable;
+
+        xack(key: KeyType, group: string, ...ids: string[]): any;
+
+        xadd(key: KeyType, id: string, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): any;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
+
+        xdel(key: KeyType, ...ids: string[]): any;
+
+        xgroup(...args: any[]): any;
+
+        xinfo(...args: any[]): any;
+
+        xlen(key: KeyType): any;
+
+        xpending(key: KeyType, group: string, ...args: any[]): any;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): any;
+
+        xread(...args: any[]): any;
+
+        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): any;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): any;
+
+        xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: any[]): any;
     }
 
     interface Pipeline {
-        bitcount(key: string, callback?: (err: Error, res: number) => void): Pipeline;
-        bitcount(key: string, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
+        redis: Redis;
+        isCluster: boolean;
+        options: RedisOptions;
+        _queue: Command[];
+        _result: any[];
+        _transactions: number;
+        _shaToScript: {};
+        bitcount(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
+        bitcount(key: KeyType, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        get(key: string, callback?: (err: Error, res: string) => void): Pipeline;
-        getBuffer(key: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        get(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
+        getBuffer(key: KeyType, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        set(key: string, value: any, ...args: any[]): Pipeline;
+        set(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: KeyType, value: any, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: KeyType, value: any, expiryMode: string, time: number, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: KeyType, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
 
-        setnx(key: string, value: any, callback?: (err: Error, res: any) => void): Pipeline;
+        setBuffer(key: KeyType, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: KeyType, value: any, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        setex(key: string, seconds: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
+        setnx(key: KeyType, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
-        psetex(key: string, milliseconds: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
+        setex(key: KeyType, seconds: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
-        append(key: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        psetex(key: KeyType, milliseconds: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
-        strlen(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        append(key: KeyType, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        del(...keys: string[]): Pipeline;
+        strlen(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        exists(...keys: string[]): Pipeline;
+        del(...keys: KeyType[]): Pipeline;
 
-        setbit(key: string, offset: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        exists(...keys: KeyType[]): Pipeline;
 
-        getbit(key: string, offset: number, callback?: (err: Error, res: number) => void): Pipeline;
+        setbit(key: KeyType, offset: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        setrange(key: string, offset: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        getbit(key: KeyType, offset: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        getrange(key: string, start: number, end: number, callback?: (err: Error, res: string) => void): Pipeline;
+        setrange(key: KeyType, offset: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        substr(key: string, start: number, end: number, callback?: (err: Error, res: string) => void): Pipeline;
+        getrange(key: KeyType, start: number, end: number, callback?: (err: Error, res: string) => void): Pipeline;
 
-        incr(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        substr(key: KeyType, start: number, end: number, callback?: (err: Error, res: string) => void): Pipeline;
 
-        decr(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        incr(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        mget(...keys: string[]): Pipeline;
+        decr(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        rpush(key: string, ...values: any[]): Pipeline;
+        mget(...keys: KeyType[]): Pipeline;
 
-        lpush(key: string, ...values: any[]): Pipeline;
+        rpush(key: KeyType, ...values: any[]): Pipeline;
 
-        rpushx(key: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        rpushBuffer(key: string, ...values: Buffer[]): Pipeline;
 
-        lpushx(key: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        lpush(key: KeyType, ...values: any[]): Pipeline;
 
-        linsert(key: string, direction: "BEFORE" | "AFTER", pivot: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        rpushx(key: KeyType, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        rpop(key: string, callback?: (err: Error, res: string) => void): Pipeline;
+        lpushx(key: KeyType, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        lpop(key: string, callback?: (err: Error, res: string) => void): Pipeline;
+        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
-        brpop(...keys: string[]): Pipeline;
+        rpop(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
-        blpop(...keys: string[]): Pipeline;
+        lpop(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
+
+        lpopBuffer(key: KeyType, callback?: (err: Error, res: Buffer) => void): Pipeline;
+
+        brpop(...keys: KeyType[]): Pipeline;
+
+        blpop(...keys: KeyType[]): Pipeline;
 
         brpoplpush(source: string, destination: string, timeout: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        llen(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        llen(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        lindex(key: string, index: number, callback?: (err: Error, res: string) => void): Pipeline;
+        lindex(key: KeyType, index: number, callback?: (err: Error, res: string) => void): Pipeline;
 
-        lset(key: string, index: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
+        lset(key: KeyType, index: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
-        lrange(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+        lrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        ltrim(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback?: (err: Error, res: Buffer[]) => void): Pipeline;
 
-        lrem(key: string, count: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
+        ltrim(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+
+        lrem(key: KeyType, count: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
         rpoplpush(source: string, destination: string, callback?: (err: Error, res: string) => void): Pipeline;
 
-        sadd(key: string, ...members: any[]): Pipeline;
+        sadd(key: KeyType, ...members: any[]): Pipeline;
 
-        srem(key: string, ...members: any[]): Pipeline;
+        srem(key: KeyType, ...members: any[]): Pipeline;
 
         smove(source: string, destination: string, member: string, callback?: (err: Error, res: string) => void): Pipeline;
 
-        sismember(key: string, member: string, callback?: (err: Error, res: 1 | 0) => void): Pipeline;
+        sismember(key: KeyType, member: string, callback?: (err: Error, res: 1 | 0) => void): Pipeline;
 
-        scard(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        scard(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        spop(key: string, callback?: (err: Error, res: any) => void): Pipeline;
-        spop(key: string, count: number, callback?: (err: Error, res: any) => void): Pipeline;
+        spop(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
+        spop(key: KeyType, count: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        srandmember(key: string, callback?: (err: Error, res: any) => void): Pipeline;
-        srandmember(key: string, count: number, callback?: (err: Error, res: any) => void): Pipeline;
+        srandmember(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
+        srandmember(key: KeyType, count: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        sinter(...keys: string[]): Pipeline;
+        sinter(...keys: KeyType[]): Pipeline;
 
-        sinterstore(destination: string, ...keys: string[]): Pipeline;
+        sinterstore(destination: string, ...keys: KeyType[]): Pipeline;
 
-        sunion(...keys: string[]): Pipeline;
+        sunion(...keys: KeyType[]): Pipeline;
 
-        sunionstore(destination: string, ...keys: string[]): Pipeline;
+        sunionstore(destination: string, ...keys: KeyType[]): Pipeline;
 
-        sdiff(...keys: string[]): Pipeline;
+        sdiff(...keys: KeyType[]): Pipeline;
 
-        sdiffstore(destination: string, ...keys: string[]): Pipeline;
+        sdiffstore(destination: string, ...keys: KeyType[]): Pipeline;
 
-        smembers(key: string, callback?: (err: Error, res: any) => void): Pipeline;
+        smembers(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
 
-        zadd(key: string, ...args: string[]): Pipeline;
+        zadd(key: KeyType, ...args: string[]): Pipeline;
 
-        zincrby(key: string, increment: number, member: string, callback?: (err: Error, res: any) => void): Pipeline;
+        zincrby(key: KeyType, increment: number, member: string, callback?: (err: Error, res: any) => void): Pipeline;
 
-        zrem(key: string, ...members: any[]): Pipeline;
+        zrem(key: KeyType, ...members: any[]): Pipeline;
 
-        zremrangebyscore(key: string, min: number | string, max: number | string, callback?: (err: Error, res: any) => void): Pipeline;
+        zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback?: (err: Error, res: any) => void): Pipeline;
 
-        zremrangebyrank(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+        zremrangebyrank(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        zunionstore(destination: string, numkeys: number, key: string, ...args: string[]): Pipeline;
+        zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
-        zinterstore(destination: string, numkeys: number, key: string, ...args: string[]): Pipeline;
+        zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
-        zrange(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
-        zrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: any) => void): Pipeline;
+        zrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: any) => void): Pipeline;
 
-        zrevrange(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
-        zrevrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: any) => void): Pipeline;
+        zrevrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+        zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: any) => void): Pipeline;
 
-        zrangebyscore(key: string, min: number | string, max: number | string, ...args: string[]): Pipeline;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, ...args: string[]): Pipeline;
 
-        zrevrangebyscore(key: string, max: number | string, min: number | string, ...args: string[]): Pipeline;
+        zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): Pipeline;
 
-        zcount(key: string, min: number | string, max: number | string, callback?: (err: Error, res: number) => void): Pipeline;
+        zcount(key: KeyType, min: number | string, max: number | string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        zcard(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        zcard(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        zscore(key: string, member: string, callback?: (err: Error, res: number) => void): Pipeline;
+        zscore(key: KeyType, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        zrank(key: string, member: string, callback?: (err: Error, res: number) => void): Pipeline;
+        zrank(key: KeyType, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        zrevrank(key: string, member: string, callback?: (err: Error, res: number) => void): Pipeline;
+        zrevrank(key: KeyType, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hset(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hset(key: KeyType, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hsetBuffer(key: KeyType, field: string, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hsetnx(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hsetnx(key: KeyType, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        hget(key: string, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
+        hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
-        hmset(key: string, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hmset(key: KeyType, ...args: any[]): Pipeline;
+        hmset(key: KeyType, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        hmget(key: string, ...fields: string[]): Pipeline;
+        hmget(key: KeyType, ...fields: string[]): Pipeline;
 
-        hincrby(key: string, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
+        hincrby(key: KeyType, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hincrbyfloat(key: string, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
+        hincrbyfloat(key: KeyType, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hdel(key: string, ...fields: string[]): Pipeline;
+        hdel(key: KeyType, ...fields: string[]): Pipeline;
 
-        hlen(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        hlen(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hkeys(key: string, callback?: (err: Error, res: any) => void): Pipeline;
+        hkeys(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
 
-        hvals(key: string, callback?: (err: Error, res: any) => void): Pipeline;
+        hvals(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
 
-        hgetall(key: string, callback?: (err: Error, res: any) => void): Pipeline;
+        hgetall(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
 
-        hexists(key: string, field: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hexists(key: KeyType, field: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        incrby(key: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
+        incrby(key: KeyType, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        incrbyfloat(key: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
+        incrbyfloat(key: KeyType, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        decrby(key: string, decrement: number, callback?: (err: Error, res: number) => void): Pipeline;
+        decrby(key: KeyType, decrement: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        getset(key: string, value: any, callback?: (err: Error, res: string) => void): Pipeline;
+        getset(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        mset(key: string, value: any, ...args: string[]): Pipeline;
+        mset(...args: any[]): Pipeline;
+        mset(data: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        msetnx(key: string, value: any, ...args: string[]): Pipeline;
+        msetnx(...args: any[]): Pipeline;
+        msetnx(data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         randomkey(callback?: (err: Error, res: string) => void): Pipeline;
 
         select(index: number, callback?: (err: Error, res: string) => void): Pipeline;
 
-        move(key: string, db: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        move(key: KeyType, db: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        rename(key: string, newkey: string, callback?: (err: Error, res: string) => void): Pipeline;
+        rename(key: KeyType, newkey: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
-        renamenx(key: string, newkey: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        renamenx(key: KeyType, newkey: KeyType, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        expire(key: string, seconds: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        expire(key: KeyType, seconds: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        pexpire(key: string, milliseconds: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        pexpire(key: KeyType, milliseconds: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        expireat(key: string, timestamp: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        expireat(key: KeyType, timestamp: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        pexpireat(key: string, millisecondsTimestamp: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        pexpireat(key: KeyType, millisecondsTimestamp: number, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         keys(pattern: string, callback?: (err: Error, res: string[]) => void): Pipeline;
 
@@ -667,7 +780,7 @@ declare namespace IORedis {
 
         lastsave(callback?: (err: Error, res: number) => void): Pipeline;
 
-        type(key: string, callback?: (err: Error, res: string) => void): Pipeline;
+        type(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
         multi(callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -681,7 +794,7 @@ declare namespace IORedis {
 
         flushall(callback?: (err: Error, res: string) => void): Pipeline;
 
-        sort(key: string, ...args: string[]): Pipeline;
+        sort(key: KeyType, ...args: string[]): Pipeline;
 
         info(callback?: (err: Error, res: any) => void): Pipeline;
         info(section: string, callback?: (err: Error, res: any) => void): Pipeline;
@@ -690,9 +803,11 @@ declare namespace IORedis {
 
         monitor(callback?: (err: Error, res: NodeJS.EventEmitter) => void): Pipeline;
 
-        ttl(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+        ttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        persist(key: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        pttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
+
+        persist(key: KeyType, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         slaveof(host: string, port: number, callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -710,7 +825,7 @@ declare namespace IORedis {
 
         publish(channel: string, message: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        watch(...keys: string[]): Pipeline;
+        watch(...keys: KeyType[]): Pipeline;
 
         unwatch(callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -720,7 +835,7 @@ declare namespace IORedis {
 
         migrate(...args: any[]): Pipeline;
 
-        dump(key: string, callback?: (err: Error, res: string) => void): Pipeline;
+        dump(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
         object(subcommand: string, ...args: any[]): Pipeline;
 
@@ -734,17 +849,50 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number): Pipeline;
 
-        hscan(key: string, cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
 
-        zscan(key: string, cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        sscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
-        pfmerge(destkey: string, ...sourcekeys: string[]): Pipeline;
+        hscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
-        pfadd(key: string, ...elements: string[]): Pipeline;
+        zscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
-        pfcount(...keys: string[]): Pipeline;
+        pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
+
+        pfadd(key: KeyType, ...elements: string[]): Pipeline;
+
+        pfcount(...keys: KeyType[]): Pipeline;
+
+        xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
+
+        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, id: string, ...args: any[]): Pipeline;
+
+        xdel(key: KeyType, ...ids: string[]): Pipeline;
+
+        xgroup(...args: any[]): Pipeline;
+
+        xinfo(...args: any[]): Pipeline;
+
+        xlen(key: KeyType): Pipeline;
+
+        xpending(key: KeyType, group: string, ...args: any[]): Pipeline;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): Pipeline;
+
+        xread(...args: any[]): Pipeline;
+
+        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): Pipeline;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): Pipeline;
+
+        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: any[]): Pipeline;
     }
 
     interface NodeConfiguration {
@@ -754,11 +902,80 @@ declare namespace IORedis {
 
     type ClusterNode = string | number | NodeConfiguration;
 
+    type NodeRole = 'master' | 'slave' | 'all';
+
+    type CallbackFunction<T = any> = (err?: NodeJS.ErrnoException | null, result?: T) => void;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
-        new(nodes: ClusterNode[], options?: ClusterOptions): Redis;
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
-        nodes(role: string): Redis[];
+        nodes(role?: NodeRole): Redis[];
+        quit(callback?: CallbackFunction<'OK'>): Promise<'OK'>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
+
+        getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        getBuffer(key: KeyType): Promise<Buffer>;
+
+        set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+
+        setBuffer(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+        setBuffer(key: KeyType, value: any, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, setMode: string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
+
+        setnx(key: KeyType, value: any, callback: (err: Error, res: any) => void): void;
+        setnx(key: KeyType, value: any): Promise<any>;
+
+        del(...keys: KeyType[]): Promise<number>;
+
+        incr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        incr(key: KeyType): Promise<number>;
+
+        decr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        decr(key: KeyType): Promise<number>;
+
+        rpush(key: KeyType, ...values: any[]): any;
+
+        rpushBuffer(key: string, ...values: Buffer[]): any;
+
+        lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        lpopBuffer(key: KeyType): Promise<Buffer>;
+
+        llen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        llen(key: KeyType): Promise<number>;
+
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback: (err: Error, res: Buffer[]) => void): void;
+        lrangeBuffer(key: KeyType, start: number, stop: number): Promise<Buffer[]>;
+
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+
+        zrem(key: KeyType, ...members: any[]): any;
+
+        zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
+
+        hset(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hset(key: KeyType, field: string, value: any): Promise<0 | 1>;
+
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
+
+        expire(key: KeyType, seconds: number, callback: (err: Error, res: 0 | 1) => void): void;
+        expire(key: KeyType, seconds: number): Promise<0 | 1>;
+
+        keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
+        keys(pattern: string): Promise<string[]>;
+    }
+
+    interface ClusterStatic extends NodeJS.EventEmitter, Commander {
+        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
@@ -798,7 +1015,22 @@ declare namespace IORedis {
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
         retryStrategy?(times: number): number | false;
-        reconnectOnError?(error: Error): boolean;
+        /**
+         * By default, all pending commands will be flushed with an error every
+         * 20 retry attempts. That makes sure commands won't wait forever when
+         * the connection is down. You can change this behavior by setting
+         * `maxRetriesPerRequest`.
+         *
+         * Set maxRetriesPerRequest to `null` to disable this behavior, and
+         * every command will wait forever until the connection is alive again
+         * (which is the default behavior before ioredis v4).
+         */
+        maxRetriesPerRequest?: number | null;
+        /**
+         * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
+         * the error and do nothing.
+         */
+        reconnectOnError?(error: Error): boolean | 1 | 2;
         /**
          * By default, if there is no active connection to the Redis server, commands are added to a queue
          * and are executed once the connection is "ready" (when enableReadyCheck is true, "ready" means
@@ -823,9 +1055,7 @@ declare namespace IORedis {
          */
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
-        tls?: {
-            ca: Buffer;
-        };
+        tls?: tls.ConnectionOptions;
         sentinels?: Array<{ host: string; port: number; }>;
         name?: string;
         /**
@@ -849,8 +1079,13 @@ declare namespace IORedis {
         count?: number;
     }
 
+    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    interface NatMap {
+        [key: string]: {host: string, port: number};
+    }
+
     interface ClusterOptions {
-        clusterRetryStrategy?(times: number): number;
+        clusterRetryStrategy?(times: number, reason?: Error): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
         scaleReads?: string;
@@ -858,7 +1093,12 @@ declare namespace IORedis {
         retryDelayOnFailover?: number;
         retryDelayOnClusterDown?: number;
         retryDelayOnTryAgain?: number;
+        slotsRefreshTimeout?: number;
+        slotsRefreshInterval?: number;
         redisOptions?: RedisOptions;
+        lazyConnect?: boolean;
+        dnsLookup?: DNSLookupFunction;
+        natMap?: NatMap;
     }
 
     interface MultiOptions {

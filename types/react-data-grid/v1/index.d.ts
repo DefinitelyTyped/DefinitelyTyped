@@ -2,7 +2,7 @@
 // Project: https://github.com/adazzle/react-data-grid.git
 // Definitions by: Simon Gellis <https://github.com/SupernaviX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -62,17 +62,17 @@ declare namespace AdazzleReactDataGrid {
          * A toolbar to display above the grid.
          * Consider using the toolbar included in "react-data-grid/addons".
          */
-        toolbar?: React.ReactElement<any>
+        toolbar?: React.ReactElement
         /**
          * A context menu to disiplay when the user right-clicks a cell.
          * Consider using "react-contextmenu", included in "react-data-grid/addons".
          */
-        contextMenu?: React.ReactElement<any>
+        contextMenu?: React.ReactElement
         /**
          * A react component to customize how rows are rendered.
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
-        rowRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A component to display when there are no rows to render.
          */
@@ -240,15 +240,15 @@ declare namespace AdazzleReactDataGrid {
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
          */
-        editor?: React.ReactElement<any>
+        editor?: React.ReactElement
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        formatter?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom formatter for this column's header.
          */
-        headerRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * Events to be bound to the cells in this specific column.
          * Each event must respect this standard in order to work correctly:

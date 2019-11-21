@@ -5,6 +5,7 @@ declare namespace Alert {
     export interface AlertProps extends React.HTMLProps<Alert> {
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         closeLabel?: string;
         /** @deprecated since v0.29.0 */dismissAfter?: number;
         // TODO: Add more specific type

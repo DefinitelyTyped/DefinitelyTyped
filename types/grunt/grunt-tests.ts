@@ -1,6 +1,6 @@
 
 
-// Official code sample from 
+// Official code sample from
 // http://gruntjs.com/getting-started#an-example-gruntfile
 
 interface MyTaskData {
@@ -12,8 +12,9 @@ interface MyOptions {
     repeat: number;
 }
 
-// exports should work same as module.exports 
-exports = (grunt: IGrunt) => {
+// exports should work same as module.exports
+// assigning exports is an error in node, hence the cast
+(global as any).exports = (grunt: IGrunt) => {
 
     // Project configuration.
     grunt.initConfig({
@@ -127,3 +128,27 @@ exports.exports = function(grunt: IGrunt) {
     });
 
 };
+
+
+let myTest = function (grunt: IGrunt) {
+    grunt.file.expand(['*.ts']);
+    grunt.file.expand('*.ts');
+
+    // 'cwd' in options, and string pattern
+    grunt.file.expand({
+        cwd: '.'
+    }, '*.ts');
+}
+// test to check process function assignment.
+let mytest = function(grunt: IGrunt) {
+    const opt:grunt.file.IFileWriteStringOption = {
+        encoding: grunt.file.defaultEncoding,
+        process: (contents: string, srcPath: string, destPath: string): string | boolean => {
+            grunt.log.writeln('"file source path"' + srcPath);
+            grunt.log.writeln('"file destination path"' + destPath);
+            // return false so no actual copying takes place
+            return false;
+        }
+    }
+    grunt.file.copy('./test.file',"./testcopy.file", opt);
+}

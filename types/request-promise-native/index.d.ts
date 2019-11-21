@@ -2,6 +2,7 @@
 // Project: https://github.com/request/request-promise-native
 // Definitions by: Gustavo Henke <https://github.com/gustavohenke>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Cory Reed <https://github.com/swashcap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,10 +10,8 @@ import request = require('request');
 import http = require('http');
 
 declare namespace requestPromise {
-    interface RequestPromise extends request.Request {
-        then: Promise<any>["then"];
-        catch: Promise<any>["catch"];
-        promise(): Promise<any>;
+    interface RequestPromise<T = any> extends request.Request, Promise<T> {
+        promise(): Promise<T>;
     }
 
     interface RequestPromiseOptions extends request.CoreOptions {
@@ -22,11 +21,12 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
+    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
     type FullResponse = request.Response;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 }
 
-declare const requestPromise: request.RequestAPI<requestPromise.RequestPromise, requestPromise.RequestPromiseOptions, request.RequiredUriUrl>;
+declare const requestPromise: requestPromise.RequestPromiseAPI;
 export = requestPromise;

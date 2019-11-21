@@ -37,6 +37,22 @@ app.use(session({
             console.log(key);
         },
     },
+    path: "/",
 }, app));
+
+// can still use koa-session events, although without autocomplete
+app.on('session:missed', () => {});
+app.on('session:expired', () => {});
+app.on('session:invalid', () => {});
+
+app.use((ctx, next) => {
+    // reset the session
+    ctx.session = null;
+
+    // does not interfere with Application->EventEmitter #32389
+    ctx.app.emit('error', new Error('this is an user-generated Error'));
+
+    return next();
+});
 
 app.listen(3000);

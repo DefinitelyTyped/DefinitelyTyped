@@ -304,7 +304,7 @@ function test_svg_chart() {
      * Test plate functions
      */
     plate = new d3kit.SvgPlate();
-    plate = <d3kit.SvgPlate> chart.addPlate('a-plate', plate, true); // with doNotAppend
+    plate = chart.addPlate('a-plate', plate, true) as d3kit.SvgPlate; // with doNotAppend
     chart = chart.addPlate('a-plate', plate);       // without doNotAppend
     chart = chart.removePlate('a-plate');
 
@@ -381,7 +381,7 @@ function test_hybrid_chart() {
      * Test plate functions
      */
     plate = new d3kit.SvgPlate();
-    plate = <d3kit.SvgPlate> chart.addPlate('a-plate', plate, true); // with doNotAppend
+    plate = chart.addPlate('a-plate', plate, true) as d3kit.SvgPlate; // with doNotAppend
     chart = chart.addPlate('a-plate', plate);       // without doNotAppend
     chart = chart.removePlate('a-plate');
 

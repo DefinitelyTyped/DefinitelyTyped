@@ -30,7 +30,7 @@ interface JQuery {
     /**
      * Gets the current value from the colorpicker.
      */
-    spectrum(methodName: "get"): tinycolorInstance;
+    spectrum(methodName: "get"): tinycolor.Instance;
 
     /**
      * Sets the colorpickers value to update the original input.
@@ -101,12 +101,12 @@ interface JQuery {
     /**
      * Called at the beginning of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
-    on(events: "dragstart.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolorInstance) => any): JQuery;
+    on(events: "dragstart.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any): JQuery;
 
     /**
      * Called at the end of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
-    on(events: "dragstop.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolorInstance) => any): JQuery;
+    on(events: "dragstop.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any): JQuery;
 }
 
 declare namespace Spectrum {
@@ -263,18 +263,18 @@ declare namespace Spectrum {
         /**
          * Called as the original input changes. Only happens when the input is closed or the 'Choose' button is clicked.
          */
-        change?: (color: tinycolorInstance) => void;
+        change?: (color: tinycolor.Instance) => void;
 
         /**
          * Called as the user moves around within the colorpicker.
          */
-        move?: (color: tinycolorInstance) => void;
+        move?: (color: tinycolor.Instance) => void;
 
         /**
          * Called after the colorpicker is opened. This is ignored on a flat colorpicker.
          * Note, when any colorpicker on the page is shown it will hide any that are already open.
          */
-        show?: (color: tinycolorInstance) => void;
+        show?: (color: tinycolor.Instance) => void;
 
         /**
          * Called after the colorpicker is hidden.
@@ -282,12 +282,12 @@ declare namespace Spectrum {
          * Note, when any colorpicker on the page is shown it will hide any that are already open.
          * This event is ignored on a flat colorpicker.
          */
-        hide?: (color: tinycolorInstance) => void;
+        hide?: (color: tinycolor.Instance) => void;
 
         /**
          * You can prevent the colorpicker from showing up if you return false in the beforeShow event.
          * This event is ignored on a flat colorpicker.
          */
-        beforeShow?: (color: tinycolorInstance) => void;
+        beforeShow?: (color: tinycolor.Instance) => void;
     }
 }

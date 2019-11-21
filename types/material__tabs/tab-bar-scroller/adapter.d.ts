@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCTabBarScrollerAdapter {
+export default interface MDCTabBarScrollerAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;

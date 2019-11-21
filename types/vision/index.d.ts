@@ -4,7 +4,7 @@
 //                 Alexander James Phillips <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import {
     Plugin,
@@ -72,7 +72,7 @@ declare namespace vision {
          * Disable layout when using Jade as it will handle including any layout files independently.
          * Defaults to false.
          */
-        layout?: boolean;
+        layout?: boolean | string;
         /** the root file path, or array of file paths, where layout templates are located (using the relativeTo prefix if present). Defaults to path. */
         layoutPath?: string | string[];
         /** the key used by the template engine to denote where primary template content should go. Defaults to 'content'. */
@@ -242,7 +242,7 @@ declare module 'hapi' {
 }
 
 declare module 'hapi' {
-    interface RouteOptions {
+    interface HandlerDecorations {
         /**
          * The view handler can be used with routes registered in the same realm as the view manager.
          * The handler takes an options parameter that can be either a string or an object.

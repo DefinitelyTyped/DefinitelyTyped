@@ -63,6 +63,10 @@ declare const quality: number;
 declare const align: string;
 declare const depth: number;
 declare const defineValue: string;
+declare const customCommand: string;
+declare const customInArguments: string[];
+declare const customOutArguments: string[];
+declare const customFormat: string;
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -95,6 +99,7 @@ gm(src)
 	.colorMap(type)
 	.colors(numColors)
 	.colorspace(type)
+	.command(customCommand)
 	.compose(operator)
 	.compress(type)
 	.contrast(multiplier)
@@ -147,6 +152,7 @@ gm(src)
 	.iconGeometry(geometry)
 	.implode()
 	.implode(factor)
+	.in(...customInArguments)
 	.intent(type)
 	.interlace(type)
 	.label(name)
@@ -172,6 +178,7 @@ gm(src)
 	.modulate(b, s, h)
 	.monitor()
 	.monochrome()
+	.montage(src)
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
 	})
@@ -192,6 +199,7 @@ gm(src)
 	.operator(channel, operator, factor)
 	.operator(channel, operator, factor, usePercent)
 	.orderedDither(channel, NxN)
+	.out(...customOutArguments)
 	.outputDirectory(dest)
 	.page(width, height)
 	.page(width, height, options)
@@ -303,6 +311,8 @@ gm(src)
 	})
 	.identify((err, info) => {
 	})
+	.identify(customFormat, (err, info) => {
+	})
 	.identify({ bufferStream: true }, (err, info) => {
 	})
 	.res((err, resolution) => {
@@ -319,17 +329,17 @@ gm(src)
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
-	.drawBezier(x, y, x, y)
-	.drawBezier(x, y, x, y, x, y)
-	.drawBezier(x, y, x, y, x, y, x, y)
+	.drawBezier([x, y], [x, y])
+	.drawBezier([x, y], [x, y], [x, y])
+	.drawBezier([x, y], [x, y], [x, y], [x, y])
 	.drawCircle(x, y, x, y)
 	.drawEllipse(x, y, radius, radius, radius, radius)
 	.drawLine(x, y, x, y)
 	.drawPoint(x, y)
-	.drawPolygon(x, y, x, y, x, y)
-	.drawPolygon(x, y, x, y, x, y, x, y)
-	.drawPolyline(x, y, x, y, x, y)
-	.drawPolyline(x, y, x, y, x, y, x, y)
+	.drawPolygon([x, y], [x, y], [x, y])
+	.drawPolygon([x, y], [x, y], [x, y], [x, y])
+	.drawPolyline([x, y], [x, y], [x, y])
+	.drawPolyline([x, y], [x, y], [x, y], [x, y])
 	.drawRectangle(x, y, x, y)
 	.drawRectangle(x, y, x, y, radius)
 	.drawRectangle(x, y, x, y, radius, radius)
@@ -360,7 +370,10 @@ gm(src).toBuffer(format, (err, buffer) => {
 const imageMagick = gm.subClass({ imageMagick: true });
 readStream = imageMagick(src)
 	.adjoin()
-	.stream();
+    .stream();
+
+const customGm = gm.subClass({ appPath: '' });
+readStream = customGm(src).stream();
 
 const passStream = imageMagick(readStream).stream();
 

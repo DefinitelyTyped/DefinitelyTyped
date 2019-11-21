@@ -8,9 +8,12 @@ ReactModal.setAppElement("#main");
 ReactModal.setAppElement(document.getElementById("#main"));
 
 class ExampleOfUsingReactModal extends React.Component {
+  contentRef: HTMLDivElement;
+  overlayRef: HTMLDivElement;
   render() {
     const onAfterOpenFn = () => { };
-    const onRequestCloseFn = () => { };
+    const onAfterCloseFn = () => { };
+    const onRequestCloseFn = (event: React.MouseEvent | React.KeyboardEvent) => { };
     const customStyle = {
       overlay: {
         position: 'fixed',
@@ -47,12 +50,18 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     const customAriaVariables = {
       labelledby: 'labelledby',
-      describedby: 'describedby'
+      describedby: 'describedby',
+      modal: true,
+    };
+    const customDataVariables = {
+      dataOne: 'one',
+      dataTwo: 'two'
     };
     return (
       <ReactModal
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
+        onAfterClose={onAfterCloseFn}
         onRequestClose={onRequestCloseFn}
         contentLabel="demo label"
         closeTimeoutMS={1000}
@@ -60,7 +69,12 @@ class ExampleOfUsingReactModal extends React.Component {
         className={customClasses}
         overlayClassName={customOverlayClasses}
         bodyOpenClassName={'bodyOpenClassName'}
+        htmlOpenClassName={'htmlOpenClassName'}
         aria={customAriaVariables}
+        data={customDataVariables}
+        contentRef={instance => this.contentRef = instance}
+        overlayRef={instance => this.overlayRef = instance}
+        testId="modal-content"
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

@@ -2,7 +2,7 @@
 // Project: https://github.com/zippyui/react-datagrid.git
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react"/>
 
@@ -184,7 +184,7 @@ declare namespace ReactDataGrid {
           * or anything that React can render, so you can customize it as you
           * please.
           */
-        title?: string | React.ReactElement<any>;
+        title?: string | React.ReactElement;
 
         /**
           * Function - if you want custom rendering, specify this property.

@@ -1,7 +1,16 @@
-// Type definitions for throttle-debounce 1.0
+// Type definitions for throttle-debounce 2.1
 // Project: https://github.com/niksy/throttle-debounce
-// Definitions by: Marek Buchar <https://github.com/czbuchi>
+// Definitions by: Marek Buchar <https://github.com/czbuchi>, Frank Li <https://github.com/franklixuefei>, Thomas Oddsund <https://github.com/oddsund>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export {};
+
+interface Cancel {
+    cancel: () => void;
+}
+
+export type throttle<T> = T & Cancel;
+export type debounce<T> = throttle<T>;
 
 /**
  * Throttle execution of a function. Especially useful for rate limiting
@@ -30,12 +39,12 @@
  * @return
  * A new, throttled, function.
  */
-export function throttle<T>(
+export function throttle<T extends (...args: any[]) => any>(
     delay: number,
     noTrailing: boolean,
     callback: T,
-    debounceMode?: boolean,
-): T;
+    debounceMode?: boolean
+): throttle<T>;
 
 /**
  * Throttle execution of a function. Especially useful for rate limiting
@@ -57,11 +66,11 @@ export function throttle<T>(
  * @return
  * A new, throttled, function.
  */
-export function throttle<T>(
+export function throttle<T extends (...args: any[]) => any>(
     delay: number,
     callback: T,
-    debounceMode?: boolean,
-): T;
+    debounceMode?: boolean
+): throttle<T>;
 
 /**
  * Debounce execution of a function. Debouncing, unlike throttling,
@@ -87,7 +96,11 @@ export function throttle<T>(
  * @return
  * A new, debounced function.
  */
-export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
+export function debounce<T extends (...args: any[]) => any>(
+    delay: number,
+    atBegin: boolean,
+    callback: T
+): debounce<T>;
 
 /**
  * Debounce execution of a function. Debouncing, unlike throttling,
@@ -106,4 +119,7 @@ export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
  * @return
  * A new, debounced function.
  */
-export function debounce<T>(delay: number, callback: T): T;
+export function debounce<T extends (...args: any[]) => any>(
+    delay: number,
+    callback: T
+): debounce<T>;

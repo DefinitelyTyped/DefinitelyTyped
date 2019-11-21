@@ -106,6 +106,9 @@ describe("tester Google Analytics Code  _gaq object", () => {
         _gaq.push(['_gat._anonymizeIp']);
         _gaq.push(['_trackPageview']);
 
+        // more details: https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiEventTracking#_trackevent
+        _gaq.push(['_trackEvent', 'category', 'action_name', undefined, undefined, true]);
+
         _gaq.push(() => {
                 const tracker = _gat._getTrackerByName('UA-65432-1');
                 tracker._trackPageview();

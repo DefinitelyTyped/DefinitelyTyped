@@ -16,11 +16,11 @@
 
 import MDCComponent from 'material__base/component';
 
-import { MDCTab, MDCTabFoundation } from '../tab/index';
+import { MDCTab } from '../tab';
 import MDCTabBarFoundation from './foundation';
-import { MDCTabBarAdapter } from './adapter';
+import MDCTabBarAdapter from './adapter';
 
-export {MDCTabBarAdapter, MDCTabBarFoundation};
+export { MDCTabBarAdapter, MDCTabBarFoundation };
 
 export class MDCTabBar extends MDCComponent<MDCTabBarAdapter, MDCTabBarFoundation> {
     static attachTo(root: Element): MDCTabBar;
@@ -32,8 +32,6 @@ export class MDCTabBar extends MDCComponent<MDCTabBarAdapter, MDCTabBarFoundatio
     activeTabIndex: number;
 
     initialize(tabFactory?: (el: Element) => MDCTab): void;
-
-    getDefaultFoundation(): MDCTabBarFoundation;
 
     layout(): void;
 }

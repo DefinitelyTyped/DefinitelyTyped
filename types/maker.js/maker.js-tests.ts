@@ -100,9 +100,9 @@ function test() {
 	function testKit() {
 		makerjs.kit.construct(null, null);
 		makerjs.kit.getParameterValues(null);
-		(<MakerJs.IMetaParameter>{}).max;
-		(<MakerJs.IKit>{}).metaParameters;
-		(<MakerJs.IKit>{}).notes;
+		({} as MakerJs.IMetaParameter).max;
+		({} as MakerJs.IKit).metaParameters;
+		({} as MakerJs.IKit).notes;
 	}
 
 	function testMeasure() {

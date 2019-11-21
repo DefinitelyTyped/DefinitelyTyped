@@ -1,8 +1,10 @@
-// Type definitions for Microsoft Scripting Runtime 1.0
+// Type definitions for non-npm package Microsoft Scripting Runtime 1.0
 // Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace Scripting {
     // tslint:disable-next-line:no-const-enum
@@ -489,12 +491,15 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
-    set(obj: Scripting.Dictionary, propertyName: 'Item', parameterTypes: [any], newValue: any): void;
+    set<TKey = any, TValue = any>(obj: Scripting.Dictionary<TKey, TValue>, propertyName: 'Item', parameterTypes: [TKey], newValue: TValue): void;
 }
 
 interface ActiveXObjectNameMap {
     'Scripting.Dictionary': Scripting.Dictionary;
     'Scripting.Encoder': Scripting.Encoder;
     'Scripting.FileSystemObject': Scripting.FileSystemObject;
+}
+
+interface EnumeratorConstructor {
+    new <TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
 }

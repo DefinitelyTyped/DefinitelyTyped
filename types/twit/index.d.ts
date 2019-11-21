@@ -1,8 +1,12 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
-//                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
+//                 abraham <https://github.com/abraham>
+//                 siwalik <https://github.com/siwalikm>
+//                 plhery <https://github.com/plhery>
+//                 justGoscha <https://github.com/justgoscha>
+//                 darkade <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,7 +28,7 @@ declare module 'twit' {
        */
       export interface Contributors {
         id: number,
-        id_str: number,
+        id_str: string,
         screen_name: string,
       }
 
@@ -169,7 +173,7 @@ declare module 'twit' {
         created_at: string,
         current_user_retweet?: {
           id: number,
-          id_str: number,
+          id_str: string,
         },
         entities: Entities,
         favorite_count?: number,
@@ -192,12 +196,14 @@ declare module 'twit' {
         retweeted: boolean,
         retweeted_status?: Status,
         source?: string,
-        text: string,
+        text?: string,
+        full_text?: string,
         truncated: boolean,
         user: User,
         withheld_copyright?: boolean,
         withheld_in_countries?: string[],
         withheld_scope?: string,
+        display_text_range?: [number, number],
       }
       export interface Metadata {
         max_id?: number,
@@ -243,6 +249,11 @@ declare module 'twit' {
       max_id?: string,
       include_entities?: boolean,
 
+      source_id?: number,
+      source_screen_name?: string,
+      target_id?: number,
+      target_screen_name?: string,
+
       // Other params from various endpoints
       track?: string | string[],
       media_id?: string,
@@ -254,13 +265,23 @@ declare module 'twit' {
       screen_name?: string,
       id?: string,
       slug?: string,
+      owner_screen_name?: string,
       status?: string,
-      user_id?: number,
+      user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string | string[],
       include_email?: boolean,
-      cursor?: number,
+      cursor?: number | string,
+      tweet_mode?: string,
+      trim_user?: boolean,
+      exclude_replies?: boolean,
+      include_rts?: boolean,
+      skip_status?: boolean,
+      url?: string,
+      include_user_entities?: boolean,
+      stringify_ids?: boolean,
+      in_reply_to_status_id?: number | string,
     }
     export interface PromiseResponse {
       data: Response,
@@ -279,6 +300,7 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+      strictSSL?: boolean
     }
     export interface Stream extends EventEmitter {
       start(): void;

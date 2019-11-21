@@ -1,4 +1,4 @@
-// Type definitions for moo 0.4
+// Type definitions for moo 0.5
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
@@ -10,6 +10,15 @@ export as namespace moo;
  * Reserved token for indicating a parse fail.
  */
 export const error: { error: true };
+
+/**
+ * Reserved token for indicating a fallback rule.
+ */
+export const fallback: { fallback: true };
+
+export type TypeMapper = (x: string) => string;
+
+export function keywords(kws: {[k: string]: string | string[]}): TypeMapper;
 
 export function compile(rules: Rules): Lexer;
 
@@ -45,12 +54,14 @@ export interface Rule {
      */
     value?: (x: string) => string;
 
-    keywords?: {
-        [x: string]: string | string[]
-    };
+    /**
+     * Used for mapping one set of types to another.
+     * See https://github.com/no-context/moo#keywords for an example
+     */
+    type?: TypeMapper;
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule;
+    [x: string]: RegExp | string | string[] | Rule | Rule[];
 }
 
 export interface Lexer {
@@ -104,7 +115,7 @@ export interface Token {
     /**
      * The number of line breaks found in the match. (Always zero if this rule has lineBreaks: false.)
      */
-    lineBreaks: boolean;
+    lineBreaks: number;
     /**
      * The line number of the beginning of the match, starting from 1.
      */

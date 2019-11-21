@@ -43,6 +43,7 @@ navigator.usb.addEventListener('disconnect', evt => {
 });
 
 async function handleConnectedDevice(device: USBDevice) {
+    await device.reset();
     connectedDevices.push(device);
 
     await device.open();

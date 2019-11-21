@@ -1,24 +1,82 @@
-// Type definitions for consolidate
+// Type definitions for consolidate 0.14
 // Project: https://github.com/visionmedia/consolidate.js
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>, Nicolas Henry <https://github.com/nicolashenry>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+//                 Theo Sherry <https://github.com/theosherry>
+//                 Nicolas Henry <https://github.com/nicolashenry>
+//                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
 /// <reference types="node" />
-/// <reference types="bluebird" />
 
+import Promise = require("bluebird");
 
 declare var cons: Consolidate;
 
 export = cons;
 
-interface Consolidate {
+type SupportedTemplateEngines =
+    | 'arc-templates'
+    | 'atpl'
+    | 'bracket'
+    | 'dot'
+    | 'dust'
+    | 'eco'
+    | 'ejs'
+    | 'ect'
+    | 'haml'
+    | 'haml-coffee'
+    | 'hamlet'
+    | 'handlebars'
+    | 'hogan'
+    | 'htmling'
+    | 'jade'
+    | 'jazz'
+    | 'jqtpl'
+    | 'just'
+    | 'liquid'
+    | 'liquor'
+    | 'lodash'
+    | 'marko'
+    | 'mote'
+    | 'mustache'
+    | 'nunjucks'
+    | 'plates'
+    | 'pug'
+    | 'qejs'
+    | 'ractive'
+    | 'razor'
+    | 'react'
+    | 'slm'
+    | 'squirrelly'
+    | 'swig'
+    | 'teacup'
+    | 'templayed'
+    | 'toffee'
+    | 'twig'
+    | 'underscore'
+    | 'vash'
+    | 'velocityjs'
+    | 'walrus'
+    | 'whiskers';
+
+type Requires = SupportedTemplateEngines | 'extend' | 'ReactDOM' | 'babel';
+
+type ConsolidateType = {
+    [engine in SupportedTemplateEngines]: RendererInterface;
+}
+
+type RequiresType = {
+    [engine in Requires]: any;
+}
+
+interface Consolidate extends ConsolidateType {
     /**
-         * expose the instance of the engine
-   */
-    requires: Object;
+     * expose the instance of the engine
+     */
+    requires: RequiresType;
 
     /**
      * Clear the cache.
@@ -26,39 +84,6 @@ interface Consolidate {
      * @api public
      */
     clearCache(): void;
-    // template engines
-    atpl: RendererInterface;
-    dot: RendererInterface;
-    dust: RendererInterface;
-    eco: RendererInterface;
-    ejs: RendererInterface;
-    ect: RendererInterface;
-    haml: RendererInterface;
-    // TODO figure out how to do haml-coffee
-    hamlet: RendererInterface;
-    handlebars: RendererInterface;
-    hogan: RendererInterface;
-    htmling: RendererInterface;
-    jade: RendererInterface;
-    jazz: RendererInterface;
-    jqtpl: RendererInterface;
-    just: RendererInterface;
-    liquid: RendererInterface;
-    liquor: RendererInterface;
-    lodash: RendererInterface;
-    mote: RendererInterface;
-    mustache: RendererInterface;
-    nunjucks: RendererInterface;
-    pug: RendererInterface;
-    qejs: RendererInterface;
-    ractive: RendererInterface;
-    react: RendererInterface;
-    swig: RendererInterface;
-    templayed: RendererInterface;
-    toffee: RendererInterface;
-    underscore: RendererInterface;
-    walrus: RendererInterface;
-    whiskers: RendererInterface;
 }
 
 interface RendererInterface {

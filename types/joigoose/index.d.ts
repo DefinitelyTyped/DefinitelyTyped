@@ -2,7 +2,7 @@
 // Project: https://github.com/yoitsro/joigoose
 // Definitions by: Karoline <https://github.com/boothwhack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 import * as Mongoose from "mongoose";
 import * as Joi from "joi";

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths":{
+            "@ptomasroos/react-native-multi-slider": ["ptomasroos__react-native-multi-slider"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "ptomasroos__react-native-multi-slider-tests.tsx"
+    ]
+}

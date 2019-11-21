@@ -13,6 +13,7 @@ svg4everybody({
 });
 
 svg4everybody({
+  attributeName: 'data-href',
   nosvg: true,
   polyfill: true
 });

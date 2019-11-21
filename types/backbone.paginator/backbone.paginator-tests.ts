@@ -70,8 +70,8 @@ namespace InitializingWithOptions {
   });
 
   var testCollection6 = new TestCollection([
-    <TestModel>{},
-    <TestModel>{},
+    {} as TestModel,
+    {} as TestModel,
   ]);
 }
 

@@ -1,15 +1,14 @@
-import { ServerRequest, ServerResponse } from "http";
-import finalHandler = require("finalhandler");
+import { IncomingMessage, ServerResponse } from "http";
+import finalhandler = require("finalhandler");
 
-let req: ServerRequest;
-let res: ServerResponse;
-let options: {
-	onerror: (err: any, req: ServerRequest, res: ServerResponse) => void;
-	message: boolean|((err: any, status: number) => string);
-	stacktrace: boolean;
+const req: IncomingMessage = null;
+const res: ServerResponse = null;
+const options = {
+    env: 'anEnv',
+    onerror: (err: any, req: IncomingMessage, res: ServerResponse): any => { return; }
 };
 
 let result: (err: any) => void;
 
-result = finalHandler(req, res);
-result = finalHandler(req, res, options);
+result = finalhandler(req, res);
+result = finalhandler(req, res, options);

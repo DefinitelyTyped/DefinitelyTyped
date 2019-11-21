@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Forms 2.0 Object Library - MSForms 2.0
+// Type definitions for non-npm package Microsoft Forms 2.0 Object Library - MSForms 2.0
 // Project: https://msdn.microsoft.com/VBA/Language-Reference-VBA/articles/reference-microsoft-forms
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1564,7 +1564,6 @@ interface ActiveXObject {
     set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: [number, number] | [number], newValue: any): void;
     set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: number[], newValue: SafeArray): void;
     set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

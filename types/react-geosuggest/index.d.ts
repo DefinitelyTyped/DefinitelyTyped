@@ -2,7 +2,7 @@
 // Project: https://github.com/ubilabs/react-geosuggest
 // Definitions by: Brad Menchl <https://github.com/brmenchl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="googlemaps" />
 
@@ -34,6 +34,7 @@ export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     fixtures?: Fixture[];
     maxFixtures?: number;
     googleMaps?: typeof google.maps;
+    ignoreEnter?: boolean;
     ignoreTab?: boolean;
     queryDelay?: number;
     minLength?: number;
@@ -66,7 +67,8 @@ export interface Styles {
 }
 
 export type QueryType
-    = 'establishment'
+    = 'address'
+    | 'establishment'
     | 'geocode'
     | '(cities)'
     | '(regions)';
@@ -80,6 +82,6 @@ export interface Fixture {
 export interface Suggest {
     gmaps?: google.maps.GeocoderResult;
     label: string;
-    location: {lat: string, lng: string};
+    location: {lat: number, lng: number};
     placeId: string;
 }

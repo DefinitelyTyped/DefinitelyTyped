@@ -5,8 +5,9 @@
 //                 Vincent Biret <https://github.com/baywet>
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.5
 
 /// <reference types="microsoft-ajax" />
 
@@ -18,12 +19,106 @@ declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFile
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
 declare const enum Sods {
-    missing =  1,
+    missing = 1,
     loading = 2,
     pending = 3,
     loaded = 4,
     error = 5
 }
+
+declare function GetThemedImageUrl(image: string): string;
+declare function $urlHtmlEncodeString(string: string): string;
+declare var SPClientRenderer: SPClientRenderer;
+declare var MSOWebPartPageFormName: string;
+declare var HP: HP;
+
+interface SPClientRenderer {
+    AddCallStackInfoToErrors: boolean;
+    AddPostRenderCallback: (context: any, callback: () => void) => void;
+    CoreRender: () => void;
+    GlobalDebugMode: boolean;
+    IsDebugMode: () => boolean;
+    ParseTemplateString: (template: string) => () => string;
+    ParseTemplateStringWorker: (template: string) => () => string;
+    Render: () => void;
+    RenderCore: () => void;
+    RenderErrors: boolean;
+    RenderReplace: () => void;
+    ReplaceUrlTokens: (url: string) => () => string;
+    _ExecuteRenderCallbacks: () => void;
+    _ExecuteRenderCallbacksWorker: () => void;
+}
+
+interface HPIds {
+    close: string;
+    follow: string;
+    post: string;
+    title: string;
+    fileType: string;
+    size: string;
+    header: string;
+    body: string;
+    actions: string;
+    viewsLifeTime: string;
+    viewsRecent: string;
+    inner: string;
+    content: string;
+    arrowBorder: string;
+    arrow: string;
+    modifiedDate: string;
+    author: string;
+    viewDuplicates: string;
+    parentLink: string;
+    send: string;
+    openClient: string;
+    open: string;
+    preview: string;
+    dimensions: string;
+    dateCreated: string;
+    viewer: string;
+    sectionName: string;
+    siteLogo: string;
+    siteDescription: string;
+    noData: string;
+    summary: string;
+    peopleSkills: string;
+    peoplePastProjects: string;
+    peopleInterests: string;
+    peopleSchools: string;
+    peopleSummary: string;
+    peopleMemberships: string;
+}
+
+interface HP {
+    Close: () => void;
+    CommonActions: string;
+    CommonBody: string;
+    CommonHeader: string;
+    Follow: () => void;
+    GetAuthorsHtml: () => string;
+    GetBodySectionContent: () => string;
+    GetBodySectionHeading: () => string;
+    GetEmailLink: (title: string, path: string, client: string, url: string) => string;
+    GetFriendlyNameForFileType: (fileType: any) => string;
+    GetNowDateTimeDifference: () => string;
+    GetPeopleFollowingControl: () => string;
+    Hide: () => void;
+    Init: () => void;
+    InitPostLoad: () => void;
+    IsNumeric: () => boolean;
+    Resize: () => void;
+    SetPreviewOnHideCallback: () => void;
+    SetWidth: (width: number) => void;
+    Show: () => void;
+    ViewDuplicates: () => boolean;
+    getDateString: () => string;
+    getStringFromDate: () => string;
+    ids: HPIds;
+    loadSiteViewer: (id: string, idinner: string, idviewer: string, path: string, idglass: string) => void;
+    loadViewer: (id: string, idinner: string, idviewer: string, idpreview: string, embedUrl: string, previewUrl: string) => void;
+    postActionEventName: string;
+}
+
 interface Sod {
     url: string;
     key: string;
@@ -33,6 +128,7 @@ interface Sod {
     qfn?: any[];
     reset?: boolean;
 }
+
 declare var _v_dictSod: { [address: string]: Sod };
 declare namespace SP {
     interface SOD {
@@ -53,6 +149,7 @@ declare namespace SP {
         get_ribbonImagePrefetchEnabled(): boolean;
         set_ribbonImagePrefetchEnabled(value: boolean): void;
     }
+
     let SOD: SOD;
 
     enum ListLevelPermissionMask {
@@ -106,34 +203,29 @@ declare namespace SP {
         static resizeImageToSquareLength(imgElement: HTMLImageElement, squareLength: number): void;
     }
 
-    interface PageContextInfo {
-        new(): PageContextInfoInstance;
-        get_siteServerRelativeUrl(): string;
-        get_webServerRelativeUrl(): string;
-        get_webAbsoluteUrl(): string;
-        get_serverRequestPath(): string;
-        get_siteAbsoluteUrl(): string;
-        get_webTitle(): string;
-        get_tenantAppVersion(): string;
-        get_isAppWeb(): boolean;
-        get_webLogoUrl(): string;
-        get_webLanguage(): number;
-        get_currentLanguage(): number;
-        get_pageItemId(): number;
-        get_pageListId(): string;
-        get_webPermMasks(): { High: number; Low: number; };
-        get_currentCultureName(): string;
-        get_currentUICultureName(): string;
-        get_clientServerTimeDelta(): number;
-        get_userLoginName(): string;
-        get_webTemplate(): string;
+    class PageContextInfo {
+        constructor();
+        static get_siteServerRelativeUrl(): string;
+        static get_webServerRelativeUrl(): string;
+        static get_webAbsoluteUrl(): string;
+        static get_serverRequestPath(): string;
+        static get_siteAbsoluteUrl(): string;
+        static get_webTitle(): string;
+        static get_tenantAppVersion(): string;
+        static get_isAppWeb(): boolean;
+        static get_webLogoUrl(): string;
+        static get_webLanguage(): number;
+        static get_currentLanguage(): number;
+        static get_pageItemId(): number;
+        static get_pageListId(): string;
+        static get_webPermMasks(): { High: number; Low: number; };
+        static get_currentCultureName(): string;
+        static get_currentUICultureName(): string;
+        static get_clientServerTimeDelta(): number;
+        static get_userLoginName(): string;
+        static get_webTemplate(): string;
+        static get_pagePersonalizationScope(): string;
     }
-
-    interface PageContextInfoInstance {
-        get_pagePersonalizationScope(): string;
-    }
-    let PageContextInfo: PageContextInfo;
-
     class ContextPermissions {
         has(perm: number): boolean;
         hasPermissions(high: number, low: number): boolean;
@@ -249,6 +341,7 @@ interface _spPageContextInfo {
     userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
     userId: number; // 12
     userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    userPrincipalName: string;
     viewOnlyExperienceEnabled: boolean; // true
     viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
@@ -1401,10 +1494,10 @@ declare namespace SPClientTemplates {
         /** Template overrides */
         Templates?: TemplateOverrides;
 
-        /** �allbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPreRender?: RenderCallback | RenderCallback[];
 
-        /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: RenderCallback | RenderCallback[];
 
         /** View style (SPView.StyleID) for which the templates should be applied.
@@ -1776,7 +1869,7 @@ declare namespace SP {
         manageAlerts,
         /** Create e-mail alerts. */
         createAlerts,
-        /** Allows a user to change his or her user information, such as adding a picture. */
+        /** Allows a user to change their user information, such as adding a picture. */
         editMyUserInfo,
         /** Enumerate permissions on the Web site, list, folder, document, or list item. */
         enumeratePermissions,
@@ -2139,7 +2232,8 @@ declare namespace SP {
         constructor();
     }
     /** Provides a base class for a collection of objects on a remote client. */
-    interface ClientObjectCollection<T> extends SP.ClientObject, IEnumerable<T> {
+    class ClientObjectCollection<T> extends SP.ClientObject implements IEnumerable<T> {
+        constructor();
         get_areItemsAvailable(): boolean;
         /** Gets the data for all of the items in the collection. */
         retrieveItems(): SP.ClientObjectPrototype;
@@ -2152,20 +2246,11 @@ declare namespace SP {
         getItemAtIndex(index: number): T;
         fromJson(obj: any): void;
     }
-    interface ClientObjectCollectionConstructor {
-        new<T>(): ClientObjectCollection<T>;
-    }
-    let ClientObjectCollection: ClientObjectCollectionConstructor;
-
-    interface ClientObjectList<T> extends SP.ClientObjectCollection<T> {
-        new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
+    class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
+        constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
     }
-    interface ClientObjectListConstructor {
-        new<T>(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
-    }
-    let ClientObjectList: ClientObjectListConstructor;
     class ClientObjectPrototype {
         retrieve(propertyNames?: string[]): void;
         retrieveObject(propertyName: string): SP.ClientObjectPrototype;
@@ -2209,8 +2294,8 @@ declare namespace SP {
     }
     class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
     }
-    interface ClientRuntimeContext extends Sys.IDisposable {
-        new(serverRelativeUrlOrFullUrl: string);
+    class ClientRuntimeContext implements Sys.IDisposable {
+        constructor(serverRelativeUrlOrFullUrl: string);
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
@@ -2218,6 +2303,8 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
+        get_disableReturnValueCache(): boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
@@ -2447,16 +2534,13 @@ declare namespace SP {
         assemblyVersion: string;
         wssMajorVersion: string;
     }
-    interface ClientContext extends SP.ClientRuntimeContext {
+    class ClientContext extends SP.ClientRuntimeContext {
+        constructor(serverRelativeUrlOrFullUrl?: string);
         get_web(): SP.Web;
         get_site(): SP.Site;
         get_serverVersion(): string;
+        static get_current(): SP.ClientContext;
     }
-    interface ClientContextConstructor {
-        new(serverRelativeUrlOrFullUrl?: string): ClientContext;
-        get_current(): SP.ClientContext;
-    }
-    let ClientContext: ClientContextConstructor;
     enum ULSTraceLevel {
         verbose,
     }
@@ -3655,7 +3739,7 @@ declare namespace SP {
         get_baseTemplate(): number;
         /** Gets base type for the list. */
         get_baseType(): SP.BaseType;
-        /** Gets a value that specifies the override of the web application�s BrowserFileHandling property at the list level. */
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. */
         get_browserFileHandling(): SP.BrowserFileHandling;
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
@@ -4402,18 +4486,15 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    interface RoleDefinitionBindingCollectionConstructor {
-        new(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-        newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-    }
-    interface RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+    class RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+        constructor(context: SP.ClientRuntimeContext);
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
         add(roleDefinition: SP.RoleDefinition): void;
         remove(roleDefinition: SP.RoleDefinition): void;
         removeAll(): void;
+        static newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
     }
-    let RoleDefinitionBindingCollection: RoleDefinitionBindingCollectionConstructor;
     interface RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
@@ -5308,17 +5389,14 @@ declare namespace Microsoft.SharePoint.Client.Search {
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
-        interface StringCollection extends SP.ClientObjectCollection<string> {
-            itemAt: (index: number) => string;
-            get_item: (index: number) => string;
-            get_childItemType: () => typeof String;
-            add: (property: string) => void;
-            clear: () => void;
+        class StringCollection extends SP.ClientObjectCollection<string> {
+            constructor(context: SP.ClientContext);
+            itemAt(index: number): string;
+            get_item(index: number): string;
+            get_childItemType(): typeof String;
+            add(property: string): void;
+            clear(): void;
         }
-        interface StringCollectionConstructor {
-            new(context: SP.ClientContext): StringCollection;
-        }
-        let StringCollection: StringCollectionConstructor;
 
         class QueryPersonalizationData extends SP.ClientObject {
             // It's really empty;
@@ -5393,11 +5471,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
             static queryPropertyValueToObject: (val: QueryPropertyValue) => any;
         }
         interface ReorderingRuleCollection extends SP.ClientObjectCollection<ReorderingRule> {
-            itemAt: (index: number) => ReorderingRule;
-            get_item: (index: number) => ReorderingRule;
-            get_childItemType: () => typeof ReorderingRule;
-            add: (property: ReorderingRule) => void;
-            clear: () => void;
+            itemAt(index: number): ReorderingRule;
+            get_item(index: number): ReorderingRule;
+            get_childItemType(): typeof ReorderingRule;
+            add(property: ReorderingRule): void;
+            clear(): void;
         }
 
         enum ReorderingRuleMatchType {
@@ -5424,11 +5502,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         interface SortCollection extends SP.ClientObjectCollection<Sort> {
-            itemAt: (index: number) => Sort;
-            get_item: (index: number) => Sort;
-            get_childItemType: () => typeof Sort;
-            add: (strProperty: string, sortDirection: SortDirection) => void;
-            clear: () => void;
+            itemAt(index: number): Sort;
+            get_item(index: number): Sort;
+            get_childItemType(): typeof Sort;
+            add(strProperty: string, sortDirection: SortDirection): void;
+            clear(): void;
         }
 
         enum SortDirection {
@@ -6167,10 +6245,10 @@ declare namespace SP {
             get_name(): string;
             /** Provides the attachment name. */
             set_name(value: string): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             get_previewUri(): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             set_previewUri(value: string): string;
             /** Provides the attachment URI. */
@@ -6928,15 +7006,12 @@ declare namespace SP {
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
 
-        interface TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+        class TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+            constructor(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field);
             itemAt(index: number): TaxonomyFieldValue;
             get_item(index: number): TaxonomyFieldValue;
             populateFromLabelGuidPairs(text: string): void;
         }
-        interface TaxonomyFieldValueCollectionConstructor {
-            new(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field): TaxonomyFieldValueCollection;
-        }
-        let TaxonomyFieldValueCollection: TaxonomyFieldValueCollectionConstructor;
 
         class TaxonomyFieldValue extends SP.ClientValueObject {
             get_label(): string;
@@ -7581,7 +7656,7 @@ declare namespace SP {
 
         /** Provides methods for operations related to people.
             Note: The SocialFollowingManager object is the recommended object for performing Following People and Following Content tasks.
-            However, PeopleManager provides some methods that SocialFollowingManager doesn�t. */
+            However, PeopleManager provides some methods that SocialFollowingManager doesn't. */
         class PeopleManager extends SP.ClientObject {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
@@ -8181,6 +8256,7 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;
@@ -8353,7 +8429,7 @@ declare namespace SP.WorkflowServices {
         get_xaml(): string;
         /** XAML definition of the workflow */
         set_xaml(value: string): string;
-        /** This method adds a key-value pair (propertyName, value) to the workflow definition object�s property bag.  */
+        /** This method adds a key-value pair (propertyName, value) to the workflow definition object's property bag.  */
         setProperty(propertyName: string, value: string): void;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
@@ -11195,6 +11271,31 @@ declare namespace Srch {
         local
     }
 
+    interface RefinementInfo {
+        Culture: string;
+        DisplayName: string;
+        Entropy: number;
+        HitCount: number;
+        Max: number;
+        Mean: number;
+        Min: number;
+        Modifier: string;
+        NonZeroCount: number;
+        PartitionId: SP.Guid;
+        Ratio: number;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+        RefinementValue: string;
+        RefinerName: string;
+        RenderTemplateId: string;
+        Score: number;
+        Sum: number;
+        Type: string;
+        UniqueCount: number;
+        UrlZone: number;
+    }
+
     class ClientControl extends Sys.UI.Control {
         constructor(elem: Element);
 
@@ -11309,7 +11410,7 @@ declare namespace Srch {
         set_totalRows(value: number): number;
         get_rowCount(): number;
         set_rowCount(value: number): number;
-        get_refinementInfo(): any;
+        get_refinementInfo(): { [key: string]: RefinementInfo[] };
         get_entityInfo(): any;
         get_enableStemming(): boolean;
         set_enableStemming(value: boolean): boolean;
@@ -11414,7 +11515,7 @@ declare namespace Srch {
         static submitMultiRefinement(name: string, control: Refinement, useContains: boolean, useKQL: boolean): void;
         static ensureUserSpecifiedRefinerValueHasWhiteSpaceQuotes(inputText: string): string;
         static getRefinementLocalizedTitle(propertyName: string): string;
-        static getRefinementTitle(currentRefinemntControl: Refinement): string;
+        static getRefinementTitle(currentRefinemntControl: RefinementControl): string;
         /** Gets expanded state of the specified filter from cookie */
         static getExpanded(filterName: string): string;
         /** Save expanded state of the specified filter to cookie */
@@ -11469,6 +11570,24 @@ declare namespace Srch {
         alternateRenderContext: any;
         countDisplay: string;
         deepHits: number;
+    }
+
+    interface CSRFilter {
+        IsSelected: boolean;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+    }
+
+    interface CSRRefinementControl extends RefinementControl {
+        csr_displayTitle: string;
+        csr_filters: CSRFilter[];
+        csr_isExpanded: string;
+        csr_propertyName: string;
+        csr_renderEmptyContainer: boolean;
+        csr_showCounts: boolean;
+        csr_useContains: boolean;
+        csr_useKQL: boolean;
     }
 
     class Result extends DisplayControl {
@@ -11541,6 +11660,46 @@ declare namespace Srch {
         viewDuplicates(docId: number): void;
         /** Returns true if the specified table has results and is enabled to be shown by this control */
         shouldShowTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
+
+        setAriaCollapsed: (element: HTMLElement) => void;
+        get_showQuerySuggestions: () => boolean;
+        get_showNavigation: () => boolean;
+        get_initialPrompt: () => string;
+        get_currentTerm: () => string;
+        handleClickOnCategoryLink: (id: string) => void;
+        get_advancedSearchPageAddress: () => string;
+        get_emptyRefinementMessageId: () => string;
+        get_selectedRefinementControls: () => CSRRefinementControl[];
+        activate: (prompt: string,
+            searchBoxId: string, searchBoxDivId: string,
+            navButtonId: string, suggestionsListId: string,
+            navListId: string, searchBoxLinkId: string,
+            searchBoxProgressClass: string, searchBoxPromptClass: string) => void;
+    }
+
+    interface RefinementCategory {
+        /** Use KQL */
+        k: boolean;
+        /**  token to display value map */
+        m: { [key: string]: string } | null;
+        /** Refiner Name (Mapped property) */
+        n: string;
+        o: string | "and" | "or" | "AND" | "OR";
+        /** Values, prefixed by ǂǂ for taxonomy terms */
+        t: string[];
+    }
+
+    interface RefinerStructure {
+        r: RefinementCategory[];
+        l: number;
+        /** Keyword */
+        k: string;
+    }
+
+    interface QueryState {
+        e: number;
+        k: string;
+        r: RefinementCategory[];
     }
 
     /** Represents the search box control */
@@ -11707,6 +11866,12 @@ declare namespace Srch {
         activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string): void;
         activateDefaultNavigationBehavior(): void;
         activateDefaultQuerySuggestionBehavior(): void;
+    }
+
+    class RefinementUtil {
+        static stringValueToEqualsToken(x: string): string;
+        static peoplePickerApplyIdPrefix(control: Srch.ClientControl | Srch.RefinementControl): string;
+        static peoplePickerPrep(id: string, refiner: Srch.RefinementControl, clientControl: Srch.Refinement): string;
     }
 
     type RenderFunction = (ctx: any) => string;
@@ -11917,7 +12082,7 @@ declare namespace Srch {
         static registerLoadedScripts(scripts: string[]): void;
 
         /** Returns HTML for collapsible refiner title */
-        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string): string;
+        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string | null, isExpanded: string): string;
         /** Returns true if current page is osssearchresults.aspx */
         static isDefaultSiteSearchPage(): boolean;
         /** Replaces tokens {searchcenterurl}, {contexturl}, {resultsurl}, {defaultpageslistname}, {Locale} and others, and converts URL to server-relative */
@@ -11951,6 +12116,8 @@ declare namespace Srch {
         static getCalendarType(): any;
 
         static htmlEncodeNonBase64ImageUrl(url: string): string;
+
+        static createFileIconAltText(container: boolean, b: any): string;
 
         static hitHighlightingOpenTag: string;
         static hitHighlightingCloseTag: string;
@@ -12022,6 +12189,13 @@ declare namespace Srch {
         }
     }
 
+    interface QueryGroup {
+        dataProvider: DataProvider;
+        displays: DisplayControl[];
+        name: string;
+        searchBoxes: Refinement[];
+    }
+
     class ScriptApplicationManager {
         static get_current(): ScriptApplicationManager;
         static get_clientRuntimeContext(): SP.ClientRuntimeContext;
@@ -12074,6 +12248,15 @@ declare namespace Srch {
 
         /** Gets the current search session ID from the cookies (if session ID does not exist in the cookies yet - it will be added) */
         get_searchSessionID(): void;
+
+        getNavigationNodes(): HTMLCollection;
+
+        queryGroups: { [key: string]: QueryGroup };
+
+        states: {
+            openDocumentsInClient: boolean;
+            contextTitle: string
+        };
     }
 
     class Res {
@@ -12092,6 +12275,7 @@ declare namespace Srch {
         static qs_PersonalResultTitleSingular: string;
         static qs_PersonalResultTitlePlural: string;
         static qs_NameSuggestionsTitle: string;
+        static qs_SuggestionListAriaLabel: string;
         static dp_ScriptLoadFailed: string;
         static rf_EmptyRefinement: string;
         static rf_RefinementTitle: string;

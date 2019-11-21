@@ -15,13 +15,13 @@ const api = {
 };
 
 var app = express();
-app.use(swaggerize(<swaggerize.Options>{
+app.use(swaggerize({
     api,
     docspath: '/api-docs',
     handlers: './handlers'
-}));
+} as swaggerize.Options));
 
-app.use(swaggerize(<swaggerize.Options>{
+app.use(swaggerize({
     api,
     docspath: '/api-docs',
     handlers: {
@@ -33,9 +33,9 @@ app.use(swaggerize(<swaggerize.Options>{
             }
         }
     }
-}));
+} as swaggerize.Options));
 
-app.use(swaggerize(<swaggerize.Options>{
+app.use(swaggerize({
     api,
     docspath: '/api-docs',
     handlers: {
@@ -48,9 +48,9 @@ app.use(swaggerize(<swaggerize.Options>{
             }
         }
     }
-}));
+} as swaggerize.Options));
 
 var server = app.listen(18888, 'localhost', function () {
     const addr = server.address() as AddressInfo;
-    (<swaggerize.SwaggerizedExpress>app).swagger.api.host = addr.address + ':' + addr.port;
+    (app as swaggerize.SwaggerizedExpress).swagger.api.host = addr.address + ':' + addr.port;
 });

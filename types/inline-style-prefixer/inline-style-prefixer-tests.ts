@@ -1,8 +1,6 @@
-import Prefixer = require('inline-style-prefixer');
+import { prefix } from 'inline-style-prefixer';
 
-const prefixer = new Prefixer();
-
-const prefixed = prefixer.prefix({
+const prefixed = prefix({
     fontSize: '16',
     flexDirection: 'column'
 });

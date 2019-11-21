@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,33 +21,23 @@
  */
 
 import { MDCComponent } from 'material__base';
-import { MDCSimpleMenu } from 'material__menu';
-
-import { MDCSelectAdapter } from './adapter';
 import MDCSelectFoundation from './foundation';
+import MDCSelectAdapter from './adapter';
+import { MDCFloatingLabel } from 'material__floating-label';
+import { MDCLineRipple } from 'material__line-ripple';
 
-export {MDCSelectAdapter, MDCSelectFoundation};
+export { MDCSelectAdapter, MDCSelectFoundation };
 
 export class MDCSelect extends MDCComponent<MDCSelectAdapter, MDCSelectFoundation> {
     static attachTo(root: Element): MDCSelect;
 
-    readonly value: string;
-
-    readonly options: Element[];
-
-    readonly selectedOptions: NodeListOf<Element>;
+    value: string;
 
     selectedIndex: number;
 
     disabled: boolean;
 
-    item(index: number): Element|null;
-
-    nameditem(key: string): Element|null;
-
-    initialize(menuFactory?: (el: Element) => MDCSimpleMenu): void;
-
-    getDefaultFoundation(): MDCSelectFoundation;
+    initialize(labelFactory?: (el: Element) => MDCFloatingLabel, lineRippleFactory?: (el: Element) => MDCLineRipple): void;
 
     initialSyncWithDOM(): void;
 }

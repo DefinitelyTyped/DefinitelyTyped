@@ -2,7 +2,7 @@
 // Project: https://github.com/ollija/react-native-sortable-grid#readme
 // Definitions by: Jacob Froman <https://github.com/j-fro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { StyleProp, ViewStyle, Animated } from 'react-native';

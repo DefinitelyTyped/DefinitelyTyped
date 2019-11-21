@@ -1,21 +1,22 @@
 import { Component, ReactType, HTMLProps, ReactElement } from "react";
 import { TransitionActions, TransitionProps } from "./Transition";
 
-declare namespace TransitionGroup {
-    interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
-        component?: T;
-    }
-
-    interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
-        component: T;
-    }
-
-    type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", V extends ReactType = any> =
-        (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
-        children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
-        childFactory?(child: ReactElement<any>): ReactElement<any>;
-    };
+export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div'>
+    extends TransitionActions {
+    component?: T | null;
 }
+
+export interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
+    component: T;
+}
+
+export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div', V extends ReactType = any> =
+    | (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T])
+    | (ComponentTransitionGroupProps<V>) & {
+          children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
+          childFactory?(child: ReactElement): ReactElement;
+          [prop: string]: any;
+      };
 
 /**
  * The `<TransitionGroup>` component manages a set of `<Transition>` components
@@ -74,6 +75,6 @@ declare namespace TransitionGroup {
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps> {}
+declare class TransitionGroup extends Component<TransitionGroupProps> {}
 
-export = TransitionGroup;
+export default TransitionGroup;

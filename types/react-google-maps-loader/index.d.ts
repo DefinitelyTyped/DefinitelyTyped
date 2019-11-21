@@ -2,7 +2,7 @@
 // Project: https://github.com/xuopled/react-google-maps-loader
 // Definitions by: Vasily Nesterov <https://github.com/vasilysn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="googlemaps" />
 import { Component, ReactNode } from "react";

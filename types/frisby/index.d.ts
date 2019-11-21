@@ -1,11 +1,11 @@
 // Type definitions for Frisby 2.0
-// Project: https://github.com/vlucas/frisby
+// Project: https://github.com/vlucas/frisby, http://frisbyjs.com
 // Definitions by: Christopher E. Woodland <https://github.com/cwoodland>
 //                 Johnny Li <https://github.com/johnny4753>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.0
 
-/// <reference types='jasmine'/>
+/// <reference types='jest'/>
 
 // #region Imports
 export import nodeFetch = require('node-fetch'); // Import all definitions from node-fetch.
@@ -35,7 +35,7 @@ export class FrisbySpec {
     del(url: string, params?: {}): FrisbySpec;
     done(doneFn: (...args: any[]) => void): FrisbySpec;
     expect(expectName: string, ...args: any[]): FrisbySpec;
-    expectNot(expectName: string): FrisbySpec;
+    expectNot(expectName: string, ...args: any[]): FrisbySpec;
     fetch(url: string, params?: {}, options?: {}): FrisbySpec;
     fromJSON(json: {}): FrisbySpec;
     get(url: string, params?: {}): FrisbySpec;

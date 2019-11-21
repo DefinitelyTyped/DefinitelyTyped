@@ -1,7 +1,9 @@
 // Type definitions for SharedWorker
 // Project: http://www.w3.org/TR/workers/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
+//                 M. Boughaba <https://github.com/mboughaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 declare namespace SharedWorker {
     interface AbstractWorker extends EventTarget {
@@ -16,14 +18,26 @@ declare namespace SharedWorker {
          */
         port: MessagePort;
     }
+
+    export interface SharedWorkerGlobalScope extends Worker {
+        onconnect: (event: MessageEvent) => void;
+    }
+}
+
+interface SharedWorkerOptions {
+    credentials?: RequestCredentials;
+    name?: string;
+    type?: WorkerType;
 }
 
 declare var SharedWorker: {
     prototype: SharedWorker.SharedWorker;
-    /***
+
+    /**
      *
-     * @param {string} stringUrl    Pathname to JavaScript file
-     * @param {string} name         Name of the worker to execute
+     * @param {string} stringUrl                          Pathname to JavaScript file
+     * @param {string|SharedWorkerOptions} [options]      Name of the worker to execute
+     *                                                    or an object containing option properties
      */
-    new (stringUrl: string, name?: string): SharedWorker.SharedWorker;
+    new(stringUrl: string, options?: string | SharedWorkerOptions): SharedWorker.SharedWorker;
 };

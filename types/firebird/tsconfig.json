@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "scripthost"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

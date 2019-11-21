@@ -1,8 +1,8 @@
-// Type definitions for ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.5
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -514,6 +514,7 @@ declare namespace ArangoDB {
 
     interface Index<T extends object = any> {
         id: string;
+        name: string;
         type: IndexType;
         fields: Array<keyof T | string>;
         sparse: boolean;
@@ -619,11 +620,13 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
         ): CollectionChecksum;
         count(): number;
+        documentId(documentKey: string): string;
         drop(options?: { isSystem?: boolean }): void;
         figures(): CollectionFigures;
         load(): void;
@@ -654,6 +657,7 @@ declare namespace ArangoDB {
         ): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
+        getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
             array: ReadonlyArray<DocumentData<T>>,
@@ -837,11 +841,60 @@ declare namespace ArangoDB {
 
     // Views
 
-    interface View {
-        // TODO
-        [key: string]: any;
+    interface ArangoSearchView {
+        _dbName: string;
+        _id: string;
+        name(): string;
+        type(): ViewType;
+        rename(newName: string): void;
+        properties(
+            newProperties?: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchViewProperties;
     }
-    type ViewProperties = object; // TODO
+
+    type ArangoSearchViewConsolidationType =
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
+
+    interface ArangoSearchViewCollectionLink {
+        analyzers?: string[];
+        fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined };
+        includeAllFields?: boolean;
+        trackListPositions?: boolean;
+        storeValues?: "none" | "id";
+    }
+
+    interface ArangoSearchViewProperties {
+        id: string;
+        name: string;
+        type: "arangosearch";
+
+        cleanupIntervalStep: number;
+        consolidationIntervalMsec: number;
+        consolidationPolicy: {
+            type: ArangoSearchViewConsolidationType;
+            segmentThreshold: number;
+            threshold: number;
+        };
+        links: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
+
+    interface ArangoSearchViewPropertiesOptions {
+        cleanupIntervalStep?: number;
+        consolidationIntervalMsec?: number;
+        consolidationPolicy?: {
+            type?: ArangoSearchViewConsolidationType;
+            segmentThreshold?: number;
+            threshold?: number;
+        };
+        links?: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
 
     // Global
 
@@ -901,8 +954,9 @@ declare namespace ArangoDB {
 
         // AQL
         _createStatement(query: Query | string): Statement;
+        _query(query: Query, options?: QueryOptions): Cursor;
         _query(
-            query: Query | string,
+            query: string,
             bindVars?: object,
             options?: QueryOptions
         ): Cursor;
@@ -923,13 +977,13 @@ declare namespace ArangoDB {
         ): DocumentMetadata;
 
         // Views
-        _view(name: string): View | null;
-        _views(): View[];
+        _view(name: string): ArangoSearchView | null;
+        _views(): ArangoSearchView[];
         _createView(
             name: string,
             type: ViewType,
-            properties: ViewProperties
-        ): View;
+            properties: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchView;
         _dropView(name: string): void;
 
         // Global
@@ -975,7 +1029,7 @@ declare namespace Foxx {
         register: (endpoint: Endpoint) => SimpleMiddleware;
     }
     type Middleware = SimpleMiddleware | DelegateMiddleware;
-    type Handler = ((req: Request, res: Response) => void);
+    type Handler = (req: Request, res: Response) => void;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1113,6 +1167,10 @@ declare namespace Foxx {
     interface Request {
         arangoUser: string | null;
         arangoVersion: number;
+        auth: null | {
+            bearer?: string;
+            basic?: { username?: string; password?: string };
+        };
         baseUrl: string;
         body: any;
         context: Context;
@@ -1391,8 +1449,87 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        schema?: Foxx.Schema;
+        preprocess?: (data: any) => any;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    type JobCallback = (
+        result: any,
+        jobData: any,
+        job: ArangoDB.Document<Job>
+    ) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success?: string;
+        failure?: string;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success?: JobCallback;
+        failure?: JobCallback;
+        delayUntil?: number | Date;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        repeatTimes?: number;
+        repeatUntil?: number | Date;
+        repeatDelay?: number;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script
+    };
+}
+
 declare module "@arangodb/foxx/graphql" {
-    import { GraphQLSchema, formatError } from "graphql";
+    import { formatError, GraphQLSchema } from "graphql";
     type GraphQLModule = object;
     type GraphQLFormatErrorFunction = typeof formatError;
     interface GraphQLOptions {
@@ -1649,7 +1786,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;

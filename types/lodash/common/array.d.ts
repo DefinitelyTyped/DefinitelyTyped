@@ -929,28 +929,28 @@ declare module "../index" {
     // flattenDepth
 
     interface LoDashStatic {
-       /**
-       * Recursively flatten array up to depth times.
-       *
-       * @param array The array to recursively flatten.
-       * @param number The maximum recursion depth.
-       * @return Returns the new flattened array.
-       */
-       flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
+        /**
+         * Recursively flatten array up to depth times.
+         *
+         * @param array The array to recursively flatten.
+         * @param number The maximum recursion depth.
+         * @return Returns the new flattened array.
+         */
+        flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
-       /**
-        * @see _.flattenDeep
-        */
-       flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
-       /**
-        * @see _.flattenDeep
-        */
-       flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
     }
 
     // fromPairs
@@ -1205,6 +1205,11 @@ declare module "../index" {
             array?: List<T> | null,
             ...values: Array<List<T>>
         ): T[];
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T>(...values: Array<List<T> | ValueIteratee<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1240,10 +1245,10 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>
+        ): LoDashImplicitWrapper<T1[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1279,10 +1284,10 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>
+        ): LoDashExplicitWrapper<T1[]>;
     }
 
     // intersectionWith

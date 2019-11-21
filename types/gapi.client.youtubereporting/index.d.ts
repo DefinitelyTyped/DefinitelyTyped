@@ -1,4 +1,4 @@
-// Type definitions for Google YouTube Reporting API v1 1.0
+// Type definitions for non-npm package Google YouTube Reporting API v1 1.0
 // Project: https://developers.google.com/youtube/reporting/v1/reports/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load YouTube Reporting API v1 */
-    function load(name: "youtubereporting", version: "v1"): PromiseLike<void>;
-    function load(name: "youtubereporting", version: "v1", callback: () => any): void;
+    function load(name: 'youtubereporting', version: 'v1'): PromiseLike<void>;
+    function load(name: 'youtubereporting', version: 'v1', callback: () => any): void;
 
     const jobs: youtubereporting.JobsResource;
 
@@ -126,7 +126,7 @@ declare namespace gapi.client {
             /** Gets the metadata of a specific report. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -145,7 +145,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /** Pretty-print response. */
@@ -167,7 +167,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -188,7 +188,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /**
@@ -229,7 +229,7 @@ declare namespace gapi.client {
             /** Creates a job and returns it. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -246,7 +246,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /** Pretty-print response. */
@@ -263,7 +263,7 @@ declare namespace gapi.client {
             /** Deletes a job. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -282,7 +282,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /** Pretty-print response. */
@@ -299,7 +299,7 @@ declare namespace gapi.client {
             /** Gets a job. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -318,7 +318,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /** Pretty-print response. */
@@ -335,7 +335,7 @@ declare namespace gapi.client {
             /** Lists jobs. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -358,7 +358,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /**
@@ -393,7 +393,7 @@ declare namespace gapi.client {
              */
             download(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -429,7 +429,7 @@ declare namespace gapi.client {
             /** Lists report types. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -452,7 +452,7 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /**
                  * The content owner's external ID on which behalf the user is acting on. If
-                 * not set, the user is acting for himself (his own channel).
+                 * not set, the user is acting for themselves (their own channel).
                  */
                 onBehalfOfContentOwner?: string;
                 /**

@@ -1,31 +1,32 @@
-// Type definitions for PapaParse v4.1
+// Type definitions for PapaParse v5.0
 // Project: https://github.com/mholt/PapaParse
 // Definitions by: Pedro Flemming <https://github.com/torpedro>
 //                 Rain Shen <https://github.com/rainshen49>
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
+//                 Alberto Restifo <https://github.com/albertorestifo>
+//                 Behind The Math <https://github.com/BehindTheMath>
+//                 3af <https://github.com/3af>
+//                 Janne Liuhtonen <https://github.com/jliuhtonen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+/// <reference types="node" />
 
 export as namespace Papa;
 
 /**
  * Parse a csv string, a csv file or a readable stream
  */
-export function parse(csvString: string, config?: ParseConfig): ParseResult;
-
-export function parse(file: File, config?: ParseConfig): ParseResult;
-
-export function parse(stream: ReadableStream, config?: ParseConfig): ParseResult;
+export const parse: {
+    (input: string | File | NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
+    (stream: NODE_STREAM_INPUT_TYPE, config?: ParseConfig): NodeJS.ReadWriteStream;
+};
 
 /**
  * Unparses javascript data objects and returns a csv string
  */
-export function unparse(data: Array<Object>, config?: UnparseConfig): string;
-
-export function unparse(data: Array<Array<any>>, config?: UnparseConfig): string;
-
-export function unparse(data: UnparseObject, config?: UnparseConfig): string;
+export const unparse: (data: Array<Object> | Array<Array<any>> | UnparseObject, config?: UnparseConfig) => string;
 
 /**
  * Read-Only Properties
@@ -43,7 +44,12 @@ export const UNIT_SEP: string;
 export const WORKERS_SUPPORTED: boolean;
 
 // The relative path to Papa Parse. This is automatically detected when Papa Parse is loaded synchronously.
-export const SCRIPT_PATH: string;
+// Assign it a value to override auto-detected path.
+export let SCRIPT_PATH: string;
+
+// When passed to Papa Parse a Readable stream is returned.
+declare type NODE_STREAM_INPUT_TYPE = 1;
+export const NODE_STREAM_INPUT = 1;
 
 /**
  * Configurable Properties
@@ -64,7 +70,6 @@ export let DefaultDelimiter: string;
  * I have included the API for this class.
  */
 export class Parser {
-
     constructor(config: ParseConfig);
 
     parse(input: string, baseIndex: number, ignoreLastRow: boolean): any;
@@ -80,32 +85,43 @@ export class Parser {
 }
 
 export interface ParseConfig {
-    delimiter?: string;            // default: ","
-    newline?: string;              // default: "\r\n"
-    quoteChar?: string;            // default: '"'
-    header?: boolean;              // default: false
-    dynamicTyping?: boolean;       // default: false
-    preview?: number;              // default: 0
-    encoding?: string;             // default: ""
-    worker?: boolean;              // default: false
-    comments?: boolean | string;   // default: false
-    download?: boolean;            // default: false
-    skipEmptyLines?: boolean;      // default: false
-    fastMode?: boolean;            // default: undefined
-    withCredentials?: boolean;     // default: undefined
+    delimiter?: string; // default: ","
+    newline?: string; // default: "\r\n"
+    quoteChar?: string; // default: '"'
+    header?: boolean; // default: false
+    trimHeaders?: boolean; // default: false
+    dynamicTyping?:
+        | boolean
+        | { [headerName: string]: boolean; [columnNumber: number]: boolean }
+        | ((field: string | number) => boolean); // default: false
+    preview?: number; // default: 0
+    encoding?: string; // default: ""
+    worker?: boolean; // default: false
+    comments?: boolean | string; // default: false
+    download?: boolean; // default: false
+    skipEmptyLines?: boolean | 'greedy'; // default: false
+    fastMode?: boolean; // default: undefined
+    withCredentials?: boolean; // default: undefined
 
     // Callbacks
-    step?(results: ParseResult, parser: Parser): void;  // default: undefined
+    step?(results: ParseResult, parser: Parser): void; // default: undefined
     complete?(results: ParseResult, file?: File): void; // default: undefined
-    error?(error: ParseError, file?: File): void;       // default: undefined
+    error?(error: ParseError, file?: File): void; // default: undefined
     chunk?(results: ParseResult, parser: Parser): void; // default: undefined
-    beforeFirstChunk?(chunk: string): string | void;    // default: undefined
+    beforeFirstChunk?(chunk: string): string | void; // default: undefined
+    transform?(value: string, field: string | number): any; // default: undefined
+    transformHeader?(header: string): string; // default: undefined
 }
 
 export interface UnparseConfig {
-    quotes?: boolean;    // default: false
-    delimiter?: string;  // default: ","
-    newline?: string;    // default: "\r\n"
+    quotes?: boolean | boolean[]; // default: false
+    quoteChar?: string; // default: '"'
+    escapeChar?: string; // default: '"'
+    delimiter?: string; // default: ","
+    header?: boolean; // default: true
+    newline?: string; // default: "\r\n"
+    skipEmptyLines?: boolean | 'greedy'; // default: false
+    columns?: string[]; // default: null
 }
 
 export interface UnparseObject {
@@ -114,18 +130,19 @@ export interface UnparseObject {
 }
 
 export interface ParseError {
-    type: string;     // A generalization of the error
-    code: string;     // Standardized error code
-    message: string;  // Human-readable details
-    row: number;      // Row index of parsed data where error is
+    type: string; // A generalization of the error
+    code: string; // Standardized error code
+    message: string; // Human-readable details
+    row: number; // Row index of parsed data where error is
 }
 
 export interface ParseMeta {
-    delimiter: string;     // Delimiter used
-    linebreak: string;     // Line break sequence used
-    aborted: boolean;      // Whether process was aborted
+    delimiter: string; // Delimiter used
+    linebreak: string; // Line break sequence used
+    aborted: boolean; // Whether process was aborted
     fields: Array<string>; // Array of field names
-    truncated: boolean;    // Whether preview consumed all input
+    truncated: boolean; // Whether preview consumed all input
+    cursor: number;
 }
 
 /**

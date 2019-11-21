@@ -3,7 +3,7 @@
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
@@ -281,7 +281,7 @@ export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
     thumbAniDuration?: number;
     rippleColor?: string;
     rippleAniDuration?: number;
-    onCheckedChange?(checked: boolean): void;
+    onCheckedChange?(opts: { checked: boolean }): void;
 }
 
 export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {

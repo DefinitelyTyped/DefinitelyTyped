@@ -1,6 +1,6 @@
-// Type definitions for source-map-support 0.4
-// Project: https://github.com/evanw/source-map-support
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Jason Cheatham <https://github.com/jason0x43>
+// Type definitions for source-map-support 0.5
+// Project: https://github.com/evanw/node-source-map-support
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Jason Cheatham <https://github.com/jason0x43>, Alcedo Nathaniel De Guzman Jr <https://github.com/natealcedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -24,7 +24,7 @@ export interface Options {
     overrideRetrieveFile?: boolean;
     overrideRetrieveSourceMap?: boolean;
     retrieveFile?(path: string): string;
-    retrieveSourceMap?(source: string): UrlAndMap;
+    retrieveSourceMap?(source: string): UrlAndMap | null;
 }
 
 export interface Position {
@@ -37,6 +37,7 @@ export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
 export function getErrorSource(error: Error): string | null;
 export function mapSourcePosition(position: Position): Position;
 export function retrieveSourceMap(source: string): UrlAndMap | null;
+export function resetRetrieveHandlers(): void;
 
 /**
  * Install SourceMap support.

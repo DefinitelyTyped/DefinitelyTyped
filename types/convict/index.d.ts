@@ -37,6 +37,24 @@ declare namespace convict {
         parse: (content: string) => any;
     }
 
+    type PredefinedFormat =
+        | '*'
+        | 'int'
+        | 'port'
+        | 'windows_named_pipe'
+        | 'port_or_windows_named_pipe'
+        | 'url'
+        | 'email'
+        | 'ipaddress'
+        | 'duration'
+        | 'timestamp'
+        | 'nat'
+        | String
+        | Object
+        | Number
+        | RegExp
+        | Boolean;
+
     interface SchemaObj<T = any> {
         default: T;
         doc?: string;
@@ -52,7 +70,7 @@ declare namespace convict {
          * If omitted, format will be set to the value of Object.prototype.toString.call
          * for the default value
          */
-        format?: string | any[] | ((val: any) => void);
+        format?: PredefinedFormat | any[] | ((val: any) => void);
         env?: string;
         arg?: string;
         sensitive?: boolean;

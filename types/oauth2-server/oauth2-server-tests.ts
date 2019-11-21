@@ -2,37 +2,62 @@ import express = require("express");
 import OAuth2Server = require("oauth2-server");
 
 const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
-        getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
-            return undefined;
-        },
-        saveToken: async (token: OAuth2Server.Token, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.Token> => {
-            return token;
-        },
-        getAccessToken: async (accessToken: string): Promise<OAuth2Server.Token> => {
-            return {
-                accessToken,
-                client: {id: "testClient", grants: ["access_token"]},
-                user: {id: "testUser"}
-            };
-        },
-        verifyScope: async (token: OAuth2Server.Token, scope: string): Promise<boolean> => {
-            return true;
-        },
-        getAuthorizationCode: async (authorizationCode: string): Promise<OAuth2Server.AuthorizationCode> => {
-            return {
-                authorizationCode,
-                expiresAt: new Date(),
-                redirectUri: "www.test.com",
-                client: {id: "testClient", grants: ["access_token"]},
-                user: {id: "testUser"}
-            };
-        },
-        saveAuthorizationCode: async (code: OAuth2Server.AuthorizationCode, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.AuthorizationCode> => {
-            return code;
-        },
-        revokeAuthorizationCode: async (code: OAuth2Server.AuthorizationCode): Promise<boolean> => {
-            return true;
-        }
+  generateAuthorizationCode: async (client, user, scope) => {
+    return JSON.stringify({
+      client,
+      user,
+      scope,
+    });
+  },
+  getClient: async (
+    clientId: string,
+    clientSecret: string,
+  ): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
+    return undefined;
+  },
+  saveToken: async (
+    token: OAuth2Server.Token,
+    client: OAuth2Server.Client,
+    user: OAuth2Server.User,
+  ): Promise<OAuth2Server.Token> => {
+    return token;
+  },
+  getAccessToken: async (accessToken: string): Promise<OAuth2Server.Token> => {
+    return {
+      accessToken,
+      client: { id: 'testClient', grants: ['access_token'] },
+      user: { id: 'testUser' },
+    };
+  },
+  verifyScope: async (
+    token: OAuth2Server.Token,
+    scope: string,
+  ): Promise<boolean> => {
+    return true;
+  },
+  getAuthorizationCode: async (
+    authorizationCode: string,
+  ): Promise<OAuth2Server.AuthorizationCode> => {
+    return {
+      authorizationCode,
+      expiresAt: new Date(),
+      redirectUri: 'www.test.com',
+      client: { id: 'testClient', grants: ['access_token'] },
+      user: { id: 'testUser' },
+    };
+  },
+  saveAuthorizationCode: async (
+    code,
+    client: OAuth2Server.Client,
+    user: OAuth2Server.User,
+  ): Promise<OAuth2Server.AuthorizationCode> => {
+    return { ...code, user, client };
+  },
+  revokeAuthorizationCode: async (
+    code: OAuth2Server.AuthorizationCode,
+  ): Promise<boolean> => {
+    return true;
+  },
 };
 
 const oauth2Server = new OAuth2Server({

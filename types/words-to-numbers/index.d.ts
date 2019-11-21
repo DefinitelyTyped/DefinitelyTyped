@@ -3,5 +3,5 @@
 // Definitions by: James Frowen <https://github.com/James-Frowen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare function wordsToNumbers(text: string, options?: { fuzzy: boolean }): string | number | null;
+export function wordsToNumbers(text: string, options?: { fuzzy: boolean }): string | number | null;
 export default wordsToNumbers;

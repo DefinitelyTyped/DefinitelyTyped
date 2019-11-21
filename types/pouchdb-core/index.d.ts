@@ -1,12 +1,21 @@
-// Type definitions for pouchdb-core 6.1
-// Project: https://pouchdb.com/
+// Type definitions for pouchdb-core 7.0
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
-//                 Tobias Bales <https://github.com/TobiasBales>
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Katy Moe <https://github.com/kmoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="debug" />
+/// <reference types="pouchdb-find" />
+/// <reference types="node-fetch" />
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
 
 interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
@@ -80,6 +89,11 @@ interface EventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
+type Fetch = (
+    url: string | Request,
+    opts?: RequestInit
+) => Promise<Response>;
+
 declare namespace PouchDB {
     namespace Core {
         interface Error {
@@ -103,7 +117,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          ajax?: Configuration.RemoteRequesterConfiguration;
+          fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -233,7 +247,10 @@ declare namespace PouchDB {
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
             filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: string};
+            views?: {[viewName: string]: {
+                map: string,
+                reduce?: string
+            }};
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
@@ -280,6 +297,11 @@ declare namespace PouchDB {
              * Causes poor performance on IndexedDB and LevelDB.
              */
             skip?: number;
+            /**
+             * Include an update_seq value indicating which sequence id
+             * of the underlying database the view reflects.
+             */
+            update_seq?: boolean;
         }
         interface AllDocsWithKeyOptions extends AllDocsOptions {
             /** Constrain results to documents matching this key. */
@@ -311,6 +333,7 @@ declare namespace PouchDB {
             /** The `skip` if provided, or in CouchDB the actual offset */
             offset: number;
             total_rows: number;
+            update_seq?: number | string;
             rows: Array<{
                 /** Only present if `include_docs` was `true`. */
                 doc?: ExistingDocument<Content & AllDocsMeta>;
@@ -412,6 +435,41 @@ declare namespace PouchDB {
              * Note: options.filter must be set to '_view' for this option to work.
              */
             view?: string;
+
+            /**
+             * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
+             * Cannot be used in combination with the filter option.
+             */
+            selector?: Find.Selector;
+
+            /**
+             * (previously options.returnDocs): Is available for non-http databases and defaults to true.
+             * Passing false prevents the changes feed from keeping all the documents in memory – in other
+             * words complete always has an empty results array, and the change event is the only way to get the event.
+             * Useful for large change sets where otherwise you would run out of memory.
+             */
+            return_docs?: boolean;
+
+            /**
+             * Only available for http databases, this configures how many changes to fetch at a time.
+             * Increasing this can reduce the number of requests made. Default is 25.
+             */
+            batch_size?: number;
+
+            /**
+             * Specifies how many revisions are returned in the changes array.
+             * The default, 'main_only', will only return the current “winning” revision;
+             * 'all_docs' will return all leaf revisions (including conflicts and deleted former conflicts).
+             * Most likely you won’t need this unless you’re writing a replicator.
+             */
+            style?: 'main_only' | 'all_docs';
+
+            /**
+             * Only available for http databases. Specifies that seq information only be generated every N changes.
+             * Larger values can improve changes throughput with CouchDB 2.0 and later.
+             * Note that last_seq is always populated regardless.
+             */
+            seq_interval?: number;
         }
 
         interface ChangesResponseChange<Content extends {}> {
@@ -475,6 +533,10 @@ declare namespace PouchDB {
           interval?: number;
         }
 
+        interface PutOptions extends Options {
+          force?: boolean;
+        }
+
         interface RemoveAttachmentResponse extends BasicResponse {
             id: DocumentId;
             rev: RevisionId;
@@ -520,35 +582,21 @@ declare namespace PouchDB {
              * ex_ new PouchDB("dbName", {size:100});
              */
             size?: number;
-        }
-
-        interface RemoteRequesterConfiguration {
             /**
-             * Time before HTTP requests time out (in ms).
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
-            timeout?: number;
+            prefix?: string;
             /**
-             * Appends a random string to the end of all HTTP GET requests to avoid
-             * them being cached on IE. Set this to true to prevent this happening.
-             */
-            cache?: boolean;
-            /**
-             * HTTP headers to add to requests.
-             */
-            headers?: {
-                [name: string]: string;
-            };
-
-            /**
-             * Enables transferring cookies and HTTP Authorization information.
-             *
+             * Use a md5 hash to create a deterministic revision number for documents.
+             * Setting it to false will mean that the revision number will be a random UUID.
              * Defaults to true.
              */
-            withCredentials?: boolean;
+            deterministic_revs?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            ajax?: RemoteRequesterConfiguration;
+            fetch?: Fetch;
 
             auth?: {
                 username?: string;
@@ -569,6 +617,8 @@ declare namespace PouchDB {
 
         version: string;
 
+        fetch: Fetch;
+
         on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 
         debug: debug.IDebug;
@@ -586,7 +636,7 @@ declare namespace PouchDB {
         };
     }
 
-    interface Database<Content extends {} = {}>  {
+    interface Database<Content extends {} = {}> extends EventEmitter {
         /** The name passed to the PouchDB constructor and unique identifier of the database. */
         name: string;
 
@@ -686,7 +736,7 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options: Core.Options | null,
+                   options: Core.PutOptions | null,
                    callback: Core.Callback<Core.Response>): void;
 
         /**
@@ -699,7 +749,7 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options?: Core.Options): Promise<Core.Response>;
+                   options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
         remove(doc: Core.RemoveDocument,

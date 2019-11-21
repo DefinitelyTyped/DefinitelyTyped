@@ -2,6 +2,6 @@
 // Project: https://www.muicss.com/
 // Definitions by: Samuel Neff <https://github.com/samuelneff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // all definitions in react.d.ts and subdirs

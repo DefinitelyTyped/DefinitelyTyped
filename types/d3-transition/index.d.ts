@@ -1,7 +1,8 @@
 // Type definitions for D3JS d3-transition module 1.1
-// Project: https://github.com/d3/d3-transition/
+// Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.1
 
@@ -455,6 +456,11 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      */
     on(type: string, listener: ValueFn<GElement, Datum, void>): this;
 
+    /**
+     * Returns a promise that resolves when every selected element finishes transitioning. If any element’s transition is cancelled or interrupted, the promise rejects.
+     */
+    end(): Promise<void>;
+
     // Control Flow ----------------------
 
     /**
@@ -560,6 +566,12 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      */
     ease(easingFn: (normalizedTime: number) => number): this;
 }
+
+/**
+ * Represents the union of the Selection and Transition types for any usages that operate on both.
+ * Typically used for functions which take in either a selection or transition and set or update attributes.
+ */
+export type SelectionOrTransition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> = Selection<GElement, Datum, PElement, PDatum> | Transition<GElement, Datum, PElement, PDatum>;
 
 /**
  * Returns a new transition with the specified name. If a name is not specified, null is used.

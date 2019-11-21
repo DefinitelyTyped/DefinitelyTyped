@@ -2,6 +2,7 @@
 // Project: https://github.com/joostn/OpenJsCad
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.6
 
 /// <reference types="three" />
 

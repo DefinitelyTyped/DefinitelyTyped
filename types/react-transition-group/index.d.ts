@@ -1,15 +1,14 @@
-// Type definitions for react-transition-group 2.0
+// Type definitions for react-transition-group 4.2
 // Project: https://github.com/reactjs/react-transition-group
 // Definitions by: Karol Janyst <https://github.com/LKay>
+//                 Epskampie <https://github.com/Epskampie>
+//                 Masafumi Koba <https://github.com/ybiquitous>
+//                 tu4mo <https://github.com/tu4mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
-import CSSTransition = require("./CSSTransition");
-import Transition from "./Transition";
-import TransitionGroup = require("./TransitionGroup");
-
-export {
-    CSSTransition,
-    Transition,
-    TransitionGroup
-};
+export { default as Transition } from './Transition';
+export { default as CSSTransition } from './CSSTransition';
+export { default as TransitionGroup } from './TransitionGroup';
+export { default as SwitchTransition } from './SwitchTransition';
+export { default as config } from './config';

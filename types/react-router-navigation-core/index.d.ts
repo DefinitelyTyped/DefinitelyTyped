@@ -1,14 +1,15 @@
 // Type definitions for react-router-navigation-core 1.0
 // Project: https://github.com/LeoLeBras/react-router-navigation#readme
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // High-level wrappers
 import { PureComponent, ReactNode, ComponentClass, ReactElement } from "react";
 import { BackHandler, StyleProp, ViewStyle } from "react-native";
 import { History, Location } from "history";
-import { RouterProps, RouteProps, match } from "react-router";
+import { RouterProps, match } from "react-router";
 
 export type Route<T = {}> = {
     key: string;

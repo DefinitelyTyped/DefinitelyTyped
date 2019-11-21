@@ -50,31 +50,28 @@ describe('toBeDisabled', () => {
 	});
 });
 
-describe('toBeEmpty', () => {
-	function Fixture() {
-		return (
-			<div>
-				<span className="foo" />
-				<span className="bar baz" />
-			</div>
-		);
+describe('toBeEmptyRender', () => {
+	function EmptyFixture(): null {
+		return null;
 	}
-	const wrapper = mount(<Fixture />);
+	function NonEmptyFixture() {
+		return <div />;
+	}
 
 	describe('matches', () => {
 		it('should pass', () => {
-			expect(wrapper.find('ul')).toBeEmpty();
+			expect(mount(<EmptyFixture />)).toBeEmptyRender();
 		});
 	});
 
 	describe('.not matches', () => {
 		it('should pass', () => {
-			expect(wrapper.find('span')).not.toBeEmpty();
+			expect(mount(<NonEmptyFixture />)).not.toBeEmptyRender();
 		});
 	});
 });
 
-describe('toBePresent', () => {
+describe('toExist', () => {
 	function Fixture() {
 		return (
 			<div>
@@ -87,15 +84,85 @@ describe('toBePresent', () => {
 
 	describe('matches', () => {
 		it('should pass', () => {
-			expect(wrapper.find('span')).toBePresent();
+			expect(wrapper.find('span')).toExist();
 		});
 	});
 
 	describe('.not matches', () => {
 		it('should pass', () => {
-			expect(wrapper.find('ul')).not.toBePresent();
+			expect(wrapper.find('ul')).not.toExist();
 		});
 	});
+});
+
+describe('toContainMatchingElement', () => {
+    function Fixture() {
+        return (
+            <div>
+                <span className="foo" />
+            </div>
+        );
+    }
+    const wrapper = mount(<Fixture />);
+
+    describe('matches', () => {
+        it('should pass', () => {
+            expect(wrapper).toContainMatchingElement('.foo');
+        });
+    });
+
+    describe('.not matches', () => {
+        it('should pass', () => {
+            expect(wrapper).not.toContainMatchingElement('.bar');
+        });
+    });
+});
+
+describe('toContainMatchingElements', () => {
+    function Fixture() {
+        return (
+            <div>
+                <span className="foo" />
+                <span className="foo" />
+            </div>
+        );
+    }
+    const wrapper = mount(<Fixture />);
+
+    describe('matches', () => {
+        it('should pass', () => {
+            expect(wrapper).toContainMatchingElements(2, '.foo');
+        });
+    });
+
+    describe('.not matches', () => {
+        it('should pass', () => {
+            expect(wrapper).not.toContainMatchingElements(1, '.foo');
+        });
+    });
+});
+
+describe('toContainExactlyOneMatchingElement', () => {
+    function Fixture() {
+        return (
+            <div>
+                <span className="foo" />
+            </div>
+        );
+    }
+    const wrapper = mount(<Fixture />);
+
+    describe('matches', () => {
+        it('should pass', () => {
+            expect(wrapper).toContainExactlyOneMatchingElement('.foo');
+        });
+    });
+
+    describe('.not matches', () => {
+        it('should pass', () => {
+            expect(wrapper).not.toContainExactlyOneMatchingElement('.bar');
+        });
+    });
 });
 
 describe('toContainReact', () => {
@@ -160,6 +227,29 @@ describe('toHaveClassName', () => {
 	});
 });
 
+describe('toHaveDisplayName', () => {
+    function Fixture() {
+        return (
+            <div>
+                <span id="span" />
+            </div>
+        );
+    }
+    const wrapper = mount(<Fixture />);
+
+    describe('matches', () => {
+        it('should pass', () => {
+            expect(wrapper.find('#span')).toHaveDisplayName('span');
+        });
+    });
+
+    describe('.not matches', () => {
+        it('should pass', () => {
+            expect(wrapper.find('#span')).not.toHaveDisplayName('div');
+        });
+    });
+});
+
 describe('toHaveHTML', () => {
 	function Fixture() {
 		return (
@@ -180,9 +270,7 @@ describe('toHaveHTML', () => {
 
 	describe('.not matches', () => {
 		it('should pass', () => {
-			expect(wrapper.find('#child')).toHaveHTML(
-				'<div id="child">Test</span>'
-			);
+			expect(wrapper.find('#child')).not.toHaveHTML('<div id="child">Test</span>');
 		});
 	});
 });
@@ -253,12 +341,9 @@ describe('toHaveRef', () => {
 
 describe('toHaveState', () => {
 	class Fixture extends React.Component {
-		constructor() {
-			super({});
-			this.state = {
-				foo: false,
-			};
-		}
+		state = {
+			foo: false,
+		};
 
 		render() {
 			return (

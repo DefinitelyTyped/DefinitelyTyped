@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,26 +21,17 @@
  */
 
 import { MDCComponent } from 'material__base';
-import { MDCRipple } from 'material__ripple';
-
 import MDCDialogFoundation from './foundation';
-import { MSDDialogAdapter } from './adapter';
+import MDCDialogAdapter from './adapter';
 import * as util from './util';
 
-export {MSDDialogAdapter, MDCDialogFoundation, util};
+export { MDCDialogAdapter, MDCDialogFoundation, util };
 
-export class MDCDialog extends MDCComponent<MSDDialogAdapter, MDCDialogFoundation> {
+export class MDCDialog extends MDCComponent<MDCDialogAdapter, MDCDialogFoundation> {
     static attachTo(root: Element): MDCDialog;
 
     readonly open: boolean;
-
-    initialize(): void;
-
-    destroy(): void;
-
     show(): void;
 
     close(): void;
-
-    getDefaultFoundation(): MDCDialogFoundation;
 }

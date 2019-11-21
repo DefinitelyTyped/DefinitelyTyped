@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 (() => {
     // https://wiki.openoffice.org/wiki/Documentation/DevGuide/ProUNO/Bridge/Automation_Bridge
 
@@ -126,7 +128,7 @@
     }
 
     function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K): LibreOffice.StructNameMap[K] {
-        const classSize = coreReflection.forName(strTypeName);
+        const classSize = coreReflection.forName(strTypeName) as com.sun.star.reflection.XIdlClass<LibreOffice.StructNameMap[K]>;
         const aStruct: [LibreOffice.StructNameMap[K]] = [] as any;
         classSize.createObject(aStruct);
         return aStruct[0];

@@ -25,6 +25,7 @@ declare module XmlPoke { // ghost module
 		withBasePath(xpath: string): API;
 		addNamespace(prefix: string, uri: string): API;
 		errorOnNoMatches(): API;
+        ensure(xpath: string): API;
 	}
 	interface CDataValue {
 		value: string;

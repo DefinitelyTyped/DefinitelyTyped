@@ -1,6 +1,7 @@
-// Type definitions for node-vault 0.5
+// Type definitions for node-vault 0.9
 // Project: https://github.com/kr1sp1n/node-vault
 // Definitions by: Jianrong Yu <https://github.com/YuJianrong>
+//                 Neil Bryson Cargamento <https://github.com/neilbryson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -17,7 +18,7 @@ declare namespace NodeVault {
         method: string;
     }
 
-    interface functionConf {
+    interface FunctionConf {
         method: string;
         path: string;
         schema?: {
@@ -27,7 +28,7 @@ declare namespace NodeVault {
         };
     }
 
-    interface client {
+    interface Client {
         handleVaultResponse(res?: { statusCode: number, request: Option, body: any }): Promise<any>;
         apiVersion: string;
         endpoint: string;
@@ -41,7 +42,7 @@ declare namespace NodeVault {
         list(path: string, requestOptions?: Option): Promise<any>;
         delete(path: string, requestOptions?: Option): Promise<any>;
 
-        generateFunction(name: string, conf: functionConf): void;
+        generateFunction(name: string, conf: FunctionConf): void;
 
         status(options?: Option): Promise<any>;
         initialized(options?: Option): Promise<any>;
@@ -70,8 +71,14 @@ declare namespace NodeVault {
         revoke(options?: Option): Promise<any>;
         revokePrefix(options?: Option): Promise<any>;
         rotate(options?: Option): Promise<any>;
+        unwrap(options?: Option): Promise<any>;
+        gcpLogin(options?: Option): Promise<any>;
         githubLogin(options?: Option): Promise<any>;
+        kubernetesLogin(options?: Option): Promise<any>;
         userpassLogin(options?: Option): Promise<any>;
+        ldapLogin(options?: Option): Promise<any>;
+        oktaLogin(options?: Option): Promise<any>;
+        radiusLogin(options?: Option): Promise<any>;
         tokenAccessors(options?: Option): Promise<any>;
         tokenCreate(options?: Option): Promise<any>;
         tokenCreateOrphan(options?: Option): Promise<any>;
@@ -110,8 +117,8 @@ declare namespace NodeVault {
     interface VaultOptions {
         debug?(...args: any[]): any;
         tv4?(...args: any[]): any;
-        commands?: Array<{ method: string, path: string, scheme: any }>;
-        mustache?: MustacheStatic;
+        commands?: Array<{ method: string, path: string, schema: any }>;
+        mustache?: typeof mustache;
         "request-promise"?: any;
         Promise?: PromiseConstructor;
 
@@ -122,5 +129,5 @@ declare namespace NodeVault {
     }
 }
 
-declare function NodeVault(options?: NodeVault.VaultOptions): NodeVault.client;
+declare function NodeVault(options?: NodeVault.VaultOptions): NodeVault.Client;
 export = NodeVault;

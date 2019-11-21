@@ -1,63 +1,66 @@
 // Type definitions for koa-route 3.2
 // Project: https://github.com/koajs/route#readme
 // Definitions by: Mike Cook <https://github.com/migstopheles>
+//                 Jaco Greeff <https://github.com/jacogr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as Koa from 'koa';
 import * as pathToRegexp from 'path-to-regexp';
 
-type RoutePath = string | RegExp | Array<string | RegExp>;
+declare namespace KoaRoute {
+    type Path = string | RegExp | Array<string | RegExp>;
 
-type RouteHandler = (this: Koa.Context, ctx: Koa.Context, ...params: any[]) => any;
+    type Handler = (this: Koa.Context, ctx: Koa.Context, ...params: any[]) => any;
 
-type CreateRoute = (routeFunc: RouteHandler) => Koa.Middleware;
+    type CreateRoute = (routeFunc: Handler) => Koa.Middleware;
 
-interface RouteMethod {
-    (path: RoutePath): CreateRoute;
-    (path: RoutePath, fn: RouteHandler, opts?: pathToRegexp.ParseOptions & pathToRegexp.RegExpOptions): Koa.Middleware;
+    interface Method {
+        (path: Path): CreateRoute;
+        (path: Path, fn: Handler, opts?: pathToRegexp.ParseOptions & pathToRegexp.RegExpOptions): Koa.Middleware;
+    }
+
+    type CreateMethod = (method: string) => Method;
+
+    interface Routes {
+        all: Method;
+        acl: Method;
+        bind: Method;
+        checkout: Method;
+        connect: Method;
+        copy: Method;
+        delete: Method;
+        del: Method;
+        get: Method;
+        head: Method;
+        link: Method;
+        lock: Method;
+        msearch: Method;
+        merge: Method;
+        mkactivity: Method;
+        mkcalendar: Method;
+        mkcol: Method;
+        move: Method;
+        notify: Method;
+        options: Method;
+        patch: Method;
+        post: Method;
+        propfind: Method;
+        proppatch: Method;
+        purge: Method;
+        put: Method;
+        rebind: Method;
+        report: Method;
+        search: Method;
+        subscribe: Method;
+        trace: Method;
+        unbind: Method;
+        unlink: Method;
+        unlock: Method;
+        unsubscribe: Method;
+    }
 }
 
-type CreateRouteMethod = (method: string) => RouteMethod;
-
-interface KoaRoutes {
-    all: CreateRouteMethod;
-    acl: RouteMethod;
-    bind: RouteMethod;
-    checkout: RouteMethod;
-    connect: RouteMethod;
-    copy: RouteMethod;
-    delete: RouteMethod;
-    del: RouteMethod;
-    get: RouteMethod;
-    head: RouteMethod;
-    link: RouteMethod;
-    lock: RouteMethod;
-    msearch: RouteMethod;
-    merge: RouteMethod;
-    mkactivity: RouteMethod;
-    mkcalendar: RouteMethod;
-    mkcol: RouteMethod;
-    move: RouteMethod;
-    notify: RouteMethod;
-    options: RouteMethod;
-    patch: RouteMethod;
-    post: RouteMethod;
-    propfind: RouteMethod;
-    proppatch: RouteMethod;
-    purge: RouteMethod;
-    put: RouteMethod;
-    rebind: RouteMethod;
-    report: RouteMethod;
-    search: RouteMethod;
-    subscribe: RouteMethod;
-    trace: RouteMethod;
-    unbind: RouteMethod;
-    unlink: RouteMethod;
-    unlock: RouteMethod;
-    unsubscribe: RouteMethod;
-}
-
-declare const routes: KoaRoutes;
+declare const routes: KoaRoute.Routes;
 
 export = routes;

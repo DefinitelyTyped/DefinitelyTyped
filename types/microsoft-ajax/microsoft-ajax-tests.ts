@@ -131,7 +131,7 @@ function BaseClassExtensions_Array_Tests() {
     Array.contains(arrayVar, "zero");
     Array.dequeue(arrayVar);
     Array.enqueue(arrayVar, "zero");
-    Array.insert([1, 2, 3], 1, {});
+    Array.insert([1, 2, 3], 1, 123);
     Array.isArray({});
     Array.parse("1, 2, 3, 4, 5");
     Array.remove([1, 2, 3], 2);

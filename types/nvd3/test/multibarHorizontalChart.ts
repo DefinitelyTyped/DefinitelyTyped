@@ -136,6 +136,7 @@ namespace nvd3_test_multibarHorizontalChart {
             .barColor(d3.scale.category20().range())
             .duration(250)
             .margin({ left: 100 })
+            .valueFormat(d3.format("d"))
             .stacked(true);
 
         chart.yAxis.tickFormat(d3.format(',.2f'));

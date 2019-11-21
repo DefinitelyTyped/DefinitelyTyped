@@ -1,11 +1,25 @@
-import RSVP from 'rsvp';
-import { all, race, resolve } from 'rsvp';
+import RSVP, { all, race, resolve, Promise as RPromise, EventTarget as REventTarget } from 'rsvp';
 
 /** Static assertion that `value` has type `T` */
 // Disable tslint here b/c the generic is used to let us do a type coercion and
 // validate that coercion works for the type value "passed into" the function.
 // tslint:disable-next-line:no-unnecessary-generics
 declare function assertType<T>(value: T): void;
+
+let rsvpPromise: RPromise<number[]> = RSVP.resolve([1, 2, 3]);
+rsvpPromise = Promise.resolve([1, 2, 3]) as PromiseLike<number[]>; // $ExpectError
+
+new RPromise<number>((res, rej) => {
+    res(3); // $ExpectType void
+    rej('oops'); // $ExpectType void
+});
+
+const et = REventTarget.mixin({});
+type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger"
+et.on('error', handler => {}); // $ExpectType void
+et.off('error', handler => {}); // $ExpectType void
+et.trigger('error'); // $ExpectType void
+et.trigger('error', '12', 34); // $ExpectError
 
 async function testAsyncAwait() {
     const awaitedNothing = await RSVP.resolve();
@@ -55,15 +69,15 @@ function testPromise() {
     assertType<RSVP.Promise<number>>(promiseOfString.then((s: string) => s.length));
 }
 
+function testPromiseWithLabel() {
+    new RSVP.Promise((resolve: any, reject: any) => resolve('foo'), 'my promise');
+}
+
 function testAll() {
     const imported = all([]);
     const empty = RSVP.Promise.all([]);
 
-    const everyPromise = RSVP.all([
-        'string',
-        RSVP.resolve(42),
-        RSVP.resolve({ hash: 'with values' }),
-    ]);
+    const everyPromise = RSVP.all(['string', RSVP.resolve(42), RSVP.resolve({ hash: 'with values' })]);
 
     assertType<RSVP.Promise<[string, number, { hash: string }]>>(everyPromise);
 
@@ -139,14 +153,8 @@ type D2 = string;
 type D3 = { some: boolean };
 
 declare const nodeFn1Arg1CbParam: (arg1: A1, callback: (err: any, data: D1) => void) => void;
-declare const nodeFn1Arg2CbParam: (
-    arg1: A1,
-    callback: (err: any, data1: D1, data2: D2) => void
-) => void;
-declare const nodeFn1Arg3CbParam: (
-    arg1: A1,
-    callback: (err: any, data1: D1, data2: D2, data3: D3) => void
-) => void;
+declare const nodeFn1Arg2CbParam: (arg1: A1, callback: (err: any, data1: D1, data2: D2) => void) => void;
+declare const nodeFn1Arg3CbParam: (arg1: A1, callback: (err: any, data1: D1, data2: D2, data3: D3) => void) => void;
 
 function testDenodeify() {
     // version with no `options` or `options: false`, and single T
@@ -167,9 +175,7 @@ function testDenodeify() {
     // We can't actually map the key names here, because we would need full-on
     // dependent typing to use the *values of an array* as the keys of the
     // resulting object.
-    assertType<(value: A1) => RSVP.Promise<{ first: D1 }>>(
-        RSVP.denodeify(nodeFn1Arg1CbParam, ['first'])
-    );
+    assertType<(value: A1) => RSVP.Promise<{ first: D1 }>>(RSVP.denodeify(nodeFn1Arg1CbParam, ['first']));
     assertType<(value: A1) => RSVP.Promise<{ first: D1; second: D2 }>>(
         RSVP.denodeify(nodeFn1Arg2CbParam, ['first', 'second'])
     );
@@ -318,9 +324,7 @@ function testOnAndOff() {
 
     RSVP.off('whatever', (value: any) => {
         console.log(
-            `any old value will do: ${value !== undefined && value !== null
-                ? value.toString()
-                : 'even undefined'}`
+            `any old value will do: ${value !== undefined && value !== null ? value.toString() : 'even undefined'}`
         );
     });
 }

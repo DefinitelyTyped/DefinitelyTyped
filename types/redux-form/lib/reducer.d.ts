@@ -1,4 +1,4 @@
-import { Action, Reducer } from "redux";
+import { Reducer } from "redux";
 import { FieldType } from "../index";
 
 export interface FormReducer extends Reducer<FormStateMap> {
@@ -8,6 +8,8 @@ export interface FormReducer extends Reducer<FormStateMap> {
 export const reducer: FormReducer;
 
 export interface FormReducerMapObject {
+    // and `<any>` to make it compatible with redux@3
+    // tslint:disable-next-line use-default-type-parameter
     [formName: string]: Reducer<any>;
 }
 
@@ -17,10 +19,11 @@ export interface FormStateMap {
 
 export interface FormState {
     registeredFields: RegisteredFieldState[];
-    fields?: {[name: string]: FieldState};
-    values?: { [fieldName: string]: string };
+    fields?: { [name: string]: FieldState };
+    values?: { [fieldName: string]: any };
     active?: string;
     anyTouched?: boolean;
+    error?: any;
     submitting?: boolean;
     submitErrors?: { [fieldName: string]: string };
     submitFailed?: boolean;

@@ -2,7 +2,6 @@
 // Project: https://github.com/TTLabs/EvaporateJS
 // Definitions by: Andrew Kuklewicz <https://github.com/kookster>
 //                 Chris Rhoden <https://github.com/chrisrhoden>
-//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -34,12 +33,12 @@ declare namespace Evaporate {
         s3Acceleration?: boolean;
         mockLocalStorage?: boolean;
         encodeFilename?: boolean;
-        computeContentMd5?: false;
+        computeContentMd5?: boolean;
         allowS3ExistenceOptimization?: boolean;
         onlyRetryForSameFileName?: boolean;
         timeUrl?: string;
         cryptoMd5Method?: null | ((data: ArrayBuffer) => string);
-        cryptoHexEncodedHash256?: null | ((data: ArrayBuffer) => string);
+        cryptoHexEncodedHash256?: null | ((data: string | ArrayBuffer | null) => string);
         aws_url?: string;
         aws_key?: string;
         awsRegion?: string;
@@ -52,7 +51,7 @@ declare namespace Evaporate {
         customAuthMethod?: null | ((
             signParams: string,
             signHeaders: string,
-            stringToSign: () => string | undefined,
+            stringToSign: string,
             signatureDateTime: string,
             canonicalRequest: string
         ) => Promise<string>);

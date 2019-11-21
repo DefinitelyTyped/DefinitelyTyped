@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCToolbarAdapter {
+export default interface MDCToolbarAdapter {
     hasClass(className: string): boolean;
 
     addClass(className: string): void;

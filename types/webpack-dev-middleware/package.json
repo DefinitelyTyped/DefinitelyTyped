@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+      "loglevel": "^1.6.2"
+    }
+  }

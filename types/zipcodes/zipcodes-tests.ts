@@ -18,19 +18,19 @@ const zipB: ZipCodes.ZipCode = {
   country: 'US'
 };
 
-ZipCodes.lookup(zipA); // $ExpectType ZipCode
+ZipCodes.lookup(zipA.zip); // $ExpectType ZipCode | undefined
 
 ZipCodes.lookupByName('Cupertino', 'CA'); // $ExpectType ZipCode[]
 
 ZipCodes.lookupByState('CA'); // $ExpectType ZipCode[]
 
-ZipCodes.distance(zipA, zipB); // $ExpectType number
+ZipCodes.distance(zipA.zip, zipB.zip); // $ExpectType number | null
 
-ZipCodes.radius(zipA, 1, true); // $ExpectType string | ZipCode[]
-ZipCodes.radius(zipA, 1, false); // $ExpectType string | ZipCode[]
+ZipCodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[]
+ZipCodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[]
 
 ZipCodes.toMiles(3); // $ExpectType number
 
 ZipCodes.toKilometers(3); // $ExpectType number
 
-ZipCodes.lookupByCoords(37.323, -122.0527); // $ExpectType ZipCode
+ZipCodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null

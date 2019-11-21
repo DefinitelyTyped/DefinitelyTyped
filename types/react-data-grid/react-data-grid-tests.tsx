@@ -10,13 +10,9 @@ var DropDownEditor = Editors.DropDownEditor;
 var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
-   constructor(props: any, context: any) {
-       super(props, context);
-
-       this.state = {
-           filterTerm: ""
-       };
-   }
+   state = {
+       filterTerm: ""
+   };
    handleChange(e: any) {
        let val = e.target.value;
        this.setState({filterTerm: val});
@@ -29,6 +25,35 @@ class CustomFilterHeaderCell extends React.Component<any, any> {
            </div>
        );
    }
+}
+
+class CustomRowSelectorCell extends ReactDataGridPlugins.Editors.CheckboxEditor {
+    render(){
+        return super.render();
+    }
+}
+
+export interface ICustomSelectAllProps {
+    onChange: any;
+    inputRef: any;
+}
+
+class CustomSelectAll extends React.Component<ICustomSelectAllProps> {
+    render() {
+        return (
+            <div className='react-grid-checkbox-container checkbox-align'>
+                <input
+                    className='react-grid-checkbox'
+                    type='checkbox'
+                    name='select-all-checkbox'
+                    id='select-all-checkbox'
+                    ref={this.props.inputRef}
+                    onChange={this.props.onChange}
+                />
+                <label htmlFor='select-all-checkbox' className='react-grid-checkbox-label'></label>
+            </div>
+        );
+    }
 }
 
 faker.locale = 'en_GB';
@@ -106,7 +131,7 @@ var counties = [
 
 var titles = ['Dr.', 'Mr.', 'Mrs.', 'Miss', 'Ms.'];
 
-var columns:ReactDataGrid.Column[] = [
+var columns:ReactDataGrid.Column<typeof counties>[] = [
     {
         key: 'id',
         name: 'ID',
@@ -127,7 +152,7 @@ var columns:ReactDataGrid.Column[] = [
         editor: <AutoCompleteEditor options={counties}/>,
         width: 200,
         resizable: true,
-        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column) => {
+        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column<typeof counties>) => {
             return {};
         }
     },
@@ -227,17 +252,17 @@ class Example extends React.Component<any, any> {
     getColumns() {
         var clonedColumns = columns.slice();
         clonedColumns[2].events = {
-            onClick: function (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) {
+            onClick: (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) => {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
-                this.refs.grid.openCellEditor(rowIdx, idx);
-            }.bind(this)
+                (this.refs.grid as ReactDataGrid<{}>).openCellEditor(rowIdx, idx);
+            }
         };
 
         return clonedColumns;
     }
 
-    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent) {
+    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent<typeof counties>) {
         var rows = this.state.rows;
 
         for (var i = updatedRowData.fromRow; i <= updatedRowData.toRow; i++) {
@@ -290,12 +315,12 @@ class Example extends React.Component<any, any> {
         return this.state.rows.length;
     }
 
-    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams>) {
+    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
 
         this.setState({selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx))});
     }
-    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams>) {
+    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
         var rowIndexes = rows.map(r => r.rowIdx);
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
         this.setState({selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1 )});
@@ -327,6 +352,8 @@ class Example extends React.Component<any, any> {
                         keys: {rowKey: 'id', values: selectedRows}
                     }
                 }}
+                rowActionsCell={CustomRowSelectorCell}
+                selectAllRenderer={CustomSelectAll}
                 onRowClick={this.onRowClick}
             />
 

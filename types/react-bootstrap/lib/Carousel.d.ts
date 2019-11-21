@@ -12,7 +12,7 @@ declare namespace Carousel {
         defaultActiveIndex?: number;
         direction?: string;
         indicators?: boolean;
-        interval?: number;
+        interval?: number | null;
         nextIcon?: React.ReactNode;
         onSelect?: SelectCallback;
         // TODO: Add more specific type

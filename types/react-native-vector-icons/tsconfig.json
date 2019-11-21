@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "dom",
             "es6"
         ],
         "noImplicitAny": true,
@@ -21,10 +20,14 @@
     "files": [
         "index.d.ts",
         "Icon.d.ts",
+        "AntDesign.d.ts",
         "Entypo.d.ts",
         "EvilIcons.d.ts",
         "Feather.d.ts",
         "FontAwesome.d.ts",
+        "FontAwesome5.d.ts",
+        "FontAwesome5Pro.d.ts",
+        "Fontisto.d.ts",
         "Foundation.d.ts",
         "Ionicons.d.ts",
         "MaterialCommunityIcons.d.ts",

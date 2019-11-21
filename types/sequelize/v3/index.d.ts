@@ -1,20 +1,19 @@
 // Type definitions for Sequelize 3.30.4
-// Project: http://sequelizejs.com
+// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="validator" />
-
-
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+
+import * as ValidatorJS from 'validator'
 
 declare namespace sequelize {
 
@@ -1475,7 +1474,7 @@ declare namespace sequelize {
      * user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture
      * ```
      *
-     * In the example above we have specified that a user belongs to his profile picture. Conceptually, this might
+     * In the example above we have specified that a user belongs to their profile picture. Conceptually, this might
      * not make sense, but since we want to add the foreign key to the user model this is the way to do it.
      *
      * Note how we also specified `constraints: false` for profile picture. This is because we add a foreign key
@@ -3140,7 +3139,7 @@ declare namespace sequelize {
     /**
     * Shortcut for types used in FindOptions.attributes
     */
-    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -4339,7 +4338,7 @@ declare namespace sequelize {
          *
          * PostgreSQL only
          */
-        deferrable?: Deferrable;
+        deferrable?: DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
     }
 
@@ -5797,10 +5796,12 @@ declare namespace sequelize {
     //  Validator
     // ~~~~~~~~~~~
 
+    type ValidatorJSType = typeof ValidatorJS
+
     /**
      * Validator Interface
      */
-    interface Validator extends ValidatorJS.ValidatorStatic {
+    interface Validator extends ValidatorJSType {
 
         notEmpty(str: string): boolean;
         len(str: string, min: number, max: number): boolean;
@@ -6183,7 +6184,7 @@ declare namespace sequelize {
 
         camelizeIf(str: string, condition: boolean): string;
         underscoredIf(str: string, condition: boolean): string;
-                     
+
         _: SequelizeLoDash;
 
         /**

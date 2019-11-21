@@ -17,14 +17,18 @@ function test() {
     expect(spy).to.have.been.calledTwice;
     expect(spy).to.have.been.calledThrice;
     expect(spy).to.have.been.calledBefore(anotherSpy);
+    expect(spy).to.have.been.calledImmediatelyBefore(anotherSpy);
     expect(spy).to.have.been.calledAfter(anotherSpy);
+    expect(spy).to.have.been.calledImmediatelyAfter(anotherSpy);
     expect(spy).to.have.been.calledWithNew;
     expect(spy).to.always.have.been.calledWithNew;
     expect(spy).to.have.been.calledOn(context);
     expect(spy).to.always.have.been.calledOn(context);
     expect(spy).to.have.been.calledWith('foo', 'bar');
+    expect(spy).to.have.been.calledOnceWith('foo', 'bar');
     expect(spy).to.always.have.been.calledWith('foo', 'bar');
     expect(spy).to.have.been.calledWithExactly('foo', 'bar');
+    expect(spy).to.have.been.calledOnceWithExactly('foo', 'bar');
     expect(spy).to.always.have.been.calledWithExactly('foo', 'bar');
     expect(spy).to.have.been.calledWithMatch(match);
     expect(spy).to.always.have.been.calledWithMatch(match);

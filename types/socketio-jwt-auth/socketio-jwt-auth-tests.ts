@@ -2,9 +2,9 @@ import SocketIo = require('socket.io');
 import jwtAuth = require('socketio-jwt-auth');
 
 const io = SocketIo();
-const User: {
+declare const User: {
     findOne: (options: { id: number }, callback: (err: Error, user: any) => void) => void
-} = <any> {};
+};
 
 // using middleware
 io.use(jwtAuth.authenticate({

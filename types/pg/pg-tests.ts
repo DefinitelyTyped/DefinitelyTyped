@@ -9,6 +9,7 @@ const client = new Client({
   port: 5334,
   user: 'database-user',
   password: 'secretpassword!!',
+  keepAlive: true,
 });
 client.connect(err => {
     if (err) {
@@ -42,6 +43,16 @@ client.query('SELECT NOW()', (err, res) => {
 client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
   if (err) throw err;
   console.log(res);
+  client.end();
+});
+
+interface Person {
+  name: string;
+}
+
+client.query<Person, [string]>('SELECT $1::text as name', ['brianc'], (err, res) => {
+  if (err) throw err;
+  console.log(res.rows[0].name);
   client.end();
 });
 
@@ -125,6 +136,10 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  keepAlive: false,
+  log: (...args) => {
+    console.log.apply(console, args);
+  },
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {

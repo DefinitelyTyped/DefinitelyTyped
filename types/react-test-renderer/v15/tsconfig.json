@@ -9,6 +9,9 @@
             "react": [
                 "react/v15"
             ],
+            "react-dom": [
+                "react-dom/v15"
+            ],
             "react-test-renderer": [
                 "react-test-renderer/v15"
             ]

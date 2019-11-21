@@ -24,7 +24,7 @@ export = koaCsrf;
 import { Middleware } from 'koa';
 
 declare module "koa" {
-    interface Request {
+    interface Context {
         csrf: string;
     }
 }

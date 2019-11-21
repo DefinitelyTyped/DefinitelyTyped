@@ -1,7 +1,8 @@
 // Type definitions for swagger-schema-official 2.0
-// Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
+// Project: https://swagger.io/specification/
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>, Vincenzo Chianese <https://github.com/XVincentX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export interface Info {
   title: string;
@@ -35,47 +36,76 @@ export interface Tag {
 }
 
 export interface Header extends BaseSchema {
-  type: string;
+  type: ParameterType;
 }
 
 // ----------------------------- Parameter -----------------------------------
-export interface BaseParameter {
+
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object' | 'file';
+
+export type BaseParameter = {
   name: string;
-  in: string;
+  in: 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
   required?: boolean;
   description?: string;
-}
+};
 
-export interface BodyParameter extends BaseParameter {
+export type BodyParameter = BaseParameter & {
+  in: 'body';
   schema?: Schema;
-}
+};
 
-export interface QueryParameter extends BaseParameter, BaseSchema {
-  type: string;
-  allowEmptyValue?: boolean;
-}
+export type GenericFormat = {
+  type?: ParameterType;
+  format?: string;
+};
 
-export interface PathParameter extends BaseParameter, BaseSchema {
-  type: string;
-  required: boolean;
-}
+export type IntegerFormat = {
+  type: 'integer';
+  format?: 'int32' | 'int64';
+};
 
-export interface HeaderParameter extends BaseParameter, BaseSchema {
-  type: string;
-}
+export type NumberFormat = {
+  type: 'number';
+  format?: 'float' | 'double';
+};
 
-export interface FormDataParameter extends BaseParameter, BaseSchema {
-  type: string;
-  collectionFormat?: string;
-  allowEmptyValue?: boolean;
-}
+export type StringFormat = {
+  type: 'string';
+  format?: '' | 'byte' | 'binary' | 'date' | 'date-time' | 'password';
+};
 
-export type Parameter =
-  BodyParameter |
-  FormDataParameter |
-  QueryParameter |
-  PathParameter |
-  HeaderParameter;
+export type SchemaFormatConstraints = GenericFormat | IntegerFormat | NumberFormat | StringFormat;
+export type BaseFormatContrainedParameter = BaseParameter & SchemaFormatConstraints;
+export type ParameterCollectionFormat = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi';
+
+export type QueryParameter = BaseFormatContrainedParameter &
+  BaseSchema & {
+    in: 'query';
+    allowEmptyValue?: boolean;
+    collectionFormat?: ParameterCollectionFormat;
+  };
+
+export type PathParameter = BaseFormatContrainedParameter &
+  BaseSchema & {
+    in: 'path';
+    required: true;
+  };
+
+export type HeaderParameter = BaseFormatContrainedParameter &
+  BaseSchema & {
+    in: 'header';
+  };
+
+export type FormDataParameter = BaseFormatContrainedParameter &
+  BaseSchema & {
+    in: 'formData';
+    type: ParameterType | 'file';
+    allowEmptyValue?: boolean;
+    collectionFormat?: ParameterCollectionFormat;
+  };
+
+export type Parameter = BodyParameter | FormDataParameter | QueryParameter | PathParameter | HeaderParameter;
 
 // ------------------------------- Path --------------------------------------
 export interface Path {
@@ -87,23 +117,28 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: Parameter[];
+  parameters?: Array<Parameter | Reference>;
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response };
+  responses: { [responseName: string]: Response | Reference };
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[];
+  parameters?: Array<Parameter | Reference>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
   tags?: string[];
+}
+
+// ----------------------------- Reference -----------------------------------
+export interface Reference {
+  $ref: string;
 }
 
 // ----------------------------- Response ------------------------------------
@@ -115,16 +150,17 @@ export interface Response {
 }
 
 // ------------------------------ Schema -------------------------------------
-export interface BaseSchema {
+export type BaseSchema = {
+  type?: ParameterType;
   format?: string;
   title?: string;
   description?: string;
-  default?: string|boolean|number|{};
+  default?: any;
   multipleOf?: number;
   maximum?: number;
-  exclusiveMaximum?: number;
+  exclusiveMaximum?: boolean;
   minimum?: number;
-  exclusiveMinimum?: number;
+  exclusiveMinimum?: boolean;
   maxLength?: number;
   minLength?: number;
   pattern?: string;
@@ -133,21 +169,20 @@ export interface BaseSchema {
   uniqueItems?: boolean;
   maxProperties?: number;
   minProperties?: number;
-  enum?: Array<string | boolean | number | {}>;
-  type?: string;
-  items?: Schema|Schema[];
-}
+  enum?: any[];
+  items?: Schema | Schema[];
+};
 
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: Schema;
-  properties?: {[propertyName: string]: Schema};
+  additionalProperties?: Schema | boolean;
+  properties?: { [propertyName: string]: Schema };
   discriminator?: string;
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: {[exampleName: string]: {}};
+  example?: any;
   required?: string[];
 }
 
@@ -161,42 +196,49 @@ export interface XML {
 
 // ----------------------------- Security ------------------------------------
 export interface BaseSecurity {
-  type: string;
+  type: 'basic' | 'apiKey' | 'oauth2';
   description?: string;
 }
 
-// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
-  // It's the exact same interface as BaseSecurity
+  type: 'basic';
 }
 
 export interface ApiKeySecurity extends BaseSecurity {
+  type: 'apiKey';
   name: string;
-  in: string;
+  in: 'query' | 'header';
 }
 
-export interface BaseOAuthSecuirty extends BaseSecurity {
-  flow: string;
+export interface BaseOAuthSecurity extends BaseSecurity {
+  type: 'oauth2';
+  flow: 'accessCode' | 'application' | 'implicit' | 'password';
+  scopes?: OAuthScope;
 }
 
-export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ImplicitSecurity extends BaseOAuthSecurity {
+  type: 'oauth2';
+  flow: 'implicit';
   authorizationUrl: string;
 }
 
-export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
+export interface OAuth2PasswordSecurity extends BaseOAuthSecurity {
+  type: 'oauth2';
+  flow: 'password';
   tokenUrl: string;
-  scopes?: OAuthScope[];
 }
 
-export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ApplicationSecurity extends BaseOAuthSecurity {
+  type: 'oauth2';
+  flow: 'application';
   tokenUrl: string;
-  scopes?: OAuthScope[];
 }
 
-export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
+export interface OAuth2AccessCodeSecurity extends BaseOAuthSecurity {
+  type: 'oauth2';
+  flow: 'accessCode';
   tokenUrl: string;
   authorizationUrl: string;
-  scopes?: OAuthScope[];
 }
 
 export interface OAuthScope {
@@ -204,12 +246,12 @@ export interface OAuthScope {
 }
 
 export type Security =
-  BasicAuthenticationSecurity |
-  OAuth2AccessCodeSecurity |
-  OAuth2ApplicationSecurity |
-  OAuth2ImplicitSecurity |
-  OAuth2PasswordSecurity |
-  ApiKeySecurity;
+  | BasicAuthenticationSecurity
+  | OAuth2AccessCodeSecurity
+  | OAuth2ApplicationSecurity
+  | OAuth2ImplicitSecurity
+  | OAuth2PasswordSecurity
+  | ApiKeySecurity;
 
 // --------------------------------- Spec ------------------------------------
 export interface Spec {
@@ -221,11 +263,11 @@ export interface Spec {
   schemes?: string[];
   consumes?: string[];
   produces?: string[];
-  paths: {[pathName: string]: Path};
-  definitions?: {[definitionsName: string]: Schema };
-  parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
-  responses?: {[responseName: string]: Response };
-  security?: Array<{[securityDefinitionName: string]: string[]}>;
-  securityDefinitions?: { [securityDefinitionName: string]: Security};
+  paths: { [pathName: string]: Path };
+  definitions?: { [definitionsName: string]: Schema };
+  parameters?: { [parameterName: string]: BodyParameter | QueryParameter };
+  responses?: { [responseName: string]: Response };
+  security?: Array<{ [securityDefinitionName: string]: string[] }>;
+  securityDefinitions?: { [securityDefinitionName: string]: Security };
   tags?: Tag[];
 }

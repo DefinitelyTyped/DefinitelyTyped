@@ -1,6 +1,9 @@
 // Type definitions for ssh2 v0.5.x
 // Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>, Ron Buckton <https://github.com/rbuckton>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Ron Buckton <https://github.com/rbuckton>
+//                 Will Boyce <https://github.com/wrboyce>
+//                 Lucas Motta <https://github.com/lucasmotta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -19,6 +22,7 @@ import {
     Attributes,
     Stats,
     TransferOptions,
+    ReadFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
     FileEntry
@@ -449,6 +453,8 @@ export interface ConnectConfig {
     agentForward?: boolean;
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
+    /** Compression settings: true (prefer), false (never), 'force' (require) */
+    compress?: boolean | 'force';
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: (information: string) => any;
 }
@@ -480,7 +486,7 @@ export interface ClientErrorExtensions {
 
 export interface ExecOptions {
     /** An environment to use for the execution of the command. */
-    env?: any;
+    env?: NodeJS.ProcessEnv;
     /** Set to `true` to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. */
     pty?: true | PseudoTtyOptions;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
@@ -488,6 +494,8 @@ export interface ExecOptions {
 }
 
 export interface ShellOptions {
+    /** An environment to use for the execution of the shell. */
+    env?: NodeJS.ProcessEnv;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
     x11?: boolean | number | X11Options;
 }
@@ -723,6 +731,8 @@ export interface ServerConfig {
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
+    greeting?: string
+    /** A message that is sent to clients once, right before authentication begins. */
     banner?: string;
     /** A custom server software name/version identifier. */
     ident?: string;
@@ -1268,6 +1278,24 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
     fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
 
     /**
      * (Client-only)

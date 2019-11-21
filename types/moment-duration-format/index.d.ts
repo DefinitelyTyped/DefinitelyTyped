@@ -80,13 +80,17 @@ declare module "moment" {
     }
 
     interface LocaleSpecification {
-        durationLabelsLong: DurationLabelDef;
-        durationLabelsStandard: DurationLabelDef;
-        durationLabelsShort: DurationLabelDef;
-        durationTimeTemplates: DurationTimeDef;
-        durationLabelTypes: DurationLabelTypeDef[];
-        durationPluralKey: (token: string, integerValue: number, decimalValue: number) => string;
+        durationLabelsLong?: DurationLabelDef;
+        durationLabelsStandard?: DurationLabelDef;
+        durationLabelsShort?: DurationLabelDef;
+        durationTimeTemplates?: DurationTimeDef;
+        durationLabelTypes?: DurationLabelTypeDef[];
+        durationPluralKey?: (token: string, integerValue: number, decimalValue: number) => string;
     }
 
     type TemplateFunction = ((this: DurationFormatSettings) => string);
 }
+
+declare function momentDurationFormatSetup(_moment: typeof moment): void;
+
+export = momentDurationFormatSetup;

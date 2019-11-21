@@ -90,3 +90,20 @@ numeral.locale('fr');
 // return the current locale
 numeral.locale();
 // 'fr'
+
+// return the current locale data
+numeral.localeData()
+
+// return a specific locale data
+const localeData = numeral.localeData('es')
+
+// test accessing locale data
+const currencySymbol = localeData.currency.symbol
+const billionShorthand = localeData.abbreviations.billion
+const decimalDelimiter = localeData.delimiters.decimal
+const ordinalResult = localeData.ordinal(2)
+
+// test changing an option
+numeral.options.scalePercentBy100 = false
+numeral(50).format('0%')
+// '50%'

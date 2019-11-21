@@ -1,10 +1,8 @@
 import Autocomplete from 'react-native-autocomplete-input';
 import * as React from 'react';
 import {
-  StyleSheet,
   Text,
   TouchableOpacity,
-  View
 } from 'react-native';
 
 interface Item { query: string; value: string; }
@@ -24,8 +22,10 @@ class AutocompleteExample extends React.Component<{}, {query: string}> {
         return (<Autocomplete
             data={data}
             defaultValue={query}
+            flatListProps={{ onScroll: () => {} }}
+            keyExtractor={item => item.value}
             onChangeText={text => this.setState({ query: text })}
-            renderItem={(item: Item) => (
+            renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => this.setState({ query: item.query })}>
                     <Text>{item.value}</Text>
                 </TouchableOpacity>

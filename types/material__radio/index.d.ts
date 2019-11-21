@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -25,9 +25,9 @@ import MDCComponent from 'material__base/component';
 import { MDCSelectionControl } from 'material__selection-control';
 import MDCRadioAdapter from './adapter';
 import MDCRadioFoundation from './foundation';
-import { MDCRipple, MDCRippleFoundation } from 'material__ripple';
+import { MDCRipple } from 'material__ripple';
 
-export {MDCRadioAdapter, MDCRadioFoundation};
+export { MDCRadioAdapter, MDCRadioFoundation };
 
 export class MDCRadio extends MDCComponent<MDCRadioAdapter, MDCRadioFoundation> implements MDCSelectionControl {
     static attachTo(root: Element): MDCRadio;
@@ -39,8 +39,4 @@ export class MDCRadio extends MDCComponent<MDCRadioAdapter, MDCRadioFoundation> 
     value: string;
 
     readonly ripple: MDCRipple;
-
-    destroy(): void;
-
-    getDefaultFoundation(): MDCRadioFoundation;
 }

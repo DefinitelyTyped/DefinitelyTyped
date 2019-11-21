@@ -18,10 +18,7 @@ declare const container: HTMLElement;
 
 {
     // $ExpectError
-    const config: h337.HeatmapConfiguration = {
-        container,
-        valueField: 'foo',
-    };
+    const config: h337.HeatmapConfiguration = { container, valueField: 'foo' };
 }
 
 {
@@ -118,11 +115,8 @@ declare const container: HTMLElement;
         data: validData
     });
 
-    heatmap.setData({ // $ExpectError
-        min: 0,
-        max: 1,
-        data: [{ xPos: 1, yPos: 2, value: 5 }]
-    });
+    // $ExpectError
+    heatmap.setData({ min: 0, max: 1, data: [{ xPos: 1, yPos: 2, value: 5 }] });
 }
 
 {
@@ -140,11 +134,8 @@ declare const container: HTMLElement;
         data: validData
     });
 
-    heatmap.setData({ // $ExpectError
-        min: 0,
-        max: 1,
-        data: [{ x: 1, y: 2, value: 5 }]
-    });
+    // $ExpectError
+    heatmap.setData({ min: 0, max: 1, data: [{ x: 1, y: 2, value: 5 }] });
 }
 
 // -- Heatmap#setDataMax / Heatmap#setDataMin --

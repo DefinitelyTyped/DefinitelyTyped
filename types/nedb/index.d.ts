@@ -2,12 +2,18 @@
 // Project: https://github.com/louischatriot/nedb
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 //                 Anthony Nichols <https://github.com/anthonynichols>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+/// <reference types="node" />
+
+import { EventEmitter } from 'events';
 
 export = Nedb;
 export as namespace Nedb;
 
-declare class Nedb {
+declare class Nedb<G = any> extends EventEmitter {
     constructor(pathOrOptions?: string | Nedb.DataStoreOptions);
 
     persistence: Nedb.Persistence;
@@ -44,20 +50,20 @@ declare class Nedb {
     /**
      * Add one or several document(s) to all indexes
      */
-    addToIndexes<T>(doc: T | T[]): void;
+    addToIndexes<T extends G>(doc: T | T[]): void;
 
     /**
      * Remove one or several document(s) from all indexes
      */
-    removeFromIndexes<T>(doc: T | T[]): void;
+    removeFromIndexes<T extends G>(doc: T | T[]): void;
 
     /**
      * Update one or several documents in all indexes
      * To update multiple documents, oldDoc must be an array of { oldDoc, newDoc } pairs
      * If one update violates a constraint, all changes are rolled back
      */
-    updateIndexes<T>(oldDoc: T, newDoc: T): void;
-    updateIndexes<T>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
+    updateIndexes<T extends G>(oldDoc: T, newDoc: T): void;
+    updateIndexes<T extends G>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
 
     /**
      * Return the list of candidates for a given query
@@ -71,10 +77,11 @@ declare class Nedb {
     getCandidates(query: any): void;
 
     /**
-     * Insert a new document
+     * Insert one or more new documents
      * @param cb Optional callback, signature: err, insertedDoc
      */
-    insert<T>(newDoc: T, cb?: (err: Error, document: T) => void): void;
+    insert<T extends G>(newDoc: T, cb?: (err: Error, document: T) => void): void;
+    insert<T extends G>(newDocs: T[], cb?: (err: Error, documents: T[]) => void): void;
 
     /**
      * Count all documents matching the query
@@ -89,28 +96,28 @@ declare class Nedb {
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    find<T>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
-    find<T>(query: any, projection?: T): Nedb.Cursor<T>;
+    find<T extends G>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
+    find<T extends G>(query: any, projection?: T): Nedb.Cursor<T>;
 
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
      * * @param {any} query MongoDB-style query
      */
-    find<T>(query: any, callback: (err: Error, documents: T[]) => void): void;
+    find<T extends G>(query: any, callback: (err: Error, documents: T[]) => void): void;
 
     /**
      * Find one document matching the query
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    findOne<T>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
 
     /**
      * Find one document matching the query
      * @param query MongoDB-style query
      */
-    findOne<T>(query: any, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, callback: (err: Error, document: T) => void): void;
 
     /**
      * Update all docs matching query v1.7.4 and prior signature.
@@ -139,7 +146,7 @@ declare class Nedb {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update<T>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
+    update<T extends G>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
 
     /**
      * Remove all docs matching the query
@@ -152,6 +159,17 @@ declare class Nedb {
      */
     remove(query: any, options: Nedb.RemoveOptions, cb?: (err: Error, n: number) => void): void;
     remove(query: any, cb?: (err: Error, n: number) => void): void;
+
+    addListener(event: 'compaction.done', listener: () => void): this;
+    on(event: 'compaction.done', listener: () => void): this;
+    once(event: 'compaction.done', listener: () => void): this;
+    prependListener(event: 'compaction.done', listener: () => void): this;
+    prependOnceListener(event: 'compaction.done', listener: () => void): this;
+    removeListener(event: 'compaction.done', listener: () => void): this;
+    off(event: 'compaction.done', listener: () => void): this;
+    listeners(event: 'compaction.done'): Array<() => void>;
+    rawListeners(event: 'compaction.done'): Array<() => void>;
+    listenerCount(type: 'compaction.done'): number;
 }
 
 declare namespace Nedb {
@@ -215,6 +233,7 @@ declare namespace Nedb {
         fieldName: string;
         unique?: boolean;
         sparse?: boolean;
+        expireAfterSeconds?: number;
     }
 
     interface Persistence {

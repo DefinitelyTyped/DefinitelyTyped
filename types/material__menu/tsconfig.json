@@ -1,11 +1,10 @@
 {
     "files": [
-        "simple/constants.d.ts",
-        "simple/adapter.d.ts",
-        "simple/index.d.ts",
-        "simple/foundation.d.ts",
-        "util.d.ts",
-        "index.d.ts"
+        "constants.d.ts",
+        "adapter.d.ts",
+        "index.d.ts",
+        "foundation.d.ts",
+        "util.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

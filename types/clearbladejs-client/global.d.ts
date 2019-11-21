@@ -1,5 +1,5 @@
 declare global {
-    var ClearBlade: ClearBladeGlobal;
+    var ClearBlade: CbClient.ClearBladeGlobal;
 }
 
 export {};

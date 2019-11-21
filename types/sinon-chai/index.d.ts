@@ -1,8 +1,10 @@
-// Type definitions for sinon-chai 2.7.0
+// Type definitions for sinon-chai 3.2.0
 // Project: https://github.com/domenic/sinon-chai
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, Jed Mao <https://github.com/jedmao>
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
+//                 Jed Mao <https://github.com/jedmao>
+//                 Eyal Lapid <https://github.com/elpdpt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 /// <reference types="sinon" />
@@ -47,6 +49,16 @@ declare global {
              */
             calledAfter(anotherSpy: Sinon.SinonSpy): Assertion;
             /**
+             * Returns true if spy was called before anotherSpy, and no spy calls occurred
+             * between spy and anotherSpy.
+             */
+            calledImmediatelyBefore(anotherSpy: Sinon.SinonSpy): Assertion;
+            /**
+             * Returns true if spy was called after anotherSpy, and no spy calls occurred
+             * between anotherSpy and spy.
+             */
+            calledImmediatelyAfter(anotherSpy: Sinon.SinonSpy): Assertion;
+            /**
              * Returns true if spy/stub was called with the new operator. Beware that
              * this is inferred based on the value of the this object and the spy
              * function's prototype, so it may give false positives if you actively
@@ -62,9 +74,17 @@ declare global {
              */
             calledWith(...args: any[]): Assertion;
             /**
+             * Returns true if spy was called at exactly once with the provided arguments.
+             */
+            calledOnceWith(...args: any[]): Assertion;
+            /**
              * Returns true if call received provided arguments and no others.
              */
             calledWithExactly(...args: any[]): Assertion;
+            /**
+             * Returns true if spy was called exactly once with the provided arguments and no others.
+             */
+            calledOnceWithExactly(...args: any[]): Assertion;
             /**
              * Returns true if call received matching arguments (and possibly others).
              * This behaves the same as spyCall.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
@@ -84,6 +104,6 @@ declare global {
     }
 }
 
-declare function sinonChai(chai: any, utils: any): void;
+declare const sinonChai: Chai.ChaiPlugin;
 declare namespace sinonChai { }
 export = sinonChai;

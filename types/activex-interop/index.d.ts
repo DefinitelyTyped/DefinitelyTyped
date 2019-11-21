@@ -1,8 +1,8 @@
-// Type definitions for Javascript Automation interop 0.0
+// Type definitions for non-npm package Javascript Automation interop 0.0
 // Project: https://msdn.microsoft.com/en-us/library/ff521046(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 // tslint:disable-next-line no-empty-interface
 interface ActiveXObjectNameMap { }
@@ -50,8 +50,7 @@ interface Enumerator<T = any> {
 }
 
 interface EnumeratorConstructor {
-    new <T = any>(collection: SafeArray<T> | { Item(index: any): T }): Enumerator<T>;
-    new (collection: any): Enumerator;
+    new <T = any>(collection: { Item(index: any): T }): Enumerator<T>;
 }
 
 declare var Enumerator: EnumeratorConstructor;

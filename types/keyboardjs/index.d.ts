@@ -1,7 +1,8 @@
-// Type definitions for KeyboardJS v2.2.0
+// Type definitions for KeyboardJS v2.4.2
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone>,
-//                 David Asmuth <https://github.com/piranha771>
+//                 David Asmuth <https://github.com/piranha771>,
+//                 Tanasoaia Teodor <https://github.com/teoxoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // KeyboardJS is a library for use in the browser (node.js compatible).
@@ -19,6 +20,7 @@ declare namespace keyboardjs {
 	 */
     interface KeyEvent extends KeyboardEvent {
         preventRepeat(): void;
+        pressedKeys: string[];
     }
 
     /**
@@ -90,14 +92,16 @@ declare namespace keyboardjs {
 
     /**
      * Triggers a key press. Stays in pressed state until released.
-     * @param keyCombo String of keys to be pressed to execute 'pressed' callbacks.
+     * @param keyCombo String of keys or keyCode to be pressed to execute 'pressed' callbacks.
+     * @param event The KeyEvent, can be null.
      */
-    export function pressKey(keyCombo: string): void
+    export function pressKey(keyCombo: string | number, event?: KeyEvent): void;
     /**
      * Triggers a key release.
-     * @param keyCombo String of keys to be released to execute 'released' callbacks.
+     * @param keyCombo String of keys or keyCode to be released to execute 'released' callbacks.
+     * @param event The KeyEvent, can be null.
      */
-    export function releaseKey(keyCombo: string): void;
+    export function releaseKey(keyCombo: string | number, event?: KeyEvent): void;
     /**
      * Releases all keys.
      */

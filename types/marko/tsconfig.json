@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "express.d.ts",
+        "node-require.d.ts",
+        "marko-tests.ts",
+        "src/compiler/index.d.ts",
+        "src/compiler/config.d.ts",
+        "src/compiler/modules.d.ts",
+        "src/compiler/taglib-finder/index.d.ts",
+        "src/compiler/taglib-loader/index.d.ts",
+        "src/compiler/taglib-loader/Attribute.d.ts",
+        "src/compiler/taglib-loader/Tag.d.ts",
+        "src/compiler/taglib-loader/Taglib.d.ts",
+        "src/compiler/taglib-loader/Transformer.d.ts",
+        "src/compiler/taglib-lookup/index.d.ts",
+        "src/compiler/taglib-lookup/TaglibLookup.d.ts",
+        "src/components/index.d.ts",
+        "src/components/Component.d.ts",
+        "src/components/taglib/TransformHelper/getComponentFiles.d.ts",
+        "src/runtime/Async.d.ts",
+        "src/runtime/DomElement.d.ts",
+        "src/runtime/html/index.d.ts",
+        "src/runtime/html/Template.d.ts",
+        "src/runtime/html/RenderResult.d.ts",
+        "src/runtime/html/AsyncStream.d.ts",
+        "src/runtime/vdom/AsyncVDOMBuilder.d.ts"
+    ]
+}

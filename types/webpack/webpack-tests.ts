@@ -56,11 +56,112 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
+};
+
+//
+// https://webpack.js.org/configuration/externals/
+//
+configuration = {
+    externals : {
+        react: 'react'
+    },
+};
+
+configuration = {
+    externals : {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+        }
+      },
+};
+
+configuration = {
+    externals : {
+        subtract : {
+            root: ['math', 'subtract']
+        }
+    }
+};
+
+configuration = {
+    externals: [
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line */
+        function(context, request, callback) {
+          if (/^yourregex$/.test(request)) {
+            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+            /* tslint:disable-next-line */
+            return callback(null, 'commonjs ' + request);
+          }
+          callback({}, {});
+        }
+      ]
+};
+
+configuration = {
+    externals: [
+        {
+            // String
+            react: 'react',
+            // Object
+            lodash : {
+                commonjs: 'lodash',
+                amd: 'lodash',
+                root: '_' // indicates global variable
+            },
+            // Array
+            subtract: ['./math', 'subtract']
+            },
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            function(context, request, callback) {
+              if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+              }
+              callback({}, {});
+            },
+            // Regex
+            /^(jquery|\$)$/i
+    ]
+};
+
+configuration = {
+    externals: [
+        "add",
+        {
+            subtract: {
+                root: "subtract",
+                commonjs2: "./subtract",
+                commonjs: ["./math", "subtract"],
+                amd: "subtract"
+            }
+        }
+    ]
 };
 
 //
@@ -157,15 +258,69 @@ rule = {
 declare const require: any;
 declare const path: any;
 configuration = {
-    plugins: [
-        function(this: webpack.Compiler) {
-            this.plugin("done", stats => {
-                require("fs").writeFileSync(
-                    path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.toJson()));
-            });
+  plugins: [
+    function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
+      const prevTimestamps = new Map<string, number>();
+      const startTime = Date.now();
+
+      this.hooks.emit.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          for (const filepath in compilation.fileTimestamps.keys()) {
+            const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+            const newTimestamp =
+              compilation.fileTimestamps.get(filepath) || Infinity;
+            if (prevTimestamp < newTimestamp) {
+              this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+            }
+          }
+        },
+      );
+
+      compiler.hooks.afterCompile.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          ['path/to/extra/dep', 'another/extra/dep'].forEach(path =>
+            compilation.fileDependencies.add(path),
+          );
+        },
+      );
+
+      this.hooks.afterEmit.tapAsync('afterEmit', (stats, callback) => {
+        this.outputFileSystem.writeFile(
+          path.join(__dirname, '...', 'stats.json'),
+          JSON.stringify(stats.getStats().toJson()),
+          callback,
+        );
+      });
+
+      this.hooks.beforeRun.tap(
+        'SomePlugin',
+        (compiler: webpack.Compiler) => {},
+      );
+      this.hooks.run.tap('SomePlugin', (compiler: webpack.Compiler) => {});
+
+      compiler.hooks.compilation.tap('SomePlugin', compilation => {
+        const { mainTemplate } = compilation;
+        mainTemplate.requireFn.trimLeft();
+        mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
+          return resource.trimLeft();
+        });
+        if (mainTemplate.hooks.jsonpScript == null) {
+          return;
         }
-    ]
+        mainTemplate.hooks.jsonpScript.tap(
+          'SomePlugin',
+          (source, chunk, hash) => {
+            source.trimLeft();
+            hash.trimLeft();
+            return chunk.name;
+          },
+        );
+      });
+    },
+  ],
 };
 
 //
@@ -326,6 +481,11 @@ plugin = new webpack.HashedModuleIdsPlugin({
     hashDigest: 'hex',
     hashDigestLength: 20
 });
+plugin = new webpack.SingleEntryPlugin(
+    '/home',
+    './main.js',
+    'main'
+);
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -383,6 +543,7 @@ webpack({
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
+        builtAt: true,
         cached: true,
         children: true,
         chunks: true,
@@ -515,6 +676,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
+    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
@@ -595,12 +757,38 @@ configuration = {
     mode: "production",
     optimization: {
         splitChunks: {
+            minSize: 30000,
+            maxSize: 50000,
             cacheGroups: {
+                default: false,
                 vendor: {
                     chunks: "initial",
                     test: "node_modules",
                     name: "vendor",
+                    minSize: 30000,
+                    maxSize: 50000,
                     enforce: true
+                }
+            }
+        }
+    },
+};
+
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    chunks(chunk: webpack.compilation.Chunk) {
+                        const allowedChunks = [
+                            'renderer',
+                            'component-window',
+                        ];
+                        return allowedChunks.indexOf(chunk.name) >= 0;
+                    },
+                    minChunks: 2
                 }
             }
         }
@@ -732,3 +920,142 @@ configuration = {
         ]
     }
 };
+
+let profiling = new webpack.debug.ProfilingPlugin();
+profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
+
+configuration = {
+    plugins: [profiling]
+};
+
+compiler.hooks.done.tap('foo', stats => {
+  if (stats.startTime === undefined || stats.endTime === undefined) {
+    throw new Error('Well, this is odd');
+  }
+
+  console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
+});
+
+const multiCompiler = webpack([{}, {}]);
+
+multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
+    const stats = multiStats[0];
+
+    if (stats.startTime === undefined || stats.endTime === undefined) {
+        throw new Error('Well, this is odd');
+    }
+
+    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+});
+
+webpack.Template.getFunctionContent(() => undefined).trimLeft();
+webpack.Template.toIdentifier('a').trimLeft();
+webpack.Template.toComment('a').trimLeft();
+webpack.Template.toNormalComment('a').trimLeft();
+webpack.Template.toPath('a').trimLeft();
+webpack.Template.numberToIdentifer(2).trimLeft();
+webpack.Template.indent('a').trimLeft();
+webpack.Template.indent(['a']).trimLeft();
+webpack.Template.prefix('a', 'a').trimLeft();
+webpack.Template.prefix(['a'], 'a').trimLeft();
+webpack.Template.asString('a').trimLeft();
+webpack.Template.asString(['a']).trimLeft();
+webpack.Template.getModulesArrayBounds([{ id: 'a' }]);
+
+function testTemplateFn() {
+  const result = webpack.Template.getModulesArrayBounds([{ id: 1 }]);
+  if (result === false) {
+    return;
+  }
+  Math.max(...result);
+}
+
+const chunk = new webpack.compilation.Chunk('name');
+
+chunk.sortModules((module1, module2) => {
+  if (module1)
+      return 1;
+  else if (module2)
+      return -1;
+  return 0;
+});
+chunk.addMultiplierAndOverhead(12, {});
+chunk.addMultiplierAndOverhead(12, {
+  chunkOverhead: 1,
+  entryChunkMultiplicator: 2
+});
+chunk.size();
+chunk.size({});
+chunk.size({
+  chunkOverhead: 1,
+  entryChunkMultiplicator: 2
+});
+chunk.hasModuleInGraph(
+  m => m.type === "webassembly/async",
+  chunk => chunk.name === "vendor"
+);
+
+const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
+webpack.Template.renderChunkModules(
+  chunk,
+  (_, num) => {
+    Math.max(num, 2);
+    return true;
+  },
+  moduleTemplate,
+  [],
+);
+
+webpack.Template.renderChunkModules(
+  chunk,
+  () => false,
+  moduleTemplate,
+  [],
+  'a',
+);
+
+// https://webpack.js.org/configuration/output/#outputfilename
+configuration = {
+    output: {
+        filename: chunkData => {
+            return chunkData.chunk.name === 'main' ? '[name].js' : '[name]/[name].js';
+        },
+    },
+};
+
+// https://webpack.js.org/api/logging/
+class LoggingPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler): void {
+        const infrastructureLogger: webpack.Logger = compiler.getInfrastructureLogger('LoggingPlugin');
+        infrastructureLogger.error("File not found");
+        infrastructureLogger.warn("Ignoring unknown configuration option");
+        infrastructureLogger.info("Maintaining flux");
+        infrastructureLogger.debug("Dynamic reloads are inside the frobnitz");
+        infrastructureLogger.trace("Something might have gone wrong here");
+        infrastructureLogger.group("Start of messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.groupCollapsed("Start of collapsed messages");
+        infrastructureLogger.groupEnd();
+        infrastructureLogger.status("50% complete");
+        infrastructureLogger.clear();
+        infrastructureLogger.profile("How long does this take");
+        infrastructureLogger.profileEnd();
+
+        compiler.hooks.emit.tap('LoggingPlugin', compilation => {
+            const logger = compilation.getLogger('LoggingPlugin');
+            logger.error("File not found");
+            logger.warn("Ignoring unknown configuration option");
+            logger.info("Maintaining flux");
+            logger.debug("Dynamic reloads are inside the frobnitz");
+            logger.trace("Something might have gone wrong here");
+            logger.group("Start of messages");
+            logger.groupEnd();
+            logger.groupCollapsed("Start of collapsed messages");
+            logger.groupEnd();
+            logger.status("50% complete");
+            logger.clear();
+            logger.profile("How long does this take");
+            logger.profileEnd();
+        });
+    }
+}

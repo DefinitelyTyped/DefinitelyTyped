@@ -33,6 +33,8 @@ interface IItemLookupOptions {
     searchIndex?: string;
     truncateReviewsAt?: number;
     variationPage?: string;
+    domain?: string;
+    request?: Function;
 }
 
 interface IBrowseNodeLookupOptions {

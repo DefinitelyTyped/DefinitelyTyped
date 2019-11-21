@@ -2,7 +2,7 @@
 // Project: https://github.com/oklas/react-breadcrumbs-dynamic
 // Definitions by: mitsuruog <https://github.com/mitsuruog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

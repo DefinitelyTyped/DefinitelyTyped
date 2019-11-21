@@ -33,7 +33,7 @@ interface VerifyFunction {
     (error: any, user?: any, msg?: VerifyOptions): void;
 }
 
-declare class OAuthStrategy extends passport.Strategy {
+declare class OAuthStrategy implements passport.Strategy {
     constructor(
         options: IOAuthStrategyOption,
         verify: (
@@ -53,6 +53,7 @@ interface IOAuth2StrategyOption {
     callbackURL: string;
     authorizationURL?: string;
     tokenURL?: string;
+    userProfileURL?: string;
     accessType?: string;
     approval_prompt?: string;
     prompt?: string;
@@ -75,7 +76,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
     constructor(
@@ -85,7 +86,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
 

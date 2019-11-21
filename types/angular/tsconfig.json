@@ -11,7 +11,8 @@
         "lib": [
             "es5",
             "dom",
-            "es2015.iterable"
+            "es2015.iterable",
+            "es2015.promise"
         ],
         "noImplicitAny": false,
         "noImplicitThis": false,

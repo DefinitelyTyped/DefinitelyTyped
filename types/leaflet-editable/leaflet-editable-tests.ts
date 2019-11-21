@@ -31,6 +31,7 @@ const map: L.Map = L.map('div', {
 
 const currentPoly: L.Polygon|L.Polyline| L.Marker = map.editTools.currentPolygon;
 map.editTools.stopDrawing();
+map.editTools.commitDrawing();
 
 const marker: L.Marker = map.editTools.startMarker(L.latLng(0, 0), { draggable: true });
 marker.disable();

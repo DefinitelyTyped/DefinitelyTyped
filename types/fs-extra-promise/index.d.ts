@@ -2,14 +2,15 @@
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
 import * as stream from 'stream';
-import { Stats } from 'fs';
+import * as fs from 'fs';
 import * as Promise from 'bluebird';
 import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MoveOptions } from 'fs-extra';
+import Stats = fs.Stats;
 
 export * from 'fs-extra';
 
@@ -53,7 +54,7 @@ export function statAsync(path: string): Promise<Stats>;
 export function lstatAsync(path: string): Promise<Stats>;
 export function fstatAsync(fd: number): Promise<Stats>;
 export function linkAsync(srcpath: string, dstpath: string): Promise<void>;
-export function symlinkAsync(srcpath: string, dstpath: string, type?: string): Promise<void>;
+export function symlinkAsync(srcpath: string, dstpath: string, type?: fs.symlink.Type): Promise<void>;
 export function readlinkAsync(path: string): Promise<string>;
 export function realpathAsync(path: string, cache?: { [path: string]: string }): Promise<string>;
 export function unlinkAsync(path: string): Promise<void>;

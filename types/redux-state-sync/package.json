@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "broadcast-channel": "^2.1.8",
+    "redux": "^4.0.1"
+  }
+}

@@ -20,16 +20,16 @@ myWritableStreamBuffer.size();
 myWritableStreamBuffer.maxSize();
 
 // Gets all held data as a Buffer.
-const contents: Buffer = myWritableStreamBuffer.getContents();
+const contents: Buffer = myWritableStreamBuffer.getContents() as Buffer;
 
 // Gets all held data as a utf8 string.
-const stringContents: string = myWritableStreamBuffer.getContentsAsString('utf8');
+const stringContents: string = myWritableStreamBuffer.getContentsAsString('utf8') as string;
 
 // Gets first 5 bytes as a Buffer.
-const contents2: Buffer = myWritableStreamBuffer.getContents(5);
+const contents2: Buffer = myWritableStreamBuffer.getContents(5) as Buffer;
 
 // Gets first 5 bytes as a utf8 string.
-const stringContents2: string = myWritableStreamBuffer.getContentsAsString('utf8', 5);
+const stringContents2: string = myWritableStreamBuffer.getContentsAsString('utf8', 5) as string;
 
 const myReadableStreamBuffer = new streamBuffers.ReadableStreamBuffer({
     frequency: 10,   // in milliseconds.
@@ -46,3 +46,8 @@ myReadableStreamBuffer.on('data', (data) => {
 
 myReadableStreamBuffer.put('the last data this stream will ever see');
 myReadableStreamBuffer.stop();
+
+// Test empty buffer
+const myWritableEmptyStreamBuffer = new streamBuffers.WritableStreamBuffer();
+const emptyContents: boolean = myWritableEmptyStreamBuffer.getContents() as boolean;
+const emptyContentsString: boolean = myWritableEmptyStreamBuffer.getContentsAsString() as boolean;

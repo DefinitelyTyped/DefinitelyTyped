@@ -1,8 +1,8 @@
-// Type definitions for bell 9.1
+// Type definitions for bell 9.3
 // Project: https://github.com/hapijs/bell
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import { Server, Request, Plugin, AuthCredentials } from 'hapi';
 
@@ -22,50 +22,47 @@ export interface StringLikeMap {
     [key: string]: string | number;
 }
 export type Provider =
-    'arcgisonline' |
-    'auth0' |
-    'azuread' |
-    'bitbucket' |
-    'digitalocean' |
-    'discord' |
-    'dropbox' |
-    'dropboxV2' |
-    'facebook' |
-    'fitbit' |
-    'foursquare' |
-    'github' |
-    'gitlab' |
-    'google' |
-    'googleplus' |
-    'instagram' |
-    'linkedin' |
-    'live' |
-    'medium' |
-    'meetup' |
-    'mixer' |
-    'nest' |
-    'office365' |
-    'okta' |
-    'phabricator' |
-    'pingfed' |
-    'pinterest' |
-    'reddit' |
-    'salesforce' |
-    'slack' |
-    'spotify' |
-    'stripe' |
-    'trakt' |
-    'tumblr' |
-    'twitch' |
-    'twitter' |
-    'vk' |
-    'wordpress' |
-    'yahoo';
+  'arcgisonline' |
+  'auth0' |
+  'azuread' |
+  'bitbucket' |
+  'digitalocean' |
+  'discord' |
+  'dropbox' |
+  'dropboxV2' |
+  'facebook' |
+  'fitbit' |
+  'foursquare' |
+  'github' |
+  'gitlab' |
+  'google' |
+  'googleplus' |
+  'instagram' |
+  'linkedin' |
+  'live' |
+  'medium' |
+  'meetup' |
+  'mixer' |
+  'nest' |
+  'office365' |
+  'okta' |
+  'phabricator' |
+  'pingfed' |
+  'pinterest' |
+  'reddit' |
+  'salesforce' |
+  'slack' |
+  'spotify' |
+  'stripe' |
+  'trakt' |
+  'tumblr' |
+  'twitch' |
+  'twitter' |
+  'vk' |
+  'wordpress' |
+  'yahoo';
 
-export type RequestPassThrough = (
-  request: Request,
-  next: (err: Error | null, credentials: AuthCredentials) => void,
-) => void;
+export type RequestPassThrough = (request: Request) => PromiseLike<AuthCredentials> | AuthCredentials;
 
 export interface OptionalOptions {
   /**
@@ -191,29 +188,33 @@ export interface KnownProviderOptions extends RequiredProviderOptions, OptionalO
  * @param uri the requested resource URI (bell will add the token or authentication header as needed).
  * @param params any URI query parameters (cannot include them in the URI due to signature requirements).
  */
-export type AuthedRequest = (uri: string, params: { [key: string]: string } | null) => Promise<any>;
+export type AuthedRequest = (uri: string, params?: { [key: string]: string }) => Promise<object>;
+
+export interface Credentials {
+  provider: Provider | 'custom';
+  token: string;
+  query: StringLikeMap;
+  /**
+   * Varying data depending on provider.
+   */
+  profile?: object;
+}
+
+export interface Credentials1 extends Credentials {
+  secret: string;
+}
+
+export interface Credentials2 extends Credentials {
+  refreshToken?: string;
+  expiresIn?: number;
+}
 
 export interface CustomProtocol {
   /**
-   * the authorization protocol used.
+   * The name of the protocol.
+   * @default custom
    */
-  protocol: 'oauth' | 'oauth2';
-  /**
-   * the OAuth signature method (OAuth 1.0a only). Must be one of:
-   * * 'HMAC-SHA1' - default
-   * * 'RSA-SHA1' - in that case, the clientSecret is your RSA private key
-   */
-  signatureMethod?: 'HMAC-SHA1' | 'RSA-SHA1';
-  /**
-   * the temporary credentials (request token) endpoint (OAuth 1.0a only).
-   */
-  temporary?: string;
-  /**
-   * boolean that determines if OAuth client id and client secret will be sent
-   * as parameters as opposed to an Authorization header (OAuth 2.0 only).
-   * Defaults to false.
-   */
-  useParamsAuth?: boolean;
+  name?: string;
   /**
    * the authorization endpoint URI.
    */
@@ -223,41 +224,74 @@ export interface CustomProtocol {
    */
   token: string;
   /**
-   * the OAuth version.
-   */
-  version?: string;
-  /**
-   * an array of scope strings (OAuth 2.0 only).
-   */
-  scope?: string[] | ((query: StringLikeMap) => string[]);
-  /**
-   * the scope separator character (OAuth 2.0 only). Only required when a provider has a broken OAuth 2.0 implementation. Defaults to space (Facebook and GitHub default to comma).
-   */
-  scopeSeparator?: string;
-  /**
    * a headers object with additional headers required by the provider
    * (e.g. GitHub required the 'User-Agent' header which is set by default).
    */
   headers?: {
     [key: string]: string;
   };
+}
+
+/**
+ * a function used to obtain user profile information and normalize it.
+ * @param credentials the credentials object.
+ * Change the object directly within the function (profile information is typically stored under credentials.profile).
+ * @param params the parsed information received from the provider (e.g. token, secret, and other custom fields).
+ * @param get an OAuth helper function to make authenticated requests using the credentials received.
+ */
+export type ProfileGetter<C extends Credentials> = (this: CustomProviderOptions, credentials: C, params: { [key: string]: string }, get: AuthedRequest) => Promise<void>;
+
+export interface CustomProtocol1 extends CustomProtocol {
   /**
-   * a function used to obtain user profile information and normalize it.
-   * @param credentials the credentials object.
-   * Change the object directly within the function (profile information is typically stored under credentials.profile).
-   * @param params the parsed information received from the provider (e.g. token, secret, and other custom fields).
-   * @param get an OAuth helper function to make authenticated requests using the credentials received.
+   * the authorization protocol used.
    */
-  profile(credentials: any, params: { [key: string]: string }, get: AuthedRequest): Promise<void>;
+  protocol: 'oauth';
+
+  /**
+   * the OAuth signature method. Must be one of:
+   * * 'HMAC-SHA1' - default
+   * * 'RSA-SHA1' - in that case, the clientSecret is your RSA private key
+   */
+  signatureMethod?: 'HMAC-SHA1' | 'RSA-SHA1';
+  /**
+   * the temporary credentials (request token) endpoint).
+   */
+  temporary?: string;
+
+  profile: ProfileGetter<Credentials1>;
+}
+
+export interface CustomProtocol2 extends CustomProtocol {
+  /**
+   * the authorization protocol used.
+   */
+  protocol: 'oauth2';
+  /**
+   * an array of scope strings.
+   */
+  scope?: string[] | ((query: StringLikeMap) => string[]);
+  /**
+   * boolean that determines if OAuth client id and client secret will be sent
+   * as parameters as opposed to an Authorization header.
+   * Defaults to false.
+   */
+  useParamsAuth?: boolean;
+
+  /**
+   * the scope separator character. Only required when a provider has a broken OAuth 2.0 implementation. Defaults to space (Facebook and GitHub default to comma).
+   */
+  scopeSeparator?: string;
+
+  profile: ProfileGetter<Credentials2>;
 }
 
 export interface CustomProviderOptions extends RequiredProviderOptions, OptionalOptions {
-  provider: CustomProtocol;
+  provider: CustomProtocol1 | CustomProtocol2;
 }
 
 export type BellOptions = CustomProviderOptions | KnownProviderOptions;
 
-export const plugin: Plugin<CustomProviderOptions | KnownProviderOptions>;
+export const plugin: Plugin<BellOptions>;
 /**
  * Enables simulation mode.
  */

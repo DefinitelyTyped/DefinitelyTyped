@@ -7,8 +7,7 @@
         "types": [],
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "jsx": "react",
         "strictNullChecks": true,

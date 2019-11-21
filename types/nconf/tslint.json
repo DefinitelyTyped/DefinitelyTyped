@@ -7,7 +7,6 @@
         "ban-types": false,
         "callable-types": false,
         "comment-format": false,
-        "dt-header": false,
         "eofline": false,
         "export-just-namespace": false,
         "import-spacing": false,

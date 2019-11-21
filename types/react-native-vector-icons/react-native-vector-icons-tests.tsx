@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { View, Text, TabBarIOS } from 'react-native';
 import { createIconSet } from 'react-native-vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const glyphMap = {
   custom: 58918
@@ -26,7 +30,12 @@ class Example extends React.Component {
     return (
       <View>
         {/* Normal Icon */}
+        <AntDesign size={10} color="white" name="user" />
         <MaterialIcon size={30} color="red" name="exit" />
+        <FontAwesome5Icon size={10} name="handshake" />
+        <FontAwesome5Icon size={10} name="handshake" solid />
+        <FontAwesome5ProIcon size={10} name="parachute-box" light />
+        <Fontisto size={10} name="fontisto" />
 
         {/* Icon button  */}
         <FontAwesomeIcon.Button
@@ -44,13 +53,9 @@ class Example extends React.Component {
 }
 
 class TabTest extends React.Component<{}, { selectedTab: string }> {
-  constructor() {
-    super({});
-
-    this.state = {
-      selectedTab: 'tab1'
-    };
-  }
+  state = {
+    selectedTab: 'tab1'
+  };
 
   render() {
     return (

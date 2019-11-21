@@ -6,6 +6,9 @@ get(obj, "a");
 get(obj, "a.b");
 get(obj, "a.b.c");
 get(obj, "a.b.c.d");
+get(obj, ['a']);
+get(obj, ['a', 'b', 'c']);
+get(obj, ['a', 'b', 'c', 'd']);
 
 {
     const isEnumerable = Object.prototype.propertyIsEnumerable;

@@ -1,4 +1,4 @@
-// Type definitions for Google Ad Exchange Buyer API II v2beta1 2.0
+// Type definitions for non-npm package Google Ad Exchange Buyer API II v2beta1 2.0
 // Project: https://developers.google.com/ad-exchange/buyer-rest/reference/rest/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

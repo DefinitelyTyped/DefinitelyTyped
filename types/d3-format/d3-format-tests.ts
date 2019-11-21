@@ -64,6 +64,7 @@ const zero: boolean = specifier.zero;
 const width: number | undefined = specifier.width;
 const comma: boolean = specifier.comma;
 const precision: number | undefined = specifier.precision;
+const trim: boolean = specifier.trim;
 const type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
 
 const formatString: string = specifier.toString();

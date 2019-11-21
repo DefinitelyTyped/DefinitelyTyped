@@ -8,7 +8,6 @@
     "ban-types": false,
     "callable-types": false,
     "comment-format": false,
-    "dt-header": false,
     "import-spacing": false,
     "interface-over-type-literal": false,
     "jsdoc-format": false,

@@ -22,6 +22,4 @@ format({});
 
 // Invalid sub type
 // $ExpectError
-format({
-    messageType: 1
-});
+format({ messageType: 1 });

@@ -1,6 +1,8 @@
 // Type definitions for UglifyJS 3.0
 // Project: https://github.com/mishoo/UglifyJS2
-// Definitions by: Alan Agius <https://github.com/alan-agius4>, Tanguy Krotoff <https://github.com/tkrotoff>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -163,7 +165,7 @@ export interface OutputOptions {
     indent_start?: boolean;
     inline_script?: boolean;
     keep_quoted_props?: boolean;
-    max_line_len?: boolean;
+    max_line_len?: boolean | number;
     preamble?: string;
     preserve_line?: boolean;
     quote_keys?: boolean;

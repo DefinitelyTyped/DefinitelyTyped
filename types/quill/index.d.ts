@@ -1,11 +1,15 @@
-// Type definitions for Quill 1.3
-// Project: https://github.com/quilljs/quill/
+// Type definitions for Quill 2.0
+// Project: https://github.com/quilljs/quill/, http://quilljs.com
 // Definitions by: Sumit <https://github.com/sumitkm>
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
+//                 Aniello Falcone <https://github.com/AnielloFalcone>
+//                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
+import Delta = require('quill-delta');
 
 /**
  * A stricter type definition would be:
@@ -18,7 +22,7 @@ export type DeltaOperation = { insert?: any, delete?: number, retain?: number } 
 export type Sources = "api" | "user" | "silent";
 
 export interface Key {
-    key: string;
+    key: string | number;
     shortKey?: boolean;
 }
 
@@ -30,9 +34,9 @@ export interface OptionalAttributes {
     attributes?: StringMap;
 }
 
-export type TextChangeHandler = (delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any;
+export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
 export type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
-export type EditorChangeHandler = ((name: "text-change", delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any)
+export type EditorChangeHandler = ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
     | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
 
 export interface KeyboardStatic {
@@ -41,13 +45,14 @@ export interface KeyboardStatic {
 }
 
 export interface ClipboardStatic {
-    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: DeltaStatic) => DeltaStatic): void;
+    convert(html?: string): Delta;
+    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: Delta) => Delta): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
 }
 
 export interface QuillOptionsStatic {
-    debug?: string;
+    debug?: string | boolean;
     modules?: StringMap;
     placeholder?: string;
     readOnly?: boolean;
@@ -65,51 +70,6 @@ export interface BoundsStatic {
     top: number;
     height: number;
     width: number;
-}
-
-export interface DeltaStatic {
-    ops?: DeltaOperation[];
-    retain(length: number, attributes?: StringMap): DeltaStatic;
-    delete(length: number): DeltaStatic;
-    filter(predicate: (op: DeltaOperation) => boolean): DeltaOperation[];
-    forEach(predicate: (op: DeltaOperation) => void): void;
-    insert(text: any, attributes?: StringMap): DeltaStatic;
-    map<T>(predicate: (op: DeltaOperation) => T): T[];
-    partition(predicate: (op: DeltaOperation) => boolean): [DeltaOperation[], DeltaOperation[]];
-    reduce<T>(predicate: (acc: T, curr: DeltaOperation, idx: number, arr: DeltaOperation[]) => T, initial: T): T;
-    chop(): DeltaStatic;
-    length(): number;
-    slice(start?: number, end?: number): DeltaStatic;
-    compose(other: DeltaStatic): DeltaStatic;
-    concat(other: DeltaStatic): DeltaStatic;
-    diff(other: DeltaStatic, index?: number): DeltaStatic;
-    eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string): DeltaStatic;
-    transform(index: number, priority?: boolean): number;
-    transform(other: DeltaStatic, priority: boolean): DeltaStatic;
-    transformPosition(index: number, priority?: boolean): number;
-}
-
-export class Delta implements DeltaStatic {
-    constructor(ops?: DeltaOperation[] | { ops: DeltaOperation[] });
-    ops?: DeltaOperation[];
-    retain(length: number, attributes?: StringMap): DeltaStatic;
-    delete(length: number): DeltaStatic;
-    filter(predicate: (op: DeltaOperation) => boolean): DeltaOperation[];
-    forEach(predicate: (op: DeltaOperation) => void): void;
-    insert(text: any, attributes?: StringMap): DeltaStatic;
-    map<T>(predicate: (op: DeltaOperation) => T): T[];
-    partition(predicate: (op: DeltaOperation) => boolean): [DeltaOperation[], DeltaOperation[]];
-    reduce<T>(predicate: (acc: T, curr: DeltaOperation, idx: number, arr: DeltaOperation[]) => T, initial: T): T;
-    chop(): DeltaStatic;
-    length(): number;
-    slice(start?: number, end?: number): DeltaStatic;
-    compose(other: DeltaStatic): DeltaStatic;
-    concat(other: DeltaStatic): DeltaStatic;
-    diff(other: DeltaStatic, index?: number): DeltaStatic;
-    eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string): DeltaStatic;
-    transform(index: number): number;
-    transform(other: DeltaStatic, priority: boolean): DeltaStatic;
-    transformPosition(index: number): number;
 }
 
 export interface RangeStatic {
@@ -142,17 +102,18 @@ export class Quill implements EventEmitter {
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
     scroll: Blot;
+    keyboard: KeyboardStatic;
     constructor(container: string | Element, options?: QuillOptionsStatic);
-    deleteText(index: number, length: number, source?: Sources): DeltaStatic;
+    deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;
     enable(enabled?: boolean): void;
-    getContents(index?: number, length?: number): DeltaStatic;
+    getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;
-    insertEmbed(index: number, type: string, value: any, source?: Sources): DeltaStatic;
-    insertText(index: number, text: string, source?: Sources): DeltaStatic;
-    insertText(index: number, text: string, format: string, value: any, source?: Sources): DeltaStatic;
-    insertText(index: number, text: string, formats: StringMap, source?: Sources): DeltaStatic;
+    insertEmbed(index: number, type: string, value: any, source?: Sources): Delta;
+    insertText(index: number, text: string, source?: Sources): Delta;
+    insertText(index: number, text: string, format: string, value: any, source?: Sources): Delta;
+    insertText(index: number, text: string, formats: StringMap, source?: Sources): Delta;
     /**
      * @deprecated Remove in 2.0. Use clipboard.dangerouslyPasteHTML(index: number, html: string, source: Sources)
      */
@@ -161,26 +122,29 @@ export class Quill implements EventEmitter {
      * @deprecated Remove in 2.0. Use clipboard.dangerouslyPasteHTML(html: string, source: Sources): void;
      */
     pasteHTML(html: string, source?: Sources): string;
-    setContents(delta: DeltaStatic, source?: Sources): DeltaStatic;
-    setText(text: string, source?: Sources): DeltaStatic;
+    setContents(delta: Delta, source?: Sources): Delta;
+    setText(text: string, source?: Sources): Delta;
     update(source?: Sources): void;
-    updateContents(delta: DeltaStatic, source?: Sources): DeltaStatic;
+    updateContents(delta: Delta, source?: Sources): Delta;
 
-    format(name: string, value: any, source?: Sources): DeltaStatic;
-    formatLine(index: number, length: number, source?: Sources): DeltaStatic;
-    formatLine(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-    formatLine(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
-    formatText(index: number, length: number, source?: Sources): DeltaStatic;
-    formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-    formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
+    format(name: string, value: any, source?: Sources): Delta;
+    formatLine(index: number, length: number, source?: Sources): Delta;
+    formatLine(index: number, length: number, format: string, value: any, source?: Sources): Delta;
+    formatLine(index: number, length: number, formats: StringMap, source?: Sources): Delta;
+    formatText(index: number, length: number, source?: Sources): Delta;
+    formatText(index: number, length: number, format: string, value: any, source?: Sources): Delta;
+    formatText(index: number, length: number, formats: StringMap, source?: Sources): Delta;
+    formatText(range: RangeStatic, format: string, value: any, source?: Sources): Delta;
+    formatText(range: RangeStatic, formats: StringMap, source?: Sources): Delta;
     getFormat(range?: RangeStatic): StringMap;
     getFormat(index: number, length?: number): StringMap;
-    removeFormat(index: number, length: number, source?: Sources): DeltaStatic;
+    removeFormat(index: number, length: number, source?: Sources): Delta;
 
     blur(): void;
     focus(): void;
     getBounds(index: number, length?: number): BoundsStatic;
-    getSelection(focus?: boolean): RangeStatic;
+    getSelection(focus: true): RangeStatic;
+    getSelection(focus?: false): RangeStatic | null;
     hasFocus(): boolean;
     setSelection(index: number, length: number, source?: Sources): void;
     setSelection(range: RangeStatic, source?: Sources): void;

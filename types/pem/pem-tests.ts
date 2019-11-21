@@ -1,4 +1,5 @@
 import * as pem from 'pem';
+import * as fs from 'fs';
 
 const tests = {
   'Create default sized dhparam key': (test: any) => {
@@ -557,8 +558,21 @@ const tests = {
           test.ok(pkcs12.pkcs12);
 
           // test.ok(fs.readdirSync('./tmp').length === 0);
+          const pkcs12Buffer = new Buffer(pkcs12.pkcs12);
 
-          pem.readPkcs12(pkcs12.pkcs12, (error: any, keystore: any) => {
+          pem.readPkcs12(pkcs12Buffer, (error: any, keystore: pem.Pkcs12ReadResult) => {
+            test.ifError(error);
+            test.ok(keystore);
+
+            test.equal(ca.certificate, keystore.ca[0]);
+            test.equal(cert.certificate, keystore.cert);
+            test.equal(cert.clientKey, keystore.key);
+          });
+
+          const pkcs12File: string = __dirname + '/test.pkcs12';
+          fs.writeFileSync(pkcs12File, pkcs12Buffer);
+
+          pem.readPkcs12(pkcs12File, (error: any, keystore: pem.Pkcs12ReadResult) => {
             test.ifError(error);
             test.ok(keystore);
 

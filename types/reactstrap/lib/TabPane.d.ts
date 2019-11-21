@@ -1,11 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface TabPaneProps extends React.HTMLAttributes<HTMLElement> {
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
-  tabId?: number | string;
+    [key: string]: any;
+    tag?: string | React.ReactType;
+    className?: string;
+    cssModule?: CSSModule;
+    tabId?: number | string;
 }
 
-declare const TabPane: React.StatelessComponent<TabPaneProps>;
+declare class TabPane<T = {[key: string]: any}> extends React.Component<TabPaneProps> {}
 export default TabPane;

@@ -19,6 +19,12 @@ export interface CleaveOptions {
     datePattern?: ReadonlyArray<string>;
 }
 
+// Time Options
+export interface CleaveOptions {
+    time?: boolean;
+    timePattern?: ReadonlyArray<string>;
+}
+
 // Numeral Options
 export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan" | "none";
 
@@ -38,6 +44,7 @@ export interface CleaveOptions {
     copyDelimiter?: boolean;
     delimiter?: string;
     delimiters?: ReadonlyArray<string>;
+    delimiterLazyShow?: boolean;
     initValue?: any;
     lowercase?: boolean;
     numericOnly?: boolean;
@@ -45,4 +52,5 @@ export interface CleaveOptions {
     noImmediatePrefix?: boolean;
     rawValueTrimPrefix?: boolean;
     uppercase?: boolean;
+    onValueChanged?(event: any): void;
 }

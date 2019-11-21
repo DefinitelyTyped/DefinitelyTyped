@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/glue
 // Definitions by: Gareth Parker <https://github.com/garfty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { Server, ServerOptions } from "hapi";
 
@@ -24,8 +24,8 @@ export interface Plugin {
 export interface Manifest {
   server: ServerOptions;
   register?: {
-    plugins: string[] | Plugin[]
+    plugins: string[] | Plugin[] | Array<(string|Plugin)>
   };
 }
 
-export function compose(manifest: Manifest, options?: Options): Server;
+export function compose(manifest: Manifest, options?: Options): Promise<Server>;

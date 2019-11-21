@@ -1,91 +1,158 @@
-// Type definitions for react-native-sortable-list
+// Type definitions for react-native-sortable-list 0.0
 // Project: https://github.com/gitim/react-native-sortable-list
 // Definitions by: Michael Sivolobov <https://github.com/sivolobov>
+//                 Vince Maiuri <https://github.com/RookY2K>
+//                 Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
-import * as React from 'react';
-import { ViewStyle } from 'react-native';
+import { GestureResponderEvent, PanResponderGestureState, StyleProp, ViewStyle } from 'react-native';
+import { Component, ReactElement } from 'react';
 
-type DataKey = string | number;
-
-type DataValue = any
-
-type DataByNumber = {
-    [key: number]: DataValue
+interface DataByNumber<T> {
+    [key: number]: T;
 }
 
-type DataByString = {
-    [key: string]: DataValue
+interface DataByString<T> {
+    [key: string]: T;
 }
 
-type Data = DataByNumber | DataByString;
-
-export interface RowProps {
-    active: boolean
-    data: DataValue
-    key?: DataKey
-    index?: number
-    disabled?: boolean
+interface RowProps<T = any, K = number> {
+    active: boolean;
+    data: T;
+    key?: K;
+    index?: number;
+    disabled?: boolean;
+    toggleRowActive?: (event: GestureResponderEvent, gestureState?: PanResponderGestureState) => void;
 }
 
-interface SortableListProps {
-
+interface SortableListProps<T, K> {
     /**
      * data source
      */
-    data: Data
+    data: DataByNumber<T> | DataByString<T>;
 
     /**
      * an array of keys from data, the order of keys from the array will be used to initial rows order
      */
-    order?: DataKey[]
+    order?: K[];
 
     /**
      * style of HOC
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * these styles will be applied to the inner scroll view content container
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * these styles will be applied to the inner scroll view content container, excluding the header and footer
+     */
+    innerContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * when true, the SortableList's children are arranged horizontally in a row instead of vertically in a column.
+     * The default value is false.
+     */
+    horizontal?: boolean;
+
+    /**
+     * when false, the vertical scroll indicator will not be visible. The default value is true.
+     */
+    showsVerticalScrollIndicator?: boolean;
+
+    /**
+     * when false, the horizontal scroll indicator will not be visible. The default value is true.
+     */
+    showsHorizontalScrollIndicator?: boolean;
 
     /**
      * when false, rows are not sortable. The default value is true.
      */
-    sortingEnabled?: boolean
+    sortingEnabled?: boolean;
 
     /**
      * when false, the content does not scrollable. The default value is true.
      */
-    scrollEnabled?: boolean
+    scrollEnabled?: boolean;
 
     /**
-     * Takes a row key, row index, data entry from the data source and its statuses disabled,
-     *  active and should return a renderable component to be rendered as the row.
+     * whether you intend to use the toggleRowActive method to activate a row or use the out of box solution.
      */
-    renderRow: (props: RowProps) => JSX.Element
+    manuallyActivateRows?: boolean;
+
+    /**
+     * determines the height for vertical list and the width for horizontal list of the area at the begining and
+     * the end of the list that will trigger autoscrolling. Defaults to 60.
+     */
+    autoscrollAreaSize?: number;
+
+    /**
+     * determines time delay in ms before pressed row becomes active. Defaults to 200 ms.
+     */
+    rowActivationTime?: number;
+
+    /**
+     * A RefreshControl that works the same way as a ScrollView's refreshControl.
+     */
+    refreshControl?: ReactElement;
+
+    /**
+     * Takes a row key, row index, data entry from the data source and its statuses disabled, active and should
+     * return a renderable component to be rendered as the row. The child component will receive a method called
+     * toggleRowActive (only if manuallyActivateRows={true}) to manually activate the row. Useful if you have
+     * multiple touch responders in your view.
+     */
+    renderRow: (props: RowProps<T, K>) => ReactElement | null;
+
+    /**
+     * Renders returned component at the top of the list.
+     */
+    renderHeader?: () => ReactElement;
+
+    /**
+     * Renders returned component at the bottom of the list.
+     */
+    renderFooter?: () => ReactElement;
 
     /**
      * Called when rows were reordered, takes an array of rows keys of the next rows order.
      */
-    onChangeOrder?: (nextOrder: DataKey[]) => void
+    onChangeOrder?: (nextOrder: K[]) => void;
 
     /**
      * Called when a row was activated (user long tapped).
      */
-    onActivateRow?: (key: DataKey) => void
+    onActivateRow?: (key: K) => void;
 
     /**
      * Called when the active row was released.
      */
-    onReleaseRow?: (key: DataKey) => void
+    onReleaseRow?: (key: K, currentOrder: K[]) => void;
+
+    /**
+     * Called when a row was pressed.
+     */
+    onPressRow?: (key: K) => void;
 }
 
-interface SortableListStatic extends React.ClassicComponentClass<SortableListProps> {}
+export default class SortableList<T, K> extends Component<SortableListProps<T, K>> {
+    /**
+     * scrolls by a given y offset, either immediately or with a smooth animation
+     */
+    scrollBy({dx, dy, animated}: { dx?: number; dy?: number; animated?: boolean }): void;
 
-declare var SortableList: SortableListStatic;
-declare type SortableList = SortableListStatic;
+    /**
+     * scrolls to a given y offset, either immediately or with a smooth animation
+     */
+    scrollTo({x, y, animated}: { x?: number; y?: number; animated?: boolean }): void;
 
-export default SortableList;
+    /**
+     * scrolls to a given row key, either immediately or with a smooth animation
+     */
+    scrollToRowKey({key, animated}: { key?: K; animated?: boolean }): void;
+}
+
+export { RowProps };

@@ -2,10 +2,17 @@
 // Project: https://github.com/jsdf/react-native-htmlview
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ComponentType, ReactNode } from 'react';
-import { StyleProp, TextProperties, TextStyle, ViewStyle, ImageStyle } from 'react-native';
+import {
+    StyleProp,
+    TextProperties,
+    ViewProperties,
+    TextStyle,
+    ViewStyle,
+    ImageStyle,
+} from 'react-native';
 
 export interface HTMLViewNode {
     data?: string;
@@ -43,11 +50,11 @@ export interface HTMLViewProps {
      * @param defaultRenderer the default rendering implementation, so you can use the normal rendering logic for some subtree:
      */
     renderNode?(
-    node: HTMLViewNode,
-    index: number,
-    siblings: HTMLViewNode,
-    parent: HTMLViewNode,
-    defaultRenderer: (node: HTMLViewNode, parent: HTMLViewNode) => ReactNode,
+        node: HTMLViewNode,
+        index: number,
+        siblings: HTMLViewNode,
+        parent: HTMLViewNode,
+        defaultRenderer: (node: HTMLViewNode, parent: HTMLViewNode) => ReactNode
     ): ReactNode;
 
     /**
@@ -71,12 +78,33 @@ export interface HTMLViewProps {
     addLineBreaks?: boolean;
 
     /*
-     * TODO Add futher customisization props
-     * https://github.com/jsdf/react-native-htmlview#customizing-things-even-further
+     * The root wrapper component
      */
+    RootComponent?: ComponentType;
 
+    /*
+     * Properties for the RootComponent, can be used independently from RootComponent
+     */
+    rootComponentProps?: ViewProperties;
+
+    /*
+     * The component used for rendering HTML element nodes
+     */
+    NodeComponent?: ComponentType;
+
+    /*
+     * Properties for the NodeComponent, can be used independently from NodeComponent
+     */
+    nodeComponentProps?: TextProperties;
+
+    /*
+     * The component used for rendering text element nodes
+     */
     TextComponent?: ComponentType;
 
+    /*
+     * Properties for the TextComponent, can be used independently from TextComponent
+     */
     textComponentProps?: TextProperties;
 }
 

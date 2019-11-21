@@ -1,26 +1,43 @@
+<<<<<<< HEAD
 // Type definitions for react-native-material-textfield 0.15.1
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Deividi Cavarzan <https://github.com/cavarzan>
+=======
+// Type definitions for react-native-material-textfield 0.15
+// Project: https://github.com/n4kz/react-native-material-textfield
+// Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
+//                 Kyle Roach <https://github.com/iRoachie>
+>>>>>>> fdeac13eba6173c41b86000b040b5953a7987b9b
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { TextInputProps, TextStyle, ViewStyle, View } from 'react-native';
+import {
+    StyleProp,
+    TextInputProps,
+    TextStyle,
+    ViewStyle,
+    View
+} from 'react-native';
+
+export interface ContentInset {
+    top?: number;
+    label?: number;
+    input?: number;
+}
 
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
 
     fontSize?: number;
-    titleFontSize?: number;
     labelFontSize?: number;
-    labelHeight?: number;
-    labelPadding?: number;
-    inputContainerPadding?: number;
+    contentInset?: ContentInset;
 
-    labelTextStyle?: TextStyle;
-    titleTextStyle?: TextStyle;
-    affixTextStyle?: TextStyle;
+    style?: StyleProp<TextStyle>;
+    labelTextStyle?: StyleProp<TextStyle>;
+    titleTextStyle?: StyleProp<TextStyle>;
+    affixTextStyle?: StyleProp<TextStyle>;
 
     tintColor?: string;
     textColor?: string;
@@ -48,8 +65,8 @@ export interface TextFieldProps extends TextInputProps {
     prefix?: string;
     suffix?: string;
 
-    containerStyle?: ViewStyle;
-    inputContainerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
+    inputContainerStyle?: StyleProp<ViewStyle>;
 
     onPress?(event: Event): void;
     onChangeText?(text: string): void;
@@ -59,7 +76,32 @@ export interface TextFieldProps extends TextInputProps {
  * Material Style Text Field
  * @see https://github.com/n4kz/react-native-material-textfield/blob/master/src/components/field/index.js
  */
-export class TextField extends React.Component<TextFieldProps, any> {}
+export class TextField extends React.Component<TextFieldProps, any> {
+    /*
+     * Acquire focus
+     */
+    focus(): void;
+    /*
+     * Release focus
+     */
+    blur(): void;
+    /*
+     * Clear text field
+     */
+    clear(): void;
+    /*
+     * Get current value
+     */
+    value(): string;
+    /*
+     * Get current focus state
+     */
+    isFocused(): boolean;
+    /*
+     * Get current restriction state
+     */
+    isRestricted(): boolean;
+}
 
 export class OutlinedTextField extends TextField {
 

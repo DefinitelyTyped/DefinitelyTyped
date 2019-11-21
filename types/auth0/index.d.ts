@@ -1,10 +1,13 @@
-// Type definitions for auth0 2.9.1
+// Type definitions for auth0 2.9.4
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Ian Howe <https://github.com/ianhowe76>
+//                 Alex Bjørlig <https://github.com/dauledk>
+//                 Dan Rumney <https://github.com/dancrumb>
+//                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Promise from 'bluebird';
+// TypeScript Version: 2.8
 
 export interface ManagementClientOptions {
   token?: string;
@@ -34,23 +37,30 @@ export interface RetryOptions {
 }
 
 export interface UserMetadata {
-  [propName: string]: string
+  [propName: string]: any
 }
 
 export interface AppMetadata {
   [propName: string]: any
 }
 
-export interface UserData {
+export interface UserData<A = AppMetadata, U=UserMetadata> {
   email?: string;
   username?: string;
   email_verified?: boolean;
   verify_email?: boolean;
+  user_id?: string;
+  blocked?: boolean;
+  nickname?: string;
+  picture?: string;
   password?: string;
   phone_number?: string;
-  phone_verified?: boolean,
-  user_metadata?: UserMetadata;
-  app_metadata?: AppMetadata;
+  phone_verified?: boolean;
+  given_name?: string;
+  family_name?: string;
+  name?: string;
+  user_metadata?: U;
+  app_metadata?: A;
 }
 
 export interface CreateUserData extends UserData {
@@ -68,13 +78,16 @@ export interface UpdateUserData extends UserData {
 export interface GetUsersData {
   per_page?: number;
   page?: number;
-  include_totals?: boolean;
   sort?: string;
   connection?: string;
   fields?: string;
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface GetUsersDataPaged extends GetUsersData {
+  include_totals: boolean;
 }
 
 export interface Rule {
@@ -103,6 +116,76 @@ export interface Rule {
    */
   order?: number;
 }
+
+export interface Role {
+    id?: string;
+    name?: string;
+    description?: string;
+}
+
+export interface GetRolesData {
+    name_filter?: string;
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolesDataPaged extends GetRolesData {
+    include_totals: boolean;
+}
+
+export interface RolePage extends Page {
+    roles: Role[];
+}
+
+export interface CreateRoleData {
+    name: string;
+    description?: string;
+}
+
+export interface UpdateRoleData {
+    name?: string;
+    description?: string;
+}
+
+export interface RolesData {
+    roles: string[];
+}
+
+export interface Permission {
+    resource_server_identifier?: string;
+    permission_name?: string;
+    resource_server_name?: string;
+    description?: string;
+}
+
+export interface PermissionsData {
+    permissions: PermissionData[]
+}
+
+export interface PermissionData {
+    resource_server_identifier: string;
+    permission_name: string;
+}
+
+export interface GetRoleUsersData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRoleUsersDataPaged extends GetRoleUsersData {
+    include_totals: boolean;
+}
+
+export interface PermissionPage extends Page {
+    permissions: Permission[];
+}
+
+export type Grant =
+  | 'authorization_code'
+  | 'client_credentials'
+  | 'implicit'
+  | 'password'
+  | 'refresh_token';
 
 export interface Client {
   /**
@@ -146,12 +229,26 @@ export interface Client {
   client_aliases?: string[];
   allowed_clients?: string[];
   allowed_logout_urls?: string[];
-  jwt_configuration?: any;
+  jwt_configuration?: {
+    // The amount of time (in seconds) that the token will be valid after being issued
+    lifetime_in_seconds?: number;
+    scopes?: {};
+    // The algorithm used to sign the JsonWebToken
+    alg?: 'HS256' | 'RS256';
+  };
+  /**
+   * A set of grant types that the client is authorized to use
+   */
+  grant_types?: Grant[];
   /**
    * Client signing keys.
    */
   signing_keys?: string[];
-  encryption_key?: any;
+  encryption_key?: {
+    pub?: string;
+    cert?: string;
+    subject?: string;
+  };
   sso?: boolean;
   /**
    * `true` to disable Single Sign On, `false` otherwise (default: `false`)
@@ -219,6 +316,14 @@ export interface ResourceServer {
    * A friendly name for the resource server.
    */
   name?: string;
+  /**
+   * Enables the enforcement of the authorization policies.
+   */
+  enforce_policies?: boolean;
+  /**
+   * The dialect for the access token.
+   */
+  token_dialect?: 'access_token' | 'access_token_authz';
 }
 
 export interface CreateResourceServer extends ResourceServer {
@@ -261,7 +366,7 @@ export interface CreateClientGrant {
   scope: string[];
 }
 
-export type Strategy = 
+export type Strategy =
   'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
   'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
   'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
@@ -321,7 +426,7 @@ export interface CreateConnection extends UpdateConnection {
   strategy: Strategy;
 }
 
-export interface User {
+export interface User<A=AppMetadata, U=UserMetadata> {
   email?: string;
   email_verified?: boolean;
   username?: string;
@@ -331,18 +436,48 @@ export interface User {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata?: AppMetadata;
-  user_metadata?: UserMetadata;
+  app_metadata?: A;
+  user_metadata?: U;
   picture?: string;
   name?: string;
   nickname?: string;
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
   family_name?: string;
+}
+
+export interface Page {
+  start: number;
+  limit: number;
+  length: number;
+  total: number;
+}
+
+export interface UserPage<A=AppMetadata, U=UserMetadata> extends Page {
+  users: User<A, U>[];
+}
+
+export interface GetUserRolesData extends ObjectWithId  {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserRolesDataPaged extends GetUserRolesData {
+    include_totals: boolean;
+}
+
+export interface GetUserPermissionsData extends ObjectWithId {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserPermissionsDataPaged extends GetUserPermissionsData {
+    include_totals: boolean;
 }
 
 export interface Identity {
@@ -350,9 +485,10 @@ export interface Identity {
   user_id: string;
   provider: string;
   isSocial: boolean;
+  access_token?: string;
   profileData?: {
     email?: string;
-    email_verified?: boolean;   
+    email_verified?: boolean;
     name?: string;
     phone_number?: string;
     phone_verified?: boolean;
@@ -419,6 +555,12 @@ export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+  scope?: string;
+}
+
+export interface AuthorizationCodeGrantOptions {
+  code: string;
+  redirect_uri: string;
 }
 
 export interface ObjectWithId {
@@ -491,22 +633,75 @@ export interface StatsParams {
   to: string;
 }
 
+export type Job = ImportUsersJob | ExportUsersJob | VerificationEmailJob;
+
+export type JobFormat = 'csv' | 'json';
+
+export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
+
+export interface ExportUsersJob {
+    id: string;
+    type: 'users_export';
+    status: JobStatus;
+    created_at?: string;
+    connection_id?: string;
+    fields?: ExportUserField[];
+    location?: string;
+    format?: JobFormat;
+}
+
+export interface ImportUsersJob {
+    id: string;
+    type: 'users_import';
+    status: JobStatus;
+    created_at?: string;
+    connection_id?: string;
+    upsert?: boolean;
+    external_id?: string;
+    send_completion_email?: boolean;
+}
+
+export interface VerificationEmailJob {
+    id: string;
+    type: 'verification_email';
+    status: JobStatus;
+    created_at?: string;
+}
+
 export interface ImportUsersOptions {
-  connection_id: string;
-  users: string;
+    users: string;
+    connection_id: string;
+    upsert?: boolean;
+    external_id?: string;
+    send_completion_email?: boolean;
+}
+
+export interface ExportUsersOptions {
+    connection_id?: string;
+    format?: JobFormat;
+    limit?: number;
+    fields?: ExportUserField[]
 }
 
 export interface UserIdParams {
-  user_id: string;
+    user_id: string;
+    client_id?: string;
+}
+
+export interface ExportUserField {
+    name: string;
+    export_as?: string;
 }
 
 export interface PasswordChangeTicketParams {
-  result_url?: string;
-  user_id?: string;
-  new_password?: string;
-  connection_id?: string;
-  email?: string;
-  ttl_sec?: number;
+    result_url?: string;
+    user_id?: string;
+    new_password?: string;
+    connection_id?: string;
+    email?: string;
+    ttl_sec?: number;
+    mark_email_as_verified?: boolean;
+    includeEmailInRedirect?: boolean;
 }
 
 export interface PasswordChangeTicketResponse {
@@ -573,7 +768,19 @@ export interface ImpersonateSettingOptions {
   clientId?: string;
 }
 
-
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
 
@@ -623,7 +830,7 @@ export class AuthenticationClient {
 }
 
 
-export class ManagementClient {
+export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   constructor(options: ManagementClientOptions);
 
   getClientInfo(): ClientInfo;
@@ -646,8 +853,9 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClients(cb: (err: Error, clients: Client[]) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
   getClient(params: ClientParams): Promise<Client>;
   getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
@@ -661,7 +869,7 @@ export class ManagementClient {
   deleteClient(params: ClientParams): Promise<void>;
   deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
-                                              
+
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
@@ -677,17 +885,52 @@ export class ManagementClient {
 
 
   // Device Keys
-  getDeviceCredentials(): Promise<User>;
+  getDeviceCredentials(): Promise<User<A, U>>;
   getDeviceCredentials(cb: (err: Error, data: any) => void): void;
 
-  createDevicePublicKey(data: Data): Promise<User>;
+  createDevicePublicKey(data: Data): Promise<User<A, U>>;
   createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
 
-  deleteDeviceCredential(params: ClientParams): Promise<User>;
+  deleteDeviceCredential(params: ClientParams): Promise<User<A, U>>;
   deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
 
+  // Roles
+  getRoles(): Promise<Role[]>;
+  getRoles(cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesData): Promise<Role[]>;
+  getRoles(params: GetRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesDataPaged): Promise<RolePage>;
+  getRoles(params: GetRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
 
-  // Rules
+  createRole(data: CreateRoleData): Promise<Role>;
+  createRole(data: CreateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getRole(params: ObjectWithId): Promise<Role>;
+  getRole(params: ObjectWithId, cb: (err: Error, role: Role) => void): void;
+
+  deleteRole(params: ObjectWithId): Promise<void>;
+  deleteRole(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  updateRole(params: ObjectWithId, data: UpdateRoleData): Promise<Role>;
+  updateRole(params: ObjectWithId, data: UpdateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
+  getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
+  getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+
+    // Rules
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -705,34 +948,36 @@ export class ManagementClient {
 
 
   // Users
-  getUsers(params?: GetUsersData): Promise<User[]>;
-  getUsers(cb: (err: Error, users: User[]) => void): void;
-  getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
+  getUsers(params: GetUsersDataPaged): Promise<UserPage<A, U>>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+  getUsers(params?: GetUsersData): Promise<User<A, U>[]>;
+  getUsers(cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsers(params?: GetUsersData, cb?: (err: Error, users: User<A, U>[]) => void): void;
 
-  getUser(params: ObjectWithId): Promise<User>;
-  getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
+  getUser(params: ObjectWithId): Promise<User<A, U>>;
+  getUser(params: ObjectWithId, cb?: (err: Error, user: User<A, U>) => void): void;
 
-  getUsersByEmail(email: string): Promise<User[]>;
-  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
+  getUsersByEmail(email: string): Promise<User<A, U>[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User<A, U>[]) => void): void;
 
-  createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
+  createUser(data: CreateUserData): Promise<User<A, U>>;
+  createUser(data: CreateUserData, cb: (err: Error, user: User<A, U>) => void): void;
 
-  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
-  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
+  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User<A, U>>;
+  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User<A, U>) => void): void;
 
-  updateUserMetadata(params: ObjectWithId, data: UserMetadata): Promise<User>;
-  updateUserMetadata(params: ObjectWithId, data: UserMetadata, cb: (err: Error, data: User) => void): void;
+  updateUserMetadata(params: ObjectWithId, data: U): Promise<User<A, U>>;
+  updateUserMetadata(params: ObjectWithId, data: U, cb: (err: Error, data: User<A, U>) => void): void;
 
   // Should be removed from auth0 also. Doesn't exist in api.
-  deleteAllUsers(): Promise<User>;
+  deleteAllUsers(): Promise<User<A, U>>;
   deleteAllUsers(cb: (err: Error, data: any) => void): void;
 
   deleteUser(params: ObjectWithId): Promise<void>;
   deleteUser(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateAppMetadata(params: ObjectWithId, data: AppMetadata): Promise<User>;
-  updateAppMetadata(params: ObjectWithId, data: AppMetadata, cb: (err: Error, data: User) => void): void;
+  updateAppMetadata(params: ObjectWithId, data: A): Promise<User<A, U>>;
+  updateAppMetadata(params: ObjectWithId, data: A, cb: (err: Error, data: User<A, U>) => void): void;
 
   deleteUserMultifactor(params: DeleteMultifactorParams): Promise<void>;
   deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error) => void): void;
@@ -743,6 +988,34 @@ export class ManagementClient {
   linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
   linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
+  // User roles
+  getUserRoles(params: ObjectWithId): Promise<Role[]>;
+  getUserRoles(params: ObjectWithId, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesData): Promise<Role[]>;
+  getUserRoles(params: GetUserRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesDataPaged): Promise<RolePage>;
+  getUserRoles(params: GetUserRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
+
+  removeRolesFromUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  removeRolesFromUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void
+
+  // The lowercase 't' is like this in the auth0 sdk
+  assignRolestoUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  assignRolestoUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void;
+
+  // User permissions
+  getUserPermissions(params: ObjectWithId): Promise<Permission[]>;
+  getUserPermissions(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsData): Promise<Permission[]>;
+  getUserPermissions(params: GetUserPermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsDataPaged): Promise<PermissionPage>;
+  getUserPermissions(params: GetUserPermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
+
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
   // Tokens
   getBlacklistedTokens(): Promise<any>;
@@ -750,6 +1023,17 @@ export class ManagementClient {
 
   blacklistToken(token: Token): Promise<any>;
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
+
+
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Providers
@@ -783,14 +1067,17 @@ export class ManagementClient {
 
 
   // Jobs
-  getJob(params: ObjectWithId): Promise<any>;
-  getJob(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+    getJob(params: ObjectWithId): Promise<Job>;
+    getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
-  importUsers(data: ImportUsersOptions): Promise<any>;
-  importUsers(data: ImportUsersOptions, cb?: (err: Error, data: any) => void): void;
+    importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
+    importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
-  sendEmailVerification(data: UserIdParams): Promise<any>;
-  sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: any) => void): void;
+    exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
+    exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
+
+    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -825,7 +1112,7 @@ export class ManagementClient {
 }
 
 
-export class DatabaseAuthenticator {
+export class DatabaseAuthenticator<A=AppMetadata, U=UserMetadata> {
   constructor(options: DatabaseClientOptions, oauth: OAuthAuthenticator);
 
   changePassword(data: ResetPasswordOptions): Promise<any>;
@@ -837,7 +1124,7 @@ export class DatabaseAuthenticator {
   signIn(data: SignInOptions): Promise<SignInToken>;
   signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-  signUp(data: CreateUserData): Promise<User>;
+  signUp(data: CreateUserData): Promise<User<A, U>>;
   signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
 
 }
@@ -854,6 +1141,9 @@ export class OAuthAuthenticator {
 
   socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
   socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 }
 
 export class PasswordlessAuthenticator {
@@ -874,11 +1164,11 @@ export class TokenManager {
 
 }
 
-export class UsersManager {
+export class UsersManager<A=AppMetadata, U=UserMetadata> {
   constructor(options: UsersOptions);
 
-  getInfo(accessToken: string): Promise<User>;
-  getInfo(accessToken: string, cb: (err: Error, user: User) => void): void;
+  getInfo(accessToken: string): Promise<User<A, U>>;
+  getInfo(accessToken: string, cb: (err: Error, user: User<A, U>) => void): void;
 
   impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
   impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;

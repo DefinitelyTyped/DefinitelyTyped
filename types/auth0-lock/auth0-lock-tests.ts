@@ -28,6 +28,7 @@ const showOptions : Auth0LockShowOptions = {
   allowSignUp: true,
   allowForgotPassword: false,
   auth: {
+    autoParseHash: true,
     params: { state: "foo" },
     redirect: true,
     redirectUrl: "some url",
@@ -39,7 +40,10 @@ const showOptions : Auth0LockShowOptions = {
     type: "error",
     text: "an error has occurred"
   },
-  rememberLastLogin: false
+  rememberLastLogin: false,
+  languageDictionary: {
+    title: "test"
+  }
 };
 
 lock.show(showOptions);
@@ -87,6 +91,7 @@ const themeOptions : Auth0LockConstructorOptions = {
         icon: 'http://baz.com/icon.png'
       }
     },
+    hideMainScreenTitle: false,
     labeledSubmitButton: false,
     logo: "https://example.com/assets/logo.png",
     primaryColor: "green"
@@ -107,6 +112,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 const authOptions : Auth0LockConstructorOptions = {
   auth: {
+   autoParseHash: true,
    params: { state: "foo" },
    redirect: true,
    redirectUrl: "some url",
@@ -126,7 +132,8 @@ const otherOptions : Auth0LockConstructorOptions = {
   hashCleanup: false,
   leeway: 30,
   _enableImpersonation: true,
-  _enableIdPInitiatedLogin: false
+  _enableIdPInitiatedLogin: false,
+  defaultADUsernameFromEmailPrefix: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
@@ -136,11 +143,17 @@ new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
 const multiVariantOptions : Auth0LockConstructorOptions = {
   container: "myContainer",
   closable: false,
+  language: "en",
   languageDictionary: {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
-  autofocus: false
+  autoclose: true,
+  autofocus: false,
+  allowAutocomplete: false,
+  scrollGlobalMessagesIntoView: false,
+  allowShowPassword: true,
+  allowPasswordAutocomplete: false,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);

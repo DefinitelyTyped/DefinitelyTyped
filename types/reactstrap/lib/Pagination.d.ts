@@ -1,10 +1,16 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
-  className?: string;
-  cssModule?: CSSModule;
-  size?: string;
+    [key: string]: any;
+    className?: string;
+    listClassName?: string;
+    cssModule?: CSSModule;
+    size?: string;
+    tag?: string | React.ReactType;
+    listTag?: React.ReactType;
+    'aria-label'?: string;
 }
 
-declare const Pagination: React.StatelessComponent<PaginationProps>;
+declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps> {}
 export default Pagination;

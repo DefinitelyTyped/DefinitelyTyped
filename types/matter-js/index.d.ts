@@ -1,8 +1,9 @@
-// Type definitions for Matter.js - 0.10.0
+// Type definitions for Matter.js - 0.10.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus> 
+//                 Piotr Pietrzak <https://github.com/hasparus>,
+//                 Dale Whinham <https://github.com/dwhinham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -324,6 +325,13 @@ declare namespace Matter {
         * @default 0
         */
         motion?: number;
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         * @type {}
+         */
+        plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
@@ -668,6 +676,18 @@ declare namespace Matter {
          */
         static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
+         * Set the centre of mass of the body.
+         * The `centre` is a vector in world-space unless `relative` is set, in which case it is a translation.
+         * The centre of mass is the point the body rotates about and can be used to simulate non-uniform density.
+         * This is equal to moving `body.position` but not the `body.vertices`.
+         * Invalid if the `centre` falls outside the body's convex hull.
+         * @method setCentre
+         * @param body
+         * @param centre
+         * @param relative
+         */
+        static setCentre(body: Body, centre: Vector, relative?: boolean): void;
+        /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
          * @param {body} body
@@ -787,6 +807,14 @@ declare namespace Matter {
         */
         bounds: Bounds;
         /**
+         * A `Number` that is set to the radius of the object if the body was constructed using `Bodies.circle`.
+         * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
+         *
+         * @property circleRadius
+         * @default 0
+         */
+        circleRadius?: number;
+        /**
          * A `Number` that defines the density of the body, that is its mass per unit area.
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
@@ -882,6 +910,14 @@ declare namespace Matter {
         * @default false
         */
         isStatic: boolean;
+        /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+        * @property isSensor
+        * @type boolean
+        * @default false
+        */
+        isSensor: boolean;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
@@ -1035,6 +1071,12 @@ declare namespace Matter {
         */
         parent: Body;
         /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         */
+        plugin: any;
+        /**
          * A `Number` that defines the static friction of the body (in the Coulomb friction model).
          * A value of `0` means the body will never 'stick' when it is nearly stationary and only dynamic `friction` is used.
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
@@ -1074,17 +1116,16 @@ declare namespace Matter {
 
     }
 
-    export interface IBound {
-        min: { x: number, y: number }
-        max: { x: number, y: number }
-    }
-
     /**
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
+
+        min: Vector;
+        max: Vector;
+
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create
@@ -1630,6 +1671,19 @@ declare namespace Matter {
         stiffness?: number;
 
         /**
+         * A `Number` that specifies the damping of the constraint, 
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping?: number;
+
+        /**
          * A `String` denoting the type of object.
          *
         * @property type
@@ -1771,6 +1825,19 @@ declare namespace Matter {
         * @default 1
         */
         stiffness: number;
+
+        /**
+         * A `Number` that specifies the damping of the constraint, 
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping: number;
 
         /**
          * A `String` denoting the type of object.

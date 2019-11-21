@@ -1,18 +1,47 @@
-// Type definitions for D3JS d3-shape module 1.2
-// Project: https://github.com/d3/d3-shape/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Type definitions for D3JS d3-shape module 1.3
+// Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.3
 
 import { Path } from 'd3-path';
+
+declare global {
+    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+}
+
+// -----------------------------------------------------------------------------------
+// Shared Types and Interfaces
+// -----------------------------------------------------------------------------------
+
+/**
+ * @deprecated
+ * This interface is used to bridge the gap between two incompatible versions of TypeScript (see [#25944](https://github.com/Microsoft/TypeScript/pull/25944)).
+ * Use `CanvasPathMethods` instead with TS <= 3.0 and `CanvasPath` with TS >= 3.1.
+ */
+export interface CanvasPath_D3Shape {
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    closePath(): void;
+    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    lineTo(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
+    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+    rect(x: number, y: number, w: number, h: number): void;
+}
 
 // -----------------------------------------------------------------------------------
 // Arc Generator
 // -----------------------------------------------------------------------------------
 
 /**
- * Interface corresponding to the minimum data type assumed by the accessor functions of  the Arc generator
+ * Interface corresponding to the minimum data type assumed by the accessor functions of the Arc generator.
  */
 export interface DefaultArcObject {
     /**
@@ -32,7 +61,7 @@ export interface DefaultArcObject {
      */
     endAngle: number;
     /**
-     * Optional. Pad angle of arcin radians.
+     * Optional. Pad angle of arc in radians.
      */
     padAngle?: number;
 }
@@ -359,7 +388,7 @@ export function arc<This, Datum>(): Arc<This, Datum>;
  */
 export interface PieArcDatum<T> {
     /**
-     * The input datum; the corresponding element in the input data array of the Pie generator
+     * The input datum; the corresponding element in the input data array of the Pie generator.
      */
     data: T;
     /**
@@ -413,7 +442,6 @@ export interface Pie<This, Datum> {
     /**
      * Returns the current value accessor, which defaults to a function returning the first argument passed into it.
      * The default value accessor assumes that the input data are numbers, or that they are coercible to numbers using valueOf.
-     *
      */
     value(): (d: Datum, i: number, data: Datum[]) => number;
     /**
@@ -428,7 +456,6 @@ export interface Pie<This, Datum> {
      * When a pie is generated, the value accessor will be invoked for each element in the input data array.
      * The default value accessor assumes that the input data are numbers, or that they are coercible to numbers using valueOf.
      * If your data are not simply numbers, then you should specify an accessor that returns the corresponding numeric value for a given datum.
-     *
      *
      * @param value A value accessor function, which is invoked for each element in the input data array, being passed the element d, the index i, and the array data as three arguments.
      * It returns a numeric value.
@@ -480,7 +507,6 @@ export interface Pie<This, Datum> {
      * @param comparator The value comparator takes two arguments a and b which are values derived from the input data array using the value accessor, not the data elements.
      * If the arc for a should be before the arc for b, then the comparator must return a number less than zero;
      * if the arc for a should be after the arc for b, then the comparator must return a number greater than zero; returning zero means that the relative order of a and b is unspecified.
-     *
      */
     sortValues(comparator: (a: number, b: number) => number): this;
     /**
@@ -711,7 +737,7 @@ export interface Line<Datum> {
      * Note that if a line segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
      * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
-     * @param defined A boolean constant
+     * @param defined A boolean constant.
      */
     defined(defined: boolean): this;
     /**
@@ -741,7 +767,7 @@ export interface Line<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -886,7 +912,7 @@ export interface LineRadial<Datum> {
      * Note that if a radial line segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
      * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
-     * @param defined A boolean constant
+     * @param defined A boolean constant.
      */
     defined(defined: boolean): this;
     /**
@@ -916,7 +942,7 @@ export interface LineRadial<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -968,14 +994,17 @@ export function lineRadial(): LineRadial<[number, number]>;
  */
 export function lineRadial<Datum>(): LineRadial<Datum>;
 
+/**
+ * @deprecated Use LineRadial<Datum>
+ */
 export type RadialLine<Datum> = LineRadial<Datum>;
 
 /**
- * DEPRECATED: Use lineRadial()
+ * @deprecated Use lineRadial()
  */
 export function radialLine(): RadialLine<[number, number]>;
 /**
- * DEPRECATED: Use lineRadial<Datum>()
+ * @deprecated Use lineRadial<Datum>()
  */
 export function radialLine<Datum>(): RadialLine<Datum>;
 
@@ -1137,7 +1166,6 @@ export interface Area<Datum> {
      * two-element array of numbers.
      *
      * If the y1 accessor is null, the previously-computed y0 value is reused for the y1 value.
-     *
      */
     y1(): ((d: Datum, index: number, data: Datum[]) => number) | null;
     /**
@@ -1180,9 +1208,9 @@ export interface Area<Datum> {
      * As a result, the generated area may have several discrete segments.
      *
      * Note that if an area segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
-     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points
+     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
-     * @param defined A boolean constant
+     * @param defined A boolean constant.
      */
     defined(defined: boolean): this;
     /**
@@ -1199,7 +1227,7 @@ export interface Area<Datum> {
      * As a result, the generated area may have several discrete segments.
      *
      * Note that if an area segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
-     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points
+     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
      * @param defined An accessor function which returns a boolean value. The accessor will be invoked for each defined element in the input data array,
      * being passed the element d, the index i, and the array data as three arguments.
@@ -1213,12 +1241,11 @@ export interface Area<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
      * Sets the curve factory and returns this area generator.
-     *
      *
      * @param curve A valid curve factory.
      */
@@ -1441,7 +1468,6 @@ export interface AreaRadial<Datum> {
      * two-element array of numbers.
      *
      * If the outerRadius accessor is null, the previously-computed innerRadius value is reused for the outerRadius value.
-     *
      */
     outerRadius(): ((d: Datum, index: number, data: Datum[]) => number) | null;
     /**
@@ -1486,9 +1512,9 @@ export interface AreaRadial<Datum> {
      * As a result, the generated area may have several discrete segments.
      *
      * Note that if an area segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
-     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points
+     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
-     * @param defined A boolean constant
+     * @param defined A boolean constant.
      */
     defined(defined: boolean): this;
     /**
@@ -1504,7 +1530,7 @@ export interface AreaRadial<Datum> {
      * As a result, the generated area may have several discrete segments.
      *
      * Note that if an area segment consists of only a single point, it may appear invisible unless rendered with rounded or square line caps.
-     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points
+     * In addition, some curves such as curveCardinalOpen only render a visible segment if it contains multiple points.
      *
      * @param defined An accessor function which returns a boolean value. The accessor will be invoked for each defined element in the input data array,
      * being passed the element d, the index i, and the array data as three arguments.
@@ -1518,7 +1544,7 @@ export interface AreaRadial<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
@@ -1594,16 +1620,16 @@ export function areaRadial(): AreaRadial<[number, number]>;
 export function areaRadial<Datum>(): AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use AreaRadial interface
+ * @deprecated Use AreaRadial interface
  */
 export type RadialArea<Datum> = AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use areaRadial()
+ * @deprecated Use areaRadial()
  */
 export function radialArea(): RadialArea<[number, number]>;
 /**
- * DEPRECATED: Use areaRadial<Datum>()
+ * @deprecated Use areaRadial<Datum>()
  */
 export function radialArea<Datum>(): RadialArea<Datum>;
 
@@ -1639,16 +1665,13 @@ export interface CurveGeneratorLineOnly {
 /**
  * A factory for curve generators addressing only lines, but not areas.
  */
-// This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:callable-types
-export interface CurveFactoryLineOnly {
+export type CurveFactoryLineOnly =
     /**
      * Returns a "lines only" curve generator which renders to the specified context.
      *
-     * @param context A rendering context
+     * @param context A rendering context.
      */
-    (context: CanvasRenderingContext2D | Path): CurveGeneratorLineOnly;
-}
+    (context: CanvasRenderingContext2D | Path) => CurveGeneratorLineOnly;
 
 /**
  * A minimal interface for a curve generator which supports the rendering of lines and areas.
@@ -1675,16 +1698,13 @@ export interface CurveGenerator extends CurveGeneratorLineOnly {
 /**
  * A factory for curve generators addressing both lines and areas.
  */
-// This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:callable-types
-export interface CurveFactory {
+export type CurveFactory =
     /**
      * Returns a curve generator which renders to the specified context.
      *
-     * @param context A rendering context
+     * @param context A rendering context.
      */
-    (context: CanvasRenderingContext2D | Path): CurveGenerator;
-}
+    (context: CanvasRenderingContext2D | Path) => CurveGenerator;
 
 /**
  * A curve factory for cubic basis spline generators.
@@ -1895,7 +1915,7 @@ export const curveStepBefore: CurveFactory;
 
 /**
  * An interface describing the default Link Data structure expected
- * by the Link and LinkRadial generators
+ * by the Link and LinkRadial generators.
  */
 export interface DefaultLinkObject {
     /**
@@ -2048,7 +2068,7 @@ export function linkHorizontal(): Link<any, DefaultLinkObject, [number, number]>
  *
  * The first generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The second generic corresponds to the datum type of the source/target node contained in the link object
+ * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
@@ -2062,7 +2082,7 @@ export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, Nod
  *
  * The second generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The third generic corresponds to the datum type of the source/target node contained in the link object
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkHorizontal<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
@@ -2082,7 +2102,7 @@ export function linkVertical(): Link<any, DefaultLinkObject, [number, number]>;
  *
  * The first generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The second generic corresponds to the datum type of the source/target node contained in the link object
+ * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
@@ -2096,7 +2116,7 @@ export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeD
  *
  * The second generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The third generic corresponds to the datum type of the source/target node contained in the link object
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkVertical<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
@@ -2213,7 +2233,7 @@ export interface LinkRadial<This, LinkDatum, NodeDatum> {
 }
 
 /**
- * DEPRECATED: Use LinkRadial interface
+ * @deprecated Use LinkRadial interface
  */
 export type RadialLink<This, LinkDatum, NodeDatum> = LinkRadial<This, LinkDatum, NodeDatum>;
 
@@ -2233,7 +2253,7 @@ export function linkRadial(): LinkRadial<any, DefaultLinkObject, [number, number
  *
  * The first generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The second generic corresponds to the datum type of the source/target node contained in the link object
+ * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, NodeDatum>;
 /**
@@ -2247,7 +2267,7 @@ export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, N
  *
  * The second generic corresponds to the datum type of the link object for which the link is to be generated.
  *
- * The third generic corresponds to the datum type of the source/target node contained in the link object
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
 export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkDatum, NodeDatum>;
 
@@ -2260,17 +2280,17 @@ export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkD
  *
  * Symbol types are typically not used directly, instead being passed to symbol.type.
  * However, you can define your own symbol type implementation should none of the built-in types satisfy your needs using the following interface.
- * You can also use this low-level interface with a built-in symbol type as an alternative to the symbol generator
+ * You can also use this low-level interface with a built-in symbol type as an alternative to the symbol generator.
  */
 export interface SymbolType {
     /**
-     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPathMethods interface.
+     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPath interface.
      * (Note that this is a subset of the CanvasRenderingContext2D interface!)
      *
-     * @param context A rendering context implementing CanvasPathMethods.
+     * @param context A rendering context implementing CanvasPath.
      * @param size Size of the symbol to draw.
      */
-    draw(context: CanvasPathMethods, size: number): void;
+    draw(context: CanvasPath_D3Shape, size: number): void;
 }
 
 /**
@@ -2280,7 +2300,7 @@ export interface SymbolType {
  * use a transform (see: SVG, Canvas) to move the arc to a different position.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export interface Symbol<This, Datum> {
     /**
@@ -2339,7 +2359,6 @@ export interface Symbol<This, Datum> {
     /**
      * Sets the symbol type to the specified symbol type and returns this symbol generator.
      *
-     *
      * @param type A constant symbol type.
      */
     type(type: SymbolType): this;
@@ -2382,7 +2401,7 @@ export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
 /**
  * Constructs a new symbol generator with the default settings.
  *
- * The generic corrsponds to the data type of the datum underlying the symbol.
+ * The generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
 
@@ -2390,7 +2409,7 @@ export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-
  * Constructs a new symbol generator with the default settings.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
 
@@ -2426,7 +2445,7 @@ export const symbolSquare: SymbolType;
 export const symbolStar: SymbolType;
 
 /**
- * he up-pointing triangle symbol type.
+ * The up-pointing triangle symbol type.
  */
 export const symbolTriangle: SymbolType;
 
@@ -2456,15 +2475,15 @@ export function pointRadial(angle: number, radius: number): [number, number];
  * the difference between y0 and y1 corresponds to the computed value for this point.
  *
  * SeriesPoint is a [number, number] two-element Array with added data and index properties
- * related to the data element which formed the basis for theSeriesPoint
+ * related to the data element which formed the basis for theSeriesPoint.
  */
 export interface SeriesPoint<Datum> extends Array<number> {
     /**
-     * Correponds to y0, the lower value (baseline).
+     * Corresponds to y0, the lower value (baseline).
      */
     0: number;
     /**
-     * Correponds to y1, the upper value (topline).
+     * Corresponds to y1, the upper value (topline).
      */
     1: number;
     /**
@@ -2481,11 +2500,11 @@ export interface SeriesPoint<Datum> extends Array<number> {
  */
 export interface Series<Datum, Key> extends Array<SeriesPoint<Datum>> {
     /**
-     * Key of the series
+     * Key of the series.
      */
     key: Key;
     /**
-     * Index of the series in the series array returned by stack generator
+     * Index of the series in the series array returned by stack generator.
      */
     index: number;
 }
@@ -2549,7 +2568,7 @@ export interface Stack<This, Datum, Key> {
      *
      * Thus, by default the stack generator assumes that the input data is an array of objects, with each object exposing named properties with numeric values; see stack for an example.
      */
-    value(): (d: Datum, key: Key, j: number, data: Datum[]) => number;
+    value(): (d: Datum, key: Key, i: number, data: Datum[]) => number;
     /**
      * Sets the value accessor to the specified number and returns this stack generator.
      *
@@ -2562,10 +2581,10 @@ export interface Stack<This, Datum, Key> {
      * @param value A value accessor function which returns the numeric value for a given data element and key combination. The accessor function is invoked for each data element and key being passed
      * the datum, the key, index of the data element in the input data array, and the complete data array.
      */
-    value(value: (d: Datum, key: Key, j: number, data: Datum[]) => number): this;
+    value(value: (d: Datum, key: Key, i: number, data: Datum[]) => number): this;
 
     /**
-     * Returns the current order acccesor, which defaults to stackOrderNone; this uses the order given by the key accessor.
+     * Returns the current order accessor, which defaults to stackOrderNone; this uses the order given by the key accessor.
      */
     order(): (series: Series<Datum, Key>) => number[];
     /**
@@ -2596,7 +2615,7 @@ export interface Stack<This, Datum, Key> {
     order(order: (series: Series<Datum, Key>) => number[]): this;
 
     /**
-     * Returns the current offset acccesor, which defaults to stackOffsetNone; this uses a zero baseline.
+     * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
      */
     offset(): (series: Series<Datum, Key>, order: number[]) => void;
     /**
@@ -2652,16 +2671,23 @@ export function stack<Datum, Key>(): Stack<any, Datum, Key>;
 export function stack<This, Datum, Key>(): Stack<This, Datum, Key>;
 
 /**
+ * Returns a series order such that the earliest series (according to the maximum value) is at the bottom.
+ *
+ * @param series A series generated by a stack generator.
+ */
+export function stackOrderAppearance(series: Series<any, any>): number[];
+
+/**
  * Returns a series order such that the smallest series (according to the sum of values) is at the bottom.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  */
 export function stackOrderAscending(series: Series<any, any>): number[];
 
 /**
  * Returns a series order such that the largest series (according to the sum of values) is at the bottom.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  */
 export function stackOrderDescending(series: Series<any, any>): number[];
 
@@ -2669,28 +2695,28 @@ export function stackOrderDescending(series: Series<any, any>): number[];
  * Returns a series order such that the larger series (according to the sum of values) are on the inside and the smaller series are on the outside.
  * This order is recommended for streamgraphs in conjunction with the wiggle offset. See Stacked Graphs—Geometry & Aesthetics by Byron & Wattenberg for more information.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  */
 export function stackOrderInsideOut(series: Series<any, any>): number[];
 
 /**
  * Returns the given series order [0, 1, … n - 1] where n is the number of elements in series. Thus, the stack order is given by the key accessor.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  */
 export function stackOrderNone(series: Series<any, any>): number[];
 
 /**
  * Returns the reverse of the given series order [n - 1, n - 2, … 0] where n is the number of elements in series. Thus, the stack order is given by the reverse of the key accessor.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  */
 export function stackOrderReverse(series: Series<any, any>): number[];
 
 /**
  * Applies a zero baseline and normalizes the values for each point such that the topline is always one.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
 export function stackOffsetExpand(series: Series<any, any>, order: number[]): void;
@@ -2698,7 +2724,7 @@ export function stackOffsetExpand(series: Series<any, any>, order: number[]): vo
 /**
  * Positive values are stacked above zero, while negative values are stacked below zero.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
 export function stackOffsetDiverging(series: Series<any, any>, order: number[]): void;
@@ -2706,7 +2732,7 @@ export function stackOffsetDiverging(series: Series<any, any>, order: number[]):
 /**
  * Applies a zero baseline.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
 export function stackOffsetNone(series: Series<any, any>, order: number[]): void;
@@ -2714,7 +2740,7 @@ export function stackOffsetNone(series: Series<any, any>, order: number[]): void
 /**
  * Shifts the baseline down such that the center of the streamgraph is always at zero.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
 export function stackOffsetSilhouette(series: Series<any, any>, order: number[]): void;
@@ -2723,7 +2749,7 @@ export function stackOffsetSilhouette(series: Series<any, any>, order: number[])
  * Shifts the baseline so as to minimize the weighted wiggle of layers. This offset is recommended for streamgraphs in conjunction with the inside-out order.
  * See Stacked Graphs—Geometry & Aesthetics by Bryon & Wattenberg for more information.
  *
- * @param series A series generated by a stack generator
+ * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
 export function stackOffsetWiggle(series: Series<any, any>, order: number[]): void;

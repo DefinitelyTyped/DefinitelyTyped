@@ -1,14 +1,33 @@
-// Type definitions for url-parse 1.1
+// Type definitions for url-parse 1.4
 // Project: https://github.com/unshiftio/url-parse
 // Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>
+//                 Hari Sivaramakrishnan <https://github.com/harisiva>
+//                 Dmitry Dushkin <https://github.com/DimitryDushkin>
+//                 David Golightly <https://github.com/davidgoli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import URLSearchParams = require("url-search-params");
+declare namespace URLParse {
+    type URLPart = 'auth'
+        | 'hash'
+        | 'host'
+        | 'hostname'
+        | 'href'
+        | 'origin'
+        | 'password'
+        | 'pathname'
+        | 'port'
+        | 'protocol'
+        | 'query'
+        | 'slashes'
+        | 'username';
 
-type UrlQueryParamsParser = (url: string) => string;
+    type QueryParser = (query: string) => object;
 
-declare class URL {
+    type StringifyQuery = (query: object) => string;
+}
+
+interface URLParse {
     readonly auth: string;
     readonly hash: string;
     readonly host: string;
@@ -19,34 +38,29 @@ declare class URL {
     readonly pathname: string;
     readonly port: string;
     readonly protocol: string;
-    query: { [key: string]: string | undefined };
-    readonly search: string;
-    set(property: string, value: string | object | number | undefined): URL;
+    readonly query: { [key: string]: string | undefined };
     readonly slashes: boolean;
     readonly username: string;
-    readonly searchParams: URLSearchParams;
-    toString(): string;
+    set(part: URLParse.URLPart, value: string | object | number | undefined, fn?: boolean | URLParse.QueryParser): URLParse;
+    toString(stringify?: URLParse.StringifyQuery): string;
 }
 
-type ParseFunctionNodeType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
-type ParseFunctionType = (url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser) => URL;
+declare const URLParse: {
+    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
-interface Protocol {
-    slashes: boolean;
-    protocol: string;
-    rest: string;
-}
+    extractProtocol(url: string): {
+        slashes: boolean;
+        protocol: string;
+        rest: string;
+    };
+    location(url: string): object;
+    qs: {
+        parse: URLParse.QueryParser;
+        stringify: URLParse.StringifyQuery;
+    };
+};
 
-type ExtractProtocolFunctionType = (url: string) => Protocol;
-
-type LocationFunctionType = (url: string) => string;
-
-interface ExtendedParseFunctionType extends ParseFunctionNodeType, ParseFunctionType {
-    extractProtocol: ExtractProtocolFunctionType;
-    location: LocationFunctionType;
-    qs: any;
-}
-
-declare const parse: ExtendedParseFunctionType;
-
-export = parse;
+export = URLParse;

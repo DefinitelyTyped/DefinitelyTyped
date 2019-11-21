@@ -25,6 +25,14 @@ declare module 'hapi' {
 }
 
 server.inject({
+    auth: {
+        strategy: 'test',
+        credentials: {
+            user: {
+                a: 1,
+            },
+        },
+    },
 	url: "test",
 	app: {
 		injectState: 1

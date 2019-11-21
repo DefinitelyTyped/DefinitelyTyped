@@ -19,6 +19,6 @@ export class Job extends EventEmitter {
     close(callback?: (err: Error, jobInfo: JobInfo) => void): Promise<JobInfo>;
     createBatch(): Batch;
     info(callback?: (err: Error, jobInfo: JobInfo) => void): Promise<JobInfo>;
-    list(callback?: (err: Error, jobInfo: BatchInfo) => void): Promise<BatchInfo>;
+    list(callback?: (err: Error, jobInfo: BatchInfo) => void): Promise<BatchInfo[]>;
     open(callback?: (err: Error, jobInfo: JobInfo) => void): Promise<JobInfo>;
 }

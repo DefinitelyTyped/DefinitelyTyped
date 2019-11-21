@@ -96,7 +96,7 @@ phantom.create(["--web-security=no", "--ignore-ssl-errors=yes"]).then((ph) => {
 phantom.create().then((ph) => {
     return ph.createPage().then((page) => {
         page.open("http://localhost:9901/cookie").then((status) => {
-            var someFunc = (aaa: string, my_obj: Object) => {
+            var someFunc = function (aaa: string, my_obj: Object) {
                 var attribute_to_want = aaa;
                 var h2Arr: string[] = [];
                 var results = document.querySelectorAll(attribute_to_want);

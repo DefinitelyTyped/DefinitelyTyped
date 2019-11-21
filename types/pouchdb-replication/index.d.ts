@@ -1,10 +1,11 @@
-// Type definitions for pouchdb-replication 6.1
-// Project: https://pouchdb.com/
-// Definitions by: Jakub Navratil <https://github.com/trubit>
+// Type definitions for pouchdb-replication 6.4
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
+// Definitions by: Jakub Navratil <https://github.com/trubit>, Sebastián Ramírez <https://github.com/tiangolo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
+/// <reference types="pouchdb-find" />
 
 declare namespace PouchDB {
     namespace Replication {
@@ -43,6 +44,11 @@ declare namespace PouchDB {
              */
             view?: string;
 
+            /**
+             * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
+             */
+            selector?: Find.Selector;
+
             /** Replicate changes after the given sequence number. */
             since?: any;
 
@@ -76,6 +82,14 @@ declare namespace PouchDB {
              * The default delay will never exceed 10 minutes.
              */
             back_off_function?(delay: number): number;
+
+            /**
+             * Can be used if you want to disable checkpoints on the source, target, or both.
+             * Setting this option to false will prevent writing checkpoints on both source and target.
+             * Setting it to source will only write checkpoints on the source.
+             * Setting it to target will only write checkpoints on the target.
+             */
+            checkpoint?: boolean | 'target' | 'source';
         }
 
         interface ReplicationEventEmitter<Content extends {}, C, F> extends EventEmitter {

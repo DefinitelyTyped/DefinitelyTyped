@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -23,17 +23,13 @@
 
 import MDCComponent from 'material__base/component';
 import MDCIconToggleFoundation from './foundation';
-import { MDCIconToggleAdapter } from './adapter';
-import { MDCRipple, MDCRippleFoundation } from 'material__ripple';
+import MDCIconToggleAdapter from './adapter';
+import { MDCRipple } from 'material__ripple';
 
-export {MDCIconToggleAdapter, MDCIconToggleFoundation};
+export { MDCIconToggleAdapter, MDCIconToggleFoundation };
 
 export class MDCIconToggle extends MDCComponent<MDCIconToggleAdapter, MDCIconToggleFoundation> {
     static attachTo(root: Element): MDCIconToggle;
-
-    destroy(): void;
-
-    getDefaultFoundation(): MDCIconToggleFoundation;
 
     initialSyncWithDOM(): void;
 

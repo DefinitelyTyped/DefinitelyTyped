@@ -86,14 +86,19 @@ function test_concatAll() {
 		});
 }
 
+// https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/mergeall.md
 function test_mergeAll() {
-	/* mergeAll example */
+    /* mergeAll example */
+
+    // $ExpectType Observable<number>
 	const source = Rx.Observable.range(0, 3)
 		.map(x => Rx.Observable.range(x, 3))
-		.mergeAll();
+        .mergeAll();
 
 	const subscription = source.subscribe(
 		x => {
+            // $ExpectType number
+            x;
 			console.log('Next: %s', x);
 		},
 		err => {

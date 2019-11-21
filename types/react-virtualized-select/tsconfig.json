@@ -10,11 +10,18 @@
         "noImplicitThis": true,
 		"strictFunctionTypes": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react-select": [
+                "react-select/v1"
+            ],
+            "react-select/*": [
+                "react-select/v1/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

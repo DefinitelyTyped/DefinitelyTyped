@@ -8,7 +8,7 @@ writable._write = (input, encoding, done) => {
     if (readable.push(input)) {
         done();
     } else {
-        readable.once('drain', <(...args: any[]) => void> done);
+        readable.once('drain', done as (...args: any[]) => void);
     }
 };
 

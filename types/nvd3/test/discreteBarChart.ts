@@ -48,6 +48,7 @@ namespace nvd3_test_discreteBarChart {
             //.staggerLabels(historicalBarChart[0].values.length > 8)
             .showValues(true)
             .duration(250)
+            .valueFormat(d3.format("d"))
             ;
 
         d3.select('#chart1 svg')

@@ -1,8 +1,9 @@
-// Type definitions for connect-mongo
+// Type definitions for connect-mongo 3.0
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
+//                 Guy Ellis <https://github.com/guyellis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="express-session" />
 
@@ -87,29 +88,30 @@ declare namespace connectMongo {
         mongoOptions?: mongoose.ConnectionOptions;
     }
 
-    export interface MogooseConnectionOptions extends DefaultOptions {
+    export interface MongooseConnectionOptions extends DefaultOptions {
         mongooseConnection: mongoose.Connection;
     }
 
     export interface NativeMongoOptions extends DefaultOptions {
-        db: mongodb.Db;
+        client: mongodb.MongoClient;
     }
 
     export interface NativeMongoPromiseOptions extends DefaultOptions {
-        dbPromise: Promise<mongodb.Db>;
+        clientPromise: Promise<mongodb.MongoClient>;
     }
 
     export interface MongoStoreFactory {
-        new(options: MongoUrlOptions | MogooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
+        new(options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
     }
 
     export class MongoStore extends session.Store {
-        get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
-        set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
-        destroy: (sid: string, callback: (err: any) => void) => void;
+        get: (sid: string, callback: (err: any, session: Express.SessionData | null) => void) => void;
+        set: (sid: string, session: Express.SessionData, callback?: (err: any) => void) => void;
+        destroy: (sid: string, callback?: (err: any) => void) => void;
         length: (callback: (err: any, length: number) => void) => void;
-        clear: (callback: (err: any) => void) => void;
-        touch: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
+        clear: (callback?: (err?: any) => void) => void;
+        touch: (sid: string, session: Express.SessionData, callback?: (err: any) => void) => void;
+        close: () => void;
     }
 }
 

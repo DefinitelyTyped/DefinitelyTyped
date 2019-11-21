@@ -1,12 +1,14 @@
-// Type definitions for Express 4.11
+// Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Michał Lytek <https://github.com/19majkel94>
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
+//                 aereal <https://github.com/aereal>
+//                 Jose Luis Leon <https://github.com/JoseLion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -23,26 +25,40 @@ declare global {
 
 import * as http from "http";
 import { EventEmitter } from "events";
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
     (err?: any): void;
 }
 
-export interface RequestHandler {
+export interface Dictionary<T> { [key: string]: T; }
+
+export interface ParamsDictionary { [key: string]: string; }
+export type ParamsArray = string[];
+export type Params = ParamsDictionary | ParamsArray;
+
+export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request, res: Response, next: NextFunction): any;
+    (req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => any;
+export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> = (err: any, req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams = RequestHandler | ErrorRequestHandler | Array<RequestHandler | ErrorRequestHandler>;
+export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>
+    = RequestHandler<P, ResBody, ReqBody>
+    | ErrorRequestHandler<P, ResBody, ReqBody>
+    | Array<RequestHandler<P>
+    | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T> {
-    (path: PathParams, ...handlers: RequestHandler[]): T;
-    (path: PathParams, ...handlers: RequestHandlerParams[]): T;
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody>>): T;
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody>>): T;
+    (path: PathParams, subApplication: Application): T;
 }
 
 export interface IRouterHandler<T> {
@@ -163,22 +179,35 @@ export interface Router extends IRouter { }
 export interface CookieOptions {
     maxAge?: number;
     signed?: boolean;
-    expires?: Date | boolean;
+    expires?: Date;
     httpOnly?: boolean;
     path?: string;
     domain?: string;
-    secure?: boolean | 'auto';
-    encode?: (val: string) => void;
+    secure?: boolean;
+    encode?: (val: string) => string;
     sameSite?: boolean | string;
 }
 
 export interface ByteRange { start: number; end: number; }
 
-export interface RequestRanges extends Array<ByteRange> { type: string; }
+export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
-export interface Request extends http.IncomingMessage, Express.Request {
+/**
+ * @param P  For most requests, this should be `ParamsDictionary`, but if you're
+ * using this in a route handler for a route that uses a `RegExp` or a wildcard
+ * `string` path (e.g. `'/user/*'`), then `req.params` will be an array, in
+ * which case you should use `ParamsArray` instead.
+ *
+ * @see https://expressjs.com/en/api.html#req.params
+ *
+ * @example
+ *     app.get('/user/:id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`
+ *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
+ *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
+ */
+export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -283,21 +312,19 @@ export interface Request extends http.IncomingMessage, Express.Request {
     acceptsLanguages(...lang: string[]): string | false;
 
     /**
-     * Parse Range header field,
-     * capping to the given `size`.
+     * Parse Range header field, capping to the given `size`.
      *
-     * Unspecified ranges such as "0-" require
-     * knowledge of your resource length. In
-     * the case of a byte range this is of course
-     * the total number of bytes. If the Range
-     * header field is not given `null` is returned,
-     * `-1` when unsatisfiable, `-2` when syntactically invalid.
+     * Unspecified ranges such as "0-" require knowledge of your resource length. In
+     * the case of a byte range this is of course the total number of bytes.
+     * If the Range header field is not given `undefined` is returned.
+     * If the Range header field is given, return value is a result of range-parser.
+     * See more ./types/range-parser/index.d.ts
      *
-     * NOTE: remember that ranges are inclusive, so
-     * for example "Range: users=0-3" should respond
-     * with 4 users when available, not 3.
+     * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
+     * should respond with 4 users when available, not 3.
+     *
      */
-    range(size: number): RequestRanges|null|-1|-2;
+    range(size: number, options?: RangeParserOptions): RangeParserRanges | RangeParserResult | undefined;
 
     /**
      * Return an array of Accepted media types
@@ -425,17 +452,14 @@ export interface Request extends http.IncomingMessage, Express.Request {
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    body: ReqBody;
 
     //cookies: { string; remember: boolean; };
     cookies: any;
 
     method: string;
 
-    params: any;
-
-    /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): Response;
+    params: P;
 
     query: any;
 
@@ -450,6 +474,13 @@ export interface Request extends http.IncomingMessage, Express.Request {
     baseUrl: string;
 
     app: Application;
+
+    /**
+     * After middleware.init executed, Request will contain res and next properties
+     * See: express/lib/middleware/init.js
+     */
+    res?: Response<ResBody>;
+    next?: NextFunction;
 }
 
 export interface MediaType {
@@ -459,13 +490,13 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send = (body?: any) => Response;
+export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface Response extends http.ServerResponse, Express.Response {
+export interface Response<ResBody = any> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
-    status(code: number): Response;
+    status(code: number): this;
 
     /**
      * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -478,7 +509,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
      *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
      */
-    sendStatus(code: number): Response;
+    sendStatus(code: number): this;
 
     /**
      * Set Link header field with the given `links`.
@@ -490,7 +521,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *      last: 'http://api.example.com/users?page=5'
      *    });
      */
-    links(links: any): Response;
+    links(links: any): this;
 
     /**
      * Send a response.
@@ -500,10 +531,9 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send(new Buffer('wahoo'));
      *     res.send({ some: 'json' });
      *     res.send('<p>some html</p>');
-     *     res.send(404, 'Sorry, cant find that');
-     *     res.send(404);
+     *     res.status(404).send('Sorry, cant find that');
      */
-    send: Send;
+    send: Send<ResBody, this>;
 
     /**
      * Send JSON response.
@@ -512,10 +542,10 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *     res.json(null);
      *     res.json({ user: 'tj' });
-     *     res.json(500, 'oh noes!');
-     *     res.json(404, 'I dont have that');
+     *     res.status(500).json('oh noes!');
+     *     res.status(404).json('I dont have that');
      */
-    json: Send;
+    json: Send<ResBody, this>;
 
     /**
      * Send JSON response with JSONP callback support.
@@ -524,10 +554,10 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *     res.jsonp(null);
      *     res.jsonp({ user: 'tj' });
-     *     res.jsonp(500, 'oh noes!');
-     *     res.jsonp(404, 'I dont have that');
+     *     res.status(500).jsonp('oh noes!');
+     *     res.status(404).jsonp('I dont have that');
      */
-    jsonp: Send;
+    jsonp: Send<ResBody, this>;
 
     /**
      * Transfer the file at the given `path`.
@@ -569,10 +599,8 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @api public
      */
-    sendFile(path: string): void;
-    sendFile(path: string, options: any): void;
-    sendFile(path: string, fn: Errback): void;
-    sendFile(path: string, options: any, fn: Errback): void;
+    sendFile(path: string, fn?: Errback): void;
+    sendFile(path: string, options: any, fn?: Errback): void;
 
     /**
      * @deprecated Use sendFile instead.
@@ -599,12 +627,14 @@ export interface Response extends http.ServerResponse, Express.Response {
      * when the data transfer is complete, or when an error has
      * ocurred. Be sure to check `res.headerSent` if you plan to respond.
      *
+     * The optional options argument passes through to the underlying
+     * res.sendFile() call, and takes the exact same parameters.
+     *
      * This method uses `res.sendfile()`.
      */
-    download(path: string): void;
-    download(path: string, filename: string): void;
-    download(path: string, fn: Errback): void;
-    download(path: string, filename: string, fn: Errback): void;
+    download(path: string, fn?: Errback): void;
+    download(path: string, filename: string, fn?: Errback): void;
+    download(path: string, filename: string, options: any, fn?: Errback): void;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
@@ -618,7 +648,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    contentType(type: string): Response;
+    contentType(type: string): this;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
@@ -632,7 +662,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    type(type: string): Response;
+    type(type: string): this;
 
     /**
      * Respond to the Acceptable formats using an `obj`
@@ -686,12 +716,12 @@ export interface Response extends http.ServerResponse, Express.Response {
      * a `.default` callback it will be invoked
      * instead.
      */
-    format(obj: any): Response;
+    format(obj: any): this;
 
     /**
      * Set _Content-Disposition_ header to _attachment_ with optional `filename`.
      */
-    attachment(filename?: string): Response;
+    attachment(filename?: string): this;
 
     /**
      * Set header `field` to `val`, or pass
@@ -705,11 +735,11 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * Aliased as `res.header()`.
      */
-    set(field: any): Response;
-    set(field: string, value?: string): Response;
+    set(field: any): this;
+    set(field: string, value?: string | string[]): this;
 
-    header(field: any): Response;
-    header(field: string, value?: string): Response;
+    header(field: any): this;
+    header(field: string, value?: string | string[]): this;
 
     // Property indicating if HTTP headers has been sent for the response.
     headersSent: boolean;
@@ -718,7 +748,7 @@ export interface Response extends http.ServerResponse, Express.Response {
     get(field: string): string;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): Response;
+    clearCookie(name: string, options?: any): this;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.
@@ -737,9 +767,9 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    // save as above
      *    res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
      */
-    cookie(name: string, val: string, options: CookieOptions): Response;
-    cookie(name: string, val: any, options: CookieOptions): Response;
-    cookie(name: string, val: any): Response;
+    cookie(name: string, val: string, options: CookieOptions): this;
+    cookie(name: string, val: any, options: CookieOptions): this;
+    cookie(name: string, val: any): this;
 
     /**
      * Set the location header to `url`.
@@ -767,7 +797,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *      res.location('/login');
      */
-    location(url: string): Response;
+    location(url: string): this;
 
     /**
      * Redirect to the given `url` with optional response `status`
@@ -799,7 +829,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *  - `cache`     boolean hinting to the engine it should cache
      *  - `filename`  filename of the view being rendered
      */
-    render(view: string, options?: Object, callback?: (err: Error, html: string) => void): void;
+    render(view: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
     locals: any;
@@ -813,7 +843,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.vary('User-Agent').render('docs');
      *
      */
-    vary(field: string): Response;
+    vary(field: string): this;
 
     app: Application;
 
@@ -826,7 +856,13 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @since 4.11.0
      */
-    append(field: string, value?: string[]|string): Response;
+    append(field: string, value?: string[] | string): this;
+
+    /**
+     * After middleware.init executed, Response will contain req property
+     * See: express/lib/middleware/init.js
+     */
+    req?: Request;
 }
 
 export interface Handler extends RequestHandler { }
@@ -884,7 +920,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: Function): Application;
+    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): this;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.
@@ -898,7 +934,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *
      * Mounted servers inherit their parent server's settings.
      */
-    set(setting: string, val: any): Application;
+    set(setting: string, val: any): this;
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
@@ -947,56 +983,10 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     disabled(setting: string): boolean;
 
     /** Enable `setting`. */
-    enable(setting: string): Application;
+    enable(setting: string): this;
 
     /** Disable `setting`. */
-    disable(setting: string): Application;
-
-    /**
-     * Configure callback for zero or more envs,
-     * when no `env` is specified that callback will
-     * be invoked for all environments. Any combination
-     * can be used multiple times, in any order desired.
-     *
-     * Examples:
-     *
-     *    app.configure(function(){
-     *      // executed for all envs
-     *    });
-     *
-     *    app.configure('stage', function(){
-     *      // executed staging env
-     *    });
-     *
-     *    app.configure('stage', 'production', function(){
-     *      // executed for stage and production
-     *    });
-     *
-     * Note:
-     *
-     *  These callbacks are invoked immediately, and
-     *  are effectively sugar for the following:
-     *
-     *     var env = process.env.NODE_ENV || 'development';
-     *
-     *      switch (env) {
-     *        case 'development':
-     *          ...
-     *          break;
-     *        case 'stage':
-     *          ...
-     *          break;
-     *        case 'production':
-     *          ...
-     *          break;
-     *      }
-     */
-    configure(fn: Function): Application;
-    configure(env0: string, fn: Function): Application;
-    configure(env0: string, env1: string, fn: Function): Application;
-    configure(env0: string, env1: string, env2: string, fn: Function): Application;
-    configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
-    configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
+    disable(setting: string): this;
 
     /**
      * Render the given view `name` name with `options`
@@ -1009,7 +999,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *      // ...
      *    })
      */
-    render(name: string, options?: Object, callback?: (err: Error, html: string) => void): void;
+    render(name: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(name: string, callback: (err: Error, html: string) => void): void;
 
     /**
@@ -1029,11 +1019,12 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: Function): http.Server;
-    listen(port: number, hostname: string, callback?: Function): http.Server;
-    listen(port: number, callback?: Function): http.Server;
-    listen(path: string, callback?: Function): http.Server;
-    listen(handle: any, listeningListener?: Function): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: (...args: any[]) => void): http.Server;
+    listen(port: number, hostname: string, callback?: (...args: any[]) => void): http.Server;
+    listen(port: number, callback?: (...args: any[]) => void): http.Server;
+    listen(callback?: (...args: any[]) => void): http.Server;
+    listen(path: string, callback?: (...args: any[]) => void): http.Server;
+    listen(handle: any, listeningListener?: () => void): http.Server;
 
     router: string;
 
@@ -1061,6 +1052,22 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     _router: any;
 
     use: ApplicationRequestHandler<this>;
+
+    /**
+     * The mount event is fired on a sub-app, when it is mounted on a parent app.
+     * The parent app is passed to the callback function.
+     *
+     * NOTE:
+     * Sub-apps will:
+     *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
+     *  - Inherit the value of settings with no default value.
+     */
+    on: (event: string, callback: (parent: Application) => void) => this;
+
+    /**
+     * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.
+     */
+    mountpath: string | string[];
 }
 
 export interface Express extends Application {

@@ -52,7 +52,7 @@ console.log(err instanceof Error); // true
 
 // ----------------------------------------
 // Advanced usage: creating custom Error subclasses
-var Custom404Error = httperr.createHttpError(404, 'Not Found', config => {
+var Custom404Error = httperr.createHttpError(404, 'Not Found', function (config) {
     this.message = 'The resource was not found';
     this['some custom property'] = config.parameters['some custom parameter'];
 });

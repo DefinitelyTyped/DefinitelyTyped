@@ -1,6 +1,7 @@
 // Type definitions for Bezier.js
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
+//                 Simon <https://github.com/Epskampie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace BezierJs {
@@ -96,8 +97,8 @@ declare namespace BezierJs {
         constructor(p1: Point, p2: Point, p3: Point, p4?: Point);
         static fromSVG(svgString: string): Bezier;
         static getABC(n: number, S: Point, B: Point, E: Point, t: number): ABC;
-        static quadraticFromPoints(p1: Point, p2: Point, p3: Point, t: number): Bezier;
-        static cubicFromPoints(S: Point, B: Point, E: Point, t: number, d1: number): Bezier;
+        static quadraticFromPoints(p1: Point, p2: Point, p3: Point, t?: number): Bezier;
+        static cubicFromPoints(S: Point, B: Point, E: Point, t?: number, d1?: number): Bezier;
         static getUtils(): typeof utils;
         getUtils(): typeof utils;
         valueOf(): string;

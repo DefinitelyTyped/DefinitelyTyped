@@ -163,6 +163,12 @@ request.get('/user')
 request.get('/user')
     .accept('png');
 
+// Setting max response size
+request
+    .get('/search')
+    .maxResponseSize(1000)
+    .end(callback);
+
 // Query strings
 request
     .post('/')
@@ -181,6 +187,7 @@ request('/search')
     const contentLength = res.header['content-length'];
     const contentType: string = res.type;
     const charset: string = res.charset;
+    const redirects: string[] = res.redirects;
   });
 
 // Custom parsers

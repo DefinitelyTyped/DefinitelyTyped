@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "geometry-3d.d.ts",
+        "index.d.ts",
+        "lights.d.ts",
+        "map3d.d.ts",
+        "object3d-group.d.ts",
+        "object3d-layer.d.ts",
+        "object3d.d.ts",
+        "vector3.d.ts",
+        "amap-js-api-map3d-tests.ts"
+    ]
+}

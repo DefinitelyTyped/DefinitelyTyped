@@ -1658,7 +1658,7 @@ declare module "../index" {
         orderBy<T>(
             collection: List<T> | null | undefined,
             iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): T[];
 
         /**
@@ -1667,7 +1667,7 @@ declare module "../index" {
         orderBy<T>(
             collection: List<T> | null | undefined,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): T[];
 
         /**
@@ -1676,7 +1676,7 @@ declare module "../index" {
         orderBy<T extends object>(
             collection: T | null | undefined,
             iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): Array<T[keyof T]>;
 
         /**
@@ -1685,7 +1685,7 @@ declare module "../index" {
         orderBy<T extends object>(
             collection: T | null | undefined,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): Array<T[keyof T]>;
     }
 
@@ -1696,7 +1696,7 @@ declare module "../index" {
         orderBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -1705,7 +1705,7 @@ declare module "../index" {
         orderBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -1714,7 +1714,7 @@ declare module "../index" {
         orderBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -1723,7 +1723,7 @@ declare module "../index" {
         orderBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -1734,7 +1734,7 @@ declare module "../index" {
         orderBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -1743,7 +1743,7 @@ declare module "../index" {
         orderBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -1752,7 +1752,7 @@ declare module "../index" {
         orderBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -1761,7 +1761,7 @@ declare module "../index" {
         orderBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|string>
+            orders?: Many<boolean|"asc"|"desc">
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -1777,6 +1777,10 @@ declare module "../index" {
         * @param callback The function called per iteration.
         * @return Returns the array of grouped elements.
         **/
+        partition<T, U extends T>(
+            collection: List<T> | null | undefined,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): [U[], Array<Exclude<T, U>>];
         partition<T>(
             collection: List<T> | null | undefined,
             callback: ValueIteratee<T>
@@ -1795,6 +1799,10 @@ declare module "../index" {
         /**
          * @see _.partition
          */
+        partition<T, U extends T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>
@@ -1813,6 +1821,10 @@ declare module "../index" {
         /**
          * @see _.partition
          */
+        partition<T, U extends T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>

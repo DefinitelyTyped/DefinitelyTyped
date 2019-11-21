@@ -1,36 +1,40 @@
 import * as React from "react";
 import {
-    Viewport,
-    StaticMapProps,
-    InteractiveMapProps,
     InteractiveMap,
     CanvasOverlay,
     SVGOverlay,
     HTMLOverlay,
-    HTMLOverlayProps,
+    FullscreenControl,
+    GeolocateControl,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
-    SVGOverlayProps,
     SVGRedrawOptions,
-    StaticMap
+    StaticMap,
+    ViewportProps
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
 
-interface MyMapState {
-    viewport: Viewport;
+interface State {
+    viewport: ViewportProps;
 }
 
-class MyMap extends React.Component<{}, MyMapState> {
-    state: MyMapState = {
+class MyMap extends React.Component<{}, State> {
+    readonly state: State = {
         viewport: {
+            width: 400,
+            height: 400,
             bearing: 0,
-            isDragging: false,
             latitude: 0,
             longitude: 0,
             zoom: 3,
-        }
+            pitch: 0,
+            altitude: 1.5,
+            maxZoom: 20,
+            minZoom: 0,
+            maxPitch: 60,
+            minPitch: 0,
+        },
     };
-
     private map: MapboxGL.Map;
 
     render() {
@@ -39,12 +43,14 @@ class MyMap extends React.Component<{}, MyMapState> {
                 <InteractiveMap
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
-                    height={400}
-                    width={400}
                     ref={this.setRefInteractive}
+                    onViewportChange={viewport => this.setState({ viewport })}
+                    onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
+                    <FullscreenControl className="test-class" container={document.querySelector('body')} />
+                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
                     <CanvasOverlay
-                        redraw={(opts: CanvasRedrawOptions) => {
+                        redraw={opts => {
                             const {
                                 ctx,
                                 height,
@@ -57,7 +63,7 @@ class MyMap extends React.Component<{}, MyMapState> {
                         }}
                     />
                     <CanvasOverlay
-                        redraw={(opts: CanvasRedrawOptions) => {}}
+                        redraw={opts => {}}
                         captureScroll={true}
                         captureDrag={true}
                         captureClick={true}
@@ -67,7 +73,7 @@ class MyMap extends React.Component<{}, MyMapState> {
                         redraw={() => {}}
                     />
                     <SVGOverlay
-                        redraw={(opts: SVGRedrawOptions) => {
+                        redraw={opts => {
                             const {
                                 height,
                                 project,
@@ -85,7 +91,7 @@ class MyMap extends React.Component<{}, MyMapState> {
                         redraw={() => {}}
                     />
                     <HTMLOverlay
-                        redraw={(opts: HTMLRedrawOptions) => {
+                        redraw={opts => {
                             const {
                                 height,
                                 project,

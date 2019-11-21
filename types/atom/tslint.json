@@ -4,6 +4,9 @@
         "await-promise": [true, "CancellablePromise"],
         "indent": [true, "spaces", 4],
         "max-line-length": [true, 100],
-        "no-any": true
+        "no-any": true,
+
+        // TODOs
+        "no-declare-current-package": false
     }
 }

@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent } from "react";
+import { Validator, Requireable, PureComponent } from 'react';
 
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
@@ -11,26 +11,18 @@ export type WindowScrollerChildProps = {
     width: number;
     isScrolling: boolean;
     scrollTop: number;
-    onChildScroll: () => void;
+    scrollLeft: number;
+    onChildScroll: (params: { scrollTop: number }) => void;
+    registerChild: (element?: React.ReactElement) => void;
 };
 
 export type WindowScrollerProps = {
     /**
      * Function responsible for rendering children.
      * This function should implement the following signature:
-     * ({ height, isScrolling, scrollLeft, scrollTop, width }) => PropTypes.element
+     * ({ height, isScrolling, scrollLeft, scrollTop, width, onChildScroll }) => PropTypes.element
      */
-    children: (
-        params: {
-            onChildScroll: (params: { scrollTop: number }) => void;
-            registerChild: (params?: Element) => void;
-            height: number;
-            isScrolling: boolean;
-            scrollLeft: number;
-            scrollTop: number;
-            width: number;
-        }
-    ) => React.ReactNode;
+    children: (params: WindowScrollerChildProps) => React.ReactNode;
 
     /** Callback to be invoked on-resize: ({ height, width }) */
     onResize?: (params: { height: number; width: number }) => void;
@@ -68,10 +60,7 @@ export type WindowScrollerState = {
     scrollTop: number;
 };
 
-export class WindowScroller extends PureComponent<
-    WindowScrollerProps,
-    WindowScrollerState
-> {
+export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScrollerState> {
     static defaultProps: {
         onResize: () => void;
         onScroll: () => void;

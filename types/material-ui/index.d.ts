@@ -1,5 +1,5 @@
-// Type definitions for material-ui 0.20
-// Project: https://github.com/callemall/material-ui
+// Type definitions for material-ui 0.21
+// Project: https://github.com/callemall/material-ui, http://material-ui.com
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
 //                 Ali Taheri Moghaddar <https://github.com/alitaheri>
@@ -12,8 +12,9 @@
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
 //                 Sam Walsh <https://github.com/samwalshnz>
+//                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -558,8 +559,8 @@ declare namespace __MaterialUI {
         className?: string;
         iconClassNameLeft?: string;
         iconClassNameRight?: string;
-        iconElementLeft?: React.ReactElement<any>;
-        iconElementRight?: React.ReactElement<any>;
+        iconElementLeft?: React.ReactElement;
+        iconElementRight?: React.ReactElement;
         iconStyleRight?: React.CSSProperties;
         iconStyleLeft?: React.CSSProperties;
         onLeftIconButtonClick?: React.MouseEventHandler<{}>;
@@ -653,7 +654,7 @@ declare namespace __MaterialUI {
         backgroundColor?: string;
         className?: string;
         color?: string;
-        icon?: React.ReactElement<any>;
+        icon?: React.ReactElement;
         size?: number;
         src?: string;
         style?: React.CSSProperties;
@@ -985,6 +986,7 @@ declare namespace __MaterialUI {
             inputStyle?: React.CSSProperties;
             onBlur?: React.FocusEventHandler<{}>;
             onKeyDown?: React.KeyboardEventHandler<{}>;
+            openToYearSelection?: boolean;
             rows?: number;
             rowsMax?: number;
             name?: string;
@@ -1036,7 +1038,7 @@ declare namespace __MaterialUI {
         text: string;
     }
     export interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
-        actions?: Array<DialogAction | React.ReactElement<any>>;
+        actions?: Array<DialogAction | React.ReactElement>;
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
         actionsContainerClassName?: string;
@@ -1102,10 +1104,10 @@ declare namespace __MaterialUI {
         }
 
         export interface GridTileProps {
-            actionIcon?: React.ReactElement<any>;
+            actionIcon?: React.ReactElement;
             actionPosition?: "left" | "right";
             cols?: number;
-            containerElement?: string | React.ReactElement<any> | React.ComponentClass<any>;
+            containerElement?: string | React.ReactElement | React.ComponentClass<any>;
             rows?: number;
             style?: React.CSSProperties;
             subtitle?: React.ReactNode;
@@ -1144,12 +1146,8 @@ declare namespace __MaterialUI {
     }
 
     namespace List {
-        export interface ListProps {
-            // <Paper/> is the element that get the 'other' properties
-            style?: React.CSSProperties;
-        }
-        export class List extends React.Component<ListProps> {
-        }
+        export interface ListProps extends React.HTMLAttributes<{}> {}
+        export class List extends React.Component<ListProps> {}
 
         export interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
@@ -1160,9 +1158,9 @@ declare namespace __MaterialUI {
             initiallyOpen?: boolean;
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
-            leftAvatar?: React.ReactElement<any>;
-            leftCheckbox?: React.ReactElement<any>;
-            leftIcon?: React.ReactElement<any>;
+            leftAvatar?: React.ReactElement;
+            leftCheckbox?: React.ReactElement;
+            leftIcon?: React.ReactElement;
             nestedItems?: Array<React.ReactElement<ListItemProps>>;
             nestedLevel?: number;
             nestedListStyle?: React.CSSProperties;
@@ -1175,10 +1173,10 @@ declare namespace __MaterialUI {
             open?: boolean;
             primaryText?: React.ReactNode;
             primaryTogglesNestedList?: boolean;
-            rightAvatar?: React.ReactElement<any>;
-            rightIcon?: React.ReactElement<any>;
-            rightIconButton?: React.ReactElement<any>;
-            rightToggle?: React.ReactElement<any>;
+            rightAvatar?: React.ReactElement;
+            rightIcon?: React.ReactElement;
+            rightIconButton?: React.ReactElement;
+            rightToggle?: React.ReactElement;
             secondaryText?: React.ReactNode;
             secondaryTextLines?: number; // 1 or 2
             style?: React.CSSProperties;
@@ -1230,11 +1228,11 @@ declare namespace __MaterialUI {
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
             label?: string | React.ReactNode;
-            leftIcon?: React.ReactElement<any>;
+            leftIcon?: React.ReactElement;
             menuItems?: React.ReactNode;
             onClick?: React.MouseEventHandler<{}>;
             primaryText?: React.ReactNode;
-            rightIcon?: React.ReactElement<any>;
+            rightIcon?: React.ReactElement;
             secondaryText?: React.ReactNode;
             style?: React.CSSProperties;
             containerElement?: React.ReactNode | string;
@@ -1506,7 +1504,7 @@ declare namespace __MaterialUI {
             rippleColor?: string;
             rippleStyle?: React.CSSProperties;
             style?: React.CSSProperties;
-            switchElement: React.ReactElement<any>;
+            switchElement: React.ReactElement;
             switched: boolean;
             thumbStyle?: React.CSSProperties;
             trackStyle?: React.CSSProperties;
@@ -1911,6 +1909,8 @@ declare namespace __MaterialUI {
         minlength?: string;
         step?: number;
         autoComplete?: string;
+        placeholder?: string;
+        title?: string;
     }
     export class TextField extends React.Component<TextFieldProps> {
         blur(): void;

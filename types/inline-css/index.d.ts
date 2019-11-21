@@ -2,10 +2,7 @@
 // Project: https://github.com/jonkemp/inline-css
 // Definitions by: Philip Spain <https://github.com/philipisapain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-/// <reference types="bluebird" />
-
+// TypeScript Version: 3.2
 
 import Promise = require('bluebird');
 

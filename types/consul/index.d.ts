@@ -1,6 +1,7 @@
 // Type definitions for Consul v0.23.0
 // Project: https://github.com/silas/node-consul
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
+//                 Vadym Vakhovskiy <https://github.com/vadim-v>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -625,6 +626,7 @@ declare namespace Consul {
             dc?: string;
             tag?: string;
             passing?: boolean;
+            near?: string;
         }
 
         interface StateOptions extends CommonOptions {
@@ -959,6 +961,9 @@ declare namespace Consul {
         interface Options {
             method: Function;
             options?: CommonOptions & WatchOptions;
+            backoffFactor?: number;
+            backoffMax?: number;
+            maxAttempts?: number;
         }
     }
 

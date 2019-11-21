@@ -2,7 +2,7 @@
 // Project: https://github.com/mike-marcacci/node-redlock
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import * as redis from 'redis';
 import * as Promise from 'bluebird';

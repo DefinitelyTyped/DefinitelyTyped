@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": false
+        "interface-name": false,
+        "no-unnecessary-class": false // to allow SafeString class
     }
 }

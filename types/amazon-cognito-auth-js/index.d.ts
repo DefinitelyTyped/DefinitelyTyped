@@ -1,5 +1,5 @@
 // Type definitions for amazon-cognito-auth-js 1.2
-// Project: https://github.com/aws/amazon-cognito-auth-js
+// Project: https://github.com/aws/amazon-cognito-auth-js, http://aws.amazon.com/cognito
 // Definitions by: Scott Escue <https://github.com/scottescue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -548,7 +548,7 @@ export class CognitoAuth {
     getUserContextData(): string;
 
     /**
-     * Helper method to let the user know if he has either a valid cached session
+     * Helper method to let the user know if they have either a valid cached session
      * or a valid authenticated session from the app integration callback.
      * @returns userSignedIn
      */

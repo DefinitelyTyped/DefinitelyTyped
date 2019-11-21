@@ -30,3 +30,14 @@ var drake = dragula({
     copy: true
 });
 drake.containers.push(document.querySelector('#container'));
+
+dragula([document.getElementById('left'), document.getElementById('right')])
+    .on('drag', function (el: Element) {
+        el.className = el.className.replace('ex-moved', '');
+    }).on('drop', function (el: Element) {
+        el.className += ' ex-moved';
+    }).on('over', function (el: Element, container: Element) {
+        container.className += ' ex-over';
+    }).on('out', function (el: Element, container: Element) {
+        container.className = container.className.replace('ex-over', '');
+    });

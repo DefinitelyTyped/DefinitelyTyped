@@ -1,9 +1,10 @@
-// Type definitions for Highland 2.10.5
+// Type definitions for Highland 2.12.0
 // Project: http://highlandjs.org/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
 //                 Alvis HT Tang <https://github.com/alvis>
+//                 Jack Wearden <https://github.com/notbobthebuilder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,7 +14,6 @@
 
 // TODO figure out curry arguments
 // TODO create more overloads for nested data, like streams-of-streams or streams-of-array-of-streams etc
-// TODO use externalised Thenable
 // TODO use externalised Readable/Writable (not node's)
 
 /**
@@ -48,6 +48,21 @@ interface HighlandStatic {
 	 * it with the Highland API. Reading from the resulting Highland Stream will
 	 * begin piping the data from the Node Stream to the Highland Stream.
 	 *
+     * A stream constructed in this way relies on Readable#pipe to end the
+     * Highland Stream once there is no more data. Not all Readable Streams do this.
+     * For example, IncomingMessage will only emit close when the client aborts
+     * communications and will not properly call end. In this case, you can provide
+     * an optional onFinished function with the signature onFinished(readable, callback)
+     * as the second argument.
+     *
+     * This function will be passed the Readable and a callback that should called
+     * when the Readable ends. If the Readable ended from an error, the error should
+     * be passed as the first argument to the callback. onFinished should bind to
+     * whatever listener is necessary to detect the Readable's completion. If the
+     * callback is called multiple times, only the first invocation counts. If the
+     * callback is called after the Readable has already ended (e.g., the pipe method
+     * already called end), it will be ignored.
+     *
 	 * **EventEmitter / jQuery Elements -** Pass in both an event name and an
 	 * event emitter as the two arguments to the constructor and the first
 	 * argument emitted to the event handler will be written to the new Stream.
@@ -73,17 +88,17 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-  <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
+	<R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
 	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
+	<R>(xs: NodeJS.ReadableStream, of?: Highland.OnFinished): Highland.Stream<R>;
 	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
-	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: Highland.Thenable<R>): Highland.Stream<R>;
+	<R>(xs: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
+	<R>(xs: PromiseLike<R>): Highland.Stream<R>;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
@@ -379,12 +394,6 @@ interface HighlandStatic {
 
 declare namespace Highland {
 
-	interface Thenable<R> {
-		then<U>(onFulfilled: (value: R) => Thenable<U>,  onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Thenable<U>;
-	}
 	// hacky unique
 	// TODO do we need this?
 	interface Nil {
@@ -625,7 +634,7 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
 		 */
-        drop(n: number): Stream<R>;
+		drop(n: number): Stream<R>;
 
 		/**
 		 * Extracts errors from a Stream and applies them to an error handler
@@ -1012,8 +1021,8 @@ declare namespace Highland {
 		 * @name Stream.flatten()
 		 * @api public
 		 */
-		flatten<U>(): Stream<U>;
 		flatten(): Stream<R>;
+		flatten<U>(): Stream<U>;
 
 		/**
 		 * Forks a stream, allowing you to add additional consumers with shared
@@ -1048,7 +1057,7 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-	  merge(): Stream<R>;
+	  merge<U>(this: Stream<Stream<U>>): Stream<U>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
@@ -1086,7 +1095,7 @@ declare namespace Highland {
 		 * @param {Number} n - the maximum number of concurrent reads/buffers
 		 * @api public
 		 */
-		parallel(n: number): Stream<R>;
+		parallel<U>(this: Stream<Stream<U>>, n: number): Stream<U>
 
 		/**
 		 * Reads values from a Stream of Streams, emitting them on a Single output
@@ -1099,8 +1108,7 @@ declare namespace Highland {
 		 * @name Stream.sequence()
 		 * @api public
 		 */
-		//TODO figure out typing
-		sequence<U>(): Stream<U>;
+		sequence<U>(this: Stream<Stream<U>>): Stream<U>;
 
 		/**
 		 * An alias for the [sequence](#sequence) method.
@@ -1172,7 +1180,7 @@ declare namespace Highland {
 		 *   console.log(err); // => SyntaxError: Unexpected token z
 		 * });
 		 */
-		through<R, U>(f: (x: R) => U): Stream<U>;
+		through<R, U>(f: (x: R) => U): U;
 		through(thru: NodeJS.ReadWriteStream): Stream<any>;
 
 
@@ -1319,6 +1327,25 @@ declare namespace Highland {
 		 */
 		toCallback(cb: (err?: Error, x?: R) => void): void;
 
+		/**
+		 * Converts the stream to a node Readable Stream for use in methods
+		 * or pipes that depend on the native stream type.
+		 *
+		 * The options parameter can be an object passed into the [`Readable`
+		 * constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable).
+		 *
+		 * @id toNodeStream
+		 * @section Consumption
+		 * @name Stream.toNodeStream(options)
+		 * @param {Object} options - (optional) [`Readable` constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable) options
+		 * @api public
+		 *
+		 * _(fs.createReadStream('./abc')).toNodeStream()
+		 * _(fs.createReadStream('./abc')).toNodeStream({objectMode: false})
+		 * _([{a: 1}]).toNodeStream({objectMode: true})
+		 */
+		toNodeStream(options?: object): NodeJS.ReadableStream;
+
     /**
      * Converts the result of a stream to Promise.
      *
@@ -1349,7 +1376,13 @@ declare namespace Highland {
 		end: boolean
 	}
 
-	type MappingHint = number | string[] | Function;
+    type MappingHint = number | string[] | Function;
+
+    interface CleanupObject {
+        onDestroy?: Function;
+        continueOnError?: boolean;
+    }
+    type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 
 declare var highland:HighlandStatic;
