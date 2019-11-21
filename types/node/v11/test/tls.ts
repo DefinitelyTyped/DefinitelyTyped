@@ -31,6 +31,7 @@ import * as fs from "fs";
     const keyInfo: EphemeralKeyInfo | {} | null = tlsSocket.getEphemeralKeyInfo();
     const finishedMsg: Buffer | undefined = tlsSocket.getFinished();
     const peerFinishedMsg: Buffer | undefined = tlsSocket.getPeerFinished();
+    const isSessionReused: boolean = tlsSocket.isSessionReused();
 
     tlsSocket.disableRenegotiation();
 

@@ -225,6 +225,10 @@ declare module "tls" {
          */
         getTLSTicket(): Buffer | undefined;
         /**
+         * Returns true if the session was reused, false otherwise.
+         */
+        isSessionReused(): boolean;
+        /**
          * Initiate TLS renegotiation process.
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.

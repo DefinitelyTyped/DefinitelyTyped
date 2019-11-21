@@ -33,6 +33,7 @@ import * as fs from "fs";
     const finishedMsg: Buffer | undefined = tlsSocket.getFinished();
     const peerFinishedMsg: Buffer | undefined = tlsSocket.getPeerFinished();
     const sharedAlgs: string[] = tlsSocket.getSharedSigalgs();
+    const isSessionReused: boolean = tlsSocket.isSessionReused();
 
     tlsSocket.disableRenegotiation();
     tlsSocket.enableTrace();
