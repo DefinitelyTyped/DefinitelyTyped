@@ -595,7 +595,9 @@ export namespace Widgets {
         destroy(): void;
     }
 
-    interface IOptions {}
+    interface IOptions {
+        [name: string]: any;
+    }
 
     interface IHasOptions<T extends IOptions> {
         options: T;
