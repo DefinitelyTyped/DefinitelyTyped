@@ -65,7 +65,7 @@ function keys<T>(o: T): Array<keyof T> {
             if (
                 powerCreep.powers[PWR_GENERATE_OPS] &&
                 powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
-                (powerCreep.carry.ops || 0) < 10
+                (powerCreep.store.ops || 0) < 10
             ) {
                 Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
             } else {
@@ -168,7 +168,7 @@ function keys<T>(o: T): Array<keyof T> {
 }
 
 {
-    if (Game.spawns["Spawn1"].energy === 0) {
+    if (!Game.spawns["Spawn1"].store[RESOURCE_ENERGY]) {
         Game.notify(
             "Spawn1 is out of energy",
             180, // group these notifications for 3 hours
@@ -599,8 +599,9 @@ function keys<T>(o: T): Array<keyof T> {
 // StoreDefinition
 
 {
-    for (const resourceType of keys(creep.carry)) {
-        const amount = creep.carry[resourceType];
+    type T = keyof Creep;
+    for (const resourceType of keys(creep.store) as ResourceConstant[]) {
+        const amount = creep.store[resourceType];
         creep.drop(resourceType, amount);
     }
 }
@@ -622,7 +623,9 @@ function keys<T>(o: T): Array<keyof T> {
         case STRUCTURE_CONTAINER:
         case STRUCTURE_STORAGE:
         case STRUCTURE_TERMINAL:
-            const energyPercent = unowned.store.energy / unowned.storeCapacity;
+            const energyStored = unowned.store.getUsedCapacity(RESOURCE_ENERGY);
+            const energyCapacity = unowned.store.getCapacity(RESOURCE_ENERGY);
+            const energyPercent = energyCapacity ? energyStored / energyCapacity : 0;
             break;
         case STRUCTURE_WALL:
         case STRUCTURE_RAMPART:
@@ -632,10 +635,15 @@ function keys<T>(o: T): Array<keyof T> {
 
     // test discriminated union using filter functions on find
     const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
+        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy && s.store.energy > 0,
     })[0];
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
+        filter: s => {
+            if (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) {
+                return !s.store.energy || (s.store[RESOURCE_ENERGY] || 0) < (s.store.getCapacity(RESOURCE_ENERGY) || 0);
+            }
+            return false;
+        }
     });
 
     Game.rooms.myRoom
@@ -649,7 +657,7 @@ function keys<T>(o: T): Array<keyof T> {
     // Test that you can use signatures
     EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
 
-    REACTIONS[Object.keys(creep.carry)[0]];
+    REACTIONS[Object.keys(creep.store)[0]];
 
     BOOSTS[creep.body[0].type];
 }
@@ -711,7 +719,7 @@ function keys<T>(o: T): Array<keyof T> {
     const lab1 = Game.getObjectById<StructureLab>("lab1");
     const lab2 = Game.getObjectById<StructureLab>("lab2");
     if (lab0 !== null && lab1 !== null && lab2 !== null) {
-        if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
+        if (lab1.store.getUsedCapacity() >= LAB_REACTION_AMOUNT && lab2.store.getUsedCapacity() >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
             lab0.runReaction(lab1, lab2);
         }
     }

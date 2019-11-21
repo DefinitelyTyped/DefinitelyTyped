@@ -1,4 +1,4 @@
-// Type definitions for Screeps 2.5
+// Type definitions for Screeps 2.12.1
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -8,6 +8,7 @@
 //                 Dominic Marcuse <https://github.com/dmarcuse>
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
+//                 Skida12138 <https://github.com/skida12138>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -258,6 +259,10 @@ declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
+declare const RESOURCE_SILICON: 'silicon';
+declare const RESOURCE_METAL: 'metal';
+declare const RESOURCE_BIOMASS: 'biomass';
+declare const RESOURCE_MIST: 'mist';
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: "token";
@@ -931,15 +936,17 @@ interface Creep extends RoomObject {
      */
     body: BodyPartDefinition[];
     /**
+     * @deprecated
      * An object with the creep's cargo contents.
      */
     carry: StoreDefinition;
     /**
+     * @deprecated
      * The total amount of resources the creep can carry.
      */
     carryCapacity: number;
     /**
-     * The movement fatigue indicator. If it is greater than zero, the creep cannot move.
+     * An object with the creep's cargo contents.
      */
     fatigue: number;
     /**
@@ -982,6 +989,10 @@ interface Creep extends RoomObject {
      * The text message that the creep was saying at the last tick.
      */
     saying: string;
+    /**
+     * A Store object that contains cargo of this creep.
+     */
+    store: Store;
     /**
      * The remaining amount of game ticks after which the creep will die.
      *
@@ -1073,7 +1084,7 @@ interface Creep extends RoomObject {
      * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
-    harvest(target: Source | Mineral): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
      * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
      *
@@ -1242,6 +1253,41 @@ interface Creep extends RoomObject {
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
 
 declare const Creep: CreepConstructor;
+
+/**
+ * A rare resource deposit needed for producing commodities.
+ * Can be harvested by creeps with a WORK body part.
+ * Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ */
+interface Deposit<T extends DepositConstant = DepositConstant> extends RoomObject {
+    readonly prototype: Deposit;
+
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    cooldown: number;
+    /**
+     * The deposit type
+     */
+    depositType: T;
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id
+     */
+    id: string;
+    /**
+     * The cooldown of the last harvest operation on this deposit.
+     */
+    lastCooldown: number;
+    /**
+     * The amount of game ticks when this deposit will disappear.
+     */
+    ticksToDecay: number;
+}
+
+interface DepositConstructor extends _Constructor<Deposit>, _ConstructorById<Deposit> {}
+
+declare const Deposit: DepositConstructor;
+
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
@@ -1537,11 +1583,37 @@ interface CPUShardLimits {
     [shard: string]: number;
 }
 
-type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { energy: number };
+type StoreDefinition = Partial<Record<ResourceConstant, number>>;
 // type SD<K extends ResourceConstant> = {
 //   [P in K]: number;
 //   energy: number;
 // }
+
+interface Store extends StoreDefinition {
+    /**
+     * Returns capacity of this store for the specified resource,
+     * or total capacity if resource is undefined.
+     *
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or null in case of a not valid resource for this store type.
+     */
+    getCapacity(resource?: ResourceConstant): number | null;
+    /**
+     * A shorthand for getCapacity(resource) - getUsedCapacity(resource).
+     *
+     * @param resource The type of the resource.
+     * @returns Returns free capacity number.
+     */
+    getFreeCapacity(resource?: ResourceConstant): number | null;
+    /**
+     * Returns the capacity used by the specified resource,
+     * or total used capacity for general purpose stores if resource is undefined.
+     *
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or null in case of a not valid resource for this store type.
+     */
+    getUsedCapacity(resource?: ResourceConstant): number;
+}
 
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
@@ -2013,14 +2085,16 @@ type BuildableStructureConstant =
     | STRUCTURE_LAB
     | STRUCTURE_TERMINAL
     | STRUCTURE_CONTAINER
-    | STRUCTURE_NUKER;
+    | STRUCTURE_NUKER
+    | STRUCTURE_FACTORY;
 
 type StructureConstant =
     | BuildableStructureConstant
     | STRUCTURE_KEEPER_LAIR
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
-    | STRUCTURE_PORTAL;
+    | STRUCTURE_PORTAL
+    | STRUCTURE_INVADER_CORE;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -2041,6 +2115,8 @@ type STRUCTURE_TERMINAL = "terminal";
 type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_PORTAL = "portal";
+type STRUCTURE_FACTORY = "factory";
+type STRUCTURE_INVADER_CORE = "invaderCore";
 
 // Terrain mask constants
 type TERRAIN_MASK_WALL = 1;
@@ -2093,52 +2169,11 @@ type ResourceConstant =
     | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
     | RESOURCE_CATALYZED_GHODIUM_ACID
     | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
-
-type _ResourceConstantSansEnergy =
-    | RESOURCE_POWER
-    | RESOURCE_UTRIUM
-    | RESOURCE_LEMERGIUM
-    | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
-    | RESOURCE_ZYNTHIUM
-    | RESOURCE_OXYGEN
-    | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_UTRIUM_HYDRIDE
-    | RESOURCE_UTRIUM_OXIDE
-    | RESOURCE_KEANIUM_HYDRIDE
-    | RESOURCE_KEANIUM_OXIDE
-    | RESOURCE_LEMERGIUM_HYDRIDE
-    | RESOURCE_LEMERGIUM_OXIDE
-    | RESOURCE_ZYNTHIUM_HYDRIDE
-    | RESOURCE_ZYNTHIUM_OXIDE
-    | RESOURCE_GHODIUM_HYDRIDE
-    | RESOURCE_GHODIUM_OXIDE
-    | RESOURCE_UTRIUM_ACID
-    | RESOURCE_UTRIUM_ALKALIDE
-    | RESOURCE_KEANIUM_ACID
-    | RESOURCE_KEANIUM_ALKALIDE
-    | RESOURCE_LEMERGIUM_ACID
-    | RESOURCE_LEMERGIUM_ALKALIDE
-    | RESOURCE_ZYNTHIUM_ACID
-    | RESOURCE_ZYNTHIUM_ALKALIDE
-    | RESOURCE_GHODIUM_ACID
-    | RESOURCE_GHODIUM_ALKALIDE
-    | RESOURCE_CATALYZED_UTRIUM_ACID
-    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
-    | RESOURCE_CATALYZED_KEANIUM_ACID
-    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
-    | RESOURCE_CATALYZED_LEMERGIUM_ACID
-    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
-    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
-    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
-    | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
+    | RESOURCE_OPS
+    | RESOURCE_SILICON
+    | RESOURCE_METAL
+    | RESOURCE_BIOMASS
+    | RESOURCE_MIST;
 
 type MineralConstant =
     | RESOURCE_UTRIUM
@@ -2149,6 +2184,12 @@ type MineralConstant =
     | RESOURCE_OXYGEN
     | RESOURCE_HYDROGEN
     | RESOURCE_CATALYST;
+
+type DepositConstant =
+    | RESOURCE_SILICON
+    | RESOURCE_METAL
+    | RESOURCE_BIOMASS
+    | RESOURCE_MIST;
 
 type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
@@ -2200,6 +2241,11 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type RESOURCE_SILICON = 'silicon';
+type RESOURCE_METAL = 'metal';
+type RESOURCE_BIOMASS = 'biomass';
+type RESOURCE_MIST = 'mist';
 
 type SUBSCRIPTION_TOKEN = "token";
 
@@ -2814,13 +2860,19 @@ declare const PathFinder: PathFinder;
  */
 interface PowerCreep extends RoomObject {
     /**
+     * @deprecated
      * An object with the creep's cargo contents.
      */
     carry: StoreDefinition;
     /**
+     * @deprecated
      * The total amount of resources the creep can carry.
      */
     carryCapacity: number;
+    /**
+     * A Store object that contains cargo of this creep.
+     */
+    store: Store;
     /**
      * The power creep's class, one of the `POWER_CLASS` constants.
      */
@@ -3950,13 +4002,19 @@ declare const Source: SourceConstructor;
 interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     readonly prototype: StructureSpawn;
     /**
+     * @deprecated
      * The amount of energy containing in the spawn.
      */
-    energy: number;
+    // energy: number;
     /**
+     * @deprecated
      * The total amount of energy the spawn can contain
      */
-    energyCapacity: number;
+    // energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * A shorthand to `Memory.spawns[spawn.name]`. You can use it for quick access
      * the spawn’s specific memory data object.
@@ -4293,10 +4351,16 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     readonly prototype: StructureExtension;
 
     /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
+    /**
+     * @deprecated
      * The amount of energy containing in the extension.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy the extension can contain.
      */
     energyCapacity: number;
@@ -4305,6 +4369,64 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
 
 declare const StructureExtension: StructureExtensionConstructor;
+
+/**
+ * Produces trade commodities from base minerals and other commodities.
+ */
+interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
+    readonly prototype: StructureFactory;
+
+    /**
+     * The amount of game ticks the factory has to wait until the next production is possible.
+     */
+    cooldown: number;
+    /**
+     * The factory's level.
+     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
+     * Once set, the level cannot be changed.
+     */
+    level: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
+    /**
+     * Produces the specified commodity.
+     * All ingredients should be available in the factory store.
+     *
+     * @param resourceType One of the RESOURCE_* constants
+     */
+    produce(resourceType: ResourceConstant): ScreepsReturnCode;
+}
+
+interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
+
+declare const StructureFactory: StructureExtensionConstructor;
+
+/**
+ * This NPC structure is a control center of NPC Strongholds,
+ * and also rules all invaders in the sector.
+ * It spawns NPC defenders of the stronghold, refill towers, repairs structures.
+ * While it's alive, it will spawn invaders in all rooms in the same sector.
+ * It also contains some valuable resources inside,
+ * which you can loot from its ruin if you destroy the structure.
+ */
+interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
+    readonly prototype: StructureInvaderCore;
+
+    /**
+     * The level of the stronghold. The amount and quality of the loot depends on the level.
+     */
+    level: number;
+    /**
+     * Shows the timer for a ot yet deployed stronghold, undefined otherwise.
+     */
+    ticksToDeploy: number;
+}
+
+interface StructureInvaderCore extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
+
+declare const StructureInvaderCore: StructureExtensionConstructor;
 
 /**
  * Remotely transfers energy to another Link in the same room.
@@ -4317,13 +4439,19 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     cooldown: number;
     /**
+     * @deprecated
      * The amount of energy containing in the link.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy the link can contain.
      */
     energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Transfer energy from the link to another link or a creep.
      *
@@ -4403,21 +4531,29 @@ declare const StructurePowerBank: StructurePowerBankConstructor;
 interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     readonly prototype: StructurePowerSpawn;
     /**
+     * @deprecated
      * The amount of energy containing in this structure.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy this structure can contain.
      */
     energyCapacity: number;
     /**
+     * @deprecated
      * The amount of power containing in this structure.
      */
     power: number;
     /**
+     * @deprecated
      * The total amount of power this structure can contain.
      */
     powerCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
 
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
@@ -4482,10 +4618,11 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     readonly prototype: StructureStorage;
 
     /**
-     * An object with the storage contents.
+     * A Store object that contains cargo of this structure.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
+     * @deprecated
      * The total amount of resources the storage can contain.
      */
     storeCapacity: number;
@@ -4504,13 +4641,19 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     readonly prototype: StructureTower;
 
     /**
+     * @deprecated
      * The amount of energy containing in this structure.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy this structure can contain.
      */
     energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
 
     /**
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
@@ -4573,14 +4716,17 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      */
     cooldown: number;
     /**
+     * @deprecated
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy the lab can contain.
      */
     energyCapacity: number;
     /**
+     * @deprecated
      * The amount of mineral resources containing in the lab.
      */
     mineralAmount: number;
@@ -4588,11 +4734,13 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      * Null in case there is no mineral resource in the lab.
      */
-    mineralType: _ResourceConstantSansEnergy | null;
+    mineralType: MineralConstant;
     /**
+     * @deprecated
      * The total amount of minerals the lab can contain.
      */
     mineralCapacity: number;
+    store: Store;
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
@@ -4609,6 +4757,14 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * @param lab2 The second source lab.
      */
     runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
+    /**
+     * Immediately remove boosts from the creep and drop 50% of the mineral compounds used to boost it onto the ground regardless of the creep's remaining time to live.
+     * The creep has to be at adjacent square to the lab.
+     * Unboosting requires cooldown time equal to the total sum of the reactions needed to produce all the compounds applied to the creep.
+     *
+     * @param creep The target creep.
+     */
+    unboostCreep(creep: Creep): ScreepsReturnCode;
 }
 
 interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {}
@@ -4627,8 +4783,9 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
+     * @deprecated
      * The total amount of resources the storage can contain.
      */
     storeCapacity: number;
@@ -4652,11 +4809,11 @@ declare const StructureTerminal: StructureTerminalConstructor;
 interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     readonly prototype: StructureContainer;
     /**
-     * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
-     * amounts. Use _.sum(structure.store) to get the total amount of contents
+     * A Store object that contains cargo of this structure.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
+     * @deprecated
      * The total amount of resources the structure can contain.
      */
     storeCapacity: number;
@@ -4680,18 +4837,26 @@ declare const StructureContainer: StructureContainerConstructor;
 interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     readonly prototype: StructureNuker;
     /**
+     * @deprecated
      * The amount of energy contained in this structure.
      */
     energy: number;
     /**
+     * @deprecated
      * The total amount of energy this structure can contain.
      */
     energyCapacity: number;
     /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
+    /**
+     * @deprecated
      * The amount of energy contained in this structure.
      */
     ghodium: number;
     /**
+     * @deprecated
      * The total amount of energy this structure can contain.
      */
     ghodiumCapacity: number;
@@ -4780,7 +4945,7 @@ interface Tombstone extends RoomObject {
      * other resources are undefined when empty.
      * You can use lodash.sum to get the total amount of contents.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
      * The amount of game ticks before this tombstone decays.
      */
