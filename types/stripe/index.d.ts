@@ -112,6 +112,7 @@ declare class Stripe {
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
     subscriptionItems: Stripe.resources.SubscriptionItems;
+    taxRates: Stripe.resources.TaxRates;
     tokens: Stripe.resources.Tokens;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
