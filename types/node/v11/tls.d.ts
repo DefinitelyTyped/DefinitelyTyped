@@ -287,6 +287,13 @@ declare module "tls" {
          */
         getTicketKeys(): Buffer;
         /**
+         *
+         * The server.setSecureContext() method replaces the
+         * secure context of an existing server. Existing connections to the
+         * server are not interrupted.
+         */
+        setSecureContext(details: SecureContextOptions): void;
+        /**
          * The server.setSecureContext() method replaces the secure context of
          * an existing server. Existing connections to the server are not
          * interrupted.

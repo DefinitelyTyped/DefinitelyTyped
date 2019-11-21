@@ -48,6 +48,14 @@ import * as fs from "fs";
 }
 
 {
+    const _server = createServer({});
+    _server.setSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
+    });
+}
+
+{
     let _server = createServer({});
     let _boolean: boolean;
     const _func1 = (err: Error, resp: Buffer) => { };
