@@ -1660,11 +1660,18 @@ stripe.coupons.list({ limit: 3 }).then(coupons => {
 //#region FileLinks tests
 // ##################################################################################
 
-stripe.fileLinks.create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O' }, (err, fileLink) => {
-    console.log('Err', err);
-    console.log('FileLink', fileLink);
-    // asynchronously called
-});
+stripe.fileLinks.create(
+    { file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks
+    .create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } })
+    .then(fileLink => {
+        fileLink; // $ExpectType IFileLink
+    });
 
 //#endregion
 
