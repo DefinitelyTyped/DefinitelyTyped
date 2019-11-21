@@ -214,6 +214,11 @@ declare module "tls" {
          */
         getSession(): Buffer | undefined;
         /**
+         * Returns a list of signature algorithms shared between the server and
+         * the client in the order of decreasing preference.
+         */
+        getSharedSigalgs(): string[];
+        /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
          * @returns TLS session ticket or undefined if none was negotiated.
