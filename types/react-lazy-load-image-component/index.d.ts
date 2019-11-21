@@ -2,6 +2,7 @@
 // Project: https://github.com/Aljullu/react-lazy-load-image-component#readme
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 //                 Diego Chavez <https://github.com/diegochavez>
+//                 Truong Hoang Dung <https://github.com/revskill10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
