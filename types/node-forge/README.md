@@ -28,3 +28,4 @@ BSD-2-Clause
 [Rafal2228](https://github.com/rafal2228)
 [Beeno Tung](https://github.com/beenotung)
 [Nikita Koryabkin](https://github.com/Apologiz)
+[Piotr Tarasiuk](https://github.com/piotar)

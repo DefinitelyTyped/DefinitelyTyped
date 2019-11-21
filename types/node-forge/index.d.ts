@@ -261,6 +261,25 @@ declare module "node-forge" {
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
         }
 
+        interface FingerprintOptions {
+            /**
+             * @description the delimiter to use between bytes for `hex` encoded output
+             */
+            delimiter?: string;
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding?: 'hex' | 'binary';
+            /**
+             * @description if not specified, the default publick key type is `RSAPublicKey`
+             */
+            type?: 'RSAPublicKey' | 'SubjectPublicKeyInfo';
+            /**
+             * @description if not specified defaults to `md.sha1`
+             */
+            md?: md.MessageDigest;
+        }
+
         /**
          * Attribute members to search on; any one hit will return the attribute
          */
@@ -374,6 +393,11 @@ declare module "node-forge" {
         type setRsaPublicKey = typeof rsa.setPublicKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
+
+        /**
+         * @description Gets the PKI fingerprint for the given public key
+         */
+        function getPublicKeyFingerprint(publicKey: pki.PublicKey, options?: FingerprintOptions): util.ByteStringBuffer | Hex | string;
     }
 
     namespace random {
