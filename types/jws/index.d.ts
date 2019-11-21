@@ -156,7 +156,7 @@ export type Header = {
     crit?: string[];
 } & CertificateProperties & {
     [name: string]: any
-}
+};
 
 export type JWK = {
     alg?: Algorithm;
@@ -165,7 +165,7 @@ export type JWK = {
     key_ops?: ReadonlyArray<string>;
 } & CertificateProperties;
 
-export type CertificateProperties = {
+export interface CertificateProperties {
     kid?: string;
     x5u?: string;
     x5c?: string[];
