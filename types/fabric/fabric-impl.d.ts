@@ -576,9 +576,9 @@ export class Gradient {
 	 * Create new Gradient obj
 	 */
 	constructor(options: {
-		type: string,
-		coords: IGradientOptionsCoords,
-		colorStops: IGradientOptionsColorStops,
+		type?: string,
+		coords?: IGradientOptionsCoords,
+		colorStops?: IGradientOptionsColorStops,
 	});
 	/**
 	 * Adds another colorStop
