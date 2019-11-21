@@ -256,7 +256,6 @@ export interface BBOX {
     maxY: number;
 }
 
-
 interface Fontkit {
     /**
      * Opens a font file asynchronously, and calls the callback with a font object.
@@ -280,5 +279,5 @@ interface Fontkit {
     create(buffer: Buffer, postscriptName?: string): Font;
 }
 
-const defExp: Fontkit;
+declare const defExp: Fontkit;
 export default defExp;
