@@ -3972,7 +3972,6 @@ declare namespace Stripe {
     }
 
     namespace fileLinks {
-
         interface IFileLink extends IResourceObject {
             /**
              * Value is 'file_link'
@@ -3987,7 +3986,7 @@ declare namespace Stripe {
              */
             expired: boolean;
             /**
-             * Time at which the link expires. 
+             * Time at which the link expires.
              */
             expires_at: number;
             /**
@@ -3995,22 +3994,22 @@ declare namespace Stripe {
              */
             file: string;
             /**
-             * Has the value true if the object exists in live mode or the value false if the object exists in test mode. 
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
              */
             livemode: boolean;
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              */
             metadata: IMetadata;
-            /** 
-             * The publicly accessible URL to download the file. 
+            /**
+             * The publicly accessible URL to download the file.
              */
             url: string;
         }
 
         interface IFileLinksCreationOptions extends IDataOptionsWithMetadata {
-            /** 
-             * The ID of the file 
+            /**
+             * The ID of the file
              */
             file: string;
             /**
@@ -12784,7 +12783,7 @@ declare namespace Stripe {
             retrieve(id: string, response?: IResponseFn<fileLinks.IFileLink>): Promise<fileLinks.IFileLink>;
 
             /**
-             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful, 
+             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful,
              * and throws an error otherwise.
              */
             update(
