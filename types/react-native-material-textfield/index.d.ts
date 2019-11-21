@@ -1,14 +1,8 @@
-<<<<<<< HEAD
 // Type definitions for react-native-material-textfield 0.15.1
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
-//                 Deividi Cavarzan <https://github.com/cavarzan>
-=======
-// Type definitions for react-native-material-textfield 0.15
-// Project: https://github.com/n4kz/react-native-material-textfield
-// Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
->>>>>>> fdeac13eba6173c41b86000b040b5953a7987b9b
+//                 Deividi Cavarzan <https://github.com/cavarzan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
