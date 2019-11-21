@@ -4,6 +4,7 @@
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Kenneth Aasan <https://github.com/kennethaasan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
