@@ -413,6 +413,8 @@ declare module "tls" {
     function getCiphers(): string[];
 
     const DEFAULT_ECDH_CURVE: string;
+    const DEFAULT_MAX_VERSION: SecureVersion;
+    const DEFAULT_MIN_VERSION: SecureVersion;
 
     const rootCertificates: ReadonlyArray<string>;
 }

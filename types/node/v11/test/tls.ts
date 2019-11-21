@@ -1,4 +1,15 @@
-import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket } from "tls";
+import {
+    createSecureContext,
+    SecureContext,
+    ConnectionOptions,
+    connect,
+    getCiphers,
+    DEFAULT_ECDH_CURVE,
+    DEFAULT_MAX_VERSION,
+    DEFAULT_MIN_VERSION,
+    createServer,
+    TLSSocket,
+} from "tls";
 import * as fs from "fs";
 
 {
@@ -16,6 +27,8 @@ import * as fs from "fs";
 
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
+    const maxVersion: string = DEFAULT_MAX_VERSION;
+    const minVersion: string = DEFAULT_MIN_VERSION;
 }
 
 {
