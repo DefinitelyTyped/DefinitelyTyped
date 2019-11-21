@@ -1674,11 +1674,11 @@ stripe.fileLinks
     });
 
 stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
-    // asynchronously called
+    fileLink; // $ExpectType IFileLink
 });
 
 stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
-    // asynchronously called
+    fileLink; // $ExpectType void
 });
 
 //#endregion
