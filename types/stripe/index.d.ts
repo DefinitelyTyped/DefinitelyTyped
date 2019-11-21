@@ -118,6 +118,7 @@ declare class Stripe {
     files: Stripe.resources.Files;
     bitcoinReceivers: Stripe.resources.BitcoinReceivers;
     refunds: Stripe.resources.Refunds;
+    reviews: Stripe.resources.Reviews;
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
@@ -13744,6 +13745,49 @@ declare namespace Stripe {
             ): IListPromise<refunds.IRefund>;
             list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
             list(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+        }
+
+        class Reviews extends StripeResource {
+            /**
+             * Approves a Review object, closing it and removing it from the list of reviews. Returns the approved
+             * review object.
+             * @param id - The identifier of the review to be approved.
+             */
+            approve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            approve(id: string, response?: IResponseFn<reviews.IReview>): Promise<reviews.IReview>;
+
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+
+            /**
+             * Returns a list of Review objects that have open set to true. The objects are sorted in descending 
+             * order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: IListOptionsCreated,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                data: IListOptionsCreated,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
         }
 
         class Sources extends StripeResource {
