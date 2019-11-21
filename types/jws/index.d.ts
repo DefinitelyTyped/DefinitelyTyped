@@ -148,7 +148,27 @@ export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
                         'ES512' | 'PS256' | 'PS384' | 'PS512' |
                         'none';
 
-export interface Header {
+export type Header = {
     alg: Algorithm;
-    [name: string]: string | ReadonlyArray<string> | number | undefined;
+    jwk?: JWK;
+    typ?: string;
+    cty?: string;
+    crit?: string[];
+} & CertificateProperties & {
+    [name: string]: any
+}
+
+export type JWK = {
+    alg?: Algorithm;
+    kty: string;
+    use?: string;
+    key_ops?: ReadonlyArray<string>;
+} & CertificateProperties;
+
+export type CertificateProperties = {
+    kid?: string;
+    x5u?: string;
+    x5c?: string[];
+    x5t?: string;
+    'x5t#S256'?: string;
 }
