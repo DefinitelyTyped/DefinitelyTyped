@@ -354,6 +354,18 @@ export interface Metric {
     sumOfSquares: number;
 }
 
+export interface DistributedTracePayload {
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    text(): string;
+
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    httpSafe(): string;
+}
+
 export interface TransactionHandle {
     /**
      * End the transaction.
@@ -364,4 +376,14 @@ export interface TransactionHandle {
      * Mark the transaction to be ignored.
      */
     ignore(): void;
+
+    /**
+     * Creates a distributed trace payload.
+     */
+    createDistributedTracePayload(): DistributedTracePayload;
+
+    /**
+     * Parses incoming distributed trace header payload.
+     */
+    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
 }
