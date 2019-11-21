@@ -3977,30 +3977,37 @@ declare namespace Stripe {
              * Value is 'file_link'
              */
             object: 'file_link';
+
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
+
             /**
              * Whether this link is already expired.
              */
             expired: boolean;
+
             /**
              * Time at which the link expires.
              */
             expires_at: number;
+
             /**
              * The file object this link points to
              */
             file: string;
+
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
              */
             livemode: boolean;
+
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              */
             metadata: IMetadata;
+
             /**
              * The publicly accessible URL to download the file.
              */
@@ -4012,6 +4019,7 @@ declare namespace Stripe {
              * The ID of the file
              */
             file: string;
+
             /**
              * A future timestamp after which the link will no longer be usable.
              */
@@ -4027,6 +4035,7 @@ declare namespace Stripe {
              * Only return links for the given file.
              */
             file?: string;
+            
             /**
              * Filter links by their expiration status. By default, all links are returned.
              */
