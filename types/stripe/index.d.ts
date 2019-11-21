@@ -8016,6 +8016,40 @@ declare namespace Stripe {
             transfer_group: string;
         }
 
+        interface ITopupCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * A positive integer representing how much to transfer.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * The ID of a source to transfer funds from. For most users, this should be left unspecified
+             * which will use the bank account that was set up in the dashboard for the specified currency.
+             * In test mode, this can be a test bank token (see https://stripe.com/docs/connect/testing#testing-top-ups).
+             */
+            source?: string;
+
+            /**
+             * Extra information about a top-up for the source’s bank statement. Limited to 15 ASCII characters.
+             */
+            statement_descriptor?: string;
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group?: string;
+        }
+
         type Statuses = 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
     }
 
@@ -13941,6 +13975,21 @@ declare namespace Stripe {
                 response?: IResponseFn<tokens.IToken>,
             ): Promise<tokens.IToken>;
             retrieve(tokenId: string, response?: IResponseFn<tokens.IToken>): Promise<tokens.IToken>;
+        }
+
+        class Topups extends StripeResource {
+            /**
+             * Top up the balance of an account
+             */
+            create(
+                data: topups.ITopupCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            create(
+                data: topups.ITopupCreationOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
         }
 
         class OAuth extends StripeResource {
