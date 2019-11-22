@@ -282,6 +282,12 @@ export interface Layout {
 	bargroupgap: number;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
+	polar: {
+		bgcolor: string;
+		radialaxis: {
+			color: string;
+		};
+	};
 }
 
 export interface Legend extends Label {
