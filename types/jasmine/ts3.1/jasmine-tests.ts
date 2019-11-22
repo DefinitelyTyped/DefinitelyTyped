@@ -121,7 +121,7 @@ describe("Included matchers:", () => {
         expect({}).not.toBeTrue();
     });
 
-    it("The 'toBeTrue' matcher is for matching with true", () => {
+    it("The 'toBeFalse' matcher is for matching with false", () => {
         expect(false).toBeFalse();
         expect(true).not.toBeFalse();
         expect(undefined).not.toBeFalse();
