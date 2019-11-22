@@ -456,7 +456,9 @@ const kbshortcuts = {
     }}
     onClose={() => {}}
     onClickOutside={() => {}}
-    onFocusOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget && e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;

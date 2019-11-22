@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode, ReactElement } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode, ReactElement, FocusEvent } from '@wordpress/element';
 import { Slot } from '@wordpress/components';
 
 declare namespace Popover {
@@ -81,7 +81,7 @@ declare namespace Popover {
          *
          * Defaults to `onClose` when not provided.
          */
-        onFocusOutside?(): void;
+        onFocusOutside?(event: FocusEvent): void;
     }
     /**
      * The direction in which the popover should open relative to its parent
