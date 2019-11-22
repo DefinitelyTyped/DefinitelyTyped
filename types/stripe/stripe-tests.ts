@@ -1394,6 +1394,35 @@ stripe.applicationFees.retrieveRefund('fee_1Eq2auEELBA7Bnp1FpeuNccq', 'fr_1Eq2au
 
 //#endregion
 
+//#region Reviews tests
+// ##################################################################################
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.list({ limit: 3 }, (err, reviews) => {
+    reviews; // $ExpectType IList<IReview>
+});
+
+stripe.reviews.list({ limit: 3 }).then(reviews => {
+    reviews; // $ExpectType IList<IReview>
+});
+
+//#endregion
+
 //#region External Accounts tests
 // ##################################################################################
 
