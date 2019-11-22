@@ -33,6 +33,7 @@
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
+//                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -116,6 +117,7 @@ declare class Stripe {
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
+    fileLinks: Stripe.resources.FileLinks;
     bitcoinReceivers: Stripe.resources.BitcoinReceivers;
     refunds: Stripe.resources.Refunds;
     countrySpecs: Stripe.resources.CountrySpecs;
@@ -3967,6 +3969,78 @@ declare namespace Stripe {
             | 'identity_document'
             | 'incorporation_article'
             | 'incorporation_document';
+    }
+
+    namespace fileLinks {
+        interface IFileLink extends IResourceObject {
+            /**
+             * Value is 'file_link'
+             */
+            object: 'file_link';
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Whether this link is already expired.
+             */
+            expired: boolean;
+
+            /**
+             * Time at which the link expires.
+             */
+            expires_at: number;
+
+            /**
+             * The file object this link points to
+             */
+            file: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * The publicly accessible URL to download the file.
+             */
+            url: string;
+        }
+
+        interface IFileLinksCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The ID of the file
+             */
+            file: string;
+
+            /**
+             * A future timestamp after which the link will no longer be usable.
+             */
+            expires_at?: number;
+        }
+
+        interface IFileLinksUpdateOptions extends IDataOptionsWithMetadata {
+            expires_at?: number | 'now';
+        }
+
+        interface IFileLinksListOptions extends IListOptionsCreated {
+            /**
+             * Only return links for the given file.
+             */
+            file?: string;
+
+            /**
+             * Filter links by their expiration status. By default, all links are returned.
+             */
+            expired?: boolean;
+        }
     }
 
     namespace invoices {
@@ -12691,6 +12765,76 @@ declare namespace Stripe {
                 response?: IResponseFn<IList<files.IFileUpdate>>,
             ): IListPromise<files.IFileUpdate>;
             list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
+        }
+
+        class FileLinks extends StripeResource {
+            /**
+             * Creates a new file link object.
+             */
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a file link object if a valid identifier was provided, and throws an error otherwise.
+             */
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(id: string, response?: IResponseFn<fileLinks.IFileLink>): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful,
+             * and throws an error otherwise.
+             */
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a list of file links
+             */
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(response?: IResponseFn<IList<fileLinks.IFileLink>>): IListPromise<fileLinks.IFileLink>;
         }
 
         class Invoices extends StripeResource {

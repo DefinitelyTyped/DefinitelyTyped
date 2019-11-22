@@ -1657,6 +1657,56 @@ stripe.coupons.list({ limit: 3 }).then(coupons => {
 
 //#endregion
 
+//#region FileLinks tests
+// ##################################################################################
+
+stripe.fileLinks.create(
+    { file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks
+    .create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } })
+    .then(fileLink => {
+        fileLink; // $ExpectType IFileLink
+    });
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update(
+    'link_1FhJXrBZBR5SQORg2hZCYnZ7',
+    { expires_at: 'now', metadata: { order_id: '6735' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', { expires_at: 1542822417 }, (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', {}).then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.list({ limit: 3 }, (err, fileLinks) => {
+    // asynchronously called
+});
+
+stripe.fileLinks.list({ limit: 3 }).then(fileLinks => {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region Discounts tests
 // ##################################################################################
 
