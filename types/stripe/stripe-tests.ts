@@ -1082,6 +1082,46 @@ stripe.topups
         topup; // $ExpectType ITopup
     });
 
+stripe.topups.retrieve('tu_123456789', (err, topup) => {
+    topup; // $ExpetType ITopup
+});
+
+stripe.topups.retrieve('tu_123456789').then(topup => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }, (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' }, description: 'description' }, (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }).then(topup => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.list({ amount: '25', limit: 3, status: 'canceled' }, (err, topups) => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.list({ amount: { gt: '24', lt: '50' }, limit: 3, status: 'succeeded' }, (err, topups) => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.list({ limit: 3 }).then(topups => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.cancel('tu_123456789', (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.cancel('tu_123456789').then(topup => {
+    topup; // $ExpectType ITopup
+});
+
 //#endregion
 
 //#region Transfers tests

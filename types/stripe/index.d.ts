@@ -7942,7 +7942,7 @@ declare namespace Stripe {
             /**
              * Amount transferred
              */
-            amount: number
+            amount: number;
 
             /**
              * ID of the balance transaction that describes the impact of this top-up on your account balance.
@@ -8074,8 +8074,8 @@ declare namespace Stripe {
             gt?: string;
             gte?: string;
             lt?: string;
-            lte?: string
-        }; 
+            lte?: string;
+        };
 
     }
 
