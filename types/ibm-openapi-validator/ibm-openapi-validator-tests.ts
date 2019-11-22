@@ -1,4 +1,4 @@
-import * as oasValidator from 'ibm-openapi-validator';
+import oasValidator = require('ibm-openapi-validator');
 
 const oasExamplePetstore = {
     openapi: '3.0.0',
@@ -179,13 +179,13 @@ const oasExamplePetstore = {
 };
 
 // $ExpectType Promise<validatorResult>
-oasValidator.validator(oasExamplePetstore);
+oasValidator(oasExamplePetstore);
 
 // $ExpectType Promise<validatorResult>
-oasValidator.validator(oasExamplePetstore, true);
+oasValidator(oasExamplePetstore, true);
 
 // $ExpectError
-oasValidator.validator('');
+oasValidator('');
 
 // $ExpectError
-oasValidator.validator(1);
+oasValidator(1);
