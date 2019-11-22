@@ -1,6 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
-
-[![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# DefinitelyTyped
 
 > Репозиторий для _высококачественных_ определений типов TypeScript.
 
@@ -40,6 +38,20 @@ npm install --save-dev @types/node
 -   Вручную загрузите из ветки `master` этого репозитория
 
 Возможно, вам придется добавить ручные [ссылки](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+## Текущее состояние
+
+Этот раздел отслеживает состояние репозитория и процесс публикации.
+Это может быть полезно для участников, испытывающих любые проблемы с PR'ами и пакетами.
+
+-   Самая последняя сборка [прошла проверку-типов/линтинг](https://github.com/Microsoft/dtslint) полностью: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+-   Все пакеты проходят проверку-типов/линтинг полностью на `typescript@next`: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+-   Все пакеты [публикуются на npm](https://github.com/Microsoft/types-publisher) в течении часа: [![Статус публикации](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+-   [typescript-bot](https://github.com/typescript-bot) проявляет активность на DefinitelyTyped [![Статус активности](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+
+Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+
+[![Присоединяйтесь к чату на https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Как я могу внести свой вклад?
 
@@ -330,7 +342,3 @@ GitHub не [поддерживает](http://stackoverflow.com/questions/564617
 Этот проект лицензирован по лицензии MIT.
 
 Авторские права на файлы определений принадлежат каждому участнику, указанному в начале каждого файла определения.
-
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) В среднем пакеты публикуются на npm менее чем за 10000 секунд?
-
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Был ли typescript-bot активным на DefinitelyTyped в последние два часа?
