@@ -3325,8 +3325,7 @@ declare module "mongoose" {
     where(path: string, val?: any): Query<any> & QueryHelpers;
   }
 
-  class Document {}
-  interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
+  class Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 
