@@ -3,6 +3,7 @@
 // Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
 //                 Steve Kellock <https://github.com/skellock>
 //                 Max Brauer <https://github.com/mamachanko>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -595,7 +596,9 @@ export namespace Widgets {
         destroy(): void;
     }
 
-    interface IOptions {}
+    interface IOptions {
+        [name: string]: any;
+    }
 
     interface IHasOptions<T extends IOptions> {
         options: T;

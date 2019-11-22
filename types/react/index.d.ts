@@ -1669,6 +1669,7 @@ declare namespace React {
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
         radioGroup?: string; // <command>, <menuitem>

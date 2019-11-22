@@ -119,8 +119,10 @@ declare class Stripe {
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
+    fileLinks: Stripe.resources.FileLinks;
     bitcoinReceivers: Stripe.resources.BitcoinReceivers;
     refunds: Stripe.resources.Refunds;
+    reviews: Stripe.resources.Reviews;
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
@@ -3972,6 +3974,78 @@ declare namespace Stripe {
             | 'incorporation_document';
     }
 
+    namespace fileLinks {
+        interface IFileLink extends IResourceObject {
+            /**
+             * Value is 'file_link'
+             */
+            object: 'file_link';
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Whether this link is already expired.
+             */
+            expired: boolean;
+
+            /**
+             * Time at which the link expires.
+             */
+            expires_at: number;
+
+            /**
+             * The file object this link points to
+             */
+            file: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * The publicly accessible URL to download the file.
+             */
+            url: string;
+        }
+
+        interface IFileLinksCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The ID of the file
+             */
+            file: string;
+
+            /**
+             * A future timestamp after which the link will no longer be usable.
+             */
+            expires_at?: number;
+        }
+
+        interface IFileLinksUpdateOptions extends IDataOptionsWithMetadata {
+            expires_at?: number | 'now';
+        }
+
+        interface IFileLinksListOptions extends IListOptionsCreated {
+            /**
+             * Only return links for the given file.
+             */
+            file?: string;
+
+            /**
+             * Filter links by their expiration status. By default, all links are returned.
+             */
+            expired?: boolean;
+        }
+    }
+
     namespace invoices {
         /**
          * Invoices are statements of what a customer owes for a particular billing period, including subscriptions,
@@ -6975,18 +7049,29 @@ declare namespace Stripe {
     namespace plans {
         interface ITier {
             /**
-             * A flat fee for the tier to be added into the total amount
-             */
-            flat_amount: number | null;
-
-            /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number | null;
+            up_to: number | null | 'inf';
+
+            /**
+             * Price for the entire tier.
+             */
+            flat_amount?: number | null;
+
+            /**
+             * Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            flat_amount_decimal?: number | null;
+
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number | null;
+            unit_amount?: number | null;
+
+            /**
+             * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            unit_amount_decimal?: number | null;
         }
 
         interface ITransformUsage {
@@ -12831,6 +12916,76 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
         }
 
+        class FileLinks extends StripeResource {
+            /**
+             * Creates a new file link object.
+             */
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a file link object if a valid identifier was provided, and throws an error otherwise.
+             */
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(id: string, response?: IResponseFn<fileLinks.IFileLink>): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful,
+             * and throws an error otherwise.
+             */
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a list of file links
+             */
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(response?: IResponseFn<IList<fileLinks.IFileLink>>): IListPromise<fileLinks.IFileLink>;
+        }
+
         class Invoices extends StripeResource {
             /**
              * If you need to invoice your customer outside the regular billing cycle, you can create an invoice that
@@ -13893,6 +14048,49 @@ declare namespace Stripe {
             ): IListPromise<refunds.IRefund>;
             list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
             list(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+        }
+
+        class Reviews extends StripeResource {
+            /**
+             * Approves a Review object, closing it and removing it from the list of reviews. Returns the approved
+             * review object.
+             * @param id - The identifier of the review to be approved.
+             */
+            approve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            approve(id: string, response?: IResponseFn<reviews.IReview>): Promise<reviews.IReview>;
+
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+
+            /**
+             * Returns a list of Review objects that have open set to true. The objects are sorted in descending
+             * order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: IListOptionsCreated,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                data: IListOptionsCreated,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
         }
 
         class Sources extends StripeResource {

@@ -7,6 +7,8 @@ const trans = newrelic.getTransaction();
 trans.ignore(); // $ExpectType void
 trans.end(); // $ExpectType void
 trans.end(() => {}); // $ExpectType void
+const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
+trans.acceptDistributedTracePayload(payload); // $ExpectType void
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void

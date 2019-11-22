@@ -1,18 +1,19 @@
-// Type definitions for react-native-material-textfield 0.15
+// Type definitions for react-native-material-textfield 0.16
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Deividi Cavarzan <https://github.com/cavarzan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 import {
     StyleProp,
     TextInputProps,
     TextStyle,
     ViewStyle,
     View
-} from 'react-native';
+} from "react-native";
 
 export interface ContentInset {
     top?: number;
@@ -95,3 +96,6 @@ export class TextField extends React.Component<TextFieldProps, any> {
      */
     isRestricted(): boolean;
 }
+
+export class OutlinedTextField extends TextField {}
+export class FilledTextField extends TextField {}

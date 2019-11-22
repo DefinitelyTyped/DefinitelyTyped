@@ -267,7 +267,7 @@ export interface Layout {
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
-	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
 	shapes: Array<Partial<Shape>>;
@@ -501,7 +501,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
 	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall';
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;

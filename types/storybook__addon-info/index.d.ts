@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ComponentType, ReactElement, ReactPortal } from 'react';
+import { ComponentType, ReactElement } from 'react';
 import { DecoratorFunction, StoryFn, StoryContext, Parameters, StoryApi } from '@storybook/addons';
 
 export interface WrapStoryProps {
@@ -33,7 +33,9 @@ export interface Options {
     propTables?: Array<ComponentType<any>> | false;
     propTablesExclude?: Array<ComponentType<any>>;
     styles?: object;
-    components?: { [key: string]: ComponentType<any> };
+    components?: {
+        [key: string]: ComponentType<any>
+    };
     /**
      * @deprecated "marksyConf" option has been renamed to "components"
      */
@@ -46,7 +48,10 @@ export interface Options {
     excludedPropTypes?: string[];
 }
 
-export function withInfo<A = unknown>(story: StoryFn<A>, context: StoryContext): ReturnType<DecoratorFunction<A>>;
+export function withInfo<A = unknown>(
+    story: StoryFn<A>,
+    context: StoryContext
+): ReturnType<DecoratorFunction<A>>;
 
 // Legacy, but supported
 /**

@@ -454,6 +454,11 @@ const kbshortcuts = {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
+    onClose={() => {}}
+    onClickOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;
