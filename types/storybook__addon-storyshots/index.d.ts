@@ -5,12 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from 'react';
-import { StoryObject } from '@storybook/react';
-import { Page, NavigationOptions, ScreenshotOptions } from "puppeteer";
+import { IStorybookStory } from '@storybook/react/dist/client/preview/types';
 
 export type Test = (options: {
-    story: StoryObject;
+    story: IStorybookStory;
     context: StoryContext;
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
@@ -18,9 +16,9 @@ export type Test = (options: {
 }) => undefined | void | Promise<void>;
 
 export type RenderTree = (
-    story: StoryObject,
+    story: IStorybookStory,
     context: StoryContext,
-    options?: SnapshotOptions
+    options?: SnapshotOptions,
 ) => undefined | void | Promise<void>;
 
 export interface SnapshotOptionsObject {
@@ -28,7 +26,7 @@ export interface SnapshotOptionsObject {
 }
 
 export interface SnapshotOptionsFn {
-    (story: StoryObject): SnapshotOptionsObject;
+    (story: IStorybookStory): SnapshotOptionsObject;
 }
 
 export type SnapshotOptions = SnapshotOptionsObject | SnapshotOptionsFn;
@@ -68,3 +66,5 @@ export interface InitOptions<Rendered = any> {
     serializer?: (rendered: Rendered) => any;
     integrityOptions?: {};
 }
+
+export {};
