@@ -1,29 +1,30 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "fs.d.ts",
-        "dns.d.ts",
-        "crypto.d.ts",
-        "child_process.d.ts",
-        "zlib.d.ts",
-        "readline.d.ts",
-        "index.d.ts",
-        "mz-tests.ts"
-    ]
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["es6"],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"child_process.d.ts",
+		"crypto.d.ts",
+		"dns.d.ts",
+		"fs.d.ts",
+		"readline.d.ts",
+		"zlib.d.ts",
+		"index.d.ts",
+		"test/child_process.test.ts",
+		"test/crypto.test.ts",
+		"test/fs.test.ts",
+		"test/readline.test.ts",
+		"test/zlib.test.ts",
+		"test/index.test.ts"
+	]
 }
