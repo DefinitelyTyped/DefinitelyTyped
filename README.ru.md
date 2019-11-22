@@ -8,7 +8,7 @@
 
 Также посетите веб-сайт [definitelytyped.org](http://definitelytyped.org), хотя информация в этом README более свежая.
 
-_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md) и [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)._
+_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)._
 
 ## Что такое файлы декларации (файлы описания/объявления типов)?
 
