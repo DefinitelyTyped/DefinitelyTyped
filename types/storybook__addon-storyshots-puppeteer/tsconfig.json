@@ -11,6 +11,9 @@
         "paths": {
             "@storybook/addon-storyshots": [
                 "storybook__addon-storyshots"
+            ],
+            "@storybook/addon-storyshots-puppeteer": [
+                "storybook__addon-storyshots-puppeteer"
             ]
         },
         "types": [],

@@ -11,6 +11,11 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "@storybook/addon-storyshots": [
+                "storybook__addon-storyshots"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
