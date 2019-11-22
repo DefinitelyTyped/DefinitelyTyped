@@ -1,9 +1,14 @@
 // Parse is a global type, but it can also be imported
-import ParseDirect = require('parse');
-import ParseNode = require('parse/node');
-import ParseRN = require('parse/react-native');
-// $ExpectError
-import ParseBad = require('parse/bad');
+async function test_imports() {
+    // $ExpectType typeof Parse
+    const ParseDirect = await import('parse');
+    // $ExpectType typeof Parse
+    const ParseNode = await import('parse/node');
+    // $ExpectType typeof Parse
+    const ParseRN = await import('parse/react-native');
+    // $ExpectError
+    const ParseBad = await import('parse/bad');
+}
 
 class GameScore extends Parse.Object {
     constructor(options?: any) {
@@ -686,131 +691,115 @@ async function test_schema() {
     schema.update({ sessionToken: '' }).then(results => {});
 }
 
-function test_generic_object() {
-    // Test Parse.Object instantiation with no type assertion
-    const objAny = new Parse.Object('TestObject');
-    objAny.attributes.whatever;    // any
-    objAny.attributes.createdAt;   // Date | undefined
-    objAny.attributes.updatedAt;   // Date | undefined
-    objAny.attributes.objectId;    // string | undefined
-    objAny.attributes.ACL;         // Parse.ACL | undefined
-
-    // Test Parse.Object instantiation with manual type assertion
-    const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject');
-    const exampleAttr = objWithTypedAttrs.attributes.example;     // string
-    const exampleGet = objWithTypedAttrs.get('example');    // string
-    // const badAttr = objWithTypedAttrs.attributes.other;  // error
-
-    // Test Parse.Object instantiation with attributes
-    const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 });
-    const exampleAttrFromOptions = objWithAttrsAndOptions.attributes.example;  // number
-    const exampleGetFromOptions = objWithAttrsAndOptions.get('example'); // number
-    // const badAttr2 = objWithAttrsAndOptions.attributes.other;     // error
-}
-
-function test_to_json_generic() {
-    const exampleObjAny = new Parse.Object('TestObject');
-    const exampleJsonAny = exampleObjAny.toJSON();   // Parse.Object.Attributes
-
-    const exampleObjTyped = new Parse.Object('TestObject', {
-        exampleProp: false,
-        regexProp: new RegExp(''),
-        dateProp: new Date(),
-        parseProp: new Parse.Object('nestedObject', {
-            exampleProp: false,
-            regexProp: new RegExp(''),
-            dateProp: new Date(),
-            parseProp2: new Parse.Object('nestedObject', {
-                exampleProp2: false,
-                regexProp2: new RegExp(''),
-                dateProp2: new Date()
-            })
-        })
-    });
-    const exampleJsonTyped = exampleObjTyped.toJSON();
-    exampleJsonTyped.exampleProp;           // boolean
-    exampleJsonTyped.dateProp;              // string
-    exampleJsonTyped.regexProp;             // string
-    exampleJsonTyped.parseProp.dateProp;    // string
-    exampleJsonTyped.parseProp.parseProp2.regexProp2;    // string
-    exampleJsonTyped.parseProp.ACL;         // Parse.ACL | undefined
-    exampleJsonTyped.parseProp.objectId;    // string | undefined
-}
-
-async function test_save_generic() {
-    const exampleObjAny = new Parse.Object('TestObject');
-    const savedAny = await exampleObjAny.save();
-    // $ExpectType any
-    savedAny.attributes.anything;
-    const savedNewExampleAttrAny = await exampleObjAny.save({ example: true });
-    // $ExpectType any
-    savedNewExampleAttrAny.attributes.anythingElse;
-
-    // Calling Parse.Object.save({}) type checks
-    const exampleObjTyped = new Parse.Object<{ example: number }>('TestObject');
-    const savedExampleAttr = await exampleObjTyped.save({ example: 5 });
-    // $ExpectType number
-    savedExampleAttr.attributes.example;
-    // $ExpectError
-    const badSavedExampleAttr = await exampleObjTyped.save({ example: 'hello' });
-
-    // Parse.Object.save(key, value) type checks existing keys
-    const savedExampleAttr2 = await exampleObjTyped.save('example', 10);
-    // $ExpectType number
-    savedExampleAttr2.attributes.example;
-    // $ExpectError
-    const badSavedExampleAttr2 = await exampleObjTyped.save('example', 'hello');
-}
-
-function test_set_generic() {
+function testBaseObject() {
+    // $ExpectType Object<any>
     const exampleObjAny = new Parse.Object('TestObject');
     // $ExpectType any
-    exampleObjAny.attributes;
-    exampleObjAny.set('propA', 'some value');
+    exampleObjAny.toJSON();
+}
 
-    const exampleObjTyped = new Parse.Object<{ example: boolean }>('TestObject');
-
-    // Parse.Object.set({}) type checks existing keys, does not allow new keys
-    const setThingObj = exampleObjTyped.set({ example: false });
-    if (setThingObj) {
-        // $ExpectType boolean
-        setThingObj.attributes.example;
+function testObject() {
+    function testConstructorDefault() {
+        // $ExpectType Object<any>
+        const objAny = new Parse.Object('TestObject');
+        // $ExpectType any
+        objAny.attributes.whatever;
     }
-    // $ExpectError
-    exampleObjTyped.set({ example: 100 });
-    // $ExpectError
-    const badSetNewThingObj = exampleObjTyped.set({ newExample: 'something' });
 
-    // Parse.Object.set(key, value) does not allow new keys
-    const setThingKeyVal = exampleObjTyped.set('example', false);
-    if (setThingKeyVal) {
-        // $ExpectType boolean
-        setThingKeyVal.attributes.example;
-    }
-    // $ExpectError
-    const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100);
-}
-
-async function test_query_generic() {
-    const exampleQuery = new Parse.Query<Parse.Object<{ example: string }>>('TestObject');
-
-    const gotExampleObj = await exampleQuery.get('objectId');
-    // $ExpectType string
-    const gotAttrExample = gotExampleObj.attributes.example;
-    // $ExpectType string
-    const gotGetExample = gotExampleObj.get('example');
-    // $ExpectError
-    const badGotGetExample = gotExampleObj.get('anything');
-
-    const foundExampleObj = await exampleQuery.find();
-    if (foundExampleObj[0]) {
+    function testConstructorWithTypeParam() {
+        // $ExpectType Object<{ example: string; }>
+        const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject');
         // $ExpectType string
-        foundExampleObj[0].attributes.example;
+        objWithTypedAttrs.attributes.example;
+        // $ExpectType
+        objWithTypedAttrs.get('example');
+        // $ExpectError
+        objWithTypedAttrs.attributes.other;
     }
 
-    const firstExampleObj = await exampleQuery.first();
-    if (firstExampleObj) {
-        // $ExpectType string
-        firstExampleObj.attributes.example;
+    function testConstructorWithAttrs() {
+        // $ExpectType Object<{ example: number; }>
+        const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 });
+        // $ExpectType number
+        objWithAttrsAndOptions.attributes.example;
+        // $ExpectType number
+        objWithAttrsAndOptions.get('example');
+        // $ExpectError
+        objWithAttrsAndOptions.attributes.other;
+    }
+
+    function testSave() {
+        async function testSaveDefault() {
+            // $ExpectType Object<any>
+            const exampleObjAny = new Parse.Object('TestObject');
+            // $ExpectType Object<any>
+            const savedAny = await exampleObjAny.save({ example: true });
+            // $ExpectType any
+            savedAny.attributes.anythingElse;
+        }
+
+        async function testSaveWithObj() {
+            // $ExpectType Object<{ example: number; }>
+            const exampleObjTyped = new Parse.Object<{ example: number }>('TestObject');
+            // $ExpectType Object<{ example: number; }>
+            const savedObjTyped = await exampleObjTyped.save({ example: 5 });
+            // $ExpectType number
+            savedObjTyped.attributes.example;
+            // $ExpectError
+            await exampleObjTyped.save({ example: 'hello' });
+        }
+
+        async function testSaveWithKeyVal() {
+            // $ExpectType Object<{ example: string; }>
+            const exampleAttrTyped = new Parse.Object<{ example: string }>('TestObject');
+            // $ExpectType Object<{ example: string; }>
+            const savedAttrTyped = await exampleAttrTyped.save('example', 'hello');
+            // $ExpectType string
+            savedAttrTyped.attributes.example;
+            // $ExpectError
+            await exampleAttrTyped.save('example', 10);
+        }
+    }
+
+    function testSet() {
+        function testSetDefault() {
+            // $ExpectType Object<any>
+            const exampleObjAny = new Parse.Object('TestObject');
+            // $ExpectType false | Object<any>
+            exampleObjAny.set('propA', 'some value');
+        }
+
+        function testSetObject() {
+            // $ExpectType Object<{ example: boolean; }>
+            const exampleObjTyped = new Parse.Object<{ example: boolean }>('TestObject');
+            // $ExpectType false | Object<{ example: boolean; }>
+            exampleObjTyped.set({ example: false });
+            // $ExpectError
+            exampleObjTyped.set({ example: 100 });
+            // $ExpectError
+            exampleObjTyped.set({ differentProp: 'something' });
+        }
+
+        function testSetKeyVal() {
+            // $ExpectType Object<{ example: string; }>
+            const exampleObjTyped = new Parse.Object<{ example: string }>('TestObject');
+            // $ExpectType false | Object<{ example: string; }>
+            const setThingKeyVal = exampleObjTyped.set('example', 'hello');
+            // $ExpectError
+            const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100);
+        }
+    }
+}
+
+function testQuery() {
+    async function testQueryWithTypeParam() {
+        // $ExpectType Query<Object<{ example: string; }>>
+        const exampleQuery = new Parse.Query<Parse.Object<{ example: string }>>('TestObject');
+        // $ExpectType Object<{ example: string; }>
+        const gotExampleObj = await exampleQuery.get('objectId');
+        // $ExpectType Object<{ example: string; }>[]
+        const foundExampleObj = await exampleQuery.find();
+        // $ExpectType Object<{ example: string; }> | undefined
+        const firstExampleObj = await exampleQuery.first();
     }
 }
