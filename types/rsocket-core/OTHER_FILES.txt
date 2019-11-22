@@ -1,1 +1,2 @@
 RSocketVersion.d.ts
+RSocketMachine.d.ts

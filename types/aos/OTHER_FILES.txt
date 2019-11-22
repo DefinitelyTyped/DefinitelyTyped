@@ -1,1 +1,0 @@
-global.d.ts
