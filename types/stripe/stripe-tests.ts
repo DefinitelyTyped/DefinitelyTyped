@@ -1046,6 +1046,44 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 
 //#endregion
 
+//#region Topups tests
+// ##################################################################################
+
+stripe.topups.create(
+    {
+        amount: 2000,
+        currency: 'usd',
+        description: 'Top-up for Jenny Rosen',
+        statement_descriptor: 'Top-up',
+        metadata: {
+            key: 'any',
+        },
+        source: 'sourceId',
+        transfer_group: 'transfer group',
+    },
+    (err, topup) => {
+        topup; // $ExpectType ITopup
+    },
+);
+
+stripe.topups
+    .create({
+        amount: 2000,
+        currency: 'usd',
+        description: 'Top-up for Jenny Rosen',
+        statement_descriptor: 'Top-up',
+        metadata: {
+            key: 'any',
+        },
+        source: 'sourceId',
+        transfer_group: 'transfer group',
+    })
+    .then(topup => {
+        topup; // $ExpectType ITopup
+    });
+
+//#endregion
+
 //#region Transfers tests
 // ##################################################################################
 
