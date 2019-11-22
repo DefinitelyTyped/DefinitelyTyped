@@ -176,7 +176,7 @@ declare module "tls" {
          * If there is no local certificate, an empty object will be returned.
          * If the socket has been destroyed, null will be returned.
          */
-        getCertificate(): PeerCertificate | {} | null;
+        getCertificate(): PeerCertificate | object | null;
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
          * @returns Returns an object representing the cipher name
@@ -193,7 +193,7 @@ declare module "tls" {
          *
          * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
          */
-        getEphemeralKeyInfo(): EphemeralKeyInfo | {} | null;
+        getEphemeralKeyInfo(): EphemeralKeyInfo | object | null;
         /**
          * Returns the latest Finished message that has
          * been sent to the socket as part of a SSL/TLS handshake, or undefined

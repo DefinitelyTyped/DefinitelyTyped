@@ -181,7 +181,7 @@ declare module "tls" {
          *
          * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
          */
-        getEphemeralKeyInfo(): EphemeralKeyInfo | {} | null;
+        getEphemeralKeyInfo(): EphemeralKeyInfo | object | null;
         /**
          * Returns the latest Finished message that has
          * been sent to the socket as part of a SSL/TLS handshake, or undefined

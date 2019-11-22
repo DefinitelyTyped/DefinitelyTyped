@@ -27,11 +27,17 @@ import * as fs from "fs";
     };
     const tlsSocket = connect(connOpts);
 
-    const cert: PeerCertificate | {} | null = tlsSocket.getCertificate();
-    const keyInfo: EphemeralKeyInfo | {} | null = tlsSocket.getEphemeralKeyInfo();
+    const cert: PeerCertificate | object | null = tlsSocket.getCertificate();
+    const keyInfo: EphemeralKeyInfo | object | null = tlsSocket.getEphemeralKeyInfo();
     const finishedMsg: Buffer | undefined = tlsSocket.getFinished();
     const peerFinishedMsg: Buffer | undefined = tlsSocket.getPeerFinished();
     const isSessionReused: boolean = tlsSocket.isSessionReused();
+
+    if (keyInfo && "type" in keyInfo) {
+        const keyType: string = keyInfo.type;
+        const keyName: string | undefined = keyInfo.name;
+        const keySize: number = keyInfo.size;
+    }
 
     tlsSocket.disableRenegotiation();
 
