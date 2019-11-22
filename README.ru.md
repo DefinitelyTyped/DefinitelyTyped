@@ -6,10 +6,6 @@
 
 _Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)._
 
-## Что такое файлы декларации (файлы описания/объявления типов)?
-
-Смотрите [руководство по TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
-
 ## Как их получить?
 
 ### npm
@@ -52,6 +48,10 @@ npm install --save-dev @types/node
 Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
 [![Присоединяйтесь к чату на https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Что такое файлы декларации (файлы описания/объявления типов)?
+
+Смотрите [руководство по TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ## Как я могу внести свой вклад?
 
