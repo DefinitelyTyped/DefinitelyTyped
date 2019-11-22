@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "jsonld-tests.ts",
-        "jsonld-spec.d.ts"
+        "jsonld-tests.ts"
     ]
 }

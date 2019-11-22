@@ -1,0 +1,1 @@
+rangy-classapplier.d.ts

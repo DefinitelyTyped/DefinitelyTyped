@@ -15,12 +15,24 @@
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"],
-            "@ember/engine": ["ember__engine"],
-            "@ember/engine/*": ["ember__engine/*"],
-            "@ember/debug": ["ember__debug"],
-            "@ember/debug/*": ["ember__debug/*"]
+            "@ember/object": [
+                "ember__object"
+            ],
+            "@ember/object/*": [
+                "ember__object/*"
+            ],
+            "@ember/engine": [
+                "ember__engine"
+            ],
+            "@ember/engine/*": [
+                "ember__engine/*"
+            ],
+            "@ember/debug": [
+                "ember__debug"
+            ],
+            "@ember/debug/*": [
+                "ember__debug/*"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -28,8 +40,6 @@
     },
     "files": [
         "index.d.ts",
-        "data-adapter.d.ts",
-        "container-debug-adapter.d.ts",
         "ember__debug-tests.ts"
     ]
 }

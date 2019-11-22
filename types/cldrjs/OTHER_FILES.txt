@@ -1,1 +1,2 @@
 cldr.js-event.d.ts
+cldr.js-supplemental.d.ts

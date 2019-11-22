@@ -17,12 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "fs.d.ts",
-        "dns.d.ts",
-        "crypto.d.ts",
-        "child_process.d.ts",
-        "zlib.d.ts",
-        "readline.d.ts",
         "index.d.ts",
         "mz-tests.ts"
     ]

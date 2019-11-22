@@ -19,17 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "NavigationRoute.d.ts",
-        "RegExpRoute.d.ts",
-        "Route.d.ts",
-        "Router.d.ts",
-        "registerNavigationRoute.d.ts",
-        "registerRoute.d.ts",
-        "setCatchHandler.d.ts",
-        "setDefaultHandler.d.ts",
-        "types/HTTPMethod.d.ts",
-        "types/RouteHandler.d.ts",
-        "types/RouteMatchCallback.d.ts",
         "workbox-routing-tests.ts"
     ]
 }

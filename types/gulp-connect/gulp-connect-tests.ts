@@ -1,5 +1,5 @@
 // Copying examples from Readme which currently depend on gulp v3
-import * as gulp from 'gulp/v3';
+import * as gulp from 'gulp';
 import * as connect from 'gulp-connect';
 
 // Simple example
