@@ -33,5 +33,6 @@ export function MyComponent(): React.ReactNode {
         url="https://www.facebook.com"
         beforeOnClick={() => {
             setIsSharing(true);
-        }} />;
+        }}
+        style={{margin: 42}} />;
 }

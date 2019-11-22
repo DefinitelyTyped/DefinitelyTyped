@@ -149,6 +149,27 @@
         "test/multiply-tests.ts",
         "test/nAry-tests.ts",
         "test/negate-tests.ts",
-        "test/none-tests.ts"
+        "test/none-tests.ts",
+        "test/not-tests.ts",
+        "test/nth-tests.ts",
+        "test/nthArg-tests.ts",
+        "test/o-tests.ts",
+        "test/objOf-tests.ts",
+        "test/of-tests.ts",
+        "test/omit-tests.ts",
+        "test/once-tests.ts",
+        "test/or-tests.ts",
+        "test/over-tests.ts",
+        "test/pair-tests.ts",
+        "test/partial-tests.ts",
+        "test/partialRight-tests.ts",
+        "test/partition-tests.ts",
+        "test/path-tests.ts",
+        "test/pathEq-tests.ts",
+        "test/pathOr-tests.ts",
+        "test/pathSatisfies-tests.ts",
+        "test/pick-tests.ts",
+        "test/pickAll-tests.ts",
+        "test/pickBy-tests.ts"
     ]
 }

@@ -1394,6 +1394,35 @@ stripe.applicationFees.retrieveRefund('fee_1Eq2auEELBA7Bnp1FpeuNccq', 'fr_1Eq2au
 
 //#endregion
 
+//#region Reviews tests
+// ##################################################################################
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.list({ limit: 3 }, (err, reviews) => {
+    reviews; // $ExpectType IList<IReview>
+});
+
+stripe.reviews.list({ limit: 3 }).then(reviews => {
+    reviews; // $ExpectType IList<IReview>
+});
+
+//#endregion
+
 //#region External Accounts tests
 // ##################################################################################
 
@@ -1652,6 +1681,56 @@ stripe.coupons.list({ limit: 3 }, (err, coupons) => {
     // asynchronously called
 });
 stripe.coupons.list({ limit: 3 }).then(coupons => {
+    // asynchronously called
+});
+
+//#endregion
+
+//#region FileLinks tests
+// ##################################################################################
+
+stripe.fileLinks.create(
+    { file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks
+    .create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } })
+    .then(fileLink => {
+        fileLink; // $ExpectType IFileLink
+    });
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update(
+    'link_1FhJXrBZBR5SQORg2hZCYnZ7',
+    { expires_at: 'now', metadata: { order_id: '6735' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', { expires_at: 1542822417 }, (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', {}).then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.list({ limit: 3 }, (err, fileLinks) => {
+    // asynchronously called
+});
+
+stripe.fileLinks.list({ limit: 3 }).then(fileLinks => {
     // asynchronously called
 });
 

@@ -405,6 +405,10 @@ const samplesFromDocs = async () => {
     await connection.query(sql`
       SELECT (${sql.array([1, 2, 3], 'int4')})
     `);
+
+    await connection.query(sql`
+      SELECT (${sql.array([1, 2, 3], sql`int[]`)})
+    `);
   };
 
   const sample3 = async () => {
