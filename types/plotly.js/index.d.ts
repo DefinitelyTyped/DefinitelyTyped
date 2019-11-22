@@ -202,7 +202,10 @@ export interface LayoutPolar {
 		autorange: true | false | 'reversed';
 		rangemode: 'tozero' | 'nonnegative' | 'normal';
 		range: any[];
-		categoryorder:  'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' | 'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' | 'mean descending' | 'median ascending' | 'median descending';
+		categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' |
+		'total ascending' | 'total descending' | 'min ascending' | 'min descending' |
+		'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' |
+		'mean ascending' | 'mean descending' | 'median ascending' | 'median descending';
 		categoryarray: string[];
 		angle: number;
 		side: 'clockwise' | 'counterclockwise';
@@ -250,8 +253,8 @@ export interface LayoutPolar {
 			};
 			layer: 'above traces' | 'below traces';
 			calendar: Calendar;
-		}
-	}
+		};
+	};
 	angularaxis: Partial<Axis>;
 	gridshape: 'circular' | 'linear';
 	uirevision: number | string;
