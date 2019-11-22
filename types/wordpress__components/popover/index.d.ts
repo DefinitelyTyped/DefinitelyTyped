@@ -67,9 +67,21 @@ declare namespace Popover {
          * A callback invoked when the user clicks outside the opened popover,
          * passing the click event. The popover should be closed in response to
          * this interaction.
-         * @defaultValue Props.onClose
+         *
+         * @deprecated  use `onFocusOutside`
          */
         onClickOutside?(): void;
+
+        /**
+         * A callback invoked when the focus leaves the opened popover. This
+         * should only be provided in advanced use-cases when a Popover should
+         * close under specific circumstances; for example, if the new
+         * `document.activeElement` is content of or otherwise controlling
+         * Popover visibility.
+         *
+         * Defaults to `onClose` when not provided.
+         */
+        onFocusOutside?(): void;
     }
     /**
      * The direction in which the popover should open relative to its parent
