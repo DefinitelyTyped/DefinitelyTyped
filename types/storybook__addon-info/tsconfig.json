@@ -12,6 +12,11 @@
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": ["../"],
+        "paths": {
+            "@storybook/addon-info": [
+                "storybook__addon-info"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
