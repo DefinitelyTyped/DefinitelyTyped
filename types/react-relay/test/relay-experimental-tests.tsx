@@ -431,7 +431,7 @@ function PaginationFragment() {
     }
 
     interface Props {
-        user: FriendsListComponent_user$key;
+        user: FriendsListComponent_user$key | null;
     }
 
     return function FriendsList(props: Props) {
