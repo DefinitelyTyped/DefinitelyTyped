@@ -17,7 +17,19 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "dms.d.ts",
+        "geodesy-tests.ts",
         "index.d.ts",
-        "geodesy-tests.ts"
+        "latlon-ellipsoidal-datum.d.ts",
+        "latlon-ellipsoidal-referenceframe.d.ts",
+        "latlon-ellipsoidal-vincenty.d.ts",
+        "latlon-ellipsoidal.d.ts",
+        "latlon-nvector-ellipsoidal.d.ts",
+        "latlon-nvector-spherical.d.ts",
+        "latlon-spherical.d.ts",
+        "mgrs.d.ts",
+        "osgridref.d.ts",
+        "utm.d.ts",
+        "vector3d.d.ts"
     ]
 }
