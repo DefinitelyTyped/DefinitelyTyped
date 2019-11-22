@@ -64,7 +64,12 @@ export class WebSocketServer {
     on(eventType: 'connectionrequest', callback: ConnectionRequestCb): void;
 }
 
-export interface WebSocketTransport {}
+export interface WebSocketTransport {
+    closed: boolean;
+    toString(): string;
+    close(): void;
+    send(message: any): Promise<void>;
+}
 
 export class Room {
     peers: Peer[];
