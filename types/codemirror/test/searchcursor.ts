@@ -1,4 +1,4 @@
-
+/// <reference types="../searchcursor" />
 
 
 var doc = new CodeMirror.Doc('text some string and another text match');

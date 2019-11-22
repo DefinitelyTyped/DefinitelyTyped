@@ -1,4 +1,4 @@
-
+/// <reference types="../codemirror-panel" />
 var cm: CodeMirror.Editor = CodeMirror(document.body);
 
 var panel1 = cm.addPanel(document.body);

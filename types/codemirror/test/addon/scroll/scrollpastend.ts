@@ -1,4 +1,5 @@
 
+/// <reference types="../../../addon/scroll/scrollpastend" />
 
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {

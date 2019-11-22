@@ -1,3 +1,5 @@
+
+/// <reference types="../codemirror-tern" />
 const options: CodeMirror.TernOptions = {
 
     completionTip: (data) => {
