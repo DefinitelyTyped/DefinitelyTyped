@@ -3994,7 +3994,7 @@ declare namespace Stripe {
             /**
              * Time at which the link expires.
              */
-            expires_at: number;
+            expires_at: number | null;
 
             /**
              * The file object this link points to
@@ -8033,7 +8033,7 @@ declare namespace Stripe {
              * ID of the balance transaction that describes the impact of this top-up on your account balance.
              * May not be specified depending on status of top-up.
              */
-            balance_transaction: string;
+            balance_transaction: string | null;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -8059,12 +8059,12 @@ declare namespace Stripe {
             /**
              * Error code explaining reason for top-up failure if available
              */
-            failure_code: string;
+            failure_code: string | null;
 
             /**
              * Message to user further explaining reason for top-up failure if available.
              */
-            failure_message: string;
+            failure_message: string | null;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists
@@ -8088,7 +8088,7 @@ declare namespace Stripe {
              * Extra information about a top-up. This will appear on your source’s bank statement.
              * It must contain at least one letter.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * Status of topup
@@ -8098,7 +8098,7 @@ declare namespace Stripe {
             /**
              * A string that identifies this top-up as part of a group.
              */
-            transfer_group: string;
+            transfer_group: string | null;
         }
 
         interface ITopupCreationOptions extends IDataOptionsWithMetadata {
