@@ -126,6 +126,16 @@ declare module "child_process" {
 
     type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
 
+    type SerializationType = 'json' | 'advanced';
+
+    interface MessagingOptions {
+        /**
+         * Specify the kind of serialization used for sending messages between processes.
+         * @default 'json'
+         */
+        serialization?: SerializationType;
+    }
+
     interface ProcessEnvOptions {
         uid?: number;
         gid?: number;
@@ -144,12 +154,15 @@ declare module "child_process" {
         timeout?: number;
     }
 
-    interface SpawnOptions extends CommonOptions {
+    interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
         argv0?: string;
         stdio?: StdioOptions;
-        detached?: boolean;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
+    }
+
+    interface SpawnOptions extends CommonSpawnOptions {
+        detached?: boolean;
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
@@ -402,7 +415,7 @@ declare module "child_process" {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions extends ProcessEnvOptions {
+    interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
@@ -412,15 +425,11 @@ declare module "child_process" {
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcessIPC;
 
-    interface SpawnSyncOptions extends CommonOptions {
-        argv0?: string; // Not specified in the docs
+    interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
-        stdio?: StdioOptions;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: string;
-        shell?: boolean | string;
-        windowsVerbatimArguments?: boolean;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
