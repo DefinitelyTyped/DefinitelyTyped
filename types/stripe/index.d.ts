@@ -8008,7 +8008,7 @@ declare namespace Stripe {
             /**
              * Status of topup
              */
-            status: Statuses;
+            status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
 
             /**
              * A string that identifies this top-up as part of a group.
@@ -8050,7 +8050,33 @@ declare namespace Stripe {
             transfer_group?: string;
         }
 
-        type Statuses = 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
+        interface ITopupUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+        }
+
+        interface ITopupsListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the object amount field. The value can be a string with
+             * an integer amount, or it can be a dictionary.
+             */
+            amount?: IAmountFilter;
+
+            /**
+             * Only return top-ups that have the given status.
+             */
+            status?: 'canceled' | 'failed' | 'pending' | 'succeeded';
+        }
+
+        type IAmountFilter = string | {
+            gt?: string;
+            gte?: string;
+            lt?: string;
+            lte?: string
+        }; 
+
     }
 
     namespace transfers {
@@ -13990,6 +14016,52 @@ declare namespace Stripe {
                 data: topups.ITopupCreationOptions,
                 response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
+
+            /**
+             * Retrieves the details of a top-up that has previously been created.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+
+            /**
+             * Updates the metadata of a top-up. Other top-up details are not editable by design.
+             * Returns the newly updated top-up object if the call succeeded. Otherwise, this call throws an error.
+             */
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<transfers.ITransfer>,
+            ): Promise<topups.ITopup>;
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                response?: IResponseFn<transfers.ITransfer>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * A object containing the data property, which is an array of separate top-up objects. The number
+             * of top-ups in the array is limited to the number designated in limit. If no more top-ups are available,
+             * the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: topups.ITopupsListOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+            list(
+                data:  topups.ITopupsListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+            
         }
 
         class OAuth extends StripeResource {
