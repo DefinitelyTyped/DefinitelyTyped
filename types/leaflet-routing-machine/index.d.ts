@@ -216,7 +216,7 @@ declare module 'leaflet' {
         interface IInstruction {
             distance: number;
             time: number;
-            text?: number;
+            text?: string;
             type?: 'Straight' | 'SlightRight' | 'Right' | 'SharpRight' | 'TurnAround' | 'SharpLeft' | 'Left' | 'SlightLeft' | 'WaypointReached' |
                 'Roundabout' | 'StartAt' | 'DestinationReached' | 'EnterAgainstAllowedDirection' | 'LeaveAgainstAllowedDirection';
             road?: string;
