@@ -8076,7 +8076,6 @@ declare namespace Stripe {
             lt?: string;
             lte?: string;
         };
-
     }
 
     namespace transfers {
@@ -14030,7 +14029,6 @@ declare namespace Stripe {
                 response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
 
-
             /**
              * Updates the metadata of a top-up. Other top-up details are not editable by design.
              * Returns the newly updated top-up object if the call succeeded. Otherwise, this call throws an error.
@@ -14057,7 +14055,7 @@ declare namespace Stripe {
                 response?: IResponseFn<IList<topups.ITopup>>,
             ): IListPromise<topups.ITopup>;
             list(
-                data:  topups.ITopupsListOptions,
+                data: topups.ITopupsListOptions,
                 options: HeaderOptions,
                 response?: IResponseFn<IList<topups.ITopup>>,
             ): IListPromise<topups.ITopup>;
@@ -14071,7 +14069,7 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
-            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>; 
+            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
         }
 
         class OAuth extends StripeResource {
