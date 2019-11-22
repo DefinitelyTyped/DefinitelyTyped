@@ -10,6 +10,7 @@
 //                 Bryan Krol <https://github.com/bmkrol823>
 //                 Glenn Gartner <https://github.com/glenngartner>
 //                 Codertx <https://github.com/codertx>
+//                 Mike Moore <https://github.com/mike667>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 export import fabric = require("./fabric-impl");
