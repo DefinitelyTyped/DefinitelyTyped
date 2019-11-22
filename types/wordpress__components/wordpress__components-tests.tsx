@@ -457,7 +457,7 @@ const kbshortcuts = {
     onClose={() => {}}
     onClickOutside={() => {}}
     onFocusOutside={e => {
-        if (e.relatedTarget && e.relatedTarget === document.querySelector('#my-element')) return;
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
     }}
 >
     Hello World
