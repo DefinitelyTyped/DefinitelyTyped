@@ -172,5 +172,5 @@ export interface CertificateProperties extends PrivateProperties {
 }
 
 export interface PrivateProperties {
-    [name: string]: any
+    [name: string]: any;
 }
