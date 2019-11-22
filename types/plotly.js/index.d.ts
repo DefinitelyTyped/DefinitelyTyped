@@ -186,6 +186,77 @@ export interface DownloadImgopts {
 	filename: string;
 }
 
+export interface LayoutPolar {
+	domain: {
+		x: number[];
+		y: number[];
+		row: number;
+		column: number;
+	};
+	sector: number[];
+	hole: number;
+	bgcolor: Color;
+	radialaxis: {
+		visible: boolean;
+		type: '-' | 'linear' | 'log' | 'date' | 'category';
+		autorange: true | false | 'reversed';
+		rangemode: 'tozero' | 'nonnegative' | 'normal';
+		range: any[];
+		categoryorder:  'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' | 'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' | 'mean descending' | 'median ascending' | 'median descending';
+		categoryarray: string[];
+		angle: number;
+		side: 'clockwise' | 'counterclockwise';
+		title: {
+			text: string;
+			font: {
+				family: string;
+				size: number;
+				color: Color;
+			};
+			hoverformat: string;
+			uirevision: number | string;
+			color: Color;
+			showline: boolean;
+			linecolor: Color;
+			linewidth: number;
+			showgrid: boolean;
+			gridcolor: Color;
+			gridwidth: number;
+			tickmode: 'auto' | 'linear' | 'array';
+			nticks: number;
+			tick0: number | string;
+			dtick: number | string;
+			tickvals: any[];
+			ticktext: string[];
+			ticks: 'outside' | 'inside' | '';
+			ticklen: number;
+			tickwidth: number;
+			tickcolor: Color;
+			showticklabels: boolean;
+			tickprefix: string;
+			showtickprefix: 'all' | 'first' | 'last' | 'none';
+			ticksuffix: string;
+			showticksuffix: 'all' | 'first' | 'last' | 'none';
+			showexponent: 'all' | 'first' | 'last' | 'none';
+			exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+			separatethousands: boolean;
+			tickfont: Partial<Font>;
+			tickangle: number;
+			tickformatstops: {
+				name: string;
+				dtickrange: any[];
+				value: string;
+				templateitemname: string;
+			};
+			layer: 'above traces' | 'below traces';
+			calendar: Calendar;
+		}
+	}
+	angularaxis: Partial<Axis>;
+	gridshape: 'circular' | 'linear';
+	uirevision: number | string;
+}
+
 export type Root = string | HTMLElement;
 
 export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
@@ -282,12 +353,7 @@ export interface Layout {
 	bargroupgap: number;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
-	polar: {
-		bgcolor: string;
-		radialaxis: {
-			color: string;
-		};
-	};
+	polar: Partial<LayoutPolar>;
 }
 
 export interface Legend extends Label {
