@@ -64,6 +64,43 @@ declare module "tls" {
         version: string;
     }
 
+    interface EphemeralKeyInfo {
+        /**
+         * The supported types are 'DH' and 'ECDH'.
+         */
+        type: string;
+        /**
+         * The name property is available only when type is 'ECDH'.
+         */
+        name?: string;
+        /**
+         * The size of parameter of an ephemeral key exchange.
+         */
+        size: number;
+    }
+
+    interface KeyObject {
+        /**
+         * Private keys in PEM format.
+         */
+        pem: string | Buffer;
+        /**
+         * Optional passphrase.
+         */
+        passphrase?: string;
+    }
+
+    interface PxfObject {
+        /**
+         * PFX or PKCS12 encoded private key and certificate chain.
+         */
+        buf: string | Buffer;
+        /**
+         * Optional passphrase.
+         */
+        passphrase?: string;
+    }
+
     interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
         /**
          * If true the TLS socket will be instantiated in server-mode.
@@ -115,11 +152,49 @@ declare module "tls" {
         alpnProtocol?: string;
 
         /**
+         * Returns an object representing the local certificate. The returned
+         * object has some properties corresponding to the fields of the
+         * certificate.
+         *
+         * See tls.TLSSocket.getPeerCertificate() for an example of the
+         * certificate structure.
+         *
+         * If there is no local certificate, an empty object will be returned.
+         * If the socket has been destroyed, null will be returned.
+         */
+        getCertificate(): PeerCertificate | object | null;
+        /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
          * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
+        /**
+         * Returns an object representing the type, name, and size of parameter
+         * of an ephemeral key exchange in Perfect Forward Secrecy on a client
+         * connection. It returns an empty object when the key exchange is not
+         * ephemeral. As this is only supported on a client socket; null is
+         * returned if called on a server socket. The supported types are 'DH'
+         * and 'ECDH'. The name property is available only when type is 'ECDH'.
+         *
+         * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
+         */
+        getEphemeralKeyInfo(): EphemeralKeyInfo | object | null;
+        /**
+         * Returns the latest Finished message that has
+         * been sent to the socket as part of a SSL/TLS handshake, or undefined
+         * if no Finished message has been sent yet.
+         *
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_finished routine in OpenSSL and may be
+         * used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getFinished(): Buffer | undefined;
         /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.
@@ -132,6 +207,21 @@ declare module "tls" {
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
+        /**
+         * Returns the latest Finished message that is expected or has actually
+         * been received from the socket as part of a SSL/TLS handshake, or
+         * undefined if there is no Finished message so far.
+         *
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_peer_finished routine in OpenSSL and may
+         * be used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getPeerFinished(): Buffer | undefined;
         /**
          * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
          * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
@@ -146,11 +236,20 @@ declare module "tls" {
          */
         getSession(): Buffer | undefined;
         /**
+         * Returns a list of signature algorithms shared between the server and
+         * the client in the order of decreasing preference.
+         */
+        getSharedSigalgs(): string[];
+        /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
          * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): Buffer | undefined;
+        /**
+         * Returns true if the session was reused, false otherwise.
+         */
+        isSessionReused(): boolean;
         /**
          * Initiate TLS renegotiation process.
          *
@@ -174,6 +273,13 @@ declare module "tls" {
          * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
+
+        /**
+         * Disables TLS renegotiation for this TLSSocket instance. Once called,
+         * attempts to renegotiate will trigger an 'error' event on the
+         * TLSSocket.
+         */
+        disableRenegotiation(): void;
 
         /**
          * When enabled, TLS packet trace information is written to `stderr`. This can be
@@ -266,8 +372,22 @@ declare module "tls" {
     }
 
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+        /**
+         * Abort the connection if the SSL/TLS handshake does not finish in the
+         * specified number of milliseconds. A 'tlsClientError' is emitted on
+         * the tls.Server object whenever a handshake times out. Default:
+         * 120000 (120 seconds).
+         */
         handshakeTimeout?: number;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
         sessionTimeout?: number;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         */
         ticketKeys?: Buffer;
     }
 
@@ -285,7 +405,29 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        /**
+         * The server.addContext() method adds a secure context that will be
+         * used if the client request's SNI name matches the supplied hostname
+         * (or wildcard).
+         */
         addContext(hostName: string, credentials: SecureContextOptions): void;
+        /**
+         * Returns the session ticket keys.
+         */
+        getTicketKeys(): Buffer;
+        /**
+         *
+         * The server.setSecureContext() method replaces the
+         * secure context of an existing server. Existing connections to the
+         * server are not interrupted.
+         */
+        setSecureContext(details: SecureContextOptions): void;
+        /**
+         * The server.setSecureContext() method replaces the secure context of
+         * an existing server. Existing connections to the server are not
+         * interrupted.
+         */
+        setTicketKeys(keys: Buffer): void;
 
         /**
          * events.EventEmitter
@@ -294,6 +436,7 @@ declare module "tls" {
          * 3. OCSPRequest
          * 4. resumeSession
          * 5. secureConnection
+         * 6. keylog
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
@@ -352,20 +495,93 @@ declare module "tls" {
     type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
 
     interface SecureContextOptions {
-        pfx?: string | Buffer | Array<string | Buffer | Object>;
-        key?: string | Buffer | Array<Buffer | Object>;
-        passphrase?: string;
-        cert?: string | Buffer | Array<string | Buffer>;
+        /**
+         * Optionally override the trusted CA certificates. Default is to trust
+         * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
+         * replaced when CAs are explicitly specified using this option.
+         */
         ca?: string | Buffer | Array<string | Buffer>;
+        /**
+         *  Cert chains in PEM format. One cert chain should be provided per
+         *  private key. Each cert chain should consist of the PEM formatted
+         *  certificate for a provided private key, followed by the PEM
+         *  formatted intermediate certificates (if any), in order, and not
+         *  including the root CA (the root CA must be pre-known to the peer,
+         *  see ca). When providing multiple cert chains, they do not have to
+         *  be in the same order as their private keys in key. If the
+         *  intermediate certificates are not provided, the peer will not be
+         *  able to validate the certificate, and the handshake will fail.
+         */
+        cert?: string | Buffer | Array<string | Buffer>;
+        /**
+         *  Colon-separated list of supported signature algorithms. The list
+         *  can contain digest algorithms (SHA256, MD5 etc.), public key
+         *  algorithms (RSA-PSS, ECDSA etc.), combination of both (e.g
+         *  'RSA+SHA384') or TLS v1.3 scheme names (e.g. rsa_pss_pss_sha512).
+         */
+        sigalgs?: string;
+        /**
+         * Cipher suite specification, replacing the default. For more
+         * information, see modifying the default cipher suite. Permitted
+         * ciphers can be obtained via tls.getCiphers(). Cipher names must be
+         * uppercased in order for OpenSSL to accept them.
+         */
         ciphers?: string;
-        honorCipherOrder?: boolean;
-        ecdhCurve?: string;
+        /**
+         * Name of an OpenSSL engine which can provide the client certificate.
+         */
         clientCertEngine?: string;
+        /**
+         * PEM formatted CRLs (Certificate Revocation Lists).
+         */
         crl?: string | Buffer | Array<string | Buffer>;
+        /**
+         * Diffie Hellman parameters, required for Perfect Forward Secrecy. Use
+         * openssl dhparam to create the parameters. The key length must be
+         * greater than or equal to 1024 bits or else an error will be thrown.
+         * Although 1024 bits is permissible, use 2048 bits or larger for
+         * stronger security. If omitted or invalid, the parameters are
+         * silently discarded and DHE ciphers will not be available.
+         */
         dhparam?: string | Buffer;
-        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
-        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
-        sessionIdContext?: string;
+        /**
+         * A string describing a named curve or a colon separated list of curve
+         * NIDs or names, for example P-521:P-384:P-256, to use for ECDH key
+         * agreement. Set to auto to select the curve automatically. Use
+         * crypto.getCurves() to obtain a list of available curve names. On
+         * recent releases, openssl ecparam -list_curves will also display the
+         * name and description of each available elliptic curve. Default:
+         * tls.DEFAULT_ECDH_CURVE.
+         */
+        ecdhCurve?: string;
+        /**
+         * Attempt to use the server's cipher suite preferences instead of the
+         * client's. When true, causes SSL_OP_CIPHER_SERVER_PREFERENCE to be
+         * set in secureOptions
+         */
+        honorCipherOrder?: boolean;
+        /**
+         * Private keys in PEM format. PEM allows the option of private keys
+         * being encrypted. Encrypted keys will be decrypted with
+         * options.passphrase. Multiple keys using different algorithms can be
+         * provided either as an array of unencrypted key strings or buffers,
+         * or an array of objects in the form {pem: <string|buffer>[,
+         * passphrase: <string>]}. The object form can only occur in an array.
+         * object.passphrase is optional. Encrypted keys will be decrypted with
+         * object.passphrase if provided, or options.passphrase if it is not.
+         */
+        key?: string | Buffer | Array<Buffer | KeyObject>;
+        /**
+         * Name of an OpenSSL engine to get private key from. Should be used
+         * together with privateKeyIdentifier.
+         */
+        privateKeyEngine?: string;
+        /**
+         * Identifier of a private key managed by an OpenSSL engine. Should be
+         * used together with privateKeyEngine. Should not be set together with
+         * key, because both options define a private key in different ways.
+         */
+        privateKeyIdentifier?: string;
         /**
          * Optionally set the maximum TLS version to allow. One
          * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
@@ -386,6 +602,44 @@ declare module "tls" {
          * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
          */
         minVersion?: SecureVersion;
+        /**
+         * Shared passphrase used for a single private key and/or a PFX.
+         */
+        passphrase?: string;
+        /**
+         * PFX or PKCS12 encoded private key and certificate chain. pfx is an
+         * alternative to providing key and cert individually. PFX is usually
+         * encrypted, if it is, passphrase will be used to decrypt it. Multiple
+         * PFX can be provided either as an array of unencrypted PFX buffers,
+         * or an array of objects in the form {buf: <string|buffer>[,
+         * passphrase: <string>]}. The object form can only occur in an array.
+         * object.passphrase is optional. Encrypted PFX will be decrypted with
+         * object.passphrase if provided, or options.passphrase if it is not.
+         */
+        pfx?: string | Buffer | Array<string | Buffer | PxfObject>;
+        /**
+         * Optionally affect the OpenSSL protocol behavior, which is not
+         * usually necessary. This should be used carefully if at all! Value is
+         * a numeric bitmask of the SSL_OP_* options from OpenSSL Options
+         */
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        /**
+         * Legacy mechanism to select the TLS protocol version to use, it does
+         * not support independent control of the minimum and maximum version,
+         * and does not support limiting the protocol to TLSv1.3. Use
+         * minVersion and maxVersion instead. The possible values are listed as
+         * SSL_METHODS, use the function names as strings. For example, use
+         * 'TLSv1_1_method' to force TLS version 1.1, or 'TLS_method' to allow
+         * any TLS protocol version up to TLSv1.3. It is not recommended to use
+         * TLS versions less than 1.2, but it may be required for
+         * interoperability. Default: none, see minVersion.
+         */
+        secureProtocol?: string;
+        /**
+         * Opaque identifier used by servers to ensure session state is not
+         * shared between applications. Unused by clients.
+         */
+        sessionIdContext?: string;
     }
 
     interface SecureContext {
@@ -412,7 +666,37 @@ declare module "tls" {
     function createSecureContext(details: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
-    const DEFAULT_ECDH_CURVE: string;
+    /**
+     * The default curve name to use for ECDH key agreement in a tls server.
+     * The default value is 'auto'. See tls.createSecureContext() for further
+     * information.
+     */
+    let DEFAULT_ECDH_CURVE: string;
+    /**
+     * The default value of the maxVersion option of
+     * tls.createSecureContext(). It can be assigned any of the supported TLS
+     * protocol versions, 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default:
+     * 'TLSv1.3', unless changed using CLI options. Using --tls-max-v1.2 sets
+     * the default to 'TLSv1.2'. Using --tls-max-v1.3 sets the default to
+     * 'TLSv1.3'. If multiple of the options are provided, the highest maximum
+     * is used.
+     */
+    let DEFAULT_MAX_VERSION: SecureVersion;
+    /**
+     * The default value of the minVersion option of tls.createSecureContext().
+     * It can be assigned any of the supported TLS protocol versions,
+     * 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default: 'TLSv1.2', unless
+     * changed using CLI options. Using --tls-min-v1.0 sets the default to
+     * 'TLSv1'. Using --tls-min-v1.1 sets the default to 'TLSv1.1'. Using
+     * --tls-min-v1.3 sets the default to 'TLSv1.3'. If multiple of the options
+     * are provided, the lowest minimum is used.
+     */
+    let DEFAULT_MIN_VERSION: SecureVersion;
 
+    /**
+     * An immutable array of strings representing the root certificates (in PEM
+     * format) used for verifying peer certificates. This is the default value
+     * of the ca option to tls.createSecureContext().
+     */
     const rootCertificates: ReadonlyArray<string>;
 }

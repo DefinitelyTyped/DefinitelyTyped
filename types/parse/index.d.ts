@@ -23,6 +23,8 @@
 // TypeScript Version: 3.3
 
 /// <reference types="node" />
+/// <reference path="node.d.ts" />
+/// <reference path="react-native.d.ts" />
 
 import { EventEmitter } from 'events';
 
@@ -1299,13 +1301,6 @@ namespace Parse {
 
     function setLocalDatastoreController(controller: any): void;
 }
-}
-declare module 'parse/node' {
-    export = Parse;
-}
-
-declare module 'parse/react-native' {
-    export = Parse;
 }
 
 export = Parse;

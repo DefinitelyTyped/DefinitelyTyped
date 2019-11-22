@@ -6,13 +6,6 @@ declare module "child_process" {
     type Serializable = string | object | number | boolean;
     type SendHandle = net.Socket | net.Server;
 
-    interface ChildProcessIPC extends ChildProcess {
-        send(message: Serializable, callback?: (error: Error | null) => void): boolean;
-        send(message: Serializable, sendHandle?: SendHandle, callback?: (error: Error | null) => void): boolean;
-        send(message: Serializable, sendHandle?: SendHandle, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
-        disconnect(): void;
-    }
-
     interface ChildProcess extends events.EventEmitter {
         stdin: Writable | null;
         stdout: Readable | null;
@@ -29,9 +22,9 @@ declare module "child_process" {
         readonly pid: number;
         readonly connected: boolean;
         kill(signal?: NodeJS.Signals | number): void;
-        send(message: any, callback?: (error: Error | null) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
+        send(message: Serializable, callback?: (error: Error | null) => void): boolean;
+        send(message: Serializable, sendHandle?: SendHandle, callback?: (error: Error | null) => void): boolean;
+        send(message: Serializable, sendHandle?: SendHandle, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         unref(): void;
         ref(): void;
@@ -126,6 +119,16 @@ declare module "child_process" {
 
     type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
 
+    type SerializationType = 'json' | 'advanced';
+
+    interface MessagingOptions {
+        /**
+         * Specify the kind of serialization used for sending messages between processes.
+         * @default 'json'
+         */
+        serialization?: SerializationType;
+    }
+
     interface ProcessEnvOptions {
         uid?: number;
         gid?: number;
@@ -144,12 +147,15 @@ declare module "child_process" {
         timeout?: number;
     }
 
-    interface SpawnOptions extends CommonOptions {
+    interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
         argv0?: string;
         stdio?: StdioOptions;
-        detached?: boolean;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
+    }
+
+    interface SpawnOptions extends CommonSpawnOptions {
+        detached?: boolean;
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
@@ -407,7 +413,7 @@ declare module "child_process" {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions extends ProcessEnvOptions {
+    interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
@@ -415,17 +421,13 @@ declare module "child_process" {
         detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
-    function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcessIPC;
+    function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
-    interface SpawnSyncOptions extends CommonOptions {
-        argv0?: string; // Not specified in the docs
+    interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
-        stdio?: StdioOptions;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: string;
-        shell?: boolean | string;
-        windowsVerbatimArguments?: boolean;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
