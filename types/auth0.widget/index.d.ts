@@ -2,6 +2,7 @@
 // Project: http://auth0.com
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 /// <reference types="auth0-js" />
 
