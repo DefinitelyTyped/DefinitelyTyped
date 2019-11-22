@@ -1,17 +1,4 @@
-import {
-    createSecureContext,
-    SecureContext,
-    ConnectionOptions,
-    connect,
-    PeerCertificate,
-    EphemeralKeyInfo,
-    getCiphers,
-    DEFAULT_ECDH_CURVE,
-    DEFAULT_MAX_VERSION,
-    DEFAULT_MIN_VERSION,
-    createServer,
-    TLSSocket,
-} from "tls";
+import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket } from "tls";
 import * as fs from "fs";
 
 {
@@ -27,24 +14,8 @@ import * as fs from "fs";
     };
     const tlsSocket = connect(connOpts);
 
-    const cert: PeerCertificate | object | null = tlsSocket.getCertificate();
-    const keyInfo: EphemeralKeyInfo | object | null = tlsSocket.getEphemeralKeyInfo();
-    const finishedMsg: Buffer | undefined = tlsSocket.getFinished();
-    const peerFinishedMsg: Buffer | undefined = tlsSocket.getPeerFinished();
-    const isSessionReused: boolean = tlsSocket.isSessionReused();
-
-    if (keyInfo && "type" in keyInfo) {
-        const keyType: string = keyInfo.type;
-        const keyName: string | undefined = keyInfo.name;
-        const keySize: number = keyInfo.size;
-    }
-
-    tlsSocket.disableRenegotiation();
-
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
-    const maxVersion: string = DEFAULT_MAX_VERSION;
-    const minVersion: string = DEFAULT_MIN_VERSION;
 }
 
 {
@@ -53,21 +24,6 @@ import * as fs from "fs";
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
         key: fs.readFileSync("key_filepath")
-    });
-}
-
-{
-    const _server = createServer({}, (socket) => {
-        const _keys: Buffer = _server.getTicketKeys();
-        _server.setTicketKeys(_keys);
-    });
-}
-
-{
-    const _server = createServer({});
-    _server.setSecureContext({
-        key: "NOT REALLY A KEY",
-        cert: "SOME CERTIFICATE",
     });
 }
 

@@ -64,21 +64,6 @@ declare module "tls" {
         version: string;
     }
 
-    interface EphemeralKeyInfo {
-        /**
-         * The supported types are 'DH' and 'ECDH'.
-         */
-        type: string;
-        /**
-         * The name property is available only when type is 'ECDH'.
-         */
-        name?: string;
-        /**
-         * The size of parameter of an ephemeral key exchange.
-         */
-        size: number;
-    }
-
     class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
@@ -166,49 +151,11 @@ declare module "tls" {
         alpnProtocol?: string;
 
         /**
-         * Returns an object representing the local certificate. The returned
-         * object has some properties corresponding to the fields of the
-         * certificate.
-         *
-         * See tls.TLSSocket.getPeerCertificate() for an example of the
-         * certificate structure.
-         *
-         * If there is no local certificate, an empty object will be returned.
-         * If the socket has been destroyed, null will be returned.
-         */
-        getCertificate(): PeerCertificate | object | null;
-        /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
          * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
-        /**
-         * Returns an object representing the type, name, and size of parameter
-         * of an ephemeral key exchange in Perfect Forward Secrecy on a client
-         * connection. It returns an empty object when the key exchange is not
-         * ephemeral. As this is only supported on a client socket; null is
-         * returned if called on a server socket. The supported types are 'DH'
-         * and 'ECDH'. The name property is available only when type is 'ECDH'.
-         *
-         * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
-         */
-        getEphemeralKeyInfo(): EphemeralKeyInfo | object | null;
-        /**
-         * Returns the latest Finished message that has
-         * been sent to the socket as part of a SSL/TLS handshake, or undefined
-         * if no Finished message has been sent yet.
-         *
-         * As the Finished messages are message digests of the complete
-         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
-         * 3.0), they can be used for external authentication procedures when
-         * the authentication provided by SSL/TLS is not desired or is not
-         * enough.
-         *
-         * Corresponds to the SSL_get_finished routine in OpenSSL and may be
-         * used to implement the tls-unique channel binding from RFC 5929.
-         */
-        getFinished(): Buffer | undefined;
         /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.
@@ -221,21 +168,6 @@ declare module "tls" {
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
-        /**
-         * Returns the latest Finished message that is expected or has actually
-         * been received from the socket as part of a SSL/TLS handshake, or
-         * undefined if there is no Finished message so far.
-         *
-         * As the Finished messages are message digests of the complete
-         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
-         * 3.0), they can be used for external authentication procedures when
-         * the authentication provided by SSL/TLS is not desired or is not
-         * enough.
-         *
-         * Corresponds to the SSL_get_peer_finished routine in OpenSSL and may
-         * be used to implement the tls-unique channel binding from RFC 5929.
-         */
-        getPeerFinished(): Buffer | undefined;
         /**
          * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
          * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
@@ -255,10 +187,6 @@ declare module "tls" {
          * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): Buffer | undefined;
-        /**
-         * Returns true if the session was reused, false otherwise.
-         */
-        isSessionReused(): boolean;
         /**
          * Initiate TLS renegotiation process.
          *
@@ -282,13 +210,6 @@ declare module "tls" {
          * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
-
-        /**
-         * Disables TLS renegotiation for this TLSSocket instance. Once called,
-         * attempts to renegotiate will trigger an 'error' event on the
-         * TLSSocket.
-         */
-        disableRenegotiation(): void;
 
         /**
          * events.EventEmitter
@@ -355,29 +276,7 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
-        /**
-         * The server.addContext() method adds a secure context that will be
-         * used if the client request's SNI name matches the supplied hostname
-         * (or wildcard).
-         */
         addContext(hostName: string, credentials: SecureContextOptions): void;
-        /**
-         * Returns the session ticket keys.
-         */
-        getTicketKeys(): Buffer;
-        /**
-         *
-         * The server.setSecureContext() method replaces the
-         * secure context of an existing server. Existing connections to the
-         * server are not interrupted.
-         */
-        setSecureContext(details: SecureContextOptions): void;
-        /**
-         * The server.setSecureContext() method replaces the secure context of
-         * an existing server. Existing connections to the server are not
-         * interrupted.
-         */
-        setTicketKeys(keys: Buffer): void;
 
         /**
          * events.EventEmitter
@@ -494,30 +393,5 @@ declare module "tls" {
     function createSecureContext(details: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
-    /**
-     * The default curve name to use for ECDH key agreement in a tls server.
-     * The default value is 'auto'. See tls.createSecureContext() for further
-     * information.
-     */
-    let DEFAULT_ECDH_CURVE: string;
-    /**
-     * The default value of the maxVersion option of
-     * tls.createSecureContext(). It can be assigned any of the supported TLS
-     * protocol versions, 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default:
-     * 'TLSv1.3', unless changed using CLI options. Using --tls-max-v1.2 sets
-     * the default to 'TLSv1.2'. Using --tls-max-v1.3 sets the default to
-     * 'TLSv1.3'. If multiple of the options are provided, the highest maximum
-     * is used.
-     */
-    let DEFAULT_MAX_VERSION: SecureVersion;
-    /**
-     * The default value of the minVersion option of tls.createSecureContext().
-     * It can be assigned any of the supported TLS protocol versions,
-     * 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default: 'TLSv1.2', unless
-     * changed using CLI options. Using --tls-min-v1.0 sets the default to
-     * 'TLSv1'. Using --tls-min-v1.1 sets the default to 'TLSv1.1'. Using
-     * --tls-min-v1.3 sets the default to 'TLSv1.3'. If multiple of the options
-     * are provided, the lowest minimum is used.
-     */
-    let DEFAULT_MIN_VERSION: SecureVersion;
+    const DEFAULT_ECDH_CURVE: string;
 }
