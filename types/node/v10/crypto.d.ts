@@ -23,7 +23,9 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
+    /** @deprecated since v0.11.13 - use tls.SecureContext instead. */
     interface Credentials { context?: any; }
+    /** @deprecated since v0.11.13 - use tls.createSecureContext instead. */
     function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
     function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
@@ -110,7 +112,7 @@ declare module "crypto" {
     interface Decipher extends stream.Transform {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;

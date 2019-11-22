@@ -10,11 +10,10 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="validator" />
-
-
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+
+import * as ValidatorJS from 'validator'
 
 declare namespace sequelize {
 
@@ -5797,10 +5796,12 @@ declare namespace sequelize {
     //  Validator
     // ~~~~~~~~~~~
 
+    type ValidatorJSType = typeof ValidatorJS
+
     /**
      * Validator Interface
      */
-    interface Validator extends ValidatorJS.ValidatorStatic {
+    interface Validator extends ValidatorJSType {
 
         notEmpty(str: string): boolean;
         len(str: string, min: number, max: number): boolean;

@@ -1,4 +1,4 @@
-import { BorderWidth, Chart, ChartData, Point, ChartColor } from 'chart.js';
+import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -29,6 +29,8 @@ const chart: Chart = new Chart(ctx, {
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
                 label: 'test',
                 data: [1, 3, 5],
+                barThickness: 'flex',
+                minBarLength: 2,
             }
         ],
     },
@@ -67,7 +69,6 @@ const chart: Chart = new Chart(ctx, {
                     ticks: {
                         callback: Math.floor,
                     },
-                    minBarLength: 2,
                     gridLines: {
                         display: false,
                         borderDash: [5, 15],
@@ -80,6 +81,7 @@ const chart: Chart = new Chart(ctx, {
             ],
         },
         legend: {
+            align: 'center',
             display: true,
             labels: {
                 usePointStyle: true,
@@ -241,3 +243,65 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
         }],
     }
 });
+
+// linear scale
+const linearScaleChart: Chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            backgroundColor: '#000',
+            borderColor: '#f00',
+            data: [],
+            type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            displayFormats: {
+                month: 'MMM YYYY',
+            },
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Closing price ($)'
+                }
+            }]
+        },
+        tooltips: {
+            intersect: false,
+            mode: 'index',
+        }
+    }
+});
+
+// custom tooltips
+const customTooltipsPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {},
+    options: {
+        tooltips: {
+            enabled: false,
+            custom: (tooltipModel) => {
+                // do whatever
+            },
+        },
+    },
+});
+
+// platform global values
+Chart.platform.disableCSSInjection = true;
+
+// default global static values
+Chart.defaults.global.defaultFontColor = '#544615';
+Chart.defaults.global.defaultFontFamily = 'Arial';
+Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
+Chart.defaults.global.tooltips.cornerRadius = 2;
+Chart.defaults.global.tooltips.displayColors = false;

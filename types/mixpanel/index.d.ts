@@ -97,7 +97,7 @@ interface Mixpanel {
      * @param eventName The name of the event to track
      * @param properties A properties object or function that returns a dictionary of properties when passed a DOMElement
      */
-    track_links(querySelector: string, eventName: string, properties?: { [index: string]: any }): void;
+    track_links(querySelector: Mixpanel.Query, eventName: string, properties?: { [index: string]: any }): void;
 
     /**
      * Track form submissions. Selector must be a valid query.
@@ -125,7 +125,7 @@ interface Mixpanel {
      * @param eventName The name of the event to track
      * @param properties This can be a set of properties, or a function that returns a set of properties after being passed a DOMElement
      */
-    track_forms(querySelector: string, eventName: string, properties?: { [index: string]: any }): void;
+    track_forms(querySelector: Mixpanel.Query, eventName: string, properties?: { [index: string]: any }): void;
 
     /**
      * Time an event by including the time between this call and a
@@ -625,6 +625,8 @@ declare namespace Mixpanel {
          */
         property_blacklist?: string[];
     }
+
+    type Query = string | Element | Element[];
 }
 
 declare var mixpanel: Mixpanel;

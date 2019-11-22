@@ -19,7 +19,9 @@
     },
     "files": [
         "index.d.ts",
-        "video.js-some-plugin.d.ts",
+        "dist/alt/video.core.novtt.d.ts",
+        "test/plugin-tests.ts",
+        "test/videojs-alt-distributions-tests.ts",
         "video.js-tests.ts"
     ]
 }

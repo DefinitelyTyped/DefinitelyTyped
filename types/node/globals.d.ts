@@ -185,9 +185,6 @@ declare namespace setImmediate {
 }
 declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
-/**
- * @experimental
- */
 declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
@@ -196,9 +193,13 @@ interface NodeRequireFunction {
     (id: string): any;
 }
 
+interface NodeRequireCache {
+    [path: string]: NodeModule;
+}
+
 interface NodeRequire extends NodeRequireFunction {
     resolve: RequireResolve;
-    cache: any;
+    cache: NodeRequireCache;
     /**
      * @deprecated
      */
@@ -704,7 +705,8 @@ declare namespace NodeJS {
         | 'openbsd'
         | 'sunos'
         | 'win32'
-        | 'cygwin';
+        | 'cygwin'
+        | 'netbsd';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -1132,7 +1134,12 @@ declare namespace NodeJS {
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
-        static createRequireFromPath(path: string): (path: string) => any;
+
+        /**
+         * @deprecated Deprecated since: v12.2.0. Please use createRequire() instead.
+         */
+        static createRequireFromPath(path: string): NodeRequire;
+        static createRequire(path: string): NodeRequire;
         static builtinModules: string[];
 
         static Module: typeof Module;
@@ -1151,4 +1158,8 @@ declare namespace NodeJS {
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
+
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
 }

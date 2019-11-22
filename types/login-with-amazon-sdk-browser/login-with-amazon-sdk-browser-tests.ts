@@ -2,6 +2,7 @@ amazon.Login.setClientId("my-client-id");
 amazon.Login.setSiteDomain("my://site.domain");
 amazon.Login.setSandboxMode(true);
 amazon.Login.setUseCookie(true);
+amazon.Login.setRegion(amazon.Login.Region.Europe);
 
 const clientId: string = amazon.Login.getClientId();
 
@@ -28,6 +29,9 @@ const request = amazon.Login.authorize({
     response_type: "code",
     state: "my-state",
     scope: "profile",
+    scope_data: {
+        postal_code: { essential: true },
+    },
 });
 
 request.onComplete("my://redirect.url");

@@ -56,6 +56,46 @@ declare module "fs" {
         name: string;
     }
 
+    /**
+     * A class representing a directory stream.
+     */
+    class Dir {
+        readonly path: string;
+
+        /**
+         * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
+         */
+        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+
+        /**
+         * Asynchronously close the directory's underlying resource handle.
+         * Subsequent reads will result in errors.
+         */
+        close(): Promise<void>;
+        close(cb: NoParamCallback): void;
+
+        /**
+         * Synchronously close the directory's underlying resource handle.
+         * Subsequent reads will result in errors.
+         */
+        closeSync(): void;
+
+        /**
+         * Asynchronously read the next directory entry via `readdir(3)` as an `Dirent`.
+         * After the read is completed, a value is returned that will be resolved with an `Dirent`, or `null` if there are no more directory entries to read.
+         * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
+         */
+        read(): Promise<Dirent | null>;
+        read(cb: (err: NodeJS.ErrnoException | null, dirEnt: Dirent | null) => void): void;
+
+        /**
+         * Synchronously read the next directory entry via `readdir(3)` as a `Dirent`.
+         * If there are no more directory entries to read, null will be returned.
+         * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
+         */
+        readSync(): Dirent;
+    }
+
     interface FSWatcher extends events.EventEmitter {
         close(): void;
 
@@ -450,7 +490,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -739,7 +779,7 @@ declare module "fs" {
      */
     function rmdirSync(path: PathLike, options?: RmDirOptions): void;
 
-    export interface MakeDirectoryOptions {
+    interface MakeDirectoryOptions {
         /**
          * Indicates whether parent folders should be created.
          * @default false
@@ -1888,6 +1928,19 @@ declare module "fs" {
      */
     function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
 
+    interface OpenDirOptions {
+        encoding?: BufferEncoding;
+    }
+
+    function opendirSync(path: string, options?: OpenDirOptions): Dir;
+
+    function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+
+    namespace opendir {
+        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+    }
+
     namespace promises {
         interface FileHandle {
             /**
@@ -2124,7 +2177,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function rmdir(path: PathLike): Promise<void>;
+        function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -2387,5 +2440,7 @@ declare module "fs" {
          * If a flag is not provided, it defaults to `'r'`.
          */
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
+
+        function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
     }
 }

@@ -15,7 +15,7 @@ export function clear(target: string | any[]): any;
 /** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;
 
-export function getDuration(duration: string): any;
+export function getDuration(duration: string | number): any;
 
 /**
  * returns current cache index [of keys]
@@ -29,7 +29,7 @@ export function getIndex(): any;
  * Third param is the options that will override global ones and affect this middleware only.
  */
 export function middleware(
-  duration?: string,
+  duration?: string | number,
   toggleMiddleware?: any,
   localOptions?: Options
 ): any;

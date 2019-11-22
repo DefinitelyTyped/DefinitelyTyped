@@ -164,6 +164,33 @@ import { promisify } from 'util';
 }
 
 {
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+        authTagLength: 16
+    });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext)
+    });
+    const ciphertext = cipher.update(plaintext, 'utf8');
+    cipher.final();
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+        authTagLength: 16
+    });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length
+    });
+    const receivedPlaintext: string = decipher.update(ciphertext, 'binary', 'utf8');
+    decipher.final();
+}
+
+{
     // crypto_timingsafeequal_buffer_test
     const buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
     const buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
@@ -648,9 +675,14 @@ import { promisify } from 'util';
 }
 
 {
-    const buf: Buffer = crypto.publicEncrypt({
+    const key = {
         key: 'test',
         oaepHash: 'sha1',
         oaepLabel: Buffer.from('asd'),
-    }, Buffer.from([]));
+    };
+    const buf: Buffer = crypto.publicEncrypt(key, Buffer.from([]));
+    const dec: Buffer = crypto.publicDecrypt(key, buf);
+
+    const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
+    const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }

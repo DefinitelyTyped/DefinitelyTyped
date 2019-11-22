@@ -1,3 +1,1 @@
-import * as validator from "validator";
-declare const whitelist: typeof validator.whitelist;
-export = whitelist;
+export { whitelist as default } from '../';
