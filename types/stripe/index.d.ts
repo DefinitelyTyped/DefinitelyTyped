@@ -14039,12 +14039,12 @@ declare namespace Stripe {
                 id: string,
                 data: topups.ITopupUpdateOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<transfers.ITransfer>,
+                response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
             update(
                 id: string,
                 data: topups.ITopupUpdateOptions,
-                response?: IResponseFn<transfers.ITransfer>,
+                response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
 
             /**
