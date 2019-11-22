@@ -14061,7 +14061,17 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<IList<topups.ITopup>>,
             ): IListPromise<topups.ITopup>;
-            
+
+            /**
+             * Cancels a top-up. Only pending top-ups can be canceled. Returns the canceled top-up. If the top-up
+             * is already canceled or can’t be canceled, an error is returned.
+             */
+            cancel(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>; 
         }
 
         class OAuth extends StripeResource {
