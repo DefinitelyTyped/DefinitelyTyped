@@ -1,3 +1,10 @@
+// Parse is a global type, but it can also be imported
+import ParseDirect = require('parse');
+import ParseNode = require('parse/node');
+import ParseRN = require('parse/react-native');
+// $ExpectError
+import ParseBad = require('parse/bad');
+
 class GameScore extends Parse.Object {
     constructor(options?: any) {
         super('GameScore', options);
@@ -180,7 +187,7 @@ function return_a_query(): Parse.Query {
 
 function test_file() {
     const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
-    let file = new Parse.File('myfile.txt', { base64: base64 });
+    let file = new Parse.File('myfile.txt', { base64 });
 
     const bytes = [0xbe, 0xef, 0xca, 0xfe];
     file = new Parse.File('myfile.txt', bytes);
@@ -222,8 +229,8 @@ function test_analytics() {
 }
 
 function test_relation() {
-    var game1 = new Game();
-    var game2 = new Game();
+    const game1 = new Game();
+    const game2 = new Game();
 
     new Parse.User()
         .relation('games')
@@ -274,19 +281,19 @@ function test_user_acl_roles() {
     }
 
     Parse.User.become('session-token-here').then(
-        function(user) {
+        user => {
             // The current user is now set to user.
         },
-        function(error) {
+        error => {
             // The token could not be validated.
         },
     );
 
     Parse.User.hydrate({}).then(
-        function(user) {
+        user => {
             // The current user is now set to user.
         },
-        function(error) {
+        error => {
             // The token could not be validated.
         },
     );
@@ -297,14 +304,14 @@ function test_user_acl_roles() {
     game.save().then((game: Game) => {});
     game.save(null, { useMasterKey: true });
     game.save({ score: '10' }, { useMasterKey: true }).then(
-        function(game) {
+        game => {
             // Update game then revert it to the last saved state.
             game.set('score', '20');
             game.revert('score');
             game.revert('score', 'ACL');
             game.revert();
         },
-        function(error) {
+        error => {
             // The save failed
         },
     );
@@ -313,9 +320,9 @@ function test_user_acl_roles() {
 
     const userList: Parse.User[] = [Parse.User.current()!];
     // userList is an array with the users we are sending this message to.
-    for (let i = 0; i < userList.length; i++) {
-        groupACL.setReadAccess(userList[i], true);
-        groupACL.setWriteAccess(userList[i], true);
+    for (const userListItem of userList) {
+        groupACL.setReadAccess(userListItem, true);
+        groupACL.setWriteAccess(userListItem, true);
     }
 
     groupACL.setPublicReadAccess(true);
@@ -323,10 +330,10 @@ function test_user_acl_roles() {
     game.setACL(groupACL);
 
     Parse.User.requestPasswordReset('email@example.com').then(
-        function(data) {
+        data => {
             // The current user is now set to user.
         },
-        function(error) {
+        error => {
             // The token could not be validated.
         },
     );
@@ -337,7 +344,7 @@ function test_user_acl_roles() {
     role.getRoles().add(role);
     role.save();
 
-    Parse.User.logOut().then(function(data) {
+    Parse.User.logOut().then(data => {
         // logged out
     });
 }
@@ -440,11 +447,11 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
-        let query = request.query; // the Parse.Query
-        let user = request.user; // the user
-        let isMaster = request.master; // if the query is run with masterKey
-        let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
-        let isGet = request.isGet; // if the query is a get operation
+        const query = request.query; // the Parse.Query
+        const user = request.user; // the user
+        const isMaster = request.master; // if the query is run with masterKey
+        const isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        const isGet = request.isGet; // if the query is a get operation
 
         // All possible read preferences
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary;
@@ -455,13 +462,13 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
-        let query = request.query; // the Parse.Query
+        const query = request.query; // the Parse.Query
 
         return new Parse.Query('QueryMe!');
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', async (request: Parse.Cloud.BeforeFindRequest) => {
-        let query = request.query; // the Parse.Query
+        const query = request.query; // the Parse.Query
 
         return new Parse.Query('QueryMe, IN THE FUTURE!');
     });
@@ -544,10 +551,10 @@ function test_push() {
             },
         },
         {
-            success: function() {
+            success() {
                 // Push was successful
             },
-            error: function(error: any) {
+            error(error: any) {
                 // Handle error
             },
         },
@@ -681,31 +688,29 @@ async function test_schema() {
 
 function test_generic_object() {
     // Test Parse.Object instantiation with no type assertion
-    const objAny = new Parse.Object('TestObject')
-    objAny.attributes.whatever    // any
-    objAny.attributes.createdAt   // Date | undefined
-    objAny.attributes.updatedAt   // Date | undefined
-    objAny.attributes.objectId    // string | undefined
-    objAny.attributes.ACL         // Parse.ACL | undefined
+    const objAny = new Parse.Object('TestObject');
+    objAny.attributes.whatever;    // any
+    objAny.attributes.createdAt;   // Date | undefined
+    objAny.attributes.updatedAt;   // Date | undefined
+    objAny.attributes.objectId;    // string | undefined
+    objAny.attributes.ACL;         // Parse.ACL | undefined
 
     // Test Parse.Object instantiation with manual type assertion
-    const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject')
-    const exampleAttr = objWithTypedAttrs.attributes.example     // string
-    const exampleGet = objWithTypedAttrs.get('example')    // string
-    // const badAttr = objWithTypedAttrs.attributes.other  // error
+    const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject');
+    const exampleAttr = objWithTypedAttrs.attributes.example;     // string
+    const exampleGet = objWithTypedAttrs.get('example');    // string
+    // const badAttr = objWithTypedAttrs.attributes.other;  // error
 
     // Test Parse.Object instantiation with attributes
-    const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 })
-    const exampleAttrFromOptions = objWithAttrsAndOptions.attributes.example  // number
-    const exampleGetFromOptions = objWithAttrsAndOptions.get('example') // number
-    // const badAttr2 = objWithAttrsAndOptions.attributes.other     // error
-    
+    const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 });
+    const exampleAttrFromOptions = objWithAttrsAndOptions.attributes.example;  // number
+    const exampleGetFromOptions = objWithAttrsAndOptions.get('example'); // number
+    // const badAttr2 = objWithAttrsAndOptions.attributes.other;     // error
 }
 
 function test_to_json_generic() {
-
-    const exampleObjAny = new Parse.Object('TestObject')
-    const exampleJsonAny = exampleObjAny.toJSON()   // Parse.Object.Attributes
+    const exampleObjAny = new Parse.Object('TestObject');
+    const exampleJsonAny = exampleObjAny.toJSON();   // Parse.Object.Attributes
 
     const exampleObjTyped = new Parse.Object('TestObject', {
         exampleProp: false,
@@ -721,80 +726,91 @@ function test_to_json_generic() {
                 dateProp2: new Date()
             })
         })
-    })
-    const exampleJsonTyped = exampleObjTyped.toJSON()
-    exampleJsonTyped.exampleProp           // boolean
-    exampleJsonTyped.dateProp              // string
-    exampleJsonTyped.regexProp             // string
-    exampleJsonTyped.parseProp.dateProp    // string
-    exampleJsonTyped.parseProp.parseProp2.regexProp2    // string
-    exampleJsonTyped.parseProp.ACL         // Parse.ACL | undefined
-    exampleJsonTyped.parseProp.objectId    // string | undefined
+    });
+    const exampleJsonTyped = exampleObjTyped.toJSON();
+    exampleJsonTyped.exampleProp;           // boolean
+    exampleJsonTyped.dateProp;              // string
+    exampleJsonTyped.regexProp;             // string
+    exampleJsonTyped.parseProp.dateProp;    // string
+    exampleJsonTyped.parseProp.parseProp2.regexProp2;    // string
+    exampleJsonTyped.parseProp.ACL;         // Parse.ACL | undefined
+    exampleJsonTyped.parseProp.objectId;    // string | undefined
 }
 
 async function test_save_generic() {
-    const exampleObjAny = new Parse.Object('TestObject')
-    const savedAny = await exampleObjAny.save()
-    savedAny.attributes.anything    // any
-    const savedNewExampleAttrAny = await exampleObjAny.save({ example: true })
-    savedNewExampleAttrAny.attributes.anythingElse  // any
+    const exampleObjAny = new Parse.Object('TestObject');
+    const savedAny = await exampleObjAny.save();
+    // $ExpectType any
+    savedAny.attributes.anything;
+    const savedNewExampleAttrAny = await exampleObjAny.save({ example: true });
+    // $ExpectType any
+    savedNewExampleAttrAny.attributes.anythingElse;
 
-    // Calling Parse.Object.save({}) with an existing attribute type checks
-    const exampleObjTyped = new Parse.Object<{ example: number; newExample: string }>('TestObject')
-    // const badSavedExampleAttr = await exampleObjTyped.save({ example: 'hello' })     // error
-    const savedExampleAttr = await exampleObjTyped.save({ example: 5 })
-    savedExampleAttr.attributes.example     // number
-
-    // const badSavedExampleAttr = await exampleObjTyped.save({ createdAt: new Date() }) // never
-
-    // Calling Parse.Object.save({}) with a new attribute adds that attribute as a known key
-    const savedNewExampleAttr = await exampleObjTyped.save({ newExample: 'hello' })
-    savedNewExampleAttr.attributes.example      // number
-    savedNewExampleAttr.attributes.newExample    // string
+    // Calling Parse.Object.save({}) type checks
+    const exampleObjTyped = new Parse.Object<{ example: number }>('TestObject');
+    const savedExampleAttr = await exampleObjTyped.save({ example: 5 });
+    // $ExpectType number
+    savedExampleAttr.attributes.example;
+    // $ExpectError
+    const badSavedExampleAttr = await exampleObjTyped.save({ example: 'hello' });
 
     // Parse.Object.save(key, value) type checks existing keys
-    // const badSavedExampleAttr2 = await exampleObjTyped.save('example', 'hello')    // error
-    const savedExampleAttr2 = await exampleObjTyped.save('example', 10)
-    savedExampleAttr2.attributes.example    // number
-
-    // const badSavedExampleAttr2 = await exampleObjTyped.save('createdAt', 10) // never
-
-    // Parse.Object.save(key, value) with a new attribute adds that attribute as a known key
-    const savedNewExampleAttr2 = await exampleObjTyped.save('newExample', 'hello again')
-    savedNewExampleAttr2.attributes.example     // number
-    savedNewExampleAttr2.attributes.newExample  // string
+    const savedExampleAttr2 = await exampleObjTyped.save('example', 10);
+    // $ExpectType number
+    savedExampleAttr2.attributes.example;
+    // $ExpectError
+    const badSavedExampleAttr2 = await exampleObjTyped.save('example', 'hello');
 }
 
 function test_set_generic() {
-    const exampleObjAny = new Parse.Object('TestObject')
-    exampleObjAny.attributes    // any
-    exampleObjAny.set('propA', 'some value')
+    const exampleObjAny = new Parse.Object('TestObject');
+    // $ExpectType any
+    exampleObjAny.attributes;
+    exampleObjAny.set('propA', 'some value');
 
-    const exampleObjTyped = new Parse.Object<{ example: boolean }>('TestObject')
-    
+    const exampleObjTyped = new Parse.Object<{ example: boolean }>('TestObject');
+
     // Parse.Object.set({}) type checks existing keys, does not allow new keys
-    const setThingObj = exampleObjTyped.set({ example: false })
-    setThingObj && setThingObj.attributes.example   // boolean
-    // exampleObjTyped.set({ example: 100 })   // error
-    // const badSetNewThingObj = exampleObjTyped.set({ newExample: 'something' })    // error
+    const setThingObj = exampleObjTyped.set({ example: false });
+    if (setThingObj) {
+        // $ExpectType boolean
+        setThingObj.attributes.example;
+    }
+    // $ExpectError
+    exampleObjTyped.set({ example: 100 });
+    // $ExpectError
+    const badSetNewThingObj = exampleObjTyped.set({ newExample: 'something' });
 
     // Parse.Object.set(key, value) does not allow new keys
-    const setThingKeyVal = exampleObjTyped.set('example', false)
-    setThingKeyVal && setThingKeyVal.attributes.example // boolean
-    // const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100)    // error
+    const setThingKeyVal = exampleObjTyped.set('example', false);
+    if (setThingKeyVal) {
+        // $ExpectType boolean
+        setThingKeyVal.attributes.example;
+    }
+    // $ExpectError
+    const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100);
 }
 
 async function test_query_generic() {
-    const exampleQuery = new Parse.Query<Parse.Object<{ example: string }>>('TestObject')
+    const exampleQuery = new Parse.Query<Parse.Object<{ example: string }>>('TestObject');
 
-    const gotExampleObj = await exampleQuery.get('objectId')
-    const gotAttrExample = gotExampleObj.attributes.example // string
-    const gotGetExample = gotExampleObj.get('example')     // string
-    // const badGotGetExample = gotExampleObj.get('anything') // error
+    const gotExampleObj = await exampleQuery.get('objectId');
+    // $ExpectType string
+    const gotAttrExample = gotExampleObj.attributes.example;
+    // $ExpectType string
+    const gotGetExample = gotExampleObj.get('example');
+    // $ExpectError
+    const badGotGetExample = gotExampleObj.get('anything');
 
-    const foundExampleObj = await exampleQuery.find()
-    foundExampleObj[0] && foundExampleObj[0].attributes.example // string
+    const foundExampleObj = await exampleQuery.find();
+    if (foundExampleObj[0]) {
+        // $ExpectType string
+        foundExampleObj[0].attributes.example;
+    }
 
-    const firstExampleObj = await exampleQuery.first()
-    firstExampleObj && firstExampleObj.attributes.example   // string
+    const firstExampleObj = await exampleQuery.first();
+    if (firstExampleObj) {
+        // $ExpectType string
+        firstExampleObj.attributes.example;
+    }
 }
