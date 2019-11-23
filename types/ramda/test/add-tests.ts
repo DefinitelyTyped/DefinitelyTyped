@@ -1,9 +1,5 @@
 import * as R from 'ramda';
 
-(() => {
-  const plus3 = R.add(3);
-})();
-
 () => {
   // $ExpectType number
   R.add(2, 3); // =>  5
