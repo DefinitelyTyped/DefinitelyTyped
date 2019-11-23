@@ -1243,7 +1243,3 @@ export function whitelist(input: string, chars: string): string;
  * Converts to string.
  */
 export function toString(input: any): string;
-
-import * as Validator from './';
-
-export default Validator;
