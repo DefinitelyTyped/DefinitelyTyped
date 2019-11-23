@@ -14,3 +14,16 @@ import * as R from 'ramda';
   // $ExpectType string
   R.add('Hello')(' World'); // =>  "Hello World"
 };
+
+() => {
+  // cannot add a number to a string or vice-versa
+
+  // $ExpectError
+  R.add('2', 3);
+  // $ExpectError
+  R.add(2, '3');
+  // $ExpectError
+  R.add('2')(3);
+  // $ExpectError
+  R.add(2)('3');
+};
