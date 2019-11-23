@@ -32,7 +32,7 @@ export interface QueryOptions<TResult> {
     cacheTime?: number;
     refetchInterval?: false | number;
     onError?: (err: any) => void;
-    onSucess?: (data: TResult) => void;
+    onSuccess?: (data: TResult) => void;
     suspense?: boolean;
 }
 
