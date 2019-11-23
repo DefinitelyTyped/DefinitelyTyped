@@ -230,8 +230,11 @@ f('one');
 
 Для получения дополнительной информации см. [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
+## Проверка
+
 Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
-Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint).
+
+Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
 
 ## Часто задаваемые вопросы
 
