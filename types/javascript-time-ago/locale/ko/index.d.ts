@@ -38,4 +38,3 @@ interface QuantifyType {
 }
 
 export = locale;
-

@@ -42,4 +42,3 @@ interface QuantifyType {
 }
 
 export = locale;
-
