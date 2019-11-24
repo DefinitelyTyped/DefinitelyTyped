@@ -5,12 +5,14 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../types",
+        "typeRoots": ["../types"],
         "types": [],
         "noEmit": true,
+        "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "esModuleInterop": true
     },
-    "include": ["./**/*.d.ts"]
+    "include": ["./**/*.d.ts", "./javascript-time-ago-tests.ts"]
 }
