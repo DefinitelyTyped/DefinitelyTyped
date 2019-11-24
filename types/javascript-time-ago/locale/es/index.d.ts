@@ -1,18 +1,17 @@
 // Generated with https://github.com/erikburt/javascript-time-ago-type-gen
 
-declare module "javascript-time-ago/locale/es" {
-  var es: Locale;
+declare const locale: Locale;
 
-  interface Locale {
+interface Locale {
     locale: "es";
     long: Duration;
     narrow: Duration;
     short: Duration;
     tiny: Duration;
     quantify: (n: number) => keyof QuantifyType;
-  }
+}
 
-  interface Duration {
+interface Duration {
     year: Tense;
     quarter: Tense;
     month: Tense;
@@ -21,22 +20,22 @@ declare module "javascript-time-ago/locale/es" {
     hour: Tense;
     minute: Tense;
     second: Tense;
-  }
+}
 
-  interface Tense {
+interface Tense {
     previous?: QuantifyType | string;
     current?: QuantifyType | string;
     next?: QuantifyType | string;
     past?: QuantifyType | string;
     future?: QuantifyType | string;
-  }
+}
 
-  interface QuantifyType {
+interface QuantifyType {
     one: string;
     two?: string;
     few?: string;
     other: string;
-  }
-
-  export = es;
 }
+
+export = locale;
+

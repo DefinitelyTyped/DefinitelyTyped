@@ -1,14 +1,16 @@
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import to from "javascript-time-ago/locale/to";
+import zhHansHK from "javascript-time-ago/locale/zh-Hant-HK";
 
 // Statically add locales
 TimeAgo.locale(en);
 TimeAgo.addLocale(to);
+TimeAgo.addLocale(zhHansHK);
 
 TimeAgo.intlDateTimeFormatSupportedLocale("en");
 
-let ta = new TimeAgo();
+const ta = new TimeAgo();
 
 // Format one minute ago using twitter style
 ta.format(new Date().getTime() - 60 * 1000, "twitter");
