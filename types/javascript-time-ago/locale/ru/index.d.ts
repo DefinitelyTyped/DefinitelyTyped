@@ -1,0 +1,46 @@
+// Generated with https://github.com/erikburt/javascript-time-ago-type-gen
+
+declare module "javascript-time-ago/locale/ru" {
+  var ru: Locale;
+
+  interface Locale {
+    locale: "ru";
+    long: Duration;
+    narrow: Duration;
+    short: Duration;
+    "long-convenient": Duration;
+    "long-time": Duration;
+    "short-convenient": Duration;
+    "short-time": Duration;
+    tiny: Duration;
+    quantify: (n: number) => keyof QuantifyType;
+  }
+
+  interface Duration {
+    year: Tense;
+    quarter: Tense;
+    month: Tense;
+    week: Tense;
+    day: Tense;
+    hour: Tense;
+    minute: Tense;
+    second: Tense;
+  }
+
+  interface Tense {
+    previous?: QuantifyType | string;
+    current?: QuantifyType | string;
+    next?: QuantifyType | string;
+    past?: QuantifyType | string;
+    future?: QuantifyType | string;
+  }
+
+  interface QuantifyType {
+    one: string;
+    two?: string;
+    few?: string;
+    other: string;
+  }
+
+  export = ru;
+}
