@@ -3,6 +3,7 @@
 // Definitions by: Erik Burton  <https://github.com/erikburt>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript Version 3.7
 
 export = TimeAgo;
 
