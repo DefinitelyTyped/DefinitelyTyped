@@ -40,7 +40,7 @@ upload.start();
 
 upload.abort();
 upload.abort(true);
-upload.abort(true, (err: Error) => {
+upload.abort(true, (err?: Error) => {
     console.log("Failed because: " + err);
 });
 
