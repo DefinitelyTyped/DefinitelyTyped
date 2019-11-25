@@ -193,7 +193,7 @@ async function testPromisify() {
 
     cp = cp.addListener("close", (code, signal) => {
         const _code: number = code;
-        const _signal: string = signal;
+        const _signal: NodeJS.Signals = signal;
     });
     cp = cp.addListener("disconnect", () => { });
     cp = cp.addListener("error", (err) => {
@@ -201,7 +201,7 @@ async function testPromisify() {
     });
     cp = cp.addListener("exit", (code, signal) => {
         const _code: number | null = code;
-        const _signal: string | null  = signal;
+        const _signal: NodeJS.Signals | null  = signal;
     });
     cp = cp.addListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -216,7 +216,7 @@ async function testPromisify() {
 
     cp = cp.on("close", (code, signal) => {
         const _code: number = code;
-        const _signal: string = signal;
+        const _signal: NodeJS.Signals = signal;
     });
     cp = cp.on("disconnect", () => { });
     cp = cp.on("error", (err) => {
@@ -224,7 +224,7 @@ async function testPromisify() {
     });
     cp = cp.on("exit", (code, signal) => {
         const _code: number | null  = code;
-        const _signal: string | null  = signal;
+        const _signal: NodeJS.Signals | null  = signal;
     });
     cp = cp.on("message", (message, sendHandle) => {
         const _message: any = message;
@@ -233,7 +233,7 @@ async function testPromisify() {
 
     cp = cp.once("close", (code, signal) => {
         const _code: number = code;
-        const _signal: string = signal;
+        const _signal: NodeJS.Signals = signal;
     });
     cp = cp.once("disconnect", () => { });
     cp = cp.once("error", (err) => {
@@ -241,7 +241,7 @@ async function testPromisify() {
     });
     cp = cp.once("exit", (code, signal) => {
         const _code: number | null  = code;
-        const _signal: string | null  = signal;
+        const _signal: NodeJS.Signals | null  = signal;
     });
     cp = cp.once("message", (message, sendHandle) => {
         const _message: any = message;
@@ -250,7 +250,7 @@ async function testPromisify() {
 
     cp = cp.prependListener("close", (code, signal) => {
         const _code: number = code;
-        const _signal: string = signal;
+        const _signal: NodeJS.Signals = signal;
     });
     cp = cp.prependListener("disconnect", () => { });
     cp = cp.prependListener("error", (err) => {
@@ -258,7 +258,7 @@ async function testPromisify() {
     });
     cp = cp.prependListener("exit", (code, signal) => {
         const _code: number | null  = code;
-        const _signal: string | null  = signal;
+        const _signal: NodeJS.Signals | null  = signal;
     });
     cp = cp.prependListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -267,7 +267,7 @@ async function testPromisify() {
 
     cp = cp.prependOnceListener("close", (code, signal) => {
         const _code: number = code;
-        const _signal: string = signal;
+        const _signal: NodeJS.Signals = signal;
     });
     cp = cp.prependOnceListener("disconnect", () => { });
     cp = cp.prependOnceListener("error", (err) => {
@@ -275,7 +275,7 @@ async function testPromisify() {
     });
     cp = cp.prependOnceListener("exit", (code, signal) => {
         const _code: number | null  = code;
-        const _signal: string | null  = signal;
+        const _signal: NodeJS.Signals | null  = signal;
     });
     cp = cp.prependOnceListener("message", (message, sendHandle) => {
         const _message: any = message;
