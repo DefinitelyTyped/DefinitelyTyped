@@ -130,7 +130,7 @@ export interface ReactQueryProviderConfig {
     staleTime?: number;
     cacheTime?: number;
     refetchAllOnWindowFocus?: boolean;
-    refetchInterval?: boolean;
+    refetchInterval?: false | number;
     suspense?: boolean;
 }
 
