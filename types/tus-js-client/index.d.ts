@@ -31,7 +31,7 @@ export class Upload {
     file: File | Blob | Pick<ReadableStreamDefaultReader, "read">;
     options: UploadOptions;
     url: string | null;
-    
+
     static terminate(url: string, options?: UploadOptions, callback?: (error?: Error) => void): void;
     start(): void;
     abort(shouldTerminate?: boolean, callback?: (error?: Error) => void): void;
