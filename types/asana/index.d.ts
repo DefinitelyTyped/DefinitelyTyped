@@ -1,7 +1,8 @@
-// Type definitions for node-asana 0.14.0
+// Type definitions for node-asana 0.17.3
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Tasyp <https://github.com/tasyp>
+//                 Filippo Sarzana <https://github.com/filipposarzana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 import * as Promise from 'bluebird';
@@ -864,14 +865,14 @@ declare namespace asana {
           resource_type: string;
           resource_subtype: string;
         }
-  
+
         interface EventSectionResource extends EventResource {
           project: {
             gid: string;
             name: string;
           };
         }
-  
+
         type EventProject = EventResource & Partial<Tasks.Type>;
         type EventSection = EventSectionResource & Partial<Sections.Type>;
         type EventStory = EventResource & Partial<Stories.Type>;
@@ -1948,6 +1949,12 @@ declare namespace asana {
         interface Type extends Resource {
           created_at: string;
         }
+
+        interface SectionsParams {
+          task: number | string;
+          insert_after?: string;
+          insert_before?: string;
+        }
       }
 
       var Sections: SectionsStatic;
@@ -1970,6 +1977,22 @@ declare namespace asana {
          * @return {Promise} The requested resource
          */
         findById(section: string | number, params?: Params, dispatchOptions?: any): Promise<Sections.Type>;
+
+        /**
+         * * Adds the specified task to a specific section of project. Returns empty object.
+         *   * @param {String} section The section to add task to.
+         *   * @param {Object} data Data for the request
+         *   * @param {String} data.task The id of task to be added to specified section.
+         *   * @param {String} data.insert_after An existing task within this section after which the added task should be inserted. Cannot be provided together with insert_before.
+         *   * @param {String} data.insert_before An existing task within this section before which the added task should be inserted. Cannot be provided together with insert_after.
+         *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+         *   * @return {Promise} The response from the API
+         * @param project
+         * @param data
+         * @param dispatchOptions?
+         * @return
+         */
+        addTask(section: string | number, data: Sections.SectionsParams, dispatchOptions?: any): Promise<{}>;
       }
 
       interface TeamsStatic {
