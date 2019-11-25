@@ -452,6 +452,8 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     snapshotSelection: CoreEditor['snapshotSelection'];
     command: CoreEditor['command'];
     query: CoreEditor['query'];
+    hasCommand: CoreEditor['hasCommand'];
+    hasQuery: CoreEditor['hasQuery'];
     registerCommand: CoreEditor['registerCommand'];
     registerQuery: CoreEditor['registerQuery'];
     applyOperation: CoreEditor['applyOperation'];

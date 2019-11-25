@@ -53,6 +53,12 @@ screen.key("q", () => screen.destroy());
 
 screen.render();
 
+// Allow for arbitrary extra properties to be stored in `options`
+const extraProps = blessed.box({
+  parent: box1,
+  id: 'box3'
+});
+
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
 
 screen = blessed.screen({

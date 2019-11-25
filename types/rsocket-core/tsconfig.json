@@ -24,10 +24,13 @@
         "RSocketClient.d.ts",
         "RSocketEncoding.d.ts",
         "RSocketFrame.d.ts",
+        "RSocketLease.d.ts",
         "RSocketMachine.d.ts",
         "RSocketResumableTransport.d.ts",
         "RSocketSerialization.d.ts",
         "RSocketServer.d.ts",
-        "RSocketVersion.d.ts"
+        "RSocketVersion.d.ts",
+        "CompositeMetadata.d.ts",
+        "WellKnownMimeType.d.ts"
     ]
 }

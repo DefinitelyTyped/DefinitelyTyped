@@ -33,6 +33,7 @@
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
+//                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -100,6 +101,8 @@ declare class Stripe {
     paymentMethods: Stripe.resources.PaymentMethods;
     payouts: Stripe.resources.Payouts;
     plans: Stripe.resources.Plans;
+    oauth: Stripe.resources.OAuth;
+
     /**
      * @deprecated
      */
@@ -110,12 +113,16 @@ declare class Stripe {
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
     subscriptionItems: Stripe.resources.SubscriptionItems;
+    taxRates: Stripe.resources.TaxRates;
     tokens: Stripe.resources.Tokens;
+    topups: Stripe.resources.Topups;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
+    fileLinks: Stripe.resources.FileLinks;
     bitcoinReceivers: Stripe.resources.BitcoinReceivers;
     refunds: Stripe.resources.Refunds;
+    reviews: Stripe.resources.Reviews;
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
@@ -3679,155 +3686,155 @@ declare namespace Stripe {
 
     namespace events {
         type EventType =
-            | "*"
-            | "account.updated"
-            | "account.application.authorized"
-            | "account.application.deauthorized"
-            | "account.external_account.created"
-            | "account.external_account.deleted"
-            | "account.external_account.updated"
-            | "application_fee.created"
-            | "application_fee.refunded"
-            | "application_fee.refund.updated"
-            | "balance.available"
-            | "capability.updated"
-            | "charge.captured"
-            | "charge.expired"
-            | "charge.failed"
-            | "charge.pending"
-            | "charge.refunded"
-            | "charge.succeeded"
-            | "charge.updated"
-            | "charge.dispute.closed"
-            | "charge.dispute.created"
-            | "charge.dispute.funds_reinstated"
-            | "charge.dispute.funds_withdrawn"
-            | "charge.dispute.updated"
-            | "charge.refund.updated"
-            | "checkout.session.completed"
-            | "coupon.created"
-            | "coupon.deleted"
-            | "coupon.updated"
-            | "credit_note.created"
-            | "credit_note.updated"
-            | "credit_note.voided"
-            | "customer.created"
-            | "customer.deleted"
-            | "customer.updated"
-            | "customer.discount.created"
-            | "customer.discount.deleted"
-            | "customer.discount.updated"
-            | "customer.source.created"
-            | "customer.source.deleted"
-            | "customer.source.expiring"
-            | "customer.source.updated"
-            | "customer.subscription.created"
-            | "customer.subscription.deleted"
-            | "customer.subscription.trial_will_end"
-            | "customer.subscription.updated"
-            | "customer.tax_id.created"
-            | "customer.tax_id.deleted"
-            | "customer.tax_id.updated"
-            | "file.created"
-            | "invoice.created"
-            | "invoice.deleted"
-            | "invoice.finalized"
-            | "invoice.marked_uncollectible"
-            | "invoice.payment_action_required"
-            | "invoice.payment_failed"
-            | "invoice.payment_succeeded"
-            | "invoice.sent"
-            | "invoice.upcoming"
-            | "invoice.updated"
-            | "invoice.voided"
-            | "invoiceitem.created"
-            | "invoiceitem.deleted"
-            | "invoiceitem.updated"
-            | "issuing_authorization.created"
-            | "issuing_authorization.request"
-            | "issuing_authorization.updated"
-            | "issuing_card.created"
-            | "issuing_card.updated"
-            | "issuing_cardholder.created"
-            | "issuing_cardholder.updated"
-            | "issuing_dispute.created"
-            | "issuing_dispute.updated"
-            | "issuing_settlement.created"
-            | "issuing_settlement.updated"
-            | "issuing_transaction.created"
-            | "issuing_transaction.updated"
-            | "mandate.updated"
-            | "order.created"
-            | "order.payment_failed"
-            | "order.payment_succeeded"
-            | "order.updated"
-            | "order_return.created"
-            | "payment_intent.amount_capturable_updated"
-            | "payment_intent.canceled"
-            | "payment_intent.created"
-            | "payment_intent.payment_failed"
-            | "payment_intent.succeeded"
-            | "payment_method.attached"
-            | "payment_method.card_automatically_updated"
-            | "payment_method.detached"
-            | "payment_method.updated"
-            | "payout.canceled"
-            | "payout.created"
-            | "payout.failed"
-            | "payout.paid"
-            | "payout.updated"
-            | "person.created"
-            | "person.deleted"
-            | "person.updated"
-            | "plan.created"
-            | "plan.deleted"
-            | "plan.updated"
-            | "product.created"
-            | "product.deleted"
-            | "product.updated"
-            | "radar.early_fraud_warning.created"
-            | "radar.early_fraud_warning.updated"
-            | "recipient.created"
-            | "recipient.deleted"
-            | "recipient.updated"
-            | "reporting.report_run.failed"
-            | "reporting.report_run.succeeded"
-            | "reporting.report_type.updated"
-            | "review.closed"
-            | "review.opened"
-            | "setup_intent.canceled"
-            | "setup_intent.created"
-            | "setup_intent.setup_failed"
-            | "setup_intent.succeeded"
-            | "sigma.scheduled_query_run.created"
-            | "sku.created"
-            | "sku.deleted"
-            | "sku.updated"
-            | "source.canceled"
-            | "source.chargeable"
-            | "source.failed"
-            | "source.mandate_notification"
-            | "source.refund_attributes_required"
-            | "source.transaction.created"
-            | "source.transaction.updated"
-            | "subscription_schedule.aborted"
-            | "subscription_schedule.canceled"
-            | "subscription_schedule.completed"
-            | "subscription_schedule.created"
-            | "subscription_schedule.expiring"
-            | "subscription_schedule.released"
-            | "subscription_schedule.updated"
-            | "tax_rate.created"
-            | "tax_rate.updated"
-            | "topup.created"
-            | "topup.failed"
-            | "topup.reversed"
-            | "topup.succeeded"
-            | "transfer.created"
-            | "transfer.failed"
-            | "transfer.paid"
-            | "transfer.reversed"
-            | "transfer.updated";
+            | '*'
+            | 'account.updated'
+            | 'account.application.authorized'
+            | 'account.application.deauthorized'
+            | 'account.external_account.created'
+            | 'account.external_account.deleted'
+            | 'account.external_account.updated'
+            | 'application_fee.created'
+            | 'application_fee.refunded'
+            | 'application_fee.refund.updated'
+            | 'balance.available'
+            | 'capability.updated'
+            | 'charge.captured'
+            | 'charge.expired'
+            | 'charge.failed'
+            | 'charge.pending'
+            | 'charge.refunded'
+            | 'charge.succeeded'
+            | 'charge.updated'
+            | 'charge.dispute.closed'
+            | 'charge.dispute.created'
+            | 'charge.dispute.funds_reinstated'
+            | 'charge.dispute.funds_withdrawn'
+            | 'charge.dispute.updated'
+            | 'charge.refund.updated'
+            | 'checkout.session.completed'
+            | 'coupon.created'
+            | 'coupon.deleted'
+            | 'coupon.updated'
+            | 'credit_note.created'
+            | 'credit_note.updated'
+            | 'credit_note.voided'
+            | 'customer.created'
+            | 'customer.deleted'
+            | 'customer.updated'
+            | 'customer.discount.created'
+            | 'customer.discount.deleted'
+            | 'customer.discount.updated'
+            | 'customer.source.created'
+            | 'customer.source.deleted'
+            | 'customer.source.expiring'
+            | 'customer.source.updated'
+            | 'customer.subscription.created'
+            | 'customer.subscription.deleted'
+            | 'customer.subscription.trial_will_end'
+            | 'customer.subscription.updated'
+            | 'customer.tax_id.created'
+            | 'customer.tax_id.deleted'
+            | 'customer.tax_id.updated'
+            | 'file.created'
+            | 'invoice.created'
+            | 'invoice.deleted'
+            | 'invoice.finalized'
+            | 'invoice.marked_uncollectible'
+            | 'invoice.payment_action_required'
+            | 'invoice.payment_failed'
+            | 'invoice.payment_succeeded'
+            | 'invoice.sent'
+            | 'invoice.upcoming'
+            | 'invoice.updated'
+            | 'invoice.voided'
+            | 'invoiceitem.created'
+            | 'invoiceitem.deleted'
+            | 'invoiceitem.updated'
+            | 'issuing_authorization.created'
+            | 'issuing_authorization.request'
+            | 'issuing_authorization.updated'
+            | 'issuing_card.created'
+            | 'issuing_card.updated'
+            | 'issuing_cardholder.created'
+            | 'issuing_cardholder.updated'
+            | 'issuing_dispute.created'
+            | 'issuing_dispute.updated'
+            | 'issuing_settlement.created'
+            | 'issuing_settlement.updated'
+            | 'issuing_transaction.created'
+            | 'issuing_transaction.updated'
+            | 'mandate.updated'
+            | 'order.created'
+            | 'order.payment_failed'
+            | 'order.payment_succeeded'
+            | 'order.updated'
+            | 'order_return.created'
+            | 'payment_intent.amount_capturable_updated'
+            | 'payment_intent.canceled'
+            | 'payment_intent.created'
+            | 'payment_intent.payment_failed'
+            | 'payment_intent.succeeded'
+            | 'payment_method.attached'
+            | 'payment_method.card_automatically_updated'
+            | 'payment_method.detached'
+            | 'payment_method.updated'
+            | 'payout.canceled'
+            | 'payout.created'
+            | 'payout.failed'
+            | 'payout.paid'
+            | 'payout.updated'
+            | 'person.created'
+            | 'person.deleted'
+            | 'person.updated'
+            | 'plan.created'
+            | 'plan.deleted'
+            | 'plan.updated'
+            | 'product.created'
+            | 'product.deleted'
+            | 'product.updated'
+            | 'radar.early_fraud_warning.created'
+            | 'radar.early_fraud_warning.updated'
+            | 'recipient.created'
+            | 'recipient.deleted'
+            | 'recipient.updated'
+            | 'reporting.report_run.failed'
+            | 'reporting.report_run.succeeded'
+            | 'reporting.report_type.updated'
+            | 'review.closed'
+            | 'review.opened'
+            | 'setup_intent.canceled'
+            | 'setup_intent.created'
+            | 'setup_intent.setup_failed'
+            | 'setup_intent.succeeded'
+            | 'sigma.scheduled_query_run.created'
+            | 'sku.created'
+            | 'sku.deleted'
+            | 'sku.updated'
+            | 'source.canceled'
+            | 'source.chargeable'
+            | 'source.failed'
+            | 'source.mandate_notification'
+            | 'source.refund_attributes_required'
+            | 'source.transaction.created'
+            | 'source.transaction.updated'
+            | 'subscription_schedule.aborted'
+            | 'subscription_schedule.canceled'
+            | 'subscription_schedule.completed'
+            | 'subscription_schedule.created'
+            | 'subscription_schedule.expiring'
+            | 'subscription_schedule.released'
+            | 'subscription_schedule.updated'
+            | 'tax_rate.created'
+            | 'tax_rate.updated'
+            | 'topup.created'
+            | 'topup.failed'
+            | 'topup.reversed'
+            | 'topup.succeeded'
+            | 'transfer.created'
+            | 'transfer.failed'
+            | 'transfer.paid'
+            | 'transfer.reversed'
+            | 'transfer.updated';
 
         interface IEvent extends IResourceObject {
             /**
@@ -3965,6 +3972,78 @@ declare namespace Stripe {
             | 'identity_document'
             | 'incorporation_article'
             | 'incorporation_document';
+    }
+
+    namespace fileLinks {
+        interface IFileLink extends IResourceObject {
+            /**
+             * Value is 'file_link'
+             */
+            object: 'file_link';
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Whether this link is already expired.
+             */
+            expired: boolean;
+
+            /**
+             * Time at which the link expires.
+             */
+            expires_at: number | null;
+
+            /**
+             * The file object this link points to
+             */
+            file: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * The publicly accessible URL to download the file.
+             */
+            url: string;
+        }
+
+        interface IFileLinksCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The ID of the file
+             */
+            file: string;
+
+            /**
+             * A future timestamp after which the link will no longer be usable.
+             */
+            expires_at?: number;
+        }
+
+        interface IFileLinksUpdateOptions extends IDataOptionsWithMetadata {
+            expires_at?: number | 'now';
+        }
+
+        interface IFileLinksListOptions extends IListOptionsCreated {
+            /**
+             * Only return links for the given file.
+             */
+            file?: string;
+
+            /**
+             * Filter links by their expiration status. By default, all links are returned.
+             */
+            expired?: boolean;
+        }
     }
 
     namespace invoices {
@@ -6268,7 +6347,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type SetupIntentPaymentMethodType = 'card' | 'card_present';
+        type SetupIntentPaymentMethodType = 'card' | 'card_present' | 'sepa_debit';
 
         interface ISetupIntent extends IResourceObject {
             /**
@@ -6970,18 +7049,29 @@ declare namespace Stripe {
     namespace plans {
         interface ITier {
             /**
-             * A flat fee for the tier to be added into the total amount
-             */
-            flat_amount: number | null;
-
-            /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number | null;
+            up_to: number | null | 'inf';
+
+            /**
+             * Price for the entire tier.
+             */
+            flat_amount?: number | null;
+
+            /**
+             * Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            flat_amount_decimal?: number | null;
+
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number | null;
+            unit_amount?: number | null;
+
+            /**
+             * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            unit_amount_decimal?: number | null;
         }
 
         interface ITransformUsage {
@@ -7746,6 +7836,102 @@ declare namespace Stripe {
         }
     }
 
+    namespace oauth {
+        interface IOAuthAuthorizationCodeTokenRequest {
+            /**
+             * authorization_code when turning an authorization code into an access token
+             */
+            grant_type: 'authorization_code';
+
+            /**
+             * The value of the code
+             */
+            code: string;
+
+            /**
+             * Has no effect when requesting an access token from an authorization code.
+             */
+            scope?: string;
+
+            /**
+             * Check whether the suggested_capabilities were applied to the connected account.
+             */
+            assert_capabilities?: string;
+        }
+
+        interface IOAuthRefreshTokenRequest {
+            /**
+             * use a refresh token to get a new access token.
+             */
+            grant_type: 'refresh_token';
+
+            /**
+             * The value of the refresh_token
+             */
+            refresh_token: string;
+
+            /**
+             * When requesting a new access token from a refresh token, any scope that has an equal or lesser scope as the refresh token.
+             *
+             * Defaults to the scope of the refresh token.
+             */
+            scope?: string;
+
+            /**
+             * Check whether the suggested_capabilities were applied to the connected account.
+             */
+            assert_capabilities?: string;
+        }
+
+        interface IOAuthToken {
+            /**
+             * The unique id of the account you have been granted access to, as a string.
+             */
+            stripe_user_id: string;
+
+            /**
+             * The access token you can use to make requests on behalf of this Stripe account. Use it as you would any Stripe secret API key.
+             *
+             * This key does not expire, but may be revoked by the user at any time (you'll get a account.application.deauthorized webhook event when this happens).
+             */
+            access_token: string;
+
+            /**
+             * The scope granted to the access token, depending on the scope of the authorization code and scope parameter.
+             */
+            scope: string;
+
+            /**
+             * The live mode indicator for the token. If true, the access_token can be used as a live secret key. If false, the access_token can be used as a test secret key.
+             *
+             * Depends on the mode of the secret API key used to make the request.
+             */
+            livemode: boolean;
+
+            /**
+             * Will always have a value of bearer.
+             */
+            token_type: 'bearer';
+
+            /**
+             * Can be used to get a new access token of an equal or lesser scope, or of a different live mode (where applicable).
+             */
+            refresh_token: string;
+
+            /**
+             * A publishable key that can be used with this account. Matches the mode—live or test—of the token.
+             */
+            stripe_publishable_key: string;
+        }
+
+        interface IOAuthDeauthorizationResponse {
+            /**
+             * The unique id of the account you have revoked access to, as a string. This is the same as the stripe_user_id you passed in. If this is returned, the revocation was successful.
+             */
+            stripe_user_id: string;
+        }
+    }
+
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken {}
 
@@ -7829,6 +8015,152 @@ declare namespace Stripe {
                 personal_id_number: string;
             };
         }
+    }
+
+    namespace topups {
+        interface ITopup extends IResourceObject {
+            /**
+             * Value is "topup"
+             */
+            object: 'topup';
+
+            /**
+             * Amount transferred
+             */
+            amount: number;
+
+            /**
+             * ID of the balance transaction that describes the impact of this top-up on your account balance.
+             * May not be specified depending on status of top-up.
+             */
+            balance_transaction: string | null;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string;
+
+            /**
+             * Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays
+             * like weekends or bank holidays. May not be specified depending on status of top-up.
+             */
+            expected_availability_date: number;
+
+            /**
+             * Error code explaining reason for top-up failure if available
+             */
+            failure_code: string | null;
+
+            /**
+             * Message to user further explaining reason for top-up failure if available.
+             */
+            failure_message: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists
+             * in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metaData: IMetadata;
+
+            /**
+             * For most Stripe users, the source of every top-up is a bank account. This hash is then the
+             * source object describing that bank account.
+             */
+            source: ISource;
+
+            /**
+             * Extra information about a top-up. This will appear on your source’s bank statement.
+             * It must contain at least one letter.
+             */
+            statement_descriptor: string | null;
+
+            /**
+             * Status of topup
+             */
+            status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group: string | null;
+        }
+
+        interface ITopupCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * A positive integer representing how much to transfer.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * The ID of a source to transfer funds from. For most users, this should be left unspecified
+             * which will use the bank account that was set up in the dashboard for the specified currency.
+             * In test mode, this can be a test bank token (see https://stripe.com/docs/connect/testing#testing-top-ups).
+             */
+            source?: string;
+
+            /**
+             * Extra information about a top-up for the source’s bank statement. Limited to 15 ASCII characters.
+             */
+            statement_descriptor?: string;
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group?: string;
+        }
+
+        interface ITopupUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+        }
+
+        interface ITopupsListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the object amount field. The value can be a string with
+             * an integer amount, or it can be a dictionary.
+             */
+            amount?: IAmountFilter;
+
+            /**
+             * Only return top-ups that have the given status.
+             */
+            status?: 'canceled' | 'failed' | 'pending' | 'succeeded';
+        }
+
+        type IAmountFilter = string | {
+            gt?: string;
+            gte?: string;
+            lt?: string;
+            lte?: string;
+        };
     }
 
     namespace transfers {
@@ -9779,7 +10111,7 @@ declare namespace Stripe {
             /**
              * Value is 'webhook_endpoint'
              */
-            object: "webhook_endpoint";
+            object: 'webhook_endpoint';
 
             id: string;
 
@@ -9812,7 +10144,7 @@ declare namespace Stripe {
             /**
              * The status of the webhook.
              */
-            status: "enabled" | "disabled";
+            status: 'enabled' | 'disabled';
 
             /**
              * The URL of the webhook endpoint.
@@ -12584,6 +12916,76 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
         }
 
+        class FileLinks extends StripeResource {
+            /**
+             * Creates a new file link object.
+             */
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a file link object if a valid identifier was provided, and throws an error otherwise.
+             */
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(id: string, response?: IResponseFn<fileLinks.IFileLink>): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful,
+             * and throws an error otherwise.
+             */
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a list of file links
+             */
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(response?: IResponseFn<IList<fileLinks.IFileLink>>): IListPromise<fileLinks.IFileLink>;
+        }
+
         class Invoices extends StripeResource {
             /**
              * If you need to invoice your customer outside the regular billing cycle, you can create an invoice that
@@ -13648,6 +14050,49 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
         }
 
+        class Reviews extends StripeResource {
+            /**
+             * Approves a Review object, closing it and removing it from the list of reviews. Returns the approved
+             * review object.
+             * @param id - The identifier of the review to be approved.
+             */
+            approve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            approve(id: string, response?: IResponseFn<reviews.IReview>): Promise<reviews.IReview>;
+
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+
+            /**
+             * Returns a list of Review objects that have open set to true. The objects are sorted in descending
+             * order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: IListOptionsCreated,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                data: IListOptionsCreated,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
+        }
+
         class Sources extends StripeResource {
             /** Create Source: https://stripe.com/docs/api/sources/create */
             create(
@@ -13753,6 +14198,110 @@ declare namespace Stripe {
                 response?: IResponseFn<tokens.IToken>,
             ): Promise<tokens.IToken>;
             retrieve(tokenId: string, response?: IResponseFn<tokens.IToken>): Promise<tokens.IToken>;
+        }
+
+        class Topups extends StripeResource {
+            /**
+             * Top up the balance of an account
+             */
+            create(
+                data: topups.ITopupCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            create(
+                data: topups.ITopupCreationOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Retrieves the details of a top-up that has previously been created.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Updates the metadata of a top-up. Other top-up details are not editable by design.
+             * Returns the newly updated top-up object if the call succeeded. Otherwise, this call throws an error.
+             */
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * A object containing the data property, which is an array of separate top-up objects. The number
+             * of top-ups in the array is limited to the number designated in limit. If no more top-ups are available,
+             * the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: topups.ITopupsListOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+            list(
+                data: topups.ITopupsListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+
+            /**
+             * Cancels a top-up. Only pending top-ups can be canceled. Returns the canceled top-up. If the top-up
+             * is already canceled or can’t be canceled, an error is returned.
+             */
+            cancel(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
+        }
+
+        class OAuth extends StripeResource {
+            /**
+             * Used both for turning an authorization_code into an access_token, and for getting a new access token using a refresh_token.
+             *
+             */
+            token(
+                data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
+                options: HeaderOptions,
+                response?: IResponseFn<oauth.IOAuthToken>,
+            ): Promise<oauth.IOAuthToken>;
+            token(
+                data: oauth.IOAuthAuthorizationCodeTokenRequest | oauth.IOAuthRefreshTokenRequest,
+                response?: IResponseFn<oauth.IOAuthToken>,
+            ): Promise<oauth.IOAuthToken>;
+
+            /**
+             * When revoking access to an account, you must use an API key that matches the mode—live or test—of the authorization code (which depends on whether the client_id used was production or development).
+             *
+             * @param client_id The client_id of the application that you'd like to disconnect the account from. The account must be connected to this application.
+             * @param stripe_user_id The account you'd like to disconnect from.
+             */
+            deauthorize(
+                client_id: string,
+                stripe_user_id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
+            ): Promise<oauth.IOAuthDeauthorizationResponse>;
+            deauthorize(
+                client_id: string,
+                stripe_user_id: string,
+                response?: IResponseFn<oauth.IOAuthDeauthorizationResponse>,
+            ): Promise<oauth.IOAuthDeauthorizationResponse>;
         }
 
         class Transfers extends StripeResource {
@@ -14347,7 +14896,10 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
             ): Promise<webhookEndpoints.IWebhookEndpoint>;
-            create(data: webhookEndpoints.IWebhookCreateOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+            create(
+                data: webhookEndpoints.IWebhookCreateOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
              * Retrieves the details of an existing webhook
@@ -14358,9 +14910,20 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
             ): Promise<webhookEndpoints.IWebhookEndpoint>;
-            retrieve(webhookId: string, data: IDataOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
-            retrieve(webhookId: string, options: HeaderOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
-            retrieve(webhookId: string, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(
+                webhookId: string,
+                data: IDataOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(
+                webhookId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
+            retrieve(
+                webhookId: string,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
              * Updates the specific webhook endpoint by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -14373,7 +14936,11 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
             ): Promise<webhookEndpoints.IWebhookEndpoint>;
-            update(webhookId: string, data: webhookEndpoints.IWebhookUpdateOptions, response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>): Promise<webhookEndpoints.IWebhookEndpoint>;
+            update(
+                webhookId: string,
+                data: webhookEndpoints.IWebhookUpdateOptions,
+                response?: IResponseFn<webhookEndpoints.IWebhookEndpoint>,
+            ): Promise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
              * Returns a list of your webhook endpoints
@@ -14383,9 +14950,17 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
             ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
-            list(data: IListOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
-            list(response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(
+                data: IListOptions,
+                response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
+            ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
+            ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
+            list(
+                response?: IResponseFn<IList<webhookEndpoints.IWebhookEndpoint>>,
+            ): IListPromise<webhookEndpoints.IWebhookEndpoint>;
 
             /**
              * Deletes a webhook endpoint.

@@ -81,6 +81,7 @@ const chart: Chart = new Chart(ctx, {
             ],
         },
         legend: {
+            align: 'center',
             display: true,
             labels: {
                 usePointStyle: true,
@@ -294,3 +295,13 @@ const customTooltipsPieChart = new Chart(ctx, {
         },
     },
 });
+
+// platform global values
+Chart.platform.disableCSSInjection = true;
+
+// default global static values
+Chart.defaults.global.defaultFontColor = '#544615';
+Chart.defaults.global.defaultFontFamily = 'Arial';
+Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
+Chart.defaults.global.tooltips.cornerRadius = 2;
+Chart.defaults.global.tooltips.displayColors = false;
