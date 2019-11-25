@@ -18,7 +18,7 @@ declare module "child_process" {
         readonly killed: boolean;
         readonly pid: number;
         readonly connected: boolean;
-        kill(signal?: NodeJS.Signals): void;
+        kill(signal?: NodeJS.Signals | number): void;
         send(message: any, callback?: (error: Error | null) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
@@ -300,7 +300,7 @@ declare module "child_process" {
 
     interface ExecFileOptions extends CommonOptions {
         maxBuffer?: number;
-        killSignal?: NodeJS.Signals;
+        killSignal?: NodeJS.Signals | number;
         windowsVerbatimArguments?: boolean;
         shell?: boolean | string;
     }
