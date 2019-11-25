@@ -67,8 +67,8 @@ export interface TextFieldProps extends TextInputProps {
     renderLeftAccessory?(): JSX.Element;
     renderRightAccessory?(): JSX.Element;
 
-    lineType?: string;
-    disabledLineType?: string;
+    lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
 
     editable?: boolean;
     multiline?: boolean;
