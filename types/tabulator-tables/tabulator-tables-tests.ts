@@ -594,13 +594,9 @@ table = Tabulator.prototype.findTable('#example-table');
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
 
-table.addColumn({} as Tabulator.ColumnDefinition).then(() => {
-    //success
-});
+table.addColumn({} as Tabulator.ColumnDefinition).then(() => {});
 
-table.deleteColumn('name').then(() => {
-    //success
-});
+table.deleteColumn('name').then(() => {});
 
 table
     .updateColumnDefinition('age', { title: 'Updated Title', frozen: true })
