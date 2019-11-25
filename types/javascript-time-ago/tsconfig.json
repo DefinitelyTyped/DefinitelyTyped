@@ -9,7 +9,6 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "strict": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true
