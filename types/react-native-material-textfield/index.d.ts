@@ -53,10 +53,6 @@ export interface TextFieldProps extends TextInputProps {
 
     disabledLineWidth?: number;
 
-    renderAccessory?(): JSX.Element;
-
-    clearTextOnFocus?: boolean;
-
     prefix?: string;
     suffix?: string;
 
@@ -68,6 +64,12 @@ export interface TextFieldProps extends TextInputProps {
 
     renderLeftAccessory?(): JSX.Element;
     renderRightAccessory?(): JSX.Element;
+
+    lineType?: string;
+    disabledLineType?: string;
+
+    editable?: boolean;
+    multiline?: boolean;
 }
 
 /**
