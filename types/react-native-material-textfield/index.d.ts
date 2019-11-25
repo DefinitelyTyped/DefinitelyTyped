@@ -53,6 +53,8 @@ export interface TextFieldProps extends TextInputProps {
 
     disabledLineWidth?: number;
 
+    clearTextOnFocus?: boolean;
+
     prefix?: string;
     suffix?: string;
 
