@@ -1,3 +1,6 @@
+/// <reference types="../slick.checkboxselectcolumn" />
+/// <reference types="../slick.rowselectionmodel" />
+/// <reference types="../slick.columnpicker" />
 /**
  * Extracted from https://github.com/mleibman/SlickGrid/blob/master/examples/example-checkbox-row-select.html
  */
