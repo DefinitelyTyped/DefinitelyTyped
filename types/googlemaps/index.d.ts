@@ -42,6 +42,12 @@ THE SOFTWARE.
 */
 
 declare namespace google.maps {
+    /**
+     * Version of the Google Maps JavaScript API that the browser has loaded.
+     * Like '3.38.11'.
+     */
+    const version: string;
+
     /***** Map *****/
     class Map extends MVCObject {
         constructor(mapDiv: Element | null, opts?: MapOptions);
