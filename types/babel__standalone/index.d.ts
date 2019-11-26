@@ -1,4 +1,4 @@
-// Type definitions for @babel/standalone 7.7.4
+// Type definitions for @babel/standalone 7.1
 // Project: https://github.com/babel/babel/tree/master/packages/babel-standalone
 // Definitions by: Matheus Goncalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
