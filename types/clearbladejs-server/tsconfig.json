@@ -17,8 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "clearbladejs-server-tests.ts",
-        "global.d.ts"
+        "clearbladejs-server-tests.ts"
     ],
     "exclude": [
         "**/clearbladejs-client/*",
