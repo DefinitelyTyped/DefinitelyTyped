@@ -1843,7 +1843,7 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
+     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Excel (on Mac and the web), Word (on Windows, Mac, and the web), and PowerPoint.
      */
     enum FileType {
         /**
@@ -3450,10 +3450,10 @@ declare namespace Office {
          *
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * Excel on the web and Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         *
+         * Excel on Windows desktop: `Office.FileType.Compressed`
          *
          * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
@@ -3485,10 +3485,10 @@ declare namespace Office {
          *
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * Excel on the web and Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         *
+         * Excel on Windows desktop: `Office.FileType.Compressed`
          *
          * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
