@@ -672,8 +672,8 @@ declare namespace stripe {
             // Cannot find name 'HTMLElement'
             mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
-            addEventListener(event: eventTypes, handler: handler): void;
             on(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
+            addEventListener(event: eventTypes, handler: handler): void;
             addEventListener(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
             focus(): void;
             blur(): void;
