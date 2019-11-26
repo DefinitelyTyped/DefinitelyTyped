@@ -1,4 +1,4 @@
-// Type definitions for mui-datatables 2.12
+// Type definitions for mui-datatables 2.13
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
