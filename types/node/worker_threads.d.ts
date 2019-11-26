@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const resourceLimits: WorkerResourceLimits;
     const threadId: number;
     const workerData: any;
 
@@ -53,6 +54,12 @@ declare module "worker_threads" {
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
+    interface WorkerResourceLimits {
+        codeRangeSizeMb?: number;
+        maxOldGenerationSizeMb?: number;
+        maxYoungGenerationSizeMb?: number;
+    }
+
     interface WorkerOptions {
         eval?: boolean;
         workerData?: any;
@@ -63,6 +70,7 @@ declare module "worker_threads" {
     }
 
     class Worker extends EventEmitter {
+        readonly resourceLimits: WorkerResourceLimits;
         readonly stdin: Writable | null;
         readonly stdout: Readable;
         readonly stderr: Readable;
