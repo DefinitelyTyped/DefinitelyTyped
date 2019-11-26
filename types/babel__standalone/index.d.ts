@@ -10,21 +10,21 @@ export function transform(code: string, options: TransformOptions): string;
 
 export function transformFromAst(ast: types.Node, code: string | undefined, opts: TransformOptions | undefined, callback?: FileResultCallback): void;
 
-export function registerPlugin(name: string, plugin: Object | Function): void;
+export function registerPlugin(name: string, plugin: object | (() => void)): void;
 
 export function registerPlugins(newPlugins: {
-    [key: string]: Object | Function
+    [key: string]: object | (() => void)
 }): void;
 
-export function registerPreset(name: string, preset: Object | Function): void;
+export function registerPreset(name: string, preset: object | (() => void)): void;
 export function registerPresets(newPresets: {
-    [key: string]: Object | Function,
+    [key: string]: object | (() => void),
 }): void
 
-export const availablePlugins: Record<string, Object | Function>;
-export const availablePresets: Record<string, Object | Function>;
+export const availablePlugins: Record<string, object | (() => void)>;
+export const availablePresets: Record<string, object | (() => void)>;
 
-export function transformScriptTags(scriptTags?: Array<any>): void;
+export function transformScriptTags(scriptTags?: any[]): void;
 
 export function disableScriptTags(): void;
 
