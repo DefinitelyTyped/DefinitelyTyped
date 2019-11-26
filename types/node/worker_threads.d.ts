@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
 
@@ -54,12 +55,13 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
-        eval?: boolean;
-        workerData?: any;
+        stderr?: boolean;
         stdin?: boolean;
         stdout?: boolean;
-        stderr?: boolean;
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
+        eval?: boolean;
         execArgv?: string[];
+        workerData?: any;
     }
 
     class Worker extends EventEmitter {
