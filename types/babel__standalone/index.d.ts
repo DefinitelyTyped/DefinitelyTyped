@@ -2,6 +2,7 @@
 // Project: https://github.com/babel/babel/tree/master/packages/babel-standalone
 // Definitions by: Matheus Goncalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 import { TransformOptions, types, FileResultCallback } from '@babel/core';
 
