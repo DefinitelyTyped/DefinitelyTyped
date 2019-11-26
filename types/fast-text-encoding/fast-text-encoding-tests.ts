@@ -1,4 +1,6 @@
-import 'fast-text-encoding';
+// Declare globals in non-DOM environment
+declare let TextDecoder: fastTextEncoding.TextDecoder;
+declare let TextEncoder: fastTextEncoding.TextEncoder;
 
 const encoder1 = new TextEncoder();
 const _encoder2 = new TextEncoder('utf-8');
