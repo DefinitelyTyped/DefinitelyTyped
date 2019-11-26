@@ -1,4 +1,4 @@
-/// <reference types="../../../addon/edit/closebrackets" />
+/// <reference types="../../../../codemirror/addon/edit/closebrackets" />
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
     autoCloseBrackets: "()[]{}''\"\""

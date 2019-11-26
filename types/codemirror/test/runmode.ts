@@ -1,4 +1,4 @@
-/// <reference types="../codemirror-runmode" />
+/// <reference types="../../codemirror/codemirror-runmode" />
 
 var query = "SELECT * FROM Table";
 
