@@ -171,7 +171,9 @@ Your package should have this structure:
 Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
-You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
+You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option. If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
