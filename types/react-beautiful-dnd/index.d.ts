@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 12.0
+// Type definitions for react-beautiful-dnd 12.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -39,6 +39,8 @@ export interface ResponderProvided {
     announce: Announce;
 }
 
+export type OnBeforeCaptureResponder = (before: BeforeCapture) => void;
+
 export type OnBeforeDragStartResponder = (start: DragStart) => void;
 
 export type OnDragStartResponder = (start: DragStart, provided: ResponderProvided) => void;
@@ -48,6 +50,7 @@ export type OnDragUpdateResponder = (update: DragUpdate, provided: ResponderProv
 export type OnDragEndResponder = (result: DropResult, provided: ResponderProvided) => void;
 
 export interface Responders {
+    onBeforeCapture?: OnBeforeCaptureResponder;
     onBeforeDragStart?: OnBeforeDragStartResponder;
     onDragStart?: OnDragStartResponder;
     onDragUpdate?: OnDragUpdateResponder;
@@ -72,6 +75,11 @@ export interface DragUpdate extends DragStart {
     destination?: DraggableLocation;
     // populated when a draggable is dragging over another in combine mode
     combine?: Combine;
+}
+
+export interface BeforeCapture {
+    draggableId: DraggableId;
+    mode: MovementMode;
 }
 
 // details of the item that is being combined with
@@ -242,8 +250,6 @@ export interface DraggableProvidedDraggableProps {
 }
 
 export interface DraggableProvidedDragHandleProps {
-    onFocus: () => void;
-    onBlur: () => void;
     onMouseDown: React.MouseEventHandler<any>;
     onKeyDown: React.KeyboardEventHandler<any>;
     onTouchStart: React.TouchEventHandler<any>;
