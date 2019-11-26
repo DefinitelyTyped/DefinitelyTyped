@@ -32,6 +32,24 @@ redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 redis.exists('foo').then(result => result * 1);
+redis.exists('foo', ((err, data) => data * 1));
+
+const listData = ['foo', 'bar', 'baz'];
+listData.forEach(value => {
+    redis.rpushBuffer('bufferlist', Buffer.from(value));
+});
+redis.lpopBuffer('bufferlist', (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
+    results.forEach((value, index) => {
+        if (value.toString() !== listData[index + 1]) {
+            console.log(value.toString());
+        }
+    });
+});
 
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380
@@ -56,7 +74,7 @@ redis.subscribe('news', 'music', (err: any, count: any) => {
     // `count` represents the number of channels we are currently subscribed to.
 
     pub.publish('news', 'Hello world!');
-    pub.publish('music', 'Hello again!');
+    pub.publishBuffer('music', Buffer.from('Hello again!'));
 });
 
 redis.on('message', (channel: any, message: any) => {
@@ -153,3 +171,16 @@ new Redis.Cluster([{
     host: 'localhost',
     port: 6379
 }]);
+
+// ClusterRetryStrategy can return non-numbers to stop retrying
+new Redis.Cluster([], {
+    clusterRetryStrategy: (times: number) => null
+});
+
+new Redis.Cluster([], {
+    clusterRetryStrategy: (times: number) => 1
+});
+
+redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
+    // sorted set 'foo' now has score 'foo1' containing barBuffer
+});

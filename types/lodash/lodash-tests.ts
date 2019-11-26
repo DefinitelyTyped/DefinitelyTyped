@@ -624,6 +624,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return 1;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionBy(...[list], (value) => {
+        value; // $ExpectType AbcObject
+        return 0;
+    });
 
     _.chain(list).intersectionBy(list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).intersectionBy(list, "a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
@@ -661,8 +666,18 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType T1 | T2
         return {};
     });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    _([t1]).intersectionBy(...[[t2]], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     _.chain([t1]).intersectionBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    _.chain([t1]).intersectionBy(...[[t2]], (value) => {
         value; // $ExpectType T1 | T2
         return {};
     });
@@ -1766,6 +1781,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;
@@ -2337,7 +2354,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    fp.forEach(stringIterator, ""); // $ExpectType string
+    fp.forEach(stringIterator, ""); // $ExpectType ArrayLike<string>
     fp.forEach(valueIterator, array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator)(array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -2792,6 +2809,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 
 // _.partition
 {
+    const mixedArray = [1, 2, '3', '4'];
+
     // $ExpectType [any[], any[]]
     _.partition(anything, (value) => {
         value; // $ExpectType any
@@ -2807,6 +2826,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType [number[], string[]]
+    _.partition(mixedArray, (value): value is number => typeof value === 'number');
 
     // $ExpectType LoDashImplicitWrapper<[any[], any[]]>
     _(anything).partition((value) => {
@@ -2823,6 +2844,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType LoDashImplicitWrapper<[number[], string[]]>
+    _(mixedArray).partition((value): value is number => typeof value === 'number');
 
     // $ExpectType LoDashExplicitWrapper<[any[], any[]]>
     _.chain(anything).partition((value) => {
@@ -2839,6 +2862,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType LoDashExplicitWrapper<[number[], string[]]>
+    _.chain(mixedArray).partition((value): value is number => typeof value === 'number');
 
     // $ExpectType [any[], any[]]
     fp.partition((value) => {
@@ -2857,6 +2882,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     }, list);
+    // $ExpectType [number[], string[]]
+    fp.partition((value): value is number => typeof value === 'number', mixedArray);
 }
 
 // _.reduce
@@ -3402,21 +3429,25 @@ fp.now(); // $ExpectType number
     const fn2 = (m: number, n: number): number => 0;
     const fn3 = (a: number): string => "";
     const fn4 = (a: string): boolean => true;
+    const fn5 = (): number => 0;
 
     _.flow(fn2, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn1, fn1, fn1, fn1, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
     _.flow([fn2, fn1, fn3, fn4]); // $ExpectType (...args: any[]) => any
+    _.flow(fn5, fn1); // $ExpectType () => number
 
     _(fn2).flow(fn1); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn2).flow(fn1, fn1); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn2).flow(fn1, fn1, fn1); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn2).flow([fn1, fn1, fn1]); // $ExpectType LoDashImplicitWrapper<(...args: any[]) => any>
+    _(fn5).flow(fn1); // $ExpectType LoDashImplicitWrapper<() => number>
 
     _.chain(fn2).flow(fn1); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn2).flow(fn1, fn1); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn2).flow(fn1, fn1, fn1); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn2).flow([fn1, fn1, fn1]); // $ExpectType LoDashExplicitWrapper<(...args: any[]) => any>
+    _.chain(fn5).flow(fn1); // $ExpectType LoDashExplicitWrapper<() => number>
 
     fp.flow(fn1, fn1); // $ExpectType (a1: number) => number
     fp.flow(fn1, fn3); // $ExpectType (a1: number) => string
@@ -3429,21 +3460,25 @@ fp.now(); // $ExpectType number
     fp.flow(fn2, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
     fp.flow(fn2, fn1, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
     fp.flow([fn2, fn1, fn3, fn4]); // $ExpectType (...args: any[]) => any
+    fp.flow(fn5, fn1); // $ExpectType () => number
 
     _.flowRight(fn1, fn2); // $ExpectType (a1: number, a2: number) => number
     _.flowRight(fn1, fn1, fn2); // $ExpectType (a1: number, a2: number) => number
     _.flowRight(fn1, fn1, fn1, fn2); // $ExpectType (a1: number, a2: number) => number
     _.flowRight([fn1, fn1, fn1, fn2]); // $ExpectType (...args: any[]) => any
+    _.flowRight(fn1, fn5); // $ExpectType () => number
 
     _(fn1).flowRight(fn2); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn1).flowRight(fn1, fn2); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn1).flowRight(fn1, fn1, fn2); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => number>
     _(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType LoDashImplicitWrapper<(...args: any[]) => any>
+    _(fn1).flowRight(fn5); // $ExpectType LoDashImplicitWrapper<() => number>
 
     _.chain(fn1).flowRight(fn2); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn1).flowRight(fn1, fn2); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn1).flowRight(fn1, fn1, fn2); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => number>
     _.chain(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType LoDashExplicitWrapper<(...args: any[]) => any>
+    _.chain(fn1).flowRight(fn5); // $ExpectType LoDashExplicitWrapper<() => number>
 
     fp.flowRight(fn1, fn1); // $ExpectType (a1: number) => number
     fp.flowRight(fn3, fn1); // $ExpectType (a1: number) => string
@@ -3456,6 +3491,7 @@ fp.now(); // $ExpectType number
     fp.flowRight(fn4, fn3, fn2); // $ExpectType (a1: number, a2: number) => boolean
     fp.flowRight(fn4, fn3, fn1, fn2); // $ExpectType (a1: number, a2: number) => boolean
     fp.flowRight([fn4, fn3, fn1, fn2]); // $ExpectType (...args: any[]) => any
+    fp.flowRight(fn1, fn5); // $ExpectType () => number
 }
 
 // _.memoize
@@ -4289,6 +4325,12 @@ fp.now(); // $ExpectType number
     _(42).isObject(); // $ExpectType boolean
     _.chain([]).isObject(); // $ExpectType LoDashExplicitWrapper<boolean>
     fp.isObject(anything); // $ExpectType boolean
+    if (fp.isObject(anything)) {
+        anything; // $ExpectType object
+    }
+    if (_.isObject(anything)) {
+        anything; // $ExpectType object
+    }
 }
 
 // _.isObjectLike
@@ -4981,7 +5023,7 @@ fp.now(); // $ExpectType number
     _.create(prototype, properties); // $ExpectType { a: number; } & { b: string; }
     _(prototype).create(properties); // $ExpectType LoDashImplicitWrapper<{ a: number; } & { b: string; }>
     _.chain(prototype).create(properties); // $ExpectType LoDashExplicitWrapper<{ a: number; } & { b: string; }>
-    fp.create(prototype); // $ExpectType { a: number; }
+    const combined: { a: number } & object = fp.create(prototype);
 }
 
 // _.defaultsDeep
@@ -5140,6 +5182,9 @@ fp.now(); // $ExpectType number
 
 // _.get
 {
+    const value: string | undefined = anything;
+    const defaultValue: boolean = anything;
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
@@ -5148,21 +5193,33 @@ fp.now(); // $ExpectType number
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType boolean | undefined
+    _.get({ a: { b: { c: { d: true} } } }, ["a", "b", "c", "d"]); // $ExpectType boolean | undefined
+    _.get({ a: undefined }, "a"); // $ExpectType undefined
+    _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
+    _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
 
     _("abc").get(1); // $ExpectType string
     _("abc").get(["0"], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
-    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType boolean
+    _({ a: { b: { c: { d: true}} } }).get(["a", "b", "c", "d"]); // $ExpectType boolean
+    _({ a: undefined }).get("a"); // $ExpectType undefined
+    _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
+    _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
 
     _.chain("abc").get(1); // $ExpectType LoDashExplicitWrapper<string>
     _.chain("abc").get(["0"], "_");
     _.chain([42]).get(0, -1); // ExpectType LoDashExplicitWrapper<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
-    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain({ a: { b: { c: { d: true}} } }).get(["a", "b", "c", "d"]); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain({ a: undefined }).get("a"); // $ExpectType LoDashExplicitWrapper<undefined>
+    _.chain({ a: value }).get("a", defaultValue); // $ExpectType LoDashExplicitWrapper<string | boolean>
+    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType LoDashExplicitWrapper<boolean>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any
@@ -6594,10 +6651,10 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
-    _.chain(null).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
+    const z1: _.LoDashExplicitWrapper<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.LoDashExplicitWrapper<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo("default"); // $ExpectType LoDashExplicitWrapper<"default">
+    const z3: _.LoDashExplicitWrapper<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType LoDashExplicitWrapper<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType LoDashExplicitWrapper<{ a: string; }>
 
@@ -6784,6 +6841,11 @@ fp.now(); // $ExpectType number
 // _.overEvery
 // _.overSome
 {
+    const userDefinedTypeGuard1: (item: object) => item is { a: 1 } = anything;
+    const userDefinedTypeGuard2: (item: object) => item is { b: 1 } = anything;
+
+    _.overEvery(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => arg is { a: 1; } & { b: 1; }
+
     _.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery([(number: number) => true]); // $ExpectType (...args: number[]) => boolean
@@ -6799,6 +6861,8 @@ fp.now(); // $ExpectType number
 
     fp.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     fp.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
+
+    _.overSome(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => arg is { a: 1; } | { b: 1; }
 
     _.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overSome((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
@@ -7019,4 +7083,20 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
     fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
+}
+
+// _.stubTrue
+{
+    _.stubTrue(); // $ExpectType true
+    _("").stubTrue(); // $ExpectType true
+    _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }

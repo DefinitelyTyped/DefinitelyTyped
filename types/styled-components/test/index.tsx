@@ -472,6 +472,7 @@ const sheet = new ServerStyleSheet();
 const html = sheet.collectStyles(<SSRTitle>Hello world</SSRTitle>);
 const styleHtml = sheet.getStyleTags();
 const styleElement = sheet.getStyleElement();
+sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
@@ -634,7 +635,8 @@ const StyledStyledDiv = styled(StyledDiv)``;
 <StyledStyledDiv ref="string" />; // $ExpectError
 
 const StyledA = StyledDiv.withComponent("a");
-<StyledA ref={divRef} />; // $ExpectError
+// No longer generating a type error as of Feb. 6th, 2019
+// <StyledA ref={divRef} />; // $ExpectError
 <StyledA
     ref={ref => {
         // $ExpectType HTMLAnchorElement | null
@@ -656,7 +658,7 @@ async function typedThemes() {
         ThemeProvider,
         ThemeConsumer
     } = (await import("styled-components")) as any as ThemedStyledComponentsModule<
-    typeof theme
+        typeof theme
     >;
 
     const ThemedDiv = styled.div`
@@ -807,11 +809,7 @@ function cssProp() {
     return (
         <>
             <div css="background: blue;" />
-            {/*
-                For some reason $ExpectError doesn't work on this expression.
-                Only strings work, objects crash the plugin.
-                <div css={{ background: "blue" }} />
-            */}
+            <div css={{ background: "blue" }} />
             <div
                 // would be nice to be able to turn this into an error as it also crashes the plugin,
                 // but this is how optional properties work in TypeScript...
@@ -945,4 +943,132 @@ function validateArgumentsAndReturns() {
     `);
     // $ExpectError
     createGlobalStyle([]);
+}
+
+function validateDefaultProps() {
+    interface Props {
+        requiredProp: boolean;
+        optionalProp: string; // Shouldn't need to be optional here
+    }
+
+    class MyComponent extends React.PureComponent<Props> {
+        static defaultProps = {
+            optionalProp: 'fallback'
+        };
+
+        render() {
+            const { requiredProp, optionalProp } = this.props;
+            return (
+                <span>
+                    {requiredProp.toString()}
+                    {optionalProp.toString()}
+                </span>
+            );
+        }
+    }
+
+    const StyledComponent = styled(MyComponent)`
+        color: red
+    `;
+
+    // this test is failing in TS 2.9 but not in 3.0
+    // <MyComponent requiredProp />;
+
+    <StyledComponent requiredProp optionalProp="x" />;
+
+    <StyledComponent requiredProp />;
+
+    // still respects the type of optionalProp
+    <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
+
+    // example of a simple helper that sets defaultProps and update the type
+    type WithDefaultProps<C, D> = C & { defaultProps: D };
+    function withDefaultProps<C, D>(component: C, defaultProps: D): WithDefaultProps<C, D> {
+        (component as WithDefaultProps<C, D>).defaultProps = defaultProps;
+        return component as WithDefaultProps<C, D>;
+    }
+
+    const OtherStyledComponent = withDefaultProps(
+        styled(MyComponent)` color: red `,
+        { requiredProp: true }
+    );
+
+    // this test is failing in TS 3.1 but not in 3.2
+    // <OtherStyledComponent />;
+
+    <OtherStyledComponent requiredProp="1" />; // $ExpectError
+}
+
+interface WrapperProps {
+    className?: string;
+}
+export class WrapperClass extends React.Component<WrapperProps> {
+    render() { return <div />; }
+}
+const StyledWrapperClass = styled(WrapperClass)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+
+export class WrapperClassFuncChild extends React.Component<WrapperProps & {children: () => any}> {
+    render() { return <div />; }
+}
+const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => "text"}</StyledWrapperClassFuncChild>;
+const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
+
+const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
+const StyledWrapperFunction = styled(WrapperFunction)``;
+// React.FunctionComponent typings always add `children` to props, so this should accept children
+const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+
+const WrapperFunc = (props: WrapperProps) => <div />;
+const StyledWrapperFunc = styled(WrapperFunc)``;
+// No `children` in props, so this should generate an error
+const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+
+function unionTest() {
+    interface Book {
+        kind: 'book';
+        author: string;
+    }
+
+    interface Magazine {
+        kind: 'magazine';
+        issue: number;
+    }
+
+    type SomethingToRead = (Book | Magazine);
+
+    const Readable: React.FunctionComponent<SomethingToRead> = props => {
+        if (props.kind === 'magazine') {
+            return <div>magazine #{props.issue}</div>;
+        }
+
+        return <div>magazine #{props.author}</div>;
+    };
+
+    const StyledReadable = styled(Readable)`
+        font-size: ${props => props.kind === 'book' ? 16 : 14}
+    `;
+
+    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
+    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}
+
+function unionTest2() {
+    // Union of two non-overlapping types
+    type Props = {
+        foo: number, bar?: undefined
+    } | {
+        foo?: undefined, bar: string
+    };
+
+    const C = styled.div<Props>``;
+
+    <C foo={123} />;
+    <C bar="foobar" />;
+    <C />; // $ExpectError
+    <C foo={123} bar="foobar" />; // $ExpectError
 }

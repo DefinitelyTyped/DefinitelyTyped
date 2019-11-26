@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-hierarchy module 1.1
-// Project: https://github.com/d3/d3-hierarchy/
+// Project: https://github.com/d3/d3-hierarchy/, https://d3js.org/d3-hierarchy
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

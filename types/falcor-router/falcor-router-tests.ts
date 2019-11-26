@@ -3,6 +3,7 @@
 import falcor = require('falcor');
 import Router = require('falcor-router');
 import falcorJsonGraph = require('falcor-json-graph');
+import { Observable } from 'rx';
 
 new Router([]);
 new Router([], {});
@@ -66,6 +67,27 @@ new Router([{
             resolve({json: { todos: {length : 10}}});
         });
     }
+}]);
+
+new Router([{
+    route: 'todos.length',
+    get() {
+        return Observable.from({path: 'todos.length', value: 10});
+    },
+}]);
+
+new Router([{
+    route: 'todos.length',
+    get() {
+        return Observable.from({path: 'todos.length', value: 10});
+    },
+}]);
+
+new Router([{
+    route: 'todos.length',
+    get() {
+        return Observable.from({json: { todos: {length : 10}}});
+    },
 }]);
 
 new Router([{

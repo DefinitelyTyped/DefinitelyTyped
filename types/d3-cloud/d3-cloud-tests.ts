@@ -1,4 +1,4 @@
-import d3Cloud = require('./index.d');
+import d3Cloud = require('d3-cloud');
 import d3 = require('d3');
 
 // $ExpectType Cloud<Word>
@@ -27,7 +27,10 @@ d3.layout.cloud().size([300, 300])
     .font("Impact")
     .fontSize(function(d:ICompTextSize) { return d.size; })
     .on("end", draw)
+    .random()
+    .canvas()
     .start();
+
 
 function draw(words:ICompTextSize[]) {
   d3.select("body").append("svg")

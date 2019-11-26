@@ -17,12 +17,19 @@
     "scripts": {
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
+        "update-codeowners": "node scripts/update-codeowners.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
         "lint": "dtslint types"
     },
     "devDependencies": {
-        "dtslint": "github:Microsoft/dtslint#production",
+        "dtslint": "latest",
+        "prettier": "^1.17.1",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {}
+    "husky": {
+        "hooks": {
+            "_comment": "This will remove husky from when we started migrating to use prettier",
+            "pre-commit": "npm uninstall husky"
+        }
+    }
 }

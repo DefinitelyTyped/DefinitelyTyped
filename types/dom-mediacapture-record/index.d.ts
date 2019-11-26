@@ -1,4 +1,4 @@
-// Type definitions for w3c MediaStream Recording 1.0
+// Type definitions for non-npm package w3c MediaStream Recording 1.0
 // Project: https://w3c.github.io/mediacapture-record
 // Definitions by: Elias Meire <https://github.com/eliasmeire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,12 +39,12 @@ declare class MediaRecorder extends EventTarget {
     readonly videoBitsPerSecond: number;
     readonly audioBitsPerSecond: number;
 
-    ondataavailable: (event: BlobEvent) => void;
-    onerror: (event: MediaRecorderErrorEvent) => void;
-    onpause: EventListener;
-    onresume: EventListener;
-    onstart: EventListener;
-    onstop: EventListener;
+    ondataavailable: ((event: BlobEvent) => void) | null;
+    onerror: ((event: MediaRecorderErrorEvent) => void) | null;
+    onpause: EventListener | null;
+    onresume: EventListener | null;
+    onstart: EventListener | null;
+    onstop: EventListener | null;
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
 

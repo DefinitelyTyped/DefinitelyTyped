@@ -79,6 +79,7 @@ export interface ReactInfiniteCalendarProps {
     autoFocus?: boolean;
     tabIndex?: number;
     Component?: CalendarClass;
+    interpolateSelection?: (date: Date, selected: Date[]) => Date[];
 }
 
 export class Calendar extends React.Component<ReactInfiniteCalendarProps> {}

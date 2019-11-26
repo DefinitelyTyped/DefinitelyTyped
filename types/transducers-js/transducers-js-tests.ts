@@ -161,12 +161,12 @@ function advancedIntoExample() {
   const string: string = into("", t.map((s: string) => s + s), ["a", "b"]);
   const object1: { [key: string]: number } = into(
     {},
-    t.map((s: string) => [s, s.length]),
+    t.map((s: string) => [s, s.length] as [string, number]),
     ["a", "b"],
   );
   const object2: { [key: string]: boolean } = into(
     {},
-    t.map((kv: [string, number]) => [kv[0], true]),
+    t.map((kv: [string, number]) => [kv[0], true] as [string, boolean]),
     { a: 1, b: 2 }
   );
 }

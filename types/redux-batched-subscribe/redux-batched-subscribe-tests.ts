@@ -23,7 +23,13 @@ const asyncNotify: BatchFunction = (() => {
     };
 })();
 
-const store: Store<State> = createStore(
+const store = createStore(
     rootReducer,
     batchedSubscribe(asyncNotify)
 );
+
+const unsubscribe = store.subscribeImmediate(() => {
+    store.getState();
+});
+
+unsubscribe();

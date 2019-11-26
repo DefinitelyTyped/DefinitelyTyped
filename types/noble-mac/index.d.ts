@@ -1,4 +1,4 @@
-// Type definitions for noble-mac 0.0
+// Type definitions for non-npm package noble-mac 0.0
 // Project: https://github.com/Timeular/noble-mac
 // Definitions by: Seon-Wook Park <https://github.com/swook>
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>

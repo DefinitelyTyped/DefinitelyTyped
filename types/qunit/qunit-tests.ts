@@ -104,6 +104,34 @@ QUnit.module( "grouped tests argument hooks", function( hooks ) {
   } );
 } );
 
+QUnit.module.only( "exclusive module" , function( hooks ) {
+  hooks.beforeEach( function( assert ) {
+    assert.ok( true, "beforeEach called" );
+  } );
+
+  hooks.afterEach( function( assert ) {
+    assert.ok( true, "afterEach called" );
+  } );
+
+  QUnit.test( "call hooks", function( assert ) {
+    assert.expect( 2 );
+  } );
+
+  QUnit.module.only( "nested exclusive module", {
+    // This will run after the parent module's beforeEach hook
+    beforeEach: assert  => {
+      assert.ok( true, "nested beforeEach called" );
+    },
+    // This will run before the parent module's afterEach
+    afterEach: assert => {
+      assert.ok( true, "nested afterEach called" );
+    }
+  } );
+
+  QUnit.test( "call nested hooks", function( assert ) {
+    assert.expect( 4 );
+  } );
+});
 
 QUnit.test( "`ok` assertion defined in the callback parameter", function( assert ) {
  assert.ok( true, "on the object passed to the `test` function" );
@@ -556,6 +584,53 @@ QUnit.test( "throws", function( assert ) {
       throw new CustomError("some error description");
     },
     function( err: any ) {
+      return err.toString() === "some error description";
+    },
+    "raised error instance satisfies the callback function"
+  );
+});
+
+QUnit.test( "rejects", function( assert ) {
+
+  assert.rejects(Promise.reject("some error description"));
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    "rejects with just a message, not using the 'expectedMatcher' argument"
+  );
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    /description/,
+    "`rejectionValue.toString()` contains `description`"
+  );
+
+  // Using a custom error like object
+  class CustomError {
+    message?: string;
+    constructor(message?: string) {
+       this.message = message;
+    }
+    toString() {
+       return this.message;
+    }
+  }
+
+  assert.rejects(
+    Promise.reject(new CustomError()),
+    CustomError,
+    "raised error is an instance of CustomError"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    new CustomError("some error description"),
+    "raised error instance matches the CustomError instance"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    function( err ) {
       return err.toString() === "some error description";
     },
     "raised error instance satisfies the callback function"

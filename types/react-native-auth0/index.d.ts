@@ -1,7 +1,8 @@
-// Type definitions for react-native-auth0 1.3
+// Type definitions for react-native-auth0 2.0
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Leo Farias <https://github.com/leoafarias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -9,7 +10,7 @@
  * Auth
  */
 
-export interface AuthorizationUrlParams {
+export interface AuthorizeUrlParams {
     responseType: string;
     redirectUri: string;
     state: string;
@@ -87,7 +88,7 @@ export type UserInfo<CustomClaims = {}> = {
 } & CustomClaims;
 
 export class Auth {
-    authorizationUrl(params: AuthorizationUrlParams): string;
+    authorizeUrl(params: AuthorizeUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<string>;

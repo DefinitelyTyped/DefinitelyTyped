@@ -1,8 +1,8 @@
-// Type definitions for bookshelfjs v0.9.4
+// Type definitions for bookshelfjs v0.13.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -90,7 +90,7 @@ declare namespace Bookshelf {
 
 	class Model<T extends Model<any>> extends ModelBase<T> {
 		static collection<T extends Model<any>>(models?: T[], options?: CollectionOptions<T>): Collection<T>;
-		static count(column?: string, options?: SyncOptions): BlueBird<number>;
+		static count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		/** @deprecated use Typescript classes */
 		static extend<T extends Model<any>>(prototypeProperties?: any, classProperties?: any): Function; // should return a type
 		static fetchAll<T extends Model<any>>(): BlueBird<Collection<T>>;
@@ -101,7 +101,7 @@ declare namespace Bookshelf {
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
 		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string, foreignKeyTarget?: string, otherKeyTarget?: string): Collection<R>;
-		count(column?: string, options?: SyncOptions): BlueBird<number>;
+		count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		destroy(options?: DestroyOptions): BlueBird<T>;
 		fetch(options?: FetchOptions): BlueBird<T>;
 		fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
@@ -244,7 +244,7 @@ declare namespace Bookshelf {
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
 
 		attach(ids: any | any[], options?: SyncOptions): BlueBird<Collection<T>>;
-		count(column?: string, options?: SyncOptions): BlueBird<number>;
+		count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		create(model: { [key: string]: any }, options?: CollectionCreateOptions): BlueBird<T>;
 		detach(ids: any[], options?: SyncOptions): BlueBird<any>;
 		detach(options?: SyncOptions): BlueBird<any>;
@@ -317,6 +317,7 @@ declare namespace Bookshelf {
 	interface SyncOptions {
 		transacting?: Knex.Transaction;
 		debug?: boolean;
+		withSchema?: string;
 	}
 
 	interface CollectionOptions<T> {

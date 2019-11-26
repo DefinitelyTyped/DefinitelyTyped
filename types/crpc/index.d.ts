@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export type Client = <TRes>(path: string, body: any, options?: {} | null) => Promise<TRes>;
+declare namespace crpc {
+    type Client = <TRes>(path: string, body: any, options?: {} | null) => Promise<TRes>;
+}
 
-export default function crpc(baseUrl: string, options?: {}): Client;
+export = crpc;
+declare function crpc(baseUrl: string, options?: {}): crpc.Client;

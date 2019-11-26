@@ -25,10 +25,10 @@ import { randomNormal } from 'd3-random';
 const n = 256;
 const m = 256;
 const values: number[] = new Array(n * m);
-for (let j = 0.5, k = 0; j < m; ++j) {
-    for (let i = 0.5; i < n; i++) {
+for (let j = 0.5, k = 0; j < m; j += 1) {
+    for (let i = 0.5; i < n; i += 1) {
         values[k] = goldsteinPrice(i / n * 4 - 2, 1 - j / m * 3);
-        k++;
+        k += 1;
     }
 }
 
@@ -193,7 +193,7 @@ num = contDensCustom.bandwidth();
 const indNorm: CustomDatum[] = [];
 const rX = randomNormal();
 const rY = randomNormal(1, 2);
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 1000; i += 1) {
     indNorm.push({
         x: rX(),
         y: rY()

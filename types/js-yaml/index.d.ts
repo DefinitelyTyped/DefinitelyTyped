@@ -1,4 +1,4 @@
-// Type definitions for js-yaml 3.11
+// Type definitions for js-yaml 3.12
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ export class Type {
 	resolve(data: any): boolean;
 	construct(data: any): any;
 	instanceOf: object | null;
-	predicate: string | null;
+	predicate: ((data: object) => boolean) | null;
 	represent: ((data: object) => any) | { [x: string]: (data: object) => any; } | null;
 	defaultStyle: string | null;
 	styleAliases: { [x: string]: any; };
@@ -52,6 +52,8 @@ export interface LoadOptions {
 export interface DumpOptions {
 	/** indentation width to use (in spaces). */
 	indent?: number;
+	/** when true, will not add an indentation level to array elements */
+	noArrayIndent?: boolean;
 	/** do not throw on invalid types (like function in the safe schema) and skip pairs and single values with such types. */
 	skipInvalid?: boolean;
 	/** specifies level of nesting, when to switch from block to flow style for collections. -1 means block style everwhere */
@@ -80,7 +82,7 @@ export interface TypeConstructorOptions {
 	resolve?: (data: any) => boolean;
 	construct?: (data: any) => any;
 	instanceOf?: object;
-	predicate?: string;
+	predicate?: (data: object) => boolean;
 	represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
 	defaultStyle?: string;
 	styleAliases?: { [x: string]: any; };

@@ -96,14 +96,16 @@ const graphDiv = '#test';
 					{ target: 'y', func: 'avg' },
 					{ target: 'marker.size', func: 'sum' }
 				]
-			}]
+			}],
+		width: 2
 	} as PlotData;
 	const trace2 = {
 		yaxis: 'y2',
 		x: unpack(testrows, 'lifeExp'),
 		name: 'x density',
 		marker: { color: 'rgb(102,0,0)' },
-		type: 'histogram'
+		type: 'histogram',
+		width: [2]
 	} as PlotData;
 	const trace3 = {
 		xaxis: 'x2',
@@ -250,6 +252,24 @@ const graphDiv = '#test';
 		title: 'some new title', // updates the title
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
+})();
+
+(() => {
+	const update = {
+		title: {
+			text: 'some new title',
+			font: {
+				size: 1.2,
+			},
+			x: 0.9,
+			pad: {
+				t: 20
+			},
+		}, // updates the title
+		'xaxis.range': [0, 5],   // updates the xaxis range
+		'yaxis.range[1]': 15	 // updates the end of the yaxis range
+	} as Layout;
+	Plotly.relayout(graphDiv, update);
 })();
 //////////////////////////////////////////////////////////////////////
 

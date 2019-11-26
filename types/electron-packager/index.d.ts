@@ -1,13 +1,21 @@
-// Type definitions for electron-packager 13.0
+// Type definitions for electron-packager 14.0
 // Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
 //                 John Kleinschmidt <https://github.com/jkleinsc>
 //                 Brendan Forster <https://github.com/shiftkey>
 //                 Mark Lee <https://github.com/malept>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-/// <reference types="node" />
+/// <reference types='node' />
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+import { ElectronDownloadRequestOptions as ElectronDownloadOptions } from '@electron/get';
+import { NotarizeOptions } from 'electron-notarize';
+import { SignOptions as OsXSignOptions } from 'electron-osx-sign';
 
 export = electronPackager;
 
@@ -22,7 +30,7 @@ export = electronPackager;
  *
  * @returns A promise containing the path(s) to the newly created application(s)
  */
-declare function electronPackager(opts: electronPackager.Options): Promise<string|string[]>;
+declare function electronPackager(opts: electronPackager.Options): Promise<string | string[]>;
 
 declare namespace electronPackager {
     /**
@@ -31,12 +39,18 @@ declare namespace electronPackager {
      * @param err - Contains errors if any.
      * @param appPaths - Path(s) to the newly created application(s).
      */
-    type finalCallback = (err: Error, appPaths: string|string[]) => void;
+    type finalCallback = (err: Error, appPaths: string | string[]) => void;
 
     type ignoreFunction = (path: string) => boolean;
-    type onCompleteFn = (buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) => void;
-    type arch = "ia32" | "x64" | "armv7l" | "arm64" | "mips64el" | "all";
-    type platform = "linux" | "win32" | "darwin" | "mas" | "all";
+    type onCompleteFn = (
+        buildPath: string,
+        electronVersion: string,
+        platform: string,
+        arch: string,
+        callbackFn: () => void
+    ) => void;
+    type arch = 'ia32' | 'x64' | 'armv7l' | 'arm64' | 'mips64el' | 'all';
+    type platform = 'linux' | 'win32' | 'darwin' | 'mas' | 'all';
 
     interface AsarOptions {
         ordering?: string;
@@ -44,23 +58,14 @@ declare namespace electronPackager {
         unpackDir?: string;
     }
 
-    interface ElectronDownloadOptions {
-        cache?: string;
-        mirror?: string;
-        quiet?: boolean;
-        strictSSL?: boolean;
+    // see https://github.com/electron-userland/electron-packager/blob/92d09bba34599283a794fd6f24b88470f0cb1074/src/mac.js#L340
+    interface ElectronOsXSignOptions
+        extends Omit<OsXSignOptions, 'app' | 'binaries' | 'identity' | 'platform' | 'version'> {
+        identity?: string | true;
     }
 
-    interface ElectronNotarizeOptions {
-        appleId: string;
-        appleIdPassword: string;
-    }
-
-    interface ElectronOsXSignOptions {
-        identity?: string;
-        entitlements?: string;
-        "entitlements-inherit"?: string;
-    }
+    // see https://github.com/electron-userland/electron-packager/blob/92d09bba34599283a794fd6f24b88470f0cb1074/src/mac.js#L372
+    type ElectronNotarizeOptions = Omit<NotarizeOptions, 'appBundleId' | 'appPath'>;
 
     /**
      * Object (also known as a "hash") of application metadata to embed into the executable
@@ -71,8 +76,8 @@ declare namespace electronPackager {
         OriginalFilename?: string;
         ProductName?: string;
         InternalName?: string;
-        "requested-execution-level"?: "asInvoker" | "highestAvailable" | "requireAdministrator";
-        "application-manifest"?: string;
+        'requested-execution-level'?: 'asInvoker' | 'highestAvailable' | 'requireAdministrator';
+        'application-manifest'?: string;
     }
 
     /** Electron-packager Options. */
@@ -121,7 +126,7 @@ declare namespace electronPackager {
          */
         derefSymlinks?: boolean;
         /**
-         * If present, passes custom options to electron-download
+         * If present, passes custom options to `@electron/get`
          */
         download?: ElectronDownloadOptions;
         /**
@@ -188,7 +193,7 @@ declare namespace electronPackager {
          * When the value is a String, the filename of a plist file. Its contents are added to the app's plist.
          * When the value is an Object, an already-parsed plist data structure that is merged into the app's plist.
          */
-        extendInfo?: string | {[property: string]: any};
+        extendInfo?: string | { [property: string]: any };
         /**
          * The bundle identifier to use in the application helper's plist.
          */
@@ -208,8 +213,8 @@ declare namespace electronPackager {
 
         /** The URL protocol schemes the app supports. */
         protocols?: Array<{
-            name: string
-            schemes: string[]
+            name: string;
+            schemes: string[];
         }>;
 
         /**

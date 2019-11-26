@@ -1,11 +1,11 @@
 import { PassThrough } from 'stream';
-import ReadlineTransform = require('readline-transform');
+import ReadlineTransform from 'readline-transform';
 
 const readStream = new PassThrough();
 const transform = new ReadlineTransform({
   breakMatcher: /\n/,
   ignoreEndOfBreak: false,
-  skipEmpty: true
+  skipEmpty: true,
 });
 const writeStream = new PassThrough({ objectMode: true });
 

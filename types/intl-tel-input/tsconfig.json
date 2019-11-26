@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "intl-tel-input-tests.ts"
+        "intl-tel-input-tests.ts",
+        "test/module-tests.ts"
     ]
 }

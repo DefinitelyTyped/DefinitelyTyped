@@ -1,5 +1,5 @@
-import { ApplePay } from "..";
-import * as braintree from "..";
+import { ApplePay } from "braintree-web";
+import * as braintree from "braintree-web";
 
 let version: string = braintree.VERSION;
 
@@ -20,6 +20,21 @@ braintree.client.create({
       }
     }
   };
+
+  braintree.threeDSecure
+    .create({
+      version: 2,
+      client: clientInstance
+    })
+    .then((threeDSecureInstance) => {
+      let testBin = '123456';
+      threeDSecureInstance.prepareLookup({
+        nonce: existingNonce,
+        bin: testBin
+      })
+      .then(payload => {})
+      .catch((err: braintree.BraintreeError) => {});
+    });
 
   clientInstance.request({
     endpoint: 'payment_methods/credit_cards',
@@ -439,3 +454,4 @@ braintree.threeDSecure.cancelVerifyCard(function (err: braintree.BraintreeError,
   verifyPayload.liabilityShifted; // boolean
   verifyPayload.liabilityShiftPossible; // boolean
 });
+

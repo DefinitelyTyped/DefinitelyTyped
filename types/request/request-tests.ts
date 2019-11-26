@@ -6,6 +6,7 @@ import qs = require('querystring');
 import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
+import constants = require('constants');
 
 let value: any;
 let str: string;
@@ -14,7 +15,6 @@ let strOrTrueOrUndef: string | true | undefined;
 const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
-let date: Date;
 let obj: object;
 const dest = 'foo';
 
@@ -58,8 +58,8 @@ obj = req.toJSON();
 let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
-date = cookie.expires;
-str = cookie.path;
+const expires: Date | 'Infinity' = cookie.expires;
+const cpath: string | null = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 
@@ -541,7 +541,7 @@ options = {
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         passphrase: 'password',
-        securityOptions: 'SSL_OP_NO_SSLv3'
+        secureOptions: constants.SSL_OP_NO_SSLv3
     }
 };
 
@@ -647,6 +647,44 @@ request(
     console.log(body);
     }
 }
+);
+
+request(
+  {
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart: {
+      data: [
+        {
+          'content-type': 'application/json; charset=utf-8',
+          body: JSON.stringify({
+            _attachments: {
+              'dot.png': {
+                follows: true,
+                length: 269,
+                content_type: 'image/png',
+              },
+            },
+          }),
+        },
+        {
+          'content-type': 'image/png',
+          body: Buffer.from(
+            'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAA3NCSVQICAjb4U/gAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIEFQUDEAAAiZ40pPzUstykxWKCjKT8vMSeVSAANjEy4TSxNL' +
+              'o0QDAwMLAwgwNDAwNgSSRkC2OVQo0QAFmJibpQGhuVmymSmIzwUAT7oVaBst2IwAAAAWSURBVAiZY/z//z8DAwMTAwMDAwMDACQGAwGaMKL7AAAAAElFTkSuQmCC',
+          ),
+        },
+      ],
+    },
+  },
+  (error, response, body) => {
+    if (response.statusCode === 201) {
+      console.log('image saved as http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+      console.log('error: ' + response.statusCode);
+      console.log(body);
+    }
+  },
 );
 
 request(

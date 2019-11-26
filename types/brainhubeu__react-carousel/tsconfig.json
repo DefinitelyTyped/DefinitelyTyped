@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@brainhubeu/react-carousel": [
+                "brainhubeu__react-carousel"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "brainhubeu__react-carousel-tests.tsx"
+    ]
+}

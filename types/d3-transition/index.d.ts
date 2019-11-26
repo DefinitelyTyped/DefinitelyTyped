@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-transition module 1.1
-// Project: https://github.com/d3/d3-transition/
+// Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -455,6 +455,11 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener.
      */
     on(type: string, listener: ValueFn<GElement, Datum, void>): this;
+
+    /**
+     * Returns a promise that resolves when every selected element finishes transitioning. If any element’s transition is cancelled or interrupted, the promise rejects.
+     */
+    end(): Promise<void>;
 
     // Control Flow ----------------------
 

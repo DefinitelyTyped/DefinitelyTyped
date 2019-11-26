@@ -1,107 +1,120 @@
-// Type definitions for Rebass 0.3.8
-// Project: https://github.com/jxnblk/rebass
-// Definitions by: rhysd <https://rhysd.github.io>
+// Type definitions for Rebass 4.0
+// Project: https://github.com/rebassjs/rebass
+// Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
+//                 sara f-p <https://github.com/gretzky>
+//                 angusfretwell <https://github.com/angusfretwell>
+//                 orzarchi <https://github.com/orzarchi>
+//                 ilaiwi <https://github.com/ilaiwi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
+import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from "react";
+import * as StyledComponents from "styled-components";
+import * as StyledSystem from "styled-system";
 
-export interface BaseProps<C> extends React.ClassAttributes<C> {
-    className?: string;
-    as?: string;
+export {};
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+export interface BaseProps extends React.RefAttributes<any> {
+    as?: React.ElementType;
+    css?:
+        | StyledComponents.CSSObject
+        | StyledComponents.FlattenSimpleInterpolation
+        | string;
 }
 
-export interface SpaceProps<C> extends BaseProps<C> {
-    m?: number | string;
-    mt?: number | string;
-    mr?: number | string;
-    mb?: number | string;
-    ml?: number | string;
-    mx?: number | string;
-    my?: number | string;
-    p?: number | string;
-    pt?: number | string;
-    pr?: number | string;
-    pb?: number | string;
-    pl?: number | string;
-    px?: number | string;
-    py?: number | string;
+/**
+ * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
+ * such that properties that are part of the `Theme` will be transformed to
+ * their corresponding values. Other valid CSS properties are also allowed.
+ */
+export type SxStyleProp = SystemStyleObject |
+    Record<
+        string,
+        | SystemStyleObject
+        | ResponsiveStyleValue<number | string>
+        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
+        >;
+
+export interface SxProps {
+    /**
+     * The sx prop lets you style elements inline, using values from your theme.
+     */
+    sx?: SxStyleProp;
 }
 
-export interface BoxProps extends SpaceProps<BoxClass> {
-    className?: string;
-    width?: number | ReadonlyArray<number>;
-    fontSize?: number | ReadonlyArray<number>;
-    css?: Object;
-    color?: string;
-    bg?: string;
+interface BoxKnownProps
+    extends BaseProps,
+        StyledSystem.SpaceProps,
+        StyledSystem.LayoutProps,
+        StyledSystem.FontSizeProps,
+        StyledSystem.ColorProps,
+        StyledSystem.FlexProps,
+        StyledSystem.OrderProps,
+        StyledSystem.AlignSelfProps,
+        SxProps {
+    variant?: StyledSystem.ResponsiveValue<string>;
+    tx?: string;
 }
-type BoxClass = React.StatelessComponent<BoxProps>;
-export declare const Box: BoxClass;
+export interface BoxProps
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export const Box: React.FunctionComponent<BoxProps>;
 
-export interface ButtonProps extends BoxProps {
-    fontWeight?: string;
-    border?: number | string;
-    borderColor?: string;
-    borderRadius?: number | string;
-    variant?: string;
-}
-type ButtonClass = React.StatelessComponent<ButtonProps>;
-export declare const Button: ButtonClass;
+interface ButtonKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FontWeightProps,
+        StyledSystem.ButtonStyleProps {}
+export interface ButtonProps
+    extends ButtonKnownProps,
+        Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps> {}
+export const Button: React.FunctionComponent<ButtonProps>;
 
-export interface CardProps extends BoxProps {
-    border?: number | string;
-    borderColor?: string;
-    borderRadius?: number | string;
-    boxShadow?: string;
-    backgroundImage?: string;
-    backgroundSize?: string;
-    backgroundPosition?: string;
-    backgroundRepeat?: string;
-    opacity?: number;
-    variant?: string;
-}
-type CardClass = React.StatelessComponent<CardProps>;
-export declare const Card: CardClass;
+export interface CardProps
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export const Card: React.FunctionComponent<BoxKnownProps>;
 
-export interface FlexProps extends BoxProps {
-    alignItems?: string;
-    justifyContent?: string;
-    flexDirection?: string;
-    flexWrap?: string;
-}
-type FlexClass = React.StatelessComponent<FlexProps>;
-export declare const Flex: FlexClass;
+interface FlexKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FlexWrapProps,
+        StyledSystem.FlexDirectionProps,
+        StyledSystem.AlignItemsProps,
+        StyledSystem.JustifyContentProps {}
+export interface FlexProps
+    extends FlexKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
+export const Flex: React.FunctionComponent<FlexProps>;
 
-export interface ImageProps extends BoxProps {
-    height?: number | string;
-    borderRadius?: number | string;
-    src?: string;
-    alt?: string;
-}
-type ImageClass = React.StatelessComponent<ImageProps>;
-export declare const Image: ImageClass;
+export interface ImageProps
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLImageElement>, keyof BoxKnownProps> {}
+export const Image: React.FunctionComponent<ImageProps>;
 
-export interface LinkProps extends BoxProps {
-    href?: string;
-}
-type LinkClass = React.StatelessComponent<LinkProps>;
-export declare const Link: LinkClass;
+// tslint:disable-next-line no-empty-interface
+interface LinkKnownProps extends BoxKnownProps {}
+export interface LinkProps
+    extends LinkKnownProps,
+        Omit<React.HTMLProps<HTMLAnchorElement>, keyof LinkKnownProps> {}
+export const Link: React.FunctionComponent<LinkProps>;
 
-export interface TextProps extends BoxProps {
-    fontSize?: number | ReadonlyArray<number>;
-    fontWeight?: string;
-    color?: string;
-    fontFamily?: string;
-    textAlign?: string;
-    lineHeight?: number | string;
-    letterSpacing?: number | string;
-}
-type TextClass = React.StatelessComponent<TextProps>;
-export declare const Text: TextClass;
+interface TextKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FontFamilyProps,
+        StyledSystem.FontWeightProps,
+        StyledSystem.TextAlignProps,
+        StyledSystem.LineHeightProps,
+        StyledSystem.LetterSpacingProps {}
+export interface TextProps
+    extends TextKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof TextKnownProps> {}
+export const Text: React.FunctionComponent<TextProps>;
 
-export interface HeadingProps extends TextProps {}
-type HeadingClass = React.StatelessComponent<HeadingProps>;
-export declare const Heading: HeadingClass;
+export interface HeadingProps
+    extends TextKnownProps,
+        Omit<React.HTMLProps<HTMLHeadingElement>, keyof TextKnownProps> {}
+export const Heading: React.FunctionComponent<HeadingProps>;

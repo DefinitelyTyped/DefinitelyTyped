@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Optimization {
+  namespace Optimization {
     /**
      * Object storing a linear constraint of the form lowerBound ≤ Sum(a(i) x(i)) ≤ upperBound
      * where lowerBound and upperBound are constants, a(i) are constant
@@ -26,10 +26,9 @@ declare namespace GoogleAppsScript {
      *     // 0 <= 2 * x <= 5
      *     constraint.setCoefficient('x', 2);
      */
-    export interface LinearOptimizationConstraint {
-      setCoefficient(variableName: string, coefficient: Number): LinearOptimizationConstraint;
+    interface LinearOptimizationConstraint {
+      setCoefficient(variableName: string, coefficient: number): LinearOptimizationConstraint;
     }
-
     /**
      * The engine used to model and solve a linear program. The example below solves the following
      * linear program:
@@ -82,18 +81,19 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationEngine {
-      addConstraint(lowerBound: Number, upperBound: Number): LinearOptimizationConstraint;
-      addVariable(name: string, lowerBound: Number, upperBound: Number): LinearOptimizationEngine;
-      addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType): LinearOptimizationEngine;
-      addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType, objectiveCoefficient: Number): LinearOptimizationEngine;
+    interface LinearOptimizationEngine {
+      addConstraint(lowerBound: number, upperBound: number): LinearOptimizationConstraint;
+      addConstraints(lowerBounds: number[], upperBounds: number[], variableNames: string[][], coefficients: number[][]): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number, type: VariableType): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number, type: VariableType, objectiveCoefficient: number): LinearOptimizationEngine;
+      addVariables(names: string[], lowerBounds: number[], upperBounds: number[], types: VariableType[], objectiveCoefficients: number[]): LinearOptimizationEngine;
       setMaximization(): LinearOptimizationEngine;
       setMinimization(): LinearOptimizationEngine;
-      setObjectiveCoefficient(variableName: string, coefficient: Number): LinearOptimizationEngine;
+      setObjectiveCoefficient(variableName: string, coefficient: number): LinearOptimizationEngine;
       solve(): LinearOptimizationSolution;
-      solve(seconds: Number): LinearOptimizationSolution;
+      solve(seconds: number): LinearOptimizationSolution;
     }
-
     /**
      * The linear optimization service, used to model and solve linear and mixed-integer linear
      * programs. The example below solves the following linear program:
@@ -146,12 +146,11 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationService {
+    interface LinearOptimizationService {
       Status: typeof Status;
       VariableType: typeof VariableType;
       createEngine(): LinearOptimizationEngine;
     }
-
     /**
      * The solution of a linear program. The example below solves the following linear program:
      *
@@ -204,25 +203,22 @@ declare namespace GoogleAppsScript {
      *       Logger.log('Value of y: ' + solution.getVariableValue('y'));
      *     }
      */
-    export interface LinearOptimizationSolution {
-      getObjectiveValue(): Number;
+    interface LinearOptimizationSolution {
+      getObjectiveValue(): number;
       getStatus(): Status;
-      getVariableValue(variableName: string): Number;
+      getVariableValue(variableName: string): number;
       isValid(): boolean;
     }
-
     /**
      * Status of the solution. Before solving a problem the status will be NOT_SOLVED;
      * afterwards it will take any of the other values depending if it successfully found a solution and
      * if the solution is optimal.
      */
-    export enum Status { OPTIMAL, FEASIBLE, INFEASIBLE, UNBOUNDED, ABNORMAL, MODEL_INVALID, NOT_SOLVED }
-
+    enum Status { OPTIMAL, FEASIBLE, INFEASIBLE, UNBOUNDED, ABNORMAL, MODEL_INVALID, NOT_SOLVED }
     /**
      * Type of variables created by the engine.
      */
-    export enum VariableType { INTEGER, CONTINUOUS }
-
+    enum VariableType { INTEGER, CONTINUOUS }
   }
 }
 

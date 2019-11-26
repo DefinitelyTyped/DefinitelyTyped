@@ -222,3 +222,55 @@ interface LeaveMeAloneDtslint { foo: string; }
 //     // $ExpectError the type of ForwardRef.defaultProps stays Partial<P> anyway even if assigned
 //     <ForwardRef str='abc' />
 // ];
+
+// const weakComponentPropTypes = {
+//     foo: PropTypes.string,
+//     bar: PropTypes.bool.isRequired
+// };
+// interface WeakComponentProps1 {
+//     foo: any;
+//     bar: number;
+// }
+// interface WeakComponentProps2 {
+//     foo: string;
+//     bar: any;
+// }
+// interface WeakComponentProps3 {
+//     foo: any;
+//     bar: any;
+// }
+
+// // $ExpectType true
+// type weakComponentTest1 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends {
+//     foo?: string | null
+//     bar: boolean
+// } ? true : false;
+// // $ExpectType true
+// type weakComponentTest2 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps1> extends {
+//     foo?: string | null
+//     bar: number
+// } ? true : false;
+// // $ExpectType true
+// type weakComponentTest3 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps2> extends {
+//     foo: string
+//     bar: boolean
+// } ? true : false;
+
+// // $ExpectError
+// const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { foo: '' };
+// const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { bar: true };
+
+// interface IndexedComponentProps {
+//     [K: string]: boolean;
+// }
+// interface WeakIndexedComponentProps {
+//     [K: string]: any;
+// }
+
+// const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { };
+// // $ExpectError
+// const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { foo: '' };
+// const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: '' };
+// const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: 4 };
+
+// const optionalUnionPropTest: JSX.LibraryManagedAttributes<{ propTypes: {} }, { optional?: string } | { optional?: number }> = {};

@@ -1,40 +1,35 @@
 import Koa = require("koa");
-import Router = require("koa-router");
 import bouncer = require("koa-bouncer");
 
 const app = new Koa();
 
 app.use(bouncer.middleware());
-const router = new Router()
 
-router.post('/users', async (ctx) => {
+app.use(async ctx => {
     ctx.validateBody('uname')
         .required('Username required')
         .isString()
-        .trim()
+        .trim();
 
     ctx.validateBody('email')
         .optional()
         .isString()
         .trim()
-        .isEmail('Invalid email format')
+        .isEmail('Invalid email format');
 
     ctx.validateBody('password1')
         .required('Password required')
         .isString()
-        .isLength(6, 100, 'Password must be 6-100 chars')
+        .isLength(6, 100, 'Password must be 6-100 chars');
 
     ctx.validateBody('password2')
         .required('Password confirmation required')
         .isString()
-        .eq(ctx.vals.password1, 'Passwords must match')
+        .eq(ctx.vals.password1, 'Passwords must match');
 
-    console.log(ctx.vals)
-})
+    ctx.validateBody('age').gte(18, 'Must be 18 or older');
 
-app
-    .use(router.routes())
-    .use(router.allowedMethods());
-    
+    ctx.body = ctx.vals;
+});
 
 app.listen(80);

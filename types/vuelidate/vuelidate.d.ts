@@ -10,16 +10,19 @@ export const validationMixin: any
 
 // const Validation
 export interface Validation extends Vue {
+    $model: any
     // const validationGetters
     readonly $invalid: boolean
     readonly $dirty: boolean
+    readonly $anyDirty: boolean
     readonly $error: boolean
+    readonly $anyError: boolean
     readonly $pending: boolean
     readonly $params: { [attr: string]: any }
 
     // const validationMethods
-    $touch(): never
-    $reset(): never
+    $touch(): void
+    $reset(): void
     $flattenParams(): ValidationParams[]
 }
 

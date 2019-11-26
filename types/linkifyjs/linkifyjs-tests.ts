@@ -1,141 +1,61 @@
-import linkifyHtml from "linkifyjs/html";
+import * as Linkify from 'linkifyjs';
 
-// From the docs here: https://soapbox.github.io/linkifyjs/docs/options.html
+Linkify.find(); // $ExpectError
+Linkify.find(1); // $ExpectError
+Linkify.find('my string', 1); // $ExpectError
+Linkify.find('my string'); // $ExpectType FindResultHash[]
+Linkify.find('my string', 'email'); // $ExpectType FindResultHash[]
+Linkify.find('my string', 'hashtag'); // $ExpectType FindResultHash[]
+Linkify.find('my string', 'my type'); // $ExpectError
 
-/* attributes */
+Linkify.test(); // $ExpectError
+Linkify.test(1); // $ExpectError
+Linkify.test('my string', 1); // $ExpectError
+Linkify.test('my string'); // $ExpectType boolean
+Linkify.test('my string', 'email'); // $ExpectType boolean
+Linkify.test('my string', 'hashtag'); // $ExpectType boolean
+Linkify.test('my string', 'my type'); // $ExpectError
 
-linkifyHtml("github.com", {
-    attributes: {
-        rel: "nofollow"
-    }
-});
+Linkify.tokenize(); // $ExpectError
+Linkify.tokenize(1); // $ExpectError
+Linkify.tokenize('my string'); // $ExpectType { v: { v: string; }[]; }[]
 
-/* className */
+let options: Linkify.Options;
 
-linkifyHtml("github.com", {
-    className: "new-link--url"
-});
+options = {}; // $ExpectType {}
+options = { attributes: null }; // $ExpectType { attributes: null; }
+options = { attributes: 'hello-world' }; // $ExpectError
+options = { attributes: { attr: 'hello-world' } }; // $ExpectType { attributes: { attr: string; }; }
+options = { attributes: href => ({}) }; // $ExpectType { attributes: (href: string) => {}; }
 
-linkifyHtml("github.com", {
-    className(href, type) {
-        return "new-link--" + type;
-    }
-});
+options = { className: null }; // $ExpectError
+options = { className: 'new-link--url' }; // $ExpectType { className: string; }
+options = { className: (href, type) => `new-link-${type}` }; // $ExpectType { className: (href: string, type: LinkEntityType) => string; }
+options = { className: { sunshine: v => v } }; // $ExpectError
+options = { className: { email: () => 'new-link--email' } }; // $ExpectType { className: { email: () => string; }; }
 
-linkifyHtml("github.com", {
-    className: {
-        url: "new-link--url",
-        email(href: string) {
-            return "new-link--email";
-        }
-    }
-});
+options = { defaultProtocol: null }; // $ExpectError
+options = { defaultProtocol: 1 }; // $ExpectError
+options = { defaultProtocol: 'http' }; // $ExpectType { defaultProtocol: string; }
+options = { defaultProtocol: 'ftp' }; // $ExpectType { defaultProtocol: string; }
 
-/* events */
+options = { format: null }; // $ExpectType { format: null; }
+options = { format: value => value }; // $ExpectType { format: (value: string) => string; }
+options = { format: { sunshine: v => v } }; // $ExpectError
+options = { format: { email: () => 'sunshine' } }; // $ExpectType { format: { email: () => string; }; }
 
-linkifyHtml("", {
-    events: {
-        click(e) {
-            alert("Link clicked!");
-        },
-        mouseover(e) {
-            alert("Link hovered!");
-        }
-    }
-});
+options = { formatHref: null }; // $ExpectType { formatHref: null; }
+options = { formatHref: href => href }; // $ExpectType { formatHref: (href: string) => string; }
+options = { formatHref: { sunshine: v => v } }; // $ExpectError
+options = { formatHref: { email: () => 'sunshine' } }; // $ExpectType { formatHref: { email: () => string; }; }
 
-/* defaultProtocol */
+options = { nl2br: 1 }; // $ExpectError
+options = { nl2br: true }; // $ExpectType { nl2br: true; }
 
-/* format */
+options = { tagName: null }; // $ExpectError
+options = { tagName: 'span' }; // $ExpectType { tagName: string; }
 
-linkifyHtml("", {
-    format(value, type) {
-        if (type === "url" && value.length > 50) {
-            value = value.slice(0, 50) + "…";
-        }
-        return value;
-    }
-});
+options = { target: null }; // $ExpectError
+options = { target: '_parent' }; // $ExpectType { target: string; }
 
-linkifyHtml("", {
-    format: {
-        url(value) {
-            return value.length > 50 ? value.slice(0, 50) + "…" : value;
-        }
-    }
-});
-
-/* formatHref */
-
-linkifyHtml("This site is #rad", {
-    formatHref(href, type) {
-        if (type === "hashtag") {
-            href = "https://twitter.com/hashtag/" + href.substring(1);
-        }
-        return href;
-    }
-});
-
-linkifyHtml("Hey @dhh, check out issue #23", {
-    formatHref: {
-        mention(href) {
-            return "https://github.com" + href;
-        },
-        ticket(href) {
-            return (
-                "https://github.com/SoapBox/linkifyjs/issues/" +
-                href.substring(1)
-            );
-        }
-    }
-});
-
-/* ignoreTags */
-
-linkifyHtml(
-    // tslint:disable-next-line:prefer-template
-    'Please ignore <script>var a = {}; a.com = "Hi";</script> \n' +
-        "but do <span>b.ca</span>",
-    {
-        ignoreTags: ["script", "style"]
-    }
-);
-
-/* nl2br */
-
-/* tagName */
-
-linkifyHtml("github.com", {
-    tagName: "span"
-});
-
-linkifyHtml("#swag", {
-    tagName: {
-        hashtag: "span"
-    }
-});
-
-/* target */
-
-linkifyHtml("github.com", {
-    target: "_parent"
-});
-
-linkifyHtml("test-email@example.com", {
-    target: {
-        url: "_parent",
-        email: null
-    }
-});
-
-/* validate */
-
-// Don't linkify links that don't begin in a protocol
-// e.g., "http://google.com" will be linkified, but "google.com" will not.
-linkifyHtml("www.google.com", {
-    validate: {
-        url(value) {
-            return /^(http|ftp)s?:\/\//.test(value);
-        }
-    }
-});
+options = { validate: null }; // $ExpectType { validate: null; }

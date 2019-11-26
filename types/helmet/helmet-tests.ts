@@ -18,6 +18,16 @@ function helmetTest() {
         action: 'deny'
       }
     }));
+    app.use(helmet({
+      featurePolicy: {
+        features: {
+          fullscreen: ["'self'"],
+          vibrate: ["'none'"],
+          payment: ['example.com'],
+          syncXhr: ["'none'"]
+        }
+      }
+    }))
 }
 
 /**
@@ -122,13 +132,20 @@ function hpkpTest() {
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubDomains: false
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
         includeSubdomains: false
     }));
 
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: true
+        includeSubDomains: true
     }));
 
     app.use(helmet.hpkp({
@@ -162,6 +179,12 @@ function hstsTest() {
       maxAge: 7776000000,
     }));
 
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      includeSubDomains: true
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
     app.use(helmet.hsts({
       maxAge: 7776000000,
       includeSubdomains: true
@@ -231,3 +254,18 @@ function permittedCrossDomainPoliciesTest() {
     app.use(helmet.permittedCrossDomainPolicies({}));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }
+
+/**
+ * @summary Test for {@see helmet#featurePolicy} function.
+ */
+function featurePolicyTest() {
+  app.use(helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  }));
+}
+

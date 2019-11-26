@@ -23,7 +23,7 @@ class SnapCarouselTest extends React.Component {
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel
@@ -81,7 +81,7 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: n
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel
@@ -126,7 +126,7 @@ class SnapCarouselWithParallaxTest extends React.Component {
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel

@@ -4,7 +4,7 @@
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6
 
 /**
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
@@ -235,7 +235,6 @@ export interface Scene extends Entity {
 	behaviors: Behavior[];
 	camera: THREE.Camera;
 	canvas: HTMLCanvasElement;
-	effect: THREE.VREffect;
 	isMobile: boolean;
 	object3D: THREE.Scene;
 	renderer: THREE.WebGLRenderer;
@@ -358,7 +357,7 @@ export interface Utils {
 
 // Definitions
 // used as mixins to register functions to create classes (newable functions) in A-Frame
-export type ComponentDefinition<T extends object = object> = T & Partial<Component>;
+export type ComponentDefinition<T extends object = object> = T & Partial<Component> & ThisType<T & Component>;
 export type GeometryDefinition<T extends object = object, U = any> = T & Partial<Geometry<U>>;
 export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {

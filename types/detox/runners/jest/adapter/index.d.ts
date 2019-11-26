@@ -9,4 +9,4 @@ interface DetoxJestAdapter {
 
 declare const adapter: DetoxJestAdapter;
 
-export default adapter;
+export = adapter;

@@ -3,10 +3,13 @@
 // Definitions by: Antoine Lépée <https://github.com/alepee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface FormEncodedOptions {
-    sorted?: boolean;
-    skipIndex?: boolean;
-    ignorenull?: boolean;
+declare namespace formUrlEncoded {
+    interface FormEncodedOptions {
+        sorted?: boolean;
+        skipIndex?: boolean;
+        ignorenull?: boolean;
+    }
 }
 
-export default function(data: any, opts?: FormEncodedOptions): string;
+declare function formUrlEncoded(data: any, opts?: formUrlEncoded.FormEncodedOptions): string;
+export = formUrlEncoded;

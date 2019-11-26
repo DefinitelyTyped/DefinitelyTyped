@@ -10,8 +10,9 @@ import * as React from 'react';
 export interface Options {
     /**
      * Defines if the animation should play only once or repeatedly in an endless loop
+     * or the number of loops that should be completed before the animation ends
      */
-    loop?: boolean;
+    loop?: boolean | number;
     /**
      * Defines if the animation should immediately play when the component enters the DOM
      */
@@ -21,7 +22,7 @@ export interface Options {
      */
     animationData: any;
     rendererSettings?: {
-        preserveAspectRatio?: boolean;
+        preserveAspectRatio?: string;
         /**
          * The canvas context
          */

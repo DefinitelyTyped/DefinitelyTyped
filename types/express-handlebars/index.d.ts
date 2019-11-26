@@ -1,8 +1,10 @@
-// Type definitions for express-handlebars
+// Type definitions for express-handlebars 3.1.0
 // Project: https://github.com/ericf/express-handlebars
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
+// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
+//                 Igor Dultsev <https://github.com/yhaskell>
+//                 Dennis Bartlett <https://github.com/dcbartlett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 interface PartialTemplateOptions {
     cache?: boolean;
@@ -26,8 +28,12 @@ interface ExphbsOptions {
     compilerOptions?: any;
 }
 
+interface ExphbsCallback {
+    (err: any, content?: string): void;
+}
+
 interface Exphbs {
-    engine: Function;
+    engine: (path: string, options: object, callback: (e: any, rendered: string) => void) => void;
     extname: string;
     compiled: Object;
     precompiled: Object;
@@ -36,11 +42,12 @@ interface Exphbs {
     getTemplate(filePath: string, options?: PartialTemplateOptions): Promise<Function>;
     getTemplates(dirPath: string, options?: PartialTemplateOptions): Promise<Object>;
     render(filePath: string, context: Object, options?: RenderOptions): Promise<string>;
-    renderView(viewPath: string, optionsOrCallback: any, callback?: () => string): void;
+    renderView(viewPath: string, callback: ExphbsCallback): void;
+    renderView(viewPath: string, options: any, callback: ExphbsCallback): void;
 }
 
 interface ExpressHandlebars {
-  (options?: ExphbsOptions): Function;
+  (options?: ExphbsOptions): (...args: any[]) => any;
   create (options?: ExphbsOptions): Exphbs;
 }
 

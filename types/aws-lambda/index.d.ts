@@ -25,14 +25,28 @@
 //                 Trevor Leach <https://github.com/trevor-leach>
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
+//                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Roberto Zen <https://github.com/skyzenr>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Juan Carbonel <https://github.com/juancarbonel>
+//                 Peter McIntyre <https://github.com/pwmcintyre>
+//                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
+//                 Marian Zange <https://github.com/marianzange>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // API Gateway "event" request context
 export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
+    connectedAt?: number;
+    connectionId?: string;
+    domainName?: string;
+    domainPrefix?: string;
+    eventType?: string;
+    extendedRequestId?: string;
     httpMethod: string;
     identity: {
         accessKey: string | null;
@@ -44,17 +58,22 @@ export interface APIGatewayEventRequestContext {
         cognitoAuthenticationType: string | null;
         cognitoIdentityId: string | null;
         cognitoIdentityPoolId: string | null;
+        principalOrgId: string | null;
         sourceIp: string;
         user: string | null;
         userAgent: string | null;
         userArn: string | null;
     };
+    messageDirection?: string;
+    messageId?: string | null;
     path: string;
     stage: string;
     requestId: string;
+    requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
+    routeKey?: string;
 }
 
 // API Gateway "event"
@@ -73,6 +92,24 @@ export interface APIGatewayProxyEvent {
     resource: string;
 }
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
+
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
+export interface ALBEventRequestContext {
+    elb: {
+        targetGroupArn: string;
+    };
+}
+export interface ALBEvent {
+    requestContext: ALBEventRequestContext;
+    httpMethod: string;
+    path: string;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
+    body: string | null;
+    isBase64Encoded: boolean;
+}
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -179,6 +216,16 @@ export interface SNSEvent {
  * S3Create event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html
  */
+
+export interface S3EventRecordGlacierRestoreEventData {
+    lifecycleRestorationExpiryTime: string;
+    lifecycleRestoreStorageClass: string;
+}
+
+export interface S3EventRecordGlacierEventData {
+    restoreEventData: S3EventRecordGlacierRestoreEventData;
+}
+
 export interface S3EventRecord {
     eventVersion: string;
     eventSource: string;
@@ -202,23 +249,63 @@ export interface S3EventRecord {
             name: string;
             ownerIdentity: {
                 principalId: string;
-            },
+            };
             arn: string;
-        },
+        };
         object: {
             key: string;
             size: number;
             eTag: string;
-            versionId: string;
+            versionId?: string;
             sequencer: string;
-        }
+        };
     };
+    glacierEventData?: S3EventRecordGlacierEventData;
 }
 
 export interface S3Event {
     Records: S3EventRecord[];
 }
+
 export type S3CreateEvent = S3Event; // old name
+
+/**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+
+export interface S3BatchEvent {
+    invocationSchemaVersion: string;
+    invocationId: string;
+    job: S3BatchEventJob;
+    tasks: S3BatchEventTask[];
+}
+
+export interface S3BatchEventJob {
+    id: string;
+}
+
+export interface S3BatchEventTask {
+    taskId: string;
+    s3Key: string;
+    s3VersionId: string | null;
+    s3BucketArn: string;
+}
+
+export interface S3BatchResult {
+    invocationSchemaVersion: string;
+    treatMissingKeysAs: S3BatchResultResultCode;
+    invocationId: string;
+    results: S3BatchResultResult[];
+}
+
+export type S3BatchResultResultCode = 'Succeeded' | 'TemporaryFailure' | 'PermanentFailure';
+
+export interface S3BatchResultResult {
+    taskId: string;
+    resultCode: S3BatchResultResultCode;
+    resultString: string;
+}
 
 /**
  * Cognito User Pool event
@@ -227,29 +314,30 @@ export type S3CreateEvent = S3Event; // old name
 export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
-    | "PreSignUp_SignUp"
-    | "PostConfirmation_ConfirmSignUp"
-    | "PreAuthentication_Authentication"
-    | "PostAuthentication_Authentication"
-    | "CustomMessage_SignUp"
-    | "CustomMessage_AdminCreateUser"
-    | "CustomMessage_ResendCode"
-    | "CustomMessage_ForgotPassword"
-    | "CustomMessage_UpdateUserAttribute"
-    | "CustomMessage_VerifyUserAttribute"
-    | "CustomMessage_Authentication"
-    | "DefineAuthChallenge_Authentication"
-    | "CreateAuthChallenge_Authentication"
-    | "VerifyAuthChallengeResponse_Authentication"
-    | "PreSignUp_AdminCreateUser"
-    | "PostConfirmation_ConfirmForgotPassword"
-    | "TokenGeneration_HostedAuth"
-    | "TokenGeneration_Authentication"
-    | "TokenGeneration_NewPasswordChallenge"
-    | "TokenGeneration_AuthenticateDevice"
-    | "TokenGeneration_RefreshTokens"
-    | "UserMigration_Authentication"
-    | "UserMigration_ForgotPassword";
+        | 'PreSignUp_SignUp'
+        | 'PreSignUp_ExternalProvider'
+        | 'PostConfirmation_ConfirmSignUp'
+        | 'PreAuthentication_Authentication'
+        | 'PostAuthentication_Authentication'
+        | 'CustomMessage_SignUp'
+        | 'CustomMessage_AdminCreateUser'
+        | 'CustomMessage_ResendCode'
+        | 'CustomMessage_ForgotPassword'
+        | 'CustomMessage_UpdateUserAttribute'
+        | 'CustomMessage_VerifyUserAttribute'
+        | 'CustomMessage_Authentication'
+        | 'DefineAuthChallenge_Authentication'
+        | 'CreateAuthChallenge_Authentication'
+        | 'VerifyAuthChallengeResponse_Authentication'
+        | 'PreSignUp_AdminCreateUser'
+        | 'PostConfirmation_ConfirmForgotPassword'
+        | 'TokenGeneration_HostedAuth'
+        | 'TokenGeneration_Authentication'
+        | 'TokenGeneration_NewPasswordChallenge'
+        | 'TokenGeneration_AuthenticateDevice'
+        | 'TokenGeneration_RefreshTokens'
+        | 'UserMigration_Authentication'
+        | 'UserMigration_ForgotPassword';
     region: string;
     userPoolId: string;
     userName?: string;
@@ -261,10 +349,17 @@ export interface CognitoUserPoolTriggerEvent {
         userAttributes: { [key: string]: string };
         validationData?: { [key: string]: string };
         codeParameter?: string;
+        linkParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
-            challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
+            challengeName:
+                | 'CUSTOM_CHALLENGE'
+                | 'PASSWORD_VERIFIER'
+                | 'SMS_MFA'
+                | 'DEVICE_SRP_AUTH'
+                | 'DEVICE_PASSWORD_VERIFIER'
+                | 'ADMIN_NO_SRP_AUTH';
             challengeResult: boolean;
             challengeMetadata?: string;
         }>;
@@ -275,6 +370,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
@@ -286,10 +383,19 @@ export interface CognitoUserPoolTriggerEvent {
         challengeMetadata?: string;
         answerCorrect?: boolean;
         userAttributes?: { [key: string]: string };
-        finalUserStatus?: "CONFIRMED" | "RESET_REQUIRED";
-        messageAction?: "SUPPRESS";
-        desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
+        finalUserStatus?: 'CONFIRMED' | 'RESET_REQUIRED';
+        messageAction?: 'SUPPRESS';
+        desiredDeliveryMediums?: Array<'EMAIL' | 'SMS'>;
         forceAliasCreation?: boolean;
+        claimsOverrideDetails?: {
+            claimsToAddOrOverride?: { [key: string]: string };
+            claimsToSuppress?: string[];
+            groupOverrideDetails?: null | {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            };
+        };
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -312,11 +418,11 @@ export interface CloudFormationCustomResourceEventCommon {
 }
 
 export interface CloudFormationCustomResourceCreateEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: "Create";
+    RequestType: 'Create';
 }
 
 export interface CloudFormationCustomResourceUpdateEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: "Update";
+    RequestType: 'Update';
     PhysicalResourceId: string;
     OldResourceProperties: {
         [Key: string]: any;
@@ -324,11 +430,14 @@ export interface CloudFormationCustomResourceUpdateEvent extends CloudFormationC
 }
 
 export interface CloudFormationCustomResourceDeleteEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: "Delete";
+    RequestType: 'Delete';
     PhysicalResourceId: string;
 }
 
-export type CloudFormationCustomResourceEvent = CloudFormationCustomResourceCreateEvent | CloudFormationCustomResourceUpdateEvent | CloudFormationCustomResourceDeleteEvent;
+export type CloudFormationCustomResourceEvent =
+    | CloudFormationCustomResourceCreateEvent
+    | CloudFormationCustomResourceUpdateEvent
+    | CloudFormationCustomResourceDeleteEvent;
 
 export interface CloudFormationCustomResourceResponseCommon {
     PhysicalResourceId: string;
@@ -338,19 +447,22 @@ export interface CloudFormationCustomResourceResponseCommon {
     Data?: {
         [Key: string]: any;
     };
+    NoEcho?: boolean;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
-    Status: "SUCCESS";
+    Status: 'SUCCESS';
     Reason?: string;
 }
 
 export interface CloudFormationCustomResourceFailedResponse extends CloudFormationCustomResourceResponseCommon {
-    Status: "FAILED";
+    Status: 'FAILED';
     Reason: string;
 }
 
-export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
+export type CloudFormationCustomResourceResponse =
+    | CloudFormationCustomResourceSuccessResponse
+    | CloudFormationCustomResourceFailedResponse;
 
 /**
  * See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-scheduled-event
@@ -359,7 +471,7 @@ export interface ScheduledEvent {
     account: string;
     region: string;
     detail: any;
-    "detail-type": string;
+    'detail-type': string;
     source: string;
     time: string;
     id: string;
@@ -393,7 +505,7 @@ export interface CloudWatchLogsLogEvent {
     id: string;
     timestamp: number;
     message: string;
-    extractedFields?: {[key: string]: string};
+    extractedFields?: { [key: string]: string };
 }
 
 // Context
@@ -429,7 +541,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    custom?: any;
+    Custom?: any;
     env: ClientContextEnv;
 }
 
@@ -461,6 +573,15 @@ export interface APIGatewayProxyResult {
     isBase64Encoded?: boolean;
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
+
+export interface ALBResult {
+    statusCode: number;
+    statusDescription: string;
+    headers?: { [header: string]: boolean | number | string };
+    multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
+    body: string;
+    isBase64Encoded: boolean;
+}
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.
@@ -511,7 +632,7 @@ export interface BaseStatement {
     Condition?: ConditionBlock;
 }
 
-export type PrincipalValue = { [key: string]: string | string[]; } | string | string[];
+export type PrincipalValue = { [key: string]: string | string[] } | string | string[];
 export interface MaybeStatementPrincipal {
     Principal?: PrincipalValue;
     NotPrincipal?: PrincipalValue;
@@ -521,8 +642,10 @@ export interface MaybeStatementResource {
     NotResource?: string | string[];
 }
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
-export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | string[] } | { NotResource: string | string[] });
-export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
+export type StatementResource = MaybeStatementPrincipal &
+    ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal = MaybeStatementResource &
+    ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
@@ -564,7 +687,7 @@ export interface EncryptionKey {
 }
 
 export interface CodePipelineEvent {
-    "CodePipeline.job": {
+    'CodePipeline.job': {
         id: string;
         accountId: string;
         data: {
@@ -572,7 +695,7 @@ export interface CodePipelineEvent {
                 configuration: {
                     FunctionName: string;
                     UserParameters: string;
-                }
+                };
             };
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
@@ -588,30 +711,15 @@ export interface CodePipelineEvent {
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  *
  * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
- * These events are when you subsribe to CodePipeline events in CloudWatch.
+ * These events are when you subscribe to CodePipeline events in CloudWatch.
  *
  * Their documentation says that detail.version is a string, but it is actually an integer
  */
-export type CodePipelineState =
-    | 'STARTED'
-    | 'SUCCEEDED'
-    | 'RESUMED'
-    | 'FAILED'
-    | 'CANCELED'
-    | 'SUPERSEDED';
+export type CodePipelineState = 'STARTED' | 'SUCCEEDED' | 'RESUMED' | 'FAILED' | 'CANCELED' | 'SUPERSEDED';
 
-export type CodePipelineStageState =
-    | 'STARTED'
-    | 'SUCCEEDED'
-    | 'RESUMED'
-    | 'FAILED'
-    | 'CANCELED';
+export type CodePipelineStageState = 'STARTED' | 'SUCCEEDED' | 'RESUMED' | 'FAILED' | 'CANCELED';
 
-export type CodePipelineActionState =
-    | 'STARTED'
-    | 'SUCCEEDED'
-    | 'FAILED'
-    | 'CANCELED';
+export type CodePipelineActionState = 'STARTED' | 'SUCCEEDED' | 'FAILED' | 'CANCELED';
 
 export interface CodePipelineCloudWatchPipelineEvent {
     version: string;
@@ -648,13 +756,7 @@ export interface CodePipelineCloudWatchStageEvent {
     };
 }
 
-export type CodePipelineActionCategory =
-    | 'Approval'
-    | 'Build'
-    | 'Deploy'
-    | 'Invoke'
-    | 'Source'
-    | 'Test';
+export type CodePipelineActionCategory = 'Approval' | 'Build' | 'Deploy' | 'Invoke' | 'Source' | 'Test';
 
 export interface CodePipelineCloudWatchActionEvent {
     version: string;
@@ -695,14 +797,14 @@ export type CodePipelineCloudWatchEvent =
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key: string;
+        key?: string;
         value: string;
     }>;
 }
 
 export type CloudFrontOrigin =
-    | { s3: CloudFrontS3Origin, custom?: never }
-    | { custom: CloudFrontCustomOrigin, s3?: never };
+    | { s3: CloudFrontS3Origin; custom?: never }
+    | { custom: CloudFrontCustomOrigin; s3?: never };
 
 export interface CloudFrontCustomOrigin {
     customHeaders: CloudFrontHeaders;
@@ -730,8 +832,14 @@ export interface CloudFrontResponse {
 }
 
 export interface CloudFrontRequest {
-    clientIp: string;
-    method: string;
+    body?: {
+        action: 'read-only' | 'replace';
+        data: string;
+        encoding: 'base64' | 'text';
+        readonly inputTruncated: boolean;
+    };
+    readonly clientIp: string;
+    readonly method: string;
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
@@ -740,14 +848,18 @@ export interface CloudFrontRequest {
 
 export interface CloudFrontEvent {
     config: {
-        distributionDomainName: string;
-        distributionId: string;
-        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
-        requestId: string;
-    };
+        readonly distributionDomainName: string;
+        readonly distributionId: string;
+    } & (
+        | { readonly eventType: 'origin-request' | 'origin-response' }
+        | { readonly eventType: 'viewer-request' | 'viewer-response'; readonly requestId: string });
 }
 
-// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
+/**
+ * Generated HTTP response in viewer request event or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses-in-requests.html#lambda-generating-http-responses-object
+ */
 export interface CloudFrontResultResponse {
     status: string;
     statusDescription?: string;
@@ -756,22 +868,32 @@ export interface CloudFrontResultResponse {
     body?: string;
 }
 
+/**
+ * CloudFront viewer response or origin response event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-response
+ */
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            request: CloudFrontRequest;
+            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, 'body'>>;
             response: CloudFrontResponse;
-        }
+        };
     }>;
 }
 
 export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse | CloudFrontRequest;
 
+/**
+ * CloudFront viewer request or origin request event
+ *
+ * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html#lambda-event-structure-request
+ */
 export interface CloudFrontRequestEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
             request: CloudFrontRequest;
-        }
+        };
     }>;
 }
 
@@ -867,13 +989,118 @@ export interface SQSRecordAttributes {
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
 }
+
+export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+
 export interface SQSMessageAttribute {
-    Name: string;
-    Type: string;
-    Value: string;
+    stringValue?: string;
+    binaryValue?: string;
+    stringListValues: never[]; // Not implemented. Reserved for future use.
+    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    dataType: SQSMessageAttributeDataType;
 }
+
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
+}
+
+// Lex
+// https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-lex
+export interface LexEvent {
+    currentIntent: {
+        name: string;
+        slots: { [name: string]: string | null };
+        slotDetails: LexSlotDetails;
+        confirmationStatus: 'None' | 'Confirmed' | 'Denied';
+    };
+    bot: {
+        name: string;
+        alias: string;
+        version: string;
+    };
+    userId: string;
+    inputTranscript: string;
+    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
+    outputDialogMode: 'Text' | 'Voice';
+    messageVersion: '1.0';
+    sessionAttributes: { [key: string]: string };
+    requestAttributes: { [key: string]: string } | null;
+}
+
+export interface LexSlotResolution {
+    value: string;
+}
+
+export interface LexSlotDetails {
+    [name: string]: {
+        // The following line only works in TypeScript Version: 3.0, The array should have at least 1 and no more than 5 items
+        // resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
+        resolutions: LexSlotResolution[];
+        originalValue: string;
+    };
+}
+
+export interface LexGenericAttachment {
+    title: string;
+    subTitle: string;
+    imageUrl: string;
+    attachmentLinkUrl: string;
+    buttons: Array<{
+        text: string;
+        value: string;
+    }>;
+}
+
+export interface LexDialogActionBase {
+    type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
+    message?: {
+        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
+        content: string;
+    };
+    responseCard?: {
+        version: number;
+        contentType: 'application/vnd.amazonaws.card.generic';
+        genericAttachments: LexGenericAttachment[];
+    };
+}
+
+export interface LexDialogActionClose extends LexDialogActionBase {
+    type: 'Close';
+    fulfillmentState: 'Fulfilled' | 'Failed';
+}
+
+export interface LexDialogActionElicitIntent extends LexDialogActionBase {
+    type: 'ElicitIntent';
+}
+
+export interface LexDialogActionElicitSlot extends LexDialogActionBase {
+    type: 'ElicitSlot';
+    intentName: string;
+    slots: { [name: string]: string | null };
+    slotToElicit: string;
+}
+
+export interface LexDialogActionConfirmIntent extends LexDialogActionBase {
+    type: 'ConfirmIntent';
+    intentName: string;
+    slots: { [name: string]: string | null };
+}
+
+export interface LexDialogActionDelegate {
+    type: 'Delegate';
+    slots: { [name: string]: string | null };
+}
+
+export type LexDialogAction =
+    | LexDialogActionClose
+    | LexDialogActionElicitIntent
+    | LexDialogActionElicitSlot
+    | LexDialogActionConfirmIntent
+    | LexDialogActionDelegate;
+
+export interface LexResult {
+    sessionAttributes?: { [key: string]: string };
+    dialogAction: LexDialogAction;
 }
 
 /**
@@ -938,10 +1165,16 @@ export type ScheduledHandler = Handler<ScheduledEvent, void>;
 
 // TODO: Alexa
 
+export type LexHandler = Handler<LexEvent, LexResult>;
+export type LexCallback = Callback<LexResult>;
+
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
+
+export type ALBHandler = Handler<ALBEvent, ALBResult>;
+export type ALBCallback = Callback<ALBResult>;
 
 // TODO: IoT
 
@@ -965,5 +1198,8 @@ export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent,
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
+
+export type S3BatchHandler = Handler<S3BatchEvent, S3BatchResult>;
+export type S3BatchCallback = Callback<S3BatchResult>;
 
 export as namespace AWSLambda;

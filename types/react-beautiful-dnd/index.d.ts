@@ -1,10 +1,12 @@
-// Type definitions for react-beautiful-dnd 10.0
+// Type definitions for react-beautiful-dnd 11.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 //                 Austin Turner <https://github.com/paustint>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
+//                 Taeheon Kim <https://github.com/lonyele>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -69,9 +71,9 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation | null;
+    destination?: DraggableLocation;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine | null;
+    combine?: Combine;
 }
 
 // details of the item that is being combined with
@@ -85,6 +87,7 @@ export interface DropResult extends DragUpdate {
 }
 
 export interface DragDropContextProps {
+    onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
@@ -102,12 +105,14 @@ export interface DroppableProvidedProps {
 }
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement<any> | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
     droppableProps: DroppableProvidedProps;
 }
 
 export interface DroppableStateSnapshot {
     isDraggingOver: boolean;
+    draggingOverWith?: DraggableId;
+    draggingFromThisWith?: DraggableId;
 }
 
 export interface DroppableProps {
@@ -117,7 +122,7 @@ export interface DroppableProps {
     isDropDisabled?: boolean;
     isCombineEnabled?: boolean;
     direction?: 'vertical' | 'horizontal';
-    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<any>;
+    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
 export class Droppable extends React.Component<DroppableProps> { }
@@ -171,7 +176,7 @@ export interface DraggableProvided {
 
     // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
-    placeholder?: React.ReactElement<any> | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
 }
 
 export interface DraggableStateSnapshot {
@@ -195,13 +200,21 @@ export interface DropAnimation {
     scale?: number;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface DraggableProps {
     draggableId: DroppableId;
     index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
-    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
+    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
     type?: TypeId;
+    shouldRespectForcePress?: boolean;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }
+
+export function resetServerContext(): void;

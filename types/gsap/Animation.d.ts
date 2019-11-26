@@ -29,8 +29,8 @@ declare namespace gsap {
          * Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete" or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances) along with any
          * parameters that should be passed to that callback.
          */
-        eventCallback(type: string): () => void;
-        eventCallback(type: string, callback: () => void, params?: any[], scope?: any): Animation;
+        eventCallback(type: string): (...args: any[]) => void;
+        eventCallback(type: string, callback: (...args: any[]) => void, params?: any[], scope?: any): Animation;
 
         /**
          * Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded

@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ffmpeg-mp4/index.d.ts",
+        "ffmpeg-webm/index.d.ts",
+        "ffmpeg-worker-mp4/index.d.ts",
+        "ffmpeg-worker-webm/index.d.ts",
+        "test/ffmpeg.js-tests.ts",
+        "test/ffmpeg.js-direct-tests.ts"
+    ]
+}

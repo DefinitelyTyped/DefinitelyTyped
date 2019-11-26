@@ -1,7 +1,0 @@
-{
-     "extends": "dtslint/dt.json" ,
-     "rules": {
-         "no-namespace":false,
-         "object-literal-key-quotes": false
-     }
-}

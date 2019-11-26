@@ -1,8 +1,11 @@
-// Type definitions for Mongoose 4.7.1
+// Type definitions for Mongoose 4.7.3
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
+// Definitions by: simonxca <https://github.com/simonxca>
+//                 horiuchi <https://github.com/horiuchi>
+//                 lukasz-zak <https://github.com/lukasz-zak>
+//                 murbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -212,7 +215,7 @@ declare module "mongoose" {
    * QueryStream can only be accessed using query#stream(), we only
    *   expose its interface here.
    */
-  interface QueryStream extends stream.Stream {
+  class QueryStream extends stream.Stream {
     /**
      * Provides a Node.js 0.8 style ReadStream interface for Queries.
      * @event data emits a single Mongoose document
@@ -227,7 +230,7 @@ declare module "mongoose" {
        */
       transform?: Function;
       [other: string]: any;
-    }): QueryStream;
+    });
 
     /**
      * Destroys the stream, closing the underlying cursor, which emits the close event.
@@ -547,7 +550,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  interface QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends Document> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -561,7 +564,7 @@ declare module "mongoose" {
      * @event data Emitted when the stream is flowing and the next doc is ready
      * @event end Emitted when the stream is exhausted
      */
-    constructor(query: Query<T>, options: any): QueryCursor<T>;
+    constructor(query: Query<T>, options: any);
 
     /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
     close(callback?: (error: any, result: any) => void): Promise<any>;
@@ -1178,7 +1181,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -1275,7 +1278,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj The item to look for
        */
       indexOf(obj: any): number;
 
@@ -1678,7 +1681,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<object>;
+    lean(bool?: boolean | object): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2443,7 +2446,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: Partial<T>): T;
 
     /**
      * Finds a single document by its _id field. findById(id) is almost*
@@ -2458,7 +2461,7 @@ declare module "mongoose" {
     findById(id: any | string | number, projection: any, options: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
-    model(name: string): Model<T>;
+      model<U extends Document>(name: string): Model<U>;
 
     /**
      * Creates a Query and specifies a $where condition.
@@ -2705,7 +2708,7 @@ declare module "mongoose" {
      * Returns another Model instance.
      * @param name model name
      */
-    model(name: string): Model<this>;
+    model<T extends Document>(name: string): Model<T>;
 
     /**
      * Removes this document from the db.

@@ -1,16 +1,47 @@
-// Type definitions for koa-bunyan-logger 2.0
+// Type definitions for koa-bunyan-logger 2.1
 // Project: https://github.com/koajs/bunyan-logger
 // Definitions by: Steven McDowall <https://github.com/sjmcdowall>
+//                 Jan Karlo Dela Cruz <https://github.com/jankdc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Middleware } from 'koa';
+import { Middleware, Request, Response } from 'koa';
 
 import Logger = require('bunyan');
 
-export = koaBunyanLogger;
-
 declare function koaBunyanLogger(logger?: Logger): Middleware;
+
+declare namespace koaBunyanLogger {
+    interface RequestData {
+        req: Request;
+    }
+
+    interface ResponseData {
+        req: Request;
+        res: Response;
+    }
+
+    interface RequestIdContextOptions {
+        header?: string;
+        prop?: string;
+        requestProp?: string;
+        field?: string;
+    }
+
+    interface RequestLoggerOptions {
+        durationField?: string;
+        levelFn?: (status: number, err: Error) => string;
+        updateLogFields?: (data: RequestData) => RequestData;
+        updateRequestLogFields?: (requestData: RequestData) => RequestData;
+        updateResponseLogFields?: (responseData: ResponseData) => ResponseData;
+        formatRequestMessage?: (requestData: RequestData) => string;
+        formatResponseMessage?: (responseData: ResponseData) => string;
+        ignorePath?: string[];
+    }
+
+    function requestLogger(opts?: RequestLoggerOptions): Middleware;
+    function requestIdContext(opts?: RequestIdContextOptions): Middleware;
+}
 
 // Extend the Koa context to add the logger..
 declare module 'koa' {
@@ -19,3 +50,5 @@ declare module 'koa' {
         log: Logger;
     }
 }
+
+export = koaBunyanLogger;

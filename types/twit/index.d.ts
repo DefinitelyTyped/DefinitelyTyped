@@ -5,6 +5,8 @@
 //                 abraham <https://github.com/abraham>
 //                 siwalik <https://github.com/siwalikm>
 //                 plhery <https://github.com/plhery>
+//                 justGoscha <https://github.com/justgoscha>
+//                 darkade <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -247,6 +249,11 @@ declare module 'twit' {
       max_id?: string,
       include_entities?: boolean,
 
+      source_id?: number,
+      source_screen_name?: string,
+      target_id?: number,
+      target_screen_name?: string,
+
       // Other params from various endpoints
       track?: string | string[],
       media_id?: string,
@@ -263,7 +270,7 @@ declare module 'twit' {
       user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean | string,
+      follow?: boolean | string | string[],
       include_email?: boolean,
       cursor?: number | string,
       tweet_mode?: string,
@@ -274,6 +281,7 @@ declare module 'twit' {
       url?: string,
       include_user_entities?: boolean,
       stringify_ids?: boolean,
+      in_reply_to_status_id?: number | string,
     }
     export interface PromiseResponse {
       data: Response,

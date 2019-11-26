@@ -3,6 +3,7 @@
 	"rules": {
 		// TODOs
 		"dt-header": false,
+        "npm-naming": false,
 		"no-any-union": false,
 		"no-empty-interface": false,
 		"no-object-literal-type-assertion": false,

@@ -16,6 +16,7 @@
     "files": [
         "index.d.ts",
         "runners/jest/adapter/index.d.ts",
+        "runners/jest/specReporter.d.ts",
         "runners/mocha/adapter/index.d.ts",
         "test/detox-global-tests.ts",
         "test/detox-module-tests.ts",

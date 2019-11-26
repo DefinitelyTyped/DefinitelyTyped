@@ -1,4 +1,4 @@
-// Type definitions for styled-system 3.1
+// Type definitions for styled-system 5.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -8,45 +8,96 @@
 //                 Matthieu Vachon <https://github.com/maoueh>
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
+//                 Adam Misiorny <https://github.com/adam187>
+//                 Sara F-P <https://github.com/gretzky>
+//                 Chris LoPresto <https://github.com/chrislopresto>
+//                 Pedro Duarte <https://github.com/peduarte>
+//                 Dhalton Huber <https://github.com/Dhalton>
+//                 Elliot Bonneville <https://github.com/elliotbonneville>
+//                 Jack Caldwell <https://github.com/jackcaldwell>
+//                 Eliseu Monar dos Santos <https://github.com/eliseumds>
+//                 Craig Michael Thompson <https://github.com/craga89>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as CSS from "csstype";
-
-export const defaultBreakpoints: string[];
-export function is(n: any): boolean;
-export function num(n: any): boolean;
-export function px(n: any): string;
+import * as CSS from 'csstype';
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 
-export function themeGet(keys: string, fallback?: string): any;
-export function cloneFunc(fn: (...args: any[]) => any): (...args: any[]) => any;
+export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
 
-export function merge(a: any, b: any): any;
-
-export function compose(
-    ...funcs: Array<(...args: any[]) => any>
-): (...args: any[]) => any;
-
-export function createMediaQuery(n: number | string): string;
-
-export interface LowLevelStylefunctionArguments {
-    prop: string;
-    cssProperty?: string;
-    key?: string;
-    getter?: () => any;
-    transformValue?: (n: string | number) => any;
-    scale?: Array<string | number>;
-}
-
-export function style(args: LowLevelStylefunctionArguments): any;
+export type Scale = ObjectOrArray<number | string>;
 
 export type TLengthStyledSystem = string | 0 | number;
-export type ResponsiveValue<T> = T | Array<T | null>;
+
+export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
+
+// Preserved to support v4 shim:
+// https://github.com/styled-system/styled-system/blob/master/packages/styled-system/src/index.js#L108
+export interface LowLevelStyleFunctionArguments<N, S> {
+    prop: string;
+    cssProperty?: string;
+    alias?: string;
+    key?: string;
+    transformValue?: (n: N, scale?: S) => any;
+    scale?: S;
+    // new v5 api
+    properties?: string[];
+}
+
+export function style<N = string | number, S = Scale>(
+    // tslint:disable-next-line no-unnecessary-generics
+    args: LowLevelStyleFunctionArguments<N, S>,
+): styleFn;
+
+export interface styleFn {
+    (...args: any[]): any;
+    config?: object;
+    propNames?: string[];
+    cache?: object;
+}
+
+export interface ConfigStyle {
+    /** The CSS property to use in the returned style object (overridden by `properties` if present). */
+    property?: keyof CSS.Properties;
+    /**
+     * An array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
+     * assigned (overrides `property` when present).
+     */
+    properties?: Array<keyof CSS.Properties>;
+    /** A string referencing a key in the `theme` object. */
+    scale?: string;
+    /** A fallback scale object for when there isn't one defined in the `theme` object. */
+    defaultScale?: Scale;
+    /** A function to transform the raw value based on the scale. */
+    transform?: (value: any, scale?: Scale) => any;
+}
+
+export interface Config {
+    /** Property name exposed for use in components */
+    [customStyleName: string]: ConfigStyle | boolean;
+}
+
+export function compose(...parsers: styleFn[]): styleFn;
+export function system(styleDefinitions: Config): styleFn;
+export function createParser(config: ConfigStyle): styleFn;
+export function createStyleFunction(args: ConfigStyle): styleFn;
+
+export interface VariantArgs {
+    key?: string;
+    /** Component prop, defaults to "variant" */
+    prop?: string;
+    /** theme key for variant definitions */
+    scale?: string;
+    /** inline theme aware variants definitions  */
+    variants?: object;
+}
+
+export function variant(props: VariantArgs): (...args: any[]) => any;
 
 /**
- * Converts shorthand margin and padding props to margin and padding CSS declarations
+ * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
  *
  * - Numbers from 0-4 (or the length of theme.space) are converted to values on the spacing scale.
  * - Negative values can be used for negative margins.
@@ -54,75 +105,142 @@ export type ResponsiveValue<T> = T | Array<T | null>;
  * - String values are passed as raw CSS values.
  * - Array values are converted into responsive values.
  */
-
 export interface SpaceProps<TLength = TLengthStyledSystem> {
     /** Margin on top, left, bottom and right */
     m?: ResponsiveValue<CSS.MarginProperty<TLength>>;
-    /** Margin for the top */
+    /** Margin on top, left, bottom and right */
+    margin?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on top */
     mt?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
-    /** Margin for the right */
+    /** Margin on top */
+    marginTop?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
+    /** Margin on right */
     mr?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
-    /** Margin for the bottom */
+    /** Margin on right */
+    marginRight?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
+    /** Margin on bottom */
     mb?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
-    /** Margin for the left */
+    /** Margin on bottom */
+    marginBottom?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
+    /** Margin on left */
     ml?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
-    /** Margin for the left and right */
-    mx?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Margin for the top and bottom */
-    my?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Margin on left */
+    marginLeft?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
+    /** Margin on left and right */
+    mx?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on left and right */
+    marginX?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on top and bottom */
+    my?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on top and bottom */
+    marginY?: ResponsiveValue<CSS.MarginProperty<TLength>>;
     /** Padding on top, left, bottom and right */
     p?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Padding for the top */
+    /** Padding on top, left, bottom and right */
+    padding?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Padding on top */
     pt?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
-    /** Padding for the right */
+    /** Padding on top */
+    paddingTop?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
+    /** Padding on right */
     pr?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
-    /** Padding for the bottom */
+    /** Padding on right */
+    paddingRight?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
+    /** Padding on bottom */
     pb?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
-    /** Padding for the left */
+    /** Padding on bottom */
+    paddingBottom?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
+    /** Padding on left */
     pl?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
-    /** Padding for the left and right */
+    /** Padding on left */
+    paddingLeft?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
+    /** Padding on left and right */
     px?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Padding for the top and bottom */
+    /** Padding on left and right */
+    paddingX?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Padding on top and bottom */
     py?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Padding on top and bottom */
+    paddingY?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
 }
 
-export function space(...args: any[]): any;
+export const space: styleFn;
 
-export interface VariantArgs {
-    key?: string;
-    // Defaults to "variant"
-    prop?: string;
+export interface MarginProps
+    extends Pick<
+        SpaceProps,
+        | 'm'
+        | 'margin'
+        | 'mt'
+        | 'marginTop'
+        | 'mb'
+        | 'marginBottom'
+        | 'ml'
+        | 'marginLeft'
+        | 'mr'
+        | 'marginRight'
+        | 'my'
+        | 'mx'
+    > {}
+export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
+export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
+export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
+export interface MarginRightProps extends Pick<SpaceProps, 'mr' | 'marginRight'> {}
+
+export const margin: styleFn;
+export const marginTop: styleFn;
+export const marginBottom: styleFn;
+export const marginLeft: styleFn;
+export const marginRight: styleFn;
+
+export interface PaddingProps
+    extends Pick<
+        SpaceProps,
+        | 'p'
+        | 'padding'
+        | 'pt'
+        | 'paddingTop'
+        | 'pb'
+        | 'paddingBottom'
+        | 'pl'
+        | 'paddingLeft'
+        | 'pr'
+        | 'paddingRight'
+        | 'py'
+        | 'px'
+    > {}
+export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
+export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
+export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
+export interface PaddingRightProps extends Pick<SpaceProps, 'pr' | 'paddingRight'> {}
+
+export const padding: styleFn;
+export const paddingTop: styleFn;
+export const paddingBottom: styleFn;
+export const paddingLeft: styleFn;
+export const paddingRight: styleFn;
+
+export interface Theme {
+    breakpoints?: string[] | number[] | object;
+    mediaQueries?: { [size: string]: string };
+    space?: ObjectOrArray<number | string>;
+    fontSizes?: ObjectOrArray<CSS.FontSizeProperty<number>>;
+    colors?: ObjectOrArray<CSS.ColorProperty>;
+    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
+    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
+    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
+    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
+    sizes?: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
+    borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    borderStyles?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    borderWidths?: ObjectOrArray<CSS.BorderWidthProperty<{}>>;
+    radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
+    shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
+    zIndices?: ObjectOrArray<CSS.ZIndexProperty>;
+    buttons?: ObjectOrArray<CSS.StandardProperties>;
+    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
+    textStyles?: ObjectOrArray<CSS.StandardProperties>;
 }
-
-export function variant(props: VariantArgs): (...args: any[]) => any;
-
-export interface BaseTheme {
-    breakpoints?: number[];
-    space?: number[];
-    fontSizes?: number[];
-    colors?: {
-        [name: string]: string;
-    };
-}
-
-/**
- * Font Size
- */
-
-export interface FontSizeProps<TLength = TLengthStyledSystem> {
-    /**
-     * The fontSize utility parses a component's `fontSize` prop and converts it into a CSS font-size declaration.
-     *
-     * - Numbers from 0-8 (or `theme.fontSizes.length`) are converted to values on the [font size scale](#default-theme).
-     * - Numbers greater than `theme.fontSizes.length` are converted to raw pixel values.
-     * - String values are passed as raw CSS values.
-     * - And array values are converted into responsive values.
-     *
-     */
-    fontSize?: ResponsiveValue<CSS.FontSizeProperty<TLength>>;
-}
-
-export function fontSize(...args: any[]): any;
 
 /**
  * Color
@@ -141,9 +259,9 @@ export interface TextColorProps {
     color?: ResponsiveValue<CSS.ColorProperty>;
 }
 
-export function textColor(...args: any[]): any;
+export const textColor: styleFn;
 
-export interface BgColorProps<TLength = TLengthStyledSystem> {
+export interface BackgroundColorProps<TLength = TLengthStyledSystem> {
     /**
      * The color utility parses a component's `color` and `bg` props and converts them into CSS declarations.
      * By default the raw value of the prop is returned.
@@ -154,45 +272,40 @@ export interface BgColorProps<TLength = TLengthStyledSystem> {
      * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)
      */
     bg?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
+    backgroundColor?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 
-export function bgColor(...args: any[]): any;
+export const backgroundColor: styleFn;
 
-export interface ColorProps extends TextColorProps, BgColorProps {}
+export interface ColorProps extends TextColorProps, BackgroundColorProps, OpacityProps {}
 
-export function color(...args: any[]): any;
+export const color: styleFn;
 
 /**
  * Typography
  */
+
+export function getPx(n: any, scale: any): string;
+
+export interface FontSizeProps<TLength = TLengthStyledSystem> {
+    /**
+     * The fontSize utility parses a component's `fontSize` prop and converts it into a CSS font-size declaration.
+     *
+     * - Numbers from 0-8 (or `theme.fontSizes.length`) are converted to values on the [font size scale](#default-theme).
+     * - Numbers greater than `theme.fontSizes.length` are converted to raw pixel values.
+     * - String values are passed as raw CSS values.
+     * - And array values are converted into responsive values.
+     *
+     */
+    fontSize?: ResponsiveValue<CSS.FontSizeProperty<TLength>>;
+}
+
+export const fontSize: styleFn;
+
 export interface FontFamilyProps {
     fontFamily?: ResponsiveValue<CSS.FontFamilyProperty>;
 }
-export function fontFamily(...args: any[]): any;
-
-export interface TextAlignProps {
-    /**
-     * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
-     */
-    textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
-}
-
-export function textAlign(...args: any[]): any;
-
-export interface LineHeightProps<TLength = TLengthStyledSystem> {
-    /**
-     * The line-height CSS property sets the amount of space used for lines, such as in text. On block-level elements,
-     * it specifies the minimum height of line boxes within the element.
-     *
-     * On non-replaced inline elements, it specifies the height that is used to calculate line box height.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
-     */
-    lineHeight?: ResponsiveValue<CSS.LineHeightProperty<TLength>>;
-}
-export function lineHeight(...args: any[]): any;
+export const fontFamily: styleFn;
 
 export interface FontWeightProps {
     /**
@@ -205,7 +318,31 @@ export interface FontWeightProps {
     fontWeight?: ResponsiveValue<CSS.FontWeightProperty>;
 }
 
-export function fontWeight(...args: any[]): any;
+export const fontWeight: styleFn;
+
+export interface LineHeightProps<TLength = TLengthStyledSystem> {
+    /**
+     * The line-height CSS property sets the amount of space used for lines, such as in text. On block-level elements,
+     * it specifies the minimum height of line boxes within the element.
+     *
+     * On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
+     */
+    lineHeight?: ResponsiveValue<CSS.LineHeightProperty<TLength>>;
+}
+export const lineHeight: styleFn;
+
+export interface TextAlignProps {
+    /**
+     * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
+     */
+    textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
+}
+
+export const textAlign: styleFn;
 
 export interface FontStyleProps {
     /**
@@ -216,7 +353,7 @@ export interface FontStyleProps {
      */
     fontStyle?: ResponsiveValue<CSS.FontStyleProperty>;
 }
-export function fontStyle(...args: any[]): any;
+export const fontStyle: styleFn;
 
 export interface LetterSpacingProps<TLength = TLengthStyledSystem> {
     /**
@@ -226,7 +363,24 @@ export interface LetterSpacingProps<TLength = TLengthStyledSystem> {
      */
     letterSpacing?: ResponsiveValue<CSS.LetterSpacingProperty<TLength>>;
 }
-export function letterSpacing(...args: any[]): any;
+export const letterSpacing: styleFn;
+
+/**
+ * A convenience style group containing props related to typography such as fontFamily, fontSize, fontWeight, etc.
+ *
+ * - String values are passed as raw CSS values.
+ * - Array values are converted into responsive values.
+ */
+export interface TypographyProps
+    extends FontFamilyProps,
+        FontSizeProps,
+        FontWeightProps,
+        LineHeightProps,
+        LetterSpacingProps,
+        FontStyleProps,
+        TextAlignProps {}
+
+export const typography: styleFn;
 
 /**
  * Layout
@@ -243,31 +397,7 @@ export interface DisplayProps {
     display?: ResponsiveValue<CSS.DisplayProperty>;
 }
 
-export function display(...args: any[]): any;
-
-export interface MaxWidthProps<TLength = TLengthStyledSystem> {
-    /**
-     * The max-width CSS property sets the maximum width of an element.
-     * It prevents the used value of the width property from becoming larger than the value specified by max-width.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width)
-     */
-    maxWidth?: ResponsiveValue<CSS.MaxWidthProperty<TLength>>;
-}
-
-export function maxWidth(...args: any[]): any;
-
-export interface MinWidthProps<TLength = TLengthStyledSystem> {
-    /**
-     * The min-width CSS property sets the minimum width of an element.
-     * It prevents the used value of the width property from becoming smaller than the value specified for min-width.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/min-width)
-     */
-    minWidth?: ResponsiveValue<CSS.MinWidthProperty<TLength>>;
-}
-
-export function minWidth(...args: any[]): any;
+export const display: styleFn;
 
 export interface WidthProps<TLength = TLengthStyledSystem> {
     /**
@@ -281,31 +411,31 @@ export interface WidthProps<TLength = TLengthStyledSystem> {
     width?: ResponsiveValue<CSS.WidthProperty<TLength>>;
 }
 
-export function width(...args: any[]): any;
+export const width: styleFn;
 
-export interface MaxHeightProps<TLength = TLengthStyledSystem> {
+export interface MaxWidthProps<TLength = TLengthStyledSystem> {
     /**
-     * The max-height CSS property sets the maximum height of an element. It prevents the used value of the height
-     * property from becoming larger than the value specified for max-height.
+     * The max-width CSS property sets the maximum width of an element.
+     * It prevents the used value of the width property from becoming larger than the value specified by max-width.
      *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/max-height)
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width)
      */
-    maxHeight?: ResponsiveValue<CSS.MaxHeightProperty<TLength>>;
+    maxWidth?: ResponsiveValue<CSS.MaxWidthProperty<TLength>>;
 }
 
-export function maxHeight(...args: any[]): any;
+export const maxWidth: styleFn;
 
-export interface MinHeightProps<TLength = TLengthStyledSystem> {
+export interface MinWidthProps<TLength = TLengthStyledSystem> {
     /**
-     * The min-height CSS property sets the minimum height of an element. It prevents the used value of the height
-     * property from becoming smaller than the value specified for min-height.
+     * The min-width CSS property sets the minimum width of an element.
+     * It prevents the used value of the width property from becoming smaller than the value specified for min-width.
      *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/min-width)
      */
-    minHeight?: ResponsiveValue<CSS.MinHeightProperty<TLength>>;
+    minWidth?: ResponsiveValue<CSS.MinWidthProperty<TLength>>;
 }
 
-export function minHeight(...args: any[]): any;
+export const minWidth: styleFn;
 
 export interface HeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -317,34 +447,37 @@ export interface HeightProps<TLength = TLengthStyledSystem> {
     height?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function height(...args: any[]): any;
+export const height: styleFn;
 
-// TODO: Document, I couldn't find any info on these two properties...
-
-export interface SizeWidthProps<TLength = TLengthStyledSystem> {
-    size?: ResponsiveValue<CSS.WidthProperty<TLength>>;
+export interface MaxHeightProps<TLength = TLengthStyledSystem> {
+    /**
+     * The max-height CSS property sets the maximum height of an element. It prevents the used value of the height
+     * property from becoming larger than the value specified for max-height.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/max-height)
+     */
+    maxHeight?: ResponsiveValue<CSS.MaxHeightProperty<TLength>>;
 }
 
-export function sizeWidth(...args: any[]): any;
+export const maxHeight: styleFn;
 
-export interface SizeHeightProps<TLength = TLengthStyledSystem> {
+export interface MinHeightProps<TLength = TLengthStyledSystem> {
+    /**
+     * The min-height CSS property sets the minimum height of an element. It prevents the used value of the height
+     * property from becoming smaller than the value specified for min-height.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
+     */
+    minHeight?: ResponsiveValue<CSS.MinHeightProperty<TLength>>;
+}
+
+export const minHeight: styleFn;
+
+export interface SizeProps<TLength = TLengthStyledSystem> {
     size?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function sizeHeight(...args: any[]): any;
-
-export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
-
-export function size(...args: any[]): any;
-
-export interface RatioProps {
-    /**
-     * The ration is height: 0 & paddingBottom
-     */
-    ratio?: ResponsiveValue<number>;
-}
-
-export function ratio(...args: any[]): any;
+export const size: styleFn;
 
 export interface VerticalAlignProps<TLength = TLengthStyledSystem> {
     /**
@@ -355,12 +488,11 @@ export interface VerticalAlignProps<TLength = TLengthStyledSystem> {
     verticalAlign?: ResponsiveValue<CSS.VerticalAlignProperty<TLength>>;
 }
 
-export function verticalAlign(...args: any[]): any;
+export const verticalAlign: styleFn;
 
 /**
  * Flexbox
  */
-
 export interface AlignItemsProps {
     /**
      * The CSS align-items property sets the align-self value on all direct children as a group. The align-self
@@ -374,7 +506,7 @@ export interface AlignItemsProps {
     alignItems?: ResponsiveValue<CSS.AlignItemsProperty>;
 }
 
-export function alignItems(...args: any[]): any;
+export const alignItems: styleFn;
 
 export interface AlignContentProps {
     /**
@@ -386,7 +518,7 @@ export interface AlignContentProps {
     alignContent?: ResponsiveValue<CSS.AlignContentProperty>;
 }
 
-export function alignContent(...args: any[]): any;
+export const alignContent: styleFn;
 
 export interface JustifyItemsProps {
     /**
@@ -398,6 +530,8 @@ export interface JustifyItemsProps {
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
 
+export const justifyItems: styleFn;
+
 export interface JustifyContentProps {
     /**
      * The CSS justify-content property defines how the browser distributes space between and around content items
@@ -408,7 +542,7 @@ export interface JustifyContentProps {
     justifyContent?: ResponsiveValue<CSS.JustifyContentProperty>;
 }
 
-export function justifyContent(...args: any[]): any;
+export const justifyContent: styleFn;
 
 export interface FlexWrapProps {
     /**
@@ -420,7 +554,7 @@ export interface FlexWrapProps {
     flexWrap?: ResponsiveValue<CSS.FlexWrapProperty>;
 }
 
-export function flexWrap(...args: any[]): any;
+export const flexWrap: styleFn;
 
 export interface FlexBasisProps<TLength = TLengthStyledSystem> {
     // TODO: The FlexBasisValue currently really only exists for documentation
@@ -430,7 +564,7 @@ export interface FlexBasisProps<TLength = TLengthStyledSystem> {
     flexBasis?: ResponsiveValue<CSS.FlexBasisProperty<TLength>>;
 }
 
-export function flexBasis(...args: any[]): any;
+export const flexBasis: styleFn;
 
 export interface FlexDirectionProps {
     /**
@@ -442,7 +576,7 @@ export interface FlexDirectionProps {
     flexDirection?: ResponsiveValue<CSS.FlexDirectionProperty>;
 }
 
-export function flexDirection(...args: any[]): any;
+export const flexDirection: styleFn;
 
 export interface FlexProps<TLength = TLengthStyledSystem> {
     /**
@@ -454,7 +588,7 @@ export interface FlexProps<TLength = TLengthStyledSystem> {
     flex?: ResponsiveValue<CSS.FlexProperty<TLength>>;
 }
 
-export function flex(...args: any[]): any;
+export const flex: styleFn;
 
 export interface JustifySelfProps {
     /**
@@ -466,7 +600,7 @@ export interface JustifySelfProps {
     justifySelf?: ResponsiveValue<CSS.JustifySelfProperty>;
 }
 
-export function justifySelf(...args: any[]): any;
+export const justifySelf: styleFn;
 
 export interface AlignSelfProps {
     /**
@@ -480,7 +614,7 @@ export interface AlignSelfProps {
     alignSelf?: ResponsiveValue<CSS.AlignSelfProperty>;
 }
 
-export function alignSelf(...args: any[]): any;
+export const alignSelf: styleFn;
 
 export interface OrderProps {
     /**
@@ -492,7 +626,54 @@ export interface OrderProps {
     order?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
-export function order(...args: any[]): any;
+export const order: styleFn;
+
+export interface FlexGrowProps {
+    /**
+     * The flex-grow CSS property sets the flex grow factor of a flex item main size. It specifies how much of the
+     * remaining space in the flex container should be assigned to the item (the flex grow factor).
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow)
+     */
+    flexGrow?: ResponsiveValue<CSS.GlobalsNumber>;
+}
+
+export const flexGrow: styleFn;
+
+export interface FlexShrinkProps {
+    /**
+     * The flex-shrink CSS property sets the flex shrink factor of a flex item. If the size of all flex items is larger
+     * than the flex container, items shrink to fit according to flex-shrink.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink)
+     */
+    flexShrink?: ResponsiveValue<CSS.GlobalsNumber>;
+}
+
+export const flexShrink: styleFn;
+
+/**
+ * A convenience style group containing props related to flexbox.
+ *
+ * - String values are passed as raw CSS values.
+ * - Array values are converted into responsive values.
+ */
+export interface FlexboxProps
+    extends AlignItemsProps,
+        AlignContentProps,
+        JustifyItemsProps,
+        JustifyContentProps,
+        FlexWrapProps,
+        FlexDirectionProps,
+        FlexProps,
+        FlexGrowProps,
+        FlexShrinkProps,
+        FlexBasisProps,
+        JustifySelfProps,
+        AlignSelfProps,
+        OrderProps {}
+
+export const flexbox: styleFn;
 
 /**
  * Grid Layout
@@ -510,7 +691,7 @@ export interface GridGapProps<TLength = TLengthStyledSystem> {
     gridGap?: ResponsiveValue<CSS.GridGapProperty<TLength>>;
 }
 
-export function gridGap(...args: any[]): any;
+export const gridGap: styleFn;
 
 export interface GridColumnGapProps<TLength = TLengthStyledSystem> {
     /**
@@ -523,7 +704,7 @@ export interface GridColumnGapProps<TLength = TLengthStyledSystem> {
     gridColumnGap?: ResponsiveValue<CSS.GridColumnGapProperty<TLength>>;
 }
 
-export function gridColumnGap(...args: any[]): any;
+export const gridColumnGap: styleFn;
 
 export interface GridRowGapProps<TLength = TLengthStyledSystem> {
     /**
@@ -536,7 +717,7 @@ export interface GridRowGapProps<TLength = TLengthStyledSystem> {
     gridRowGap?: ResponsiveValue<CSS.GridRowGapProperty<TLength>>;
 }
 
-export function gridRowGap(...args: any[]): any;
+export const gridRowGap: styleFn;
 
 export interface GridColumnProps {
     /**
@@ -549,7 +730,7 @@ export interface GridColumnProps {
     gridColumn?: ResponsiveValue<CSS.GridColumnProperty>;
 }
 
-export function gridColumn(...args: any[]): any;
+export const gridColumn: styleFn;
 
 export interface GridRowProps {
     /**
@@ -562,7 +743,7 @@ export interface GridRowProps {
     gridRow?: ResponsiveValue<CSS.GridRowProperty>;
 }
 
-export function gridRow(...args: any[]): any;
+export const gridRow: styleFn;
 
 export interface GridAutoFlowProps {
     /**
@@ -574,7 +755,7 @@ export interface GridAutoFlowProps {
     gridAutoFlow?: ResponsiveValue<CSS.GridAutoFlowProperty>;
 }
 
-export function gridAutoFlow(...args: any[]): any;
+export const gridAutoFlow: styleFn;
 
 export interface GridAutoColumnsProps<TLength = TLengthStyledSystem> {
     /**
@@ -585,7 +766,7 @@ export interface GridAutoColumnsProps<TLength = TLengthStyledSystem> {
     gridAutoColumns?: ResponsiveValue<CSS.GridAutoColumnsProperty<TLength>>;
 }
 
-export function gridAutoColumns(...args: any[]): any;
+export const gridAutoColumns: styleFn;
 
 export interface GridAutoRowsProps<TLength = TLengthStyledSystem> {
     /**
@@ -596,22 +777,20 @@ export interface GridAutoRowsProps<TLength = TLengthStyledSystem> {
     gridAutoRows?: ResponsiveValue<CSS.GridAutoRowsProperty<TLength>>;
 }
 
-export function gridAutoRows(...args: any[]): any;
+export const gridAutoRows: styleFn;
 
-export interface GridTemplatesColumnsProps<TLength = TLengthStyledSystem> {
+export interface GridTemplateColumnsProps<TLength = TLengthStyledSystem> {
     /**
      * The grid-template-columns CSS property defines the line names and track sizing functions of the grid columns.
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)
      */
-    gridTemplateColumns?: ResponsiveValue<
-        CSS.GridTemplateColumnsProperty<TLength>
-    >;
+    gridTemplateColumns?: ResponsiveValue<CSS.GridTemplateColumnsProperty<TLength>>;
 }
 
-export function gridTemplateColumns(...args: any[]): any;
+export const gridTemplateColumns: styleFn;
 
-export interface GridTemplatesRowsProps<TLength = TLengthStyledSystem> {
+export interface GridTemplateRowsProps<TLength = TLengthStyledSystem> {
     /**
      * The grid-template-rows CSS property defines the line names and track sizing functions of the grid rows.
      *
@@ -620,9 +799,9 @@ export interface GridTemplatesRowsProps<TLength = TLengthStyledSystem> {
     gridTemplateRows?: ResponsiveValue<CSS.GridTemplateRowsProperty<TLength>>;
 }
 
-export function gridTemplateRows(...args: any[]): any;
+export const gridTemplateRows: styleFn;
 
-export interface GridTemplatesAreasProps {
+export interface GridTemplateAreasProps {
     /**
      * The grid-template-areas CSS property specifies named grid areas.
      *
@@ -631,7 +810,7 @@ export interface GridTemplatesAreasProps {
     gridTemplateAreas?: ResponsiveValue<CSS.GridTemplateAreasProperty>;
 }
 
-export function gridTemplateAreas(...args: any[]): any;
+export const gridTemplateAreas: styleFn;
 
 export interface GridAreaProps {
     /**
@@ -644,23 +823,160 @@ export interface GridAreaProps {
     gridArea?: ResponsiveValue<CSS.GridAreaProperty>;
 }
 
-export function gridArea(...args: any[]): any;
+export const gridArea: styleFn;
+
+/**
+ * A convenience style group containing props related to grid.
+ *
+ * - String values are passed as raw CSS values.
+ * - Array values are converted into responsive values.
+ */
+export interface GridProps
+    extends GridGapProps,
+        GridColumnGapProps,
+        GridRowGapProps,
+        GridColumnProps,
+        GridRowProps,
+        GridAutoFlowProps,
+        GridAutoColumnsProps,
+        GridAutoRowsProps,
+        GridTemplateColumnsProps,
+        GridTemplateRowsProps,
+        GridTemplateAreasProps,
+        GridAreaProps {}
+
+export const grid: styleFn;
+
+/**
+ * A convenience style group containing props related to layout such as width, height, and display.
+ *
+ * - For length props, Numbers from 0-4 (or the length of theme.sizes) are converted to values on the spacing scale.
+ * - For length props, Numbers greater than the length of the theme.sizes array are converted to raw pixel values.
+ * - String values are passed as raw CSS values.
+ * - Array values are converted into responsive values.
+ */
+export interface LayoutProps
+    extends WidthProps,
+        HeightProps,
+        MinWidthProps,
+        MinHeightProps,
+        MaxWidthProps,
+        MaxHeightProps,
+        DisplayProps,
+        VerticalAlignProps,
+        SizeProps,
+        OverflowProps {}
+
+export const layout: styleFn;
 
 /**
  * Borders
  */
 
-export interface BorderProps<TLength = TLengthStyledSystem> {
+export interface BorderWidthProps<TLength = TLengthStyledSystem> {
     /**
-     * The border CSS property sets an element's border. It's a shorthand for border-width, border-style,
-     * and border-color.
+     * The border-width shorthand CSS property sets the width of all sides of an element's border.
      *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
      */
-    border?: ResponsiveValue<CSS.BorderProperty<TLength>>;
+    borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+    /**
+     * The border-top-width CSS property sets the width of the top border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-width)
+     */
+    borderTopWidth?: ResponsiveValue<CSS.BorderTopWidthProperty<TLength>>;
+    /**
+     * The border-bottom-width CSS property sets the width of the bottom border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width)
+     */
+    borderBottomWidth?: ResponsiveValue<CSS.BorderBottomWidthProperty<TLength>>;
+    /**
+     * The border-left-width CSS property sets the width of the left border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-width)
+     */
+    borderLeftWidth?: ResponsiveValue<CSS.BorderLeftWidthProperty<TLength>>;
+    /**
+     * The border-right-width CSS property sets the width of the right border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-width)
+     */
+    borderRightWidth?: ResponsiveValue<CSS.BorderRightWidthProperty<TLength>>;
 }
 
-export function border(...args: any[]): any;
+export const borderWidth: styleFn;
+
+export interface BorderStyleProps {
+    /**
+     * The border-style shorthand CSS property sets the style of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+     */
+    borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+    /**
+     * The border-top-style CSS property sets the line style of an element's top border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-style)
+     */
+    borderTopStyle?: ResponsiveValue<CSS.BorderTopStyleProperty>;
+    /**
+     * The border-bottom-style CSS property sets the line style of an element's bottom border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style)
+     */
+    borderBottomStyle?: ResponsiveValue<CSS.BorderBottomStyleProperty>;
+    /**
+     * The border-left-style CSS property sets the line style of an element's left border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-style)
+     */
+    borderLeftStyle?: ResponsiveValue<CSS.BorderLeftStyleProperty>;
+    /**
+     * The border-right-style CSS property sets the line style of an element's right border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-style)
+     */
+    borderRightStyle?: ResponsiveValue<CSS.BorderRightStyleProperty>;
+}
+
+export const borderStyle: styleFn;
+
+export interface BorderColorProps {
+    /**
+     * The border-color shorthand CSS property sets the color of all sides of an element's border.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
+     */
+    borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
+    /**
+     * The border-top-color CSS property sets the color of an element's top border. It can also be set with the shorthand CSS properties border-color or border-top.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color)
+     */
+    borderTopColor?: ResponsiveValue<CSS.BorderTopColorProperty>;
+    /**
+     * The border-bottom-color CSS property sets the color of an element's bottom border. It can also be set with the shorthand CSS properties border-color or border-bottom.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color)
+     */
+    borderBottomColor?: ResponsiveValue<CSS.BorderBottomColorProperty>;
+    /**
+     * The border-left-color CSS property sets the color of an element's left border. It can also be set with the shorthand CSS properties border-color or border-left.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-color)
+     */
+    borderLeftColor?: ResponsiveValue<CSS.BorderLeftColorProperty>;
+    /**
+     * The border-right-color CSS property sets the color of an element's right border. It can also be set with the shorthand CSS properties border-color or border-right.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-color)
+     */
+    borderRightColor?: ResponsiveValue<CSS.BorderRightColorProperty>;
+}
+
+export const borderColor: styleFn;
 
 export interface BorderTopProps<TLength = TLengthStyledSystem> {
     /**
@@ -672,7 +988,7 @@ export interface BorderTopProps<TLength = TLengthStyledSystem> {
     borderTop?: ResponsiveValue<CSS.BorderTopProperty<TLength>>;
 }
 
-export function borderTop(...args: any[]): any;
+export const borderTop: styleFn;
 
 export interface BorderRightProps<TLength = TLengthStyledSystem> {
     /**
@@ -684,7 +1000,7 @@ export interface BorderRightProps<TLength = TLengthStyledSystem> {
     borderRight?: ResponsiveValue<CSS.BorderRightProperty<TLength>>;
 }
 
-export function borderRight(...args: any[]): any;
+export const borderRight: styleFn;
 
 export interface BorderBottomProps<TLength = TLengthStyledSystem> {
     /**
@@ -696,7 +1012,7 @@ export interface BorderBottomProps<TLength = TLengthStyledSystem> {
     borderBottom?: ResponsiveValue<CSS.BorderBottomProperty<TLength>>;
 }
 
-export function borderBottom(...args: any[]): any;
+export const borderBottom: styleFn;
 
 export interface BorderLeftProps<TLength = TLengthStyledSystem> {
     /**
@@ -708,26 +1024,7 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem> {
     borderLeft?: ResponsiveValue<CSS.BorderLeftProperty<TLength>>;
 }
 
-export function borderLeft(...args: any[]): any;
-
-export interface BordersProps
-    extends BorderTopProps,
-        BorderRightProps,
-        BorderBottomProps,
-        BorderLeftProps {}
-
-export function borders(...args: any[]): any;
-
-export interface BorderColorProps {
-    /**
-     * The border-color shorthand CSS property sets the color of all sides of an element's border.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
-     */
-    borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
-}
-
-export function borderColor(...args: any[]): any;
+export const borderLeft: styleFn;
 
 export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
     /**
@@ -737,22 +1034,97 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
      */
     borderRadius?: ResponsiveValue<CSS.BorderRadiusProperty<TLength>>;
+    /**
+     * The border-top-left-radius CSS property rounds the top-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-left-radius)
+     */
+    borderTopLeftRadius?: ResponsiveValue<CSS.BorderTopLeftRadiusProperty<TLength>>;
+    /**
+     * The border-top-right-radius CSS property rounds the top-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-right-radius)
+     */
+    borderTopRightRadius?: ResponsiveValue<CSS.BorderTopRightRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-left-radius CSS property rounds the bottom-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-left-radius)
+     */
+    borderBottomLeftRadius?: ResponsiveValue<CSS.BorderBottomLeftRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-right-radius CSS property rounds the bottom-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius)
+     */
+    borderBottomRightRadius?: ResponsiveValue<CSS.BorderBottomRightRadiusProperty<TLength>>;
 }
 
-export function borderRadius(...args: any[]): any;
+export const borderRadius: styleFn;
+
+export interface BordersProps
+    extends BorderProps,
+        BorderTopProps,
+        BorderRightProps,
+        BorderBottomProps,
+        BorderLeftProps,
+        BorderWidthProps,
+        BorderColorProps,
+        BorderStyleProps,
+        BorderRadiusProps {}
+
+export const borders: styleFn;
+
+export interface BorderProps<TLength = TLengthStyledSystem>
+    extends BorderWidthProps,
+        BorderStyleProps,
+        BorderColorProps,
+        BorderRadiusProps,
+        BorderTopProps,
+        BorderRightProps,
+        BorderBottomProps,
+        BorderLeftProps {
+    /**
+     * The border CSS property sets an element's border. It's a shorthand for border-width, border-style,
+     * and border-color.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)
+     */
+    border?: ResponsiveValue<CSS.BorderProperty<TLength>>;
+    borderX?: ResponsiveValue<CSS.BorderProperty<TLength>>;
+    borderY?: ResponsiveValue<CSS.BorderProperty<TLength>>;
+}
+
+export const border: styleFn;
 
 export interface BoxShadowProps {
     /**
-     * The box-shadow CSS property adds shadow effects around an element's frame. You can set multiple effects
-     * separated by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread
-     * radii, and color.
+     * The box-shadow CSS property adds shadow effects around an element's frame. You can set multiple effects separated
+     * by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread radii and color.
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
      */
     boxShadow?: ResponsiveValue<CSS.BoxShadowProperty | number>;
 }
 
-export function boxShadow(...arg: any[]): any;
+export const boxShadow: styleFn;
+
+export interface TextShadowProps {
+    /**
+     * The `text-shadow` CSS property adds shadows to text. It accepts a comma-separated list of shadows to be applied
+     * to the text and any of its `decorations`. Each shadow is described by some combination of X and Y offsets from
+     * the element, blur radius, and color.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow)
+     */
+    textShadow?: ResponsiveValue<CSS.TextShadowProperty | number>;
+}
+
+export const textShadow: styleFn;
+
+export interface ShadowProps extends BoxShadowProps, TextShadowProps {}
+
+export const shadow: styleFn;
 
 export interface OpacityProps {
     /**
@@ -764,7 +1136,7 @@ export interface OpacityProps {
     opacity?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
-export function opacity(...arg: any[]): any;
+export const opacity: styleFn;
 
 export interface OverflowProps {
     /**
@@ -774,24 +1146,26 @@ export interface OverflowProps {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow)
      */
     overflow?: ResponsiveValue<CSS.OverflowProperty>;
+    /**
+     * The overflow-x CSS property sets what shows when content overflows a block-level element's left
+     * and right edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x)
+     */
+    overflowX?: ResponsiveValue<CSS.OverflowXProperty>;
+    /**
+     * The overflow-y CSS property sets what shows when content overflows a block-level element's top
+     * and bottom edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y)
+     */
+    overflowY?: ResponsiveValue<CSS.OverflowYProperty>;
 }
 
-export function overflow(...arg: any[]): any;
+export const overflow: styleFn;
 /**
  * Background
  */
-
-export interface BackgroundProps<TLength = TLengthStyledSystem> {
-    /**
-     * The background shorthand CSS property sets all background style properties at once,
-     * such as color, image, origin and size, repeat method, and others.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background)
-     */
-    background?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
-}
-
-export function background(...args: any[]): any;
 
 export interface BackgroundImageProps {
     /**
@@ -802,7 +1176,7 @@ export interface BackgroundImageProps {
     backgroundImage?: ResponsiveValue<CSS.BackgroundImageProperty>;
 }
 
-export function backgroundImage(...args: any[]): any;
+export const backgroundImage: styleFn;
 
 export interface BackgroundSizeProps<TLength = TLengthStyledSystem> {
     /**
@@ -814,7 +1188,7 @@ export interface BackgroundSizeProps<TLength = TLengthStyledSystem> {
     backgroundSize?: ResponsiveValue<CSS.BackgroundSizeProperty<TLength>>;
 }
 
-export function backgroundSize(...args: any[]): any;
+export const backgroundSize: styleFn;
 
 export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
     /**
@@ -823,12 +1197,10 @@ export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position)
      */
-    backgroundPosition?: ResponsiveValue<
-        CSS.BackgroundPositionProperty<TLength>
-    >;
+    backgroundPosition?: ResponsiveValue<CSS.BackgroundPositionProperty<TLength>>;
 }
 
-export function backgroundPosition(...args: any[]): any;
+export const backgroundPosition: styleFn;
 
 export interface BackgroundRepeatProps {
     /**
@@ -840,23 +1212,27 @@ export interface BackgroundRepeatProps {
     backgroundRepeat?: ResponsiveValue<CSS.BackgroundRepeatProperty>;
 }
 
-export function backgroundRepeat(...args: any[]): any;
+export const backgroundRepeat: styleFn;
+
+export interface BackgroundProps<TLength = TLengthStyledSystem>
+    extends BackgroundImageProps,
+        BackgroundSizeProps,
+        BackgroundPositionProps,
+        BackgroundRepeatProps {
+    /**
+     * The background shorthand CSS property sets all background style properties at once,
+     * such as color, image, origin and size, repeat method, and others.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background)
+     */
+    background?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
+}
+
+export const background: styleFn;
 
 /**
  * Position
  */
-
-export interface PositionProps {
-    /**
-     * The position CSS property specifies how an element is positioned in a document.
-     * The top, right, bottom, and left properties determine the final location of positioned elements.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
-     */
-    position?: ResponsiveValue<CSS.PositionProperty>;
-}
-
-export function position(...args: any[]): any;
 
 export interface ZIndexProps {
     /**
@@ -868,7 +1244,7 @@ export interface ZIndexProps {
     zIndex?: ResponsiveValue<CSS.ZIndexProperty>;
 }
 
-export function zIndex(...args: any[]): any;
+export const zIndex: styleFn;
 
 export interface TopProps<TLength = TLengthStyledSystem> {
     /**
@@ -880,7 +1256,7 @@ export interface TopProps<TLength = TLengthStyledSystem> {
     top?: ResponsiveValue<CSS.TopProperty<TLength>>;
 }
 
-export function top(...args: any[]): any;
+export const top: styleFn;
 
 export interface RightProps<TLength = TLengthStyledSystem> {
     /**
@@ -892,7 +1268,7 @@ export interface RightProps<TLength = TLengthStyledSystem> {
     right?: ResponsiveValue<CSS.RightProperty<TLength>>;
 }
 
-export function right(...args: any[]): any;
+export const right: styleFn;
 
 export interface BottomProps<TLength = TLengthStyledSystem> {
     /**
@@ -904,7 +1280,7 @@ export interface BottomProps<TLength = TLengthStyledSystem> {
     bottom?: ResponsiveValue<CSS.BottomProperty<TLength>>;
 }
 
-export function bottom(...args: any[]): any;
+export const bottom: styleFn;
 
 export interface LeftProps<TLength = TLengthStyledSystem> {
     /**
@@ -916,30 +1292,117 @@ export interface LeftProps<TLength = TLengthStyledSystem> {
     left?: ResponsiveValue<CSS.LeftProperty<TLength>>;
 }
 
-export function left(...args: any[]): any;
+export const left: styleFn;
 
-export interface TextStyleProps {
-    textStyle?: ResponsiveValue<string>;
+export interface PositionProps extends ZIndexProps, TopProps, RightProps, BottomProps, LeftProps {
+    /**
+     * The position CSS property specifies how an element is positioned in a document.
+     * The top, right, bottom, and left properties determine the final location of positioned elements.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
+     */
+    position?: ResponsiveValue<CSS.PositionProperty>;
 }
 
-export function textStyle(...args: any[]): any;
-
-export interface ColorStyleProps {
-    colors?: ResponsiveValue<string>;
-}
-
-export function colorStyle(...args: any[]): any;
+export const position: styleFn;
 
 export interface ButtonStyleProps {
     variant?: ResponsiveValue<string>;
 }
 
-export function buttonStyle(...args: any[]): any;
+export const buttonStyle: styleFn;
 
-export interface MixedProps {
-    key?: any;
-    // Defaults to "variant"
-    prop?: string;
+export interface TextStyleProps {
+    textStyle?: ResponsiveValue<string>;
 }
 
-export function mixed(...args: any[]): any;
+export const textStyle: styleFn;
+
+export interface ColorStyleProps {
+    colors?: ResponsiveValue<string>;
+}
+
+export const colorStyle: styleFn;
+
+export interface StylesProps {
+    space: typeof space;
+    margin: typeof margin;
+    marginTop: typeof marginTop;
+    marginBottom: typeof marginBottom;
+    marginLeft: typeof marginLeft;
+    marginRight: typeof marginRight;
+    padding: typeof padding;
+    paddingTop: typeof paddingTop;
+    paddingBottom: typeof paddingBottom;
+    paddingLeft: typeof paddingLeft;
+    paddingRight: typeof paddingRight;
+    width: typeof width;
+    fontSize: typeof fontSize;
+    textColor: typeof textColor;
+    backgroundColor: typeof backgroundColor;
+    color: typeof color;
+    fontFamily: typeof fontFamily;
+    textAlign: typeof textAlign;
+    lineHeight: typeof lineHeight;
+    fontWeight: typeof fontWeight;
+    fontStyle: typeof fontStyle;
+    letterSpacing: typeof letterSpacing;
+    display: typeof display;
+    maxWidth: typeof maxWidth;
+    minWidth: typeof minWidth;
+    height: typeof height;
+    maxHeight: typeof maxHeight;
+    minHeight: typeof minHeight;
+    size: typeof size;
+    verticalAlign: typeof verticalAlign;
+    alignItems: typeof alignItems;
+    alignContent: typeof alignContent;
+    justifyItems: typeof justifyItems;
+    justifyContent: typeof justifyContent;
+    flexWrap: typeof flexWrap;
+    flexBasis: typeof flexBasis;
+    flexDirection: typeof flexDirection;
+    flex: typeof flex;
+    justifySelf: typeof justifySelf;
+    alignSelf: typeof alignSelf;
+    order: typeof order;
+    gridGap: typeof gridGap;
+    gridColumnGap: typeof gridColumnGap;
+    gridRowGap: typeof gridRowGap;
+    gridColumn: typeof gridColumn;
+    gridRow: typeof gridRow;
+    gridAutoFlow: typeof gridAutoFlow;
+    gridAutoColumns: typeof gridAutoColumns;
+    gridAutoRows: typeof gridAutoRows;
+    gridTemplateColumns: typeof gridTemplateColumns;
+    gridTemplateRows: typeof gridTemplateRows;
+    gridTemplateAreas: typeof gridTemplateAreas;
+    gridArea: typeof gridArea;
+    border: typeof border;
+    borderTop: typeof borderTop;
+    borderRight: typeof borderRight;
+    borderBottom: typeof borderBottom;
+    borderLeft: typeof borderLeft;
+    borders: typeof borders;
+    borderColor: typeof borderColor;
+    borderRadius: typeof borderRadius;
+    boxShadow: typeof boxShadow;
+    opacity: typeof opacity;
+    overflow: typeof overflow;
+    background: typeof background;
+    backgroundImage: typeof backgroundImage;
+    backgroundPosition: typeof backgroundPosition;
+    backgroundRepeat: typeof backgroundRepeat;
+    backgroundSize: typeof backgroundSize;
+    position: typeof position;
+    zIndex: typeof zIndex;
+    top: typeof top;
+    right: typeof right;
+    bottom: typeof bottom;
+    left: typeof left;
+    textStyle: typeof textStyle;
+    colorStyle: typeof colorStyle;
+    buttonStyle: typeof buttonStyle;
+}
+
+export const styles: StylesProps;

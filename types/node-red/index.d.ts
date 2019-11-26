@@ -1,9 +1,10 @@
-// Type definitions for node-red 0.17
+// Type definitions for node-red 0.20
 // Project: http://nodered.org
 // Definitions by: Anders E. Andersen <https://github.com/andersea>
 //                 Thomas B. Mørch <https://github.com/tbowmo>
+//                 Bernardo Belchior <https://github.com/bernardobelchior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
@@ -173,9 +174,9 @@ export interface Nodes {
      * node, this call is used to get access to the running
      * instance.
      * @param id - the id of the node.
-     * @return - the node matching the given id.
+     * @return - the node matching the given id, or null if it does not exist.
      */
-    getNode(id: NodeId): Node;
+    getNode(id: NodeId): Node | null;
     /**
      * Cycle through all node definition objects.
      *

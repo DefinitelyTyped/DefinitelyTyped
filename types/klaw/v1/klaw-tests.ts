@@ -16,7 +16,7 @@ klaw('/some/dir')
 // README.md: Streams 2 & 3 (pull) with error handling
 
 klaw('/some/dir')
-    .on('readable', () => {
+    .on('readable', function() {
         while (true) {
             const item = this.read();
             if (!item) break;

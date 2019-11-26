@@ -1,12 +1,13 @@
-// Type definitions for jest-axe 2.2
+// Type definitions for jest-axe 3.2
 // Project: https://github.com/nickcolley/jest-axe
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOnly } from "axe-core";
+import { AxeResults, Result, RunOnly } from 'axe-core';
 
 /**
  * Version of the aXe verifier with defaults set.
@@ -34,7 +35,7 @@ export interface AxeOptions {
  * @param options   Options to run aXe.
  * @returns Promise for the results of running aXe.
  */
-export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults>;
+export type JestAxe = (html: Element | string, options?: AxeOptions) => Promise<AxeResults>;
 
 /**
  * Creates a new aXe verifier function.
@@ -78,8 +79,8 @@ export const toHaveNoViolations: {
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
-            toHaveNoViolations: IToHaveNoViolations;
+        interface Matchers<R, T> {
+            toHaveNoViolations(): R;
         }
     }
 

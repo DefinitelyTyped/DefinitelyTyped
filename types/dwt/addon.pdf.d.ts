@@ -1,12 +1,13 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
 /*!
-* Dynamsoft WebTwain PDF Addon
-* Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2018, Dynamsoft Corporation
+* Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.2
 */
 
 declare enum EnumDWT_ConvertMode {
@@ -25,7 +26,10 @@ declare enum EnumDWT_ConverMode {
 interface PDF {
     /**
      * Download and install pdf rasterizer add-on on the local system.
-     * @method Dynamsoft.WebTwain#Download
+
+     * [Deprecated] Starting in v14.2, the PDF module is installed with Dynamsoft Service.
+     * @method Dynamsoft.WebTwain.Addon.PDF#Download
+
      * @param {string} remoteFile specifies the value of which frame to get.
      * @param {function} optionalAsyncSuccessFunc optional.
      * The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
@@ -68,12 +72,20 @@ interface PDF {
      * @return {boolean}
      */
     IsTextBasedPDF(localFile: string): boolean;
+
+    Write: PDFWrite;
 }
 
-interface WebTwainAddon {
+interface PDFWrite {
+    /**
+     * Configures how the PDF generating is done
+     * @method Dynamsoft.WebTwain.Addon.PDF.Write#jsonWriteSetting
+     * @param {any} jsonWriteSetting detailed settings for PDF writing.
+     * @return {boolean}
+     */
+    Setup(jsonWriteSetting: any): void;
+}
+
+interface DynamsoftWebTwainAddon {
     PDF: PDF;
-}
-
-interface WebTwain {
-    Addon: WebTwainAddon;
 }

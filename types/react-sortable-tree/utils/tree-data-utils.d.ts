@@ -2,13 +2,12 @@ import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode
 
 export type GetNodeKeyFunction = (data: TreeIndex & TreeNode) => string | number;
 export type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean};
-export type FlattenedData = Array<TreeNode & TreePath & {lowerSiblingsCounts: number[]}>;
 
 export function getDescendantCount(data: TreeNode & {ignoreCollapsed?: boolean}): number;
 export function getVisibleNodeCount(data: FullTree): number;
 export function getVisibleNodeInfoAtIndex(
     data: FullTree & {
-        targetIndex: number,
+        index: number,
         getNodeKey: GetNodeKeyFunction,
     }): TreeNode & TreePath & {lowerSiblingsCounts: number[]} | null;
 export function walk(data: WalkAndMapFunctionParameters): void;
@@ -69,12 +68,14 @@ export function getFlatDataFromTree(
         ignoreCollapsed?: boolean,
     },
 ): FlatDataItem[];
-export function getTreeFromFlatData(
+export function getTreeFromFlatData<T, K extends keyof T, P extends keyof T, I extends string | number>(
     data: {
-        flatData: FlattenedData,
-        getKey?: GetNodeKeyFunction,
-        getParentKey?: GetNodeKeyFunction,
-        rootKey?: string | number,
+        flatData: T[] | I extends string ? { [key: string]: T } : { [key: number]: T },
+        // tslint:disable-next-line:no-unnecessary-generics
+        getKey?: (item: T) => T[K],
+        // tslint:disable-next-line:no-unnecessary-generics
+        getParentKey?: (item: T) => T[P],
+        rootKey?: I,
     },
 ): TreeItem[];
 export function isDescendant(older: TreeItem, younger: TreeItem): boolean;

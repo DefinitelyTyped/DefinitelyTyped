@@ -57,7 +57,7 @@ export interface MeasureProps {
     children?: React.SFC<MeasuredComponentProps>;
 }
 
-export declare function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
+export function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
     <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
 
 declare class Measure extends React.Component<MeasureProps> {}

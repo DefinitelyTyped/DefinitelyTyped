@@ -1,13 +1,14 @@
 // Usage: node generate-inspector [tag]
 // [tag] corresponds to a tag name in the node-core repository.
+// By default, uses the current Node version.
 
 import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import * as https from "https";
+
 import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";
 import { substitute, trimRight } from "./utils";
-import { string } from "parsimmon";
 
 const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
     https.get(url, res => {
@@ -27,7 +28,7 @@ const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
 // Input arguments
 const tag = process.argv[2] || process.version;
 
-const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol.json`;
+const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol-1.3.json`;
 const NODE_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/src/inspector/node_protocol.pdl`;
 const INSPECTOR_PROTOCOL_REMOTE = `https://chromium.googlesource.com/deps/inspector_protocol`;
 const INSPECTOR_PROTOCOL_LOCAL_DIR = "/tmp/inspector_protocol";
@@ -50,7 +51,7 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
     const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
-    
+
     const inspectorDts = substitute(template, substituteArgs).split("\n")
         .map(line => trimRight(line))
         .join("\n");

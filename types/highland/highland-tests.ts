@@ -84,17 +84,17 @@ var barStreamArr: Highland.Stream<Bar>[];
 var strFooArrMapStream: Highland.Stream<StrFooArrMap>;
 var strBarArrMapStream: Highland.Stream<StrBarArrMap>;
 
-var fooThen: Highland.Thenable<Foo>;
-var barThen: Highland.Thenable<Bar>;
+var fooThen: PromiseLike<Foo>;
+var barThen: PromiseLike<Bar>;
 
-var fooArrThen: Highland.Thenable<Foo[]>;
-var barArrThen: Highland.Thenable<Bar[]>;
+var fooArrThen: PromiseLike<Foo[]>;
+var barArrThen: PromiseLike<Bar[]>;
 
-var fooThenArr: Highland.Thenable<Foo>[];
-var barThenArr: Highland.Thenable<Bar>[];
+var fooThenArr: PromiseLike<Foo>[];
+var barThenArr: PromiseLike<Bar>[];
 
-var fooStreamThen: Highland.Thenable<Highland.Stream<Foo>>;
-var barStreamThen: Highland.Thenable<Highland.Stream<Bar>>;
+var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
+var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -133,6 +133,18 @@ fooStream = _<Foo>((push, next) => {
 
 fooStream = _(fooStream);
 fooStream = _<Foo>(readable);
+fooStream = _<Foo>(readable, (r, cb) => {
+    return;
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return () => { return; }
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return { continueOnError: true };
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return { onDestroy: () => { return; } };
+});
 fooStream = _<Foo>(str, emitter);
 fooStream = _<Foo>(str, emitter, num);
 fooStream = _<Foo>(str, emitter, strArr);
@@ -305,7 +317,7 @@ barStream = barStreamStream.sequence();
 
 barStream = fooStream.series<Bar>();
 
-barStream = fooStream.through(x => bar);
+bar = fooStream.through(x => bar);
 barStream = fooStream.through(readwritable);
 
 fooStream = fooStream.zip(fooStream);

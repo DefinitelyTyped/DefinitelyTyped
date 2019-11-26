@@ -36,6 +36,28 @@ window.Twitch.ext.actions.minimize();
 window.Twitch.ext.actions.followChannel("hearthsim");
 window.Twitch.ext.actions.requestIdShare();
 
+// Twitch Extension Configuration
+window.Twitch.ext.configuration.onChanged(() => {
+	console.log('Configuration changed');
+	if (window.Twitch.ext.configuration.broadcaster) {
+		console.log('Caster configuration');
+		console.log('version: ', window.Twitch.ext.configuration.broadcaster.version);
+		console.log('content: ', window.Twitch.ext.configuration.broadcaster.content);
+	}
+	if (window.Twitch.ext.configuration.developer) {
+		console.log('Developer configuration');
+		console.log('version:', window.Twitch.ext.configuration.developer.version);
+		console.log('content: ', window.Twitch.ext.configuration.developer.content);
+	}
+	if (window.Twitch.ext.configuration.global) {
+		console.log('Global configuration');
+		console.log('version: ', window.Twitch.ext.configuration.global.version);
+		console.log('content: ', window.Twitch.ext.configuration.global.content);
+	}
+});
+
+window.Twitch.ext.configuration.set('broadcaster', '0.0.1', '{"test": "test"}');
+
 // Twitch Extension Feature flags
 window.Twitch.ext.features.onChanged(changed => {
 	if (changed.indexOf("isChatEnabled") !== -1) {

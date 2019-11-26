@@ -12,7 +12,6 @@
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -272,6 +271,12 @@ declare module 'ember' {
     **/
     interface TargetActionSupport {
         triggerAction(opts: TriggerActionOptions): boolean;
+    }
+
+    interface DeprecationOptions {
+        id: string;
+        until: string;
+        url?: string;
     }
 
     export namespace Ember {
@@ -2415,6 +2420,7 @@ declare module 'ember' {
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
+            function registerHelper(name: string, helper: any): void;
         }
         namespace String {
             function camelize(str: string): string;
@@ -2574,14 +2580,14 @@ declare module 'ember' {
              */
             deprecatingAlias(
                 dependentKey: string,
-                options: { id: string; until: string }
+                options: DeprecationOptions
             ): ComputedProperty<any>;
             /**
              * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
              */
             deprecatingAlias(
                 dependentKey: string,
-                options?: { id?: string; until?: string }
+                options?: Partial<DeprecationOptions>
             ): ComputedProperty<any>;
             /**
              * A computed property that returns the sum of the values
@@ -2977,7 +2983,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options: { id: string; until: string }
+            options: DeprecationOptions
         ): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
@@ -2985,7 +2991,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options?: { id?: string; until?: string }
+            options?: Partial<DeprecationOptions>
         ): any;
         /**
          * Define an assertion that will throw an exception if the condition is not met.
@@ -3012,7 +3018,7 @@ declare module 'ember' {
          */
         function deprecateFunc<Func extends ((...args: any[]) => any)>(
             message: string,
-            options: { id: string; until: string },
+            options: DeprecationOptions,
             func: Func
         ): Func;
         /**
@@ -3131,7 +3137,7 @@ declare module 'ember' {
         function isPresent(obj: any): boolean;
         /**
          * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
+         * @deprecated Use Ember.assign
          */
         function merge<T, U>(original: T, updates: U): T & U;
         /**
@@ -3284,7 +3290,6 @@ declare module 'ember' {
         function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
-         * @deprecated Use Object.assign
          */
         function assign<T, U>(target: T, source: U): T & U;
         function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;

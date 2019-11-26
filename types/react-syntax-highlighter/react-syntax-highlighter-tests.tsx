@@ -1,10 +1,11 @@
 import * as React from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import PrismSyntaxHighlighter from "react-syntax-highlighter/prism";
-import PrismLightHighlighter, { registerLanguage } from "react-syntax-highlighter/prism-light";
-import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import { docco } from "react-syntax-highlighter/dist/styles/hljs";
-import { atomDark } from "react-syntax-highlighter/dist/styles/prism";
+import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
+import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
+import PrismLightHighlighter from "react-syntax-highlighter/dist/esm/prism-light";
+import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function hljsHighlighter(): JSX.Element {
     const codeString: string = `class CPP {
@@ -21,6 +22,26 @@ function hljsHighlighter(): JSX.Element {
         <SyntaxHighlighter language="javascript" style={docco}>
             {codeString}
         </SyntaxHighlighter>
+    );
+}
+
+function hljsLightHighlighter(): JSX.Element {
+    const codeString: string = `class CPP {
+    private year: number;
+    public constructor(private version: string) {
+        this.year = Number(version.match(/.+\d+$/));
+    }
+    public version(): string {
+        return this.version;
+    }
+}
+`;
+    LightHighlighter.registerLanguage("javascript", javascript);
+
+    return (
+        <LightHighlighter language="javascript" style={docco}>
+            {codeString}
+        </LightHighlighter>
     );
 }
 
@@ -53,13 +74,13 @@ function primsLightHighlighter(): JSX.Element {
     }
 }
 `;
-    registerLanguage('jsx', jsx);
+    PrismLightHighlighter.registerLanguage("jsx", jsx);
 
     return (
         <PrismLightHighlighter language="jsx" style={atomDark}>
             {codeString}
         </PrismLightHighlighter>
-    )
+    );
 }
 
 function codeTagProps() {
@@ -75,17 +96,14 @@ function codeTagProps() {
     `;
 
     const codeTagProps = {
-        className: 'some-classname',
+        className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
-    }
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+    };
 
-    return (
-        <PrismLightHighlighter
-            codeTagProps={codeTagProps} />
-    )
+    return <PrismLightHighlighter codeTagProps={codeTagProps} />;
 }
 
 function linePropsObject() {
@@ -99,20 +117,17 @@ function linePropsObject() {
         }
     }
     `;
-    
+
     const lineProps = {
-        otherProp: 'otherProp',
-        className: 'some-classname',
+        otherProp: "otherProp",
+        className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
         onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
-    }
+    };
 
-    return (
-        <PrismLightHighlighter
-            lineProps={lineProps} />
-    )
+    return <PrismLightHighlighter lineProps={lineProps} />;
 }
 
 function lineTagPropsFunction() {
@@ -126,19 +141,15 @@ function lineTagPropsFunction() {
         }
     }
     `;
-    
+
     const lineProps = (lineNumber: number) => ({
-        otherProp: 'otherProp',
-        className: 'some-classname',
+        otherProp: "otherProp",
+        className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
         onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
-    })
+    });
 
-    return (
-        <PrismLightHighlighter
-            lineProps={lineProps} />
-    )
+    return <PrismLightHighlighter lineProps={lineProps} />;
 }
-

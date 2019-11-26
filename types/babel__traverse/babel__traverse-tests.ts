@@ -1,17 +1,15 @@
-import traverse, { Visitor } from "@babel/traverse";
+import traverse, { Visitor, NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
     Identifier: {
         enter(path) {
-            // $ExpectType NodePath<Identifier>
-            path;
+            const x: NodePath<t.Identifier> = path;
             console.log("Entered!");
         },
         exit(path) {
-            // $ExpectType NodePath<Identifier>
-            path;
+            const x: NodePath<t.Identifier> = path;
             console.log("Exited!");
         }
     }
@@ -72,6 +70,9 @@ const v1: Visitor = {
         path.replaceWithSourceString(`function add(a, b) {
             return a + b;
         }`);
+
+        path.get('body').unshiftContainer('body', t.expressionStatement(t.stringLiteral("Start of function")));
+        path.get('body').pushContainer('body', t.expressionStatement(t.stringLiteral("End of function")));
 
         path.insertBefore(t.expressionStatement(t.stringLiteral("Because I'm easy come, easy go.")));
         path.insertAfter(t.expressionStatement(t.stringLiteral("A little high, little low.")));
@@ -149,4 +150,11 @@ const VisitorStateTest: Visitor<SomeVisitorState> = {
             this;
         }
     }
+};
+
+traverse(ast, VisitorStateTest, undefined, { someState: "test" });
+
+const VisitorAliasTest: Visitor = {
+    Function() {},
+    Expression() {},
 };

@@ -1,7 +1,9 @@
-// Type definitions for simpl-schema 0.1
-// Project: https://github.com/aldeed/simple-schema-js
+// Type definitions for simpl-schema 0.2
+// Project: https://github.com/aldeed/simple-schema-js, https://github.com/aldeed/node-simple-schema
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
+//                 Deskoh <https://github.com/deskoh>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -120,8 +122,10 @@ interface SimpleSchemaStatic {
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
   omit(...fields: string[]): SimpleSchemaStatic;
+  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
   clean(doc: any, options?: CleanOption): any;
-  schema(key?: string): SchemaDefinition | SchemaDefinition[];
+  schema(key: string): SchemaDefinition;
+  schema(): SchemaDefinition[];
   getDefinition(key: string, propList?: any, functionContext?: any): any;
   keyIsInBlackBox(key: string): boolean;
   labels(labels: {[key: string]: string}): void;
@@ -133,7 +137,9 @@ interface SimpleSchemaStatic {
   newContext(): ValidationContext;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
-  validator(options: ValidationOption): () => boolean;
+  validator(options?: ValidationOption): () => boolean;
+  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
+  extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;
       EmailWithTLD: RegExp;
@@ -235,7 +241,6 @@ export interface SimpleSchema extends SimpleSchemaStatic {
     /** Validate a data object. Options: {keys: []} to limit */
     validate(obj: any, options?: ValidationOption): void;
     addValidator(validator: () => boolean): any;
-    extendOptions(options: {[key: string]: any}): void;
     messages(messages: any): void;
 }
 

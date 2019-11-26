@@ -11,7 +11,7 @@ export function confirmable<P>(component: React.ComponentType<ReactConfirmProps 
 export function createConfirmation(component: React.ComponentType<any>, unmountDelay?: number): (props: any) => Promise<string>;
 
 export interface ReactConfirmProps {
-    confirmation: string | React.ReactElement<any>;
+    confirmation: string | React.ReactElement;
     dismiss: () => void;
     proceed: (value?: string) => void;
     cancel: (value?: string) => void;

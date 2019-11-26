@@ -25,7 +25,7 @@ export class Commit {
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Commit>;
     static createWithSignature(repo: Repository, commitContent: string, signature: string, signatureField: string): Promise<Oid>;
 
-    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree): Promise<Oid>;
+    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree | Oid): Promise<Oid>;
     author(): Signature;
     committer(): Signature;
 

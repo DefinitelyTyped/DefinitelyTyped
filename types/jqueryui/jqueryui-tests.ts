@@ -51,6 +51,7 @@ function test_droppable() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         drop: (event, ui) => {
+            console.log(`${event.screenX}, ${event.screenY}`);
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
@@ -1862,6 +1863,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {

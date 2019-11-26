@@ -7,7 +7,7 @@ import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 let input = { value: "" };
 
 {
-    let history: History<{some: 'state'}> = createBrowserHistory();
+    let history = createBrowserHistory<{ some: 'state' }>();
 
     // Listen for changes to the current location. The
     // listener is called once immediately.
@@ -65,7 +65,7 @@ let input = { value: "" };
     unblock();
 
     history.entries.forEach(function (location) {
-        let typedLocation: Location = location;
+        let typedLocation: Location<{ the: 'state' }> = location;
     });
 }
 
@@ -96,13 +96,13 @@ let input = { value: "" };
 }
 
 {
-    let location1 = LocationUtils.createLocation('path/1', { state: 1 });
+    let location1 = LocationUtils.createLocation('path/1', 1);
     let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 
 {
-    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, { state: 1 });
+    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, 1);
     let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
     LocationUtils.locationsAreEqual(location1, location2);
 }

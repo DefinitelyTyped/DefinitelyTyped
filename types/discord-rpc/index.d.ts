@@ -1,6 +1,8 @@
 // Type definitions for discord-rpc 3.0
 // Project: https://github.com/discordjs/RPC#readme
 // Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
+//                 Jack Baron <https://github.com/lolPants>
+//                 Dylan Hackworth <https://github.com/dylhack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
@@ -66,6 +68,10 @@ export class Client extends EventEmitter {
 	subscribe(event: string, args: any, callback: (data: any) => void): Promise<Subscription>;
 
 	destroy(): Promise<void>;
+
+	on(event: 'ready' | 'connected', listener: () => void): this;
+	once(event: 'ready' | 'connected', listener: () => void): this;
+	off(event: 'ready' | 'connected', listener: () => void): this;
 }
 
 export interface RPCClientOptions {
@@ -187,4 +193,9 @@ export interface Presence {
 	smallImageKey?: string;
 	smallImageText?: string;
 	instance?: boolean;
+	partySize?: number;
+	partyMax?: number;
+	matchSecret?: string;
+	spectateSecret?: string;
+	joinSecret?: string;
 }

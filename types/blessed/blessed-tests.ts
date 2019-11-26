@@ -7,6 +7,24 @@ let screen: blessed.Widgets.Screen = null;
 // https://github.com/chjj/blessed/blob/master/test/widget-autopad.js
 
 screen = blessed.screen({
+  log: __dirname + "/logs/just-logs.log"
+});
+
+screen = blessed.screen({
+  log: __dirname + "/logs/just-logs.log",
+  dump: false
+});
+
+screen = blessed.screen({
+  dump: __dirname + "/logs/logs-and-all-in-and-output.log"
+});
+
+screen = blessed.screen({
+  log: __dirname + "/logs/logs-and-all-in-and-output.log",
+  dump: true
+});
+
+screen = blessed.screen({
   dump: __dirname + "/logs/autopad.log",
   smartCSR: true,
   autoPadding: true,
@@ -34,6 +52,12 @@ const box2 = blessed.box({
 screen.key("q", () => screen.destroy());
 
 screen.render();
+
+// Allow for arbitrary extra properties to be stored in `options`
+const extraProps = blessed.box({
+  parent: box1,
+  id: 'box3'
+});
 
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
 

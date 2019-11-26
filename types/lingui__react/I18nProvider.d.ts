@@ -7,8 +7,9 @@ export interface I18nProviderProps {
     language: string;
     catalogs?: Catalogs;
     i18n?: I18n;
-
     defaultRender?: ReactNode;
+    locales?: string | string[];
+    missing?: string | ((language: string, id: string) => string);
 }
 
 export default class I18nProvider extends Component<I18nProviderProps> { }

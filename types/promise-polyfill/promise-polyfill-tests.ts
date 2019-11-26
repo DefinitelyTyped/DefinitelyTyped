@@ -1,4 +1,4 @@
-import Promise from "promise-polyfill";
+import Promise = require("promise-polyfill");
 
 const prom1 = new Promise<number>((resolve, reject) => {
 	resolve(12);

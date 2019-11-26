@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "rules/index.d.ts",
+        "rules/best-practices.d.ts",
+        "rules/deprecated.d.ts",
+        "rules/ecmascript-6.d.ts",
+        "rules/node-commonjs.d.ts",
+        "rules/possible-errors.d.ts",
+        "rules/strict-mode.d.ts",
+        "rules/stylistic-issues.d.ts",
+        "rules/variables.d.ts",
+        "eslint-tests.ts"
+    ]
+}

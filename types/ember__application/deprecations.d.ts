@@ -1,3 +1,10 @@
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface DeprecationOptions {
+  id: string;
+  until: string;
+  url?: string;
+}
+
 /**
  * Display a deprecation warning with the provided message and a stack trace
  * (Chrome and Firefox only).
@@ -5,7 +12,7 @@
 export function deprecate(
     message: string,
     test: boolean,
-    options: { id: string; until: string }
+    options: DeprecationOptions
 ): any;
 
 /**
@@ -13,6 +20,6 @@ export function deprecate(
  */
 export function deprecateFunc<Func extends ((...args: any[]) => any)>(
     message: string,
-    options: { id: string; until: string },
+    options: DeprecationOptions,
     func: Func
 ): Func;

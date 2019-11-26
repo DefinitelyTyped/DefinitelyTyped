@@ -1,22 +1,654 @@
-// Type definitions for WebExtension Development in FireFox 64.0
+// Type definitions for non-npm package WebExtension Development in FireFox 70.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 // Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
 
-interface WebExtEventBase<TAddListener extends (...args: any[]) => any, TCallback> {
-    addListener: TAddListener;
+interface WebExtEvent<TCallback extends (...args: any[]) => any> {
+    addListener(cb: TCallback): void;
 
     removeListener(cb: TCallback): void;
 
     hasListener(cb: TCallback): boolean;
 }
 
-type WebExtEvent<TCallback extends (...args: any[]) => any> = WebExtEventBase<(callback: TCallback) => void, TCallback>;
-
 interface Window {
     browser: typeof browser;
+}
+
+/** Not allowed in: Content scripts, Devtools pages */
+declare namespace browser._manifest {
+    /* _manifest types */
+    type Permission = string | OptionalPermission | _Permission;
+
+    type OptionalPermission = _OptionalPermission;
+
+    /** Represents a WebExtension manifest.json file */
+    interface WebExtensionManifest {
+        experiment_apis?: { [key: string]: experiments.ExperimentAPI };
+        /** A list of protocol handler definitions. */
+        protocol_handlers?: ProtocolHandler[];
+        default_locale?: string;
+        minimum_chrome_version?: string;
+        minimum_opera_version?: string;
+        icons?: {
+            [key: number]: ExtensionFileUrl;
+        };
+        incognito?: _WebExtensionManifestIncognito;
+        background?: {
+            page: ExtensionURL;
+            persistent?: PersistentBackgroundProperty;
+        } | {
+            scripts: ExtensionURL[];
+            persistent?: PersistentBackgroundProperty;
+        };
+        options_ui?: {
+            page: ExtensionURL;
+            browser_style?: boolean;
+            chrome_style?: boolean;
+            open_in_tab?: boolean;
+        };
+        content_scripts?: ContentScript[];
+        content_security_policy?: string;
+        permissions?: PermissionOrOrigin[];
+        optional_permissions?: OptionalPermissionOrOrigin[];
+        web_accessible_resources?: string[];
+        developer?: {
+            name?: string;
+            url?: string;
+        };
+        hidden?: boolean;
+        theme_experiment?: ThemeExperiment;
+        user_scripts?: {
+            api_script?: ExtensionURL;
+        };
+        browser_action?: {
+            default_title?: string;
+            default_icon?: IconPath;
+            /** Specifies icons to use for dark and light themes */
+            theme_icons?: ThemeIcons[];
+            default_popup?: string;
+            browser_style?: boolean;
+            /** Defines the location the browserAction will appear by default. The default location is navbar. */
+            default_area?: _WebExtensionManifestBrowserActionDefaultArea;
+        };
+        chrome_settings_overrides?: {
+            homepage?: string;
+            search_provider?: {
+                name: string;
+                keyword?: string;
+                search_url: string;
+                favicon_url?: string;
+                suggest_url?: string;
+                /** @deprecated Unsupported on Firefox at this time. */
+                instant_url?: string;
+                /** @deprecated Unsupported on Firefox at this time. */
+                image_url?: string;
+                /** GET parameters to the search_url as a query string. */
+                search_url_get_params?: string;
+                /** POST parameters to the search_url as a query string. */
+                search_url_post_params?: string;
+                /** GET parameters to the suggest_url as a query string. */
+                suggest_url_get_params?: string;
+                /** POST parameters to the suggest_url as a query string. */
+                suggest_url_post_params?: string;
+                /** @deprecated Unsupported on Firefox at this time. */
+                instant_url_post_params?: string;
+                /** @deprecated Unsupported on Firefox at this time. */
+                image_url_post_params?: string;
+                search_form?: string;
+                /** @deprecated Unsupported on Firefox at this time. */
+                alternate_urls?: string[];
+                /** @deprecated Unsupported on Firefox. */
+                prepopulated_id?: number;
+                /** Encoding of the search term. */
+                encoding?: string;
+                /** Sets the default engine to a built-in engine only. */
+                is_default?: boolean;
+                /**
+                 * A list of optional search url parameters. This allows the additon of search url parameters based on
+                 * how the search is performed in Firefox.
+                 */
+                params?: Array<{
+                    /** A url parameter name */
+                    name: string;
+                    /** The type of param can be either "purpose" or "pref". */
+                    condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition;
+                    /** The preference to retreive the value from. */
+                    pref?: string;
+                    /** The context that initiates a search, required if condition is "purpose". */
+                    purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose;
+                    /** A url parameter value. */
+                    value?: string;
+                }>;
+            };
+        };
+        commands?: {
+            [key: string]: {
+                suggested_key?: {
+                    default?: KeyName;
+                    mac?: KeyName;
+                    linux?: KeyName;
+                    windows?: KeyName;
+                    chromeos?: string;
+                    android?: string;
+                    ios?: string;
+                    /** @deprecated Unknown platform name */
+                    additionalProperties?: string;
+                };
+                description?: string;
+            }
+        };
+        devtools_page?: ExtensionURL;
+        omnibox?: {
+            keyword: string;
+        };
+        page_action?: {
+            default_title?: string;
+            default_icon?: IconPath;
+            default_popup?: string;
+            browser_style?: boolean;
+            show_matches?: MatchPattern[];
+            hide_matches?: MatchPatternRestricted[];
+            pinned?: boolean;
+        };
+        sidebar_action?: {
+            default_title?: string;
+            default_icon?: IconPath;
+            browser_style?: boolean;
+            default_panel: string;
+            /** Whether or not the sidebar is opened at install. Default is `true`. */
+            open_at_install?: boolean;
+        };
+        chrome_url_overrides?: {
+            newtab?: ExtensionURL;
+            /** @deprecated Unsupported on Firefox at this time. */
+            bookmarks?: ExtensionURL;
+            /** @deprecated Unsupported on Firefox at this time. */
+            history?: ExtensionURL;
+        };
+        manifest_version: number;
+        applications?: {
+            gecko?: FirefoxSpecificProperties;
+        };
+        browser_specific_settings?: {
+            gecko?: FirefoxSpecificProperties;
+            edge?: { [key: string]: any };
+        };
+        name: string;
+        short_name?: string;
+        description?: string;
+        author?: string;
+        version: string;
+        homepage_url?: string;
+    }
+
+    /** Represents a protocol handler definition. */
+    interface ProtocolHandler {
+        /**
+         * A user-readable title string for the protocol handler. This will be displayed to the user in interface
+         * objects as needed.
+         */
+        name: string;
+        /**
+         * The protocol the site wishes to handle, specified as a string. For example, you can register to handle SMS
+         * text message links by registering to handle the "sms" scheme.
+         */
+        protocol: string | _ProtocolHandlerProtocol;
+        /**
+         * The URL of the handler, as a string. This string should include "%s" as a placeholder which will be replaced
+         * with the escaped URL of the document to be handled. This URL might be a true URL, or it could be a phone
+         * number, email address, or so forth.
+         */
+        uriTemplate: ExtensionURL | HttpURL;
+    }
+
+    /** Common properties for all manifest.json files */
+    interface ManifestBase {
+        manifest_version: number;
+        applications?: {
+            gecko?: FirefoxSpecificProperties;
+        };
+        browser_specific_settings?: {
+            gecko?: FirefoxSpecificProperties;
+            edge?: { [key: string]: any };
+        };
+        name: string;
+        short_name?: string;
+        description?: string;
+        author?: string;
+        version: string;
+        homepage_url?: string;
+    }
+
+    /** Represents a WebExtension language pack manifest.json file */
+    interface WebExtensionLangpackManifest {
+        homepage_url?: string;
+        langpack_id: string;
+        languages: {
+            [key: string]: {
+                chrome_resources: {
+                    [key: string]: ExtensionURL | {
+                        [key: string]: ExtensionURL;
+                    };
+                };
+                version: string;
+            };
+        };
+        sources?: {
+            [key: string]: {
+                base_path: ExtensionURL;
+                paths?: string[];
+            };
+        };
+        manifest_version: number;
+        applications?: {
+            gecko?: FirefoxSpecificProperties;
+        };
+        browser_specific_settings?: {
+            gecko?: FirefoxSpecificProperties;
+            edge?: { [key: string]: any };
+        };
+        name: string;
+        short_name?: string;
+        description?: string;
+        author?: string;
+        version: string;
+    }
+
+    /** Represents a WebExtension dictionary manifest.json file */
+    interface WebExtensionDictionaryManifest {
+        homepage_url?: string;
+        dictionaries: {
+            [key: string]: string;
+        };
+        manifest_version: number;
+        applications?: {
+            gecko?: FirefoxSpecificProperties;
+        };
+        browser_specific_settings?: {
+            gecko?: FirefoxSpecificProperties;
+            edge?: { [key: string]: any };
+        };
+        name: string;
+        short_name?: string;
+        description?: string;
+        author?: string;
+        version: string;
+    }
+
+    interface ThemeIcons {
+        /** A light icon to use for dark themes */
+        light: ExtensionURL;
+        /** The dark icon to use for light themes */
+        dark: ExtensionURL;
+        /** The size of the icons */
+        size: number;
+    }
+
+    type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
+
+    type PermissionOrOrigin = Permission | MatchPattern;
+
+    type HttpURL = string;
+
+    type ExtensionURL = string;
+
+    type ExtensionFileUrl = string;
+
+    type ImageDataOrExtensionURL = string;
+
+    type ExtensionID = string;
+
+    interface FirefoxSpecificProperties {
+        id?: ExtensionID;
+        update_url?: string;
+        strict_min_version?: string;
+        strict_max_version?: string;
+    }
+
+    type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | _MatchPattern;
+
+    /** Same as MatchPattern above, but excludes<all_urls></all_urls> */
+    type MatchPatternRestricted = string;
+
+    /**
+     * Mostly unrestricted match patterns for privileged add-ons. This should technically be rejected for unprivileged
+     * add-ons, but, reasons. The MatchPattern class will still refuse privileged schemes for those extensions.
+     */
+    type MatchPatternUnestricted = string;
+
+    /**
+     * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be
+     * set at the same time. Based on InjectDetails, but using underscore rather than camel case naming conventions.
+     */
+    interface ContentScript {
+        matches: MatchPattern[];
+        exclude_matches?: MatchPattern[];
+        include_globs?: string[];
+        exclude_globs?: string[];
+        /** The list of CSS files to inject */
+        css?: ExtensionURL[];
+        /** The list of JS files to inject */
+        js?: ExtensionURL[];
+        /**
+         * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current
+         * page. By default, it's `false` and is only injected into the top frame.
+         */
+        all_frames?: boolean;
+        /**
+         * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your
+         * extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default
+         * it is `false`.
+         */
+        match_about_blank?: boolean;
+        /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
+        run_at?: extensionTypes.RunAt;
+    }
+
+    type IconPath = {
+        [key: number]: ExtensionFileUrl;
+    } | ExtensionFileUrl;
+
+    type IconImageData = {
+        [key: number]: ImageData;
+    } | ImageData;
+
+    type ImageData = any;
+
+    /** @deprecated An unexpected property was found in the WebExtension manifest. */
+    type UnrecognizedProperty = any;
+
+    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
+    type PersistentBackgroundProperty = boolean;
+
+    /** Represents a native manifest file */
+    type NativeManifest = {
+        name: string;
+        description: string;
+        path: string;
+        type: "pkcs11" | "stdio";
+        allowed_extensions: ExtensionID[];
+    } | {
+        name: ExtensionID;
+        description: string;
+        data: { [key: string]: any };
+        type: "storage";
+    };
+
+    type ThemeColor = string | [number, number, number] | [number, number, number, number];
+
+    interface ThemeExperiment {
+        stylesheet?: ExtensionURL;
+        images?: { [key: string]: string };
+        colors?: { [key: string]: string };
+        properties?: { [key: string]: string };
+    }
+
+    interface ThemeType {
+        images?: {
+            additional_backgrounds?: ImageDataOrExtensionURL[];
+            /**
+             * @deprecated Unsupported images property, use 'theme.images.theme_frame', this alias is ignored in
+             *     Firefox >= 70.
+             */
+            headerURL?: ImageDataOrExtensionURL;
+            theme_frame?: ImageDataOrExtensionURL;
+        };
+        colors?: {
+            tab_selected?: ThemeColor;
+            /**
+             * @deprecated Unsupported colors property, use 'theme.colors.frame', this alias is ignored in Firefox >=
+             *     70.
+             */
+            accentcolor?: ThemeColor;
+            frame?: ThemeColor;
+            frame_inactive?: ThemeColor;
+            /**
+             * @deprecated Unsupported color property, use 'theme.colors.tab_background_text', this alias is ignored in
+             *     Firefox >= 70.
+             */
+            textcolor?: ThemeColor;
+            tab_background_text?: ThemeColor;
+            tab_background_separator?: ThemeColor;
+            tab_loading?: ThemeColor;
+            tab_text?: ThemeColor;
+            tab_line?: ThemeColor;
+            toolbar?: ThemeColor;
+            /** This color property is an alias of 'bookmark_text'. */
+            toolbar_text?: ThemeColor;
+            bookmark_text?: ThemeColor;
+            toolbar_field?: ThemeColor;
+            toolbar_field_text?: ThemeColor;
+            toolbar_field_border?: ThemeColor;
+            toolbar_field_separator?: ThemeColor;
+            toolbar_top_separator?: ThemeColor;
+            toolbar_bottom_separator?: ThemeColor;
+            toolbar_vertical_separator?: ThemeColor;
+            icons?: ThemeColor;
+            icons_attention?: ThemeColor;
+            button_background_hover?: ThemeColor;
+            button_background_active?: ThemeColor;
+            popup?: ThemeColor;
+            popup_text?: ThemeColor;
+            popup_border?: ThemeColor;
+            toolbar_field_focus?: ThemeColor;
+            toolbar_field_text_focus?: ThemeColor;
+            toolbar_field_border_focus?: ThemeColor;
+            popup_highlight?: ThemeColor;
+            popup_highlight_text?: ThemeColor;
+            ntp_background?: ThemeColor;
+            ntp_text?: ThemeColor;
+            sidebar?: ThemeColor;
+            sidebar_border?: ThemeColor;
+            sidebar_text?: ThemeColor;
+            sidebar_highlight?: ThemeColor;
+            sidebar_highlight_text?: ThemeColor;
+            toolbar_field_highlight?: ThemeColor;
+            toolbar_field_highlight_text?: ThemeColor;
+        };
+        properties?: {
+            additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[];
+            additional_backgrounds_tiling?: _ThemeTypeAdditionalBackgroundsTiling[];
+        };
+    }
+
+    /** Contents of manifest.json for a static theme */
+    interface ThemeManifest {
+        theme: ThemeType;
+        dark_theme?: ThemeType;
+        default_locale?: string;
+        theme_experiment?: ThemeExperiment;
+        icons?: {
+            [key: number]: string;
+        };
+    }
+
+    type KeyName = string;
+
+    type _Permission =
+        "activityLog"
+        | "captivePortal"
+        | "contextualIdentities"
+        | "dns"
+        | "geckoProfiler"
+        | "identity"
+        | "management"
+        | "alarms"
+        | "mozillaAddons"
+        | "storage"
+        | "unlimitedStorage"
+        | "networkStatus"
+        | "privacy"
+        | "proxy"
+        | "nativeMessaging"
+        | "telemetry"
+        | "theme"
+        | "browsingData"
+        | "devtools"
+        | "menus"
+        | "contextMenus"
+        | "normandyAddonStudy"
+        | "pkcs11"
+        | "sessions"
+        | "urlbar";
+
+    type _OptionalPermission =
+        "browserSettings"
+        | "cookies"
+        | "downloads"
+        | "downloads.open"
+        | "clipboardRead"
+        | "clipboardWrite"
+        | "geolocation"
+        | "idle"
+        | "notifications"
+        | "webNavigation"
+        | "webRequest"
+        | "webRequestBlocking"
+        | "bookmarks"
+        | "find"
+        | "history"
+        | "menus.overrideContext"
+        | "search"
+        | "activeTab"
+        | "tabs"
+        | "tabHide"
+        | "topSites";
+
+    type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
+
+    /** Defines the location the browserAction will appear by default. The default location is navbar. */
+    type _WebExtensionManifestBrowserActionDefaultArea =
+        "navbar"
+        | "menupanel"
+        | "tabstrip"
+        | "personaltoolbar";
+
+    /** The type of param can be either "purpose" or "pref". */
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
+
+    /** The context that initiates a search, required if condition is "purpose". */
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
+        "contextmenu"
+        | "searchbar"
+        | "homepage"
+        | "keyword"
+        | "newtab";
+
+    type _ProtocolHandlerProtocol =
+        "bitcoin"
+        | "dat"
+        | "dweb"
+        | "geo"
+        | "gopher"
+        | "im"
+        | "ipfs"
+        | "ipns"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "sip"
+        | "sms"
+        | "smsto"
+        | "ssb"
+        | "ssh"
+        | "tel"
+        | "urn"
+        | "webcal"
+        | "wtai"
+        | "xmpp";
+
+    type _MatchPattern = "<all_urls>";
+
+    type _ThemeTypeAdditionalBackgroundsAlignment =
+        "bottom"
+        | "center"
+        | "left"
+        | "right"
+        | "top"
+        | "center bottom"
+        | "center center"
+        | "center top"
+        | "left bottom"
+        | "left center"
+        | "left top"
+        | "right bottom"
+        | "right center"
+        | "right top";
+
+    type _ThemeTypeAdditionalBackgroundsTiling =
+        "no-repeat"
+        | "repeat"
+        | "repeat-x"
+        | "repeat-y";
+}
+
+/**
+ * Monitor extension activity
+ *
+ * Permissions: `activityLog`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.activityLog {
+    /**
+     * The type of log entry. api_call is a function call made by the extension and api_event is an event callback to
+     * the extension. content_script is logged when a content script is injected.
+     */
+    type _UndefinedType =
+        "api_call"
+        | "api_event"
+        | "content_script"
+        | "user_script";
+
+    /** The type of view where the activity occurred. Content scripts will not have a viewType. */
+    type _UndefinedViewType =
+        "background"
+        | "popup"
+        | "sidebar"
+        | "tab"
+        | "devtools_page"
+        | "devtools_panel";
+
+    interface _ActivityLogOnExtensionActivityEvent<TCallback = (details: {
+        /** The date string when this call is triggered. */
+        timeStamp: extensionTypes.Date;
+        /**
+         * The type of log entry. api_call is a function call made by the extension and api_event is an event callback
+         * to the extension. content_script is logged when a content script is injected.
+         */
+        type: _UndefinedType;
+        /** The type of view where the activity occurred. Content scripts will not have a viewType. */
+        viewType?: _UndefinedViewType;
+        /** The name of the api call or event, or the script url if this is a content or user script event. */
+        name: string;
+        data: {
+            /** A list of arguments passed to the call. */
+            args?: any[];
+            /** The result of the call. */
+            result?: object;
+            /** The tab associated with this event if it is a tab or content script. */
+            tabId?: number;
+            /** If the type is content_script, this is the url of the script that was injected. */
+            url?: string;
+        };
+    }) => void> {
+        addListener(cb: TCallback, id: string): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    /* activityLog events */
+    /** Receives an activityItem for each logging event. */
+    const onExtensionActivity: _ActivityLogOnExtensionActivityEvent;
 }
 
 /**
@@ -98,624 +730,6 @@ declare namespace browser.alarms {
     const onAlarm: WebExtEvent<(name: Alarm) => void>;
 }
 
-/** Not allowed in: Content scripts, Devtools pages */
-declare namespace browser._manifest {
-    /* _manifest types */
-    type OptionalPermission = _OptionalPermission;
-
-    type Permission = string | OptionalPermission | _Permission;
-
-    /** Represents a WebExtension manifest.json file */
-    interface WebExtensionManifest {
-        experiment_apis?: experiments.ExperimentAPI;
-        /** A list of protocol handler definitions. */
-        protocol_handlers?: ProtocolHandler[];
-        default_locale?: string;
-        minimum_chrome_version?: string;
-        minimum_opera_version?: string;
-        icons?: {
-            [key: number]: string;
-        };
-        incognito?: _WebExtensionManifestIncognito;
-        background?: {
-            page: ExtensionURL;
-            persistent?: PersistentBackgroundProperty;
-        } | {
-            scripts: ExtensionURL[];
-            persistent?: PersistentBackgroundProperty;
-        };
-        options_ui?: {
-            page: ExtensionURL;
-            browser_style?: boolean;
-            chrome_style?: boolean;
-            open_in_tab?: boolean;
-        };
-        content_scripts?: ContentScript[];
-        content_security_policy?: string;
-        permissions?: PermissionOrOrigin[];
-        optional_permissions?: OptionalPermissionOrOrigin[];
-        web_accessible_resources?: string[];
-        developer?: {
-            name?: string;
-            url?: string;
-        };
-        hidden?: boolean;
-        theme_experiment?: ThemeExperiment;
-        user_scripts?: {
-            api_script?: ExtensionURL;
-        };
-        browser_action?: {
-            default_title?: string;
-            default_icon?: IconPath;
-            /** Specifies icons to use for dark and light themes */
-            theme_icons?: ThemeIcons[];
-            default_popup?: string;
-            browser_style?: boolean;
-            /** Defines the location the browserAction will appear by default. The default location is navbar. */
-            default_area?: _WebExtensionManifestBrowserActionDefaultArea;
-        };
-        chrome_settings_overrides?: {
-            homepage?: string;
-            search_provider?: {
-                name: string;
-                keyword?: string;
-                search_url: string;
-                favicon_url?: string;
-                suggest_url?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
-                instant_url?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
-                image_url?: string;
-                /** POST parameters to the search_url as a query string. */
-                search_url_post_params?: string;
-                /** POST parameters to the suggest_url as a query string. */
-                suggest_url_post_params?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
-                instant_url_post_params?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
-                image_url_post_params?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
-                alternate_urls?: string[];
-                /** @deprecated Unsupported on Firefox. */
-                prepopulated_id?: number;
-                /** Sets the default engine to a built-in engine only. */
-                is_default?: boolean;
-                /**
-                 * A list of optional search url parameters. This allows the additon of search url parameters based on
-                 * how the search is performed in Firefox.
-                 */
-                params?: Array<{
-                    /** A url parameter name */
-                    name: string;
-                    /** The type of param can be either "purpose" or "pref". */
-                    condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition;
-                    /** The preference to retreive the value from. */
-                    pref?: string;
-                    /** The context that initiates a search, required if condition is "purpose". */
-                    purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose;
-                    /** A url parameter value. */
-                    value?: string;
-                }>;
-            };
-        };
-        commands?: {
-            suggested_key?: {
-                default?: KeyName;
-                mac?: KeyName;
-                linux?: KeyName;
-                windows?: KeyName;
-                chromeos?: string;
-                android?: string;
-                ios?: string;
-                /** @deprecated Unknown platform name */
-                additionalProperties?: string;
-            };
-            description?: string;
-        };
-        devtools_page?: ExtensionURL;
-        omnibox?: {
-            keyword: string;
-        };
-        page_action?: {
-            default_title?: string;
-            default_icon?: IconPath;
-            default_popup?: string;
-            browser_style?: boolean;
-            show_matches?: MatchPattern[];
-            hide_matches?: MatchPatternRestricted[];
-            pinned?: boolean;
-        };
-        sidebar_action?: {
-            default_title?: string;
-            default_icon?: IconPath;
-            browser_style?: boolean;
-            default_panel: string;
-            /** Whether or not the sidebar is opened at install. Default is `true`. */
-            open_at_install?: boolean;
-        };
-        chrome_url_overrides?: {
-            newtab?: ExtensionURL;
-            /** @deprecated Unsupported on Firefox at this time. */
-            bookmarks?: ExtensionURL;
-            /** @deprecated Unsupported on Firefox at this time. */
-            history?: ExtensionURL;
-        };
-        manifest_version: number;
-        applications?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        browser_specific_settings?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
-        version: string;
-        homepage_url?: string;
-    }
-
-    /** Represents a protocol handler definition. */
-    interface ProtocolHandler {
-        /**
-         * A user-readable title string for the protocol handler. This will be displayed to the user in interface
-         * objects as needed.
-         */
-        name: string;
-        /**
-         * The protocol the site wishes to handle, specified as a string. For example, you can register to handle SMS
-         * text message links by registering to handle the "sms" scheme.
-         */
-        protocol: string | _ProtocolHandlerProtocol;
-        /**
-         * The URL of the handler, as a string. This string should include "%s" as a placeholder which will be replaced
-         * with the escaped URL of the document to be handled. This URL might be a true URL, or it could be a phone
-         * number, email address, or so forth.
-         */
-        uriTemplate: ExtensionURL | HttpURL;
-    }
-
-    /** Common properties for all manifest.json files */
-    interface ManifestBase {
-        manifest_version: number;
-        applications?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        browser_specific_settings?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
-        version: string;
-        homepage_url?: string;
-    }
-
-    /** Represents a WebExtension language pack manifest.json file */
-    interface WebExtensionLangpackManifest {
-        homepage_url?: string;
-        langpack_id: string;
-        languages: {
-            [key: string]: {
-                chrome_resources: {
-                    [key: string]: ExtensionURL | {
-                        [key: string]: ExtensionURL;
-                    };
-                };
-                version: string;
-            };
-        };
-        sources?: {
-            [key: string]: {
-                base_path: ExtensionURL;
-                paths?: string[];
-            };
-        };
-        manifest_version: number;
-        applications?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        browser_specific_settings?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
-        version: string;
-    }
-
-    /** Represents a WebExtension dictionary manifest.json file */
-    interface WebExtensionDictionaryManifest {
-        homepage_url?: string;
-        dictionaries: {
-            [key: string]: string;
-        };
-        manifest_version: number;
-        applications?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        browser_specific_settings?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
-        version: string;
-    }
-
-    interface ThemeIcons {
-        /** A light icon to use for dark themes */
-        light: ExtensionURL;
-        /** The dark icon to use for light themes */
-        dark: ExtensionURL;
-        /** The size of the icons */
-        size: number;
-    }
-
-    type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
-
-    type PermissionOrOrigin = Permission | MatchPattern;
-
-    type HttpURL = string;
-
-    type ExtensionURL = string;
-
-    type ImageDataOrExtensionURL = string;
-
-    type ExtensionID = string;
-
-    interface FirefoxSpecificProperties {
-        id?: ExtensionID;
-        update_url?: string;
-        strict_min_version?: string;
-        strict_max_version?: string;
-    }
-
-    type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | _MatchPattern;
-
-    /** Same as MatchPattern above, but excludes<all_urls></all_urls> */
-    type MatchPatternRestricted = string;
-
-    /**
-     * Mostly unrestricted match patterns for privileged add-ons. This should technically be rejected for unprivileged
-     * add-ons, but, reasons. The MatchPattern class will still refuse privileged schemes for those extensions.
-     */
-    type MatchPatternUnestricted = string;
-
-    /**
-     * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be
-     * set at the same time. Based on InjectDetails, but using underscore rather than camel case naming conventions.
-     */
-    interface ContentScript {
-        matches: MatchPattern[];
-        exclude_matches?: MatchPattern[];
-        include_globs?: string[];
-        exclude_globs?: string[];
-        /** The list of CSS files to inject */
-        css?: ExtensionURL[];
-        /** The list of JS files to inject */
-        js?: ExtensionURL[];
-        /**
-         * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current
-         * page. By default, it's `false` and is only injected into the top frame.
-         */
-        all_frames?: boolean;
-        /**
-         * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your
-         * extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default
-         * it is `false`.
-         */
-        match_about_blank?: boolean;
-        /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
-        run_at?: extensionTypes.RunAt;
-    }
-
-    type IconPath = {
-        [key: number]: ExtensionURL;
-    } | ExtensionURL;
-
-    type IconImageData = {
-        [key: number]: ImageData;
-    } | ImageData;
-
-    type ImageData = any;
-
-    /** @deprecated An unexpected property was found in the WebExtension manifest. */
-    type UnrecognizedProperty = any;
-
-    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
-    type PersistentBackgroundProperty = boolean;
-
-    /** Represents a native manifest file */
-    type NativeManifest = {
-        name: string;
-        description: string;
-        path: string;
-        type: "pkcs11" | "stdio";
-        allowed_extensions: ExtensionID[];
-    } | {
-        name: ExtensionID;
-        description: string;
-        data: any;
-        type: "storage";
-    };
-
-    type ThemeColor = string | [number, number, number] | [number, number, number, number];
-
-    interface ThemeExperiment {
-        stylesheet?: ExtensionURL;
-        images?: string;
-        colors?: string;
-        properties?: string;
-    }
-
-    interface ThemeType {
-        images?: {
-            additional_backgrounds?: ImageDataOrExtensionURL[];
-            headerURL?: ImageDataOrExtensionURL;
-            theme_frame?: ImageDataOrExtensionURL;
-        };
-        colors?: {
-            tab_selected?: ThemeColor;
-            accentcolor?: ThemeColor;
-            frame?: ThemeColor;
-            frame_inactive?: ThemeColor;
-            textcolor?: ThemeColor;
-            tab_background_text?: ThemeColor;
-            tab_background_separator?: ThemeColor;
-            tab_loading?: ThemeColor;
-            tab_text?: ThemeColor;
-            tab_line?: ThemeColor;
-            toolbar?: ThemeColor;
-            toolbar_text?: ThemeColor;
-            bookmark_text?: ThemeColor;
-            toolbar_field?: ThemeColor;
-            toolbar_field_text?: ThemeColor;
-            toolbar_field_border?: ThemeColor;
-            toolbar_field_separator?: ThemeColor;
-            toolbar_top_separator?: ThemeColor;
-            toolbar_bottom_separator?: ThemeColor;
-            toolbar_vertical_separator?: ThemeColor;
-            icons?: ThemeColor;
-            icons_attention?: ThemeColor;
-            button_background_hover?: ThemeColor;
-            button_background_active?: ThemeColor;
-            popup?: ThemeColor;
-            popup_text?: ThemeColor;
-            popup_border?: ThemeColor;
-            toolbar_field_focus?: ThemeColor;
-            toolbar_field_text_focus?: ThemeColor;
-            toolbar_field_border_focus?: ThemeColor;
-            popup_highlight?: ThemeColor;
-            popup_highlight_text?: ThemeColor;
-            ntp_background?: ThemeColor;
-            ntp_text?: ThemeColor;
-            sidebar?: ThemeColor;
-            sidebar_border?: ThemeColor;
-            sidebar_text?: ThemeColor;
-            sidebar_highlight?: ThemeColor;
-            sidebar_highlight_text?: ThemeColor;
-        };
-        icons?: {
-            back?: ExtensionURL;
-            forward?: ExtensionURL;
-            reload?: ExtensionURL;
-            stop?: ExtensionURL;
-            bookmark_star?: ExtensionURL;
-            bookmark_menu?: ExtensionURL;
-            downloads?: ExtensionURL;
-            home?: ExtensionURL;
-            app_menu?: ExtensionURL;
-            cut?: ExtensionURL;
-            copy?: ExtensionURL;
-            paste?: ExtensionURL;
-            new_window?: ExtensionURL;
-            new_private_window?: ExtensionURL;
-            save_page?: ExtensionURL;
-            print?: ExtensionURL;
-            history?: ExtensionURL;
-            full_screen?: ExtensionURL;
-            find?: ExtensionURL;
-            options?: ExtensionURL;
-            addons?: ExtensionURL;
-            developer?: ExtensionURL;
-            synced_tabs?: ExtensionURL;
-            open_file?: ExtensionURL;
-            sidebars?: ExtensionURL;
-            subscribe?: ExtensionURL;
-            text_encoding?: ExtensionURL;
-            email_link?: ExtensionURL;
-            forget?: ExtensionURL;
-            pocket?: ExtensionURL;
-            getmsg?: ExtensionURL;
-            newmsg?: ExtensionURL;
-            address?: ExtensionURL;
-            reply?: ExtensionURL;
-            replyall?: ExtensionURL;
-            replylist?: ExtensionURL;
-            forwarding?: ExtensionURL;
-            delete?: ExtensionURL;
-            junk?: ExtensionURL;
-            file?: ExtensionURL;
-            nextUnread?: ExtensionURL;
-            prevUnread?: ExtensionURL;
-            mark?: ExtensionURL;
-            tag?: ExtensionURL;
-            compact?: ExtensionURL;
-            archive?: ExtensionURL;
-            chat?: ExtensionURL;
-            nextMsg?: ExtensionURL;
-            prevMsg?: ExtensionURL;
-            QFB?: ExtensionURL;
-            conversation?: ExtensionURL;
-            newcard?: ExtensionURL;
-            newlist?: ExtensionURL;
-            editcard?: ExtensionURL;
-            newim?: ExtensionURL;
-            send?: ExtensionURL;
-            spelling?: ExtensionURL;
-            attach?: ExtensionURL;
-            security?: ExtensionURL;
-            save?: ExtensionURL;
-            quote?: ExtensionURL;
-            buddy?: ExtensionURL;
-            join_chat?: ExtensionURL;
-            chat_accounts?: ExtensionURL;
-            calendar?: ExtensionURL;
-            tasks?: ExtensionURL;
-            synchronize?: ExtensionURL;
-            newevent?: ExtensionURL;
-            newtask?: ExtensionURL;
-            editevent?: ExtensionURL;
-            today?: ExtensionURL;
-            category?: ExtensionURL;
-            complete?: ExtensionURL;
-            priority?: ExtensionURL;
-            saveandclose?: ExtensionURL;
-            attendees?: ExtensionURL;
-            privacy?: ExtensionURL;
-            status?: ExtensionURL;
-            freebusy?: ExtensionURL;
-            timezones?: ExtensionURL;
-        };
-        properties?: {
-            additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[];
-            additional_backgrounds_tiling?: _ThemeTypeAdditionalBackgroundsTiling[];
-        };
-    }
-
-    /** Contents of manifest.json for a static theme */
-    interface ThemeManifest {
-        theme: ThemeType;
-        default_locale?: string;
-        theme_experiment?: ThemeExperiment;
-        icons?: {
-            [key: number]: string;
-        };
-    }
-
-    type KeyName = string;
-
-    type _OptionalPermission =
-        "browserSettings"
-        | "cookies"
-        | "downloads"
-        | "downloads.open"
-        | "clipboardRead"
-        | "clipboardWrite"
-        | "geolocation"
-        | "idle"
-        | "notifications"
-        | "topSites"
-        | "webNavigation"
-        | "webRequest"
-        | "webRequestBlocking"
-        | "bookmarks"
-        | "find"
-        | "history"
-        | "menus.overrideContext"
-        | "search"
-        | "activeTab"
-        | "tabs"
-        | "tabHide";
-
-    type _Permission =
-        "contextualIdentities"
-        | "dns"
-        | "identity"
-        | "management"
-        | "alarms"
-        | "mozillaAddons"
-        | "storage"
-        | "unlimitedStorage"
-        | "privacy"
-        | "proxy"
-        | "nativeMessaging"
-        | "telemetry"
-        | "theme"
-        | "browsingData"
-        | "devtools"
-        | "geckoProfiler"
-        | "menus"
-        | "contextMenus"
-        | "pkcs11"
-        | "sessions";
-
-    type _WebExtensionManifestIncognito = "spanning";
-
-    /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _WebExtensionManifestBrowserActionDefaultArea =
-        "navbar"
-        | "menupanel"
-        | "tabstrip"
-        | "personaltoolbar";
-
-    /** The type of param can be either "purpose" or "pref". */
-    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
-
-    /** The context that initiates a search, required if condition is "purpose". */
-    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
-        "contextmenu"
-        | "searchbar"
-        | "homepage"
-        | "keyword"
-        | "newtab";
-
-    type _ProtocolHandlerProtocol =
-        "bitcoin"
-        | "dat"
-        | "dweb"
-        | "geo"
-        | "gopher"
-        | "im"
-        | "ipfs"
-        | "ipns"
-        | "irc"
-        | "ircs"
-        | "magnet"
-        | "mailto"
-        | "mms"
-        | "news"
-        | "nntp"
-        | "sip"
-        | "sms"
-        | "smsto"
-        | "ssb"
-        | "ssh"
-        | "tel"
-        | "urn"
-        | "webcal"
-        | "wtai"
-        | "xmpp";
-
-    type _MatchPattern = "<all_urls>";
-
-    type _ThemeTypeAdditionalBackgroundsAlignment =
-        "bottom"
-        | "center"
-        | "left"
-        | "right"
-        | "top"
-        | "center bottom"
-        | "center center"
-        | "center top"
-        | "left bottom"
-        | "left center"
-        | "left top"
-        | "right bottom"
-        | "right center"
-        | "right top";
-
-    type _ThemeTypeAdditionalBackgroundsTiling =
-        "no-repeat"
-        | "repeat"
-        | "repeat-x"
-        | "repeat-y";
-}
-
 /**
  * Use the `browser.browserSettings` API to control global settings of the browser.
  *
@@ -786,6 +800,47 @@ declare namespace browser.browserSettings {
 
     /** This setting controls whether the document's fonts are used. */
     const useDocumentFonts: types.Setting;
+}
+
+/**
+ * This API provides the ability detect the captive portal state of the users connection.
+ *
+ * Permissions: `captivePortal`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.captivePortal {
+    /** The current captive portal state. */
+    type _UndefinedState =
+        "unknown"
+        | "not_captive"
+        | "unlocked_portal"
+        | "locked_portal";
+
+    type _Status = "captive" | "clear";
+
+    /* captivePortal functions */
+    /**
+     * Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.
+     */
+    function getState(): Promise<_UndefinedState>;
+
+    /** Returns the time difference between NOW and the last time a request was completed in milliseconds. */
+    function getLastChecked(): Promise<number>;
+
+    /* captivePortal events */
+    /** Fired when the captive portal state changes. */
+    const onStateChanged: WebExtEvent<(details: {
+        /** The current captive portal state. */
+        state: _UndefinedState;
+    }) => void>;
+
+    /**
+     * This notification will be emitted when the captive portal service has determined that we can connect to the
+     * internet. The service will pass either `captive` if there is an unlocked captive portal present, or `clear` if
+     * no captive portal was detected.
+     */
+    const onConnectivityAvailable: WebExtEvent<(status: _Status) => void>;
 }
 
 /**
@@ -1126,7 +1181,7 @@ declare namespace browser.cookies {
          * The first-party domain of the cookie. This attribute is required if First-Party Isolation is enabled.
          */
         firstPartyDomain?: string;
-    }): Promise<Cookie | undefined>;
+    }): Promise<Cookie>;
 
     /**
      * Deletes a cookie by name.
@@ -1159,7 +1214,7 @@ declare namespace browser.cookies {
         storeId: string;
         /** The first-party domain associated with the cookie that's been removed. */
         firstPartyDomain: string;
-    } | undefined>;
+    }>;
 
     /** Lists all existing cookie stores. */
     function getAllCookieStores(): Promise<CookieStore[]>;
@@ -1311,7 +1366,7 @@ declare namespace browser.downloads {
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: DangerType;
         /** The file's MIME type. */
-        mime: string;
+        mime?: string;
         /** Number of milliseconds between the unix epoch and when this download began. */
         startTime: string;
         /** Number of milliseconds between the unix epoch and when this download ended. */
@@ -1460,7 +1515,7 @@ declare namespace browser.downloads {
         }>;
         /** Post body. */
         body?: string;
-    }): Promise<number | undefined>;
+    }): Promise<number>;
 
     /**
      * Find DownloadItems. Set `query` to the empty object to get all DownloadItems. To get a specific DownloadItem,
@@ -1510,12 +1565,12 @@ declare namespace browser.downloads {
     function open(downloadId: number): Promise<void>;
 
     /** Show the downloaded file in its folder in a file manager. */
-    function show(downloadId: number): Promise<boolean | undefined>;
+    function show(downloadId: number): Promise<boolean>;
 
     function showDefaultFolder(): void;
 
     /** Erase matching DownloadItems from history */
-    function erase(query: DownloadQuery): Promise<number[] | undefined>;
+    function erase(query: DownloadQuery): Promise<number[]>;
 
     function removeFile(downloadId: number): Promise<void>;
 
@@ -1632,7 +1687,7 @@ declare namespace browser.events {
          * @param rules Rules to be registered. These do not replace previously registered rules.
          * @deprecated Unsupported on Firefox at this time.
          */
-        addRules?(eventName: string, webViewInstanceId: number, rules: Rule[]): Promise<Rule[] | undefined>;
+        addRules?(eventName: string, webViewInstanceId: number, rules: Rule[]): Promise<Rule[]>;
 
         /**
          * Returns currently registered rules.
@@ -1955,6 +2010,104 @@ declare namespace browser.extensionTypes {
 }
 
 /**
+ * Exposes the browser's profiler.
+ *
+ * Permissions: `geckoProfiler`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.geckoProfiler {
+    /* geckoProfiler types */
+    type ProfilerFeature =
+        "java"
+        | "js"
+        | "leaf"
+        | "mainthreadio"
+        | "privacy"
+        | "responsiveness"
+        | "screenshots"
+        | "seqstyle"
+        | "stackwalk"
+        | "tasktracer"
+        | "threads"
+        | "trackopts"
+        | "jstracer"
+        | "jsallocations"
+        | "preferencereads";
+
+    type Supports = "windowLength";
+
+    /* geckoProfiler functions */
+    /** Starts the profiler with the specified settings. */
+    function start(settings: {
+        /**
+         * The maximum size in bytes of the buffer used to store profiling data. A larger value allows capturing a
+         * profile that covers a greater amount of time.
+         */
+        bufferSize: number;
+        /**
+         * The length of the window of time that's kept in the buffer. Any collected samples are discarded as soon as
+         * they are older than the number of seconds specified in this setting. Zero means no duration restriction.
+         */
+        windowLength?: number;
+        /**
+         * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the
+         * profiles captured.
+         */
+        interval: number;
+        /** A list of active features for the profiler. */
+        features: ProfilerFeature[];
+        /** A list of thread names for which to capture profiles. */
+        threads?: string[];
+    }): Promise<any>;
+
+    /** Stops the profiler and discards any captured profile data. */
+    function stop(): Promise<any>;
+
+    /** Pauses the profiler, keeping any profile data that is already written. */
+    function pause(): Promise<any>;
+
+    /** Resumes the profiler with the settings that were initially used to start it. */
+    function resume(): Promise<any>;
+
+    /**
+     * Gathers the profile data from the current profiling session, and writes it to disk. The returned promise
+     * resolves to a path that locates the created file.
+     * @param fileName The name of the file inside the profile/profiler directory
+     */
+    function dumpProfileToFile(fileName: string): Promise<any>;
+
+    /** Gathers the profile data from the current profiling session. */
+    function getProfile(): Promise<any>;
+
+    /**
+     * Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer
+     * that contains a JSON string.
+     */
+    function getProfileAsArrayBuffer(): Promise<any>;
+
+    /**
+     * Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer
+     * that contains a gzipped JSON string.
+     */
+    function getProfileAsGzippedArrayBuffer(): Promise<any>;
+
+    /**
+     * Gets the debug symbols for a particular library.
+     * @param debugName The name of the library's debug file. For example, 'xul.pdb
+     * @param breakpadId The Breakpad ID of the library
+     */
+    function getSymbols(debugName: string, breakpadId: string): Promise<any>;
+
+    /* geckoProfiler events */
+    /**
+     * Fires when the profiler starts/stops running.
+     * @param isRunning Whether the profiler is running or not. Pausing the profiler will not affect this value.
+     */
+    const onRunning: WebExtEvent<(isRunning: boolean) => void>;
+}
+
+/**
  * Use the `browser.i18n` infrastructure to implement internationalization across your whole app or extension.
  */
 declare namespace browser.i18n {
@@ -2036,7 +2189,7 @@ declare namespace browser.identity {
         interactive?: boolean;
         account?: AccountInfo;
         scopes?: string[];
-    }): Promise<AccountInfo[] | undefined>;
+    }): Promise<AccountInfo[]>;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -2056,7 +2209,7 @@ declare namespace browser.identity {
     }): Promise<{
         email: string;
         id: string;
-    } | undefined>;
+    }>;
 
     /** Starts an auth flow at the specified URL. */
     function launchWebAuthFlow(details: {
@@ -2198,13 +2351,13 @@ declare namespace browser.management {
 
     /* management functions */
     /** Returns a list of information about installed extensions. */
-    function getAll(): Promise<ExtensionInfo[] | undefined>;
+    function getAll(): Promise<ExtensionInfo[]>;
 
     /**
      * Returns information about the installed extension that has the given ID.
      * @param id The ID from an item of `management.ExtensionInfo`.
      */
-    function get(id: _manifest.ExtensionID): Promise<ExtensionInfo | undefined>;
+    function get(id: _manifest.ExtensionID): Promise<ExtensionInfo>;
 
     /** Installs and enables a theme extension from the given url. */
     function install(options: {
@@ -2214,13 +2367,13 @@ declare namespace browser.management {
         hash?: string;
     }): Promise<{
         id: _manifest.ExtensionID;
-    } | undefined>;
+    }>;
 
     /**
      * Returns information about the calling extension. Note: This function can be used without requesting the
      * 'management' permission in the manifest.
      */
-    function getSelf(): Promise<ExtensionInfo | undefined>;
+    function getSelf(): Promise<ExtensionInfo>;
 
     /**
      * Uninstalls the calling extension. Note: This function can be used without requesting the 'management' permission
@@ -2252,6 +2405,51 @@ declare namespace browser.management {
 
     /** Fired when an addon has been uninstalled. */
     const onUninstalled: WebExtEvent<(info: ExtensionInfo) => void>;
+}
+
+/**
+ * This API provides the ability to determine the status of and detect changes in the network connection. This API can
+ * only be used in privileged extensions.
+ *
+ * Permissions: `networkStatus`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.networkStatus {
+    /* networkStatus types */
+    interface NetworkLinkInfo {
+        /** Status of the network link, if "unknown" then link is usually assumed to be "up" */
+        status: _NetworkLinkInfoStatus;
+        /** If known, the type of network connection that is avialable. */
+        type: _NetworkLinkInfoType;
+        /** If known, the network id or name. */
+        id?: string;
+    }
+
+    /** Status of the network link, if "unknown" then link is usually assumed to be "up" */
+    type _NetworkLinkInfoStatus =
+        "unknown"
+        | "up"
+        | "down";
+
+    /** If known, the type of network connection that is avialable. */
+    type _NetworkLinkInfoType =
+        "unknown"
+        | "ethernet"
+        | "usb"
+        | "wifi"
+        | "wimax"
+        | "2g"
+        | "3g"
+        | "4g";
+
+    /* networkStatus functions */
+    /** Returns the $(ref:NetworkLinkInfo} of the current network connection. */
+    function getLinkInfo(): Promise<NetworkLinkInfo>;
+
+    /* networkStatus events */
+    /** Fired when the network connection state changes. */
+    const onConnectionChanged: WebExtEvent<(details: NetworkLinkInfo) => void>;
 }
 
 /**
@@ -2355,7 +2553,7 @@ declare namespace browser.notifications {
      * Creates and displays a notification.
      * @param options Contents of the notification.
      */
-    function create(options: CreateNotificationOptions): Promise<string | undefined>;
+    function create(options: CreateNotificationOptions): Promise<string>;
     /**
      * Creates and displays a notification.
      * @param notificationId Identifier of the notification. If it is empty, this method generates an id. If it matches
@@ -2363,7 +2561,7 @@ declare namespace browser.notifications {
      *     operation.
      * @param options Contents of the notification.
      */
-    function create(notificationId: string, options: CreateNotificationOptions): Promise<string | undefined>;
+    function create(notificationId: string, options: CreateNotificationOptions): Promise<string>;
 
     /**
      * Updates an existing notification.
@@ -2371,16 +2569,16 @@ declare namespace browser.notifications {
      * @param options Contents of the notification to update to.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function update(notificationId: string, options: UpdateNotificationOptions): Promise<boolean | undefined>;
+    function update(notificationId: string, options: UpdateNotificationOptions): Promise<boolean>;
 
     /**
      * Clears an existing notification.
      * @param notificationId The id of the notification to be updated.
      */
-    function clear(notificationId: string): Promise<boolean | undefined>;
+    function clear(notificationId: string): Promise<boolean>;
 
     /** Retrieves all the notifications. */
-    function getAll(): Promise<CreateNotificationOptions>;
+    function getAll(): Promise<{ [key: string]: CreateNotificationOptions }>;
 
     /**
      * Retrieves whether the user has enabled notifications from this app or extension.
@@ -2461,7 +2659,7 @@ declare namespace browser.permissions {
     function request(permissions: Permissions): Promise<boolean>;
 
     /** Relinquish the given permissions. */
-    function remove(permissions: Permissions): Promise<void>;
+    function remove(permissions: Permissions): Promise<boolean>;
 
     /* permissions events */
     /**
@@ -2499,7 +2697,8 @@ declare namespace browser.privacy.network {
         "default"
         | "default_public_and_private_interfaces"
         | "default_public_interface_only"
-        | "disable_non_proxied_udp";
+        | "disable_non_proxied_udp"
+        | "proxy_only";
 
     /* privacy.network properties */
     /**
@@ -2670,7 +2869,7 @@ declare namespace browser.proxy {
         | "manual"
         | "autoConfig";
 
-    type _ProxyOnRequestEvent<T = (details: {
+    interface _ProxyOnRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -2688,6 +2887,10 @@ declare namespace browser.proxy {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -2706,22 +2909,34 @@ declare namespace browser.proxy {
         fromCache: boolean;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: webRequest.HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* proxy properties */
     /** Configures proxy settings. This setting's value is an object of type ProxyConfig. */
     const settings: types.Setting;
 
     /* proxy functions */
-    /** Registers the proxy script for the extension. */
+    /**
+     * Registers the proxy script for the extension.
+     * @deprecated proxy.register has been deprecated and will be removed in Firefox 71.
+     */
     function register(url: string): Promise<void>;
 
-    /** Unregisters the proxy script for the extension. */
+    /**
+     * Unregisters the proxy script for the extension.
+     * @deprecated proxy.unregister has been deprecated and will be removed in Firefox 71.
+     */
     function unregister(): Promise<void>;
 
     /**
-     * Registers the proxy script for the extension.
-     * @deprecated Please use `proxy.register`
+     * Registers the proxy script for the extension. This is an alias for proxy.register.
+     * @deprecated proxy.registerProxyScript has been deprecated and will be removed in Firefox 71.
      */
     function registerProxyScript(url: string): Promise<any>;
 
@@ -2729,11 +2944,14 @@ declare namespace browser.proxy {
     /** Fired when proxy data is needed for a request. */
     const onRequest: _ProxyOnRequestEvent;
 
-    /** Notifies about proxy script errors. */
-    const onError: WebExtEvent<(error: object) => void>;
+    /** Notifies about errors caused by the invalid use of the proxy API. */
+    const onError: WebExtEvent<(error: Error) => void>;
 
-    /** Please use `proxy.onError`. */
-    const onProxyError: WebExtEvent<(error: object) => void>;
+    /**
+     * Please use `proxy.onError`.
+     * @deprecated proxy.onProxyError has been deprecated and will be removed in Firefox 71\. Use proxy.onError instead.
+     */
+    const onProxyError: WebExtEvent<(error: Error) => void>;
 }
 
 /**
@@ -2749,11 +2967,12 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        onDisconnect: events.Event;
-        onMessage: events.Event;
         postMessage: (message: object) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
+        error?: Error;
+        onMessage: WebExtEvent<(response: object) => void>;
+        onDisconnect: WebExtEvent<(port: Port) => void>;
     }
 
     /** An object containing information about the script context that sent a message or request. */
@@ -2894,10 +3113,10 @@ declare namespace browser.runtime {
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and
      * implement surveys. Maximum 255 characters.
-     * @param url URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
+     * @param [url] URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
      *     Set an empty string to not open a new tab upon uninstallation.
      */
-    function setUninstallURL(url: string): Promise<void>;
+    function setUninstallURL(url?: string): Promise<void>;
 
     /** Reloads the app or extension. */
     function reload(): void;
@@ -2936,6 +3155,8 @@ declare namespace browser.runtime {
 
     /**
      * Connects to a native application in the host machine.
+     *
+     * Not allowed in: Devtools pages
      * @param application The name of the registered application to connect to.
      * @returns Port through which messages can be sent and received with the application
      */
@@ -2984,6 +3205,8 @@ declare namespace browser.runtime {
 
     /**
      * Send a single message to a native application.
+     *
+     * Not allowed in: Devtools pages
      * @param application The name of the native messaging host.
      * @param message The message that will be passed to the native messaging host.
      */
@@ -3132,7 +3355,7 @@ declare namespace browser.storage {
          *     description of the object). An empty list or object will return an empty result object. Pass in `null`
          *     to get the entire contents of storage.
          */
-        get(keys?: string | string[] | object): Promise<any>;
+        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
 
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -3151,7 +3374,7 @@ declare namespace browser.storage {
          *     `"function"` will typically serialize to `{}`, with the exception of `Array` (serializes as expected),
          *     `Date`, and `Regex` (serialize using their `String` representation).
          */
-        set(items: any): Promise<void>;
+        set(items: { [key: string]: any }): Promise<void>;
 
         /**
          * Removes one or more items from storage.
@@ -3182,14 +3405,14 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: { [key: string]: StorageChange }, areaName: string) => void>;
 }
 
 /**
  * Use the `browser.telemetry` API to send telemetry data to the Mozilla Telemetry service. Restricted to Mozilla
  * privileged webextensions.
  *
- * Permissions: `telemetry`, `mozillaAddons`
+ * Permissions: `telemetry`
  *
  * Not allowed in: Content scripts, Devtools pages
  */
@@ -3241,18 +3464,18 @@ declare namespace browser.telemetry {
      * @param message The data payload for the ping.
      * @param options Options object.
      */
-    function submitPing(type: string, message: any, options: {
+    function submitPing(type: string, message: { [key: string]: any }, options: {
         /** True if the ping should contain the client id. */
         addClientId?: boolean;
         /** True if the ping should contain the environment data. */
         addEnvironment?: boolean;
         /** Set to override the environment data. */
-        overrideEnvironment?: any;
+        overrideEnvironment?: { [key: string]: any };
         /** If true, send the ping using the PingSender. */
         usePingSender?: boolean;
     }): Promise<any>;
 
-    /** Checks if Telemetry is enabled. */
+    /** Checks if Telemetry upload is enabled. */
     function canUpload(): Promise<any>;
 
     /**
@@ -3267,7 +3490,7 @@ declare namespace browser.telemetry {
      * @param name The scalar name
      * @param value The value to set the scalar to
      */
-    function scalarSet(name: string, value: string | boolean | number | object): Promise<any>;
+    function scalarSet(name: string, value: string | boolean | number | { [key: string]: any }): Promise<any>;
 
     /**
      * Sets the scalar to the maximum of the current and the passed value
@@ -3284,7 +3507,7 @@ declare namespace browser.telemetry {
      * @param [value] An optional string value to record.
      * @param [extra] An optional object of the form (string -> string). It should only contain registered extra keys.
      */
-    function recordEvent(category: string, method: string, object: string, value?: number, extra?: string): Promise<any>;
+    function recordEvent(category: string, method: string, object: string, value?: string, extra?: { [key: string]: string }): Promise<any>;
 
     /**
      * Register new scalars to record them from addons. See nsITelemetry.idl for more details.
@@ -3292,7 +3515,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for multiple scalars. Each property name is the scalar
      *     name, and the corresponding property value is an object of ScalarData type.
      */
-    function registerScalars(category: string, data: ScalarData): Promise<any>;
+    function registerScalars(category: string, data: { [key: string]: ScalarData }): Promise<any>;
 
     /**
      * Register new events to record them from addons. See nsITelemetry.idl for more details.
@@ -3300,7 +3523,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for 1+ events. Each property name is the category name,
      *     and the corresponding property value is an object of EventData type.
      */
-    function registerEvents(category: string, data: EventData): Promise<any>;
+    function registerEvents(category: string, data: { [key: string]: EventData }): Promise<any>;
 
     /**
      * Enable recording of events in a category. Events default to recording disabled. This allows to toggle recording
@@ -3357,41 +3580,6 @@ declare namespace browser.theme {
      * @param updateInfo Details of the theme update
      */
     const onUpdated: WebExtEvent<(updateInfo: ThemeUpdateInfo) => void>;
-}
-
-/**
- * Use the browser.topSites API to access the top sites that are displayed on the new tab page.
- *
- * Permissions: `topSites`
- *
- * Not allowed in: Content scripts, Devtools pages
- */
-declare namespace browser.topSites {
-    /* topSites types */
-    /** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
-    interface MostVisitedURL {
-        /** The most visited URL. */
-        url: string;
-        /** The title of the page. */
-        title?: string;
-        /** Data URL for the favicon, if available. */
-        favicon?: string;
-    }
-
-    /* topSites functions */
-    /** Gets a list of top sites. */
-    function get(options?: {
-        /** @deprecated Please use the other options to tune the results received from topSites. */
-        providers?: string[];
-        /** The number of top sites to return, defaults to the value used by Firefox */
-        limit?: number;
-        /** Limit the result to a single top site link per domain */
-        onePerDomain?: boolean;
-        /** Include sites that the user has blocked from appearing on the Firefox new tab. */
-        includeBlocked?: boolean;
-        /** Include sites favicon if available. */
-        includeFavicon?: boolean;
-    }): Promise<MostVisitedURL[]>;
 }
 
 /**
@@ -3535,11 +3723,6 @@ declare namespace browser.userScripts {
         unregister(): Promise<any>;
     }
 
-    /** A set of API methods provided by the extensions to its userScripts */
-    interface ExportedAPIMethods {
-        [key: string]: (...args: any[]) => any;
-    }
-
     /* userScripts functions */
     /**
      * Register a user script programmatically given its `userScripts.UserScriptOptions`, and resolves to a
@@ -3547,12 +3730,28 @@ declare namespace browser.userScripts {
      */
     function register(userScriptOptions: UserScriptOptions): Promise<RegisteredUserScript>;
 
+    /* userScripts events */
     /**
-     * Provides a set of custom API methods available to the registered userScripts
+     * Event called when a new userScript global has been created
      *
      * Allowed in: Content scripts only
      */
-    function setScriptAPIs(exportedAPIMethods: ExportedAPIMethods): void;
+    const onBeforeScript: WebExtEvent<(userScript: {
+        /** The userScript metadata (as set in userScripts.register) */
+        metadata: any;
+        /** The userScript global */
+        global: any;
+        /**
+         * Exports all the properties of a given plain object as userScript globals
+         * @param sourceObject A plain object whose properties are exported as userScript globals
+         */
+        defineGlobals: (sourceObject: object) => void;
+        /**
+         * Convert a given value to make it accessible to the userScript code
+         * @param value A value to convert into an object accessible to the userScript
+         */
+        export: (value: any) => any;
+    }) => void>;
 }
 
 /**
@@ -3592,7 +3791,7 @@ declare namespace browser.webNavigation {
         url: events.UrlFilter[];
     }
 
-    type _WebNavigationOnBeforeNavigateEvent<T = (details: {
+    interface _WebNavigationOnBeforeNavigateEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is about to occur. */
         tabId: number;
         url: string;
@@ -3610,9 +3809,15 @@ declare namespace browser.webNavigation {
         parentFrameId: number;
         /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCommittedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCommittedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3638,9 +3843,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnDOMContentLoadedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnDOMContentLoadedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3656,9 +3867,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the page's DOM was fully constructed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCompletedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3674,9 +3891,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the document finished loading, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnErrorOccurredEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3697,9 +3920,15 @@ declare namespace browser.webNavigation {
         error?: string;
         /** The time when the error occurred, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCreatedNavigationTargetEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCreatedNavigationTargetEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is triggered. */
         sourceTabId: number;
         /** The ID of the process runs the renderer for the source tab. */
@@ -3714,9 +3943,15 @@ declare namespace browser.webNavigation {
         tabId: number;
         /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnReferenceFragmentUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnReferenceFragmentUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3742,9 +3977,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnHistoryStateUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnHistoryStateUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3770,7 +4011,13 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webNavigation functions */
     /**
@@ -3946,6 +4193,8 @@ declare namespace browser.webRequest {
         types?: ResourceType[];
         tabId?: number;
         windowId?: number;
+        /** If provided, requests that do not match the incognito state will be filtered out. */
+        incognito?: boolean;
     }
 
     /**
@@ -4084,6 +4333,31 @@ declare namespace browser.webRequest {
         file?: string;
     }
 
+    /** Tracking flags that match our internal tracking classification */
+    type UrlClassificationFlags =
+        "fingerprinting"
+        | "fingerprinting_content"
+        | "cryptomining"
+        | "cryptomining_content"
+        | "tracking"
+        | "tracking_ad"
+        | "tracking_analytics"
+        | "tracking_social"
+        | "tracking_content"
+        | "any_basic_tracking"
+        | "any_strict_tracking"
+        | "any_social_tracking";
+
+    /** If the request has been classified this is an array of `UrlClassificationFlags`. */
+    type UrlClassificationParty = UrlClassificationFlags[];
+
+    interface UrlClassification {
+        /** First party classification flags if the request has been classified. */
+        firstParty: UrlClassificationParty;
+        /** Third party classification flags if the request has been classified. */
+        thirdParty: UrlClassificationParty;
+    }
+
     type _SecurityInfoState =
         "insecure"
         | "weak"
@@ -4098,7 +4372,7 @@ declare namespace browser.webRequest {
         | "TLSv1.3"
         | "unknown";
 
-    type _WebRequestOnBeforeRequestEvent<T = (details: {
+    interface _WebRequestOnBeforeRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4116,6 +4390,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4144,9 +4422,17 @@ declare namespace browser.webRequest {
         type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
 
-    type _WebRequestOnBeforeSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4164,6 +4450,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4176,9 +4466,17 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
 
-    type _WebRequestOnSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4196,6 +4494,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4208,9 +4510,17 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that have been sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]): void;
 
-    type _WebRequestOnHeadersReceivedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnHeadersReceivedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4228,6 +4538,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4247,9 +4561,17 @@ declare namespace browser.webRequest {
         responseHeaders?: HttpHeaders;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
 
-    type _WebRequestOnAuthRequiredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnAuthRequiredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4267,6 +4589,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4297,9 +4623,17 @@ declare namespace browser.webRequest {
         statusLine: string;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
 
-    type _WebRequestOnResponseStartedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnResponseStartedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4317,6 +4651,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4342,9 +4680,17 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]): void;
 
-    type _WebRequestOnBeforeRedirectEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeRedirectEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4362,6 +4708,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4389,9 +4739,17 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]): void;
 
-    type _WebRequestOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnCompletedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4409,6 +4767,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4434,9 +4796,17 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification: UrlClassification;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]): void;
 
-    type _WebRequestOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnErrorOccurredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4454,6 +4824,10 @@ declare namespace browser.webRequest {
         frameId: number;
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
+        /** True for private browsing requests. */
+        incognito?: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string;
         /** URL of the resource that triggered this request. */
         originUrl?: string;
         /** URL of the page into which the requested resource will be loaded. */
@@ -4475,7 +4849,15 @@ declare namespace browser.webRequest {
          * must not parse and act based upon its content.
          */
         error: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter) => void, T>;
+        /** Tracking classification if the request has been classified. */
+        urlClassification?: UrlClassification;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webRequest properties */
     /**
@@ -4669,13 +5051,13 @@ declare namespace browser.bookmarks {
     /**
      * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
      */
-    function create(bookmark: CreateDetails): Promise<BookmarkTreeNode | undefined>;
+    function create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
 
     /** Moves the specified BookmarkTreeNode to the provided location. */
     function move(id: string, destination: {
         parentId?: string;
         index?: number;
-    }): Promise<BookmarkTreeNode | undefined>;
+    }): Promise<BookmarkTreeNode>;
 
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified
@@ -4684,7 +5066,7 @@ declare namespace browser.bookmarks {
     function update(id: string, changes: {
         title?: string;
         url?: string;
-    }): Promise<BookmarkTreeNode | undefined>;
+    }): Promise<BookmarkTreeNode>;
 
     /** Removes a bookmark or an empty bookmark folder. */
     function remove(id: string): Promise<void>;
@@ -5136,7 +5518,7 @@ declare namespace browser.commands {
     function reset(name: string): Promise<void>;
 
     /** Returns all the registered extension commands for this extension and their shortcut (if active). */
-    function getAll(): Promise<Command[] | undefined>;
+    function getAll(): Promise<Command[]>;
 
     /* commands events */
     /** Fired when a registered command is activated using a keyboard shortcut. */
@@ -5178,7 +5560,7 @@ declare namespace browser.devtools.inspectedWindow {
          *     be persisted; false if this is a minor change sent in progress of the user editing the resource.
          * @deprecated Unsupported on Firefox at this time.
          */
-        setContent?(content: string, commit: boolean): Promise<any>;
+        setContent?(content: string, commit: boolean): Promise<{ [key: string]: any }>;
     }
 
     /* devtools.inspectedWindow properties */
@@ -5217,7 +5599,7 @@ declare namespace browser.devtools.inspectedWindow {
          * @deprecated Unsupported on Firefox at this time.
          */
         contextSecurityOrigin?: string;
-    }): Promise<object | undefined>;
+    }): Promise<object>;
 
     /** Reloads the inspected page. */
     function reload(reloadOptions?: {
@@ -5291,7 +5673,7 @@ declare namespace browser.devtools.network {
 
     /* devtools.network functions */
     /** Returns HAR log that contains all known network requests. */
-    function getHAR(): Promise<any>;
+    function getHAR(): Promise<{ [key: string]: any }>;
 
     /* devtools.network events */
     /**
@@ -5320,9 +5702,8 @@ declare namespace browser.devtools.panels {
         /**
          * Creates a pane within panel's sidebar.
          * @param title Text that is displayed in sidebar caption.
-         * @param [callback] A callback invoked when the sidebar is created.
          */
-        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+        createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
 
         /** Fired when an object is selected in the panel. */
         onSelectionChanged: WebExtEvent<() => void>;
@@ -5335,7 +5716,7 @@ declare namespace browser.devtools.panels {
          * @param title Text that is displayed in sidebar caption.
          * @deprecated Unsupported on Firefox at this time.
          */
-        createSidebarPane?(title: string): Promise<ExtensionSidebarPane | undefined>;
+        createSidebarPane?(title: string): Promise<ExtensionSidebarPane>;
 
         /**
          * Fired when an object is selected in the panel.
@@ -5455,14 +5836,14 @@ declare namespace browser.devtools.panels {
      *     default extension icon as the panel icon.
      * @param pagePath Path of the panel's HTML page relative to the extension directory.
      */
-    function create(title: string, iconPath: _manifest.ExtensionURL | _Create, pagePath: _manifest.ExtensionURL): Promise<ExtensionPanel | undefined>;
+    function create(title: string, iconPath: _manifest.ExtensionURL | _Create, pagePath: _manifest.ExtensionURL): Promise<ExtensionPanel>;
 
     /**
      * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset
      * the handler, either call the method with no parameters or pass null as the parameter.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function setOpenResourceHandler(): Promise<devtools.inspectedWindow.Resource | undefined>;
+    function setOpenResourceHandler(): Promise<devtools.inspectedWindow.Resource>;
 
     /**
      * Requests DevTools to open a URL in a Developer Tools panel.
@@ -5546,82 +5927,6 @@ declare namespace browser.find {
      * @param [tabId] Tab to highlight. Defaults to the active tab.
      */
     function removeHighlighting(tabId?: number): void;
-}
-
-/**
- * Exposes the browser's profiler.
- *
- * Permissions: `geckoProfiler`
- *
- * Not allowed in: Content scripts, Devtools pages
- */
-declare namespace browser.geckoProfiler {
-    /* geckoProfiler types */
-    type ProfilerFeature =
-        "java"
-        | "js"
-        | "leaf"
-        | "mainthreadio"
-        | "memory"
-        | "privacy"
-        | "responsiveness"
-        | "screenshots"
-        | "seqstyle"
-        | "stackwalk"
-        | "tasktracer"
-        | "threads"
-        | "trackopts";
-
-    /* geckoProfiler functions */
-    /** Starts the profiler with the specified settings. */
-    function start(settings: {
-        /**
-         * The size in bytes of the buffer used to store profiling data. A larger value allows capturing a profile that
-         * covers a greater amount of time.
-         */
-        bufferSize: number;
-        /**
-         * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the
-         * profiles captured.
-         */
-        interval: number;
-        /** A list of active features for the profiler. */
-        features: ProfilerFeature[];
-        /** A list of thread names for which to capture profiles. */
-        threads?: string[];
-    }): Promise<any>;
-
-    /** Stops the profiler and discards any captured profile data. */
-    function stop(): Promise<any>;
-
-    /** Pauses the profiler, keeping any profile data that is already written. */
-    function pause(): Promise<any>;
-
-    /** Resumes the profiler with the settings that were initially used to start it. */
-    function resume(): Promise<any>;
-
-    /** Gathers the profile data from the current profiling session. */
-    function getProfile(): Promise<any>;
-
-    /**
-     * Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer
-     * that contains a JSON string.
-     */
-    function getProfileAsArrayBuffer(): Promise<any>;
-
-    /**
-     * Gets the debug symbols for a particular library.
-     * @param debugName The name of the library's debug file. For example, 'xul.pdb
-     * @param breakpadId The Breakpad ID of the library
-     */
-    function getSymbols(debugName: string, breakpadId: string): Promise<any>;
-
-    /* geckoProfiler events */
-    /**
-     * Fires when the profiler starts/stops running.
-     * @param isRunning Whether the profiler is running or not. Pausing the profiler will not affect this value.
-     */
-    const onRunning: WebExtEvent<(isRunning: boolean) => void>;
 }
 
 /**
@@ -5821,6 +6126,8 @@ declare namespace browser.contextMenus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6100,6 +6407,8 @@ declare namespace browser.menus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6317,6 +6626,65 @@ declare namespace browser.menus {
 
     /** Fired when a menu is hidden. This event is only fired if onShown has fired before. */
     const onHidden: WebExtEvent<() => void>;
+}
+
+/**
+ * Normandy Study API
+ *
+ * Permissions: `normandyAddonStudy`
+ */
+declare namespace browser.normandyAddonStudy {
+    /* normandyAddonStudy types */
+    interface Study {
+        /** The ID of the recipe for the study. */
+        recipeId: number;
+        /** A slug to identify the study. */
+        slug: string;
+        /** The name presented on about:studies. */
+        userFacingName: string;
+        /** The description presented on about:studies. */
+        userFacingDescription: string;
+        /** The study branch in which the user is enrolled. */
+        branch: string;
+        /** The state of the study. */
+        active: boolean;
+        /** The ID of the extension installed by the study. */
+        addonId: string;
+        /** The URL of the XPI that was downloaded and installed by the study. */
+        addonUrl: string;
+        /** The version of the extension installed by the study. */
+        addonVersion: string;
+        /** The start date for the study. */
+        studyStartDate: extensionTypes.Date;
+        /** The end date for the study. */
+        studyEndDate: extensionTypes.Date;
+        /** The record ID for the extension in Normandy server's database. */
+        extensionApiId: number;
+        /** A hash of the extension XPI file. */
+        extensionHash: string;
+        /** The algorithm used to hash the extension XPI file. */
+        extensionHashAlgorithm: string;
+    }
+
+    /* normandyAddonStudy functions */
+    /** Returns a study object for the current study. */
+    function getStudy(): Promise<any>;
+
+    /**
+     * Marks the study as ended and then uninstalls the addon.
+     * @param reason The reason why the study is ending.
+     */
+    function endStudy(reason: string): Promise<any>;
+
+    /** Returns an object with metadata about the client which may be required for constructing survey URLs. */
+    function getClientMetadata(): Promise<any>;
+
+    /* normandyAddonStudy events */
+    /**
+     * Fired when a user unenrolls from a study but before the addon is uninstalled.
+     * @param reason The reason why the study is ending.
+     */
+    const onUnenroll: WebExtEvent<(reason: string) => void>;
 }
 
 /**
@@ -6649,9 +7017,7 @@ declare namespace browser.sessions {
     function forgetClosedWindow(sessionId: string): Promise<void>;
 
     /** Gets the list of recently closed tabs and/or windows. */
-    function getRecentlyClosed(callback: (sessions: Session[]) => void): Promise<Session[]>;
-    /** Gets the list of recently closed tabs and/or windows. */
-    function getRecentlyClosed(filter: Filter, callback: (sessions: Session[]) => void): Promise<Session[]>;
+    function getRecentlyClosed(filter?: Filter): Promise<Session[]>;
 
     /**
      * Retrieves all devices with synced sessions.
@@ -6664,7 +7030,7 @@ declare namespace browser.sessions {
      * @param [sessionId] The `windows.Window.sessionId`, or `tabs.Tab.sessionId` to restore. If this parameter is not
      *     specified, the most recently closed session is restored.
      */
-    function restore(sessionId?: string, callback?: (restoredSession: Session) => void): Promise<Session>;
+    function restore(sessionId?: string): Promise<Session>;
 
     /**
      * Set a key/value pair on a given tab.
@@ -6775,7 +7141,7 @@ declare namespace browser.sidebarAction {
          * size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must
          * be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string;
+        path?: string | { [key: string]: string };
         /** Sets the sidebar icon for the tab specified by tabId. Automatically resets when the tab is closed. */
         tabId?: number;
         /** Sets the sidebar icon for the window specified by windowId. */
@@ -6939,6 +7305,8 @@ declare namespace browser.tabs {
         sharingState?: SharingState;
         /** Whether the tab is drawing attention. */
         attention?: boolean;
+        /** The ID of this tab's successor, if any; `tabs.TAB_ID_NONE` otherwise. */
+        successorTabId?: number;
     }
 
     /**
@@ -7087,7 +7455,7 @@ declare namespace browser.tabs {
         | "Window"
         | "Application";
 
-    type _TabsOnUpdatedEvent<T = (tabId: number, changeInfo: {
+    interface _TabsOnUpdatedEvent<TCallback = (tabId: number, changeInfo: {
         /** The tab's new attention state. */
         attention?: boolean;
         /** The tab's new audible state. */
@@ -7121,7 +7489,13 @@ declare namespace browser.tabs {
          * `"tabs"` permission.
          */
         url?: string;
-    }, tab: Tab) => void> = WebExtEventBase<(callback: T, filter?: UpdateFilter) => void, T>;
+    }, tab: Tab) => void> {
+        addListener(cb: TCallback, filter?: UpdateFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* tabs properties */
     /** An ID which represents the absence of a browser tab. */
@@ -7222,13 +7596,13 @@ declare namespace browser.tabs {
         discarded?: boolean;
         /** The title used for display if the tab is created in discarded mode. */
         title?: string;
-    }): Promise<Tab | undefined>;
+    }): Promise<Tab>;
 
     /**
      * Duplicates a tab.
      * @param tabId The ID of the tab which is to be duplicated.
      */
-    function duplicate(tabId: number): Promise<Tab | undefined>;
+    function duplicate(tabId: number): Promise<Tab>;
 
     /** Gets all tabs that have the specified properties, or all tabs if no properties are specified. */
     function query(queryInfo: {
@@ -7291,7 +7665,7 @@ declare namespace browser.tabs {
         populate?: boolean;
         /** One or more tab indices to highlight. */
         tabs: number[] | number;
-    }): Promise<windows.Window | undefined>;
+    }): Promise<windows.Window>;
 
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
@@ -7320,7 +7694,11 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
-    }): Promise<Tab | undefined>;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
+    }): Promise<Tab>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
      * @param tabId Defaults to the selected tab of the current window.
@@ -7349,7 +7727,11 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
-    }): Promise<Tab | undefined>;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
+    }): Promise<Tab>;
 
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved
@@ -7361,7 +7743,7 @@ declare namespace browser.tabs {
         windowId?: number;
         /** The position to move the window to. -1 will place the tab at the end of the window. */
         index: number;
-    }): Promise<Tab | Tab[] | undefined>;
+    }): Promise<Tab | Tab[]>;
 
     /**
      * Reload a tab.
@@ -7414,14 +7796,14 @@ declare namespace browser.tabs {
      * doc.
      * @param details Details of the script to run.
      */
-    function executeScript(details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
+    function executeScript(details: extensionTypes.InjectDetails): Promise<any[]>;
     /**
      * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts
      * doc.
      * @param tabId The ID of the tab in which to run the script; defaults to the active tab of the current window.
      * @param details Details of the script to run.
      */
-    function executeScript(tabId: number, details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
+    function executeScript(tabId: number, details: extensionTypes.InjectDetails): Promise<any[]>;
 
     /**
      * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
@@ -7502,7 +7884,7 @@ declare namespace browser.tabs {
      * Saves page in active tab as a PDF file.
      * @param pageSettings The page settings used to save the PDF file.
      */
-    function saveAsPDF(pageSettings: PageSettings): Promise<string | undefined>;
+    function saveAsPDF(pageSettings: PageSettings): Promise<string>;
 
     /**
      * Shows one or more tabs.
@@ -7516,6 +7898,29 @@ declare namespace browser.tabs {
      * @param tabIds The TAB ID or list of TAB IDs to hide.
      */
     function hide(tabIds: number | number[]): Promise<number[]>;
+
+    /**
+     * Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.
+     * @param tabIds An array of tab IDs to move in the line of succession. For each tab in the array, the tab's
+     *     current predecessors will have their successor set to the tab's current successor, and each tab will then be
+     *     set to be the successor of the previous tab in the array. Any tabs not in the same window as the tab
+     *     indicated by the second argument (or the first tab in the array, if no second argument) will be skipped.
+     * @param [tabId] The ID of a tab to set as the successor of the last tab in the array, or `tabs.TAB_ID_NONE` to
+     *     leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of
+     *     the first tab in the array instead.
+     */
+    function moveInSuccession(tabIds: number[], tabId?: number, options?: {
+        /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
+        append?: boolean;
+        /**
+         * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
+         * side of the chain after it is prepended or appended. If true, one of the following happens: if
+         * options.append is false, the first tab in the array is set as the successor of any current predecessors of
+         * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
+         * the array. Defaults to false.
+         */
+        insert?: boolean;
+    }): Promise<any>;
 
     /* tabs events */
     /**
@@ -7571,6 +7976,8 @@ declare namespace browser.tabs {
     const onActivated: WebExtEvent<(activeInfo: {
         /** The ID of the tab that has become active. */
         tabId: number;
+        /** The ID of the tab that was previously active, if that tab is still open. */
+        previousTabId?: number;
         /** The ID of the window the active tab changed inside of. */
         windowId: number;
     }) => void>;
@@ -7624,6 +8031,225 @@ declare namespace browser.tabs {
         newZoomFactor: number;
         zoomSettings: ZoomSettings;
     }) => void>;
+}
+
+/**
+ * Use the browser.topSites API to access the top sites that are displayed on the new tab page.
+ *
+ * Permissions: `topSites`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.topSites {
+    /* topSites types */
+    /** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
+    interface MostVisitedURL {
+        /** The most visited URL. */
+        url: string;
+        /** The title of the page. */
+        title?: string;
+        /** Data URL for the favicon, if available. */
+        favicon?: string;
+        /** The entry type, either `url` for a normal page link, or `search` for a search shortcut. */
+        type?: _MostVisitedURLType;
+    }
+
+    /** The entry type, either `url` for a normal page link, or `search` for a search shortcut. */
+    type _MostVisitedURLType = "url" | "search";
+
+    /* topSites functions */
+    /** Gets a list of top sites. */
+    function get(options?: {
+        /** @deprecated Please use the other options to tune the results received from topSites. */
+        providers?: string[];
+        /** The number of top sites to return, defaults to the value used by Firefox */
+        limit?: number;
+        /** Limit the result to a single top site link per domain */
+        onePerDomain?: boolean;
+        /** Include sites that the user has blocked from appearing on the Firefox new tab. */
+        includeBlocked?: boolean;
+        /** Include sites favicon if available. */
+        includeFavicon?: boolean;
+        /** Include sites that the user has pinned on the Firefox new tab. */
+        includePinned?: boolean;
+        /** Include search shortcuts appearing on the Firefox new tab. */
+        includeSearchShortcuts?: boolean;
+        /**
+         * Return the sites that exactly appear on the user's new-tab page. When true, all other options are ignored
+         * except limit and includeFavicon.
+         */
+        newtab?: boolean;
+    }): Promise<MostVisitedURL[]>;
+}
+
+/**
+ * Use the `browser.urlbar` API to experiment with new features in the URLBar. Restricted to Mozilla privileged
+ * WebExtensions.
+ *
+ * Permissions: `urlbar`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.urlbar {
+    /* urlbar types */
+    /** A query performed in the urlbar. */
+    interface Query {
+        /** Whether the query's browser context is private. */
+        isPrivate: boolean;
+        /** The maximum number of results shown to the user. */
+        maxResults: number;
+        /** The query's search string. */
+        searchString: string;
+        /** List of acceptable source types to return. */
+        acceptableSources: SourceType[];
+    }
+
+    /** A result of a query. Queries can have many results. Each result is created by a provider. */
+    interface Result {
+        /** An object with arbitrary properties depending on the result's type. */
+        payload: object;
+        /** The result's source. */
+        source: SourceType;
+        /** The result's type. */
+        type: ResultType;
+    }
+
+    /**
+     * Possible types of results. `remote_tab`: A synced tab from another device. `search`: A search suggestion from a
+     * search engine. `tab`: An open tab in the browser. `url`: A URL that's not one of the other types.
+     */
+    type ResultType =
+        "remote_tab"
+        | "search"
+        | "tab"
+        | "url";
+
+    /**
+     * Possible sources of results. `bookmarks`: The result comes from the user's bookmarks. `history`: The result
+     * comes from the user's history. `search`: The result comes from a search engine. `tabs`: The result is an open
+     * tab in the browser or a synced tab from another device.
+     */
+    type SourceType =
+        "bookmarks"
+        | "history"
+        | "search"
+        | "tabs"
+        | "local"
+        | "network";
+
+    interface _UrlbarOnBehaviorRequestedEvent<TCallback = (query: Query) => "active" | "inactive" | "restricting"> {
+        addListener(cb: TCallback, providerName: string): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _UrlbarOnQueryCanceledEvent<TCallback = (query: Query) => void> {
+        addListener(cb: TCallback, providerName: string): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _UrlbarOnResultsRequestedEvent<TCallback = (query: Query) => Result[]> {
+        addListener(cb: TCallback, providerName: string): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    /* urlbar properties */
+    /** Enables or disables the open-view-on-focus mode. */
+    const openViewOnFocus: types.Setting;
+
+    /** Enables or disables the engagement telemetry. */
+    const engagementTelemetry: types.Setting;
+
+    /* urlbar events */
+    /**
+     * Before a query starts, this event is fired for the given provider. Its purpose is to request the provider's
+     * behavior for the query. The listener should return a behavior in response. By default, providers are inactive,
+     * so if your provider should always be inactive, you don't need to listen for this event.
+     * @param query The query for which the behavior is requested.
+     * @returns The behavior of the provider for the query.
+     */
+    const onBehaviorRequested: _UrlbarOnBehaviorRequestedEvent;
+
+    /**
+     * This event is fired for the given provider when a query is canceled. The listener should stop any ongoing fetch
+     * or creation of results and clean up its resources.
+     * @param query The query that was canceled.
+     */
+    const onQueryCanceled: _UrlbarOnQueryCanceledEvent;
+
+    /**
+     * When a query starts, this event is fired for the given provider if the provider is active for the query and
+     * there are no other providers that are restricting. Its purpose is to request the provider's results for the
+     * query. The listener should return a list of results in response.
+     * @param query The query for which results are requested.
+     * @returns The results that the provider fetched for the query.
+     */
+    const onResultsRequested: _UrlbarOnResultsRequestedEvent;
+}
+
+/**
+ * A contextual tip appears in the urlbar's view (its search results panel) and has an icon, text, optional button, and
+ * an optional link. Use the `browser.urlbar.contextualTip` API to experiment with the contextual tip. Restricted to
+ * Mozilla privileged WebExtensions.
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.urlbar.contextualTip {
+    /* urlbar.contextualTip types */
+    /**
+     * An object containing the path to an icon, the title, button title, and link title to set on the contextual tip.
+     */
+    interface ContextualTip {
+        /** Specifies the default icon and theme icons */
+        icon?: {
+            /** Specifies the default icon to use in the contextual tip. */
+            defaultIcon: string | _manifest.IconPath;
+            /**
+             * Specifies icons to use for dark and light themes. Each item in the array is for a specified icon size.
+             */
+            themeIcons?: _manifest.ThemeIcons[];
+        };
+        /** A string to be used as the contextual tip's title. */
+        title: string;
+        /** A string to be used as the contextual tip's button's title. */
+        buttonTitle?: string;
+        /** A string to be used as the contextual tip's link's title. */
+        linkTitle?: string;
+    }
+
+    /* urlbar.contextualTip functions */
+    /**
+     * Sets the contextual tip in the most recent browser winodw with the given icon, title, button title, and link
+     * title. If the urlbar's view is not already open, then it will be opened so the contextual tip will be visible.
+     * Note that when the urlbar's view is closed, the contextual tip is hidden and will not appear again.
+     * `browser.urlbar.contextualTip.set` must be called each time a contextual tip should appear.
+     * @param details Specifies the contextual tip's texts.
+     */
+    function set(details: ContextualTip): void;
+
+    /** Hides the contextual tip (it will still be in the DOM). */
+    function remove(): void;
+
+    /* urlbar.contextualTip events */
+    /**
+     * Fired when the user clicks the contextual tip's button.
+     * @param windowId The id of the window where the contextual tip's button was clicked.
+     */
+    const onButtonClicked: WebExtEvent<(windowId: number) => void>;
+
+    /**
+     * Fired when the user clicks the contextual tip's link.
+     * @param windowId The id of the window where the contextual tip's link was clicked.
+     */
+    const onLinkClicked: WebExtEvent<(windowId: number) => void>;
 }
 
 /**
@@ -7817,7 +8443,7 @@ declare namespace browser.windows {
         cookieStoreId?: string;
         /** A string to add to the beginning of the window title. */
         titlePreface?: string;
-    }): Promise<Window | undefined>;
+    }): Promise<Window>;
 
     /**
      * Updates the properties of a window. Specify only the properties that you want to change; unspecified properties
@@ -7855,7 +8481,7 @@ declare namespace browser.windows {
         state?: WindowState;
         /** A string to add to the beginning of the window title. */
         titlePreface?: string;
-    }): Promise<Window | undefined>;
+    }): Promise<Window>;
 
     /** Removes (closes) a window, and all the tabs inside it. */
     function remove(windowId: number): Promise<void>;

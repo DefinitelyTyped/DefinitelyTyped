@@ -1,12 +1,16 @@
-// Type definitions for falcor-router 0.4.0
+// Type definitions for falcor-router 0.8
 // Project: https://github.com/Netflix/falcor-router
-// Definitions by: Quramy <https://github.com/Quramy>, cdhgee <https://github.com/cdhgee>
+// Definitions by: Quramy <https://github.com/Quramy>
+//                 cdhgee <https://github.com/cdhgee>
+//                 LukeRielley <https://github.com/lukerielley>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="falcor" />
 import * as FalcorModel from 'falcor';
 import * as FalcorJsonGraph from 'falcor-json-graph';
 import DataSource = FalcorModel.DataSource;
+import { Observable } from 'rx';
 
 declare class FalcorRouter extends DataSource {
 
@@ -34,15 +38,15 @@ declare namespace FalcorRouter {
     type RoutePathSet = FalcorJsonGraph.PathSet;
 
     interface CallRoute extends Route {
-        call(callPath: RoutePathSet, args: Array<any>): CallRouteResult | Promise<CallRouteResult>;
+        call(callPath: RoutePathSet, args: Array<any>): CallRouteResult | Promise<CallRouteResult> | Observable<CallRouteResult>;
     }
 
     interface GetRoute extends Route {
-        get(pathset: RoutePathSet): RouteResult | Promise<RouteResult>;
+        get(pathset: RoutePathSet): RouteResult | Promise<RouteResult> | Observable<RouteResult>;
     }
 
     interface SetRoute extends Route {
-        set(jsonGraph: FalcorJsonGraph.JSONGraph): RouteResult | Promise<RouteResult>;
+        set(jsonGraph: FalcorJsonGraph.JSONGraph): RouteResult | Promise<RouteResult> | Observable<RouteResult>;
     }
 
     type RouteDefinition = GetRoute | SetRoute | CallRoute;

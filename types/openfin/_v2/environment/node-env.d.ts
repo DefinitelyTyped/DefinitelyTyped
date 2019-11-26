@@ -1,5 +1,6 @@
 import { Environment } from './environment';
 import { NewConnectConfig } from '../transport/wire';
+import { Identity } from '../identity';
 export default class NodeEnvironment implements Environment {
     private messageCounter;
     writeToken: (path: string, token: string) => Promise<string>;
@@ -8,4 +9,6 @@ export default class NodeEnvironment implements Environment {
     createChildWindow: (options: any) => Promise<any>;
     getRandomId: () => string;
     isWindowExists: (uuid: string, name: string) => boolean;
+    getWebWindow: (identity: Identity) => Window;
+    getCurrentEntityIdentity: () => Identity;
 }

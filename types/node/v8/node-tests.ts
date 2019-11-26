@@ -1,3 +1,11 @@
+// NOTE: Disabled to preserve existing tests file:
+// tslint:disable:no-namespace
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-var-keyword
+// tslint:disable:no-inferrable-types
+// tslint:disable:prefer-const
+// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -33,7 +41,7 @@ import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -568,6 +576,15 @@ function bufferTests() {
         let buffer = new Buffer('123');
         let octets = new Uint8Array(buffer.buffer);
     }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+
+        const source: TranscodeEncoding = 'utf8';
+        const target: TranscodeEncoding = 'ascii';
+        transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -791,14 +808,14 @@ namespace util_tests {
             }
 
             static test(): void {
-                var cfn = util.callbackify(this.fn);
-                var cfnE = util.callbackify(this.fnE);
-                var cfnT1 = util.callbackify(this.fnT1);
-                var cfnT1E = util.callbackify(this.fnT1E);
-                var cfnTResult = util.callbackify(this.fnTResult);
-                var cfnTResultE = util.callbackify(this.fnTResultE);
-                var cfnT1TResult = util.callbackify(this.fnT1TResult);
-                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                var cfn = util.callbackify(callbackifyTest.fn);
+                var cfnE = util.callbackify(callbackifyTest.fnE);
+                var cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                var cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                var cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                var cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                var cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -826,8 +843,10 @@ namespace util_tests {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.TextDecoder()
         var td = new util.TextDecoder();
@@ -1290,10 +1309,11 @@ namespace tls_tests {
         // close callback parameter is optional
         _server = _server.close();
 
-        // close callback parameter doesn't specify any arguments, so any
-        // function is acceptable
+        // close callback parameter can be either nothing (undefined) or an error
         _server = _server.close(() => { });
-        _server = _server.close((...args: any[]) => { });
+        _server = _server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
     }
 
     {
@@ -2088,6 +2108,21 @@ namespace child_process_tests {
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
 
+    {
+        const forked = childProcess.fork('./', ['asd'], {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: ["inherit"],
+            execPath: '',
+            execArgv: ['asda']
+        });
+        const ipc: stream.Pipe = forked.channel;
+        const hasRef: boolean = ipc.hasRef();
+        ipc.close();
+        ipc.unref();
+        ipc.ref();
+    }
+
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
@@ -2779,9 +2814,11 @@ namespace net_tests {
             .ref()
             .unref();
 
-        // close has an optional callback function. No callback parameters are
-        // specified, so any callback function is permissible.
-        server = server.close((...args: any[]) => { });
+        // close callback parameter can be either nothing (undefined) or an error
+        server = server.close(() => { });
+        server = server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
 
         // test the types of the address object fields
         let address = server.address();
@@ -3674,8 +3711,7 @@ namespace http2_tests {
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
@@ -4022,7 +4058,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

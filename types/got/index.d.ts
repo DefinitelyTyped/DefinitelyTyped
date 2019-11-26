@@ -1,15 +1,20 @@
-// Type definitions for got 9.3
+// Type definitions for got 9.6
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
+//                 Matthew Bull <https://github.com/wingsbob>
+//                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
+//                 Paul Hawxby <https://github.com/phawxby>
+//                 Ivy Witter <https://github.com/ivywit>
+//                 Huachao Mao <https://github.com/Huachao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 
-import { Url, URL } from 'url';
+import { Url, URL, URLSearchParams } from 'url';
 import * as http from 'http';
 import * as https from 'https';
 import * as nodeStream from 'stream';
@@ -36,6 +41,7 @@ declare class HTTPError extends StdError {
     statusCode: number;
     statusMessage: string;
     headers: http.IncomingHttpHeaders;
+    body: Buffer | string | object;
 }
 
 declare class MaxRedirectsError extends StdError {
@@ -55,6 +61,7 @@ declare class CancelError extends StdError {
 
 declare class TimeoutError extends StdError {
     name: 'TimeoutError';
+    event: keyof got.TimeoutOptions;
 }
 
 declare class StdError extends Error {
@@ -68,19 +75,7 @@ declare class StdError extends Error {
     response?: any;
 }
 
-declare const got: got.GotFn &
-    Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
-    {
-        stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
-        RequestError: typeof RequestError;
-        ReadError: typeof ReadError;
-        ParseError: typeof ParseError;
-        HTTPError: typeof HTTPError;
-        MaxRedirectsError: typeof MaxRedirectsError;
-        UnsupportedProtocolError: typeof UnsupportedProtocolError;
-        CancelError: typeof CancelError;
-        TimeoutError: typeof TimeoutError;
-    };
+declare const got: got.GotInstance;
 
 interface InternalRequestOptions extends https.RequestOptions {
     // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
@@ -98,6 +93,44 @@ declare namespace got {
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
     }
 
+    interface GotJSONFn {
+        (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: Partial<GotJSONOptions>): GotPromise<any>;
+    }
+
+    interface GotFormFn<T extends string | null> {
+        (url: GotUrl): GotPromise<T extends null ? Buffer : string>;
+        (url: GotUrl, options: Partial<GotFormOptions<T>>): GotPromise<T extends null ? Buffer : string>;
+    }
+
+    interface GotBodyFn<T extends string | null> {
+        (url: GotUrl): GotPromise<T extends null ? Buffer : string>;
+        (url: GotUrl, options: GotBodyOptions<T>): GotPromise<T extends null ? Buffer : string>;
+    }
+
+    type GotInstance<T = GotFn> = T &
+        Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
+    {
+        stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
+        extend: GotExtend;
+        RequestError: typeof RequestError;
+        ReadError: typeof ReadError;
+        ParseError: typeof ParseError;
+        HTTPError: typeof HTTPError;
+        MaxRedirectsError: typeof MaxRedirectsError;
+        UnsupportedProtocolError: typeof UnsupportedProtocolError;
+        CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
+    };
+
+    interface GotExtend {
+        (options: GotJSONOptions): GotInstance<GotJSONFn>;
+        (options: GotFormOptions<string>): GotInstance<GotFormFn<string>>;
+        (options: GotFormOptions<null>): GotInstance<GotFormFn<null>>;
+        (options: GotBodyOptions<string>): GotInstance<GotBodyFn<string>>;
+        (options: GotBodyOptions<null>): GotInstance<GotBodyFn<null>>;
+    }
+
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
     type GotUrl = string | https.RequestOptions | Url | URL;
@@ -111,11 +144,18 @@ declare namespace got {
      * @template Body Response body type.
      */
     interface Hooks<Options, Body extends Buffer | string | object> {
+        init?: Array<InitHook<Options>>;
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
+        beforeError?: BeforeErrorHook[];
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
+
+    /**
+     * @param options Unnormalized request options.
+     */
+    type InitHook<Options> = (options: Options) => void;
 
     /**
      * @param options Normalized request options.
@@ -133,6 +173,8 @@ declare namespace got {
      * @param retryCount Number of retry.
      */
     type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
+
+    type BeforeErrorHook = (error: GotError) => Error | Promise<Error>;
 
     /**
      * @param response Response object.
@@ -163,11 +205,13 @@ declare namespace got {
         hooks?: Hooks<GotFormOptions<E>, Record<string, any>>;
     }
 
+    type RequestFunction = typeof https.request;
+
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
         baseUrl?: string;
         cookieJar?: CookieJar;
         encoding?: E;
-        query?: string | object;
+        query?: Record<string, any> | URLSearchParams | string;
         timeout?: number | TimeoutOptions;
         retry?: number | RetryOptions;
         followRedirect?: boolean;
@@ -176,6 +220,7 @@ declare namespace got {
         throwHttpErrors?: boolean;
         agent?: http.Agent | boolean | AgentOptions;
         cache?: Cache;
+        request?: RequestFunction;
     }
 
     /**
@@ -223,9 +268,13 @@ declare namespace got {
 
     interface RetryOptions {
         retries?: number | RetryFunction;
-        methods?: Array<'GET' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
+        methods?: Array<'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
         statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
         maxRetryAfter?: number;
+        /**
+         * Allowed error codes.
+         */
+        errorCodes?: string[];
     }
 
     interface AgentOptions {
@@ -239,12 +288,40 @@ declare namespace got {
         delete(key: string): any;
     }
 
+    interface GotTimingsPhases {
+        wait: number;
+        dns: number;
+        tcp: number;
+        request: number;
+        firstByte: number;
+        download: number;
+        total: number;
+    }
+
+    interface GotTimings {
+        start: number;
+        socket: number;
+        lookup: number;
+        connect: number;
+        upload: number;
+        response: number;
+        end: number;
+        error: number;
+        phases: GotTimingsPhases;
+    }
+
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;
         url: string;
         requestUrl: string;
+        timings: GotTimings;
         fromCache: boolean;
         redirectUrls?: string[];
+        retryCount: number;
+
+        // got's Response is always a "response obtained from http.ClientRequest", therefore these two properties are never undefined
+        statusCode: number;
+        statusMessage: string;
     }
 
     type GotPromise<B extends Buffer | string | object> = Promise<Response<B>> & { cancel(): void };

@@ -1,4 +1,4 @@
-// Type definitions for Google Google Cloud OS Login API v1alpha 1.0
+// Type definitions for non-npm package Google Google Cloud OS Login API v1alpha 1.0
 // Project: https://cloud.google.com/compute/docs/oslogin/rest/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-import { PDFJS, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
+import { getDocument, PDFDocumentProxy, PDFPromise, Util } from 'pdfjs-dist';
 
 //
 // Fetch the PDF document from the URL using promises
@@ -6,7 +6,7 @@ import { PDFJS, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
 var pdfDoc: PDFDocumentProxy;
 var pageNum: number;
 
-PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
+getDocument('helloworld.pdf').promise.then(function (pdf) {
 	// Using promise to fetch the page
 	pdfDoc = pdf;
 	pageNum = 1;
@@ -16,7 +16,7 @@ PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
 function renderPage(pageNum: number) {
 	pdfDoc.getPage(pageNum).then(function (page) {
 		var scale = 1.5;
-		var viewport = page.getViewport(scale);
+		var viewport = page.getViewport({scale: scale});
 
 		//
 		// Prepare canvas using PDF page dimensions
@@ -32,7 +32,7 @@ function renderPage(pageNum: number) {
 		// https://github.com/mozilla/pdf.js/blob/master/examples/acroforms/forms.js
 		//
 		const rect = viewport.convertToViewportRectangle([100,100,0,0]);
-		const normalizedRect = PDFJS.Util.normalizeRect(rect);
+		const normalizedRect = Util.normalizeRect(rect);
 		const point = viewport.convertToViewportPoint(100, 100);
 		const pdfPoint = viewport.convertToPdfPoint(100, 100);
 
@@ -57,6 +57,6 @@ function goNext() {
 //
 // Test PDFPromise allows return value mutation
 //
-var promise: PDFPromise<string> = PDFJS.getDocument('helloworld.pdf').then(pdf => {
+var promise: PDFPromise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
 	return "arbitrary string";
 });

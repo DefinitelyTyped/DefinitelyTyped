@@ -284,6 +284,9 @@ class Example extends React.Component<any, any> {
     onRowClick(rowIdx:number, row: Object) {
         // Do nothing, just test that it accepts an event
     }
+    onRowDoubleClick(rowIdx:number, row: Object) {
+        // Do nothing, just test that it accepts an event
+    }
 
     getRows() {
         const rows = Selectors.getRows(this.state);
@@ -355,6 +358,7 @@ class Example extends React.Component<any, any> {
                 rowActionsCell={CustomRowSelectorCell}
                 selectAllRenderer={CustomSelectAll}
                 onRowClick={this.onRowClick}
+                onRowDoubleClick={this.onRowDoubleClick}
             />
 
         );

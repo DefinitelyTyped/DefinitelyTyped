@@ -1,5 +1,5 @@
 // Type definitions for react-native-video 3.1
-// Project: https://github.com/react-native-community/react-native-video
+// Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -23,11 +23,23 @@ export interface OnLoadData {
   };
 }
 
+export interface OnProgressData {
+  currentTime: number;
+  playableDuration: number;
+  seekableDuration: number;
+}
+
 export interface LoadError {
   error: {
     '': string;
     errorString: string;
   };
+}
+
+export interface OnSeekData {
+  currentTime: number;
+  seekTime: number;
+  target?: number;
 }
 
 export const TextTrackType: {
@@ -41,6 +53,8 @@ export interface VideoProperties extends ViewProps {
   src?: any;
   seek?: number;
   fullscreen?: boolean;
+  fullscreenOrientation?: 'all' | 'landscape' | 'portrait';
+  fullscreenAutorotate?: boolean;
   onVideoLoadStart?(): void;
   onVideoLoad?(): void;
   onVideoBuffer?(): void;
@@ -57,7 +71,8 @@ export interface VideoProperties extends ViewProps {
   /* Wrapper component */
   // Opaque type returned by require('./video.mp4')
   source: { uri?: string } | number;
-  resizeMode?: string;
+  resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+  posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
   poster?: string;
   repeat?: boolean;
   paused?: boolean;
@@ -73,17 +88,14 @@ export interface VideoProperties extends ViewProps {
   progressUpdateInterval?: number;
   useTextureView?: boolean;
   allowsExternalPlayback?: boolean;
+  audioOnly?: boolean;
 
   onLoadStart?(): void;
   onLoad?(data: OnLoadData): void;
   onBuffer?(): void;
   onError?(error: LoadError): void;
-  onProgress?(data: {
-    currentTime: number;
-    playableDuration: number;
-    seekableDuration: number;
-  }): void;
-  onSeek?(): void;
+  onProgress?(data: OnProgressData): void;
+  onSeek?(data: OnSeekData): void;
   onEnd?(): void;
   onFullscreenPlayerWillPresent?(): void;
   onFullscreenPlayerDidPresent?(): void;
@@ -92,7 +104,7 @@ export interface VideoProperties extends ViewProps {
   onReadyForDisplay?(): void;
   onPlaybackStalled?(): void;
   onPlaybackResume?(): void;
-  onPlaybackRateChange?(): void;
+  onPlaybackRateChange?(data: { playbackRate: number }): void;
   onAudioFocusChanged?(): void;
   onAudioBecomingNoisy?(): void;
   selectedTextTrack?: {

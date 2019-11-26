@@ -1,28 +1,61 @@
-import { Editor, Plugin, EditorProps, RenderNodeProps } from "slate-react";
-import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document } from "slate";
+import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from 'slate-react';
+import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
 import * as React from "react";
-import * as Immutable from "immutable";
+import { List } from "immutable";
 
 class MyPlugin implements Plugin {
-    renderNode(props: RenderNodeProps, editor: Controller, next: () => void) {
+    renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
-                case "block":
-                    return <div id="slate-block-test"/>;
-                case "inline":
+                case 'block':
+                    return <div id="slate-block-test" />;
+                default:
+                    return undefined;
+            }
+        }
+    }
+    renderInline(props: RenderInlineProps, editor: Controller, next: () => void) {
+        const { node } = props;
+        if (node) {
+            switch (node.object) {
+                case 'inline':
                     return <span id="slate-inline-test">Hello world</span>;
                 default:
                     return undefined;
             }
         }
     }
-    onChange = (change: {operations: Immutable.List<Operation>, value: Value}) => {
-        console.log(change.value);
+
+    onChange = (change: { operations: List<Operation>, value: Value }) => {
+        console.log(change.operations, change.value);
     }
 }
 
+const eventPlugin: Plugin = {
+    onBeforeInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onBlur: (event, editor, next) => {[event.nativeEvent, ]; },
+    onClick: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
+    onCompositionEnd: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onCompositionStart: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onCopy: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onCut: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onDragEnd: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragEnter: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragExit: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragLeave: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragOver: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragStart: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDrop: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onFocus: (event, editor, next) => {[event.nativeEvent, ]; },
+    onInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onKeyDown: (event, editor, next) => {[event.nativeEvent, event.key, ]; },
+    onPaste: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onSelect: (event, editor, next) => {[event.nativeEvent, ]; },
+};
+
 const myPlugin = new MyPlugin();
+const plugins = [myPlugin, [myPlugin, [myPlugin]], eventPlugin];
 
 interface MyEditorState {
     value: Value;
@@ -38,10 +71,15 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
         };
     }
     render() {
-        return <Editor
-            value={this.state.value}
-            renderNode={ myPlugin.renderNode }
-            onChange={ myPlugin.onChange }/>;
+        return (
+            <Editor
+                plugins={plugins}
+                value={this.state.value}
+                renderBlock={myPlugin.renderBlock}
+                renderInline={myPlugin.renderInline}
+                onChange={myPlugin.onChange}
+            />
+        );
     }
 }
 
@@ -50,6 +88,8 @@ const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
+const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }) }]);
+
 const doc = Document.fromJSON({
 	object: "document",
 	data: {},
@@ -60,7 +100,7 @@ editor
 .addMark("bold")
 .addMarkAtRange(range, "italic")
 .addMarkByKey("a", 0, 1, "bold")
-.addMarkByPath("a", 0, 1, "bold")
+.addMarkByPath(List([0]), 0, 1, "bold")
 .blur()
 .delete()
 .deleteAtRange(range)
@@ -90,19 +130,19 @@ editor
 .insertFragment(doc)
 .insertFragmentAtRange(range, doc)
 .insertFragmentByKey("a", 0, doc)
-.insertFragmentByPath("a", 0, doc)
+.insertFragmentByPath(List([0]), 0, doc)
 .insertInline(inline)
 .insertInlineAtRange(range, inline)
 .insertNodeByKey("a", 0, inline)
-.insertNodeByPath("a", 0, inline)
+.insertNodeByPath(List([0]), 0, inline)
 .insertText("A bit of rich text, followed by...")
 .insertTextAtRange(range, "More text")
 .insertTextByKey("a", 0, "text")
-.insertTextByPath("a", 0, "text")
+.insertTextByPath(List([0]), 0, "text")
 .mergeNodeByKey("b")
-.mergeNodeByPath("b")
+.mergeNodeByPath(List([0]))
 .moveAnchorBackward()
-.moveAnchorEndOfNode(inline)
+.moveAnchorToEndOfNode(inline)
 .moveAnchorForward()
 .moveAnchorTo("a", 0)
 .moveAnchorToEndOfBlock()
@@ -179,7 +219,7 @@ editor
 .moveFocusToStartOfText()
 .moveForward()
 .moveNodeByKey("b", "c", 2)
-.moveNodeByPath("c", "b", 1)
+.moveNodeByPath(List([1]), List([2]), 1)
 .moveStartBackward()
 .moveStartForward()
 .moveStartTo("a", 0)
@@ -220,7 +260,7 @@ editor
 .moveToEndOfPreviousText()
 .moveToEndOfText()
 .moveToFocus()
-.moveToRangeOf(inline)
+.moveToRangeOfNode(inline)
 .moveToRangeOfDocument()
 .moveToStart()
 .moveToStartOfBlock()
@@ -239,30 +279,29 @@ editor
 .removeMark("bold")
 .removeMarkAtRange(range, "bold")
 .removeMarkByKey("a", 0, 1, "bold")
-.removeMarkByPath("a", 0, 1, "bold")
+.removeMarkByPath(List([0]), 0, 1, "bold")
 .removeNodeByKey("b")
-.removeNodeByPath("b")
+.removeNodeByPath(List([0]))
 .removeTextByKey("a", 0, 1)
-.removeTextByPath("a", 0, 1)
+.removeTextByPath(List([0]), 0, 1)
 .replaceMark("bold", "italic")
 .replaceNodeByKey("a", inline)
-.replaceNodeByPath("a", inline)
+.replaceNodeByPath(List([0]), inline)
 .select(range)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
 .setInlines("paragraph")
 .setInlinesAtRange(range, "paragraph")
 .setMarkByKey("a", 0, 1, mark, { type: "bold" })
-.setMarksByPath("a", 0, 1, mark, { type: "bold" })
 .setNodeByKey("a", "paragraph")
-.setNodeByPath("a", "paragraph")
+.setNodeByPath(List([0]), "paragraph")
 .snapshotSelection()
 .splitBlock(0)
 .splitBlockAtRange(range, 0)
 .splitInline(0)
 .splitInlineAtRange(range, 0)
 .splitNodeByKey("a", 0)
-.splitNodeByPath("a", 0)
+.splitNodeByPath(List([0]), 0)
 .toggleMark("bold")
 .toggleMarkAtRange(range, "bold")
 .undo()
@@ -275,19 +314,20 @@ editor
 .unwrapInlineByKey("a", "paragraph")
 .unwrapInlineByPath("a", "paragraph")
 .unwrapNodeByKey("a")
-.unwrapNodeByPath("a")
-.withoutMerging(() => { /* noop */ })
-.withoutNormalizing(() => { /* noop */ })
-.withoutSaving(() => { /* noop */ })
+.unwrapNodeByPath(List([0]))
 .wrapBlock("paragraph")
 .wrapBlockAtRange(range, "paragraph")
 .wrapBlockByKey("a", "paragraph")
-.wrapBlockByPath("a", "paragraph")
+.wrapBlockByPath(List([0]), "paragraph")
 .wrapInline("paragraph")
 .wrapInlineAtRange(range, "paragraph")
 .wrapInlineByKey("a", "paragraph")
-.wrapInlineByPath("a", "paragraph")
+.wrapInlineByPath(List([0]), "paragraph")
 .wrapNodeByKey("a", inline)
-.wrapNodeByPath("a", inline)
+.wrapNodeByPath(List([0]), inline)
 .wrapText("a", "b")
 .wrapTextAtRange(range, "a");
+
+editor.withoutMerging(() => { /* noop */ });
+editor.withoutNormalizing(() => { /* noop */ });
+editor.withoutSaving(() => { /* noop */ });

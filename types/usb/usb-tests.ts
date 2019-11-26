@@ -14,6 +14,8 @@ device.open(true);
 device.close();
 const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: usb.LibUSBException, buf: Buffer): usb.Device => new usb.Device());
 device.getStringDescriptor(1, (error: string, buf: Buffer) => null);
+device.getBosDescriptor((error: string, descriptor: usb.BosDescriptor) => null);
+device.getCapabilities((error: string, capabilities: usb.Capability[]) => null);
 device.setConfiguration(1, (error: string) => null);
 device.reset((error: string) => null);
 
@@ -124,6 +126,7 @@ iface.endpoints = [inEndpoint, outEndpoint];
 
 const findByDevice: usb.Device = usb.findByIds(1, 1);
 usb.on("hey", (device: usb.Device) => null);
+usb.removeListener("hey", (device: usb.Device) => null);
 const deviceList: usb.Device[] = usb.getDeviceList();
 usb.setDebugLevel(1);
 

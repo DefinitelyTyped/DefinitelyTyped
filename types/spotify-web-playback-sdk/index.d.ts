@@ -1,13 +1,16 @@
-// Type definitions for spotify-web-playback-sdk 0.1
+// Type definitions for non-npm package spotify-web-playback-sdk 0.1
 // Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
 // Definitions by: Festify Dev Team <https://github.com/Festify>
 //                 Marcus Weiner <https://github.com/mraerino>
 //                 Moritz Gunz <https://github.com/NeoLegends>
+//                 Daniel Almaguer <https://github.com/deini>
+//                 Hanna Becker <https://github.com/hanna-becker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;
+    Spotify: typeof Spotify;
 }
 
 declare namespace Spotify {
@@ -31,7 +34,9 @@ declare namespace Spotify {
     type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
 
     interface Image {
+        height?: number | null;
         url: string;
+        width?: number | null;
     }
 
     interface PlaybackContext {
@@ -118,6 +123,7 @@ declare namespace Spotify {
         previousTrack(): Promise<void>;
         resume(): Promise<void>;
         seek(pos_ms: number): Promise<void>;
+        setName(name: string): Promise<void>;
         setVolume(volume: number): Promise<void>;
         togglePlay(): Promise<void>;
     }

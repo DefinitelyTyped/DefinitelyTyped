@@ -1,8 +1,10 @@
-// Type definitions for Google Pay API 0.2
+// Type definitions for non-npm package Google Pay API 0.2
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
 //                 Filip Stanis <https://github.com/fstanis>
+//                 Alexandre Couret <https://github.com/ozotek>
+//                 Sergi Ferriz <https://github.com/mumpo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -72,7 +74,7 @@ declare namespace google.payments.api {
     }
 
     type AllowedAuthMethod = 'PAN_ONLY' | 'CRYPTOGRAM_3DS';
-    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
+    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA' | 'INTERAC';
 
     interface CardParameters {
         allowedAuthMethods: AllowedAuthMethod[];
@@ -110,22 +112,49 @@ declare namespace google.payments.api {
         merchantOrigin?: string;
     }
 
-    type TransactionInfo = UnknownPriceTransactionInfo | KnownPriceTransactionInfo;
+    type TransactionInfo = UnknownPriceTransactionInfo | EstimatedPriceTransactionInfo | FinalPriceTransactionInfo;
     type TotalPriceStatus = 'ESTIMATED' | 'FINAL' | 'NOT_CURRENTLY_KNOWN';
+    type CheckoutOption = 'DEFAULT' | 'COMPLETE_IMMEDIATE_PURCHASE';
 
     interface BaseTransactionInfo {
         totalPriceStatus: TotalPriceStatus;
         currencyCode: string;
+        countryCode?: string;
+        transactionId?: string;
+        displayItems?: DisplayItem[];
+        totalPriceLabel?: string;
+        checkoutOption?: CheckoutOption;
     }
 
     interface UnknownPriceTransactionInfo extends BaseTransactionInfo {
         totalPriceStatus: 'NOT_CURRENTLY_KNOWN';
+        checkoutOption?: 'DEFAULT';
     }
 
     interface KnownPriceTransactionInfo extends BaseTransactionInfo {
         totalPriceStatus: 'ESTIMATED' | 'FINAL';
         totalPrice: string;
     }
+
+    interface EstimatedPriceTransactionInfo extends KnownPriceTransactionInfo {
+        totalPriceStatus: 'ESTIMATED';
+        checkoutOption?: 'DEFAULT';
+    }
+
+    interface FinalPriceTransactionInfo extends KnownPriceTransactionInfo {
+        totalPriceStatus: 'FINAL';
+        checkoutOption?: 'DEFAULT' | 'COMPLETE_IMMEDIATE_PURCHASE';
+    }
+
+    interface DisplayItem {
+        label: string;
+        type: DisplayItemType;
+        price: string;
+        status?: DisplayItemStatus;
+    }
+
+    type DisplayItemType = 'LINE_ITEM' | 'SUBTOTAL';
+    type DisplayItemStatus = 'FINAL' | 'PENDING';
 
     interface ShippingAddressParameters {
         allowedCountryCodes?: string[];

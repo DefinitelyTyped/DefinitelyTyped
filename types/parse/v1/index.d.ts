@@ -1,4 +1,4 @@
-// Type definitions for parse 1.11.1
+// Type definitions for parse 1.11
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -7,7 +7,7 @@
 //                  Wes Grimes <https://github.com/wesleygrimes>
 //                  Otherwise SAS <https://github.com/owsas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 /// <reference types="jquery" />

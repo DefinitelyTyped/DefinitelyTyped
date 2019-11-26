@@ -1,13 +1,13 @@
-import * as Backbone from 'backbone';
+import * as BackboneRel from 'backbone-relational';
 
-class House extends Backbone.RelationalModel {
+class House extends BackboneRel.Model {
     // The 'relations' property, on the House's prototype. Initialized separately for each
     // instance of House. Each relation must define (as a minimum) the 'type', 'key' and
     // 'relatedModel'. Options include 'includeInJSON', 'createModels' and 'reverseRelation'.
 
     relations = [
         {
-            type: Backbone.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
+            type: BackboneRel.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
             key: 'occupants',
             relatedModel: 'Person',
             includeInJSON: true,
@@ -20,14 +20,14 @@ class House extends Backbone.RelationalModel {
 
 }
 
-class Person extends Backbone.RelationalModel {
+class Person extends BackboneRel.Model {
     relations = [
         { // Create a (recursive) one-to-one relationship
-            type: Backbone.HasOne,
+            type: BackboneRel.HasOne,
             key: 'user',
             relatedModel: 'User',
             reverseRelation: {
-                type: Backbone.HasOne,
+                type: BackboneRel.HasOne,
                 key: 'person'
             }
         }
@@ -39,7 +39,7 @@ class Person extends Backbone.RelationalModel {
     }
 }
 
-class User extends Backbone.RelationalModel {
+class User extends BackboneRel.Model {
 
 }
 
@@ -74,6 +74,7 @@ paul.get('livesIn'); // === ourHouse
 // You can control which relations get serialized to JSON, using the 'includeInJSON'
 // property on a Relation. Also, each object will only get serialized once to prevent loops.
 alert(JSON.stringify(paul.get('user').toJSON(), null, '\t'));
+alert(JSON.stringify(paul.get('user').toJSON({ option1: 'value1' }), null, '\t'));
 // Load occupants 'person-2' and 'person-5', which don't exist yet, from the server
 ourHouse.fetchRelated('occupants');
 
@@ -109,3 +110,8 @@ var theirHouse = new House({ id: 'house-2' });
 paul.set({ 'livesIn': theirHouse });
 
 alert('theirHouse.occupants=' + theirHouse.get('occupants').pluck('name'));
+
+BackboneRel.store.removeModelScope(window);
+BackboneRel.store.addModelScope(window);
+BackboneRel.store.unregister(Person);
+BackboneRel.store.reset();

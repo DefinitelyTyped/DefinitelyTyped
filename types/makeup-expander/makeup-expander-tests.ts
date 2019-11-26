@@ -3,7 +3,8 @@ import Expander = require('makeup-expander');
 const widgetEl: HTMLElement | null = document.querySelector('.expander');
 
 const options: Expander.Options = {
-    expandOnClick: true
+    expandOnClick: true,
+    expandedClass: 'widget--expanded'
 };
 
 if (widgetEl) {

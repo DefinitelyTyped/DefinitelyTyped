@@ -2,6 +2,8 @@ import * as counterpart from 'counterpart';
 
 counterpart('translation.to.be.used');
 counterpart(['translation', 'to', 'be', 'used']);
+counterpart.translate('translation.to.be.used');
+counterpart.translate(['translation', 'to', 'be', 'used']);
 
 counterpart.setSeparator('*');
 

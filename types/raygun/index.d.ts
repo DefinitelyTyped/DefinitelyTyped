@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare namespace raygun {
+export namespace raygun {
     interface KeyValueObject {
         [key: string]: string | number | boolean | KeyValueObject;
     }
@@ -102,6 +102,15 @@ declare namespace raygun {
         request: RaygunRequest,
         tags: ReadonlyArray<string>
     ) => boolean | RaygunPayload;
+
+    type GroupingKey = (
+        payload: RaygunPayload,
+        exception: Error,
+        customData: KeyValueObject,
+        request: RaygunRequest,
+        tags: ReadonlyArray<string>
+    ) => string;
+
     interface RaygunOptions {
         apiKey: string;
         filters?: ReadonlyArray<string>;
@@ -112,7 +121,7 @@ declare namespace raygun {
         offlineStorage?: RaygunOfflineStorageProvider;
         offlineStorageOptions?: any;
         isOffline?: boolean;
-        groupingKey?: string;
+        groupingKey?: string|GroupingKey;
         tags?: ReadonlyArray<string>;
         userHumanStringForObject?: boolean;
         reportColumnNumbers?: boolean;
@@ -125,7 +134,7 @@ declare class Client {
     setUser(user: raygun.RaygunUser): Client;
     setVersion(version: string): Client;
     onBeforeSend(callback: raygun.OnBeforeSend): Client;
-    groupingKey(groupingKey: string): Client;
+    groupingKey(groupingKey: string|raygun.GroupingKey): Client;
     offline(): Client;
     online(): Client;
     send(
@@ -141,6 +150,7 @@ declare class Client {
         res: any,
         next: any
     ): void;
+    user(req: raygun.RaygunRequest): raygun.RaygunUser|string;
 }
 
-export = Client;
+export { Client };
