@@ -1068,9 +1068,9 @@ declare module 'victory' {
          * The animate prop should also be used to specify enter and exit
          * transition configurations with the `onExit` and `onEnter` namespaces respectively.
          * @example
-         * {duration: 500, onExit: () => {}, onEnter: {duration: 500, before: () => ({y: 0})})}
+         * {duration: 500, onExit: () => {}, onEnter: {duration: 500, before: () => ({y: 0})}}
          */
-        animate?: AnimatePropTypeInterface;
+        animate?: boolean | AnimatePropTypeInterface;
         /**
          * The name prop is used to reference a component instance when defining shared events.
          */
@@ -1087,6 +1087,28 @@ declare module 'victory' {
          * @default false
          */
         horizontal?: boolean;
+        /**
+         * The maxDomain prop defines a maximum domain value for a chart. This prop is useful in
+         * situations where the maximum domain of a chart is static, while the minimum value
+         * depends on data or other variable information.
+         * If the domain prop is set in addition to maximumDomain, domain will be used.
+         *
+         * note: The x value supplied to the maxDomain prop refers to the independent variable,
+         * and the y value refers to the dependent variable. This may cause confusion in
+         * horizontal charts, as the independent variable will corresponds to the y axis.
+         */
+        maxDomain?: number | { x?: number; y?: number };
+        /**
+         * The minDomain prop defines a minimum domain value for a chart. This prop is useful in
+         * situations where the minimum domain of a chart is static, while the maximum value
+         * depends on data or other variable information. If the domain prop is set in addition
+         * to minimumDomain, domain will be used.
+         *
+         * note: The x value supplied to the minDomain prop refers to the independent variable,
+         * and the y value refers to the dependent variable. This may cause confusion in
+         * horizontal charts, as the independent variable will corresponds to the y axis.
+         */
+        minDomain?: number | { x?: number; y?: number };
         /**
          * The padding props specifies the amount of padding in number of pixels between
          * the edge of the chart and any rendered child components. This prop can be given
@@ -1585,12 +1607,12 @@ declare module 'victory' {
         cornerRadius?:
             | NumberOrCallback
             | {
-                  top?: number | (NumberOrCallback);
-                  topLeft?: number | (NumberOrCallback);
-                  topRight?: number | (NumberOrCallback);
-                  bottom?: number | (NumberOrCallback);
-                  bottomLeft?: number | (NumberOrCallback);
-                  bottomRight?: number | (NumberOrCallback);
+                  top?: number | NumberOrCallback;
+                  topLeft?: number | NumberOrCallback;
+                  topRight?: number | NumberOrCallback;
+                  bottom?: number | NumberOrCallback;
+                  bottomLeft?: number | NumberOrCallback;
+                  bottomRight?: number | NumberOrCallback;
               };
         /**
          * The event prop take an array of event objects. Event objects are composed of
