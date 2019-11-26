@@ -196,7 +196,7 @@ export interface LayoutPolar {
 	sector: number[];
 	hole: number;
 	bgcolor: Color;
-	radialaxis: {
+	radialaxis: Partial<{
 		visible: boolean;
 		type: '-' | 'linear' | 'log' | 'date' | 'category';
 		autorange: true | false | 'reversed';
@@ -211,11 +211,7 @@ export interface LayoutPolar {
 		side: 'clockwise' | 'counterclockwise';
 		title: {
 			text: string;
-			font: {
-				family: string;
-				size: number;
-				color: Color;
-			};
+			font: Partial<Font>;
 			hoverformat: string;
 			uirevision: number | string;
 			color: Color;
@@ -254,7 +250,7 @@ export interface LayoutPolar {
 			layer: 'above traces' | 'below traces';
 			calendar: Calendar;
 		};
-	};
+	}>;
 	angularaxis: Partial<Axis>;
 	gridshape: 'circular' | 'linear';
 	uirevision: number | string;
