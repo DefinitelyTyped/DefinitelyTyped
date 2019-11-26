@@ -425,6 +425,18 @@ declare namespace OracleDB {
      */
     let poolMax: number;
     /**
+     * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+     * 
+     * This property may be overridden when creating a connection pool.
+     * 
+     * When this property is set, and a new connection request would cause the number of connections to the target shard to exceed the limit,
+     * then that new connection request will block until a suitable connection has been released back to the pool.
+     * Importantly, when blocked, the queueTimeout value will be ignored and the pending connection request will consume one worker thread.
+     * 
+     * @since 4.1
+     */
+    let poolMaxPerShard: number;
+    /**
      * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
      *
      * This property may be overridden when creating a connection pool.
@@ -609,6 +621,16 @@ declare namespace OracleDB {
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
         clientId?: string;
+
+
+        /**
+         * The client information for end-to-end application tracing.
+         * This is a write-only property. Displaying connection.clientInfo will show a value of null. 
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @since 4.1
+         */
+        clientInfo?: string;
         /**
          * After setting currentSchema, SQL statements using unqualified references to schema objects will resolve to objects in the specified schema.
          * This setting does not change the session user or the current user, nor does it give the session user any additional system or object privileges for the session.
@@ -618,6 +640,16 @@ declare namespace OracleDB {
          * @since 4.0
          */
         currentSchema?: string;
+        /**
+         * The database operation information for end-to-end application tracing.
+         * This is a write-only property. Displaying connection.dbOp will show a value of null.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @since 4.1
+         */
+        dbOp?: string;
+
+
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -1246,10 +1278,24 @@ declare namespace OracleDB {
          */
         privilege?: number;
         /**
+         * Allows a connection to be established directly to a database shard.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
+         * @since 4.1
+         */
+        shardingKey?: (string | number | Date | Buffer)[];
+        /**
          * The number of statements to be cached in the statement cache of each connection.
          * This optional property may be used to override the oracledb.stmtCacheSize property.
          */
         stmtCacheSize?: number;
+        /**
+         * Allows a connection to be established directly to a database shard.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
+         * @since 4.1
+         */
+        superShardingKey?: (string | number | Date | Buffer)[];
         /**
          * Used when getting a connection from a connection pool.
          * Indicates the tag that a connection returned from a connection pool should have.
@@ -1587,6 +1633,12 @@ declare namespace OracleDB {
          */
         readonly poolMin: number;
         /**
+         * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+         * 
+         * @since 4.1
+         */
+        readonly poolMaxPerShard: number;
+        /**
          * The maximum number of seconds that a connection can remain idle in a connection pool (not “checked out” to the application by getConnection())
          * before node-oracledb pings the database prior to returning that connection to the application.
          */
@@ -1813,6 +1865,13 @@ declare namespace OracleDB {
          * @default 4
          */
         poolMax?: number;
+        /**
+         * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+         * This optional property overrides the oracledb.poolMaxPerShard property.
+         * 
+         * @since 4.1
+         */
+        poolMaxPerShard?: number;
         /**
          * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
          * This optional property overrides the oracledb.poolMin property.
