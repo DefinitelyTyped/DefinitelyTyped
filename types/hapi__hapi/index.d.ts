@@ -20,7 +20,7 @@
 
 /// <reference types='node' />
 
-import * as Boom from '@hapi/boom';
+import { Boom } from '@hapi/boom';
 import * as http from 'http';
 import * as https from 'https';
 import * as Shot from '@hapi/shot';
