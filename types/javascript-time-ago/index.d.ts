@@ -3,7 +3,8 @@
 // Definitions by: Erik Burton  <https://github.com/erikburt>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+
+import { Locale, TimeUnit, Duration, DefaultFormats, RTFFormatter, Formats, QuantifyType } from "./locale";
 
 export = TimeAgo;
 
@@ -23,57 +24,4 @@ declare class TimeAgo {
     static intlDateTimeFormatSupported(): boolean;
     static intlDateTimeFormatSupportedLocale(locale: string): string | void;
     static setDefaultLocale(locale: string): void;
-}
-
-type TimeUnit = 'now' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
-type DefaultFormats = "long" | "short" | "narrow";
-type ExtendedFormats = "tiny" | "short-time" | "short-convenient" | "long-time" | "long-convenient";
-type Formats = DefaultFormats | ExtendedFormats;
-
-interface Locale {
-    locale: string;
-    long?: Duration;
-    short?: Duration;
-    narrow?: Duration;
-    tiny?: Duration;
-    "short-time"?: Duration;
-    "short-convenient"?: Duration;
-    "long-time"?: Duration;
-    "long-convenient"?: Duration;
-    quantify: (n: number) => keyof QuantifyType;
-}
-
-interface Duration {
-    flavour?: Formats;
-    year: Tense;
-    quarter: Tense;
-    month: Tense;
-    week: Tense;
-    day: Tense;
-    hour: Tense;
-    minute: Tense;
-    second: Tense;
-}
-
-interface Tense {
-    previous?: QuantifyType | string;
-    current?: QuantifyType | string;
-    next?: QuantifyType | string;
-    past?: QuantifyType | string;
-    future?: QuantifyType | string;
-}
-
-interface QuantifyType {
-    one: string;
-    two?: string;
-    few?: string;
-    other: string;
-}
-
-interface RTFFormatter {
-    numeric: string;
-    style: DefaultFormats;
-    localeMatcher: string;
-    locale: string;
-    numberFormat: { [key: string]: any };
 }
