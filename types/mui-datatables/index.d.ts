@@ -123,6 +123,7 @@ export interface MUIDataTableColumnOptions {
     hint?: string;
     print?: boolean;
     searchable?: boolean;
+    setCellHeaderProps?: (columnMeta: MUIDataTableCustomHeadRenderer) => object;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
     sortDirection?: 'asc' | 'desc';
@@ -170,6 +171,7 @@ export interface MUIDataTableOptions {
         displayData: Array<{ data: any[]; dataIndex: number }>,
         setSelectedRows: (rows: number[]) => void
     ) => React.ReactNode;
+    disableToolbarSelect?: boolean;
     download?: boolean;
     downloadOptions?: {
         filename: string;
@@ -228,6 +230,7 @@ export interface MUIDataTableOptions {
     selectableRows?: SelectableRows;
     selectableRowsHeader?: boolean;
     selectableRowsOnClick?: boolean;
+    setTableProps?: () => object;
     serverSide?: boolean;
     serverSideFilterList?: any[];
     setRowProps?: (row: any[], rowIndex: number) => object;
