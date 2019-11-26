@@ -10,8 +10,8 @@
 import * as stream from "stream";
 import { EventEmitter } from "events";
 
-/* Data Interfaces */
-/* https://github.com/rdfjs/representation-task-force/blob/master/interface-spec.md#data-interfaces */
+/* Data Model Interfaces */
+/* https://github.com/rdfjs/data-model-spec */
 
 /**
  * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
@@ -311,7 +311,7 @@ export interface DataFactory {
 }
 
 /* Stream Interfaces */
-/* https://github.com/rdfjs/representation-task-force/blob/master/interface-spec.md#stream-interfaces */
+/* https://github.com/rdfjs/stream-spec */
 
 /**
  * A quad stream.
@@ -422,4 +422,57 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
      * @return The resulting event emitter.
      */
     deleteGraph(graph: Q['graph'] | string): EventEmitter;
+}
+
+/* Dataset Interfaces */
+/* https://github.com/rdfjs/dataset-spec */
+
+export interface DatasetCore<Q extends BaseQuad = Quad> {
+    /**
+     * A non-negative integer that specifies the number of quads in the set.
+     */
+    readonly size: number;
+
+    /**
+     * Adds the specified quad to the dataset.
+     *
+     * Existing quads, as defined in `Quad.equals`, will be ignored.
+     */
+    add(quad: Q): this;
+
+    /**
+     * Removes the specified quad from the dataset.
+     */
+    delete(quad: Q): this;
+
+    /**
+     * Determines whether a dataset includes a certain quad.
+     */
+    has(quad: Q): boolean;
+
+    /**
+     * Returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
+     *
+     * The logic described in {@link https://rdf.js.org/dataset-spec/#quad-matching|Quad Matching} is applied for each
+     * quad in this dataset to check if it should be included in the output dataset.
+     *
+     * This method always returns a new DatasetCore, even if that dataset contains no quads.
+     *
+     * Since a `DatasetCore` is an unordered set, the order of the quads within the returned sequence is arbitrary.
+     *
+     * @param subject   The optional exact subject to match.
+     * @param predicate The optional exact predicate to match.
+     * @param object    The optional exact object to match.
+     * @param graph     The optional exact graph to match.
+     */
+    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): DatasetCore<Q>;
+
+    [Symbol.iterator](): Iterator<Q>;
+}
+
+export interface DatasetCoreFactory<Q extends BaseQuad = Quad> {
+    /**
+     * Returns a new dataset and imports all quads, if given.
+     */
+    dataset(quads?: Q[]): DatasetCore<Q>;
 }
