@@ -19,9 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "disable.d.ts",
-        "enable.d.ts",
-        "isSupported.d.ts",
         "workbox-navigation-preload-tests.ts"
     ]
 }

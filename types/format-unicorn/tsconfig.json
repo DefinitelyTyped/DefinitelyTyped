@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "safe.d.ts",
         "test/index.ts",
         "test/safe.ts"
     ]

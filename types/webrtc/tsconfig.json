@@ -19,8 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "MediaStream.d.ts",
-        "RTCPeerConnection.d.ts",
         "test/MediaStream.ts",
         "test/RTCPeerConnection.ts"
     ]

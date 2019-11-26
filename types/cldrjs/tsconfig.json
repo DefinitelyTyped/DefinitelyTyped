@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "cldr/supplemental.d.ts",
         "test/index.ts",
         "test/event.ts",
         "test/supplemental.ts"

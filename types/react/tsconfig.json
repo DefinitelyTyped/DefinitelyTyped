@@ -1,7 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "experimental.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx",

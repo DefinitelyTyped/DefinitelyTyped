@@ -1,0 +1,2 @@
+adapters/Memory.d.ts
+lib/main.d.ts
