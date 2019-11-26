@@ -146,6 +146,7 @@ function test_dataset() {
     const dataset2Match3: DatasetCore = dataset2.match(term, term);
     const dataset2Match4: DatasetCore = dataset2.match(term, term, term);
     const dataset2Match5: DatasetCore = dataset2.match(term, term, term, term);
+    const dataset2Iterable: Iterable<Quad> = dataset2;
 
     const dataset3Size: number = dataset3.size;
     const dataset3Add: DatasetCore<QuadBnode> = dataset3.add(quadBnode);
@@ -156,4 +157,5 @@ function test_dataset() {
     const dataset3Match3: DatasetCore<QuadBnode> = dataset3.match(term, term);
     const dataset3Match4: DatasetCore<QuadBnode> = dataset3.match(term, term, term);
     const dataset3Match5: DatasetCore<QuadBnode> = dataset3.match(term, term, term, term);
+    const dataset3Iterable: Iterable<QuadBnode> = dataset3;
 }
