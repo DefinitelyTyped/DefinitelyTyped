@@ -19,7 +19,7 @@ export function registerPlugins(newPlugins: {
 export function registerPreset(name: string, preset: object | (() => void)): void;
 export function registerPresets(newPresets: {
     [key: string]: object | (() => void),
-}): void
+}): void;
 
 export const availablePlugins: Record<string, object | (() => void)>;
 export const availablePresets: Record<string, object | (() => void)>;
