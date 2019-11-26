@@ -220,11 +220,11 @@ declare module "crypto" {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(

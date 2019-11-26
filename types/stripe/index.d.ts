@@ -12,7 +12,6 @@
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
 //                 Troy Zarger <https://github.com/tzarger>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
 //                 Adam Duren <https://github.com/adamduren>
@@ -113,7 +112,9 @@ declare class Stripe {
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
     subscriptionItems: Stripe.resources.SubscriptionItems;
+    taxRates: Stripe.resources.TaxRates;
     tokens: Stripe.resources.Tokens;
+    topups: Stripe.resources.Topups;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
@@ -3992,7 +3993,7 @@ declare namespace Stripe {
             /**
              * Time at which the link expires.
              */
-            expires_at: number;
+            expires_at: number | null;
 
             /**
              * The file object this link points to
@@ -8013,6 +8014,152 @@ declare namespace Stripe {
                 personal_id_number: string;
             };
         }
+    }
+
+    namespace topups {
+        interface ITopup extends IResourceObject {
+            /**
+             * Value is "topup"
+             */
+            object: 'topup';
+
+            /**
+             * Amount transferred
+             */
+            amount: number;
+
+            /**
+             * ID of the balance transaction that describes the impact of this top-up on your account balance.
+             * May not be specified depending on status of top-up.
+             */
+            balance_transaction: string | null;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string;
+
+            /**
+             * Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays
+             * like weekends or bank holidays. May not be specified depending on status of top-up.
+             */
+            expected_availability_date: number;
+
+            /**
+             * Error code explaining reason for top-up failure if available
+             */
+            failure_code: string | null;
+
+            /**
+             * Message to user further explaining reason for top-up failure if available.
+             */
+            failure_message: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists
+             * in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metaData: IMetadata;
+
+            /**
+             * For most Stripe users, the source of every top-up is a bank account. This hash is then the
+             * source object describing that bank account.
+             */
+            source: ISource;
+
+            /**
+             * Extra information about a top-up. This will appear on your source’s bank statement.
+             * It must contain at least one letter.
+             */
+            statement_descriptor: string | null;
+
+            /**
+             * Status of topup
+             */
+            status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group: string | null;
+        }
+
+        interface ITopupCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * A positive integer representing how much to transfer.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * The ID of a source to transfer funds from. For most users, this should be left unspecified
+             * which will use the bank account that was set up in the dashboard for the specified currency.
+             * In test mode, this can be a test bank token (see https://stripe.com/docs/connect/testing#testing-top-ups).
+             */
+            source?: string;
+
+            /**
+             * Extra information about a top-up for the source’s bank statement. Limited to 15 ASCII characters.
+             */
+            statement_descriptor?: string;
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group?: string;
+        }
+
+        interface ITopupUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+        }
+
+        interface ITopupsListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the object amount field. The value can be a string with
+             * an integer amount, or it can be a dictionary.
+             */
+            amount?: IAmountFilter;
+
+            /**
+             * Only return top-ups that have the given status.
+             */
+            status?: 'canceled' | 'failed' | 'pending' | 'succeeded';
+        }
+
+        type IAmountFilter = string | {
+            gt?: string;
+            gte?: string;
+            lt?: string;
+            lte?: string;
+        };
     }
 
     namespace transfers {
@@ -14050,6 +14197,76 @@ declare namespace Stripe {
                 response?: IResponseFn<tokens.IToken>,
             ): Promise<tokens.IToken>;
             retrieve(tokenId: string, response?: IResponseFn<tokens.IToken>): Promise<tokens.IToken>;
+        }
+
+        class Topups extends StripeResource {
+            /**
+             * Top up the balance of an account
+             */
+            create(
+                data: topups.ITopupCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            create(
+                data: topups.ITopupCreationOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Retrieves the details of a top-up that has previously been created.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Updates the metadata of a top-up. Other top-up details are not editable by design.
+             * Returns the newly updated top-up object if the call succeeded. Otherwise, this call throws an error.
+             */
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * A object containing the data property, which is an array of separate top-up objects. The number
+             * of top-ups in the array is limited to the number designated in limit. If no more top-ups are available,
+             * the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: topups.ITopupsListOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+            list(
+                data: topups.ITopupsListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+
+            /**
+             * Cancels a top-up. Only pending top-ups can be canceled. Returns the canceled top-up. If the top-up
+             * is already canceled or can’t be canceled, an error is returned.
+             */
+            cancel(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
         }
 
         class OAuth extends StripeResource {

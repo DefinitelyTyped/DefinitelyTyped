@@ -35,7 +35,7 @@ import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
 
-import * as ValidatorJS from 'validator'
+import ValidatorJS from 'validator'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 

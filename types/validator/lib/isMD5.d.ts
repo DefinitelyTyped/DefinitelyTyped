@@ -1,1 +1,2 @@
-export { isMD5 as default } from '../';
+import validator from '../';
+export default validator.isMD5;

@@ -65,7 +65,7 @@ interface MyCompleteOption {
 //
 // base-control
 //
-<C.BaseControl id="foo" label="hello world">
+<C.BaseControl id="foo" label="hello world" hideLabelFromVision>
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
@@ -642,7 +642,13 @@ const kbshortcuts = {
 // text-control
 //
 <C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
-<C.TextControl type="number" label="My numeric value" value={3} onChange={value => console.log(value.toUpperCase())} />;
+<C.TextControl
+    type="number"
+    label="My numeric value"
+    hideLabelFromVision
+    value={3}
+    onChange={value => console.log(value.toUpperCase())}
+/>;
 
 //
 // textarea-control

@@ -13,7 +13,7 @@
 import * as _ from "lodash";
 import * as Promise from "bluebird";
 
-import * as ValidatorJS from 'validator'
+import ValidatorJS from 'validator'
 
 declare namespace sequelize {
 

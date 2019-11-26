@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference path="./react.d.ts" />
+
 import * as React from 'react';
 import { Widgets, screen } from 'blessed';
 export type Callback = () => void | null | undefined;
