@@ -5,12 +5,12 @@
 
 export = AxiosCurlirize;
 
-import {AxiosStatic} from 'axios';
+import { AxiosStatic } from 'axios';
 
-interface ICallback {
+interface Callback {
     (error: Error, result?: number): void;
 }
 
-declare function AxiosCurlirize(instance: AxiosStatic, callback?: ICallback): void;
+declare function AxiosCurlirize(instance: AxiosStatic, callback?: Callback): void;
 
 declare namespace AxiosCurlirize { }
