@@ -3,6 +3,7 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 //                 matt traynham <https://github.com/mtraynham>
 //                 matthias jobst <https://github.com/MatthiasJobst>
+//                 kiran mathew mohan <https://github.com/privateOmega>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from "d3";
@@ -63,12 +64,13 @@ declare namespace dc {
     }
 
     export interface Events {
-        trigger(fn: () => void, delay?: number): void;
+        trigger(closure: () => void, delay?: number): void;
     }
 
     export interface Errors {
         Exception(msg: string): void;
-        InvalidStateException(msg: string): void;
+        InvalidStateException(): void;
+        BadArgumentException(): void;
     }
 
     export interface Filter {
@@ -76,21 +78,28 @@ declare namespace dc {
     }
 
     export interface Filters {
-        RangedFilter(low: any, high: any): Filter;
-        TwoDimensionalFilter(arr: Array<any>): Filter;
-        RangedTwoDimensionalFilter(arr: Array<any>): Filter;
+        RangedFilter(low: number, high: number): Array<number>;
+        TwoDimensionalFilter(filter: Array<number>): Array<number>;
+        RangedTwoDimensionalFilter(arr: Array<Array<number>>): Array<Array<number>>;
+        HierarchyFilter(path: string): Array<string>;
     }
 
     export interface Logger {
         enableDebugLog: boolean;
-        warn(msg: string): void;
-        debug(msg: string): void;
+        warn(msg: string): Logger;
+        warnOnce(msg: string): Logger;
+        debug(msg: string): Logger;
         deprecate(fn: Function, msg: string): void;
+        annotate(fn: Function, msg: string): Logger;
+    }
+
+    export interface Config {
+        defaultColors(colors?: Array<string>): Array<string> | Config;
     }
 
     export interface Printers {
         filters(filters: Array<any>): string;
-        filter(filter: any): string;
+        filter(filter: Printers['filters'] | any | Array<any>): string;
     }
 
     export interface Round {
@@ -101,17 +110,19 @@ declare namespace dc {
 
     export interface Utils {
         printSingleValue(filter: any): string;
-        add(l: any, r: any): any;
-        subtract(l: any, r: any): any;
+        add(l: Date | number, r: string | number, t?: Function | string): Date | number;
+        subtract(l: Date | number, r: string | number, t?: Function | string): Date | number;
         isNumber(n: any): boolean;
         isFloat(n: any): boolean;
         isInteger(n: any): boolean;
         isNegligible(n: any): boolean;
-        clamp(n: number, min: number, max: number): number;
+        clamp(val: number, min: number, max: number): number;
+        constant(x: any): () => any;
         uniqueId(): number;
         nameToId(name: string): string;
-        appendOrSelect(parent: d3.Selection<any>, selector: string, tag: any): d3.Selection<any>;
+        appendOrSelect(parent: d3.Selection<any>, selector: string, tag: string): d3.Selection<any>;
         safeNumber(n: any): number;
+        arraysEqual(a1: Array<any> | null, a2: Array<any> | null): boolean;
     }
 
     export interface Legend {
@@ -121,10 +132,19 @@ declare namespace dc {
         itemHeight: IGetSet<number, Legend>;
         horizontal: IGetSet<boolean, Legend>;
         legendWidth: IGetSet<number, Legend>;
-        legendText: IGetSet<any, Legend>;
         itemWidth: IGetSet<number, Legend>;
         autoItemWidth: IGetSet<boolean, Legend>;
-        render: () => void;
+        legendText: IGetSet<Function, Legend>;
+        maxItems: IGetSet<number, Legend>;
+    }
+
+    export interface HtmlLegend {
+        container: IGetSet<string, HtmlLegend>;
+        legendItemClass: IGetSet<string, HtmlLegend>;
+        highlightSelected: IGetSet<string, HtmlLegend>;
+        horizontal: IGetSet<string, HtmlLegend>;
+        legendText: IGetSet<Function, HtmlLegend>;
+        maxItems: IGetSet<number, HtmlLegend>;
     }
 
     export interface BaseMixin<T> {
@@ -265,11 +285,25 @@ declare namespace dc {
 
     export interface PieChart extends CapMixin<PieChart>, ColorMixin<PieChart>, BaseMixin<PieChart> {
         slicesCap: IGetSet<number, PieChart>;
+        externalRadiusPadding: IGetSet<number, PieChart>;
         innerRadius: IGetSet<number, PieChart>;
         radius: IGetSet<number, PieChart>;
         cx: IGetSet<number, PieChart>;
         cy: IGetSet<number, PieChart>;
         minAngleForLabel: IGetSet<number, PieChart>;
+        emptyTitle: IGetSet<string, PieChart>;
+        externalLabels: IGetSet<number, PieChart>;
+        drawPaths: IGetSet<boolean, PieChart>;
+    }
+
+    export interface SunburstChart extends CapMixin<SunburstChart>, ColorMixin<SunburstChart>, BaseMixin<SunburstChart> {
+        innerRadius: IGetSet<number, SunburstChart>;
+        radius: IGetSet<number, SunburstChart>;
+        cx: IGetSet<number, SunburstChart>;
+        cy: IGetSet<number, SunburstChart>;
+        minAngleForLabel: IGetSet<number, SunburstChart>;
+        emptyTitle: IGetSet<string, SunburstChart>;
+        externalLabels: IGetSet<number, SunburstChart>;
     }
 
     export interface BarChart extends StackMixin<BarChart>, CoordinateGridMixin<BarChart> {
@@ -292,8 +326,9 @@ declare namespace dc {
         defined: IGetSet<Accessor<any, boolean>, LineChart>;
         dashStyle: IGetSet<Array<number>, LineChart>;
         renderArea: IGetSet<boolean, LineChart>;
+        xyTipsOn: IGetSet<boolean, LineChart>;
         dotRadius: IGetSet<number, LineChart>;
-        renderDataPoints: IGetSet<RenderDataPointOptions | any, LineChart>;
+        renderDataPoints: IGetSet<RenderDataPointOptions, LineChart>;
     }
 
     export interface DataCountWidgetHTML {
@@ -307,19 +342,25 @@ declare namespace dc {
     }
 
     export interface DataTableWidget extends BaseMixin<DataTableWidget> {
+        section: IGetSet<Function, DataTableWidget>;
         size: IGetSet<number, DataTableWidget>;
-        showGroups: IGetSet<boolean, DataTableWidget>;
+        beginSlice: IGetSet<number, DataTableWidget>;
+        endSlice: IGetSet<number, DataTableWidget>;
         columns: IGetSet<Array<string | Accessor<any, any> | Columns>, DataTableWidget>;
         sortBy: IGetSet<Accessor<any, any>, DataTableWidget>;
-        order: IGetSet<(a: any, b: any) => number, DataTableWidget>;
+        order: IGetSet<Function, DataTableWidget>;
+        showSections: IGetSet<boolean, DataTableWidget>;
     }
 
     export interface DataGridWidget extends BaseMixin<DataGridWidget> {
-        size: IGetSet<number, DataTableWidget>;
-        html: IGetSet<Accessor<any, string>, DataTableWidget>;
-        htmlGroup: IGetSet<Accessor<any, string>, DataTableWidget>;
-        sortBy: IGetSet<Accessor<any, any>, DataTableWidget>;
-        order: IGetSet<(a: any, b: any) => number, DataTableWidget>;
+        section: IGetSet<Function, DataGridWidget>;
+        beginSlice: IGetSet<number, DataGridWidget>;
+        endSlice: IGetSet<number, DataGridWidget>;
+        size: IGetSet<number, DataGridWidget>;
+        html: IGetSet<Accessor<any, string>, DataGridWidget>;
+        htmlSection: IGetSet<Accessor<any, string>, DataGridWidget>;
+        sortBy: IGetSet<Accessor<any, any>, DataGridWidget>;
+        order: IGetSet<(a: any, b: any) => number, DataGridWidget>;
     }
 
     export interface BubbleChart extends BubbleMixin<BubbleChart>, CoordinateGridMixin<BubbleChart> {
@@ -328,13 +369,14 @@ declare namespace dc {
 
     export interface ICompositeChart<T> extends CoordinateGridMixin<T> {
         useRightAxisGridLines: IGetSet<boolean, ICompositeChart<T>>;
-        childOptions: IGetSet<any, ICompositeChart<T>>;
-        rightYAxisLabel: IGetSet<string, ICompositeChart<T>>;
+        childOptions: IGetSet<Object, ICompositeChart<T>>;
+        rightYAxisLabel(rightYAxisLabel?: string, padding?: number): IGetSet<string, ICompositeChart<T>>;
         compose: IGetSet<Array<BaseMixin<any>>, ICompositeChart<T>>;
         children(): Array<BaseMixin<any>>;
         shareColors: IGetSet<boolean, ICompositeChart<T>>;
         shareTitle: IGetSet<boolean, ICompositeChart<T>>;
         rightY: IGetSet<(n: any) => any, ICompositeChart<T>>;
+        alignYAxes: IGetSet<boolean, ICompositeChart<T>>;
         rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
     }
 
@@ -354,22 +396,22 @@ declare namespace dc {
     }
 
     export interface GeoChoroplethChart extends ColorMixin<GeoChoroplethChart>, BaseMixin<GeoChoroplethChart> {
-        overlayGeoJson(json: any, name: string, keyAccessor: Accessor<any, any>): void;
+        overlayGeoJson(json: any, name: string, keyAccessor: Accessor<any, any>): GeoChoroplethChart;
         projection: IGetSet<d3.geo.Projection, GeoChoroplethChart>;
         geoJsons(): Array<GeoChoroplethLayer>;
         geoPath(): d3.geo.Path;
-        removeGeoJson(name: string): void;
+        removeGeoJson(name: string): GeoChoroplethChart;
     }
 
     export interface BubbleOverlayChart extends BubbleMixin<BubbleOverlayChart>, BaseMixin<BubbleOverlayChart> {
-        point(name: string, x: number, y: number): void;
+        point(name: string, x: number, y: number): BubbleOverlayChart;
     }
 
     export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
         x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
         xAxis: IGetSet<d3.svg.Axis, RowChart>;
-        fixedBarHeight: IGetSet<number, RowChart>;
+        fixedBarHeight: IGetSet<boolean | number, RowChart>;
         gap: IGetSet<number, RowChart>;
         elasticX: IGetSet<boolean, RowChart>;
         labelOffsetX: IGetSet<number, RowChart>;
@@ -378,11 +420,22 @@ declare namespace dc {
     }
 
     export interface ScatterPlot extends CoordinateGridMixin<ScatterPlot> {
+        resetSvg(): d3.svg.Symbol<any>;
+        resizeCanvas(): void;
+        useCanvas: IGetSet<boolean, ScatterPlot>;
+        canvas: IGetSet<d3.Selection<any>, ScatterPlot>;
         existenceAccessor: IGetSet<Accessor<any, boolean>, ScatterPlot>;
         symbol: IGetSet<d3.svg.Symbol<any>, ScatterPlot>;
+        customSymbol: IGetSet<string | Function, ScatterPlot>;
         symbolSize: IGetSet<number, ScatterPlot>;
         highlightedSize: IGetSet<number, ScatterPlot>;
+        excludedSize: IGetSet<number, ScatterPlot>;
+        excludedColor: IGetSet<number, ScatterPlot>;
+        excludedOpacity: IGetSet<number, ScatterPlot>;
         hiddenSize: IGetSet<number, ScatterPlot>;
+        emptyColor: IGetSet<string, ScatterPlot>;
+        emptyOpacity: IGetSet<number, ScatterPlot>;
+        nonemptyOpacity: IGetSet<number, ScatterPlot>;
     }
 
     export interface NumberDisplayWidgetHTML {
@@ -400,18 +453,28 @@ declare namespace dc {
     export interface HeatMap extends ColorMixin<HeatMap>, MarginMixin<HeatMap>, BaseMixin<HeatMap> {
         colsLabel: IGetSet<Accessor<any, string>, HeatMap>;
         rowsLabel: IGetSet<Accessor<any, string>, HeatMap>;
-        rows: IGetSet<Array<any>, HeatMap>;
-        cols: IGetSet<Array<any>, HeatMap>;
+        rows: IGetSet<Array<string | number>, HeatMap>;
+        rowOrdering: IGetSet<Accessor<any, string>, HeatMap>;
+        cols: IGetSet<Array<string | number>, HeatMap>;
+        colOrdering: IGetSet<Accessor<any, string>, HeatMap>;
         boxOnClick: IGetSet<(d: any) => void, HeatMap>;
         xAxisOnClick: IGetSet<(d: any) => void, HeatMap>;
         yAxisOnClick: IGetSet<(d: any) => void, HeatMap>;
+        xBorderRadius: IGetSet<number, HeatMap>;
+        yBorderRadius: IGetSet<number, HeatMap>;
     }
 
     export interface BoxPlot extends CoordinateGridMixin<BoxPlot> {
         boxPadding: IGetSet<number, BoxPlot>;
         outerPadding: IGetSet<number, BoxPlot>;
-        boxWidth: IGetSet<number, BoxPlot>;
+        boxWidth: IGetSet<number | Function, BoxPlot>;
         tickFormat: IGetSet<Accessor<number, string>, BoxPlot>;
+        yRangePadding: IGetSet<number | Function, BoxPlot>;
+        renderDataPoints: IGetSet<boolean, BoxPlot>;
+        dataOpacity: IGetSet<number, BoxPlot>;
+        dataWidthPortion: IGetSet<number, BoxPlot>;
+        showOutliers: IGetSet<number, BoxPlot>;
+        boldOutliers: IGetSet<number, BoxPlot>;
     }
 
     // https://github.com/dc-js/dc.js/blob/master/src/select-menu.js
@@ -422,6 +485,20 @@ declare namespace dc {
         multiple: IGetSet<boolean, SelectMenu>;
         promptValue: IGetSet<any, SelectMenu>;
         numberVisible: IGetSet<number, SelectMenu>;
+    }
+
+    export interface TextFilterWidget extends BaseMixin<TextFilterWidget> {
+        normalize: IGetSet<Function, TextFilterWidget>;
+        placeHolder: IGetSet<Function, TextFilterWidget>;
+        filterFunctionFactory: IGetSet<Function, TextFilterWidget>;
+    }
+
+    export interface CBoxMenu extends BaseMixin<CBoxMenu> {
+        order: IGetSet<Function, CBoxMenu>;
+        promptText: IGetSet<string, CBoxMenu>;
+        filterDisplayed: IGetSet<Function, CBoxMenu>;
+        multiple: IGetSet<boolean, CBoxMenu>;
+        promptValue: IGetSet<any, CBoxMenu>;
     }
 
     export interface ChartRegistry {
@@ -443,25 +520,28 @@ declare namespace dc {
         renderAll(group?: string): void;
         redrawAll(group?: string): void;
         disableTransitions: boolean;
-        transition(selections: d3.Selection<any>, duration: number, callback: (s: d3.Selection<any>) => void): void;
+        transition(selections: d3.Selection<any>, duration?: number | Function, delay?: number | Function, name?: string): d3.Transition<any> | d3.Selection<any>;
+        optionalTransition(enable: boolean, duration?: number | Function, delay?: number | Function, name?: string): (selection: d3.Selection<any>) => Base['transition'] | d3.Selection<any>;
+        afterTransition(transition: d3.Transition<any>,  callback: (transition: d3.Transition<any>) => void): void;
 
         units: Units;
-        events: Events;
-        errors: Errors;
+        round: Round;
+        override(obj: any, functionName: string, newFunction: Function): void;
         instanceOfChart(object: any): boolean;
-        logger: Logger;
-        override(object: any, fnName: string, newFn: Function): void;
+        errors: Errors;
+        dateFormat: d3.time.Format;
         printers: Printers;
         pluck(n: string, f?: Accessor<any, any>): Accessor<any, any>;
-        round: Round;
         utils: Utils;
-
+        logger: Logger;
+        config: Config;
+        events: Events;
+        filters: Filters;
         // http://dc-js.github.io/dc.js/docs/html/core.js.html, Line 20
         version: string;
 
-        legend(): Legend;
-
-        pieChart(parent: string, chartGroup?: string): PieChart;
+        pieChart(parent: string | Node | d3.Selection<any>, chartGroup?: string): PieChart;
+        sunburstChart(parent: string | Node | d3.Selection<any>, chartGroup?: string): SunburstChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.barChart.html
         barChart(parent: string | CompositeChart, chartGroup?: string): BarChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.lineChart.html
@@ -475,10 +555,14 @@ declare namespace dc {
         geoChoroplethChart(parent: string, chartGroup?: string): GeoChoroplethChart;
         bubbleOverlayChart(parent: string, chartGroup?: string): BubbleOverlayChart;
         rowChart(parent: string, chartGroup?: string): RowChart;
+        legend(): Legend;
+        htmlLegend(): HtmlLegend;
         scatterPlot(parent: string, chartGroup?: string): ScatterPlot;
         numberDisplay(parent: string, chartGroup?: string): NumberDisplayWidget;
         heatMap(parent: string, chartGroup?: string): HeatMap;
         boxPlot(parent: string, chartGroup?: string): BoxPlot;
         selectMenu(parent: string, chartGroup?: string): SelectMenu;
+        textFilterWidget(parent: string, chartGroup?: string): TextFilterWidget;
+        cboxMenu(parent: string, chartGroup?: string): CBoxMenu;
     }
 }
