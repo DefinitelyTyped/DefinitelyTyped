@@ -1,4 +1,4 @@
-// Type definitions for js-cookie 2.2
+// Type definitions for js-cookie 3.0
 // Project: https://github.com/js-cookie/js-cookie
 // Definitions by: Theodore Brown <https://github.com/theodorejb>
 //                 BendingBender <https://github.com/BendingBender>
@@ -68,18 +68,6 @@ declare namespace Cookies {
          * Read all available cookies
          */
         get(): {[key: string]: string};
-
-        /**
-         * Returns the parsed representation of the string
-         * stored in the cookie according to JSON.parse
-         */
-        getJSON(name: string): any;
-
-        /**
-         * Returns the parsed representation of
-         * all cookies according to JSON.parse
-         */
-        getJSON(): {[key: string]: any};
 
         /**
          * Delete cookie

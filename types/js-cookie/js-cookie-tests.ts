@@ -26,12 +26,6 @@ Cookies2; // $ExpectType CookiesStatic<object>
 
 Cookies.set('name', { foo: 'bar' });
 
-// $ExpectType any
-Cookies.getJSON('name');
-
-// $ExpectType { [key: string]: any; }
-Cookies.getJSON();
-
 document.cookie = 'escaped=%u5317';
 document.cookie = 'default=%E5%8C%97';
 const cookies = Cookies.withConverter((value, name) =>
