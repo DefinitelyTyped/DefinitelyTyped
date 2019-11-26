@@ -11,7 +11,7 @@ import * as stream from "stream";
 import { EventEmitter } from "events";
 
 /* Data Model Interfaces */
-/* https://github.com/rdfjs/data-model-spec */
+/* https://rdf.js.org/data-model-spec/ */
 
 /**
  * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
@@ -311,7 +311,7 @@ export interface DataFactory {
 }
 
 /* Stream Interfaces */
-/* https://github.com/rdfjs/stream-spec */
+/* https://rdf.js.org/stream-spec/ */
 
 /**
  * A quad stream.
@@ -425,7 +425,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
 }
 
 /* Dataset Interfaces */
-/* https://github.com/rdfjs/dataset-spec */
+/* https://rdf.js.org/dataset-spec/ */
 
 export interface DatasetCore<Q extends BaseQuad = Quad> {
     /**
