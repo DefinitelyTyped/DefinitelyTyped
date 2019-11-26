@@ -25,6 +25,7 @@
 //                 Eli White <https://github.com/TheSavior>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
+//                 Jesse Katsumata <https://github.com/Naturalclar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -737,7 +738,6 @@ export interface TextStyleIOS extends ViewStyle {
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
-    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     writingDirection?: 'auto' | 'ltr' | 'rtl';
 }
 
@@ -767,6 +767,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     textShadowColor?: string;
     textShadowOffset?: { width: number; height: number };
     textShadowRadius?: number;
+    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     testID?: string;
 }
 
@@ -6657,7 +6658,7 @@ export interface AccessibilityInfoStatic {
      *
      * @deprecated use isScreenReaderChanged instead
      */
-    fetch(): () => Promise<boolean>;
+    fetch: () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:

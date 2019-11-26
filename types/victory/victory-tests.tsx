@@ -362,7 +362,7 @@ test = (
 
 // VictoryChart test
 test = (
-    <VictoryChart>
+    <VictoryChart animate minDomain={5} maxDomain={{ x: 5 }}>
         <VictoryLine y={data => 0.5 * data.x * data.x} />
     </VictoryChart>
 );

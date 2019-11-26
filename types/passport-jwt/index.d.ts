@@ -16,6 +16,7 @@ import { VerifyOptions } from 'jsonwebtoken'
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
     constructor(opt: StrategyOptions, verify: VerifyCallbackWithRequest);
+    name: string;
 }
 
 export interface StrategyOptions {

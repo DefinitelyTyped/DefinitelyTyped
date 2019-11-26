@@ -555,6 +555,7 @@ export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+  scope?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {

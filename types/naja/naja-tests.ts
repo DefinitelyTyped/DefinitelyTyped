@@ -57,9 +57,22 @@ naja.addEventListener('complete', completeListener);
 naja.removeEventListener('start', genericListener);
 naja.snippetHandler.removeEventListener('beforeUpdate', null);
 
+type TestEvent = CustomEvent<{ customProperty: string }>;
+interface OtherEvent extends Event {
+    otherProperty: number;
+    type: 'otherEvent';
+}
+
+const handler = (event: TestEvent): void => console.log(typeof event.detail.customProperty === 'string');
+
 document.addEventListener('DOMContentLoaded', () => {
     naja.initialize();
     naja.initialize({ history: false, selector: '[data-ajax]', customOption: 1 });
     naja.fireEvent('customEvent', { extra: 1 });
     naja.fireEvent('anotherEvent');
+    naja.addEventListener<TestEvent>('testEvent', handler);
+    naja.addEventListener('someEvent', event => console.log(event.target));
+    naja.removeEventListener('testEvent', handler);
+    naja.removeEventListener('someEvent', event => {});
+    naja.addEventListener<OtherEvent>('otherEvent', event => console.log(event.otherProperty === 1));
 });

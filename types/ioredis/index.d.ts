@@ -913,11 +913,65 @@ declare namespace IORedis {
         quit(callback?: CallbackFunction<'OK'>): Promise<'OK'>;
         get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
         get(key: KeyType): Promise<string | null>;
+
+        getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        getBuffer(key: KeyType): Promise<Buffer>;
+
         set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
         set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
         set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
         set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
         set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+
+        setBuffer(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+        setBuffer(key: KeyType, value: any, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, setMode: string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
+
+        setnx(key: KeyType, value: any, callback: (err: Error, res: any) => void): void;
+        setnx(key: KeyType, value: any): Promise<any>;
+
+        del(...keys: KeyType[]): Promise<number>;
+
+        incr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        incr(key: KeyType): Promise<number>;
+
+        decr(key: KeyType, callback: (err: Error, res: number) => void): void;
+        decr(key: KeyType): Promise<number>;
+
+        rpush(key: KeyType, ...values: any[]): any;
+
+        rpushBuffer(key: string, ...values: Buffer[]): any;
+
+        lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        lpopBuffer(key: KeyType): Promise<Buffer>;
+
+        llen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        llen(key: KeyType): Promise<number>;
+
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback: (err: Error, res: Buffer[]) => void): void;
+        lrangeBuffer(key: KeyType, start: number, stop: number): Promise<Buffer[]>;
+
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+
+        zrem(key: KeyType, ...members: any[]): any;
+
+        zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
+        zrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
+
+        hset(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hset(key: KeyType, field: string, value: any): Promise<0 | 1>;
+
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
+
+        expire(key: KeyType, seconds: number, callback: (err: Error, res: 0 | 1) => void): void;
+        expire(key: KeyType, seconds: number): Promise<0 | 1>;
+
+        keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
+        keys(pattern: string): Promise<string[]>;
     }
 
     interface ClusterStatic extends NodeJS.EventEmitter, Commander {
@@ -1002,8 +1056,41 @@ declare namespace IORedis {
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
         tls?: tls.ConnectionOptions;
-        sentinels?: Array<{ host: string; port: number; }>;
+        /**
+         * default: "master".
+         */
+        role?: "master" | "slave";
+        /**
+         * default: null.
+         */
         name?: string;
+        sentinelPassword?: string;
+        sentinels?: Array<{ host: string; port: number; }>;
+        /**
+         * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
+         * default: function(times) { return Math.min(times * 10, 1000); }
+         */
+        sentinelRetryStrategy?: (retryAttempts: number) => number;
+        /**
+         * Can be used to prefer a particular slave or set of slaves based on priority.
+         */
+        preferredSlaves?: PreferredSlaves;
+        /**
+         * Whether to support the `tls` option when connecting to Redis via sentinel mode.
+         * default: false.
+         */
+        enableTLSForSentinelMode?: boolean;
+        sentinelTLS?: SecureContextOptions;
+        /**
+         * NAT map for sentinel connector.
+         * default: null.
+         */
+        natMap?: NatMap;
+        /**
+         * Update the given `sentinels` list with new IP addresses when communicating with existing sentinels.
+         * default: true.
+         */
+        updateSentinels?: boolean;
         /**
          * Enable READONLY mode for the connection. Only available for cluster mode.
          * default: false.
@@ -1018,6 +1105,56 @@ declare namespace IORedis {
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
         showFriendlyErrorStack?: boolean;
+    }
+
+    interface AddressFromResponse {
+        port: string;
+        ip: string;
+        flags?: string;
+    }
+
+    type PreferredSlaves =
+        | ((slaves: AddressFromResponse[]) => AddressFromResponse | null)
+        | Array<{ port: string; ip: string; prio?: number }>
+        | { port: string; ip: string; prio?: number };
+
+    type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
+
+    interface SecureContextOptions {
+        pfx?: string | Buffer | Array<string | Buffer | object>;
+        key?: string | Buffer | Array<Buffer | object>;
+        passphrase?: string;
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
+        ciphers?: string;
+        honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        clientCertEngine?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
+        /**
+         * Optionally set the maximum TLS version to allow. One
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * `secureProtocol` option, use one or the other.
+         * **Default:** `'TLSv1.3'`, unless changed using CLI options. Using
+         * `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using `--tls-max-v1.3` sets the default to
+         * `'TLSv1.3'`. If multiple of the options are provided, the highest maximum is used.
+         */
+        maxVersion?: SecureVersion;
+        /**
+         * Optionally set the minimum TLS version to allow. One
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * `secureProtocol` option, use one or the other.  It is not recommended to use
+         * less than TLSv1.2, but it may be required for interoperability.
+         * **Default:** `'TLSv1.2'`, unless changed using CLI options. Using
+         * `--tls-v1.0` sets the default to `'TLSv1'`. Using `--tls-v1.1` sets the default to
+         * `'TLSv1.1'`. Using `--tls-min-v1.3` sets the default to
+         * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
+         */
+        minVersion?: SecureVersion;
     }
 
     interface ScanStreamOption {

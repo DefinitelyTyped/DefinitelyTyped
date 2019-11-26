@@ -709,7 +709,7 @@ declare namespace Office {
              * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
-             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter.
+             * The `options` parameter was introduced in Mailbox 1.8.
              * 
              * @param options Optional. An object that specifies behavior options for when the event is completed.
              */
@@ -1727,9 +1727,7 @@ declare namespace Office {
          * 
          * The event handler receives an argument of type `Office.AttachmentsChangedEventArgs`.
          * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @beta
+         * [Api set: Mailbox 1.8]
          */
         AttachmentsChanged,
         /**
@@ -1772,9 +1770,7 @@ declare namespace Office {
          * 
          * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
          * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @beta
+         * [Api set: Mailbox 1.8]
          */
         EnhancedLocationsChanged,
         /**
@@ -3905,6 +3901,17 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
+         * **Type-specific behaviors**
+         * 
+         * <table>
+         *   <tr>
+         *     <td>`Office.CoercionType.XmlSvg`</td>
+         *     <td>(Excel only): In Excel builds between 16.0.11526.10000 and 16.0.12309.10000, there is a 64KB size limitation for SVG insertions.</td>
+         *   </tr>
+         * </table>
+         * 
+         * **Hosts**
+         * 
          * The possible values for the {@link Office.CoercionType} parameter vary by the host. 
          * 
          * <table>
@@ -4091,6 +4098,18 @@ declare namespace Office {
          *     <td>Inserted images are floating. The position imageLeft and imageTop parameters are optional but if provided, both should be present. If a single value is provided, it will be ignored. Negative imageLeft and imageTop values are allowed and can position an image outside of a slide. If no optional parameter is given and slide has a placeholder, the image will replace the placeholder in the slide. Image aspect ratio will be locked unless both imageWidth and imageHeight parameters are provided. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.</td>
          *   </tr>
          * </table>
+         * 
+         * 
+         * **Type-specific behaviors**
+         * 
+         * <table>
+         *   <tr>
+         *     <td>`Office.CoercionType.XmlSvg`</td>
+         *     <td>(Excel only): There is a 64KB size limitation for SVG insertions as of build 16.0.11526.10000.</td>
+         *   </tr>
+         * </table>
+         * 
+         * **Hosts**
          * 
          * The possible values for the {@link Office.CoercionType} parameter vary by the host. 
          * 
@@ -7688,13 +7707,11 @@ declare namespace Office {
         /**
          * Specifies the formatting that applies to an attachment's content.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         enum AttachmentContentFormat {
             /**
@@ -7720,13 +7737,11 @@ declare namespace Office {
         /**
          * Specifies whether an attachment was added to or removed from an item.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         enum AttachmentStatus {
             /**
@@ -7768,13 +7783,11 @@ declare namespace Office {
          * **Note**: The actual color depends on how the Outlook client renders it.
          * In this case, the colors noted on each preset are for the Outlook desktop client.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         enum CategoryColor {
             /**
@@ -7936,13 +7949,11 @@ declare namespace Office {
         /**
          * This bit mask represents a delegate's permissions on a shared folder.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         enum DelegatePermissions {
             /**
@@ -8054,13 +8065,11 @@ declare namespace Office {
         /**
          * Specifies an appointment location's type.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         enum LocationType {
             /**
@@ -8862,7 +8871,7 @@ declare namespace Office {
         Subject
     }
     /**
-     * The subclass of {@link Office.Item} dealing with appointments.
+     * The subclass of {@link Office.Item | Item} dealing with appointments.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
@@ -8893,21 +8902,19 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         * 
-         * @beta
          */
         categories: Categories;
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
-         * The end property is an {@link Office.Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * The end property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
          * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
          *
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
@@ -8923,18 +8930,16 @@ declare namespace Office {
          */
         end: Time;
         /**
-         * Gets or sets the locations of the appointment. The `enhancedLocation` property returns an {@link Office.EnhancedLocation} object that 
-         * provides methods to get, remove, or add locations on an item.
+         * Gets or sets the locations of the appointment. The `enhancedLocation` property returns an {@link Office.EnhancedLocation | EnhancedLocation}
+         * object that provides methods to get, remove, or add locations on an item.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         * 
-         * @beta
          */
         enhancedLocation: EnhancedLocation;
         /**
@@ -8952,7 +8957,7 @@ declare namespace Office {
          */
         itemType: MailboxEnums.ItemType | string;
         /**
-         * Gets or sets the {@link Office.Location} of an appointment. The location property returns a Location object that provides methods that are 
+         * Gets or sets the location of an appointment. The location property returns a {@link Office.Location | Location} object that provides methods that are 
          * used to get and set the location of the appointment.
          *
          * [Api set: Mailbox 1.0]
@@ -8977,9 +8982,14 @@ declare namespace Office {
          */
         notificationMessages: NotificationMessages;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item. 
-         * The optionalAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the optional attendees 
-         * for a meeting.
+         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+         *
+         * The optionalAttendees property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the optional attendees 
+         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9026,8 +9036,13 @@ declare namespace Office {
         recurrence: Recurrence;
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item. 
-         * The requiredAttendees property returns an {@link Office.Recipients} object that provides methods to get or update the required attendees 
-         * for a meeting.
+         *
+         * The requiredAttendees property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the required attendees 
+         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9064,7 +9079,7 @@ declare namespace Office {
         /**
          * Gets or sets the date and time that the appointment is to begin.
          *
-         * The start property is an {@link Office.Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * The start property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
          * You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
          *
          * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on 
@@ -9170,7 +9185,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -9194,8 +9209,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions &  { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -9209,7 +9222,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -9230,16 +9243,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9261,9 +9270,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9369,7 +9376,7 @@ declare namespace Office {
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -9382,14 +9389,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -9400,8 +9405,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
@@ -9459,7 +9462,7 @@ declare namespace Office {
          * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
          * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -9474,8 +9477,6 @@ declare namespace Office {
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         * 
-         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -9487,7 +9488,7 @@ declare namespace Office {
          * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
          * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -9500,18 +9501,18 @@ declare namespace Office {
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         * 
-         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -9534,11 +9535,13 @@ declare namespace Office {
          /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -9641,9 +9644,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9663,9 +9664,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9838,7 +9837,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        body: string;
+        body: Body | string;
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
@@ -9864,7 +9863,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        end: Date;
+        end: Time | Date;
         /**
         * Gets or sets the location of an appointment.
         *
@@ -9884,17 +9883,23 @@ declare namespace Office {
         * 
         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
         */
-        location: string;
+        location: Location | string;
         /**
         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
         *
         * *Read mode*
         *
         * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
+        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
         *
         * *Compose mode*
         *
         * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
+        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+        *
+        * - Get 500 members maximum.
+        *
+        * - Set a maximum of 100 members per call, up to 500 members total.
         *
         * [Api set: Mailbox 1.0]
         *
@@ -9904,7 +9909,7 @@ declare namespace Office {
         * 
         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
         */
-       optionalAttendees: string[] | EmailAddressDetails[];
+       optionalAttendees: Recipients[] | EmailAddressDetails[];
         /**
         * Provides access to the resources of an event. Returns an array of strings containing the resources required for the appointment.
         *
@@ -9923,10 +9928,16 @@ declare namespace Office {
          * *Read mode*
          *
          * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
          * *Compose mode*
          *
          * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9936,7 +9947,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        requiredAttendees: string[] | EmailAddressDetails[];
+        requiredAttendees: Recipients[] | EmailAddressDetails[];
         /**
          * Gets or sets the date and time that the appointment is to begin.
          *
@@ -9962,7 +9973,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        start: Date;
+        start: Time | Date;
         /**
          * Gets or sets the description that appears in the subject field of an item.
          *
@@ -9984,7 +9995,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        subject: string;
+        subject: Subject | string;
     }
     /**
      * The appointment attendee mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -10025,15 +10036,13 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         * 
-         * @beta
          */
         categories: Categories;
         /**
@@ -10083,18 +10092,16 @@ declare namespace Office {
         /**
          * Gets the locations of an appointment.
          *
-         * The enhancedLocation property returns an {@link Office.EnhancedLocation} object that allows you to get the set of locations (each represented by 
-         * an {@link Office.LocationDetails} object) associated with the appointment.
+         * The enhancedLocation property returns an {@link Office.EnhancedLocation | EnhancedLocation} object that allows you to get the set of locations
+         * (each represented by a {@link Office.LocationDetails | LocationDetails} object) associated with the appointment.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         * 
-         * @beta
          */
         enhancedLocation: EnhancedLocation;
         /**
@@ -10134,13 +10141,15 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
@@ -10212,8 +10221,8 @@ declare namespace Office {
         /**
          * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each optional attendee to 
-         * the meeting.
+         * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
+         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10259,8 +10268,8 @@ declare namespace Office {
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
          *
-         * The requiredAttendees property returns an array that contains an {@link Office.EmailAddressDetails} object for each required attendee to 
-         * the meeting.
+         * The requiredAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each required attendee to 
+         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10329,9 +10338,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10353,9 +10360,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10395,7 +10400,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
@@ -10422,7 +10427,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
@@ -10706,9 +10711,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10728,9 +10731,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10774,15 +10775,13 @@ declare namespace Office {
     /**
      * Represents the content of an attachment on a message or appointment item.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface AttachmentContent {
         /**
@@ -10843,37 +10842,33 @@ declare namespace Office {
         /**
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
          * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @beta
+         * [Api set: Mailbox 1.8]
          */
         url: string;
     }
     /**
      * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
      * 
-     * [Api set: Mailbox Preview]
-     * 
-     * @beta
+     * [Api set: Mailbox 1.8]
      */ 
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * For each such attachment, gets a subset of {@link Office.AttachmentDetails | AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          */
         attachmentDetails: object[];
         /**
-         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details.
+         * Gets whether the attachments were added or removed. See {@link Office.MailboxEnums.AttachmentStatus | MailboxEnums.AttachmentStatus} for details.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          */ 
         attachmentStatus: MailboxEnums.AttachmentStatus | string;
         /**
          * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          */
         type: "olkAttachmentsChanged";
     }
@@ -11153,15 +11148,13 @@ declare namespace Office {
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface Categories {
         /**
@@ -11174,7 +11167,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11185,8 +11178,6 @@ declare namespace Office {
          * **Errors**:
          * 
          * - InvalidCategory: Invalid categories were provided.
-         * 
-         * @beta
          */
         addAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11197,7 +11188,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11208,8 +11199,6 @@ declare namespace Office {
          * **Errors**:
          * 
          * - InvalidCategory: Invalid categories were provided.
-         * 
-         * @beta
          */
         addAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11220,15 +11209,13 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
@@ -11237,15 +11224,13 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
@@ -11257,15 +11242,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11275,30 +11258,26 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Represents a category's details like name and associated color.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface CategoryDetails {
         /**
@@ -11311,10 +11290,10 @@ declare namespace Office {
         color: MailboxEnums.CategoryColor | string;
     }
     /**
-     * Represents a contact stored on the server. Read mode only.
+     * Represents the details about a contact (similar to what's on a physical contact or business card) extracted from the item's body. Read mode only.
      *
-     * The list of contacts associated with an email message or appointment is returned in the contacts property of the {@link Office.Entities} object 
-     * that is returned by the getEntities or getEntitiesByType method of the active item.
+     * The list of contacts extracted from the body of an email message or appointment is returned in the contacts property of the
+     * {@link Office.Entities | Entities} object returned by the getEntities or getEntitiesByType method of the current item.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -11568,21 +11547,19 @@ declare namespace Office {
     /**
      * Represents the set of locations on an appointment.
      * 
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      * 
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     export interface EnhancedLocation {
         /**
          * Adds to the set of locations associated with the appointment.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11599,14 +11576,12 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
          */
         addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
          * Adds to the set of locations associated with the appointment.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11621,14 +11596,12 @@ declare namespace Office {
          * @param locationIdentifiers The locations to be added to the current list of locations.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
          */
         addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11640,14 +11613,12 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11657,8 +11628,6 @@ declare namespace Office {
          * 
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         getAsync(callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
         /**
@@ -11666,7 +11635,7 @@ declare namespace Office {
          * 
          * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11679,8 +11648,6 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
          */
         removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
@@ -11688,7 +11655,7 @@ declare namespace Office {
          * 
          * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -11699,29 +11666,25 @@ declare namespace Office {
          * @param locationIdentifiers The locations to be removed from the current list of locations.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
          */
         removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
     }
     /**
      * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
      * 
-     * [Api set: Mailbox Preview]
-     * 
-     * @beta
+     * [Api set: Mailbox 1.8]
      */ 
     export interface EnhancedLocationsChangedEventArgs {
         /**
          * Gets the set of enhanced locations.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          */
         enhancedLocations: LocationDetails[];
         /**
          * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          */
         type: "olkEnhancedLocationsChanged";
     }
@@ -11803,7 +11766,7 @@ declare namespace Office {
          * 
          * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
          * 
-         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * The from value of the item is provided as an {@link Office.EmailAddressDetails | EmailAddressDetails} in the asyncResult.value property.
          * 
          * [Api set: Mailbox 1.7]
          * 
@@ -11825,7 +11788,7 @@ declare namespace Office {
          * 
          * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
          * 
-         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * The from value of the item is provided as an {@link Office.EmailAddressDetails | EmailAddressDetails} in the asyncResult.value property.
          * 
          * [Api set: Mailbox 1.7]
          * 
@@ -11849,15 +11812,13 @@ declare namespace Office {
      * 
      * **Note**: This object is intended for you to set and get your custom headers on a message item.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
      */
     interface InternetHeaders {
         /**
@@ -11866,21 +11827,19 @@ declare namespace Office {
          * 
          * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
          * @param names - The names of the internet headers to be returned.
          * @param options - Optional. An object literal that contains one or more of the following properties:
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
@@ -11889,19 +11848,17 @@ declare namespace Office {
          * 
          * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
          * @param names - The names of the internet headers to be returned.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
@@ -11909,7 +11866,7 @@ declare namespace Office {
          * 
          * **Note**: This method is intended to remove the custom headers you set using the `setAsync` method.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11922,8 +11879,6 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
@@ -11931,7 +11886,7 @@ declare namespace Office {
          *
          * **Note**: This method is intended to remove your custom headers you set using the `setAsync` method.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11942,8 +11897,6 @@ declare namespace Office {
          * @param names - The names of the internet headers to be removed.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
          */
         removeAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
@@ -11954,7 +11907,7 @@ declare namespace Office {
          *
          * **Note**: This method is intended to set the values of your custom headers.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11968,8 +11921,6 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
-         * 
-         * @beta
          */
         setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11980,7 +11931,7 @@ declare namespace Office {
          *
          * **Note**: This method is intended to set the values of your custom headers.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -11992,14 +11943,18 @@ declare namespace Office {
          *                internet headers and values being the values of the internet headers.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
-         * 
-         * @beta
          */
         setAsync(headers: Object, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The item namespace is used to access the currently selected message, meeting request, or appointment. 
      * You can determine the type of the item by using the `itemType` property.
+     *
+     * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+     *
+     * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
+     * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
+     * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
      *
      * [Api set: Mailbox 1.0]
      *
@@ -12025,15 +11980,13 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         categories: Categories;
         /**
@@ -12090,9 +12043,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12114,9 +12065,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12142,7 +12091,7 @@ declare namespace Office {
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -12160,8 +12109,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. If the call fails, the asyncResult.error property will contain and error code 
          *                 with the reason for the failure.
-         * 
-         * @beta
          */
         getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
         /**
@@ -12173,7 +12120,7 @@ declare namespace Office {
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          * 
          * @remarks
          * 
@@ -12189,8 +12136,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object. If the call fails, the asyncResult.error property will contain and error code 
          *                 with the reason for the failure.
-         * 
-         * @beta
          */
         getAttachmentContentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
         /**
@@ -12244,7 +12189,7 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -12257,14 +12202,12 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *                 The `value` property of the result is the properties of the shared item.
-         * 
-         * @beta
          */
          getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -12275,8 +12218,6 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *                 The `value` property of the result is the properties of the shared item.
-         * 
-         * @beta
          */
         getSharedPropertiesAsync(callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
@@ -12307,9 +12248,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12329,9 +12268,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12449,7 +12386,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -12473,8 +12410,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -12488,7 +12423,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -12509,8 +12444,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -12604,7 +12537,7 @@ declare namespace Office {
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -12617,14 +12550,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -12635,8 +12566,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
@@ -12693,11 +12622,13 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data.
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -12721,11 +12652,13 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data.
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -13003,13 +12936,15 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
@@ -13078,7 +13013,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
@@ -13105,7 +13040,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
@@ -13509,15 +13444,13 @@ declare namespace Office {
     /**
      * Represents a location. Read only.
      * 
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     export interface LocationDetails {
         /**
@@ -13536,15 +13469,13 @@ declare namespace Office {
     /**
      * Represents the id of a location.
      * 
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface LocationIdentifier {
         /**
@@ -13633,23 +13564,24 @@ declare namespace Office {
          */
         ewsUrl: string;
         /**
-         * The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
-         * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
-         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
+         * The mailbox item. Depending on the context in which the add-in opened, the item may be of any number of types.
+         * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+         *
+         * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
+         * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
+         * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
          */
         item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
         /**
          * Gets an object that provides methods to manage the categories master list associated with a mailbox.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @beta
          */
         masterCategories: MasterCategories;
         /**
@@ -13681,8 +13613,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13703,8 +13634,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13905,13 +13835,13 @@ declare namespace Office {
          *
          * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
          * 
-         *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
          *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
          * 
-         *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
          *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
          * 
-         *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
          *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
          * 
          *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
@@ -13936,10 +13866,15 @@ declare namespace Office {
         /**
          * Gets a string that contains a token used to call REST APIs or Exchange Web Services.
          *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The `getCallbackTokenAsync` method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
          *
          * The token is returned as a string in the `asyncResult.value` property.
+         *
+         * Calling the `getCallbackTokenAsync` method in read mode requires a minimum permission level of **ReadItem**.
+         *
+         * Calling the `getCallbackTokenAsync` method in compose mode requires you to have saved the item.
+         * The `saveAsync` method requires a minimum permission level of **ReadWriteItem**.
          *
          * *REST Tokens*
          *
@@ -13957,6 +13892,13 @@ declare namespace Office {
          * The token will be limited in scope to accessing the current item.
          *
          * The add-in should use the ewsUrl property to determine the correct URL to use when making EWS calls.
+         *
+         * You can pass both the token and either an attachment identifier or item identifier to a third-party system. The third-party system uses
+         * the token as a bearer authorization token to call the Exchange Web Services (EWS)
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getattachment-operation | GetAttachment} operation or
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getitem-operation | GetItem} operation to return an
+         * attachment or item. For example, you can create a remote service to
+         * {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
          *
          * **Note**: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible.
          *
@@ -13987,21 +13929,24 @@ declare namespace Office {
         /**
          * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
          *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The `getCallbackTokenAsync` method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
          *
          * The token is returned as a string in the `asyncResult.value` property.
          *
-         * You can pass the token and an attachment identifier or item identifier to a third-party system. 
-         * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
-         * GetItem operation to return an attachment or item. For example, you can create a remote service to get attachments from the selected item.
+         * You can pass both the token and either an attachment identifier or item identifier to a third-party system. The third-party system uses
+         * the token as a bearer authorization token to call the Exchange Web Services (EWS)
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getattachment-operation | GetAttachment} or
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/getitem-operation | GetItem} operation to return an
+         * attachment or item. For example, you can create a remote service to
+         * {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
          *
-         * Your app must have the ReadItem permission specified in its manifest to call the getCallbackTokenAsync method in read mode.
+         * Calling the `getCallbackTokenAsync` method in read mode requires a minimum permission level of **ReadItem**.
          *
-         * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
+         * Calling the `getCallbackTokenAsync` method in compose mode requires you to have saved the item.
+         * The `saveAsync` method requires a minimum permission level of **ReadWriteItem**.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.0 for Read mode support; 1.3 for Compose mode support]
          *
          * @remarks
          *
@@ -14110,8 +14055,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -14130,8 +14074,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -14153,15 +14096,13 @@ declare namespace Office {
      * In Outlook, a user can group messages and appointments by using a category to color-code them.
      * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface MasterCategories {
         /**
@@ -14173,7 +14114,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14186,8 +14127,6 @@ declare namespace Office {
          * - DuplicateCategory: One of the categories provided is already in the master category list.
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
          */
         addAsync(categories: CategoryDetails[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -14197,7 +14136,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14210,8 +14149,6 @@ declare namespace Office {
          * - DuplicateCategory: One of the categories provided is already in the master category list.
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
          */
         addAsync(categories: CategoryDetails[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -14222,15 +14159,13 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
@@ -14239,15 +14174,13 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
          */
         getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
@@ -14259,7 +14192,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14270,8 +14203,6 @@ declare namespace Office {
          * **Errors**:
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
          */
         removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -14281,7 +14212,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14292,8 +14223,6 @@ declare namespace Office {
          * **Errors**:
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
          */
         removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
@@ -14342,7 +14271,7 @@ declare namespace Office {
         subject: string;
     }
     /**
-     * A subclass of {@link Office.Item} for messages.
+     * A subclass of {@link Office.Item | Item} for messages.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
@@ -14380,6 +14309,12 @@ declare namespace Office {
         /**
          * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
          *
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -14404,23 +14339,25 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         * 
-         * @beta
          */
         categories: Categories;
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
-         * The cc property returns an {@link Office.Recipients} object that provides methods to get or update the recipients on the Cc line of 
-         * the message.
+         * The cc property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the Cc line of 
+         * the message. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14472,15 +14409,13 @@ declare namespace Office {
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         * 
-         * @beta
          */
         internetHeaders: InternetHeaders;
         /**
@@ -14554,6 +14489,11 @@ declare namespace Office {
          * current item.
          *
          * The to property returns a Recipients object that provides methods to get or update the recipients on the To line of the message.
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14642,7 +14582,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14666,8 +14606,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -14681,7 +14619,7 @@ declare namespace Office {
          * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          * 
@@ -14702,16 +14640,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
-         * 
-         * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14733,9 +14667,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14843,7 +14775,7 @@ declare namespace Office {
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -14856,14 +14788,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
@@ -14874,8 +14804,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
          *                 the failure.
-         * 
-         * @beta
          */
         getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
@@ -14931,13 +14859,65 @@ declare namespace Office {
          */
         getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
+         * Asynchronously gets the ID of a saved item.
+         *
+         * When invoked, this method returns the item ID via the callback method.
+         * 
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
+         *
+         * [Api set: Mailbox 1.8]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
+         * 
+         * **Errors**:
+         * 
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         */
+        getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Asynchronously gets the ID of a saved item.
+         *
+         * When invoked, this method returns the item ID via the callback method.
+         * 
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
+         *
+         * [Api set: Mailbox 1.8]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
+         * 
+         * **Errors**:
+         * 
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         */
+        getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -14959,67 +14939,15 @@ declare namespace Office {
          */
         getSelectedDataAsync(coercionType: Office.CoercionType | string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
-         * Asynchronously gets the ID of a saved item.
-         *
-         * When invoked, this method returns the item ID via the callback method.
-         * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
-         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
-         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         * 
-         * **Errors**:
-         * 
-         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
-         * 
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         * 
-         * @beta
-         */
-        getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Asynchronously gets the ID of a saved item.
-         *
-         * When invoked, this method returns the item ID via the callback method.
-         * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
-         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
-         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         * 
-         * **Errors**:
-         * 
-         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
-         * 
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         * 
-         * @beta
-         */
-        getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -15122,9 +15050,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15144,9 +15070,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15338,15 +15262,13 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.8]
          *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         * 
-         * @beta
          */
         categories: Categories;
         /**
@@ -15354,7 +15276,7 @@ declare namespace Office {
          * current item.
          *
          * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. 
-         * The collection is limited to a maximum of 100 members.
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -15411,6 +15333,24 @@ declare namespace Office {
          */
         dateTimeModified: Date;
         /**
+         * Gets the date and time that the appointment is to end.
+         *
+         * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
+         *
+         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
+         * the client to UTC for the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        end: Date;
+        /**
          * Gets the email address of the sender of a message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. 
@@ -15429,22 +15369,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          */
         from: EmailAddressDetails;
-        /**
-         * Gets or sets the custom internet headers of a message.
-         * 
-         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         * 
-         * @beta
-         */
-        internetHeaders: InternetHeaders;
         /**
          * Gets the Internet message identifier for an email message.
          *
@@ -15495,13 +15419,15 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
@@ -15530,6 +15456,20 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          */
         itemType: MailboxEnums.ItemType | string;
+        /**
+         * Gets the location of a meeting request.
+         *
+         * The location property returns a string that contains the location of the appointment.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        location: string;
         /**
          * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
          *
@@ -15621,6 +15561,21 @@ declare namespace Office {
          */
         sender: EmailAddressDetails;
         /**
+         * Gets the date and time that the appointment is to begin.
+         *
+         * The start property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        start: Date;
+        /**
          * Gets the description that appears in the subject field of an item.
          *
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
@@ -15641,7 +15596,7 @@ declare namespace Office {
          * current item.
          *
          * The to property returns an array that contains an EmailAddressDetails object for each recipient listed on the To line of the message. 
-         * The collection is limited to a maximum of 100 members.
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -15656,9 +15611,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15680,9 +15633,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15722,7 +15673,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
@@ -15749,11 +15700,49 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
         displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets all the internet headers for the message as a string.
+         * 
+         * [Api set: Mailbox 1.8]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         * 
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         *                On success, the internet headers data is provided in the asyncResult.value property as a string. 
+         *                Refer to {@link https://tools.ietf.org/html/rfc2183 | RFC 2183} for the formatting information of the returned string value. 
+         *                If the call fails, the asyncResult.error property will contain an error code with the reason for the failure.
+         */
+        getAllInternetHeadersAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Gets all the internet headers for the message as a string.
+         * 
+         * [Api set: Mailbox 1.8]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         * 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         *                On success, the internet headers data is provided in the asyncResult.value property as a string. 
+         *                Refer to {@link https://tools.ietf.org/html/rfc2183 | RFC 2183} for the formatting information of the returned string value. 
+         *                If the call fails, the asyncResult.error property will contain an error code with the reason for the failure.
+         */
+        getAllInternetHeadersAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -16037,9 +16026,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16059,9 +16046,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * To see which event types are supported, see `Office.EventType` for details.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16320,7 +16305,7 @@ declare namespace Office {
      */
     interface Organizer {
         /**
-         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails | EmailAddressDetails} object in the asyncResult.value property.
          * 
          * [Api set: Mailbox 1.7]
          * 
@@ -16337,7 +16322,7 @@ declare namespace Office {
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
         /**
-         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails | EmailAddressDetails} object in the asyncResult.value property.
          * 
          * [Api set: Mailbox 1.7]
          * 
@@ -16427,9 +16412,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - {@link Office.EmailUser} objects
+         * - {@link Office.EmailUser | EmailUser} objects
          *
-         * - {@link Office.EmailAddressDetails} objects
+         * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16451,7 +16436,7 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the asyncResult.value property will contain an array of {@link Office.EmailAddressDetails} objects.
+         * When the call completes, the asyncResult.value property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16471,7 +16456,7 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the asyncResult.value property will contain an array of {@link Office.EmailAddressDetails} objects.
+         * When the call completes, the asyncResult.value property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16495,9 +16480,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - {@link Office.EmailUser} objects
+         * - {@link Office.EmailUser | EmailUser} objects
          *
-         * - {@link Office.EmailAddressDetails} objects
+         * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16529,9 +16514,9 @@ declare namespace Office {
          *
          * - Strings containing SMTP email addresses
          *
-         * - {@link Office.EmailUser} objects
+         * - {@link Office.EmailUser | EmailUser} objects
          *
-         * - {@link Office.EmailAddressDetails} objects
+         * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16688,7 +16673,7 @@ declare namespace Office {
          */
         recurrenceType: MailboxEnums.RecurrenceType | string;
         /**
-         * The {@link Office.SeriesTime} object enables you to manage the start and end dates of the recurring appointment series and the usual start 
+         * The {@link Office.SeriesTime | SeriesTime} object enables you to manage the start and end dates of the recurring appointment series and the usual start 
          * and end times of instances. **This object is not in UTC time.** 
          * Instead, it is set in the time zone specified by the recurrenceTimeZone value or defaulted to the item's time zone.
          * 
@@ -16905,7 +16890,7 @@ declare namespace Office {
          */
         htmlBody?: string;
         /**
-         * An array of {@link Office.ReplyFormAttachment} that are either file or item attachments.
+         * An array of {@link Office.ReplyFormAttachment | ReplyFormAttachment} that are either file or item attachments.
          */
         attachments?: ReplyFormAttachment[];
         /**
@@ -17197,15 +17182,13 @@ declare namespace Office {
     /**
      * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
      *
-     * [Api set: Mailbox Preview]
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
      */
     interface SharedProperties {
         /**
@@ -17217,18 +17200,12 @@ declare namespace Office {
          * Use with targetMailbox to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
-         * 
-         * **Note**: This property name is being transitioned from `restUrl` to `targetRestUrl`.
-         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetRestUrl: string;
         /**
          * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
-         * 
-         * **Note**: The URL property name is being transitioned from `restUrl` to `targetRestUrl`.
-         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetMailbox: string;
         /**
@@ -18612,6 +18589,9 @@ declare namespace Excel {
         constructor(url?: string | Session);
         readonly workbook: Workbook;
         readonly application: Application;
+        /**
+        * [Api set: ExcelApi 1.5]
+        */
         readonly runtime: Runtime;
     }
     interface RunOptions extends OfficeExtension.RunOptions<Session> {
@@ -18649,24 +18629,45 @@ declare namespace Excel {
     /**
      * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      *
-     * @remarks
-     *
-     * In addition to this signature, the method also has the following signatures:
-     *
-     * `run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     *
-     * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     *
-     * `run<T>(options: Excel.RunOptions, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     *
-     * `run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     *
      * @param context - A previously-created object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     function postprocessBindingDescriptor(response: any): any;
     function getDataCommonPostprocess(response: any, callArgs: any): any;
+    /**
+     *
+     * Represents the dimensions when getting values from chart series.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum ChartSeriesDimension {
+        /**
+         *
+         * The chart series axis for the categories.
+         *
+         */
+        categories = "Categories",
+        /**
+         *
+         * The chart series axis for the values.
+         *
+         */
+        values = "Values",
+        /**
+         *
+         * The chart series axis for the x-axis values in scatter and bubble charts.
+         *
+         */
+        xvalues = "XValues",
+        /**
+         *
+         * The chart series axis for the y-axis values in scatter and bubble charts.
+         *
+         */
+        yvalues = "YValues"
+    }
     /**
      *
      * Provides information about the binding that raised the SelectionChanged event.
@@ -19146,40 +19147,35 @@ declare namespace Excel {
      *
      * Provides information about the row-sorted event and its related worksheet.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     interface WorksheetRowSortedEventArgs {
         /**
          *
          * Gets the range address that represents the sorted areas of a specific worksheet. Only rows changed as a result of the sort operation are returned.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         address: string;
         /**
          *
          * Gets the source of the event. See Excel.EventSource for details.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
          * Gets the type of the event. See Excel.EventType for details.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         type: "WorksheetRowSorted";
         /**
          *
          * Gets the id of the worksheet where the sorting happened.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         worksheetId: string;
     }
@@ -19187,40 +19183,35 @@ declare namespace Excel {
      *
      * Provides information about the column-sorted event and its related worksheet.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     interface WorksheetColumnSortedEventArgs {
         /**
          *
          * Gets the range address that represents the sorted areas of a specific worksheet. Only columns changed as a result of the sort operation are returned.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         address: string;
         /**
          *
          * Gets the source of the event. See Excel.EventSource for details.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
          * Gets the type of the event. See Excel.EventType for details.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         type: "WorksheetColumnSorted";
         /**
          *
          * Gets the id of the worksheet where the sorting happened.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         worksheetId: string;
     }
@@ -19257,48 +19248,42 @@ declare namespace Excel {
      *
      * Provides information about the left-clicked/tapped event and its related worksheet.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     interface WorksheetSingleClickedEventArgs {
         /**
          *
          * Gets the address that represents the cell which was left-clicked/tapped for a specific worksheet.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         address: string;
         /**
          *
-         * The distance, in points, from the left-clicked/tapped point to the left (or right for RTL) gridline edge of the left-clicked/tapped cell.
+         * The distance, in points, from the left-clicked/tapped point to the left (or right for right-to-left languages) gridline edge of the left-clicked/tapped cell.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         offsetX: number;
         /**
          *
          * The distance, in points, from the left-clicked/tapped point to the top gridline edge of the left-clicked/tapped cell.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         offsetY: number;
         /**
          *
          * Gets the type of the event.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         type: "WorksheetSingleClicked";
         /**
          *
          * Gets the id of the worksheet in which the cell was left-clicked/tapped.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         worksheetId: string;
     }
@@ -19542,6 +19527,14 @@ declare namespace Excel {
     interface WorksheetCalculatedEventArgs {
         /**
          *
+         * The address of the ranges that completed calculation.
+            If multiple ranges completed calculation, the string is a comma-separated list of those range addresses.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         */
+        address: string;
+        /**
+         *
          * Gets the type of the event. See Excel.EventType for details.
          *
          * [Api set: ExcelApi 1.8]
@@ -19549,7 +19542,7 @@ declare namespace Excel {
         type: "WorksheetCalculated";
         /**
          *
-         * Gets the id of the worksheet that is calculated.
+         * Gets the id of the worksheet in which the calculation occurred.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -19760,6 +19753,14 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
+         * Provides information based on current system culture settings. This includes the culture names, number formatting, and other culturally dependent settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly cultureInfo: Excel.CultureInfo;
+        /**
+         *
          * Returns the Iterative Calculation settings.
             In Excel on Windows and Mac, the settings will apply to the Excel Application.
             In Excel on the web and other platforms, the settings will apply to the active workbook.
@@ -19788,6 +19789,31 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.9]
          */
         readonly calculationState: Excel.CalculationState | "Done" | "Calculating" | "Pending";
+        /**
+         *
+         * Gets the string used as the decimal separator for numeric values. This is based on Excel's local settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly decimalSeparator: string;
+        /**
+         *
+         * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on Excel's local settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly thousandsSeparator: string;
+        /**
+         *
+         * Specifies whether the system separators of Microsoft Excel are enabled.
+            System separators include the decimal separator and thousands separator.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly useSystemSeparators: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -19960,8 +19986,7 @@ declare namespace Excel {
          *
          * Represents a collection of Comments associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly comments: Excel.CommentCollection;
         /**
@@ -19996,8 +20021,7 @@ declare namespace Excel {
          *
          * Represents a collection of PivotTableStyles associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly pivotTableStyles: Excel.PivotTableStyleCollection;
         /**
@@ -20032,16 +20056,14 @@ declare namespace Excel {
          *
          * Represents a collection of SlicerStyles associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly slicerStyles: Excel.SlicerStyleCollection;
         /**
          *
          * Represents a collection of Slicers associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly slicers: Excel.SlicerCollection;
         /**
@@ -20055,8 +20077,7 @@ declare namespace Excel {
          *
          * Represents a collection of TableStyles associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly tableStyles: Excel.TableStyleCollection;
         /**
@@ -20070,8 +20091,7 @@ declare namespace Excel {
          *
          * Represents a collection of TimelineStyles associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly timelineStyles: Excel.TimelineStyleCollection;
         /**
@@ -20206,16 +20226,14 @@ declare namespace Excel {
          *
          * Gets the currently active slicer in the workbook. If there is no active slicer, an `ItemNotFound` exception is thrown.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getActiveSlicer(): Excel.Slicer;
         /**
          *
          * Gets the currently active slicer in the workbook. If there is no active slicer, a null object is returned.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getActiveSlicerOrNullObject(): Excel.Slicer;
         /**
@@ -20423,7 +20441,7 @@ declare namespace Excel {
         readonly autoFilter: Excel.AutoFilter;
         /**
          *
-         * Returns collection of charts that are part of the worksheet. Read-only.
+         * Returns a collection of charts that are part of the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -20432,8 +20450,7 @@ declare namespace Excel {
          *
          * Returns a collection of all the Comments objects on the worksheet. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly comments: Excel.CommentCollection;
         /**
@@ -20487,10 +20504,9 @@ declare namespace Excel {
         readonly shapes: Excel.ShapeCollection;
         /**
          *
-         * Returns collection of slicers that are part of the worksheet. Read-only.
+         * Returns a collection of slicers that are part of the worksheet. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly slicers: Excel.SlicerCollection;
         /**
@@ -20615,8 +20631,8 @@ declare namespace Excel {
         calculate(markAllDirty: boolean): void;
         /**
          *
-         * Copies a worksheet and places it at the specified position. 
-         * 
+         * Copies a worksheet and places it at the specified position.
+         *
          * [Api set: ExcelApi 1.7]
          *
          * @param positionType The location in the workbook to place the newly created worksheet. The default value is "None", which inserts the worksheet at the beginning of the worksheet.
@@ -20626,8 +20642,8 @@ declare namespace Excel {
         copy(positionType?: Excel.WorksheetPositionType, relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
-         * Copies a worksheet and places it at the specified position. 
-         * 
+         * Copies a worksheet and places it at the specified position.
+         *
          * [Api set: ExcelApi 1.7]
          *
          * @param positionType The location in the workbook to place the newly created worksheet. The default value is "None", which inserts the worksheet at the beginning of the worksheet.
@@ -20778,8 +20794,7 @@ declare namespace Excel {
             The acceptable argument range is between 0 and 8.
             A value of 0 does not change the current display. A value greater than the current number of levels displays all the levels.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param rowLevels The number of row levels of an outline to display.
          * @param columnLevels The number of column levels of an outline to display.
@@ -20837,10 +20852,9 @@ declare namespace Excel {
          *
          * Occurs when one or more columns have been sorted. This happens as the result of a left-to-right sort operation.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
         /**
@@ -20885,10 +20899,9 @@ declare namespace Excel {
          *
          * Occurs when one or more rows have been sorted. This happens as the result of a top-to-bottom sort operation.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
@@ -20902,16 +20915,15 @@ declare namespace Excel {
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         /**
          *
-         * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
-         * 
+         * Occurs when a left-clicked/tapped action happens in the worksheet. This event will not be fired when clicking in the following cases:
+
                     - The user drags the mouse for multi-selection.
 
                     - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onSingleClicked: OfficeExtension.EventHandlers<Excel.WorksheetSingleClickedEventArgs>;
         /**
@@ -20943,6 +20955,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
+         * 
+         * **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20957,6 +20971,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
+         * 
+         * **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21077,10 +21093,9 @@ declare namespace Excel {
          *
          * Occurs when one or more columns have been sorted. This happens as the result of a left-to-right sort operation.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
         /**
@@ -21134,10 +21149,9 @@ declare namespace Excel {
          *
          * Occurs when one or more rows have been sorted. This happens as the result of a top-to-bottom sort operation.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
@@ -21152,15 +21166,12 @@ declare namespace Excel {
         /**
          *
          * Occurs when left-clicked/tapped operation happens in the worksheet collection. This event will not be fired when clicking in the following cases:
-         * 
                     - The user drags the mouse for multi-selection.
-
                     - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @eventproperty
-         * @beta
          */
         readonly onSingleClicked: OfficeExtension.EventHandlers<Excel.WorksheetSingleClickedEventArgs>;
         /**
@@ -21536,8 +21547,7 @@ declare namespace Excel {
          *
          * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly height: number;
         /**
@@ -21572,8 +21582,7 @@ declare namespace Excel {
          *
          * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly left: number;
         /**
@@ -21653,8 +21662,7 @@ declare namespace Excel {
          *
          * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly top: number;
         /**
@@ -21676,8 +21684,7 @@ declare namespace Excel {
          *
          * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly width: number;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -21697,29 +21704,31 @@ declare namespace Excel {
         /**
          *
          * Fills range from the current range to the destination range using the specified AutoFill logic.
-The destination range can be null, or can extend the source either horizontally or vertically.
-Discontiguous ranges are not supported.
-For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+             The destination range can be null, or can extend the source either horizontally or vertically.
+             Discontiguous ranges are not supported.
+            
+             For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
+         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * @param destinationRange The destination range to autofill. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle).
          * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
-        autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
+        autoFill(destinationRange?: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
          *
          * Fills range from the current range to the destination range using the specified AutoFill logic.
-The destination range can be null, or can extend the source either horizontally or vertically. 
-Discontiguous ranges are not supported.
-For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+             The destination range can be null, or can extend the source either horizontally or vertically.
+             Discontiguous ranges are not supported.
+            
+             For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
+         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * @param destinationRange The destination range to autofill. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle).
          * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
-        autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
+        autoFill(destinationRange?: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
         /**
          *
          * Calculates a range of cells on a worksheet.
@@ -22154,8 +22163,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Groups columns and rows for an outline.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be grouped by rows or columns.
             An `InvalidArgument` error is thrown when the group option differs from the range's
@@ -22167,7 +22175,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Groups columns and rows for an outline.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be grouped by rows or columns.
             An `InvalidArgument` error is thrown when the group option differs from the range's
@@ -22179,8 +22187,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Hide details of the row or column group.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
          */
@@ -22189,7 +22196,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Hide details of the row or column group.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
          */
@@ -22221,6 +22228,17 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * @param across Optional. Set true to merge cells in each row of the specified range as separate merged cells. The default value is false.
          */
         merge(across?: boolean): void;
+        /**
+         *
+         * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
+            The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param destinationRange destinationRange Specifies the range to where the information in this range will be moved.
+         */
+        moveTo(destinationRange: Range | string): void;
         /**
          *
          * Removes duplicate values from the range specified by the columns.
@@ -22296,8 +22314,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Show details of the row or column group.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
          */
@@ -22306,7 +22323,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Show details of the row or column group.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
          */
@@ -22315,8 +22332,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Ungroups columns and rows for an outline.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be ungrouped by rows or columns.
          */
@@ -22325,7 +22341,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Ungroups columns and rows for an outline.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be ungrouped by rows or columns.
          */
@@ -24385,7 +24401,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         showTotals: boolean;
         /**
          *
-         * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+         * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -26397,7 +26413,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         showAxisFieldButtons: boolean;
         /**
          *
-         * Specifies whether or not to display the legend field buttons on a PivotChart
+         * Specifies whether or not to display the legend field buttons on a PivotChart.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26411,7 +26427,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         showReportFilterFieldButtons: boolean;
         /**
          *
-         * Specifies whether or not to display the show value field buttons on a PivotChart
+         * Specifies whether or not to display the show value field buttons on a PivotChart.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26964,6 +26980,25 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * [Api set: ExcelApi 1.7]
          */
         delete(): void;
+        /**
+         *
+         * Gets the values from a single dimension of the chart series. These could be either category values or data values, depending on the dimension specified and how the data is mapped for the chart series.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param dimension the dimension of axis where the data from
+         */
+        getDimensionValues(dimension: Excel.ChartSeriesDimension): OfficeExtension.ClientResult<string[]>;
+        /**
+         *
+         * Gets the values from a single dimension of the chart series. These could be either category values or data values, depending on the dimension specified and how the data is mapped for the chart series.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param dimension the dimension of axis where the data from
+         */
+        getDimensionValues(dimension: "Categories" | "Values" | "XValues" | "YValues"): OfficeExtension.ClientResult<string[]>;
         /**
          *
          * Set bubble sizes for a chart series. Only works for bubble charts.
@@ -31050,6 +31085,112 @@ For more information, read {@link https://support.office.com/article/video-use-a
     }
     /**
      *
+     * Provides information based on current system culture settings. This includes the culture names, number formatting, and other culturally dependent settings.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class CultureInfo extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly numberFormatInfo: Excel.NumberFormatInfo;
+        /**
+         *
+         * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly name: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.CultureInfoLoadOptions): Excel.CultureInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.CultureInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.CultureInfo;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.CultureInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.CultureInfoData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.CultureInfoData;
+    }
+    /**
+     *
+     * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class NumberFormatInfo extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the string used as the decimal separator for numeric values. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly numberDecimalSeparator: string;
+        /**
+         *
+         * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly numberGroupSeparator: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.NumberFormatInfoLoadOptions): Excel.NumberFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.NumberFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.NumberFormatInfo;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.NumberFormatInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.NumberFormatInfoData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.NumberFormatInfoData;
+    }
+    /**
+     *
      * Represents a cell icon.
      *
      * [Api set: ExcelApi 1.2]
@@ -31542,8 +31683,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Specifies whether the field list can be shown in the UI.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         enableFieldList: boolean;
         /**
@@ -35293,8 +35433,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of TableStyles.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class TableStyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35305,8 +35444,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a blank TableStyle with the specified name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name The unique name for the new TableStyle. Will throw an invalid argument exception if the name is already in use.
          * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
@@ -35317,16 +35455,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of table styles in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets the default TableStyle for the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The TableStyle object that is the current default TableStyle.
          */
         getDefault(): Excel.TableStyle;
@@ -35334,8 +35470,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a TableStyle by name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the TableStyle to be retrieved.
          * @returns The TableStyle object whose name matches the input.
@@ -35345,8 +35480,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a TableStyle by name. If the TableStyle does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the TableStyle to be retrieved.
          * @returns The TableStyle object whose name matches the input.
@@ -35356,8 +35490,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Sets the default TableStyle for use in the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param newDefaultStyle The TableStyle object or name of the TableStyle object that should be the new default.
          */
@@ -35390,8 +35523,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a TableStyle, which defines the style elements by region of the Table.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class TableStyle extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35400,16 +35532,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the name of the TableStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         name: string;
         /**
          *
          * Specifies whether this TableStyle object is read-only. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly readOnly: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -35430,16 +35560,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the TableStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Creates a duplicate of this TableStyle with copies of all the style elements.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The new TableStyle object that has been duplicated from this TableStyle.
          */
         duplicate(): Excel.TableStyle;
@@ -35474,8 +35602,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of PivotTable styles.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class PivotTableStyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35486,8 +35613,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a blank PivotTableStyle with the specified name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name The unique name for the new PivotTableStyle. Will throw an invalid argument exception if the name is already in use.
          * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
@@ -35498,16 +35624,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of PivotTable styles in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets the default PivotTableStyle for the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The PivotTableStyle object that is the current default PivotTableStyle.
          */
         getDefault(): Excel.PivotTableStyle;
@@ -35515,8 +35639,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a PivotTableStyle by name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the PivotTableStyle to be retrieved.
          * @returns The PivotTableStyle object whose name matches the input.
@@ -35526,8 +35649,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a PivotTableStyle by name. If the PivotTableStyle does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the PivotTableStyle to be retrieved.
          * @returns The PivotTableStyle object whose name matches the input.
@@ -35537,8 +35659,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Sets the default PivotTableStyle for use in the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param newDefaultStyle The PivotTableStyle object or name of the PivotTableStyle object that should be the new default.
          */
@@ -35571,8 +35692,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a PivotTable Style, which defines style elements by PivotTable region.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class PivotTableStyle extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35581,16 +35701,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the name of the PivotTableStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         name: string;
         /**
          *
          * Specifies whether this PivotTableStyle object is read-only. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly readOnly: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -35611,16 +35729,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the PivotTableStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Creates a duplicate of this PivotTableStyle with copies of all the style elements.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The new PivotTableStyle object that has been duplicated from this PivotTableStyle.
          */
         duplicate(): Excel.PivotTableStyle;
@@ -35655,8 +35771,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of SlicerStyle objects.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class SlicerStyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35667,8 +35782,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a blank SlicerStyle with the specified name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name The unique name for the new SlicerStyle. Will throw an invalid argument exception if the name is already in use.
          * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
@@ -35679,16 +35793,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of slicer styles in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets the default SlicerStyle for the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The SlicerStyle object that is the current default SlicerStyle.
          */
         getDefault(): Excel.SlicerStyle;
@@ -35696,8 +35808,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a SlicerStyle by name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the SlicerStyle to be retrieved.
          * @returns The SlicerStyle object whose name matches the input.
@@ -35707,8 +35818,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a SlicerStyle by name. If the SlicerStyle does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the SlicerStyle to be retrieved.
          * @returns The SlicerStyle object whose name matches the input.
@@ -35718,8 +35828,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Sets the default SlicerStyle for use in the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param newDefaultStyle The SlicerStyle object or name of the SlicerStyle object that should be the new default.
          */
@@ -35752,8 +35861,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a Slicer Style, which defines style elements by region of the slicer.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class SlicerStyle extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35762,16 +35870,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the name of the SlicerStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         name: string;
         /**
          *
          * Specifies whether this SlicerStyle object is read-only. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly readOnly: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -35792,16 +35898,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the SlicerStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Creates a duplicate of this SlicerStyle with copies of all the style elements.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The new SlicerStyle object that has been duplicated from this SlicerStyle.
          */
         duplicate(): Excel.SlicerStyle;
@@ -35836,8 +35940,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of TimelineStyles.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class TimelineStyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35848,8 +35951,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a blank TimelineStyle with the specified name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name The unique name for the new TimelineStyle. Will throw an invalid argument exception if the name is already in use.
          * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
@@ -35860,16 +35962,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of timeline styles in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets the default TimelineStyle for the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The TimelineStyle object that is the current default TimelineStyle.
          */
         getDefault(): Excel.TimelineStyle;
@@ -35877,8 +35977,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a TimelineStyle by name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the TimelineStyle to be retrieved.
          * @returns The TimelineStyle object whose name matches the input.
@@ -35888,8 +35987,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a TimelineStyle by name. If the TimelineStyle does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param name Name of the TimelineStyle to be retrieved.
          * @returns The TimelineStyle object whose name matches the input.
@@ -35899,8 +35997,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Sets the default TimelineStyle for use in the parent object's scope.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param newDefaultStyle The TimelineStyle object or name of the TimelineStyle object that should be the new default.
          */
@@ -35933,8 +36030,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a Timeline style, which defines style elements by region in the Timeline.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class TimelineStyle extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -35943,16 +36039,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the name of the TimelineStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         name: string;
         /**
          *
          * Specifies whether this TimelineStyle object is read-only. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly readOnly: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -35973,16 +36067,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the TableStyle.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Creates a duplicate of this TimelineStyle with copies of all the style elements.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          * @returns The new TimelineStyle object that has been duplicated from this TimelineStyle.
          */
         duplicate(): Excel.TimelineStyle;
@@ -36797,8 +36889,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents the content contained within a comment or comment reply. Rich content incudes the text string and any other objects contained within the comment body, such as mentions.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     interface CommentRichContent {
         /**
@@ -36806,7 +36897,6 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * An array containing all the entities (e.g. people) mentioned within the comment.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
          */
         mentions?: Excel.CommentMention[];
         richContent: string;
@@ -36815,8 +36905,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of comment objects that are part of the workbook.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class CommentCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -36827,11 +36916,10 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi BETA (PREVIEW ONLY) for string, ExcelApi Preview for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.Comment;
@@ -36839,11 +36927,10 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi BETA (PREVIEW ONLY) for string, ExcelApi Preview for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
@@ -36851,16 +36938,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of comments in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets a comment from the collection based on its ID. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param commentId The identifier for the comment.
          */
@@ -36869,8 +36954,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a comment from the collection based on its position.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param index Index value of the object to be retrieved. Zero-indexed.
          */
@@ -36879,8 +36963,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the comment from the specified cell.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell which the comment is on. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          */
@@ -36889,8 +36972,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the comment to which the given reply is connected.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param replyId The identifier of comment reply.
          */
@@ -36923,8 +37005,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a comment in the workbook.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class Comment extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -36933,48 +37014,42 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of reply objects associated with the comment. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly replies: Excel.CommentReplyCollection;
         /**
          *
          * Gets the email of the comment's author.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly authorEmail: string;
         /**
          *
          * Gets the name of the comment's author.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly authorName: string;
         /**
          *
          * Gets or sets the comment's content. The string is plain text.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         content: string;
         /**
          *
          * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly creationDate: Date;
         /**
          *
          * Represents the comment identifier. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly id: string;
         /**
@@ -37019,16 +37094,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the comment and all the connected replies.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Gets the cell where this comment is located.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
         /**
@@ -37072,8 +37145,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of comment reply objects that are part of the comment.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class CommentReplyCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -37084,10 +37156,9 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a comment reply for comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi BETA (PREVIEW ONLY) for string, ExcelApi Preview for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
@@ -37095,10 +37166,9 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Creates a comment reply for comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi BETA (PREVIEW ONLY) for string, ExcelApi Preview for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
@@ -37106,16 +37176,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the number of comment replies in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Returns a comment reply identified by its ID. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param commentReplyId The identifier for the comment reply.
          */
@@ -37124,8 +37192,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a comment reply based on its position in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param index The index value of the comment reply to be retrieved. The collection uses zero-based indexing.
          */
@@ -37158,8 +37225,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a comment reply in the workbook.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class CommentReply extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -37168,40 +37234,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets the email of the comment reply's author.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly authorEmail: string;
         /**
          *
          * Gets the name of the comment reply's author.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly authorName: string;
         /**
          *
          * Gets or sets the comment reply's content. The string is plain text.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         content: string;
         /**
          *
          * Gets the creation time of the comment reply.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly creationDate: Date;
         /**
          *
          * Represents the comment reply identifier. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly id: string;
         /**
@@ -37246,24 +37307,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Deletes the comment reply.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Gets the cell where this comment reply is located.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
         /**
          *
          * Gets the parent comment of this reply.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getParentComment(): Excel.Comment;
         /**
@@ -37586,8 +37644,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents how the object is attached to the cells below it.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         placement: Excel.Placement | "TwoCell" | "OneCell" | "Absolute";
         /**
@@ -37653,8 +37710,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Copies and pastes a Shape object.
             The pasted shape is copied to the same pixel location as this shape.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param destinationSheet The sheet to which the shape object will be pasted. The default value is the copied Shape's worksheet.
          */
@@ -38736,8 +38792,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a slicer object in the workbook.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class Slicer extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -38746,24 +38801,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents the collection of SlicerItems that are part of the slicer. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly slicerItems: Excel.SlicerItemCollection;
         /**
          *
          * Represents the worksheet containing the slicer. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly worksheet: Excel.Worksheet;
         /**
          *
          * Represents the caption of slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         caption: string;
         /**
@@ -38771,24 +38823,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Represents the height, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         height: number;
         /**
          *
          * Represents the unique id of slicer. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly id: string;
         /**
          *
          * True if all filters currently applied on the slicer are cleared.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly isFilterCleared: boolean;
         /**
@@ -38796,16 +38845,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         left: number;
         /**
          *
          * Represents the name of slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         name: string;
         /**
@@ -38820,16 +38867,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents the sort order of the items in the slicer. Possible values are: "DataSourceOrder", "Ascending", "Descending".
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         sortBy: Excel.SlicerSortType | "DataSourceOrder" | "Ascending" | "Descending";
         /**
          *
          * Constant value that represents the Slicer style. Possible values are: "SlicerStyleLight1" through "SlicerStyleLight6", "TableStyleOther1" through "TableStyleOther2", "SlicerStyleDark1" through "SlicerStyleDark6". A custom user-defined style present in the workbook can also be specified.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         style: string;
         /**
@@ -38837,8 +38882,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         top: number;
         /**
@@ -38846,8 +38890,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Represents the width, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         width: number;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -38868,24 +38911,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Clears all the filters currently applied on the slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         clearFilters(): void;
         /**
          *
          * Deletes the slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
          *
          * Returns an array of selected items' keys. Read-only.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getSelectedItems(): OfficeExtension.ClientResult<string[]>;
         /**
@@ -38893,8 +38933,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          * Selects slicer items based on their keys. The previous selections are cleared.
             All items will be selected by default if the array is empty.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param items Optional. The specified slicer item names to be selected.
          */
@@ -38930,8 +38969,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of all the slicer objects on the workbook or a worksheet.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class SlicerCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -38942,8 +38980,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Adds a new slicer to the workbook.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param slicerSource The data source that the new slicer will be based on. It can be a PivotTable object, a Table object or a string. When a PivotTable object is passed, the data source is the source of the PivotTable object. When a Table object is passed, the data source is the Table object. When a string is passed, it is interpreted as the name/id of a PivotTable/Table.
          * @param sourceField The field in the data source to filter by. It can be a PivotField object, a TableColumn object, the id of a PivotField or the id/name of TableColumn.
@@ -38955,16 +38992,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Returns the number of slicers in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets a slicer object using its name or id.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param key The name or id of the slicer.
          */
@@ -38973,8 +39008,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a slicer based on its position in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param index Index value of the object to be retrieved. Zero-indexed.
          */
@@ -38983,8 +39017,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a slicer using its name or id. If the slicer does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param key Name or Id of the slicer to be retrieved.
          */
@@ -39017,8 +39050,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a slicer item in a slicer.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class SlicerItem extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -39027,8 +39059,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * True if the slicer item has data.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly hasData: boolean;
         /**
@@ -39037,24 +39068,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
             Setting this value will not clear other SlicerItems' selected state.
             By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         isSelected: boolean;
         /**
          *
          * Represents the unique value representing the slicer item.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly key: string;
         /**
          *
          * Represents the title displayed in the UI.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         readonly name: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -39102,8 +39130,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Represents a collection of all the slicer item objects on the slicer.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     class SlicerItemCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -39114,16 +39141,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Returns the number of slicer items in the slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
          * Gets a slicer item object using its key or name.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param key The key or name of the slicer item.
          */
@@ -39132,8 +39157,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a slicer item based on its position in the collection.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param index Index value of the object to be retrieved. Zero-indexed.
          */
@@ -39142,8 +39166,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Gets a slicer item using its key or name. If the slicer item does not exist, will return a null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          *
          * @param key Key or name of the slicer to be retrieved.
          */
@@ -41327,8 +41350,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         flashFill = "FlashFill"
     }
     /**
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     enum GroupOption {
         /**
@@ -41557,8 +41579,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         curve = "Curve"
     }
     /**
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     enum ContentType {
         /**
@@ -41941,8 +41962,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
      *
      * Specifies the slicer sort behavior for Slicer.sortBy API.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApi 1.10]
      */
     enum SlicerSortType {
         /**
@@ -45800,6 +45820,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
         rangeExceedsLimit = "RangeExceedsLimit",
+        requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
         invalidOperationInCellEditMode = "InvalidOperationInCellEditMode"
     }
@@ -46268,7 +46289,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -46815,7 +46836,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the legend field buttons on a PivotChart
+             * Specifies whether or not to display the legend field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46829,7 +46850,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the show value field buttons on a PivotChart
+             * Specifies whether or not to display the show value field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48637,8 +48658,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Specifies whether the field list can be shown in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             enableFieldList?: boolean;
             /**
@@ -49630,8 +49650,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
         }
@@ -49645,8 +49664,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the PivotTableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
         }
@@ -49660,8 +49678,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the SlicerStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
         }
@@ -49675,8 +49692,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TimelineStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
         }
@@ -49945,8 +49961,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets or sets the comment's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: string;
             /**
@@ -49968,8 +49983,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets or sets the comment reply's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: string;
         }
@@ -50048,8 +50062,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents how the object is attached to the cells below it.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             placement?: Excel.Placement | "TwoCell" | "OneCell" | "Absolute";
             /**
@@ -50349,16 +50362,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents the worksheet containing the slicer.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             worksheet?: Excel.Interfaces.WorksheetUpdateData;
             /**
              *
              * Represents the caption of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             caption?: string;
             /**
@@ -50366,8 +50377,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the height, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: number;
             /**
@@ -50375,16 +50385,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: number;
             /**
              *
              * Represents the name of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
@@ -50399,16 +50407,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents the sort order of the items in the slicer. Possible values are: "DataSourceOrder", "Ascending", "Descending".
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             sortBy?: Excel.SlicerSortType | "DataSourceOrder" | "Ascending" | "Descending";
             /**
              *
              * Constant value that represents the Slicer style. Possible values are: "SlicerStyleLight1" through "SlicerStyleLight6", "TableStyleOther1" through "TableStyleOther2", "SlicerStyleDark1" through "SlicerStyleDark6". A custom user-defined style present in the workbook can also be specified.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             style?: string;
             /**
@@ -50416,8 +50422,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: number;
             /**
@@ -50425,8 +50430,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the width, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: number;
         }
@@ -50442,8 +50446,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             Setting this value will not clear other SlicerItems' selected state.
             By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isSelected?: boolean;
         }
@@ -50463,6 +50466,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
         }
         /** An interface describing the data returned by calling `application.toJSON()`. */
         interface ApplicationData {
+            /**
+            *
+            * Provides information based on current system culture settings. This includes the culture names, number formatting, and other culturally dependent settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            cultureInfo?: Excel.Interfaces.CultureInfoData;
             /**
             *
             * Returns the Iterative Calculation settings.
@@ -50493,6 +50504,31 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * [Api set: ExcelApi 1.9]
              */
             calculationState?: Excel.CalculationState | "Done" | "Calculating" | "Pending";
+            /**
+             *
+             * Gets the string used as the decimal separator for numeric values. This is based on Excel's local settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            decimalSeparator?: string;
+            /**
+             *
+             * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on Excel's local settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            thousandsSeparator?: string;
+            /**
+             *
+             * Specifies whether the system separators of Microsoft Excel are enabled.
+            System separators include the decimal separator and thousands separator.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            useSystemSeparators?: boolean;
         }
         /** An interface describing the data returned by calling `iterativeCalculation.toJSON()`. */
         interface IterativeCalculationData {
@@ -50531,8 +50567,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of Comments associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             comments?: Excel.Interfaces.CommentData[];
             /**
@@ -50553,8 +50588,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of PivotTableStyles associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             pivotTableStyles?: Excel.Interfaces.PivotTableStyleData[];
             /**
@@ -50589,16 +50623,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of SlicerStyles associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             slicerStyles?: Excel.Interfaces.SlicerStyleData[];
             /**
             *
             * Represents a collection of Slicers associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             slicers?: Excel.Interfaces.SlicerData[];
             /**
@@ -50612,8 +50644,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of TableStyles associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             tableStyles?: Excel.Interfaces.TableStyleData[];
             /**
@@ -50627,8 +50658,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of TimelineStyles associated with the workbook. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             timelineStyles?: Excel.Interfaces.TimelineStyleData[];
             /**
@@ -50730,7 +50760,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             autoFilter?: Excel.Interfaces.AutoFilterData;
             /**
             *
-            * Returns collection of charts that are part of the worksheet. Read-only.
+            * Returns a collection of charts that are part of the worksheet. Read-only.
             *
             * [Api set: ExcelApi 1.1]
             */
@@ -50739,8 +50769,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Returns a collection of all the Comments objects on the worksheet. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             comments?: Excel.Interfaces.CommentData[];
             /**
@@ -50787,10 +50816,9 @@ For more information, read {@link https://support.office.com/article/video-use-a
             shapes?: Excel.Interfaces.ShapeData[];
             /**
             *
-            * Returns collection of slicers that are part of the worksheet. Read-only.
+            * Returns a collection of slicers that are part of the worksheet. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             slicers?: Excel.Interfaces.SlicerData[];
             /**
@@ -51008,8 +51036,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: number;
             /**
@@ -51044,8 +51071,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: number;
             /**
@@ -51125,8 +51151,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: number;
             /**
@@ -51148,8 +51173,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: number;
         }
@@ -51558,7 +51582,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -52179,7 +52203,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the legend field buttons on a PivotChart
+             * Specifies whether or not to display the legend field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52193,7 +52217,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the show value field buttons on a PivotChart
+             * Specifies whether or not to display the show value field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54171,6 +54195,44 @@ For more information, read {@link https://support.office.com/article/video-use-a
              */
             isDataFiltered?: boolean;
         }
+        /** An interface describing the data returned by calling `cultureInfo.toJSON()`. */
+        interface CultureInfoData {
+            /**
+            *
+            * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            numberFormatInfo?: Excel.Interfaces.NumberFormatInfoData;
+            /**
+             *
+             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface describing the data returned by calling `numberFormatInfo.toJSON()`. */
+        interface NumberFormatInfoData {
+            /**
+             *
+             * Gets the string used as the decimal separator for numeric values. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            numberDecimalSeparator?: string;
+            /**
+             *
+             * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            numberGroupSeparator?: string;
+        }
         /** An interface describing the data returned by calling `customXmlPartScopedCollection.toJSON()`. */
         interface CustomXmlPartScopedCollectionData {
             items?: Excel.Interfaces.CustomXmlPartData[];
@@ -54279,8 +54341,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Specifies whether the field list can be shown in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             enableFieldList?: boolean;
             /**
@@ -55391,16 +55452,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
              *
              * Specifies whether this TableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -55414,16 +55473,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the PivotTableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
              *
              * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -55437,16 +55494,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the SlicerStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
              *
              * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -55460,16 +55515,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TimelineStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
              *
              * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -55755,48 +55808,42 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents a collection of reply objects associated with the comment. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             replies?: Excel.Interfaces.CommentReplyData[];
             /**
              *
              * Gets the email of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: string;
             /**
              *
              * Gets the name of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: string;
             /**
              *
              * Gets or sets the comment's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: string;
             /**
              *
              * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: Date;
             /**
              *
              * Represents the comment identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: string;
             /**
@@ -55834,40 +55881,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the email of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: string;
             /**
              *
              * Gets the name of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: string;
             /**
              *
              * Gets or sets the comment reply's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: string;
             /**
              *
              * Gets the creation time of the comment reply.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: Date;
             /**
              *
              * Represents the comment reply identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: string;
             /**
@@ -55991,8 +56033,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents how the object is attached to the cells below it.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             placement?: Excel.Placement | "TwoCell" | "OneCell" | "Absolute";
             /**
@@ -56399,24 +56440,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents the collection of SlicerItems that are part of the slicer. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             slicerItems?: Excel.Interfaces.SlicerItemData[];
             /**
             *
             * Represents the worksheet containing the slicer. Read-only.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             worksheet?: Excel.Interfaces.WorksheetData;
             /**
              *
              * Represents the caption of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             caption?: string;
             /**
@@ -56424,24 +56462,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the height, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: number;
             /**
              *
              * Represents the unique id of slicer. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: string;
             /**
              *
              * True if all filters currently applied on the slicer are cleared.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isFilterCleared?: boolean;
             /**
@@ -56449,16 +56484,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: number;
             /**
              *
              * Represents the name of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
             /**
@@ -56473,16 +56506,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents the sort order of the items in the slicer. Possible values are: "DataSourceOrder", "Ascending", "Descending".
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             sortBy?: Excel.SlicerSortType | "DataSourceOrder" | "Ascending" | "Descending";
             /**
              *
              * Constant value that represents the Slicer style. Possible values are: "SlicerStyleLight1" through "SlicerStyleLight6", "TableStyleOther1" through "TableStyleOther2", "SlicerStyleDark1" through "SlicerStyleDark6". A custom user-defined style present in the workbook can also be specified.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             style?: string;
             /**
@@ -56490,8 +56521,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: number;
             /**
@@ -56499,8 +56529,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the width, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: number;
         }
@@ -56514,8 +56543,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * True if the slicer item has data.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             hasData?: boolean;
             /**
@@ -56524,24 +56552,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
             Setting this value will not clear other SlicerItems' selected state.
             By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isSelected?: boolean;
             /**
              *
              * Represents the unique value representing the slicer item.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             key?: string;
             /**
              *
              * Represents the title displayed in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: string;
         }
@@ -56598,6 +56623,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
             $all?: boolean;
             /**
             *
+            * Provides information based on current system culture settings. This includes the culture names, number formatting, and other culturally dependent settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            cultureInfo?: Excel.Interfaces.CultureInfoLoadOptions;
+            /**
+            *
             * Returns the Iterative Calculation settings.
             In Excel on Windows and Mac, the settings will apply to the Excel Application.
             In Excel on the web and other platforms, the settings will apply to the active workbook.
@@ -56626,6 +56659,31 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * [Api set: ExcelApi 1.9]
              */
             calculationState?: boolean;
+            /**
+             *
+             * Gets the string used as the decimal separator for numeric values. This is based on Excel's local settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            decimalSeparator?: boolean;
+            /**
+             *
+             * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on Excel's local settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            thousandsSeparator?: boolean;
+            /**
+             *
+             * Specifies whether the system separators of Microsoft Excel are enabled.
+            System separators include the decimal separator and thousands separator.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            useSystemSeparators?: boolean;
         }
         /**
          *
@@ -56815,7 +56873,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             autoFilter?: Excel.Interfaces.AutoFilterLoadOptions;
             /**
             *
-            * Returns collection of charts that are part of the worksheet.
+            * Returns a collection of charts that are part of the worksheet.
             *
             * [Api set: ExcelApi 1.1]
             */
@@ -56938,7 +56996,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             autoFilter?: Excel.Interfaces.AutoFilterLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns collection of charts that are part of the worksheet.
+            * For EACH ITEM in the collection: Returns a collection of charts that are part of the worksheet.
             *
             * [Api set: ExcelApi 1.1]
             */
@@ -57181,8 +57239,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: boolean;
             /**
@@ -57217,8 +57274,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: boolean;
             /**
@@ -57298,8 +57354,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: boolean;
             /**
@@ -57321,8 +57376,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: boolean;
         }
@@ -58001,7 +58055,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showTotals?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -58125,7 +58179,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showTotals?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -58250,7 +58304,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleDark1" through "TableStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -59278,7 +59332,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the legend field buttons on a PivotChart
+             * Specifies whether or not to display the legend field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59292,7 +59346,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Specifies whether or not to display the show value field buttons on a PivotChart
+             * Specifies whether or not to display the show value field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62139,6 +62193,64 @@ For more information, read {@link https://support.office.com/article/video-use-a
         }
         /**
          *
+         * Provides information based on current system culture settings. This includes the culture names, number formatting, and other culturally dependent settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface CultureInfoLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            numberFormatInfo?: Excel.Interfaces.NumberFormatInfoLoadOptions;
+            /**
+             *
+             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+        }
+        /**
+         *
+         * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface NumberFormatInfoLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the string used as the decimal separator for numeric values. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            numberDecimalSeparator?: boolean;
+            /**
+             *
+             * Gets the string used to separate groups of digits to the left of the decimal for numeric values. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            numberGroupSeparator?: boolean;
+        }
+        /**
+         *
          * A scoped collection of custom XML parts.
             A scoped collection is the result of some operation, e.g. filtering by namespace.
             A scoped collection cannot be scoped any further.
@@ -62348,8 +62460,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Specifies whether the field list can be shown in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             enableFieldList?: boolean;
             /**
@@ -64247,8 +64358,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of TableStyles.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface TableStyleCollectionLoadOptions {
             /**
@@ -64259,16 +64369,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the name of the TableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies whether this TableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64276,8 +64384,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a TableStyle, which defines the style elements by region of the Table.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface TableStyleLoadOptions {
             /**
@@ -64288,16 +64395,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * Specifies whether this TableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64305,8 +64410,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of PivotTable styles.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface PivotTableStyleCollectionLoadOptions {
             /**
@@ -64317,16 +64421,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the name of the PivotTableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64334,8 +64436,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a PivotTable Style, which defines style elements by PivotTable region.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface PivotTableStyleLoadOptions {
             /**
@@ -64346,16 +64447,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the PivotTableStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64363,8 +64462,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of SlicerStyle objects.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerStyleCollectionLoadOptions {
             /**
@@ -64375,16 +64473,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the name of the SlicerStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies whether this SlicerStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64392,8 +64488,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a Slicer Style, which defines style elements by region of the slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerStyleLoadOptions {
             /**
@@ -64404,16 +64499,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the SlicerStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64421,8 +64514,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of TimelineStyles.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface TimelineStyleCollectionLoadOptions {
             /**
@@ -64433,16 +64525,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the name of the TimelineStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies whether this TimelineStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64450,8 +64540,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a Timeline style, which defines style elements by region in the Timeline.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface TimelineStyleLoadOptions {
             /**
@@ -64462,16 +64551,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the name of the TimelineStyle.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
              *
              * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             readOnly?: boolean;
         }
@@ -64898,8 +64985,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: boolean;
             /**
@@ -64934,8 +65020,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: boolean;
             /**
@@ -65015,8 +65100,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: boolean;
             /**
@@ -65038,8 +65122,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: boolean;
         }
@@ -65047,8 +65130,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of comment objects that are part of the workbook.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface CommentCollectionLoadOptions {
             /**
@@ -65059,40 +65141,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the email of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the name of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the comment's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the comment identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
@@ -65124,8 +65201,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a comment in the workbook.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface CommentLoadOptions {
             /**
@@ -65136,40 +65212,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the email of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: boolean;
             /**
              *
              * Gets the name of the comment's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: boolean;
             /**
              *
              * Gets or sets the comment's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
             /**
              *
              * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: boolean;
             /**
              *
              * Represents the comment identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
@@ -65201,8 +65272,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of comment reply objects that are part of the comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface CommentReplyCollectionLoadOptions {
             /**
@@ -65213,40 +65283,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Gets the email of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the name of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the comment reply's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the creation time of the comment reply.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the comment reply identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
@@ -65278,8 +65343,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a comment reply in the workbook.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface CommentReplyLoadOptions {
             /**
@@ -65290,40 +65354,35 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Gets the email of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorEmail?: boolean;
             /**
              *
              * Gets the name of the comment reply's author.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             authorName?: boolean;
             /**
              *
              * Gets or sets the comment reply's content. The string is plain text.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
             /**
              *
              * Gets the creation time of the comment reply.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             creationDate?: boolean;
             /**
              *
              * Represents the comment reply identifier. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
@@ -65494,8 +65553,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Represents how the object is attached to the cells below it.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             placement?: boolean;
             /**
@@ -65687,8 +65745,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents how the object is attached to the cells below it.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             placement?: boolean;
             /**
@@ -65964,8 +66021,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Represents how the object is attached to the cells below it.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             placement?: boolean;
             /**
@@ -66404,8 +66460,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a slicer object in the workbook.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerLoadOptions {
             /**
@@ -66416,16 +66471,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * Represents the worksheet containing the slicer.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
              * Represents the caption of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             caption?: boolean;
             /**
@@ -66433,24 +66486,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the height, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: boolean;
             /**
              *
              * Represents the unique id of slicer. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
              *
              * True if all filters currently applied on the slicer are cleared.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isFilterCleared?: boolean;
             /**
@@ -66458,16 +66508,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: boolean;
             /**
              *
              * Represents the name of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
@@ -66482,16 +66530,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * Represents the sort order of the items in the slicer. Possible values are: "DataSourceOrder", "Ascending", "Descending".
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             sortBy?: boolean;
             /**
              *
              * Constant value that represents the Slicer style. Possible values are: "SlicerStyleLight1" through "SlicerStyleLight6", "TableStyleOther1" through "TableStyleOther2", "SlicerStyleDark1" through "SlicerStyleDark6". A custom user-defined style present in the workbook can also be specified.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             style?: boolean;
             /**
@@ -66499,8 +66545,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: boolean;
             /**
@@ -66508,8 +66553,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * Represents the width, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: boolean;
         }
@@ -66517,8 +66561,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of all the slicer objects on the workbook or a worksheet.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerCollectionLoadOptions {
             /**
@@ -66529,16 +66572,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
             *
             * For EACH ITEM in the collection: Represents the worksheet containing the slicer.
             *
-            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-            * @beta
+            * [Api set: ExcelApi 1.10]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
              * For EACH ITEM in the collection: Represents the caption of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             caption?: boolean;
             /**
@@ -66546,24 +66587,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * For EACH ITEM in the collection: Represents the height, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             height?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the unique id of slicer. Read-only.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
             /**
              *
              * For EACH ITEM in the collection: True if all filters currently applied on the slicer are cleared.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isFilterCleared?: boolean;
             /**
@@ -66571,16 +66609,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * For EACH ITEM in the collection: Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             left?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the name of slicer.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
             /**
@@ -66595,16 +66631,14 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: Represents the sort order of the items in the slicer. Possible values are: "DataSourceOrder", "Ascending", "Descending".
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             sortBy?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Constant value that represents the Slicer style. Possible values are: "SlicerStyleLight1" through "SlicerStyleLight6", "TableStyleOther1" through "TableStyleOther2", "SlicerStyleDark1" through "SlicerStyleDark6". A custom user-defined style present in the workbook can also be specified.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             style?: boolean;
             /**
@@ -66612,8 +66646,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * For EACH ITEM in the collection: Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             top?: boolean;
             /**
@@ -66621,8 +66654,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              * For EACH ITEM in the collection: Represents the width, in points, of the slicer.
             Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             width?: boolean;
         }
@@ -66630,8 +66662,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a slicer item in a slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerItemLoadOptions {
             /**
@@ -66642,8 +66673,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * True if the slicer item has data.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             hasData?: boolean;
             /**
@@ -66652,24 +66682,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
             Setting this value will not clear other SlicerItems' selected state.
             By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isSelected?: boolean;
             /**
              *
              * Represents the unique value representing the slicer item.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             key?: boolean;
             /**
              *
              * Represents the title displayed in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
         }
@@ -66677,8 +66704,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
          *
          * Represents a collection of all the slicer item objects on the slicer.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApi 1.10]
          */
         interface SlicerItemCollectionLoadOptions {
             /**
@@ -66689,8 +66715,7 @@ For more information, read {@link https://support.office.com/article/video-use-a
              *
              * For EACH ITEM in the collection: True if the slicer item has data.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             hasData?: boolean;
             /**
@@ -66699,24 +66724,21 @@ For more information, read {@link https://support.office.com/article/video-use-a
             Setting this value will not clear other SlicerItems' selected state.
             By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             isSelected?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the unique value representing the slicer item.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             key?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the title displayed in the UI.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApi 1.10]
              */
             name?: boolean;
         }

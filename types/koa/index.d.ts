@@ -12,7 +12,7 @@
     import * as Koa from "koa"
     const app = new Koa()
 
-    async function (ctx: Koa.Context, next: Function) {
+    async function (ctx: Koa.Context, next: Koa.Next) {
       // ...
     }
 
@@ -729,6 +729,8 @@ declare namespace Application {
     } & CustomT;
 
     interface Context extends ParameterizedContext {}
+
+    type Next = () => Promise<any>;
 }
 
 export = Application;

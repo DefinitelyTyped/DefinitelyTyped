@@ -351,7 +351,7 @@ declare namespace Joi {
         /**
          * Validate the domain component using the options specified in `string.domain()`.
          */
-        domain?: boolean;
+        domain?: DomainOptions;
     }
 
     interface DataUriOptions {
@@ -660,9 +660,9 @@ declare namespace Joi {
 
     type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
 
-    interface SchemaMap {
-        [key: string]: SchemaLike | SchemaLike[];
-    }
+    type SchemaMap<TSchema = any> = {
+        [key in keyof TSchema]?: SchemaLike | SchemaLike[];
+    };
 
     type Schema = AnySchema
         | ArraySchema
@@ -1502,7 +1502,7 @@ declare namespace Joi {
         matches: SchemaLike | Reference;
     }
 
-    interface ObjectSchema extends AnySchema {
+    interface ObjectSchema<TSchema = any> extends AnySchema {
         /**
          * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
          *
@@ -1513,7 +1513,7 @@ declare namespace Joi {
         /**
          * Appends the allowed object keys. If schema is null, undefined, or {}, no changes will be applied.
          */
-        append(schema?: SchemaMap): this;
+        append(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Verifies an assertion where.
@@ -1532,7 +1532,7 @@ declare namespace Joi {
         /**
          * Sets or extends the allowed object keys.
          */
-        keys(schema?: SchemaMap): this;
+        keys(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Specifies the exact number of keys in the object.
@@ -1919,7 +1919,7 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        object(schema?: SchemaMap): ObjectSchema;
+        object<TSchema = any>(schema?: SchemaMap<TSchema>): ObjectSchema<TSchema>;
 
         /**
          * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').

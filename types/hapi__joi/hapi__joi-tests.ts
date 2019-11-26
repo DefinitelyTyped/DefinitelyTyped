@@ -110,6 +110,7 @@ uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
 uriOpts = { scheme: strArr };
 uriOpts = { scheme: expArr };
+uriOpts = { domain: domainOpts };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -1098,4 +1099,43 @@ schema = Joi.symbol();
 schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test generic types
+
+interface User {
+    name: string;
+    family?: string;
+    age: number;
+}
+
+const userSchemaObject = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+let userSchema = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+userSchema = userSchema.append({
+    age: Joi.number(),
+});
+
+userSchema = userSchema.append({
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaError = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaObjectError = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
 });
