@@ -1,5 +1,5 @@
-import { BlankNode, DataFactory, DefaultGraph, Literal, NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term,
-  Variable, Quad_Graph } from "rdf-js";
+import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, DefaultGraph, Literal, NamedNode, Quad, BaseQuad,
+  Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -116,4 +116,46 @@ function test_stream() {
     const eventEmitter11: EventEmitter = store.removeMatches(term, term, term, /.*/);
     const eventEmitter12: EventEmitter = store.deleteGraph(graph);
     const eventEmitter13: EventEmitter = store.deleteGraph('http://example.org');
+}
+
+function test_dataset() {
+    interface QuadBnode extends BaseQuad {
+        subject: Term;
+        predicate: Term;
+        object: Term;
+        graph: Term;
+    }
+
+    const quad: Quad = <any> {};
+    const quadBnode: QuadBnode = <any> {};
+    const term: Term = <any> {};
+
+    const datasetCoreFactory1: DatasetCoreFactory = <any> {};
+    const datasetCoreFactory2: DatasetCoreFactory<QuadBnode> = <any> {};
+
+    const dataset1: DatasetCore = datasetCoreFactory1.dataset();
+    const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
+    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+
+    const dataset2Size: number = dataset2.size;
+    const dataset2Add: DatasetCore = dataset2.add(quad);
+    const dataset2Delete: DatasetCore = dataset2.delete(quad);
+    const dataset2Has: boolean = dataset2.has(quad);
+    const dataset2Match1: DatasetCore = dataset2.match();
+    const dataset2Match2: DatasetCore = dataset2.match(term);
+    const dataset2Match3: DatasetCore = dataset2.match(term, term);
+    const dataset2Match4: DatasetCore = dataset2.match(term, term, term);
+    const dataset2Match5: DatasetCore = dataset2.match(term, term, term, term);
+    const dataset2Iterable: Iterable<Quad> = dataset2;
+
+    const dataset3Size: number = dataset3.size;
+    const dataset3Add: DatasetCore<QuadBnode> = dataset3.add(quadBnode);
+    const dataset3Delete: DatasetCore<QuadBnode> = dataset3.delete(quadBnode);
+    const dataset3Has: boolean = dataset3.has(quadBnode);
+    const dataset3Match1: DatasetCore<QuadBnode> = dataset3.match();
+    const dataset3Match2: DatasetCore<QuadBnode> = dataset3.match(term);
+    const dataset3Match3: DatasetCore<QuadBnode> = dataset3.match(term, term);
+    const dataset3Match4: DatasetCore<QuadBnode> = dataset3.match(term, term, term);
+    const dataset3Match5: DatasetCore<QuadBnode> = dataset3.match(term, term, term, term);
+    const dataset3Iterable: Iterable<QuadBnode> = dataset3;
 }
