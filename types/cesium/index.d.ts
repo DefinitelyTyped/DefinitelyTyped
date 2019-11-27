@@ -2279,6 +2279,9 @@ declare namespace Cesium {
             outlineWidth?: number;
             show?: Property;
             scale?: Property;
+            showBackground?: Property;
+            backgroundColor?: Property;
+            backgroundPadding?: Property;
             horizontalOrigin?: Property;
             verticalOrigin?: Property;
             eyeOffset?: Property;
