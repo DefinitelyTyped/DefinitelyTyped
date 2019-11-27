@@ -2233,7 +2233,7 @@ declare namespace Cesium {
     class ImageMaterialProperty extends MaterialProperty {
         image: Property;
         repeat: Property;
-        constructor(options?: { image?: Property; repeat?: Property });
+        constructor(options?: { image?: Property; repeat?: Property, color?: Property, transparent?: Property });
     }
 
     class KmlDataSource extends DataSource {
@@ -2284,8 +2284,10 @@ declare namespace Cesium {
             eyeOffset?: Property;
             pixelOffset?: Property;
             translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property
+            pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
+            scaleByDistance?: Property;
+            distanceDisplayCondition?: Property;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
