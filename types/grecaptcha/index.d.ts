@@ -8,6 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
+export = grecaptcha;
 
 declare namespace ReCaptchaV2 {
   interface ReCaptcha {
