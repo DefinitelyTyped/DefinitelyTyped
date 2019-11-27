@@ -8,7 +8,6 @@
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
-//                 Dan Rumney <https://github.com/dancrumb>
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
