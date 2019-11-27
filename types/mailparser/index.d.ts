@@ -45,7 +45,7 @@ export type Headers = Map<string, HeaderValue>;
 /**
  * An array of raw header lines
  */
-export type HeaderLines = Array<{
+export type HeaderLines = ReadonlyArray<{
     key: string;
     line: string;
 }>;
