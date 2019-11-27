@@ -521,8 +521,9 @@ export interface PlotData {
 	marker: Partial<PlotMarker>;
 	'marker.symbol': string | string[]; // Drawing.symbolList
 	'marker.color': Color;
+	'marker.colorscale': ColorScale | ColorScale[];
 	'marker.opacity': number | number[];
-	'marker.size': number | number[];
+	'marker.size': number | number[] | number[][];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
 	'marker.sizemax': number;
@@ -530,6 +531,8 @@ export interface PlotData {
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
+	'marker.line.color': Color;
+	'marker.line.colorscale': ColorScale | ColorScale[];
 	'marker.colorbar': {}; // TODO
 	'marker.pad.t': number;
 	'marker.pad.b': number;
