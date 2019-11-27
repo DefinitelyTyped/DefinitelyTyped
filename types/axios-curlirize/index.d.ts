@@ -7,8 +7,12 @@ export = AxiosCurlirize;
 
 import { AxiosStatic } from 'axios';
 
+interface Result {
+    command: string;
+}
+
 interface Callback {
-    (error: Error, result?: number): void;
+    (result: Result, error: Error): void;
 }
 
 declare function AxiosCurlirize(instance: AxiosStatic, callback?: Callback): void;
