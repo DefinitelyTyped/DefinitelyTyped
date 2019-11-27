@@ -5277,7 +5277,13 @@ declare namespace Cesium {
         flipXY?: boolean
     }): UrlTemplateImageryProvider;
 
-    function when(promise: Promise<any>, callback?: Function): Promise<any>;
+    function when(promise: Promise<any>, callback?: Function): {
+        then: (e: any) => Promise<any>;
+        always: (e: any, t: any) => Promise<any>;
+        otherwise: (e: any) => Promise<any>;
+        spread: (t: any) => Promise<any>;
+        yield: (e: any) => Promise<any>;
+    };
 
     class Ion {
         static defaultAccessToken : string;
