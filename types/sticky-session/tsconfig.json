@@ -17,6 +17,7 @@
         "strictFunctionTypes": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "sticky-session-tests.ts"
     ]
 }
