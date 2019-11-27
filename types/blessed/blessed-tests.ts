@@ -59,6 +59,11 @@ const extraProps = blessed.box({
   id: 'box3'
 });
 
+// Props on `progressbar()` are optional
+const progressbar = blessed.progressbar({
+  parent: screen
+});
+
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
 
 screen = blessed.screen({

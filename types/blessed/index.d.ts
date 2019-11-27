@@ -2974,32 +2974,32 @@ export namespace Widgets {
         /**
          * can be `horizontal` or `vertical`.
          */
-        orientation: string;
+        orientation?: string;
 
         /**
          * the character to fill the bar with (default is space).
          */
-        pch: string;
+        pch?: string;
 
         /**
          * the amount filled (0 - 100).
          */
-        filled: number;
+        filled?: number;
 
         /**
          * same as `filled`.
          */
-        value: number;
+        value?: number;
 
         /**
          * enable key support.
          */
-        keys: boolean;
+        keys?: boolean;
 
         /**
          * enable mouse support.
          */
-        mouse: boolean;
+        mouse?: boolean;
     }
 
     /**
