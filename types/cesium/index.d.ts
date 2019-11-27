@@ -49,31 +49,30 @@ declare namespace Cesium {
         static intersect(box: AxisAlignedBoundingBox, plane: Cartesian4): Intersect;
     }
 
-    class PostProcessStageLibrary {
-        static createBlackAndWhiteStage: () => PostProcessStage;
-        static createBlurStage: () => PostProcessStageComposite;
-        static createBrightnessStage: () => PostProcessStage;
-        static createDepthOfFieldStage: () => PostProcessStageComposite;
-        static createEdgeDetectionStage: () => PostProcessStage;
-        static createLensFlareStage: () => PostProcessStageComposite;
-        static createNightVisionStage: () => PostProcessStage;
-        static createSilhouetteStage: () => PostProcessStageComposite;
-        static isAmbientOcclusionSupported: (scene: Scene) => boolean;
-        static isDepthOfFieldSupported: (scene: Scene) => boolean;
-        static isEdgeDetectionSupported: (scene: Scene) => boolean;
-        static isSilhouetteSupported: (scene: Scene) => boolean;
+    namespace PostProcessStageLibrary {
+        type createBlackAndWhiteStage = () => PostProcessStage;
+        type createBlurStage = () => PostProcessStageComposite;
+        type createBrightnessStage = () => PostProcessStage;
+        type createEdgeDetectionStage = () => PostProcessStage;
+        type createLensFlareStage = () => PostProcessStageComposite;
+        type createNightVisionStage = () => PostProcessStage;
+        type createSilhouetteStage = () => PostProcessStageComposite;
+        type isAmbientOcclusionSupported = (scene: Scene) => boolean;
+        type isDepthOfFieldSupported = (scene: Scene) => boolean;
+        type isEdgeDetectionSupported = (scene: Scene) => boolean;
+        type isSilhouetteSupported = (scene: Scene) => boolean;
     }
 
     class PostProcessStageComposite {
         constructor(stages: Array<PostProcessStage>, inputPreviousStageTexture?: boolean, name?: string, uniforms?: object);
         enabled: boolean;
-        select: Array<any>;
+        select: any[];
         uniforms: object;
         readonly inputPreviousStageTexture: boolean;
-        readonly length : number;
-        readonly name : string;
-        readonly ready : boolean;
-        get:(index: number) => PostProcessStage|PostProcessStageComposite
+        readonly length: number;
+        readonly name: string;
+        readonly ready: boolean;
+        get(index: number): PostProcessStage | PostProcessStageComposite
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -712,32 +711,32 @@ declare namespace Cesium {
     }
 
     class EllipsoidGeometry extends Packable {
-        constructor(options?: { 
-            radii?: Cartesian3; 
-            innerRadii? : Cartesian3;
+        constructor(options?: {
+            radii?: Cartesian3;
+            innerRadii?: Cartesian3;
             minimumClock?: number;
             maximumClock?: number;
             minimumCone?: number;
             maximumCone?: number;
-            stackPartitions?: number; 
-            slicePartitions?: number; 
-            vertexFormat?: VertexFormat 
+            stackPartitions?: number;
+            slicePartitions?: number;
+            vertexFormat?: VertexFormat;
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidGeometry): EllipsoidGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidGeometry): Geometry;
     }
 
     class EllipsoidOutlineGeometry extends Packable {
-        constructor(options?: { 
+        constructor(options?: {
             radii?: Cartesian3;
-            innerRadii? : Cartesian3;
+            innerRadii?: Cartesian3;
             minimumClock?: number;
             maximumClock?: number;
             minimumCone?: number;
             maximumCone?: number;
-            stackPartitions?: number; 
-            slicePartitions?: number; 
-            subdivisions?: number 
+            stackPartitions?: number;
+            slicePartitions?: number;
+            subdivisions?: number;
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidOutlineGeometry): EllipsoidOutlineGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidOutlineGeometry): Geometry;
@@ -1969,7 +1968,7 @@ declare namespace Cesium {
         clustering: EntityCluster;
         entities: EntityCollection;
         errorEvent: Event;
-        credit : Credit;
+        credit: Credit;
         isLoading: boolean;
         loadingEvent: Event;
         name: string;
@@ -2001,7 +2000,7 @@ declare namespace Cesium {
         contains(dataSource: DataSource): boolean;
         indexOf(dataSource: DataSource): number;
         get(index: number): DataSource;
-        getByName(name: string): Array<DataSource>;
+        getByName(name: string): DataSource[];
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -3386,7 +3385,7 @@ declare namespace Cesium {
         translucencyByDistance: NearFarScalar;
         pixelOffsetScaleByDistance: NearFarScalar;
         id: any;
-        static enableRightToLeftDetection : boolean;
+        static enableRightToLeftDetection: boolean;
         computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
         equals(other: Label): boolean;
         isDestroyed(): boolean;
@@ -4172,11 +4171,11 @@ declare namespace Cesium {
         iconUrl: string;
         creationCommand: Command;
         constructor(options: { 
-            name: string; 
-            tooltip: string; 
+            name: string;
+            tooltip: string;
             iconUrl: string;
             category?: string;
-            creationFunction: ProviderViewModel.CreationFunction | Command 
+            creationFunction: ProviderViewModel.CreationFunction | Command;
         });
     }
 
@@ -5277,17 +5276,17 @@ declare namespace Cesium {
         flipXY?: boolean
     }): UrlTemplateImageryProvider;
 
-    function when(promise: Promise<any>, callback?: Function): {
-        then: (e: any) => Promise<any>;
-        always: (e: any, t: any) => Promise<any>;
-        otherwise: (e: any) => Promise<any>;
-        spread: (t: any) => Promise<any>;
-        yield: (e: any) => Promise<any>;
+    function when(promise: Promise<any>, callback?: () => void): {
+        then: (e: any) => any;
+        always: (e: any, t: any) => any;
+        otherwise: (e: any) => any;
+        spread: (t: any) => any;
+        yield: (e: any) => any;
     };
 
-    class Ion {
-        static defaultAccessToken : string;
-        static defaultServer : string | Resource;
+    namespace Ion {
+        type defaultAccessToken = string;
+        type defaultServer = string | Resource;
     }
 
     function createWorldImagery(options?: {
@@ -5300,7 +5299,7 @@ declare namespace Cesium {
     }): CesiumTerrainProvider;
 
     class OpenStreetMapImageryProvider extends ImageryProvider {
-        constructor (options?: {
+        constructor(options?: {
             url?: string,
             fileExtension?: string,
             proxy?: any,
@@ -5313,7 +5312,7 @@ declare namespace Cesium {
     }
 
     class TileMapResourceImageryProvider extends ImageryProvider {
-        constructor (options?: {
+        constructor(options?: {
             url?: string,
             fileExtension?: string,
             proxy?: any,
