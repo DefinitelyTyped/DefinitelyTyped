@@ -258,6 +258,72 @@ cluster.connect(() => {
 })
 .then(result => console.log(result))
 .then(reason => console.error(reason));
+
+cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => { });
+cluster.getBuffer('key', (err, data) => {
+    // [null, '100']
+});
+
+cluster.setnx('keynx', '100', (err, data) => {
+    // [null, 'OK']
+});
+cluster.setnx('keynx', '200', (err, data) => {
+    // [null, 'NOT OK']
+});
+cluster.get('keynx', (err, data) => {
+    // [null, '100']
+});
+
+cluster.del('keynx');
+
+cluster.incr('key', (err, data) => {
+    // [null, '101']
+});
+
+cluster.decr('key', (err, data) => {
+    // [null, '100']
+});
+
+listData.forEach(value => {
+    cluster.rpushBuffer('bufferlist', Buffer.from(value));
+});
+
+cluster.llen('bufferlist', (err, data) => {
+    if (data !== listData.length) {
+        console.log(data);
+    }
+});
+
+cluster.lpopBuffer('bufferlist', (err, data) => {
+    if (data.toString() !== listData[0]) {
+        console.log(data.toString());
+    }
+});
+
+cluster.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, data) => {
+    data.forEach((value, index) => {
+        if (value.toString() !== listData[index + 1]) {
+            console.log(value.toString());
+        }
+    });
+});
+
+cluster.zadd('sorted', '1', 'foo');
+cluster.zadd('sorted', '1', 'bar');
+cluster.zrange('sorted', 0, 1, (err, data) => {
+    // [null, ['foo', 'bar']]
+});
+cluster.zrem('sorted', 'foo');
+
+cluster.hset('hash', 'foo', '4');
+cluster.hget('hash', 'foo', (err, data) => {
+    // [null, '4']
+});
+
+cluster.expire('key', 300, (err, res) => {
+    // [null, 1]
+});
+
 cluster.disconnect();
 cluster.quit(result => {
     console.log(result);

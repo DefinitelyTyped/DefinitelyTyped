@@ -1,4 +1,4 @@
-// Type definitions for terser-webpack-plugin 1.2
+// Type definitions for terser-webpack-plugin 2.2
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,6 +49,6 @@ declare namespace TerserPlugin {
         | RegExp
         | ExtractCommentFn
         | ExtractCommentOptions;
-        warningsFilter?: (warning: any, source: any) => boolean;
+        warningsFilter?: (warning: string, source: string | undefined, file: string) => boolean;
     }
 }

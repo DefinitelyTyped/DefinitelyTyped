@@ -631,6 +631,14 @@ new mongoose.Schema({
     }
   },
 });
+new mongoose.Schema({
+  fnOnly: { type: String, validate: () => true },
+  fnStringArray: { type: String, validate: [() => true, 'failed'] },
+  fnStringObject: { type: String, validate: { validator: () => true, message: 'failed' } },
+  promiseFnOnly: { type: String, validate: () => Promise.reject(new Error('oops')) },
+  promiseFnStringArray: { type: String, validate: [() => Promise.reject(), 'oops'] },
+  promiseFnStringObject: { type: String, validate: { validator: () => Promise.reject(), message: 'oops' } },
+});
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
   { validator: () => {return true}, msg: 'failed' }
@@ -739,6 +747,7 @@ doc.execPopulate().then(function (arg) {
   arg.execPopulate();
 }).catch(function (err) {});
 doc.get('path', Number);
+doc.get('path', Number, { virtuals: true, getters: false });
 doc.init(doc).init(doc, {});
 doc.inspect();
 doc.invalidate('path', new Error('hi')).toString();
@@ -779,7 +788,10 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-doc.validateSync(['path1', 'path2']).stack;
+var validationError = doc.validateSync(['path1', 'path2']);
+if (validationError) {
+    validationError.stack
+}
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
@@ -1037,6 +1049,8 @@ query.batchSize(100).batchSize(100);
 var lowerLeft = [40.73083, -73.99756]
 var upperRight = [40.741404,  -73.988135]
 query.where('loc').within().box(lowerLeft, upperRight)
+query.where('loc').wtimeout()
+query.where('loc').wtimeout(10)
 query.box({ ll : lowerLeft, ur : upperRight }).box({});
 var queryModel = mongoose.model('QModel')
 query.cast(new queryModel(), {}).hasOwnProperty('');
@@ -1294,6 +1308,8 @@ mongoose.Schema.Types.DocumentArray.schemaName.toLowerCase();
 documentarray.sparse(true);
 /* http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators */
 documentarray.discriminator('name', new mongoose.Schema({ foo: String }));
+/* https://mongoosejs.com/docs/api.html#documentarraypath_DocumentArrayPath-discriminator */
+documentarray.discriminator('name2', new mongoose.Schema({ bar: String }), "circle");
 
 /*
  * section schema/number.js

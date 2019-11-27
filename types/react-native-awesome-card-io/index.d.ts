@@ -9,60 +9,95 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface CardDetails {
-    cardType: string; // Localized card type.
-    cardNumber: string; // Card number.
-    redactedCardNumber: string; // Card number with all but the last four digits obfuscated.
-    expiryMonth: number; // Expiry month with january as 1 (may be 0 if expiry information was not requested).
-    expiryYear: number; // Expiry year (may be 0 if expiry information was not requested).
-    cvv: string; // Security code.
-    postalCode: string; // Postal code. Format is country dependent.
-    scanned?: boolean; // - Was the card number scanned (as opposed to entered manually)?
-    cardholderName: string; // Card holder name.
+    /**  Localized card type. */
+    cardType: string;
+    /**  Card number. */
+    cardNumber: string;
+    /**  Card number with all but the last four digits obfuscated. */
+    redactedCardNumber: string;
+    /**  Expiry month with january as 1 (may be 0 if expiry information was not requested). */
+    expiryMonth: number;
+    /**  Expiry year (may be 0 if expiry information was not requested). */
+    expiryYear: number;
+
+    /**  Security code. */
+    cvv: string;
+    /**  Postal code. Format is country dependent. */
+    postalCode: string;
+    /**  - Was the card number scanned (as opposed to entered manually)? */
+    scanned?: boolean;
+    /**  Card holder name. */
+    cardholderName: string;
 }
 
 export interface CardIOCommonProps {
-    languageOrLocale?: string; // The preferred language for all strings appearing in the user interface.
-    guideColor?: string; // Alter the card guide (bracket) color. Opaque colors recommended.
-    useCardIOLogo?: boolean; // false - Set to true to show the card.io logo over the camera view instead of the PayPal logo.
-    hideCardIOLogo?: boolean; // false - Hide the PayPal or card.io logo in the scan view.
-    scanInstructions?: string; // - Set the scan instruction text. If nil, use the default text.
-    scanExpiry?: boolean; // true - Set to false if you don't want the camera to try to scan the card expiration.
+    /**  The preferred language for all strings appearing in the user interface. */
+    languageOrLocale?: string;
+    /**  Alter the card guide (bracket) color. Opaque colors recommended.. */
+    guideColor?: string | number;
+    /**  false - Set to true to show the card.io logo over the camera view instead of the PayPal logo.. */
+    useCardIOLogo?: boolean;
+    /**  false - Hide the PayPal or card.io logo in the scan view.. */
+    hideCardIOLogo?: boolean;
+    /**  - Set the scan instruction text. If nil, use the default text.. */
+    scanInstructions?: string;
+    /**  true - Set to false if you don't want the camera to try to scan the card expiration.. */
+    scanExpiry?: boolean;
 
-    // iOS only
-    detectionMode?: CardIODetectionMode; // false - Set the detection mode. (iOS)
-    scannedImageDuration?: number; // 0.1 - How long card.io will display an image of the card with the computed card number superimposed after a successful scan.
-    allowFreelyRotatingCardGuide?: boolean; // true - By default, in camera view the card guide and the buttons always rotate to match the device's orientation.
+    /**  iOS only */
+    /**  false - Set the detection mode. (iOS) */
+    detectionMode?: CardIODetectionMode;
+    /**  0.1 - How long card.io will display an image of the card with the computed card number superimposed after a successful scan. */
+    scannedImageDuration?: number;
+    /**  true - By default, in camera view the card guide and the buttons always rotate to match the device's orientation. */
+    allowFreelyRotatingCardGuide?: boolean;
 }
 
 export interface CardIOViewProps extends CardIOCommonProps {
-    didScanCard: (card: CardDetails) => void; // This function will be called when the CardIOView completes its work and returns a CreditCard.
-    style?: StyleProp<ViewStyle>; // Style props of CardIOViewProps
+    /**  This function will be called when the CardIOView completes its work and returns a CreditCard. */
+    didScanCard: (card: CardDetails) => void;
+    /**  Style props of CardIOViewProps */
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface CardIOModuleProps extends CardIOCommonProps {
-    suppressManualEntry?: boolean; // false - Set to true to prevent card.io from showing its "Enter Manually" button.
-    suppressConfirmation?: boolean; // false - If true, don't have the user confirm the scanned card, just return the results immediately.
-    requireExpiry?: boolean; // true - Set to false if you don't need to collect the card expiration.
-    requireCVV?: boolean; // true - Set to false if you don't need to collect the CVV from the user.
-    requirePostalCode?: boolean; // false - Set to false if you need to collect the billing postal code.
-    restrictPostalCodeToNumericOnly?: boolean; // false - Set to true if the postal code should only collect numeric input.
-    requireCardholderName?: boolean; // false - Set to true if you need to collect the cardholder name.
+    /**  false - Set to true to prevent card.io from showing its "Enter Manually" button. */
+    suppressManualEntry?: boolean;
+    /**  false - If true, don't have the user confirm the scanned card, just return the results immediately. */
+    suppressConfirmation?: boolean;
+    /**  true - Set to false if you don't need to collect the card expiration. */
+    requireExpiry?: boolean;
+    /**  true - Set to false if you don't need to collect the CVV from the user. */
+    requireCVV?: boolean;
+    /**  false - Set to false if you need to collect the billing postal code. */
+    requirePostalCode?: boolean;
+    /**  false - Set to true if the postal code should only collect numeric input. */
+    restrictPostalCodeToNumericOnly?: boolean;
+    /**  false - Set to true if you need to collect the cardholder name. */
+    requireCardholderName?: boolean;
 
-    // iOS Only
-    disableBlurWhenBackgrounding?: boolean; // false - Disable the blur of the screen when the app is backgrounded.
-    keepStatusBarStyle?: boolean; // false - If true, the status bar's style will be kept as whatever your app has set it to.
-    suppressScannedCardImage?: boolean; // false - If true, instead of displaying the image of the scanned card, present the manual entry screen with the scanned card number prefilled.
+    /**  iOS Only */
+    /**  false - Disable the blur of the screen when the app is backgrounded. */
+    disableBlurWhenBackgrounding?: boolean;
+    /**  false - If true, the status bar's style will be kept as whatever your app has set it to. */
+    keepStatusBarStyle?: boolean;
+    /**  false - If true, instead of displaying the image of the scanned card, present the manual entry screen with the scanned card number prefilled. */
+    suppressScannedCardImage?: boolean;
 
-    // Android Only
-    noCamera?: boolean; // false If set, the card will not be scanned with the camera.
-    unblurDigits?: number; // -1 Privacy feature. How many of the Card number digits NOT to blur on the resulting image. Setting it to 4 will blur all digits except the last four.
-    usePaypalActionbarIcon?: boolean; //  = false; Use the PayPal icon in the ActionBar.
+    /**  Android Only */
+    /**  false If set, the card will not be scanned with the camera. */
+    noCamera?: boolean;
+    /**  -1 Privacy feature. How many of the Card number digits NOT to blur on the resulting image. Setting it to 4 will blur all digits except the last four. */
+    unblurDigits?: number;
+    /**   Default false; Use the PayPal icon in the ActionBar. */
+    usePaypalActionbarIcon?: boolean;
 }
 
 export type CardIODetectionMode = 'IMAGE_AND_NUMBER' | 'IMAGE' | 'AUTOMATIC';
 
 export namespace CardIOUtilities {
-    function preload(): void; // iOS only - prepares card.io to launch faster.
+    /**  iOS only - prepares card.io to launch faster. */
+    function preload(): void;
     const CAN_READ_CARD_WITH_CAMERA: boolean;
     const DETECTION_MODE: CardIODetectionMode;
 }

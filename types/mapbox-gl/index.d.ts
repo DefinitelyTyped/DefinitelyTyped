@@ -1,10 +1,11 @@
-// Type definitions for Mapbox GL JS v0.54.0
+// Type definitions for Mapbox GL JS 1.5
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,9 +19,30 @@ declare namespace mapboxgl {
     let version: string;
     let baseApiUrl: string;
 
+    /**
+     * Number of web workers instantiated on a page with GL JS maps.
+     * By default, it is set to half the number of CPU cores (capped at 6).
+     */
+    let workerCount: number;
+
+    /**
+     * Maximum number of images (raster tiles, sprites, icons) to load in parallel, which affects performance in raster-heavy maps.
+     * 16 by default.
+    */
+    let maxParallelImageRequests: number;
+
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
+    /**
+     * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
+     * Tiles may still be cached by the browser in some cases.
+     */
+    export function clearStorage(callback?: (err?: Error) => void): void;
+
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
+    export function getRTLTextPluginStatus(): PluginStatus;
+
+    type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
     type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
@@ -94,9 +116,48 @@ declare namespace mapboxgl {
 
         isRotating(): boolean;
 
-        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], parameters?: { layers?: string[], filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing visible features that satisfy the query parameters.
+         *
+         * The properties value of each returned feature object contains the properties of its source feature. For GeoJSON sources, only string and numeric property values are supported (i.e. null, Array, and Object values are not supported).
+         *
+         * Each feature includes top-level layer, source, and sourceLayer properties. The layer property is an object representing the style layer to which the feature belongs. Layout and paint properties in this object contain values which are fully evaluated for the given zoom level and feature.
+         *
+         * Only features that are currently rendered are included. Some features will not be included, like:
+         *
+         * - Features from layers whose visibility property is "none".
+         * - Features from layers whose zoom range excludes the current zoom level.
+         * - Symbol features that have been hidden due to text or icon collision.
+         *
+         * Features from all other layers are included, including features that may have no visible contribution to the rendered result; for example, because the layer's opacity or color alpha component is set to 0.
+         *
+         * The topmost rendered feature appears first in the returned array, and subsequent features are sorted by descending z-order. Features that are rendered multiple times (due to wrapping across the antimeridian at low zoom levels) are returned only once (though subject to the following caveat).
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param pointOrBox The geometry of the query region: either a single point or southwest and northeast points describing a bounding box. Omitting this parameter (i.e. calling Map#queryRenderedFeatures with zero arguments, or with only a  options argument) is equivalent to passing a bounding box encompassing the entire map viewport.
+         * @param options
+         */
+        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], options?: { layers?: string[], filter?: any[], validate?: boolean }): MapboxGeoJSONFeature[];
 
-        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing features within the specified vector tile or GeoJSON source that satisfy the query parameters.
+         *
+         * In contrast to Map#queryRenderedFeatures, this function returns all features matching the query parameters, whether or not they are rendered by the current style (i.e. visible). The domain of the query includes all currently-loaded vector tiles and GeoJSON source tiles: this function does not check tiles outside the currently visible viewport.
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param sourceID The ID of the vector tile or GeoJSON source to query.
+         * @param parameters
+         */
+        querySourceFeatures(
+            sourceID: string,
+            parameters?: {
+                sourceLayer?: string;
+                filter?: any[];
+                validate?: boolean;
+            }
+        ): MapboxGeoJSONFeature[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean, localIdeographFontFamily?: string }): this;
 
@@ -251,7 +312,7 @@ declare namespace mapboxgl {
 
     export interface MapboxOptions {
         /**
-         * If  true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
+         * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
          * This is false by default as a performance optimization.
          */
         antialias?: boolean;
@@ -315,8 +376,13 @@ declare namespace mapboxgl {
         /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
         doubleClickZoom?: boolean;
 
-        /** If true, the map will track and update the page URL according to map position */
-        hash?: boolean;
+        /** If `true`, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
+        * For example, `http://path/to/my/page.html#2.59/39.26/53.07/-24.1/60`.
+        * An additional string may optionally be provided to indicate a parameter-styled hash,
+        * e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
+        * is a custom parameter and bar is an arbitrary hash distinct from the map hash.
+        * */
+        hash?: boolean | string;
 
         /**
          * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
@@ -599,7 +665,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
+		constructor(options?: {
+            showCompass?: boolean;
+            showZoom?: boolean;
+            visualizePitch?: boolean;
+        });
     }
 
     export class PositionOptions {
@@ -661,7 +731,21 @@ declare namespace mapboxgl {
 
         getLngLat(): mapboxgl.LngLat;
 
+        /**
+         * Sets the geographical location of the popup's anchor, and moves the popup to it. Replaces trackPointer() behavior.
+         *
+         * @param lnglat The geographical location to set as the popup's anchor.
+         */
         setLngLat(lnglat: LngLatLike): this;
+
+        /**
+         * Tracks the popup anchor to the cursor position, on screens with a pointer device (will be hidden on touchscreens). Replaces the setLngLat behavior.
+         * For most use cases, `closeOnClick` and `closeButton` should also be set to `false` here.
+         */
+        trackPointer(): this;
+
+        /** Returns the `Popup`'s HTML element. */
+        getElement(): HTMLElement;
 
         setText(text: string): this;
 
@@ -1040,6 +1124,14 @@ declare namespace mapboxgl {
 
         /** Returns the LngLat for the coordinate. */
         toLngLat(): LngLat;
+
+        /**
+         * Returns the distance of 1 meter in MercatorCoordinate units at this latitude.
+         *
+         * For coordinates in real world units using meters, this naturally provides the
+         * scale to transform into MercatorCoordinates.
+         */
+        meterInMercatorCoordinateUnits(): number;
 
         /** Project a LngLat to a MercatorCoordinate. */
         static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
@@ -1644,7 +1736,7 @@ declare namespace mapboxgl {
         'raster-contrast'?: number | Expression;
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
-        'raster-resample'?: 'linear' | 'nearest';
+        'raster-resampling'?: 'linear' | 'nearest';
     }
 
     export interface CircleLayout extends Layout {

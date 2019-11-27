@@ -13,6 +13,7 @@
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
+//                 Michael Adams <https://github.com/mtadams007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -266,7 +267,7 @@ export interface Layout {
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
-	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
 	shapes: Array<Partial<Shape>>;
@@ -498,9 +499,9 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
-		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterpolar' | 'scatterternary' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
+	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -530,7 +531,12 @@ export interface PlotData {
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+	'marker.pad.t': number;
+	'marker.pad.b': number;
+	'marker.pad.l': number;
+	'marker.pad.r': number;
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
+	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
 	'x' | 'x+text' | 'x+name' |
@@ -552,10 +558,60 @@ export interface PlotData {
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
+	parents: string[];
 	name: string;
 	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
+	delta: {
+		reference: number;
+		position: 'top' | 'bottom' | 'left' | 'right';
+		relative: boolean
+		valueformat: string
+		increasing: {
+			symbol: string;
+			color: Color;
+		}
+		decreasing: {
+			symbol: string;
+			color: Color;
+		}
+	};
+	gauge: {
+		shape: 'angular' | 'bullet'
+		bar: {
+			color: Color
+			line: {
+				color: Color
+				width: number
+			}
+			thickness: number
+		}
+		bgcolor: Color
+		bordercolor: Color
+		borderwidth: number
+		axis: {
+			range: number[]
+			visible: boolean
+		}
+		threshold: {
+			line: {
+				color: Color
+				width: number
+			}
+			value: number
+		}
+	};
+	number: {
+		valueformat: string
+		font: {
+			family: string
+			size: number
+			color: Color
+		}
+		prefix: string
+		suffix: string
+	};
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];
@@ -571,6 +627,7 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
+	value: number;
 	values: Datum[];
 	labels: Datum[];
 	hole: number;

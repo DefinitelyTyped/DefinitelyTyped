@@ -1,4 +1,4 @@
-
+/// <reference types="../../codemirror/codemirror-showhint" />
 
 var cm = CodeMirror(document.body, {value: 'text'});
 var pos = new CodeMirror.Pos(2, 3);

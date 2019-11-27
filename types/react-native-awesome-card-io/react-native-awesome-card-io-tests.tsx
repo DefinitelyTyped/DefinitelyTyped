@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardIOView, CardDetails, CardIOUtilities } from 'react-native-awesome-card-io';
+import { CardIOView, CardDetails, CardIOUtilities, CardIOModule } from 'react-native-awesome-card-io';
 import { Platform } from 'react-native';
 
 export default class CardIOExample extends React.Component {
@@ -13,6 +13,17 @@ export default class CardIOExample extends React.Component {
         console.log(card);
     }
 
+    scanCard() {
+        CardIOModule.scanCard({
+            guideColor: '#FF00FF',
+            requireCVV: false,
+            hideCardIOLogo: true,
+            suppressManualEntry: true,
+            keepStatusBarStyle: true,
+            scannedImageDuration: 0.2,
+            suppressConfirmation: true,
+        });
+    }
     render() {
         return (
             <CardIOView

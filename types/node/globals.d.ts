@@ -193,9 +193,13 @@ interface NodeRequireFunction {
     (id: string): any;
 }
 
+interface NodeRequireCache {
+    [path: string]: NodeModule;
+}
+
 interface NodeRequire extends NodeRequireFunction {
     resolve: RequireResolve;
-    cache: any;
+    cache: NodeRequireCache;
     /**
      * @deprecated
      */
@@ -1134,8 +1138,8 @@ declare namespace NodeJS {
         /**
          * @deprecated Deprecated since: v12.2.0. Please use createRequire() instead.
          */
-        static createRequireFromPath(path: string): NodeRequireFunction;
-        static createRequire(path: string): NodeRequireFunction;
+        static createRequireFromPath(path: string): NodeRequire;
+        static createRequire(path: string): NodeRequire;
         static builtinModules: string[];
 
         static Module: typeof Module;
@@ -1154,4 +1158,8 @@ declare namespace NodeJS {
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
+
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
 }

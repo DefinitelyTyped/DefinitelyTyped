@@ -1,6 +1,7 @@
 // Type definitions for dot-prop-immutable 1.5
 // Project: https://github.com/debitoor/dot-prop-immutable
 // Definitions by: Paul Brussee <https://github.com/brussee>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -56,12 +57,12 @@ export type Path = number | string | Array<number|string>;
  * ```
  */
 export function get(
-    object: ArrayOrObject,
+    object: ArrayOrObject | undefined,
     path: Path
 ): any;
 
 export function get<V>(
-    object: ArrayOrObject,
+    object: ArrayOrObject | undefined,
     path: Path,
     defaultValue: V
 ): V;
