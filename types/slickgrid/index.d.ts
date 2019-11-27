@@ -793,7 +793,7 @@ declare namespace Slick {
 		/**
 		 * A custom cell editor.
 		 */
-		editor?: Slick.Editors.Editor<T>;
+		editor?: any;		
 
 		/**
 		 * Number of columns this cell will span. Can also contain "*" to indicate that the cell should span the rest of the row.
