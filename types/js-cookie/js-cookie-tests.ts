@@ -22,7 +22,7 @@ Cookies.remove('name');
 Cookies.remove('name', { path: '' });
 
 const Cookies2 = Cookies.noConflict!();
-Cookies2; // $ExpectType CookiesStatic<object>
+Cookies2; // $ExpectType CookiesStatic<string | object | any[], string>
 
 Cookies.set('name', { foo: 'bar' });
 
@@ -42,10 +42,10 @@ cookies.get('escaped');
 Cookies.defaults.path = '';
 delete Cookies.defaults.path;
 
-const PHPCookies = Cookies.withConverter<object>({
+const PHPCookies = Cookies.withConverter<string>({
     write(value) {
-        value; // $ExpectType string | object
-        return encodeURIComponent(value as string)
+        value; // $ExpectType string
+        return encodeURIComponent(value)
             .replace(/%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
     },
     read(value) {
@@ -64,6 +64,24 @@ const BlankConverterCookies = Cookies.withConverter({
         return value;
     }
 });
+
+class MyObject {
+    constructor(private readonly prop: string) { }
+    serialize(): string {
+        return this.prop;
+    }
+}
+const MyObjectPersister = Cookies.withConverter<MyObject>({
+    write(value) {
+        return value.serialize();
+    },
+    read(value) {
+        return new MyObject(value);
+    }
+});
+const object1 = new MyObject("value");
+MyObjectPersister.set("key", object1);
+const object2 = MyObjectPersister.get("key"); // $ExpectType MyObject | undefined
 
 document.cookie = 'hoge=hogehoge';
 BlankConverterCookies.get('hoge');

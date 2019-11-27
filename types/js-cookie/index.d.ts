@@ -48,7 +48,7 @@ declare namespace Cookies {
         [property: string]: any;
     }
 
-    interface CookiesStatic<T extends object = object> {
+    interface CookiesStatic<T, U> {
         /**
          * Allows default cookie attributes to be accessed, changed, or reset
          */
@@ -57,17 +57,17 @@ declare namespace Cookies {
         /**
          * Create a cookie
          */
-        set(name: string, value: string | T, options?: CookieAttributes): void;
+        set(name: string, value: T, options?: CookieAttributes): void;
 
         /**
          * Read cookie
          */
-        get(name: string): string | undefined;
+        get(name: string): U | undefined;
 
         /**
          * Read all available cookies
          */
-        get(): {[key: string]: string};
+        get(): {[key: string]: U};
 
         /**
          * Returns the parsed representation of the string
@@ -94,7 +94,7 @@ declare namespace Cookies {
          * or SDK. Note: The noConflict method is not necessary when using
          * AMD or CommonJS, thus it is not exposed in those environments.
          */
-        noConflict?(): CookiesStatic<T>;
+        noConflict?(): CookiesStatic<T, U>;
 
         /**
          * Create a new instance of the api that overrides the default
@@ -103,14 +103,14 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter<TConv extends object>(converter: CookieReadConverter | { write?: CookieWriteConverter<TConv>; read?: CookieReadConverter; }): CookiesStatic<TConv>;
+        withConverter<TConv>(converter: CookieReadConverter<TConv> | { write?: CookieWriteConverter<TConv>; read: CookieReadConverter<TConv>; }): CookiesStatic<TConv, TConv>;
     }
 
-    type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;
-    type CookieReadConverter = (value: string, name: string) => string;
+    type CookieWriteConverter<T> = (value: T, name: string) => string;
+    type CookieReadConverter<T> = (value: string, name: string) => T;
 }
 
-declare const Cookies: Cookies.CookiesStatic;
+declare const Cookies: Cookies.CookiesStatic<string | object | any[], string>;
 
 export = Cookies;
 export as namespace Cookies;
