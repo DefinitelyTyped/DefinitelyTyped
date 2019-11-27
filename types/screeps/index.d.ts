@@ -1984,11 +1984,10 @@ interface _ConstructorById<T> extends _Constructor<T> {
     (id: Id<T>): T;
 }
 
-// tslint:disable-next-line: no-namespace
 declare namespace Tag {
     const OpaqueTagSymbol: unique symbol;
-    // tslint:disable-next-line: strict-export-declare-modifiers
-    export class OpaqueTag<T> {
+
+    class OpaqueTag<T> {
         private [OpaqueTagSymbol]: T;
     }
 }
@@ -4578,29 +4577,26 @@ interface SpawnOptions {
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
-interface StoreBase<POSSIBLE_RESSOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
+interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
     getCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
         ? null
         : (undefined extends R
-              ? (ResourceConstant extends POSSIBLE_RESSOURCES ? number : null)
-              : (R extends POSSIBLE_RESSOURCES ? number : null));
+              ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+              : (R extends POSSIBLE_RESOURCES ? number : null));
     /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
     getUsedCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESSOURCES ? number : null) : (R extends POSSIBLE_RESSOURCES ? number : 0);
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : 0);
     /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
     getFreeCapacity(resource?: ResourceConstant): number;
 }
 
-type Store<POSSIBLE_RESSOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
-    POSSIBLE_RESSOURCES,
-    UNLIMITED_STORE
-> &
-    { [P in POSSIBLE_RESSOURCES]: number } &
-    { [P in Exclude<ResourceConstant, POSSIBLE_RESSOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
+    { [P in POSSIBLE_RESOURCES]: number } &
+    { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
     /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
