@@ -31,6 +31,10 @@ screen = blessed.screen({
   warnings: true
 });
 
+// `clickable` and `keyable` are arrays
+console.log(screen.clickable.length);
+console.log(screen.keyable.length);
+
 const box1 = blessed.box({
   parent: screen,
   top: "center",
