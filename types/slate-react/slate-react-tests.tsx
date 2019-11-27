@@ -38,6 +38,7 @@ const eventPlugin: Plugin = {
     onClick: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
     onCompositionEnd: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
     onCompositionStart: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onContextMenu: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
     onCopy: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
     onCut: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
     onDragEnd: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
