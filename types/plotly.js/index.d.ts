@@ -261,6 +261,8 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
+	'xaxis.title': string;
+	'yaxis.title': string;
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
