@@ -78,10 +78,10 @@ declare namespace dc {
     }
 
     export interface Filters {
-        RangedFilter(low: number, high: number): Array<number>;
-        TwoDimensionalFilter(filter: Array<number>): Array<number>;
-        RangedTwoDimensionalFilter(arr: Array<Array<number>>): Array<Array<number>>;
-        HierarchyFilter(path: string): Array<string>;
+        RangedFilter(low: number, high: number): Filter;
+        TwoDimensionalFilter(filter: Array<number>): Filter;
+        RangedTwoDimensionalFilter(arr: Array<Array<number>>): Filter;
+        HierarchyFilter(path: string):  Filter;
     }
 
     export interface Logger {
