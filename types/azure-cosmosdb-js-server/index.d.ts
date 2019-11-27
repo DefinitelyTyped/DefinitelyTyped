@@ -1,4 +1,4 @@
-// Type definitions for non-npm package azure-cosmosdb-js-server
+// Type definitions for non-npm package azure-cosmosdb-js-server 1.0
 // Project: https://github.com/Azure/azure-cosmosdb-js-server
 // Definitions by: Erik Abi-Khattar <https://github.com/abiabsurd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ export const __: __object;
  * <p>The __ object can be used as a shortcut to the <a href="Collection.html">Collection</a> and <a href="Context.html">Context</a> objects.
  * It derives from the <a href="Collection.html">Collection</a> object via prototype and defines request and response properties
  * which are shortcuts to <a href="Context.html#getRequest">getContext().getRequest()</a> and <a href="Context.html#getResponse">getContext().getResponse()</a>.</p>
- * @extends {Collection}
+ * #extends {Collection}
  * #property {Request}    request     Alias for getContext().getRequest()
  * #property {Response}   response    Alias for getContext().getResponse()
  * #example var result = __.filter(function(doc) { return doc.id == 1; });
