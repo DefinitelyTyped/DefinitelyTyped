@@ -1,0 +1,9 @@
+// Type definitions for password 0.1
+// Project: https://github.com/shimaore/password
+// Definitions by: James Lismore <https://github.com/jlismore>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
+
+declare function password(numberOfWords: number): string;
+
+export = password;
