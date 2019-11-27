@@ -61,7 +61,7 @@ export interface Schema<T> {
     validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
     isValid(value: any, options?: any): Promise<boolean>;
     isValidSync(value: any, options?: any): value is T;
-    cast(value: any, options?: any): T;
+    cast(value?: any, options?: any): T;
     isType(value: any): value is T;
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
