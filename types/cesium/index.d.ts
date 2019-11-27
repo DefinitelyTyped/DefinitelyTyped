@@ -50,21 +50,21 @@ declare namespace Cesium {
     }
 
     namespace PostProcessStageLibrary {
-        type createBlackAndWhiteStage = () => PostProcessStage;
-        type createBlurStage = () => PostProcessStageComposite;
-        type createBrightnessStage = () => PostProcessStage;
-        type createEdgeDetectionStage = () => PostProcessStage;
-        type createLensFlareStage = () => PostProcessStageComposite;
-        type createNightVisionStage = () => PostProcessStage;
-        type createSilhouetteStage = () => PostProcessStageComposite;
-        type isAmbientOcclusionSupported = (scene: Scene) => boolean;
-        type isDepthOfFieldSupported = (scene: Scene) => boolean;
-        type isEdgeDetectionSupported = (scene: Scene) => boolean;
-        type isSilhouetteSupported = (scene: Scene) => boolean;
+        function createBlackAndWhiteStage(): PostProcessStage;
+        function createBlurStage(): PostProcessStageComposite;
+        function createBrightnessStage(): PostProcessStage;
+        function createEdgeDetectionStage(): PostProcessStage;
+        function createLensFlareStage(): PostProcessStageComposite;
+        function createNightVisionStage(): PostProcessStage;
+        function createSilhouetteStage(): PostProcessStageComposite;
+        function isAmbientOcclusionSupported(scene: Scene): boolean;
+        function isDepthOfFieldSupported(scene: Scene): boolean;
+        function isEdgeDetectionSupported(scene: Scene): boolean;
+        function isSilhouetteSupported(scene: Scene): boolean;
     }
 
     class PostProcessStageComposite {
-        constructor(stages: Array<PostProcessStage>, inputPreviousStageTexture?: boolean, name?: string, uniforms?: object);
+        constructor(stages: PostProcessStage[], inputPreviousStageTexture?: boolean, name?: string, uniforms?: object);
         enabled: boolean;
         select: any[];
         uniforms: object;
@@ -5276,7 +5276,7 @@ declare namespace Cesium {
         flipXY?: boolean
     }): UrlTemplateImageryProvider;
 
-    function when(promise: Promise<any>, callback?: () => void): {
+    function when(promise: Promise<any>, callback?: (e: any) => void): {
         then: (e: any) => any;
         always: (e: any, t: any) => any;
         otherwise: (e: any) => any;
@@ -6022,3 +6022,4 @@ declare namespace Cesium {
         MAX_TEXTURE_MAX_ANISOTROPY_EXT
     }
 }
+
