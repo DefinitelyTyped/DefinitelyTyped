@@ -123,6 +123,7 @@ export interface Plugin extends CorePlugin {
     onClick?: EventHook<React.MouseEvent>;
     onCompositionEnd?: EventHook<React.CompositionEvent>;
     onCompositionStart?: EventHook<React.CompositionEvent>;
+    onContextMenu?: EventHook<React.MouseEvent>;
     onCopy?: EventHook<React.ClipboardEvent>;
     onCut?: EventHook<React.ClipboardEvent>;
     onDragEnd?: EventHook<React.DragEvent>;
