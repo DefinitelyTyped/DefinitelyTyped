@@ -1,4 +1,4 @@
-// Type definitions for azure-cosmosdb-js-server
+// Type definitions for non-npm package azure-cosmosdb-js-server
 // Project: https://github.com/Azure/azure-cosmosdb-js-server
 // Definitions by: Erik Abi-Khattar <https://github.com/abiabsurd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
