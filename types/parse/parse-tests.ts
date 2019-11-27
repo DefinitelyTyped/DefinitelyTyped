@@ -10,13 +10,22 @@ async function test_imports() {
     const ParseBad = await import('parse/bad');
 }
 
-class GameScore extends Parse.Object {
+class GameScore extends Parse.Object<{
+    score: number;
+    playerName: string;
+    cheatMode: boolean;
+    level: string;
+    difficult: number;
+}> {
     constructor(options?: any) {
         super('GameScore', options);
     }
 }
 
-class Game extends Parse.Object {
+class Game extends Parse.Object<{
+    gameScore: GameScore;
+    score: string;
+}> {
     constructor(options?: any) {
         super('Game', options);
     }
@@ -238,7 +247,7 @@ function test_relation() {
     const game2 = new Game();
 
     new Parse.User()
-        .relation('games')
+        .relation<Game>('games')
         .query()
         .find()
         .then((g: Game[]) => {});
@@ -270,7 +279,7 @@ async function test_user_currentAsync() {
 }
 
 function test_user_acl_roles() {
-    const user = new Parse.User();
+    const user = new Parse.User<{ phone: string }>();
     user.set('username', 'my name');
     user.set('password', 'my pass');
     user.set('email', 'email@example.com');
@@ -304,7 +313,7 @@ function test_user_acl_roles() {
     );
 
     const game = new Game();
-    game.set('score', new GameScore());
+    game.set('gameScore', new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => {});
     game.save(null, { useMasterKey: true });
@@ -429,7 +438,11 @@ function test_cloud_functions() {
     const CUSTOM_ERROR_INVALID_CONDITION = 1001;
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002;
 
-    Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
+    interface BeforeSaveObject {
+        immutable: boolean;
+    }
+
+    Parse.Cloud.beforeSave<BeforeSaveObject>('MyCustomClass', async request => {
         if (request.object.isNew()) {
             if (!request.object.has('immutable')) throw new Error('Field immutable is required');
         } else {
@@ -506,7 +519,7 @@ class PlaceObject extends Parse.Object {}
 function test_geo_points() {
     const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    const userObject = Parse.User.current()!;
+    const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
 
     // User's location
     const userGeoPoint = userObject.get('location');
@@ -692,7 +705,7 @@ async function test_schema() {
 }
 
 function testBaseObject() {
-    // $ExpectType Object<any>
+    // $ExpectType Object<object>
     const exampleObjAny = new Parse.Object('TestObject');
     // $ExpectType any
     exampleObjAny.toJSON();
@@ -700,72 +713,59 @@ function testBaseObject() {
 
 function testObject() {
     function testConstructorDefault() {
-        // $ExpectType Object<any>
-        const objAny = new Parse.Object('TestObject');
-        // $ExpectType any
-        objAny.attributes.whatever;
+        // $ExpectType Object<object>
+        new Parse.Object('TestObject');
     }
 
     function testConstructorWithTypeParam() {
-        // $ExpectType Object<{ example: string; }>
-        const objWithTypedAttrs = new Parse.Object<{ example: string }>('TestObject');
-        // $ExpectType string
-        objWithTypedAttrs.attributes.example;
-        // $ExpectType
-        objWithTypedAttrs.get('example');
-        // $ExpectError
-        objWithTypedAttrs.attributes.other;
+        // $ExpectType Object<{ example?: string | undefined; }>
+        new Parse.Object<{ example?: string }>('TestObject');
     }
 
     function testConstructorWithAttrs() {
         // $ExpectType Object<{ example: number; }>
-        const objWithAttrsAndOptions = new Parse.Object('TestObject', { example: 200 });
-        // $ExpectType number
-        objWithAttrsAndOptions.attributes.example;
-        // $ExpectType number
-        objWithAttrsAndOptions.get('example');
-        // $ExpectError
-        objWithAttrsAndOptions.attributes.other;
+        new Parse.Object('TestObject', { example: 200 });
     }
 
-    function testSave() {
-        async function testSaveDefault() {
-            // $ExpectType Object<any>
-            const exampleObjAny = new Parse.Object('TestObject');
-            // $ExpectType Object<any>
-            const savedAny = await exampleObjAny.save({ example: true });
-            // $ExpectType any
-            savedAny.attributes.anythingElse;
-        }
+    function testAttributes(objWithTypedAttrs: Parse.Object<{ example: string }>) {
+        // $ExpectType string
+        objWithTypedAttrs.attributes.example;
+        // $ExpectError
+        objWithTypedAttrs.attributes.other;
+    }
 
+    function testGet(objWithTypedAttrs: Parse.Object<{ example: number }>) {
+        // $ExpectType number
+        objWithTypedAttrs.get('example');
+        // $ExpectError
+        objWithTypedAttrs.get('other');
+    }
+
+    function testSave(objWithTypedAttrs: Parse.Object<{ example: boolean }>) {
         async function testSaveWithObj() {
-            // $ExpectType Object<{ example: number; }>
-            const exampleObjTyped = new Parse.Object<{ example: number }>('TestObject');
-            // $ExpectType Object<{ example: number; }>
-            const savedObjTyped = await exampleObjTyped.save({ example: 5 });
-            // $ExpectType number
-            savedObjTyped.attributes.example;
+            // $ExpectType Object<{ example: boolean; }>
+            const result = await objWithTypedAttrs.save({ example: true });
             // $ExpectError
-            await exampleObjTyped.save({ example: 'hello' });
+            await objWithTypedAttrs.save({ example: 'hello' });
+            // $ExpectError
+            await objWithTypedAttrs.save({ wrongProp: 5});
         }
 
-        async function testSaveWithKeyVal() {
-            // $ExpectType Object<{ example: string; }>
-            const exampleAttrTyped = new Parse.Object<{ example: string }>('TestObject');
-            // $ExpectType Object<{ example: string; }>
-            const savedAttrTyped = await exampleAttrTyped.save('example', 'hello');
-            // $ExpectType string
-            savedAttrTyped.attributes.example;
+        async function testSaveWithKeyVal(objWithTypedAttrs: Parse.Object<{ example: Date }>) {
+            // $ExpectType Object<{ example: Date; }>
+            await objWithTypedAttrs.save('example', new Date());
             // $ExpectError
-            await exampleAttrTyped.save('example', 10);
+            await objWithTypedAttrs.save('example', 10);
+            // $ExpectError
+            await objWithTypedAttrs.save('wrongProp', true)
         }
     }
 
     function testSet() {
         function testSetDefault() {
-            // $ExpectType Object<any>
+            // $ExpectType Object<object>
             const exampleObjAny = new Parse.Object('TestObject');
-            // $ExpectType false | Object<any>
+            // $ExpectError
             exampleObjAny.set('propA', 'some value');
         }
 

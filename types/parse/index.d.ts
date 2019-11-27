@@ -19,7 +19,7 @@
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -325,7 +325,7 @@ declare global {
          *
          * Creates a new model with defined attributes.
          */
-        class Object<T extends any = any> extends BaseObject {
+        class Object<T extends object = object> extends BaseObject {
             id: string;
             createdAt: Date;
             updatedAt: Date;
@@ -387,12 +387,14 @@ declare global {
             pinWithName(name: string): Promise<void>;
             previous(attr: string): any;
             previousAttributes(): any;
-            relation(attr: string): Relation<this>;
+            relation<T extends Object>(attr: string): Relation<this, T>;
             remove(attr: string, item: any): this | false;
             removeAll(attr: string, items: any): this | false;
             revert(...keys: string[]): void;
-            save(
-                attrs?: Partial<T> | null,
+            save<K extends keyof T>(
+                attrs?: K extends never ? never : {
+                    [key in K]: T[key];
+                } | null,
                 options?: Object.SaveOptions
             ): Promise<this>;
             save<K extends keyof T>(
@@ -400,8 +402,10 @@ declare global {
                 value: T[K],
                 options?: Object.SaveOptions
             ): Promise<this>;
-            set(
-                attrs: Partial<T>,
+            set<K extends keyof T>(
+                attrs: K extends never ? never : {
+                    [key in K]: T[key];
+                },
                 options?: Object.SetOptions
             ): this | false;
             set<K extends keyof T>(
@@ -449,7 +453,7 @@ declare global {
          * Every Parse application installed on a device registered for
          * push notifications has an associated Installation object.
          */
-        class Installation<T extends any = any> extends Object<T> {
+        class Installation<T extends object = object> extends Object<T> {
             badge: any;
             channels: string[];
             timeZone: any;
@@ -702,7 +706,7 @@ declare global {
          * A Parse.Role is a local representation of a role persisted to the Parse
          * cloud.
          */
-        class Role<T extends any = any> extends Object<T> {
+        class Role<T extends object = object> extends Object<T> {
             constructor(name: string, acl: ACL);
 
             getRoles(): Relation<Role, Role>;
@@ -711,7 +715,7 @@ declare global {
             setName(name: string, options?: SuccessFailureOptions): any;
         }
 
-        class Config<T extends any = any> extends Object<T> {
+        class Config<T extends object = object> extends Object<T> {
             static get(options?: SuccessFailureOptions): Promise<Config>;
             static current(): Config;
             static save(attr: any): Promise<Config>;
@@ -720,11 +724,17 @@ declare global {
             escape(attr: string): any;
         }
 
-        class Session<T extends any = any> extends Object<T> {
+        class Session<T extends object = object> extends Object<T> {
             static current(): Promise<Session>;
 
             getSessionToken(): string;
             isCurrentSessionRevocable(): boolean;
+        }
+
+        interface UserAttributes {
+            username: string;
+            email?: string;
+            password?: string;
         }
 
         /**
@@ -735,10 +745,16 @@ declare global {
          * user specific methods, like authentication, signing up, and validation of
          * uniqueness.</p>
          */
-        class User<T extends any = any> extends Object<T> {
+        class User<T extends object = object> extends Object<{
+            [key in (keyof T | keyof UserAttributes)]: key extends keyof UserAttributes
+                ? UserAttributes[key]
+                : key extends keyof T
+                    ? T[key]
+                    : never;
+        }> {
             static allowCustomUserClass(isAllowed: boolean): void;
             static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
-            static current(): User | undefined;
+            static current<T extends object>(): User<T> | undefined;
             static currentAsync(): Promise<User | null>;
             static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
             static logIn(username: string, password: string, options?: FullOptions): Promise<User>;
@@ -949,7 +965,7 @@ declare global {
                 value?: string;
             }
 
-            interface TriggerRequest {
+            interface TriggerRequest<T extends object = object, U extends object = T> {
                 installationId?: string;
                 master?: boolean;
                 user?: User;
@@ -957,8 +973,8 @@ declare global {
                 headers: any;
                 triggerName: string;
                 log: any;
-                object: Object;
-                original?: Object;
+                object: Object<U>;
+                original?: Object<T>;
             }
 
             interface AfterSaveRequest extends TriggerRequest {
@@ -966,7 +982,7 @@ declare global {
             }
             interface AfterDeleteRequest extends TriggerRequest {}      // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest extends TriggerRequest {}     // tslint:disable-line no-empty-interface
-            interface BeforeSaveRequest extends TriggerRequest {
+            interface BeforeSaveRequest<T extends object = object, U extends object = T> extends TriggerRequest<T, U> {
                 context: object;
             }
 
@@ -993,7 +1009,10 @@ declare global {
             function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
             function afterSave(arg1: any, func?: (request: AfterSaveRequest) => Promise<void> | void): void;
             function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest) => Promise<void> | void): void;
-            function beforeSave(arg1: any, func?: (request: BeforeSaveRequest) => Promise<void> | void): void;
+            function beforeSave<
+                OriginalObject extends object = object,
+                NewObject extends object = OriginalObject
+            >(arg1: any, func?: (request: BeforeSaveRequest<OriginalObject, NewObject>) => Promise<void> | void): void;
             function beforeFind(
                 arg1: any,
                 func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
