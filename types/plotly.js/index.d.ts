@@ -519,7 +519,7 @@ export interface PlotData {
 	'line.smoothing': number;
 	'line.simplify': boolean;
 	marker: Partial<PlotMarker>;
-	'marker.symbol': string | string[]; // Drawing.symbolList
+	'marker.symbol': MarkerSymbol | MarkerSymbol[];
 	'marker.color': Color;
 	'marker.colorscale': ColorScale | ColorScale[];
 	'marker.opacity': number | number[];
@@ -718,13 +718,16 @@ export interface ColorBar {
 	tickvalssrc: any;
 	ticktextsrc: any;
 }
+
+export type MarkerSymbol = string | number | Array<(string | number)>;
+
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
  * default: "all"
  */
 export interface PlotMarker {
-	symbol: string | string[]; // Drawing.symbolList
+	symbol: MarkerSymbol;
 	color: Color | Color[];
 	colors: Color[];
 	colorscale: ColorScale;
