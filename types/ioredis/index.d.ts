@@ -1070,7 +1070,7 @@ declare namespace IORedis {
          * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
          * default: function(times) { return Math.min(times * 10, 1000); }
          */
-        sentinelRetryStrategy?: (retryAttempts: number) => number | void | null;
+        sentinelRetryStrategy?(times: number): number | false;
         /**
          * Can be used to prefer a particular slave or set of slaves based on priority.
          */
