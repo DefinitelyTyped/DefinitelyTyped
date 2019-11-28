@@ -1685,7 +1685,7 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string | Pattern;
+	fill?: string | Pattern | Gradient;
 
 	/**
 	 * Indicates which key enable centered Transform
@@ -2767,7 +2767,7 @@ interface IObjectOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string | Pattern;
+	fill?: string | Pattern | Gradient;
 
 	/**
 	 * Fill rule used to fill an object
