@@ -603,7 +603,7 @@ const multiPolylineLatLngs: L.LatLngExpression[][] = [
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
-const segment = polyline.getLatLngs() as L.LatLng[][];	// this only works because we *know* it is a 2D-Array
+const segment = polyline.getLatLngs() as L.LatLng[][];
 polyline.addLatLng([40.78, -73.91], segment[1]);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
