@@ -82,3 +82,6 @@ class ExampleOfUsingReactModal extends React.Component {
     );
   }
 }
+
+declare const instance: ReactModal;
+instance.portal.content.focus();
