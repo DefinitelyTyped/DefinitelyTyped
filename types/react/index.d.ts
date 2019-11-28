@@ -1657,7 +1657,7 @@ declare namespace React {
         // Standard HTML Attributes
         accessKey?: string;
         className?: string;
-        contentEditable?: Booleanish;
+        contentEditable?: Booleanish | "inherit";
         contextMenu?: string;
         dir?: string;
         draggable?: Booleanish;
@@ -2322,7 +2322,7 @@ declare namespace React {
         filterUnits?: number | string;
         floodColor?: number | string;
         floodOpacity?: number | string;
-        focusable?: Booleanish;
+        focusable?: Booleanish | "auto";
         fontFamily?: string;
         fontSize?: number | string;
         fontSizeAdjust?: number | string;
