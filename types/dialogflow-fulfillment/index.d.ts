@@ -10,7 +10,7 @@
 import { DialogflowConversation } from 'actions-on-google';
 import { Request, Response } from 'express';
 
-export enum Platform {
+export enum Platforms {
     UNSPECIFIED = 'PLATFORM_UNSPECIFIED',
     FACEBOOK = 'FACEBOOK',
     SLACK = 'SLACK',
@@ -33,9 +33,9 @@ export class Card extends RichResponse {
 
     setTitle(title: string): Card;
 
-    private getV1ResponseObject_(platform: Platform): object;
+    private getV1ResponseObject_(platform: Platforms): object;
 
-    private getV2ResponseObject_(platform: Platform): object;
+    private getV2ResponseObject_(platform: Platforms): object;
 }
 
 export class Image extends RichResponse {
@@ -44,29 +44,29 @@ export class Image extends RichResponse {
             | string
             | {
                   imageUrl: string;
-                  platform: Platform;
+                  platform: Platforms;
               },
     );
 
     setImage(imageUrl: string): Image;
 
-    private getV1ResponseObject_(platform: Platform): object;
+    private getV1ResponseObject_(platform: Platforms): object;
 
-    private getV2ResponseObject_(platform: Platform): object;
+    private getV2ResponseObject_(platform: Platforms): object;
 }
 
 export class Payload extends RichResponse {
     payload: any;
 
-    constructor(platform: Platform, payload: any, options?: { sendAsMessage?: boolean; rawPayload?: boolean });
+    constructor(platform: Platforms, payload: any, options?: { sendAsMessage?: boolean; rawPayload?: boolean });
 
     setPayload(payload: string): Payload;
 
-    private getPayload_(platform: Platform): object;
+    private getPayload_(platform: Platforms): object;
 
-    private getV1ResponseObject_(platform: Platform): object;
+    private getV1ResponseObject_(platform: Platforms): object;
 
-    private getV2ResponseObject_(platform: Platform): object;
+    private getV2ResponseObject_(platform: Platforms): object;
 }
 
 export class Suggestion extends RichResponse {
@@ -76,9 +76,9 @@ export class Suggestion extends RichResponse {
 
     private addReply_(reply: string): void;
 
-    private getV1ResponseObject_(platform: Platform): object;
+    private getV1ResponseObject_(platform: Platforms): object;
 
-    private getV2ResponseObject_(platform: Platform): object;
+    private getV2ResponseObject_(platform: Platforms): object;
 }
 
 export class Text extends RichResponse {
@@ -88,14 +88,14 @@ export class Text extends RichResponse {
 
     setText(text: string): Text;
 
-    private getV1ResponseObject_(platform: Platform): object;
+    private getV1ResponseObject_(platform: Platforms): object;
 
-    private getV2ResponseObject_(platform: Platform): object;
+    private getV2ResponseObject_(platform: Platforms): object;
 }
 
 export class RichResponse {
-    platform: Platform;
-    setPlatform(platform: Platform): RichResponse;
+    platform: Platforms;
+    setPlatform(platform: Platforms): RichResponse;
 }
 
 /** Handles the communication with Dialogflow's webhook fulfillment API v1 & v2 with support for rich responses across 8 platforms and Dialogflow's simulator */
@@ -207,11 +207,11 @@ export class WebhookClient {
      */
     conv(): DialogflowConversation<any>;
 
-    private existingSuggestion_(platform: Platform): Suggestion | null;
+    private existingSuggestion_(platform: Platforms): Suggestion | null;
 
     private addResponse_(response: RichResponse | string): void;
 
-    private existingPayload_(platform: Platform): Payload | null;
+    private existingPayload_(platform: Platforms): Payload | null;
 
     private send_(): void;
 }
