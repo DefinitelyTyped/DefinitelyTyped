@@ -1,4 +1,4 @@
-// Type definitions for Victory 33.0
+// Type definitions for Victory 33.1
 // Project: https://github.com/FormidableLabs/victory, https://formidable.com/open-source/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
@@ -327,6 +327,112 @@ declare module 'victory' {
         y: number;
     };
 
+    export interface VictoryClipContainerProps {
+        /**
+         * `VictoryClipContainer` renders a single child, or an array of children in group element.
+         */
+        children?: React.ReactElement | React.ReactElement[];
+        /**
+         * The `circleComponent` specifies the element to use when a `VictoryClipContainer` renders
+         * a circular clip path. By default, `VictoryClipContainer` uses the `Circle` component.
+         * @default circleComponent={<Circle/>}
+         */
+        circleComponent?: React.ReactElement;
+        /**
+         * The `className` prop specifies a class name that will be applied to the rendered element.
+         * @example: className="myClipPath"
+         */
+        className?: string;
+        /**
+         * The `clipHeight` prop determines the base height of the rectangular clip path. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the height and padding
+         * of the parent chart.
+         */
+        clipHeight?: number;
+        /**
+         * The `clipId` prop may be used to set a deterministic id for the container.
+         * When a `containerId` is not manually set, a unique id will be generated.
+         * It is usually necessary to set deterministic ids for automated testing.
+         */
+        clipId?: number | string;
+        /**
+         * The `clipPadding` prop is used when the clipped area should be larger than the range of a chart.
+         * This prop should be given as an object with `top`, `bottom`, `left`, and `right` properties. Set
+         * the `clipPadding` prop is useful for extending the visible area of a chart in some dimension so
+         * that data or labels are not cut off.
+         */
+        clipPadding?: {
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+        };
+        /**
+         * The `clipPathComponent` prop specifies the clip path to apply to the rendered group when appropriate.
+         * By default, `VictoryClipContainer` uses the `ClipPath` component.
+         * @default clipPathComponent={<ClipPath/>}
+         */
+        clipPathComponent?: React.ReactElement;
+        /**
+         * The `clipWidth` prop determines the base width of the rectangular clip path. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the width and padding
+         * of the parent chart.
+         */
+        clipWidth?: number;
+        /**
+         * The `events` prop attaches arbitrary event handlers to the group element.
+         * This prop should be given as an object of event names and corresponding event handlers.
+         * When events are provided via Victory's event system, event handlers will be called with
+         * the event, the props of the component it is attached to, and an `eventKey` when applicable.
+         * @example events={{onClick: (evt) => alert("x: " + evt.clientX)}}
+         */
+        events?: object;
+        /**
+         * `VictoryClipContainer` uses the standard `groupComponent` prop.
+         * @default groupComponent={<g/>}
+         */
+        groupComponent?: React.ReactElement;
+        /**
+         * Victory components will pass an `origin` prop is to define the center point in svg coordinates for polar charts.
+         * **This prop should not be set manually.**
+         */
+        origin?: {
+            x?: number;
+            y?: number;
+        };
+        /**
+         * Victory components can pass a boolean `polar` prop to specify whether a label is part of a polar chart.
+         * **This prop should not be set manually.**
+         */
+        polar?: boolean;
+        /**
+         * The `radius` prop determines the radius of the circular clip path used for polar charts. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the dimensions and padding
+         * of the parent chart.
+         */
+        radius?: number;
+        /**
+         * The `rectComponent` specifies the element to use when a `VictoryClipContainer` renders a rectangular clip path.
+         * By default, `VictoryClipContainer` uses the `Rect` component.
+         * @default rectComponent={<Rect/>}
+         */
+        rectComponent?: React.ReactElement;
+        /**
+         * The `translateX` prop determines the offset of the clip path from the base x coordinate. This prop
+         * should be given as a number. If this prop is not given, it will be calculated based on the padding
+         * of the parent chart.
+         */
+        translateX?: number;
+        /**
+         * The `translateY` prop determines the offset of the clip path from the base y coordinate. This prop
+         * should be given as a number. If this prop is not given, it will be calculated based on the padding
+         * of the parent chart.
+         */
+        translateY?: number;
+    }
+
+    export class VictoryClipContainer extends React.Component<VictoryClipContainerProps, any> {}
+
     export interface VictoryCursorContainerProps extends VictoryContainerProps {
         /**
          * The cursorComponent prop takes a component instance which will be used to render a cursor element.
@@ -639,8 +745,8 @@ declare module 'victory' {
     export interface VictoryThemeDefinition {
         area?: {
             style?: {
-                data?: VictoryStyleInterface;
-                labels?: VictoryStyleInterface;
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
             };
         } & ThemeBaseProps;
         axis?: {
@@ -697,7 +803,9 @@ declare module 'victory' {
             orientation?: 'vertical' | 'horizontal';
             titleOrientation?: OrientationTypes;
             style?: {
-                data?: React.CSSProperties;
+                data?: React.CSSProperties & {
+                    type?: ScatterSymbolType;
+                };
                 labels?: React.CSSProperties;
                 title?: React.CSSProperties;
             };
@@ -882,6 +990,115 @@ declare module 'victory' {
          */
         y?: number;
     }
+
+    export interface FlyoutProps extends VictoryCommonProps {
+        /**
+         * a flag signifying whether the component is active
+         */
+        active?: boolean;
+        /**
+         * the center coordinates of the flyout
+         */
+        center?: {
+          x?: number;
+          y?: number;
+        };
+        /**
+         * the class name that will be applied to the rendered element
+         */
+        className?: string;
+        /**
+         * the corner radius of the flyout
+         */
+        cornerRadius?: number;
+        /**
+         * the entire dataset if applicable
+         */
+        data?: any[];
+        /**
+         * the data point corresponding to this flyout if applicable
+         */
+        datum?: object;
+        /**
+         * offset in the x dimension.
+         */
+        dx?: number;
+        /**
+         * offset in the y dimension.
+         */
+        dy?: number;
+        /**
+         * events to attach to the rendered element
+         */
+        events?: object;
+        /**
+         * the height of the flyout
+         */
+        height?: number;
+        /**
+         * an id to apply to the rendered component
+         */
+        id?: string | number;
+        /**
+         * the index of this flyout within the dataset
+         */
+        index?: number;
+        orientation?: 'top' | 'bottom' | 'left' | 'right';
+        /**
+         * the svg coordinates of the center point of a polar chart
+         */
+        origin?: object;
+        /**
+         * the rendered path element
+         * @default pathComponent={<Path/>}
+         */
+        pathComponent?: React.ReactElement;
+        /**
+         * the length of the triangular pointer
+         */
+        pointerLength?: number;
+        /**
+         * the width of the base of the triangular pointer
+         */
+        pointerWidth?: number;
+        /**
+         * a flag specifying whether the component is part of a polar chart
+         */
+        polar?: boolean;
+        /**
+         * the aria role to assign to the element
+         */
+        role?: string;
+        /**
+         * the shape rendering attribute to apply to the rendered elements
+         */
+        shapeRendering?: string;
+        /**
+         * the styles to apply to the rendered element
+         */
+        style?: VictoryStyleObject;
+        /**
+         * a transform that will be supplied to elements this component renders
+         */
+        transform?: string;
+        /**
+         * the width of the flyout
+         */
+        width?: number;
+        /**
+         * the x coordinate of data point associated with this flyout
+         */
+        x?: number;
+        /**
+         * the y coordinate of data point associated with this flyout
+         */
+        y?: number;
+    }
+
+    /**
+     * `VictoryTooltip` uses `Flyout` to render a flyout style path around text. `Flyout` renders `<Path>` element.
+     */
+    export class Flyout extends React.Component<FlyoutProps, any> {}
 
     /**
      * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label
