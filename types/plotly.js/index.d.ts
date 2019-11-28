@@ -423,8 +423,8 @@ export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 export interface Icon {
 	width: number;
 	path: string;
-	ascent: number;
-	descent: number;
+	ascent?: number;
+	descent?: number;
 }
 
 export interface ModeBarButton {
