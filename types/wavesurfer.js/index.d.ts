@@ -1,4 +1,4 @@
-// Type definitions for wavesurfer.js 2.0
+// Type definitions for wavesurfer.js 3.2.0
 // Project: https://github.com/katspaugh/wavesurfer.js
 // Definitions by: Yusuke Higuchi <https://github.com/higuri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -118,6 +118,7 @@ declare namespace WaveSurfer {
         barHeight?: number;
         barWidth?: number;
         barGap?: number;
+        barRadius?: number;
         closeAudioContext?: boolean;
         container: string | HTMLElement;
         cursorColor?: string;
