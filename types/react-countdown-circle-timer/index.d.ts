@@ -1,4 +1,4 @@
-// Type definitions for react-countdown-circle-timer 1.0.3
+// Type definitions for react-countdown-circle-timer 1.0
 // Project: https://github.com/vydimitrov/react-countdown-circle-timer
 // Definitions by: Tim Ittermann <https://github.com/timia2109>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,15 +14,15 @@ export type OnCompleteFunctionType = () => [boolean, number] | undefined | void;
 export class CountdownCircleTimer extends Component<Props> {}
 
 export interface Props {
-    durationSeconds: number,
-    colors: ColorType,
-    size?: number,
-    strokeWidth?: number,
-    strokeLinecap?: StrokeLinecapType,
-    trailColor?: string,
-    isPlaying?: boolean,
-    isLinearGradient?: boolean,
-    gradientUniqueKey?: string,
-    renderTime?: RenderTimeFunctionType,
-    onComplete?: OnCompleteFunctionType
+    durationSeconds: number;
+    colors: ColorType;
+    size?: number;
+    strokeWidth?: number;
+    strokeLinecap?: StrokeLinecapType;
+    trailColor?: string;
+    isPlaying?: boolean;
+    isLinearGradient?: boolean;
+    gradientUniqueKey?: string;
+    renderTime?: RenderTimeFunctionType;
+    onComplete?: OnCompleteFunctionType;
 }
