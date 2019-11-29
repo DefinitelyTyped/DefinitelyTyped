@@ -209,7 +209,7 @@ export interface LayoutPolar {
 		categoryarray: string[];
 		angle: number;
 		side: 'clockwise' | 'counterclockwise';
-		title: {
+		title: Partial<{
 			text: string;
 			font: Partial<Font>;
 			hoverformat: string;
@@ -241,15 +241,15 @@ export interface LayoutPolar {
 			separatethousands: boolean;
 			tickfont: Partial<Font>;
 			tickangle: number;
-			tickformatstops: {
+			tickformatstops: Partial<{
 				name: string;
 				dtickrange: any[];
 				value: string;
 				templateitemname: string;
-			};
+			}>;
 			layer: 'above traces' | 'below traces';
 			calendar: Calendar;
-		};
+		}>;
 	}>;
 	angularaxis: Partial<Axis>;
 	gridshape: 'circular' | 'linear';
