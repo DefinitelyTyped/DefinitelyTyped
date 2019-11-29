@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const Test: React.FC = () => {
@@ -16,7 +16,7 @@ const Test: React.FC = () => {
         trailColor="#3f3f3f"
         isLinearGradient
         gradientUniqueKey="myKey"
-        renderTime={(r,e,p) => <h1>Test</h1>}
-        onComplete={()=>{}}
+        renderTime={(r, e, p) => <h1>Test</h1>}
+        onComplete={() => { }}
     />;
-}
+};
