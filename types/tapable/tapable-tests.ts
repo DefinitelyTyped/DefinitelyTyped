@@ -174,4 +174,41 @@ const isUndefined = (val: undefined) => val;
         console.log(isNumber(result.syncWaterfallHook.age));
         console.log(isNumber(result.asyncSeriesWaterfallHook.age));
     });
+
+    // Test TapOptions
+    // Minimal params
+    hooks.syncHook.tap({
+        name: 'Hook1',
+    }, () => ('Any Return Value'));
+
+    // All param types
+    hooks.syncHook.tap({
+        name: 'Hook2',
+        type: 'sync',
+        before: 'Hook1',
+        context: true,
+        stage: 10,
+    }, () => ('Any Return Value'));
+
+    hooks.syncHook.tap({
+        name: 'Hook3',
+        before: ['Hook1', 'Hook2'],
+    }, () => ('Any Return Value'));
+
+    // No optional params
+    hooks.syncHook.tap({
+        name: 'Hook4',
+    }, () => ('Any Return Value'));
+
+    // The `fn` param
+    hooks.syncWaterfallHook.tap({
+        name: 'SyncHook',
+        fn: (person) => ({ name: 'sue', age: person.age + 1 }),
+    }, (person) => ({ name: 'sue', age: person.age + 1 }));
+
+    hooks.asyncSeriesWaterfallHook.tapPromise({
+        name: 'PromiseHook',
+        type: 'promise',
+        fn: async (person) => ({ name: 'sue', age: person.age + 1 }),
+    }, async (person) => ({ name: 'sue', age: person.age + 1 }));
 })();
