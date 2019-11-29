@@ -37,7 +37,7 @@ export interface ResizableProps {
     className?: string;
     width: number;
     height: number;
-    handle: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode);
+    handle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode);
     handleSize?: [number, number];
     lockAspectRatio?: boolean;
     axis?: Axis;
