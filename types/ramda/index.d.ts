@@ -31,7 +31,7 @@
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 /// <reference path="./es/add.d.ts" />
 /// <reference path="./es/addIndex.d.ts" />
@@ -1588,6 +1588,7 @@ declare namespace R {
         intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: readonly T[], list2: readonly T[]): T[];
 
         /**
+         * Creates a new list with the separator interposed between elements.
          */
         intersperse<T>(separator: T, list: readonly T[]): T[];
         intersperse<T>(separator: T): (list: readonly T[]) => T[];
@@ -1788,8 +1789,8 @@ declare namespace R {
         /**
          * Tests a regular expression agains a String
          */
-        match(regexp: RegExp, str: string): string[];
-        match(regexp: RegExp): (str: string) => string[];
+        match(regexp: RegExp, str: string): any[];
+        match(regexp: RegExp): (str: string) => any[];
 
         /**
          * mathMod behaves like the modulo operator should mathematically, unlike the `%`
@@ -1839,10 +1840,10 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of mergeRight
          */
-        merge<O2 extends object>(__: Placeholder, b: O2): <O1 extends object>(a: O1) => O.Clean<O.MergeUp<O2, O1>>;
-        merge(__: Placeholder): <O1 extends object, O2 extends object>(b: O2, a: O1) => O.Clean<O.MergeUp<O2, O1>>;
-        merge<O1 extends object, O2 extends object>(a: O1, b: O2): O.Clean<O.MergeUp<O2, O1>>;
-        merge<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Clean<O.MergeUp<O2, O1>>;
+        merge<O2 extends object>(__: Placeholder, b: O2): <O1 extends object>(a: O1) => O.Ensure<O.MergeUp<O2, O1>>;
+        merge(__: Placeholder): <O1 extends object, O2 extends object>(b: O2, a: O1) => O.Ensure<O.MergeUp<O2, O1>>;
+        merge<O1 extends object, O2 extends object>(a: O1, b: O2): O.Ensure<O.MergeUp<O2, O1>>;
+        merge<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Ensure<O.MergeUp<O2, O1>>;
 
         /**
          * Merges a list of objects together into one object.
@@ -1850,7 +1851,7 @@ declare namespace R {
         mergeAll<Os extends readonly object[]>(list: Os): O.AssignUp<{}, Os> extends infer M
                                                           ? {} extends M        // nothing merged bcs no `as const`
                                                             ? T.UnionOf<Os>     // so we output the default types
-                                                            : O.Clean<M & {}>  // otherwise, we can compute `M`
+                                                            : O.Ensure<M & {}>  // otherwise, we can compute `M`
                                                           : never;
 
         /**
@@ -1859,8 +1860,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the first object will be used.
          */
-        mergeDeepLeft<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.Clean<O.MergeUp<O1, O2, 'deep'>>;
-        mergeDeepLeft<O1 extends object>(o1: O1): <O2 extends object>(o2: O2) => O.Clean<O.MergeUp<O1, O2, 'deep'>>;
+        mergeDeepLeft<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.Ensure<O.MergeUp<O1, O2, 'deep'>>;
+        mergeDeepLeft<O1 extends object>(o1: O1): <O2 extends object>(o2: O2) => O.Ensure<O.MergeUp<O1, O2, 'deep'>>;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1868,8 +1869,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.Clean<O.MergeUp<O2, O1, 'deep'>>;
-        mergeDeepRight<O1 extends object>(a: O1): <O2 extends object>(o2: O2) => O.Clean<O.MergeUp<O2, O1, 'deep'>>;
+        mergeDeepRight<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.Ensure<O.MergeUp<O2, O1, 'deep'>>;
+        mergeDeepRight<O1 extends object>(a: O1): <O2 extends object>(o2: O2) => O.Ensure<O.MergeUp<O2, O1, 'deep'>>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1896,15 +1897,15 @@ declare namespace R {
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the first object will be used.
          */
-        mergeLeft<O1 extends object, O2 extends object>(a: O1, b: O2): O.Clean<O.MergeUp<O1, O2>>;
-        mergeLeft<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Clean<O.MergeUp<O1, O2>>;
+        mergeLeft<O1 extends object, O2 extends object>(a: O1, b: O2): O.Ensure<O.MergeUp<O1, O2>>;
+        mergeLeft<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Ensure<O.MergeUp<O1, O2>>;
 
         /**
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the second object will be used.
          */
-        mergeRight<O1 extends object, O2 extends object>(a: O1, b: O2): O.Clean<O.MergeUp<O2, O1>>;
-        mergeRight<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Clean<O.MergeUp<O2, O1>>;
+        mergeRight<O1 extends object, O2 extends object>(a: O1, b: O2): O.Ensure<O.MergeUp<O2, O1>>;
+        mergeRight<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Ensure<O.MergeUp<O2, O1>>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
