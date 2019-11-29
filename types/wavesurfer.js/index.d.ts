@@ -1,4 +1,4 @@
-// Type definitions for wavesurfer.js 3.2.0
+// Type definitions for wavesurfer.js 3.2
 // Project: https://github.com/katspaugh/wavesurfer.js
 // Definitions by: Yusuke Higuchi <https://github.com/higuri>, Egor Gorbachev <https://github.com/kubk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
