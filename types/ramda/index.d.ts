@@ -1896,15 +1896,15 @@ declare namespace R {
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the first object will be used.
          */
-        mergeLeft<O1 extends object, O2 extends object>(a: O1, b: O2): O.Ensure<O.MergeUp<O1, O2>>;
-        mergeLeft<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Ensure<O.MergeUp<O1, O2>>;
+        mergeLeft<O1 extends object, O2 extends object>(a: O1, b: O2): O.Clean<O.MergeUp<O1, O2>>;
+        mergeLeft<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Clean<O.MergeUp<O1, O2>>;
 
         /**
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the second object will be used.
          */
-        mergeRight<O1 extends object, O2 extends object>(a: O1, b: O2): O.Ensure<O.MergeUp<O2, O1>>;
-        mergeRight<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Ensure<O.MergeUp<O2, O1>>;
+        mergeRight<O1 extends object, O2 extends object>(a: O1, b: O2): O.Clean<O.MergeUp<O2, O1>>;
+        mergeRight<O1 extends object>(a: O1): <O2 extends object>(b: O2) => O.Clean<O.MergeUp<O2, O1>>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
