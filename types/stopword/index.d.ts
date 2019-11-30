@@ -6,10 +6,8 @@
 type TStopwords = string[];
 
 declare namespace stopword {
-
     // main API
     function removeStopwords(text: string[], stopwords?: string[]): string;
-
     // <language code>
     const af: TStopwords;
     const ar: TStopwords;
