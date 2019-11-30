@@ -3,12 +3,23 @@
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type TStopwords = string[];
+export = stopword;
 
 declare namespace stopword {
-    // main API
+    type TStopwords = string[];
+
+    /**
+      * Stopword removal
+      *
+      * @param text Array string of words
+      * @param stopwords Array string of your custom stopwords (default: English stopwords | .en)
+      */
     function removeStopwords(text: string[], stopwords?: string[]): string;
-    // <language code>
+
+    /**
+      * Get array of stopwords according by language code
+      * Also can uses for stopwords parameter on removeStopwords
+      */
     const af: TStopwords;
     const ar: TStopwords;
     const bn: TStopwords;
@@ -44,5 +55,3 @@ declare namespace stopword {
     const zh: TStopwords;
     const zu: TStopwords;
 }
-
-export = stopword;
