@@ -1014,7 +1014,7 @@ declare namespace IORedis {
          * When the return value isn't a number, ioredis will stop trying to reconnect.
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
-        retryStrategy?(times: number): number | false;
+        retryStrategy?(times: number): number | void | null;
         /**
          * By default, all pending commands will be flushed with an error every
          * 20 retry attempts. That makes sure commands won't wait forever when
@@ -1070,7 +1070,7 @@ declare namespace IORedis {
          * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
          * default: function(times) { return Math.min(times * 10, 1000); }
          */
-        sentinelRetryStrategy?(times: number): number | false;
+        sentinelRetryStrategy?(times: number): number | void | null;
         /**
          * Can be used to prefer a particular slave or set of slaves based on priority.
          */
