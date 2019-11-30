@@ -9,12 +9,20 @@ export as namespace moo;
 /**
  * Reserved token for indicating a parse fail.
  */
-export const error: { error: true };
+interface ErrorRule {
+  error: true
+}
+
+export const error: ErrorRule;
 
 /**
  * Reserved token for indicating a fallback rule.
  */
-export const fallback: { fallback: true };
+interface FallbackRule {
+  fallback: true
+}
+
+export const fallback: FallbackRule;
 
 export type TypeMapper = (x: string) => string;
 
@@ -61,7 +69,7 @@ export interface Rule {
     type?: TypeMapper;
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule | Rule[];
+    [x: string]: RegExp | string | string[] | Rule | Rule[] | ErrorRule | FallbackRule;
 }
 
 export interface Lexer {
