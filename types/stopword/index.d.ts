@@ -3,48 +3,48 @@
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type TStopwords = Array<string>;
+type TStopwords = string[];
 
 declare namespace stopword {
 
     // main API
-    export function removeStopwords(text: Array<string>, stopwords?: Array<string>): string;
+    function removeStopwords(text: string[], stopwords?: string[]): string;
 
     // <language code>
-    export var af: TStopwords;
-    export var ar: TStopwords;
-    export var bn: TStopwords;
-    export var br: TStopwords;
-    export var da: TStopwords;
-    export var de: TStopwords;
-    export var en: TStopwords;
-    export var es: TStopwords;
-    export var fa: TStopwords;
-    export var fr: TStopwords;
-    export var fi: TStopwords;
-    export var ha: TStopwords;
-    export var he: TStopwords;
-    export var hi: TStopwords;
-    export var id: TStopwords;
-    export var it: TStopwords;
-    export var ja: TStopwords;
-    export var lgg: TStopwords;
-    export var lggo: TStopwords;
-    export var my: TStopwords;
-    export var nl: TStopwords;
-    export var no: TStopwords;
-    export var pa: TStopwords;
-    export var pl: TStopwords;
-    export var pt: TStopwords;
-    export var ru: TStopwords;
-    export var so: TStopwords;
-    export var st: TStopwords;
-    export var sv: TStopwords;
-    export var sw: TStopwords;
-    export var vi: TStopwords;
-    export var yo: TStopwords;
-    export var zh: TStopwords;
-    export var zu: TStopwords;
+    const af: TStopwords;
+    const ar: TStopwords;
+    const bn: TStopwords;
+    const br: TStopwords;
+    const da: TStopwords;
+    const de: TStopwords;
+    const en: TStopwords;
+    const es: TStopwords;
+    const fa: TStopwords;
+    const fr: TStopwords;
+    const fi: TStopwords;
+    const ha: TStopwords;
+    const he: TStopwords;
+    const hi: TStopwords;
+    const id: TStopwords;
+    const it: TStopwords;
+    const ja: TStopwords;
+    const lgg: TStopwords;
+    const lggo: TStopwords;
+    const my: TStopwords;
+    const nl: TStopwords;
+    const no: TStopwords;
+    const pa: TStopwords;
+    const pl: TStopwords;
+    const pt: TStopwords;
+    const ru: TStopwords;
+    const so: TStopwords;
+    const st: TStopwords;
+    const sv: TStopwords;
+    const sw: TStopwords;
+    const vi: TStopwords;
+    const yo: TStopwords;
+    const zh: TStopwords;
+    const zu: TStopwords;
 }
 
 export = stopword;
