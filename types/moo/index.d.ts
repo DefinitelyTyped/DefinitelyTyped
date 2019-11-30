@@ -1,7 +1,8 @@
-// Type definitions for moo 0.5
+// Type definitions for moo 0.5.1
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
+//                 Martien Oranje <https://github.com/moranje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace moo;
@@ -9,8 +10,8 @@ export as namespace moo;
 /**
  * Reserved token for indicating a parse fail.
  */
-interface ErrorRule {
-  error: true
+export interface ErrorRule {
+  error: true;
 }
 
 export const error: ErrorRule;
@@ -18,8 +19,8 @@ export const error: ErrorRule;
 /**
  * Reserved token for indicating a fallback rule.
  */
-interface FallbackRule {
-  fallback: true
+export interface FallbackRule {
+  fallback: true;
 }
 
 export const fallback: FallbackRule;
