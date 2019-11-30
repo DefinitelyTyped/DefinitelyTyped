@@ -1,4 +1,4 @@
-// Type definitions for moo 0.5.1
+// Type definitions for moo 0.5
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
