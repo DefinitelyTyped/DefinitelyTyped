@@ -17,6 +17,7 @@ export interface PushNotification {
     userInteraction: boolean;
     message: string | object;
     data: object;
+    subText?: string;
     badge: number;
     alert: object;
     sound: string;

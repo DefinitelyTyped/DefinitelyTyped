@@ -72,6 +72,12 @@ Inputmask({
     unmaskAsNumber: false,
     inputType: "text",
     inputmode: "numeric",
+    definitions: {
+        X: {
+            validator: "[xX]",
+            casing: "upper"
+        }
+    }
 }).mask("selector");
 
 Inputmask("9-a{1,3}9{1,3}").mask("selector");

@@ -69,18 +69,18 @@ declare module "http" {
     }
 
     interface ClientRequestArgs {
-        protocol?: string;
-        host?: string;
-        hostname?: string;
+        protocol?: string | null;
+        host?: string | null;
+        hostname?: string | null;
         family?: number;
-        port?: number | string;
+        port?: number | string | null;
         defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
-        path?: string;
+        path?: string | null;
         headers?: OutgoingHttpHeaders;
-        auth?: string;
+        auth?: string | null;
         agent?: Agent | boolean;
         _defaultAgent?: Agent;
         timeout?: number;
@@ -157,6 +157,7 @@ declare module "http" {
         writeContinue(callback?: () => void): void;
         writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeProcessing(): void;
     }
 
     interface InformationEvent {

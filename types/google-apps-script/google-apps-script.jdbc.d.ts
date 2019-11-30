@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,9 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module JDBC {
+  namespace JDBC {
     /** JdbcAdvancedParameters */
-    export type CloudSqlAdvancedParameters = {
+    interface CloudSqlAdvancedParameters {
       /** connection timeout in seconds */
       connectTimeoutSeconds?: Integer;
       /** the database to connect to */
@@ -24,7 +24,7 @@ declare namespace GoogleAppsScript {
       user?: string;
     }
     /** JdbcAdvancedParameters */
-    export type ConnectionAdvancedParameters = {
+    interface ConnectionAdvancedParameters {
       /** the database to connect to */
       databaseName?: string;
       /** the user's password */
@@ -44,7 +44,7 @@ declare namespace GoogleAppsScript {
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
      * Microsoft SQL Server, and Oracle databases. For more information, see the guide to JDBC.
      */
-    export interface Jdbc {
+    interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
       getCloudSqlConnection(url: string, info: CloudSqlAdvancedParameters): JdbcConnection;
       getCloudSqlConnection(url: string, userName: string, password: string): JdbcConnection;
@@ -58,12 +58,11 @@ declare namespace GoogleAppsScript {
       parseTime(time: string): JdbcTime;
       parseTimestamp(timestamp: string): JdbcTimestamp;
     }
-
     /**
      * A JDBC Array. For documentation of this class, see java.sql.Array
      * .
      */
-    export interface JdbcArray {
+    interface JdbcArray {
       free(): void;
       getArray(): any;
       getArray(index: Integer, count: Integer): any;
@@ -72,12 +71,11 @@ declare namespace GoogleAppsScript {
       getResultSet(): JdbcResultSet;
       getResultSet(index: Integer, count: Integer): JdbcResultSet;
     }
-
     /**
      * A JDBC Blob. For documentation of this class, see java.sql.Blob
      * .
      */
-    export interface JdbcBlob {
+    interface JdbcBlob {
       free(): void;
       getAppsScriptBlob(): Base.Blob;
       getAs(contentType: string): Base.Blob;
@@ -91,12 +89,11 @@ declare namespace GoogleAppsScript {
       setBytes(position: Integer, bytes: Byte[], offset: Integer, length: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
      * A JDBC CallableStatement. For documentation of this class, see
      * java.sql.CallableStatement.
      */
-    export interface JdbcCallableStatement {
+    interface JdbcCallableStatement {
       addBatch(): void;
       addBatch(sql: string): void;
       cancel(): void;
@@ -262,12 +259,11 @@ declare namespace GoogleAppsScript {
       setURL(parameterName: string, val: string): void;
       wasNull(): boolean;
     }
-
     /**
      * A JDBC Clob. For documentation of this class, see java.sql.Clob
      * .
      */
-    export interface JdbcClob {
+    interface JdbcClob {
       free(): void;
       getAppsScriptBlob(): Base.Blob;
       getAs(contentType: string): Base.Blob;
@@ -281,12 +277,11 @@ declare namespace GoogleAppsScript {
       setString(position: Integer, value: string, offset: Integer, len: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
      * A JDBC Connection. For documentation of this class, see
      * java.sql.Connection.
      */
-    export interface JdbcConnection {
+    interface JdbcConnection {
       clearWarnings(): void;
       close(): void;
       commit(): void;
@@ -329,12 +324,11 @@ declare namespace GoogleAppsScript {
       setSavepoint(name: string): JdbcSavepoint;
       setTransactionIsolation(level: Integer): void;
     }
-
     /**
      * A JDBC database metadata object. For documentation of this class, see
      * java.sql.DatabaseMetaData.
      */
-    export interface JdbcDatabaseMetaData {
+    interface JdbcDatabaseMetaData {
       allProceduresAreCallable(): boolean;
       allTablesAreSelectable(): boolean;
       autoCommitFailureClosesAllResultSets(): boolean;
@@ -508,12 +502,11 @@ declare namespace GoogleAppsScript {
       usesLocalFilePerTable(): boolean;
       usesLocalFiles(): boolean;
     }
-
     /**
      * A JDBC Date. For documentation of this class, see java.sql.Date
      * .
      */
-    export interface JdbcDate {
+    interface JdbcDate {
       after(when: JdbcDate): boolean;
       before(when: JdbcDate): boolean;
       getDate(): Integer;
@@ -525,12 +518,11 @@ declare namespace GoogleAppsScript {
       setTime(milliseconds: Integer): void;
       setYear(year: Integer): void;
     }
-
     /**
      * A JDBC ParameterMetaData. For documentation of this class, see
      * java.sql.ParameterMetaData.
      */
-    export interface JdbcParameterMetaData {
+    interface JdbcParameterMetaData {
       getParameterClassName(param: Integer): string;
       getParameterCount(): Integer;
       getParameterMode(param: Integer): Integer;
@@ -541,12 +533,11 @@ declare namespace GoogleAppsScript {
       isNullable(param: Integer): Integer;
       isSigned(param: Integer): boolean;
     }
-
     /**
      * A JDBC PreparedStatement. For documentation of this class, see
      * java.sql.PreparedStatement.
      */
-    export interface JdbcPreparedStatement {
+    interface JdbcPreparedStatement {
       addBatch(): void;
       addBatch(sql: string): void;
       cancel(): void;
@@ -625,21 +616,19 @@ declare namespace GoogleAppsScript {
       setTimestamp(parameterIndex: Integer, x: JdbcTimestamp, timeZone: string): void;
       setURL(parameterIndex: Integer, x: string): void;
     }
-
     /**
      * A JDBC Ref. For documentation of this class, see java.sql.Ref.
      */
-    export interface JdbcRef {
+    interface JdbcRef {
       getBaseTypeName(): string;
       getObject(): any;
       setObject(object: any): void;
     }
-
     /**
      * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet
      * .
      */
-    export interface JdbcResultSet {
+    interface JdbcResultSet {
       absolute(row: Integer): boolean;
       afterLast(): void;
       beforeFirst(): void;
@@ -780,12 +769,11 @@ declare namespace GoogleAppsScript {
       updateTimestamp(columnLabel: string, x: JdbcTimestamp): void;
       wasNull(): boolean;
     }
-
     /**
      * A JDBC ResultSetMetaData. For documentation of this class, see
      * java.sql.ResultSetMetaData.
      */
-    export interface JdbcResultSetMetaData {
+    interface JdbcResultSetMetaData {
       getCatalogName(column: Integer): string;
       getColumnClassName(column: Integer): string;
       getColumnCount(): Integer;
@@ -808,39 +796,35 @@ declare namespace GoogleAppsScript {
       isSigned(column: Integer): boolean;
       isWritable(column: Integer): boolean;
     }
-
     /**
      * A JDBC RowId. For documentation of this class, see java.sql.RowId
      * .
      */
-    export interface JdbcRowId {
+    interface JdbcRowId {
       getBytes(): Byte[];
     }
-
     /**
      * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML
      * .
      */
-    export interface JdbcSQLXML {
+    interface JdbcSQLXML {
       free(): void;
       getString(): string;
       setString(value: string): void;
     }
-
     /**
      * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint
      * .
      */
-    export interface JdbcSavepoint {
+    interface JdbcSavepoint {
       getSavepointId(): Integer;
       getSavepointName(): string;
     }
-
     /**
      * A JDBC Statement. For documentation of this class, see java.sql.Statement
      * .
      */
-    export interface JdbcStatement {
+    interface JdbcStatement {
       addBatch(sql: string): void;
       cancel(): void;
       clearBatch(): void;
@@ -882,21 +866,19 @@ declare namespace GoogleAppsScript {
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
     }
-
     /**
      * A JDBC Struct. For documentation of this class, see java.sql.Struct
      * .
      */
-    export interface JdbcStruct {
+    interface JdbcStruct {
       getAttributes(): any[];
       getSQLTypeName(): string;
     }
-
     /**
      * A JDBC Time. For documentation of this class, see java.sql.Time
      * .
      */
-    export interface JdbcTime {
+    interface JdbcTime {
       after(when: JdbcTime): boolean;
       before(when: JdbcTime): boolean;
       getHours(): Integer;
@@ -908,12 +890,11 @@ declare namespace GoogleAppsScript {
       setSeconds(seconds: Integer): void;
       setTime(milliseconds: Integer): void;
     }
-
     /**
      * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp
      * .
      */
-    export interface JdbcTimestamp {
+    interface JdbcTimestamp {
       after(when: JdbcTimestamp): boolean;
       before(when: JdbcTimestamp): boolean;
       getDate(): Integer;
@@ -933,7 +914,6 @@ declare namespace GoogleAppsScript {
       setTime(milliseconds: Integer): void;
       setYear(year: Integer): void;
     }
-
   }
 }
 

@@ -99,7 +99,7 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook<T = Event> = (event: T, editor: CoreEditor, next: () => any) => any;
+export type EventHook<T = Event> = (event: T, editor: Editor, next: () => any) => any;
 
 export interface Plugin extends CorePlugin {
     decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
@@ -452,6 +452,8 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     snapshotSelection: CoreEditor['snapshotSelection'];
     command: CoreEditor['command'];
     query: CoreEditor['query'];
+    hasCommand: CoreEditor['hasCommand'];
+    hasQuery: CoreEditor['hasQuery'];
     registerCommand: CoreEditor['registerCommand'];
     registerQuery: CoreEditor['registerQuery'];
     applyOperation: CoreEditor['applyOperation'];

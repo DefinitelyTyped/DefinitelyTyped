@@ -1,4 +1,4 @@
-import mapboxgl = require('.');
+import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
@@ -11,6 +11,21 @@ mapboxgl.accessToken = 'foo';
  * Set Base API URL
  */
 mapboxgl.baseApiUrl = 'https://example.com';
+
+/**
+ * Set amount of workers
+ */
+mapboxgl.workerCount = 3;
+
+/**
+ * Set max amount of parallel images requests 
+ */
+mapboxgl.maxParallelImageRequests = 10;
+
+/**
+ * Clears browser storage used by this library 
+ */
+mapboxgl.clearStorage(() => {});
 
 /**
  * Get RTL Text Plugin Status

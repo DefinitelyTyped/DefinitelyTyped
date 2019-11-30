@@ -29,6 +29,8 @@ const chart: Chart = new Chart(ctx, {
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
                 label: 'test',
                 data: [1, 3, 5],
+                barThickness: 'flex',
+                minBarLength: 2,
             }
         ],
     },
@@ -67,7 +69,6 @@ const chart: Chart = new Chart(ctx, {
                     ticks: {
                         callback: Math.floor,
                     },
-                    minBarLength: 2,
                     gridLines: {
                         display: false,
                         borderDash: [5, 15],
@@ -80,6 +81,7 @@ const chart: Chart = new Chart(ctx, {
             ],
         },
         legend: {
+            align: 'center',
             display: true,
             labels: {
                 usePointStyle: true,
@@ -293,3 +295,13 @@ const customTooltipsPieChart = new Chart(ctx, {
         },
     },
 });
+
+// platform global values
+Chart.platform.disableCSSInjection = true;
+
+// default global static values
+Chart.defaults.global.defaultFontColor = '#544615';
+Chart.defaults.global.defaultFontFamily = 'Arial';
+Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
+Chart.defaults.global.tooltips.cornerRadius = 2;
+Chart.defaults.global.tooltips.displayColors = false;

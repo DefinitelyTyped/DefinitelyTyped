@@ -1,5 +1,13 @@
-import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
-import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
+import {
+    MediaMetadata,
+    LoadRequestData,
+    StreamType,
+    HlsSegmentFormat,
+    Track,
+    TrackType,
+    MessageType,
+    RequestData,
+} from 'chromecast-caf-receiver/cast.framework.messages';
 import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
@@ -17,14 +25,17 @@ breaksEvent.breakId = 'some-break-id';
 breaksEvent.breakClipId = 'some-break-clip-id';
 
 // tslint:disable-next-line
-const track = new cast.framework.messages.Track(1, 'TEXT');
+const track = new cast.framework.messages.Track(1, TrackType.TEXT);
 // tslint:disable-next-line
 const breakClip = new cast.framework.messages.BreakClip('id');
 // tslint:disable-next-line
 const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
 // tslint:disable-next-line
-const rEvent = new cast.framework.events.RequestEvent(EventType.BITRATE_CHANGED, {
+const rEvent = new cast.framework.events.RequestEvent(EventType.LOAD_START, {
     requestId: 2,
+    type: MessageType.LOAD,
+    // TODO: Do some testing on the receiver and see what a real world
+    // TODO: `RequestEvent` looks like.
 });
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
@@ -34,9 +45,8 @@ pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 pManager.addEventListener(
-  EventType.MEDIA_FINISHED,
-  (event: cast.framework.events.MediaFinishedEvent) =>
-    `${event.currentMediaTime} ${event.endedReason}`,
+    EventType.MEDIA_FINISHED,
+    (event: cast.framework.events.MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
 );
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
@@ -69,11 +79,11 @@ lrd.activeTrackIds = [1, 2];
 lrd.media = {
     tracks: [],
     textTrackStyle: {},
-    streamType: 'BUFFERED',
+    streamType: StreamType.BUFFERED,
     metadata: {
         metadataType: cast.framework.messages.MetadataType.GENERIC,
     },
-    hlsSegmentFormat: 'aac',
+    hlsSegmentFormat: HlsSegmentFormat.AAC,
     contentId: 'id',
     contentType: 'type',
     breakClips: [breakClip],
@@ -134,4 +144,34 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => '¡hola!',
 );
 
-const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, "Loading failed!");
+const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
+
+// PlayerManager message interceptors
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new Promise((resolve, reject) => {}));
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new LoadRequestData());
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, null);
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.CUSTOM_COMMAND, customCommandRequestData => {
+        const data = customCommandRequestData.data;
+        return customCommandRequestData;
+    });
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLUME, volumeRequestData => {
+        const volume = volumeRequestData.volume;
+        return volumeRequestData;
+    });
+
+// PlayerManager event listeners
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, bitrateChangedEvent => {
+        const bitrate = bitrateChangedEvent.totalBitrate;
+    });

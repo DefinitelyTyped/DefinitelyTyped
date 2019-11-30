@@ -1,5 +1,6 @@
 import React = require('react');
 import ReactDOM = require('react-dom');
+import 'react-dom/experimental';
 
 function createRoot() {
     const root = ReactDOM.createRoot(document);

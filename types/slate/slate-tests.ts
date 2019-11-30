@@ -143,6 +143,8 @@ editor.command(pluginCommandFunc, 1);
 editor.query(pluginQueryName, 1);
 editor.query(pluginQueryFunc, 1);
 
+editor.hasCommand('testCommand');
+editor.hasQuery('testQuery');
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
 editor.setReadOnly(true).setValue(value);

@@ -3,6 +3,7 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
 //                 Guo Yunhe <https://github.com/guoyunhe>
+//                 Anirban Sengupta <https://github.com/anirban09>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -926,6 +927,931 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/vs" {
 declare module "react-syntax-highlighter/dist/esm/styles/prism/xonokai" {
     const style: any;
     export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/1c" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/abnf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/accesslog" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/actionscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ada" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/angelscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/apache" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/applescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/arcade" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/arduino" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/armasm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/asciidoc" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/aspectj" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/autohotkey" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/autoit" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/avrasm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/awk" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/axapta" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/bash" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/basic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/bnf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/brainfuck" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/cal" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/capnproto" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ceylon" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/clean" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/clojure-repl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/clojure" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/cmake" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/coffeescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/coq" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/cos" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/cpp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/crmsh" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/crystal" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/cs" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/csp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/css" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/d" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dart" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/delphi" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/diff" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/django" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dns" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dockerfile" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dos" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dsconfig" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dts" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/dust" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ebnf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/elixir" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/elm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/erb" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/erlang-repl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/erlang" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/excel" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/fix" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/flix" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/fortran" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/fsharp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gams" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gauss" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gcode" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gherkin" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/glsl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/go" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/golo" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/gradle" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/groovy" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/haml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/handlebars" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/haskell" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/haxe" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/hsp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/htmlbars" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/http" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/hy" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/inform7" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ini" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/irpf90" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/isbl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/java" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/javascript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/jboss-cli" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/json" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/julia-repl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/julia" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/kotlin" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/lasso" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ldif" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/leaf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/less" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/lisp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/livecodeserver" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/livescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/llvm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/lsl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/lua" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/makefile" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/markdown" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mathematica" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/matlab" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/maxima" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mel" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mercury" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mipsasm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mizar" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/mojolicious" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/monkey" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/moonscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/n1ql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/nginx" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/nimrod" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/nix" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/nsis" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/objectivec" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ocaml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/openscad" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/oxygene" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/parser3" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/perl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/pf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/pgsql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/php" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/plaintext" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/pony" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/powershell" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/processing" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/profile" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/prolog" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/properties" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/protobuf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/puppet" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/purebasic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/python" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/q" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/qml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/r" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/reasonml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/rib" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/roboconf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/routeros" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/rsl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ruby" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/ruleslanguage" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/rust" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/sas" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/scala" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/scheme" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/scilab" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/scss" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/shell" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/smali" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/smalltalk" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/sml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/sqf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/sql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/stan" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/stata" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/step21" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/stylus" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/subunit" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/swift" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/taggerscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/tap" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/tcl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/tex" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/thrift" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/tp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/twig" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/typescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vala" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vbnet" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vbscript-html" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vbscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/verilog" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vhdl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/vim" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/x86asm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/xl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/xml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/xquery" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/yaml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/zephir" {
+    const language: any;
+    export default language;
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/abap" {

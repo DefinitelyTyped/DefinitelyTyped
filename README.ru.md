@@ -1,49 +1,100 @@
-<!-- markdownlint-disable MD001 MD012 MD026 -->
+# DefinitelyTyped
 
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+> Репозиторий для _высококачественных_ определений типов TypeScript.
 
-[![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Также посетите веб-сайт [definitelytyped.org](https://definitelytyped.org), хотя информация в этом README более свежая.
 
-> Репозиторий для *высококачественных* определений типов TypeScript.
+_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)._
 
-Также посетите веб-сайт [definitelytyped.org](http://definitelytyped.org), хотя информация в этом README более свежая.
+## Содержание
 
-*Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md) и [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md).*
+-   [Текущее состояние](#текущее-состояние)
+-   [Что такое файлы декларации (файлы описания/объявления типов)?](#что-такое-файлы-декларации-файлы-описанияобъявления-типов)
+-   [Как их получить?](#как-их-получить)
+    -   [npm](#npm)
+        -   [Typescript 2.7 и старее](#typescript-27-и-старее)
+    -   [Typescript 1.8 и старше](#typescript-18-и-старше)
+-   [Как я могу внести свой вклад?](#как-я-могу-внести-свой-вклад)
+    -   [Тестирование](#тестирование)
+        -   [Тестирование редактирования существующего пакета](#тестирование-редактирования-существующего-пакета)
+        -   [Тестирование нового пакета](#тестирование-нового-пакета)
+    -   [Запрос на принятие изменений (PR)](#запрос-на-принятие-изменений-pr)
+        -   [Изменение существующего пакета](#изменение-существующего-пакета)
+        -   [Создание нового пакета](#создание-нового-пакета)
+        -   [Распространенные ошибки](#распространенные-ошибки)
+        -   [Удаление пакета](#удаление-пакета)
+        -   [Linter](#linter)
+-   [Проверка](#проверка)
+-   [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
+-   [Лицензия](#лицензия)
+
+## Текущее состояние
+
+Этот раздел отслеживает состояние репозитория и процесс публикации.
+Это может быть полезно для участников, испытывающих любые проблемы с PR'ами и пакетами.
+
+-   Самая последняя сборка [прошла проверку-типов/линтинг](https://github.com/Microsoft/dtslint) полностью: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+-   Все пакеты проходят проверку-типов/линтинг полностью на `typescript@next`: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+-   Все пакеты [публикуются на npm](https://github.com/Microsoft/types-publisher) в течении часа: [![Статус публикации](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+-   [typescript-bot](https://github.com/typescript-bot) проявляет активность на DefinitelyTyped [![Статус активности](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+
+Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+
+[![Присоединяйтесь к чату на https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Что такое файлы декларации (файлы описания/объявления типов)?
 
-Смотрите [руководство по TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+Смотрите [руководство по TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ## Как их получить?
 
 ### npm
 
-Это предпочтительный метод. Это доступно только для пользователей TypeScript 2.0+. Например:
+Это предпочтительный метод. Например:
 
 ```sh
 npm install --save-dev @types/node
 ```
 
-Затем типы должны автоматически включаться компилятором.
-Подробнее смотрите в [справочнике](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+Компилятор должен автоматически подключить типы.
+Вам может понадобиться добавить связь `types`, если вы не используете модули:
 
-Для пакета NPM "foo", описания будут находиться в "@types/foo".
-Если вы не можете найти свой пакет, ищите его в [TypeSearch](https://microsoft.github.io/TypeSearch/).
+```ts
+/// <reference types="node" />
+```
 
-Если вы все еще не можете найти его, проверьте [включает](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
-Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы ".d.ts" в пакете и вручную включайте их в `/// <reference path="" />`.
+Подробнее смотрите в [справочнике](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
+Для NPM пакета `foo`, описания будут находиться в `@types/foo`.
+Если вы не можете найти необходимый вам пакет, ищите его в [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-### Другие методы
+Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
+Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-Эти методы могут быть использованы TypeScript 1.0.
+#### Typescript 2.7 и старее
 
-* [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (используйте предпочтительные альтернативы, публикация типа nuget DT отключена)
-* Вручную загрузите из ветки `master` этого репозитория
+Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на Typescript 2.8 и новее.
+Если вы используете Typescript от 2.0 до 2.7, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют необычные новые функции Typescript.
+Но нет гарантии, что они будут работать.
+Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.
 
-Возможно, вам придется добавить ручные [ссылки](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+Например, если вы запустите `npm dist-tags @types/react`, вы увидите следующую таблицу, которая показывает, что у react@16.4 есть типы для Typescript 2.6:
 
+| Tag      | Version   |
+| -------- | --------- |
+| `latest` | `16.9.11` |
+| `ts2.0`  | `15.0.1`  |
+| …        | …         |
+| `ts2.6`  | `16.4.7`  |
+| …        | …         |
+
+### Typescript 1.8 и старше
+
+-   [Typings](https://github.com/typings/typings)
+-   ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (используйте предпочтительные альтернативы, публикация типа nuget DT отключена)
+-   Вручную загрузите из ветки `master` этого репозитория
+
+Возможно, вам придется добавить ручные [ссылки (references)](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 ## Как я могу внести свой вклад?
 
@@ -55,11 +106,10 @@ DefinitelyTyped работает только благодаря вкладу т
 
 #### Тестирование редактирования существующего пакета
 
-Для добавления новых функций вы можете использовать [разрешение модулей](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
+Для добавления новых функций вы можете использовать [разрешение модулей](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
 Вы также можете напрямую редактировать типы в `node_modules/@types/foo/index.d.ts`, или скопировать их оттуда и выполнить следующие шаги.
 
-
-#### Тестирование ногово пакета
+#### Тестирование нового пакета
 
 Добавьте к вашему `tsconfig.json`:
 
@@ -71,11 +121,10 @@ DefinitelyTyped работает только благодаря вкладу т
 (Вы также можете использовать `src/types`.)
 Создайте `types/foo/index.d.ts` содержащие объявления для модуля "foo".
 Теперь вы сможете импортировать из `"foo"` в свой код, и он будет направлен к новому определению типа.
-Затем запустите сборку (build) *и* запустите код, чтобы убедиться, что ваше определение типа действительно соответствует тому, что происходит во время выполнения.
+Затем запустите сборку (build) _и_ запустите код, чтобы убедиться, что ваше определение типа действительно соответствует тому, что происходит во время выполнения.
 После того как вы проверили свои определения с реальным кодом, создайте [Запрос на принятие изменений (PR)](#make-a-pull-request)
 и следуйте инструкциям [чтобы отредактировать существующий](#edit-an-existing-package) или
 [создать новый пакет](#create-a-new-package).
-
 
 ### Запрос на принятие изменений (PR)
 
@@ -83,33 +132,32 @@ DefinitelyTyped работает только благодаря вкладу т
 
 Во-первых, [разветвите](https://guides.github.com/activities/forking/) этот репозиторий, установите [node](https://nodejs.org/), и запустите `npm install`.
 
-
 #### Изменение существующего пакета
 
-* `cd types/my-package-to-edit`
-* Внесите изменения. Не забудьте отредактировать тесты.
-  Если вы вносите критические изменения, не забудьте [обновить основную версию](#i-want-to-update-a-package-to-a-new-major-version).
-* Вы также можете добавить себя в раздел "Definitions by" заголовка пакета.
-  * Это приведет к тому, что вы будете уведомлены (через ваше имя пользователя GitHub) о том, что кто-то делает запрос на принятие изменений (PR) или проблему с пакетом.
-  * Сделайте это, добавив свое имя в конец строки, например `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  * Или, если есть больше людей, это может быть многострочным
+-   `cd types/my-package-to-edit`
+-   Внесите изменения. Не забудьте отредактировать тесты.
+    Если вы вносите критические изменения, не забудьте [обновить основную версию](#i-want-to-update-a-package-to-a-new-major-version).
+-   Вы также можете добавить себя в раздел "Definitions by" заголовка пакета.
 
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
+    -   Это приведет к тому, что вы будете уведомлены (через ваше имя пользователя GitHub) о том, что кто-то делает запрос на принятие изменений (PR) или проблему с пакетом.
+    -   Сделайте это, добавив свое имя в конец строки, например `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+    -   Или, если есть больше людей, это может быть многострочным
 
-* Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` в директории пакета.
+    ```typescript
+    // Definitions by: Alice <https://github.com/alice>
+    //                 Bob <https://github.com/bob>
+    //                 Steve <https://github.com/steve>
+    //                 John <https://github.com/john>
+    ```
+
+-   Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` в директории пакета.
 
 Когда вы создаете PR для редактирования существующего пакета, `dt-bot` должен @-уведомить
 предыдущих авторов. Если этого не произойдет, вы можете сделать это самостоятельно в комментарии, связанном с PR.
 
+#### Создание нового пакета
 
-#### Созданое нового пакета
-
-Если вы являетесь автором библиотеки и ваш пакет написан на TypeScript, [свяжите автоматически сгенерированные файлы объявлений](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) в вашем пакете, а не публикуйте в DefinitelyTyped.
+Если вы являетесь автором библиотеки и ваш пакет написан на TypeScript, [свяжите автоматически сгенерированные файлы объявлений](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) в вашем пакете, а не публикуйте в DefinitelyTyped.
 
 Если вы добавляете типизацию для пакета NPM, создайте директорию с тем же именем.
 Если пакет, для которого вы добавляете типизацию, отсутствует в NPM, убедитесь, что выбранное вами имя не конфликтует с именем пакета в NPM.
@@ -120,7 +168,7 @@ DefinitelyTyped работает только благодаря вкладу т
 | Файл          | Назначение                                                                                           |
 | ------------- | ---------------------------------------------------------------------------------------------------- |
 | index.d.ts    | Содержит типизацию для пакета.                                                                       |
-| foo-tests.ts  | Содержит пример кода, который проверяет типизацию. Этот код *не* запускается, но он проверен на тип. |
+| foo-tests.ts  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | tsconfig.json | Позволяет вам запускать `tsc` внутри пакета.                                                         |
 | tslint.json   | Включает linting.                                                                                    |
 
@@ -133,45 +181,42 @@ DefinitelyTyped работает только благодаря вкладу т
 
 Хороший пример пакета смотрите [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-
 #### Распространенные ошибки
 
-* Сначала следуйте советам из справочника [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Форматирование: либо используйте все табы, либо всегда используйте 4 пробела.
-* `function sum(nums: number[]): number`: используйте `ReadonlyArray` если функция не записывает свои параметры.
-* `interface Foo { new(): Foo; }`:
+-   Сначала следуйте советам из справочника [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+-   Форматирование: либо используйте все табы, либо всегда используйте 4 пробела.
+-   `function sum(nums: number[]): number`: используйте `ReadonlyArray` если функция не записывает свои параметры.
+-   `interface Foo { new(): Foo; }`:
     Это определяет тип объектов, с методом `new`. Вы, вероятно, хотите объявить `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
+-   `const Class: { new(): IClass; }`:
     Предпочитайте использовать объявление класса `class Class { constructor(); }` вместо `new`.
-* `getMeAT<T>(): T`:
+-   `getMeAT<T>(): T`:
     Если параметр типа не отображается в типах каких-либо параметров, у вас нет универсальной функции, а просто замаскированное утверждение типа.
-    Предпочитайте использовать утверждение реального типа, например,  `getMeAT() as number`.
+    Предпочитайте использовать утверждение реального типа, например, `getMeAT() as number`.
     Пример, где допустим параметр типа: `function id<T>(value: T): T;`.
     Пример, где это недопустимо: `function parseJson<T>(json: string): T;`.
     Исключение: `new Map<string, number>()` все ОК.
-* Использование типов `Function` and `Object` почти никогда не является хорошей идеей. В 99% случаев можно указать более конкретный тип. Примеры: `(x: number) => number` для [функций](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` для объектов. Если нет никакой уверенности в типе, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) является правильным выбором, а не `Object`. Если единственным известным фактом о типе является то, что это какой-то объект, используйте тип [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), а не `Object` или `{ [key: string]: any }`.
-* `var foo: string | any`:
-    когда  `any` используется в типе объединения, результирующий тип все еще `any`. Таким образом, хотя `string` часть аннотации этого типа может _выглядеть_ полезной, на самом деле она не предлагает никакой дополнительной проверки типов по сравнению с простым использованием `any`.
+-   Использование типов `Function` and `Object` почти никогда не является хорошей идеей. В 99% случаев можно указать более конкретный тип. Примеры: `(x: number) => number` для [функций](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` для объектов. Если нет никакой уверенности в типе, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) является правильным выбором, а не `Object`. Если единственным известным фактом о типе является то, что это какой-то объект, используйте тип [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), а не `Object` или `{ [key: string]: any }`.
+-   `var foo: string | any`:
+    когда `any` используется в типе объединения, результирующий тип все еще `any`. Таким образом, хотя `string` часть аннотации этого типа может _выглядеть_ полезной, на самом деле она не предлагает никакой дополнительной проверки типов по сравнению с простым использованием `any`.
     В зависимости от намерения, приемлемыми альтернативами могут быть `any`, `string`, или `string | object`.
-
 
 #### Удаление пакета
 
-Когда пакет [объединяет](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) свои собственные типы, типы должны быть удалены из DefinitelyTyped чтобы избежать путаницы.
+Когда пакет [объединяет](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) свои собственные типы, типы должны быть удалены из DefinitelyTyped чтобы избежать путаницы.
 
 Вы можете удалить его, запустив `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
 
-* `typingsPackageName`: название директории, который нужно удалить.
-* `asOfVersion`: заглушка будет опубликована в `@types/foo` с этой версией. Должна быть выше, чем любая опубликованная на данный момент версия
-* `sourceRepoURL`: Это должно указывать на репозиторий, который содержит типизации.
-* `libraryName`: описательное имя библиотеки, например, "Angular 2" вместо "angular2". (Если опущено, будет идентично "typingsPackageName".)
+-   `typingsPackageName`: название директории, который нужно удалить.
+-   `asOfVersion`: заглушка будет опубликована в `@types/foo` с этой версией. Должна быть выше, чем любая опубликованная на данный момент версия
+-   `sourceRepoURL`: Это должно указывать на репозиторий, который содержит типизации.
+-   `libraryName`: описательное имя библиотеки, например, "Angular 2" вместо "angular2". (Если опущено, будет идентично "typingsPackageName".)
 
 Любые другие пакеты в DefinitelyTyped которые ссылаются на удаленный пакет, должны быть обновлены для ссылки на связанные типы. Для этого добавьте в `package.json` ссыклу `"dependencies": { "foo": "x.y.z" }`.
 
 Если пакет никогда не был в DefinitelyTyped, его не нужно добавлять в `notNeededPackages.json`.
 
-
-#### Lint
+#### Linter
 
 Все новые пакеты должны быть проанализированы lint. Для этого добавьте `tslint.json` в этот пакет, содержащий
 
@@ -202,14 +247,16 @@ DefinitelyTyped работает только благодаря вкладу т
 f(1);
 
 // $ExpectError
-f("one");
+f('one');
 ```
 
 Для получения дополнительной информации см. [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
-Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint).
+## Проверка
 
+Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
+
+Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
 
 ## Часто задаваемые вопросы
 
@@ -252,7 +299,7 @@ f("one");
 #### Пакет использует export `export =`, но я предпочитаю использовать импорт по умолчанию. Могу ли я изменить `export =` на `export default`?
 
 Если вы используете TypeScript 2.7 или более позднюю версию, используйте `--esModuleInterop` в вашем проекте.
-В противном случае, если импорт по умолчанию работает в вашей среде (например, Webpack, SystemJS, esm), рассмотрите возможность включения опции компилятора [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html).
+В противном случае, если импорт по умолчанию работает в вашей среде (например, Webpack, SystemJS, esm), рассмотрите возможность включения опции компилятора [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
 Не меняйте определение типа, если оно точное.
 Для пакета NPM, `export =` является точным, если `node -p 'require("foo")'` является экспортом, а `export default` является точным, если `node -p 'require("foo").default'` является экспортом.
 
@@ -282,13 +329,10 @@ f("one");
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
-            "history": [ "history/v2" ]
+            "history": ["history/v2"]
         }
     },
-    "files": [
-        "index.d.ts",
-        "history-tests.ts"
-    ]
+    "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -301,9 +345,9 @@ f("one");
 
 #### Как мне написать определения для пакетов, которые могут использоваться и глобально и в качестве модуля?
 
-Руководство TypeScript содержит отличную [общую информацию о написании определений](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), а также [этот пример файла определения](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) , в котором показано, как создать определение с использованием синтаксиса модуля в стиле ES6, а также указаны объекты, доступные для глобальной области.  Этот метод демонстрируется практически в определении для [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), библиотекой, которую можно загружать глобально с помощью тега скрипта на веб-странице или импортировать с помощью импорта по требованию или в стиле ES6.
+Руководство TypeScript содержит отличную [общую информацию о написании определений](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), а также [этот пример файла определения](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) , в котором показано, как создать определение с использованием синтаксиса модуля в стиле ES6, а также указаны объекты, доступные для глобальной области. Этот метод демонстрируется практически в определении для [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), библиотекой, которую можно загружать глобально с помощью тега скрипта на веб-странице или импортировать с помощью импорта по требованию или в стиле ES6.
 
-Чтобы проверить, как ваше определение может использоваться как при глобальных ссылках, так и в качестве импортированного модуля, создайте тестовую папку `test`, и поместите туда два тестовых файла. Назовите один `YourLibraryName-global.test.ts` а другой  `YourLibraryName-module.test.ts`.  *Глобальный* тестовый файл должен использовать определение в соответствии с тем, как он будет использоваться в скрипте, загруженном на веб-страницу, где библиотека доступна в глобальной области видимости - в этом сценарии не следует указывать оператор импорта. Тестовый файл *модуля* должен использовать определение в соответствии с тем, как оно будет использоваться при импорте (включая оператор(ы)  `import`). Если вы указали свойство `files` в файле  `tsconfig.json`, обязательно включите оба тестовых файла. [Практический пример этого](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) также доступен в определении big.js.
+Чтобы проверить, как ваше определение может использоваться как при глобальных ссылках, так и в качестве импортированного модуля, создайте тестовую папку `test`, и поместите туда два тестовых файла. Назовите один `YourLibraryName-global.test.ts` а другой `YourLibraryName-module.test.ts`. _Глобальный_ тестовый файл должен использовать определение в соответствии с тем, как он будет использоваться в скрипте, загруженном на веб-страницу, где библиотека доступна в глобальной области видимости - в этом сценарии не следует указывать оператор импорта. Тестовый файл _модуля_ должен использовать определение в соответствии с тем, как оно будет использоваться при импорте (включая оператор(ы) `import`). Если вы указали свойство `files` в файле `tsconfig.json`, обязательно включите оба тестовых файла. [Практический пример этого](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) также доступен в определении big.js.
 
 Обратите внимание, что не требуется полностью использовать определение в каждом тестовом файле - достаточно протестировать только глобально доступные элементы в глобальном тестовом файле и полностью выполнить определение в тестовом файле модуля, или наоборот.
 
@@ -316,16 +360,15 @@ f("one");
 
 ```json
 {
-    "paths":{
-      "@foo/bar": ["foo__bar"]
+    "paths": {
+        "@foo/bar": ["foo__bar"]
     }
 }
 ```
 
-
 #### История файлов в GitHub выглядит неполной.
 
-GitHub не [поддерживает](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) историю файлов для переименованных файлов. Вместо этого используйте [`git log --follow`](https://www.git-scm.com/docs/git-log).
+GitHub не [поддерживает](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) историю файлов для переименованных файлов. Вместо этого используйте [`git log --follow`](https://www.git-scm.com/docs/git-log).
 
 #### Должен ли я добавить пустой namespace в пакет, который не экспортирует модуль для использования импорта в стиле ES6?
 
@@ -338,14 +381,10 @@ GitHub не [поддерживает](http://stackoverflow.com/questions/564617
 Эту ошибку можно устранить, объединив объявление функции с пустым namespace'ом с тем же именем, но это не рекомендуется.
 Это часто цитируемый [ответ с Stack Overflow](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) по этому вопросу.
 
-Более целесообразно импортировать модуль, используя `import foo = require("foo");` синтаксис или использовать импорт по умолчанию, такой как `import foo from "foo";` при использовании флага  `--allowSyntheticDefaultImports`, если среда выполнения вашего модуля поддерживает схему взаимодействия для модулей не-ECMAScript как таковых.
+Более целесообразно импортировать модуль, используя `import foo = require("foo");` синтаксис или использовать импорт по умолчанию, такой как `import foo from "foo";` при использовании флага `--allowSyntheticDefaultImports`, если среда выполнения вашего модуля поддерживает схему взаимодействия для модулей не-ECMAScript как таковых.
 
 ## Лицензия
 
 Этот проект лицензирован по лицензии MIT.
 
 Авторские права на файлы определений принадлежат каждому участнику, указанному в начале каждого файла определения.
-
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) В среднем пакеты публикуются на npm менее чем за 10000 секунд?
-
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Был ли typescript-bot активным на DefinitelyTyped в последние два часа?

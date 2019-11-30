@@ -622,6 +622,10 @@ function ownProperty() {
     'test'.should.haveOwnProperty('length');
     expect({length: 12}).to.have.ownProperty('length');
     ({length: 12}).should.have.ownProperty('length');
+    expect({length: 12}).to.have.ownProperty('length', 12);
+    ({length: 12}).should.have.ownProperty('length', 12);
+    expect({length: 12}).to.have.ownProperty('length', 12, 'blah');
+    ({length: 12}).should.have.ownProperty('length', 12, 'blah');
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');

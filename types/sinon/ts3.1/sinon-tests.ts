@@ -345,6 +345,10 @@ function testAssert() {
 
 function testTypedSpy() {
     const cls = class {
+        get accessorTest() { return 5; }
+        set accessorTest(v: number) { }
+        get getterTest() { return 5; }
+        set setterTest(v: number) { }
         foo(a: number, b: string): number {
             return 3;
         }
@@ -376,6 +380,16 @@ function testTypedSpy() {
 
     stub.withArgs(5, 'x').returns(3);
     stub.withArgs(sinon.match(5), 'x').returns(5);
+
+    const accessorSpy = sinon.spy(instance, 'accessorTest', ['get', 'set']);
+    accessorSpy.get.returned(5);
+    accessorSpy.set.calledWith(55);
+
+    const getterSpy = sinon.spy(instance, 'getterTest', ['get']);
+    getterSpy.get.returned(5);
+
+    const setterSpy = sinon.spy(instance, 'setterTest', ['set']);
+    setterSpy.set.calledWith(100);
 }
 
 function testSpy() {
@@ -392,18 +406,12 @@ function testSpy() {
     const spyTwo = sinon.spy().named('spyTwo');
 
     const methodSpy = sinon.spy(instance, 'foo'); // $ExpectType SinonSpy<[], void>
-    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']); // $ExpectType SinonSpy<any[], any>
-    const methodSpy3 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
+    const methodSpy2 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
 
     methodSpy.calledBefore(methodSpy2);
     methodSpy.calledAfter(methodSpy2);
     methodSpy.calledImmediatelyBefore(methodSpy2);
     methodSpy.calledImmediatelyAfter(methodSpy2);
-
-    methodSpy.calledBefore(methodSpy3);
-    methodSpy.calledAfter(methodSpy3);
-    methodSpy.calledImmediatelyBefore(methodSpy3);
-    methodSpy.calledImmediatelyAfter(methodSpy3);
 
     let count = 0;
     count = spy.callCount;
