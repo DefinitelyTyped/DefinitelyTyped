@@ -24,7 +24,9 @@ import {
     actionTypes,
     submit,
     SubmissionError,
-    FieldArrayFieldsProps
+    FieldArrayFieldsProps,
+    getFormValues,
+    getFormInitialValues
 } from "redux-form";
 
 import {
@@ -477,3 +479,18 @@ class TestFormComponent2 extends React.Component<TestFormComponentProps & Inject
         return null;
     }
 }
+
+interface Store {
+    forms: {};
+}
+const storeShape: Store = {
+    forms: {},
+};
+
+(function(){
+    const { foo } = getFormValues<TestFormData, Store>('formName')(storeShape);
+})();
+
+(function(){
+    const { foo, fizz, bar} = getFormInitialValues<MultivalueFormData, Store>('formName')(storeShape);
+})();
