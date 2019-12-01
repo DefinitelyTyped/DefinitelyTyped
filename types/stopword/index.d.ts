@@ -13,7 +13,7 @@ declare namespace Stopword {
        * @param text Array string of words
        * @param stopwords Array string of your custom stopwords (default: English stopwords | .en)
        */
-      removeStopwords(text: string[], stopwords?: string[]): string;
+      removeStopwords(text: string[], stopwords?: string[]): string[];
 
       /**
        * Get array of stopwords according by language code
