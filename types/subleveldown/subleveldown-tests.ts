@@ -1,5 +1,5 @@
 import levelup from 'levelup';
-import sub from 'subleveldown'
+import sub from 'subleveldown';
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 
 interface StringEncoding {
