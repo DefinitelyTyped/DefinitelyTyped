@@ -3160,7 +3160,7 @@ declare namespace google.maps {
         }
 
         interface OpeningHours {
-            open_now: boolean;
+            isOpen(): boolean;
             periods: OpeningPeriod[];
             weekday_text: string[];
         }
@@ -3275,7 +3275,7 @@ declare namespace google.maps {
             reviews?: PlaceReview[];
             types?: string[];
             url?: string;
-            utc_offset?: number;
+            utc_offset_minutes?: number;
             vicinity?: string;
             website?: string;
         }
