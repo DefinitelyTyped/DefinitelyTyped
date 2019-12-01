@@ -58,9 +58,19 @@ declare module 'angular' {
             instant(translationId: string, interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): string;
             instant(translationId: string[], interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): { [key: string]: string };
             isPostCompilingEnabled(): boolean;
-            /** Returns a language key based on available languages and language aliases. If a language key cannot be resolved, returns undefined.
+            /**
+             * @ngdoc function
+             * @name pascalprecht.translate.$translate#negotiateLocale
+             * @methodOf pascalprecht.translate.$translate
+             *
+             * @description
+             * Returns a language key based on available languages and language aliases. If a
+             * language key cannot be resolved, returns undefined.
+             *
              * If no or a falsy key is given, returns undefined.
-             * @returns Language key or undefined if no language key is found.
+             *
+             * @param {string} [key] Language key
+             * @return {string|undefined} Language key or undefined if no language key is found.
              */
             negotiateLocale(key?: string): string | undefined;
             preferredLanguage(langKey?: string): string;
