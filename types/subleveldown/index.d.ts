@@ -19,7 +19,7 @@ declare namespace sub {
         ((options?: O) => Promise<V>);
 
     type InferDBClear<DB> =
-        DB extends { get: (options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
+        DB extends { clear: (options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
         LevelUpClear<V, O> :
         LevelUpClear<any, AbstractGetOptions>;
 
