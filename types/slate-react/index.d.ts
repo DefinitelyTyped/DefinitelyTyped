@@ -11,6 +11,7 @@
 //                 Jack Allen <https://github.com/jackall3n>
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Kay Delaney <https://github.com/kaydelaney>
+//                 Brian Ingles <https://github.com/bmingles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -101,15 +102,15 @@ export interface RenderInlineProps extends RenderNodeProps {
 
 export type EventHook<T = Event> = (event: T, editor: Editor, next: () => any) => any;
 
-export interface Plugin extends CorePlugin {
-    decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
-    renderAnnotation?: (props: RenderAnnotationProps, editor: CoreEditor, next: () => any) => any;
-    renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
-    renderDecoration?: (props: RenderDecorationProps, editor: CoreEditor, next: () => any) => any;
-    renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
-    renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
-    renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
-    renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
+export interface Plugin<T extends Controller = Editor> extends CorePlugin<T> {
+    decorateNode?: (node: SlateNode, editor: T, next: () => any) => any;
+    renderAnnotation?: (props: RenderAnnotationProps, editor: T, next: () => any) => any;
+    renderBlock?: (props: RenderBlockProps, editor: T, next: () => any) => any;
+    renderDecoration?: (props: RenderDecorationProps, editor: T, next: () => any) => any;
+    renderDocument?: (props: RenderDocumentProps, editor: T, next: () => any) => any;
+    renderEditor?: (props: EditorProps, editor: T, next: () => any) => any;
+    renderInline?: (props: RenderInlineProps, editor: T, next: () => any) => any;
+    renderMark?: (props: RenderMarkProps, editor: T, next: () => any) => any;
 
     shouldNodeComponentUpdate?: (
         previousProps: RenderNodeProps,
@@ -140,8 +141,8 @@ export interface Plugin extends CorePlugin {
     onSelect?: EventHook<React.SyntheticEvent>;
 }
 
-export type PluginOrPlugins = Plugin | Plugins;
-export interface Plugins extends Array<PluginOrPlugins> {}
+export type PluginOrPlugins<T extends Controller = Editor> = Plugin<T> | Plugins<T>;
+export interface Plugins<T extends Controller = Editor> extends Array<PluginOrPlugins<T>> {}
 
 export interface OnChangeParam {
     operations: Immutable.List<Operation>;
@@ -149,14 +150,14 @@ export interface OnChangeParam {
 }
 export type OnChangeFn = (change: OnChangeParam) => any;
 
-export interface BasicEditorProps {
+export interface BasicEditorProps<T extends Controller = Editor> {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
     onChange?: OnChangeFn;
     placeholder?: any;
-    plugins?: Plugins;
+    plugins?: Plugins<T>;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;
@@ -165,7 +166,7 @@ export interface BasicEditorProps {
     tabIndex?: number;
 }
 
-export type EditorProps = BasicEditorProps & Plugin;
+export type EditorProps<T extends Controller = Editor> = BasicEditorProps<T> & Plugin<T>;
 
 export interface EditorState {
     value: Value;
