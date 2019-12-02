@@ -7245,7 +7245,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type PaymentIntentPaymentMethodType = 'card' | 'card_present';
+        type PaymentIntentPaymentMethodType = 'card' | 'ideal' | 'sepa_debit';
 
         interface IPaymentMethodCardOptions {
             /**
@@ -7612,7 +7612,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type SetupIntentPaymentMethodType = 'card' | 'card_present' | 'sepa_debit';
+        type SetupIntentPaymentMethodType = paymentIntents.PaymentIntentPaymentMethodType;
 
         interface ISetupIntent extends IResourceObject {
             /**
