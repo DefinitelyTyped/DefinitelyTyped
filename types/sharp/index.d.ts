@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.23.3
+// Type definitions for sharp 0.23
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
