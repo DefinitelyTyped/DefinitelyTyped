@@ -1040,3 +1040,10 @@ function sample11() {
    const webglFilterBackend = new fabric.WebglFilterBackend();
    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 }
+
+function sample12() {
+  const canvas = new fabric.Canvas('c');
+  const position = fabric.util.getScrollLeftTop(canvas.getElement());
+  const x = position.left;
+  const y = position.top;
+}
