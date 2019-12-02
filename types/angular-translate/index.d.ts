@@ -69,7 +69,7 @@ declare module 'angular' {
              *
              * If no or a falsy key is given, returns undefined.
              *
-             * @param [key] Language key
+             * @param key Language key
              * @return Language key or undefined if no language key is found.
              */
             negotiateLocale(key?: string): string | undefined;
