@@ -27,18 +27,18 @@
 
 declare namespace Joi {
     type Types =
-    | 'any'
-    | 'alternatives'
-    | 'array'
-    | 'boolean'
-    | 'binary'
-    | 'date'
-    | 'function'
-    | 'link'
-    | 'number'
-    | 'object'
-    | 'string'
-    | 'symbol';
+        | 'any'
+        | 'alternatives'
+        | 'array'
+        | 'boolean'
+        | 'binary'
+        | 'date'
+        | 'function'
+        | 'link'
+        | 'number'
+        | 'object'
+        | 'string'
+        | 'symbol';
 
     type LanguageMessages = Record<string, string>;
 
@@ -2012,7 +2012,7 @@ declare namespace Joi {
         /**
          * Creates a new Joi instance customized with the extension(s) you provide included.
          */
-        extend(...extensions: Array<Extension|ExtensionFactory>): any;
+        extend(...extensions: Array<Extension | ExtensionFactory>): any;
 
         /**
          * Creates a reference that when resolved, is used as an array of values to match against the rule.

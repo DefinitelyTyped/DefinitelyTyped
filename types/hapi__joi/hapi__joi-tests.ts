@@ -177,10 +177,10 @@ validErrItem = {
 };
 
 validErrItem = {
-  message: str,
-  type: str,
-  path: [str, num, str],
-  context: obj,
+    message: str,
+    type: str,
+    path: [str, num, str],
+    context: obj,
 };
 
 validErrFunc = errs => errs[0];
@@ -892,7 +892,7 @@ expr = Joi.expression('{{foo}}', { adjust: (value) => value });
 expr = Joi.expression('{{foo}}', { ancestor: 3 });
 expr = Joi.expression('{{foo}}', { in: true });
 expr = Joi.expression('{{foo}}', { iterables: true });
-expr = Joi.expression('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.expression('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.expression('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.expression('{{foo}}', { separator: '_' });
 
@@ -901,7 +901,7 @@ expr = Joi.x('{{foo}}', { adjust: (value) => value });
 expr = Joi.x('{{foo}}', { ancestor: 3 });
 expr = Joi.x('{{foo}}', { in: true });
 expr = Joi.x('{{foo}}', { iterables: true });
-expr = Joi.x('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.x('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.x('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.x('{{foo}}', { separator: '_' });
 
@@ -951,7 +951,7 @@ schema = Joi.link(str);
         asyncResult
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
-            .catch(e => {});
+            .catch(e => { });
     }
 }
 
