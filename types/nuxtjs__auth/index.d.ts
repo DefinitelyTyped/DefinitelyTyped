@@ -67,12 +67,12 @@ declare module 'vue/types/vue' {
 
 declare module '@nuxt/vue-app' {
     interface Context {
-        $auth: Auth
+        $auth: Auth;
     }
 }
 
 declare module '@nuxt/types' {
     interface Context {
-        $auth: Auth
+        $auth: Auth;
     }
 }
