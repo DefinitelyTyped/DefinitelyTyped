@@ -50,14 +50,14 @@ export interface AssocPartialOne<K extends keyof any> {
 // ---------------------------------------------------------------------------------------
 // C
 
-/** 
+/**
  * <needs description>
  */
 export interface CharList extends String {
     push(x: string): void;
 }
 
-/** 
+/**
  * <needs description>
  * @param V0
  * @param R
@@ -132,7 +132,7 @@ export type ComposeWithFns<V0, R> = [
 // ---------------------------------------------------------------------------------------
 // D
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -143,7 +143,7 @@ export interface Dictionary<A> {
 // ---------------------------------------------------------------------------------------
 // E
 
-/** 
+/**
  * Represents all objects evolvable with Evolver E
  * @param E
  */
@@ -151,7 +151,7 @@ export type Evolvable<E extends Evolver> = {
     [P in keyof E]?: Evolved<E[P]>;
 };
 
-/** 
+/**
  * <needs description>
  * @param O
  * @param E
@@ -162,7 +162,7 @@ export type Evolve<O extends Evolvable<E>, E extends Evolver> = {
                     : O[P];
 };
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -173,14 +173,14 @@ type Evolved<A> =
       ? Evolvable<A>
       : never;
 
-/** 
+/**
  * <needs description>
  */
 export interface Evolver {
     [key: string]: ((value: any) => any) | Evolver;
 }
 
-/** 
+/**
  * <needs description>
  * @param O
  * @param E
@@ -192,7 +192,7 @@ type EvolveNestedValue<O, E extends Evolver> =
       : never
     : never;
 
-/** 
+/**
  * <needs description>
  * @param V
  * @param E
@@ -205,7 +205,7 @@ type EvolveValue<V, E> =
 // ---------------------------------------------------------------------------------------
 // F
 
-/** 
+/**
  * <needs description>
  */
 export interface Filter {
@@ -216,7 +216,7 @@ export interface Filter {
     <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 }
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -228,7 +228,7 @@ type FilterOnceApplied<A> =
           ? Dictionary<U>
           : never;
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -239,7 +239,7 @@ export interface Functor<A> {
 // ---------------------------------------------------------------------------------------
 // K
 
-/** 
+/**
  * <needs description>
  * @param K
  * @param V
@@ -249,7 +249,7 @@ export type KeyValuePair<K, V> = [K, V];
 // ---------------------------------------------------------------------------------------
 // L
 
-/** 
+/**
  * <needs description>
  */
 export interface Lens {
@@ -260,7 +260,7 @@ export interface Lens {
 // ---------------------------------------------------------------------------------------
 // M
 
-/** 
+/**
  * Merge an object `O1` with `O2`
  * @param O1
  * @param O2
@@ -278,7 +278,7 @@ export interface Lens {
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
     O.MergeUp<T.ObjectOf<O1 & []>, T.ObjectOf<O2 & []>, Depth>;
 
-/** 
+/**
  * Merge multiple objects `Os` with each other
  * @param Os
  *
@@ -297,12 +297,12 @@ export type MergeAll<Os extends object[]> =
 // ---------------------------------------------------------------------------------------
 // O
 
-/** 
+/**
  * <needs description>
  */
 export type ObjPred = (value: any, key: string) => boolean;
 
-/** 
+/**
  * <needs description>
  */
 export type Ord = number | string | boolean | Date;
@@ -310,22 +310,22 @@ export type Ord = number | string | boolean | Date;
 // ---------------------------------------------------------------------------------------
 // P
 
-/** 
+/**
  * <needs description>
  */
 export type Path = Array<(number | string)>;
 
-/** 
+/**
  * <needs description>
  */
 export type Placeholder = A.x & {'@@functional/placeholder': true};
 
-/** 
+/**
  * <needs description>
  */
 export type Pred = (...a: readonly any[]) => boolean;
 
-/** 
+/**
  * <needs description>
  * @param V0
  * @param R
@@ -400,7 +400,7 @@ export type PipeWithFns<V0, R> = [
 // ---------------------------------------------------------------------------------------
 // R
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -412,7 +412,7 @@ export interface Reduced<A> {
 // ---------------------------------------------------------------------------------------
 // S
 
-/** 
+/**
  * <needs description>
  * @param A
  */
@@ -421,7 +421,7 @@ export type SafePred<A> = (...a: readonly A[]) => boolean;
 // ---------------------------------------------------------------------------------------
 // V
 
-/** 
+/**
  * <needs description>
  * @param R
  */
