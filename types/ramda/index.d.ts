@@ -285,7 +285,6 @@
 /// <reference path="./es/zipObj.d.ts" />
 /// <reference path="./es/zipWith.d.ts" />
 /// <reference path="./es/includes.d.ts" />
-/// <reference path="./tools.d.ts" />
 
 /// <reference path="./src/add.d.ts" />
 /// <reference path="./src/addIndex.d.ts" />
@@ -540,246 +539,34 @@
 /// <reference path="./src/zipWith.d.ts" />
 /// <reference path="./src/includes.d.ts" />
 
-import { A, F, T, O } from "ts-toolbelt";
+import { F, T, O } from "ts-toolbelt";
+import {
+    Arity0Fn,
+    Arity1Fn,
+    Arity2Fn,
+    AssocPartialOne,
+    ComposeWithFns,
+    Evolvable,
+    Evolve,
+    Evolver,
+    Filter,
+    Functor,
+    KeyValuePair,
+    Lens,
+    ObjPred,
+    Ord,
+    Path,
+    Placeholder,
+    Pred,
+    PipeWithFns,
+    Reduced,
+    SafePred,
+    ValueOfRecord,
+} from './tools'
 
 declare let R: R.Static;
 
 declare namespace R {
-    import ValueOfRecord = Tools.ValueOfRecord;
-    type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
-
-    type Ord = number | string | boolean | Date;
-
-    type Path = Array<(number | string)>;
-
-    type KeyValuePair<K, V> = [K, V];
-
-    interface Functor<T> {
-        map<U>(fn: (t: T) => U): Functor<U>;
-    }
-
-    interface ArrayLike {
-        nodeType: number;
-    }
-
-    type Arity0Fn = () => any;
-
-    type Arity1Fn = (a: any) => any;
-
-    type Arity2Fn = (a: any, b: any) => any;
-
-    interface ObjFunc {
-        [index: string]: (...a: readonly any[]) => any;
-    }
-
-    interface ObjFunc2 {
-        [index: string]: (x: any, y: any) => boolean;
-    }
-
-    type Pred = (...a: readonly any[]) => boolean;
-    type SafePred<T> = (...a: readonly T[]) => boolean;
-
-    type ObjPred = (value: any, key: string) => boolean;
-
-    interface Dictionary<T> {
-        [index: string]: T;
-    }
-
-    interface CharList extends String {
-        push(x: string): void;
-    }
-
-    interface Lens {
-        <T, U>(obj: T): U;
-        set<T, U>(str: string, obj: T): U;
-    }
-
-    interface Filter {
-        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
-        <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: readonly T[]) => T[];
-        <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
-        <T>(fn: (value: T) => boolean, list: readonly T[]): T[];
-        <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
-    }
-
-    type FilterOnceApplied<T> =
-        <K extends T[] | Dictionary<T>>(source: K) =>
-            K extends Array<infer U> ? U[] :
-            K extends Dictionary<infer U> ? Dictionary<U> :
-            never;
-
-    type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
-    };
-
-    type EvolveValue<V, E> =
-        E extends (value: V) => any ? ReturnType<E> :
-        E extends Evolver ? EvolveNestedValue<V, E> :
-        never;
-
-    type EvolveNestedValue<V, E extends Evolver> =
-        V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
-
-    interface Evolver {
-        [key: string]: ((value: any) => any) | Evolver;
-    }
-
-    // Represents all objects evolvable with Evolver E
-    type Evolvable<E extends Evolver> = {
-        [P in keyof E]?: Evolved<E[P]>;
-    };
-
-    type Evolved<T> =
-        T extends (value: infer V) => any ? V :
-        T extends Evolver ? Evolvable<T> :
-        never;
-
-    type Placeholder = A.x & {'@@functional/placeholder': true};
-
-    interface Reduced<T> {
-        '@@transducer/value': T;
-        '@@transducer/reduced': true;
-    }
-
-    type PipeWithFns<V0, T> = [
-        (x0: V0) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ];
-
-    type ComposeWithFns<V0, T> = [
-        (x0: V0) => T
-    ] | [
-        (x: any) => T,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ];
-
-    interface AssocPartialOne<K extends keyof any> {
-        <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-        <T, U>(val: T, obj: U): Record<K, T> & U;
-    }
-
     interface Static {
         /**
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
