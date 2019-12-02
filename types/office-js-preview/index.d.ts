@@ -1843,7 +1843,9 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Excel (on Mac and the web), Word (on Windows, Mac, and the web), and PowerPoint.
+     * `FileType.Text` is only supported in Word.
+     * 
+     * `FileType.Pdf` is only supported in Excel (on Mac and the web), Word (on Windows, Mac, and the web), and PowerPoint.
      */
     enum FileType {
         /**
@@ -3451,13 +3453,13 @@ declare namespace Office {
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          * 
-         * Excel on the web and Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Excel on Windows desktop: `Office.FileType.Compressed`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Windows desktop             </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -3486,13 +3488,13 @@ declare namespace Office {
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          * 
-         * Excel on the web and Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Excel on Windows desktop: `Office.FileType.Compressed`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Windows desktop             </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
