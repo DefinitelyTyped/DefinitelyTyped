@@ -98,6 +98,7 @@ const defaultLocale = getDefaultLocale();
     showMonthDropdown
     showMonthYearDropdown
     showMonthYearPicker
+    showQuarterYearPicker
     showPopperArrow
     showTimeSelect
     showTimeSelectOnly

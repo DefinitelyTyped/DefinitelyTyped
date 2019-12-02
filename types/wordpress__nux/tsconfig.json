@@ -1,28 +1,36 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/data": ["wordpress__data"],
-            "@wordpress/element": ["wordpress__element"],
-            "@wordpress/nux": ["wordpress__nux"]
+            "@wordpress/data": [
+                "wordpress__data"
+            ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
+            "@wordpress/nux": [
+                "wordpress__nux"
+            ]
         }
     },
     "files": [
-        "components/dot-tip.d.ts",
         "index.d.ts",
-        "store/actions.d.ts",
-        "store/selectors.d.ts",
         "wordpress__nux-tests.tsx"
     ]
 }

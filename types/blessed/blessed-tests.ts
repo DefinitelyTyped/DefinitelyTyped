@@ -31,6 +31,10 @@ screen = blessed.screen({
   warnings: true
 });
 
+// `clickable` and `keyable` are arrays
+console.log(screen.clickable.length);
+console.log(screen.keyable.length);
+
 const box1 = blessed.box({
   parent: screen,
   top: "center",
@@ -52,6 +56,17 @@ const box2 = blessed.box({
 screen.key("q", () => screen.destroy());
 
 screen.render();
+
+// Allow for arbitrary extra properties to be stored in `options`
+const extraProps = blessed.box({
+  parent: box1,
+  id: 'box3'
+});
+
+// Props on `progressbar()` are optional
+const progressbar = blessed.progressbar({
+  parent: screen
+});
 
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
 

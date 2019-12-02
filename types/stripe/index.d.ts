@@ -12,7 +12,6 @@
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
 //                 Troy Zarger <https://github.com/tzarger>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
 //                 Adam Duren <https://github.com/adamduren>
@@ -33,6 +32,8 @@
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
+//                 Aseel Al Dallal <https://github.com/Aseelaldallal>
+//                 Collin Pham <https://github.com/collin-pham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -96,6 +97,7 @@ declare class Stripe {
     events: Stripe.resources.Events;
     invoices: Stripe.resources.Invoices;
     invoiceItems: Stripe.resources.InvoiceItems;
+    issuing: Stripe.resources.Issuing;
     paymentIntents: Stripe.resources.PaymentIntents;
     paymentMethods: Stripe.resources.PaymentMethods;
     payouts: Stripe.resources.Payouts;
@@ -112,12 +114,16 @@ declare class Stripe {
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
     subscriptionItems: Stripe.resources.SubscriptionItems;
+    taxRates: Stripe.resources.TaxRates;
     tokens: Stripe.resources.Tokens;
+    topups: Stripe.resources.Topups;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
     files: Stripe.resources.Files;
+    fileLinks: Stripe.resources.FileLinks;
     bitcoinReceivers: Stripe.resources.BitcoinReceivers;
     refunds: Stripe.resources.Refunds;
+    reviews: Stripe.resources.Reviews;
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
@@ -3969,6 +3975,78 @@ declare namespace Stripe {
             | 'incorporation_document';
     }
 
+    namespace fileLinks {
+        interface IFileLink extends IResourceObject {
+            /**
+             * Value is 'file_link'
+             */
+            object: 'file_link';
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Whether this link is already expired.
+             */
+            expired: boolean;
+
+            /**
+             * Time at which the link expires.
+             */
+            expires_at: number | null;
+
+            /**
+             * The file object this link points to
+             */
+            file: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * The publicly accessible URL to download the file.
+             */
+            url: string;
+        }
+
+        interface IFileLinksCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The ID of the file
+             */
+            file: string;
+
+            /**
+             * A future timestamp after which the link will no longer be usable.
+             */
+            expires_at?: number;
+        }
+
+        interface IFileLinksUpdateOptions extends IDataOptionsWithMetadata {
+            expires_at?: number | 'now';
+        }
+
+        interface IFileLinksListOptions extends IListOptionsCreated {
+            /**
+             * Only return links for the given file.
+             */
+            file?: string;
+
+            /**
+             * Filter links by their expiration status. By default, all links are returned.
+             */
+            expired?: boolean;
+        }
+    }
+
     namespace invoices {
         /**
          * Invoices are statements of what a customer owes for a particular billing period, including subscriptions,
@@ -5129,6 +5207,1270 @@ declare namespace Stripe {
              * invoice items already attached to invoices. If unspecified, no filter is applied.
              */
             pending?: boolean;
+        }
+    }
+
+    namespace issuing {
+        interface ICreated {
+            /**
+             * Return results where the created field is greater than this value.
+             */
+            gt?: number;
+
+            /**
+             * Return results where the created field is greater than or equal to this value.
+             */
+            gte?: number;
+
+            /**
+             * Return results where the created field is less than this value.
+             */
+            lt?: number;
+
+            /**
+             * Return results where the created field is less than or equal to this value.
+             */
+            lte?: number;
+        }
+
+        namespace authorizations {
+            /**
+             * When an issued card is used to make a purchase, an Issuing Authorization object is created. Authorizations must be approved for the purchase to be completed successfully.
+             */
+            interface IAuthorization extends IResourceObject {
+                /**
+                 * Unique identifier for the object.
+                 */
+                id: string;
+
+                /**
+                 * String representing the object’s type. Objects of the same type share the same value.
+                 */
+                object: 'issuing.authorization';
+
+                /**
+                 * Whether the authorization has been approved.
+                 */
+                approved: boolean;
+
+                /**
+                 * How the card details were provided. One of chip, contactless, keyed_in, online, or swipe.
+                 */
+                authorization_method: AuthorizationMethod;
+
+                /**
+                 * The amount that has been authorized. This will be 0 when the object is created, and increase after it has been approved.
+                 */
+                authorized_amount: number;
+
+                /**
+                 * The currency that was presented to the cardholder for the authorization. Three-letter ISO currency code, in lowercase. Must be a supported currency.
+                 */
+                authorized_currency: string;
+
+                balance_transactions: balance.IBalanceTransaction[];
+
+                /**
+                 * Show child attributes
+                 */
+                card: cards.IIssuingCard;
+
+                /**
+                 * The cardholder to whom this authorization belongs.
+                 */
+                cardholder: string | cardholders.ICardholder;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * The amount the authorization is expected to be in held_currency. When Stripe holds funds from you, this is the amount reserved for the authorization. This will be 0 when the object is created, and increase after it has been approved. For multi-currency transactions, held_amount can be used to determine the expected exchange rate.
+                 */
+                held_amount: number;
+
+                /**
+                 * The currency of the held amount. This will always be the card currency.
+                 */
+                held_currency: string;
+
+                is_held_amount_controllable: boolean;
+
+                /**
+                 * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+                 */
+                livemode: boolean;
+
+                merchant_data: MerchantData;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata: IMetadata;
+
+                /**
+                 * The amount the user is requesting to be authorized. This field will only be non-zero during an issuing.authorization.request webhook.
+                 */
+                pending_authorized_amount: number;
+
+                /**
+                 * The additional amount Stripe will hold if the authorization is approved. This field will only be non-zero during an issuing.authorization.request webhook.
+                 */
+                pending_held_amount: number;
+
+                /**
+                 * Show child attributes
+                 */
+                request_history: RequestHistory[];
+
+                /**
+                 * One of closed, pending, or reversed.
+                 */
+                status: AuthorizationStatus;
+
+                /**
+                 * Show child attributes
+                 */
+                transactions: transactions.ITransaction[];
+
+                /**
+                 * Show child attributes
+                 */
+                verification_data: VerificationData;
+
+                /**
+                 * What, if any, digital wallet was used for this authorization. One of apple_pay, google_pay, or samsung_pay.
+                 */
+                wallet_provider: WalletProvider;
+            }
+
+            interface MerchantData {
+                /**
+                 * A categorization of the seller’s type of business. See our merchant categories guide for a list of possible values.
+                 */
+                category: string;
+
+                /**
+                 * City where the seller is located
+                 */
+                city: string;
+
+                /**
+                 * Country where the seller is located
+                 */
+                country: string;
+
+                /**
+                 * Name of the seller
+                 */
+                name: string;
+
+                /**
+                 * Identifier assigned to the seller by the card brand
+                 */
+                network_id: string;
+
+                /**
+                 * Postal code where the seller is located
+                 */
+                postal_code: string;
+
+                /**
+                 * State where the seller is located
+                 */
+                state: string;
+
+                /**
+                 * The url an online purchase was made from
+                 */
+                url: string;
+            }
+
+            interface RequestHistory {
+                /**
+                 * Whether this request was approved.
+                 */
+                approved: boolean;
+
+                /**
+                 * The amount that was authorized at the time of this request
+                 */
+                authorized_amount: number;
+
+                /**
+                 * The currency that was presented to the cardholder for the authorization. Three-letter ISO currency code, in lowercase. Must be a supported currency.
+                 */
+                authorized_currency: string;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * The amount Stripe held from your account to fund the authorization, if the request was approved
+                 */
+                held_amount: number;
+
+                /**
+                 * The currency of the held amount
+                 */
+                held_currency: string;
+
+                /**
+                 * One of authentication_failed, authorization_controls, card_active, card_inactive, insufficient_funds, account_compliance_disabled, account_inactive, suspected_fraud, webhook_approved, webhook_declined, or webhook_timeout.
+                 */
+                reason: 'authentication_failed' | 'authorization_controls' | 'card_active' | 'card_inactive' | 'insufficient_funds' | 'account_compliance_disabled' | 'account_inactive' | 'suspected_fraud' | 'webhook_approved' | 'webhook_declined' | 'webhook_timeout';
+
+                /**
+                 * When an authorization is declined due to authorization_controls, this array contains details about the authorization controls that were violated. Otherwise, it is empty.
+                 */
+                violated_authorization_controls: {
+                    /**
+                     * Entity which the authorization control acts on. One of account, card, or cardholder.
+                     */
+                    entity: 'account' | 'cardholder' | 'card',
+
+                    /**
+                     * Name of the authorization control. One of allowed_categories, blocked_categories, max_amount, max_approvals, or spending_limits.
+                     */
+                    name: 'allowed_categories' | 'blocked_categories' | 'max_amount' | 'max_approvals' | 'spending_limits',
+                };
+            }
+
+            interface VerificationData {
+                /**
+                 * One of match, mismatch, or not_provided.
+                 */
+                address_line1_check: 'match' | 'mismatch' | 'not_provided';
+
+                /**
+                 * One of match, mismatch, or not_provided.
+                 */
+                address_zip_check: 'match' | 'mismatch' | 'not_provided';
+
+                /**
+                 * One of exempt, failure, none, or success.
+                 */
+                authentication: 'exempt' | 'failure' | 'none' |'success';
+
+                /**
+                 * One of match, mismatch, or not_provided.
+                 */
+                cvc_check: 'match' | 'mismatch' | 'not_provided';
+            }
+
+            type AuthorizationStatus = 'closed' | 'pending' | 'reversed';
+            type AuthorizationMethod = 'chip' | 'contactless' | 'keyed_in' | 'online' | 'swipe';
+            type WalletProvider = 'apple_pay' | 'google_pay' | 'samsung_pay';
+
+            interface IAuthorizationUpdateOptions {
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata?: IOptionsMetadata;
+            }
+
+            interface IAuthorizationApproveOptions {
+                /**
+                 * If the authorization’s is_held_amount_controllable property is true, you may provide this value to control how much to hold for the authorization.
+                 * Must be positive (use decline to decline an authorization request).
+                 */
+                held_amount?: number;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata?: IOptionsMetadata;
+            }
+
+            interface IAuthorizationDeclineOptions {
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata?: IOptionsMetadata;
+            }
+
+            interface IAuthorizationListOptions {
+                /**
+                 * Only return issuing transactions that belong to the given card.
+                 */
+                card?: string;
+
+                /**
+                 * Only return authorizations belonging to the given cardholder.
+                 */
+                cardholder?: string;
+
+                /**
+                 * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
+                 */
+                created?: string | ICreated;
+
+                /**
+                 * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page of the list.
+                 */
+                ending_before?: string;
+
+                /**
+                 * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+                 */
+                limit?: number;
+
+                /**
+                 * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+                 */
+                starting_after?: string;
+
+                /**
+                 * Only return authorizations with the given status. One of pending, closed, or reversed.
+                 */
+                status?: AuthorizationStatus;
+            }
+        }
+
+        namespace cardholders {
+            /**
+             * An Issuing Cardholder object represents an individual or business entity who is issued cards.
+             */
+            interface ICardholder extends IResourceObject {
+                /**
+                 * Unique identifier for the object.
+                 */
+                id: string;
+
+                /**
+                 * String representing the object’s type. Objects of the same type share the same value.
+                 */
+                object: 'issuing.cardholder';
+
+                authorization_controls: ICardholderAuthorizationControls;
+
+                /**
+                 * The cardholder’s billing address.
+                 */
+                billing: {
+                    address: ICardholderBillingAddress;
+                    name: string;
+                };
+
+                /**
+                 * Additional information about a business_entity cardholder.
+                 */
+                company: ICardholderBusinessEntity;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * The cardholder’s email address.
+                 */
+                email: string;
+
+                /**
+                 * Additional information about an individual cardholder.
+                 */
+                individual: ICardholderIndividual;
+
+                /**
+                 * Whether or not this cardholder is the default cardholder.
+                 */
+                is_default: boolean;
+
+                /**
+                 * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+                 */
+                livemode: boolean;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata: IMetadata;
+
+                /**
+                 * The cardholder’s name. This will be printed on cards issued to them.
+                 */
+                name: string;
+
+                /**
+                 * The cardholder’s phone number.
+                 */
+                phone_number: string;
+
+                /**
+                 * Information about verification requirements for the cardholder, including what information needs to be collected.
+                 */
+                requirements: {
+                    /**
+                     * If the cardholder is disabled, this string describes why. Can be one of listed, rejected.listed, or under_review.
+                     */
+                    disabled_reason: 'listed' | 'rejected.listed' | 'under_review';
+
+                    /**
+                     * If not empty, this field contains the list of fields that need to be collected in order to verify and re-enabled the cardholder.
+                     */
+                    past_due: string[];
+                };
+
+                /**
+                 * One of active, inactive, or blocked.
+                 */
+                status: CardholderStatus;
+
+                /**
+                 * One of individual or business_entity.
+                 */
+                type: CardholderType;
+            }
+
+            interface ICardholderBusinessEntity {
+                /**
+                 * Whether the company’s business ID number was provided.
+                 */
+                tax_id_provided?: boolean;
+            }
+
+            interface ICardholderIndividual {
+                /**
+                 * The date of birth of this cardholder.
+                 */
+                dob: {
+                    /**
+                     * The day of birth, between 1 and 31.
+                     */
+                    day: number;
+
+                    /**
+                     * The month of birth, between 1 and 12.
+                     */
+                    month: number;
+
+                    /**
+                     * The four-digit year of birth.
+                     */
+                    year: number;
+                };
+
+                /**
+                 * The first name of this cardholder.
+                 */
+                first_name: string;
+
+                /**
+                 * The last name of this cardholder.
+                 */
+                last_name: string;
+
+                /**
+                 * Government-issued ID document for this cardholder.
+                 */
+                verification?: {
+                    /**
+                     * An identifying document, either a passport or local ID card.
+                     */
+                    document: {
+                        /**
+                         * The back of a document returned by a file upload with a purpose value of identity_document.
+                         */
+                        back: string;
+
+                        /**
+                         * The front of a document returned by a file upload with a purpose value of identity_document.
+                         */
+                        front: string;
+                    };
+                };
+            }
+
+            interface ICardholderBillingAddress {
+                /**
+                 * City/District/Suburb/Town/Village.
+                 */
+                city: string;
+
+                /**
+                 * 2-letter country code.
+                 */
+                country: string;
+
+                /**
+                 * Address line 1 (Street address/PO Box/Company name).
+                 */
+                line1: string;
+
+                /**
+                 * Address line 2 (Apartment/Suite/Unit/Building).
+                 */
+                line2?: string;
+
+                /**
+                 * ZIP or postal code.
+                 */
+                postal_code: string;
+
+                /**
+                 * State/County/Province/Region.
+                 */
+                state?: string;
+            }
+
+            interface ICardholderUpdateOptions {
+                /**
+                 * Spending rules that give you some control over how your cards can be used. Refer to our authorizations documentation for more details.
+                 */
+                authorization_controls?: ICardholderAuthorizationControls;
+
+                /**
+                 * The cardholder’s billing address.
+                 */
+                billing?: {
+                    address: ICardholderBillingAddress;
+                };
+
+                /**
+                 * Additional information about a business_entity cardholder.
+                 */
+                company?: ICardholderBusinessEntity;
+
+                /**
+                 * The cardholder’s email address.
+                 */
+                email?: string;
+
+                /**
+                 * Additional information about an individual cardholder.
+                 */
+                individual?: ICardholderIndividual;
+
+                /**
+                 * Specifies whether to set this as the default cardholder.
+                 */
+                is_default?: boolean;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+                 */
+                metadata?: IOptionsMetadata;
+
+                /**
+                 * The cardholder’s phone number.
+                 */
+                phone_number?: string;
+
+                /**
+                 * Specifies whether to permit authorizations on this cardholder’s cards. Possible values are active or inactive.
+                 */
+                status?: Exclude<CardholderStatus, 'blocked'>;
+            }
+
+            interface ICardholderCreateOptions extends ICardholderUpdateOptions {
+                /**
+                 * The cardholder’s billing address.
+                 */
+                billing: {
+                    address: ICardholderBillingAddress;
+                };
+
+                /**
+                 * The cardholder’s name. This will be printed on cards issued to them.
+                 */
+                name: string;
+
+                /**
+                 * The type of cardholder. Possible values are individual or business_entity.
+                 */
+                type: CardholderType;
+            }
+
+            interface ICardholderListOptions {
+                /**
+                 * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a
+                 * dictionary with the following options:
+                 */
+                created?: string | ICreated;
+
+                /**
+                 * Only return cardholders that have the given email address.
+                 */
+                email?: string;
+
+                /**
+                 * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page of the list.
+                 */
+                ending_before?: string;
+
+                /**
+                 * Only return the default cardholder.
+                 */
+                is_default?: boolean;
+
+                /**
+                 * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+                 */
+                limit?: number;
+
+                /**
+                 * Only return cardholders that have the given phone number.
+                 */
+                phone_number?: string;
+
+                /**
+                 * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+                 */
+                starting_after?: string;
+
+                /**
+                 * Only return cardholders that have the given status. One of active, inactive, or blocked.
+                 */
+                status?: CardholderStatus;
+
+                /**
+                 * Only return cardholders that have the given type. One of individual or business_entity.
+                 */
+                type?: CardholderType;
+            }
+
+            interface ICardholderAuthorizationControls {
+                /**
+                 * Array of strings containing categories of authorizations permitted on this card.
+                 */
+                allowed_categories: string[];
+
+                /**
+                 * Array of strings containing categories of authorizations to always decline on this card.
+                 */
+                blocked_categories: string[];
+
+                /**
+                 * Limit the spending with rules based on time intervals and categories.
+                 */
+                spending_limits: ISpendingLimit[];
+
+                /**
+                 * Currency for the amounts within spending_limits. Locked to the currency of the card.
+                 */
+                spending_limits_currency: string;
+            }
+
+            /**
+             * Limit the spending with rules based on time intervals and categories.
+             */
+            interface ISpendingLimit {
+                /**
+                 * Maximum amount allowed to spend per time interval.
+                 */
+                amount: number;
+
+                /**
+                 * Array of strings containing categories on which to apply the spending limit. Leave this blank to limit all charges.
+                 */
+                categories: string[];
+
+                /**
+                 * The time interval with which to apply this spending limit towards. Allowed values are per_authorization, daily, weekly, monthly, yearly, or all_time.
+                 */
+                interval: SpendingLimitInterval;
+            }
+
+            type CardholderStatus = 'active' | 'inactive' | 'blocked';
+            type CardholderType = 'individual' | 'business_entity';
+            type SpendingLimitInterval = 'per_authorization' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'all_time';
+        }
+
+        namespace cards {
+            /**
+             * You can create physical or virtual cards that are issued to cardholders.
+             */
+            interface IIssuingCard extends IResourceObject {
+                /**
+                 * Unique identifier for the object.
+                 */
+                id: string;
+
+                /**
+                 * Value is "issuing.card"
+                 */
+                object: 'issuing.card';
+
+                /**
+                 * Spending rules that give you some control over how your cards can be used. Refer to our authorizations documentation for more details.
+                 */
+                authorization_controls: ICardAuthorizationControls;
+
+                /**
+                 * The brand of the card.
+                 */
+                brand: string;
+
+                /**
+                 * The Cardholder object to which the card belongs.
+                 */
+                cardholder: cardholders.ICardholder;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+                 */
+                currency: string;
+
+                /**
+                 * The expiration month of the card.
+                 */
+                exp_month: number;
+
+                /**
+                 * The expiration year of the card.
+                 */
+                exp_year: number;
+
+                /**
+                 * The last 4 digits of the card number.
+                 */
+                last4: string;
+
+                /**
+                 * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+                 */
+                livemode: boolean;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata: IMetadata;
+
+                /**
+                 * The name of the cardholder, printed on the card.
+                 */
+                name: string;
+
+                /**
+                 * Metadata about the PIN on the card.
+                 */
+                pin: IIssuingCardPin;
+
+                /**
+                 * The card this card replaces, if any.
+                 */
+                replacement_for: string | IIssuingCard;
+
+                /**
+                 * Why the card that this card replaces (if any) needed to be replaced. One of damage, expiration, loss, or theft.
+                 */
+                replacement_reason: IssuingCardReplacementReason;
+
+                /**
+                 * Where and how the card will be shipped.
+                 */
+                shipping: IIssuingCardShippingDetails;
+
+                /**
+                 * One of active, inactive, canceled, lost, or stolen.
+                 */
+                status: IssuingCardStatus;
+
+                /**
+                 * One of virtual or physical.
+                 */
+                type: IssuingCardType;
+            }
+
+            interface IIssuingCardDetails {
+                /**
+                 * Value is "object.card"
+                 */
+                object: 'issuing.card_details';
+
+                /**
+                 * The card object
+                 */
+                card: IIssuingCard;
+
+                /**
+                 * The CVC of the card.
+                 */
+                cvc: string;
+
+                /**
+                 * The expiration month of the card.
+                 */
+                exp_month: number;
+
+                /**
+                 * The expiration year of the card.
+                 */
+                exp_year: number;
+
+                /**
+                 * The card number.
+                 */
+                number: string;
+            }
+
+            /**
+             * Spending rules that give you some control over how your cards can be used.
+             * Refer to our authorizations documentation for more details.
+             */
+            interface ICardAuthorizationControls extends cardholders.ICardholderAuthorizationControls {
+                /**
+                 * The currency of the card. See max_amount
+                 */
+                currency: string;
+
+                /**
+                 * Maximum count of approved authorizations on this card. Counts all authorizations retroactively.
+                 */
+                max_approvals: number;
+            }
+
+            interface IIssuingCardShippingAddress {
+                /**
+                 * Shipping address.
+                 */
+                address: cardholders.ICardholderBillingAddress;
+
+                /**
+                 * Recipient name.
+                 */
+                name: string;
+
+                /**
+                 * One of bulk or individual. Bulk shipments will be grouped and mailed together, while individual ones will not.
+                 */
+                type?: 'bulk' | 'individual';
+            }
+
+            interface IIssuingCardShippingDetails extends IIssuingCardShippingAddress {
+                /**
+                 * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+                 */
+                carrier: string;
+
+                /**
+                 * A unix timestamp representing a best estimate of when the card will be delivered.
+                 */
+                eta: number;
+
+                /**
+                 * The delivery status of the card. One of pending, shipped, delivered, returned, failure, or canceled.
+                 */
+                status: 'pending' | 'shipped' | 'delivered' | 'returned' | 'failure' | 'canceled';
+
+                /**
+                 * A tracking number for a card shipment.
+                 */
+                tracking_number: string;
+
+                /**
+                 * A link to the shipping carrier’s site where you can view detailed information about a card shipment.
+                 */
+                tracking_url: string;
+            }
+
+            /**
+             * Metadata about the PIN on the card.
+             */
+            interface IIssuingCardPin {
+                status: 'blocked' | 'active';
+            }
+
+            type IssuingCardReplacementReason = 'damage' | 'expiration' | 'loss' | 'theft';
+            type IssuingCardStatus = 'active' | 'inactive' | 'canceled' | 'lost' | 'stolen';
+            type IssuingCardType = 'virtual' | 'physical';
+
+            /**
+             * Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            interface IIssuingCardUpdateOptions {
+                /**
+                 * Spending rules that give you some control over how your cards can be used. Refer to our authorizations documentation for more details.
+                 */
+                auhtorization_controls?: ICardAuthorizationControls;
+
+                /**
+                 * The Cardholder to associate the card with.
+                 */
+                cardholder?: string;
+
+                metadata?: IOptionsMetadata;
+
+                /**
+                 * Specifies whether to permit authorizations on this card. Possible values are active, inactive, or the terminal states: canceled, lost, stolen.
+                 */
+                status?: IssuingCardStatus;
+            }
+
+            /**
+             * Creates an Issuing Card object.
+             */
+            interface IIssuingCardCreateOptions extends IIssuingCardUpdateOptions {
+                /**
+                 * The currency for the card. This currently must be usd.
+                 */
+                currency: string;
+
+                /**
+                 * The type of card to issue. Possible values are physical or virtual.
+                 */
+                type: IssuingCardType;
+
+                /**
+                 * The card this is meant to be a replacement for (if any).
+                 */
+                replacement_for?: string;
+
+                /**
+                 * If replacement_for is specified, this should indicate why that card is being replaced. One of damage, expiration, loss, or theft.
+                 */
+                replacement_reason?: IssuingCardReplacementReason;
+
+                /**
+                 * The address where the card will be shipped.
+                 */
+                shipping?: IIssuingCardShippingAddress;
+            }
+
+            /**
+             * Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date,
+             * with the most recently created object appearing first.
+             */
+            interface IIssuingCardListOptions {
+                /**
+                 * Only return cards belonging to the Cardholder with the provided ID.
+                 */
+                cardholder?: string;
+
+                /**
+                 * A filter on the list based on the object created field.
+                 * The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
+                 */
+                created?: string | ICreated;
+
+                /**
+                 * A cursor for use in pagination. ending_before is an object ID that defines your place in the list.
+                 * For instance, if you make a list request and receive 100 objects, starting with obj_bar,
+                 * your subsequent call can include ending_before=obj_bar in order to fetch the previous page of the list.
+                 */
+                ending_before?: string;
+
+                /**
+                 * Only return cards that have the given expiration month.
+                 */
+                exp_month?: number;
+
+                /**
+                 * Only return cards that have the given expiration year.
+                 */
+                exp_year?: number;
+
+                /**
+                 * Only return cards that have the given last four digits.
+                 */
+                last4?: string;
+
+                /**
+                 * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+                 */
+                limit?: number;
+
+                /**
+                 * Only return cards that have the given name.
+                 */
+                name?: string;
+
+                /**
+                 * Only return cards whose full card number matches that of this card source ID.
+                 */
+                source?: string;
+
+                /**
+                 * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+                 */
+                starting_after?: string;
+
+                /**
+                 * Only return cards that have the given status. One of active, inactive, canceled, lost, or stolen.
+                 */
+                status?: IssuingCardStatus;
+
+                /**
+                 * Only return cards that have the given type. One of virtual or physical.
+                 */
+                type?: IssuingCardType;
+            }
+        }
+
+        namespace disputes {
+            /**
+             * As a card issuer, you can dispute transactions that you do not recognize, suspect to be fraudulent, or have some other issue.
+             */
+            interface IIssuingDispute extends IResourceObject {
+                /**
+                 * Unique identifier for the object.
+                 */
+                id: string;
+
+                /**
+                 * String representing the object’s type. Objects of the same type share the same value.
+                 */
+                object: 'issuing.dispute';
+
+                /**
+                 * Disputed amount. Usually the amount of the disputed_transaction, but can differ (usually because of currency fluctuation or because only part of the order is disputed).
+                 */
+                amount: number;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * The currency the disputed_transaction was made in.
+                 */
+                currency: string;
+
+                /**
+                 * The transaction being disputed.
+                 */
+                disputed_transaction: string | transactions.ITransaction;
+
+                /**
+                 * Evidence related to the dispute. This hash will contain exactly one non-null value, containing an evidence object that matches its reason
+                 */
+                evidence: IIssuingDisputeEvidence;
+
+                /**
+                 * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+                 */
+                livemode: boolean;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+                 */
+                metadata: IMetadata;
+
+                /**
+                 * Reason for this dispute. One of other or fraudulent.
+                 */
+                reason: IssuingDisputeReason;
+
+                /**
+                 * Current status of dispute. One of lost, under_review, unsubmitted, or won.
+                 */
+                status: IssuingDisputeStatus;
+            }
+
+            interface IIssuingDisputeEvidence {
+                /**
+                 * Evidence to support a fraudulent dispute. This will only be present if your dispute’s reason is fraudulent.
+                 */
+                fraudulent?: {
+                    /**
+                     * Brief freeform text explaining why you are disputing this transaction.
+                     */
+                    dispute_explanation: string;
+
+                    /**
+                     * (ID of a file upload) Additional file evidence supporting your dispute.
+                     */
+                    uncategorized_file: string;
+                };
+
+                other?: {
+                    /**
+                     * Brief freeform text explaining why you are disputing this transaction.
+                     */
+                    dispute_explanation: string;
+
+                    /**
+                     * (ID of a file upload) Additional file evidence supporting your dispute.
+                     */
+                    uncategorized_file: string;
+                };
+            }
+
+            type IssuingDisputeReason = 'other' | 'fraudlent';
+            type IssuingDisputeStatus = 'lost' | 'under_review' | 'unsubmitted' | 'won';
+
+            interface IIssuingDisputeUpdateOptions {
+                metadata?: IOptionsMetadata;
+            }
+
+            interface IIssuingDisputeCreateOptions extends IIssuingDisputeUpdateOptions {
+                /**
+                 * The ID of the issuing transaction to create a dispute for.
+                 */
+                disputed_transaction: string;
+
+                /**
+                 * The reason for the dispute. One of other or fraudulent.
+                 */
+                reason: IssuingDisputeReason;
+
+                /**
+                 * Amount to dispute, defaults to full value, given in the currency the transaction was made in.
+                 */
+                amount?: number;
+
+                /**
+                 * A hash containing all the evidence related to the dispute. This should have a single key, equal to the provided reason, mapping to an appropriate evidence object.
+                 */
+                evidence?: IIssuingDisputeEvidence;
+            }
+
+            interface IIssuingDisputeListOptions {
+                /**
+                 * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
+                 */
+                created?: ICreated;
+
+                /**
+                 * Only return issuing disputes for the given transaction.
+                 */
+                disputed_transaction?: string;
+
+                /**
+                 * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page of the list.
+                 */
+                ending_before?: string;
+
+                /**
+                 * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+                 */
+                limit?: number;
+
+                /**
+                 * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+                 */
+                starting_after?: string;
+            }
+        }
+
+        namespace transactions {
+            /**
+             * Any use of an issued card that results in funds entering or leaving your Stripe account, such as a completed purchase or refund, is represented by an Issuing Transaction object.
+             */
+            interface ITransaction extends IResourceObject {
+                /**
+                 * Unique identifier for the object.
+                 */
+                id: string;
+
+                /**
+                 * String representing the object’s type. Objects of the same type share the same value.
+                 */
+                object: 'issuing.transaction';
+
+                amount: number;
+
+                /**
+                 * The Authorization object that led to this transaction.
+                 */
+                authorization: string | authorizations.IAuthorization;
+
+                balance_transaction: string | balance.IBalanceTransaction;
+
+                /**
+                 * The card used to make this transaction.
+                 */
+                card: string | cards.IIssuingCard;
+
+                /**
+                 * The cardholder to whom this transaction belongs.
+                 */
+                cardholder: string | cardholders.ICardholder;
+
+                /**
+                 * Time at which the object was created. Measured in seconds since the Unix epoch.
+                 */
+                created: number;
+
+                /**
+                 * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+                 */
+                currency: string;
+
+                dispute: string | disputes.IIssuingDispute;
+
+                /**
+                 * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+                 */
+                livemode: boolean;
+
+                merchant_amount: number;
+
+                merchant_currency: string;
+
+                /**
+                 * More information about the user involved in the transaction.
+                 */
+                merchant_data: authorizations.MerchantData;
+
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata: IMetadata;
+
+                /**
+                 * One of capture, refund, cash_withdrawal, refund_reversal, dispute, or dispute_loss.
+                 */
+                type: TransactionType;
+            }
+
+            type TransactionType = 'capture' | 'refund' | 'cash_withdrawal' | 'refund_reversal' | 'dispute' | 'dispute_loss';
+
+            interface ITransactionUpdateOptions {
+                metadata?: IOptionsMetadata;
+            }
+
+            interface ITransactionListOptions {
+                /**
+                 * Only return issuing transactions that belong to the given card.
+                 */
+                card?: string;
+
+                /**
+                 * Only return authorizations belonging to the given cardholder.
+                 */
+                cardholder?: string;
+
+                /**
+                 * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
+                 */
+                created?: ICreated;
+
+                /**
+                 * Only return transactions that originate from a given dispute.
+                 */
+                dispute?: string;
+
+                /**
+                 * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page of the list.
+                 */
+                ending_before?: string;
+
+                /**
+                 * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+                 */
+                limit?: number;
+
+                /**
+                 * Only return transactions that are associated with the given settlement.
+                 */
+                settlement?: string;
+
+                /**
+                 * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include starting_after=obj_foo in order to fetch the next page of the list.
+                 */
+                starting_after?: string;
+            }
         }
     }
 
@@ -6972,18 +8314,29 @@ declare namespace Stripe {
     namespace plans {
         interface ITier {
             /**
-             * A flat fee for the tier to be added into the total amount
-             */
-            flat_amount: number | null;
-
-            /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number | null;
+            up_to: number | null | 'inf';
+
+            /**
+             * Price for the entire tier.
+             */
+            flat_amount?: number | null;
+
+            /**
+             * Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            flat_amount_decimal?: number | null;
+
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number | null;
+            unit_amount?: number | null;
+
+            /**
+             * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+             */
+            unit_amount_decimal?: number | null;
         }
 
         interface ITransformUsage {
@@ -7927,6 +9280,152 @@ declare namespace Stripe {
                 personal_id_number: string;
             };
         }
+    }
+
+    namespace topups {
+        interface ITopup extends IResourceObject {
+            /**
+             * Value is "topup"
+             */
+            object: 'topup';
+
+            /**
+             * Amount transferred
+             */
+            amount: number;
+
+            /**
+             * ID of the balance transaction that describes the impact of this top-up on your account balance.
+             * May not be specified depending on status of top-up.
+             */
+            balance_transaction: string | null;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string;
+
+            /**
+             * Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays
+             * like weekends or bank holidays. May not be specified depending on status of top-up.
+             */
+            expected_availability_date: number;
+
+            /**
+             * Error code explaining reason for top-up failure if available
+             */
+            failure_code: string | null;
+
+            /**
+             * Message to user further explaining reason for top-up failure if available.
+             */
+            failure_message: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists
+             * in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metaData: IMetadata;
+
+            /**
+             * For most Stripe users, the source of every top-up is a bank account. This hash is then the
+             * source object describing that bank account.
+             */
+            source: ISource;
+
+            /**
+             * Extra information about a top-up. This will appear on your source’s bank statement.
+             * It must contain at least one letter.
+             */
+            statement_descriptor: string | null;
+
+            /**
+             * Status of topup
+             */
+            status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group: string | null;
+        }
+
+        interface ITopupCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * A positive integer representing how much to transfer.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * The ID of a source to transfer funds from. For most users, this should be left unspecified
+             * which will use the bank account that was set up in the dashboard for the specified currency.
+             * In test mode, this can be a test bank token (see https://stripe.com/docs/connect/testing#testing-top-ups).
+             */
+            source?: string;
+
+            /**
+             * Extra information about a top-up for the source’s bank statement. Limited to 15 ASCII characters.
+             */
+            statement_descriptor?: string;
+
+            /**
+             * A string that identifies this top-up as part of a group.
+             */
+            transfer_group?: string;
+        }
+
+        interface ITopupUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+        }
+
+        interface ITopupsListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the object amount field. The value can be a string with
+             * an integer amount, or it can be a dictionary.
+             */
+            amount?: IAmountFilter;
+
+            /**
+             * Only return top-ups that have the given status.
+             */
+            status?: 'canceled' | 'failed' | 'pending' | 'succeeded';
+        }
+
+        type IAmountFilter = string | {
+            gt?: string;
+            gte?: string;
+            lt?: string;
+            lte?: string;
+        };
     }
 
     namespace transfers {
@@ -9968,6 +11467,361 @@ declare namespace Stripe {
     }
 
     namespace resources {
+        class Issuing extends StripeResource {
+            authorizations: Authorizations;
+            cardholders: Cardholders;
+            cards: IssuingCards;
+            disputes: IssuingDisputes;
+            transactions: Transactions;
+        }
+        class Authorizations extends StripeResource {
+            /**
+             * Retrieves an Issuing Authorization object.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+
+            /**
+             * Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            update(
+                id: string,
+                data: issuing.authorizations.IAuthorizationUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            update(
+                id: string,
+                data: issuing.authorizations.IAuthorizationUpdateOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+
+            /**
+             * Approves a pending Issuing Authorization object.
+             */
+            approve(
+                id: string,
+                data: issuing.authorizations.IAuthorizationApproveOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            approve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            approve(
+                id: string,
+                data: issuing.authorizations.IAuthorizationApproveOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            approve(
+                id: string,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+
+            /**
+             * Declines a pending Issuing Authorization object.
+             */
+            decline(
+                id: string,
+                data: issuing.authorizations.IAuthorizationDeclineOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            decline(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            decline(
+                id: string,
+                data: issuing.authorizations.IAuthorizationDeclineOptions,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+            decline(
+                id: string,
+                response?: IResponseFn<issuing.authorizations.IAuthorization>
+            ): Promise<issuing.authorizations.IAuthorization>;
+
+            /**
+             * Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date,
+             * with the most recently created object appearing first.
+             */
+            list(
+                data: issuing.authorizations.IAuthorizationListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.authorizations.IAuthorization>>,
+            ): Promise<IList<issuing.authorizations.IAuthorization>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.authorizations.IAuthorization>>,
+            ): Promise<IList<issuing.authorizations.IAuthorization>>;
+            list(
+                data: issuing.authorizations.IAuthorizationListOptions,
+                response?: IResponseFn<IList<issuing.authorizations.IAuthorization>>,
+            ): Promise<IList<issuing.authorizations.IAuthorization>>;
+            list(
+                response?: IResponseFn<IList<issuing.authorizations.IAuthorization>>,
+            ): Promise<IList<issuing.authorizations.IAuthorization>>;
+        }
+        class Cardholders extends StripeResource {
+            /**
+             * Creates a new Issuing Cardholder object that can be issued cards.
+             */
+            create(
+                data: issuing.cardholders.ICardholderCreateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+            create(
+                data: issuing.cardholders.ICardholderCreateOptions,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+
+            /**
+             * Retrieves an Issuing Cardholder object.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+
+            /**
+             * Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            update(
+                id: string,
+                data: issuing.cardholders.ICardholderUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+            update(
+                id: string,
+                data: issuing.cardholders.ICardholderUpdateOptions,
+                response?: IResponseFn<issuing.cardholders.ICardholder>,
+            ): Promise<issuing.cardholders.ICardholder>;
+
+            /**
+             * Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: issuing.cardholders.ICardholderListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.cardholders.ICardholder>>,
+            ): Promise<IList<issuing.cardholders.ICardholder>>;
+            list(
+                data: issuing.cardholders.ICardholderListOptions,
+                response?: IResponseFn<IList<issuing.cardholders.ICardholder>>,
+            ): Promise<IList<issuing.cardholders.ICardholder>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.cardholders.ICardholder>>,
+            ): Promise<IList<issuing.cardholders.ICardholder>>;
+            list(
+                response?: IResponseFn<IList<issuing.cardholders.ICardholder>>,
+            ): Promise<IList<issuing.cardholders.ICardholder>>;
+        }
+        class IssuingCards extends StripeResource {
+            /**
+             * Creates an Issuing Card object.
+             */
+            create(
+                data: issuing.cards.IIssuingCardCreateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+            create(
+                data: issuing.cards.IIssuingCardCreateOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+
+            /**
+             * Retrieves an Issuing Card object.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+
+            /**
+             * For virtual cards only. Retrieves an Issuing card_details object that contains the sensitive details of a virtual card.
+             */
+            retrieveDetails(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCardDetails>,
+            ): Promise<issuing.cards.IIssuingCardDetails>;
+            retrieveDetails(
+                id: string,
+                response?: IResponseFn<issuing.cards.IIssuingCardDetails>,
+            ): Promise<issuing.cards.IIssuingCardDetails>;
+
+            /**
+             * Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            update(
+                id: string,
+                data: issuing.cards.IIssuingCardUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+            update(
+                id: string,
+                data: issuing.cards.IIssuingCardUpdateOptions,
+                response?: IResponseFn<issuing.cards.IIssuingCard>,
+            ): Promise<issuing.cards.IIssuingCard>;
+
+            /**
+             * Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: issuing.cards.IIssuingCardListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
+            ): Promise<IList<issuing.cards.IIssuingCard>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
+            ): Promise<IList<issuing.cards.IIssuingCard>>;
+            list(
+                data: issuing.cards.IIssuingCardListOptions,
+                response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
+            ): Promise<IList<issuing.cards.IIssuingCard>>;
+            list(
+                response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
+            ): Promise<IList<issuing.cards.IIssuingCard>>;
+        }
+
+        class IssuingDisputes extends StripeResource {
+            /**
+             * Creates an Issuing Dispute object.
+             */
+            create(
+                data: issuing.disputes.IIssuingDisputeCreateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+            create(
+                data: issuing.disputes.IIssuingDisputeCreateOptions,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+
+            /**
+             * Retrieves an Issuing Dispute object.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+
+            /**
+             * Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            update(
+                id: string,
+                data: issuing.disputes.IIssuingDisputeUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+            update(
+                id: string,
+                data: issuing.disputes.IIssuingDisputeUpdateOptions,
+                response?: IResponseFn<issuing.disputes.IIssuingDispute>,
+            ): Promise<issuing.disputes.IIssuingDispute>;
+
+            /**
+             * Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: issuing.disputes.IIssuingDisputeListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.disputes.IIssuingDispute>>,
+            ): Promise<IList<issuing.disputes.IIssuingDispute>>;
+            list(
+                data: issuing.disputes.IIssuingDisputeListOptions,
+                response?: IResponseFn<IList<issuing.disputes.IIssuingDispute>>,
+            ): Promise<IList<issuing.disputes.IIssuingDispute>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.disputes.IIssuingDispute>>,
+            ): Promise<IList<issuing.disputes.IIssuingDispute>>;
+            list(
+                response?: IResponseFn<IList<issuing.disputes.IIssuingDispute>>,
+            ): Promise<IList<issuing.disputes.IIssuingDispute>>;
+        }
+
+        class Transactions extends StripeResource {
+            /**
+             * Retrieves an Issuing Transaction object.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.transactions.ITransaction>,
+            ): Promise<issuing.transactions.ITransaction>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<issuing.transactions.ITransaction>,
+            ): Promise<issuing.transactions.ITransaction>;
+
+            /**
+             * Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+             */
+            update(
+                id: string,
+                data: issuing.transactions.ITransactionUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<issuing.transactions.ITransaction>,
+            ): Promise<issuing.transactions.ITransaction>;
+            update(
+                id: string,
+                data: issuing.transactions.ITransactionUpdateOptions,
+                response?: IResponseFn<issuing.transactions.ITransaction>,
+            ): Promise<issuing.transactions.ITransaction>;
+
+            /**
+             * Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: issuing.transactions.ITransactionListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.transactions.ITransaction>>,
+            ): Promise<IList<issuing.transactions.ITransaction>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<issuing.transactions.ITransaction>>,
+            ): Promise<IList<issuing.transactions.ITransaction>>;
+            list(
+                data: issuing.transactions.ITransactionListOptions,
+                response?: IResponseFn<IList<issuing.transactions.ITransaction>>,
+            ): Promise<IList<issuing.transactions.ITransaction>>;
+            list(
+                response?: IResponseFn<IList<issuing.transactions.ITransaction>>,
+            ): Promise<IList<issuing.transactions.ITransaction>>;
+        }
         class UsageRecords extends StripeResource {
             /**
              * Creates a usage record for a specified subscription item and date, and fills it with a quantity.
@@ -12682,6 +14536,76 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
         }
 
+        class FileLinks extends StripeResource {
+            /**
+             * Creates a new file link object.
+             */
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            create(
+                data: fileLinks.IFileLinksCreationOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a file link object if a valid identifier was provided, and throws an error otherwise.
+             */
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                data: IDataOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            retrieve(id: string, response?: IResponseFn<fileLinks.IFileLink>): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Updates an existing file link object. Expired links can no longer be updated. Returns the file link object if successful,
+             * and throws an error otherwise.
+             */
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+            update(
+                id: string,
+                data: fileLinks.IFileLinksUpdateOptions,
+                response?: IResponseFn<fileLinks.IFileLink>,
+            ): Promise<fileLinks.IFileLink>;
+
+            /**
+             * Returns a list of file links
+             */
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                data: fileLinks.IFileLinksListOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<fileLinks.IFileLink>>,
+            ): IListPromise<fileLinks.IFileLink>;
+            list(response?: IResponseFn<IList<fileLinks.IFileLink>>): IListPromise<fileLinks.IFileLink>;
+        }
+
         class Invoices extends StripeResource {
             /**
              * If you need to invoice your customer outside the regular billing cycle, you can create an invoice that
@@ -13746,6 +15670,49 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
         }
 
+        class Reviews extends StripeResource {
+            /**
+             * Approves a Review object, closing it and removing it from the list of reviews. Returns the approved
+             * review object.
+             * @param id - The identifier of the review to be approved.
+             */
+            approve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            approve(id: string, response?: IResponseFn<reviews.IReview>): Promise<reviews.IReview>;
+
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<reviews.IReview>,
+            ): Promise<reviews.IReview>;
+
+            /**
+             * Returns a list of Review objects that have open set to true. The objects are sorted in descending
+             * order by creation date, with the most recently created object appearing first.
+             */
+            list(
+                data: IListOptionsCreated,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                data: IListOptionsCreated,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<reviews.IReview>>,
+            ): IListPromise<reviews.IReview>;
+            list(response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
+        }
+
         class Sources extends StripeResource {
             /** Create Source: https://stripe.com/docs/api/sources/create */
             create(
@@ -13851,6 +15818,76 @@ declare namespace Stripe {
                 response?: IResponseFn<tokens.IToken>,
             ): Promise<tokens.IToken>;
             retrieve(tokenId: string, response?: IResponseFn<tokens.IToken>): Promise<tokens.IToken>;
+        }
+
+        class Topups extends StripeResource {
+            /**
+             * Top up the balance of an account
+             */
+            create(
+                data: topups.ITopupCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            create(
+                data: topups.ITopupCreationOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Retrieves the details of a top-up that has previously been created.
+             */
+            retrieve(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            retrieve(
+                id: string,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * Updates the metadata of a top-up. Other top-up details are not editable by design.
+             * Returns the newly updated top-up object if the call succeeded. Otherwise, this call throws an error.
+             */
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            update(
+                id: string,
+                data: topups.ITopupUpdateOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+
+            /**
+             * A object containing the data property, which is an array of separate top-up objects. The number
+             * of top-ups in the array is limited to the number designated in limit. If no more top-ups are available,
+             * the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: topups.ITopupsListOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+            list(
+                data: topups.ITopupsListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<topups.ITopup>>,
+            ): IListPromise<topups.ITopup>;
+
+            /**
+             * Cancels a top-up. Only pending top-ups can be canceled. Returns the canceled top-up. If the top-up
+             * is already canceled or can’t be canceled, an error is returned.
+             */
+            cancel(
+                id: string,
+                options: HeaderOptions,
+                response?: IResponseFn<topups.ITopup>,
+            ): Promise<topups.ITopup>;
+            cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
         }
 
         class OAuth extends StripeResource {

@@ -1,4 +1,4 @@
-// Type definitions for mui-datatables 2.12
+// Type definitions for mui-datatables 2.13
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
@@ -123,6 +123,7 @@ export interface MUIDataTableColumnOptions {
     hint?: string;
     print?: boolean;
     searchable?: boolean;
+    setCellHeaderProps?: (columnMeta: MUIDataTableCustomHeadRenderer) => object;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
     sortDirection?: 'asc' | 'desc';
@@ -170,6 +171,7 @@ export interface MUIDataTableOptions {
         displayData: Array<{ data: any[]; dataIndex: number }>,
         setSelectedRows: (rows: number[]) => void
     ) => React.ReactNode;
+    disableToolbarSelect?: boolean;
     download?: boolean;
     downloadOptions?: {
         filename: string;
@@ -228,6 +230,7 @@ export interface MUIDataTableOptions {
     selectableRows?: SelectableRows;
     selectableRowsHeader?: boolean;
     selectableRowsOnClick?: boolean;
+    setTableProps?: () => object;
     serverSide?: boolean;
     serverSideFilterList?: any[];
     setRowProps?: (row: any[], rowIndex: number) => object;

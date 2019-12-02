@@ -1,9 +1,10 @@
-// Type definitions for Koa 2.x
+// Type definitions for Koa 2.11.0
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
+//                 Wooram Jun <https://github.com/chatoo2412>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -437,6 +438,8 @@ declare class Application<
     CustomT = Application.DefaultContext
 > extends EventEmitter {
     proxy: boolean;
+    proxyIpHeader: string;
+    maxIpsCount: number;
     middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;

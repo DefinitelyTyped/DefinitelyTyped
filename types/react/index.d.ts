@@ -1669,6 +1669,7 @@ declare namespace React {
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
         radioGroup?: string; // <command>, <menuitem>
@@ -2195,6 +2196,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
         valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
@@ -2204,6 +2206,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {

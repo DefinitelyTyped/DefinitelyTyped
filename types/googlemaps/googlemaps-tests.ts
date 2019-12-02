@@ -1,5 +1,7 @@
 // Test file for Google Maps JavaScript API Definition file
 
+const version = google.maps.version;  // $ExpectType string
+
 let mapOptions: google.maps.MapOptions = {
     backgroundColor: '#fff',
     center: { lat: -25.363, lng: 131.044 },
