@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import { Dictionary } from "./tools";
+import { Dictionary } from "ramda/tools";
 
 function double(x: number): number {
     return x + x;
