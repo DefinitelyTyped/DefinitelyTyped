@@ -1,4 +1,4 @@
-// Type definitions for mongoose-paginate-v2 1.0
+// Type definitions for mongoose-paginate-v2 1.3.53
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
