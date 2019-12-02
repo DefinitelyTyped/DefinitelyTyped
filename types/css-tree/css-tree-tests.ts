@@ -35,6 +35,27 @@ csstree.walk(ast, {
     reverse: false,
 });
 
+csstree.find(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
+});
+
+csstree.findLast(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
+});
+
+csstree.findAll(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
+});
+
 csstree.generate(ast); // $ExpectType string
 
 csstree.generate(ast, {}); // $ExpectType string

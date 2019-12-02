@@ -49,8 +49,8 @@ export class List<TData> {
     nextUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
     prevUntil<TContext>(start: ListItem<TData>, fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
     prevUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
-    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
-    some(fn: IteratorFn<TData, boolean>): void;
+    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): boolean;
+    some(fn: IteratorFn<TData, boolean>): boolean;
     map<TContext, TResult>(fn: IteratorFn<TData, TResult, TContext>, context: TContext): List<TResult>;
     map<TResult>(fn: IteratorFn<TData, TResult>): List<TResult>;
     filter<TContext, TResult extends TData>(fn: FilterFn<TData, TResult, TContext>, context: TContext): List<TResult>;
@@ -537,6 +537,12 @@ export interface WalkOptions {
 }
 
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+
+export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
+
+export function find(ast: CssNode, fn: FindFn): CssNode;
+export function findLast(ast: CssNode, fn: FindFn): CssNode;
+export function findAll(ast: CssNode, fn: FindFn): CssNode[];
 
 export interface Property {
     readonly basename: string;
