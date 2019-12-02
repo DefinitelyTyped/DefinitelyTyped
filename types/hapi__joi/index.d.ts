@@ -577,10 +577,6 @@ declare namespace Joi {
         warn?: boolean;
     }
 
-    interface JoiObject {
-        isJoi: boolean;
-    }
-
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
@@ -591,8 +587,10 @@ declare namespace Joi {
         value: any;
     }
 
-    interface ValidationError extends Error, JoiObject {
+    interface ValidationError extends Error {
         name: 'ValidationError';
+
+        isJoi: boolean;
 
         /**
          * array of errors.
@@ -758,7 +756,7 @@ declare namespace Joi {
         $_validate(value: any, state: State, prefs: ValidationOptions): ValidationResult;
     }
 
-    interface AnySchema extends JoiObject, SchemaInternals {
+    interface AnySchema extends SchemaInternals {
         /**
          * Flags of current schema.
          */
@@ -1858,7 +1856,7 @@ declare namespace Joi {
 
     type ExtensionFactory = (joi: Root) => Extension;
 
-    interface Err extends JoiObject {
+    interface Err {
         toString(): string;
     }
 
