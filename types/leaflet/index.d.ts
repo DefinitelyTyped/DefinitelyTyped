@@ -1883,6 +1883,8 @@ export interface MarkerOptions extends InteractiveLayerOptions {
     autoPanPadding?: PointExpression;
     /** Number of pixels the map should pan by. */
     autoPanSpeed?: number;
+    /** Optional object to pass in values as when required for custom functionality */
+    customValues?: Object;
 }
 
 export class Marker<P = any> extends Layer {
