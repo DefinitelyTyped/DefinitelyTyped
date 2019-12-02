@@ -24,7 +24,7 @@ export function registerPresets(newPresets: {
 export const availablePlugins: Record<string, object | (() => void)>;
 export const availablePresets: Record<string, object | (() => void)>;
 
-export function transformScriptTags(scriptTags?: any[]): void;
+export function transformScriptTags(scriptTags?: HTMLCollection): void;
 
 export function disableScriptTags(): void;
 
