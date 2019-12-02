@@ -97,26 +97,35 @@ interface MetaData {
     _chart: Chart;
     _datasetIndex: number;
     _index: number;
-    _model: Chart.ModelType;
+    _model: Model;
     _start?: any;
-    _view: Chart.ModelType;
+    _view: Model;
     _xScale: Chart.ChartScales;
     _yScale: Chart.ChartScales;
     hidden?: boolean;
 }
 
+// NOTE: This model is generic with a bunch of optional properties to represent all types of chart models.
+// Each chart type defines their own unique model structure so some of these optional properties
+// might always have values depending on the chart type.
 interface Model {
     backgroundColor: string;
+    borderAlign?: Chart.BorderAlignment;
     borderColor: string;
     borderWidth?: number;
+    circumference?: number;
     controlPointNextX: number;
     controlPointNextY: number;
     controlPointPreviousX: number;
     controlPointPreviousY: number;
+    endAngle?: number;
     hitRadius: number;
+    innerRadius?: number;
+    outerRadius?: number;
     pointStyle: string;
     radius: string;
     skip?: boolean;
+    startAngle?: number;
     steppedLine?: undefined;
     tension: number;
     x: number;
@@ -148,8 +157,6 @@ declare namespace Chart {
     type BorderAlignment = 'center' | 'inner';
 
     type BorderWidth = number | { [key in PositionType]?: number };
-
-    type ModelType = Model | DoughnutModel;
 
     interface ChartArea {
         top: number;
@@ -804,6 +811,7 @@ declare namespace Chart {
         easing?: Easing;
     }
 
+    // Model used with the doughnut chart
     interface DoughnutModel {
         backgroundColor: ChartColor;
         borderAlign: BorderAlignment;
