@@ -8,5 +8,5 @@ interface OmitOptions {
     omitZero?: boolean;
 }
 
-declare function omitEmpty(obj: object, options?: OmitOptions): object;
+declare function omitEmpty<T extends object>(obj: T, options?: OmitOptions): Pick<T>;
 export default omitEmpty;
