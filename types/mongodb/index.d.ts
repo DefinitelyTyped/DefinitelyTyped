@@ -1766,6 +1766,12 @@ export interface OrderedBulkOperation {
     insert(doc: object): OrderedBulkOperation;
 }
 
+/** https://docs.mongodb.com/manual/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted */
+export interface BulkWriteResultUpsertedIdObject {
+    index: number;
+    _id: ObjectId;
+}
+                             
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/BulkWriteResult.html */
 export interface BulkWriteResult {
     ok: number;
@@ -1778,8 +1784,8 @@ export interface BulkWriteResult {
     getInsertedIds(): object[];
     getLastOp(): object;
     getRawResponse(): object;
-    getUpsertedIdAt(index: number): object;
-    getUpsertedIds(): object[];
+    getUpsertedIdAt(index: number): BulkWriteResultUpsertedIdObject;
+    getUpsertedIds(): BulkWriteResultUpsertedIdObject[];
     getWriteConcernError(): WriteConcernError;
     getWriteErrorAt(index: number): WriteError;
     getWriteErrorCount(): number;

@@ -9,6 +9,7 @@
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Alex Savin <https://github.com/alexandrusavin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -148,9 +149,13 @@ export class Body {
     timeout: number;
 }
 
+interface SystemError extends Error {
+    code?: string;
+}
+
 export class FetchError extends Error {
     name: "FetchError";
-    constructor(message: string, type: string, systemError?: string);
+    constructor(message: string, type: string, systemError?: SystemError);
     type: string;
     code?: string;
     errno?: string;

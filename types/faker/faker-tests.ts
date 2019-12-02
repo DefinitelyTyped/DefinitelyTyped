@@ -7,6 +7,10 @@ let resultDate: Date;
 import faker = require('faker');
 faker.locale = 'en';
 
+faker.seedValue === undefined;
+faker.seed(123);
+faker.seedValue === 123;
+
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
 resultStr = faker.address.zipCodeByState('AL');

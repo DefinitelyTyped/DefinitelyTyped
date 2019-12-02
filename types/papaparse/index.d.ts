@@ -88,6 +88,7 @@ export interface ParseConfig {
     delimiter?: string; // default: ","
     newline?: string; // default: "\r\n"
     quoteChar?: string; // default: '"'
+    escapeChar?: string; // default: '"'
     header?: boolean; // default: false
     trimHeaders?: boolean; // default: false
     dynamicTyping?:
@@ -99,6 +100,7 @@ export interface ParseConfig {
     worker?: boolean; // default: false
     comments?: boolean | string; // default: false
     download?: boolean; // default: false
+    downloadRequestHeaders?: { [headerName: string]: string }; // default: undefined
     skipEmptyLines?: boolean | 'greedy'; // default: false
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined

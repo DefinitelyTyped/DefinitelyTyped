@@ -1,4 +1,4 @@
-import { default as Roarr, MessageType, MessageContextType } from "roarr";
+import { default as Roarr, MessageContextType, MessageType } from "roarr";
 
 const messageContextType = {
     foo: "bar",
@@ -42,7 +42,9 @@ alternativeLog.fatal('foo 2');
 
 const implicitLog = Roarr.child((message) => {
     message;                    // $Expect MessageType
-    message["message"] = message["message"].replace("foo", "bar");
+    message.message = message.message.replace("foo", "bar");
+    message.context["new key"] = "new value";
+    message.context.logLevel = "50"; // $ExpectError
 
     return message;
 });
