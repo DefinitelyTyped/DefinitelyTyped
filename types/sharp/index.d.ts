@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.23
+// Type definitions for sharp 0.23.3
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -586,6 +586,15 @@ declare namespace sharp {
         resize(width?: number | null, height?: number | null, options?: ResizeOptions): Sharp;
 
         /**
+         * Shorthand for resize(null, null, options);
+         *
+         * @param options resize options
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        resize(options: ResizeOptions): Sharp;
+
+        /**
          * Extends/pads the edges of the image with the provided background colour.
          * This operation will always occur after resizing and extraction, if any.
          * @param extend single pixel count to add to all edges or an Object with per-edge counts
@@ -929,6 +938,8 @@ declare namespace sharp {
         overlap?: number;
         /** Tile angle of rotation, must be a multiple of 90. (optional, default 0) */
         angle?: number;
+        /** background colour, parsed by the color module, defaults to white without transparency. (optional, default {r:255,g:255,b:255,alpha:1}) */
+        background?: string | RGBA;
         /** How deep to make the pyramid, possible values are "onepixel", "onetile" or "one" (default based on layout) */
         depth?: string;
         /** Threshold to skip tile generation, a value 0 - 255 for 8-bit images or 0 - 65535 for 16-bit images */
