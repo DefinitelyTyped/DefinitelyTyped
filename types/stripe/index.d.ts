@@ -34,6 +34,7 @@
 //                 Richard Ward <https://github.com/richardwardza>
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
+//                 Timon van Spronsen <https://github.com/TimonVS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
