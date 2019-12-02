@@ -16,25 +16,25 @@ import { A, O, T } from "ts-toolbelt";
 // ---------------------------------------------------------------------------------------
 // A
 
-/** <needs description>
+/** needs description
  */
 export type Arity0Fn = () => any;
 
-/** <needs description>
+/** needs description
  */
 export type Arity1Fn = (a: any) => any;
 
-/** <needs description>
+/** needs description
  */
 export type Arity2Fn = (a: any, b: any) => any;
 
-/** <needs description>
+/** needs description
  */
 export interface ArrayLike {
     nodeType: number;
 }
 
-/** <needs description>
+/** needs description
  * @param K
  */
 export interface AssocPartialOne<K extends keyof any> {
@@ -45,13 +45,13 @@ export interface AssocPartialOne<K extends keyof any> {
 // ---------------------------------------------------------------------------------------
 // C
 
-/** <needs description>
+/** needs description
  */
 export interface CharList extends String {
     push(x: string): void;
 }
 
-/** <needs description>
+/** needs description
  * @param V0
  * @param R
  */
@@ -125,7 +125,7 @@ export type ComposeWithFns<V0, R> = [
 // ---------------------------------------------------------------------------------------
 // D
 
-/** <needs description>
+/** needs description
  * @param A
  */
 export interface Dictionary<A> {
@@ -142,44 +142,44 @@ export type Evolvable<E extends Evolver> = {
     [P in keyof E]?: Evolved<E[P]>;
 };
 
-/** <needs description>
+/** needs description
  * @param O
  * @param E
  */
 export type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-    [P in keyof O]: P extends keyof E 
+    [P in keyof O]: P extends keyof E
                     ? EvolveValue<O[P], E[P]>
                     : O[P];
 };
 
-/** <needs description>
+/** needs description
  * @param A
  */
 type Evolved<A> =
-    A extends (value: infer V) => any 
-    ? V 
-    : A extends Evolver 
-      ? Evolvable<A> 
+    A extends (value: infer V) => any
+    ? V
+    : A extends Evolver
+      ? Evolvable<A>
       : never;
 
-/** <needs description>
+/** needs description
  */
 export interface Evolver {
     [key: string]: ((value: any) => any) | Evolver;
 }
 
-/** <needs description>
+/** needs description
  * @param O
  * @param E
  */
 type EvolveNestedValue<O, E extends Evolver> =
     O extends object
     ? O extends Evolvable<E>
-      ? Evolve<O, E> 
+      ? Evolve<O, E>
       : never
     : never;
 
-/** <needs description>
+/** needs description
  * @param V
  * @param E
  */
@@ -191,9 +191,9 @@ type EvolveValue<V, E> =
 // ---------------------------------------------------------------------------------------
 // F
 
-/** <needs description>
+/** needs description
  */
-interface Filter {
+export interface Filter {
     <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
     <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: readonly T[]) => T[];
     <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
@@ -201,7 +201,7 @@ interface Filter {
     <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 }
 
-/** <needs description>
+/** needs description
  * @param A
  */
 type FilterOnceApplied<A> =
@@ -209,10 +209,10 @@ type FilterOnceApplied<A> =
         K extends Array<infer U>
         ? U[]
         : K extends Dictionary<infer U>
-          ? Dictionary<U> 
+          ? Dictionary<U>
           : never;
 
-/** <needs description>
+/** needs description
  * @param A
  */
 export interface Functor<A> {
@@ -222,7 +222,7 @@ export interface Functor<A> {
 // ---------------------------------------------------------------------------------------
 // K
 
-/** <needs description>
+/** needs description
  * @param K
  * @param V
  */
@@ -231,7 +231,7 @@ export type KeyValuePair<K, V> = [K, V];
 // ---------------------------------------------------------------------------------------
 // L
 
-/** <needs description>
+/** needs description
  */
 export interface Lens {
     <T, U>(obj: T): U;
@@ -245,14 +245,14 @@ export interface Lens {
  * @param O1
  * @param O2
  * @param Depth
- * 
+ *
  * `O1` & `O2` are intersected with `[]` so that we can
  * handle the scenario where we merge arrays (like ramda).
  * Ramda removes array props when merging arrays, and thus
  * only keeps own properties. This is what `ObjectOf` does.
- * 
+ *
  * => ramda's `merge` functions are 100% properly typed.
- * 
+ *
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
@@ -260,10 +260,10 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
 
 /** Merge multiple objects `Os` with each other
  * @param Os
- * 
+ *
  * It essentially works like [[Merge]], since the utility
  * `MergeUp` is used by `AssignUp` internally.
- * 
+ *
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends object[]> =
@@ -276,30 +276,30 @@ export type MergeAll<Os extends object[]> =
 // ---------------------------------------------------------------------------------------
 // O
 
-/** <needs description>
+/** needs description
  */
 export type ObjPred = (value: any, key: string) => boolean;
 
-/** <needs description>
+/** needs description
  */
 export type Ord = number | string | boolean | Date;
 
 // ---------------------------------------------------------------------------------------
 // P
 
-/** <needs description>
+/** needs description
  */
 export type Path = Array<(number | string)>;
 
-/** <needs description>
+/** needs description
  */
 export type Placeholder = A.x & {'@@functional/placeholder': true};
 
-/** <needs description>
+/** needs description
  */
 export type Pred = (...a: readonly any[]) => boolean;
 
-/** <needs description>
+/** needs description
  * @param V0
  * @param R
  */
@@ -373,7 +373,7 @@ export type PipeWithFns<V0, R> = [
 // ---------------------------------------------------------------------------------------
 // R
 
-/** <needs description>
+/** needs description
  * @param A
  */
 export interface Reduced<A> {
@@ -384,7 +384,7 @@ export interface Reduced<A> {
 // ---------------------------------------------------------------------------------------
 // S
 
-/** <needs description>
+/** needs description
  * @param A
  */
 export type SafePred<A> = (...a: readonly A[]) => boolean;
@@ -392,10 +392,12 @@ export type SafePred<A> = (...a: readonly A[]) => boolean;
 // ---------------------------------------------------------------------------------------
 // V
 
-/** <needs description>
+/** needs description
  * @param R
  */
-export type ValueOfRecord<R> = 
-    R extends Record<any, infer T> 
-    ? T 
+export type ValueOfRecord<R> =
+    R extends Record<any, infer T>
+    ? T
     : never;
+
+export {}

@@ -1,4 +1,5 @@
 import * as R from "ramda";
+import { Dictionary } from "./tools";
 
 function double(x: number): number {
     return x + x;
@@ -312,7 +313,7 @@ R.times(i, 5);
         return n % 2 === 0;
     }
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const objB: Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
@@ -321,7 +322,7 @@ R.times(i, 5);
         return n % 2 === 0;
     }
 
-    const a: R.Dictionary<number> = R.pipe(
+    const a: Dictionary<number> = R.pipe(
         R.filter<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { a: 0 }
 
@@ -329,7 +330,7 @@ R.times(i, 5);
         R.filter<number, 'array'>(isEven),
     )([0, 1]); // => [0]
 
-    const c: R.Dictionary<number> = R.pipe(
+    const c: Dictionary<number> = R.pipe(
         R.reject<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { b: 1 }
 

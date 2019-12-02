@@ -546,6 +546,7 @@ import {
     Arity2Fn,
     AssocPartialOne,
     ComposeWithFns,
+    Dictionary,
     Evolvable,
     Evolve,
     Evolver,
@@ -564,7 +565,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
-} from './tools'
+} from './tools';
 
 declare let R: R.Static;
 
