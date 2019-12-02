@@ -282,10 +282,10 @@ export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THook
     interceptors: HookInterceptor[];
 
     call: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => THookResult;
-    promise:(arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => Promise<THookResult>;
+    promise: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => Promise<THookResult>;
     callAsync: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => THookResult;
 
-    compile(options: HookCompileOptions) : Function;
+    compile: (options: HookCompileOptions) => Function;
     tap: (name: string | TapOptions<"sync", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TTabResult) => void;
     tapAsync: (name: string | TapOptions<"async", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void) => void;
     tapPromise: (name: string | TapOptions<"promise", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>) => void;
@@ -295,7 +295,7 @@ export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THook
 }
 
 export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class SyncBailHook <T1 = any, T2 = any, T3 = any, THookResult = any>extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
 export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
 export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
