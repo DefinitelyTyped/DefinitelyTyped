@@ -49,6 +49,7 @@ interface ParserOptions {
     oldsax?: boolean;
     ignore_enc?: boolean;
     big_lines?: boolean;
+    baseUrl?: string;
 }
 
 export function parseXml(source: string, options?: ParserOptions): Document;

@@ -62543,6 +62543,7 @@ interface ListDataItem {
 	 */
 	properties?: any;
 
+	[key: string]: any;
 }
 /**
  * Represents the custom edit action for a ListItem.

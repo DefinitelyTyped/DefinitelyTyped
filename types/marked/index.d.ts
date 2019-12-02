@@ -109,7 +109,7 @@ declare namespace marked {
     class Renderer {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(code: string, language: string, isEscaped: boolean): string;
+        code(code: string, language: string | undefined, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
         heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;

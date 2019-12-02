@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "geodesy-tests.ts"
+        "geodesy-tests.ts",
+        "index.d.ts"
     ]
 }

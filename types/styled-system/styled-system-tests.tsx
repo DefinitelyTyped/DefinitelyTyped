@@ -512,6 +512,11 @@ const customFontStyles = system({
     letterSpacing: true,
 });
 
+const CustomFontGroup = compose(
+    customFontSize,
+    customFontSize,
+);
+
 const centerWithGenerics = style<boolean>({
     prop: 'center',
     cssProperty: 'justify-content',
