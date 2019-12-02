@@ -351,7 +351,7 @@ declare module 'victory' {
         clipHeight?: number;
         /**
          * The `clipId` prop may be used to set a deterministic id for the container.
-         * When a `containerId` is not manually set, a unique id will be generated.
+         * When a `clipId` is not manually set, a unique id will be generated.
          * It is usually necessary to set deterministic ids for automated testing.
          */
         clipId?: number | string;
@@ -361,12 +361,7 @@ declare module 'victory' {
          * the `clipPadding` prop is useful for extending the visible area of a chart in some dimension so
          * that data or labels are not cut off.
          */
-        clipPadding?: {
-            top?: number;
-            bottom?: number;
-            left?: number;
-            right?: number;
-        };
+        clipPadding?: BlockProps;
         /**
          * The `clipPathComponent` prop specifies the clip path to apply to the rendered group when appropriate.
          * By default, `VictoryClipContainer` uses the `ClipPath` component.
@@ -386,7 +381,7 @@ declare module 'victory' {
          * the event, the props of the component it is attached to, and an `eventKey` when applicable.
          * @example events={{onClick: (evt) => alert("x: " + evt.clientX)}}
          */
-        events?: object;
+        events?: React.DOMAttributes<any>;
         /**
          * `VictoryClipContainer` uses the standard `groupComponent` prop.
          * @default groupComponent={<g/>}
