@@ -43,10 +43,15 @@ describe("Stripe elements", () => {
         card.on('ready', () => {
             console.log('ready');
         });
+        card.on('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
+        });
         card.addEventListener('ready', () => {
             console.log('ready (ael)');
         });
-        card.on('change', (response) => {
+        card.addEventListener('change', (response) => {
             if (response) {
                 console.log(response.elementType, response.brand);
             }
