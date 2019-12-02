@@ -738,6 +738,7 @@ export interface TabsProps {
         }
     ) => void;
     tabs: ReadonlyArray<{ text: any; href: string }>;
+    wrap?: boolean:
 }
 
 /*
