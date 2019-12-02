@@ -1746,15 +1746,10 @@ declare namespace Office {
     /**
      * Specifies the format in which to return the document.
      *
-     * @remarks
-     * 
-     * `FileType.Text` is only supported in Word.
-     * 
-     * `FileType.Pdf` is only supported in Excel (on Mac and the web), Word (on Windows, Mac, and the web), and PowerPoint.
      */
     enum FileType {
         /**
-         * Returns only the text of the document as a string. (Word only)
+         * Returns only the text of the document as a string.
          */
         Text,
         /**
@@ -3351,16 +3346,16 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iOS, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iOS, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iOS, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          * 
          * *Supported FileTypes, by platform*
          *  <table>
-         *   <tr><th>                             </th><th> Windows desktop             </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
          *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
          *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
          *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
@@ -3386,16 +3381,16 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          * 
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office on iOS apps, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iOS, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office on iOS apps, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          * 
          * *Supported FileTypes, by platform*
          *  <table>
-         *   <tr><th>                             </th><th> Windows desktop             </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
          *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
          *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
          *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
@@ -4852,8 +4847,8 @@ declare namespace Office {
      */
     interface Slice {
         /**
-         * Gets the raw data of the file slice in `Office.FileType.Text` ("text") or `Office.FileType.Compressed` ("compressed") format as specified 
-         * by the fileType parameter of the call to the Document.getFileAsync method.
+         * Gets the raw data of the file slice in `Office.FileType.Text` or `Office.FileType.Compressed` format as specified 
+         * by the `fileType` parameter of the call to the `Document.getFileAsync` method.
          *
          * @remarks
          * 
