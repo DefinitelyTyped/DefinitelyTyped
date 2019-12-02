@@ -2074,7 +2074,7 @@ stripe.paymentIntents.create(
     {
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     },
     (err, intent) => {},
 );
@@ -2083,7 +2083,7 @@ stripe.paymentIntents
     .create({
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     })
     .then(intent => {});
 
