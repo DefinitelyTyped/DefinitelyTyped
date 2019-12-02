@@ -1,9 +1,17 @@
-/// <reference path="./index.d.ts" />
-
-import {A} from "ts-toolbelt"
+import { A, O, T } from "ts-toolbelt";
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 // TOOLS /////////////////////////////////////////////////////////////////////////////////
+
+// Here lies a loose collection of tools that compute types for the functions in "index.d.ts"
+// The goal of this file is to keep "index.d.ts" readable as well as hiding implementations
+
+// WHEN ADDING A NEW TOOL
+// - Add documentation for the tool you've created
+// - Add <created by @username> on your tool docs
+
+// TODO
+// - Types need proper descriptions, so that we know what they do
 
 // ---------------------------------------------------------------------------------------
 // A
@@ -229,6 +237,41 @@ export interface Lens {
     <T, U>(obj: T): U;
     set<T, U>(str: string, obj: T): U;
 }
+
+// ---------------------------------------------------------------------------------------
+// M
+
+/** Merge an object `O1` with `O2`
+ * @param O1
+ * @param O2
+ * @param Depth
+ * 
+ * `O1` & `O2` are intersected with `[]` so that we can
+ * handle the scenario where we merge arrays (like ramda).
+ * Ramda removes array props when merging arrays, and thus
+ * only keeps own properties. This is what `ObjectOf` does.
+ * 
+ * => ramda's `merge` functions are 100% properly typed.
+ * 
+ * <created by @pirix-gh>
+ */
+export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
+    O.MergeUp<T.ObjectOf<O1 & []>, T.ObjectOf<O2 & []>, Depth>
+
+/** Merge multiple objects `Os` with each other
+ * @param Os
+ * 
+ * It essentially works like [[Merge]], since the utility
+ * `MergeUp` is used by `AssignUp` internally.
+ * 
+ * <created by @pirix-gh>
+ */
+export type MergeAll<Os extends object[]> =
+    O.AssignUp<{}, Os> extends infer M
+    ? {} extends M          // nothing merged => bcs no `as const`
+      ? T.UnionOf<Os>       // so we output the approximate types
+      : T.ObjectOf<M & []>  // otherwise, we can get accurate types
+    : never;
 
 // ---------------------------------------------------------------------------------------
 // O
