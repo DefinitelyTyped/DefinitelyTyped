@@ -13,8 +13,14 @@ declare namespace sub {
         // Any other options are passed along to the underlying levelup and encoding-down constructors.
         [key: string]: any;
     }
+
+    class SubIterator<K = any, V = any> extends AbstractIterator<K, V> {
+        iterator: AbstractIterator<K, V>;
+        prefix: string;
+        constructor(db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>, ite: AbstractIterator<K, V>, prefix: string);
+    }
 }
 
-declare function sub<K = any, V = any>(db: LevelUp, prefix?: string, opts?: sub.Options | string): LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>;
+declare function sub<K = any, V = any>(db: LevelUp, prefix?: string, opts?: sub.Options | string): LevelUp<AbstractLevelDOWN<K, V>, sub.SubIterator<K, V>>;
 
 export = sub;
