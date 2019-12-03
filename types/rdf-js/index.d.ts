@@ -552,7 +552,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * The stream events `end` and `error` are wrapped in a Promise.
      */
-    import(stream: Stream<Q>): Promise<Dataset<Q>>;
+    import(stream: Stream<Q>): Promise<this>;
 
     /**
      * Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.
