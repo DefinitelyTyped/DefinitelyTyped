@@ -41,9 +41,9 @@ declare global {
 
         interface Table<TFields extends FieldSet> {
             select(opt?: SelectOptions): Query<TFields>;
-            find(id: string): Promise<Response<TFields>>;
-            create(record: TFields, opts?: { typecast: boolean }): Promise<ResponseSingle<TFields>>;
-            create(records: TFields[], opts?: { typecast: boolean }): Promise<Response<TFields>>;
+            find(id: string): Promise<Record<TFields>>;
+            create(record: TFields, opts?: { typecast: boolean }): Promise<Record<TFields>>;
+            create(records: TFields[], opts?: { typecast: boolean }): Promise<Records<TFields>>;
             update(...args: any[]): Promise<any>;
             replace(...args: any[]): Promise<any>;
             destroy(...args: any[]): Promise<any>;
@@ -67,18 +67,17 @@ declare global {
         }
 
         interface Query<TFields extends object> {
-            all(): Promise<Response<TFields>>;
-            firstPage(): Promise<Response<TFields>>;
-            eachPage(pageCallback: (records: Response<TFields>, next: () => void) => void): Promise<void>;
+            all(): Promise<Records<TFields>>;
+            firstPage(): Promise<Records<TFields>>;
+            eachPage(pageCallback: (records: Records<TFields>, next: () => void) => void): Promise<void>;
         }
 
-        type Response<TFields> = ReadonlyArray<Row<TFields>>;
-        type ResponseSingle<TFields> = Readonly<Row<TFields>>;
-
-        interface Row<TFields> {
+        interface Record<TFields> {
             id: string;
             fields: TFields;
         }
+
+        type Records<TFields> = ReadonlyArray<Record<TFields>>;
 
         interface Attachment {
             id: string;
