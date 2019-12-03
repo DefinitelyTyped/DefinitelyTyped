@@ -527,14 +527,63 @@ export interface WalkContext {
     function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
 }
 
-export type EnterOrLeaveFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => void;
+export type EnterOrLeaveFn<NodeType = CssNode> = (this: WalkContext, node: NodeType, item: ListItem<CssNode>, list: List<CssNode>) => void;
 
-export interface WalkOptions {
+export interface WalkOptionsNoVisit {
     enter?: EnterOrLeaveFn;
     leave?: EnterOrLeaveFn;
-    visit?: string;
     reverse?: boolean;
 }
+
+export interface WalkOptionsVisit<NodeType = CssNode, NodeTypeName = string> {
+    visit: NodeTypeName;
+    enter?: EnterOrLeaveFn<NodeType>;
+    leave?: EnterOrLeaveFn<NodeType>;
+    reverse?: boolean;
+}
+
+export type WalkOptions =
+    WalkOptionsVisit<AnPlusB, 'AnPlusB'>
+    | WalkOptionsVisit<Atrule, 'Atrule'>
+    | WalkOptionsVisit<AtrulePrelude, 'AtrulePrelude'>
+    | WalkOptionsVisit<AttributeSelector, 'AttributeSelector'>
+    | WalkOptionsVisit<Block, 'Block'>
+    | WalkOptionsVisit<Brackets, 'Brackets'>
+    | WalkOptionsVisit<CDC, 'CDC'>
+    | WalkOptionsVisit<CDO, 'CDO'>
+    | WalkOptionsVisit<ClassSelector, 'ClassSelector'>
+    | WalkOptionsVisit<Combinator, 'Combinator'>
+    | WalkOptionsVisit<Comment, 'Comment'>
+    | WalkOptionsVisit<Declaration, 'Declaration'>
+    | WalkOptionsVisit<DeclarationList, 'DeclarationList'>
+    | WalkOptionsVisit<Dimension, 'Dimension'>
+    | WalkOptionsVisit<FunctionNode, 'FunctionNode'>
+    | WalkOptionsVisit<HexColor, 'HexColor'>
+    | WalkOptionsVisit<IdSelector, 'IdSelector'>
+    | WalkOptionsVisit<Identifier, 'Identifier'>
+    | WalkOptionsVisit<MediaFeature, 'MediaFeature'>
+    | WalkOptionsVisit<MediaQuery, 'MediaQuery'>
+    | WalkOptionsVisit<MediaQueryList, 'MediaQueryList'>
+    | WalkOptionsVisit<Nth, 'Nth'>
+    | WalkOptionsVisit<NumberNode, 'NumberNode'>
+    | WalkOptionsVisit<Operator, 'Operator'>
+    | WalkOptionsVisit<Parentheses, 'Parentheses'>
+    | WalkOptionsVisit<Percentage, 'Percentage'>
+    | WalkOptionsVisit<PseudoClassSelector, 'PseudoClassSelector'>
+    | WalkOptionsVisit<PseudoElementSelector, 'PseudoElementSelector'>
+    | WalkOptionsVisit<Ratio, 'Ratio'>
+    | WalkOptionsVisit<Raw, 'Raw'>
+    | WalkOptionsVisit<Rule, 'Rule'>
+    | WalkOptionsVisit<Selector, 'Selector'>
+    | WalkOptionsVisit<SelectorList, 'SelectorList'>
+    | WalkOptionsVisit<StringNode, 'StringNode'>
+    | WalkOptionsVisit<StyleSheet, 'StyleSheet'>
+    | WalkOptionsVisit<TypeSelector, 'TypeSelector'>
+    | WalkOptionsVisit<UnicodeRange, 'UnicodeRange'>
+    | WalkOptionsVisit<Url, 'Url'>
+    | WalkOptionsVisit<Value, 'Value'>
+    | WalkOptionsVisit<WhiteSpace, 'WhiteSpace'>
+    | WalkOptionsNoVisit;
 
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
 
