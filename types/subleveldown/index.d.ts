@@ -4,27 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { LevelUp } from 'levelup';
-import { ErrorValueCallback, ErrorCallback, AbstractGetOptions } from 'abstract-leveldown';
+import { ErrorCallback, AbstractOptions } from 'abstract-leveldown';
+import { KeyObject } from 'crypto';
 
 declare namespace sub {
     interface Options {
         separator?: string;
         open?: ((callback: ErrorCallback) => void);
+        // Any other options are passed along to the underlying levelup and encoding-down constructors.
+        [key: string]: any;
     }
 
-    type LevelUpClear<V, O> =
-        ((callback: ErrorValueCallback<V>) => void) &
-        ((options: O, callback: ErrorValueCallback<V>) => void) &
-        ((options?: O) => Promise<V>);
-
-    type InferDBClear<DB> =
-        DB extends { clear: (options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
-        LevelUpClear<V, O> :
-        LevelUpClear<any, AbstractGetOptions>;
-
-    interface SubDown<DB, Iterator> extends LevelUp<DB, Iterator> {
-        clear: InferDBClear<DB>;
-    }
+    interface SubDown<DB, Iterator> extends LevelUp<DB, Iterator> {}
 }
 
 declare function sub<DB, Iterator>(db: LevelUp<DB, Iterator>, prefix?: string, opts?: sub.Options | string): sub.SubDown<DB, Iterator>;

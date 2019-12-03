@@ -78,11 +78,3 @@ example.createReadStream()
     .on('end', () => {
         console.log('Stream closed');
     });
-
-example.clear((error) => {
-});
-
-example.clear({ gt: 'hello' }, (error) => {
-});
-
-example.clear().then(() => console.log('cleared'));
