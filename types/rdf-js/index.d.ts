@@ -616,11 +616,11 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     union(quads: Dataset<Q>): Dataset<Q>;
 }
 
-export interface DatasetFactory extends DatasetCoreFactory {
+export interface DatasetFactory<Q extends BaseQuad = Quad> extends DatasetCoreFactory<Q> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset<Q extends BaseQuad = Quad>(quads?: Dataset<Q>|Q[]): Dataset<Q>;
+    dataset(quads?: Dataset<Q>|Q[]): Dataset<Q>;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
