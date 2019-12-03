@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 import { Server } from "http";
+import { ProcessEnvOptions } from "child_process";
 
 /**
  * Method to create the sticky session
@@ -15,8 +16,9 @@ import { Server } from "http";
  */
 export function listen(
     server: Server,
-    port: number,
-    options: {
-        workers: number
+    port?: number,
+    options?: {
+        readonly workers?: number,
+        readonly env?: any
     }
 ): boolean;
