@@ -1,4 +1,4 @@
-// Type definitions for icepick 1.3
+// Type definitions for icepick 2.3
 // Project: https://github.com/aearly/icepick
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Tobias Cohen <https://github.com/tobico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
