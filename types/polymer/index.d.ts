@@ -195,7 +195,7 @@ declare global {
 
       detachedCallback?():void;
 
-      attributeChangedCallback?(name: string):void;
+      attributeChangedCallback?(attributeName: string, oldValue: string|null, newValue: string|null, namespace: string|null): void;
 
       extend?(prototype: Object, api: Object):Object;
 
