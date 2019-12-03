@@ -484,7 +484,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      * This method differs from `Dataset.union` in that it adds all `quads` to the current instance, rather than
      * combining `quads` and the current instance to create a new instance.
      */
-    addAll(quads: Dataset<Q>|Iterator<Q>): this;
+    addAll(quads: Dataset<Q>|Q[]): this;
 
     /**
      * Returns `true` if the current instance is a superset of the given dataset; differently put: if the given dataset
@@ -620,7 +620,7 @@ export interface DatasetFactory extends DataFactory {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset<Q extends BaseQuad = Quad>(quads?: Dataset<Q>|Iterator<Q>): Dataset<Q>;
+    dataset<Q extends BaseQuad = Quad>(quads?: Dataset<Q>|Q[]): Dataset<Q>;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
