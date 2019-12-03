@@ -16,8 +16,8 @@ const db = levelup(new AbstractLevelDOWN('here'), {
     valueEncoding: stringEncoding
 });
 
-const example = sub(db, 'example');
-const nested = sub(example, 'nested');
+const example = sub<string>(db, 'example');
+const nested = sub<string, number>(example, 'nested');
 
 example.open();
 example.close();
@@ -32,7 +32,7 @@ example.put("key", {}, (error) => { });
 example.put("key", {}, { sync: true }, (error) => { });
 
 example.put('hello', 'world', () => {
-    nested.put('hi', 'welt', () => {
+    nested.put('hi', 1, () => {
         example.createReadStream().on('data', console.log);
     });
 });
