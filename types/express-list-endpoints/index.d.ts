@@ -8,7 +8,7 @@ import express = require('express');
 declare function getEndpoints(app: express.Express): getEndpoints.Endpoint[];
 
 declare namespace getEndpoints {
-    export interface Endpoint {
+    interface Endpoint {
         path: string;
         methods: string[];
     }
