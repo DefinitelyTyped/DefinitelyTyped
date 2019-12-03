@@ -55,8 +55,8 @@ interface IcepickWrapper<T> {
     assocIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
     setIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
     
-    dissocIn<V>(path: Array<number | string>): IcepickWrapper<T>;
-    unsetIn<V>(path: Array<number | string>): IcepickWrapper<T>;
+    dissocIn(path: Array<number | string>): IcepickWrapper<T>;
+    unsetIn(path: Array<number | string>): IcepickWrapper<T>;
 
     getIn(path: Array<number | string>): IcepickWrapper<any>;
     updateIn<V>(path: Array<number | string>, callback: (value: V) => V): IcepickWrapper<T>;

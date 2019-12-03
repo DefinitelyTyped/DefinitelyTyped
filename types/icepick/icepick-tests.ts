@@ -1,4 +1,4 @@
-import i = require("icepick");
+import * as i from "icepick";
 
 "use strict"; // so attempted modifications of frozen objects will throw errors
 
@@ -57,6 +57,24 @@ class Foo {}
 
     let arr = ["a", "b", "c"];
     let newArr = i.unset(arr, 2); // ["a", , "c"]
+}
+
+// dissocIn(collection, path)
+{
+    let coll = {a: 1, b: {d: 5, e: 7}, c: 3};
+    let newColl = i.dissocIn(coll, ["b", "d"]); // {a: 1, {b: {e: 7}}, c: 3}
+
+    let col2 = {a: 1, b: {d: 5}, c: 3};
+    let newCol2 = i.dissocIn(coll, ["b", "d"]); // {a: 1, {b: {}}, c: 3}
+}
+
+// alias: unsetIn(collection, path)
+{
+    let coll = {a: 1, b: {d: 5, e: 7}, c: 3};
+    let newColl = i.unsetIn(coll, ["b", "d"]); // {a: 1, {b: {e: 7}}, c: 3}
+
+    let col2 = {a: 1, b: {d: 5}, c: 3};
+    let newCol2 = i.unsetIn(coll, ["b", "d"]); // {a: 1, {b: {}}, c: 3}
 }
 
 // assocIn(collection, path, value)
@@ -121,6 +139,14 @@ class Foo {}
     let result = i.assign(obj1, obj2); // {a: 1, b: 2, c: 4, d: 5}
 }
 
+// alias: extend(coll1, coll2, ...)
+{
+    let obj1 = { a: 1, b: 2, c: 3 };
+    let obj2 = { c: 4, d: 5 };
+
+    let result = i.extend(obj1, obj2); // {a: 1, b: 2, c: 4, d: 5}
+}
+
 // merge(target, source)
 {
     let defaults = { a: 1, c: { d: 1, e: [1, 2, 3], f: { g: 1 } } };
@@ -141,6 +167,8 @@ class Foo {}
     a = i.unshift(a, 0); // [0, 1, 2];
     a = i.pop(a); // [0, 1];
     a = i.shift(a); // [1];
+    a = i.splice(a, 0, 0, 2, 3); // [2, 3, 1]
+    a = i.slice(a, 2, 1); // [1]
 }
 {
     i.map(function(v) { return v * 2 }, [1, 2, 3]); // [2, 4, 6]
