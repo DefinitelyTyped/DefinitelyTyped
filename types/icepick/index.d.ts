@@ -1,8 +1,7 @@
-// Type definitions for icepick v1.3.0
+// Type definitions for icepick 1.3
 // Project: https://github.com/aearly/icepick
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Tobias Cohen <https://github.com/tobico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 export declare function freeze<T>(collection: T): T;
 export declare function thaw<T>(collection: T): T;
@@ -11,22 +10,26 @@ export declare function dissoc<T>(collection: T, key: number | string): T;
 export declare function dissocIn<T>(collection: T, path: ReadonlyArray<number | string>): T;
 export declare function assocIn<T, V>(collection: T, path: ReadonlyArray<number | string>, value: V): T;
 export declare function getIn<T>(collection: T, path: ReadonlyArray<number | string>): any;
-export declare function updateIn<T, V>(collection: T, path: ReadonlyArray<number | string>, callback: (value: V) => V): T;
+export declare function updateIn<T, V>(
+    collection: T,
+    path: ReadonlyArray<number | string>,
+    callback: (value: V) => V,
+): T;
 
-export {assoc as set};
-export {assocIn as setIn};
-export {dissoc as unset};
-export {dissocIn as unsetIn};
+export { assoc as set };
+export { assocIn as setIn };
+export { dissoc as unset };
+export { dissocIn as unsetIn };
 
 export declare function assign<T>(target: T): T;
-export declare function assign<T, S1>(target: T, source1: S1): (T & S1);
-export declare function assign<T, S1, S2>(target: T, s1: S1, s2: S2): (T & S1 & S2);
-export declare function assign<T, S1, S2, S3>(target: T, s1: S1, s2: S2, s3: S3): (T & S1 & S2 & S3);
-export declare function assign<T, S1, S2, S3, S4>(target: T, s1: S1, s2: S2, s3: S3, s4: S4): (T & S1 & S2 & S3 & S4);
+export declare function assign<T, S1>(target: T, source1: S1): T & S1;
+export declare function assign<T, S1, S2>(target: T, s1: S1, s2: S2): T & S1 & S2;
+export declare function assign<T, S1, S2, S3>(target: T, s1: S1, s2: S2, s3: S3): T & S1 & S2 & S3;
+export declare function assign<T, S1, S2, S3, S4>(target: T, s1: S1, s2: S2, s3: S3, s4: S4): T & S1 & S2 & S3 & S4;
 
-export {assign as extend};
+export { assign as extend };
 
-export declare function merge<T, S1>(target: T, source: S1): (T & S1);
+export declare function merge<T, S1>(target: T, source: S1): T & S1;
 
 export declare function push<T>(array: ReadonlyArray<T>, element: T): T[];
 export declare function pop<T>(array: ReadonlyArray<T>): T[];
@@ -54,7 +57,7 @@ interface IcepickWrapper<T> {
 
     assocIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
     setIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
-    
+
     dissocIn(path: Array<number | string>): IcepickWrapper<T>;
     unsetIn(path: Array<number | string>): IcepickWrapper<T>;
 

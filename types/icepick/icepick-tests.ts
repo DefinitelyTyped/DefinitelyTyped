@@ -1,15 +1,15 @@
-import * as i from "icepick";
+import * as i from 'icepick';
 
-"use strict"; // so attempted modifications of frozen objects will throw errors
+'use strict'; // so attempted modifications of frozen objects will throw errors
 
 // freeze(collection)
 {
     let coll = {
-        a: "foo",
+        a: 'foo',
         b: [1, 2, 3],
         c: {
-            d: "bar"
-        }
+            d: 'bar',
+        },
     };
 
     i.freeze(coll);
@@ -19,116 +19,108 @@ import * as i from "icepick";
 class Foo {}
 
 {
-    let coll = i.freeze({ a: "foo", b: [1, 2, 3], c: { d: "bar" }, e: new Foo() });
+    let coll = i.freeze({ a: 'foo', b: [1, 2, 3], c: { d: 'bar' }, e: new Foo() });
     let thawed = i.thaw(coll);
 }
 
 // assoc(collection, key, value)
 {
     let coll = { a: 1, b: 2 };
-    let newColl = i.assoc<typeof coll, number>(coll, "b", 3); // {a: 1, b: 3}
+    let newColl = i.assoc<typeof coll, number>(coll, 'b', 3); // {a: 1, b: 3}
 
-    let arr = ["a", "b", "c"];
-    let newArr = i.assoc(arr, 2, "d"); // ["a", "b", "d"]
+    let arr = ['a', 'b', 'c'];
+    let newArr = i.assoc(arr, 2, 'd'); // ["a", "b", "d"]
 }
 
 // alias: set(collection, key, value)
 {
     let coll = { a: 1, b: 2 };
-    let newColl = i.set<typeof coll, number>(coll, "b", 3); // {a: 1, b: 3}
+    let newColl = i.set<typeof coll, number>(coll, 'b', 3); // {a: 1, b: 3}
 
-    let arr = ["a", "b", "c"];
-    let newArr = i.set(arr, 2, "d"); // ["a", "b", "d"]
+    let arr = ['a', 'b', 'c'];
+    let newArr = i.set(arr, 2, 'd'); // ["a", "b", "d"]
 }
 
 // dissoc(collection, key)
 {
     let coll = { a: 1, b: 2, c: 3 };
-    let newColl = i.dissoc(coll, "b"); // {a: 1, c: 3}
+    let newColl = i.dissoc(coll, 'b'); // {a: 1, c: 3}
 
-    let arr = ["a", "b", "c"];
+    let arr = ['a', 'b', 'c'];
     let newArr = i.dissoc(arr, 2); // ["a", , "c"]
 }
 
 // alias: unset(collection, key)
 {
     let coll = { a: 1, b: 2, c: 3 };
-    let newColl = i.unset(coll, "b"); // {a: 1, c: 3}
+    let newColl = i.unset(coll, 'b'); // {a: 1, c: 3}
 
-    let arr = ["a", "b", "c"];
+    let arr = ['a', 'b', 'c'];
     let newArr = i.unset(arr, 2); // ["a", , "c"]
 }
 
 // dissocIn(collection, path)
 {
-    let coll = {a: 1, b: {d: 5, e: 7}, c: 3};
-    let newColl = i.dissocIn(coll, ["b", "d"]); // {a: 1, {b: {e: 7}}, c: 3}
+    let coll = { a: 1, b: { d: 5, e: 7 }, c: 3 };
+    let newColl = i.dissocIn(coll, ['b', 'd']); // {a: 1, {b: {e: 7}}, c: 3}
 
-    let col2 = {a: 1, b: {d: 5}, c: 3};
-    let newCol2 = i.dissocIn(coll, ["b", "d"]); // {a: 1, {b: {}}, c: 3}
+    let col2 = { a: 1, b: { d: 5 }, c: 3 };
+    let newCol2 = i.dissocIn(coll, ['b', 'd']); // {a: 1, {b: {}}, c: 3}
 }
 
 // alias: unsetIn(collection, path)
 {
-    let coll = {a: 1, b: {d: 5, e: 7}, c: 3};
-    let newColl = i.unsetIn(coll, ["b", "d"]); // {a: 1, {b: {e: 7}}, c: 3}
+    let coll = { a: 1, b: { d: 5, e: 7 }, c: 3 };
+    let newColl = i.unsetIn(coll, ['b', 'd']); // {a: 1, {b: {e: 7}}, c: 3}
 
-    let col2 = {a: 1, b: {d: 5}, c: 3};
-    let newCol2 = i.unsetIn(coll, ["b", "d"]); // {a: 1, {b: {}}, c: 3}
+    let col2 = { a: 1, b: { d: 5 }, c: 3 };
+    let newCol2 = i.unsetIn(coll, ['b', 'd']); // {a: 1, {b: {}}, c: 3}
 }
 
 // assocIn(collection, path, value)
 {
     let coll = {
-        a: "foo",
+        a: 'foo',
         b: [1, 2, 3],
         c: {
-            d: "bar"
-        }
+            d: 'bar',
+        },
     };
 
-    let newColl = i.assocIn<typeof coll, string>(coll, ["c", "d"], "baz");
+    let newColl = i.assocIn<typeof coll, string>(coll, ['c', 'd'], 'baz');
 
     let coll2 = {};
-    let newColl2 = i.assocIn(coll2, ["a", "b", "c"], 1);
+    let newColl2 = i.assocIn(coll2, ['a', 'b', 'c'], 1);
 }
 
 // alias: setIn(collection, path, value)
 {
     let coll = {
-        a: "foo",
+        a: 'foo',
         b: [1, 2, 3],
         c: {
-            d: "bar"
-        }
+            d: 'bar',
+        },
     };
 
-    let newColl = i.setIn<typeof coll, string>(coll, ["c", "d"], "baz");
+    let newColl = i.setIn<typeof coll, string>(coll, ['c', 'd'], 'baz');
 
     let coll2 = {};
-    let newColl2 = i.setIn(coll2, ["a", "b", "c"], 1);
+    let newColl2 = i.setIn(coll2, ['a', 'b', 'c'], 1);
 }
 
 // getIn(collection, path)
 {
-    let coll = i.freeze([
-        { a: 1 },
-        { b: 2 }
-    ]);
+    let coll = i.freeze([{ a: 1 }, { b: 2 }]);
 
-    let result = i.getIn(coll, [1, "b"]) as number; // 2
+    let result = i.getIn(coll, [1, 'b']) as number; // 2
 }
 
 // updateIn(collection, path, callback)
 {
-    let coll = i.freeze([
-        { a: 1 },
-        { b: 2 }
-    ]);
+    let coll = i.freeze([{ a: 1 }, { b: 2 }]);
 
-    let newColl = i.updateIn(coll, [1, "b"], function(val: number) {
-        return val * 2;
-    }); // [ {a: 1}, {b: 4} ]
+    let newColl = i.updateIn(coll, [1, 'b'], (val: number) => val * 2); // [ {a: 1}, {b: 4} ]
 }
 
 // assign(coll1, coll2, ...)
@@ -157,7 +149,7 @@ class Foo {}
     let obj2 = { c: { d: 2 } };
     let result2 = i.merge(result1, obj2);
 
-    (result1 === result2); // true
+    result1 === result2; // true
 }
 
 // arrays
@@ -171,15 +163,15 @@ class Foo {}
     a = i.slice(a, 2, 1); // [1]
 }
 {
-    i.map(function(v) { return v * 2 }, [1, 2, 3]); // [2, 4, 6]
+    i.map(v => v * 2, [1, 2, 3]); // [2, 4, 6]
 
-    i.filter(function(v: number) { return v % 2 === 0; }, [1, 2, 3]); // [1, 3]
+    i.filter((v: number) => v % 2 === 0, [1, 2, 3]); // [1, 3]
 }
 {
     let arr = i.freeze([{ a: 1 }, { b: 2 }]);
 
-    //ECMAScript 2015
-    //arr.find(function(item) { return item.b != null; }); // {b: 2}
+    // ECMAScript 2015
+    // arr.find(function(item) { return item.b != null; }); // {b: 2}
 }
 
 // chain(coll) - not defined
@@ -187,17 +179,18 @@ class Foo {}
     let o = {
         a: [1, 2, 3],
         b: { c: 1 },
-        d: 4
+        d: 4,
     };
 
-    let result = i.chain(o)
-        .assocIn<number>(["a", 2], 4)
-        .setIn<number>(["a", 1], 5)
-        .updateIn<number>(["d"], function(d) { return d * 2 })
+    let result = i
+        .chain(o)
+        .assocIn<number>(['a', 2], 4)
+        .setIn<number>(['a', 1], 5)
+        .updateIn<number>(['d'], d => d * 2)
         .merge({ b: { c: 2, c2: 3 } })
-        .assoc<number>("e", 2)
-        .set<number>("f", 3)
-        .dissoc("d")
+        .assoc<number>('e', 2)
+        .set<number>('f', 3)
+        .dissoc('d')
         .getIn(['a', 0])
         .value() as number;
 }
@@ -208,7 +201,7 @@ class Foo {}
     const a: ReadonlyArray<number> = [1];
 
     // typescript@3.4
-    //const a: readonly number[] = [1];
+    // const a: readonly number[] = [1];
 
     let result: number[];
     result = i.push(a, 2);
@@ -222,17 +215,17 @@ class Foo {}
 }
 {
     // typescript@3.3
-    const a: Readonly<[number, string]> = [1, "one"];
+    const a: Readonly<[number, string]> = [1, 'one'];
 
     // typescript@3.4
-    //const a: readonly [number, string] = [1, "one"];
+    // const a: readonly [number, string] = [1, "one"];
 
-    let result = i.set(a, 1, "two");
+    let result = i.set(a, 1, 'two');
 }
 
 // readonly object
 {
-    const obj1: Readonly<{readonly a: number, b: number, c: number}> = { a: 1, b: 2, c: 3 };
+    const obj1: Readonly<{ readonly a: number; b: number; c: number }> = { a: 1, b: 2, c: 3 };
     let result: any;
-    result = i.assocIn(obj1, ["a"], 2);
+    result = i.assocIn(obj1, ['a'], 2);
 }
