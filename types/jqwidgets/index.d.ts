@@ -1,3 +1,9 @@
+// Type definitions for jqwidgets-scripts
+// Project: https://github.com/jqwidgets/jQWidgets, https://www.jqwidgets.com/
+// Definitions by: jQWidgets <https://github.com/jqwidgets>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7.2
+
 /*
    jQWidgets TypeScript definitions
 
