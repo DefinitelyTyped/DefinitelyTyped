@@ -4,21 +4,22 @@
         "lib": [
             "es6"
         ],
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "oracledb-tests.ts"
+        "react-stars-tests.tsx"
     ]
 }

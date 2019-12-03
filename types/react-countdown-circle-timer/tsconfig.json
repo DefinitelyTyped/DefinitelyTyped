@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,10 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "oracledb-tests.ts"
+        "react-countdown-circle-timer-tests.tsx"
     ]
 }

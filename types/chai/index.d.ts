@@ -596,7 +596,7 @@ declare namespace Chai {
         isNotNull<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -605,7 +605,7 @@ declare namespace Chai {
         isNaN<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is not NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
