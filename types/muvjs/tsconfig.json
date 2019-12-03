@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "module": "es6",
+    "target": "es5",
+    "lib": [
+      "es2019",
+      "dom"
+    ],
+    "noEmit": false,
+    "declaration": true,
+    "allowJs": true,
+    "checkJs": true,
+    "baseUrl": "types",
+    "typeRoots": ["types"]
+  },
+    "files": [
+        "index.d.ts",
+        "muvjs-tests.ts"
+    ]
+}
