@@ -25,6 +25,11 @@ type LevelUpDel<K, O> =
     ((key: K, options: O, callback: ErrorCallback) => void) &
     ((key: K, options?: O) => Promise<void>);
 
+type LevelUpClear<O> =
+    ((callback: ErrorCallback) => void) &
+    ((options: O, callback: ErrorCallback) => void) &
+    ((options?: O) => Promise<void>);
+
 type LevelUpBatch<K, O> =
     ((key: K, callback: ErrorCallback) => void) &
     ((key: K, options: O, callback: ErrorCallback) => void) &
@@ -45,6 +50,20 @@ type InferDBDel<DB> =
     LevelUpDel<K, O> :
     LevelUpDel<any, AbstractOptions>;
 
+type InferDBClear<DB> =
+    DB extends { clear: (options: infer O, callback: ErrorCallback) => void } ?
+    LevelUpClear<O> :
+    LevelUpClear<AbstractClearOptions>;
+
+interface AbstractClearOptions<K = any> extends AbstractOptions {
+    gt?: K;
+    gte?: K;
+    lt?: K;
+    lte?: K;
+    reverse?: boolean;
+    limit?: number;
+}
+
 export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
     open(): Promise<void>;
     open(callback?: ErrorCallback): void;
@@ -54,6 +73,7 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     put: InferDBPut<DB>;
     get: InferDBGet<DB>;
     del: InferDBDel<DB>;
+    clear: InferDBClear<DB>;
 
     batch(array: AbstractBatch[], options?: any): Promise<void>;
     batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
@@ -81,6 +101,10 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     emitted when a batch operation has executed
     */
     on(event: 'batch', cb: (ary: any[]) => void): this;
+    /*
+    emitted when clear is called
+    */
+    on(event: 'clear', cb: (opts: any) => void): this;
     /*
     emitted on given event
     */
