@@ -30,7 +30,7 @@ pino({
 });
 
 pino({
-    mixin () { return { customName: 'unknown', customId: 111 }; },
+    mixin() { return { customName: 'unknown', customId: 111 }; },
 });
 
 pino({
