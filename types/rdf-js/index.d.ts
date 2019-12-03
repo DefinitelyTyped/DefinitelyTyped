@@ -478,6 +478,8 @@ export interface DatasetCoreFactory<Q extends BaseQuad = Quad> {
 }
 
 export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
+    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): Dataset<Q>;
+
     /**
      * Imports the quads into this dataset.
      *
