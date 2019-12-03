@@ -1,4 +1,4 @@
-// Type definitions for pino 5.8
+// Type definitions for pino 5.14
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -8,6 +8,7 @@
 //                 Oleksandr Sidko <https://github.com/mortiy>
 //                 Harris Lummis <https://github.com/lummish>
 //                 Raoul Jaeckel <https://github.com/raoulus>
+//                 Austin Beer <https://github.com/austin-beer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 

@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    mixin () { return { customName: 'unknown', customId: 111 }; },
+});
+
+pino({
+    mixin: () => ({ customName: 'unknown', customId: 111 }),
+});
+
+pino({
     redact: { paths: [], censor: 'SECRET' },
 });
 
