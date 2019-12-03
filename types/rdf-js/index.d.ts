@@ -616,7 +616,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     union(quads: Dataset<Q>): Dataset<Q>;
 }
 
-export interface DatasetFactory extends DataFactory {
+export interface DatasetFactory extends DatasetCoreFactory {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
