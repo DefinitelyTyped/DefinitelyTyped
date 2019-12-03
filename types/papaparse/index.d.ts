@@ -8,6 +8,7 @@
 //                 Behind The Math <https://github.com/BehindTheMath>
 //                 3af <https://github.com/3af>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
+//                 Raphaël Barbazza <https://github.com/rbarbazz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -104,6 +105,7 @@ export interface ParseConfig {
     skipEmptyLines?: boolean | 'greedy'; // default: false
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
+    delimitersToGuess?: string[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
 
     // Callbacks
     step?(results: ParseResult, parser: Parser): void; // default: undefined
