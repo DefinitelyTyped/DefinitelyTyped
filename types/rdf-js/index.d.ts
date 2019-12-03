@@ -484,9 +484,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      * This method differs from `Dataset.union` in that it adds all `quads` to the current instance, rather than
      * combining `quads` and the current instance to create a new instance.
      */
-    addAll(quads: Dataset<Q>): this;
-
-    addAll(quads: Iterable<Q>): this;
+    addAll(quads: Dataset<Q>|Iterator<Q>): this;
 
     /**
      * Returns `true` if the current instance is a superset of the given dataset; differently put: if the given dataset
@@ -501,7 +499,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * The logic described in {@link https://rdf.js.org/dataset-spec/#quad-matching|Quad Matching} is applied for each
      * quad in this dataset to select the quads which will be deleted.
-
+     *
      * @param subject   The optional exact subject to match.
      * @param predicate The optional exact predicate to match.
      * @param object    The optional exact object to match.
@@ -512,7 +510,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<Q>): Dataset;
+    difference(other: Dataset<Q>): Dataset<Q>;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
@@ -538,7 +536,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: QuadFilterIteratee): Dataset<Q>;
+    filter(iteratee: QuadFilterIteratee<Q>): Dataset<Q>;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
@@ -562,7 +560,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: QuadMapIteratee<Q>): Dataset;
+    map(iteratee: QuadMapIteratee<Q>): Dataset<Q>;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -622,9 +620,7 @@ export interface DatasetFactory extends DataFactory {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset<Q extends BaseQuad = Quad>(quads?: Dataset<Q>): Dataset<Q>;
-
-    dataset<Q extends BaseQuad = Quad>(quads?: Iterable<Q>): Dataset<Q>;
+    dataset<Q extends BaseQuad = Quad>(quads?: Dataset<Q>|Iterator<Q>): Dataset<Q>;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
