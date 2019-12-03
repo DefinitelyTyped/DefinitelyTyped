@@ -5,7 +5,6 @@
 
 import { LevelUp } from 'levelup';
 import { ErrorCallback, AbstractOptions } from 'abstract-leveldown';
-import { KeyObject } from 'crypto';
 
 declare namespace sub {
     interface Options {
