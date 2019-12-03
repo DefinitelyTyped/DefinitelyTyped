@@ -9,8 +9,7 @@ import { ErrorValueCallback, ErrorCallback, AbstractGetOptions } from 'abstract-
 declare namespace sub {
     interface Options {
         separator?: string;
-        open?: ((callback?: ErrorCallback) => any);
-        [key: string]: any;
+        open?: ((callback: ErrorCallback) => void);
     }
 
     type LevelUpClear<V, O> =
@@ -23,11 +22,11 @@ declare namespace sub {
         LevelUpClear<V, O> :
         LevelUpClear<any, AbstractGetOptions>;
 
-    interface SublevelDown<DB, Iterator> extends LevelUp<DB, Iterator> {
+    interface SubDown<DB, Iterator> extends LevelUp<DB, Iterator> {
         clear: InferDBClear<DB>;
     }
 }
 
-declare function sub<DB, Iterator>(db: LevelUp < DB, Iterator >, prefix ?: string, options ?: sub.Options): sub.SublevelDown<DB, Iterator>;
+declare function sub<DB, Iterator>(db: LevelUp<DB, Iterator>, prefix?: string, opts?: sub.Options | string): sub.SubDown<DB, Iterator>;
 
 export = sub;
