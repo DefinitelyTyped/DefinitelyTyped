@@ -95,6 +95,7 @@ declare namespace JsReportChromePdf {
 		env: { [key: string]: string; };
 		devtools: boolean;
 		pipe: boolean;
+		extraPrefsFirefox: { [key: string]: any; };
 	}
 
 	// https://jsreport.net/learn/configuration
