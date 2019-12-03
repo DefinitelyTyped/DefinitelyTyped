@@ -573,7 +573,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.reduce()` in ECMAScript-262.
      */
-    reduce<A = any>(iteratee: QuadReduceIteratee<Q, A>, initialValue: A): A;
+    reduce<A = any>(iteratee: QuadReduceIteratee<A, Q>, initialValue?: A): A;
 
     /**
      * Existential quantification method, tests whether some quads in the dataset pass the test implemented by the
@@ -641,7 +641,7 @@ export interface QuadMapIteratee<Q extends BaseQuad = Quad> {
     map(quad: Q, dataset: Dataset<Q>): Q;
 }
 
-export interface QuadReduceIteratee<Q extends BaseQuad = Quad, A = any> {
+export interface QuadReduceIteratee<A = any, Q extends BaseQuad = Quad> {
     /**
      * A callable function that can be executed on an accumulator and quad and returns a new accumulator.
      */
