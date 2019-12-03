@@ -5,15 +5,15 @@
 
 export declare function freeze<T>(collection: T): T;
 export declare function thaw<T>(collection: T): T;
-export declare function assoc<T, V>(collection: T, key: number | string, value: V): T;
+export declare function assoc<T>(collection: T, key: number | string, value: any): T;
 export declare function dissoc<T>(collection: T, key: number | string): T;
 export declare function dissocIn<T>(collection: T, path: ReadonlyArray<number | string>): T;
-export declare function assocIn<T, V>(collection: T, path: ReadonlyArray<number | string>, value: V): T;
-export declare function getIn<T>(collection: T, path: ReadonlyArray<number | string>): any;
-export declare function updateIn<T, V>(
+export declare function assocIn<T>(collection: T, path: ReadonlyArray<number | string>, value: any): T;
+export declare function getIn(collection: any, path: ReadonlyArray<number | string>): any;
+export declare function updateIn<T>(
     collection: T,
     path: ReadonlyArray<number | string>,
-    callback: (value: V) => V,
+    callback: (value: any) => any,
 ): T;
 
 export { assoc as set };
@@ -49,20 +49,20 @@ interface IcepickWrapper<T> {
     freeze(): IcepickWrapper<T>;
     thaw(): IcepickWrapper<T>;
 
-    assoc<V>(key: number | string, value: V): IcepickWrapper<T>;
-    set<V>(key: number | string, value: V): IcepickWrapper<T>;
+    assoc(key: number | string, value: any): IcepickWrapper<T>;
+    set(key: number | string, value: any): IcepickWrapper<T>;
 
     dissoc(key: number | string): IcepickWrapper<T>;
     unset(key: number | string): IcepickWrapper<T>;
 
-    assocIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
-    setIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
+    assocIn(path: Array<number | string>, value: any): IcepickWrapper<T>;
+    setIn(path: Array<number | string>, value: any): IcepickWrapper<T>;
 
     dissocIn(path: Array<number | string>): IcepickWrapper<T>;
     unsetIn(path: Array<number | string>): IcepickWrapper<T>;
 
     getIn(path: Array<number | string>): IcepickWrapper<any>;
-    updateIn<V>(path: Array<number | string>, callback: (value: V) => V): IcepickWrapper<T>;
+    updateIn(path: Array<number | string>, callback: (value: any) => any): IcepickWrapper<T>;
 
     assign<S1>(source1: S1): IcepickWrapper<T & S1>;
     assign<S1, S2>(s1: S1, s2: S2): IcepickWrapper<T & S1 & S2>;
