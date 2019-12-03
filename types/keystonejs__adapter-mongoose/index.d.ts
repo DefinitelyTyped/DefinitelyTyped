@@ -16,7 +16,7 @@ declare module '@keystonejs/adapter-mongoose' {
         listAdapterClass?: any;
     }
 
-    class MoogooseAdapter extends BaseKeystoneAdapter {
+    class MongooseAdapter extends BaseKeystoneAdapter {
         constructor(options?: MongooseAdaptorOptions);
 
         disconnect(): void;
