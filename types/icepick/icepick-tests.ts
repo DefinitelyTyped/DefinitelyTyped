@@ -136,7 +136,7 @@ class Foo {}
 
 // arrays
 {
-    var a = [1];
+    let a = [1];
     a = i.push(a, 2); // [1, 2];
     a = i.unshift(a, 0); // [0, 1, 2];
     a = i.pop(a); // [0, 1];
@@ -148,7 +148,7 @@ class Foo {}
     i.filter(function(v: number) { return v % 2 === 0; }, [1, 2, 3]); // [1, 3]
 }
 {
-    var arr = i.freeze([{ a: 1 }, { b: 2 }]);
+    let arr = i.freeze([{ a: 1 }, { b: 2 }]);
 
     //ECMAScript 2015
     //arr.find(function(item) { return item.b != null; }); // {b: 2}
@@ -172,4 +172,39 @@ class Foo {}
         .dissoc("d")
         .getIn(['a', 0])
         .value() as number;
+}
+
+// readonly array
+{
+    // typescript@3.3
+    const a: ReadonlyArray<number> = [1];
+
+    // typescript@3.4
+    //const a: readonly number[] = [1];
+
+    let result: number[];
+    result = i.push(a, 2);
+    result = i.unshift(a, 0);
+    result = i.pop(a);
+    result = i.shift(a);
+    result = i.splice(a, 0, 0, 2);
+    result = i.slice(a, 1, 1);
+    result = i.map(x => x, a);
+    result = i.filter(x => x > 1, a);
+}
+{
+    // typescript@3.3
+    const a: Readonly<[number, string]> = [1, "one"];
+
+    // typescript@3.4
+    //const a: readonly [number, string] = [1, "one"];
+
+    let result = i.set(a, 1, "two");
+}
+
+// readonly object
+{
+    const obj1: Readonly<{readonly a: number, b: number, c: number}> = { a: 1, b: 2, c: 3 };
+    let result: any;
+    result = i.assocIn(obj1, ["a"], 2);
 }
