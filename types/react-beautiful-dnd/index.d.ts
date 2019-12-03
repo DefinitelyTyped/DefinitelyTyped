@@ -14,6 +14,8 @@
 
 import * as React from 'react';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 export interface Position {
     x: number;
     y: number;
