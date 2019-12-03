@@ -360,6 +360,8 @@ declare namespace Chart {
     }
 
     interface ChartTooltipModel {
+        body: object[],
+        dataPoints: ChartTooltipItem[],
         backgroundColor: string;
         bodyFontColor: string;
         bodyFontSize: number;
