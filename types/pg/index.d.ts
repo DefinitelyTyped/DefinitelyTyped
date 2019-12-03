@@ -27,6 +27,8 @@ export interface ClientConfig {
     keepAliveInitialDelayMillis?: number;
 }
 
+export type ConnectionConfig = ClientConfig;
+
 export interface Defaults extends ClientConfig {
     poolSize?: number;
     poolIdleTimeout?: number;
