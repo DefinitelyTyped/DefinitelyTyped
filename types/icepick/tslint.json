@@ -1,6 +1,4 @@
 {
     "extends": "dtslint/dt.json",
-    "rules": {
-        "prefer-const": false
-    }
+    "rules": {}
 }
