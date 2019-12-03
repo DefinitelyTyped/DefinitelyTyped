@@ -69,6 +69,34 @@ declare namespace JsReportChromePdf {
 		encoding: 'base64' | 'binary';
 	}
 
+	// https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
+	interface LaunchOptions {
+		product: 'chrome' | 'firefox';
+		ignoreHTTPSErrors: boolean;
+		headless: boolean;
+		executablePath: string;
+		slowMo: number;
+		defaultViewport: Partial<{
+			width: string;
+			height: string;
+			deviceScaleFactor: string;
+			isMobile: boolean;
+			hasTouch: boolean;
+			isLandscape: boolean;
+		}>;
+		args: string[];
+		ignoreDefaultArgs: boolean | string[];
+		handleSIGINT: boolean;
+		handleSIGTERM: boolean;
+		handleSIGHUP: boolean;
+		timeout: number;
+		dumpio: boolean;
+		userDataDir: string;
+		env: { [key: string]: string; };
+		devtools: boolean;
+		pipe: boolean;
+	}
+
 	// https://jsreport.net/learn/configuration
 	interface Options {
 		allowLocalFilesAccess: boolean;
@@ -79,6 +107,7 @@ declare namespace JsReportChromePdf {
 		portLeftBoundary: number;
 		portRightBoundary: number;
 		allowedModules: string[];
+		launchOptions: Partial<LaunchOptions>;
 	}
 }
 
