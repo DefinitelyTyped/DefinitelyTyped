@@ -18,7 +18,7 @@ export interface LogglyBulkOptions extends LogglyOptions {
 }
 
 export interface LogglyBulkConstructor {
-    new (options: LogglyBulkOptions): this;
+    new (options: LogglyBulkOptions): LogglyInstance;
 }
 
 export const Loggly: LogglyBulkConstructor;
