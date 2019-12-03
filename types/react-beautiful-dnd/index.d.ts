@@ -9,7 +9,7 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Arun George <https://github.com/aruniverse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
 
 import * as React from 'react';
