@@ -1043,8 +1043,8 @@ const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
 // Test if static properties added to the underlying component is passed through.
 function staticPropertyPassthrough() {
     interface AProps { a: number; }
-    interface BProps { b: string; }
-    interface BState { b: string; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
     class A extends React.Component<AProps> {}
     class B extends React.Component {
         static A = A;
