@@ -2,7 +2,6 @@
     "private": true,
     "dependencies": {
         "csstype": "^2.2.0",
-        "@types/hoist-non-react-statics": "^3.3.1"
     },
     "types": "index",
     "typesVersions": {
