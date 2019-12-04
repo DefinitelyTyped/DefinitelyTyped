@@ -847,7 +847,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    */
   // TODO enable more overloads
   // array with promises of different types
-  static all<T1, T2, T3, T4, T5, T6, T7>(values: [Resolvable<T1>,Resolvable<T2>,Resolvable<T3>,Resolvable<T4>,Resolvable<T5>,Resolvable<T6>,Resolvable<T7>]): Bluebird<[T1, T2, T3, T4, T5, T6, T7]>;
+  static all<T1, T2, T3, T4, T5, T6, T7>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>, Resolvable<T6>, Resolvable<T7>]): Bluebird<[T1, T2, T3, T4, T5, T6, T7]>;
   static all<T1, T2, T3, T4, T5, T6>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>, Resolvable<T6>]): Bluebird<[T1, T2, T3, T4, T5, T6]>;
   static all<T1, T2, T3, T4, T5>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]): Bluebird<[T1, T2, T3, T4, T5]>;
   static all<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Bluebird<[T1, T2, T3, T4]>;
