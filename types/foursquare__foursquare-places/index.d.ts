@@ -153,10 +153,10 @@ export = Foursquare;
 declare class Foursquare {
     constructor(client_id: string, client_secret: string, version?: string, apiUrl?: string, locale?: string);
 
-    venues(): Venues;
-    photos(): Photos;
-    tips(): Tips;
-    lists(): Lists;
+    venues: Venues;
+    photos: Photos;
+    tips: Tips;
+    lists: Lists;
 }
 
 // /*~ If this module is a UMD module that exposes a global variable 'myLib' when
