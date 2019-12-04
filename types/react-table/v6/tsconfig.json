@@ -9,18 +9,28 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "jsx": "react",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "react-table": [
+                "react-table/v6"
+            ],
+            "react-table/*": [
+                "react-table/v6/*"
+            ]
+        },
+
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "utils.d.ts",
-        "react-table-tests.tsx"
+        "react-table-tests.tsx",
+        "test/select-table-tests.tsx",
+        "test/tree-table-tests.tsx"
     ]
 }
