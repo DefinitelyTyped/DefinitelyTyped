@@ -8,7 +8,7 @@ import { A, O, T } from "ts-toolbelt";
 
 // WHEN ADDING A NEW TOOL
 // - Add documentation for the tool you've created
-// - Add <created by @username> on your tool docs
+// - Add <created by @username> on your tool's docs
 
 // TODO
 // - Types need proper descriptions, so that we know what they do
@@ -198,9 +198,11 @@ type EvolveNestedValue<O, E extends Evolver> =
  * @param E
  */
 type EvolveValue<V, E> =
-    E extends (value: V) => any ? ReturnType<E> :
-    E extends Evolver ? EvolveNestedValue<V, E> :
-    never;
+    E extends (value: V) => any 
+    ? ReturnType<E>
+    : E extends Evolver
+      ? EvolveNestedValue<V, E>
+      : never;
 
 // ---------------------------------------------------------------------------------------
 // F
