@@ -449,7 +449,32 @@ const description: SchemaDescription = {
         { name: 'test1', params: {} },
         { name: 'test2', params: {} },
     ],
-    fields: { key: 'value' },
+    fields: {
+        refField: {
+            type: 'ref',
+            key: 'value',
+        },
+        noSubField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+        },
+        subField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            fields: { key: { type: 'ref', key: 'value' } }
+        },
+        withInnerType: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            innerType: { type: 'ref', key: 'value' }
+        },
+     },
 };
 
 const testOptions: TestOptions = {
