@@ -1033,25 +1033,16 @@ function staticPropertyPassthrough() {
     class A extends React.Component<AProps> {}
     class B extends React.Component {
         static A = A;
-        private readonly PRIVATE = 'PR';
-        PUBLIC = 'PUB';
+        PUBLIC = 'PUBIC_VAL';
         static F = () => {};
     }
-    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
-    C.A = A; // Typescript Version 3.1
-    C.F = () => {};
-
     const StyledB = styled(B)``;
-    const StyledC = styled(C)``;
     <StyledB.A />; // $ExpectError
     <StyledB.A a='a' />; // $ExpectError
     <StyledB.A a={0} />;
-    StyledB.PRIVATE; // $ExpectError
     StyledB.PUBLIC; // $ExpectError
     StyledB.componentDidMount(); // $ExpectError
     StyledB.F();
-    <StyledC.A a={0} />;
-    StyledC.F();
 }
 
 function unionTest() {
