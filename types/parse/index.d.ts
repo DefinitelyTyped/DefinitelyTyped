@@ -19,7 +19,7 @@
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 /// <reference types="node" />
 
@@ -205,10 +205,6 @@ declare global {
             [key: string]: any;
         }
 
-        class BaseObject {
-            toJSON(): any;
-        }
-
         /**
          * Creates a new ACL.
          * If no argument is given, the ACL has no permissions for anyone.
@@ -222,7 +218,7 @@ declare global {
          * <code>Parse.Object</code> to restrict access to only a subset of users
          * of your application.</p>
          */
-        class ACL extends BaseObject {
+        class ACL {
             permissionsById: any;
 
             constructor(arg1?: any);
@@ -244,6 +240,8 @@ declare global {
 
             setRoleWriteAccess(role: Role | string, allowed: boolean): void;
             getRoleWriteAccess(role: Role | string): boolean;
+
+            toJSON(): any;
         }
 
         /**
@@ -303,7 +301,7 @@ declare global {
          *   object.set("location", point);
          *   object.save();</pre></p>
          */
-        class GeoPoint extends BaseObject {
+        class GeoPoint {
             latitude: number;
             longitude: number;
 
@@ -313,13 +311,14 @@ declare global {
             radiansTo(point: GeoPoint): number;
             kilometersTo(point: GeoPoint): number;
             milesTo(point: GeoPoint): number;
+            toJSON(): any;
         }
 
         /**
          * A class that is used to access all of the children of a many-to-many relationship.
          * Each instance of Parse.Relation is associated with a particular parent object and key.
          */
-        class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
+        class Relation<S extends Object = Object, T extends Object = Object> {
             parent: S;
             key: string;
             targetClassName: string;
@@ -334,6 +333,8 @@ declare global {
 
             // Removes a Parse.Object or an array of Parse.Objects from this relation.
             remove(object: T | T[]): void;
+
+            toJSON(): any;
         }
 
         interface Attributes {
@@ -364,47 +365,54 @@ declare global {
          *
          * Creates a new model with defined attributes.
          */
-        interface Object<T extends Attributes = Attributes> extends BaseObject {
+        interface Object<T extends Attributes = Attributes> {
             id: string;
             createdAt: Date;
             updatedAt: Date;
             attributes: T;
-            cid: string;
-            changed: boolean;
             className: string;
 
-            add(attr: string, item: any): this | false;
-            addAll(attr: string, items: any[]): this | false;
-            addAllUnique(attr: string, items: any[]): this | false;
-            addUnique(attr: string, item: any): this | false;
-            change(options: any): this;
-            changedAttributes(diff: any): boolean;
+            add<K extends Extract<keyof T, string>>(
+                attr: K,
+                item: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K][number] : never
+            ): this | false;
+            addAll<K extends Extract<keyof T, string>>(
+                attr: K,
+                items: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K] : never
+            ): this | false;
+            addAllUnique: this['addAll'];
+            addUnique: this['add'];
             clear(options: any): any;
             clone(): this;
             destroy(options?: Object.DestroyOptions): Promise<this>;
-            dirty(attr?: string): boolean;
+            dirty(attr?: Extract<keyof T, string>): boolean;
             dirtyKeys(): string[];
-            equals(other: any): boolean;
-            escape(attr: string): string;
+            equals<T extends Object>(other: T): boolean;
+            escape(attr: Extract<keyof T, string>): string;
             existed(): boolean;
+            exists(options?: RequestOptions): Promise<boolean>;
             fetch(options?: Object.FetchOptions): Promise<this>;
             fetchFromLocalDatastore(): Promise<this> | void;
-            fetchWithInclude(keys: string | Array<string | string[]>, options?: RequestOptions): Promise<this>;
+            fetchWithInclude<K extends Extract<keyof T, string>>(
+                keys: K | Array<K | K[]>,
+                options?: RequestOptions
+            ): Promise<this>;
             get<K extends Extract<keyof T, string>>(attr: K): T[K];
             getACL(): ACL | undefined;
-            has(attr: string): boolean;
-            hasChanged(attr: string): boolean;
-            increment(attr: string, amount?: number): any;
+            has(attr: Extract<keyof T, string>): boolean;
+            increment(attr: Extract<keyof T, string>, amount?: number): this | false;
             initialize(): void;
+            isDataAvailable(): boolean;
             isNew(): boolean;
             isPinned(): Promise<boolean>;
             isValid(): boolean;
-            op(attr: string): any;
+            newInstance(): this;
+            op(attr: Extract<keyof T, string>): any;
             pin(): Promise<void>;
             pinWithName(name: string): Promise<void>;
-            previous(attr: string): any;
-            previousAttributes(): any;
-            relation<T extends Object>(attr: string): Relation<this, T>;
+            relation<R extends Object, K extends Extract<keyof T, string> = Extract<keyof T, string>>(
+                attr: T[K] extends Relation ? K : never
+            ): Relation<this, R>;
             remove(attr: string, item: any): this | false;
             removeAll(attr: string, items: any): this | false;
             revert(...keys: string[]): void;
@@ -431,6 +439,7 @@ declare global {
                 options?: Object.SetOptions
             ): this | false;
             setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
+            toJSON(): any;
             toPointer(): Pointer;
             unPin(): Promise<void>;
             unPinWithName(name: string): Promise<void>;
@@ -487,11 +496,13 @@ declare global {
             }
         }
 
-        class Polygon extends BaseObject {
+        class Polygon {
             constructor(arg1: GeoPoint[] | number[][]);
             containsPoint(point: GeoPoint): boolean;
             equals(other: any): boolean;
+            toJSON(): any;
         }
+
         /**
          * Every Parse application installed on a device registered for
          * push notifications has an associated Installation object.
@@ -510,6 +521,7 @@ declare global {
             parseVersion: string;
             appIdentifier: string;
         }
+
         /**
          * Creates a new parse Parse.Query for the given Parse.Object subclass.
          * @param objectClass -
@@ -565,7 +577,7 @@ declare global {
          *   }
          * });</pre></p>
          */
-        class Query<T extends Object = Object> extends BaseObject {
+        class Query<T extends Object = Object> {
             objectClass: any;
             className: string;
 
@@ -621,6 +633,7 @@ declare global {
             sortByTextScore(): this;
             startsWith(key: string, prefix: string): Query<T>;
             subscribe(): Promise<LiveQuerySubscription>;
+            toJSON(): any;
             withJSON(json: any): this;
             withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
             withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
@@ -1207,28 +1220,37 @@ declare global {
          * directly.
          */
         namespace Op {
-            interface BaseOperation extends BaseObject {
+            interface BaseOperation {
                 objects(): any[];
             }
 
-            interface Add extends BaseOperation {}          // tslint:disable-line no-empty-interface
-
-            interface AddUnique extends BaseOperation {}    // tslint:disable-line no-empty-interface
-
-            interface Increment extends BaseObject {
-                amount: number;
+            interface Add extends BaseOperation {
+                toJSON(): any;
             }
 
-            interface Relation extends BaseObject {
+            interface AddUnique extends BaseOperation {
+                toJSON(): any;
+            }
+
+            interface Increment {
+                amount: number;
+                toJSON(): any;
+            }
+
+            interface Relation {
                 added(): Object[];
                 removed: Object[];
+                toJSON(): any;
             }
 
-            interface Set extends BaseObject {
+            interface Set {
                 value(): any;
+                toJSON(): any;
             }
 
-            interface Unset extends BaseObject {}           // tslint:disable-line no-empty-interface
+            interface Unset {
+                toJSON(): any;
+            }
         }
 
         /**
