@@ -21140,6 +21140,16 @@ declare namespace Excel {
         merge(across?: boolean): void;
         /**
          *
+         * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
+            The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         *
+         * @param destinationRange destinationRange Specifies the range to where the information in this range will be moved.
+         */
+        moveTo(destinationRange: Range | string): void;
+        /**
+         *
          * Removes duplicate values from the range specified by the columns.
          *
          * [Api set: ExcelApi 1.9]
@@ -21678,7 +21688,9 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21707,7 +21719,9 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21729,7 +21743,9 @@ declare namespace Excel {
     interface ReplaceCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24319,6 +24335,17 @@ declare namespace Excel {
         set(properties: Interfaces.RangeFormatUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RangeFormat): void;
+        /**
+         *
+         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         *
+         * @param amount The number of character spaces by which the current indent is adjusted. This value should be between -250 and 250.
+            **Note**: If the amount would raise the indent level above 250, the indent level stays with 250.
+            Similarly, if the amount would lower the indent level below 0, the indent level stays 0.
+         */
+        adjustIndent(amount: number): void;
         /**
          *
          * Changes the width of the columns of the current range to achieve the best fit, based on the current data in the columns.
@@ -29943,7 +29970,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
     }
     /**
      *
@@ -32917,7 +32944,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.6]
          */
-        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -35575,11 +35602,48 @@ declare namespace Excel {
     }
     /**
      *
+     * Represents the entity that is mentioned in comments.
+     *
+     * [Api set: ExcelApiOnline 1.1]
+     */
+    interface CommentMention {
+        /**
+         *
+         * Gets or sets the email address of the entity that is mentioned in comment.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        email: string;
+        /**
+         *
+         * Gets or sets the id of the entity. This is aligned with the id information in `CommentRichContent.richContent`.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        id: number;
+        /**
+         *
+         * Gets or sets the name of the entity that is mentioned in comment.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        name: string;
+    }
+    /**
+     *
      * Represents the content contained within a comment or comment reply. Rich content incudes the text string and any other objects contained within the comment body, such as mentions.
      *
-     * [Api set: ExcelApi 1.10]
+     * [Api set: ExcelApiOnline 1.1]
      */
     interface CommentRichContent {
+        /**
+         *
+         * An array containing all the entities (e.g. people) mentioned within the comment.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        mentions?: Excel.CommentMention[];
+        richContent: string;
     }
     /**
      *
@@ -35599,8 +35663,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.Comment;
         /**
@@ -35610,8 +35674,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
         /**
@@ -35732,6 +35796,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         readonly id: string;
+        /**
+         *
+         * Gets the entities (e.g. people) that are mentioned in comments.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        readonly mentions: Excel.CommentMention[];
+        /**
+         *
+         * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -35760,6 +35838,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
+        /**
+         *
+         * Updates the comment content with a specially formatted string and a list of mentions.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         *
+         * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
+         */
+        updateMentions(contentWithMentions: Excel.CommentRichContent): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -35804,8 +35891,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
         /**
@@ -35814,8 +35901,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
         /**
@@ -35911,6 +35998,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         readonly id: string;
+        /**
+         *
+         * Gets the entities (e.g. people) that are mentioned in comments.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        readonly mentions: Excel.CommentMention[];
+        /**
+         *
+         * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -35946,6 +36047,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         getParentComment(): Excel.Comment;
+        /**
+         *
+         * Updates the comment content with a specially formatted string and a list of mentions.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         *
+         * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
+         */
+        updateMentions(contentWithMentions: Excel.CommentRichContent): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -39166,9 +39276,7 @@ declare namespace Excel {
         fiveQuarters = "FiveQuarters",
         threeStars = "ThreeStars",
         threeTriangles = "ThreeTriangles",
-        fiveBoxes = "FiveBoxes",
-        linkedEntityFinanceIcon = "LinkedEntityFinanceIcon",
-        linkedEntityMapIcon = "LinkedEntityMapIcon"
+        fiveBoxes = "FiveBoxes"
     }
     /**
      * [Api set: ExcelApi 1.2]
@@ -47829,7 +47937,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface for updating data on the ColorScaleConditionalFormat object, for use in `colorScaleConditionalFormat.set({ ... })`. */
         interface ColorScaleConditionalFormatUpdateData {
@@ -53516,7 +53624,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface describing the data returned by calling `colorScaleConditionalFormat.toJSON()`. */
         interface ColorScaleConditionalFormatData {
@@ -54282,6 +54390,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: string;
+            /**
+             *
+             * Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: Excel.CommentMention[];
+            /**
+             *
+             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: string;
         }
         /** An interface describing the data returned by calling `commentReplyCollection.toJSON()`. */
         interface CommentReplyCollectionData {
@@ -54324,6 +54446,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: string;
+            /**
+             *
+             * Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: Excel.CommentMention[];
+            /**
+             *
+             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: string;
         }
         /** An interface describing the data returned by calling `shapeCollection.toJSON()`. */
         interface ShapeCollectionData {
@@ -63413,6 +63549,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: boolean;
         }
         /**
          *
@@ -63460,6 +63610,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
+            /**
+             *
+             * Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: boolean;
+            /**
+             *
+             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: boolean;
         }
         /**
          *
@@ -63507,6 +63671,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: boolean;
         }
         /**
          *
@@ -63554,6 +63732,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             id?: boolean;
+            /**
+             *
+             * Gets the entities (e.g. people) that are mentioned in comments.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            mentions?: boolean;
+            /**
+             *
+             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             *
+             * [Api set: ExcelApiOnline 1.1]
+             */
+            richContent?: boolean;
         }
         /**
          *
