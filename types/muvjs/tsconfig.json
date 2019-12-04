@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "allowJs": true,
-        "checkJs": true,
         "module": "commonjs",
         "lib": [
             "es6",
