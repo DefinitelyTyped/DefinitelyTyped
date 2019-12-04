@@ -360,8 +360,14 @@ declare namespace Chart {
         borderWidth?: number;
     }
 
+    interface ChartTooltipModelBody {
+        before: string[]
+        lines: string[]
+        after: string[]
+    }
+
     interface ChartTooltipModel {
-        body: object[];
+        body: ChartTooltipModelBody[];
         dataPoints: ChartTooltipItem[];
         backgroundColor: string;
         bodyFontColor: string;
