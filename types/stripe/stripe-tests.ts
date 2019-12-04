@@ -2382,6 +2382,20 @@ stripe.subscriptions.create(
     },
 );
 
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, prorate: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
+stripe.subscriptions.create(
+    { cancel_at_period_end: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
 stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
     // asynchronously called
 

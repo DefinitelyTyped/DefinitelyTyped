@@ -10596,9 +10596,23 @@ declare namespace Stripe {
             customer: string;
 
             /**
-             * A date in the future at which the subscription will automatically get canceled.
+             * A timestamp at which the subscription should cancel. If set to a date before the current period ends
+             * this will cause a proration if prorate=true.
              */
             cancel_at?: number | null;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (defaults to true) telling us whether to credit for unused time when the billing cycle changes
+             * (e.g. when switching plans, resetting billing_cycle_anchor=now, or starting a trial), or if an item’s
+             * quantity changes. If false, the anchor period will be free (similar to a trial) and
+             * proration adjustments will be created.
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
