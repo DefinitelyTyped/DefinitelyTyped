@@ -83,5 +83,12 @@ class ExampleOfUsingReactModal extends React.Component {
   }
 }
 
-declare const instance: ReactModal;
-instance.portal.content.focus();
+const MyWrapperComponent: React.FC = () => {
+    const reactModaRef = React.useRef<ReactModal>();
+
+    React.useLayoutEffect(() => {
+        reactModaRef.current.portal.content.focus();
+    });
+
+    return <ReactModal isOpen ref={reactModaRef}>Hello, World!</ReactModal>;
+};
