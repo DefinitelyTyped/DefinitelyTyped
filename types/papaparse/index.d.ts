@@ -36,10 +36,12 @@ export const unparse: (data: Array<Object> | Array<Array<any>> | UnparseObject, 
 export const BAD_DELIMETERS: Array<string>;
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
-export const RECORD_SEP: string;
+declare type RECORD_SEP_TYPE = '';
+export const RECORD_SEP = '';
 
 // Also sometimes used as a delimiting character. ASCII code 31.
-export const UNIT_SEP: string;
+declare type UNIT_SEP_TYPE = '';
+export const UNIT_SEP = '';
 
 // Whether or not the browser supports HTML5 Web Workers. If false, worker: true will have no effect.
 export const WORKERS_SUPPORTED: boolean;
@@ -51,6 +53,9 @@ export let SCRIPT_PATH: string;
 // When passed to Papa Parse a Readable stream is returned.
 declare type NODE_STREAM_INPUT_TYPE = 1;
 export const NODE_STREAM_INPUT = 1;
+
+// The possible values for the ParseConfig property delimitersToGuess
+declare type GuessableDelimiters = ',' | '\t' | '|' | ';' | RECORD_SEP_TYPE | UNIT_SEP_TYPE;
 
 /**
  * Configurable Properties
@@ -105,7 +110,7 @@ export interface ParseConfig {
     skipEmptyLines?: boolean | 'greedy'; // default: false
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
-    delimitersToGuess?: string[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
 
     // Callbacks
     step?(results: ParseResult, parser: Parser): void; // default: undefined
