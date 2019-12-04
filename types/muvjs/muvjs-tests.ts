@@ -2,8 +2,8 @@
 
 // MODEL
 
-import {button, div} from "muvjs/muv-dom";
-import {muv} from "muvjs/muv";
+import { button, div } from "muvjs/muv-dom";
+import { muv } from "muvjs/muv";
 
 export const model = {
     count: 0
@@ -15,7 +15,7 @@ export type Model = typeof model;
 
 const Increment = "increment";
 interface IncrementAction {
-    type: typeof Increment
+    type: typeof Increment;
 }
 const increment = (): IncrementAction => {
     return {
@@ -25,7 +25,7 @@ const increment = (): IncrementAction => {
 
 const Decrement = "decrement";
 interface DecrementAction {
-    type: typeof Decrement
+    type: typeof Decrement;
 }
 const decrement = (): DecrementAction => {
     return {
@@ -35,8 +35,8 @@ const decrement = (): DecrementAction => {
 
 const CompleteRequest = "complete-request";
 interface CompleteRequestAction {
-    type: typeof CompleteRequest,
-    xhr: XMLHttpRequest
+    type: typeof CompleteRequest;
+    xhr: XMLHttpRequest;
 }
 const completeRequest = (xhr: XMLHttpRequest): CompleteRequestAction => {
     return {
@@ -47,7 +47,7 @@ const completeRequest = (xhr: XMLHttpRequest): CompleteRequestAction => {
 
 const SignIn = "sign-in";
 interface SignInAction {
-    type: typeof SignIn
+    type: typeof SignIn;
 }
 const signIn = (): SignInAction => {
     return {
@@ -91,17 +91,17 @@ export const view = (dispatch: (a: Action) => void) => (model: Model) =>
         ]
     );
 
-//IGNITION
+// IGNITION
 
 export const ignition = (dispatch: (a: Action) => void) => {
     dispatch(signIn());
 };
 
-//SUBSCRIPTIONS
+// SUBSCRIPTIONS
 
 const AjaxRequest = "ajax-request";
 interface AjaxRequestEffect {
-    type: typeof AjaxRequest
+    type: typeof AjaxRequest;
 }
 const makeRequest = (): AjaxRequestEffect => {
     return {
@@ -114,7 +114,7 @@ export type Effect = AjaxRequestEffect;
 export const subscriptions = (dispatch: (a: Action) => void) => (effect: Effect) => {
     switch (effect.type) {
         case AjaxRequest:
-            let xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open("GET", "http://localhost:8080", true);
 
             xhr.onload = () => {
@@ -127,8 +127,6 @@ export const subscriptions = (dispatch: (a: Action) => void) => (effect: Effect)
             xhr.send();
             break;
     }
-
-
 };
 
 // MAIN
