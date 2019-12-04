@@ -32,6 +32,8 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
      * If set to `true` spaces will not interrupt matching suggestions
      */
     allowSpaceInQuery?: boolean;
+    allowSuggestionsAboveCursor?: boolean;
+    ignoreAccents?: boolean;
     value?: string;
     onChange?: OnChangeHandlerFunc;
     placeholder?: string;
