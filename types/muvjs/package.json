@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "muvjs": "^2.2.1"
-    }
-}
