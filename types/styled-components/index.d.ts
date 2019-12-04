@@ -8,6 +8,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
+//                 Yuki Ito <https://github.com/Lazyuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -159,7 +160,7 @@ export type StyledComponent<
     A extends keyof any = never
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string & StyledComponentBase<C, T, O, A>;
+    string & StyledComponentBase<C, T, O, A> & { [K in keyof C]: C[K] };
 
 export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,

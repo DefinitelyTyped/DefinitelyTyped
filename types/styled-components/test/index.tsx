@@ -1027,6 +1027,34 @@ const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
 
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number };
+    class A extends React.Component<AProps> {}
+    class B extends React.Component {
+        static A = A;
+        private PRV = 'PR';
+        public PUB = 'PUB';
+        static F = () => {};
+        D = () => {}
+    }
+    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
+    C.A = A;
+    C.F = () => {};
+
+    const StyledB = styled(B)``;
+    const StyledC = styled(C)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PRV; // $ExpectError
+    StyledB.PUB; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F();
+    <StyledC.A a={0} />;
+    StyledC.F();
+}
+
 function unionTest() {
     interface Book {
         kind: 'book';
