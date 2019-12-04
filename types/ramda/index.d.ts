@@ -1638,12 +1638,7 @@ declare namespace R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<Os extends readonly object[]>(list: Os): O.AssignUp<{}, Os> extends infer M
-                                                          ? {} extends M        // nothing merged bcs no `as const`
-                                                            ? T.UnionOf<Os>     // so we output the default types
-                                                            : O.Clean<M & {}>  // otherwise, we can compute `M`
-                                                          : never;
-
+        mergeAll<Os extends readonly object[]>(list: Os): MergeAll<Os>
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects:
