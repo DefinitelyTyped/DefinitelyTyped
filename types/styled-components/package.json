@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "csstype": "^2.2.0",
+        "csstype": "^2.2.0"
     },
     "types": "index",
     "typesVersions": {
