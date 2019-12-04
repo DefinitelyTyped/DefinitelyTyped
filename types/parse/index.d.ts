@@ -1,4 +1,4 @@
-// Type definitions for parse 2.9
+// Type definitions for parse 2.10
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -23,72 +23,107 @@
 
 /// <reference types="node" />
 
-declare global {
-    enum ErrorCode {
-        OTHER_CAUSE = -1,
-        INTERNAL_SERVER_ERROR = 1,
-        CONNECTION_FAILED = 100,
-        OBJECT_NOT_FOUND = 101,
-        INVALID_QUERY = 102,
-        INVALID_CLASS_NAME = 103,
-        MISSING_OBJECT_ID = 104,
-        INVALID_KEY_NAME = 105,
-        INVALID_POINTER = 106,
-        INVALID_JSON = 107,
-        COMMAND_UNAVAILABLE = 108,
-        NOT_INITIALIZED = 109,
-        INCORRECT_TYPE = 111,
-        INVALID_CHANNEL_NAME = 112,
-        PUSH_MISCONFIGURED = 115,
-        OBJECT_TOO_LARGE = 116,
-        OPERATION_FORBIDDEN = 119,
-        CACHE_MISS = 120,
-        INVALID_NESTED_KEY = 121,
-        INVALID_FILE_NAME = 122,
-        INVALID_ACL = 123,
-        TIMEOUT = 124,
-        INVALID_EMAIL_ADDRESS = 125,
-        MISSING_CONTENT_TYPE = 126,
-        MISSING_CONTENT_LENGTH = 127,
-        INVALID_CONTENT_LENGTH = 128,
-        FILE_TOO_LARGE = 129,
-        FILE_SAVE_ERROR = 130,
-        DUPLICATE_VALUE = 137,
-        INVALID_ROLE_NAME = 139,
-        EXCEEDED_QUOTA = 140,
-        SCRIPT_FAILED = 141,
-        VALIDATION_ERROR = 142,
-        INVALID_IMAGE_DATA = 150,
-        UNSAVED_FILE_ERROR = 151,
-        INVALID_PUSH_TIME_ERROR = 152,
-        FILE_DELETE_ERROR = 153,
-        REQUEST_LIMIT_EXCEEDED = 155,
-        INVALID_EVENT_NAME = 160,
-        USERNAME_MISSING = 200,
-        PASSWORD_MISSING = 201,
-        USERNAME_TAKEN = 202,
-        EMAIL_TAKEN = 203,
-        EMAIL_MISSING = 204,
-        EMAIL_NOT_FOUND = 205,
-        SESSION_MISSING = 206,
-        MUST_CREATE_USER_THROUGH_SIGNUP = 207,
-        ACCOUNT_ALREADY_LINKED = 208,
-        INVALID_SESSION_TOKEN = 209,
-        LINKED_ID_MISSING = 250,
-        INVALID_LINKED_SESSION = 251,
-        UNSUPPORTED_SERVICE = 252,
-        AGGREGATE_ERROR = 600,
-        FILE_READ_ERROR = 601,
-        X_DOMAIN_REQUEST = 602,
-    }
+declare enum ErrorCode {
+    OTHER_CAUSE = -1,
+    INTERNAL_SERVER_ERROR = 1,
+    CONNECTION_FAILED = 100,
+    OBJECT_NOT_FOUND = 101,
+    INVALID_QUERY = 102,
+    INVALID_CLASS_NAME = 103,
+    MISSING_OBJECT_ID = 104,
+    INVALID_KEY_NAME = 105,
+    INVALID_POINTER = 106,
+    INVALID_JSON = 107,
+    COMMAND_UNAVAILABLE = 108,
+    NOT_INITIALIZED = 109,
+    INCORRECT_TYPE = 111,
+    INVALID_CHANNEL_NAME = 112,
+    PUSH_MISCONFIGURED = 115,
+    OBJECT_TOO_LARGE = 116,
+    OPERATION_FORBIDDEN = 119,
+    CACHE_MISS = 120,
+    INVALID_NESTED_KEY = 121,
+    INVALID_FILE_NAME = 122,
+    INVALID_ACL = 123,
+    TIMEOUT = 124,
+    INVALID_EMAIL_ADDRESS = 125,
+    MISSING_CONTENT_TYPE = 126,
+    MISSING_CONTENT_LENGTH = 127,
+    INVALID_CONTENT_LENGTH = 128,
+    FILE_TOO_LARGE = 129,
+    FILE_SAVE_ERROR = 130,
+    DUPLICATE_VALUE = 137,
+    INVALID_ROLE_NAME = 139,
+    EXCEEDED_QUOTA = 140,
+    SCRIPT_FAILED = 141,
+    VALIDATION_ERROR = 142,
+    INVALID_IMAGE_DATA = 150,
+    UNSAVED_FILE_ERROR = 151,
+    INVALID_PUSH_TIME_ERROR = 152,
+    FILE_DELETE_ERROR = 153,
+    REQUEST_LIMIT_EXCEEDED = 155,
+    INVALID_EVENT_NAME = 160,
+    USERNAME_MISSING = 200,
+    PASSWORD_MISSING = 201,
+    USERNAME_TAKEN = 202,
+    EMAIL_TAKEN = 203,
+    EMAIL_MISSING = 204,
+    EMAIL_NOT_FOUND = 205,
+    SESSION_MISSING = 206,
+    MUST_CREATE_USER_THROUGH_SIGNUP = 207,
+    ACCOUNT_ALREADY_LINKED = 208,
+    INVALID_SESSION_TOKEN = 209,
+    LINKED_ID_MISSING = 250,
+    INVALID_LINKED_SESSION = 251,
+    UNSUPPORTED_SERVICE = 252,
+    AGGREGATE_ERROR = 600,
+    FILE_READ_ERROR = 601,
+    X_DOMAIN_REQUEST = 602,
+}
 
+declare global {
     namespace Parse {
         let applicationId: string;
         let javaScriptKey: string | undefined;
-        let masterKey: string | undefined;
-        let serverURL: string;
         let liveQueryServerURL: string;
+        let masterKey: string | undefined;
+        let serverAuthToken: string | undefined;
+        let serverAuthType: string | undefined;
+        let serverURL: string;
         let VERSION: string;
+
+        /**
+         * Call this method first to set up your authentication tokens for Parse.
+         * You can get your keys from the Data Browser on parse.com.
+         * @param applicationId Your Parse Application ID.
+         * @param javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
+         * @param masterKey (optional) Your Parse Master Key. (Node.js only!)
+         */
+        function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
+
+        /**
+         * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+         * @param AsyncStorage AsyncStorage from 'react-native' package
+         */
+        function setAsyncStorage(AsyncStorage: any): void;
+
+        /**
+         * Gets all contents from Local Datastore.
+         */
+        function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
+
+        /**
+         * Enable pinning in your application.
+         * This must be called before your application can use pinning.
+         */
+        function enableLocalDatastore(): void;
+
+        /**
+         * Flag that indicates whether Local Datastore is enabled.
+         */
+        function isLocalDatastoreEnabled(): boolean;
+
+        function setLocalDatastoreController(controller: any): void;
 
         interface BatchSizeOption {
             batchSize?: number;
@@ -301,6 +336,10 @@ declare global {
             remove(object: T | T[]): void;
         }
 
+        interface Attributes {
+            [key: string]: any;
+        }
+
         /**
          * Creates a new model with defined attributes. A client id (cid) is
          * automatically generated and assigned for you.
@@ -325,7 +364,7 @@ declare global {
          *
          * Creates a new model with defined attributes.
          */
-        class Object<T extends object = object> extends BaseObject {
+        interface Object<T extends Attributes = Attributes> extends BaseObject {
             id: string;
             createdAt: Date;
             updatedAt: Date;
@@ -333,28 +372,6 @@ declare global {
             cid: string;
             changed: boolean;
             className: string;
-
-            constructor(className?: string, attributes?: T, options?: any);
-
-            static createWithoutData<T extends Object>(id: string): T;
-            static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
-            static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
-            static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-            static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-            static fetchAllWithInclude<T extends Object>(
-                list: T[],
-                keys: string | Array<string | string[]>,
-                options: RequestOptions,
-            ): Promise<T[]>;
-            static fromJSON<T extends Object>(json: any, override?: boolean): T;
-            static pinAll(objects: Object[]): Promise<void>;
-            static pinAllWithName(name: string, objects: Object[]): Promise<void>;
-            static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-            static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-            static unPinAll(objects: Object[]): Promise<void>;
-            static unPinAllObjects(): Promise<void>;
-            static unPinAllObjectsWithName(name: string): Promise<void>;
-            static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
             add(attr: string, item: any): this | false;
             addAll(attr: string, items: any[]): this | false;
@@ -373,7 +390,7 @@ declare global {
             fetch(options?: Object.FetchOptions): Promise<this>;
             fetchFromLocalDatastore(): Promise<this> | void;
             fetchWithInclude(keys: string | Array<string | string[]>, options?: RequestOptions): Promise<this>;
-            get<K extends Exclude<keyof T, symbol | number>>(attr: K): T[K];
+            get<K extends Extract<keyof T, string>>(attr: K): T[K];
             getACL(): ACL | undefined;
             has(attr: string): boolean;
             hasChanged(attr: string): boolean;
@@ -391,24 +408,24 @@ declare global {
             remove(attr: string, item: any): this | false;
             removeAll(attr: string, items: any): this | false;
             revert(...keys: string[]): void;
-            save<K extends keyof T>(
-                attrs?: K extends never ? never : {
-                    [key in K]: T[key];
-                } | null,
+            save<K extends Extract<keyof T, string>>(
+                attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
+                    [key in K]: T[K];
+                }) | null,
                 options?: Object.SaveOptions
             ): Promise<this>;
-            save<K extends keyof T>(
+            save<K extends Extract<keyof T, string>>(
                 key: K,
                 value: T[K],
                 options?: Object.SaveOptions
             ): Promise<this>;
-            set<K extends keyof T>(
-                attrs: K extends never ? never : {
-                    [key in K]: T[key];
+            set<K extends Extract<keyof T, string>>(
+                attrs: ((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
+                    [key in K]: T[K];
                 },
                 options?: Object.SetOptions
             ): this | false;
-            set<K extends keyof T>(
+            set<K extends Extract<keyof T, string>>(
                 key: K,
                 value: T[K],
                 options?: Object.SetOptions
@@ -420,6 +437,32 @@ declare global {
             unset(attr: string, options?: any): any;
             validate(attrs: any, options?: SuccessFailureOptions): boolean;
         }
+        interface ObjectStatic {
+            createWithoutData<T extends Object>(id: string): T;
+            destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+            extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
+            fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
+            fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
+            fetchAllWithInclude<T extends Object>(
+                list: T[],
+                keys: string | Array<string | string[]>,
+                options: RequestOptions,
+            ): Promise<T[]>;
+            fromJSON<T extends Object>(json: any, override?: boolean): T;
+            pinAll(objects: Object[]): Promise<void>;
+            pinAllWithName(name: string, objects: Object[]): Promise<void>;
+            registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+            saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+            unPinAll(objects: Object[]): Promise<void>;
+            unPinAllObjects(): Promise<void>;
+            unPinAllObjectsWithName(name: string): Promise<void>;
+            unPinAllWithName(name: string, objects: Object[]): Promise<void>;
+        }
+        interface ObjectConstructor extends ObjectStatic {
+            new<T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
+            new(className?: string, attributes?: Attributes, options?: any): Object;
+        }
+        const Object: ObjectConstructor;
 
         namespace Object {
             interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
@@ -453,7 +496,7 @@ declare global {
          * Every Parse application installed on a device registered for
          * push notifications has an associated Installation object.
          */
-        class Installation<T extends object = object> extends Object<T> {
+        class Installation<T extends Attributes = Attributes> extends Object<T> {
             badge: any;
             channels: string[];
             timeZone: any;
@@ -706,7 +749,7 @@ declare global {
          * A Parse.Role is a local representation of a role persisted to the Parse
          * cloud.
          */
-        class Role<T extends object = object> extends Object<T> {
+        class Role<T extends Attributes = Attributes> extends Object<T> {
             constructor(name: string, acl: ACL);
 
             getRoles(): Relation<Role, Role>;
@@ -715,7 +758,7 @@ declare global {
             setName(name: string, options?: SuccessFailureOptions): any;
         }
 
-        class Config<T extends object = object> extends Object<T> {
+        class Config {
             static get(options?: SuccessFailureOptions): Promise<Config>;
             static current(): Config;
             static save(attr: any): Promise<Config>;
@@ -724,7 +767,7 @@ declare global {
             escape(attr: string): any;
         }
 
-        class Session<T extends object = object> extends Object<T> {
+        class Session<T extends Attributes = Attributes> extends Object<T> {
             static current(): Promise<Session>;
 
             getSessionToken(): string;
@@ -745,25 +788,13 @@ declare global {
          * user specific methods, like authentication, signing up, and validation of
          * uniqueness.</p>
          */
-        class User<T extends object = object> extends Object<{
+        interface User<T extends Attributes = Attributes> extends Object<{
             [key in (keyof T | keyof UserAttributes)]: key extends keyof UserAttributes
                 ? UserAttributes[key]
                 : key extends keyof T
                     ? T[key]
                     : never;
         }> {
-            static allowCustomUserClass(isAllowed: boolean): void;
-            static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
-            static current<T extends object>(): User<T> | undefined;
-            static currentAsync(): Promise<User | null>;
-            static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-            static logIn(username: string, password: string, options?: FullOptions): Promise<User>;
-            static logOut(): Promise<User>;
-            static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
-            static extend(protoProps?: any, classProps?: any): any;
-            static hydrate(userJSON: any): Promise<User>;
-            static enableUnsafeCurrentUser(): void;
-
             signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
             logIn(options?: FullOptions): Promise<this>;
             authenticated(): boolean;
@@ -781,6 +812,23 @@ declare global {
             linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
             _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
         }
+        interface UserConstructor extends ObjectStatic {
+            new(): User;
+            new<T extends Attributes>(attributes: T, options?: any): User<T>;
+
+            allowCustomUserClass(isAllowed: boolean): void;
+            become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
+            current<T extends Attributes>(): User<T> | undefined;
+            currentAsync(): Promise<User | null>;
+            signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
+            logIn(username: string, password: string, options?: FullOptions): Promise<User>;
+            logOut(): Promise<User>;
+            requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
+            extend(protoProps?: any, classProps?: any): any;
+            hydrate(userJSON: any): Promise<User>;
+            enableUnsafeCurrentUser(): void;
+        }
+        const User: UserConstructor;
 
         /**
          * A Parse.Schema object is for handling schema data from Parse.
@@ -965,7 +1013,7 @@ declare global {
                 value?: string;
             }
 
-            interface TriggerRequest<T extends object = object, U extends object = T> {
+            interface TriggerRequest {
                 installationId?: string;
                 master?: boolean;
                 user?: User;
@@ -973,8 +1021,8 @@ declare global {
                 headers: any;
                 triggerName: string;
                 log: any;
-                object: Object<U>;
-                original?: Object<T>;
+                object: Object;
+                original?: Object;
             }
 
             interface AfterSaveRequest extends TriggerRequest {
@@ -982,7 +1030,7 @@ declare global {
             }
             interface AfterDeleteRequest extends TriggerRequest {}      // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest extends TriggerRequest {}     // tslint:disable-line no-empty-interface
-            interface BeforeSaveRequest<T extends object = object, U extends object = T> extends TriggerRequest<T, U> {
+            interface BeforeSaveRequest extends TriggerRequest {
                 context: object;
             }
 
@@ -1009,10 +1057,7 @@ declare global {
             function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
             function afterSave(arg1: any, func?: (request: AfterSaveRequest) => Promise<void> | void): void;
             function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest) => Promise<void> | void): void;
-            function beforeSave<
-                OriginalObject extends object = object,
-                NewObject extends object = OriginalObject
-            >(arg1: any, func?: (request: BeforeSaveRequest<OriginalObject, NewObject>) => Promise<void> | void): void;
+            function beforeSave(arg1: any, func?: (request: BeforeSaveRequest) => Promise<void> | void): void;
             function beforeFind(
                 arg1: any,
                 func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
@@ -1212,39 +1257,6 @@ declare global {
                 error?: (error: Error) => void;
             }
         }
-
-        /**
-         * Call this method first to set up your authentication tokens for Parse.
-         * You can get your keys from the Data Browser on parse.com.
-         * @param applicationId Your Parse Application ID.
-         * @param javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
-         * @param masterKey (optional) Your Parse Master Key. (Node.js only!)
-         */
-        function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
-
-        /**
-         * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
-         * @param AsyncStorage AsyncStorage from 'react-native' package
-         */
-        function setAsyncStorage(AsyncStorage: any): void;
-
-        /**
-         * Gets all contents from Local Datastore.
-         */
-        function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
-
-        /**
-         * Enable pinning in your application.
-         * This must be called before your application can use pinning.
-         */
-        function enableLocalDatastore(): void;
-
-        /**
-         * Flag that indicates whether Local Datastore is enabled.
-         */
-        function isLocalDatastoreEnabled(): boolean;
-
-        function setLocalDatastoreController(controller: any): void;
     }
 }
 
