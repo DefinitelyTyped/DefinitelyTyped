@@ -214,7 +214,7 @@ yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date
 
 // Async ValidationError
 const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
-    return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage' })));
+    return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })));
 };
 
 mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest);
@@ -224,7 +224,7 @@ mixed.test({
 
 // Sync ValidationError
 const syncValidationErrorTest = function(this: TestContext): ValidationError {
-    return this.createError({ path: 'testPath', message: 'testMessage' });
+    return this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } });
 };
 
 mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest);
