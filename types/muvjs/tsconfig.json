@@ -2,23 +2,26 @@
     "compilerOptions": {
         "outDir": "./dist/",
         "sourceMap": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "alwaysStrict": true,
-        "module": "es6",
         "target": "es5",
+        "allowJs": true,
+        "checkJs": true,
+        "module": "commonjs",
         "lib": [
             "es2019",
             "dom"
         ],
-        "allowJs": true,
-        "checkJs": true,
-        "baseUrl": "types",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "types"
-        ]
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "muv.d.ts",
