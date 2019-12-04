@@ -465,7 +465,7 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): DatasetCore<Q>;
+    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): this;
 
     [Symbol.iterator](): Iterator<Q>;
 }
@@ -478,8 +478,6 @@ export interface DatasetCoreFactory<Q extends BaseQuad = Quad> {
 }
 
 export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
-    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): Dataset<Q>;
-
     /**
      * Imports the quads into this dataset.
      *
@@ -512,7 +510,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<Q>): Dataset<Q>;
+    difference(other: Dataset<Q>): this;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
@@ -538,7 +536,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: QuadFilterIteratee<Q>): Dataset<Q>;
+    filter(iteratee: QuadFilterIteratee<Q>): this;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
@@ -557,12 +555,12 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.
      */
-    intersection(other: Dataset<Q>): Dataset<Q>;
+    intersection(other: Dataset<Q>): this;
 
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: QuadMapIteratee<Q>): Dataset<Q>;
+    map(iteratee: QuadMapIteratee<Q>): this;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -615,7 +613,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<Q>): Dataset<Q>;
+    union(quads: Dataset<Q>): this;
 }
 
 export interface DatasetFactory<Q extends BaseQuad = Quad> extends DatasetCoreFactory<Q> {
