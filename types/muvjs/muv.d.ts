@@ -1,11 +1,16 @@
 import { View } from './muv-dom';
 
-export interface MUV<M, U, V, I, S, A, E> {
+export type U<M,A,E> = (m: M) => (a: A) => { model: M, effects?: E[] };
+export type V<M,A> = (d: (a: A) => void) => (m: M) => View;
+export type I<A> = (d: (a: A) => void) => void;
+export type S<A,E> = (d: (a: A) => void) => (e: E) => void;
+
+export interface MUV<M, A, E> {
     model: M;
-    update: (m: M) => (a: A) => { model: M, effects?: E[] };
-    view: (d: (a: A) => void) => (m: M) => View;
-    ignition?: (d: (a: A) => void) => void;
-    subscriptions?: (d: (a: A) => void) => (e: E) => void;
+    update: U<M,A,E>;
+    view: V<M,A>;
+    ignition?: I<A>;
+    subscriptions?: S<A,E>;
 }
 
-export function muv<M, U, V, I, S, A, E>(muv: MUV<M, U, V, I, S, A, E>): (rootId: string) => void;
+export function muv<M, A, E>(muv: MUV<M, A, E>): (rootId: string) => void;

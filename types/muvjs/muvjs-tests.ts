@@ -5,55 +5,54 @@
 import {button, div} from "muvjs/muv-dom";
 import {muv} from "muvjs/muv";
 
-export const model =
-    {
-        count: 0
-    };
+export const model = {
+    count: 0
+};
 
 export type Model = typeof model;
 
 // UPDATE
 
 const Increment = "increment";
-type IncrementAction = {
+interface IncrementAction {
     type: typeof Increment
-};
+}
 const increment = (): IncrementAction => {
     return {
         type: Increment
-    }
+    };
 };
 
 const Decrement = "decrement";
-type DecrementAction = {
+interface DecrementAction {
     type: typeof Decrement
-};
+}
 const decrement = (): DecrementAction => {
     return {
         type: Decrement
-    }
+    };
 };
 
 const CompleteRequest = "complete-request";
-type CompleteRequestAction = {
+interface CompleteRequestAction {
     type: typeof CompleteRequest,
     xhr: XMLHttpRequest
-};
+}
 const completeRequest = (xhr: XMLHttpRequest): CompleteRequestAction => {
     return {
         type: CompleteRequest,
         xhr
-    }
+    };
 };
 
 const SignIn = "sign-in";
-type SignInAction = {
+interface SignInAction {
     type: typeof SignIn
-};
+}
 const signIn = (): SignInAction => {
     return {
         type: SignIn
-    }
+    };
 };
 
 export type Action = IncrementAction | DecrementAction | CompleteRequestAction | SignInAction;
@@ -101,13 +100,13 @@ export const ignition = (dispatch: (a: Action) => void) => {
 //SUBSCRIPTIONS
 
 const AjaxRequest = "ajax-request";
-type AjaxRequestEffect = {
+interface AjaxRequestEffect {
     type: typeof AjaxRequest
 }
 const makeRequest = (): AjaxRequestEffect => {
     return {
         type: AjaxRequest
-    }
+    };
 };
 
 export type Effect = AjaxRequestEffect;
