@@ -361,9 +361,9 @@ declare namespace Chart {
     }
 
     interface ChartTooltipModelBody {
-        before: string[]
-        lines: string[]
-        after: string[]
+        before: string[];
+        lines: string[];
+        after: string[];
     }
 
     interface ChartTooltipModel {
