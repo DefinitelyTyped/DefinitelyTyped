@@ -540,35 +540,35 @@
 /// <reference path="./src/includes.d.ts" />
 
 import { F, T, O } from "ts-toolbelt";
-import * as Tools from "./tools"
+import * as Tools from "./tools";
 
 declare let R: R.Static;
 
 declare namespace R {
-    type Arity0Fn                                                                   = Tools.Arity0Fn
-    type Arity1Fn                                                                   = Tools.Arity1Fn
-    type Arity2Fn                                                                   = Tools.Arity2Fn
-    type AssocPartialOne<K extends keyof any>                                       = Tools.AssocPartialOne<K>
-    type ComposeWithFns<V0, R>                                                      = Tools.ComposeWithFns<V0, R>
-    type Dictionary<A>                                                              = Tools.Dictionary<A>
-    type Evolvable<E extends Evolver>                                               = Tools.Evolvable<E>
-    type Evolve<O extends Evolvable<E>,  E extends Evolver>                         = Tools.Evolve<O, E>
-    type Evolver                                                                    = Tools.Evolver
-    type Filter                                                                     = Tools.Filter
-    type Functor<A>                                                                 = Tools.Functor<A>
-    type KeyValuePair<K, V>                                                         = Tools.KeyValuePair<K, V>
-    type Lens                                                                       = Tools.Lens
-    type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = Tools.Merge<O1, O2, Depth>
-    type MergeAll<Os extends readonly object[]>                                     = Tools.MergeAll<Os>
-    type ObjPred                                                                    = Tools.ObjPred
-    type Ord                                                                        = Tools.Ord
-    type Path                                                                       = Tools.Path
-    type Placeholder                                                                = Tools.Placeholder
-    type Pred                                                                       = Tools.Pred
-    type PipeWithFns<V0, R>                                                         = Tools.PipeWithFns<V0, R>
-    type Reduced<A>                                                                 = Tools.Reduced<A>
-    type SafePred<A>                                                                = Tools.SafePred<A>
-    type ValueOfRecord<R>                                                           = Tools.ValueOfRecord<R>
+    type Arity0Fn                                                                   = Tools.Arity0Fn;
+    type Arity1Fn                                                                   = Tools.Arity1Fn;
+    type Arity2Fn                                                                   = Tools.Arity2Fn;
+    type AssocPartialOne<K extends keyof any>                                       = Tools.AssocPartialOne<K>;
+    type ComposeWithFns<V0, R>                                                      = Tools.ComposeWithFns<V0, R>;
+    type Dictionary<A>                                                              = Tools.Dictionary<A>;
+    type Evolvable<E extends Evolver>                                               = Tools.Evolvable<E>;
+    type Evolve<O extends Evolvable<E>,  E extends Evolver>                         = Tools.Evolve<O, E>;
+    type Evolver                                                                    = Tools.Evolver;
+    type Filter                                                                     = Tools.Filter;
+    type Functor<A>                                                                 = Tools.Functor<A>;
+    type KeyValuePair<K, V>                                                         = Tools.KeyValuePair<K, V>;
+    type Lens                                                                       = Tools.Lens;
+    type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = Tools.Merge<O1, O2, Depth>;
+    type MergeAll<Os extends readonly object[]>                                     = Tools.MergeAll<Os>;
+    type ObjPred                                                                    = Tools.ObjPred;
+    type Ord                                                                        = Tools.Ord;
+    type Path                                                                       = Tools.Path;
+    type Placeholder                                                                = Tools.Placeholder;
+    type Pred                                                                       = Tools.Pred;
+    type PipeWithFns<V0, R>                                                         = Tools.PipeWithFns<V0, R>;
+    type Reduced<A>                                                                 = Tools.Reduced<A>;
+    type SafePred<A>                                                                = Tools.SafePred<A>;
+    type ValueOfRecord<R>                                                           = Tools.ValueOfRecord<R>;
 
     interface Static {
         /**
@@ -1638,7 +1638,7 @@ declare namespace R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<Os extends readonly object[]>(list: Os): MergeAll<Os>
+        mergeAll<Os extends readonly object[]>(list: Os): MergeAll<Os>;
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects:

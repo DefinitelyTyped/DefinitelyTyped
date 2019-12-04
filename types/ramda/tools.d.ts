@@ -198,7 +198,7 @@ type EvolveNestedValue<O, E extends Evolver> =
  * @param E
  */
 type EvolveValue<V, E> =
-    E extends (value: V) => any 
+    E extends (value: V) => any
     ? ReturnType<E>
     : E extends Evolver
       ? EvolveNestedValue<V, E>
