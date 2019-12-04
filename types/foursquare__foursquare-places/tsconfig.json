@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@foursquare/foursquare-places": [
+                "foursquare__foursquare-places"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "foursquare__foursquare-places-tests.ts"
+    ]
+}
