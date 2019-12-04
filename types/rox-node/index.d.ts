@@ -49,6 +49,12 @@ export interface RoxSetupOptions {
   fetchIntervalInSec?: number;
   disableNetworkFetch?: boolean;
   devModeSecret?: string;
+  /**
+   * Set Roxy's URL for automated tests or local development.
+   *
+   * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+   */
+  roxy?: string;
 }
 
 export enum RoxFetcherStatus {

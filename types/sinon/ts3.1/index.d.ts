@@ -351,11 +351,16 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K, types?: string[]): T[K] extends (
+        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
             ...args: infer TArgs
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
+
+        <T, K extends keyof T>(obj: T, method: K, types: Array<('get'|'set')>): PropertyDescriptor & {
+            get: SinonSpy<[], T[K]>;
+            set: SinonSpy<[T[K]], void>;
+        };
     }
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>

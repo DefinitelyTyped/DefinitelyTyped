@@ -19,12 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "cacheNames.d.ts",
-        "clientsClaim.d.ts",
-        "registerQuotaErrorCallback.d.ts",
-        "setCacheNameDetails.d.ts",
-        "skipWaiting.d.ts",
-        "types/WorkboxPlugin.d.ts",
         "workbox-core-tests.ts"
     ]
 }

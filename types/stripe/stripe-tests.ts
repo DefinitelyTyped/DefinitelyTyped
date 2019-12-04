@@ -1046,6 +1046,84 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 
 //#endregion
 
+//#region Topups tests
+// ##################################################################################
+
+stripe.topups.create(
+    {
+        amount: 2000,
+        currency: 'usd',
+        description: 'Top-up for Jenny Rosen',
+        statement_descriptor: 'Top-up',
+        metadata: {
+            key: 'any',
+        },
+        source: 'sourceId',
+        transfer_group: 'transfer group',
+    },
+    (err, topup) => {
+        topup; // $ExpectType ITopup
+    },
+);
+
+stripe.topups
+    .create({
+        amount: 2000,
+        currency: 'usd',
+        description: 'Top-up for Jenny Rosen',
+        statement_descriptor: 'Top-up',
+        metadata: {
+            key: 'any',
+        },
+        source: 'sourceId',
+        transfer_group: 'transfer group',
+    })
+    .then(topup => {
+        topup; // $ExpectType ITopup
+    });
+
+stripe.topups.retrieve('tu_123456789', (err, topup) => {
+    topup; // $ExpetType ITopup
+});
+
+stripe.topups.retrieve('tu_123456789').then(topup => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }, (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' }, description: 'description' }, (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }).then(topup => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.list({ amount: '25', limit: 3, status: 'canceled' }, (err, topups) => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.list({ amount: { gt: '24', lt: '50' }, limit: 3, status: 'succeeded' }, (err, topups) => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.list({ limit: 3 }).then(topups => {
+    topups; // $ExpectType IList<ITopup>
+});
+
+stripe.topups.cancel('tu_123456789', (err, topup) => {
+    topup; // $ExpectType ITopup
+});
+
+stripe.topups.cancel('tu_123456789').then(topup => {
+    topup; // $ExpectType ITopup
+});
+
+//#endregion
+
 //#region Transfers tests
 // ##################################################################################
 
@@ -1376,6 +1454,97 @@ stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then(persons => {
 });
 //#endregion
 
+//#region Issuing tests
+// ##################################################################################
+
+// Authorizations
+stripe.issuing.authorizations.approve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
+	// asynchronously called
+});
+stripe.issuing.authorizations.decline('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
+	// asynchronously called
+});
+stripe.issuing.authorizations.list({ card: 'ic_hl1LlYJvbh660ib4viYdZdj4' }).then(authorization => {
+	// asynchronously called
+});
+stripe.issuing.authorizations.retrieve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
+	// asynchronously called
+});
+stripe.issuing.authorizations.update('iauth_h1i4AfJvb7x60ib4t6HYQah4', { metadata: {} }).then(authorization => {
+	// asynchronously called
+});
+
+// Cardholders
+stripe.issuing.cardholders.create({
+	billing: {
+		address: {
+			line1: '1 Remote Way',
+			line2: 'Mistro Inc',
+			city: 'San Francisco',
+			state: 'CA',
+			postal_code: '94104',
+			country: 'US',
+		}
+	},
+	name: 'John Doe',
+	type: 'business_entity',
+}).then(cardholder => {
+	// asynchronously called
+});
+stripe.issuing.cardholders.list({ email: 'hello@mistro.io' }).then(cardholder => {
+	// asynchronously called
+});
+stripe.issuing.cardholders.retrieve('ich_jd4b0pJvb7x60u442RQUnv2f').then(cardholder => {
+	// asynchronously called
+});
+stripe.issuing.cardholders.update('ich_jd4b0pJvb7x60u442RQUnv2f', { metadata: {} }).then(cardholder => {
+	// asynchronously called
+});
+
+stripe.issuing.cards.create({ currency: 'usd', type: 'physical' }).then(card => {
+	// asynchronously called
+});
+stripe.issuing.cards.list({ cardholder: 'ich_jd4b0pJvb7x60u442RQUnv2f'}).then(card => {
+	// asynchronously called
+});
+stripe.issuing.cards.retrieve('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
+	// asynchronously called
+});
+stripe.issuing.cards.retrieveDetails('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
+	// asynchronously called
+});
+stripe.issuing.cards.update('ic_hl1LlYJvbh660ib4viYdZdj4', { metadata: {} }).then(card => {
+	// asynchronously called
+});
+
+stripe.issuing.disputes.create({
+	disputed_transaction: 'ipi_6diQkdnvb7x60ib4j9amJDBW',
+	reason: 'fraudlent',
+}).then(dispute => {
+	// asynchronously called
+});
+stripe.issuing.disputes.list({ limit: 3 }).then(dispute => {
+	// asynchronously called
+});
+stripe.issuing.disputes.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
+	// asynchronously called
+});
+stripe.issuing.disputes.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
+	// asynchronously called
+});
+
+stripe.issuing.transactions.list({ limit: 3}).then(dispute => {
+	// asynchronously called
+});
+stripe.issuing.transactions.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
+	// asynchronously called
+});
+stripe.issuing.transactions.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
+	// asynchronously called
+});
+
+// ##endregion
+
 //#region Application Fee Refunds tests
 // ##################################################################################
 
@@ -1391,6 +1560,35 @@ stripe.applicationFees.retrieveRefund('fee_1Eq2auEELBA7Bnp1FpeuNccq', 'fr_1Eq2au
 
 //#region Country Specs tests
 // ##################################################################################
+
+//#endregion
+
+//#region Reviews tests
+// ##################################################################################
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+    review; // $ExpectType IReview
+});
+
+stripe.reviews.list({ limit: 3 }, (err, reviews) => {
+    reviews; // $ExpectType IList<IReview>
+});
+
+stripe.reviews.list({ limit: 3 }).then(reviews => {
+    reviews; // $ExpectType IList<IReview>
+});
 
 //#endregion
 
@@ -1652,6 +1850,56 @@ stripe.coupons.list({ limit: 3 }, (err, coupons) => {
     // asynchronously called
 });
 stripe.coupons.list({ limit: 3 }).then(coupons => {
+    // asynchronously called
+});
+
+//#endregion
+
+//#region FileLinks tests
+// ##################################################################################
+
+stripe.fileLinks.create(
+    { file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks
+    .create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } })
+    .then(fileLink => {
+        fileLink; // $ExpectType IFileLink
+    });
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update(
+    'link_1FhJXrBZBR5SQORg2hZCYnZ7',
+    { expires_at: 'now', metadata: { order_id: '6735' } },
+    (err, fileLink) => {
+        fileLink; // $ExpectType IFileLink
+    },
+);
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', { expires_at: 1542822417 }, (err, fileLink) => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', {}).then(fileLink => {
+    fileLink; // $ExpectType IFileLink
+});
+
+stripe.fileLinks.list({ limit: 3 }, (err, fileLinks) => {
+    // asynchronously called
+});
+
+stripe.fileLinks.list({ limit: 3 }).then(fileLinks => {
     // asynchronously called
 });
 

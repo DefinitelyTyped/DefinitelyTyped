@@ -2,21 +2,23 @@
 // Project: http://auth0.com
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-/// <reference types="auth0-js/v7" />
+/// <reference types="auth0-js" />
 
 interface Auth0WidgetStatic {
     new(params: Auth0Constructor): Auth0WidgetStatic;
 
-    getClient(): Auth0Static;
-    getProfile(token: string, callback: Function): Auth0UserProfile;
-    parseHash(hash: string): Auth0DecodedHash;
+    getClient(): import("auth0-js").Authentication;
+    getProfile(token: string, callback: Function): import("auth0-js").Auth0UserProfile;
+    parseHash(hash: string): import("auth0-js").Auth0DecodedHash;
     reset(options: Auth0Options, callback?: Function): Auth0WidgetStatic;
     signin(options: Auth0Options, widgetLoadedCallback?: Function, popupCallback?: Function): Auth0WidgetStatic;
-    signup(options: Auth0Options, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): Auth0WidgetStatic;
+    signup(options: Auth0Options, callback: (error?: import("auth0-js").Auth0Error, profile?: import("auth0-js").Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): Auth0WidgetStatic;
  }
 
-interface Auth0Constructor extends Auth0ClientOptions {
+type ClientOptions = import("auth0-js").AuthOptions;
+interface Auth0Constructor extends ClientOptions {
      assetsUrl?: string;
      cdn?: string;
      dict?: any;

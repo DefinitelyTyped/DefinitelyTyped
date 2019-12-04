@@ -38,7 +38,7 @@ declare namespace StylelintWebpackPlugin {
         context?: string;
         emitErrors?: boolean;
         failOnError?: boolean;
-        files?: string[];
+        files?: string|string[];
         formatter?: Formatter;
         lintDirtyModulesOnly?: boolean;
         syntax?: string;

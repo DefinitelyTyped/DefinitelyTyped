@@ -528,7 +528,42 @@ export class Color {
 	 * Returns new color object, when given color in array representation (ex: [200, 100, 100, 0.5])
 	 */
 	static fromSource(source: number[]): Color;
+	/**
+	 * Regex matching color in HEX format (ex: #FF5544CC, #FF5555, 010155, aff)
+	 * @static
+	 * @field
+	 * @memberOf fabric.Color
+	 */
+	static reHex: RegExp
+	/**
+	 * Regex matching color in HSL or HSLA formats (ex: hsl(200, 80%, 10%), hsla(300, 50%, 80%, 0.5), hsla( 300 , 50% , 80% , 0.5 ))
+	 * @static
+	 * @field
+	 * @memberOf fabric.Color
+	 */
+	static reHSLa: RegExp
+	/**
+	 * Regex matching color in RGB or RGBA formats (ex: rgb(0, 0, 0), rgba(255, 100, 10, 0.5), rgba( 255 , 100 , 10 , 0.5 ), rgb(1,1,1), rgba(100%, 60%, 10%, 0.5))
+	 * @static
+	 * @field
+	 * @memberOf fabric.Color
+	 */
+	static reRGBa: RegExp
 }
+
+interface IGradientOptionsCoords {
+	x1?: number;
+	y1?: number;
+	x2?: number;
+	y2?: number;
+	r1?: number;
+	r2?: number;
+}
+
+type IGradientOptionsColorStops = Array<{
+	offset: string,
+	color: string,
+}>;
 
 interface IGradientOptions {
 	/**
@@ -542,15 +577,55 @@ interface IGradientOptions {
 	 */
 	offsetY?: number;
 	type?: string;
-	coords?: {x1?: number, y1?: number, x2?: number, y2?: number, r1?: number, r2?: number};
+	coords?: IGradientOptionsCoords;
 	/**
 	 * Color stops object eg. {0:string; 1:string;
 	 */
-	colorStops?: any;
+	colorStops?: IGradientOptionsColorStops;
 	gradientTransform?: any;
 }
+
+interface OGradientOptions {
+	type?: string;
+	x1?: number;
+	y1?: number;
+	x2?: number;
+	y2?: number;
+	r1?: number;
+	r2?: number;
+	colorStops?: {
+		[key: string]: string
+	};
+	gradientTransform?: any;
+}
+
 export interface Gradient extends IGradientOptions { }
 export class Gradient {
+	/**
+     * Constructor
+     * @param {Object} options Options object with type, coords, gradientUnits and colorStops
+     * @param {Object} [options.type] gradient type linear or radial
+     * @param {Object} [options.gradientUnits] gradient units
+     * @param {Object} [options.offsetX] SVG import compatibility
+     * @param {Object} [options.offsetY] SVG import compatibility
+     * @param {Object[]} options.colorStops contains the colorstops.
+     * @param {Object} options.coords contains the coords of the gradient
+     * @param {Number} [options.coords.x1] X coordiante of the first point for linear or of the focal point for radial
+     * @param {Number} [options.coords.y1] Y coordiante of the first point for linear or of the focal point for radial
+     * @param {Number} [options.coords.x2] X coordiante of the second point for linear or of the center point for radial
+     * @param {Number} [options.coords.y2] Y coordiante of the second point for linear or of the center point for radial
+     * @param {Number} [options.coords.r1] only for radial gradient, radius of the inner circle
+     * @param {Number} [options.coords.r2] only for radial gradient, radius of the external circle
+     * @return {fabric.Gradient} thisArg
+     */
+	constructor(options: {
+		type?: string;
+		gradientUnits?: any;
+		offsetX?: any;
+		offsetY?: any;
+		colorStops?: IGradientOptionsColorStops;
+		coords?: IGradientOptionsCoords;
+	});
 	/**
 	 * Adds another colorStop
 	 * @param colorStop Object with offset and color
@@ -1160,7 +1235,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setBackgroundColor(backgroundColor: string | Pattern, callback: Function): Canvas;
+	setBackgroundColor(backgroundColor: string | Pattern | Gradient, callback: Function): Canvas;
 
 	/**
 	 * Returns canvas width (in px)
@@ -1610,7 +1685,7 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string | Pattern;
+	fill?: string | Pattern | Gradient;
 
 	/**
 	 * Indicates which key enable centered Transform
@@ -2692,7 +2767,7 @@ interface IObjectOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string | Pattern;
+	fill?: string | Pattern | Gradient;
 
 	/**
 	 * Fill rule used to fill an object
@@ -3224,7 +3299,7 @@ export class Object {
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: "stroke" | "fill", options?: IGradientOptions): Object;
+	setGradient(property: "stroke" | "fill", options?: OGradientOptions): Object;
 
 	/**
 	 * Sets pattern fill of an object

@@ -1,82 +1,51 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/block-editor": ["wordpress__block-editor"],
-            "@wordpress/blocks": ["wordpress__blocks"],
-            "@wordpress/components": ["wordpress__components"],
-            "@wordpress/data": ["wordpress__data"],
-            "@wordpress/element": ["wordpress__element"],
-            "@wordpress/keycodes": ["wordpress__keycodes"],
-            "@wordpress/notices": ["wordpress__notices"],
-            "@wordpress/rich-text": ["wordpress__rich-text"]
+            "@wordpress/block-editor": [
+                "wordpress__block-editor"
+            ],
+            "@wordpress/blocks": [
+                "wordpress__blocks"
+            ],
+            "@wordpress/components": [
+                "wordpress__components"
+            ],
+            "@wordpress/data": [
+                "wordpress__data"
+            ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
+            "@wordpress/keycodes": [
+                "wordpress__keycodes"
+            ],
+            "@wordpress/notices": [
+                "wordpress__notices"
+            ],
+            "@wordpress/rich-text": [
+                "wordpress__rich-text"
+            ]
         }
     },
     "files": [
-        "components/alignment-toolbar.d.ts",
-        "components/autocomplete.d.ts",
-        "components/block-alignment-toolbar.d.ts",
-        "components/block-controls.d.ts",
-        "components/block-edit.d.ts",
-        "components/block-editor-keyboard-shortcuts.d.ts",
-        "components/block-format-controls.d.ts",
-        "components/block-icon.d.ts",
-        "components/block-inspector.d.ts",
-        "components/block-list.d.ts",
-        "components/block-mover.d.ts",
-        "components/block-navigation/dropdown.d.ts",
-        "components/block-selection-clearer.d.ts",
-        "components/block-settings-menu.d.ts",
-        "components/block-switcher/multi-blocks-switcher.d.ts",
-        "components/block-title.d.ts",
-        "components/block-toolbar.d.ts",
-        "components/block-vertical-alignment-toolbar.d.ts",
-        "components/button-block-appender.d.ts",
-        "components/color-palette/index.d.ts",
-        "components/color-palette/with-color-context.d.ts",
-        "components/colors.d.ts",
-        "components/contrast-checker.d.ts",
-        "components/copy-handler.d.ts",
-        "components/default-block-appender.d.ts",
-        "components/font-sizes.d.ts",
-        "components/index.d.ts",
-        "components/inner-blocks.d.ts",
-        "components/inserter.d.ts",
-        "components/inspector-advanced-controls.d.ts",
-        "components/inspector-controls.d.ts",
-        "components/media-placeholder.d.ts",
-        "components/media-upload/check.d.ts",
-        "components/media-upload/index.d.ts",
-        "components/multi-select-scroll-into-view.d.ts",
-        "components/navigable-toolbar.d.ts",
-        "components/observe-typing.d.ts",
-        "components/panel-color-settings.d.ts",
-        "components/plain-text.d.ts",
-        "components/preserve-scroll-in-reorder.d.ts",
-        "components/provider.d.ts",
-        "components/rich-text.d.ts",
-        "components/skip-to-selected-block.d.ts",
-        "components/url-input/button.d.ts",
-        "components/url-input/index.d.ts",
-        "components/url-popover.d.ts",
-        "components/warning.d.ts",
-        "components/writing-flow.d.ts",
         "index.d.ts",
-        "store/actions.d.ts",
-        "store/defaults.d.ts",
-        "store/index.d.ts",
-        "store/selectors.d.ts",
         "wordpress__block-editor-tests.tsx"
     ]
 }

@@ -5,6 +5,7 @@
 //                 Brian Andrews <https://github.com/sbardian>
 //                 Rodrigo Pombo <https://github.com/pomber>
 //                 Justin Hall <https://github.com/wKovacs64>
+//                 Prateek Kathal <https://github.com/prateekkathal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -76,6 +77,14 @@ export type ColorMode = {
 };
 
 export interface Theme extends StyledSystemTheme {
+    /**
+     * Enable/disable custom CSS properties/variables if lower browser
+     * support is required (for eg. IE 11).
+     *
+     * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
+     */
+    useCustomProperties?: boolean;
+
     /**
      * Provide a value here to enable color modes
      */

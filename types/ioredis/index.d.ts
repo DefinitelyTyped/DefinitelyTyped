@@ -1014,7 +1014,7 @@ declare namespace IORedis {
          * When the return value isn't a number, ioredis will stop trying to reconnect.
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
-        retryStrategy?(times: number): number | false;
+        retryStrategy?(times: number): number | void | null;
         /**
          * By default, all pending commands will be flushed with an error every
          * 20 retry attempts. That makes sure commands won't wait forever when
@@ -1056,8 +1056,41 @@ declare namespace IORedis {
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
         tls?: tls.ConnectionOptions;
-        sentinels?: Array<{ host: string; port: number; }>;
+        /**
+         * default: "master".
+         */
+        role?: "master" | "slave";
+        /**
+         * default: null.
+         */
         name?: string;
+        sentinelPassword?: string;
+        sentinels?: Array<{ host: string; port: number; }>;
+        /**
+         * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
+         * default: function(times) { return Math.min(times * 10, 1000); }
+         */
+        sentinelRetryStrategy?(times: number): number | void | null;
+        /**
+         * Can be used to prefer a particular slave or set of slaves based on priority.
+         */
+        preferredSlaves?: PreferredSlaves;
+        /**
+         * Whether to support the `tls` option when connecting to Redis via sentinel mode.
+         * default: false.
+         */
+        enableTLSForSentinelMode?: boolean;
+        sentinelTLS?: SecureContextOptions;
+        /**
+         * NAT map for sentinel connector.
+         * default: null.
+         */
+        natMap?: NatMap;
+        /**
+         * Update the given `sentinels` list with new IP addresses when communicating with existing sentinels.
+         * default: true.
+         */
+        updateSentinels?: boolean;
         /**
          * Enable READONLY mode for the connection. Only available for cluster mode.
          * default: false.
@@ -1072,6 +1105,56 @@ declare namespace IORedis {
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
         showFriendlyErrorStack?: boolean;
+    }
+
+    interface AddressFromResponse {
+        port: string;
+        ip: string;
+        flags?: string;
+    }
+
+    type PreferredSlaves =
+        | ((slaves: AddressFromResponse[]) => AddressFromResponse | null)
+        | Array<{ port: string; ip: string; prio?: number }>
+        | { port: string; ip: string; prio?: number };
+
+    type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
+
+    interface SecureContextOptions {
+        pfx?: string | Buffer | Array<string | Buffer | object>;
+        key?: string | Buffer | Array<Buffer | object>;
+        passphrase?: string;
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
+        ciphers?: string;
+        honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        clientCertEngine?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
+        /**
+         * Optionally set the maximum TLS version to allow. One
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * `secureProtocol` option, use one or the other.
+         * **Default:** `'TLSv1.3'`, unless changed using CLI options. Using
+         * `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using `--tls-max-v1.3` sets the default to
+         * `'TLSv1.3'`. If multiple of the options are provided, the highest maximum is used.
+         */
+        maxVersion?: SecureVersion;
+        /**
+         * Optionally set the minimum TLS version to allow. One
+         * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
+         * `secureProtocol` option, use one or the other.  It is not recommended to use
+         * less than TLSv1.2, but it may be required for interoperability.
+         * **Default:** `'TLSv1.2'`, unless changed using CLI options. Using
+         * `--tls-v1.0` sets the default to `'TLSv1'`. Using `--tls-v1.1` sets the default to
+         * `'TLSv1.1'`. Using `--tls-min-v1.3` sets the default to
+         * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
+         */
+        minVersion?: SecureVersion;
     }
 
     interface ScanStreamOption {
