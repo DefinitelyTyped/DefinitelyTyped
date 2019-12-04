@@ -1,9 +1,9 @@
 export interface View {
-    elementType: keyof HTMLElementTagNameMap,
-    attributes: any,
-    children: any,
-    genKey: (parentKey?: string, index?: number) => void,
-    render: (parentKey?: string, index?: number) => Node
+    elementType: keyof HTMLElementTagNameMap;
+    attributes: any;
+    children: any;
+    genKey: (parentKey?: string, index?: number) => void;
+    render: (parentKey?: string, index?: number) => Node;
 }
 
 export type Component<T extends keyof HTMLElementTagNameMap> = (attributes?: any) => (...children: any) => View;
