@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "alwaysStrict": true,
         "target": "es5",
         "allowJs": true,
         "checkJs": true,
