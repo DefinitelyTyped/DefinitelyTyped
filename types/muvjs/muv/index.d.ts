@@ -1,4 +1,4 @@
-import {View} from 'muvjs/muv-dom/muv-dom'
+import {View} from 'muvjs/muv-dom'
 
 export type MUV<M, U, V, I, S, A, E> = {
     model: M,

@@ -8,7 +8,7 @@
         "checkJs": true,
         "module": "commonjs",
         "lib": [
-            "es2019",
+            "es6",
             "dom"
         ],
         "noImplicitAny": true,
@@ -24,8 +24,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "muv/muv.d.ts",
-        "muv-dom/muv-dom.d.ts",
+        "index.d.ts",
+        "muv/index.d.ts",
+        "muv-dom/index.d.ts",
         "muvjs-tests.ts"
     ]
 }
