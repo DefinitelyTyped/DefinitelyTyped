@@ -22,7 +22,7 @@ declare global {
 
 import * as CSS from "csstype";
 import * as React from "react";
-import hoistNonReactStatics = require('hoist-non-react-statics');
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
 
 export type CSSProperties = CSS.Properties<string | number>;
 
