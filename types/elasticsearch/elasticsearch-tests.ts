@@ -299,7 +299,7 @@ client.search({
     allTitles.push(hit.fields.title);
   });
 
-  if (response.hits.total !== allTitles.length) {
+  if (response.hits.total.value !== allTitles.length) {
     // now we can call scroll over and over
     client.scroll({
       scrollId: response._scroll_id!,

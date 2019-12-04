@@ -1,4 +1,4 @@
-// Type definitions for elasticsearch 5.0
+// Type definitions for elasticsearch 16.5
 // Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/16.x/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt>
 //                 Blake Smith <https://github.com/bfsmith>
@@ -11,6 +11,7 @@
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Yonatan Kiron <https://github.com/YonatanKiron>
 //                 Jani Šumak <https://github.com/dasdachs>
+//                 Viet Bui <https://github.com/vietbui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -609,7 +610,10 @@ export interface SearchResponse<T> {
     _scroll_id?: string;
     _shards: ShardsResponse;
     hits: {
-        total: number;
+        total: {
+            value: number;
+            relation: "eq" | "gte";
+        };
         max_score: number;
         hits: Array<{
             _index: string;
