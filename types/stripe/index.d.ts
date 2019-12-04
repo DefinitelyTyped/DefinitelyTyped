@@ -7836,6 +7836,11 @@ declare namespace Stripe {
 
         interface ISetupIntentConfirmOptions {
             /**
+             * The client secret of this SetupIntent. Used for client-side confirmation using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled.
+             */
+            client_secret?: string;
+
+            /**
              * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
              * to attach to this SetupIntent.
              */
