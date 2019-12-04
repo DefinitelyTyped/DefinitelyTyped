@@ -353,7 +353,7 @@ export interface Source<Q extends BaseQuad = Quad> {
      * @param graph     The optional exact graph or graph regex to match.
      * @return The resulting quad stream.
      */
-    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): Stream<Q>;
+    match(subject?: Q['subject'] | RegExp, predicate?: Q['predicate'] | RegExp, object?: Q['object'] | RegExp, graph?: Q['graph'] | RegExp): Stream<Q>;
 }
 
 /**
@@ -409,7 +409,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
      * @param graph     The optional exact graph or graph regex to match.
      * @return The resulting event emitter.
      */
-    removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
+    removeMatches(subject?: Q['subject'] | RegExp, predicate?: Q['predicate'] | RegExp, object?: Q['object'] | RegExp, graph?: Q['graph'] | RegExp)
         : EventEmitter;
 
     /**
@@ -465,7 +465,7 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): DatasetCore<Q>;
+    match(subject?: Q['subject'], predicate?: Q['predicate'], object?: Q['object'], graph?: Q['graph']): DatasetCore<Q>;
 
     [Symbol.iterator](): Iterator<Q>;
 }
