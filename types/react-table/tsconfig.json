@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "utils.d.ts",
         "react-table-tests.tsx"
     ]
 }
