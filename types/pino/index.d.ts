@@ -507,7 +507,7 @@ declare namespace P {
         /**
          * Returns an object containing all the current bindings, cloned from the ones passed in via logger.child().
          */
-        bindings(): Bindings
+        bindings(): Bindings;
     }
 
     type LevelChangeEventListener = (
