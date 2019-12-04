@@ -1,4 +1,4 @@
-// Type definitions for express-list-endpoints 4.0.1
+// Type definitions for express-list-endpoints 4.0
 // Project: https://github.com/AlbertoFdzM/express-list-endpoints
 // Definitions by: S Joseph <https://github.com/sjoseph7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
