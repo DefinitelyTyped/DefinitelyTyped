@@ -229,7 +229,7 @@ export type TableProps = GridCoreProps & {
     /** Optional id */
     id?: string;
     /** Optional renderer to be used in place of table body rows when rowCount is 0 */
-    noRowsRenderer?: () => JSX.Element;
+    noRowsRenderer?: () => JSX.Element | null;
     /**
      * Optional callback when a column's header is clicked.
      * ({ columnData: any, dataKey: string }): void
