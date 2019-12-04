@@ -2374,6 +2374,14 @@ stripe.subscriptions.create(
         // asynchronously called
     },
 );
+
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
 stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
     // asynchronously called
 

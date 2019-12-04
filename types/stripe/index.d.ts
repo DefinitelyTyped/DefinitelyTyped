@@ -10594,6 +10594,11 @@ declare namespace Stripe {
              * The identifier of the customer to subscribe.
              */
             customer: string;
+
+            /**
+             * A date in the future at which the subscription will automatically get canceled.
+             */
+            cancel_at?: number | null;
         }
 
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
