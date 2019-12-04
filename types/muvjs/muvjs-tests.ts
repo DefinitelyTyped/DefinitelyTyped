@@ -3,8 +3,8 @@
 
 // MODEL
 
-import {button, div} from "./muv-dom";
-import {muv} from "./muv";
+import {button, div} from "muvjs/muv-dom";
+import {muv} from "muvjs/muv";
 
 export const model =
     {

@@ -24,8 +24,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "muv.d.ts",
-        "muv-dom.d.ts",
+        "muv/muv.d.ts",
+        "muv-dom/muv-dom.d.ts",
         "muvjs-tests.ts"
     ]
 }
