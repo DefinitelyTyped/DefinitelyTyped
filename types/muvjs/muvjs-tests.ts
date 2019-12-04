@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path="muvjs/index.d.ts" />
 
 // MODEL
 
