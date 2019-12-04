@@ -1,4 +1,4 @@
-declare interface View {
+export interface View {
     elementType: keyof HTMLElementTagNameMap,
     attributes: any,
     children: any,
