@@ -1,4 +1,4 @@
-// Type definitions for react-mentions 3.0
+// Type definitions for react-mentions 3.3
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
 //                 Eugene Fedorenko <https://github.com/efedorenko>
