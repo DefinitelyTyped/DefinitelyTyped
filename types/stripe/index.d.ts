@@ -83,7 +83,7 @@ declare class Stripe {
     resources: typeof Stripe.resources;
     StripeResource: typeof Stripe.StripeResource;
 
-    constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, config?: Stripe.Config);
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
@@ -172,6 +172,17 @@ declare namespace Stripe {
 
     /** Any Stripe source, including a bank account, credit/debit card, or less common "Source" types (see https://stripe.com/docs/api/sources/object). */
     type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
+
+    // The config object for the constructor.
+    interface Config {
+        apiVersion?: string | null;
+        maxNetworkRetries?: number;
+        httpAgent?: Agent | null;
+        timeout?: number;
+        host?: string;
+        port?: number;
+        telemetry?: boolean;
+    }
 
     namespace accounts {
         // Helper

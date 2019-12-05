@@ -1,10 +1,19 @@
 import Stripe = require('stripe');
 import { customers } from 'stripe';
-
-const stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K');
-
 import { Agent as HttpAgent } from 'http';
 import { Agent as HttpsAgent } from 'https';
+
+new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {
+  apiVersion: '2019-08-08',
+  maxNetworkRetries: 1,
+  httpAgent: new HttpAgent(),
+  timeout: 1000,
+  host: 'api.example.com',
+  port: 123,
+  telemetry: true,
+});
+
+const stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K');
 
 stripe.setHttpAgent(new HttpAgent());
 stripe.setHttpAgent(new HttpsAgent());
