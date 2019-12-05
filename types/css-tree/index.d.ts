@@ -49,8 +49,8 @@ export class List<TData> {
     nextUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
     prevUntil<TContext>(start: ListItem<TData>, fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
     prevUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
-    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
-    some(fn: IteratorFn<TData, boolean>): void;
+    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): boolean;
+    some(fn: IteratorFn<TData, boolean>): boolean;
     map<TContext, TResult>(fn: IteratorFn<TData, TResult, TContext>, context: TContext): List<TResult>;
     map<TResult>(fn: IteratorFn<TData, TResult>): List<TResult>;
     filter<TContext, TResult extends TData>(fn: FilterFn<TData, TResult, TContext>, context: TContext): List<TResult>;
@@ -527,16 +527,71 @@ export interface WalkContext {
     function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
 }
 
-export type EnterOrLeaveFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => void;
+export type EnterOrLeaveFn<NodeType = CssNode> = (this: WalkContext, node: NodeType, item: ListItem<CssNode>, list: List<CssNode>) => void;
 
-export interface WalkOptions {
+export interface WalkOptionsNoVisit {
     enter?: EnterOrLeaveFn;
     leave?: EnterOrLeaveFn;
-    visit?: string;
     reverse?: boolean;
 }
 
+export interface WalkOptionsVisit<NodeType = CssNode, NodeTypeName = string> {
+    visit: NodeTypeName;
+    enter?: EnterOrLeaveFn<NodeType>;
+    leave?: EnterOrLeaveFn<NodeType>;
+    reverse?: boolean;
+}
+
+export type WalkOptions =
+    WalkOptionsVisit<AnPlusB, 'AnPlusB'>
+    | WalkOptionsVisit<Atrule, 'Atrule'>
+    | WalkOptionsVisit<AtrulePrelude, 'AtrulePrelude'>
+    | WalkOptionsVisit<AttributeSelector, 'AttributeSelector'>
+    | WalkOptionsVisit<Block, 'Block'>
+    | WalkOptionsVisit<Brackets, 'Brackets'>
+    | WalkOptionsVisit<CDC, 'CDC'>
+    | WalkOptionsVisit<CDO, 'CDO'>
+    | WalkOptionsVisit<ClassSelector, 'ClassSelector'>
+    | WalkOptionsVisit<Combinator, 'Combinator'>
+    | WalkOptionsVisit<Comment, 'Comment'>
+    | WalkOptionsVisit<Declaration, 'Declaration'>
+    | WalkOptionsVisit<DeclarationList, 'DeclarationList'>
+    | WalkOptionsVisit<Dimension, 'Dimension'>
+    | WalkOptionsVisit<FunctionNode, 'FunctionNode'>
+    | WalkOptionsVisit<HexColor, 'HexColor'>
+    | WalkOptionsVisit<IdSelector, 'IdSelector'>
+    | WalkOptionsVisit<Identifier, 'Identifier'>
+    | WalkOptionsVisit<MediaFeature, 'MediaFeature'>
+    | WalkOptionsVisit<MediaQuery, 'MediaQuery'>
+    | WalkOptionsVisit<MediaQueryList, 'MediaQueryList'>
+    | WalkOptionsVisit<Nth, 'Nth'>
+    | WalkOptionsVisit<NumberNode, 'NumberNode'>
+    | WalkOptionsVisit<Operator, 'Operator'>
+    | WalkOptionsVisit<Parentheses, 'Parentheses'>
+    | WalkOptionsVisit<Percentage, 'Percentage'>
+    | WalkOptionsVisit<PseudoClassSelector, 'PseudoClassSelector'>
+    | WalkOptionsVisit<PseudoElementSelector, 'PseudoElementSelector'>
+    | WalkOptionsVisit<Ratio, 'Ratio'>
+    | WalkOptionsVisit<Raw, 'Raw'>
+    | WalkOptionsVisit<Rule, 'Rule'>
+    | WalkOptionsVisit<Selector, 'Selector'>
+    | WalkOptionsVisit<SelectorList, 'SelectorList'>
+    | WalkOptionsVisit<StringNode, 'StringNode'>
+    | WalkOptionsVisit<StyleSheet, 'StyleSheet'>
+    | WalkOptionsVisit<TypeSelector, 'TypeSelector'>
+    | WalkOptionsVisit<UnicodeRange, 'UnicodeRange'>
+    | WalkOptionsVisit<Url, 'Url'>
+    | WalkOptionsVisit<Value, 'Value'>
+    | WalkOptionsVisit<WhiteSpace, 'WhiteSpace'>
+    | WalkOptionsNoVisit;
+
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+
+export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
+
+export function find(ast: CssNode, fn: FindFn): CssNode;
+export function findLast(ast: CssNode, fn: FindFn): CssNode;
+export function findAll(ast: CssNode, fn: FindFn): CssNode[];
 
 export interface Property {
     readonly basename: string;
