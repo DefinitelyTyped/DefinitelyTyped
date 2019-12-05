@@ -181,7 +181,4 @@ export class Events {
 export class Messages {
     create(message: Partial<Message>): Promise<IncomingMessage>;
     create(message: Partial<Message>, cb: callback<IncomingMessage>): void;
-
-    listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
-    listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
 }
