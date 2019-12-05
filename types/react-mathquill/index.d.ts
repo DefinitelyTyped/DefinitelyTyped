@@ -2,8 +2,9 @@
 // Project: https://github.com/viktorstrate/react-mathquill#readme
 // Definitions by: Marco Gonzalez <https://github.com/magonzalez9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5' just under the header.
 
-import { ComponentProps, ReactNode, Component } from "react";
+import { ComponentProps, ReactNode, Component } from 'react';
 
 export interface MathField {
     focus(): MathQuill;
@@ -50,7 +51,7 @@ export interface Config {
     };
 }
 
-export interface Props extends Omit<ComponentProps<"span">, 'onChange'> {
+export interface Props extends Omit<ComponentProps<'span'>, 'onChange'> {
     latex: string;
     config?: Config;
     onChange?(mathField: MathQuill): any;
@@ -59,7 +60,6 @@ export interface Props extends Omit<ComponentProps<"span">, 'onChange'> {
 
 export function addStyles(): any;
 
-declare class Mathquill extends Component<Props>  {
-}
+declare class Mathquill extends Component<Props> {}
 
 export default Mathquill;

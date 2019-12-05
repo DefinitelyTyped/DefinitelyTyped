@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Mathquill, {addStyles, Config, MathQuill} from 'react-mathquill';
+import Mathquill, { addStyles, Config, MathQuill } from 'react-mathquill';
 
 addStyles();
 
-function Test() {
+const Test = () => {
     const [latex, setLatex] = React.useState<string>('');
 
     const config: Config = {
@@ -11,7 +11,7 @@ function Test() {
         leftRightIntoCmdGoes: 'up',
         autoSubscriptNumerals: true,
         maxDepth: 10,
-        substituteTextarea: function() {
+        substituteTextarea() {
             return '';
         },
         restrictMismatchedBrackets: true,
@@ -21,27 +21,33 @@ function Test() {
         autoCommands: 'pi theta sqrt',
         autoOperatorNames: 'sin cos tan log',
         handlers: {
-            edit: function(mathField: MathQuill) { return mathField; },
-            enter: function(mathField: MathQuill)  {
-                mathField.blur(); 
+            edit(mathField: MathQuill) {
+                return mathField;
+            },
+            enter(mathField: MathQuill) {
+                mathField.blur();
                 mathField.focus();
-                mathField.keystroke('Tab')
+                mathField.keystroke('Tab');
                 mathField.typedText('test');
                 mathField.moveToLeftEnd();
                 mathField.moveToRightEnd();
-                mathField.moveToDirEnd(1); 
+                mathField.moveToDirEnd(1);
             },
-            upOutOf: function(mathField: MathQuill) { mathField.keystroke('Enter') },
-            moveOutOf: function(dir: number, mathField: MathQuill) { if (dir === 1) mathField.clearSelection() }
-        }   
-    }
+            upOutOf(mathField: MathQuill) {
+                mathField.keystroke('Enter');
+            },
+            moveOutOf(dir: number, mathField: MathQuill) {
+                if (dir === 1) mathField.clearSelection();
+            },
+        },
+    };
 
     return (
         <Mathquill
             latex={latex}
-            onChange={ (MQ: MathQuill) => setLatex(MQ.latex())}
+            onChange={(MQ: MathQuill) => setLatex(MQ.latex())}
             config={config}
-            mathquillDidMount={ (MQ: MathQuill) => MQ.latex('\\sqrt{}')}
+            mathquillDidMount={(MQ: MathQuill) => MQ.latex('\\sqrt{}')}
         />
     );
-}
+};
