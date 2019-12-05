@@ -470,6 +470,7 @@ export interface MGetResponse<T> {
 export interface MSearchParams extends GenericParams {
     search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
     maxConcurrentSearches?: number;
+    restTotalHitsAsInt?: boolean;
     index?: NameList;
     type?: NameList;
 }
@@ -480,6 +481,7 @@ export interface MSearchResponse<T> {
 
 export interface MSearchTemplateParams extends GenericParams {
     search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
+    restTotalHitsAsInt?: boolean;
     index?: NameList;
     type?: NameList;
 }
@@ -561,6 +563,7 @@ export interface RenderSearchTemplateParams extends GenericParams {
 }
 
 export interface ScrollParams extends GenericParams {
+    restTotalHitsAsInt?: boolean;
     scroll: TimeSpan;
     scrollId: string;
 }
@@ -582,6 +585,7 @@ export interface SearchParams extends GenericParams {
     lowercaseExpandedTerms?: boolean;
     preference?: string;
     q?: string;
+    restTotalHitsAsInt?: boolean;
     routing?: NameList;
     scroll?: TimeSpan;
     searchType?: "query_then_fetch" | "dfs_query_then_fetch";
@@ -610,7 +614,7 @@ export interface SearchResponse<T> {
     _scroll_id?: string;
     _shards: ShardsResponse;
     hits: {
-        total: {
+        total: number | {
             value: number;
             relation: "eq" | "gte";
         };
@@ -666,6 +670,7 @@ export interface SearchTemplateParams extends GenericParams {
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
     preference?: string;
+    restTotalHitsAsInt?: boolean;
     routing?: NameList;
     scroll?: TimeSpan;
     searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
