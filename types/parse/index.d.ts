@@ -90,7 +90,6 @@ declare global {
         let serverAuthToken: string | undefined;
         let serverAuthType: string | undefined;
         let serverURL: string;
-        let VERSION: string;
 
         /**
          * Call this method first to set up your authentication tokens for Parse.
