@@ -22,6 +22,8 @@
 // TypeScript Version: 3.3
 
 /// <reference types="node" />
+/// <reference path="./node/index.d.ts" />
+/// <reference path="./react-native/index.d.ts" />
 
 declare enum ErrorCode {
     OTHER_CAUSE = -1,

@@ -19,8 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "node/index.d.ts",
-        "react-native/index.d.ts",
         "parse-tests.ts"
     ]
 }
