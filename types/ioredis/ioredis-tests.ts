@@ -260,9 +260,16 @@ cluster.getBuffer('key', (err, data) => {
 cluster.setnx('keynx', '100', (err, data) => {
     // [null, 'OK']
 });
+
 cluster.setnx('keynx', '200', (err, data) => {
     // [null, 'NOT OK']
 });
+
+cluster.setex('keyex', 100, 'value');
+cluster.setex('keyex', 100, 'value', (err, data) => {
+    // [null, 'OK']
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });

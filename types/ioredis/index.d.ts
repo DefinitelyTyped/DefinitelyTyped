@@ -949,6 +949,9 @@ declare namespace IORedis {
         setnx(key: KeyType, value: ValueType, callback: (err: Error, res: number) => void): void;
         setnx(key: KeyType, value: ValueType): Promise<BooleanResponse>;
 
+        setex(key: KeyType, seconds: number, value: ValueType, callback: (err: Error, res: Ok) => void): void;
+        setex(key: KeyType, seconds: number, value: ValueType): Promise<Ok>;
+
         del(...keys: KeyType[]): Promise<number>;
 
         incr(key: KeyType, callback: (err: Error, res: number) => void): void;
