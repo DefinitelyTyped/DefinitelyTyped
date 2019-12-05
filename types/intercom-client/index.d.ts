@@ -43,6 +43,7 @@ export class Client {
     contacts: Leads;
     leads: Leads;
     visitors: Visitors;
+    messages: Messages;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
