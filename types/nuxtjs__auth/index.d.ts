@@ -47,7 +47,7 @@ export interface Auth<T = any> {
   strategy(): string;
   registerStrategy(strategyName: string, strategy: object): void;
   setStrategy(strategyName: string): void;
-  setUserToken(): Promise<never>;
+  setUserToken(token: string): Promise<never>;
   getRefreshToken(strategyName: string): string;
   setRefreshToken(strategyName: string, token?: string): string;
   syncRefreshToken(strategyName: string): string;
