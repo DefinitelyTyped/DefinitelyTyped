@@ -2,7 +2,7 @@
 // Project: https://github.com/viktorstrate/react-mathquill#readme
 // Definitions by: Marco Gonzalez <https://github.com/magonzalez9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5'
+// TypeScript Version: 3.5
 
 import { ComponentProps, ReactNode, Component } from 'react';
 
