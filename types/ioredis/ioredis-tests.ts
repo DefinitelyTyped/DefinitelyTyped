@@ -313,9 +313,16 @@ cluster.hget('hash', 'foo', (err, data) => {
     // [null, '4']
 });
 
+cluster.expire('key', 300);
 cluster.expire('key', 300, (err, res) => {
     // [null, 1]
 });
+
+cluster.exists('key');
+cluster.exists('key', (err, res) => res * 1);
+
+cluster.hexists('key', 'field');
+cluster.hexists('key', 'field', (err, res) => res * 1);
 
 cluster.disconnect();
 cluster.quit(result => {

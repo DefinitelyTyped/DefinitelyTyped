@@ -12,6 +12,7 @@
 //                 Ting-Wai To <https://github.com/tingwai-to>
 //                 Alex Petty <https://github.com/pettyalex>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Kyle Mazza <https://github.com/kyleamazza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -988,6 +989,12 @@ declare namespace IORedis {
 
         keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
         keys(pattern: string): Promise<string[]>;
+
+        exists(key: KeyType, callback: (err: Error, res: BooleanResponse) => void): void;
+        exists(...key: KeyType[]): Promise<number>;
+
+        hexists(key: KeyType, field: string, callback: (err: Error, res: BooleanResponse) => void): void;
+        hexists(key: KeyType, field: string): Promise<BooleanResponse>;
     }
 
     interface ClusterStatic extends EventEmitter, Commander {
