@@ -103,6 +103,10 @@ export class TextField extends React.Component<TextFieldProps, any> {
      * Get current restriction state
      */
     isRestricted(): boolean;
+    /*
+     * Set current value
+     */
+    setValue(value?: string): void;
 }
 
 export class OutlinedTextField extends TextField {}
