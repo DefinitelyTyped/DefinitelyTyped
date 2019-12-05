@@ -597,6 +597,7 @@ export interface PlotData {
 		axis: {
 			range: number[]
 			visible: boolean
+			tickfont: number
 		}
 		threshold: {
 			line: {
@@ -604,6 +605,7 @@ export interface PlotData {
 				width: number
 			}
 			value: number
+			thickness: number
 		}
 	};
 	number: {
