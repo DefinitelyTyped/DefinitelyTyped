@@ -2593,7 +2593,7 @@ export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (o
  * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
  * the test object's value for the property in question, as well as the whole test object.
  *
- * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
+ * `where` is well suited to declaratively expressing constraints for other functions, e.g.,
  * `filter`, `find`, `pickWith`, etc.
  */
 export function where<T, U>(spec: T, testObj: U): boolean;
