@@ -924,10 +924,18 @@ function testObject() {
         objTyped.newInstance();
     }
 
-    function testRelation(
-        objUntyped: Parse.Object,
-        objTyped: Parse.Object<{ example: number; rel: Parse.Relation }>
-    ) {
+    function testOp(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
+        // $ExpectType any
+        objUntyped.op('whatever');
+
+        // $ExpectType any
+        objTyped.op('example');
+
+        // $ExpectError
+        objTyped.op('other');
+    }
+
+    function testRelation(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number; rel: Parse.Relation }>) {
         // $ExpectType Relation<Object<Attributes>, Object<Attributes>>
         objUntyped.relation('whatever');
 
@@ -941,69 +949,107 @@ function testObject() {
         objTyped.relation('other');
     }
 
-    function testOp(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
-        // $ExpectType any
-        objUntyped.op('whatever');
+    function testRemove(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.remove('whatever', 'hello');
 
-        // $ExpectType any
-        objTyped.op('example');
+        // $ExpectType false | Object<{ stringList: string[]; thing: boolean; }>
+        objTyped.remove('stringList', 'hello');
 
         // $ExpectError
-        objTyped.op('other');
+        objTyped.remove('stringList', 100);
+
+        // $ExpectError
+        objTyped.remove('thing', true);
+
+        // $ExpectError
+        objTyped.remove('whatever', 'hello');
     }
 
-    function testSave() {
-        async function testSaveDefault(objDefault: Parse.Object) {
-            // $ExpectType Object<Attributes>
-            await objDefault.save({
-                something: 100,
-            });
-        }
+    function testRemoveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.removeAll('whatever', [ 'hello', 100 ]);
 
-        async function testSaveWithObj(objWithTypedAttrs: Parse.Object<{ example: boolean }>) {
-            // $ExpectType Object<{ example: boolean; }>
-            const result = await objWithTypedAttrs.save({ example: true });
-            // $ExpectError
-            await objWithTypedAttrs.save({ example: 'hello' });
-            // $ExpectError
-            await objWithTypedAttrs.save({ wrongProp: 5 });
-        }
+        // $ExpectType false | Object<{ stringList: string[]; thing: boolean; }>
+        objTyped.removeAll('stringList', [ 'hello' ]);
 
-        async function testSaveWithKeyVal(objWithTypedAttrs: Parse.Object<{ example: Date }>) {
-            // $ExpectType Object<{ example: Date; }>
-            await objWithTypedAttrs.save('example', new Date());
-            // $ExpectError
-            await objWithTypedAttrs.save('example', 10);
-            // $ExpectError
-            await objWithTypedAttrs.save('wrongProp', true);
-        }
+        // $ExpectError
+        objTyped.removeAll('stringList', [ 100 ]);
+
+        // $ExpectError
+        objTyped.removeAll('thing', [ true ]);
+
+        // $ExpectError
+        objTyped.removeAll('whatever', [ 'hello' ]);
     }
 
-    function testSet() {
-        function testSetDefault(exampleObjDefault: Parse.Object) {
-            // $ExpectType false | Object<Attributes>
-            exampleObjDefault.set('propA', 'some value');
+    function testRevert(objUntyped: Parse.Object, objTyped: Parse.Object<{ thingOne: number; thingTwo: boolean }>) {
+        // $ExpectType void
+        objUntyped.revert();
 
-            function partialTest(partialThing: Partial<{ propA: string }>) {
-                exampleObjDefault.set(partialThing);
-            }
-        }
+        // $ExpectType void
+        objUntyped.revert('whatever', 'more whatever');
 
-        function testSetObject(exampleObjTyped: Parse.Object<{ example: boolean; another: number; }>) {
-            // $ExpectType false | Object<{ example: boolean; another: number; }>
-            exampleObjTyped.set({ example: false });
-            // $ExpectError
-            exampleObjTyped.set({ example: 100 });
-            // $ExpectError
-            exampleObjTyped.set({ differentProp: 'something' });
-        }
+        // $ExpectType void
+        objTyped.revert();
 
-        function testSetKeyVal(exampleObjTyped: Parse.Object<{ example: string }>) {
-            // $ExpectType false | Object<{ example: string; }>
-            const setThingKeyVal = exampleObjTyped.set('example', 'hello');
-            // $ExpectError
-            const badSetThingNewKeyVal = exampleObjTyped.set('newExample', 100);
-        }
+        // $ExpectType void
+        objTyped.revert('thingOne', 'thingTwo');
+
+        // $ExpectError
+        objTyped.revert('other');
+    }
+
+    async function testSave(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean }>) {
+        // $ExpectType Object<Attributes>
+        await objUntyped.save({ whatever: 100 });
+
+        // $ExpectType Object<Attributes>
+        await objUntyped.save('whatever', 100);
+
+        // $ExpectType Object<{ example: boolean; }>
+        await objTyped.save({ example: true });
+
+        // $ExpectType Object<{ example: boolean; }>
+        await objTyped.save('example', true);
+
+        // $ExpectError
+        await objTyped.save({ example: 'hello' });
+
+        // $ExpectError
+        await objTyped.save({ wrongProp: 5 });
+
+        // $ExpectError
+        await objTyped.save('example', 10);
+
+        // $ExpectError
+        await objTyped.save('wrongProp', true);
+    }
+
+    function testSet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean; another: number }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.set('propA', 'some value');
+
+        // $ExpectType false | Object<Attributes>
+        objUntyped.set({ propA: undefined });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: false });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set('example', true);
+
+        // $ExpectError
+        objTyped.set({ example: 100 });
+
+        // $ExpectError
+        objTyped.set({ other: 'something' });
+
+        // $ExpectError
+        objTyped.set('example', 100);
+
+        // $ExpectError
+        objTyped.set('other', 100);
     }
 
     function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1012,6 +1058,24 @@ function testObject() {
 
         // $ExpectType any
         objTyped.toJSON();
+    }
+
+    function testUnset(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.unset('whatever');
+
+        // $ExpectType false | Object<{ example: string; }>
+        objTyped.unset('example');
+
+        // $ExpectError
+        objTyped.unset('other');
+    }
+
+    function testValidate(obj: Parse.Object<{}>) {
+        // Note: The attributes being validated don't necessarily have to match the current object's attributes
+
+        // $ExpectType false | Error
+        obj.validate({ someAttrToValidate: 'hello' });
     }
 }
 

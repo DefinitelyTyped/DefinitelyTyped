@@ -413,9 +413,9 @@ declare global {
             relation<R extends Object, K extends Extract<keyof T, string> = Extract<keyof T, string>>(
                 attr: T[K] extends Relation ? K : never
             ): Relation<this, R>;
-            remove(attr: string, item: any): this | false;
-            removeAll(attr: string, items: any): this | false;
-            revert(...keys: string[]): void;
+            remove: this['add'];
+            removeAll: this['addAll'];
+            revert(...keys: Array<Extract<keyof T, string>>): void;
             save<K extends Extract<keyof T, string>>(
                 attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
                     [key in K]: T[K];
@@ -443,8 +443,8 @@ declare global {
             toPointer(): Pointer;
             unPin(): Promise<void>;
             unPinWithName(name: string): Promise<void>;
-            unset(attr: string, options?: any): any;
-            validate(attrs: any, options?: SuccessFailureOptions): boolean;
+            unset(attr: Extract<keyof T, string>, options?: any): this | false;
+            validate(attrs: Attributes, options?: SuccessFailureOptions): Error | false;
         }
         interface ObjectStatic {
             createWithoutData<T extends Object>(id: string): T;
