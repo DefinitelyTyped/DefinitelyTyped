@@ -1,5 +1,5 @@
 // Type definitions for ramda 0.26
-// Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
+// Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
