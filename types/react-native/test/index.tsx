@@ -368,7 +368,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: React.RefObject<SectionList<any>>;
+    myList: React.RefObject<SectionList<string>>;
 
     constructor(props: SectionListProps<string>) {
         super(props);
