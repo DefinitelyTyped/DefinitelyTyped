@@ -31,16 +31,16 @@ export interface DatabaseParams extends DatabaseOptionalParams {
     location: Location;
 }
 
-export interface ResultSet {
+export interface ResultSet<ResultT> {
     insertId: number;
     rowsAffected: number;
-    rows: ResultSetRowList;
+    rows: ResultSetRowList<ResultT>;
 }
 
-export interface ResultSetRowList {
+export interface ResultSetRowList<ResultT> {
     length: number;
-    raw(): any[];
-    item(index: number): any;
+    raw(): ResultT[];
+    item(index: number): ResultT;
 }
 
 export enum SQLErrors {
@@ -59,11 +59,11 @@ export interface SQLError {
     message: string;
 }
 
-export type StatementCallback = (transaction: Transaction, resultSet: ResultSet) => void;
+export type StatementCallback<ResultT> = (transaction: Transaction, resultSet: ResultSet<ResultT>) => void;
 export type StatementErrorCallback = (transaction: Transaction, error: SQLError) => void;
 export interface Transaction {
-    executeSql(sqlStatement: string, arguments?: any[]): Promise<[Transaction, ResultSet]>;
-    executeSql(sqlStatement: string, arguments?: any[], callback?: StatementCallback, errorCallback?: StatementErrorCallback): void;
+    executeSql<ResultT = any>(sqlStatement: string, arguments?: any[]): Promise<[Transaction, ResultSet<ResultT>]>;
+    executeSql<ResultT = any>(sqlStatement: string, arguments?: any[], callback?: StatementCallback<ResultT>, errorCallback?: StatementErrorCallback): void;
 }
 
 export type TransactionCallback = (transaction: Transaction) => void;
@@ -76,8 +76,8 @@ export interface SQLiteDatabase {
     readTransaction(scope: (tx: Transaction) => void, error?: TransactionErrorCallback, success?: TransactionCallback): void;
     close(): Promise<void>;
     close(success: () => void, error: (err: SQLError) => void): void;
-    executeSql(statement: string, params?: any[]): Promise<[ResultSet]>;
-    executeSql(statement: string, params?: any[], success?: StatementCallback, error?: StatementErrorCallback): void;
+    executeSql<ResultT = any>(statement: string, params?: any[]): Promise<[ResultSet<ResultT>]>;
+    executeSql<ResultT = any>(statement: string, params?: any[], success?: StatementCallback<ResultT>, error?: StatementErrorCallback): void;
 
     attach(nameToAttach: string, alias: string): Promise<void>;
     attach(nameToAttach: string, alias: string, success?: () => void, error?: (err: SQLError) => void): void;
