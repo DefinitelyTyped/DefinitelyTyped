@@ -509,6 +509,8 @@ declare global {
          * push notifications has an associated Installation object.
          */
         class Installation<T extends Attributes = Attributes> extends Object<T> {
+            constructor(attributes?: T);
+
             badge: any;
             channels: string[];
             timeZone: any;
@@ -782,6 +784,8 @@ declare global {
         }
 
         class Session<T extends Attributes = Attributes> extends Object<T> {
+            constructor(attributes?: T);
+
             static current(): Promise<Session>;
 
             getSessionToken(): string;
