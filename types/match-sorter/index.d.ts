@@ -2,6 +2,7 @@
 // Project: https://github.com/kentcdodds/match-sorter#readme
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Christian Ruigrok <https://github.com/chrisru>
+//                 Timo Riski <https://github.com/rriski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -26,7 +27,7 @@ type ExtendedKeyOptions<T> = { key: string | ((item: T) => string) } & (
     | { threshold: number });
 
 interface Options<T> {
-    keys?: Array<string | ((item: T) => string) | ExtendedKeyOptions<T>>;
+    keys?: Array<string | ((item: T) => string) | ((item: T) => string[]) |  ExtendedKeyOptions<T>>;
     threshold?: number;
     keepDiacritics?: boolean;
 }
