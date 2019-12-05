@@ -41,7 +41,11 @@ declare namespace Globalize {
 		/**
 		 * Boolean (default is true) value indicating whether a grouping separator should be used.
 		 */
-		useGrouping?: boolean;
+        useGrouping?: boolean;
+        /**
+         * String `short` or `long` indicating which compact number format should be used to represent the number.
+         */
+        compact?: "short" | "long";
 	}
 
 	interface Shared {
