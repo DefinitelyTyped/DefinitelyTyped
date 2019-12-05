@@ -2167,6 +2167,8 @@ stripe.setupIntents.retrieve('seti_123456789').then(intent => {});
 
 stripe.setupIntents.confirm('seti_123456789', {}, (err, intent) => {});
 stripe.setupIntents.confirm('seti_123456789', {}).then(intent => {});
+stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}, (err, intent) => {});
+stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}).then(intent => {});
 
 stripe.setupIntents.cancel('seti_123456789', (err, intent) => {});
 stripe.setupIntents.cancel('seti_123456789').then(intent => {});
