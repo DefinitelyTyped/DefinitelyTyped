@@ -1,4 +1,4 @@
-// Type definitions for match-sorter 4.0.2
+// Type definitions for match-sorter 4.0
 // Project: https://github.com/kentcdodds/match-sorter#readme
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Christian Ruigrok <https://github.com/chrisru>
