@@ -3,6 +3,7 @@
 // Definitions by: Ruskin Constant <https://github.com/jonnyparris>
 //                Daniel Leal <https://github.com/danielgek>
 //                Nick Bolles <https://github.com/NickBolles>
+//                Andrii Rodionov <https://github.com/arodiono>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -43,6 +44,13 @@ export interface Auth<T = any> {
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
   redirect(name: string): any;
+  strategy(): string;
+  registerStrategy(strategyName: string, strategy: object): void;
+  setStrategy(strategyName: string): void;
+  setUserToken(): Promise<never>;
+  getRefreshToken(strategyName: string): string;
+  setRefreshToken(strategyName: string, token?: string): string;
+  syncRefreshToken(strategyName: string): string;
 }
 
 declare module 'vue/types/options' {
@@ -53,6 +61,18 @@ declare module 'vue/types/options' {
 
 declare module 'vue/types/vue' {
     interface Vue {
+        $auth: Auth;
+    }
+}
+
+declare module '@nuxt/vue-app' {
+    interface Context {
+        $auth: Auth;
+    }
+}
+
+declare module '@nuxt/types' {
+    interface Context {
         $auth: Auth;
     }
 }
