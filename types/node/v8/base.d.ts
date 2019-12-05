@@ -5593,6 +5593,8 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
         }
 
         // Note: Duplex extends both Readable and Writable.
