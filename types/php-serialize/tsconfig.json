@@ -5,9 +5,10 @@
             "es6"
         ],
         "target": "es6",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
