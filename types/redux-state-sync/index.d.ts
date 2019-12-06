@@ -17,7 +17,7 @@ export type StampedAction = Stamp & AnyAction;
 
 export interface Config {
     channel?: string;
-    predicate?: (action:AnyAction) => boolean | null;
+    predicate?: (action: AnyAction) => boolean | null;
     blacklist?: string[];
     whitelist?: string[];
     broadcastChannelOption?: object | null;
@@ -26,7 +26,7 @@ export interface Config {
 export interface MessageListenerConfig {
     channel: BroadcastChannel;
     dispatch: (action: AnyAction | StampedAction) => void;
-    allowed: (action:AnyAction) => boolean;
+    allowed: (action: AnyAction) => boolean;
 }
 
 export function generateUuidForAction(action: AnyAction): StampedAction;
