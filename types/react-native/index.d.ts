@@ -4218,6 +4218,16 @@ export class SectionList<SectionT> extends React.Component<SectionListProps<Sect
      * @platform ios
      */
     flashScrollIndicators(): void;
+
+    /**
+     * Provides a handle to the underlying scroll responder.
+     */
+    getScrollResponder(): ScrollView | undefined;
+
+    /**
+     * Provides a handle to the underlying scroll node.
+     */
+    getScrollableNode(): NodeHandle | undefined;
 }
 
 /* This definition is deprecated because it extends the wrong base type */
