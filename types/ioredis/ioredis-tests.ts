@@ -265,25 +265,33 @@ cluster.setnx('keynx', '200', (err, data) => {
     // [null, 'NOT OK']
 });
 
-cluster.setex('keyex', 100, 'value');
-cluster.setex('keyex', 100, 'value', (err, data) => {
-    // [null, 'OK']
+cluster.setex('keyex', 100, 'value').then(res => {
+    // res = 'OK'
+});
+cluster.setex('keyex', 100, 'value', (err, res) => {
+    // res = 'OK'
 });
 
-cluster.psetex('key', 100, 'value');
-cluster.psetex('key', 100, 'value', (err, data) => {
-    // [null, 'OK']
+cluster.psetex('key', 100, 'value').then(res => {
+    // res = 'OK'
+});
+cluster.psetex('key', 100, 'value', (err, res) => {
+    // res = 'OK'
 });
 
-cluster.append('key', 'data');
+cluster.append('key', 'data').then(res => {
+    // res = 7
+});
 cluster.append('key', 'data', (err, res) => {
-    // 7
+    // res = 7
 });
 
 cluster.set('key', 'value');
-cluster.strlen('key');
+cluster.strlen('key').then(res => {
+    // res = 5
+});
 cluster.strlen('key', (err, res) => {
-    // 5
+    // res = 5
 });
 
 cluster.get('keynx', (err, data) => {
