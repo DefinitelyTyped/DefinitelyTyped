@@ -4,6 +4,8 @@
 //                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="dist/photoswipe-ui-default/index.d.ts" />
+
 declare namespace PhotoSwipe {
     /**
      * A specific slide in the PhotoSwipe gallery. The terms "item", "slide", and "slide object" are used interchangeably.
