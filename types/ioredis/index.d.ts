@@ -562,6 +562,8 @@ declare namespace IORedis {
         readonly redis: Redis;
         readonly isCluster: boolean;
         readonly options: RedisOptions;
+        readonly length: number;
+
         bitcount(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
         bitcount(key: KeyType, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
 
