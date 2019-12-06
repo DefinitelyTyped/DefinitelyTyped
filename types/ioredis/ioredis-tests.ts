@@ -297,6 +297,14 @@ cluster.strlen('key', (err, res) => {
 cluster.set('key', 'value');
 cluster.unlink('key');
 
+cluster.set('key', 'value');
+cluster.substr('key', 0, 2).then(res => {
+    // res = 'val'
+});
+cluster.substr('key', 0, 2, (err, res) => {
+    // res = 'val'
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });

@@ -965,6 +965,9 @@ declare namespace IORedis {
 
         unlink(...keys: KeyType[]): Promise<number>;
 
+        substr(key: KeyType, start: number, end: number, callback: (err: Error, res: string) => void): void;
+        substr(key: KeyType, start: number, end: number): Promise<string>;
+
         incr(key: KeyType, callback: (err: Error, res: number) => void): void;
         incr(key: KeyType): Promise<number>;
 
