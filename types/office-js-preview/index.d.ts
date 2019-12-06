@@ -24088,6 +24088,8 @@ declare namespace Excel {
         /**
          *
          * Name of the table.
+         * When setting the name of the table, you must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+         *
          *
          * [Api set: ExcelApi 1.1]
          */
