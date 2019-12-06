@@ -10,7 +10,7 @@ redis.get('foo', (err, result) => {
 });
 
 // Static check that returned value is always a number
-redis.del('foo', 'bar').then(result => result * 1);
+redis.del(['foo', 'bar']).then(result => result * 1);
 
 // Or using a promise if the last argument isn't a function
 redis.get('foo').then((result: string | null) => {
@@ -18,7 +18,7 @@ redis.get('foo').then((result: string | null) => {
 });
 
 // Arguments to commands are flattened, so the following are the same:
-redis.sadd('set', 1, 3, 5, 7);
+redis.sadd('set', 1);
 redis.sadd('set', [1, 3, 5, 7]);
 
 // All arguments are passed directly to the redis server:
@@ -162,9 +162,9 @@ redis.multi([
 });
 
 const keys = ['foo', 'bar'];
-redis.mget(...keys);
+redis.mget(keys);
 
-redis.mset(...['foo', 'bar']);
+redis.mset(['foo', 'bar']);
 redis.mset({ foo: 'bar' });
 
 new Redis.Cluster([
@@ -189,9 +189,9 @@ new Redis.Cluster([{
 }]);
 
 redis.xack('streamName', 'groupName', 'id');
-redis.xadd('streamName', '*', 'field', 'name');
-redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
-redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
+redis.xadd('streamName', '*', ['field', 'name']);
+redis.xadd('streamName', 'MAXLEN', 100, ['*', 'field', 'name']);
+redis.xadd('streamName', 'MAXLEN', '~', 100, ['*', 'field', 'name']);
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id');
 redis.xdel('streamName', 'id');
 redis.xgroup('CREATE', 'streamName', 'groupName', '$');
@@ -202,10 +202,10 @@ redis.xinfo('CONSUMERS', 'streamName', 'groupName');
 redis.xinfo('GROUPS', 'streamName');
 redis.xinfo('STREAM', 'streamName');
 redis.xlen('streamName');
-redis.xpending('streamName', 'groupName', '-', '+', '10', 'consumerName');
+redis.xpending('streamName', 'groupName', ['-', '+', '10', 'consumerName']);
 redis.xrange('streamName', '-', '+', 'COUNT', 1);
 redis.xread('STREAMS', 'streamName', '0-0');
-redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '>');
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', ['STREAMS', 'streamName', '>']);
 redis.xrevrange('streamName', '+', '-', 'COUNT', 1);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000);
 
@@ -301,8 +301,8 @@ cluster.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, data) => {
     });
 });
 
-cluster.zadd('sorted', '1', 'foo');
-cluster.zadd('sorted', '1', 'bar');
+cluster.zadd('sorted', ['1', 'foo']);
+cluster.zadd('sorted', ['1', 'bar']);
 cluster.zrange('sorted', 0, 1, (err, data) => {
     // [null, ['foo', 'bar']]
 });
@@ -329,7 +329,6 @@ cluster.defineCommand('defineCommand', {
     numberOfKeys: 1,
     lua: 'lua'
 });
-cluster.sendCommand();
 
 redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
     // sorted set 'foo' now has score 'foo1' containing barBuffer
