@@ -963,6 +963,8 @@ declare namespace IORedis {
 
         del(...keys: KeyType[]): Promise<number>;
 
+        unlink(...keys: KeyType[]): Promise<number>;
+
         incr(key: KeyType, callback: (err: Error, res: number) => void): void;
         incr(key: KeyType): Promise<number>;
 

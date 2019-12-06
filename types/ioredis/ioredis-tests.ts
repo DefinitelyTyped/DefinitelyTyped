@@ -294,6 +294,9 @@ cluster.strlen('key', (err, res) => {
     // res = 5
 });
 
+cluster.set('key', 'value');
+cluster.unlink('key');
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });
