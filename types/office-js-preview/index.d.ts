@@ -25191,7 +25191,7 @@ declare namespace Excel {
         set(properties: Excel.RangeFormat): void;
         /**
          *
-         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250.
+         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters..
          *
          * [Api set: ExcelApiOnline 1.1]
          *
@@ -36725,7 +36725,7 @@ declare namespace Excel {
         email: string;
         /**
          *
-         * Gets or sets the id of the entity. This is aligned with the id information in `CommentRichContent.richContent`.
+         * Gets or sets the id of the entity. This matches one of the the ids in `CommentRichContent.richContent`.
          *
          * [Api set: ExcelApiOnline 1.1]
          */
