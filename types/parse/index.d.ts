@@ -255,10 +255,18 @@ declare namespace Parse {
      */
     class File {
         constructor(name: string, data: number[] | { base64: string } | Blob | { uri: string }, type?: string);
+        /**
+         * Return the data for the file, downloading it if not already present.
+         * Data is present if initialized with Byte Array, Base64 or Saved with Uri.
+         * Data is cleared if saved with File object selected with a file upload control
+         *
+         * @returns Promise that is resolved with base64 data
+         */
+        getData(): Promise<string>;
         name(): string;
-        url(options?: { forceSecure: boolean }): string;
         save(options?: SuccessFailureOptions): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
+        url(options?: { forceSecure: boolean }): string;
     }
 
     /**
