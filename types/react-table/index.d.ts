@@ -4,7 +4,7 @@
 //                 Michael Stramel <https://github.com/stramel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0-beta.28
+// reflects react-table@7.0.0-rc.1
 
 // tslint:disable:no-unnecessary-generics
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
@@ -106,6 +106,7 @@ export interface UseTableInstanceProps<D extends object> {
     columns: Array<ColumnInstance<D>>;
     flatColumns: Array<ColumnInstance<D>>;
     headerGroups: Array<HeaderGroup<D>>;
+    footerGroups: Array<HeaderGroup<D>>;
     headers: Array<ColumnInstance<D>>;
     flatHeaders: Array<ColumnInstance<D>>;
     rows: Array<Row<D>>;
@@ -123,16 +124,18 @@ export interface UseTableInstanceProps<D extends object> {
 export interface UseTableHeaderGroupProps<D extends object> {
     headers: Array<ColumnInstance<D>>;
     getHeaderGroupProps: (props?: object) => object;
+    getFooterGroupProps: (props?: object) => object;
     totalHeaderCount: number; // not documented
 }
 
 export interface UseTableColumnProps<D extends object> {
     id: IdType<D>;
     isVisible: boolean;
-    render: (type: 'Header' | string, props?: object) => ReactNode;
+    render: (type: 'Header' | 'Footer'  | string, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
     getHeaderProps: (props?: object) => object;
+    getFooterProps: (props?: object) => object;
     toggleHiden: (value?: boolean) => void;
     parent: ColumnInstance<D>; // not documented
     getToggleHideColumnsProps: (userProps: any) => any;
