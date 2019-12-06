@@ -75,6 +75,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -179,6 +180,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -420,6 +422,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         enableOutsideDays?: boolean;
