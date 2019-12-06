@@ -36725,7 +36725,7 @@ declare namespace Excel {
         email: string;
         /**
          *
-         * Gets or sets the id of the entity. This matches one of the the ids in `CommentRichContent.richContent`.
+         * Gets or sets the id of the entity. This matches one of the ids in `CommentRichContent.richContent`.
          *
          * [Api set: ExcelApiOnline 1.1]
          */
