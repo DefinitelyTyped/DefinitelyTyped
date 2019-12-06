@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ServiceInfo {
-    name: string;
-    description: string;
+    readonly name: string;
+    readonly description: string;
 }
 
 export interface PortInfo {
-    port: number;
-    protocol: string;
-    description: string;
+    readonly port: number;
+    readonly protocol: string;
+    readonly description: string;
 }
 
 export function getService(port: number, protocol?: string): ServiceInfo | null;
