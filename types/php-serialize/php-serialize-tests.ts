@@ -5,4 +5,4 @@ const testObject = {
   parent_user_id: 399,
 };
 const serialized = PhpSerialize.serialize(testObject);
-const unserialized = PhpSerialize.unSerialize(serialized);
+PhpSerialize.unserialize(serialized);
