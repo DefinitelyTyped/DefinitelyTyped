@@ -6,25 +6,15 @@
 // TypeScript Version: 3.6
 
 import { LevelUp } from 'levelup';
-import { Key, Datastore, Batch, Query, Result } from 'interface-datastore';
-import { ErrorCallback } from 'abstract-leveldown';
+import { Datastore } from 'interface-datastore';
 
 /**
  * A datastore backed by leveldb.
  */
-export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {
-    open(): Promise<void>;
-    put(key: Key, val: Value): Promise<void>;
-    get(key: Key): Promise<Value>;
-    has(key: Key): Promise<boolean>;
-    delete(key: Key): Promise<void>;
-    batch(): Batch<Value>;
-    query(q: Query<Value>): AsyncIterable<Result<Value>>;
-    close(): Promise<void>;
-}
+export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {}
 
 export interface LevelDatastoreOptions {
-    db: (location: string, options?: any, cb?: ErrorCallback) => LevelUp;
+    db: (location: string, options?: any) => LevelUp;
     [key: string]: any;
 }
 
