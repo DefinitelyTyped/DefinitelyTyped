@@ -13,6 +13,11 @@ function customEventReporter(data: { page?: string }) {}
 )
 class ClassPage extends React.Component<any> {
     @track({ event: 'Clicked' })
+    @track((_props, _state, [e]: [React.MouseEvent]) => {
+        if (e.ctrlKey) {
+            return { event: 'Click + ctrl key' };
+        }
+    })
     handleClick() {
         // ... other stuff
     }
