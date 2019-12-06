@@ -270,6 +270,11 @@ cluster.setex('keyex', 100, 'value', (err, data) => {
     // [null, 'OK']
 });
 
+cluster.psetex('key', 100, 'value');
+cluster.psetex('key', 100, 'value', (err, data) => {
+    // [null, 'OK']
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });

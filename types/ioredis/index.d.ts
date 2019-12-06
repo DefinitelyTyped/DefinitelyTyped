@@ -952,6 +952,9 @@ declare namespace IORedis {
         setex(key: KeyType, seconds: number, value: ValueType, callback: (err: Error, res: Ok) => void): void;
         setex(key: KeyType, seconds: number, value: ValueType): Promise<Ok>;
 
+        psetex(key: KeyType, milliseconds: number, value: ValueType, callback: (err: Error, res: Ok) => void): void;
+        psetex(key: KeyType, milliseconds: number, value: ValueType): Promise<Ok>;
+
         del(...keys: KeyType[]): Promise<number>;
 
         incr(key: KeyType, callback: (err: Error, res: number) => void): void;
