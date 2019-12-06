@@ -1,19 +1,27 @@
-import * as Airtable from 'airtable';
+import Airtable, {
+    Table,
+    FieldSet,
+    Attachment,
+    Collaborator,
+    NewFieldData,
+    ExistingFieldData
+} from 'airtable';
 
-interface Row extends Airtable.FieldSet {
-  field1: string;
-  attachments: Airtable.Attachment[];
-  booleanField: boolean;
-  numberField: number;
-  singleCollaborator: Airtable.Collaborator;
-  multiCollaborators: Airtable.Collaborator[];
+interface TestFields extends FieldSet {
+    field1: string;
+    attachments: Attachment[];
+    booleanField: boolean;
+    numberField: number;
+    singleCollaborator: Collaborator;
+    multiCollaborators: Collaborator[];
 }
 
 const airtable = new Airtable();
 
 const base = airtable.base('app id');
+const table = base('table name') as Table<TestFields>;
 
-const table = base('table name') as Airtable.Table<Row>;
+Airtable.base('airtable')('table name') as Table<TestFields>;
 
 async () => {
     const query = table.select({
@@ -37,6 +45,7 @@ async () => {
         timeZone: 'test-tz',
         userLocale: 'test-locale',
     });
+
     const rows = await query.all();
     for (const row of rows) {
         row.id; // $ExpectType string
@@ -71,15 +80,39 @@ async () => {
             collaborator.email; // $ExpectType string
             collaborator.name; // $ExpectType string
         }
+
+        row.get('field1'); // $ExpectType string
+        row.get('numberField'); // $ExpectType number
+        row.set('field1', 'new value');
+        row.set('numberField', 1);
+        await row.save(); // $ExpectType Record<TestFields>
+
+        await row.putUpdate({ field1: 'another new value', numberField: 2 }); // $ExpectType Record<TestFields>
+        await row.patchUpdate({ field1: 'more new value', numberField: 3 }); // $ExpectType Record<TestFields>
     }
 
-    const newRowData: Row = {
-        field1: 'string',
-        attachments: [],
-        booleanField: false,
-        numberField: 0,
-        singleCollaborator: { email: '', id: '', name: '' },
-        multiCollaborators: [],
+    query.eachPage((records, fetchNextPage) => {
+      records.forEach(r => {
+        r.id; // $ExpectType string
+      });
+
+      fetchNextPage();
+    });
+
+    const results = await query.firstPage();
+    results.forEach(r => {
+      r.id; // $ExpectType string
+    });
+
+    const newRowData: NewFieldData<TestFields> = {
+        fields: {
+            field1: 'string',
+            attachments: [],
+            booleanField: false,
+            numberField: 0,
+            singleCollaborator: { email: '', id: '', name: '' },
+            multiCollaborators: []
+        }
     };
 
     const newRecord = await table.create(newRowData);
@@ -87,10 +120,28 @@ async () => {
     newRecord.id;
     newRecord.fields;
 
-    const newRecords = await table.create([newRowData, newRowData]);
+    const newRecords = await table.create([newRowData, newRowData], { typecast: true });
 
     newRecords.forEach(r => {
         r.id;
         r.fields;
     });
+
+    const updateRowData: Array<ExistingFieldData<TestFields>> = [{
+        id: newRecord.id,
+        fields: {
+            booleanField: true
+        }
+    }];
+
+    const updatedRecords = await table.update(updateRowData);
+    updatedRecords.forEach(r => {
+      r.fields.booleanField; // $ExpectType boolean
+    });
+
+    const replacedRecord = await table.replace(newRecord.id, newRowData);
+    replacedRecord.fields.numberField; // $ExpectType number
+
+    await table.destroy(newRecord.id);
+    await table.destroy(newRecords.map(r => r.id));
 };
