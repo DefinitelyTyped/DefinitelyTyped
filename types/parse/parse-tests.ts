@@ -258,12 +258,6 @@ function test_user() {
 
     const anotherUser: Parse.User = Parse.User.fromJSON({});
     anotherUser.set('email', 'email@example.com');
-
-    const typedUser = new Parse.User({
-        firstName: 'hello'
-    });
-    // $ExpectType { username: string; email: string | undefined; password: string | undefined; firstName: string; }
-    typedUser.attributes;
 }
 
 async function test_user_currentAsync() {
@@ -702,32 +696,27 @@ async function test_schema() {
 }
 
 function testObject() {
-    function testConstructorEmpty() {
+    function testConstructor() {
         // $ExpectType Object<Attributes>
         new Parse.Object();
-    }
 
-    function testConstructorWithClassName() {
         // $ExpectType Object<Attributes>
         new Parse.Object('TestObject');
 
-        // $ExpectError
-        new Parse.Object<{ example?: string }>('TestObject');
-    }
-
-    function testConstructorWithAttrs() {
         // $ExpectType Object<{ example: number; }>
         new Parse.Object('TestObject', { example: 100 });
 
         // $ExpectType Object<{ example: boolean; }>
         new Parse.Object<{ example: boolean }>('TestObject', { example: true });
 
+        // $ExpectType Object<{ example: string; }>
+        new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
+
+        // $ExpectError
+        new Parse.Object<{ example?: string }>('TestObject');
+
         // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
-    }
-
-    function testConstructorWithOptions() {
-        new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
     }
 
     function testAttributes(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1079,25 +1068,107 @@ function testObject() {
     }
 }
 
-function testQuery() {
-    function testQueryWithClassParams() {
-        // $ExpectType Query<User<Attributes>>
-        new Parse.Query(Parse.User);
-    }
+function testInstallation() {
+    function testConstructor() {
+        // $ExpectType Installation<Attributes>
+        new Parse.Installation();
 
-    function testQueryWithTypeParam() {
+        // $ExpectType Installation<{ example: number; }>
+        new Parse.Installation({ example: 100 });
+
+        // $ExpectError
+        new Parse.Installation<{ example: number }>();
+
+        // $ExpectError
+        new Parse.Installation<{ example: number }>({ example: 'hello' });
+    }
+}
+
+function testQuery() {
+    function testConstructor() {
         // $ExpectType Query<Object<Attributes>>
         new Parse.Query('TestObject');
+
+        // $ExpectType Query<Role<Attributes>>
+        new Parse.Query(Parse.Role);
+
+        // $ExpectType Query<User<Attributes>>
+        new Parse.Query(Parse.User);
+
         // $ExpectType Query<Object<{ example: string; }>>
         new Parse.Query<Parse.Object<{ example: string }>>('TestObject');
+
+        // $ExpectType Query<Role<{ name: string; }>>
+        new Parse.Query<Parse.Role<{ name: string }>>(Parse.Role);
+
+        // $ExpectType Query<User<{ example: string; }>>
+        new Parse.Query<Parse.User<{ example: string }>>(Parse.User);
     }
 
-    async function testQueryMethods(exampleQuery: Parse.Query<Parse.Object<{ example: string }>>) {
+    async function testQueryMethods(queryUntyped: Parse.Query, queryTyped: Parse.Query<Parse.Object<{ example: string }>>) {
+        // $ExpectType Object<Attributes>
+        await queryUntyped.get('objectId');
+
+        // $ExpectType Object<Attributes>[]
+        await queryUntyped.find();
+
+        // $ExpectType Object<Attributes> | undefined
+        await queryUntyped.first();
+
         // $ExpectType Object<{ example: string; }>
-        await exampleQuery.get('objectId');
+        await queryTyped.get('objectId');
+
         // $ExpectType Object<{ example: string; }>[]
-        await exampleQuery.find();
+        await queryTyped.find();
+
         // $ExpectType Object<{ example: string; }> | undefined
-        await exampleQuery.first();
+        await queryTyped.first();
+    }
+}
+
+function testRole() {
+    function testConstructor(acl: Parse.ACL) {
+        // $ExpectType Role<Partial<{ example: string; }>>
+        new Parse.Role<{ example: string }>('TestRole', acl);
+    }
+
+    function testAttributes(roleUntyped: Parse.Role, roleTyped: Parse.Role<{ example: number }>) {
+        // $ExpectType Attributes
+        roleUntyped.attributes;
+
+        // $ExpectType { example: number; }
+        roleTyped.attributes;
+    }
+}
+
+function testSession() {
+    function testConstructor() {
+        // $ExpectType Session<Attributes>
+        new Parse.Session();
+
+        // $ExpectType Session<{ example: number; }>
+        new Parse.Session({ example: 100 });
+
+        // $ExpectError
+        new Parse.Session<{ example: number }>();
+
+        // $ExpectError
+        new Parse.Session<{ example: number }>({ example: 'hello' });
+    }
+}
+
+function testUser() {
+    function testConstructor() {
+        // $ExpectType User<Attributes>
+        new Parse.User();
+
+        // $ExpectType User<{ example: number; }>
+        new Parse.User({ example: 100 });
+
+        // $ExpectError
+        new Parse.User<{ example: number }>();
+
+        // $ExpectError
+        new Parse.User<{ example: number }>({ example: 'hello' });
     }
 }

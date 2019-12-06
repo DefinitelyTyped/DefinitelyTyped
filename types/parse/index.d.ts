@@ -508,9 +508,7 @@ declare global {
          * Every Parse application installed on a device registered for
          * push notifications has an associated Installation object.
          */
-        class Installation<T extends Attributes = Attributes> extends Object<T> {
-            constructor(attributes?: T);
-
+        interface Installation<T extends Attributes = Attributes> extends Object<T> {
             badge: any;
             channels: string[];
             timeZone: any;
@@ -524,6 +522,11 @@ declare global {
             parseVersion: string;
             appIdentifier: string;
         }
+        interface InstallationConstructor extends ObjectStatic {
+            new<T extends Attributes>(attributes: T): Installation<T>;
+            new(): Installation;
+        }
+        const Installation: InstallationConstructor;
 
         /**
          * Creates a new parse Parse.Query for the given Parse.Object subclass.
@@ -584,7 +587,7 @@ declare global {
             objectClass: any;
             className: string;
 
-            constructor(objectClass: string | (new (...args: any[]) => T));
+            constructor(objectClass: string | (new (...args: any[]) => T | Object));
 
             static and<U extends Object>(...args: Array<Query<U>>): Query<U>;
             static fromJSON<U extends Object>(className: string, json: any): Query<U>;
@@ -765,14 +768,17 @@ declare global {
          * A Parse.Role is a local representation of a role persisted to the Parse
          * cloud.
          */
-        class Role<T extends Attributes = Attributes> extends Object<T> {
-            constructor(name: string, acl: ACL);
-
+        interface Role<T extends Attributes = Attributes> extends Object<T> {
             getRoles(): Relation<Role, Role>;
             getUsers(): Relation<Role, User>;
             getName(): string;
             setName(name: string, options?: SuccessFailureOptions): any;
         }
+        interface RoleConstructor extends ObjectStatic {
+            new<T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
+            new(name: string, acl: ACL): Role;
+        }
+        const Role: RoleConstructor;
 
         class Config {
             static get(options?: SuccessFailureOptions): Promise<Config>;
@@ -783,20 +789,17 @@ declare global {
             escape(attr: string): any;
         }
 
-        class Session<T extends Attributes = Attributes> extends Object<T> {
-            constructor(attributes?: T);
-
-            static current(): Promise<Session>;
-
+        interface Session<T extends Attributes = Attributes> extends Object<T> {
             getSessionToken(): string;
             isCurrentSessionRevocable(): boolean;
         }
+        interface SessionConstructor  extends ObjectStatic {
+            new<T extends Attributes>(attributes: T): Session<T>;
+            new(): Session;
 
-        interface UserAttributes {
-            username: string;
-            email?: string;
-            password?: string;
+            current(): Promise<Session>;
         }
+        const Session: SessionConstructor;
 
         /**
          *
@@ -806,13 +809,7 @@ declare global {
          * user specific methods, like authentication, signing up, and validation of
          * uniqueness.</p>
          */
-        interface User<T extends Attributes = Attributes> extends Object<{
-            [key in (keyof T | keyof UserAttributes)]: key extends keyof UserAttributes
-                ? UserAttributes[key]
-                : key extends keyof T
-                    ? T[key]
-                    : never;
-        }> {
+        interface User<T extends Attributes = Attributes> extends Object<T> {
             signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
             logIn(options?: FullOptions): Promise<this>;
             authenticated(): boolean;
@@ -831,8 +828,8 @@ declare global {
             _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
         }
         interface UserConstructor extends ObjectStatic {
+            new<T extends Attributes>(attributes: T): User<T>;
             new(): User;
-            new<T extends Attributes>(attributes: T, options?: any): User<T>;
 
             allowCustomUserClass(isAllowed: boolean): void;
             become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
