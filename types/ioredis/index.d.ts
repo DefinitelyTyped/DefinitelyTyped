@@ -958,6 +958,9 @@ declare namespace IORedis {
         append(key: KeyType, value: ValueType, callback: (err: Error, res: number) => void): void;
         append(key: KeyType, value: ValueType): Promise<number>;
 
+        strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
+        strlen(key: KeyType): Promise<number>;
+
         del(...keys: KeyType[]): Promise<number>;
 
         incr(key: KeyType, callback: (err: Error, res: number) => void): void;

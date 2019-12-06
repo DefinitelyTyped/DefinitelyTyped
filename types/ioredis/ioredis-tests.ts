@@ -280,6 +280,12 @@ cluster.append('key', 'data', (err, res) => {
     // 7
 });
 
+cluster.set('key', 'value');
+cluster.strlen('key');
+cluster.strlen('key', (err, res) => {
+    // 5
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });
