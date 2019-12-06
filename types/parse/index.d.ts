@@ -93,39 +93,6 @@ declare global {
         let serverAuthType: string | undefined;
         let serverURL: string;
 
-        /**
-         * Call this method first to set up your authentication tokens for Parse.
-         * You can get your keys from the Data Browser on parse.com.
-         * @param applicationId Your Parse Application ID.
-         * @param javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
-         * @param masterKey (optional) Your Parse Master Key. (Node.js only!)
-         */
-        function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
-
-        /**
-         * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
-         * @param AsyncStorage AsyncStorage from 'react-native' package
-         */
-        function setAsyncStorage(AsyncStorage: any): void;
-
-        /**
-         * Gets all contents from Local Datastore.
-         */
-        function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
-
-        /**
-         * Enable pinning in your application.
-         * This must be called before your application can use pinning.
-         */
-        function enableLocalDatastore(): void;
-
-        /**
-         * Flag that indicates whether Local Datastore is enabled.
-         */
-        function isLocalDatastoreEnabled(): boolean;
-
-        function setLocalDatastoreController(controller: any): void;
-
         interface BatchSizeOption {
             batchSize?: number;
         }
@@ -1281,6 +1248,39 @@ declare global {
                 error?: (error: Error) => void;
             }
         }
+
+        /**
+         * Call this method first to set up your authentication tokens for Parse.
+         * You can get your keys from the Data Browser on parse.com.
+         * @param applicationId Your Parse Application ID.
+         * @param javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
+         * @param masterKey (optional) Your Parse Master Key. (Node.js only!)
+         */
+        function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
+
+        /**
+         * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+         * @param AsyncStorage AsyncStorage from 'react-native' package
+         */
+        function setAsyncStorage(AsyncStorage: any): void;
+
+        /**
+         * Gets all contents from Local Datastore.
+         */
+        function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
+
+        /**
+         * Enable pinning in your application.
+         * This must be called before your application can use pinning.
+         */
+        function enableLocalDatastore(): void;
+
+        /**
+         * Flag that indicates whether Local Datastore is enabled.
+         */
+        function isLocalDatastoreEnabled(): boolean;
+
+        function setLocalDatastoreController(controller: any): void;
     }
 }
 
