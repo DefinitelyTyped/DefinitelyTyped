@@ -58,7 +58,7 @@ export interface Props extends Omit<ComponentProps<'span'>, 'onChange'> {
     mathquillDidMount?(mathField: MathQuill): any;
 }
 
-export function addStyles(): any;
+export function addStyles(): void;
 
 declare class Mathquill extends Component<Props> {}
 
