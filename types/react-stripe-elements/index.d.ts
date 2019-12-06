@@ -51,7 +51,7 @@ export namespace ReactStripeElements {
         ): Promise<stripe.PaymentMethodResponse>;
         handleCardPayment(
             clientSecret: string,
-            options?: stripe.HandleCardPaymentOptions,
+            options?: stripe.HandleCardPaymentWithoutElementsOptions,
         ): Promise<stripe.PaymentIntentResponse>;
         handleCardSetup(
             clientSecret: string,
@@ -83,9 +83,9 @@ export namespace ReactStripeElements {
         onReady?(el: HTMLStripeElement): void;
     }
 
-	interface PaymentRequestButtonElementProps extends ElementProps {
-		onClick?(event: any): void;
-	}
+    interface PaymentRequestButtonElementProps extends ElementProps {
+        onClick?(event: any): void;
+    }
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}

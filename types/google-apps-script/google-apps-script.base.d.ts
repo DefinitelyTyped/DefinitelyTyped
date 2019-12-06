@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,11 +6,11 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Base {
+  namespace Base {
     /**
      * A data interchange object for Apps Script services.
      */
-    export interface Blob extends BlobSource {
+    interface Blob extends BlobSource {
       copyBlob(): Blob;
       getAs(contentType: string): Blob;
       getBytes(): Byte[];
@@ -25,10 +25,8 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Blob;
       setDataFromString(string: string, charset: string): Blob;
       setName(name: string): Blob;
-      /** @deprecated DO NOT USE */
-      getAllBlobs(): Blob[];
+      /** @deprecated DO NOT USE */getAllBlobs(): Blob[];
     }
-
     /**
      * Interface for objects that can export their data as a Blob.
      * Implementing classes
@@ -39,7 +37,7 @@ declare namespace GoogleAppsScript {
      *
      * BlobA data interchange object for Apps Script services.
      *
-     * ChartA Chart object, which can be embedded into documents, UI elements, or used as a static image.
+     * ChartA Chart object, which can be converted to a static image.
      *
      * DocumentA document, containing rich text and elements such as tables and lists.
      *
@@ -69,11 +67,10 @@ declare namespace GoogleAppsScript {
      *
      * StaticMapAllows for the creation and decoration of static map images.
      */
-    export interface BlobSource {
+    interface BlobSource {
       getAs(contentType: string): Blob;
       getBlob(): Blob;
     }
-
     /**
      * This class provides access to dialog boxes specific to Google Sheets.
      *
@@ -83,7 +80,7 @@ declare namespace GoogleAppsScript {
      *
      * ButtonSet
      */
-    export interface Browser {
+    interface Browser {
       Buttons: typeof ButtonSet;
       inputBox(prompt: string): string;
       inputBox(prompt: string, buttons: ButtonSet): string;
@@ -92,7 +89,6 @@ declare namespace GoogleAppsScript {
       msgBox(prompt: string, buttons: ButtonSet): string;
       msgBox(title: string, prompt: string, buttons: ButtonSet): string;
     }
-
     /**
      * An enum representing predetermined, localized dialog buttons returned by an alert or PromptResponse.getSelectedButton() to indicate
      * which button in a dialog the user clicked. These values cannot be set; to add buttons to an
@@ -109,8 +105,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The user clicked "No" or the dialog\'s close button.');
      *     }
      */
-    export enum Button { CLOSE, OK, CANCEL, YES, NO }
-
+    enum Button { CLOSE, OK, CANCEL, YES, NO }
     /**
      * An enum representing predetermined, localized sets of one or more dialog buttons that can be
      * added to an alert or a prompt. To determine which button the user clicked,
@@ -127,18 +122,20 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The user clicked "No" or the dialog\'s close button.');
      *     }
      */
-    export enum ButtonSet { OK, OK_CANCEL, YES_NO, YES_NO_CANCEL }
-
+    enum ButtonSet { OK, OK_CANCEL, YES_NO, YES_NO_CANCEL }
+    /**
+     * The types of Colors
+     */
+    enum ColorType { UNSUPPORTED, RGB, THEME }
     /**
      * This class allows the developer to write out text to the debugging logs.
      */
-    export interface Logger {
+    interface Logger {
       clear(): void;
       getLog(): string;
       log(data: any): Logger;
       log(format: string, ...values: any[]): Logger;
     }
-
     /**
      * A custom menu in an instance of the user interface for a Google App. A script can only interact
      * with the UI for the current instance of an open document or form, and only if the script is container-bound to the document or form. For more
@@ -156,13 +153,12 @@ declare namespace GoogleAppsScript {
      *           .addToUi();
      *     }
      */
-    export interface Menu {
+    interface Menu {
       addItem(caption: string, functionName: string): Menu;
       addSeparator(): Menu;
       addSubMenu(menu: Menu): Menu;
       addToUi(): void;
     }
-
     /**
      * An enumeration that provides access to MIME-type declarations without typing the strings
      * explicitly. Methods that expect a MIME type rendered as a string (for example,
@@ -183,13 +179,11 @@ declare namespace GoogleAppsScript {
      *      Logger.log(png.getSize());
      *     }
      */
-    export enum MimeType { GOOGLE_APPS_SCRIPT, GOOGLE_DRAWINGS, GOOGLE_DOCS, GOOGLE_FORMS, GOOGLE_SHEETS, GOOGLE_SITES, GOOGLE_SLIDES, FOLDER, BMP, GIF, JPEG, PNG, SVG, PDF, CSS, CSV, HTML, JAVASCRIPT, PLAIN_TEXT, RTF, OPENDOCUMENT_GRAPHICS, OPENDOCUMENT_PRESENTATION, OPENDOCUMENT_SPREADSHEET, OPENDOCUMENT_TEXT, MICROSOFT_EXCEL, MICROSOFT_EXCEL_LEGACY, MICROSOFT_POWERPOINT, MICROSOFT_POWERPOINT_LEGACY, MICROSOFT_WORD, MICROSOFT_WORD_LEGACY, ZIP }
-
+    enum MimeType { GOOGLE_APPS_SCRIPT, GOOGLE_DRAWINGS, GOOGLE_DOCS, GOOGLE_FORMS, GOOGLE_SHEETS, GOOGLE_SITES, GOOGLE_SLIDES, FOLDER, BMP, GIF, JPEG, PNG, SVG, PDF, CSS, CSV, HTML, JAVASCRIPT, PLAIN_TEXT, RTF, OPENDOCUMENT_GRAPHICS, OPENDOCUMENT_PRESENTATION, OPENDOCUMENT_SPREADSHEET, OPENDOCUMENT_TEXT, MICROSOFT_EXCEL, MICROSOFT_EXCEL_LEGACY, MICROSOFT_POWERPOINT, MICROSOFT_POWERPOINT_LEGACY, MICROSOFT_WORD, MICROSOFT_WORD_LEGACY, ZIP }
     /**
      * An enum representing the months of the year.
      */
-    export enum Month { JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER }
-
+    enum Month { JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER }
     /**
      * A response to a prompt dialog displayed in the
      * user-interface environment for a Google App. The response contains any text the user entered in
@@ -209,27 +203,33 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The user clicked the close button in the dialog\'s title bar.');
      *     }
      */
-    export interface PromptResponse {
+    interface PromptResponse {
       getResponseText(): string;
       getSelectedButton(): Button;
     }
-
+    /**
+     * A color defined by red, green, blue color channels.
+     */
+    interface RgbColor {
+      asHexString(): string;
+      getBlue(): Integer;
+      getColorType(): ColorType;
+      getGreen(): Integer;
+      getRed(): Integer;
+    }
     /**
      * The Session class provides access to session information, such as the user's email address (in
      * some circumstances) and language setting.
      */
-    export interface Session {
+    interface Session {
       getActiveUser(): User;
       getActiveUserLocale(): string;
       getEffectiveUser(): User;
       getScriptTimeZone(): string;
       getTemporaryActiveUserKey(): string;
-      /** @deprecated DO NOT USE */
-      getTimeZone(): string;
-      /** @deprecated DO NOT USE */
-      getUser(): User;
+      /** @deprecated DO NOT USE */getTimeZone(): string;
+      /** @deprecated DO NOT USE */getUser(): User;
     }
-
     /**
      * An instance of the user-interface environment for a Google App that allows the script to add
      * features like menus, dialogs, and sidebars. A script can only interact with the UI for the
@@ -249,7 +249,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log('The user clicked the close button in the dialog\'s title bar.');
      *     }
      */
-    export interface Ui {
+    interface Ui {
       Button: typeof Button;
       ButtonSet: typeof ButtonSet;
       alert(prompt: string): Button;
@@ -263,24 +263,19 @@ declare namespace GoogleAppsScript {
       showModalDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showModelessDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showSidebar(userInterface: HTML.HtmlOutput): void;
-      /** @deprecated DO NOT USE */
-      showDialog(userInterface: HTML.HtmlOutput): void;
+      /** @deprecated DO NOT USE */showDialog(userInterface: HTML.HtmlOutput): void;
     }
-
     /**
      * Representation of a user, suitable for scripting.
      */
-    export interface User {
+    interface User {
       getEmail(): string;
-      /** @deprecated DO NOT USE */
-      getUserLoginId(): string;
+      /** @deprecated DO NOT USE */getUserLoginId(): string;
     }
-
     /**
      * An enum representing the days of the week.
      */
-    export enum Weekday { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
-
+    enum Weekday { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
     /**
      * This class allows the developer to write logs to the Google Cloud Platform's Stackdriver Logging service. The following
      * shows some logging examples:
@@ -310,7 +305,7 @@ declare namespace GoogleAppsScript {
      *       console.timeEnd(label);      // Stops the timer, logs execution duration.
      *     }
      */
-    export interface console {
+    interface console {
       error(): void;
       error(formatOrObject: object | string, ...values: any[]): void;
       info(): void;
@@ -328,7 +323,7 @@ declare namespace GoogleAppsScript {
      * @see https://github.com/microsoft/TypeScript/blob/master/lib/lib.es5.d.ts
      * Enables basic storage and retrieval of dates and times.
      */
-    export interface Date {
+    interface Date {
       /** Returns a string representation of a date. The format of the string depends on the locale. */
       toString(): string;
       /** Returns a date as a string value. */
@@ -504,8 +499,7 @@ declare namespace GoogleAppsScript {
       UTC(year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number): number;
       now(): number;
     }
-
-    export const Date: DateConstructor;
+    const Date: DateConstructor;
   }
 }
 

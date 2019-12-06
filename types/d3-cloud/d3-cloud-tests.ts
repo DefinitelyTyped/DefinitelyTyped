@@ -1,4 +1,4 @@
-import d3Cloud = require('./index.d');
+import d3Cloud = require('d3-cloud');
 import d3 = require('d3');
 
 // $ExpectType Cloud<Word>

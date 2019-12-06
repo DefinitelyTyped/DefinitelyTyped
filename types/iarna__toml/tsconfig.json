@@ -26,10 +26,6 @@
     },
     "files": [
         "index.d.ts",
-        "parse-async.d.ts",
-        "parse-stream.d.ts",
-        "parse-string.d.ts",
-        "stringify.d.ts",
         "iarna__toml-tests.ts"
     ]
 }

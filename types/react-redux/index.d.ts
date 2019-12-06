@@ -13,6 +13,7 @@
 //                 Boris Sergeyev <https://github.com/surgeboris>
 //                 Søren Bruus Frank <https://github.com/soerenbf>
 //                 Jonathan Ziller <https://github.com/mrwolfz>
+//                 Dylan Vann <https://github.com/dylanvann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -577,5 +578,29 @@ export interface TypedUseSelectorHook<TState> {
  * }
  */
 export function useStore<S = any, A extends Action = AnyAction>(): Store<S, A>;
+
+/**
+ * Hook factory, which creates a `useSelector` hook bound to a given context.
+ *
+ * @param Context passed to your `<Provider>`.
+ * @returns A `useSelector` hook bound to the specified context.
+ */
+export function createSelectorHook(context?: Context<ReactReduxContextValue>): typeof useSelector;
+
+/**
+ * Hook factory, which creates a `useStore` hook bound to a given context.
+ *
+ * @param Context passed to your `<Provider>`.
+ * @returns A `useStore` hook bound to the specified context.
+ */
+export function createStoreHook(context?: Context<ReactReduxContextValue>): typeof useStore;
+
+/**
+ * Hook factory, which creates a `useDispatch` hook bound to a given context.
+ *
+ * @param Context passed to your `<Provider>`.
+ * @returns A `useDispatch` hook bound to the specified context.
+ */
+export function createDispatchHook(context?: Context<ReactReduxContextValue>): typeof useDispatch;
 
 // tslint:enable:no-unnecessary-generics

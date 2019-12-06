@@ -193,8 +193,6 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
       attributeChangedCallback?(name: string):void;

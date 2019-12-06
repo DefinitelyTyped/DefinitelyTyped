@@ -1,16 +1,19 @@
 import {
     ConcreteRequest,
+    ConnectionHandler,
+    DefaultMissingFieldHandlers,
     Environment,
     Network,
-    RecordSource,
-    Store,
-    ConnectionHandler,
-    commitLocalUpdate,
     QueryResponseCache,
     ROOT_ID,
-    RelayNetworkLoggerTransaction,
-    createRelayNetworkLogger,
+    ROOT_TYPE,
+    RecordProxy,
+    RecordSource,
     RecordSourceSelectorProxy,
+    RelayNetworkLoggerTransaction,
+    Store,
+    commitLocalUpdate,
+    createRelayNetworkLogger,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -48,6 +51,36 @@ const environment = new Environment({
     handlerProvider, // Can omit.
     network,
     store,
+    missingFieldHandlers: [
+        ...DefaultMissingFieldHandlers,
+        // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
+        {
+            handle(field, record, argValues) {
+                if (
+                    record != null &&
+                    record.__typename === ROOT_TYPE &&
+                    field.name === 'user' &&
+                    argValues.hasOwnProperty('id')
+                ) {
+                    // If field is user(id: $id), look up the record by the value of $id
+                    return argValues.id;
+                }
+                if (
+                    record != null &&
+                    record.__typename === ROOT_TYPE &&
+                    field.name === 'story' &&
+                    argValues.hasOwnProperty('story_id')
+                ) {
+                    // If field is story(story_id: $story_id), look up the record by the
+                    // value of $story_id.
+                    return argValues.story_id;
+                }
+
+                return null;
+            },
+            kind: 'linked',
+        },
+    ],
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -68,12 +101,44 @@ function handlerProvider(handle: any) {
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
     const mutationPayload = store.getRootField('sendConversationMessage');
-    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
-    const connection = ConnectionHandler.getConnection(conversationStore, 'Messages_messages');
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
+    if (connection) {
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
+    }
+}
+
+interface MessageEdge {
+    readonly id: string;
+}
+
+interface SendConversationMessageMutationResponse {
+    readonly sendConversationMessage: {
+        readonly messageEdge: MessageEdge & {
+            error: string;
+        };
+    };
+}
+
+interface TConversation {
+    id: string;
+}
+
+function passToHelper(edge: RecordProxy<MessageEdge>) {
+    edge.getValue('id');
+}
+
+function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    const mutationPayload = store.getRootField('sendConversationMessage');
+    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const id = newMessageEdge.getValue('id');
+    const conversationStore = store.get<TConversation>(id);
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
     }
+    passToHelper(newMessageEdge);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +153,7 @@ store.publish(source);
 
 commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
-    root.setValue('foo', 'localKey');
+    root!.setValue('foo', 'localKey');
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~

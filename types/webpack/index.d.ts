@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.39
+// Type definitions for webpack 4.41
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -17,6 +17,8 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Grgur Grisogono <https://github.com/grgur>
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
+//                 Anders Kaseorg <https://github.com/andersk>
+//                 Felix Haus <https://github.com/ofhouse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,13 +45,17 @@ import { ConcatSource } from 'webpack-sources';
 export = webpack;
 
 declare function webpack(
-    options: webpack.Configuration,
-    handler: webpack.Compiler.Handler
+    options:
+        | webpack.Configuration
+        | webpack.ConfigurationFactory,
+    handler: webpack.Compiler.Handler,
 ): webpack.Compiler.Watching | webpack.Compiler;
 declare function webpack(options?: webpack.Configuration): webpack.Compiler;
 
 declare function webpack(
-    options: webpack.Configuration[],
+    options:
+        | webpack.Configuration[]
+        | webpack.MultiConfigurationFactory,
     handler: webpack.MultiCompiler.Handler
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
@@ -131,6 +137,26 @@ declare namespace webpack {
         optimization?: Options.Optimization;
     }
 
+    interface CliConfigOptions {
+        config?: string;
+        mode?: Configuration["mode"];
+        env?: string;
+        'config-register'?: string;
+        configRegister?: string;
+        'config-name'?: string;
+        configName?: string;
+    }
+
+    type ConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: CliConfigOptions,
+    ) => Configuration | Promise<Configuration>);
+
+    type MultiConfigurationFactory = ((
+        env: string | Record<string, boolean | number | string>,
+        args: CliConfigOptions,
+    ) => Configuration[] | Promise<Configuration[]>);
+
     interface Entry {
         [name: string]: string | string[];
     }
@@ -153,7 +179,7 @@ declare namespace webpack {
         /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
         auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
-        filename?: string;
+        filename?: string | ((chunkData: ChunkData) => string);
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
         /** Number of milliseconds before chunk request expires, defaults to 120,000. */
@@ -233,6 +259,10 @@ declare namespace webpack {
     type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
+
+    interface ChunkData {
+        chunk: compilation.Chunk;
+    }
 
     interface Module {
         /** A array of applied pre loaders. */
@@ -693,6 +723,26 @@ declare namespace webpack {
         }
     }
 
+    /**
+     * @see https://webpack.js.org/api/logging/
+     * @since 4.39.0
+     */
+    interface Logger {
+        error(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        group(...label: any[]): void;
+        groupEnd(): void;
+        groupCollapsed(...label: any[]): void;
+        status(message?: any, ...optionalParams: any[]): void;
+        clear(): void;
+        profile(label?: string): void;
+        profileEnd(label?: string): void;
+    }
+
     namespace debug {
         interface ProfilingPluginOptions {
             /** A relative path to a custom output file (json) */
@@ -713,70 +763,163 @@ declare namespace webpack {
             constructor(options?: ProfilingPluginOptions);
         }
     }
+
     namespace compilation {
         class Asset {
         }
 
-        class Module {
+        class DependenciesBlock {
+        }
+
+        class Module extends DependenciesBlock {
+            constructor(type: string, context?: string);
+            type: string;
+            context: string | null;
+            debugId: number;
+            hash: string | undefined;
+            renderedHash: string | undefined;
+            resolveOptions: any;
+            factoryMeta: any;
+            warnings: any[];
+            errors: any[];
+            buildMeta: any;
+            buildInfo: any;
+            reasons: any[];
+            _chunks: SortableSet<Chunk>;
+            id: number | string | null;
+            index: number | null;
+            index2: number | null;
+            depth: number | null;
+            issuer: Module | null;
+            profile: any;
+            prefetched: boolean;
+            built: boolean;
+
+            used: null | boolean;
+            usedExports: false | true | string[] | null;
+            optimizationBailout: string | any[];
+            _rewriteChunkInReasons: {
+                oldChunk: Chunk, newChunks: Chunk[]
+            } | undefined;
+            useSourceMap: boolean;
+            _source: any;
+
+            exportsArgument: string | 'exports';
+            moduleArgument: string | 'module';
+
+            disconnect(): void;
+            unseal(): void;
+            setChunks(chunks: Chunk[]): void;
+            addChunk(chunk: Chunk): boolean;
+            removeChunk(chunk: Chunk): boolean;
+            isInChunk(chunk: Chunk): boolean;
+            isEntryModule(): boolean;
+            optional: boolean;
+            getChunks(): Chunk[];
+            getNumberOfChunks: number;
+            chunksIterable: SortableSet<Chunk>;
+            hasEqualsChunks(module: Module): boolean;
+            addReason(module: Module, dependency: any, explanation: any): void;
+            removeReason(module: Module, dependency: any): boolean;
+            hasReasonForChunk(chunk: Chunk): boolean;
+            hasReasons(): boolean;
+            rewriteChunkInReasons(oldChunk: Chunk, newChunks: Chunk[]): void;
+            _doRewriteChunkInReasons(oldChunk: Chunk, newChunks: Chunk[]): void;
+            isUsed(exportName?: string): boolean | string;
+            isProvided(exportName: string): boolean | null;
+            toString(): string;
+            needRebuild(fileTimestamps: any, contextTimestamps: any): boolean;
+            updateHash(hash: any): void;
+            sortItems(sortChunks?: boolean): void;
+            unbuild(): void;
         }
 
         class Record {
         }
 
         class Chunk {
-            constructor(name: string);
-            id: any;
-            ids: any;
+            constructor(name?: string);
+            id: number | null;
+            ids: number[] | null;
             debugId: number;
-            name: any;
-            entryModule: any;
-            files: any[];
+            name: string;
+            preventIntegration: boolean;
+            entryModule: Module | undefined;
+            _modules: SortableSet<Module>;
+            filenameTemplate: string | undefined;
+            _groups: SortableSet<ChunkGroup>;
+            files: string[];
             rendered: boolean;
-            hash: any;
-            renderedHash: any;
-            chunkReason: any;
+            hash: string | undefined;
+            contentHash: object;
+            renderedHash: string | undefined;
+            chunkReason: string | undefined;
             extraAsync: boolean;
+            removedModules: any;
 
             hasRuntime(): boolean;
             canBeInitial(): boolean;
             isOnlyInitial(): boolean;
             hasEntryModule(): boolean;
 
-            addModule(module: any): boolean;
-            removeModule(module: any): boolean;
-            setModules(modules: any): void;
+            addModule(module: Module): boolean;
+            removeModule(module: Module): boolean;
+            setModules(modules: Module[]): void;
             getNumberOfModules(): number;
-            modulesIterable: any[];
+            // Internally returns this._modules
+            // So it should have the same type as this._modules
+            modulesIterable: SortableSet<Module>;
 
-            addGroup(chunkGroup: any): boolean;
-            removeGroup(chunkGroup: any): boolean;
-            isInGroup(chunkGroup: any): boolean;
+            addGroup(chunkGroup: ChunkGroup): boolean;
+            removeGroup(chunkGroup: ChunkGroup): boolean;
+            isInGroup(chunkGroup: ChunkGroup): boolean;
             getNumberOfGroups(): number;
-            groupsIterable: any[];
+            // Internally returns this._groups
+            // So it should have the same type as this._groups
+            groupsIterable: SortableSet<ChunkGroup>;
 
-            compareTo(otherChunk: any): -1 | 0 | 1;
-            containsModule(module: any): boolean;
-            getModules(): any[];
+            compareTo(otherChunk: Chunk): -1 | 0 | 1;
+            containsModule(module: Module): boolean;
+            getModules(): Module[];
             getModulesIdent(): any[];
-            remove(reason: any): void;
-            moveModule(module: any, otherChunk: any): void;
-            integrate(otherChunk: any, reason: any): boolean;
-            split(newChunk: any): void;
+            remove(reason?: string): void;
+            moveModule(module: Module, otherChunk: Chunk): void;
+            integrate(otherChunk: Chunk, reason: string): boolean;
+            split(newChunk: Chunk): void;
             isEmpty(): boolean;
             updateHash(hash: any): void;
-            canBeIntegrated(otherChunk: any): boolean;
-            addMultiplierAndOverhead(size: number, options: any): number;
+            canBeIntegrated(otherChunk: Chunk): boolean;
+            addMultiplierAndOverhead(
+                size: number,
+                options: {
+                    chunkOverhead?: number;
+                    entryChunkMultiplicator?: number
+                },
+            ): number;
             modulesSize(): number;
-            size(options: any): number;
-            integratedSize(otherChunk: any, options: any): number;
+            size(options?: {
+                chunkOverhead?: number;
+                entryChunkMultiplicator?: number
+            }): number;
+            integratedSize(otherChunk: Chunk, options: any): number | false;
+            sortModules(
+                sortByFn: (module1: Module, module2: Module) => -1 | 0 | 1
+            ): void;
+            sortItems(): void;
+            getAllAsyncChunks(): Set<Chunk>;
+            getChunkMaps(realHash: boolean): {
+                hash: any;
+                contentHash: any;
+                name: any;
+            };
+            getChildIdsByOrders(): any;
+            getChildIdsByOrdersMap(includeDirectChildren?: boolean): any;
             // tslint:disable-next-line:ban-types
-            sortModules(sortByFn: Function): void;
-            getAllAsyncChunks(): Set<any>;
-            getChunkMaps(realHash: any): { hash: any, name: any };
-            // tslint:disable-next-line:ban-types
-            getChunkModuleMaps(filterFn: Function): { id: any, hash: any };
-            // tslint:disable-next-line:ban-types
-            hasModuleInGraph(filterFn: Function, filterChunkFn: Function): boolean;
+            getChunkModuleMaps(filterFn: Function): { id: any; hash: any };
+            hasModuleInGraph(
+                filterFn: (module: Module) => boolean,
+                filterChunkFn: (chunk: Chunk) => boolean
+            ): boolean;
             toString(): string;
         }
 
@@ -1020,6 +1163,7 @@ declare namespace webpack {
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
             applyPlugins(name: string, ...args: any[]): void;
+            getLogger(pluginName: string): Logger;
         }
 
         interface CompilerHooks {
@@ -1137,6 +1281,7 @@ declare namespace webpack {
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
+        getInfrastructureLogger(name: string): Logger;
     }
 
     namespace Compiler {
@@ -1186,6 +1331,11 @@ declare namespace webpack {
         hash?: string;
         startTime?: number;
         endTime?: number;
+        /**
+         * Returns the default json options from the stats preset.
+         * @param preset The preset to be transformed into json options.
+         */
+        static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -1400,14 +1550,14 @@ declare namespace webpack {
                 childrenByOrder: Record<string, number[]>;
                 entry: boolean;
                 files: string[];
-                filteredModules?: boolean;
-                hash: string | undefined;
+                filteredModules?: number;
+                hash?: string;
                 id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
                 origins?: Array<{
-                    moduleId: string | number | undefined;
+                    moduleId?: string | number;
                     module: string;
                     moduleIdentifier: string;
                     moduleName: string;
@@ -1416,8 +1566,8 @@ declare namespace webpack {
                     reasons: string[];
                 }>;
                 parents: number[];
-                reason: string | undefined;
-                recorded: undefined;
+                reason?: string;
+                recorded?: boolean;
                 rendered: boolean;
                 size: number;
                 siblings: number[];

@@ -49,6 +49,12 @@ export interface RoxSetupOptions {
   freeze?: RoxFlagFreezeLevel;
   disableNetworkFetch?: boolean;
   devModeSecret?: string;
+  /**
+   * Set Roxy's URL for automated tests or local development.
+   *
+   * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+   */
+  roxy?: string;
 }
 
 export enum RoxFetcherStatus {
@@ -102,7 +108,7 @@ export function unfreeze(namespace?: string): void;
  *
  * https://support.rollout.io/docs/javascript-browser-api#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Opens the flag override view, providing a debug UI for the application's set of feature flags.
