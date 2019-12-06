@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot, PlotData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -124,11 +124,11 @@ const graphDiv = '#test';
 // Plotly.relayout
 // update only values within nested objects
 (() => {
-	const update = {
+	const update: Partial<Layout> = {
 		title: 'some new title', // updates the title
 		'xaxis.range': [0, 5],   // updates the xaxis range
 		'yaxis.range[1]': 15	 // updates the end of the yaxis range
-	} as Layout;
+	};
 	Plotly.relayout(graphDiv, update);
 })();
 
@@ -146,11 +146,16 @@ const graphDiv = '#test';
 //////////////////////////////////////////////////////////////////////
 // Plotly.update
 (() => {
-	const data_update = {
-		marker: { color: 'red' }
+	const data_update: Partial<PlotData> = {
+		marker: { color: 'red' },
+		type: 'bar'
 	};
-	const layout_update = {
+	const layout_update: Partial<Layout> = {
 		title: 'some new title', // updates the title
+		barmode: 'stack',
+		barnorm: 'fraction',
+		bargap: 0,
+		bargroupgap: 0,
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
 })();
