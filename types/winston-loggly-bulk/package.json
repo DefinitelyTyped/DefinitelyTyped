@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "logform": "^2.1.2",
+        "winston-transport": "^4.3.0"
+    },
+    "private": true
+}
