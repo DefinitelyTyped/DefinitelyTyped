@@ -1,4 +1,4 @@
-// Type definitions for parse 2.9
+// Type definitions for parse 2.10
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
