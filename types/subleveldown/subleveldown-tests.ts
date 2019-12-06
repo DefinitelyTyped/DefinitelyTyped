@@ -1,5 +1,5 @@
 import levelup from 'levelup';
-import * as sub from 'subleveldown';
+import sub from 'subleveldown';
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 
 interface StringEncoding {
@@ -16,7 +16,7 @@ const db = levelup(new AbstractLevelDOWN('here'), {
     valueEncoding: stringEncoding
 });
 
-const example = sub<string>(db, 'example');
+const example = sub<string>(db, 'example', { separator: '!' });
 const nested = sub<string, number>(example, 'nested');
 
 example.open();
