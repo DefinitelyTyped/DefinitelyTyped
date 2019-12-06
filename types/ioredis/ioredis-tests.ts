@@ -275,6 +275,11 @@ cluster.psetex('key', 100, 'value', (err, data) => {
     // [null, 'OK']
 });
 
+cluster.append('key', 'data');
+cluster.append('key', 'data', (err, res) => {
+    // 7
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });
