@@ -6,8 +6,8 @@ async function test_imports() {
     const ParseNode = await import('parse/node');
     // $ExpectType typeof Parse
     const ParseRN = await import('parse/react-native');
-    // $ExpectError
-    const ParseBad = await import('parse/bad');
+
+    // const ParseBad = await import('parse/bad'); // Error - but $ExpectError doesn't work for imports
 }
 
 class GameScore extends Parse.Object {
