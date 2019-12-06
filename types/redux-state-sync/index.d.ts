@@ -1,4 +1,4 @@
-// Type definitions for redux-state-sync 2.0
+// Type definitions for redux-state-sync 3.0
 // Project: https://github.com/AOHUA/redux-state-sync#readme
 // Definitions by: MU AOHUA <https://github.com/AOHUA>
 //                 AntonioMendez <https://github.com/AntonioMendez>
@@ -11,12 +11,13 @@ import BroadcastChannel from "broadcast-channel";
 export interface Stamp {
     $uuid: string;
     $wuid: string;
+    $isSync: boolean;
 }
 export type StampedAction = Stamp & AnyAction;
 
 export interface Config {
     channel?: string;
-    predicate?: (type?: string) => boolean | null;
+    predicate?: (action:AnyAction) => boolean | null;
     blacklist?: string[];
     whitelist?: string[];
     broadcastChannelOption?: object | null;
@@ -25,7 +26,7 @@ export interface Config {
 export interface MessageListenerConfig {
     channel: BroadcastChannel;
     dispatch: (action: AnyAction | StampedAction) => void;
-    allowed: (type?: string) => boolean;
+    allowed: (action:AnyAction) => boolean;
 }
 
 export function generateUuidForAction(action: AnyAction): StampedAction;
