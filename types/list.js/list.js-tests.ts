@@ -26,6 +26,7 @@ list.sort("name", { // $ExpectType void
 });
 list.search("name", ["col1", "col2"]); // $ExpectType void
 list.clear(); // $ExpectType void
+list.filter(); // $ExpectType void
 list.filter((item) => {
     return true;
 });

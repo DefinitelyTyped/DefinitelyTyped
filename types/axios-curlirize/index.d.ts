@@ -1,16 +1,20 @@
 // Type definitions for axios-curlirize 1.3
 // Project: https://github.com/delirius325/axios-curlirize#readme
-// Definitions by: Steven Hankin <https://github.com/me>
+// Definitions by: Steven Hankin <https://github.com/stevenhankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = AxiosCurlirize;
 
-import { AxiosStatic } from 'axios';
+import { AxiosInstance } from 'axios';
 
-interface Callback {
-    (error: Error, result?: number): void;
+interface Result {
+    command: string;
 }
 
-declare function AxiosCurlirize(instance: AxiosStatic, callback?: Callback): void;
+interface Callback {
+    (result: Result, error: Error): void;
+}
+
+declare function AxiosCurlirize(instance: AxiosInstance, callback?: Callback): void;
 
 declare namespace AxiosCurlirize { }

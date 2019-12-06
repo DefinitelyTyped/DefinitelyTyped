@@ -7836,6 +7836,11 @@ declare namespace Stripe {
 
         interface ISetupIntentConfirmOptions {
             /**
+             * The client secret of this SetupIntent. Used for client-side confirmation using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled.
+             */
+            client_secret?: string;
+
+            /**
              * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
              * to attach to this SetupIntent.
              */
@@ -10594,6 +10599,25 @@ declare namespace Stripe {
              * The identifier of the customer to subscribe.
              */
             customer: string;
+
+            /**
+             * A timestamp at which the subscription should cancel. If set to a date before the current period ends
+             * this will cause a proration if prorate=true.
+             */
+            cancel_at?: number | null;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (defaults to true) telling us whether to credit for unused time when the billing cycle changes
+             * (e.g. when switching plans, resetting billing_cycle_anchor=now, or starting a trial), or if an item’s
+             * quantity changes. If false, the anchor period will be free (similar to a trial) and
+             * proration adjustments will be created.
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
