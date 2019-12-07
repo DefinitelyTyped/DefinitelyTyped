@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-export function isSerialized(givenItem: any, strict: any): any;
+export function isSerialized(givenItem: any, strict?: any): any;
 
 export function serialize(item: any, scope?: any, givenOptions?: any): any;
 
