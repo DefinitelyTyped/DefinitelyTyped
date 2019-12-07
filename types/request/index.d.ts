@@ -149,7 +149,7 @@ declare namespace request {
         maxRedirects?: number;
         removeRefererHeader?: boolean;
         encoding?: string | null;
-        pool?: any;
+        pool?: false | { [key: string]: http.Agent | https.Agent } & PoolOptions | PoolOptions;
         timeout?: number;
         localAddress?: string;
         proxy?: any;
@@ -195,6 +195,10 @@ declare namespace request {
             mimeType?: string;
             params?: NameValuePair[];
         };
+    }
+
+    interface PoolOptions {
+        maxSockets?: number;
     }
 
     interface NameValuePair {
@@ -280,7 +284,7 @@ declare namespace request {
         // set in `Request.prototype.init`
         headers: Headers;
         method: string;
-        pool: false | { [key: string]: http.Agent | https.Agent };
+        pool?: false | { [key: string]: http.Agent | https.Agent } & PoolOptions | PoolOptions;
         dests: stream.Readable[];
         callback?: RequestCallback;
         uri: Url & { href: string, pathname: string };
