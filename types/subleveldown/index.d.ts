@@ -8,11 +8,15 @@ import { AbstractLevelDOWN, AbstractIterator, ErrorCallback } from 'abstract-lev
 
 interface SubDownOptions {
     separator?: string;
-    open?: ((callback: ErrorCallback) => void);
+    open?: (callback: ErrorCallback) => void;
     // Any other options are passed along to the underlying levelup and encoding-down constructors.
     [key: string]: any;
 }
 
-declare function sub<K = any, V = any>(db: LevelUp, prefix?: string, opts?: SubDownOptions | string): LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>;
-declare namespace sub { }
+declare function sub<K = any, V = any>(
+    db: LevelUp,
+    prefix?: string,
+    opts?: SubDownOptions | string,
+): LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>;
+declare namespace sub {}
 export = sub;
