@@ -4,7 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-export function isSerialized(givenItem: any, strict?: any): any;
+export interface SerializeOptions {
+    /** @default 'utf8' */
+    readonly encoding?: 'utf8' | 'binary';
+}
+
+export interface UnserializeOptions {
+    /** @default true' */
+    readonly strict?: boolean;
+    /** @default 'utf8' */
+    readonly encoding?: 'utf8' | 'binary';
+}
+
+export function isSerialized(givenItem: any, strict?: boolean): boolean;
 
 export function serialize(item: any, scope?: any, givenOptions?: SerializeOptions): string;
 
