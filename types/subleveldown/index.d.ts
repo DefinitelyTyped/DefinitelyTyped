@@ -1,6 +1,7 @@
 // Type definitions for subleveldown 4.1
 // Project: https://github.com/level/subleveldown
 // Definitions by: Carson Farmer <https://github.com/carsonfarmer>
+//                 Dmitry Demensky <https://github.com/demensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { LevelUp } from 'levelup';
