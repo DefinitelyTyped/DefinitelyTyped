@@ -79,7 +79,10 @@ export interface QueryRenderedFeaturesParams {
 
 export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams,
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export interface ExtraState {
@@ -97,7 +100,11 @@ export interface PositionInput {
 
 export type ViewportChangeHandler = (viewState: ViewportProps) => void;
 
-export type ContextViewportChangeHandler = (viewState: ViewportProps, interactionState: ExtraState, oldViewState: ViewportProps) => void;
+export type ContextViewportChangeHandler = (
+    viewState: ViewportProps,
+    interactionState: ExtraState,
+    oldViewState: ViewportProps,
+) => void;
 
 export interface MapControllerOptions {
     onViewportChange?: ContextViewportChangeHandler;
@@ -206,7 +213,7 @@ export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
     IGNORE = 3,
-    UPDATE = 4
+    UPDATE = 4,
 }
 
 export class TransitionInterpolator {}
@@ -216,14 +223,14 @@ export class LinearInterpolator extends TransitionInterpolator {
 }
 
 export type FlyToInterpolatorProps = {
-  curve?: number,
-  speed?: number,
-  screenSpeed?: number,
-  maxDuraiton?: number
+    curve?: number;
+    speed?: number;
+    screenSpeed?: number;
+    maxDuraiton?: number;
 };
 
 export class FlyToInterpolator extends TransitionInterpolator {
-    constructor(props: FlyToInterpolatorProps = {})
+    constructor(props?: FlyToInterpolatorProps);
 }
 
 export interface ViewStateChangeInfo {
@@ -286,7 +293,10 @@ export interface InteractiveMapProps extends StaticMapProps {
 
 export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams,
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export default InteractiveMap;

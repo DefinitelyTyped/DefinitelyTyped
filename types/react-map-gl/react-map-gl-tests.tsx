@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
     InteractiveMap,
     CanvasOverlay,
@@ -6,13 +6,11 @@ import {
     HTMLOverlay,
     FullscreenControl,
     GeolocateControl,
-    CanvasRedrawOptions,
-    HTMLRedrawOptions,
-    SVGRedrawOptions,
     StaticMap,
-    ViewportProps
+    ViewportProps,
+    FlyToInterpolator,
 } from 'react-map-gl';
-import * as MapboxGL from "mapbox-gl";
+import * as MapboxGL from 'mapbox-gl';
 
 interface State {
     viewport: ViewportProps;
@@ -46,18 +44,14 @@ class MyMap extends React.Component<{}, State> {
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    transitionInterpolator={new FlyToInterpolator({ speed: 2 })}
+                    transitionDuration="auto"
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
-                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
+                    <GeolocateControl className="test-class" style={{ marginTop: '8px' }} />
                     <CanvasOverlay
                         redraw={opts => {
-                            const {
-                                ctx,
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { ctx, height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                             ctx.clearRect(0, 0, width, height);
                         }}
@@ -69,17 +63,10 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <SVGOverlay
-                        redraw={() => {}}
-                    />
+                    <SVGOverlay redraw={() => {}} />
                     <SVGOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         captureScroll={true}
@@ -87,21 +74,14 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <HTMLOverlay
-                        redraw={() => {}}
-                    />
+                    <HTMLOverlay redraw={() => {}} />
                     <HTMLOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         style={{
-                            border: "2px solid black"
+                            border: '2px solid black',
                         }}
                         captureScroll={true}
                         captureDrag={true}
@@ -122,9 +102,9 @@ class MyMap extends React.Component<{}, State> {
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
         this.map = el.getMap();
-    }
+    };
 
     private readonly setRefStatic = (el: StaticMap) => {
         this.map = el.getMap();
-    }
+    };
 }
