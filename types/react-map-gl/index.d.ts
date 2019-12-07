@@ -4,6 +4,7 @@
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
 //                 Otto Urpelainen <https://github.com/oturpe>
+//                 Arman Safikhani <https://github.com/Arman92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
