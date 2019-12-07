@@ -6,10 +6,11 @@
 import { LevelUp } from 'levelup';
 import { AbstractLevelDOWN, AbstractIterator, ErrorCallback } from 'abstract-leveldown';
 
+type SubDownOpenHook = (callback: ErrorCallback) => void;
+
 interface SubDownOptions {
     separator?: string;
-    open?: (callback: ErrorCallback) => void;
-    // Any other options are passed along to the underlying levelup and encoding-down constructors.
+    open?: SubDownOpenHook;
     [key: string]: any;
 }
 
