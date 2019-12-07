@@ -5,103 +5,97 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export = Airtable;
+export class Airtable {
+    constructor(options?: Airtable.AirtableOptions);
+    base(appId: string): Airtable.Base;
+}
 
-declare global {
-    class Airtable {
-        constructor(options?: Airtable.AirtableOptions);
-        base(appId: string): Airtable.Base;
-    }
+export interface FieldSet {
+    [key: string]:
+        | undefined
+        | string
+        | number
+        | boolean
+        | Collaborator
+        | ReadonlyArray<Collaborator>
+        | ReadonlyArray<string>
+        | ReadonlyArray<Attachment>;
+}
 
-    namespace Airtable {
-        interface FieldSet {
-            [key: string]:
-                | undefined
-                | string
-                | number
-                | boolean
-                | Collaborator
-                | ReadonlyArray<Collaborator>
-                | ReadonlyArray<string>
-                | ReadonlyArray<Attachment>;
-        }
+export interface AirtableOptions {
+    apiKey?: string;
+    endpointUrl?: string;
+    apiVersion?: string;
+    allowUnauthorizedSsl?: boolean;
+    noRetryIfRateLimited?: boolean;
+    requestTimeout?: number;
+}
 
-        interface AirtableOptions {
-            apiKey?: string;
-            endpointUrl?: string;
-            apiVersion?: string;
-            allowUnauthorizedSsl?: boolean;
-            noRetryIfRateLimited?: boolean;
-            requestTimeout?: number;
-        }
+export interface Base {
+    (tableName: string): Table<{}>;
+}
 
-        interface Base {
-            (tableName: string): Table<{}>;
-        }
+export interface Table<TFields extends FieldSet> {
+    select(opt?: SelectOptions): Query<TFields>;
+    find(id: string): Promise<Record<TFields>>;
+    create(record: TFields, opts?: { typecast: boolean }): Promise<Record<TFields>>;
+    create(records: TFields[], opts?: { typecast: boolean }): Promise<Records<TFields>>;
+    update(...args: any[]): Promise<any>;
+    replace(...args: any[]): Promise<any>;
+    destroy(...args: any[]): Promise<any>;
+}
 
-        interface Table<TFields extends FieldSet> {
-            select(opt?: SelectOptions): Query<TFields>;
-            find(id: string): Promise<Record<TFields>>;
-            create(record: TFields, opts?: { typecast: boolean }): Promise<Record<TFields>>;
-            create(records: TFields[], opts?: { typecast: boolean }): Promise<Records<TFields>>;
-            update(...args: any[]): Promise<any>;
-            replace(...args: any[]): Promise<any>;
-            destroy(...args: any[]): Promise<any>;
-        }
+export interface SortParameter {
+  field: string;
+  direction?: 'asc' | 'desc';
+}
 
-        interface SortParameter {
-          field: string;
-          direction?: 'asc' | 'desc';
-        }
+export interface SelectOptions {
+    fields?: string[];
+    filterByFormula?: string;
+    maxRecords?: number;
+    pageSize?: number;
+    sort?: SortParameter[];
+    view?: string;
+    cellFormat?: 'json' | 'string';
+    timeZone?: string;
+    userLocale?: string;
+}
 
-        interface SelectOptions {
-            fields?: string[];
-            filterByFormula?: string;
-            maxRecords?: number;
-            pageSize?: number;
-            sort?: SortParameter[];
-            view?: string;
-            cellFormat?: 'json' | 'string';
-            timeZone?: string;
-            userLocale?: string;
-        }
+export interface Query<TFields extends object> {
+    all(): Promise<Records<TFields>>;
+    firstPage(): Promise<Records<TFields>>;
+    eachPage(pageCallback: (records: Records<TFields>, next: () => void) => void): Promise<void>;
+}
 
-        interface Query<TFields extends object> {
-            all(): Promise<Records<TFields>>;
-            firstPage(): Promise<Records<TFields>>;
-            eachPage(pageCallback: (records: Records<TFields>, next: () => void) => void): Promise<void>;
-        }
+export interface Record<TFields> {
+    id: string;
+    fields: TFields;
+}
 
-        interface Record<TFields> {
-            id: string;
-            fields: TFields;
-        }
+export type Records<TFields> = ReadonlyArray<Record<TFields>>;
 
-        type Records<TFields> = ReadonlyArray<Record<TFields>>;
+export interface Attachment {
+    id: string;
+    url: string;
+    filename: string;
+    size: number;
+    type: string;
+    thumbnails?: {
+        small: Thumbnail;
+        large: Thumbnail;
+        full: Thumbnail;
+    };
+}
 
-        interface Attachment {
-            id: string;
-            url: string;
-            filename: string;
-            size: number;
-            type: string;
-            thumbnails?: {
-                small: Thumbnail;
-                large: Thumbnail;
-                full: Thumbnail;
-            };
-        }
+export interface Thumbnail {
+    url: string;
+    width: number;
+    height: number;
+}
 
-        interface Thumbnail {
-            url: string;
-            width: number;
-            height: number;
-        }
-
-        interface Collaborator {
-          id: string;
-          email: string;
-          name: string;
-        }
-    }
+export interface Collaborator {
+  id: string;
+  email: string;
+  name: string;
 }
