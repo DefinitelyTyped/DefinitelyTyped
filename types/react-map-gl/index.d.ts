@@ -126,7 +126,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -215,7 +215,16 @@ export class LinearInterpolator extends TransitionInterpolator {
     constructor(transitionProps?: string[]);
 }
 
-export class FlyToInterpolator extends TransitionInterpolator {}
+export type FlyToInterpolatorProps = {
+  curve?: number,
+  speed?: number,
+  screenSpeed?: number,
+  maxDuraiton?: number
+};
+
+export class FlyToInterpolator extends TransitionInterpolator {
+    constructor(props: FlyToInterpolatorProps = {})
+}
 
 export interface ViewStateChangeInfo {
     viewState: ViewportProps;
@@ -239,7 +248,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     onViewStateChange?: ContextViewStateChangeHandler;
     onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
