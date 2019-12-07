@@ -5,12 +5,14 @@
 
 import { LevelUp } from 'levelup';
 import { AbstractLevelDOWN, AbstractIterator, ErrorCallback } from 'abstract-leveldown';
+import { CodecOptions } from 'level-codec';
 
 type SubDownOpenHook = (callback: ErrorCallback) => void;
 
-interface SubDownOptions {
+interface SubDownOptions extends CodecOptions {
     separator?: string;
     open?: SubDownOpenHook;
+    // TODO: Remove and inherit from constructor options from levelup package
     [key: string]: any;
 }
 
