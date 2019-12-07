@@ -26,7 +26,7 @@ declare namespace assert {
         constructor(options?: { message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function });
     }
 
-    export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+    export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
     export function ok(value: any, message?: string): void;
     export function equal(actual: any, expected: any, message?: string): void;
     export function notEqual(actual: any, expected: any, message?: string): void;

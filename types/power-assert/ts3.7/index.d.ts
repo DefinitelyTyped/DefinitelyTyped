@@ -15,7 +15,7 @@ declare namespace assert {
     export import AssertionError = module.AssertionError;
 
     export import fail = module.fail;
-    export import ok = module.ok;
+    export function ok(value: any, message?: string): asserts value;
     export import equal = module.equal;
     export import notEqual = module.notEqual;
     export import deepEqual = module.deepEqual;
