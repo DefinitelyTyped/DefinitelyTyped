@@ -10702,7 +10702,7 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
-            
+
             /**
              * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
              */
