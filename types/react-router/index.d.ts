@@ -20,6 +20,7 @@
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Mehmet Sarıoğlu <https://github.com/sarioglu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -136,7 +137,9 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
 
 export function generatePath(
     pattern: string,
-    params?: { [paramName: string]: string | number | boolean | undefined },
+    params?: {
+        [paramName: string]: string | number | boolean | undefined | Array<string | number | boolean | undefined>;
+    },
 ): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
