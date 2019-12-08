@@ -292,12 +292,18 @@ declare namespace Chai {
 
     interface Nested {
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
         members: Members;
     }
 
     interface Own {
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
     }
 
