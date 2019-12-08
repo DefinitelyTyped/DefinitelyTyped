@@ -4,13 +4,13 @@
 //                 Michael Stramel <https://github.com/stramel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0-rc.1
+// reflects react-table@7.0.0-rc.3
 
 // tslint:disable:no-unnecessary-generics
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode } from 'react';
+import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactNode, RefObject } from 'react';
 
 export {};
 
@@ -60,16 +60,23 @@ export type UseTableOptions<D extends object> = {
     data: D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
-    reducer: (newState: TableState<D>, action: string, prevState: TableState<D>) => TableState<D>;
+    reducer: (newState: TableState<D>, action: string, previousState: TableState<D>) => TableState<D>;
     useControlledState: (state: TableState<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
     initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number) => IdType<D>;
-    debug: boolean;
 }>;
 
 export interface UseTableHooks<D extends object> {
+    stateReducers: Array<
+        (
+            newState: TableState<D>,
+            action: string,
+            previousState: TableState<D>,
+            instance: RefObject<TableInstance<D>>,
+        ) => TableState<D>
+    >;
     columnsBeforeHeaderGroups: Array<(flatColumns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
     columnsBeforeHeaderGroupsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
     useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => TableInstance<D>>;
@@ -131,12 +138,12 @@ export interface UseTableHeaderGroupProps<D extends object> {
 export interface UseTableColumnProps<D extends object> {
     id: IdType<D>;
     isVisible: boolean;
-    render: (type: 'Header' | 'Footer'  | string, props?: object) => ReactNode;
+    render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
     getHeaderProps: (props?: object) => object;
     getFooterProps: (props?: object) => object;
-    toggleHiden: (value?: boolean) => void;
+    toggleHidden: (value?: boolean) => void;
     parent: ColumnInstance<D>; // not documented
     getToggleHideColumnsProps: (userProps: any) => any;
     depth: number; // not documented
@@ -220,7 +227,7 @@ export type UseExpandedOptions<D extends object> = Partial<{
     manualExpandedKey: IdType<D>;
     paginateExpandedRows: boolean;
     expandSubRows: boolean;
-    getResetExpandedDeps: (instance: TableInstance<D>) => any[];
+    autoResetExpanded?: boolean;
 }>;
 
 export interface UseExpandedHooks<D extends object> {
@@ -259,7 +266,7 @@ export type UseFiltersOptions<D extends object> = Partial<{
     disableFilters: boolean;
     defaultCanFilter: boolean;
     filterTypes: Filters<D>;
-    getResetFiltersDeps: (instance: TableInstance<D>) => any[];
+    autoResetFilters?: boolean;
 }>;
 
 export interface UseFiltersState<D extends object> {
@@ -323,7 +330,7 @@ export type UseGroupByOptions<D extends object> = Partial<{
     defaultCanGroupBy: boolean;
     aggregations: Record<string, AggregatorFn<D>>;
     groupByFn: (rows: Array<Row<D>>, columnId: IdType<D>) => Record<string, Row<D>>;
-    getResetGroupByDeps: (instance: TableInstance<D>) => any[];
+    autoResetGroupBy?: boolean;
 }>;
 
 export interface UseGroupByHooks<D extends object> {
@@ -394,7 +401,7 @@ export namespace usePagination {
 export type UsePaginationOptions<D extends object> = Partial<{
     pageCount: number;
     manualPagination: boolean;
-    getResetPageDeps: ((instance: TableInstance<D>) => any[]) | false;
+    autoResetPage?: boolean;
     paginateExpandedRows: boolean;
 }>;
 
@@ -527,7 +534,7 @@ export namespace useSortBy {
 }
 
 export type UseSortByOptions<D extends object> = Partial<{
-    manualSorting: boolean;
+    manualSortBy: boolean;
     disableSortBy: boolean;
     defaultCanSort: boolean;
     disableMultiSort: boolean;
@@ -537,7 +544,7 @@ export type UseSortByOptions<D extends object> = Partial<{
     disabledMultiRemove: boolean;
     orderByFn: (rows: Array<Row<D>>, sortFns: Array<SortByFn<D>>, directions: boolean[]) => Array<Row<D>>;
     sortTypes: Record<string, SortByFn<D>>;
-    getResetSortByDeps: (instance: TableInstance<D>) => any[];
+    autoResetSortBy?: boolean;
 }>;
 
 export interface UseSortByHooks<D extends object> {
@@ -602,8 +609,6 @@ export namespace useBlockLayout {
 // Additional API
 export const actions: Record<string, string>;
 export const defaultColumn: Partial<Column> & Record<string, any>;
-type TableReducer<S, A> = (prevState: S, action: A) => S | undefined;
-export const reducerHandlers: Record<string, TableReducer<TableState, any>>;
 
 // Helpers
 export type StringKey<D> = Extract<keyof D, string>;
@@ -622,72 +627,21 @@ export type TableDispatch<A = any> = (action: A) => void;
 
 // utils
 
-export function safeUseLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
-
-export function findMaxDepth<D extends object = {}>(columns: Array<Column<D>>, depth?: number): any; // to check column.reduce() return value
-export function decorateColumn<D extends object = {}>(
-    columns: Column<D>,
-    userDefaultColumn: Partial<Column<D>>,
-    parent: Column<D>,
-    depth: number,
-    index: number,
-): Column<D>;
-
-export function decorateColumnTree<D extends object = {}>(
-    columns: Column<D>,
-    defaultColumn: Partial<Column<D>>,
-    parent: Column<D>,
-    depth?: number,
-): Array<Column<D>>;
-
-export function makeHeaderGroups<D extends object = {}>(
-    flatColumns: Array<ColumnInstance<D>>,
-    defaultColumn: Partial<Column<D>>,
-): Array<HeaderGroup<D>>;
-
-export function getBy(obj: any, path: string, def: string): string; // guess
 export function defaultOrderByFn<D extends object = {}>(
     arr: Array<Row<D>>,
     funcs: Array<SortByFn<D>>,
     dirs: boolean[],
 ): Array<Row<D>>;
 
-export function getFirstDefined(...props: any): any;
-
 export function defaultGroupByFn<D extends object = {}>(
     rows: Array<Row<D>>,
     columnId: IdType<D>,
 ): Record<string, Row<D>>;
 
-interface ElementDimensions {
-    left: number;
-    width: number;
-    outerWidth: number;
-    marginLeft: number;
-    marginRight: number;
-    paddingLeft: number;
-    paddingRight: number;
-    scrollWidth: number;
-}
-
-export function getElementDimensions(element: ReactElement): ElementDimensions;
-
-export function flexRender(component: ComponentType, props: any): ReactElement;
-
 export function mergeProps(props: any): any;
 
 export function applyHooks(hooks: any, initial: any, args: any[]): any; // todo
 export function applyPropHooks(hooks: any, args: any[]): any; // todo
-export function warnUnknownProps(props: any): void;
-
-export function sum(arr: any[]): number; // todo
-export function isFunction(a: any): boolean;
-
-export function flattenBy<D extends object = {}>(
-    columns: Array<ColumnInstance<D>>,
-    childKey: IdType<D>,
-): Array<ColumnInstance<D>>;
-
 export function ensurePluginOrder<D extends object = {}>(
     plugins: Array<PluginHook<D>>,
     befores: string[],
@@ -695,16 +649,13 @@ export function ensurePluginOrder<D extends object = {}>(
     afters: string[],
 ): void;
 
-export function expandRows<D extends object = {}>(
-    rows: Array<Row<D>>,
-    {
-        manualExpandedKey,
-        expanded,
-        expandSubRows,
-    }: { manualExpandedKey: string; expanded: string[]; expandSubRows?: boolean },
-): string[];
-
 export function functionalUpdate<D extends object = {}>(
     updater: any,
     old: Partial<TableState<D>>,
 ): Partial<TableState<D>>; // todo
+
+export function useGetLatest(obj: any): any;
+export function safeUseLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
+export function useAsyncDebounce<F extends (...args: any[]) => any>(defaultFn: F, defaultWait?: number): F;
+
+export function useConsumeHookGetter(hooks: Hooks, hookName: string): any;
