@@ -7,11 +7,14 @@
 
 import { LevelUp } from 'levelup';
 import { Datastore } from 'interface-datastore';
+import { AbstractLevelDOWN, AbstractIterator } from 'abstract-leveldown'
 
 /**
  * A datastore backed by leveldb.
  */
-export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {}
+export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {
+    db: LevelUp<AbstractLevelDOWN<string, Value>, AbstractIterator<string, Value>>
+}
 
 export interface LevelDatastoreOptions {
     db: (location: string, options?: any) => LevelUp;
@@ -19,8 +22,8 @@ export interface LevelDatastoreOptions {
 }
 
 export interface LevelDatastoreConstructor<Value = Buffer> {
-    new(path: string, options?: LevelDatastoreOptions): LevelDatastore<Value>;
-    (path: string, options?: LevelDatastoreOptions): LevelDatastore<Value>;
+    new <Value>(path: string, options?: LevelDatastoreOptions): LevelDatastore<Value>;
+    <Value>(path: string, options?: LevelDatastoreOptions): LevelDatastore<Value>;
 }
 
 declare const LevelDatastore: LevelDatastoreConstructor;
