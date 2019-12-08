@@ -3,16 +3,13 @@
 // Definitions by: Gago <https://github.com/gagoar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace GraphqlSchemaLinter {
-    namespace Configuration {
-        interface Options {
-            configDirectory?: string;
-            format?: string | object;
-            rules?: ReadonlyArray<string>;
-            schemaPaths?: ReadonlyArray<string>;
-            stdin?: boolean;
-            commentDescriptions?: boolean;
-            oldImplementsSyntax?: boolean;
-        }
-    }
+import { Configuration } from './lib/configuration';
+import { validateSchemaDefinition } from './lib/validator';
+
+export interface configuration {
+    Configuration: Configuration;
+}
+
+export interface validator {
+    validateSchemaDefinition: typeof validateSchemaDefinition;
 }

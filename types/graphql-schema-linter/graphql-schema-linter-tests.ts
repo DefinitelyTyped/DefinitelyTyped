@@ -47,7 +47,11 @@ const rules = [
   DefinedTypesAreUsed,
 ];
 
-validateSchemaDefinition(configuration.getSchema(), rules, configuration);
+const getSchema = configuration.getSchema();
+
+if (getSchema) {
+  validateSchemaDefinition(getSchema, rules, configuration);
+}
 validateSchemaDefinition(`Query { field: String!}`, configuration.getRules(), configuration);
 
 validateSchemaDefinition(`Query { field: String!}`, [FieldsAreCamelCased, TypesHaveDescriptions], configuration);
