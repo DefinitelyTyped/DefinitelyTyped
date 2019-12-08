@@ -1,36 +1,61 @@
-// Type definitions for power-assert 1.5.1
+// Type definitions for power-assert 1.5.2
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // copy from assert external module in node.d.ts
 
-import * as module from "../index";
+/// <reference types="empower" />
+/// <reference types="power-assert-formatter" />
+
+import * as empower from "empower";
 
 export = assert;
 export as namespace assert;
 
 declare function assert(value: any, message?: string): asserts value;
 declare namespace assert {
-    export import AssertionError = module.AssertionError;
+    export class AssertionError implements Error {
+        name: string;
+        message: string;
+        actual: any;
+        expected: any;
+        operator: string;
+        generatedMessage: boolean;
 
-    export import fail = module.fail;
+        constructor(options?: { message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function });
+    }
+
+    export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
     export function ok(value: any, message?: string): asserts value;
-    export import equal = module.equal;
-    export import notEqual = module.notEqual;
-    export import deepEqual = module.deepEqual;
-    export import notDeepEqual = module.notDeepEqual;
-    export import strictEqual = module.strictEqual;
-    export import notStrictEqual = module.notStrictEqual;
-    export import deepStrictEqual = module.deepStrictEqual;
-    export import notDeepStrictEqual = module.notDeepStrictEqual;
-    export import throws = module.throws;
-    export import doesNotThrow = module.doesNotThrow;
-    export import ifError = module.ifError;
+    export function equal(actual: any, expected: any, message?: string): void;
+    export function notEqual(actual: any, expected: any, message?: string): void;
+    export function deepEqual(actual: any, expected: any, message?: string): void;
+    export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+    export function strictEqual(actual: any, expected: any, message?: string): void;
+    export function notStrictEqual(actual: any, expected: any, message?: string): void;
+    export function deepStrictEqual(actual: any, expected: any, message?: string): void;
+    export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+    export var throws: {
+        (block: Function, message?: string): void;
+        (block: Function, error: Function, message?: string): void;
+        (block: Function, error: RegExp, message?: string): void;
+        (block: Function, error: (err: any) => boolean, message?: string): void;
+    };
+    export var doesNotThrow: {
+        (block: Function, message?: string): void;
+        (block: Function, error: Function, message?: string): void;
+        (block: Function, error: RegExp, message?: string): void;
+        (block: Function, error: (err: any) => boolean, message?: string): void;
+    };
+    export function ifError(value: any): void;
 
-    export import strict = assert;
+    export const strict: typeof assert;
 
-    export import Options = module.Options;
+    export interface Options {
+        assertion?: empower.Options;
+        output?: powerAssertFormatter.Options;
+    }
 
-    export import customize = module.customize;
+    export function customize(options: Options): typeof assert;
 }
