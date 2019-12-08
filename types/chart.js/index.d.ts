@@ -21,6 +21,7 @@
 //                 Takuya Uehara <https://github.com/indigolain>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
+//                 Carlos Anoceto <https://github.com/canoceto> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -601,6 +602,7 @@ declare namespace Chart {
     }) => T;
 
     interface ChartDataSets {
+        hoverRadius?: number;
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         barPercentage?: number;
