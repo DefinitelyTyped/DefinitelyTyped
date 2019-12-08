@@ -320,25 +320,25 @@ declare module "child_process" {
     function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
-    function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    function execFile(file: string, callback: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
+    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
     function execFile(
         file: string,
         args: ReadonlyArray<string> | undefined | null,
         options: ExecFileOptionsWithBufferEncoding,
-        callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void,
+        callback: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void,
     ): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
     function execFile(
         file: string,
         args: ReadonlyArray<string> | undefined | null,
         options: ExecFileOptionsWithStringEncoding,
-        callback: (error: Error | null, stdout: string, stderr: string) => void,
+        callback: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
@@ -346,30 +346,35 @@ declare module "child_process" {
     function execFile(
         file: string,
         options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void,
+        callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: ReadonlyArray<string> | undefined | null,
         options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void,
+        callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    function execFile(file: string, options: ExecFileOptions, callback: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
+    function execFile(
+        file: string,
+        args: ReadonlyArray<string> | undefined | null,
+        options: ExecFileOptions,
+        callback: (error: ExecException | null, stdout: string, stderr: string) => void
+    ): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function execFile(
         file: string,
         options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
+        callback: ((error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
     ): ChildProcess;
     function execFile(
         file: string,
         args: ReadonlyArray<string> | undefined | null,
         options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
+        callback: ((error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
     ): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
