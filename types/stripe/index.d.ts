@@ -64,13 +64,13 @@ interface ResponseEvent {
 }
 
 interface StripeConfig {
-    apiVersion: string;
-    maxNetworkRetries: number;
-    httpAgent: Agent;
-    timeout: number;
-    host: string;
-    port: number;
-    telemetry: boolean;
+    apiVersion?: string;
+    maxNetworkRetries?: number;
+    httpAgent?: Agent;
+    timeout?: number;
+    host?: string;
+    port?: number;
+    telemetry?: boolean;
 }
 
 declare class Stripe {

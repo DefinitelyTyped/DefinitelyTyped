@@ -17,6 +17,8 @@ stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {
     telemetry: true
 });
 
+stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {});
+
 stripe.setHttpAgent(new HttpAgent());
 stripe.setHttpAgent(new HttpsAgent());
 
