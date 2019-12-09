@@ -13,7 +13,7 @@ import * as empower from "empower";
 export = assert;
 export as namespace assert;
 
-declare function assert(value: any, message?: string): void;
+declare function assert(value: any, message?: string): asserts value;
 declare namespace assert {
     export class AssertionError implements Error {
         name: string;
@@ -27,7 +27,7 @@ declare namespace assert {
     }
 
     export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
-    export function ok(value: any, message?: string): void;
+    export function ok(value: any, message?: string): asserts value;
     export function equal(actual: any, expected: any, message?: string): void;
     export function notEqual(actual: any, expected: any, message?: string): void;
     export function deepEqual(actual: any, expected: any, message?: string): void;

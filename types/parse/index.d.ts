@@ -215,11 +215,12 @@ declare global {
         /**
          * A Parse.File is a local representation of a file that is saved to the Parse
          * cloud.
-         * @param name The file's name. This will be prefixed by a unique
+         * @class
+         * @param name {String} The file's name. This will be prefixed by a unique
          *     value once the file has finished saving. The file name must begin with
          *     an alphanumeric character, and consist of alphanumeric characters,
          *     periods, spaces, underscores, or dashes.
-         * @param data The data for the file, as either:
+         * @param data {Array} The data for the file, as either:
          *     1. an Array of byte value Numbers, or
          *     2. an Object like { base64: "..." } with a base64-encoded String.
          *     3. a File object selected with a file upload control. (3) only works
@@ -236,15 +237,24 @@ declare global {
          *     // The file either could not be read, or could not be saved to Parse.
          *   });
          * }</pre>
-         * @param type Optional Content-Type header to use for the file. If
+         * @param type {String} Optional Content-Type header to use for the file. If
          *     this is omitted, the content type will be inferred from the name's
          *     extension.
          */
         class File {
-            constructor(name: string, data: any, type?: string);
+            constructor(name: string, data: number[] | { base64: string } | Blob | { uri: string }, type?: string);
+            /**
+             * Return the data for the file, downloading it if not already present.
+             * Data is present if initialized with Byte Array, Base64 or Saved with Uri.
+             * Data is cleared if saved with File object selected with a file upload control
+             *
+             * @returns Promise that is resolved with base64 data
+             */
+            getData(): Promise<string>;
             name(): string;
-            url(): string;
-            save(options?: FullOptions): Promise<File>;
+            save(options?: SuccessFailureOptions): Promise<File>;
+            toJSON(): { __type: string, name: string, url: string };
+            url(options?: { forceSecure: boolean }): string;
         }
 
         /**
@@ -360,7 +370,7 @@ declare global {
             existed(): boolean;
             exists(options?: RequestOptions): Promise<boolean>;
             fetch(options?: Object.FetchOptions): Promise<this>;
-            fetchFromLocalDatastore(): Promise<this> | void;
+            fetchFromLocalDatastore(): Promise<this>;
             fetchWithInclude<K extends Extract<keyof T, string>>(
                 keys: K | Array<K | K[]>,
                 options?: RequestOptions
@@ -419,11 +429,16 @@ declare global {
             destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
             extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
             fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-            fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
+            fetchAllIfNeeded<T extends Object>(list: T[], options?: Object.FetchAllOptions): Promise<T[]>;
+            fetchAllIfNeededWithInclude<T extends Object>(
+                list: T[],
+                keys: string | Array<string | Array<string>>,
+                options?: RequestOptions
+            ): Promise<T[]>;
             fetchAllWithInclude<T extends Object>(
                 list: T[],
                 keys: string | Array<string | string[]>,
-                options: RequestOptions,
+                options?: RequestOptions,
             ): Promise<T[]>;
             fromJSON<T extends Object>(json: any, override?: boolean): T;
             pinAll(objects: Object[]): Promise<void>;
@@ -716,6 +731,8 @@ declare global {
              */
             constructor(id: string, query: string, sessionToken?: string);
 
+            on(event: 'open' | 'create' | 'update' | 'enter' | 'leave' | 'delete' | 'close', listener: (object: Object) => void): this;
+
             /**
              * Closes the subscription.
              *
@@ -748,9 +765,9 @@ declare global {
         const Role: RoleConstructor;
 
         class Config {
-            static get(options?: SuccessFailureOptions): Promise<Config>;
+            static get(options?: UseMasterKeyOption): Promise<Config>;
             static current(): Config;
-            static save(attr: any): Promise<Config>;
+            static save(attr: any, options?: { [attr: string]: boolean }): Promise<Config>;
 
             get(attr: string): any;
             escape(attr: string): any;

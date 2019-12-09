@@ -23,7 +23,8 @@ class Game extends Parse.Object {
 }
 
 function test_config() {
-    Parse.Config.save({ foo: 'bar' });
+    Parse.Config.save({ foo: 'bar' }, { foo: true });
+    Parse.Config.get({ useMasterKey: true });
 }
 
 function test_object() {
@@ -182,6 +183,31 @@ async function test_query_promise() {
     }
 }
 
+async function test_live_query() {
+    const subscription = await new Parse.Query('Test').subscribe();
+    subscription.on('close', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('create', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('delete', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('enter', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('leave', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('open', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('update', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+}
+
 function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
 }
@@ -194,10 +220,12 @@ function test_file() {
     const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
     let file = new Parse.File('myfile.txt', { base64 });
 
+    file = new Parse.File('nana', { uri: 'http://example.com/image.jps' });
+
     const bytes = [0xbe, 0xef, 0xca, 0xfe];
     file = new Parse.File('myfile.txt', bytes);
 
-    file = new Parse.File('myfile.zzz', {}, 'image/png');
+    file = new Parse.File('myfile.zzz', new Blob(), 'image/png');
 
     const src = file.url();
 
