@@ -378,6 +378,8 @@ declare namespace Bookshelf {
     interface SerializeOptions {
         shallow?: boolean;
         omitPivot?: boolean;
+        /** @default true */
+        visibility?: boolean;
     }
 
     interface SetOptions {
