@@ -38,7 +38,7 @@ export interface QueryOptions<TResult> {
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
     paginated: true;
-    getCanFetchMore: (lastPage: number, allPages: number) => boolean;
+    getCanFetchMore: (lastPage: TResult, allPages: TResult[]) => boolean;
 }
 
 export interface QueryResult<TResult, TVariables> {
