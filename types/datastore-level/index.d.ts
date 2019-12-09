@@ -6,14 +6,19 @@
 // TypeScript Version: 3.6
 
 import { LevelUp } from 'levelup';
-import { Datastore } from 'interface-datastore';
-import { AbstractLevelDOWN, AbstractIterator } from 'abstract-leveldown'
+import { Datastore, Batch } from 'interface-datastore';
+import { AbstractLevelDOWN, AbstractIterator, AbstractBatch } from 'abstract-leveldown'
+
+export interface LevelDatastoreBatch<Value = Buffer> extends Batch<Value> {
+    ops: AbstractBatch<string, Value>[]
+}
 
 /**
  * A datastore backed by leveldb.
  */
 export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {
     db: LevelUp<AbstractLevelDOWN<string, Value>, AbstractIterator<string, Value>>
+    batch(): LevelDatastoreBatch<Value>
 }
 
 export interface LevelDatastoreOptions {
