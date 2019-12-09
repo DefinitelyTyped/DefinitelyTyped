@@ -40,13 +40,13 @@ export class MemoryDatastore<Value = Buffer> implements Datastore<Value> {
     close(): Promise<void>;
 }
 
-export interface Batch<Value> {
+export interface Batch<Value = Buffer> {
     put(key: Key, value: Value): void;
     delete(key: Key): void;
     commit(): Promise<void>;
 }
 
-export interface Result<Value> {
+export interface Result<Value = Buffer> {
     key: Key;
     value: Value;
 }
@@ -56,7 +56,7 @@ export namespace Query {
     type Order<T> = (items: Array<Result<T>>) => Array<Result<T>>;
 }
 
-export interface Query<Value> {
+export interface Query<Value = Buffer> {
     prefix?: string;
     filters?: Array<Query.Filter<Value>>;
     orders?: Array<Query.Order<Value>>;
