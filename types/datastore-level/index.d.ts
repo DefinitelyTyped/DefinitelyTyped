@@ -17,7 +17,7 @@ export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {
 }
 
 export interface LevelDatastoreOptions {
-    db: (location: string, options?: any) => LevelUp;
+    db?: (location: string, options?: any) => LevelUp;
     [key: string]: any;
 }
 
