@@ -14,7 +14,6 @@
 //                 Rayner Pupo <https://github.com/raynerd>
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
-//                 Jack Leigh <https://github.com/leighman>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
