@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v0.13.0
+// Type definitions for bookshelfjs v1.0.1
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
