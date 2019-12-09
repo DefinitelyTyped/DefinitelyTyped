@@ -215,12 +215,11 @@ declare global {
         /**
          * A Parse.File is a local representation of a file that is saved to the Parse
          * cloud.
-         * @class
-         * @param name {String} The file's name. This will be prefixed by a unique
+         * @param name The file's name. This will be prefixed by a unique
          *     value once the file has finished saving. The file name must begin with
          *     an alphanumeric character, and consist of alphanumeric characters,
          *     periods, spaces, underscores, or dashes.
-         * @param data {Array} The data for the file, as either:
+         * @param data The data for the file, as either:
          *     1. an Array of byte value Numbers, or
          *     2. an Object like { base64: "..." } with a base64-encoded String.
          *     3. a File object selected with a file upload control. (3) only works
@@ -237,7 +236,7 @@ declare global {
          *     // The file either could not be read, or could not be saved to Parse.
          *   });
          * }</pre>
-         * @param type {String} Optional Content-Type header to use for the file. If
+         * @param type Optional Content-Type header to use for the file. If
          *     this is omitted, the content type will be inferred from the name's
          *     extension.
          */
@@ -432,7 +431,7 @@ declare global {
             fetchAllIfNeeded<T extends Object>(list: T[], options?: Object.FetchAllOptions): Promise<T[]>;
             fetchAllIfNeededWithInclude<T extends Object>(
                 list: T[],
-                keys: string | Array<string | Array<string>>,
+                keys: string | Array<string | string[]>,
                 options?: RequestOptions
             ): Promise<T[]>;
             fetchAllWithInclude<T extends Object>(

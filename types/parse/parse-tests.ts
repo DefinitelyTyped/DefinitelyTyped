@@ -186,25 +186,32 @@ async function test_query_promise() {
 async function test_live_query() {
     const subscription = await new Parse.Query('Test').subscribe();
     subscription.on('close', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('create', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('delete', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('enter', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('leave', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('open', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
     subscription.on('update', (object) => {
-        (object instanceof Parse.Object) == true;
+        // $ExpectType Object<Attributes>
+        object;
     });
 }
 
