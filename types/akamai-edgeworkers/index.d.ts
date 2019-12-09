@@ -195,7 +195,7 @@ declare namespace EW {
      * * If device properties can not be supplied for any reason,
      *   undefined is returned for each property
      */
-    class Device {
+    interface Device {
         /**
          * Brand name of the device.
          */
@@ -292,5 +292,170 @@ declare namespace EW {
          * Indicates if the device is a mobile device.
          */
         isMobile: boolean | undefined;
+    }
+}
+
+/**
+ * Query, add, and remove cookies.
+ */
+declare module "cookies" {
+    /**
+     * Provides access to the Cookies header of a request, allowing the
+     * addition, removal, or modification of cookie values.
+     */
+    class Cookies {
+        /**
+         * Constructor for a new "Cookies" struct to hold cookies.
+         *
+         * @param cookieHeader The raw Cookie header to pass to the constructor
+         *      to parse. If an array is passed, the first element must be a
+         *      string and that is used as the cookies string to parse. If this
+         *      is not passed, an empty cookies object is returned.
+         *
+         * @param options Only used when parsing an existing Cookie header.
+         *      Object to override the default decode of the Cookie values. This
+         *      object must have a function named 'decode' on it, which should
+         *      take a string and return the result of the custom decoding of
+         *      that string.
+         */
+        constructor(header?: string | string[], options?: object);
+
+        /**
+         * Returns the string representation to use when setting the Cookie
+         * header, encoding values by default.
+         */
+        toHeader(): string;
+
+        /**
+         * Get the first instance of the cookie matching the given name.
+         *
+         * @param name Cookie name.
+         */
+        get(name: string): string | undefined;
+
+        /**
+         * Get all Instances of the cookie matching the given name.
+         *
+         * @param name cookie name.
+         */
+        getAll(name: string): string[];
+
+        /**
+         * Get all names of existing cookies held by this Cookies object.
+         */
+        names(): string[];
+
+        /**
+         * Adds a cookie.
+         * @param name Name of the cookie
+         * @param value Value of the cookie.
+         */
+        add(name: string, value: string): void;
+
+        /**
+         * Removes all cookies with a given name.
+         *
+         * @param name Cookie name.
+         */
+        delete(name: string): void;
+    }
+
+    /**
+     * Provides access to the SetCookies header of a request.
+     */
+    class SetCookie {
+        /**
+         * Constructor for a new "SetCookie" struct to hold a specific Set-Cookie
+         * header representation.
+         */
+        constructor(opts?: {
+            name?: string;
+            value?: string;
+            maxAge?: number;
+            domain?: string;
+            path?: string;
+            expires?: { toUTCString: () => string };
+            httpOnly?: boolean;
+            secure?: boolean;
+            sameSite?: "Strict" | "Lax" | "None" | true;
+        });
+
+        /**
+         * Returns the string representation to use when setting the Set-Cookie
+         * header, encoding values by default.
+         */
+        toHeader(): string;
+
+        name: string;
+        value: string;
+        maxAge: number;
+        domain: string;
+        path: string;
+        expires: { toUTCString: () => string };
+        httpOnly: boolean;
+        secure: boolean;
+        sameSite: "Strict" | "Lax" | "None" | true;
+    }
+}
+
+/**
+ * Query, add, and remove parameters from the query string.
+ */
+declare module "url-search-params" {
+    export default class URLSearchParams {
+        /**
+         * Create a new URLSearchParams object.
+         */
+        constructor(init?: string | URLSearchParams);
+
+        /**
+         * Add a new name/value to the receiver.
+         */
+        append(name: string, value: string): void;
+
+        /**
+         * Remove the given name/value from the receiver.
+         */
+        delete(name: string): void;
+
+        /**
+         * Return the first value with the specified name.
+         */
+        get(name: string): string | null;
+
+        /**
+         * Check if the given name exists.
+         */
+        has(name: string): boolean;
+
+        /**
+         * Return *all* values association with the specified name.
+         */
+        getAll(name: string): string[];
+
+        /**
+         * Iterate through the name/value pairs.
+         */
+        entries(): IterableIterator<[string, string]>;
+
+        /**
+         * Iterate through the names.
+         */
+        keys(): IterableIterator<string>;
+
+        /**
+         * Iterate through the values.
+         */
+        values(): IterableIterator<string>;
+
+        /**
+         * Replace all instances of `name` with a single name/value pair.
+         */
+        set(name: string, value: string): void;
+
+        /**
+         * Return a query string suitable for use in a URL.
+         */
+        toString(): string;
     }
 }

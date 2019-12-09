@@ -1,4 +1,4 @@
-import { Cookies, SetCookie } from 'akamai-edgeworkers/cookies';
+import { Cookies, SetCookie } from 'cookies';
 
 function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
     // Verify parse constructor

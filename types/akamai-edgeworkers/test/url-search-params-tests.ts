@@ -1,4 +1,4 @@
-import URLSearchParams from 'akamai-edgeworkers/url-search-params';
+import URLSearchParams from 'url-search-params';
 
 export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
     const params = new URLSearchParams(request.query);

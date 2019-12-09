@@ -1,4 +1,4 @@
-TypeScript types for the Akamai [EdgeWorker API]. This allows you to write 
+Bindings for the Akamai [EdgeWorker API]. This allows you to write 
 your EdgeWorkers in TypeScript.  
 
 Types are available for the `Request` and `Response` objects, as well as the 
@@ -15,7 +15,7 @@ code generator:
     "compilerOptions": {
         "module": "es6",
         "target": "es6",
- //...
+//...
     }
 }
 ```    
@@ -27,7 +27,7 @@ arguments. After you have installed this package, you can create a `main.ts`
 with the following stubs:
 
 ```typescript
-/// <reference types="akamai-edgeworkers-tsc"/>
+/// <reference types="akamai-edgeworkers"/>
 
 export function onClientRequest(request : EW.MutableRequest & EW.HasRespondWith){}
 export function onOriginRequest(request : EW.MutableRequest) {}
@@ -40,22 +40,18 @@ namespace.
 
 ## Using Built-In Modules
 
-The built-in modules have non-relative imports, so they require changes to 
-your `tsconfig.json`. Adding the cookie module to the paths in the compiler 
-options will enable your IDE to find the appropriate definition and the 
-compiler to emit a functional import:
+Bindings are available for the built-in `cookies` and `url-search-params` 
+modules. Once you've added the triple-slash reference to `akamai-edgeworkers`
+you can import them normally:
 
-```json5
-{
-    "compilerOptions": {
+```typescript
+/// <reference types="akamai-edgeworkers"/>
+
+import { Cookies } from 'cookies';
+
+function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
+    const cookie = new Cookies(request.getHeader('cookies') || undefined);
 //...
-        "baseUrl": ".",
-        "paths": {
-            "cookies" : [
-                "node_modules/akamai-edgeworkers-tsc/cookies"
-            ]
-        }
-    }
 }
 ```
 
