@@ -7,17 +7,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type lineTagPropsFunction = (
-    lineNumber: number
-) => React.DOMAttributes<HTMLElement>;
+type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>;
 
 declare module "react-syntax-highlighter" {
     export interface SyntaxHighlighterProps {
         language?: string;
         style?: any;
         customStyle?: any;
-        lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>;
-        codeTagProps?: React.DOMAttributes<HTMLElement>;
+        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement>;
+        codeTagProps?: React.HTMLProps<HTMLElement>;
         useInlineStyles?: boolean;
         showLineNumbers?: boolean;
         startingLineNumber?: number;

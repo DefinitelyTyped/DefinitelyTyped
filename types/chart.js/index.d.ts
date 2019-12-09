@@ -510,6 +510,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {

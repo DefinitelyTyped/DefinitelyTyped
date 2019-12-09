@@ -1,4 +1,5 @@
 {
+    "extends": "../tsconfig",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -8,16 +9,15 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "power-assert-tests.ts"
+        "index.d.ts"
     ]
 }

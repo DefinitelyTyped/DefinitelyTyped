@@ -266,7 +266,6 @@ export interface Layout {
 	mapbox: {}; // TODO
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
-	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
@@ -630,6 +629,7 @@ export interface PlotData {
 	value: number;
 	values: Datum[];
 	labels: Datum[];
+	direction: 'clockwise' | 'counterclockwise';
 	hole: number;
 	rotation: number;
 	theta: Datum[];
