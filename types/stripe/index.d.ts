@@ -64,9 +64,9 @@ interface ResponseEvent {
 }
 
 interface StripeConfig {
-    apiVersion?: string;
+    apiVersion?: string | null;
     maxNetworkRetries?: number;
-    httpAgent?: Agent;
+    httpAgent?: Agent | null;
     timeout?: number;
     host?: string;
     port?: number;
