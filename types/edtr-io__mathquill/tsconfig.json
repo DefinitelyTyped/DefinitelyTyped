@@ -15,7 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@edtr-io/mathquill": ["edtr-io__mathquill"]
+        }
     },
     "files": [
         "index.d.ts",
