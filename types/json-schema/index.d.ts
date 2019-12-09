@@ -643,8 +643,15 @@ export interface JSONSchema7 {
     examples?: JSONSchema7Type;
 }
 
-export type ValidationResult = { valid: boolean; errors: ValidationError[] };
-export type ValidationError = { property: string, message: string };
+export interface ValidationResult {
+    valid: boolean;
+    errors: ValidationError[];
+}
+
+export interface ValidationError {
+    property: string;
+    message: string;
+}
 
 /*
  * To use the validator call JSONSchema.validate with an instance object and an optional schema object.
