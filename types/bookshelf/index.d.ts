@@ -101,8 +101,14 @@ declare namespace Bookshelf {
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
 		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string, foreignKeyTarget?: string, otherKeyTarget?: string): Collection<R>;
-		count(column?: string, options?: SyncOptions): BlueBird<number | string>;
-		destroy(options?: DestroyOptions): BlueBird<T>;
+        count(column?: string, options?: SyncOptions): BlueBird<number | string>;
+        /**
+         * @throws {NoRowsDeletedError} if no records are deleted and `options.required !== false`
+         */
+        destroy(options?: DestroyOptions): BlueBird<T>;
+        /**
+         * @throws {NotFoundError} if no result and `options.required !== false`
+         */
 		fetch(options?: FetchOptions): BlueBird<T>;
 		fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
 		hasMany<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): Collection<R>;
@@ -121,7 +127,10 @@ declare namespace Bookshelf {
 		query(query: { [key: string]: any }): T;
 
 		refresh(options?: FetchOptions): BlueBird<T>;
-		resetQuery(): T;
+        resetQuery(): T;
+        /**
+         * @throws {NoRowsUpdatedError} if updating and `options.required !== false`
+         */
 		save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
 		save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
 		through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
@@ -278,6 +287,7 @@ declare namespace Bookshelf {
 	}
 
 	interface FetchOptions extends SyncOptions {
+        /** @default true */
 		require?: boolean;
 		columns?: string | string[];
 		withRelated?: (string | WithRelatedQuery)[];
@@ -293,11 +303,13 @@ declare namespace Bookshelf {
 	interface SaveOptions extends SyncOptions {
 		method?: string;
 		defaults?: string;
-		patch?: boolean;
+        patch?: boolean;
+        /** @default true */
 		require?: boolean;
 	}
 
 	interface DestroyOptions extends SyncOptions {
+        /** @default true */
 		require?: boolean;
 	}
 
