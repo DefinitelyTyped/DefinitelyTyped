@@ -52,8 +52,8 @@ export interface Result<Value = Buffer> {
 }
 
 export namespace Query {
-    type Filter<T> = (item: Result<T>) => boolean;
-    type Order<T> = (items: Array<Result<T>>) => Array<Result<T>>;
+    type Filter<T = Buffer> = (item: Result<T>) => boolean;
+    type Order<T = Buffer> = (items: Array<Result<T>>) => Array<Result<T>>;
 }
 
 export interface Query<Value = Buffer> {
