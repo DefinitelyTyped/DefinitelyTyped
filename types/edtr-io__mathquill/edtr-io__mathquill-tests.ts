@@ -1,19 +1,13 @@
-import * as React from 'react';
-import MathQuill, { addStyles } from 'react-mathquill';
-import { Config, MQ } from 'edtr-io__mathquill';
-
-addStyles();
+import { MQ, Config } from 'edtr-io__mathquill';
 
 const Test = () => {
-    const [latex, setLatex] = React.useState<string>('');
-
     const config: Config = {
         spaceBehavesLikeTab: true,
         leftRightIntoCmdGoes: 'up',
         autoSubscriptNumerals: true,
         maxDepth: 10,
         substituteTextarea() {
-            return '';
+            return document.createElement('textarea');
         },
         restrictMismatchedBrackets: true,
         sumStartsWithNEquals: true,
@@ -42,13 +36,4 @@ const Test = () => {
             },
         },
     };
-
-    return (
-        <MathQuill
-            latex={latex}
-            onChange={(MQ: MQ) => setLatex(MQ.latex())}
-            config={config}
-            mathquillDidMount={(MQ: MQ) => MQ.latex('\\sqrt{}')}
-        />
-    );
 };
