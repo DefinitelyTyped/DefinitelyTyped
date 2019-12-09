@@ -2,7 +2,6 @@
 // Project: https://github.com/webpack-contrib/purifycss-webpack
 // Definitions by: Geoff Garbers <https://github.com/garbetjie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="webpack"/>
 
 import * as webpack from 'webpack';
 
