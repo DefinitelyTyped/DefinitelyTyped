@@ -2,24 +2,66 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Auth from 'okta__okta-vue';
 
-Vue.use(Auth, {
+// === Testing typing of options
+
+// Minimal good config
+const validOpts: Auth.OktaVueOptions = {
     issuer: 'https://{yourOktaDomain}.com/oauth2/default',
     clientId: '{clientId}',
     redirectUri: 'https://localhost:{port}/implicit/callback',
-    tokenManager: {
-        secure: false,
-        storage: 'cookie',
-        autoRenew: false
-    },
-    pkce: true,
-    scopes: ['openid', 'profile', 'email'],
-    postLogoutRedirectUri: 'http://post-logout-redirect-uri',
-    authorizeUrl: 'https://authorize-url',
-    userinfoUrl: 'https://user-inf-url',
-    tokenUrl: 'https://token-url',
-    ignoreSignature: false,
-    maxClockSkew: 300
-});
+};
+const authOpts = { ...validOpts };
+
+// Must provide valid tokenManager config
+authOpts.tokenManager = null; // $ExpectError
+
+// Must use valid tokenManager options
+// $ExpectError
+authOpts.tokenManager = {
+    storage: 'bad-option'
+};
+// $ExpectError
+authOpts.tokenManager = {
+    storage: 'cookie',
+    secure: 'string'
+};
+// $ExpectError
+authOpts.tokenManager = {
+    storage: 'cookie',
+    secure: true,
+    autoRenew: 'string'
+};
+// Valid token manager options
+authOpts.tokenManager = {
+    storage: 'cookie',
+    secure: false,
+    autoRenew: true
+};
+
+// Invalid optional config properties
+authOpts.pkce = null; // $ExpectError
+authOpts.scopes = null; // $ExpectError
+authOpts.postLogoutRedirectUri = null; // $ExpectError
+authOpts.authorizeUrl = null; // $ExpectError
+authOpts.userinfoUrl = null; // $ExpectError
+authOpts.tokenUrl = null; // $ExpectError
+authOpts.ignoreSignature = null; // $ExpectError
+authOpts.maxClockSkew = null; // $ExpectError
+
+// Valid optional config properties
+authOpts.pkce = true;
+authOpts.scopes = ['openid', 'profile', 'email'];
+authOpts.postLogoutRedirectUri = 'http://post-logout-redirect-uri';
+authOpts.authorizeUrl = 'https://authorize-url';
+authOpts.userinfoUrl = 'https://user-inf-url';
+authOpts.tokenUrl = 'https://token-url';
+authOpts.ignoreSignature = true;
+authOpts.maxClockSkew = 300;
+
+// === Finish testing options, begin testing inegration
+
+// Vue.use represents actual usage
+Vue.use(Auth, validOpts);
 
 Vue.use(Router);
 const router = new Router({
