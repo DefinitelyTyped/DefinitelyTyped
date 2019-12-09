@@ -95,7 +95,7 @@ function codeTagProps() {
     }
     `;
 
-    const codeTagProps = {
+    const codeTagProps: SyntaxHighlighterProps["codeTagProps"] = {
         className: "some-classname",
         style: {
             opacity: 0
@@ -118,8 +118,7 @@ function linePropsObject() {
     }
     `;
 
-    const lineProps = {
-        otherProp: "otherProp",
+    const lineProps: SyntaxHighlighterProps["lineProps"] = {
         className: "some-classname",
         style: {
             opacity: 0
@@ -142,8 +141,7 @@ function lineTagPropsFunction() {
     }
     `;
 
-    const lineProps = (lineNumber: number) => ({
-        otherProp: "otherProp",
+    const lineProps: lineTagPropsFunction = (lineNumber: number) => ({
         className: "some-classname",
         style: {
             opacity: 0

@@ -18,7 +18,7 @@ csstree.walk(ast, {
     enter(node, item, list) {
         this.root; // $ExpectType CssNode
         this.stylesheet; // $ExpectType StyleSheet | null
-        node; // $ExpectType CssNode
+        node; // $ExpectType ClassSelector
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
         this.atrule; // $ExpectType Atrule | null
@@ -26,13 +26,34 @@ csstree.walk(ast, {
     leave(node, item, list) {
         this.root; // $ExpectType CssNode
         this.stylesheet; // $ExpectType StyleSheet | null
-        node; // $ExpectType CssNode
+        node; // $ExpectType ClassSelector
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
         this.atrule; // $ExpectType Atrule | null
     },
     visit: 'ClassSelector',
     reverse: false,
+});
+
+csstree.find(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
+});
+
+csstree.findLast(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
+});
+
+csstree.findAll(ast, (node, item, list) => {
+    node; // $ExpectType CssNode
+    item; // $ExpectType ListItem<CssNode>
+    list; // $ExpectType List<CssNode>
+    return true;
 });
 
 csstree.generate(ast); // $ExpectType string

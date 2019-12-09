@@ -22,7 +22,8 @@ import {
     VictoryBrushContainerProps,
     ScatterSymbolType,
     Flyout,
-    VictoryClipContainer
+    VictoryClipContainer,
+    VictoryPortal
 } from 'victory';
 
 const commonData1 = [
@@ -33,7 +34,14 @@ const commonData1 = [
     { amount: 5, yield: 1, error: 1.5 },
 ];
 
-const commonData2 = [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 3 }, { x: 5, y: 2 }, { x: 6, y: 5 }];
+const commonData2 = [
+    { x: 1, y: 1 },
+    { x: 2, y: 2 },
+    { x: 3, y: 1 },
+    { x: 4, y: 3 },
+    { x: 5, y: 2 },
+    { x: 6, y: 5 },
+];
 
 // VictoryAnimation test
 let test = (
@@ -206,7 +214,11 @@ test = (
                     stroke: 'tomato',
                 },
             }}
-            data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3 }]}
+            data={[
+                { x: 1, y: 1 },
+                { x: 2, y: 2 },
+                { x: 3, y: 3 },
+            ]}
         />
         <VictoryArea
             style={{
@@ -215,7 +227,11 @@ test = (
                     stroke: 'orange',
                 },
             }}
-            data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 1 }]}
+            data={[
+                { x: 1, y: 2 },
+                { x: 2, y: 1 },
+                { x: 3, y: 1 },
+            ]}
         />
         <VictoryArea
             style={{
@@ -224,7 +240,11 @@ test = (
                     stroke: 'gold',
                 },
             }}
-            data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 2 }]}
+            data={[
+                { x: 1, y: 3 },
+                { x: 2, y: 4 },
+                { x: 3, y: 2 },
+            ]}
         />
     </VictoryStack>
 );
@@ -323,7 +343,13 @@ test = (
             labels: { fontSize: 20 },
         }}
         labels={['a', 'b', 'c', 'd', 'e']}
-        data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3, label: 'click me' }, { x: 4, y: 2 }, { x: 5, y: 1 }]}
+        data={[
+            { x: 1, y: 1 },
+            { x: 2, y: 2 },
+            { x: 3, y: 3, label: 'click me' },
+            { x: 4, y: 2 },
+            { x: 5, y: 1 },
+        ]}
         alignment="start"
         barWidth={(datum, active) => (active ? datum.x : datum.y)}
         cornerRadius={{ top: 2, bottom: 4 }}
@@ -512,7 +538,11 @@ test = (
     <VictoryChart horizontal>
         <VictoryBar
             categories={{ x: ['A', 'B', 'C'] }}
-            data={[{ y: 5, x: 'A' }, { y: 6, x: 'B' }, { y: 7, x: 'C' }]}
+            data={[
+                { y: 5, x: 'A' },
+                { y: 6, x: 'B' },
+                { y: 7, x: 'C' },
+            ]}
             y0={d => d.y - 1}
         />
     </VictoryChart>
@@ -521,9 +551,27 @@ test = (
 // VictoryGroup test
 test = (
     <VictoryGroup color="#46c85e" offset={40}>
-        <VictoryBar data={[{ x: 'a', y: 2 }, { x: 'b', y: 3 }, { x: 'c', y: 5 }]} />
-        <VictoryBar data={[{ x: 'a', y: 1 }, { x: 'b', y: 4 }, { x: 'c', y: 5 }]} />
-        <VictoryBar data={[{ x: 'a', y: 3 }, { x: 'b', y: 2 }, { x: 'c', y: 6 }]} />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 2 },
+                { x: 'b', y: 3 },
+                { x: 'c', y: 5 },
+            ]}
+        />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 1 },
+                { x: 'b', y: 4 },
+                { x: 'c', y: 5 },
+            ]}
+        />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 3 },
+                { x: 'b', y: 2 },
+                { x: 'c', y: 6 },
+            ]}
+        />
     </VictoryGroup>
 );
 
@@ -630,7 +678,12 @@ test = (
 
 test = (
     <VictoryPie
-        data={[{ x: 'Cat', y: 62 }, { x: 'Dog', y: 91 }, { x: 'Fish', y: 55 }, { x: 'Bird', y: 55 }]}
+        data={[
+            { x: 'Cat', y: 62 },
+            { x: 'Dog', y: 91 },
+            { x: 'Fish', y: 55 },
+            { x: 'Bird', y: 55 },
+        ]}
         events={[
             {
                 target: 'data',
@@ -653,7 +706,12 @@ test = (
 
 test = (
     <VictoryPie
-        data={[{ x: 'Cat', y: 62 }, { x: 'Dog', y: 91 }, { x: 'Fish', y: 55 }, { x: 'Bird', y: 55 }]}
+        data={[
+            { x: 'Cat', y: 62 },
+            { x: 'Dog', y: 91 },
+            { x: 'Fish', y: 55 },
+            { x: 'Bird', y: 55 },
+        ]}
         animate={{
             duration: 1000,
             onEnter: {
@@ -716,6 +774,13 @@ test = (
             },
         ]}
     />
+);
+
+// VictoryPortal test
+test = (
+    <VictoryPortal groupComponent={<div>groupComponent</div>}>
+        <div>Child</div>
+    </VictoryPortal>
 );
 
 // createContainer test

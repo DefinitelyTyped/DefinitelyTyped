@@ -1,4 +1,4 @@
-// Type definitions for parse 2.9
+// Type definitions for parse 2.10
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -254,10 +254,19 @@ declare namespace Parse {
      *     extension.
      */
     class File {
-        constructor(name: string, data: any, type?: string);
+        constructor(name: string, data: number[] | { base64: string } | Blob | { uri: string }, type?: string);
+        /**
+         * Return the data for the file, downloading it if not already present.
+         * Data is present if initialized with Byte Array, Base64 or Saved with Uri.
+         * Data is cleared if saved with File object selected with a file upload control
+         *
+         * @returns Promise that is resolved with base64 data
+         */
+        getData(): Promise<string>;
         name(): string;
-        url(): string;
-        save(options?: FullOptions): Promise<File>;
+        save(options?: SuccessFailureOptions): Promise<File>;
+        toJSON(): { __type: string, name: string, url: string };
+        url(options?: { forceSecure: boolean }): string;
     }
 
     /**
@@ -357,12 +366,9 @@ declare namespace Parse {
         static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static fetchAllWithInclude<T extends Object>(
-            list: T[],
-            keys: string | Array<string | Array<string>>,
-            options: RequestOptions,
-        ): Promise<T[]>;
+        static fetchAllIfNeeded<T extends Object>(list: T[], options?: Object.FetchAllOptions): Promise<T[]>;
+        static fetchAllIfNeededWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<T[]>;
         static fromJSON<T extends Object>(json: any, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
@@ -388,7 +394,7 @@ declare namespace Parse {
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
-        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchFromLocalDatastore(): Promise<this>;
         fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get<K extends Exclude<keyof T, symbol | number>>(attr: K): T[K];
         getACL(): ACL | undefined;
@@ -709,6 +715,8 @@ subscription.on('close', () => {});
          */
         constructor(id: string, query: string, sessionToken?: string);
 
+        on(event: 'open' | 'create' | 'update' | 'enter' | 'leave' | 'delete' | 'close', listener: (object: Object) => void): this;
+
         /**
          * Closes the subscription.
          *
@@ -740,9 +748,9 @@ subscription.on('close', () => {});
     }
 
     class Config<T extends any = any> extends Object<T> {
-        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static get(options?: UseMasterKeyOption): Promise<Config>;
         static current(): Config;
-        static save(attr: any): Promise<Config>;
+        static save(attr: any, options?: { [attr: string]: boolean }): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;

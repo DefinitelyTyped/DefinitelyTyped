@@ -2830,4 +2830,18 @@ declare module 'victory' {
      * @param c2 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
      */
     export function createContainer<V, W>(c1: ContainerType, c2: ContainerType): React.ComponentType<V & W>;
+
+    export class VictoryPortal extends React.Component<VictoryPortalProps, any> {}
+
+    export interface VictoryPortalProps {
+        /**
+         * The children of this component define the content of the label.
+         * This makes using the component similar to normal HTML spans or labels. strings, numbers, and functions of data / value are supported.
+         */
+        children?: React.ReactElement;
+        /**
+         * The groupComponent prop takes a component instance which will be used to create a group element for VictoryPortal to render its child component into. This prop defaults to a <g> tag.
+         */
+        groupComponent?: React.ReactElement;
+    }
 }
