@@ -79,7 +79,7 @@ export interface APIGatewayEventRequestContext {
 // API Gateway "event"
 export interface APIGatewayProxyEvent {
     body: string | null;
-    headers?: { [name: string]: string };
+    headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
