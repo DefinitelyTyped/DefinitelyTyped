@@ -1,4 +1,4 @@
-// Type definitions for okta-vue 1.1
+// Type definitions for okta-vue 1.2
 // Project: https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue, https://github.com/okta/okta-oidc-js
 // Definitions by: Mike Dodge <https://github.com/innovation-team>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,16 +8,6 @@ import { VueConstructor, PluginFunction } from 'vue';
 import { NavigationGuard } from 'vue-router';
 
 declare namespace OktaVuePlugin {
-    interface OktaVueOptions {
-        issuer: string;
-        client_id: string;
-        redirect_uri: string;
-        scope?: string;
-        response_type?: string;
-        storage?: 'localStorage' | 'sessionStorage' | 'cookie';
-        auto_renew?: boolean;
-    }
-
     interface OktaOpenIDOptions {
         sessionToken?: string;
         responseMode?: string;
@@ -25,6 +15,27 @@ declare namespace OktaVuePlugin {
         scopes?: string[];
         state?: string;
         nonce?: string;
+    }
+
+    interface OktaAuthJsOptions extends OktaOpenIDOptions {
+        postLogoutRedirectUri?: string;
+        pkce?: boolean;
+        authorizeUrl?: string;
+        userinfoUrl?: string;
+        tokenUrl?: string;
+        ignoreSignature?: boolean;
+        maxClockSkew?: number;
+        tokenManager?: {
+            autoRenew?: boolean;
+            storage?: 'localStorage' | 'sessionStorage' | 'cookie';
+            secure?: boolean;
+        };
+    }
+
+    interface OktaVueOptions extends OktaAuthJsOptions {
+        issuer: string;
+        clientId: string;
+        redirectUri: string;
     }
 
     function install(vm: VueConstructor, options: OktaVueOptions): PluginFunction<VueConstructor>;

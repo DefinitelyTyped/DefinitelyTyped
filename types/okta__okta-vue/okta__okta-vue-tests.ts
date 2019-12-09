@@ -4,11 +4,21 @@ import Auth from 'okta__okta-vue';
 
 Vue.use(Auth, {
     issuer: 'https://{yourOktaDomain}.com/oauth2/default',
-    client_id: '{client_id}',
-    redirect_uri: 'http://localhost:{port}/implicit/callback',
-    scope: 'openid profile email',
-    storage: 'cookie',
-    auto_renew: false
+    clientId: '{clientId}',
+    redirectUri: 'https://localhost:{port}/implicit/callback',
+    tokenManager: {
+        secure: false,
+        storage: 'cookie',
+        autoRenew: false
+    },
+    pkce: true,
+    scopes: ['openid', 'profile', 'email'],
+    postLogoutRedirectUri: 'http://post-logout-redirect-uri',
+    authorizeUrl: 'https://authorize-url',
+    userinfoUrl: 'https://user-inf-url',
+    tokenUrl: 'https://token-url',
+    ignoreSignature: false,
+    maxClockSkew: 300
 });
 
 Vue.use(Router);
