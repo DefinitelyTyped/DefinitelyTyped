@@ -74,14 +74,10 @@ declare namespace Bookshelf {
 		unset(attribute: string): T;
 
 		// lodash methods
-		invert<R extends {}>(): R;
-		keys(): string[];
 		omit<R extends {}>(predicate?: Lodash.ObjectIterator<any, boolean>, thisArg?: any): R;
 		omit<R extends {}>(...attributes: string[]): R;
-		pairs(): any[][];
 		pick<R extends {}>(predicate?: Lodash.ObjectIterator<any, boolean>, thisArg?: any): R;
 		pick<R extends {}>(...attributes: string[]): R;
-		values(): any[];
 	}
 
 	interface ModelSubclass {
@@ -179,7 +175,6 @@ declare namespace Bookshelf {
 		all<R extends {}>(predicate?: R): boolean;
 		any(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): boolean;
 		any<R extends {}>(predicate?: R): boolean;
-		chain(): Lodash.LoDashExplicitObjectWrapper<T>;
 		collect(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
 		collect<R extends {}>(predicate?: R): T[];
 		contains(value: any, fromIndex?: number): boolean;
@@ -187,11 +182,6 @@ declare namespace Bookshelf {
 		countBy<R extends {}>(predicate?: R): Lodash.Dictionary<number>;
 		detect(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T;
 		detect<R extends {}>(predicate?: R): T;
-		difference(...values: T[]): T[];
-		drop(n?: number): T[];
-		each(callback?: Lodash.ListIterator<T, void>, thisArg?: any): Lodash.List<T>;
-		each(callback?: Lodash.DictionaryIterator<T, void>, thisArg?: any): Lodash.Dictionary<T>;
-		each(callback?: Lodash.ObjectIterator<T, void>, thisArg?: any): T;
 		every(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): boolean;
 		every<R extends {}>(predicate?: R): boolean;
 		filter(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
@@ -206,16 +196,12 @@ declare namespace Bookshelf {
 		forEach(callback?: Lodash.ObjectIterator<T, void>, thisArg?: any): T;
 		groupBy(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): Lodash.Dictionary<T[]>;
 		groupBy<R extends {}>(predicate?: R): Lodash.Dictionary<T[]>;
-		head(): T;
 		include(value: any, fromIndex?: number): boolean;
-		indexOf(value: any, fromIndex?: number): number;
-		initial(): T[];
 		inject<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
 		invoke(methodName: string | Function, ...args: any[]): any;
 		isEmpty(): boolean;
 		keys(): string[];
 		last(): T;
-		lastIndexOf(value: any, fromIndex?: number): number;
 
 		// See https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1ec3d51/lodash/lodash-3.10.d.ts#L7119
 		// See https://github.com/Microsoft/TypeScript/blob/v1.8.10/lib/lib.core.es7.d.ts#L1122
@@ -223,10 +209,6 @@ declare namespace Bookshelf {
 		map<U>(predicate?: Lodash.DictionaryIterator<T, U> | string, thisArg?: any): U[];
 		map<U>(predicate?: string): U[];
 
-		max(predicate?: Lodash.ListIterator<T, boolean> | string, thisArg?: any): T;
-		max<R extends {}>(predicate?: R): T;
-		min(predicate?: Lodash.ListIterator<T, boolean> | string, thisArg?: any): T;
-		min<R extends {}>(predicate?: R): T;
 		reduce<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
 		reduceRight<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
 		reject(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
@@ -234,16 +216,11 @@ declare namespace Bookshelf {
 		rest(): T[];
 		select(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
 		select<R extends {}>(predicate?: R): T[];
-		shuffle(): T[];
-		size(): number;
 		some(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): boolean;
 		some<R extends {}>(predicate?: R): boolean;
 		sortBy(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
 		sortBy<R extends {}>(predicate?: R): T[];
-		tail(): T[];
-		take(n?: number): T[];
 		toArray(): T[];
-		without(...values: any[]): T[];
 	}
 
 	class Collection<T extends Model<any>> extends CollectionBase<T> {
