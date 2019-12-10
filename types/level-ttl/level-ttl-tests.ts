@@ -4,7 +4,7 @@ import ttl, { LevelTTL, LevelTTLOptions } from 'level-ttl';
 
 const db = levelup(new AbstractLevelDOWN('here'));
 
-const opts: LevelTTLOptions = { defaultTTL: 1000, checkFrequency: 100 }
+const opts: LevelTTLOptions = { defaultTTL: 1000, checkFrequency: 100 };
 const example: LevelTTL = ttl(db, opts);
 
 example.open();

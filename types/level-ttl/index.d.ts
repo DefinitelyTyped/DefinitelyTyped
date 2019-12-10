@@ -47,18 +47,18 @@ declare namespace ttl {
     }
 
     interface LevelTTL<K = any, V = any> extends LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>> {
-        ttl(key: K, ttl: number): void;
-        ttl(key: K, ttl: number, callback: ErrorCallback): void;
-        stop(): void;
-        stop(keycallback: ErrorCallback): void;
+        ttl(key: K, ttl: number, callback?: ErrorCallback): void;
+        stop(callback?: ErrorCallback): void;
     }
 }
 
 /**
- * Augment levelup to handle a new 'ttl' option on put() and batch() that specifies the number of milliseconds an entry should remain in the data store. After the TTL, the entry will be automatically cleared for you.
+ * Augment levelup to handle a new 'ttl' option on put() and batch() that specifies
+ * the number of milliseconds an entry should remain in the data store.
+ * After the TTL, the entry will be automatically cleared for you.
  * @param db
  * @param opts
  * @see {@link https://github.com/level/level-ttl#usage level-ttl Usage}
  */
-declare function ttl<K = any, V = any>(db: LevelUp, opts?: ttl.LevelTTLOptions): ttl.LevelTTL<K, V>;
+declare function ttl<K = any, V = any>(db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>, opts?: ttl.LevelTTLOptions): ttl.LevelTTL<K, V>;
 export = ttl;
