@@ -2167,6 +2167,8 @@ stripe.setupIntents.retrieve('seti_123456789').then(intent => {});
 
 stripe.setupIntents.confirm('seti_123456789', {}, (err, intent) => {});
 stripe.setupIntents.confirm('seti_123456789', {}).then(intent => {});
+stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}, (err, intent) => {});
+stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}).then(intent => {});
 
 stripe.setupIntents.cancel('seti_123456789', (err, intent) => {});
 stripe.setupIntents.cancel('seti_123456789').then(intent => {});
@@ -2374,6 +2376,28 @@ stripe.subscriptions.create(
         // asynchronously called
     },
 );
+
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, prorate: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
+stripe.subscriptions.create(
+    { cancel_at_period_end: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
 stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
     // asynchronously called
 
