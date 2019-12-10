@@ -18,9 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "fsutil.d.ts",
-        "scbroker.d.ts",
-        "scworker.d.ts",
         "socketcluster-tests.ts"
     ]
 }

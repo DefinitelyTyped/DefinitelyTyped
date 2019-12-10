@@ -46,6 +46,8 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   animationDuration?: number;
   /** Set font size of dropdown items (default: 16) */
   fontSize?: number;
+  /** Set font size of label (default: 12) */
+  labelFontSize?: number;
   /** Set Text color (default: rgba(0, 0, 0, .87)) */
   textColor?: string;
   /** Set Item color (default: rgba(0, 0, 0, .54)) */

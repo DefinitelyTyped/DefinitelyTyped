@@ -1,10 +1,18 @@
 import * as React from "react";
-import { ReactAttr, RenderIconProps, RequiresChildrenProps } from "../../../typings/shared";
+import {
+    ReactAttr,
+    RenderIconProps,
+    RequiresChildrenProps,
+    SideNavSharedProps,
+    SideNavSizingProps,
+} from '../../../typings/shared';
 import { LinkProps } from "./Link";
 
 interface InheritedProps extends
     RenderIconProps,
-    RequiresChildrenProps<string>
+    RequiresChildrenProps<string>,
+    SideNavSharedProps,
+    SideNavSizingProps
 {
     className?: ReactAttr["className"],
 }

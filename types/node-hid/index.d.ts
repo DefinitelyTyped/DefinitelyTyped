@@ -5,6 +5,10 @@
 //                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import { EventEmitter } from 'events';
+
 export interface Device {
     vendorId: number;
     productId: number;
@@ -18,7 +22,7 @@ export interface Device {
     usage?: number;
 }
 
-export class HID {
+export class HID extends EventEmitter {
     constructor(path: string);
     constructor(vid: number, pid: number);
     close(): void;
@@ -29,10 +33,6 @@ export class HID {
     sendFeatureReport(data: number[]): number;
     getFeatureReport(report_id: number, report_length: number): number[];
     resume(): void;
-    on(event: string, handler: (value: any) => void): void;
-    once(event: string, handler: (value: any) => void): void;
-    removeListener(event: string, handler: (value: any) => void): void;
-    removeAllListeners(event: string): void;
     write(values: number[]): number;
     setNonBlocking(no_block: boolean): void;
 }

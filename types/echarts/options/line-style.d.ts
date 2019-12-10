@@ -4,7 +4,7 @@ declare namespace echarts {
          * Line style
          */
         interface LineStyle {
-            color?: string;
+            color?: string | string[];
             width?: number;
             type?: 'solid' | 'dashed' | 'dotted';
             shadowBlur?: number;

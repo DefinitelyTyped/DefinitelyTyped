@@ -385,11 +385,12 @@ export namespace Linter {
     }
     interface HasRules {
         rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
+            [name: string]: RuleLevel | RuleLevelAndOptions;
         };
     }
 
     interface RuleOverride extends HasRules {
+        extends?: string | string[];
         excludedFiles?: string[];
         files?: string[];
     }
@@ -452,11 +453,13 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule = {
-        parse(text: string, options?: any): AST.Program;
-    } | {
-        parseForESLint(text: string, options?: any): ESLintParseResult;
-    };
+    type ParserModule =
+        | {
+              parse(text: string, options?: any): AST.Program;
+          }
+        | {
+              parseForESLint(text: string, options?: any): ESLintParseResult;
+          };
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -516,6 +519,7 @@ export namespace CLIEngine {
         parser?: string;
         parserOptions?: Linter.ParserOptions;
         plugins?: string[];
+        resolvePluginsRelativeTo?: string;
         rules?: {
             [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
         };

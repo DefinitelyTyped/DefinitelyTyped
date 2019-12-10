@@ -630,7 +630,7 @@ declare module 'leaflet' {
     }
 
     namespace DrawEvents {
-        interface Created extends Event {
+        interface Created extends LeafletEvent {
             /**
              * Layer that was just created.
              */
@@ -642,7 +642,7 @@ declare module 'leaflet' {
             layerType: string;
         }
 
-        interface Edited extends Event {
+        interface Edited extends LeafletEvent {
             /**
              * List of all layers just edited on the map.
              */
@@ -652,56 +652,56 @@ declare module 'leaflet' {
         /**
          * Triggered when layers have been removed (and saved) from the FeatureGroup.
          */
-        interface Deleted extends Event {
+        interface Deleted extends LeafletEvent {
             /**
              * List of all layers just removed from the map.
              */
             layers: LayerGroup;
         }
 
-        interface DrawStart extends Event {
+        interface DrawStart extends LeafletEvent {
             /**
              * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
              */
             layerType: string;
         }
 
-        interface DrawStop extends Event {
+        interface DrawStop extends LeafletEvent {
             /**
              * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
              */
             layerType: string;
         }
 
-        interface DrawVertex extends Event {
+        interface DrawVertex extends LeafletEvent {
             /**
              * List of all layers just being added from the map.
              */
             layers: LayerGroup;
         }
 
-        interface EditStart extends Event {
+        interface EditStart extends LeafletEvent {
             /**
              * The type of edit this is. One of: edit
              */
             handler: string;
         }
 
-        interface EditMove extends Event {
+        interface EditMove extends LeafletEvent {
             /**
              * Layer that was just moved.
              */
             layer: Layer;
         }
 
-        interface EditResize extends Event {
+        interface EditResize extends LeafletEvent {
             /**
              * Layer that was just resized.
              */
             layer: Layer;
         }
 
-        interface EditVertex extends Event {
+        interface EditVertex extends LeafletEvent {
             /**
              * List of all layers just being edited from the map.
              */
@@ -710,30 +710,30 @@ declare module 'leaflet' {
             poly: Polyline | Polygon;
         }
 
-        interface EditStop extends Event {
+        interface EditStop extends LeafletEvent {
             /**
              * The type of edit this is. One of: edit
              */
             handler: string;
         }
 
-        interface DeleteStart extends Event {
+        interface DeleteStart extends LeafletEvent {
             /**
              * The type of edit this is. One of: remove
              */
             handler: string;
         }
 
-        interface DeleteStop extends Event {
+        interface DeleteStop extends LeafletEvent {
             /**
              * The type of edit this is. One of: remove
              */
             handler: string;
         }
 
-        type ToolbarOpened = Event;
-        type ToolbarClosed = Event;
-        type MarkerContext = Event;
+        type ToolbarOpened = LeafletEvent;
+        type ToolbarClosed = LeafletEvent;
+        type MarkerContext = LeafletEvent;
     }
 
     namespace GeometryUtil {

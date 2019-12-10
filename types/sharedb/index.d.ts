@@ -3,10 +3,11 @@
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.0
 
 /// <reference path="lib/sharedb.d.ts" />
 
+import Agent = require('./lib/agent');
 import * as ShareDB from './lib/sharedb';
 
 interface PubSubOptions {
@@ -19,7 +20,17 @@ interface Stream {
 export = sharedb;
 
 declare class sharedb {
-    constructor(options?: {db?: any, pubsub?: sharedb.PubSub, disableDocAction?: boolean, disableSpaceDelimitedActions?: boolean});
+    db: sharedb.DB;
+    pubsub: sharedb.PubSub;
+    extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
+
+    constructor(options?: {
+        db?: any,
+        pubsub?: sharedb.PubSub,
+        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
+        disableDocAction?: boolean,
+        disableSpaceDelimitedActions?: boolean
+    });
     connect: (connection?: any, req?: any) => sharedb.Connection;
     /**
      * Registers a projection that can be used from clients just like a normal collection.
@@ -30,7 +41,7 @@ declare class sharedb {
      */
     addProjection(name: string, collection: string, fields: ProjectionFields): void;
     listen(stream: any): void;
-    close(callback?: (err?: Error) => any): void;
+    close(callback?: BasicCallback): void;
     /**
      * Registers a server middleware function.
      *
@@ -50,7 +61,7 @@ declare namespace sharedb {
     abstract class DB {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
-        close(callback?: () => void): void;
+        close(callback?: BasicCallback): void;
         commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
@@ -58,14 +69,23 @@ declare namespace sharedb {
         getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options: any, callback: (...args: any[]) => any): void;
         getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
         getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
-        query(collection: string, query: Query, fields: any, options: any, callback: (...args: any[]) => any): void;
-        queryPoll(collection: string, query: Query, options: any, callback: (...args: any[]) => any): void;
-        queryPollDoc(collection: string, id: string, query: Query, options: any, callback: (...args: any[]) => any): void;
+        query: DBQueryMethod;
+        queryPoll(collection: string, query: any, options: any, callback: (...args: any[]) => any): void;
+        queryPollDoc(collection: string, id: string, query: any, options: any, callback: (...args: any[]) => any): void;
         canPollDoc(): boolean;
         skipPoll(): boolean;
     }
 
     class MemoryDB extends DB { }
+
+    // The DBs in `extraDbs` are only ever used for queries, so they don't need the other DB methods.
+    interface ExtraDB {
+        query: DBQueryMethod;
+        close(callback?: BasicCallback): void;
+    }
+
+    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
+    type DBQueryCallback = (err: Error | null, snapshots: ShareDB.Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
@@ -132,7 +152,7 @@ declare namespace sharedb {
 
         interface BaseContext {
             action: keyof ActionContextMap;
-            agent: any;
+            agent: Agent;
             backend: sharedb;
         }
 
@@ -220,3 +240,5 @@ interface SubmitRequest {
     ops: ShareDB.Op[];
     channels: string[] | null;
 }
+
+type BasicCallback = (err?: Error) => void;

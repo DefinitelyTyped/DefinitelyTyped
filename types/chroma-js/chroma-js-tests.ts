@@ -142,7 +142,7 @@ function test_scale() {
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'navy']);
     chroma.scale(['yellow', 'navy']).mode('lab');
-    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('lrgb');
     chroma.scale(['yellow', 'navy']).mode('hsl');
     chroma.scale(['yellow', 'navy']).mode('lch');
     chroma.scale('YlGnBu');

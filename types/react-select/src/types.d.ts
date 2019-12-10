@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
-export type OptionsType<OptionType> = ReadonlyArray<OptionType>;
+export interface OptionTypeBase {
+  [key: string]: any;
+}
 
-export interface GroupType<OptionType> {
+export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
+
+export interface GroupType<OptionType extends OptionTypeBase> {
   options: OptionsType<OptionType>;
   [key: string]: any;
 }
 
-export type GroupedOptionsType<UnionOptionType> = ReadonlyArray<GroupType<UnionOptionType>>;
+export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
 
-export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
+export type ValueType<OptionType extends OptionTypeBase> = OptionType | OptionsType<OptionType> | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -34,7 +38,7 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType> {
+export interface CommonProps<OptionType extends OptionTypeBase> {
   clearValue: () => void;
   className?: string;
   cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void;

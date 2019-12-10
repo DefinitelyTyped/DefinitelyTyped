@@ -40,7 +40,7 @@ const optsWithEnableFunc: CspHtmlWebpackPlugin.AdditionalOptions = {
     // $ExpectType string
     htmlPluginData.html;
 
-    if (htmlPluginData.plugin.apply) {
+    if (htmlPluginData.plugin.apply as any) {
     }
 
     return true;

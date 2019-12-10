@@ -1,14 +1,14 @@
-// Type definitions for websocket
+// Type definitions for websocket 1.0
 // Project: https://github.com/theturtle32/WebSocket-Node
 // Definitions by: Paul Loyd <https://github.com/loyd>,
 //                 Kay Schecker <https://github.com/flynetworks>,
 //                 Zhao Lei <https://github.com/zhaoleimxd>
-//                 Sheng Chen <https://github.com/jdneo>
+//                 Sheng Chen <https://github.com/jdneo>,
+//                 Matthew Peveler <https://github.com/MasterOdin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-
 
 import events = require('events');
 import http = require('http');
@@ -63,7 +63,7 @@ export interface IConfig {
 
 export interface IServerConfig extends IConfig {
     /** The http or https server instance(s) to attach to */
-    httpServer: http.Server | https.Server | (http.Server | https.Server)[];
+    httpServer: http.Server | https.Server | Array<http.Server | https.Server>;
 
     /**
      * The maximum allowed received frame size in bytes.
@@ -110,12 +110,36 @@ export interface IServerConfig extends IConfig {
     keepaliveGracePeriod?: number;
 
     /**
+     * Whether to use native TCP keep-alive instead of WebSockets ping
+     * and pong packets.  Native TCP keep-alive sends smaller packets
+     * on the wire and so uses bandwidth more efficiently.  This may
+     * be more important when talking to mobile devices.
+     * If this value is set to true, then these values will be ignored:
+     *   keepaliveGracePeriod
+     *   dropConnectionOnKeepaliveTimeout
+     * @default false
+     */
+    useNativeKeepalive?: boolean;
+
+    /**
      * If this is true, websocket connections will be accepted regardless of the path
      * and protocol specified by the client. The protocol accepted will be the first
      * that was requested by the client.
      * @default false
      */
     autoAcceptConnections?: boolean;
+
+    /**
+     * Whether or not the X-Forwarded-For header should be respected.
+     * It's important to set this to 'true' when accepting connections
+     * from untrusted clients, as a malicious client could spoof its
+     * IP address by simply setting this header.  It's meant to be added
+     * by a trusted proxy or other intermediary within your own
+     * infrastructure.
+     * See:  http://en.wikipedia.org/wiki/X-Forwarded-For
+     * @default false
+     */
+    ignoreXForwardedFor?: boolean;
 
     /**
      * The Nagle Algorithm makes more efficient use of network resources by introducing a
@@ -126,16 +150,15 @@ export interface IServerConfig extends IConfig {
     disableNagleAlgorithm?: boolean;
 }
 
-export declare class server extends events.EventEmitter {
-    config: IServerConfig;
+export class server extends events.EventEmitter {
+    config?: IServerConfig;
     connections: connection[];
+    pendingRequests: request[];
 
     constructor(serverConfig?: IServerConfig);
 
-    /** Send binary message for each connection */
-    broadcast(data: Buffer): void;
-    /** Send UTF-8 message for each connection */
-    broadcast(data: IStringified): void;
+    /** Send binary or UTF-8 message for each connection */
+    broadcast(data: Buffer | IStringified): void;
     /** Send binary message for each connection */
     broadcastBytes(data: Buffer): void;
     /** Send UTF-8 message for each connection */
@@ -155,12 +178,15 @@ export declare class server extends events.EventEmitter {
     /** Close all open WebSocket connections and unmount the server */
     shutDown(): void;
 
+    handleUpgrade(request: http.IncomingMessage, socket: net.Socket): void;
+    handleRequestAccepted(connection: connection): void;
+    handleConnectionClose(connection: connection, closeReason: number, description: string): void;
+    handleRequestResolved(request: request): void;
+
     // Events
-    on(event: string, listener: () => void): this;
     on(event: 'request', cb: (request: request) => void): this;
     on(event: 'connect', cb: (connection: connection) => void): this;
     on(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
-    addListener(event: string, listener: () => void): this;
     addListener(event: 'request', cb: (request: request) => void): this;
     addListener(event: 'connect', cb: (connection: connection) => void): this;
     addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
@@ -182,7 +208,7 @@ export interface IExtension {
     value: string;
 }
 
-export declare class request extends events.EventEmitter {
+export class request extends events.EventEmitter {
     /** A reference to the original Node HTTP request object */
     httpRequest: http.IncomingMessage;
     /** This will include the port number if a non-standard port is used */
@@ -199,6 +225,7 @@ export declare class request extends events.EventEmitter {
      * from that header to facilitate WebSocket servers that live behind a reverse-proxy
      */
     remoteAddress: string;
+    remoteAddresses: string[];
 
     /**
      * If the client is a web browser, origin will be a string containing the URL
@@ -225,6 +252,11 @@ export declare class request extends events.EventEmitter {
     requestedProtocols: string[];
     protocolFullCaseMap: { [key: string]: string };
 
+    serverConfig: IServerConfig;
+
+    _resolved: boolean;
+    _socketIsClosing: boolean;
+
     constructor(socket: net.Socket, httpRequest: http.IncomingMessage, config: IServerConfig);
 
     /**
@@ -241,17 +273,25 @@ export declare class request extends events.EventEmitter {
      * You may optionally pass in an HTTP Status code (such as 404) and a textual
      * description that will be sent to the client in the form of an
      * `X-WebSocket-Reject-Reason` header.
-         * Optional extra http headers can be added via Object key/values on extraHeaders.
+     * Optional extra http headers can be added via Object key/values on extraHeaders.
      */
-    reject(httpStatus?: number, reason?: string, extraHeaders?: Object): void;
+    reject(httpStatus?: number, reason?: string, extraHeaders?: object): void;
 
     // Events
-    on(event: string, listener: () => void): this;
+    on(event: 'requestResolved' | 'requestRejected', cb: (request: this) => void): this;
     on(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    on(event: 'requestRejected', cb: () => void): this;
-    addListener(event: string, listener: () => void): this;
+    addListener(event: 'requestResolved' | 'requestRejected', cb: (request: this) => void): this;
     addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    addListener(event: 'requestRejected', cb: () => void): this;
+
+    readHandshake(): void;
+
+    parseExtensions(extensionString: string): string[];
+
+    parseCookies(str: string): ICookie[] | void;
+
+    _handleSocketCloseBeforeAccept(): void;
+    _removeSocketCloseListeners(): void;
+    _verifyResolution(): void;
 }
 
 export interface IMessage {
@@ -265,6 +305,7 @@ export interface IBufferList extends events.EventEmitter {
     length: number;
     write(buf: Buffer): boolean;
     end(buf: Buffer): void;
+    push(): void;
 
     /**
      * For each buffer, perform some action.
@@ -293,16 +334,16 @@ export interface IBufferList extends events.EventEmitter {
     take(n: number, encoding?: string): any;
     take(encoding?: string): any;
 
+    toString(): string;
+
     // Events
-    on(event: string, listener: () => void): this;
     on(event: 'advance', cb: (n: number) => void): this;
     on(event: 'write', cb: (buf: Buffer) => void): this;
-    addListener(event: string, listener: () => void): this;
     addListener(event: 'advance', cb: (n: number) => void): this;
     addListener(event: 'write', cb: (buf: Buffer) => void): this;
 }
 
-declare class connection extends events.EventEmitter {
+export class connection extends events.EventEmitter {
     static CLOSE_REASON_NORMAL: number;
     static CLOSE_REASON_GOING_AWAY: number;
     static CLOSE_REASON_PROTOCOL_ERROR: number;
@@ -314,6 +355,8 @@ declare class connection extends events.EventEmitter {
     static CLOSE_REASON_POLICY_VIOLATION: number;
     static CLOSE_REASON_MESSAGE_TOO_BIG: number;
     static CLOSE_REASON_EXTENSION_REQUIRED: number;
+
+    static CLOSE_DESCRIPTIONS: {[code: number]: string};
 
     /**
      * After the connection is closed, contains a textual description of the reason for
@@ -344,10 +387,12 @@ declare class connection extends events.EventEmitter {
     frameQueue: frame[];
     state: string;
     waitingForCloseResponse: boolean;
+    receivedEnd: boolean;
     closeTimeout: number;
     assembleFragments: number;
     maxReceivedMessageSize: number;
-    outputPaused: boolean;
+    outputBufferFull: boolean;
+    inputPaused: boolean;
     bytesWaitingToFlush: number;
     socketHadError: boolean;
 
@@ -367,6 +412,8 @@ declare class connection extends events.EventEmitter {
     /** Whether or not the connection is still connected. Read-only */
     connected: boolean;
 
+    _pingListenerCount: number;
+
     constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
         maskOutgoingPackets: boolean, config: IConfig);
 
@@ -376,35 +423,33 @@ declare class connection extends events.EventEmitter {
      * `config.closeTimeout` milliseconds for an acknowledgment from the remote peer
      * before terminating the underlying socket connection.
      */
-    close(): void;
+    close(reasonCode?: number, description?: string): void;
 
     /**
      * Send a close frame to the remote peer and immediately close the socket without
      * waiting for a response. This should generally be used only in error conditions.
      */
-    drop(reasonCode?: number, description?: string): void;
+    drop(reasonCode?: number, description?: string, skipCloseFrame?: boolean): void;
 
     /**
      * Immediately sends the specified string as a UTF-8 WebSocket message to the remote
      * peer. If `config.fragmentOutgoingMessages` is true the message may be sent as
      * multiple fragments if it exceeds `config.fragmentationThreshold` bytes.
      */
-    sendUTF(data: IStringified): void;
+    sendUTF(data: IStringified, cb?: (err?: Error) => void): void;
 
     /**
      * Immediately sends the specified Node Buffer object as a Binary WebSocket message
      * to the remote peer. If config.fragmentOutgoingMessages is true the message may be
      * sent as multiple fragments if it exceeds config.fragmentationThreshold bytes.
      */
-    sendBytes(buffer: Buffer): void;
+    sendBytes(buffer: Buffer, cb?: (err?: Error) => void): void;
 
     /** Auto-detect the data type and send UTF-8 or Binary message */
-    send(data: Buffer): void;
-    send(data: IStringified): void;
+    send(data: Buffer | IStringified, cb?: (err?: Error) => void): void;
 
     /** Sends a ping frame. Ping frames must not exceed 125 bytes in length. */
-    ping(data: Buffer): void;
-    ping(data: IStringified): void;
+    ping(data: Buffer | IStringified): void;
 
     /**
      * Sends a pong frame. Pong frames may be sent unsolicited and such pong frames will
@@ -421,34 +466,53 @@ declare class connection extends events.EventEmitter {
      * the remote peer. This is an advanced function, requiring you to manually compose
      * your own `frame`. You should probably use sendUTF or sendBytes instead.
      */
-    sendFrame(frame: frame): void;
+    sendFrame(frame: frame, cb?: (err?: Error) => void): void;
 
     /** Set or reset the `keepalive` timer when data is received */
     setKeepaliveTimer(): void;
+    clearKeepaliveTimer(): void;
+    handleKeepaliveTimer(): void;
     setGracePeriodTimer(): void;
+    clearGracePeriodTimer(): void;
+    handleGracePeriodTimer(): void;
+    handleSocketData(data: Buffer): void;
+    processReceivedData(): void;
+    handleSocketError(error: Error): void;
+    handleSocketEnd(): void;
+    handleSocketClose(hadError: boolean): void;
+    handleSocketDrain(): void;
+    handleSocketPause(): void;
+    handleSocketResume(): void;
+    pause(): void;
+    resume(): void;
+
     setCloseTimer(): void;
     clearCloseTimer(): void;
+    handleCloseTimer(): void;
     processFrame(frame: frame): void;
     fragmentAndSend(frame: frame, cb?: (err: Error) => void): void;
-    sendCloseFrame(reasonCode: number, reasonText: string, force: boolean): void;
-    sendCloseFrame(): void;
-    sendFrame(frame: frame, force: boolean, cb?: (msg: string) => void): void;
-    sendFrame(frame: frame, cb?: (msg: string) => void): void;
+    sendCloseFrame(reasonCode?: number, reasonText?: string, cb?: (err?: Error) => void): void;
+
+    _addSocketEventListeners(): void;
 
     // Events
-    on(event: string, listener: () => void): this;
     on(event: 'message', cb: (data: IMessage) => void): this;
     on(event: 'frame', cb: (frame: frame) => void): this;
     on(event: 'close', cb: (code: number, desc: string) => void): this;
     on(event: 'error', cb: (err: Error) => void): this;
-    addListener(event: string, listener: () => void): this;
+    on(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
+    on(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
+    on(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
     addListener(event: 'message', cb: (data: IMessage) => void): this;
     addListener(event: 'frame', cb: (frame: frame) => void): this;
     addListener(event: 'close', cb: (code: number, desc: string) => void): this;
     addListener(event: 'error', cb: (err: Error) => void): this;
+    addListener(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
+    addListener(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
+    addListener(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
 }
 
-declare class frame {
+export class frame {
     /** Whether or not this is last frame in a fragmentation sequence */
     fin: boolean;
 
@@ -507,13 +571,16 @@ declare class frame {
     config: IConfig;
     maxReceivedFrameSize: number;
     protocolError: boolean;
+    dropReason: string;
     frameTooLarge: boolean;
     invalidCloseFrameLength: boolean;
+    parseState: number;
     closeStatus: number;
 
     addData(bufferList: IBufferList): boolean;
     throwAwayPayload(bufferList: IBufferList): boolean;
     toBuffer(nullMask: boolean): Buffer;
+    toString(): string;
 }
 
 export interface IClientConfig extends IConfig {
@@ -548,15 +615,16 @@ export interface IClientConfig extends IConfig {
     tlsOptions?: https.RequestOptions;
 }
 
-declare class client extends events.EventEmitter {
+export class client extends events.EventEmitter {
     protocols: string[];
     origin: string;
     url: url.Url;
     secure: boolean;
     socket: net.Socket;
     response: http.IncomingMessage;
+    firstDataChunk: Buffer | null;
 
-    constructor(clientConfig?: IClientConfig);
+    constructor(ClientConfig?: IClientConfig);
 
     /**
      * Establish a connection. The remote server will select the best subprotocol that
@@ -566,10 +634,11 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url | string, protocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, extraRequestOptions?: http.RequestOptions): void;
+
+    validateHandshake(): void;
+    failHandshake(errorDescription: string): void;
+    succeedHandshake(): void;
 
     /**
      * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
@@ -578,28 +647,17 @@ declare class client extends events.EventEmitter {
     abort(): void;
 
     // Events
-    on(event: string, listener: () => void): this;
     on(event: 'connect', cb: (connection: connection) => void): this;
     on(event: 'connectFailed', cb: (err: Error) => void): this;
-    addListener(event: string, listener: () => void): this;
+    on(event: 'httpResponse', cb: (response: http.IncomingMessage, client: client) => void): this;
     addListener(event: 'connect', cb: (connection: connection) => void): this;
     addListener(event: 'connectFailed', cb: (err: Error) => void): this;
+    addListener(event: 'httpResponse', cb: (response: http.IncomingMessage, client: client) => void): this;
 }
 
-declare class routerRequest extends events.EventEmitter {
-
-    /** A reference to the original Node HTTP request object */
-    httpRequest: http.IncomingMessage;
-    /** A string containing the path that was requested by the client */
-    resource: string;
-    /** Parsed resource, including the query string parameters */
-    resourceURL: url.Url;
-
-    /**
-     * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
-     * from that header to facilitate WebSocket servers that live behind a reverse-proxy
-     */
-    remoteAddress: string;
+export interface IRouterRequest extends events.EventEmitter {
+    webSocketRequest: request;
+    protocol: string | null;
 
     /**
      * If the client is a web browser, origin will be a string containing the URL
@@ -608,14 +666,26 @@ declare class routerRequest extends events.EventEmitter {
      */
     origin: string;
 
+    /** A string containing the path that was requested by the client */
+    resource: string;
+    /** Parsed resource, including the query string parameters */
+    resourceURL: url.Url;
+
+    /** A reference to the original Node HTTP request object */
+    httpRequest: http.IncomingMessage;
+
+    /**
+     * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
+     * from that header to facilitate WebSocket servers that live behind a reverse-proxy
+     */
+    remoteAddress: string;
+
     /** The version of the WebSocket protocol requested by the client */
     webSocketVersion: number;
     /** An array containing a list of extensions requested by the client */
     requestedExtensions: any[];
 
     cookies: ICookie[];
-
-    constructor(webSocketRequest: request, resolvedProtocol: string);
 
     /**
      * After inspecting the `request` properties, call this function on the
@@ -635,22 +705,28 @@ declare class routerRequest extends events.EventEmitter {
     reject(httpStatus?: number, reason?: string): void;
 
     // Events
-    on(event: string, listener: () => void): this;
     on(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    on(event: 'requestRejected', cb: () => void): this;
-    addListener(event: string, listener: () => void): this;
+    on(event: 'requestRejected', cb: (request: this) => void): this;
     addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    addListener(event: 'requestRejected', cb: () => void): this;
+    addListener(event: 'requestRejected', cb: (request: this) => void): this;
 }
 
-interface IRouterConfig {
+export interface IRouterConfig {
     /*
      * The WebSocketServer instance to attach to.
      */
-    server: server
+    server: server;
 }
 
-declare class router extends events.EventEmitter {
+export interface IRouterHandler {
+    path: string;
+    pathString: string;
+    protocol: string;
+    callback: (request: IRouterRequest) => void;
+}
+
+export class router extends events.EventEmitter {
+    handlers: IRouterHandler[];
 
     constructor(config?: IRouterConfig);
 
@@ -660,21 +736,42 @@ declare class router extends events.EventEmitter {
     /** Detach from WebSocket server */
     detachServer(): void;
 
-    mount(path: string, cb: (request: routerRequest) => void): void;
-    mount(path: string, protocol: string, cb: (request: routerRequest) => void): void;
-    mount(path: RegExp, cb: (request: routerRequest) => void): void;
-    mount(path: RegExp, protocol: string, cb: (request: routerRequest) => void): void;
+    mount(path: string | RegExp, protocol: string | null, callback: (request: IRouterRequest) => void): void;
 
-    unmount(path: string, protocol?: string): void;
-    unmount(path: RegExp, protocol?: string): void;
+    unmount(path: string | RegExp, protocol?: string): void;
 
+    findHandlerIndex(pathString: string, protocol: string): number;
+
+    pathToRegExp(path: string): RegExp;
+    pathToRegEx(path: RegExp): RegExp;
+
+    handleRequest(request: request): void;
 }
 
-declare class w3cwebsocket {
+export interface ICloseEvent {
+    code: number;
+    reason: string;
+    wasClean: boolean;
+}
+
+export interface IMessageEvent {
+    data: string | Buffer | ArrayBuffer;
+}
+
+export class w3cwebsocket {
     static CONNECTING: number;
     static OPEN: number;
     static CLOSING: number;
     static CLOSED: number;
+
+    _url: string;
+    _readyState: number;
+    _protocol?: string;
+    _extensions: IExtension[];
+    _bufferedAmount: number;
+    _binaryType: 'arraybuffer';
+    _connection?: connection;
+    _client: client;
 
     url: string;
     readyState: number;
@@ -682,7 +779,7 @@ declare class w3cwebsocket {
     extensions: IExtension[];
     bufferedAmount: number;
 
-    binaryType: "arraybuffer";
+    binaryType: 'arraybuffer';
 
     CONNECTING: number;
     OPEN: number;
@@ -691,17 +788,26 @@ declare class w3cwebsocket {
 
     onopen: () => void;
     onerror: (error: Error) => void;
-    onclose: () => void;
-    onmessage: (message: any) => void;
+    onclose: (event: ICloseEvent) => void;
+    onmessage: (message: IMessageEvent) => void;
 
-    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+    constructor(
+        url: string,
+        protocols?: string | string[],
+        origin?: string,
+        headers?: http.OutgoingHttpHeaders,
+        requestOptions?: object,
+        IClientConfig?: IClientConfig,
+    );
 
-    send(data: Buffer): void;
-    send(data: IStringified): void;
+    send(data: ArrayBufferView | ArrayBuffer | Buffer | IStringified): void;
     close(code?: number, reason?: string): void;
 }
 
-export declare var version: string;
-export declare var constants: {
-    DEBUG: boolean;
+export const deprecation: {
+    disableWarnings: boolean;
+    deprecationWarningMap: {[name: string]: string};
+    warn(deprecationName: string): void;
 };
+
+export const version: string;

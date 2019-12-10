@@ -1,4 +1,4 @@
-// Type definitions for oracledb 4.0
+// Type definitions for oracledb 4.1
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
@@ -425,6 +425,18 @@ declare namespace OracleDB {
      */
     let poolMax: number;
     /**
+     * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+     * 
+     * This property may be overridden when creating a connection pool.
+     * 
+     * When this property is set, and a new connection request would cause the number of connections to the target shard to exceed the limit,
+     * then that new connection request will block until a suitable connection has been released back to the pool.
+     * Importantly, when blocked, the queueTimeout value will be ignored and the pending connection request will consume one worker thread.
+     * 
+     * @since 4.1
+     */
+    let poolMaxPerShard: number;
+    /**
      * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
      *
      * This property may be overridden when creating a connection pool.
@@ -578,7 +590,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null | undefined> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -609,6 +621,16 @@ declare namespace OracleDB {
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
         clientId?: string;
+
+
+        /**
+         * The client information for end-to-end application tracing.
+         * This is a write-only property. Displaying connection.clientInfo will show a value of null. 
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @since 4.1
+         */
+        clientInfo?: string;
         /**
          * After setting currentSchema, SQL statements using unqualified references to schema objects will resolve to objects in the specified schema.
          * This setting does not change the session user or the current user, nor does it give the session user any additional system or object privileges for the session.
@@ -618,6 +640,16 @@ declare namespace OracleDB {
          * @since 4.0
          */
         currentSchema?: string;
+        /**
+         * The database operation information for end-to-end application tracing.
+         * This is a write-only property. Displaying connection.dbOp will show a value of null.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @since 4.1
+         */
+        dbOp?: string;
+
+
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -1128,14 +1160,14 @@ declare namespace OracleDB {
             /** Array of objects specifying the queries which were affected by the Query Change notification. */
             tables: SubscriptionTables;
         }[];
-        /** Indicates whether the subscription is registerd with the database. */
-        registered?: boolean;
+        /** Indicates whether the subscription is registered with the database. */
+        registered: boolean;
         /** Array of objects specifying the tables which were affected by the notification. */
         tables?: SubscriptionTables[];
         /** Buffer containing the identifier of the transaction which spawned the notification. */
-        txId?: Buffer;
+        txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
-        type?: number;
+        type: number;
     }
 
     /**
@@ -1246,10 +1278,24 @@ declare namespace OracleDB {
          */
         privilege?: number;
         /**
+         * Allows a connection to be established directly to a database shard.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
+         * @since 4.1
+         */
+        shardingKey?: (string | number | Date | Buffer)[];
+        /**
          * The number of statements to be cached in the statement cache of each connection.
          * This optional property may be used to override the oracledb.stmtCacheSize property.
          */
         stmtCacheSize?: number;
+        /**
+         * Allows a connection to be established directly to a database shard.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
+         * @since 4.1
+         */
+        superShardingKey?: (string | number | Date | Buffer)[];
         /**
          * Used when getting a connection from a connection pool.
          * Indicates the tag that a connection returned from a connection pool should have.
@@ -1268,7 +1314,7 @@ declare namespace OracleDB {
         /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
-        errorNum: number;
+        errorNum?: number;
         /**
          * The text of the error message.
          *
@@ -1282,7 +1328,7 @@ declare namespace OracleDB {
          *
          * The value may be 0 in non-SQL contexts. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
-        offset: number;
+        offset?: number;
     }
 
     /**
@@ -1533,6 +1579,14 @@ declare namespace OracleDB {
          */
         dbType: number;
         /**
+         * The class associated with the database type. This is only set if the database type is an object type.
+         */
+        dbTypeClass: DBObjectClass;
+        /**
+         * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
+         */
+        dbTypeName: string;
+        /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
         byteSize: number;
@@ -1565,7 +1619,7 @@ declare namespace OracleDB {
         /**
          * The alias of this pool in the connection pool cache. An alias cannot be changed once the pool has been created.
          */
-        readonly poolAlias: string;
+        readonly poolAlias?: string;
         /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          */
@@ -1578,6 +1632,12 @@ declare namespace OracleDB {
          * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
          */
         readonly poolMin: number;
+        /**
+         * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+         * 
+         * @since 4.1
+         */
+        readonly poolMaxPerShard: number;
         /**
          * The maximum number of seconds that a connection can remain idle in a connection pool (not “checked out” to the application by getConnection())
          * before node-oracledb pings the database prior to returning that connection to the application.
@@ -1806,6 +1866,13 @@ declare namespace OracleDB {
          */
         poolMax?: number;
         /**
+         * The maximum number of connections per shard for connection pools. This ensures that the pool is balanced towards each shard.
+         * This optional property overrides the oracledb.poolMaxPerShard property.
+         * 
+         * @since 4.1
+         */
+        poolMaxPerShard?: number;
+        /**
          * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
          * This optional property overrides the oracledb.poolMin property.
          *
@@ -1897,7 +1964,7 @@ declare namespace OracleDB {
          * 
          * This is defined only if payloadType has the value oracledb.DB_TYPE_OBJECT.
          */
-        readonly payloadTypeClass: DBObjectClass;
+        readonly payloadTypeClass?: DBObjectClass;
         /** Either the string “RAW” or the name of the Oracle Database object type identified when the queue was created. */
         readonly payloadTypeName: string;
 
@@ -1912,8 +1979,8 @@ declare namespace OracleDB {
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
          */
-        deqOne(): Promise<AdvancedQueueMessage>;
-        deqOne(callback: (error: DBError, messages: AdvancedQueueMessage) => void): void;
+        deqOne(): Promise<AdvancedQueueMessage | undefined>;
+        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage) => void): void;
 
         /**
          * Enqueues multiple messages.
@@ -2133,13 +2200,13 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
          * are true then additional information is included.
          */
-        metaData: Metadata[];
+        metaData?: Metadata[];
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
-        outBinds: T;
+        outBinds?: T;
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -2149,7 +2216,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsetclass
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsethandling
          */
-        resultSet: ResultSet<T>;
+        resultSet?: ResultSet<T>;
         /**
          * For SELECT statements using direct fetches, rows contains an array of fetched rows.
          * It will be NULL if there is an error or the SQL statement was not a SELECT statement.
@@ -2160,13 +2227,13 @@ declare namespace OracleDB {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: T[];
+        rows?: T[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
          * rowsAffected is undefined.
          */
-        rowsAffected: number;
+        rowsAffected?: number;
     }
 
     /**
@@ -2183,26 +2250,26 @@ declare namespace OracleDB {
          * data errors to report. Some classes of execution error will always return via the executeMany()
          * callback error object, not in batchErrors.
          */
-        batchErrors: DBError[];
+        batchErrors?: DBError[];
         /**
          * An array of integers identifying the number of rows affected by each record of the binds parameter.
          *
          * It is present only if dmlRowCounts was true in the executeMany() options parameter and a DML statement
          * was executed.
          */
-        dmlRowCounts: number[];
+        dmlRowCounts?: number[];
         /**
          * Contains the value of any returned IN OUT or OUT binds. It is an array of arrays, or an array of objects,
          * depending on the binds parameters structure. The length of the array will correspond to the length of
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: T[];
+        outBinds?: T[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
          */
-        rowsAffected: number;
+        rowsAffected?: number;
     }
 
     /**
@@ -2368,8 +2435,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        openCollection(collectionName: string): Promise<SodaCollection>;
-        openCollection(collectionName: string, callback: (error: DBError, collection: SodaCollection) => void): void;
+        openCollection(collectionName: string): Promise<SodaCollection | undefined>;
+        openCollection(collectionName: string, callback: (error: DBError, collection?: SodaCollection) => void): void;
     }
 
     /**
@@ -2588,9 +2655,9 @@ declare namespace OracleDB {
      */
     interface SodaDocument {
         /** Creation time of the document as a string in the UTC time zone using an ISO8601 format. */
-        readonly createdOn: string;
+        readonly createdOn?: string;
         /** Unique key value for this document. */
-        readonly key: string;
+        readonly key?: string;
         /** Last modified time of the document as a string in the UTC time zone using an ISO8601 format. */
         readonly lastModified: string;
         /**
@@ -2598,8 +2665,10 @@ declare namespace OracleDB {
          * By default, collections store only JSON document content and this property will be ‘application/json’. This property will be null if the media type
          * is unknown, which will only be in the rare case when a collection was created to store mixed or non-JSON content on top of a pre-existing database table,
          * and that table has NULLs in its mediaType column.
+         * 
+         * @default 'application/json'
          */
-        readonly mediaType: string;
+        readonly mediaType?: string;
         /** Version of the document. */
         readonly version: string;
 
@@ -2655,8 +2724,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        getNext(): Promise<SodaDocument>;
-        getNext(callback: (error: DBError, document: SodaDocument) => void): void;
+        getNext(): Promise<SodaDocument | undefined>;
+        getNext(callback: (error: DBError, document?: SodaDocument) => void): void;
     }
 
     /**
@@ -2800,8 +2869,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        getOne(): Promise<SodaDocument>;
-        getOne(callback: (error: DBError, document: SodaDocument) => void): void;
+        getOne(): Promise<SodaDocument | undefined>;
+        getOne(callback: (error: DBError, document?: SodaDocument) => void): void;
         /**
          * Removes a set of documents matching the SodaOperation query criteria.
          *
@@ -2878,8 +2947,8 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument>;
-        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document: SodaDocument) => void): void;
+        replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument | undefined>;
+        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document?: SodaDocument) => void): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
          * which contains all SodaDocument components (key, version, etc.) except for content.

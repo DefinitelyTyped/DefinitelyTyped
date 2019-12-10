@@ -20,8 +20,13 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Kyle Scully <https://github.com/zieka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 /// <reference path="global.d.ts" />
 
@@ -40,6 +45,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type Booleanish = boolean | 'true' | 'false';
 
 /**
  * defined in scheduler/tracing
@@ -85,6 +91,10 @@ declare namespace React {
 
     type ComponentState = any;
 
+    /**
+     * @internal You shouldn't need to use this type since you never see these attributes
+     * inside your component or have to validate them.
+     */
     interface Attributes {
         key?: Key;
     }
@@ -333,6 +343,8 @@ declare namespace React {
         displayName?: string;
     }
     function createContext<T>(
+        // If you thought this should be optional, see
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
@@ -348,6 +360,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
+        /**
+         * Tells React whether to “skip” revealing this boundary during the initial load.
+         * This API will likely be removed in a future release.
+         */
+        // NOTE: this is unflagged and is respected even in stable builds
+        unstable_avoidThisFallback?: boolean;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -412,14 +430,17 @@ declare namespace React {
         /**
          * If using the new style context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
+         * Should be used with type annotation or static contextType.
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @deprecated if used without a type annotation, or without static contextType
-         * @see https://reactjs.org/docs/legacy-context.html
+         * @see https://reactjs.org/docs/context.html
          */
         // TODO (TypeScript 3.0): unknown
         context: any;
@@ -725,6 +746,7 @@ declare namespace React {
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
@@ -1077,7 +1099,7 @@ declare namespace React {
     }
 
     interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         target: EventTarget & T;
     }
 
@@ -1130,7 +1152,7 @@ declare namespace React {
         movementY: number;
         pageX: number;
         pageY: number;
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         screenX: number;
         screenY: number;
         shiftKey: boolean;
@@ -1628,30 +1650,29 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: string | number | string[];
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 
         // Standard HTML Attributes
         accessKey?: string;
         className?: string;
-        contentEditable?: boolean;
+        contentEditable?: Booleanish | "inherit";
         contextMenu?: string;
         dir?: string;
-        draggable?: boolean;
+        draggable?: Booleanish;
         hidden?: boolean;
         id?: string;
         lang?: string;
         placeholder?: string;
         slot?: string;
-        spellCheck?: boolean;
+        spellCheck?: Booleanish;
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
-        inputMode?: string;
-        is?: string;
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
@@ -1680,6 +1701,18 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: 'on' | 'off';
+
+        // Living Standard
+        /**
+         * Hints at the type of data that might be entered by the user while editing the element or its contents
+         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         */
+        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+         * Specify that a standard HTML element should behave like a defined custom built-in element
+         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         */
+        is?: string;
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2164,6 +2197,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
         valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
@@ -2173,6 +2207,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2224,6 +2259,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2238,7 +2274,7 @@ declare namespace React {
         ascent?: number | string;
         attributeName?: string;
         attributeType?: string;
-        autoReverse?: number | string;
+        autoReverse?: Booleanish;
         azimuth?: number | string;
         baseFrequency?: number | string;
         baselineShift?: number | string;
@@ -2278,7 +2314,7 @@ declare namespace React {
         enableBackground?: number | string;
         end?: number | string;
         exponent?: number | string;
-        externalResourcesRequired?: number | string;
+        externalResourcesRequired?: Booleanish;
         fill?: string;
         fillOpacity?: number | string;
         fillRule?: "nonzero" | "evenodd" | "inherit";
@@ -2287,7 +2323,7 @@ declare namespace React {
         filterUnits?: number | string;
         floodColor?: number | string;
         floodOpacity?: number | string;
-        focusable?: number | string;
+        focusable?: Booleanish | "auto";
         fontFamily?: string;
         fontSize?: number | string;
         fontSizeAdjust?: number | string;
@@ -2365,7 +2401,7 @@ declare namespace React {
         pointsAtX?: number | string;
         pointsAtY?: number | string;
         pointsAtZ?: number | string;
-        preserveAlpha?: number | string;
+        preserveAlpha?: Booleanish;
         preserveAspectRatio?: string;
         primitiveUnits?: number | string;
         r?: number | string;

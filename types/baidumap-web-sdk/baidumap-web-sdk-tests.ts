@@ -1,4 +1,4 @@
-import "./index";
+import "baidumap-web-sdk";
 
 class TestFixture {
 	// document: http://lbsyun.baidu.com/index.php?title=jspopular3.0

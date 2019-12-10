@@ -1,4 +1,4 @@
-// Type definitions for pino 5.8
+// Type definitions for pino 5.14
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -7,6 +7,8 @@
 //                 Alex Ferrando <https://github.com/alferpal>
 //                 Oleksandr Sidko <https://github.com/mortiy>
 //                 Harris Lummis <https://github.com/lummish>
+//                 Raoul Jaeckel <https://github.com/raoulus>
+//                 Cory Donkin <https://github.com/Cooryd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -151,7 +153,10 @@ declare namespace P {
      * @param [handler]: Function that will be called by the handler returned from this function
      * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
      */
-    function final(logger: Logger, handler: (error: Error, finalLogger: Logger, ...args: any[]) => void): (error: Error | null, ...args: any[]) => void;
+    function final(
+        logger: Logger,
+        handler: (error: Error, finalLogger: Logger, ...args: any[]) => void,
+    ): (error: Error | null, ...args: any[]) => void;
 
     /**
      * The pino.final method can be used to acquire a final logger instance that synchronously flushes on every write.
@@ -164,14 +169,17 @@ declare namespace P {
         /**
          * Returns the mappings of level names to their respective internal number representation.
          */
-        values: { [level: string]: number; };
+        values: { [level: string]: number };
         /**
          * Returns the mappings of level internal level numbers to their string representations.
          */
-        labels: { [level: number]: string; };
+        labels: { [level: number]: string };
     }
     type TimeFn = () => string;
-    type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
+
+    interface DestinationStream {
+        write(msg: string): void;
+    }
 
     interface LoggerOptions {
         /**
@@ -194,7 +202,7 @@ declare namespace P {
          * See stdTimeFunctions for a set of available functions for passing in as a value for this option.
          * Caution: any sort of formatted time will significantly slow down Pino's performance.
          */
-        timestamp?: TimeFn | false;
+        timestamp?: TimeFn | boolean;
         /**
          * One of the supported levels or `silent` to disable logging. Any other value defines a custom level and
          * requires supplying a level value via `levelVal`. Default: 'info'.
@@ -265,21 +273,23 @@ declare namespace P {
              * This option will create a pino-like log object instead of passing all arguments to a console method.
              * When `write` is set, `asObject` will always be `true`.
              */
-            asObject?: boolean,
+            asObject?: boolean;
             /**
              * Instead of passing log messages to console.log they can be passed to a supplied function. If `write` is
              * set to a single function, all logging objects are passed to this function. If write is an object, it can
              * have methods that correspond to the levels. When a message is logged at a given level, the corresponding
              * method is called. If a method isn't present, the logging falls back to using the `console`.
              */
-            write?: WriteFn | ({
-                fatal?: WriteFn;
-                error?: WriteFn;
-                warn?: WriteFn;
-                info?: WriteFn;
-                debug?: WriteFn;
-                trace?: WriteFn;
-            } & { [logLevel: string]: WriteFn });
+            write?:
+                | WriteFn
+                | ({
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
@@ -350,7 +360,13 @@ declare namespace P {
         [key: string]: any;
     }
 
-    type Logger = BaseLogger & { [key: string]: LogFn; };
+    interface Bindings {
+        level?: Level | string;
+        serializers?: { [key: string]: SerializerFn };
+        [key: string]: any;
+    }
+
+    type Logger = BaseLogger & { [key: string]: LogFn };
 
     interface BaseLogger extends EventEmitter {
         /**
@@ -421,11 +437,7 @@ declare namespace P {
          * @param bindings: an object of key-value pairs to include in log lines as properties.
          * @returns a child logger instance.
          */
-        child(bindings: {
-            level?: Level | string;
-            serializers?: { [key: string]: SerializerFn };
-            [key: string]: any;
-        }): Logger;
+        child(bindings: Bindings): Logger;
 
         /**
          * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
@@ -491,9 +503,19 @@ declare namespace P {
          * A utility method for determining if a given log level will write to the destination.
          */
         isLevelEnabled(level: LevelWithSilent | string): boolean;
+
+        /**
+         * Returns an object containing all the current bindings, cloned from the ones passed in via logger.child().
+         */
+        bindings(): Bindings;
     }
 
-    type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
+    type LevelChangeEventListener = (
+        lvl: LevelWithSilent | string,
+        val: number,
+        prevLvl: LevelWithSilent | string,
+        prevVal: number,
+    ) => void;
 
     interface LogFn {
         (msg: string, ...args: any[]): void;
@@ -502,7 +524,7 @@ declare namespace P {
 
     interface redactOptions {
         paths: string[];
-        censor?: string;
+        censor?: string | ((v: any) => any);
         remove?: boolean;
     }
 }

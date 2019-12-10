@@ -77,7 +77,7 @@ declare namespace echarts {
                 showDetail?: boolean;
                 showDataShadow?: string;
                 realtime?: boolean;
-                textStyle?: object;
+                textStyle?: BaseTextStyle;
                 xAxisIndex?: number | number[];
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];

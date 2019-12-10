@@ -11,10 +11,10 @@ import SortableTree, {
     OnMovePreviousAndNextLocation,
     OnVisibilityToggleData,
     PlaceholderRendererProps,
-    SearchData,
     SortableTreeWithoutDndContext,
     ThemeProps,
-    TreeItem
+    TreeItem,
+    getTreeFromFlatData
 } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
 
@@ -106,3 +106,16 @@ class Test extends React.Component {
         );
     }
 }
+
+interface FlatItem {
+    key: number;
+    parent: number | null;
+}
+const flatData: FlatItem[] = [{ key: 1, parent: null }, { key: 2, parent: 1}];
+
+const treeData = getTreeFromFlatData({
+    flatData,
+    getKey: ({ key }: FlatItem) => key,
+    getParentKey: ({ parent }: FlatItem) => parent,
+    rootKey: 0,
+});
