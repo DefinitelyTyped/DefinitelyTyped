@@ -305,6 +305,12 @@ cluster.substr('key', 0, 2, (err, res) => {
     // res = 'val'
 });
 
+cluster.set('key1', 'value1');
+cluster.set('key2', 'value2');
+cluster.mget('key1', 'key2', 'key3').then(res => {
+    // res = ['value1', 'value2', null]
+});
+
 cluster.get('keynx', (err, data) => {
     // [null, '100']
 });
@@ -318,6 +324,10 @@ cluster.incr('key', (err, data) => {
 cluster.decr('key', (err, data) => {
     // [null, '100']
 });
+
+cluster.mget('key1', 'key2');
+
+cluster.rpush('key', 'value1', 'value2');
 
 listData.forEach(value => {
     cluster.rpushBuffer('bufferlist', Buffer.from(value));
@@ -365,6 +375,9 @@ cluster.exists('key', (err, res) => res * 1);
 
 cluster.hexists('key', 'field');
 cluster.hexists('key', 'field', (err, res) => res * 1);
+
+cluster.pipeline().exec();
+cluster.pipeline([['set', 'key', 'value']]);
 
 cluster.disconnect();
 cluster.quit(result => {

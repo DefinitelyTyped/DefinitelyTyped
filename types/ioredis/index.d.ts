@@ -974,6 +974,8 @@ declare namespace IORedis {
         decr(key: KeyType, callback: (err: Error, res: number) => void): void;
         decr(key: KeyType): Promise<number>;
 
+        mget(...keys: KeyType[]): Promise<Array<string | null>>;
+
         rpush(key: KeyType, ...values: ValueType[]): Promise<number>;
 
         rpushBuffer(key: string, ...values: Buffer[]): Promise<number>;
@@ -1012,6 +1014,8 @@ declare namespace IORedis {
 
         hexists(key: KeyType, field: string, callback: (err: Error, res: BooleanResponse) => void): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
+
+        pipeline(commands?: string[][]): Pipeline;
     }
 
     interface ClusterStatic extends EventEmitter, Commander {
