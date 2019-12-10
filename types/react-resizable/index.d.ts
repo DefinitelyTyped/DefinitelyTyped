@@ -1,4 +1,4 @@
-// Type definitions for react-resizable 1.7
+// Type definitions for react-resizable 1.10
 // Project: https://github.com/STRML/react-resizable
 // Definitions by: Harry Brrundage <https://github.com/airhorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,11 +7,9 @@
 import * as React from "react";
 
 export type Axis = "both" | "x" | "y" | "none";
+export type ResizeHandle = "s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne";
 
 export interface ResizableState {
-    resizing: boolean;
-    width: number;
-    height: number;
     slackW: number;
     slackH: number;
 }
@@ -29,12 +27,14 @@ export interface DragCallbackData {
 export interface ResizeCallbackData {
     node: HTMLElement;
     size: { width: number; height: number };
+    handle: ResizeHandle;
 }
 
 export interface ResizableProps {
     className?: string;
     width: number;
     height: number;
+    handle?: React.ReactElement | ((resizeHandle: ResizeHandle) => React.ReactElement);
     handleSize?: [number, number];
     lockAspectRatio?: boolean;
     axis?: Axis;
@@ -44,7 +44,8 @@ export interface ResizableProps {
     onResizeStart?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     onResize?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     draggableOpts?: any;
-    resizeHandles?: string[];
+    resizeHandles?: ResizeHandle[];
+    transofrmScale?: number;
 }
 
 export class Resizable extends React.Component<

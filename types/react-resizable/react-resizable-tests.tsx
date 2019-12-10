@@ -25,6 +25,8 @@ class TestResizableComponent extends React.Component {
                 onResizeStart={resizeCallback}
                 onResizeStop={resizeCallback}
                 onResize={resizeCallback}
+                handle={<div></div>}
+                transofrmScale={1}
             >
                 <div>{this.props.children} </div>
             </Resizable>
