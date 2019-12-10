@@ -31,7 +31,7 @@ export interface MUIDataTableState {
     columns: MUIDataTableColumnState[];
     count: number;
     data: any[];
-    displayData: {dataIndex: number; data: any[]}[]
+    displayData: Array<{dataIndex: number; data: any[]}>;
     expandedRows: MUIDataTableStateRows;
     filterData: any[];
     filterList: string[][];
