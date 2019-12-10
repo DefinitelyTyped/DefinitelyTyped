@@ -1029,6 +1029,9 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 //#region Events tests
 // ##################################################################################
 
+const fakeEvent: Stripe.events.IEvent = stripe.webhooks.constructEvent('', '', '');
+const previousStatus = fakeEvent.data.previous_attributes && fakeEvent.data.previous_attributes.status;
+
 //#endregion
 
 //#region File Uploads tests
