@@ -131,7 +131,7 @@ declare namespace Dropzone {
         sending?(file: DropzoneFile, xhr: XMLHttpRequest, formData: FormData): void;
         sendingmultiple?(files: DropzoneFile[], xhr: XMLHttpRequest, formData: FormData): void;
 
-        success?(file: DropzoneFile, response: Object | string): void;
+        success?(file: DropzoneFile): void;
         successmultiple?(files: DropzoneFile[], responseText: string): void;
 
         canceled?(file: DropzoneFile): void;
@@ -296,7 +296,7 @@ declare class Dropzone {
         callback: (files: Dropzone.DropzoneFile[], xhr: XMLHttpRequest, formData: FormData) => any,
     ): Dropzone;
 
-    on(eventName: 'success', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: 'success', callback: (file: Dropzone.DropzoneFile, response: Object | string) => any): Dropzone;
     on(eventName: 'successmultiple', callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
 
     on(eventName: 'canceled', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
@@ -341,7 +341,7 @@ declare class Dropzone {
         formData: FormData,
     ): Dropzone;
 
-    emit(eventName: 'success', file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: 'success', file: Dropzone.DropzoneFile, response: object | string): Dropzone;
     emit(eventName: 'successmultiple', files: Dropzone.DropzoneFile[]): Dropzone;
 
     emit(eventName: 'canceled', file: Dropzone.DropzoneFile): Dropzone;
