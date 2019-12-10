@@ -10704,6 +10704,16 @@ declare namespace Stripe {
             cancel_at_period_end?: boolean;
 
             /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
+
+            /**
              * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
              * This can be set to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
              *
