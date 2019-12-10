@@ -36,8 +36,8 @@ declare class Chart {
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
     stop: () => Chart;
-    resize: () => void;
-    clear: () => void;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
