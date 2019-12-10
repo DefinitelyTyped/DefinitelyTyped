@@ -336,9 +336,9 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
 });
 
 const eventHandler = () => { };
-const leafletMouseEvent: LeafletMouseEvent = {} as LeafletMouseEvent;
-const leafletKeyboardEvent: LeafletKeyboardEvent = {} as LeafletKeyboardEvent;
-const leafletEvent: LeafletEvent = {} as LeafletEvent;
+const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
+const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
+const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
 const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
