@@ -6,7 +6,6 @@
 /// <reference types="node" />
 
 import { Server } from "http";
-import { ProcessEnvOptions } from "child_process";
 
 /**
  * Method to create the sticky session
