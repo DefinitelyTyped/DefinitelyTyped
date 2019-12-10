@@ -2280,6 +2280,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean|string;
+    /** use client session for transaction */
+    session?: ClientSession;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2310,6 +2312,7 @@ declare module "mongoose" {
     if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
     before sending the update to the server.**/
     omitUndefined?: boolean;
+    session?: ClientSession;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
