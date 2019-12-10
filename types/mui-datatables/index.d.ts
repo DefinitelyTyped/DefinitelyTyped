@@ -29,14 +29,13 @@ export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
     columns: MUIDataTableColumnState[];
-    // TODO count is also returned
-    // TODO data
-    // TODO displayData
+    count: number;
+    data: any[];
+    displayData: {dataIndex: number; data: any[]}[]
     expandedRows: MUIDataTableStateRows;
-    // TODO filterData
+    filterData: any[];
     filterList: string[][];
     page: number;
-    // TODO previousSelectedRow
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
