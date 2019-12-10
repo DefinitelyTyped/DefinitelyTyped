@@ -25,6 +25,18 @@ type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
 type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
 
+// infer the generic type of hasMany when used as computed or decorator
+type UnpackManyArray<T> =
+    T extends DS.ManyArray<infer X> ? X :
+    T extends DS.PromiseManyArray<infer Y> ? Y :
+    T extends Ember.ComputedProperty<DS.PromiseManyArray<infer Z>, any> ? Z :
+    T;
+
+// used to infer the generic type of belongsTo when used as computed or decorator
+type UnpackComputedProperty<T> =
+    T extends Ember.ComputedProperty<infer Y> ? Y:
+    T;
+
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
 }
@@ -546,11 +558,11 @@ export namespace DS {
         /**
          * Get the reference for the specified belongsTo relationship.
          */
-        belongsTo(name: RelationshipsFor<this>): BelongsToReference;
+        belongsTo<T extends keyof this = RelationshipsFor<this>>(name: T): BelongsToReference<UnpackComputedProperty<this[T]>>;
         /**
          * Get the reference for the specified hasMany relationship.
          */
-        hasMany(name: RelationshipsFor<this>): HasManyReference<any>;
+        hasMany<T extends keyof this = RelationshipsFor<this>>(name: T): HasManyReference<UnpackManyArray<this[T]>>;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship
@@ -725,13 +737,13 @@ export namespace DS {
      * addon author to perform meta-operations on a belongs-to
      * relationship.
      */
-    class BelongsToReference {
+    class BelongsToReference<T> {
         /**
          * This returns a string that represents how the reference will be
          * looked up when it is loaded. If the relationship has a link it will
          * use the "link" otherwise it defaults to "id".
          */
-        remoteType(): string;
+        remoteType(): 'id' | 'link';
         /**
          * The `id` of the record that this reference refers to. Together, the
          * `type()` and `id()` methods form a composite key for the identity
@@ -751,10 +763,10 @@ export namespace DS {
         meta(): {};
         /**
          * `push` can be used to update the data in the relationship and Ember
-         * Data will treat the new data as the conanical value of this
+         * Data will treat the new data as the canonical value of this
          * relationship on the backend.
          */
-        push(objectOrPromise: {} | RSVP.Promise<any>): RSVP.Promise<any>;
+        push(objectOrPromise: {} | RSVP.Promise<any>): RSVP.Promise<T>;
         /**
          * `value()` synchronously returns the current value of the belongs-to
          * relationship. Unlike `record.get('relationshipName')`, calling
@@ -762,20 +774,20 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(): Model | null;
+        value(): T | null;
         /**
          * Loads a record in a belongs to relationship if it is not already
          * loaded. If the relationship is already loaded this method does not
          * trigger a new load.
          */
-        load(): RSVP.Promise<any>;
+        load(): RSVP.Promise<T>;
         /**
          * Triggers a reload of the value in this relationship. If the
          * remoteType is `"link"` Ember Data will use the relationship link to
          * reload the relationship. Otherwise it will reload the record by its
          * id.
          */
-        reload(): RSVP.Promise<any>;
+        reload(): RSVP.Promise<T>;
     }
     /**
      * A HasManyReference is a low level API that allows users and addon
@@ -785,9 +797,9 @@ export namespace DS {
         /**
          * This returns a string that represents how the reference will be
          * looked up when it is loaded. If the relationship has a link it will
-         * use the "link" otherwise it defaults to "id".
+         * use the "link" otherwise it defaults to "ids".
          */
-        remoteType(): string;
+        remoteType(): 'ids' | 'link';
         /**
          * The link Ember Data will use to fetch or reload this has-many
          * relationship.
@@ -820,11 +832,11 @@ export namespace DS {
          * relationship is already loaded this method does not trigger a new
          * load.
          */
-        load(): RSVP.Promise<any>;
+        load(): RSVP.Promise<ManyArray<T>>;
         /**
          * Reloads this has-many relationship.
          */
-        reload(): RSVP.Promise<any>;
+        reload(): RSVP.Promise<ManyArray<T>>;
     }
     /**
      * An RecordReference is a low level API that allows users and

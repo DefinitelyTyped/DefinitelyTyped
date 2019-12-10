@@ -16,6 +16,8 @@ class BlogPost extends DS.Model {
     title = DS.attr('string');
     commentsAsync = DS.hasMany('blog-comment');
     commentsSync = DS.hasMany('blog-comment', { async: false });
+
+    @DS.hasMany('blog-comment') archivedComments: DS.ManyArray<BlogComment>;
 }
 
 const blogPost = BlogPost.create();
@@ -59,6 +61,13 @@ declare module 'ember-data/types/registries/model' {
 class Polymorphic extends DS.Model {
     paymentMethods = DS.hasMany('payment-method', { polymorphic: true });
 }
-
-// $ExpectType ManyArray<any> | null
+// when used as cp
+// $ExpectType ManyArray<BlogComment> | null
 blogPost.hasMany('commentsAsync').value();
+
+// when used as decorator
+// $ExpectType ManyArray<BlogComment> | null
+blogPost.hasMany('archivedComments').value();
+
+// $ExpectType "ids" | "link"
+blogPost.hasMany('commentsAsync').remoteType();

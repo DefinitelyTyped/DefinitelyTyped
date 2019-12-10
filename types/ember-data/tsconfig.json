@@ -5,6 +5,7 @@
             "es6",
             "dom"
         ],
+        "experimentalDecorators": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
