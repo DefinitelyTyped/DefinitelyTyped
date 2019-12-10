@@ -88,6 +88,7 @@ import {
     ProgressBarAndroid,
     PushNotificationIOS,
     AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -956,3 +957,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;
