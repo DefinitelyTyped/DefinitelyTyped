@@ -3868,7 +3868,7 @@ declare namespace Stripe {
                  */
                 object: IObject;
 
-                previous_attributes?: {};
+                previous_attributes?: { [key: string]: any };
             };
 
             livemode: boolean;
