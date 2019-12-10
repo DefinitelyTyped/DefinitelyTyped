@@ -2310,6 +2310,7 @@ declare module "mongoose" {
     if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
     before sending the update to the server.**/
     omitUndefined?: boolean;
+    session?: ClientSession;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
