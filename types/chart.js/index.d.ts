@@ -602,7 +602,7 @@ declare namespace Chart {
     }) => T;
 
     interface ChartDataSets {
-        hoverRadius?: number;
+        
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         barPercentage?: number;
@@ -622,6 +622,7 @@ declare namespace Chart {
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
         maxBarThickness?: number;
