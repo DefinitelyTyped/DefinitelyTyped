@@ -1,12 +1,12 @@
 import leveldown from 'leveldown';
 import levelup from 'levelup';
 import { Key, Result, Query, Batch, Datastore } from 'interface-datastore';
-import LevelDatastore from 'datastore-level';
+import LevelDatastore, { LevelDatastore as Interface } from 'datastore-level';
 
 const levelStore: Datastore = new LevelDatastore('init-default');
 levelStore.open();
 
-const store = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
+const store: Interface = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
 store.open();
 
 const k = new Key('/z/one');
@@ -48,7 +48,7 @@ store.put(k, Buffer.from('hello')).then(() => {
     });
 });
 
-const b: Batch<Buffer> = store.batch();
+const b: Batch = store.batch();
 
 store.put(new Key('/z/old'), Buffer.from('old')).then(() => {
     b.put(new Key('/a/one'), Buffer.from('1'));
@@ -68,10 +68,10 @@ const hello = { key: new Key('/q/1hello'), value: Buffer.from('1') };
 const world = { key: new Key('/z/2world'), value: Buffer.from('2') };
 const hello2 = { key: new Key('/z/3hello2'), value: Buffer.from('3') };
 
-const filter1: Query.Filter<Buffer> = (entry: Result<Buffer>) => !entry.key.toString().endsWith('hello');
-const filter2 = (entry: Result<Buffer>) => entry.key.toString().endsWith('hello2');
+const filter1: Query.Filter = (entry: Result) => !entry.key.toString().endsWith('hello');
+const filter2 = (entry: Result) => entry.key.toString().endsWith('hello2');
 
-const order: Query.Order<Buffer> = (res: Array<Result<Buffer>>) => {
+const order: Query.Order = (res: Result[]) => {
     return res.sort((a, b) => {
         if (a.value.toString() < b.value.toString()) {
             return -1;
@@ -90,7 +90,7 @@ batch.commit();
 
 // Do some waiting...
 
-const query: Query<Buffer> = {
+const query: Query = {
     prefix: '/z',
     keysOnly: false,
     filters: [filter1, filter2],
@@ -100,7 +100,7 @@ const query: Query<Buffer> = {
 };
 
 const test = async () => {
-    const res: Array<Result<Buffer>> = [];
+    const res: Result[] = [];
     for await (const item of store.query(query)) {
         res.push(item);
         const key = item.key.toString();
