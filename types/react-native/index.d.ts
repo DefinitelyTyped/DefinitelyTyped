@@ -27,6 +27,7 @@
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
 //                 Xianming Zhong <https://github.com/chinesedfan>
+//                 Valentyn Tolochko <https://github.com/vtolochk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -5127,6 +5128,14 @@ export namespace StyleSheet {
      * the alternative use.
      */
     export function flatten<T>(style?: StyleProp<T>): T;
+
+    /**
+     * Combines two styles such that style2 will override any styles in style1.
+     * If either style is falsy, the other one is returned without allocating
+     * an array, saving allocations and maintaining reference equality for
+     * PureComponent checks.
+     */
+    export function compose<T>(style1?: StyleProp<T>, style2?: StyleProp<T>): ReadonlyArray<T> | undefined;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
