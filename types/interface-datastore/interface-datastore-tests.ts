@@ -41,7 +41,7 @@ store.put(k, Buffer.from('hello')).then(() => {
     });
 });
 
-const b: Batch<Buffer> = store.batch();
+const b: Batch = store.batch();
 
 store.put(new Key('/z/old'), Buffer.from('old')).then(() => {
     b.put(new Key('/a/one'), Buffer.from('1'));
@@ -64,7 +64,7 @@ const hello2 = { key: new Key('/z/3hello2'), value: Buffer.from('3') };
 const filter1: Query.Filter = (entry: Result) => !entry.key.toString().endsWith('hello');
 const filter2 = (entry: Result) => entry.key.toString().endsWith('hello2');
 
-const order: Query.Order = (res: Array<Result>) => {
+const order: Query.Order = (res: Result[]) => {
     return res.sort((a, b) => {
         if (a.value.toString() < b.value.toString()) {
             return -1;
@@ -93,7 +93,7 @@ const query: Query = {
 };
 
 const test = async () => {
-    const res: Array<Result> = [];
+    const res: Result[] = [];
     for await (const item of store.query(query)) {
         res.push(item);
         const key = item.key.toString();
