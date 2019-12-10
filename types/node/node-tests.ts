@@ -21,6 +21,10 @@ import Module = require("module");
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        // TODO: why won't this work?
+        // // $ExpectError
+        // url.format({ path: '/foo' });
+
         url.format('http://www.example.com/xyz');
 
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
