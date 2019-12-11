@@ -20,7 +20,7 @@ export interface RoomSubscription {
     hooks?: RoomSubscriptionHooks;
     messageLimit: number;
     disableCursors: boolean;
-    cancel?: () => Promise<void>;
+    cancel: () => Promise<void>;
 }
 
 interface RoomSubcriptionParams {
