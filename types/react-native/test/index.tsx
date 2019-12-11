@@ -197,47 +197,71 @@ const f1: TextStyle = s.shouldWork;
 
 // StyleSheet.compose
 // It creates a new style object by composing two existing styles
-const composeTextStyle1: StyleProp<TextStyle> = {
+const composeTextStyle: StyleProp<TextStyle> = {
     color: '#000000',
     fontSize: 20,
-};
-
-const composeTextStyle2: StyleProp<TextStyle> = {
-    fontSize: 12,
 };
 
 const composeImageStyle: StyleProp<ImageStyle> = {
     resizeMode: 'contain',
 };
 
-// It should only possible to combine styles from the same type, so the following code is invalid:
-// const noCombinedStyle = StyleSheet.compose(composeImageStyle, composeTextStyle2);
-
 // The following use of the compose method is valid
 const combinedStyle = StyleSheet.compose(
-    composeTextStyle1,
-    composeTextStyle2,
+    composeTextStyle,
+    composeTextStyle,
 );
 
 const combinedStyle1 = StyleSheet.compose(
-    [composeTextStyle1],
-    [composeTextStyle2],
+    composeImageStyle,
+    composeImageStyle,
 );
 
 const combinedStyle2 = StyleSheet.compose(
-    composeTextStyle1,
-    null,
+    [composeTextStyle],
+    [composeTextStyle],
 );
 
 const combinedStyle3 = StyleSheet.compose(
-    [composeTextStyle1],
+    composeTextStyle,
     null,
 );
 
 const combinedStyle4 = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
+
+const combinedStyle5 = StyleSheet.compose(
+    composeTextStyle,
+    Math.random() < 0.5 ? composeTextStyle : null,
+);
+
+const combinedStyle6 = StyleSheet.compose(
     null,
     null,
 );
+
+// The following use of the compose method is invalid:
+// const combinedStyle7 = StyleSheet.compose(
+//     composeImageStyle,
+//     composeTextStyle,
+// );
+
+// const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(
+//     composeTextStyle,
+//     composeTextStyle,
+// );
+
+// const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose(
+//     [composeTextStyle],
+//     null,
+// );
+
+// const combinedStyle10: StyleProp<ImageStyle>  = StyleSheet.compose(
+//     Math.random() < 0.5 ? composeTextStyle : null,
+//     null,
+// );
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
