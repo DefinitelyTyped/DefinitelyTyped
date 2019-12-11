@@ -17,6 +17,10 @@ declare class S3rver {
     setErrorDocument(errorDocument: string): S3rver;
     run(callback: (error: Error | null, hostname: string, port: number, directory: string) => void): S3rver;
     run(): Promise<string>;
+    close(): Promise<void>;
+    // Should return S3rver, but doesn't in all cases, currently
+    // See https://github.com/jamhall/s3rver/pull/571
+    close(callback: (error: Error | null) => void): void;
 }
 
 interface S3rverOptions {
