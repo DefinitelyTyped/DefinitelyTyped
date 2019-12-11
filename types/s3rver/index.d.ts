@@ -18,7 +18,7 @@ declare class S3rver {
     setSilent(silent: boolean): S3rver;
     setIndexDocument(indexDocument: string): S3rver;
     setErrorDocument(errorDocument: string): S3rver;
-    run(callback: (error: Error, hostname: string, port: number, directory: string) => void): http.Server;
+    run(callback: (error: Error | null, hostname: string, port: number, directory: string) => void): http.Server;
     run(): Promise<string>;
 }
 
