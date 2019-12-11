@@ -67,4 +67,11 @@ declare global {
 }
 
 declare function expectPuppeteer(instance: ElementHandle | Page): ExpectPuppeteer;
-export = expectPuppeteer;
+
+interface ExpectDefaultOptions extends ExpectToClickOptions, ExpectTimingActions {}
+declare function defaultOptions(options: ExpectDefaultOptions): ExpectDefaultOptions;
+declare function setDefaultOptions(options: ExpectDefaultOptions): void;
+declare function getDefaultOptions(): ExpectDefaultOptions;
+
+export default expectPuppeteer;
+export { defaultOptions, setDefaultOptions, getDefaultOptions };

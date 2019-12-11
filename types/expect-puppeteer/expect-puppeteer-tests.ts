@@ -29,7 +29,15 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 };
 
 const testImported = async (instance: ElementHandle | Page) => {
-    const expectPuppeteer = await import("expect-puppeteer");
+    const {default: expectPuppeteer, defaultOptions, setDefaultOptions, getDefaultOptions} = await import("expect-puppeteer");
+
+    setDefaultOptions({
+        ...getDefaultOptions(),
+        timeout: 555,
+        polling: "mutation",
+    });
+
+    const newOptions = defaultOptions({timeout: 600});
 
     await expectPuppeteer(instance).toClick("selector");
     await expect(instance).toClick("selector", { polling: "mutation", text: "text" });
