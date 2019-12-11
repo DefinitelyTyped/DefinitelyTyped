@@ -838,6 +838,7 @@ declare namespace braintree {
 
     export class WebhookNotification {
         kind: WebhookNotificationKind;
+        timestamp: Date;
         subscription?: Subscription;
         merchantAccount?: MerchantAccount;
         transaction?: Transaction;
