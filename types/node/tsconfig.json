@@ -29,7 +29,8 @@
         "test/v8.ts",
         "test/vm.ts",
         "test/worker_threads.ts",
-        "test/zlib.ts"
+        "test/zlib.ts",
+        "test/url.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
