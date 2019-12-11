@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "dt-header": false,
         "npm-naming": false,
         "jsdoc-format": false,
@@ -18,6 +17,7 @@
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "prefer-template": false,
-        "use-default-type-parameter": false
+        "use-default-type-parameter": false,
+        "interface-name": false
     }
 }

@@ -6,6 +6,7 @@
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
 //                 SPWizard01 <https://github.com/SPWizard01>
+//                 Vitaliy Kotlyarov <https://github.com/betlgtu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
@@ -17,6 +18,62 @@ declare var _spBodyOnLoadCalled: boolean;
 declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
 declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
+declare function SelectRibbonTab(tabId: string, force: boolean);
+declare function AttachEvent<K extends keyof HTMLElementEventMap>(type: K, eventFunc: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, el: GlobalEventHandlers);
+declare function CancelEvent(e: Event): boolean;
+declare function encodeScriptQuote(str: string): string;
+declare function StAttrQuote(st: string): string;
+declare function STSScriptEncode(str: string): string;
+declare function STSScriptEncodeWithQuote(str: string): string;
+declare function ToggleDeveloperDashboard(): void;
+declare function ToggleTrace(): void;
+declare function NotifyEventAndExecuteWaitingJobs(eventName: string): void;
+declare function NotifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
+declare function NotifyBodyLoadedAndExecuteWaitingJobs(): void;
+declare enum StatusPriority {
+    red,
+    yellow,
+    green,
+    blue
+}
+declare const L_Language_Text: string;
+declare const L_ClickOnce1_text: string;
+declare const L_STSRecycleConfirm_Text: string;
+declare const L_STSRecycleConfirm1_Text: string;
+declare const L_STSRecycleConfirm2_Text: string;
+declare const L_STSDelConfirm_Text: string;
+declare const L_STSDelConfirm1_Text: string;
+declare const L_STSDelConfirm2_Text: string;
+declare const L_NewDocLibTb1_Text: string;
+declare const L_NewDocLibTb2_Text: string;
+declare const L_CheckoutConfirm: string;
+declare const L_DiscardCheckoutConfirm: string;
+declare const L_NewFormLibTb1_Text: string;
+declare const L_NewFormLibTb2_Text: string;
+declare const L_ConfirmCheckout_Text: string;
+declare const L_MustCheckout_Text: string;
+declare const L_CheckOutRetry_Text: string;
+declare const L_CannotEditPropertyForLocalCopy_Text: string;
+declare const L_CannotEditPropertyCheckout_Text: string;
+declare const L_NewFormClickOnce1_Text: string;
+declare const L_EnterValidCopyDest_Text: string;
+declare const L_ConfirmUnlinkCopy_Text: string;
+declare const L_CopyingOfflineVersionWarning_Text: string;
+declare const L_Loading_Text: string;
+declare const L_Loading_Error_Text: string;
+declare const L_Inplview_PageNotYetSaved: string;
+declare const L_WarnkOnce_text: string;
+declare const L_WebFoldersRequired_Text: string;
+declare const L_WebFoldersError_Text: string;
+declare const L_NoExplorerView_Text: string;
+declare const L_WikiWebPartNoClosedOrUploaded: string;
+declare const L_AccessibleMenu_Text: string;
+declare const L_SubMenu_Text: string;
+declare const L_NewBlogPost_Text: string;
+declare const L_NewBlogPostFailed_Text: string;
+declare const recycleBinEnabled: number;
+declare const cascadeDeleteWarningMessage: string;
+declare const bIsFileDialogView: boolean;
 declare var Strings: any;
 declare const enum Sods {
     missing = 1,
@@ -12948,3 +13005,792 @@ declare function $resource(id: string): string;
 declare function $setItemWrapperCallback(renderCtx: any, itemWrapperFunction: any): void;
 /** (calls Srch.U.addRenderContextCallback) */
 declare function $addRenderContextCallback(renderCtx: any, itemWrapperFunction: any): void;
+
+// ------- CUI namespace -------
+declare namespace CUI {
+    enum CommandType {
+        general,
+        tabSelection,
+        optionSelection,
+        menuCreation,
+        preview,
+        previewRevert,
+        optionPreview,
+        optionPreviewRevert,
+        ignoredByMenu,
+        menuClose,
+        rootEvent,
+    }
+
+    enum GalleryElementDimensions {
+        size16by16,
+        size32by32,
+        size48by48,
+        size64by48,
+        size72by96,
+        size96by72,
+        size96by96,
+        size128by128,
+        size190by30,
+        size190by40,
+        size190by50,
+        size190by60,
+    }
+
+    enum DataQueryType {
+        none,
+        all,
+        ribbonVisibleTabDeep,
+        ribbonShallow,
+        ribbonTab,
+        root,
+    }
+
+    enum ContextualColor {
+        none,
+        darkBlue,
+        lightBlue,
+        teal,
+        orange,
+        green,
+        magenta,
+        yellow,
+        purple,
+    }
+
+    enum Direction {
+        LTR,
+        RTL,
+    }
+
+    enum ImgContainerType {
+        div,
+        span,
+        anchor,
+    }
+
+    enum ImgContainerSize {
+        none,
+        size5by3,
+        size13by13,
+        size16by16,
+        size32by32,
+        size48by48,
+        size64by48,
+        size72by96,
+        size96by72,
+        size96by96,
+        size56by24,
+        size2by16,
+    }
+
+    enum PMarker {
+        beginSession,
+        endSession,
+        perfCUIRibbonInitStart,
+        perfCUIRibbonInitPercvdEnd,
+        perfCUIRibbonTabSwitchWarmStart,
+        perfCUIRibbonTabSwitchWarmPercvdEnd,
+        perfCUIRibbonTabSwitchWarmEnd,
+        perfCUIRibbonCompleteConstruction,
+        perfCUIRibbonQueryDataStart,
+        perfCUIRibbonQueryDataEnd,
+        perfWSSWikiUpdatePanelStart,
+        perfWSSWikiUpdatePanelEnd,
+        perfWSSWebPartComponentMouseClickStart,
+        perfWSSWebPartComponentMouseClickEnd,
+        perfCUIAddAndPositionBackFrameStart,
+        perfCUIAddAndPositionBackFrameEnd,
+        perfCUIFlyoutAnchorOnClickStart,
+        perfCUIFlyoutAnchorOnClickEnd,
+        perfCUIDropDownOnArrowButtonClickStart,
+        perfCUIDropDownOnArrowButtonClickEnd,
+        perfWSSBreadcrumbStart,
+        perfWSSBreadcrumbEnd,
+        perfWSSSelectOrDeselectAllStart,
+        perfWSSSelectOrDeselectAllEnd,
+        perfWSSSelectItemStart,
+        perfWSSSelectItemEnd,
+        perfWSSFilterSortStart,
+        perfWSSFilterSortEnd,
+        perfWSSMMUOpenStart,
+        perfWSSMMUOpenEnd,
+        perfWSSECBClickStart,
+        perfWSSECBClickEnd,
+        perfSPSSaveStatusNoteBegin,
+        perfSPSSaveStatusNoteEnd,
+        perfWSSCalendarRenderStart,
+        perfWSSCalendarRenderEnd,
+        perfPLTxInstrumentStart,
+        perfPLTxInstrumentEnd,
+        perfCUIRibbonButtonOnClickStart,
+        perfCUIRibbonButtonOnClickEnd,
+        perfCUIRibbonInsertTableOnClickStart,
+        perfCUIRibbonInsertTableOnClickEnd,
+        perfCUIRibbonToggleButtonOnClickStart,
+        perfCUIRibbonToggleButtonOnClickEnd,
+        perfWSSDialogShow,
+        perfWSSDialogClosed,
+        perfWSSRTEDialogOnLoadEnd,
+        perfWSSRTEDialogOnOkButtonClickStart,
+        perfWSSRTEAutoCompleteSetResultsStart,
+        perfWSSRTEAutoCompleteSetResultsEnd,
+        perfCUIRibbonEditWikiPageStart,
+        perfCUIRibbonEditWikiPageEnd,
+    }
+
+    interface IMenuItem { }
+    interface ISelectableControl { }
+    interface IRootBuildClient { }
+    interface IModalController { }
+
+    class BuildOptions {
+        lazyMenuInit: boolean;
+        trimmedIds: string[];
+        attachToDOM: boolean;
+        validateServerRendering: boolean;
+        fixedPositioningEnabled: boolean;
+        dataExtensions: any[];
+        clientID: string;
+        constructor();
+    }
+
+    class BuildContext { }
+
+    class DataNodeWrapper {
+        static ATTRIBUTES: string;
+        static CHILDREN: string;
+        static NAME: string;
+        static ALIGNMENT: string;
+        static ALT: string;
+        static CLASSNAME: string;
+        static COLOR: string;
+        static COMMAND: string;
+        static CONTEXTUALGROUPID: string;
+        static CSSCLASS: string;
+        static DARKBLUE: string;
+        static DECIMALDIGITS: string;
+        static DESCRIPTION: string;
+        static DISPLAYCOLOR: string;
+        static DISPLAYMODE: string;
+        static DIVIDER: string;
+        static ELEMENTDIMENSIONS: string;
+        static GREEN: string;
+        static GROUPID: string;
+        static id: string;
+        static INDEX: string;
+        static INTERVAL: string;
+        static LABELTEXT: string;
+        static LAYOUTTITLE: string;
+        static LIGHTBLUE: string;
+        static LOWSCALEWARNING: string;
+        static MAGENTA: string;
+        static MAXHEIGHT: string;
+        static MAXIMUMVALUE: string;
+        static MAXWIDTH: string;
+        static MENUITEMID: string;
+        static MESSAGE: string;
+        static MINIMUMVALUE: string;
+        static namE_CAPS: string;
+        static ONEROW: string;
+        static ORANGE: string;
+        static POPUP: string;
+        static POPUPSIZE: string;
+        static PURPLE: string;
+        static SCROLLABLE: string;
+        static SEQUENCE: string;
+        static SIZE: string;
+        static STYLE: string;
+        static TEAL: string;
+        static TEMPLATEALIAS: string;
+        static THREEROW: string;
+        static TITLE: string;
+        static TWOROW: string;
+        static TYPE: string;
+        static VALUE: string;
+        static YELLOW: string;
+        static RIBBON: string;
+        static QAT: string;
+        static JEWEL: string;
+        static TABS: string;
+        static CONTEXTUALTABS: string;
+        static CONTEXTUALGROUP: string;
+        static TAB: string;
+        static SCALING: string;
+        static MAXSIZE: string;
+        static SCALE: string;
+        static GROUP: string;
+        static GROUPS: string;
+        static LAYOUT: string;
+        static SECTION: string;
+        static OVERFLOWSECTION: string;
+        static ROW: string;
+        static CONTROL: string;
+        static OVERFLOWAREA: string;
+        static STRIP: string;
+        static CONTROLS: string;
+        static MENU: string;
+        static MENUSECTION: string;
+        static TEMPLATE: string;
+        static TEMPLATES: string;
+        static RIBBONTEMPLATES: string;
+        static GROUPTEMPLATE: string;
+        static GALLERY: string;
+        static colors: string;
+        static color: string;
+        static toggleButton: string;
+        static comboBox: string;
+        static dropDown: string;
+        static button: string;
+        static splitButton: string;
+        static flyoutAnchor: string;
+        static galleryButton: string;
+        static insertTable: string;
+        static label: string;
+        static mruSplitButton: string;
+        static spinner: string;
+        static textBox: string;
+        static checkBox: string;
+        static colorPicker: string;
+        static separator: string;
+        static jewelMenuLauncher: string;
+        static BUTTONDOCK: string;
+        static BUTTONDOCKS: string;
+        static CENTERALIGN: string;
+        static LEFTALIGN: string;
+        static RIGHTALIGN: string;
+        static TOOLBAR: string;
+        static LARGE: string;
+        static MEDIUM: string;
+        static SMALL: string;
+        static DIVIDERAFTER: string;
+        static DIVIDERBEFORE: string;
+    }
+
+    class Builder implements Sys.IDisposable {
+        dispose(): void;
+    }
+
+    class CommandEventArgs extends Sys.EventArgs {
+        constructor(id, type: CommandType, source, pars);
+    }
+
+    class Component implements CUI.IMenuItem, Sys.IDisposable {
+        /* tslint:disable:variable-name */
+        _lastWidthUpdate: number;
+        _lastHeightUpdate: number;
+        _lastTopUpdate: number;
+        _lastLeftUpdate: number;
+        /* tslint:enable:variable-name */
+        constructor(root: CUI.Component, id: string, title: string, description: string);
+        createChildArray(): void;
+        get_id(): string;
+        set_id(id: string): void;
+        get_root(): CUI.Component;
+        get_parent(): CUI.Component;
+        set_parent(value: CUI.Component): CUI.Component;
+        getChild(id: string): CUI.Component;
+        getChildByTitle(title: string): CUI.Component;
+        addChild(child: CUI.Component): void;
+        addChildAtIndex(child: CUI.Component, index: number);
+        removeChild(id: string): void;
+        removeChildren(): void;
+        ensureCorrectChildType(): void;
+        initRootMember(root: CUI.Component);
+        get_visible(): boolean;
+        set_visible(value: boolean): boolean;
+        get_enabled(): boolean;
+        set_enabled(value: boolean): boolean;
+        onEnabledChanged(enabled: boolean);
+        get_title(): string;
+        set_title(title: string): string;
+        get_description(): string;
+        set_description(description: string): string;
+        valueIsDirty(lastUpdate: number): boolean;
+        get_domElementTagName(): string;
+        get_cssClass(): string;
+        get_visibleInDOM(): boolean;
+        ensureDOMElementAndEmpty(): void;
+        appendChildrenToElement(elm: Element): void;
+        raiseCommandEvent(commandId: string, type: CommandType, properties: any);
+        getTextValue(): string;
+        receiveFocus(): void;
+        onMenuClosed(): void;
+        doDelayedInit(): void;
+        get_needsDelayIniting(): boolean;
+        dispose(): null;
+    }
+
+    class Menu extends CUI.Component { }
+
+    class ContextMenu extends CUI.Menu {
+        constructor(root, id: string, title: string, description: string, maxWidth: string);
+    }
+
+    class ContextMenuDock extends CUI.Component { }
+
+    class Control implements Sys.IDisposable, CUI.IMenuItem {
+        constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties);
+        dispose();
+        get_id(): string;
+        get_root(): CUI.Root;
+        get_enabled(): boolean;
+        set_enabled(enabled: boolean): boolean;
+        createComponentForDisplayMode(displayMode: string);
+    }
+
+    class MenuLauncher extends CUI.Control implements IModalController {
+        constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties, menu);
+    }
+
+    class ContextMenuLauncher extends MenuLauncher { }
+
+    class RootProperties { }
+
+    class ContextMenuRootProperties extends CUI.RootProperties { }
+
+    class Root extends CUI.Component implements Sys.IDisposable { }
+
+    class ContextMenuRoot extends CUI.Root { }
+
+    class ControlProperties {
+        Id: string;
+        Command: string;
+        TemplateAlias: string;
+        PopulateDynamically: string;
+        PopulateOnlyOnce: string;
+        PopulateQueryCommand: string;
+        Width: string;
+        LabelText: string;
+        ToolTipTitle: string;
+        ToolTipDescription: string;
+        ToolTipHelpKeyWord: string;
+        ToolTipImage32by32: string;
+        ToolTipImage32by32Class: string;
+        ToolTipImage32by32Top: number;
+        ToolTipImage32by32Left: number;
+        ToolTipSelectedItemTitle: string;
+        ToolTipShortcutKey: string;
+        LabelCss: string;
+        Image32by32: string;
+        Image32by32Class: string;
+        Image32by32Top: number;
+        Image32by32Left: number;
+        Image16by16: string;
+        Image16by16Class: string;
+        Image16by16Top: number;
+        Image16by16Left: number;
+        // QueryCommand: string;
+        constructor();
+    }
+
+    class ControlComponent extends CUI.Component { }
+
+    class DataQueryResult { }
+    class DataQuery { }
+    class DataSource { }
+    class Gallery extends CUI.Component { }
+    class Jewel extends CUI.Root { }
+    class JewelBuildContext extends CUI.BuildContext { }
+    class JewelBuildOptions extends CUI.BuildOptions { }
+    class JewelBuilder extends CUI.Builder { }
+    class MenuItem extends CUI.ControlComponent { }
+    class MenuLauncherControlProperties extends CUI.ControlProperties { }
+    class BrowserUtility { }
+    class MenuSection extends CUI.Component { }
+    class QAT extends CUI.Root { }
+    class QATBuildContext extends CUI.BuildContext { }
+    class QATBuildOptions extends CUI.BuildOptions { }
+    class QATBuilder extends CUI.Builder { }
+    class RibbonPeripheralSection { }
+
+    class ContextualGroup {
+        constructor(id: string, title: string, color: number, command: string);
+        get_id(): string;
+        get_count(): number;
+        get_title(): string;
+        get_color(): number;
+        get_command(): string;
+        dispose(): void;
+    }
+
+    class Template { }
+    class DeclarativeTemplate extends CUI.Template { }
+
+    class RibbonComponent extends CUI.Component {
+        constructor(ribbon: CUI.Ribbon, id: string, title: string, description: string);
+        get_ribbon(): CUI.Ribbon;
+    }
+
+    class Group extends CUI.RibbonComponent {
+        constructor(
+            ribbon: CUI.Ribbon,
+            id: string,
+            title: string,
+            description: string,
+            command: string,
+            properties: CUI.ControlProperties);
+        get_cssClass(): string;
+        get_domElementTagName(): string;
+        unselectLayout(): void;
+        selectLayout(layoutType: string, popupLayoutTitle: string): void;
+    }
+
+    class GroupPopup extends CUI.Component { }
+
+    class Layout extends CUI.RibbonComponent {
+        constructor(ribbon: CUI.Ribbon, id: string, title: string);
+        get_cssClass(): string;
+        get_visibleInDOM(): boolean;
+    }
+
+    class GroupPopupLayout extends CUI.Layout { }
+
+    class RootEventCommandProperties { }
+    class RibbonEventCommandProperties extends CUI.RootEventCommandProperties { }
+    class CommandContextSwitchCommandProperties { }
+
+    class Ribbon extends CUI.Root {
+        constructor(id: string, properties: CUI.ControlProperties);
+        refresh(): void;
+        setFocusOnRibbon(): void;
+        setFocusOnCurrentTab(): void;
+        setFocus(): void;
+        addContextualGroup(id: string, title: string, color, command: string);
+        get_contextualGroupIds(): string[];
+        removeContextualGroup(id: string): void;
+        showContextualGroup(id: string): void;
+        hideContextualGroup(id: string): void;
+        addChildAtIndex(child, index: number): void;
+    }
+
+    class RibbonCommand { }
+    class RibbonBuildContext extends CUI.BuildContext { }
+    class RibbonBuildOptions extends CUI.BuildOptions { }
+    class RibbonBuilder extends CUI.Builder { }
+    class Row extends CUI.Component { }
+    class ScalingStep { }
+    class Scaling { }
+    type Alignment = 0 | 2;
+    type RowType = 2 | 3 | 4;
+
+    class Section extends CUI.RibbonComponent {
+        /**
+         * @param type  2 - OneRow, 3 - TwoRow, 4 - ThreeRow.
+         * @param alignment 0 - Top, 2  - Middle,
+         */
+        constructor(ribbon: CUI.Ribbon, id: string, type: RowType, alignment: Alignment);
+        get_cssClass(): string;
+        get_type(): number;
+        get_alignment(): number;
+        getRow(rowIndex: number): CUI.Row;
+    }
+
+    class Strip extends CUI.RibbonComponent { }
+
+    class Tab extends CUI.RibbonComponent {
+        // tslint:disable-next-line: parameters-max-number
+        constructor(
+            ribbon: CUI.Ribbon,
+            id: string,
+            title: string,
+            description: string,
+            command: string,
+            contextual: boolean,
+            contextualGroupId: string,
+            cssClass: string);
+        get_domElementTagName(): string;
+        get_cssClass(): string;
+        get_selected(): boolean;
+        set_selected(isSelected: boolean): void;
+        get_scaling(): string;
+        get_currentScalingIndex(): number;
+        scaleMax(): void;
+        scaleUp(): void;
+        scaleDown(): void;
+        get_contextual(): boolean;
+        get_contextualGroupId(): string;
+        get_visible(): boolean;
+        set_visible(isVisible: boolean): boolean;
+        get_command(): string;
+    }
+
+    class TemplateManager { }
+
+    class RootUser { }
+
+    class ButtonDock extends CUI.Component { }
+
+    class Toolbar extends CUI.Root { }
+
+    class ToolbarBuildContext extends CUI.BuildContext { }
+    class ToolbarBuildOptions extends CUI.BuildOptions { }
+    class ToolbarBuilder extends CUI.Builder { }
+    class ToolTip extends CUI.Component { }
+    class Unit { }
+    class Utility { }
+    class ScriptUtility { }
+    class UIUtility { }
+
+    class ListNode<T> {
+        data: T;
+        previous: ListNode<T>;
+        next: ListNode<T>;
+
+        constructor(data: T, prev: ListNode<T>, next: ListNode<T>);
+    }
+
+    class List<T> implements IEnumerable<T> {
+        constructor();
+
+        add(data: T): void;
+        insert(index: number, data: T): void;
+        remove(data: T): void;
+        clear(): void;
+        indexOf(data: T): number;
+        get_item(index: number): T;
+        get_count(): number;
+        getEnumerator(): CUI.ListEnumerator<T>;
+        getEnumeratorAtPos(): CUI.ListEnumerator<T>;
+    }
+
+    class ListEnumerator<T> {
+        constructor(index);
+        get_current(): T;
+        moveNext(): boolean;
+        movePrevious(): boolean;
+        reset(): void;
+    }
+
+    class JsonXmlElement {
+        constructor(name: string, attrs: string[]);
+        get_name(): string;
+        get_attributes(): string[];
+        appendChild(name: string, attrs: string[]): CUI.JsonXmlElement;
+        appendChildNode(node: CUI.JsonXmlElement): CUI.JsonXmlElement;
+        get_childNodes(): CUI.JsonXmlElement[];
+    }
+
+    namespace Page {
+        class PageComponent implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+            init(): void;
+            getGlobalCommands(): string[];
+            getFocusedCommands(): string[];
+            isFocusable(): boolean;
+            receiveFocus(): boolean;
+            yieldFocus(): boolean;
+            getId(): string;
+        }
+        interface ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+        class CommandDispatcher {
+            executeCommand(commandId: string, properties: any);
+        }
+        class FocusManager extends CUI.Page.CommandDispatcher implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+            requestFocusForComponent(component: CUI.Component);
+            releaseFocusFromComponent(component: CUI.Component);
+            releaseAllFoci(): boolean;
+            getFocusedComponents(): CUI.Component[];
+        }
+        class PageManager extends CUI.RootUser implements CUI.Page.ICommandHandler, CUI.IRootBuildClient {
+            static createPageManager(): CUI.Page.PageManager;
+            static get_instance(): CUI.Page.PageManager;
+            static initialize(): void;
+            add_ribbonInited(value: () => void);
+            get_commandDispatcher(): CUI.Page.CommandDispatcher;
+            get_focusManager(): CUI.Page.FocusManager;
+            get_undoManager(): CUI.Page.UndoManager;
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+        class UndoManager implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+    }
+
+    namespace Controls {
+        class ContextMenuControlProperties extends CUI.MenuLauncherControlProperties {
+        }
+
+        class Button extends CUI.Control implements CUI.IMenuItem, CUI.ISelectableControl {
+            constructor(root: CUI.Root, id: string, properties: ControlProperties);
+            createComponentForDisplayModeInternal(displayMode: string);
+            createDOMElementForDisplayMode(displayMode: string);
+            onEnabledChanged(enabled: boolean);
+            getTextValue(): string;
+            getLabel(): string;
+            receiveFocus(): void;
+            getDropDownDOMElementForDisplayMode(displayMode: string): void;
+            deselect(): void;
+            getMenuItemId(): string;
+            getCommandValueId(): string;
+            focusOnDisplayedComponent(): void;
+            onClick(e: Event): void;
+            handleMouseFocus(e: FocusEvent);
+            handleMouseBlur(e: FocusEvent);
+            handleTabFocus(e: FocusEvent);
+            handleTabBlur(e: FocusEvent);
+            onMenuClosed(): void;
+            dispose(): void;
+        }
+
+        class CheckBoxCommandProperties { }
+        class ToggleButton extends CUI.Control implements CUI.IMenuItem, CUI.ISelectableControl { }
+        class CheckBox extends CUI.Controls.ToggleButton { }
+        class ColorPickerCommandProperties { }
+        class ColorPicker extends CUI.Control implements CUI.IMenuItem { }
+
+        class DropDown extends CUI.MenuLauncher {
+            constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties, menu);
+        }
+
+        class ComboBox extends CUI.Controls.DropDown { }
+        class DropDownCommandProperties {
+            SelectedItemId: string;
+            Value: string;
+        }
+        class FlyoutAnchor extends CUI.MenuLauncher { }
+        class GalleryButtonCommandProperties { }
+        class GalleryButton extends CUI.Control implements CUI.ISelectableControl { }
+        class InsertTableCommandProperties { }
+        class InsertTable extends CUI.Control { }
+        class LabelCommandProperties { }
+        class Label extends CUI.Control { }
+        class MRUSplitButton extends CUI.Controls.DropDown { }
+        class Separator extends CUI.Control { }
+        class SpinnerCommandProperties { }
+        class Spinner extends CUI.Control { }
+        class SplitButton extends CUI.MenuLauncher { }
+        class TextBoxCommandProperties { }
+        class TextBox extends CUI.Control { }
+        class ToggleButtonCommandProperties { }
+        class JewelMenuLauncher extends CUI.MenuLauncher { }
+    }
+}
+
+declare namespace Commands {
+    class CommandIds {
+        static ApplicationStateChanged: string;
+        static GlobalRedo: string;
+        static Redo: string;
+        static GlobalUndo: string;
+        static Undo: string;
+    }
+    class GlobalRedoProperties {
+        static SequenceNumber: string;
+    }
+    class RedoProperties {
+        static SequenceNumber: string;
+    }
+    class GlobalUndoProperties {
+        static SequenceNumber: string;
+    }
+    class UndoProperties {
+        static SequenceNumber: string;
+    }
+}
+
+// ------- SP.Ribbon namespace -------
+
+declare namespace SP {
+    namespace Ribbon {
+        interface WebPartComponentInitInfo {
+            editable: boolean;
+            isEditMode: boolean;
+            allowWebPartAdder: boolean;
+        }
+
+        interface IRelatedFieldsInfoRequestor { }
+        class Utility { }
+        class UtilityInternal { }
+        class SQMUtility { }
+        class SU { }
+        class CommandUIExtensionPageComponent extends CUI.Page.PageComponent { }
+        class ToolbarRibbonAdapterData { }
+        class ToolbarRibbonAdapter extends CUI.Page.PageComponent { }
+        class WebPartPageComponentData extends SP.Ribbon.ToolbarRibbonAdapterData { }
+        class WebPartPageComponent extends SP.Ribbon.ToolbarRibbonAdapter { }
+        class ListViewWebPartPageComponentData extends SP.Ribbon.WebPartPageComponentData { }
+        class PagingInformation { }
+        class ECBMenuItem extends Object { }
+        class CLVP { }
+        class ListViewWebPartData extends SP.Ribbon.ToolbarRibbonAdapterData { }
+        class ListViewWebPartPageComponent extends SP.Ribbon.WebPartPageComponent implements SP.Application.UI.ViewInformationRequestor, SP.Application.UI.DefaultFormsInformationRequestor {
+            onViewInformationReturned(viewGroups: SP.Application.UI.ViewSelectorGroups): void;
+            onDefaultFormsInformationRetrieveSuccess(defaultForms: SP.Application.UI.DefaultFormsInformation): void;
+            onDefaultFormsInformationRetrieveFailure(): void;
+        }
+        class ListFormWebPartPageComponentData extends SP.Ribbon.WebPartPageComponentData { }
+        class ListFormWebPartPageComponent extends SP.Ribbon.WebPartPageComponent { }
+        class DocLibWebPartPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class GenericListWebPartPageComponentData extends SP.Ribbon.ListViewWebPartPageComponentData { }
+        class GenericListWebPartPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class SolutionsPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class WikiPageComponent extends CUI.Page.PageComponent { }
+        class FetchedDocLibItemInfo { }
+        class DocLibAspxPageComponent extends CUI.Page.PageComponent { }
+        class WebPartComponent extends CUI.Page.PageComponent {
+            static get_instance(): SP.Ribbon.WebPartComponent;
+            static registerWithPageManager(initInfo: SP.Ribbon.WebPartComponentInitInfo): void;
+            selectWebPart(zc: HTMLElement, setNextRibbonTab: boolean): void;
+        }
+        class FetchListViewWebPartPageComponentWorker { }
+        class BlogPostWebPartPageComponent { }
+        class PageManager extends CUI.Page.PageManager {
+            get_ribbon(): SP.Ribbon.Ribbon;
+            addPageComponent(component: CUI.Component): void;
+            removePageComponent(component: CUI.Component): void;
+            isRootCommandEnabled(commandId: string, root: CUI.Root): boolean;
+            onRootRefreshed(root: CUI.Root): void;
+            static get_instance(): SP.Ribbon.PageManager;
+        }
+        class PageStateActionButton { }
+        class RelatedFieldsFetcher { }
+        class RelatedFieldsHelper implements SP.Ribbon.IRelatedFieldsInfoRequestor { }
+
+        class UsageReportPageComponent extends CUI.Page.PageComponent { }
+        class GroupBoardWebPartPageComponent extends SP.Ribbon.GenericListWebPartPageComponent { }
+        class CalendarPageComponentData extends SP.Ribbon.GenericListWebPartPageComponentData { }
+        class CalendarListPageComponent extends SP.Ribbon.GenericListWebPartPageComponent { }
+        class HelpCommandNames { }
+        class HelpPageComponent extends CUI.Page.PageComponent { }
+        class SaveConflictHandler { }
+        class TrackTabPageComponent extends CUI.Page.PageComponent { }
+        class UserInterfacePageComponent extends CUI.Page.PageComponent { }
+        class EMailLink { }
+
+        class Ribbon extends CUI.Ribbon {
+            removeChild(id: string): void;
+            removeContextualGroup(id: string): void;
+        }
+        namespace PageState {
+            class PageStateStrings { }
+            class PageStateCommands { }
+            class PageStateHandler extends CUI.Page.PageComponent implements CUI.Page.ICommandHandler { }
+            class StateChangeDialogHandler { }
+            class Handlers { }
+        }
+        namespace TenantAdmin {
+            class TenantAdminPageComponent extends CUI.Page.PageComponent { }
+        }
+    }
+    class BWsaConfig { }
+    class Ticks { }
+    class TimerResetCheck { }
+    class StreamRowCounters { }
+    class BWsaDatapoint { }
+    class WsaStreamRow { }
+    class BWsaStream { }
+    class BWsaHeader { }
+    class BWsaData { }
+    class BWsaClient { }
+}
+
+declare function _ribbonStartInit(initialTabId: string, buildMinimized: boolean, e: Event): void;
