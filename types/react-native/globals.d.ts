@@ -272,3 +272,29 @@ declare class URLSearchParams {
     keys(): IterableIterator<string>;
     values(): IterableIterator<string>;
 }
+
+interface WebSocketMessageEvent extends Event {
+    data?: unknown;
+}
+interface WebSocketErrorEvent extends Event {
+    message: string;
+}
+interface WebSocketCloseEvent extends Event {
+    code?: number;
+    reason?: string;
+}
+
+interface WebSocket extends EventTarget {
+    readonly readyState: number;
+    send(data?: any): void;
+    close(code?: number, reason?: string): void;
+    onopen: (() => void) | null;
+    onmessage: ((event: WebSocketMessageEvent) => void) | null;
+    onerror: ((event: WebSocketErrorEvent) => void) | null;
+    onclose: ((event: WebSocketCloseEvent) => void) | null;
+}
+
+declare var WebSocket: {
+    prototype: WebSocket;
+    new (uri: string, protocols?: string | string[], options?: {headers: {[headerName: string]: string}}): WebSocket;
+};
