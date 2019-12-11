@@ -274,7 +274,7 @@ declare class URLSearchParams {
 }
 
 interface WebSocketMessageEvent extends Event {
-    data?: unknown;
+    data?: any;
 }
 interface WebSocketErrorEvent extends Event {
     message: string;
@@ -286,7 +286,7 @@ interface WebSocketCloseEvent extends Event {
 
 interface WebSocket extends EventTarget {
     readonly readyState: number;
-    send(data?: any): void;
+    send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
     close(code?: number, reason?: string): void;
     onopen: (() => void) | null;
     onmessage: ((event: WebSocketMessageEvent) => void) | null;
