@@ -134,7 +134,7 @@ export interface MUIDataTableColumnOptions {
     searchable?: boolean;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
-    sortDirection?: 'asc' | 'desc' | 'none'; // TODO why 'none' might be on this field in practice? it should be just undefined. and it should reuse SortDirection type
+    sortDirection?: 'asc' | 'desc' | 'none';
     viewColumns?: boolean;
 }
 
