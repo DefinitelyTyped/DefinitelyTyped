@@ -21,6 +21,7 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Cong Zhang <https://github.com/dancerphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -821,7 +822,8 @@ declare namespace React {
     type SetStateAction<S> = S | ((prevState: S) => S);
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
-    type Dispatch<A> = (value: A) => void;
+    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    type Dispatch<A> = (value?: A) => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // types used to try and prevent the compiler from reducing S
