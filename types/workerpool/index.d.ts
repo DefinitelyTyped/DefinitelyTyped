@@ -3,7 +3,7 @@
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -17,6 +17,10 @@ export interface WorkerPoolStats {
     activeTasks: number;
 }
 
+export type Proxy<T extends {[k: string]: (...args: any[]) => any}> = {
+    [M in keyof T]: (...args: Parameters<T[M]>) => Promise<ReturnType<T[M]>>;
+};
+
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
@@ -27,14 +31,15 @@ export interface WorkerPool {
      * and executed there with the provided parameters. The provided function must be static,
      * it must not depend on variables in a surrounding scope.
      */
-    exec(method: ((...args: any[]) => any) | string, params: any[] | null): Promise<any>;
+    exec<T extends (...args: any[]) => any>(method: T | string, params: Parameters<T> | null): Promise<ReturnType<T>>;
 
     /**
      * Create a proxy for the worker pool.
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    proxy(): Promise<any>;
+    // tslint:disable-next-line: no-unnecessary-generics
+    proxy<T extends {[k: string]: (...args: any[]) => any}>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */
     stats(): WorkerPoolStats;
