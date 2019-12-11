@@ -1,7 +1,12 @@
-import { ChatManager, TokenProvider, PusherRoom, PusherUser } from '@pusher/chatkit-client';
-import { PusherMessage } from './message';
-import { PusherReadCursor } from './room';
-import { UserPresenceState } from './hooks';
+import {
+    ChatManager,
+    TokenProvider,
+    PusherRoom,
+    PusherUser,
+    PusherMessage,
+    PusherReadCursor,
+    UserPresenceState,
+} from 'pusher__chatkit-client';
 
 const chatManager = new ChatManager({
     instanceLocator: 'abc123',
@@ -14,16 +19,16 @@ const chatManager = new ChatManager({
 async function test_connecting() {
     // Connect with all hooks defined
     await chatManager.connect({
-        onAddedToRoom: (room: PusherRoom) => {},
-        onRemovedFromRoom: (room: PusherRoom) => {},
-        onRoomUpdated: (room: PusherRoom) => {},
-        onRoomDeleted: (room: PusherRoom) => {},
-        onUserStartedTyping: (room: PusherRoom, user: PusherUser) => {},
-        onUserStoppedTyping: (room: PusherRoom, user: PusherUser) => {},
-        onUserJoinedRoom: (room: PusherRoom, user: PusherUser) => {},
-        onUserLeftRoom: (room: PusherRoom, user: PusherUser) => {},
-        onPresenceChanged: (state: UserPresenceState, user: PusherUser) => {},
-        onNewReadCursor: (room: PusherRoom, user: PusherUser) => {},
+        onAddedToRoom: (room: PusherRoom) => { },
+        onRemovedFromRoom: (room: PusherRoom) => { },
+        onRoomUpdated: (room: PusherRoom) => { },
+        onRoomDeleted: (room: PusherRoom) => { },
+        onUserStartedTyping: (room: PusherRoom, user: PusherUser) => { },
+        onUserStoppedTyping: (room: PusherRoom, user: PusherUser) => { },
+        onUserJoinedRoom: (room: PusherRoom, user: PusherUser) => { },
+        onUserLeftRoom: (room: PusherRoom, user: PusherUser) => { },
+        onPresenceChanged: (state: UserPresenceState, user: PusherUser) => { },
+        onNewReadCursor: (room: PusherRoom, user: PusherUser) => { },
     });
 
     const currentUser = await chatManager.connect();
@@ -52,7 +57,7 @@ async function test_connecting() {
         disableCursors: true,
         roomId: room.id,
         hooks: {
-            onMessage: (message: PusherMessage) => {},
+            onMessage: (message: PusherMessage) => { },
         },
     });
 
@@ -60,17 +65,17 @@ async function test_connecting() {
     await currentUser.subscribeToRoomMultipart({
         roomId: room.id,
         hooks: {
-            onMessage: (message: PusherMessage) => {},
-            onMessageDeleted: (messageId: number) => {},
-            onUserStartedTyping: (user: PusherUser) => {},
-            onUserStoppedTyping: (user: PusherUser) => {},
-            onUserJoined: (user: PusherUser) => {},
-            onUserLeft: (user: PusherUser) => {},
-            onPresenceChanged: (state: UserPresenceState, user: PusherUser) => {},
-            onNewReadCursor: (cursor: PusherReadCursor) => {},
+            onMessage: (message: PusherMessage) => { },
+            onMessageDeleted: (messageId: number) => { },
+            onUserStartedTyping: (user: PusherUser) => { },
+            onUserStoppedTyping: (user: PusherUser) => { },
+            onUserJoined: (user: PusherUser) => { },
+            onUserLeft: (user: PusherUser) => { },
+            onPresenceChanged: (state: UserPresenceState, user: PusherUser) => { },
+            onNewReadCursor: (cursor: PusherReadCursor) => { },
         },
         messageLimit: 10,
-    })
+    });
 
     currentUser.roomSubscriptions[room.id].disableCursors = false;
     currentUser.roomSubscriptions[room.id].cancel();
@@ -79,6 +84,6 @@ async function test_connecting() {
     await currentUser.updateRoom({ roomId: room.id, name: 'new name' });
     await currentUser.addUserToRoom({ userId: 'keith', roomId: room.id });
     await currentUser.removeUserFromRoom({ userId: 'keith', roomId: room.id });
-    await currentUser.isTypingIn({ roomId: room.id })
-    await currentUser.deleteRoom({ roomId: room.id});
+    await currentUser.isTypingIn({ roomId: room.id });
+    await currentUser.deleteRoom({ roomId: room.id });
 }

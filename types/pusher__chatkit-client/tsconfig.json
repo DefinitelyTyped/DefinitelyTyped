@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@pusher/chatkit-client": ["pusher__chatkit_client"]
+            "@pusher/chatkit-client": ["pusher__chatkit-client"]
         },
         "types": [],
         "noEmit": true,
@@ -22,6 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "pusher__chatkit_client-tests.ts"
+        "pusher__chatkit-client-tests.ts"
     ]
 }

@@ -9,13 +9,13 @@ export type RoomUserHook = (room: PusherRoom, user: PusherUser) => void;
 export type ReadCursorHook = (cursor: PusherReadCursor) => void;
 
 export interface UserParams {
-    userId: string,
+    userId: string;
 }
 
 export interface RoomParams {
-    roomId: string,
+    roomId: string;
 }
 
 export interface UserAndRoomParams extends RoomParams {
-    userId: string,
+    userId: string;
 }
