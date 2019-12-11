@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.3
+// Type definitions for react-stripe-elements 6.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -9,6 +9,7 @@
 //                 Victor Irzak <https://github.com/virzak>
 //                 Alex Price <https://github.com/remotealex>
 //                 Maciej Dabek <https://github.com/bombek92>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -64,7 +65,8 @@ export namespace ReactStripeElements {
     }
 
     interface InjectedStripeProps {
-        stripe?: StripeProps;
+        stripe: StripeProps | null;
+        elements: stripe.elements.Elements | null;
     }
 
     interface ElementProps extends ElementsOptions {
