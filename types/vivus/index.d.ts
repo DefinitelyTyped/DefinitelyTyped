@@ -60,6 +60,11 @@ declare class Vivus {
      * Reset the SVG but make the instance out of order.
      */
     destroy(): void;
+
+    /**
+     * for types of HTMLElement
+     */
+    el: HTMLElement;
 }
 
 declare namespace Vivus {
