@@ -9,25 +9,25 @@ interface Window {
     ResizeObserver: typeof ResizeObserver;
 }
 
-interface ResizeObserverObserveOptions {
+interface ResizeObserverOptions {
     /**
      * Sets which box model the observer will observe changes to. Possible values
      * are `content-box` (the default), and `border-box`.
      *
-     * @default "content-box"
+     * @default 'content-box'
      */
     box?: 'content-box' | 'border-box';
 }
 
-interface ResizeObserverEntryBoxSize {
-    blockSize: number;
+interface ResizeObserverSize {
     inlineSize: number;
+    blockSize: number;
 }
 
 declare class ResizeObserver {
     constructor(callback: ResizeObserverCallback);
     disconnect(): void;
-    observe: (target: Element, options?: ResizeObserverObserveOptions) => void;
+    observe(target: Element, options?: ResizeObserverOptions): void;
     unobserve(target: Element): void;
 }
 
@@ -36,6 +36,6 @@ type ResizeObserverCallback = (entries: ReadonlyArray<ResizeObserverEntry>, obse
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
-    readonly borderBoxSize: ResizeObserverEntryBoxSize;
-    readonly contentBoxSize: ResizeObserverEntryBoxSize;
+    readonly borderBoxSize: ResizeObserverSize;
+    readonly contentBoxSize: ResizeObserverSize;
 }
