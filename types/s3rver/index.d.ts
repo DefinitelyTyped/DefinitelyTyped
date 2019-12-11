@@ -7,9 +7,6 @@
 
 /// <reference types="node" />
 
-
-import * as http from "http";
-
 declare class S3rver {
     constructor(options: S3rverOptions)
     setPort(port: number): S3rver;
@@ -18,7 +15,7 @@ declare class S3rver {
     setSilent(silent: boolean): S3rver;
     setIndexDocument(indexDocument: string): S3rver;
     setErrorDocument(errorDocument: string): S3rver;
-    run(callback: (error: Error | null, hostname: string, port: number, directory: string) => void): http.Server;
+    run(callback: (error: Error | null, hostname: string, port: number, directory: string) => void): S3rver;
     run(): Promise<string>;
 }
 
