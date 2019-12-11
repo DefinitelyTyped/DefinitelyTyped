@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.2
+// Type definitions for non-npm package frida-gum 14.4
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -935,6 +935,11 @@ interface ModuleSymbolDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number;
 }
 
 type ModuleImportType = "function" | "variable";
@@ -1564,11 +1569,14 @@ interface NativeFunctionOptions {
     abi?: NativeABI;
     scheduling?: SchedulingBehavior;
     exceptions?: ExceptionsBehavior;
+    traps?: CodeTraps;
 }
 
 type SchedulingBehavior = "cooperative" | "exclusive";
 
 type ExceptionsBehavior = "steal" | "propagate";
+
+type CodeTraps = "default" | "all";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -4043,7 +4051,7 @@ declare namespace Java {
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string): Wrapper;
+    function use(className: string, options?: UseOptions): Wrapper;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -4137,6 +4145,17 @@ declare namespace Java {
          * Called when all class loaders have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    interface UseOptions {
+        /**
+         * Whether to consult the class wrapper cache – which is the default
+         * behavior – or skip it and create a brand new class wrapper.
+         *
+         * Skipping the cache is useful when dealing with multiple class-loaders
+         * and colliding class names.
+         */
+        cache?: "consult" | "skip";
     }
 
     interface ChooseCallbacks {

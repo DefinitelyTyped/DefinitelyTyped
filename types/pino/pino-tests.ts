@@ -57,7 +57,6 @@ pino({
 
 pino({ base: null });
 pino({ base: { foo: 'bar' }, changeLevelName: 'severity' });
-
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
 log.child({ a: 'property' }).info('hello child!');
@@ -69,6 +68,7 @@ child.level = 'info';
 child.info('hooray');
 log.info('nope nope nope');
 log.child({ foo: 'bar', level: 'debug' }).debug('debug!');
+child.bindings();
 const customSerializers = {
     test() {
         return 'this is my serializer';

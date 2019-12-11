@@ -1,11 +1,32 @@
 import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from 'slate-react';
-import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
+import { Value, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
 import * as React from "react";
 import { List } from "immutable";
 
+declare module 'slate-react' {
+    // Plugins can add command and query method.
+    // Testing that if we extend the interface, the compiler is aware of the
+    // new methods inside of other plugin functions.
+    interface Editor {
+        someCommand: () => Editor;
+        someQuery: () => string;
+    }
+}
+
 class MyPlugin implements Plugin {
-    renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
+    commands = {
+        someCommand: (editor: Editor) => editor,
+    };
+    queries = {
+        someQuery: (editor: Editor) => 'query result',
+    };
+
+    renderBlock(props: RenderBlockProps, editor: Editor, next: () => void) {
         const { node } = props;
+
+        editor.someCommand();
+        const queryResult: string = editor.someQuery();
+
         if (node) {
             switch (node.object) {
                 case 'block':
@@ -15,7 +36,7 @@ class MyPlugin implements Plugin {
             }
         }
     }
-    renderInline(props: RenderInlineProps, editor: Controller, next: () => void) {
+    renderInline(props: RenderInlineProps, editor: Editor, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
@@ -38,6 +59,7 @@ const eventPlugin: Plugin = {
     onClick: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
     onCompositionEnd: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
     onCompositionStart: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onContextMenu: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
     onCopy: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
     onCut: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
     onDragEnd: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
