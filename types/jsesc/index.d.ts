@@ -1,6 +1,7 @@
 // Type definitions for jsesc 2.5.2
 // Project: https://github.com/mathiasbynens/jsesc
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Lyanbin <https://github.com/Lyanbin>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Lyanbin <https://github.com/Lyanbin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
