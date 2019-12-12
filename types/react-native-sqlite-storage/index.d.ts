@@ -31,7 +31,7 @@ export interface DatabaseParams extends DatabaseOptionalParams {
     location: Location;
 }
 
-export interface ResultSet<ResultT> {
+export interface ResultSet<ResultT = any> {
     insertId: number;
     rowsAffected: number;
     rows: ResultSetRowList<ResultT>;
