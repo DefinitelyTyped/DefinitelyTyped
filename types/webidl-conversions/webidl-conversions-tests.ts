@@ -38,8 +38,10 @@ conversions.DOMString(any, options); // $ExpectType string
 conversions.ByteString(any, options); // $ExpectType string
 conversions.USVString(any, options); // $ExpectType string
 
-conversions.object(any, options); // $ExpectType object
-conversions.Error(any, options); // $ExpectType Error
+conversions.object(any, options); // $ExpectType any
+conversions.object(unknown, options); // $ExpectType object
+conversions.object('string', options); // $ExpectType never
+conversions.object({}, options); // $ExpectType {}
 
 conversions.ArrayBuffer(any, options); // $ExpectType ArrayBuffer
 conversions.DataView(any, options); // $ExpectType DataView
