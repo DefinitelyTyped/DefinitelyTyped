@@ -323,8 +323,8 @@ declare namespace IORedis {
         hvals(key: KeyType, callback: (err: Error, res: string[]) => void): void;
         hvals(key: KeyType): Promise<string[]>;
 
-        hgetall(key: KeyType, callback: (err: Error, res: object) => void): void;
-        hgetall(key: KeyType): Promise<object>;
+        hgetall(key: KeyType, callback: (err: Error, res: { [key: string]: string | number }) => void): void;
+        hgetall(key: KeyType): Promise<{ [key: string]: string | number }>;
 
         hexists(key: KeyType, field: string, callback: (err: Error, res: BooleanResponse) => void): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
@@ -739,7 +739,7 @@ declare namespace IORedis {
 
         hvals(key: KeyType, callback?: (err: Error, res: string[]) => void): Pipeline;
 
-        hgetall(key: KeyType, callback?: (err: Error, res: object) => void): Pipeline;
+        hgetall(key: KeyType, callback?: (err: Error, res: { [key: string]: string | number }) => void): Pipeline;
 
         hexists(key: KeyType, field: string, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 
