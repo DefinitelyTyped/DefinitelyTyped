@@ -327,7 +327,7 @@ declare namespace google {
         //#region GeoChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart
-        export class GeoChart extends ChartBase {
+        export class GeoChart extends ChartBaseRenderable {
             draw(data: DataTable | DataView, options: GeoChartOptions): void;
         }
 
@@ -578,15 +578,29 @@ declare namespace google {
             showR2?: boolean
         }
 
-        class ChartBase {
+        export interface ChartAction {
+            id: string | number;
+            text: string;
+            action: () => void;
+        }
+
+        abstract class ChartBase {
             constructor(element: Element);
+            getContainer(): Element;
             getSelection(): VisualizationSelectionArray[];
             setSelection(selection: VisualizationSelectionArray[]): void;
+        }
+
+        abstract class ChartBaseClearable extends ChartBase {
             clearChart(): void;
+        }
+
+        abstract class ChartBaseRenderable extends ChartBaseClearable {
             getImageURI(): string;
         }
 
-        class CoreChartBase extends ChartBase {
+        abstract class CoreChartBase extends ChartBaseRenderable {
+            getAction(id: string | number): ChartAction;
             getBoundingBox(id: string): ChartBoundingBox;
             getChartAreaBoundingBox(): ChartBoundingBox;
             getChartLayoutInterface(): ChartLayoutInterface;
@@ -594,6 +608,8 @@ declare namespace google {
             getVAxisValue(position: number, axisIndex?: number): number;
             getXLocation(position: number, axisIndex?: number): number;
             getYLocation(position: number, axisIndex?: number): number;
+            removeAction(id: string | number): void;
+            setAction(action: ChartAction): void;
         }
 
         //#endregion
@@ -881,9 +897,8 @@ declare namespace google {
         //#region AnnotationChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
-        export class AnnotationChart extends CoreChartBase
-        {
-            draw(data: DataTable | DataView, options: AnnotationChartOptions): void;
+        export class AnnotationChart extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: AnnotationChartOptions, state?: any): void;
             setVisibleChartRange(start: Date, end: Date): void;
             getVisibleChartRange(): {start: Date; end: Date };
             hideDataColumns(columnIndexes: number | number[]): void;
@@ -1048,7 +1063,7 @@ declare namespace google {
         //#region TreeMap
 
         // https://developers.google.com/chart/interactive/docs/gallery/treemap
-        export class TreeMap extends ChartBase {
+        export class TreeMap extends ChartBaseClearable {
             draw(data: DataTable | DataView, options?: TreeMapOptions): void;
             goUpAndDraw(): void;
             getMaxPossibleDepth(): number;
@@ -1086,8 +1101,9 @@ declare namespace google {
         //#region Table
 
         // https://developers.google.com/chart/interactive/docs/gallery/table
-        export class Table extends ChartBase {
+        export class Table extends ChartBaseClearable {
             draw(data: DataTable | DataView, options?: TableOptions): void;
+            getSortInfo(): TableSortInfo;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options
@@ -1120,6 +1136,12 @@ declare namespace google {
             rowNumberCell?: string;
         }
 
+        export interface TableSortInfo {
+            column: number;
+            ascending: boolean;
+            sortedIndexes: number[];
+        }
+
         //#endregion
         //#region Timeline
 
@@ -1128,6 +1150,7 @@ declare namespace google {
             constructor(element: Element);
             draw(data: DataTable | DataView, options?: TimelineOptions): void;
             clearChart(): void;
+            getSelection(): VisualizationSelectionArray[];
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
@@ -1293,12 +1316,9 @@ declare namespace google {
         //#region calendar
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar
-        export class Calendar extends ChartBase {
+        export class Calendar extends ChartBaseClearable {
             draw(data: DataTable | DataView, options?: CalendarOptions): void;
             getBoundingBox(id: string): Object;
-            getSelection(): any[];
-            setSelection(): void;
-            clearChart(): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
@@ -1335,19 +1355,8 @@ declare namespace google {
         //#region Map
 
         // https://developers.google.com/chart/interactive/docs/gallery/map
-        export class Map extends CoreChartBase {
+        export class Map extends ChartBase {
             draw(data: DataTable | DataView, options?: MapOptions): void;
-            getAction(actionID: string): void;
-            getImageURI(): string;
-            getSelection(): any[];
-            getHAxisValue(position: number, axisIndex?: number): number;
-            getVAxisValue(position: number, axisIndex?: number): number;
-            getXLocation(position: number, axisIndex?: number): number;
-            getYLocation(position: number, axisIndex?: number): number;
-            removeAction(actionID: number): void;
-            setAction(action: number): void;
-            setSelection(): void;
-            clearChart(): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/map#Configuration_Options
@@ -1583,7 +1592,7 @@ declare namespace google {
         //#region OrgChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/orgchart
-        export class OrgChart extends CoreChartBase {
+        export class OrgChart extends ChartBase {
             draw(data: DataTable | DataView, options: OrgChartOptions): void;
             collapse(row: number, collapsed: boolean): void;
             getChildrenIndexes(row: number): number[];

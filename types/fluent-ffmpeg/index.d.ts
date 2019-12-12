@@ -352,8 +352,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;

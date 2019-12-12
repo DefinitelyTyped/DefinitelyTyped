@@ -26,4 +26,5 @@ const testCases = [
     <span autoCorrect="on" />,
     <span translate="no" />,
     <span translate="yes" />,
+    <svg><image crossOrigin="anonymous"/></svg>,
 ];

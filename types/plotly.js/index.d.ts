@@ -261,12 +261,13 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
+	'xaxis.title': string;
+	'yaxis.title': string;
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
-	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
@@ -423,8 +424,8 @@ export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 export interface Icon {
 	width: number;
 	path: string;
-	ascent: number;
-	descent: number;
+	ascent?: number;
+	descent?: number;
 }
 
 export interface ModeBarButton {
@@ -519,10 +520,11 @@ export interface PlotData {
 	'line.smoothing': number;
 	'line.simplify': boolean;
 	marker: Partial<PlotMarker>;
-	'marker.symbol': string | string[]; // Drawing.symbolList
+	'marker.symbol': MarkerSymbol | MarkerSymbol[];
 	'marker.color': Color;
+	'marker.colorscale': ColorScale | ColorScale[];
 	'marker.opacity': number | number[];
-	'marker.size': number | number[];
+	'marker.size': number | number[] | number[][];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
 	'marker.sizemax': number;
@@ -530,6 +532,8 @@ export interface PlotData {
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
+	'marker.line.color': Color;
+	'marker.line.colorscale': ColorScale | ColorScale[];
 	'marker.colorbar': {}; // TODO
 	'marker.pad.t': number;
 	'marker.pad.b': number;
@@ -630,6 +634,7 @@ export interface PlotData {
 	value: number;
 	values: Datum[];
 	labels: Datum[];
+	direction: 'clockwise' | 'counterclockwise';
 	hole: number;
 	rotation: number;
 	theta: Datum[];
@@ -715,13 +720,16 @@ export interface ColorBar {
 	tickvalssrc: any;
 	ticktextsrc: any;
 }
+
+export type MarkerSymbol = string | number | Array<(string | number)>;
+
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
  * default: "all"
  */
 export interface PlotMarker {
-	symbol: string | string[]; // Drawing.symbolList
+	symbol: MarkerSymbol;
 	color: Color | Color[];
 	colors: Color[];
 	colorscale: ColorScale;
