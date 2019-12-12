@@ -77,7 +77,21 @@ import matchSorter = require('match-sorter');
         { tea: 'Black', alias: 'C' }
     ];
     matchSorter(tea, 'e', { keys: [item => [item.tea, item.alias]] });
-    // [{tea: 'Earl Grey', alias 'A'}]
+    // [{tea: 'Earl Grey', alias: 'A'}]
+}
+{
+    const tea = [
+        { tea: 'Earl Grey', alias: 'A' },
+        { tea: 'Assam', alias: 'B' },
+        { tea: 'Black', alias: 'C' }
+    ];
+    matchSorter(tea, 'e', {
+        keys: [{
+            key: item => [item.alias, item.tea],
+            minRanking: matchSorter.rankings.EQUAL
+        }]
+    });
+    // [{tea: 'Earl Grey', alias: 'A'}]
 }
 
 // ### Min and Max Ranking

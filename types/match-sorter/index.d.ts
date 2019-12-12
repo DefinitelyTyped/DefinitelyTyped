@@ -21,13 +21,16 @@ declare namespace matchSorter {
     }
 }
 
-type ExtendedKeyOptions<T> = { key: string | ((item: T) => string) } & (
+type KeyOptions<T> = string | ((item: T) => string | string[]);
+
+type ExtendedKeyOptions<T> = { key: KeyOptions<T> } & (
     | { minRanking: number }
     | { maxRanking: number }
-    | { threshold: number });
+    | { threshold: number }
+);
 
 interface Options<T> {
-    keys?: Array<string | ((item: T) => string) | ((item: T) => string[]) |  ExtendedKeyOptions<T>>;
+    keys?: Array<KeyOptions<T> | ExtendedKeyOptions<T>>;
     threshold?: number;
     keepDiacritics?: boolean;
 }
@@ -39,10 +42,6 @@ interface Options<T> {
  * @param options - Some options to configure the sorter
  * @return the new sorted array
  */
-declare function matchSorter<T>(
-    items: ReadonlyArray<T>,
-    value: string,
-    options?: Options<T>
-): T[];
+declare function matchSorter<T>(items: ReadonlyArray<T>, value: string, options?: Options<T>): T[];
 
 export = matchSorter;
