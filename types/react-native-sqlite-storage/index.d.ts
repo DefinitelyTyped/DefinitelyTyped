@@ -62,8 +62,10 @@ export interface SQLError {
 export type StatementCallback<ResultT> = (transaction: Transaction, resultSet: ResultSet<ResultT>) => void;
 export type StatementErrorCallback = (transaction: Transaction, error: SQLError) => void;
 export interface Transaction {
+    /* tslint:disable:no-unnecessary-generics */
     executeSql<ResultT = any>(sqlStatement: string, arguments?: any[]): Promise<[Transaction, ResultSet<ResultT>]>;
     executeSql<ResultT = any>(sqlStatement: string, arguments?: any[], callback?: StatementCallback<ResultT>, errorCallback?: StatementErrorCallback): void;
+    /* tslint:enable:no-unnecessary-generics */
 }
 
 export type TransactionCallback = (transaction: Transaction) => void;
@@ -76,8 +78,10 @@ export interface SQLiteDatabase {
     readTransaction(scope: (tx: Transaction) => void, error?: TransactionErrorCallback, success?: TransactionCallback): void;
     close(): Promise<void>;
     close(success: () => void, error: (err: SQLError) => void): void;
+    /* tslint:disable:no-unnecessary-generics */
     executeSql<ResultT = any>(statement: string, params?: any[]): Promise<[ResultSet<ResultT>]>;
     executeSql<ResultT = any>(statement: string, params?: any[], success?: StatementCallback<ResultT>, error?: StatementErrorCallback): void;
+    /* tslint:enable:no-unnecessary-generics */
 
     attach(nameToAttach: string, alias: string): Promise<void>;
     attach(nameToAttach: string, alias: string, success?: () => void, error?: (err: SQLError) => void): void;
