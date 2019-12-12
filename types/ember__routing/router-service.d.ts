@@ -220,7 +220,8 @@ export default class RouterService extends Service {
         options?: { queryParams: object }
     ): string;
 
-    // https://api.emberjs.com/ember/3.6/classes/RouterService/events/routeDidChange?anchor=routeDidChange
+    // https://api.emberjs.com/ember/3.12/classes/RouterService/events/routeDidChange?anchor=routeDidChange
+    // http://api.emberjs.com/ember/3.12/classes/Evented/methods/on?anchor=on
     /**
      * Register a callback for an event.
      *
@@ -237,5 +238,21 @@ export default class RouterService extends Service {
     on(
         name: 'routeDidChange' | 'routeWillChange',
         callback: (transition: Transition) => void
+    ): RouterService;
+
+    // https://api.emberjs.com/ember/3.12/classes/RouterService/events/routeDidChange?anchor=routeDidChange
+    // http://api.emberjs.com/ember/3.12/classes/Evented/methods/off?anchor=off
+    /**
+     * Remove a registered callback for an event.
+     *
+     * To remove the registered callback, the function you pass must be the
+     * same function as the original callback that was registered.
+     *
+     * @param name     the name of the event
+     * @param callback the same function of the original callback
+     */
+    off(
+      name: 'routeDidChange' | 'routeWillChange',
+      callback: (transition: Transition) => void
     ): RouterService;
 }
