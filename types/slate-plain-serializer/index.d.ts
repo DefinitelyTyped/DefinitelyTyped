@@ -11,7 +11,7 @@ export interface DeserializeOptions {
     toJson?: boolean;
     defaultBlock?: BlockProperties;
     defaultMarks?: MarkProperties[] | Set<MarkProperties>;
-    delimiter?: string,
+    delimiter?: string;
 }
 
 export interface SerializeOptions {
