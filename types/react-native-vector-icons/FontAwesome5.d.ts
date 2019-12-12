@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Icon, IconProps, ImageSource } from "./Icon";
+import { Icon, IconProps, ImageSource, ToolbarAndroidProps, TabBarItemIOSProps, IconButtonProps } from "./Icon";
 
 export const FA5Style: {
     regular: 0;
@@ -40,4 +40,8 @@ export default class FontAwesome5Icon extends Component<
     ): Promise<ImageSource>;
     static loadFont(file?: string): Promise<void>;
     static hasIcon(name: string): boolean;
+    static ToolbarAndroid: typeof Icon.ToolbarAndroid
+    static TabBarItem : typeof Icon.TabBarItem
+    static TabBarItemIOS: typeof Icon.TabBarItemIOS
+    static Button : typeof Icon.Button
 }
