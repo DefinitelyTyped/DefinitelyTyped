@@ -7,7 +7,7 @@ declare namespace echarts {
          * offset can be used to avoid overlap when you need to put more
          * than two x axis.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis
+         * @see https://echarts.apache.org/en/option.html#xAxis
          */
         interface XAxis extends BasicComponents.CartesianAxis {
             /**
@@ -31,7 +31,7 @@ declare namespace echarts {
              * + 'log' Log axis, suitable for log data.
              *
              * @default 'value'
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.type
+             * @see https://echarts.apache.org/en/option.html#xAxis.type
              */
             type?: BasicComponents.CartesianAxis.Type;
 
@@ -40,7 +40,7 @@ declare namespace echarts {
              * Useful when multiple axis of this type has same position value.
              *
              * @default 0
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.offset
+             * @see https://echarts.apache.org/en/option.html#xAxis.offset
              */
             offset?: number;
         }
