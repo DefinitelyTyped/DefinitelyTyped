@@ -13,6 +13,7 @@ import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
 import * as React from 'react';
 import { lineHeight, Theme as StyledSystemTheme } from 'styled-system';
+import { InterpolationWithTheme } from '@emotion/core;
 
 export {};
 
@@ -148,6 +149,7 @@ export interface SxProps {
      * ```
      */
     sx?: SxStyleProp;
+    css?: InterpolationWithTheme
 }
 
 type SxComponent<T extends SxProps = IntrinsicSxElements['div']> = React.ComponentClass<T & { as?: React.ElementType }>;
