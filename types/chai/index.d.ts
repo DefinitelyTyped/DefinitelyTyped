@@ -291,13 +291,19 @@ declare namespace Chai {
     }
 
     interface Nested {
-      include: Include;
-      property: Property;
-      members: Members;
+        include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
+        property: Property;
+        members: Members;
     }
 
     interface Own {
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
     }
 
@@ -306,6 +312,9 @@ declare namespace Chai {
         equals: Equal;
         eq: Equal;
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
         members: Members;
         ordered: Ordered;

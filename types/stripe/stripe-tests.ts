@@ -1029,6 +1029,9 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 //#region Events tests
 // ##################################################################################
 
+const fakeEvent: Stripe.events.IEvent = stripe.webhooks.constructEvent('', '', '');
+const previousStatus = fakeEvent.data.previous_attributes && fakeEvent.data.previous_attributes.status;
+
 //#endregion
 
 //#region File Uploads tests
@@ -2074,7 +2077,7 @@ stripe.paymentIntents.create(
     {
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     },
     (err, intent) => {},
 );
@@ -2083,7 +2086,7 @@ stripe.paymentIntents
     .create({
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     })
     .then(intent => {});
 
@@ -2376,6 +2379,28 @@ stripe.subscriptions.create(
         // asynchronously called
     },
 );
+
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
+stripe.subscriptions.create(
+    { cancel_at: 1234567890, prorate: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
+stripe.subscriptions.create(
+    { cancel_at_period_end: true, items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' },
+    (err, subscription) => {
+        // asynchronously called
+    },
+);
+
 stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
     // asynchronously called
 

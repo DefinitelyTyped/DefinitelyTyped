@@ -535,54 +535,54 @@ export interface WalkOptionsNoVisit {
     reverse?: boolean;
 }
 
-export interface WalkOptionsVisit<NodeType = CssNode, NodeTypeName = string> {
-    visit: NodeTypeName;
+export interface WalkOptionsVisit<NodeType extends CssNode = CssNode> {
+    visit: NodeType['type'];
     enter?: EnterOrLeaveFn<NodeType>;
     leave?: EnterOrLeaveFn<NodeType>;
     reverse?: boolean;
 }
 
 export type WalkOptions =
-    WalkOptionsVisit<AnPlusB, 'AnPlusB'>
-    | WalkOptionsVisit<Atrule, 'Atrule'>
-    | WalkOptionsVisit<AtrulePrelude, 'AtrulePrelude'>
-    | WalkOptionsVisit<AttributeSelector, 'AttributeSelector'>
-    | WalkOptionsVisit<Block, 'Block'>
-    | WalkOptionsVisit<Brackets, 'Brackets'>
-    | WalkOptionsVisit<CDC, 'CDC'>
-    | WalkOptionsVisit<CDO, 'CDO'>
-    | WalkOptionsVisit<ClassSelector, 'ClassSelector'>
-    | WalkOptionsVisit<Combinator, 'Combinator'>
-    | WalkOptionsVisit<Comment, 'Comment'>
-    | WalkOptionsVisit<Declaration, 'Declaration'>
-    | WalkOptionsVisit<DeclarationList, 'DeclarationList'>
-    | WalkOptionsVisit<Dimension, 'Dimension'>
-    | WalkOptionsVisit<FunctionNode, 'FunctionNode'>
-    | WalkOptionsVisit<HexColor, 'HexColor'>
-    | WalkOptionsVisit<IdSelector, 'IdSelector'>
-    | WalkOptionsVisit<Identifier, 'Identifier'>
-    | WalkOptionsVisit<MediaFeature, 'MediaFeature'>
-    | WalkOptionsVisit<MediaQuery, 'MediaQuery'>
-    | WalkOptionsVisit<MediaQueryList, 'MediaQueryList'>
-    | WalkOptionsVisit<Nth, 'Nth'>
-    | WalkOptionsVisit<NumberNode, 'NumberNode'>
-    | WalkOptionsVisit<Operator, 'Operator'>
-    | WalkOptionsVisit<Parentheses, 'Parentheses'>
-    | WalkOptionsVisit<Percentage, 'Percentage'>
-    | WalkOptionsVisit<PseudoClassSelector, 'PseudoClassSelector'>
-    | WalkOptionsVisit<PseudoElementSelector, 'PseudoElementSelector'>
-    | WalkOptionsVisit<Ratio, 'Ratio'>
-    | WalkOptionsVisit<Raw, 'Raw'>
-    | WalkOptionsVisit<Rule, 'Rule'>
-    | WalkOptionsVisit<Selector, 'Selector'>
-    | WalkOptionsVisit<SelectorList, 'SelectorList'>
-    | WalkOptionsVisit<StringNode, 'StringNode'>
-    | WalkOptionsVisit<StyleSheet, 'StyleSheet'>
-    | WalkOptionsVisit<TypeSelector, 'TypeSelector'>
-    | WalkOptionsVisit<UnicodeRange, 'UnicodeRange'>
-    | WalkOptionsVisit<Url, 'Url'>
-    | WalkOptionsVisit<Value, 'Value'>
-    | WalkOptionsVisit<WhiteSpace, 'WhiteSpace'>
+    WalkOptionsVisit<AnPlusB>
+    | WalkOptionsVisit<Atrule>
+    | WalkOptionsVisit<AtrulePrelude>
+    | WalkOptionsVisit<AttributeSelector>
+    | WalkOptionsVisit<Block>
+    | WalkOptionsVisit<Brackets>
+    | WalkOptionsVisit<CDC>
+    | WalkOptionsVisit<CDO>
+    | WalkOptionsVisit<ClassSelector>
+    | WalkOptionsVisit<Combinator>
+    | WalkOptionsVisit<Comment>
+    | WalkOptionsVisit<Declaration>
+    | WalkOptionsVisit<DeclarationList>
+    | WalkOptionsVisit<Dimension>
+    | WalkOptionsVisit<FunctionNode>
+    | WalkOptionsVisit<HexColor>
+    | WalkOptionsVisit<IdSelector>
+    | WalkOptionsVisit<Identifier>
+    | WalkOptionsVisit<MediaFeature>
+    | WalkOptionsVisit<MediaQuery>
+    | WalkOptionsVisit<MediaQueryList>
+    | WalkOptionsVisit<Nth>
+    | WalkOptionsVisit<NumberNode>
+    | WalkOptionsVisit<Operator>
+    | WalkOptionsVisit<Parentheses>
+    | WalkOptionsVisit<Percentage>
+    | WalkOptionsVisit<PseudoClassSelector>
+    | WalkOptionsVisit<PseudoElementSelector>
+    | WalkOptionsVisit<Ratio>
+    | WalkOptionsVisit<Raw>
+    | WalkOptionsVisit<Rule>
+    | WalkOptionsVisit<Selector>
+    | WalkOptionsVisit<SelectorList>
+    | WalkOptionsVisit<StringNode>
+    | WalkOptionsVisit<StyleSheet>
+    | WalkOptionsVisit<TypeSelector>
+    | WalkOptionsVisit<UnicodeRange>
+    | WalkOptionsVisit<Url>
+    | WalkOptionsVisit<Value>
+    | WalkOptionsVisit<WhiteSpace>
     | WalkOptionsNoVisit;
 
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
