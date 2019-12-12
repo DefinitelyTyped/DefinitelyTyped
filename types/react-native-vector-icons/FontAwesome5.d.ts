@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Icon, IconProps, ImageSource, ToolbarAndroidProps, TabBarItemIOSProps, IconButtonProps } from "./Icon";
+import { Icon, IconProps, ImageSource } from "./Icon";
 
 export const FA5Style: {
     regular: 0;
