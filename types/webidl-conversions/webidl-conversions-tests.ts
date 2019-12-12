@@ -7,6 +7,12 @@ const options: conversions.Options = ((): conversions.Options => {
 	return {};
 })();
 
+/**
+ * The `expectType` function from https://www.npmjs.com/package/tsd,
+ * except instead of returning `void`, it returns `T`.
+ */
+declare function expectType<T>(value: T): T;
+
 conversions.any(any); // $ExpectType any
 conversions.any(unknown); // $ExpectType unknown
 conversions.any(options); // $ExpectType Options
@@ -40,7 +46,7 @@ conversions.USVString(any, options); // $ExpectType string
 
 conversions.object(any, options); // $ExpectType any
 conversions.object(unknown, options); // $ExpectType object
-conversions.object('string', options); // $ExpectType never
+expectType<never>(conversions.object('string', options)); // $ExpectType never
 conversions.object({}, options); // $ExpectType {}
 
 conversions.ArrayBuffer(any, options); // $ExpectType ArrayBuffer
