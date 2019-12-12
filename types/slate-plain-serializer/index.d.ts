@@ -1,4 +1,4 @@
-// Type definitions for slate-plain-serializer 0.7.11
+// Type definitions for slate-plain-serializer 0.7
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 //                 Martin Kiefel <https://github.com/mkiefel>
