@@ -4,13 +4,13 @@
 //                 Michael Stramel <https://github.com/stramel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0-rc.3
+// reflects react-table@7.0.0-rc.9
 
 // tslint:disable:no-unnecessary-generics
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactNode, RefObject } from 'react';
+import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, RefObject } from 'react';
 
 export {};
 
@@ -40,7 +40,9 @@ export interface Cell<D extends object = {}> extends UseTableCellProps<D> {}
 
 export interface Column<D extends object = {}> extends UseTableColumnOptions<D> {}
 
-export interface ColumnInstance<D extends object = {}> extends Omit<Column<D>, 'id'>, UseTableColumnProps<D> {}
+export interface ColumnInstance<D extends object = {}>
+    extends Omit<Column<D>, 'id' | 'columns'>,
+        UseTableColumnProps<D> {}
 
 export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, UseTableHeaderGroupProps<D> {}
 
@@ -69,6 +71,7 @@ export type UseTableOptions<D extends object> = {
 }>;
 
 export interface UseTableHooks<D extends object> {
+    useOptions: Array<(options: TableOptions<D>, args: TableOptions<D>) => TableOptions<D>>;
     stateReducers: Array<
         (
             newState: TableState<D>,
@@ -77,20 +80,25 @@ export interface UseTableHooks<D extends object> {
             instance: RefObject<TableInstance<D>>,
         ) => TableState<D>
     >;
-    columnsBeforeHeaderGroups: Array<(flatColumns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
-    columnsBeforeHeaderGroupsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
-    useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => TableInstance<D>>;
-    useInstance: Array<(instance: TableInstance<D>) => TableInstance<D>>;
+    columns: Array<(columns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
+    columnsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
+    flatColumns: Array<(flatColumns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
+    flatColumnsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
+    headerGroups: Array<(flatColumns: Array<HeaderGroup<D>>, instance: TableInstance<D>) => Array<HeaderGroup<D>>>;
+    headerGroupDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
+    useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => void>;
+    useInstance: Array<(instance: TableInstance<D>) => void>;
     useRows: Array<(rows: Array<Row<D>>, instance: TableInstance<D>) => Array<Row<D>>>;
     prepareRow: Array<(row: Row<D>, instance: TableInstance<D>) => Row<D>>;
-
-    // Prop Hooks
-    getTableProps: Array<(instance: TableInstance<D>) => object>;
-    getTableBodyProps: Array<(instance: TableInstance<D>) => object>;
-    getRowProps: Array<(row: Row<D>, instance: TableInstance<D>) => object>;
-    getHeaderGroupProps: Array<(headerGroup: HeaderGroup<D>, instance: TableInstance<D>) => object>;
-    getHeaderProps: Array<(column: Column<D>, instance: TableInstance<D>) => object>;
-    getCellProps: Array<(cell: Cell<D>, instance: TableInstance<D>) => object>;
+    getTableProps: Array<(props: object, instance: TableInstance<D>) => object>;
+    getTableBodyProps: Array<(props: object, instance: TableInstance<D>) => object>;
+    getHeaderGroupProps: Array<(props: object, instance: TableInstance<D>, header: HeaderGroup<D>) => object>;
+    getFooterGroupProps: Array<(props: object, instance: TableInstance<D>, header: HeaderGroup<D>) => object>;
+    getHeaderProps: Array<(props: object, instance: TableInstance<D>, header: HeaderGroup<D>) => object>;
+    getFooterProps: Array<(pops: object, instance: TableInstance<D>, header: HeaderGroup<D>) => object>;
+    getRowProps: Array<(props: object, instance: TableInstance<D>, row: Row<D>) => object>;
+    getCellProps: Array<(props: object, instance: TableInstance<D>, cell: Cell<D>) => object>;
+    useFinalInstance: Array<(instance: TableInstance<D>) => void>;
 }
 
 export interface UseTableColumnOptions<D extends object>
@@ -100,7 +108,7 @@ export interface UseTableColumnOptions<D extends object>
             show: boolean | ((instance: TableInstance<D>) => boolean);
             Header: Renderer<HeaderProps<D>>;
             Cell: Renderer<CellProps<D>>;
-            width?: number;
+            width?: number | string;
             minWidth?: number;
             maxWidth?: number;
         }> {}
@@ -109,6 +117,7 @@ type UpdateHiddenColumns<D extends object> = (oldHidden: Array<IdType<D>>) => Ar
 
 export interface UseTableInstanceProps<D extends object> {
     state: TableState<D>;
+    hooks: Hooks<D>;
     dispatch: TableDispatch;
     columns: Array<ColumnInstance<D>>;
     flatColumns: Array<ColumnInstance<D>>;
@@ -137,13 +146,14 @@ export interface UseTableHeaderGroupProps<D extends object> {
 
 export interface UseTableColumnProps<D extends object> {
     id: IdType<D>;
+    columns: Array<ColumnInstance<D>>;
     isVisible: boolean;
     render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
     getHeaderProps: (props?: object) => object;
     getFooterProps: (props?: object) => object;
-    toggleHidden: (value?: boolean) => void;
+    toggleHiden: (value?: boolean) => void;
     parent: ColumnInstance<D>; // not documented
     getToggleHideColumnsProps: (userProps: any) => any;
     depth: number; // not documented
@@ -156,7 +166,7 @@ export interface UseTableRowProps<D extends object> {
     getRowProps: (props?: object) => object;
     index: number;
     original: D;
-    path: string[];
+    id: string;
     subRows: Array<Row<D>>;
     state: object;
 }
@@ -240,7 +250,7 @@ export interface UseExpandedState<D extends object> {
 
 export interface UseExpandedInstanceProps<D extends object> {
     rows: Array<Row<D>>;
-    toggleExpandedByPath: (path: Array<IdType<D>>, isExpanded: boolean) => void;
+    toggleExpandedById: (id: Array<IdType<D>>, isExpanded: boolean) => void;
     expandedDepth: number;
 }
 
@@ -370,7 +380,7 @@ export interface UseGroupByRowProps<D extends object> {
     values: Record<IdType<D>, AggregatedValue>;
     subRows: Array<Row<D>>;
     depth: number;
-    path: string[];
+    id: string;
     index: number;
 }
 
@@ -458,7 +468,6 @@ export namespace useRowSelect {
 
 export type UseRowSelectOptions<D extends object> = Partial<{
     manualRowSelectedKey: IdType<D>;
-    getResetSelectedRowPathsDeps: (instance: TableInstance<D>) => any[];
 }>;
 
 export interface UseRowSelectHooks<D extends object> {
@@ -467,12 +476,12 @@ export interface UseRowSelectHooks<D extends object> {
 }
 
 export interface UseRowSelectState<D extends object> {
-    selectedRowPaths: Set<string>;
+    selectedRowIds: Set<string>;
 }
 
 export interface UseRowSelectInstanceProps<D extends object> {
-    toggleRowSelected: (rowPath: string, set?: boolean) => void;
-    toggleRowSelectedAll: (set?: boolean) => void;
+    toggleRowSelected: (rowId: string, set?: boolean) => void;
+    toggleAllRowsSelected: (set?: boolean) => void;
     getToggleAllRowsSelectedProps: (props?: {
         onChange?: () => void;
         style?: { cursor: string };
@@ -485,6 +494,7 @@ export interface UseRowSelectInstanceProps<D extends object> {
 
 export interface UseRowSelectRowProps<D extends object> {
     isSelected: boolean;
+    isSomeSelected: boolean;
     toggleRowSelected: (set?: boolean) => void;
     getToggleRowSelectedProps: (props?: object) => object;
 }
@@ -638,10 +648,12 @@ export function defaultGroupByFn<D extends object = {}>(
     columnId: IdType<D>,
 ): Record<string, Row<D>>;
 
-export function mergeProps(props: any): any;
+export function makePropGetter(hooks: Hooks, ...meta: any[]): any;
 
-export function applyHooks(hooks: any, initial: any, args: any[]): any; // todo
-export function applyPropHooks(hooks: any, args: any[]): any; // todo
+export function reduceHooks<T extends object = {}>(hooks: Hooks, initial: T, ...args: any[]): T;
+
+export function loopHooks(hooks: Hooks, ...args: any[]): void;
+
 export function ensurePluginOrder<D extends object = {}>(
     plugins: Array<PluginHook<D>>,
     befores: string[],
