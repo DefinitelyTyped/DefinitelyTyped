@@ -5854,8 +5854,8 @@ fp.now(); // $ExpectType number
         _.transform<number, AbcObject>(dictionary, iterator); // $ExpectType Dictionary<AbcObject>
         _.transform<number, AbcObject>(dictionary, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
         _(dictionary).transform(); // $ExpectType LoDashImplicitWrapper<Dictionary<any>>
-        _(dictionary).transform<number, AbcObject>(iterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-        _(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+        _(dictionary).transform(iterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+        _(dictionary).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     }
 
     {
@@ -5863,8 +5863,8 @@ fp.now(); // $ExpectType number
         const accumulator: AbcObject[] = [];
 
         _.transform<number, AbcObject>(dictionary, iterator, accumulator); // $ExpectType AbcObject[]
-        _(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-        _.chain(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+        _(dictionary).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+        _.chain(dictionary).transform(iterator, accumulator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     }
 
     {
@@ -6212,8 +6212,11 @@ fp.now(); // $ExpectType number
 {
     _.camelCase("Foo Bar"); // $ExpectType string
     _("Foo Bar").camelCase(); // $ExpectType string
+    _(["Foo", "Bar"]).camelCase(); // $ExpectType string
     _.chain("Foo Bar").camelCase(); // $ExpectType LoDashExplicitWrapper<string>
+    _.chain(["Foo", "Bar"]).camelCase(); // $ExpectType LoDashExplicitWrapper<string>
     fp.camelCase("Foo Bar"); // $ExpectType string
+    fp.camelCase(["Foo", "Bar"]); // $ExpectType string
 }
 
 // _.capitalize

@@ -239,7 +239,7 @@ declare namespace _ {
     }
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
-    type LodashCamelCase = (string: string) => string;
+    type LodashCamelCase = (string: string | string[]) => string;
     type LodashCapitalize = (string: string) => string;
     type LodashCastArray = <T>(value: lodash.Many<T>) => T[];
     type LodashCeil = (n: number) => number;

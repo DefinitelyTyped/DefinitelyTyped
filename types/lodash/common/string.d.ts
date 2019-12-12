@@ -9,7 +9,7 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the camel cased string.
          */
-        camelCase(string?: string): string;
+        camelCase(string?: string | string[]): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
