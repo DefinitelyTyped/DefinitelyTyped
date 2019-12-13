@@ -24,20 +24,17 @@ export { errors, devices };
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 
-/** Unwraps a DOM element out of an ElementHandle instance */
-export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
-
-export type Serializable =
+export type Serializable = JSON | undefined | void | bigint;
+export type JSON =
   | number
   | string
   | boolean
   | null
-  | bigint
   | JSONArray
   | JSONObject;
-export interface JSONArray extends Array<Serializable> { }
+export interface JSONArray extends Array<JSON> { }
 export interface JSONObject {
-  [key: string]: Serializable;
+  [key: string]: JSON;
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
