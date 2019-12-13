@@ -6,14 +6,14 @@
 
 import * as React from 'react';
 
-export interface DefaultImportedComponent<P> {
-    default: React.ComponentType<P>;
+export interface DefaultImportedComponent<Props> {
+    default: React.ComponentType<Props>;
 }
 
-export type DefaultComponent<P> = React.ComponentType<P> | DefaultImportedComponent<P>;
+export type DefaultComponent<Props> = React.ComponentType<Props> | DefaultImportedComponent<Props>;
 
-export interface Options<T> {
-    cacheKey?(props: T): any;
+export interface Options<Props> {
+    cacheKey?(props: Props): any;
     fallback?: JSX.Element;
     ssr?: boolean;
 }
@@ -22,12 +22,13 @@ export interface LoadableReadyOptions {
     namespace?: string;
 }
 
-export interface LoadableComponentMethods<T> {
-    preload(props?: T): void;
-    load(props?: T): Promise<React.ComponentType<T>>;
+export interface LoadableComponentMethods<Props> {
+    preload(props?: Props): void;
+    load(props?: Props): Promise<React.ComponentType<Props>>;
 }
 
-export type LoadableComponent<T> = React.ComponentType<T & { fallback?: JSX.Element }> & LoadableComponentMethods<T>;
+export type LoadableComponent<Props> = React.ComponentType<Props & { fallback?: JSX.Element }> &
+    LoadableComponentMethods<Props>;
 export type LoadableLibrary<TModule> = React.ComponentType<{
     fallback?: JSX.Element;
     children?: (module: TModule) => React.ReactNode;
@@ -36,12 +37,12 @@ export type LoadableLibrary<TModule> = React.ComponentType<{
     TModule &
     LoadableComponentMethods<object>;
 
-declare function lib<T>(loadFn: (props: object) => Promise<T>, options?: Options<any>): LoadableLibrary<T>;
+declare function lib<Props>(loadFn: (props: object) => Promise<Props>, options?: Options<any>): LoadableLibrary<Props>;
 
-declare function loadableFunc<T>(
-    loadFn: (props: T) => Promise<DefaultComponent<T>>,
-    options?: Options<T>
-): LoadableComponent<T>;
+declare function loadableFunc<Props>(
+    loadFn: (props: Props) => Promise<DefaultComponent<Props>>,
+    options?: Options<Props>,
+): LoadableComponent<Props>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
 
@@ -51,6 +52,6 @@ export namespace lazy {
     function lib<TModule>(loadFn: (props: object) => Promise<TModule>): LoadableLibrary<TModule>;
 }
 
-export function lazy<T>(loadFn: (props: T) => Promise<DefaultComponent<T>>): LoadableComponent<T>;
+export function lazy<Props>(loadFn: (props: Props) => Promise<DefaultComponent<Props>>): LoadableComponent<Props>;
 
 export function loadableReady(done?: () => any, options?: LoadableReadyOptions): Promise<void>;
