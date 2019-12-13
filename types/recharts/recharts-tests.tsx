@@ -1,6 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Area, AreaChart, AxisDomain, Bar, BarChart, Brush, CartesianGrid, Customized, Label, LabelList, Legend, Line, LineChart, Pie, PieChart, ReferenceArea, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Sector, Text, Tooltip, XAxis, YAxis, ZAxis } from 'recharts';
+
+import {
+    CartesianGrid, Line, LineChart, PieChart, Pie,
+    Sector, AxisDomain, XAxis, YAxis, Tooltip, ReferenceLine,
+    ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized, 
+} from 'recharts';
 
 interface ComponentState {
     activeIndex: number;
