@@ -3,6 +3,8 @@ import * as React from "react";
 export interface CalendarBaseProps {
     /* Blocks dates that are in between the blocked dates. */
     blockedDates?: Date[];
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Disables dates of a calendar that come after the specified date. */
     disableAfterDate?: Date;
     /* Disables dates of a calendar that come before the specified date. */

@@ -1,4 +1,5 @@
 export { default as FormFieldset } from "./FormFieldset";
+export { default as FormGroup } from "./FormGroup";
 export { default as FormInput } from "./FormInput";
 export { default as FormItem } from "./FormItem";
 export { default as FormLabel } from "./FormLabel";

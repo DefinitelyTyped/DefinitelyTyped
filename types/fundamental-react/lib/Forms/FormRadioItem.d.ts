@@ -6,7 +6,9 @@ export type FormRadioItemProps = {
     className?: string;
     /* Set to **true** when the radio input is checked and an uncontrolled component. */
     defaultChecked?: boolean;
+    customStyles?: {[x: string]: any};
     disabled?: boolean;
+    disableStyles?: boolean;
     id?: string;
     /* _INTERNAL USE ONLY._ */
     inline?: boolean;

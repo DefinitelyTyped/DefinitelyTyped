@@ -5,8 +5,11 @@ export type PaginationProps = {
     itemsTotal: number;
     onClick: (page: number) => void;
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Set to **true** to show total number of items along with `totalText` string. */
     displayTotal?: boolean;
+    displayTotalProps?: {[x: string]: any};
     /* Initial page to be selected. */
     initialPage?: number;
     /* Number of items to display on page. */
