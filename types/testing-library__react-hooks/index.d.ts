@@ -27,6 +27,7 @@ export interface RenderHookResult<P, R> {
     readonly result: HookResult<R>;
     readonly waitForNextUpdate: () => Promise<void>;
     readonly waitForValueToChange: (selector: () => S, options?: WaitOptions) => Promise<void>;
+    readonly wait: (callback: () => boolean|void, options?: WaitOptions) => Promise<void>;
     readonly unmount: () => boolean;
     readonly rerender: (newProps?: P) => void;
 }
