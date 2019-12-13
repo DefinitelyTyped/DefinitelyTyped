@@ -23,7 +23,7 @@ export interface WaitOptions {
     suppressErrors?: boolean;
 }
 
-export interface RenderHookResult<P, R> {
+export interface RenderHookResult<P, R, S> {
     readonly result: HookResult<R>;
     readonly waitForNextUpdate: () => Promise<void>;
     readonly waitForValueToChange: (selector: () => S, options?: WaitOptions) => Promise<void>;
