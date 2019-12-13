@@ -1,19 +1,35 @@
-import { BlankNode, DatasetCore, Literal, NamedNode, Quad_Graph, Term } from 'rdf-js';
-import {
-    Clownface as ClownfaceContract,
-    ClownfaceOptions,
-    AddCallback,
-    NodeOptions,
-    SafeClownface,
-    SingleOrArray,
-    SingleOrArrayOfTerms,
-    SingleOrArrayOfTermsOrLiterals,
-    WithValue,
-    WithTerm
-} from '.';
+import { DatasetCore, Term, BlankNode, NamedNode, Literal, Quad_Graph } from 'rdf-js';
 
-declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceOptions<D>  & Partial<WithTerm> & Partial<WithValue>);
+export type TermOrClownface = Clownface | Term;
+export type TermOrLiteral = TermOrClownface | string | number | boolean;
+
+export type AddCallback<D extends DatasetCore, X extends Term> = (added: Clownface<D, X>) => void;
+export type SingleOrArray<T> = T | T[];
+
+export type SingleOrArrayOfTerms = SingleOrArray<TermOrClownface>;
+export type SingleOrArrayOfTermsOrLiterals = SingleOrArray<TermOrLiteral>;
+
+export interface NodeOptions {
+    type?: 'BlankNode' | 'Literal' | 'NamedNode';
+    datatype?: Term | { toString(): string };
+    language?: string;
+}
+
+export interface ClownfaceOptions<D extends DatasetCore> {
+    dataset?: D;
+    graph?: Quad_Graph;
+    _context?: any;
+}
+
+export interface WithValue {
+    value: string | string[];
+}
+
+export interface WithTerm {
+    term: Term | Term[];
+}
+
+export interface Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> {
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;
@@ -51,4 +67,16 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     // tslint:enable:no-unnecessary-generics
 }
 
-export = Clownface;
+export interface SafeClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends Clownface<D, T> {
+    filter(cb: (quad: SingleContextClownface<D, T>) => boolean): SafeClownface<D, T>;
+    forEach(cb: (quad: SingleContextClownface<D, T>) => void): void;
+    map<X>(cb: (quad: SingleContextClownface<D, T>, index: number) => X): X[];
+    toArray(): Array<SingleContextClownface<D, T>>;
+}
+
+export interface SingleContextClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends SafeClownface<D, T> {
+    readonly term: T;
+    readonly terms: [T];
+    readonly value: string;
+    readonly values: [string];
+}

@@ -4,17 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Term, Dataset, Quad_Graph } from 'rdf-js';
+import { Term, DatasetCore, Quad_Graph } from 'rdf-js';
+import { SafeClownface, ClownfaceOptions, WithTerm, WithValue } from './lib';
 import Clownface = require('./lib/Clownface');
 
-interface ClownfaceOptions<D extends Dataset> {
-    dataset?: D;
-    graph?: Quad_Graph;
-    term?: Term | Term[];
-    value?: string | string[];
-    _context?: any;
-}
-
-declare function factory<D extends Dataset>(options: ClownfaceOptions<D>): Clownface<D>;
+declare function factory<D extends DatasetCore>(options: ClownfaceOptions<D> & WithTerm | ClownfaceOptions<D> & WithValue): SafeClownface<D>;
+declare function factory<D extends DatasetCore>(options: ClownfaceOptions<D>): Clownface<D>;
 
 export = factory;
