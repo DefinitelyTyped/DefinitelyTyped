@@ -36,7 +36,7 @@ export { MultiInput } from "./MultiInput/index";
 export { Pagination } from "./Pagination/index";
 export { Panel } from "./Panel/index";
 export { Popover } from "./Popover/index";
-export { ProductTile, Tile } from "./Tile/index";
+export { Tile } from "./Tile/index";
 export { SearchInput } from "./SearchInput/index";
 export { Shellbar } from "./Shellbar/index";
 export { SideNav } from "./SideNavigation/index";

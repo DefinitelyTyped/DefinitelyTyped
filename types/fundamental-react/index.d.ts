@@ -47,7 +47,6 @@ export { default as MultiInput } from "./lib/MultiInput/MultiInput";
 export { default as Pagination } from "./lib/Pagination/Pagination";
 export { default as Panel } from "./lib/Panel/Panel";
 export { default as Popover } from "./lib/Popover/Popover";
-export { default as ProductTile } from "./lib/Tile/ProductTile";
 export { default as SearchInput } from "./lib/SearchInput/SearchInput";
 export { default as Shellbar } from "./lib/Shellbar/Shellbar";
 export { default as SideNav } from "./lib/SideNavigation/SideNav";

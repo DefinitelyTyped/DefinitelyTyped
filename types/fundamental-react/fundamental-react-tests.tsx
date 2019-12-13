@@ -37,7 +37,6 @@ import {
     Pagination,
     Panel,
     Popover,
-    ProductTile,
     SearchInput,
     Shellbar,
     SideNav,
@@ -2819,19 +2818,19 @@ const tiles = (
                 />
             </Tile.Actions>
         </Tile>
-        <ProductTile role="button">
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product role="button">
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
+            </Tile.Content>
+        </Tile>
         <br />
-        <ProductTile disabled>
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product disabled>
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
+            </Tile.Content>
+        </Tile>
         <LayoutGrid cols={4}>
             <Tile colorAccent={7} rowSpan={2}>
                 <Tile.Content title="Tile Title">
