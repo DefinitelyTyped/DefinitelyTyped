@@ -3024,7 +3024,7 @@ declare namespace wx {
 	 * 一个context生成画布的绘制动作数组可以应用于多个<canvas/>。
 	 */
     function createContext(): CanvasContext;
-    function createCanvasContext(canvasId: string, instance?: Object): CanvasContext;
+    function createCanvasContext(canvasId: string, instance?: object): CanvasContext;
 	interface DrawCanvasOptions {
 		/** 画布标识，传入 <canvas/> 的 cavas-id */
 		canvasId: number | string;
