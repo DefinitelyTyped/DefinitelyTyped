@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/react-hooks 3.2.1
+// Type definitions for @testing-library/react-hooks 3.2
 // Project: https://github.com/testing-library/react-hooks-testing-library
 // Definitions by: Michael Peyper <https://github.com/mpeyper>
 //                 Sarah Dayan <https://github.com/sarahdayan>
