@@ -11,7 +11,7 @@ declare module "querystring" {
     interface ParsedUrlQuery { [key: string]: string | string[]; }
 
     interface ParsedUrlQueryInput {
-        [key: string]: NodeJS.PoorMansUnknown;
+        [key: string]: string | number | boolean | string[] | number[] | boolean[];
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
