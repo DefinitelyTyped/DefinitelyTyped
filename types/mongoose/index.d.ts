@@ -33,6 +33,7 @@
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 //                 Tom Yam <https://github.com/tomyam1>
 //                 Thomas Pischulski <https://github.com/nephix>
+//                 Dongjun Lee <https://github.com/ChazEpps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2130,7 +2131,7 @@ declare module "mongoose" {
     /**
      * Determines the MongoDB nodes from which to read.
      * @param pref one of the listed preference options or aliases
-     * @tags optional tags for this query
+     * @param tags optional tags for this query
      */
     read(pref: string, tags?: any[]): this;
 
@@ -2280,6 +2281,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean|string;
+    /** use client session for transaction */
+    session?: ClientSession;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2310,6 +2313,7 @@ declare module "mongoose" {
     if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
     before sending the update to the server.**/
     omitUndefined?: boolean;
+    session?: ClientSession;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

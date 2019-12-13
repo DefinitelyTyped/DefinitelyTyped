@@ -157,6 +157,7 @@ declare module "http" {
         writeContinue(callback?: () => void): void;
         writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeProcessing(): void;
     }
 
     interface InformationEvent {

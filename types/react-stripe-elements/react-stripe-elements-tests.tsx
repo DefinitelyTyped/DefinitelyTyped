@@ -139,6 +139,8 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
     }
 
     onSubmit = () => {
+        const elements = this.props.elements;
+
         this.props
             .stripe!.createToken({
                 name: '',

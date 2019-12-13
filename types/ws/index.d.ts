@@ -14,6 +14,7 @@ import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as url from 'url';
 import * as zlib from 'zlib';
 
 // WebSocket socket.
@@ -40,8 +41,8 @@ declare class WebSocket extends events.EventEmitter {
     onclose: (event: WebSocket.CloseEvent) => void;
     onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string, options?: WebSocket.ClientOptions);
-    constructor(address: string, protocols?: string | string[], options?: WebSocket.ClientOptions);
+    constructor(address: string | url.URL, options?: WebSocket.ClientOptions);
+    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions);
 
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;

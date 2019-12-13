@@ -139,7 +139,8 @@ webAuth.passwordlessStart({
 webAuth.passwordlessLogin({
     connection: 'the_connection',
     phoneNumber: '123',
-    verificationCode: '456'
+    verificationCode: '456',
+    state: '12313eqwasdadaasd'
 }, (err, data) => {});
 
 webAuth.signupAndAuthorize({

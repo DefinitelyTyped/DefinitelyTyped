@@ -13,6 +13,7 @@
 //                 Naoki Sekiguchi <https://github.com/seckie>
 //                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
+//                 Walter Kennedy <https://github.com/wthefourth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -120,6 +121,7 @@ export interface ReactDatePickerProps {
     showMonthDropdown?: boolean;
     showMonthYearDropdown?: boolean;
     showMonthYearPicker?: boolean;
+    showQuarterYearPicker?: boolean;
     showPopperArrow?: boolean;
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;

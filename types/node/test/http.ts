@@ -71,6 +71,9 @@ import * as net from 'net';
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
 
+    // writeProcessing
+    res.writeProcessing();
+
     // write string
     res.write('Part of my res.');
     // write buffer

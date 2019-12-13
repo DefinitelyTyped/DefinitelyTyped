@@ -1,6 +1,12 @@
 
 
 fbq('init', '<FB_PIXEL_ID>');
+
+// https://developers.facebook.com/ads/blog/post/2017/11/28/event-tracking-with-multiple-pixels-tracksingle/
+var viewContentParam:facebook.Pixel.ViewContentParameters = {currency: 'EUR', value: 15.23};
+fbq('trackSingle', '<FB_PIXEL_ID>', 'ViewContent', viewContentParam);
+fbq('trackSingleCustom', '<FB_PIXEL>', 'CustomContent', {});
+
 fbq('track', 'PageView');
 
 // Standard event (can be used for conversion tracking

@@ -11,6 +11,13 @@
 
 /*********************************** Begin setup for tests ******************************/
 
+declare namespace Meteor {
+    interface User {
+        // One of the tests assigns a new property to the user so it has to be typed
+        dexterity?: number;
+    }
+}
+
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 

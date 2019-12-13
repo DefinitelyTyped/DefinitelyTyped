@@ -115,8 +115,13 @@ const apps: BaseApp[] = [
     }),
 ];
 
-keystone
-    .prepare({ apps, dev: process.env.NODE_ENV !== 'production' })
-    .then(async ({ middlewares }) => {
-        await keystone.connect();
-    });
+apps.map(app =>
+    app.build({
+        distDir: '.',
+        keystone,
+    }),
+);
+
+keystone.prepare({ apps, dev: process.env.NODE_ENV !== 'production' }).then(async ({ middlewares }) => {
+    await keystone.connect();
+});

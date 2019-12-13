@@ -6,6 +6,16 @@
 
 **Please read this guide in its entirety.** Doing so helps ensure that the only breaking changes will be those that bring `@types/ramda` closer to representing the behavior of the underlying `ramda` package.
 
+### Adding a new entry
+
+When a new function has been published by ramda
+
+- Add the function type to `index.d.ts`
+- Add documentation for it, copied from ramda's website
+- Add your entry import/re-export in `es` & `src` folders
+- Add `es/<function>` & `src/<function>` to `OTHER_FILES.txt`
+- Write some tests by following the instructions below
+
 ### Tests
 
 Tests are located in the `test/` directory. Each ramda function has its own test file, named `<function>-tests.ts`. When editing types for a function, please update the corresponding tests to prove that the behavior you seek actually works. When adding a new function, add a corresponding test file with as many tests as you can to detail the function's behavior.

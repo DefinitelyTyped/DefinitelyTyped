@@ -28,6 +28,12 @@ console.log(natural.LevenshteinDistance("ones","onez", {
     deletion_cost: 1,
     substitution_cost: 1
 }));
+// $ExpectType SubstringDistanceResult
+natural.DamerauLevenshteinDistance("ones","onez", { search: true });
+// $ExpectType number
+natural.DamerauLevenshteinDistance("ones","onez", { search: false });
+// $ExpectType number | SubstringDistanceResult
+natural.DamerauLevenshteinDistance("ones","onez", { search: Math.random() > 0.5 });
 
 console.log(natural.DiceCoefficient('thing', 'thing'));
 console.log(natural.DiceCoefficient('not', 'same'));

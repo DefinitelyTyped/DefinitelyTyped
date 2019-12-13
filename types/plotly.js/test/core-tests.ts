@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot, PlotData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -41,6 +41,23 @@ const graphDiv = '#test';
 	} as ScatterData];
 	const layout2 = { title: 'Revenue' };
 	Plotly.newPlot(graphDiv, data2, layout2);
+})();
+
+// Plotly.newPlot (bar)
+(() => {
+	const data: Array<Partial<PlotData>> = [
+		{
+			values: [19, 26, 55],
+			labels: ['Residential', 'Non-Residential', 'Utility'],
+			type: 'pie',
+			direction: 'counterclockwise',
+		},
+	];
+	const layout = {
+		height: 400,
+		width: 500
+	};
+	Plotly.newPlot('myDiv', data, layout);
 })();
 
 //////////////////////////////////////////////////////////////////////

@@ -1,1 +1,2 @@
-export { isIPRange as default } from '..';
+import validator from '../';
+export default validator.isIPRange;

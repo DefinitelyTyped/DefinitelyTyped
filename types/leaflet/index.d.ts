@@ -6,6 +6,7 @@
 //                 Roni Karilkar <https://github.com/ronikar>
 //                 Sandra Frischmuth <https://github.com/sanfrisc>
 //                 Vladimir Dashukevich <https://github.com/life777>
+//                 Henry Thasler <https://github.com/henrythasler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -986,7 +987,7 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     isEmpty(): boolean;
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
-    addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
+    addLatLng(latlng: LatLngExpression | LatLngExpression[], latlngs?: LatLng[]): this;
     closestLayerPoint(p: Point): Point;
 
     feature?: geojson.Feature<T, P>;
