@@ -508,6 +508,13 @@ declare namespace mapboxgl {
          * @default null
          */
         maxTileCacheSize?: number;
+
+        /**
+         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
+         * 
+         * @default null
+         */
+        accessToken?: string;
     }
 
     export type ResourceType =
