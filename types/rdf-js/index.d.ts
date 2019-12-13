@@ -465,7 +465,7 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): this;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
 
     [Symbol.iterator](): Iterator<Q>;
 }
