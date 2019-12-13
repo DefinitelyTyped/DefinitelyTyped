@@ -884,6 +884,7 @@ export interface JSHandle<T = any> extends JSEvalable<T> {
    * Fetches a single property from the objectHandle.
    * @param propertyName The property to get.
    */
+  getProperty<K extends keyof T>(propertyName: K): Promise<JSHandleOf<T[K]>>;
   getProperty(propertyName: string): Promise<JSHandle>;
 
   /**
