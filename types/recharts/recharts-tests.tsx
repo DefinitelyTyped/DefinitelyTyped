@@ -5,7 +5,7 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, AxisDomain, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized 
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
 } from 'recharts';
 
 interface ComponentState {
@@ -51,9 +51,9 @@ class Component extends React.Component<{}, ComponentState> {
             { name: 'Group D', value: 200 }
         ];
 
-        const standardDomains:[AxisDomain, AxisDomain] = [0, 'auto'];
-        const customDomains:[AxisDomain, AxisDomain] = [0, 'dataMax + 100'];
-        
+        const standardDomains: [AxisDomain, AxisDomain] = [0, 'auto'];
+        const customDomains: [AxisDomain, AxisDomain] = [0, 'dataMax + 100'];
+
         const renderActiveShape = (props: any) => {
             const RADIAN = Math.PI / 180;
             const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
@@ -128,7 +128,7 @@ class Component extends React.Component<{}, ComponentState> {
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
-                        <XAxis dataKey="name" domain={standardDomains} >
+                        <XAxis dataKey="name" domain={standardDomains}>
                             <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
                         <YAxis stroke="#8884d8" domain={customDomains}>
