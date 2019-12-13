@@ -5,7 +5,7 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, AxisDomain, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized, 
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized 
 } from 'recharts';
 
 interface ComponentState {
