@@ -193,9 +193,7 @@ export interface Evalable {
    *
    * @param selector A selector to query for
    * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @param x2 Second argument to pass to pageFunction
-   * @param x3 Third argument to pass to pageFunction
+   * @param args Arguments to pass to pageFunction
    * @returns Promise which resolves to the return value of pageFunction
    */
   $$eval<R, X1, X2, X3>(
@@ -781,7 +779,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle<E>,
   $$(selector: string): Promise<ElementHandle[]>;
 
   /**
-   * @param selector XPath expression to evaluate.
+   * @param expression XPath expression to evaluate.
    */
   $x(expression: string): Promise<ElementHandle[]>;
   /**
@@ -1005,7 +1003,7 @@ export interface Request {
   headers(): Headers;
 
   /** Whether this request is driving frame's navigation. */
-   isNavigationRequest(): boolean;
+  isNavigationRequest(): boolean;
 
   /** Returns the request's method (GET, POST, etc.) */
 
@@ -1525,7 +1523,7 @@ export interface Page extends EventEmitter, FrameBase {
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
    * `eventName` and listener will result in the listener being added, and called, multiple times.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   on<K extends keyof PageEventObj>(
@@ -1536,7 +1534,7 @@ export interface Page extends EventEmitter, FrameBase {
   /**
    * Adds a one time listener function for the event named `eventName`.
    * The next time `eventName` is triggered, this listener is removed and then invoked.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   once<K extends keyof PageEventObj>(
@@ -1613,7 +1611,7 @@ export interface Page extends EventEmitter, FrameBase {
    * When called, the function executes `puppeteerFunction` in node.js and returns a
    * Promise which resolves to the return value of `puppeteerFunction`.
    * @param name The name of the function on the window object.
-   * @param fn Callback function which will be called in Puppeteer's context.
+   * @param puppeteerFunction Callback function which will be called in Puppeteer's context.
    */
   exposeFunction(name: string, puppeteerFunction: (...args: any[]) => any): Promise<void>;
 
@@ -1736,7 +1734,7 @@ export interface Page extends EventEmitter, FrameBase {
 
   /**
    * Determines whether JavaScript is enabled on the page.
-   * @param enable Whether or not to enable JavaScript on the page.
+   * @param enabled Whether or not to enable JavaScript on the page.
    */
   setJavaScriptEnabled(enabled: boolean): Promise<void>;
 
@@ -1814,7 +1812,7 @@ export interface Browser extends EventEmitter, TargetAwaiter {
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
    * `eventName` and listener will result in the listener being added, and called, multiple times.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   on<K extends keyof BrowserEventObj>(
@@ -1825,7 +1823,7 @@ export interface Browser extends EventEmitter, TargetAwaiter {
   /**
    * Adds a one time listener function for the event named `eventName`.
    * The next time `eventName` is triggered, this listener is removed and then invoked.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   once<K extends keyof BrowserEventObj>(
@@ -1936,7 +1934,7 @@ export interface BrowserContext extends EventEmitter, TargetAwaiter {
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
    * `eventName` and listener will result in the listener being added, and called, multiple times.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   on<K extends keyof BrowserContextEventObj>(
@@ -1947,7 +1945,7 @@ export interface BrowserContext extends EventEmitter, TargetAwaiter {
   /**
    * Adds a one time listener function for the event named `eventName`.
    * The next time `eventName` is triggered, this listener is removed and then invoked.
-   * @param event The name of the event.
+   * @param eventName The name of the event.
    * @param handler The callback function.
    */
   once<K extends keyof BrowserContextEventObj>(
@@ -2176,6 +2174,7 @@ export interface CDPSession extends EventEmitter {
 
   /**
    * @param method Protocol method name
+   * @param params Optional method parameters
    */
   send(method: string, params?: object): Promise<object>;
 }
@@ -2211,7 +2210,7 @@ export interface BrowserFetcher {
   /** The method initiates a HEAD request to check if the revision is available. */
   canDownload(revision: string): Promise<boolean>;
   /** The method initiates a GET request to download the revision from the host. */
-  download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
+  download(revision: string, progressCallback?: (downloadedBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
   localRevisions(): Promise<string[]>;
   platform(): Platform;
   remove(revision: string): Promise<void>;
