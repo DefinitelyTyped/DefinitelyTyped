@@ -29,6 +29,7 @@ export interface LoadableComponentMethods<Props> {
 
 export type LoadableComponent<Props> = React.ComponentType<Props & { fallback?: JSX.Element }> &
     LoadableComponentMethods<Props>;
+
 export type LoadableLibrary<TModule> = React.ComponentType<{
     fallback?: JSX.Element;
     children?: (module: TModule) => React.ReactNode;
