@@ -35,7 +35,7 @@ export interface RenderHookResult<P, R, S> {
 /**
  * Renders a test component that will call the provided `callback`, including any hooks it calls, every time it renders.
  */
-export function renderHook<P, R>(callback: (props: P) => R, options?: RenderHookOptions<P>): RenderHookResult<P, R>;
+export function renderHook<P, R, S>(callback: (props: P) => R, options?: RenderHookOptions<P>): RenderHookResult<P, R, S>;
 
 /**
  * Unmounts any rendered hooks rendered with `renderHook`, ensuring all effects have been flushed.
