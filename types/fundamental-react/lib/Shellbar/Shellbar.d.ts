@@ -72,7 +72,7 @@ export type ShellbarProps = {
 } & { [x: string]: any };
 
 declare class Shellbar extends React.Component<ShellbarProps> {
-    static displayName: "Shellbar"
+    static displayName: "Shellbar";
 }
 
 export default Shellbar;
