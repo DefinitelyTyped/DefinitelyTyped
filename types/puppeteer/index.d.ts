@@ -32,6 +32,7 @@ export type Serializable =
   | string
   | boolean
   | null
+  | bigint
   | JSONArray
   | JSONObject;
 export interface JSONArray extends Array<Serializable> { }
