@@ -23,10 +23,10 @@ export interface WaitOptions {
     suppressErrors?: boolean;
 }
 
-export interface RenderHookResult<P, R, S> {
+export interface RenderHookResult<P, R> {
     readonly result: HookResult<R>;
     readonly waitForNextUpdate: () => Promise<void>;
-    readonly waitForValueToChange: (selector: () => S, options?: WaitOptions) => Promise<void>;
+    readonly waitForValueToChange: (selector: () => any, options?: WaitOptions) => Promise<void>;
     readonly wait: (callback: () => boolean|void, options?: WaitOptions) => Promise<void>;
     readonly unmount: () => boolean;
     readonly rerender: (newProps?: P) => void;
@@ -35,7 +35,7 @@ export interface RenderHookResult<P, R, S> {
 /**
  * Renders a test component that will call the provided `callback`, including any hooks it calls, every time it renders.
  */
-export function renderHook<P, R, S>(callback: (props: P) => R, options?: RenderHookOptions<P>): RenderHookResult<P, R, S>;
+export function renderHook<P, R>(callback: (props: P) => R, options?: RenderHookOptions<P>): RenderHookResult<P, R>;
 
 /**
  * Unmounts any rendered hooks rendered with `renderHook`, ensuring all effects have been flushed.
