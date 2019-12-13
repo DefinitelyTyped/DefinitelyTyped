@@ -36,6 +36,7 @@ export { default as InlineHelp } from "./lib/InlineHelp/InlineHelp";
 export { default as InputGroup } from "./lib/InputGroup/InputGroup";
 export { default as Label } from "./lib/Badge/Label";
 export { default as LayoutGrid } from "./lib/LayoutGrid/LayoutGrid";
+export { default as Link } from "./lib/Link/Link";
 export { default as ListGroup } from "./lib/ListGroup/ListGroup";
 export { default as Status } from "./lib/Badge/Status";
 export {
