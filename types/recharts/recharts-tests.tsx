@@ -1,12 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import {
-    CartesianGrid, Line, LineChart, PieChart, Pie,
-    Sector, XAxis, YAxis, Tooltip, ReferenceLine,
-    ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
-} from 'recharts';
+import { Area, AreaChart, AxisDomain, Bar, BarChart, Brush, CartesianGrid, Customized, Label, LabelList, Legend, Line, LineChart, Pie, PieChart, ReferenceArea, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Sector, Text, Tooltip, XAxis, YAxis, ZAxis } from 'recharts';
 
 interface ComponentState {
     activeIndex: number;
@@ -51,6 +45,9 @@ class Component extends React.Component<{}, ComponentState> {
             { name: 'Group D', value: 200 }
         ];
 
+        const standardDomains:[AxisDomain, AxisDomain] = [0, 'auto'];
+        const customDomains:[AxisDomain, AxisDomain] = [0, 'dataMax + 100'];
+        
         const renderActiveShape = (props: any) => {
             const RADIAN = Math.PI / 180;
             const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
@@ -121,6 +118,32 @@ class Component extends React.Component<{}, ComponentState> {
                             fillOpacity={0.1}
                         />
                         <Customized component={<Text x={0} y={0} width={100} height={20}>Customized element</Text>} />
+                    </LineChart>
+                </ResponsiveContainer>
+                <ResponsiveContainer height={300}>
+                    <LineChart width={500} height={300} data={data}>
+                        <XAxis dataKey="name" domain={standardDomains} >
+                            <Label fontSize="8px">X axis - name</Label>
+                        </XAxis>
+                        <YAxis stroke="#8884d8" domain={customDomains}>
+                            <Label>Y axis</Label>
+                        </YAxis>
+                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
+                        <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Tooltip />
+                        <Brush dataKey="name" />
+                        <Brush dataKey="name" gap={3} />
+                        <Brush dataKey="name" leaveTimeOut={55} />
+                        <ReferenceLine label={"reference"} />
+                        <ReferenceArea
+                            stroke="red"
+                            fill="red"
+                            y2={1}
+                            strokeOpacity={0.2}
+                            fillOpacity={0.1}
+                        />
+                        <Customized component={<Text x={0} y={0} width={100} height={20}>Custom YAxis domain</Text>} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>

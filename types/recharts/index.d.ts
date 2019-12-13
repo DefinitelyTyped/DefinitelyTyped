@@ -944,7 +944,7 @@ export interface XAxisProps extends EventAttributes {
     unit?: string | number;
     // The unique id of x-axis
     xAxisId?: string | number;
-    domain?: Readonly<[AxisDomain, AxisDomain]>;
+    domain?: [AxisDomain, AxisDomain];
     // The key of data displayed in the axis
     dataKey?: DataKey;
     // The width of axis which is usually calculated internally
@@ -1004,7 +1004,7 @@ export interface YAxisProps extends EventAttributes {
     unit?: string | number;
     // The unique id of y-axis
     yAxisId?: string | number;
-    domain?: Readonly<[AxisDomain, AxisDomain]>;
+    domain?: [AxisDomain, AxisDomain];
     // The key of data displayed in the axis
     dataKey?: DataKey;
     // Ticks can be any type when the axis is the type of category
