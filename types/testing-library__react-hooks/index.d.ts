@@ -17,9 +17,15 @@ export interface HookResult<R> {
     readonly error: Error;
 }
 
+export interface WaitOptions {
+    timeout?: number;
+    suppressErrors?: boolean;
+}
+
 export interface RenderHookResult<P, R> {
     readonly result: HookResult<R>;
     readonly waitForNextUpdate: () => Promise<void>;
+    readonly waitForValueToChange: (selector: () => S, options?: WaitOptions) => Promise<void>;
     readonly unmount: () => boolean;
     readonly rerender: (newProps?: P) => void;
 }
