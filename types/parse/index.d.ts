@@ -447,7 +447,7 @@ declare namespace Parse {
         unPinAllWithName(name: string, objects: Object[]): Promise<void>;
     }
     interface ObjectConstructor extends ObjectStatic {
-        new<T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
+        new<T extends Attributes>(className: string, attributes?: T, options?: any): Object<T>;
         new(className?: string, attributes?: Attributes, options?: any): Object;
     }
     const Object: ObjectConstructor;

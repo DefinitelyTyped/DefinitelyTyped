@@ -748,9 +748,6 @@ function testObject() {
         new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
 
         // $ExpectError
-        new Parse.Object<{ example?: string }>('TestObject');
-
-        // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
     }
 
