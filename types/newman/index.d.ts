@@ -173,10 +173,14 @@ export interface NewmanRunExecutionAssertionError {
     test: string;
     message: string;
     stack: string;
-}export interface NewmanRunFailure {
+}
+export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;
+    source: any;
+    parent: any;
+    cursor: any;
 }
 export function run(
     options: NewmanRunOptions,
