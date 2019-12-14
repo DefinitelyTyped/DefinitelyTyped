@@ -16,6 +16,18 @@ interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
+export function setComponentManager<T>(managerId: string, baseClass: T): T;
+export function setComponentManager<T>(managerFactory: (owner: any) => {}, baseClass: T): T;
+export function capabilities(
+  version: string,
+  opts?: {
+    destructor?: boolean;
+    asyncLifecycleCallbacks?: boolean;
+    updateHook?: boolean;
+  }
+): any;
+
+
 /**
  * A component is an isolated piece of UI, represented by a template and an
  * optional class. When a component has a class, its template's `this` value
