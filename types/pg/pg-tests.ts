@@ -181,6 +181,12 @@ pool.on('error', (err, client) => {
     console.error('idle client error', err.message, err.stack);
 });
 
+(async () => {
+    const client = await pool.connect();
+    await client.query('SELECT 1');
+    client.release(true);
+})();
+
 pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
     if (err) {
         console.error('Error executing query', err.stack);

@@ -251,7 +251,7 @@ export class Client extends ClientBase {
 }
 
 export interface PoolClient extends ClientBase {
-    release(err?: Error): void;
+    release(err?: Error | boolean): void;
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
