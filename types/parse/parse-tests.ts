@@ -543,7 +543,12 @@ function test_cloud_functions() {
 class PlaceObject extends Parse.Object {}
 
 function test_geo_points() {
-    const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
+    let point = new Parse.GeoPoint();
+    // $ExpectError
+    point = new Parse.GeoPoint('40.0');
+    point = new Parse.GeoPoint([40.0, -30.0]);
+    point = new Parse.GeoPoint(40.0, -30.0);
+    point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
     const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
 

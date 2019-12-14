@@ -279,7 +279,7 @@ declare namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: any, arg2?: any);
+        constructor(arg1?: number[] | { latitude:number, longitude: number } | number, arg2?: number);
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
