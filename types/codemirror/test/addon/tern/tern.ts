@@ -1,5 +1,8 @@
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/tern/tern";
 
-/// <reference types="../../codemirror/codemirror-tern" />
+const cm = CodeMirror(document.body);
+
 const options: CodeMirror.TernOptions = {
 
     completionTip: (data) => {

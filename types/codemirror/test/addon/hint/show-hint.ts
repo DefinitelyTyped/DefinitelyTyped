@@ -1,7 +1,8 @@
-/// <reference types="../../codemirror/codemirror-showhint" />
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/hint/show-hint";
 
-var cm = CodeMirror(document.body, {value: 'text'});
-var pos = new CodeMirror.Pos(2, 3);
+const cm = CodeMirror(document.body, {value: 'text'});
+const pos = new CodeMirror.Pos(2, 3);
 CodeMirror.showHint(cm);
 CodeMirror.showHint(cm, function (cm) {
     return {
@@ -31,7 +32,7 @@ CodeMirror.showHint(cm, function (cm) {
         to: pos
     };
 });
-var asyncHintFunc : CodeMirror.AsyncHintFunction =
+const asyncHintFunc : CodeMirror.AsyncHintFunction =
     (cm: CodeMirror.Editor, callback: (hints: CodeMirror.Hints) => any) => {
         callback({
             from: pos,
