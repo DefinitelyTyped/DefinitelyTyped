@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Config {
-  constructor(filePath: string);
-  load(): Promise<any>;
-  settings: any;
+    constructor(filePath: string);
+    load(): Promise<any>;
+    settings: any;
 }
