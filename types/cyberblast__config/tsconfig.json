@@ -15,7 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "paths": {
+          "@cyberblast/config": ["cyberblast__config"]
+        }
     },
     "files": [
         "index.d.ts",
