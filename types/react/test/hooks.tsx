@@ -160,6 +160,9 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     }, []);
     React.useEffect(() => {
         dispatch({ type: 'getOlder' });
+        // $ExpectError
+        dispatch();
+
         simpleDispatch();
         setState(reducerState.age);
     }, []);
