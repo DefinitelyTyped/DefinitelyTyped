@@ -5,6 +5,6 @@
 
 export class Config {
     constructor(filePath: string);
-    load(): Promise<any>;
-    settings: any;
+    load(): Promise<{ [key: string]: any }>;
+    settings: { [key: string]: any };
 }
