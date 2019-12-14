@@ -19,7 +19,7 @@
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -279,7 +279,7 @@ declare namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: number[] | { latitude:number, longitude: number } | number, arg2?: number);
+        constructor(arg1?: number[] | { latitude: number, longitude: number } | number, arg2?: number);
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
@@ -572,9 +572,9 @@ declare namespace Parse {
         static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
         static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
-        addAscending<K extends Extract<keyof T['attributes'], string>>(...key: K[]): this;
-        addDescending<K extends Extract<keyof T['attributes'], string>>(...key:K[]): this;
-        ascending<K extends Extract<keyof T['attributes'], string>>(...key: K[]): this;
+        addAscending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
+        addDescending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
+        ascending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
         containedBy<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
         containedIn<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
@@ -582,7 +582,7 @@ declare namespace Parse {
         containsAll<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
         containsAllStartingWith<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
         count(options?: Query.CountOptions): Promise<number>;
-        descending<K extends Extract<keyof T['attributes'], string>>(...key: K[]): this;
+        descending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
         doesNotExist<K extends Extract<keyof T['attributes'], string>>(key: K): this;
         doesNotMatchKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, queryKey: string, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, query: Query<U>): this;
@@ -600,7 +600,7 @@ declare namespace Parse {
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
         greaterThanOrEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        include<K extends Extract<keyof T['attributes'], string>>(...key: K[]): this;
+        include<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
         includeAll(): Query<T>;
         lessThan<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
         lessThanOrEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;

@@ -656,7 +656,7 @@ function test_polygon() {
 
     const query = new Parse.Query('TestObject');
     query.polygonContains('key', point);
-    query.withinPolygon('key', [point, point, point]);
+    query.withinPolygon('key', [[0, 0], [1, 0], [1, 1], [0, 1]]);
 }
 
 async function test_local_datastore() {
@@ -1147,17 +1147,17 @@ function testQuery() {
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
-        query.addAscending('attribute1', 'attribute2');
+        query.addAscending(['attribute1', 'attribute2']);
         // $ExpectError
         query.addAscending('attribute1', 'unexistenProp');
 
         // $ExpectType Query<MySubClass>
-        query.addDescending('attribute1', 'attribute2');
+        query.addDescending(['attribute1', 'attribute2']);
         // $ExpectError
         query.addDescending('attribute1', 'unexistenProp');
 
         // $ExpectType Query<MySubClass>
-        query.ascending('attribute1', 'attribute2');
+        query.ascending(['attribute1', 'attribute2']);
         // $ExpectError
         query.ascending('attribute1', 'nonexistentProp');
 
@@ -1187,7 +1187,7 @@ function testQuery() {
         query.containsAllStartingWith('nonexistentProp', ['a', 'b', 'c']);
 
         // $ExpectType Query<MySubClass>
-        query.descending('attribute1', 'attribute2');
+        query.descending(['attribute1', 'attribute2']);
         // $ExpectError
         query.descending('attribute1', 'nonexistentProp');
 
@@ -1238,9 +1238,9 @@ function testQuery() {
         query.greaterThanOrEqualTo('nonexistentProp', 1000);
 
         // $ExpectType Query<MySubClass>
-        query.include('attribute1', 'attribute2');
+        query.include(['attribute1', 'attribute2']);
         // $ExpectError
-        query.include('nonexistentProp');
+        query.include(['attribute1', 'nonexistentProp']);
 
         // $ExpectType Query<MySubClass>
         query.lessThan('attribute1', 1000);
