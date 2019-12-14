@@ -146,5 +146,13 @@ wx.updateAppMessageShareData({
 wx.updateTimelineShareData({
     title: '',
     link: '',
-    imageUrl: ''
+    imgUrl: ''
 });
+
+wx.openAddress({
+    success: (res) => {
+        console.log(res.userName);
+    },
+});
+
+console.log(window.__wxjs_is_wkwebview);

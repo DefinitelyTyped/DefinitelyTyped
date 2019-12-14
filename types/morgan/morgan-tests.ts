@@ -64,7 +64,7 @@ interface ExtendedFormatFn extends morgan.FormatFn {
   memoizer: FormatFnIndexer;
 }
 
-const developmentExtendedFormatLine = ((tokens, req, res): string => {
+const developmentExtendedFormatLine = ((tokens, req, res): string | undefined | null => {
   // get the status code if response written
   const status = res.statusCode;
 

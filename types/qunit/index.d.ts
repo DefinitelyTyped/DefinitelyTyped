@@ -1,7 +1,8 @@
-// Type definitions for QUnit v2.5.0
+// Type definitions for QUnit v2.9.2
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
+//                 Stefan Sechelmann <https://github.com/sechel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Assert {
@@ -368,6 +369,10 @@ interface NestedHooks {
 
 }
 
+type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
+type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
+type ModuleOnly = { only: moduleFunc1 & moduleFunc2 }
+
 declare namespace QUnit {
     interface BeginDetails { totalTests: number }
     interface DoneDetails { failed: number, passed: number, total: number, runtime: number }
@@ -519,8 +524,7 @@ interface QUnit {
      * @param hookds Callbacks to run during test execution
      * @param nested A callback with grouped tests and nested modules to run under the current module label
      */
-    module(name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void): void;
-    module(name: string, nested?: (hooks: NestedHooks) => void): void;
+    module: moduleFunc1 & moduleFunc2 & ModuleOnly;
 
     /**
      * Register a callback to fire whenever a module ends.

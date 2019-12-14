@@ -1,14 +1,17 @@
-// Type definitions for React Google Recaptcha 1.0
+// Type definitions for React Google Recaptcha 1.1
 // Project: https://github.com/dozoisch/react-google-recaptcha
 // Definitions by: Koala Human <https://github.com/KoalaHuman>
 //                 Tom Sturge <https://github.com/tomsturge>
 //                 Max Bo <https://github.com/MaxwellBo>
+//                 Meir Keller <https://github.com/meirkl>
+//                 Florian Roher <https://github.com/RohrerF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export default ReCAPTCHA;
+export { ReCAPTCHA };
 
 declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
 	/**
@@ -48,7 +51,13 @@ export interface ReCAPTCHAProps {
 	 * 	It will also be called with null, when captcha expires
 	 *  @param token string or null
 	 */
-	onChange?: (token: string|null) => void;
+    onChange?: (token: string|null) => void;
+
+    /**
+     *  if you are using the barebone component you need to provide access  to the google grecaptcha object.
+     */
+    grecaptcha?: object;
+
 	/**
 	 *  Optional light or dark theme of the widget
 	 *  @default "light"
@@ -79,6 +88,10 @@ export interface ReCAPTCHAProps {
 	 *  @see reCAPTCHA secure-token
 	 */
 	stoken?: string;
+	/**
+	 *  Optional. Forces the widget to render in a specific language. Auto-detects the user's language if unspecified.
+	 */
+	hl?: string;
 	/**
 	 *  Optional compact, normal or invisible. This allows you to change the size or do an invisible captcha
 	 */

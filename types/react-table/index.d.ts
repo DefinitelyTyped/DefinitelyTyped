@@ -5,6 +5,7 @@
 //                 Krzysztof Porębski <https://github.com/Havret>,
 //                 Andy S <https://github.com/andys8>,
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
+//                 Cam Pepin <https://github.com/cpepin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
@@ -317,19 +318,10 @@ export interface ComponentDecoratorProps {
     getTbodyProps: ComponentPropsGetter0;
     getTrGroupProps: ComponentPropsGetterR | ComponentPropsGetter0;
     getTrProps: ComponentPropsGetterR | ComponentPropsGetter0;
-
-    /**
-     * @TODO not exists in react-table but in the docs
-     */
-    // getThProps: ComponentPropsGetter
     getTdProps: ComponentPropsGetterRC | ComponentPropsGetterR;
     getTfootProps: ComponentPropsGetter0;
     getTfootTrProps: ComponentPropsGetter0;
-
-    /**
-     * @TODO not exists in react-table but in the docs
-     */
-    // getTfootThProps: ComponentPropsGetter
+    getTfootTdProps: ComponentPropsGetterC;
     getPaginationProps: ComponentPropsGetter0;
     getLoadingProps: ComponentPropsGetter0;
     getNoDataProps: ComponentPropsGetter0;
@@ -712,7 +704,6 @@ export interface FinalState<D = any> extends TableProps<D> {
     frozen: boolean;
     startRow: number;
     endRow: number;
-    pageRows: number;
     padRows: number;
     hasColumnFooter: boolean;
     hasHeaderGroups: boolean;
@@ -722,6 +713,7 @@ export interface FinalState<D = any> extends TableProps<D> {
 
     allVisibleColumns: Array<Column<D>>;
     allDecoratedColumns: Array<Column<D>>;
+    pageRows: DerivedDataObject[];
     resolvedData: DerivedDataObject[];
     sortedData: DerivedDataObject[];
     headerGroups: any[];

@@ -34,14 +34,14 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
     onSelect?(value: OnSelectCallbackParam): void;
-    onSelectStart?(value: momentRange.MomentRangeExtends): void;
+    onSelectStart?(value: momentRange.MomentRange & typeof moment): void;
     paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
     selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
+    value?: (momentRange.MomentRange & typeof moment) | momentRange.DateRange | moment.Moment;
 }
 
 export interface DateState {

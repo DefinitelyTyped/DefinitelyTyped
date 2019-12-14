@@ -11,6 +11,7 @@
 // Import from dependencies
 import { Stream } from 'stream';
 import EventEmitter = NodeJS.EventEmitter;
+import { AgentOptions } from 'https';
 
 // Exports only from typings
 export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1'|string;
@@ -26,6 +27,7 @@ export interface ClientOptions {
     region?: Region;
     transport?: any;
     sessionToken?: string;
+    partSize?: number;
 }
 
 export interface BucketItemFromList {
@@ -62,6 +64,7 @@ export interface IncompleteUploadedBucketItem {
 export interface BucketStream<T> extends Stream {
     on(event: 'data', listener: (item: T) => void): this;
     on(event: 'error', listener: (error: Error) => void): this;
+    on(event: 'end', listener: () => void): this;
 }
 
 export interface PostPolicyResult {
@@ -102,7 +105,7 @@ export class Client {
 
     listObjects(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<BucketItem>;
 
-    listObjectsV2(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<BucketItem>;
+    listObjectsV2(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItem>;
 
     listIncompleteUploads(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<IncompleteUploadedBucketItem>;
 
@@ -121,6 +124,7 @@ export class Client {
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
 
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
@@ -144,11 +148,14 @@ export class Client {
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry?: number, reqParams?: { [key: string]: any; }): Promise<string>;
+    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
+    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry?: number, reqParams?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
 
     presignedGetObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedGetObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry?: number): Promise<string>;
+    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, callback: ResultCallback<string>): void;
+    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
+    presignedGetObject(bucketName: string, objectName: string, expiry?: number, respHeaders?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
 
     presignedPutObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedPutObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
@@ -178,6 +185,7 @@ export class Client {
 
     // Other
     newPostPolicy(): PostPolicy;
+    setRequestOptions(otpions: AgentOptions): void;
 }
 
 export namespace Policy {

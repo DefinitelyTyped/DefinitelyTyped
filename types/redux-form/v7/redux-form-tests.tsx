@@ -160,7 +160,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent = ({
+const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
     children
 }) => null;
 
@@ -171,18 +171,16 @@ interface MyFieldValue {
 }
 interface MyFieldArrayCustomProps {
     foo: string;
+    bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps> = ({
+const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
-    foo
+    fields,
+    foo,
+    bar
 }) => null;
 
-type MyFieldArrayProps = MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>;
-const MyFieldArray: React.StatelessComponent<MyFieldArrayProps> = ({
-    children,
-    fields
-}) => null;
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
@@ -329,11 +327,24 @@ const Test = reduxForm<TestFormData>({
                                 component={ MyArrayField }
                             />
 
+                            {/* Passing child props via explicit props arg (TS-preferable)*/}
+                            <FieldArrayCustom
+                                name="field10"
+                                component={ MyCustomArrayField }
+                                props={{
+                                    foo: 'bar',
+                                    bar: 123
+                                }}
+                            />
+
+                            {/* Passing child props via extra props passed to parent */}
                             <FieldArrayCustom
                                 name="field10"
                                 component={ MyCustomArrayField }
                                 foo="bar"
+                                bar={23}
                             />
+
                         </FormSection>
                     </FormCustom>
                 </div>

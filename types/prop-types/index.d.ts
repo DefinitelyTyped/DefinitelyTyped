@@ -31,15 +31,17 @@ export type ReactNodeLike =
 
 export const nominalTypeHack: unique symbol;
 
-export type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false;
+export type IsOptional<T> = undefined extends T ? true : false;
 
 export type RequiredKeys<V> = { [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
 export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
+    (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
+    [nominalTypeHack]?: {
+        type: T;
+    };
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
@@ -65,7 +67,7 @@ export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
 export const elementType: Requireable<ReactComponentLike>;
 export function instanceOf<T>(expectedClass: new (...args: any[]) => T): Requireable<T>;
-export function oneOf<T>(types: T[]): Requireable<T>;
+export function oneOf<T>(types: ReadonlyArray<T>): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
@@ -79,8 +81,8 @@ export function exact<P extends ValidationMap<any>>(type: P): Requireable<Requir
  * @param typeSpecs Map of name to a ReactPropType
  * @param values Runtime values that need to be type-checked
  * @param location e.g. "prop", "context", "child context"
- * @param componentName Name of the component for error messages.
- * @param getStack Returns the component stack.
+ * @param componentName Name of the component for error messages
+ * @param getStack Returns the component stack
  */
 export function checkPropTypes(typeSpecs: any, values: any, location: string, componentName: string, getStack?: () => any): void;
 

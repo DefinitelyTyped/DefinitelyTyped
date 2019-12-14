@@ -14,15 +14,16 @@ export interface ValidationParams {
 
 // const ValidationRule
 export interface ValidationRule {
+    (...params: any[]): boolean
     $params(): ValidationParams
     $pending(): boolean
 }
 
-export type CustomRule = (value: any, parentVm?: any) => boolean
+export type CustomRule = (value: any, parentVm?: any) => boolean | Promise<boolean>
 
 export interface Helpers {
     withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
-    req(value: any): ValidationRule
+    req(value: any): boolean
     ref(reference: string | ((vm: any, parentVm?: Vue) => any), vm: any, parentVm?: Vue): any
     len(value: any): number
     regex(type: string, expr: RegExp): ValidationRule

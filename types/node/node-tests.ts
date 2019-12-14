@@ -4,281 +4,14 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
-import * as string_decoder from "string_decoder";
 import * as timers from "timers";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
+import * as dgram from "dgram";
 import Module = require("module");
-
-////////////////////////////////////////////////////
-/// File system tests : http://nodejs.org/api/fs.html
-////////////////////////////////////////////////////
-
-{
-    {
-        fs.writeFile("thebible.txt",
-            "Do unto others as you would have them do unto you.",
-            assert.ifError);
-
-        fs.write(1234, "test", () => { });
-
-        fs.writeFile("Harry Potter",
-            "\"You be wizzing, Harry,\" jived Dumbledore.",
-            {
-                encoding: "ascii"
-            },
-            assert.ifError);
-
-        fs.writeFile("testfile", "content", "utf8", assert.ifError);
-
-        fs.writeFileSync("testfile", "content", "utf8");
-        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
-        fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
-    }
-
-    {
-        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
-        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
-        fs.appendFileSync("testfile", "foobar", "utf8");
-        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
-    }
-
-    {
-        let content: string;
-        let buffer: Buffer;
-        let stringOrBuffer: string | Buffer;
-        const nullEncoding: string | null = null;
-        const stringEncoding: string | null = 'utf8';
-
-        content = fs.readFileSync('testfile', 'utf8');
-        content = fs.readFileSync('testfile', { encoding: 'utf8' });
-        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
-        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
-
-        buffer = fs.readFileSync('testfile');
-        buffer = fs.readFileSync('testfile', null);
-        buffer = fs.readFileSync('testfile', { encoding: null });
-        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
-        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
-
-        buffer = fs.readFileSync('testfile', { flag: 'r' });
-
-        fs.readFile('testfile', 'utf8', (err, data) => content = data);
-        fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
-        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
-        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
-
-        fs.readFile('testfile', (err, data) => buffer = data);
-        fs.readFile('testfile', null, (err, data) => buffer = data);
-        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
-        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
-        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
-
-        fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
-    }
-
-    {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
-    }
-
-    {
-        fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
-    }
-
-    {
-        let errno: number;
-        fs.readFile('testfile', (err, data) => {
-            if (err && err.errno) {
-                errno = err.errno;
-            }
-        });
-    }
-
-    {
-        let listS: string[];
-        listS = fs.readdirSync('path');
-        listS = fs.readdirSync('path', { encoding: 'utf8' });
-        listS = fs.readdirSync('path', { encoding: null });
-        listS = fs.readdirSync('path', { encoding: undefined }) as string[];
-        listS = fs.readdirSync('path', 'utf8');
-        listS = fs.readdirSync('path', null);
-        listS = fs.readdirSync('path', undefined);
-        const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
-        const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
-
-        let listB: Buffer[];
-        listB = fs.readdirSync('path', { encoding: 'buffer' });
-        listB = fs.readdirSync("path", 'buffer');
-
-        const enc = 'buffer';
-        fs.readdirSync('path', { encoding: enc });
-        fs.readdirSync('path', { });
-
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
-    }
-    {
-        fs.mkdtemp('/tmp/foo-', (err, folder) => {
-            console.log(folder);
-            // Prints: /tmp/foo-itXde2
-        });
-    }
-
-    {
-        let tempDir: string;
-        tempDir = fs.mkdtempSync('/tmp/foo-');
-    }
-
-    {
-        fs.watch('/tmp/foo-', (event, filename) => {
-            console.log(event, filename);
-        });
-
-        fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-            console.log(event, filename);
-        });
-
-        fs.watch('/tmp/foo-', {
-            recursive: true,
-            persistent: true,
-            encoding: 'utf8'
-        }, (event, filename) => {
-            console.log(event, filename);
-        });
-    }
-
-    {
-        fs.access('/path/to/folder', (err) => { });
-
-        fs.access(Buffer.from(''), (err) => { });
-
-        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => { });
-
-        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => { });
-
-        fs.accessSync('/path/to/folder');
-
-        fs.accessSync(Buffer.from(''));
-
-        fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
-
-        fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
-    }
-
-    {
-        let s = '123';
-        let b: Buffer;
-        fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
-        fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
-        fs.readlink('/path/to/folder', {}, (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
-        fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
-        fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
-
-        s = fs.readlinkSync('/path/to/folder');
-        s = fs.readlinkSync('/path/to/folder', undefined);
-        s = fs.readlinkSync('/path/to/folder', 'utf8');
-        b = fs.readlinkSync('/path/to/folder', 'buffer');
-        const v1 = fs.readlinkSync('/path/to/folder', s);
-        typeof v1 === "string" ? s = v1 : b = v1;
-
-        s = fs.readlinkSync('/path/to/folder', {});
-        s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
-        s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
-        b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
-        const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
-        typeof v2 === "string" ? s = v2 : b = v2;
-    }
-
-    {
-        let s = '123';
-        let b: Buffer;
-        fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-        fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
-        fs.realpath('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-        fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
-
-        s = fs.realpathSync('/path/to/folder');
-        s = fs.realpathSync('/path/to/folder', undefined);
-        s = fs.realpathSync('/path/to/folder', 'utf8');
-        b = fs.realpathSync('/path/to/folder', 'buffer');
-        const v1 = fs.realpathSync('/path/to/folder', s);
-        typeof v1 === "string" ? s = v1 : b = v1;
-
-        s = fs.realpathSync('/path/to/folder', {});
-        s = fs.realpathSync('/path/to/folder', { encoding: undefined });
-        s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
-        b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
-        const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
-        typeof v2 === "string" ? s = v2 : b = v2;
-
-        // native
-        fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-        fs.realpath.native('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
-        fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
-        fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-        fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
-
-        s = fs.realpathSync.native('/path/to/folder');
-        s = fs.realpathSync.native('/path/to/folder', undefined);
-        s = fs.realpathSync.native('/path/to/folder', 'utf8');
-        b = fs.realpathSync.native('/path/to/folder', 'buffer');
-        const v3 = fs.realpathSync.native('/path/to/folder', s);
-        typeof v3 === "string" ? s = v3 : b = v3;
-
-        s = fs.realpathSync.native('/path/to/folder', {});
-        s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
-        s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
-        b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
-        const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
-        typeof v4 === "string" ? s = v4 : b = v4;
-    }
-
-    {
-        fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
-        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
-        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE, (err) => console.error(err));
-        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE, (err) => console.error(err));
-
-        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
-        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE);
-        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE);
-
-        const cf = util.promisify(fs.copyFile);
-        cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
-    }
-
-    {
-        fs.mkdir('some/test/path', {
-            recursive: true,
-            mode: 0o777,
-        }, () => {
-        });
-
-        fs.mkdirSync('some/test/path', {
-            recursive: true,
-            mode: 0o777,
-        });
-    }
-}
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -517,101 +250,41 @@ import Module = require("module");
     }
 }
 
-////////////////////////////////////////////////////
-/// string_decoder tests : https://nodejs.org/api/string_decoder.html
-////////////////////////////////////////////////////
-
-{
-    const StringDecoder = string_decoder.StringDecoder;
-    const buffer = new Buffer('test');
-    const decoder1 = new StringDecoder();
-    const decoder2 = new StringDecoder('utf8');
-    const part1: string = decoder1.write(new Buffer('test'));
-    const end1: string = decoder1.end();
-    const part2: string = decoder2.write(new Buffer('test'));
-    const end2: string = decoder1.end(new Buffer('test'));
-}
-
-////////////////////////////////////////////////////
-/// vm tests : https://nodejs.org/api/vm.html
-////////////////////////////////////////////////////
-
-{
-    {
-        const sandbox = {
-            animal: 'cat',
-            count: 2
-        };
-
-        const context = vm.createContext(sandbox);
-        console.log(vm.isContext(context));
-        const script = new vm.Script('count += 1; name = "kitty"');
-
-        for (let i = 0; i < 10; ++i) {
-            script.runInContext(context);
-        }
-
-        console.log(util.inspect(sandbox));
-
-        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
-        console.log(util.inspect(sandbox));
-    }
-
-    {
-        const sandboxes = [{}, {}, {}];
-
-        const script = new vm.Script('globalVar = "set"');
-
-        sandboxes.forEach((sandbox) => {
-            script.runInNewContext(sandbox);
-            script.runInThisContext();
-        });
-
-        console.log(util.inspect(sandboxes));
-
-        const localVar = 'initial value';
-        vm.runInThisContext('localVar = "vm";');
-
-        console.log(localVar);
-    }
-
-    {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
-    }
-
-    {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
-    }
-}
-
 /////////////////////////////////////////////////////
 /// Timers tests : https://nodejs.org/api/timers.html
 /////////////////////////////////////////////////////
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        const b: boolean = immediate.hasRef();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -755,22 +428,22 @@ import Module = require("module");
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -782,17 +455,17 @@ import Module = require("module");
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException = err;
+            const _err: NodeJS.ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -800,13 +473,13 @@ import Module = require("module");
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
@@ -1000,7 +673,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;
@@ -1078,7 +750,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();
@@ -1121,7 +793,7 @@ import * as constants from 'constants';
 ///////////////////////////////////////////////////////////
 
 {
-    const enabledCategories: string = trace_events.getEnabledCategories();
+    const enabledCategories: string | undefined = trace_events.getEnabledCategories();
     const tracing: trace_events.Tracing = trace_events.createTracing({ categories: ['node', 'v8'] });
     const categories: string = tracing.categories;
     const enabled: boolean = tracing.enabled;
@@ -1146,7 +818,124 @@ import moduleModule = require('module');
     let paths: string[] = module.paths;
     paths = m1.paths;
 
-    moduleModule.createRequireFromPath('./test')('test');
+    const customRequire1 = moduleModule.createRequireFromPath('./test');
+    const customRequire2 = moduleModule.createRequire('./test');
+
+    customRequire1('test');
+    customRequire2('test');
+
+    const resolved1: string = customRequire1.resolve('test');
+    const resolved2: string = customRequire2.resolve('test');
+
+    const paths1: string[] | null  = customRequire1.resolve.paths('test');
+    const paths2: string[] | null  = customRequire2.resolve.paths('test');
+
+    const cachedModule1: Module = customRequire1.cache['/path/to/module.js'];
+    const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
+
+    const main1: Module | undefined = customRequire1.main;
+    const main2: Module | undefined = customRequire2.main;
+}
+
+/////////////////////////////////////////////////////////
+/// stream tests : https://nodejs.org/api/stream.html ///
+/////////////////////////////////////////////////////////
+import stream = require('stream');
+import tty = require('tty');
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+
+    const x: stream.Readable = process.stdin;
+    const stdin: tty.ReadStream = process.stdin;
+    const stdout: tty.WriteStream = process.stdout;
+    const stderr: tty.WriteStream = process.stderr;
+}
+
+/////////////////////////////////////////////////////////
+/// dgram tests : https://nodejs.org/api/dgram.html ///
+/////////////////////////////////////////////////////////
+{
+    let sock: dgram.Socket = dgram.createSocket("udp4");
+    sock = dgram.createSocket({ type: "udp4" });
+    sock = dgram.createSocket({
+        type: "udp4",
+        reuseAddr: true,
+        ipv6Only: false,
+        recvBufferSize: 4096,
+        sendBufferSize: 4096,
+        lookup: dns.lookup,
+    });
+    sock = dgram.createSocket("udp6", (msg, rinfo) => {
+        msg; // $ExpectType Buffer
+        rinfo; // $ExpectType RemoteInfo
+    });
+    sock.addMembership("233.252.0.0");
+    sock.addMembership("233.252.0.0", "192.0.2.1");
+    sock.address().address; // $ExpectType string
+    sock.address().family; // $ExpectType string
+    sock.address().port; // $ExpectType number
+    sock.bind();
+    sock.bind(() => undefined);
+    sock.bind(8000);
+    sock.bind(8000, () => undefined);
+    sock.bind(8000, "192.0.2.1");
+    sock.bind(8000, "192.0.2.1", () => undefined);
+    sock.bind({}, () => undefined);
+    sock.bind({ port: 8000, address: "192.0.2.1", exclusive: true });
+    sock.bind({ fd: 7, exclusive: true });
+    sock.close();
+    sock.close(() => undefined);
+    sock.connect(8000);
+    sock.connect(8000, "192.0.2.1");
+    sock.connect(8000, () => undefined);
+    sock.connect(8000, "192.0.2.1", () => undefined);
+    sock.disconnect();
+    sock.dropMembership("233.252.0.0");
+    sock.dropMembership("233.252.0.0", "192.0.2.1");
+    sock.getRecvBufferSize(); // $ExpectType number
+    sock.getSendBufferSize(); // $ExpectType number
+    sock = sock.ref();
+    sock.remoteAddress().address; // $ExpectType string
+    sock.remoteAddress().family; // $ExpectType string
+    sock.remoteAddress().port; // $ExpectType number
+    sock.send("datagram");
+    sock.send(new Uint8Array(256), 8000, (err) => {
+        err; // $ExpectType Error | null
+    });
+    sock.send(Buffer.alloc(256), 8000, "192.0.2.1");
+    sock.send(new Uint8Array(256), 128, 64);
+    sock.send("datagram", 128, 64, (err) => undefined);
+    sock.send(new Uint8Array(256), 128, 64, 8000);
+    sock.send(new Uint8Array(256), 128, 64, 8000, (err) => undefined);
+    sock.send(Buffer.alloc(256), 128, 64, 8000, "192.0.2.1");
+    sock.send("datagram", 128, 64, 8000, "192.0.2.1", (err) => undefined);
+    sock.setBroadcast(true);
+    sock.setMulticastInterface("192.0.2.1");
+    sock.setMulticastLoopback(false);
+    sock.setMulticastTTL(128);
+    sock.setRecvBufferSize(4096);
+    sock.setSendBufferSize(4096);
+    sock.setTTL(128);
+    sock = sock.unref();
+
+    sock.on("close", () => undefined);
+    sock.on("connect", () => undefined);
+    sock.on("error", (exception) => {
+        exception; // $ExpectType Error
+    });
+    sock.on("listening", () => undefined);
+    sock.on("message", (msg, rinfo) => {
+        msg; // $ExpectType Buffer
+        rinfo.address; // $ExpectType string
+        rinfo.family; // $ExpectType "IPv4" | "IPv6"
+        rinfo.port; // $ExpectType number
+        rinfo.size; // $ExpectType number
+    });
 }
 
 ////////////////////////////////////////////////////

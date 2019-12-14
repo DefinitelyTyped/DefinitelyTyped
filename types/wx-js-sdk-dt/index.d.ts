@@ -1,6 +1,7 @@
 // Type definitions for non-npm package wx-js-sdk 1.4
 // Project: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
 // Definitions by: Bian Zhongjie <https://github.com/agasbzj>
+//                 Ming Huang <https://github.com/forzoom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wx {
@@ -181,7 +182,7 @@ declare namespace wx {
         /**
          * 分享图标
          */
-        imageUrl?: string;
+        imgUrl?: string;
 
         success?: () => void;
     }
@@ -713,4 +714,40 @@ declare namespace wx {
      * 发起一个微信支付请求
      */
     function chooseWXPay(config: ChooseWXPayConfig): void;
-  }
+
+    /**
+     * openAddress的返回数据
+     */
+    interface OpenAddressResponse {
+        errMsg: string;
+        userName: string; // 收货人姓名
+        postalCode: string; // 邮编
+        provinceName: string; // 国标收货地址第一级地址（省）
+        cityName: string; // 国标收货地址第二级地址（市）
+        countryName: string; // 国标收货地址第三级地址（国家）
+        detailInfo: string; // 详细收货地址信息
+        nationalCode: string; // 收货地址国家码
+        telNumber: string; // 收货人手机号码
+    }
+    /**
+     * openAddress的调用参数
+     */
+    interface OpenAddressConfig extends WxBaseRequestConfig {
+        /**
+         * 成功回调
+         */
+        success?(res: OpenAddressResponse): void;
+    }
+
+    /**
+     * 快速输入共享收货地址接口
+     */
+    function openAddress(config: OpenAddressConfig): void;
+}
+
+interface Window {
+    /**
+     * iOS微信6.5.3及其之后的版本 window.__wxjs_is_wkwebview 为true时是使用WKWebview，为 false或者 “undefine”时是 UIWebview
+     */
+    __wxjs_is_wkwebview?: boolean;
+}

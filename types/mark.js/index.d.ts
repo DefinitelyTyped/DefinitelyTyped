@@ -3,6 +3,7 @@
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 //                 Roman Hotsiy <https://github.com/RomanGotsiy>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Joao Lourenco <https://github.com/blackstarzes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,12 +12,17 @@
 declare namespace Mark {
     type MarkAccuracy = 'partially' | 'complementary' | 'exactly';
 
+    interface MarkAccuracyObject {
+        value: MarkAccuracy;
+        limiters?: string[];
+    }
+
     interface MarkOptions {
         element?: string;
         className?: string;
         exclude?: string[];
         separateWordSearch?: boolean;
-        accuracy?: MarkAccuracy | { value: MarkAccuracy };
+        accuracy?: MarkAccuracy | MarkAccuracyObject;
         diacritics?: boolean;
         synonyms?: { [index: string]: string };
         iframes?: boolean;
@@ -53,6 +59,25 @@ declare namespace Mark {
         acrossElements?: boolean;
         ignoreGroups?: number;
         each?(element: Element): void;
+        filter?(
+            textNode: Element,
+            term: string,
+            marksSoFar: number,
+            marksTotal: number
+        ): boolean;
+        noMatch?(term: string): void;
+        done?(marksTotal: number): void;
+        debug?: boolean;
+        log?: object;
+    }
+
+    interface MarkRangesOptions {
+        element?: string;
+        className?: string;
+        exclude?: string[];
+        iframes?: boolean;
+        iframesTimeout?: number;
+        each?(element: Element, range: Range): void;
         filter?(
             textNode: Element,
             term: string,
@@ -118,7 +143,7 @@ declare class Mark {
      */
     markRanges(
         ranges: ReadonlyArray<Mark.Range>,
-        options?: Mark.MarkOptions
+        options?: Mark.MarkRangesOptions
     ): void;
 
     /**

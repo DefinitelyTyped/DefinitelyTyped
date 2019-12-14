@@ -29,7 +29,7 @@ export interface SerializerOptions {
     pluralizeType?: boolean;
     typeForAttribute?: TypeForAttribute;
     meta?: object;
-    transform?: (() => void);
+    transform?: Transform;
 }
 
 export interface KeyForAttribute {
@@ -54,7 +54,8 @@ export interface DeserializerOptions {
         | "underscore_case"
         | "snake_case"
         | "camelCase"
-        | "CamelCase";
+        | "CamelCase"
+        | KeyForAttribute;
     pluralizeType?: boolean;
     typeAsAttribute?: boolean;
     transform?: Transform;

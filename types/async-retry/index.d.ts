@@ -10,7 +10,7 @@ import { OperationOptions } from 'retry';
 
 declare function AsyncRetry<A>(
 	fn: AsyncRetry.RetryFunction<A>,
-	opts: AsyncRetry.Options
+	opts?: AsyncRetry.Options
 ): Promise<A>;
 
 declare namespace AsyncRetry {

@@ -3,12 +3,12 @@
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
 
 declare namespace morgan {
-    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string;
+    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string | undefined | null;
 
     type TokenCallbackFn = (req: express.Request, res: express.Response, arg?: string | number | boolean) => string;
 

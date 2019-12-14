@@ -5,6 +5,9 @@ http.request({
     path: '/a/b',
     port: 8000,
     maxRedirects: 12,
+    beforeRedirect: (options) => {
+        options.followRedirects = false;
+    }
 }, (response) => {
     console.log(response.responseUrl, response.redirects);
     response.on('data', (chunk) => {

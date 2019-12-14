@@ -1,10 +1,11 @@
-// Type definitions for node-telegram-bot-api 0.30
+// Type definitions for node-telegram-bot-api 0.40
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
 //                 Kallu609 <https://github.com/Kallu609>
 //                 XC-Zhang <https://github.com/XC-Zhang>
+//                 AdityaThebe <https://github.com/adityathebe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -78,9 +79,9 @@ declare namespace TelegramBot {
     interface WebHookOptions {
         host?: string;
         port?: number;
-        key: string;
-        cert: string;
-        pfx: string;
+        key?: string;
+        cert?: string;
+        pfx?: string;
         autoOpen?: boolean;
         https?: ServerOptions;
         healthEndpoint?: string;
@@ -319,11 +320,17 @@ declare namespace TelegramBot {
         username?: string;
         first_name?: string;
         last_name?: string;
-        all_members_are_administrators?: boolean;
         photo?: ChatPhoto;
         description?: string;
         invite_link?: string;
         pinned_message?: Message;
+        permissions?: ChatPermissions;
+        can_set_sticker_set?: boolean;
+        sticker_set_name?: string;
+        /**
+         * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
+         */
+        all_members_are_administrators?: boolean;
     }
 
     interface Message {
@@ -335,14 +342,18 @@ declare namespace TelegramBot {
         forward_from_chat?: Chat;
         forward_from_message_id?: number;
         forward_signature?: string;
+        forward_sender_name?: string;
         forward_date?: number;
         reply_to_message?: Message;
         edit_date?: number;
+        media_group_id?: string;
         author_signature?: string;
         text?: string;
         entities?: MessageEntity[];
+        caption_entities?: MessageEntity[];
         audio?: Audio;
         document?: Document;
+        animation?: Animation;
         game?: Game;
         photo?: PhotoSize[];
         sticker?: Sticker;
@@ -353,6 +364,7 @@ declare namespace TelegramBot {
         contact?: Contact;
         location?: Location;
         venue?: Venue;
+        poll?: Poll;
         new_chat_members?: User[];
         left_chat_member?: User;
         new_chat_title?: string;
@@ -366,6 +378,8 @@ declare namespace TelegramBot {
         pinned_message?: Message;
         invoice?: Invoice;
         successful_payment?: SuccessfulPayment;
+        connected_website?: string;
+        reply_markup?: InlineKeyboardMarkup;
     }
 
     interface MessageEntity {
@@ -391,6 +405,7 @@ declare namespace TelegramBot {
         performer?: string;
         title?: string;
         mime_type?: string;
+        thumb?: PhotoSize;
     }
 
     interface Document extends FileBase {
@@ -443,6 +458,7 @@ declare namespace TelegramBot {
         first_name: string;
         last_name?: string;
         user_id?: number;
+        vcard?: string;
     }
 
     interface Location {
@@ -455,6 +471,19 @@ declare namespace TelegramBot {
         title: string;
         address: string;
         foursquare_id?: string;
+        foursquare_type?: string;
+    }
+
+    interface PollOption {
+        text: string;
+        voter_count: number;
+    }
+
+    interface Poll {
+        id: string;
+        question: string;
+        options: PollOption[];
+        is_closed: boolean;
     }
 
     interface UserProfilePhotos {
@@ -491,11 +520,19 @@ declare namespace TelegramBot {
     interface InlineKeyboardButton {
         text: string;
         url?: string;
+        login_url?: LoginUrl;
         callback_data?: string;
         switch_inline_query?: string;
         switch_inline_query_current_chat?: string;
         callback_game?: CallbackGame;
         pay?: boolean;
+    }
+
+    interface LoginUrl {
+        url: string;
+        forward_text?: string;
+        bot_username?: string;
+        request_write_acces?: boolean;
     }
 
     interface CallbackQuery {
@@ -523,18 +560,31 @@ declare namespace TelegramBot {
         status: ChatMemberStatus;
         until_date?: number;
         can_be_edited?: boolean;
-        can_change_info?: boolean;
         can_post_messages?: boolean;
         can_edit_messages?: boolean;
         can_delete_messages?: boolean;
-        can_invite_users?: boolean;
         can_restrict_members?: boolean;
-        can_pin_messages?: boolean;
         can_promote_members?: boolean;
+        can_change_info?: boolean;
+        can_invite_users?: boolean;
+        can_pin_messages?: boolean;
+        is_member?: boolean;
         can_send_messages?: boolean;
         can_send_media_messages?: boolean;
+        can_send_polls: boolean;
         can_send_other_messages?: boolean;
         can_add_web_page_previews?: boolean;
+    }
+
+    interface ChatPermissions {
+        can_send_messages?: boolean;
+        can_send_media_messages?: boolean;
+        can_send_polls?: boolean;
+        can_send_other_messages?: boolean;
+        can_add_web_page_previews?: boolean;
+        can_change_info?: boolean;
+        can_invite_users?: boolean;
+        can_pin_messages?: boolean;
     }
 
     interface Sticker {
@@ -900,12 +950,13 @@ declare namespace TelegramBot {
         animation?: Animation;
     }
 
-    interface Animation {
-        file_id: string;
+    interface Animation extends FileBase {
+        width: number;
+        height: number;
+        duration: number;
         thumb?: PhotoSize;
         file_name?: string;
         mime_type?: string;
-        file_size?: number;
     }
 
     type CallbackGame = object;

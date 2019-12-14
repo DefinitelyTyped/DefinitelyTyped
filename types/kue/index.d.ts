@@ -5,7 +5,7 @@
 //                 Christian D. <https://github.com/pc-jedi>
 //                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -31,7 +31,7 @@ export declare class Queue extends events.EventEmitter {
     setupTimer(): void;
     checkJobPromotion(ms: number): void;
     checkActiveJobTtl(ttlOptions: Object): void;
-    watchStuckJobs(ms: number): void;
+    watchStuckJobs(ms?: number): void;
     setting(name: string, fn: Function): Queue;
     process(type: string, fn?: ProcessCallback): void;
     process(type: string, n: number, fn?: ProcessCallback): void;

@@ -26,13 +26,18 @@ const y = pubPoint.getY();
 // 1) '04' + hex string of x + hex string of y; or
 // 2) object with two hex string properties (x and y); or
 // 3) object with two buffer properties (x and y)
-const pub = pubPoint.encode('hex');                                 // case 1
+const pub = pubPoint.encode('hex', true);                            // case 1
 const aPub = { x: x.toString('hex'), y: y.toString('hex') };         // case 2
 const bPub = { x: x.toBuffer(), y: y.toBuffer() };                   // case 3
 const cPub = { x: x.toArrayLike(Buffer), y: y.toArrayLike(Buffer) }; // case 3
 
 // Import public key
 const newKey = ec.keyFromPublic(pub, 'hex');
+
+// Import public key from array
+const pubArray = pubPoint.encode('array', true);
+const newKeyFromArray = ec.keyFromPublic(pubArray);
+console.log(pub === newKeyFromArray.getPublic().encodeCompressed('hex'));
 
 // Signature MUST be either:
 // 1) DER-encoded signature as hex-string; or

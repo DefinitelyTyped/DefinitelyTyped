@@ -6,10 +6,10 @@ import { Strategy } from 'passport';
 import { Profile as GithubProfile } from 'passport-github';
 import { Profile as FacebookProfile } from 'passport-facebook';
 
-const app: Application<{}> = feathers().configure(feathersAuthenticationOAuth2());
+const app: Application = feathers().configure(feathersAuthenticationOAuth2());
 
 class CustomVerifier extends Verifier {
-    constructor(app: Application<{}>, options: any = {}) {
+    constructor(app: Application, options: any = {}) {
         super(app, options);
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for boom 7.2
+// Type definitions for boom 7.3
 // Project: https://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <https://github.com/rogatty>
 //                 AJP <https://github.com/AJamesPhillips>
@@ -24,6 +24,8 @@ declare class Boom<Data = any> extends Error {
     message: string;
     /** output - the formatted response. Can be directly manipulated after object construction to return a custom error response. Allowed root keys: */
     output: Boom.Output;
+    /** typeof - the constructor used to create the error (e.g. Boom.badRequest). */
+    readonly typeof: () => any;
     /** reformat() - rebuilds error.output using the other object properties. */
     reformat(): string;
     /**

@@ -1,5 +1,5 @@
-// Type definitions for Forge Viewer 6.4
-// Project: https://forge.autodesk.com/en/docs/viewer/v6/reference/javascript/viewer3d/
+// Type definitions for non-npm package Forge Viewer 7.4
+// Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -143,11 +143,6 @@ declare namespace Autodesk {
           [key: string]: any;
         }
 
-        interface ViewingApplicationOptions {
-          disableBrowserContextMenu?: boolean;
-          [key: string]: any;
-        }
-
         interface ViewerConfig {
           disableBrowserContextMenu?: boolean;
           disabledExtensions?: {
@@ -280,6 +275,7 @@ declare namespace Autodesk {
         const PREF_CHANGED_EVENT = 'prefChanged';
         const PREF_RESET_EVENT = 'prefReset';
         const PROGRESS_UPDATE_EVENT = 'progressUpdate';
+        const RENDER_FIRST_PIXEL = 'renderFirstPixel';
         const RENDER_OPTION_CHANGED_EVENT = 'renderOptionChanged';
         const RENDER_PRESENTED_EVENT = 'renderPresented';
         const RESET_EVENT = 'reset';
@@ -344,18 +340,20 @@ declare namespace Autodesk {
           isGeomLeaf(): boolean;
           isMetadata(): boolean;
           isViewable(): boolean;
+          isViewPreset(): boolean;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
           setTag(tag: string, value: any): void;
-          traverse(cb: () => void): boolean;
-          urn(searchParent: boolean): string;
+          traverse(cb: (bubble: BubbleNode) => boolean): boolean;
+          urn(searchParent?: boolean): string;
           useAsDefault(): boolean;
         }
 
         let theExtensionManager: ExtensionManager;
 
         interface InitializerOptions {
+            api?: string;
             env?: string;
             webGLHelpLink?: string;
             getAccessToken?(callback?: (accessToken: string, expires: number) => void): void;
@@ -367,6 +365,7 @@ declare namespace Autodesk {
             [key: string]: any;
         }
 
+        function getApiEndpoint(): string;
         function Initializer(options: InitializerOptions, callback?: () => void): void;
 
         class Document {
@@ -376,7 +375,10 @@ declare namespace Autodesk {
             static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
 
             acmSessionId: string;
+            myData: any;
 
+            downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
+            getAecModelData(node: BubbleNode): any;
             getFullPath(urn: string): string;
             getItemById(id: string): object;
             getMessages(itemId: string, excludeGlobal: boolean): object;
@@ -396,27 +398,39 @@ declare namespace Autodesk {
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
+        function shutdown(): void;
+
+        class EventDispatcher {
+            constructor();
+
+            addEventListener(type: string, listener: (event: any) => void, options?: any): void;
+            removeEventListener(type: string, listener: (event: any) => void): void;
+            dispatchEvent(event: any): void;
+            hasEventListener(type: string, listener: (event: any) => void): boolean;
+        }
+
         class Extension {
-            viewer: Private.GuiViewer3D;
+            viewer: GuiViewer3D;
             options: any;
-            constructor(viewer: Private.GuiViewer3D, options: any);
+            constructor(viewer: GuiViewer3D, options: any);
 
             load(): boolean;
             unload(): boolean;
+            onToolbarCreated(toolbar?: UI.ToolBar): void;
         }
 
         class ExtensionManager {
-          extensions: { [key: string]: Extension };
-          extensionsAsync: { [key: string]: Extension };
+            extensions: { [key: string]: Extension };
+            extensionsAsync: { [key: string]: Extension };
 
-          registerExtension(extensionId: string, extension: object): boolean;
-          getExtension(extensionId: string): Extension|null;
-          unregisterExtension(extensionId: string): boolean;
-          registerExternalExtension(extensionId: string, urlPath: string): boolean;
-          getExternalPath(extensionId: string): string|null;
-          unregisterExternalExtension(extensionId: string): boolean;
-          getRegisteredExtensions(): Array<{ id: string, inMemory: boolean, isAsync: boolean}>;
-          popuplateOptions(options: any): void;
+            registerExtension(extensionId: string, extension: object): boolean;
+            getExtension(extensionId: string): Extension|null;
+            unregisterExtension(extensionId: string): boolean;
+            registerExternalExtension(extensionId: string, urlPath: string): boolean;
+            getExternalPath(extensionId: string): string|null;
+            unregisterExternalExtension(extensionId: string): boolean;
+            getRegisteredExtensions(): Array<{ id: string, inMemory: boolean, isAsync: boolean}>;
+            popuplateOptions(options: any): void;
         }
 
         class InstanceTree {
@@ -457,19 +471,26 @@ declare namespace Autodesk {
         }
 
         class Model {
+            id: number;
+            visibilityManager: Private.VisibilityManager;
+
+            clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: any) => void, errorCallback?: (err: any) => void): void;
+            getBoundingBox(): THREE.Box3;
+            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
+            getGeometryList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
             getDocumentNode(): object;
-            getExternalIdMapping(onSuccessCallback: () => void, onErrorCallback: () => void): any;
+            getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
-            getFragmentMap(): any; // DbidFragmentMap|InstanceTree;
+            getFragmentMap(): any;
+            getInstanceTree(): InstanceTree;
             getLayersRoot(): object;
             getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
             getRoot(): object;
@@ -479,7 +500,7 @@ declare namespace Autodesk {
             getUnitData(unit: string): object;
             getUnitScale(): number;
             getUnitString(): string;
-            getUpVector(): any;
+            getUpVector(): number[];
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
@@ -492,11 +513,8 @@ declare namespace Autodesk {
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
             setData(data: object): void;
+            setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
-            clearThemingColors(): void;
-
-            getInstanceTree(): InstanceTree;
-            visibilityManager: Private.VisibilityManager;
         }
 
         interface PropertyResult {
@@ -507,6 +525,7 @@ declare namespace Autodesk {
         }
 
         interface Property {
+            attributeName: string;
             displayCategory: string;
             displayName: string;
             displayValue: string;
@@ -516,20 +535,35 @@ declare namespace Autodesk {
         }
 
         class Navigation {
+            dollyFromPoint(distance: number, point: THREE.Vector3): void;
+            fitBounds(immediate: boolean, bounds: THREE.Box3): any;
+            getAlignedUpVector(): THREE.Vector3;
             getCamera(): any;
+            getCameraRightVector(worldAligned: boolean): THREE.Vector3;
+            getCameraUpVector(): THREE.Vector3;
+            setCameraUpVector(up: THREE.Vector): void;
             getEyeVector(): THREE.Vector3;
             getFovMin(): number;
             getFovMax(): number;
+            getIs2D(): boolean;
             getPivotPoint(): THREE.Vector3;
             setPivotPoint(pivot: THREE.Vector3): void;
+            getPivotSetFlag(): boolean;
+            getUsePivotAlways(): boolean;
+            setUsePivotAlways(value: boolean): any;
             getPosition(): THREE.Vector3;
             setPosition(pos: THREE.Vector3): void;
+            getReverseZoomDirection(): boolean;
+            setReverseZoomDirection(state: boolean): void;
+            setOrbitPastWorldPoles(value: boolean): any;
             getTarget(): THREE.Vector3;
             setTarget(target: THREE.Vector3): void;
             getScreenViewport(): ClientRect;
             setScreenViewport(viewport: ClientRect): void;
             setView(position: THREE.Vector3, target: THREE.Vector3): void;
-            setCameraUpVector(up: THREE.Vector): void;
+            setVerticalFov(fov: number, adjustPosition: boolean): void;
+            setUseLeftHandedInput(value: boolean): any;
+            setZoomTowardsPivot(value: boolean): any;
         }
 
         interface Properties {
@@ -552,7 +586,7 @@ declare namespace Autodesk {
             getNames(): string[];
             register(): void;
             deregister(): void;
-            activate(name: string, viewerApi?: Private.GuiViewer3D): void;
+            activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(): boolean;
             handleSingleClick?(event: MouseEvent, button: number): boolean;
@@ -570,7 +604,8 @@ declare namespace Autodesk {
             handleResize?(): void;
         }
 
-        class UnifiedCamera {
+        class UnifiedCamera extends THREE.Camera {
+            isPerspective: boolean;
         }
 
         interface ContextMenuCallbackStatus {
@@ -613,201 +648,247 @@ declare namespace Autodesk {
         class Viewer3D {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
-            id: number;
-            activateLayerState(stateName: string): void;
-            activateExtension(extensionID: string, mode: string): boolean;
-            anyLayerHidden(): boolean;
-            applyCamera(camera: THREE.Camera, fit?: boolean): void;
-            areAllVisible(): boolean;
-            clearSelection(): void;
-            clearThemingColors(model: any): void;
-            clientToWorld(point: THREE.Vector3): THREE.Vector3;
+            canvas: HTMLCanvasElement;
             container: Element;
-            createViewCube(): void;
-            deactivateExtension(extensionID: string): boolean;
-            displayViewCube(display: boolean): void;
-            displayViewCubeUI(display: boolean): void;
-            explode(scale: number): void;
-            finish(): void;
-            fitToView(objectIds?: number[], model?: Model): boolean;
-            getActiveNavigationTool(): string;
-            getAggregateSelection(callback?: () => void): object[];
-            getBimWalkToolPopup(): boolean;
-            getCamera(): any;
-            getClickConfig(what: string, where: string): string[] | null;
-            getCutPlanes(): object[];
-            getDefaultNavigationToolName(): object;
-            getDimensions(): object;
-            getExplodeScale(): number;
-            getExtensionModes(extensionID: string): string[];
-            getFirstPersonToolPopup(): boolean;
-            getFocalLength(): number;
-            getFOV(): number;
-            getVisibleModels(): Model[];
-            getHiddenModels(): any[]; // Array<RenderModel>;
-            getHiddenNodes(): any[];   // Array of nodes
-            getHotkeyManager(): any;
-            getIsolatedNodes(): number[];
-            getLayerStates(): any[];
-            getLoadedExtensions(): any[];
-            getMemoryInfo(): any;
-            getNavigationLock(): boolean;
-            getNavigationLockSettings(): object;
-            getObjectTree(onSuccessCallback?: () => void, onErrorCallback?: () => void): void;
-            getProperties(dbid: number, onSuccessCallback?: () => void, onErrorCallback?: () => void): void;
-            getScreenShot(w?: number, h?: number, cb?: () => void): any; // DOMString
-            getSelection(): number[];
-            getSelectionCount(): number;
-            getSelectionVisibility(): { hasVisible: boolean, hasHidden: boolean };
-            getState(filter?: any): any;
-            hide(node: number | number[]): void;
-            hideLines(hide: boolean): void;
-            hideModel(modelId: number): boolean;
-            hidePoints(hide: boolean): void;
-            hideById(node: number): void;
-            isolate(node: number | number[]): void;
-            isolateById(dbIds: number | number[]): void;
-            initialize(): number | ErrorCodes;
-            initSettings(): void;
-            isExtensionActive(extensionID: string): boolean;
-            isExtensionLoaded(extensionID: string): boolean;
-            isLayerVisible(node: object): boolean;
-            isNodeVisible(nodeId: number, model?: Model): boolean;
-            joinLiveReview(sessionId: string): void;
-            leaveLiveReview(): void;
-            load(urn: string, sharedPropertyDbPath?: string, onSuccesfullCallback?: () => void,
-                            onErrorCallback?: (errorCode: ErrorCodes, errorMessage: string, statusCode: number, statusText: string) => void): any;
-            loadModel(urn: string, options?: any, onSuccesfullCallback?: () => void,
-                            onErrorCallback?: (errorCode: ErrorCodes, errorMessage: string, statusCode: number, statusText: string) => void): any;
-            loadDocumentNode(lmvDocument: Document, bubbleNode: BubbleNode, options?: object): void;
+            navigation: Navigation;
+            id: number;
+            impl: Private.Viewer3DImpl;
+            model: Model;
+            started: boolean;
+            toolbar: UI.ToolBar;
+
+            start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            startWithDocumentNode(avDocument: Document, manifestNode: any, options: object): Promise<void>;
+            registerUniversalHotkeys(): void;
+            createControls(): void;
+            initialize(): any;
+            setUp(config: any): void;
+            tearDown(): void;
+            run(): void;
             localize(): void;
-            modelHasTopology(): boolean;
-            playAnimation(callback?: () => void): void;
-            registerContextMenuCallback(id: string, callback: (menu: ContextMenuItem[], status: ContextMenuCallbackStatus) => void): void;
+            uninitialize(): void;
+            finish(): void;
+            setLoadHeuristics(options: object): void;
+            trackADPSettingsOptions(): void;
+            trackADPExtensionsLoaded(): void;
+            activateDefaultNavigationTools(is2d: boolean): void;
+            registerDimensionSpecificHotkeys(is2d: boolean): void;
+            onModelAdded(model: Model, preserveTools: boolean): void;
+            loadModel(url: string, options: object, onSuccessCallback?: (model: Model) => void, onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void): any;
+            unloadModel(model: Model): void;
+            loadDocumentNode(avDocument: Document, manifestNode: any/*BubbleNode*/, options?: object): Promise<Model>;
+            unloadDocumentNode(manifestNode: any/*BubbleNode*/): boolean;
+            getDimensions(): Private.Dimensions;
             resize(): void;
-            restoreState(state: any, filter?: any, immediate?: boolean): boolean;
-            search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
-            select(dbIds: number | number[]): void;
-            setActiveNavigationTool(toolName?: string): boolean;
+            getHotkeyManager(): any/*HotkeyManager*/;
+            getCamera(): THREE.Camera;
+            getState(filter?: any): any;
+            restoreState(viewerState: any, filter?: any, immediate?: boolean): boolean;
+            setView(viewNode: any/*BubbleNode*/, options: object): boolean;
+            setViewFromArray(params: number[]): void;
+            getCameraFromViewArray(paramas: number[]): THREE.Camera;
+            getViewArrayFromCamera(): number[];
+            setViewFromViewBox(viewbox: number[], name: string, skipTransition: boolean): void;
+            activateLayerState(name: string): void;
+            getLayerStates(): any[];
+            setViewFromFile(model: Model): void;
+            getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            getObjectTree(onSuccessCallback?: (objTree: InstanceTree) => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            setCanvasClickBehavior(config: any): void;
+            search(text: string, onSuccess: any, onError: any, attributeNames: string[]): void;
+            getHiddenNodes(): number[];
+            getIsolatedNodes(): number[];
+            isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
-            setBimWalkToolPopup(value: boolean): void;
-            setCanvasClickBehavior(config: object): void;
-            setClickConfig(what: string, where: string, newAction: string|string[]): boolean;
-            setClickToSetCOI(state: boolean, updatePrefs?: boolean): void;
-            setContextMenu(contextMenu: any): void; // ObjectContextMenu)
-            setCutPlanes(planes: THREE.Vector4[]): void;
-            setDefaultContextMenu(): boolean;
-            setDefaultNavigationTool(toolName: string): void;
-            setDisplayEdges(show: boolean): void;
+            toggleSelect(dbId: number, model: Model, selectionType: number): void;
+            select(dbIds: number[]|number, model?: Model, selectionType?: number): void;
+            clearSelection(): void;
+            getSelectionVisibility(): any;
+            getSelectionCount(): number;
+            setSelectionMode(mode: number): void;
+            getSelection(): number[];
+            getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
+            getAggregateIsolation(): any[];
+            getAggregateHiddenNodes(): any[];
+            hide(node: number|number[]): void;
+            show(node: number|number[]): void;
+            showAll(): void;
+            toggleVisibility(dbId: number, model?: Model): void;
+            areAllVisible(): boolean;
+            isNodeVisible(node: number, model?: Model): boolean;
+            explode(scale: number): void;
+            getExplodeScale(): number;
+            setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
+            setGhosting(value: boolean): void;
+            setGroundShadow(value: boolean): void;
+            setGroundReflection(value: boolean): void;
             setEnvMapBackground(value: boolean): void;
             setFirstPersonToolPopup(value: boolean): void;
-            setFocalLength(mm: number): void;
-            setFOV(degrees: number): void;
-            setGhosting(value: boolean): void;
-            setGrayscale(value: boolean): void;
-            setGroundReflection(value: boolean): void;
-            setGroundReflectionAlpha(alpha: number): void;
-            setGroundReflectionColor(color: THREE.Color): void;
-            setGroundShadow(value: boolean): void;
-            setGroundShadowAlpha(alpha: number): void;
-            setGroundShadowColor(color: THREE.Color): void;
-            setLayerVisible(nodes: any[], visible: boolean, isolate?: boolean): void;
-            setLightPreset(index: number): void;
-            setModelUnits(model: Model): void;
-            setNavigationLock(value: boolean): void;
-            setNavigationLockSettings(settings: { [key: string]: boolean }): void;
-            setOptimizeNavigation(value: boolean): void;
-            setOrbitPastWorldPoles(value: boolean): void;
+            getFirstPersonToolPopup(): boolean;
+            setBimWalkToolPopup(value: boolean): void;
+            getBimWalkToolPopup(): boolean;
             setProgressiveRendering(value: boolean): void;
-            setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
-            setRenderCache(value: boolean): void;
+            setGrayscale(value: boolean): void;
+            setSwapBlackAndWhite(value: boolean): void;
+            setOptimizeNavigation(value: boolean): void;
+            setNavigationLock(value: boolean): void;
+            getNavigationLock(): boolean;
+            setNavigationLockSettings(settings: any): void;
+            getNavigationLockSettings(): any;
+            setActiveNavigationTool(toolName?: string): void;
+            getActiveNavigationTool(): string;
+            setDefaultNavigationTool(name: string): void;
+            getDefaultNavigationTool(): string;
+            getFOV(): number;
+            setFOV(degrees: number): void;
+            getFocalLength(): number;
+            setFocalLength(mm: number): void;
+            hideLines(hide: boolean): void;
+            hidePoints(hide: boolean): void;
+            setDisplayEdges(show: boolean): void;
+            applyCamera(camera: THREE.Camera, fit: boolean): void;
+            fitToView(ids?: null|number[], model?: Model, immediate?: boolean): void;
+            setClickConfig(what: string, where: string, newAction: string[]): boolean;
+            getClickConfig(what: string, where: string): string[];
+            setClickToSetCOI(state: boolean, updatePrefs?: boolean): void;
+            initSettings(): void;
+            setLightPreset(preset: number): void;
+            setUsePivotAlways(value: boolean): void;
+            setReverseZoomDirection(value: boolean): void;
             setReverseHorizontalLookDirection(value: boolean): void;
             setReverseVerticalLookDirection(value: boolean): void;
-            setReverseZoomDirection(value: boolean): void;
-            setSelectionColor(color: THREE.Color, selectionType: SelectionMode): void;
-            setSelectionMode(mode: SelectionMode): void;
-            setSwapBlackAndWhite(value: boolean): void;
-            setTheme(name: 'dark-theme'|'light-theme'|string): void;
-            setThemingColor(dbId: number, color: THREE.Vector4, model?: any): void;
-            setUp(config?: any): void;
-            setUseLeftHandedInput(value: boolean): void;
-            setUsePivotAlways(value: boolean): void;
-            setViewCube(face: string): void;
-            setViewFromArray(params: any[]): void;
-            setViewFromFile(): void;
-            setViewFromViewBox(viewbox: any[], name?: string): void;
             setZoomTowardsPivot(value: boolean): void;
-            show(node: number | number[]): void;
-            showAll(): void;
-            showModel(modelId: number): boolean;
-            start(url?: string, options?: LoadModelOptions,
-                  onSuccessCallback?: () => void,
-                  onErrorCallback?: () => void): number|ErrorCodes;
-            tearDown(): void;
-            toggleSelect(dbid: number, selectionType: SelectionMode): void;
-            toggleVisibility(node: number): void;
-            toolbar: UI.ToolBar;
-            trackADPSettingsOptions(): void;
-            transferModel(): void;
-            uninitialize(): void;
-            unregisterContextMenuCallback(id: string): void;
-            worldToClient(point: THREE.Vector3): THREE.Vector3;
-
-            addEventListener(type: string,
-                    listener?: ViewerEvent,
-                    options?: boolean | AddEventListenerOptions): void;
-            dispatchEvent(evt: Event): boolean;
-            removeEventListener(type: string,
-                       listener?: ViewerEvent,
-                       options?: boolean | EventListenerOptions): void;
+            setOrbitPastWorldPoles(value: boolean): void;
+            setUseLeftHandedInput(value: boolean): void;
+            setLayerVisible(nodes: any[], visible: boolean, isolate?: boolean): void;
+            isLayerVisible(node: any): boolean;
+            anyLayerHidden(): boolean;
+            allLayersHidden(): boolean;
+            setGroundShadowColor(color: THREE.Color): void;
+            setGroundShadowAlpha(alpha: number): void;
+            setGroundReflectionColor(color: THREE.Color): void;
+            setGroundReflectionAlpha(alpha: number): void;
+            getCutPlanes(): THREE.Vector4[];
+            setCutPlanes(planes: THREE.Vector4[]): void;
+            getScreenShot(w: number, h: number, cb: any): void;
+            setContextMenu(menu: any): void;
+            setDefaultContextMenu(): boolean;
+            triggerContextMenu(event: any): boolean;
+            triggerSelectionChanged(dbId: number): void;
+            triggerDoubleTapCallback(event: any): void;
+            triggerSingleTapCallback(event: any): void;
+            triggerSwipeCallback(event: any): void;
+            initContextMenu(): void;
+            registerContextMenuCallback(id: string, callback: (menu: any, status: any) => void): void;
+            unregisterContextMenuCallback(id: string): boolean;
+            runContextMenuCallbacks(menu: any[], status: any): void;
+            joinLiveReview(sessionId: string): void;
+            leaveLiveReview(): void;
+            setModelUnits(modelUnits: any): void;
+            worldToClient(pt: THREE.Vector3): THREE.Vector3;
+            clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean): object;
+            modelHasTopology(): boolean;
+            setSelectionColor(col: THREE.Color, selectionType: number): void;
+            set2dSelectionColor(col: THREE.Color, opacity: number): void;
+            setTheme(name: string): void;
+            setThemingColor(dbId: number, color: THREE.Vector4, model?: Model, recursive?: boolean): void;
+            clearThemingColors(model: Model): void;
+            hideModel(model: number|Model): boolean;
+            showModel(model: number|Model, preserveTools: boolean): boolean;
+            getVisibleModels(): Model[];
+            restoreDefaultSettings(): void;
+            disableHighlight(disable: boolean): void;
+            disableSelection(disable: boolean): void;
+            isHighlightDisabled(): boolean;
+            isHighlightPaused(): boolean;
+            isHighlightActive(): boolean;
+            isSelectionDisabled(): boolean;
+            loadExtension(extensionId: string, options?: object): Promise<Extension>;
+            getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
+            unloadExtension(extensionId: string): boolean;
+            loadExtensionAsync(extensionId: string, url: string, options?: object): Promise<Extension>;
+            forEachExtension(callback: (ext: Extension) => void): void;
+            activateExtension(extensionId: string, mode: string): boolean;
+            deactivateExtension(extensionId: string): boolean;
+            isExtensionActive(extensionId: string, mode: string): boolean;
+            isExtensionLoaded(extensionId: string): boolean;
+            getLoadedExtensions(): string[];
+            getExtensionModes(extensionId: string): string[];
+            reorderElements(element: object): void;
+            appendOrderedElementToViewer(layerOrderId: string): void;
+            hitTest(x: number, y: number, ignoreTransparent: boolean): Private.HitTestResult;
+            refresh(clear: boolean): void;
+            addEventListener(type: string, callback: (event: any) => void): any;
+            hasEventListener(type: string, callback: (event: any) => void): any;
+            removeEventListener(type: string, callback: (event: any) => void): any;
+            dispatchEvent(event: object): void;
         }
 
-        class ViewingApplication {
-          k3D: '3D';
-          bubble: BubbleNode;
-          appContainerId: string;
-          container: HTMLElement;
-          options: ViewingApplicationOptions;
-          myRegisteredViewers: any;
-          myDocument: Document;
-          myCurrentViewer: Viewer3D;
-          urn: string;
-          selectedItem: ViewerItem|null;
-          extensionCache: object;
+        class GuiViewer3D extends Viewer3D {
+            toolController: ToolController;
+            autocam: any;
+            progressbar: any;
+            utilities: ViewingUtilities;
+            prefs: any;
+            dockingPanels: any;
+            overlays: OverlayManager;
 
-          constructor(containerId: string, options?: ViewingApplicationOptions);
+            addPanel(panel: UI.DockingPanel): boolean;
+            createDebugSubmenu(button: UI.Button): void;
+            createViewerOptionsMenu(model: Model): void;
+            createUI(model: Model): void;
+            onFullScreenModeEvent(event: object): void;
+            onProgressBarUpdate(event: object): void;
+            addOptionToggle(parent: Element, tooltip: string, initialState: any, onchange: (checked: boolean) => void, saveKey: boolean): void;
+            addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
+            showViewer3dOptions(show: boolean): void;
+            showRenderingOptions(show: boolean): void;
+            showLayerManager(show: boolean): void;
+            initHotkeys(model: Model): void;
+            setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
+            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
+            setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
+            getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
+            setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
+            getSettingsPanel(createDefault?: boolean, model?: Model): any/*Autodesk.Viewing.UI.SettingsPanel*/;
+            createSettingsPanel(model: Model): void;
+            initModelTools(model: Model): void;
+            setPropertiesOnSelect(onSelect: boolean): void;
+            addDivider(parent: Element): void;
+            initDebugTools(): void;
+            removeDebugTools(): void;
+            initModelStats(): void;
+            initEscapeHandlers(): void;
+            getToolbar(create: boolean): UI.ToolBar;
+            showModelStructurePanel(show: boolean): void;
+            onPanelVisible(panel: UI.DockingPanel): void;
+            updateFullscreenButton(mode: any): void;
+            removePanel(panel: UI.DockingPanel): boolean;
+            resizePanels(options: object): void;
+            initExplodeSlider(): void;
+            initInspectTools(): void;
+            initModality(): void;
+            updateToolbarButtons(width: number, height: number): void;
+        }
 
-          addItemSelectedObserver(observer: ItemSelectedObserver): void;
-          finish(): void;
-          getCurrentViewer(): Viewer3D;
-          getDefaultGeometry(geometryItems: any[]): object;
-          getNamedViews(item: object): any[];
-          getSelectedItem(): object|null;
-          getViewer(config: Viewer3DConfig): Viewer3D;
-          getViewerContainer(): HTMLElement;
-          loadDocument(documentId: any,
-                       onDocumentLoad?: (document: Document) => void,
-                       onLoadFailed?: (errorCode: string, errorMsg: string, errors: any[]) => void,
-                       accessControlProperties?: object): void;
-          registerViewer(viewableType: string, viewerClass: any, config?: ViewerConfig): void;
-          selectItem(item: ViewerItem|BubbleNode,
-                     onSuccessCallback: (viewer: Viewer3D, item: ViewerItem) => void,
-                     onErrorCallback: (errorCode: ErrorCodes, errorMsg: string,
-                                       statusCode: string, statusText: string, messages: string) => void): boolean;
-          selectItemById(itemId: number,
-                         onItemSelectedCallback: (item: object, viewGeometryItem: object) => void,
-                         onItemFailedToSelectCallback: () => void): boolean;
-          setCurrentViewer(viewer: Viewer3D): void;
-          setDocument(docManifest: object): boolean;
+        class OverlayManager {
+            addScene(name: string): boolean;
+            removeScene(name: string): void;
+            clearScene(name: string): void;
+            hasScene(name: string): boolean;
+            addMesh(mesh: THREE.Mesh|THREE.Mesh[], name: string): boolean;
+            removeMesh(mesh: THREE.Mesh|THREE.Mesh[], name: string): boolean;
+            hasMesh(mesh: THREE.Mesh, name: string): boolean;
         }
 
         class ViewingUtilities {
             getHitPoint(x: number, y: number): THREE.Vector3;
+            getBoundingBox(ignoreSelection?: boolean): THREE.Box3;
         }
 
         namespace Extensions {
           class ViewerPropertyPanel extends UI.PropertyPanel {
-            constructor(viewer: Private.GuiViewer3D);
+            constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
           }
         }
@@ -852,31 +933,17 @@ declare namespace Autodesk {
               restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
             }
 
-            class GuiViewer3D extends Viewer3D {
-              canvas: HTMLCanvasElement;
-
-              toolController: ToolController;
-              impl: Viewer3DImpl;
-              model: Model;
-              navigation: Navigation;
-
-              addPanel(panel: UI.PropertyPanel): boolean;
-              getToolbar(create: boolean): UI.ToolBar;
-              removePanel(panel: UI.PropertyPanel): boolean;
-              resizePanels(options?: ResizePanelOptions): void;
-              setLayersPanel(layersPanel: UI.LayersPanel): boolean;
-              setModelStructurePanel(modelStructurePanel: UI.ModelStructurePanel): boolean;
-              setPropertyPanel(propertyPanel: UI.PropertyPanel): boolean;
-              setSettingsPanel(settingsPanel: UI.SettingsPanel): boolean;
-              updateToolbarButtons(): void;
-            }
-
             interface HitTestResult {
                 dbId: number;
                 face: THREE.Face3;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
                 model: Model;
+            }
+
+            interface Dimensions {
+                width: number;
+                height: number;
             }
 
             namespace HudMessage {
@@ -897,17 +964,27 @@ declare namespace Autodesk {
 
                 visibilityManager: VisibilityManager;
 
+                addOverlay(overlayName: string, mesh: any): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
+                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
-                initialize(): void;
+                initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
+                invalidate(needsClear: boolean, needsRender?: boolean, overlayDirty?: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
-
+                selector: any;
+                model: any;
+                scene: THREE.Scene;
+                sceneAfter: THREE.Scene;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+                removeOverlayScene(name: string): any;
+                removeOverlay(name: string, mesh: any): any;
+                getFitBounds(p: boolean): THREE.Box3;
+                rayIntersect(ray: THREE.Ray): HitTestResult;
 
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
@@ -995,12 +1072,15 @@ declare namespace Autodesk {
             closer: HTMLElement;
             container: HTMLElement;
             content: Node;
+            footer: HTMLElement;
+            scrollContainer: HTMLElement;
             title: HTMLElement;
             titleLabel: string;
 
             addEventListener(target: object, eventId: string, callback: () => void): void;
-            addVisibilityListener(callback: () => void): void;
+            addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
+            createFooter(): HTMLElement;
             createScrollContainer(options: ScrollContainerOptions): void;
             createTitleBar(title: string): HTMLElement;
             getContainerBoundingRect(): ClientRect;
@@ -1100,7 +1180,7 @@ declare namespace Autodesk {
             onRightClick(node: object, event: Event): void;
             removeClass(id: string, className: string): boolean;
             setGroupCollapsed(node: object, collapsed: boolean): void;
-            setModel(instanceTree: object, modelTitle: string): void; // InstanceTree?
+            setModel(instanceTree: object, modelTitle: string): void;
             setSelection(nodes: Model[]): void;
             shouldInclude(node: Model): boolean;
           }
@@ -1174,24 +1254,22 @@ declare namespace Autodesk {
             removeControl(control: string | Control): boolean;
           }
 
-          enum ControlStates {
-            ACTIVE = 0,
-            INACTIVE = 1,
-            DISABLED = 2
-          }
-
           class Button extends Control {
             constructor(id: string, options?: object);
 
-            State: ControlStates;
             Event: ControlEventArgs;
 
-            getState(): ControlStates;
+            getState(): Button.State;
             onClick: (event: Event) => void;
             onMouseOut: (event: Event) => void;
             onMouseOver: (event: Event) => void;
             setIcon(iconClass: string): void;
-            setState(state: ControlStates): boolean;
+            setState(state: Button.State): boolean;
+          }
+
+          // NOTE: TypeScript doesn't support enum inside class. This seems to be commonly used workaround.
+          namespace Button {
+            enum State { ACTIVE, INACTIVE, DISABLED }
           }
 
           class ComboButton extends Button {

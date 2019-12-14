@@ -1,4 +1,4 @@
-// Type definitions for react-burger-menu 2.2
+// Type definitions for react-burger-menu 2.6
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
@@ -34,9 +34,9 @@ export interface Props {
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
     customOnKeyDown?(event: React.KeyboardEvent): void;
-    disableAutoFocus?: string;
+    disableAutoFocus?: boolean;
     disableCloseOnEsc?: boolean;
-    disableOverlayClick?: boolean;
+    disableOverlayClick?: boolean | (() => boolean);
     htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
@@ -45,6 +45,7 @@ export interface Props {
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
+    noTransition?: boolean;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string

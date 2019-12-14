@@ -809,11 +809,7 @@ function cssProp() {
     return (
         <>
             <div css="background: blue;" />
-            {/*
-                For some reason $ExpectError doesn't work on this expression.
-                Only strings work, objects crash the plugin.
-                <div css={{ background: "blue" }} />
-            */}
+            <div css={{ background: "blue" }} />
             <div
                 // would be nice to be able to turn this into an error as it also crashes the plugin,
                 // but this is how optional properties work in TypeScript...
@@ -1031,6 +1027,30 @@ const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
 
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
+    class A extends React.Component<AProps> {}
+    class B extends React.Component<BProps, BState> {
+        static A = A;
+        PUBLIC = 'PUBIC_VAL';
+        static F = (props: BProps, state: BState) => props && state;
+        static getDerivedStateFromProps(props: BProps, state: BState) {
+            return state;
+        }
+    }
+    const StyledB = styled(B)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PUBLIC; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F({ b: 'b' } , { b: 'b' });
+    StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+}
+
 function unionTest() {
     interface Book {
         kind: 'book';
@@ -1059,4 +1079,20 @@ function unionTest() {
     // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
     <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}
+
+function unionTest2() {
+    // Union of two non-overlapping types
+    type Props = {
+        foo: number, bar?: undefined
+    } | {
+        foo?: undefined, bar: string
+    };
+
+    const C = styled.div<Props>``;
+
+    <C foo={123} />;
+    <C bar="foobar" />;
+    <C />; // $ExpectError
+    <C foo={123} bar="foobar" />; // $ExpectError
 }

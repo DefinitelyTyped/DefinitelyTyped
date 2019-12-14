@@ -9,7 +9,7 @@ import * as React from 'react';
 export interface SliderProps {
 	disabled?: boolean;
 	format?: (value: number) => string | number | undefined;
-	handleLabel?: boolean;
+	handleLabel?: string;
 	labels?: { [value: number]: string };
 	max?: number;
 	min?: number;

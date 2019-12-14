@@ -19,20 +19,19 @@
     },
     "files": [
         "index.d.ts",
-        "codemirror-comment.d.ts",
-        "codemirror-matchbrackets.d.ts",
-        "codemirror-panel.d.ts",
-        "codemirror-runmode.d.ts",
-        "codemirror-showhint.d.ts",
-        "codemirror-tern.d.ts",
-        "searchcursor.d.ts",
         "test/comment.ts",
         "test/index.ts",
-        "test/matchbrackets.ts",
         "test/panel.ts",
         "test/runmode.ts",
         "test/searchcursor.ts",
         "test/showhint.ts",
-        "test/tern.ts"
+        "test/tern.ts",
+        "test/addon/edit/closebrackets.ts",
+        "test/addon/edit/closetag.ts",
+        "test/addon/edit/matchbrackets.ts",
+        "test/addon/edit/matchtags.ts",
+        "test/addon/scroll/scrollpastend.ts",
+        "test/addon/search/match-highlighter.ts",
+        "test/addon/selection/active-line.ts"
     ]
 }

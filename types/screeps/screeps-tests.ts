@@ -12,6 +12,7 @@
 const creep: Creep = Game.creeps.sampleCreep;
 const room: Room = Game.rooms.W10S10;
 const flag: Flag = Game.flags.Flag1;
+const powerCreep: PowerCreep = Game.powerCreeps.samplePowerCreep;
 const spawn: StructureSpawn = Game.spawns.Spawn1;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
@@ -20,7 +21,7 @@ const anotherRoomName: Room = Game.rooms.W10S11;
 
 // Sample memory extensions
 interface CreepMemory {
-    sourceId: string;
+    sourceId: Id<Source>;
     lastHits: number;
 }
 
@@ -31,6 +32,41 @@ interface CreepMemory {
 // See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
 function keys<T>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
+}
+
+function resources(o: GenericStore): ResourceConstant[] {
+    return Object.keys(o) as ResourceConstant[];
+}
+
+// Game object Id types
+{
+    const creepId: Id<Creep> = "1" as Id<Creep>;
+    const creepOne: Creep | null = Game.getObjectById(creepId);
+    const creepTwo: Creep | null = Game.getObjectById<Creep>("2"); // deprecated
+    const creepThree: Creep = new Creep(creepId); // Works with typed ID
+
+    if (creepOne) {
+        creepOne.hits;
+        const recycle = Game.getObjectById(creepOne.id);
+    }
+
+    type StoreStructure = StructureContainer | StructureStorage | StructureLink;
+    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const stringID: string = storeID; // Id<T> assignable implicitly to string
+    const storeObject = Game.getObjectById(storeID)!;
+
+    // Object recognized
+    switch (storeObject.structureType) {
+        case STRUCTURE_CONTAINER:
+            storeObject.structureType === "container";
+        case STRUCTURE_STORAGE:
+            storeObject.structureType === "storage";
+        default:
+            storeObject.structureType === "link";
+    }
+
+    // Default type is unknown if untyped Id provided
+    const untyped = Game.getObjectById("untyped");
 }
 
 // Game.creeps
@@ -45,6 +81,55 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     creep.moveTo(Game.flags.Flag1);
+}
+
+// Game.powerCreeps
+
+{
+    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
+
+    for (const i in Game.powerCreeps) {
+        const powerCreep = Game.powerCreeps[i];
+
+        if (powerCreep.ticksToLive === undefined) {
+            // Not spawned in world; spawn creep
+            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            powerCreep.spawn(spawn);
+        } else {
+            // Generate Ops
+            if (
+                powerCreep.powers[PWR_GENERATE_OPS] &&
+                powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
+                (powerCreep.carry.ops || 0) < 10
+            ) {
+                Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
+            } else {
+                // Boost resource
+                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const sourceEffect = targetSource.effects.find(effect => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
+                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                    powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
+                }
+            }
+        }
+
+        // AnyCreep type checks
+        creep.attack(powerCreep);
+        creep.heal(powerCreep);
+        creep.rangedAttack(powerCreep);
+        creep.rangedHeal(powerCreep);
+        creep.transfer(powerCreep, RESOURCE_ENERGY);
+        powerCreep.transfer(creep, RESOURCE_ENERGY);
+
+        // Upgrading
+        powerCreep.upgrade(PWR_GENERATE_OPS);
+    }
+
+    const myPowaCreeps = Game.rooms.sim.find(FIND_MY_POWER_CREEPS);
+
+    // Constant type checking
+    POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
 }
 
 // Game.spawns
@@ -65,8 +150,8 @@ function keys<T>(o: T): Array<keyof T> {
             const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
         }
 
-        creep = new StructureSpawn.Spawning("");
-        creep = StructureSpawn.Spawning("");
+        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
+        creep = StructureSpawn.Spawning("" as Id<Spawning>);
     }
 }
 
@@ -99,6 +184,13 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     Game.cpu.setShardLimits({ shard0: 20, shard1: 10 });
+}
+
+// Game.cpu.halt()
+{
+    if (Game.cpu.hasOwnProperty("halt")) {
+        Game.cpu.halt!();
+    }
 }
 
 // Game.getObjectById(id)
@@ -267,8 +359,9 @@ function keys<T>(o: T): Array<keyof T> {
     // Game.market.changeOrderPrice(orderId, newPrice)
     Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
 
-    // Game.market.createOrder(type, resourceType, price, totalAmount, [roomName])
-    Game.market.createOrder(ORDER_SELL, RESOURCE_GHODIUM, 9.95, 10000, "W1N1");
+    // Game.market.createOrder({type, resourceType, price, totalAmount, [roomName]})
+    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
+    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
 
     // Game.market.deal(orderId, amount, [yourRoomName])
     Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
@@ -308,7 +401,13 @@ function keys<T>(o: T): Array<keyof T> {
 
     // Subscription tokens
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
-    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
+    Game.market.createOrder({ type: ORDER_BUY, resourceType: SUBSCRIPTION_TOKEN, totalAmount: 10000000, price: 1 });
+
+    const priceHistory = Game.market.getHistory(RESOURCE_FIXTURES);
+
+    const avgPrice: number = priceHistory[0].avgPrice;
+    const stddevPrice: number = priceHistory[0].stddevPrice;
+    const volume: number = priceHistory[0].volume;
 }
 
 // PathFinder
@@ -424,6 +523,16 @@ function keys<T>(o: T): Array<keyof T> {
     RawMemory.setPublicSegments([]);
 }
 
+// InterShardMemory
+
+{
+    let localShardData = "";
+    InterShardMemory.setLocal(localShardData);
+    localShardData = InterShardMemory.getLocal();
+
+    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+}
+
 // Find Overloads
 
 {
@@ -457,6 +566,9 @@ function keys<T>(o: T): Array<keyof T> {
         },
     });
     towers[0].attack(creeps[0]);
+    towers[0].attack(creeps[0] as AnyCreep);
+    towers[0].attack(powerCreep);
+    towers[0].heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -475,6 +587,7 @@ function keys<T>(o: T): Array<keyof T> {
     });
     if (tower !== null) {
         tower.attack(creep);
+        tower.attack(powerCreep);
     }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
@@ -535,10 +648,22 @@ function keys<T>(o: T): Array<keyof T> {
 // StoreDefinition
 
 {
-    for (const resourceType of keys(creep.carry)) {
+    for (const resourceType of resources(creep.carry)) {
         const amount = creep.carry[resourceType];
         creep.drop(resourceType, amount);
     }
+
+    const extension = new StructureExtension("" as Id<StructureExtension>);
+
+    const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
+    const e2: number = extension.store[RESOURCE_ENERGY];
+
+    const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+
+    const storage = new StructureStorage("" as Id<StructureStorage>);
+
+    const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
@@ -590,10 +715,13 @@ function keys<T>(o: T): Array<keyof T> {
     BOOSTS[creep.body[0].type];
 }
 
+// Tombstones
+
 {
     const tombstone = room.find(FIND_TOMBSTONES)[0];
 
-    tombstone.creep.my;
+    (tombstone.creep as PowerCreep).spawnCooldownTime;
+    (tombstone.creep as Creep).my;
 
     tombstone.store.energy;
 
@@ -658,9 +786,19 @@ function keys<T>(o: T): Array<keyof T> {
 
     const events = room.getEventLog();
 
-    const event = events[0] as EventItem<EVENT_ATTACK>;
+    const event = events[0];
 
-    event.data.attackType;
+    switch (event.event) {
+        case EVENT_ATTACK:
+            const attackType: EventAttackType = event.data.attackType;
+            break;
+        case EVENT_BUILD:
+            const energySpent: number = event.data.energySpent;
+            break;
+        case EVENT_POWER:
+            const power = event.data.power;
+            break;
+    }
 }
 
 // Room.Terrain

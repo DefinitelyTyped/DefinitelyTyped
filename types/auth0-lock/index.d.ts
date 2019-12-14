@@ -96,6 +96,7 @@ interface Auth0LockAuthParamsOptions {
 }
 
 interface Auth0LockAuthOptions {
+    autoParseHash?: boolean;
     params?: Auth0LockAuthParamsOptions;
     redirect?: boolean;
     redirectUrl?: string;

@@ -20,3 +20,7 @@ const answer: Promise<number> = retry(
   bail => Promise.resolve(42),
   { retries: 3 }
 );
+
+const noOptions: Promise<number> = retry(
+  bail => Promise.resolve(42),
+);

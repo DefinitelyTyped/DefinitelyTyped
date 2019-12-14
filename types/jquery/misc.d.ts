@@ -677,6 +677,7 @@ declare namespace JQuery {
             'setRequestHeader' | 'status' | 'statusText'>,
         Partial<Pick<XMLHttpRequest, 'responseXML'>> {
         responseJSON?: any;
+        abort(statusText?: string): void;
 
         /**
          * Determine the current state of a Deferred object.
@@ -5456,6 +5457,92 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'mouseup';
     }
 
+    // region DragEvent
+    // #region DragEvent
+
+    interface DragEventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        originalEvent?: _DragEvent;
+    }
+
+    interface DragEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'drag';
+    }
+
+    interface DragEndEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragend';
+    }
+
+    interface DragEnterEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragenter';
+    }
+
+    interface DragExitEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragexit';
+    }
+
+    interface DragLeaveEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragleave';
+    }
+
+    interface DragOverEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragover';
+    }
+
+    interface DragStartEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'dragstart';
+    }
+
+    interface DropEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'drop';
+    }
+
+    // #endregion
+
     // #endregion
 
     // region KeyboardEvent
@@ -6284,6 +6371,17 @@ $( "#checkMetaKey" ).click(function( event ) {
         mouseover: MouseOverEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
         mouseup: MouseUpEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
 
+        // DragEvent
+
+        drag: DragEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragend: DragEndEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragenter: DragEnterEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragexit: DragExitEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragleave: DragLeaveEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragover: DragOverEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dragstart: DragStartEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        drop: DropEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+
         // KeyboardEvent
 
         keydown: KeyDownEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
@@ -6538,6 +6636,7 @@ declare const $: JQueryStatic;
 type _Event = Event;
 type _UIEvent = UIEvent;
 type _MouseEvent = MouseEvent;
+type _DragEvent = DragEvent;
 type _KeyboardEvent = KeyboardEvent;
 type _TouchEvent = TouchEvent;
 type _FocusEvent = FocusEvent;

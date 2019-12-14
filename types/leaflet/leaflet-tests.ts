@@ -163,13 +163,20 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
-map.off('moveend');
-map.off('moveend', () => {});
-map.off('moveend', () => {}, {});
+map.on('zoomanim', (_e: L.ZoomAnimEvent) => {});
 
-map.removeEventListener('moveend');
-map.removeEventListener('moveend', () => {});
-map.removeEventListener('moveend', () => {}, {});
+map.once({
+    dragend: (_e: L.DragEndEvent) => {},
+    locationfound: (_e: L.LocationEvent) => {},
+});
+
+map.off('moveend');
+map.off('resize', (_e: L.ResizeEvent) => {});
+map.off('baselayerchange', (_e: L.LayersControlEvent) => {}, {});
+
+map.removeEventListener('loading');
+map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
+map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
 
@@ -218,6 +225,8 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
+	id: 'mapbox.streets',
+	accessToken: 'your.mapbox.access.token',
 	minZoom: 0,
 	maxZoom: 18,
 	maxNativeZoom: 2,
@@ -288,6 +297,23 @@ imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
+
+// SVGOverlay
+let svgOverlayOptions: L.ImageOverlayOptions;
+svgOverlayOptions = {
+	interactive: true,
+	opacity: 100
+};
+
+const svgOverlayBounds = latLngBounds;
+const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
+
+let svgOverlay: L.SVGOverlay;
+svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
+svgOverlay = L.svgOverlay(svgElement, svgOverlayBounds, {
+	interactive: false
+});
 
 // videoOverlay
 let videoOverlayOptions: L.VideoOverlayOptions;
@@ -402,6 +428,7 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
+	.panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
 	.setMaxBounds(latLngBounds)
 	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
@@ -481,7 +508,9 @@ class MyDivIcon extends L.DivIcon {
 	}
 }
 
-const divIcon = L.divIcon({ html: '' });
+const divIconHtmlAsString = L.divIcon({ html: '' });
+const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
+const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
 
@@ -563,6 +592,7 @@ const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
+polyline.addLatLng([45.51, -122.68]);
 const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 
 // multi polyline
@@ -573,6 +603,8 @@ const multiPolylineLatLngs: L.LatLngExpression[][] = [
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
+const segment = polyline.getLatLngs() as L.LatLng[][];
+polyline.addLatLng([40.78, -73.91], segment[1]);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
 const obj1 = {
@@ -677,7 +709,6 @@ const AsyncCanvasLayer = L.GridLayer.extend({
 });
 
 export class ExtendedTileLayer extends L.TileLayer {
-	options: L.TileLayerOptions;
 	createTile(coords: L.Coords, done: L.DoneCallback) {
 		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
 		newCoords.z = coords.z;

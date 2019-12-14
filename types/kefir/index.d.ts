@@ -119,7 +119,7 @@ export class Observable<T, S> {
     sampledBy(otherObs: Observable<any, any>): Observable<T, S>;
     sampledBy<U, W>(otherObs: Observable<U, any>, combinator: (a: T, b: U) => W): Observable<W, S>;
     skipUntilBy<U, V>(otherObs: Observable<U, V>): Observable<U, V>;
-    takeUntilBy<U, V>(otherObs: Observable<U, V>): Observable<U, V>;
+    takeUntilBy<U, V>(otherObs: Observable<U, V>): Observable<T, S>;
     bufferBy<U, V>(otherObs: Observable<U, V>, options?: { flushOnEnd: boolean }): Observable<T[], S>;
     bufferWhileBy<U>(otherObs: Observable<boolean, U>, options?: { flushOnEnd?: boolean, flushOnChange?: boolean }): Observable<T[], S>;
     awaiting<U, V>(otherObs: Observable<U, V>): Observable<boolean, S>;

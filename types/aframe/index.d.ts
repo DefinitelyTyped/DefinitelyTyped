@@ -4,7 +4,7 @@
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6
 
 /**
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
@@ -235,7 +235,6 @@ export interface Scene extends Entity {
 	behaviors: Behavior[];
 	camera: THREE.Camera;
 	canvas: HTMLCanvasElement;
-	effect: THREE.VREffect;
 	isMobile: boolean;
 	object3D: THREE.Scene;
 	renderer: THREE.WebGLRenderer;

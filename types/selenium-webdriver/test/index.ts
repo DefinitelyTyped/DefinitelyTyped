@@ -3,6 +3,9 @@ import * as chrome from 'selenium-webdriver/chrome';
 import * as edge from 'selenium-webdriver/edge';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
+import * as ie from 'selenium-webdriver/ie';
+import * as safari from 'selenium-webdriver/safari';
+import { Command } from 'selenium-webdriver/lib/command';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -16,12 +19,24 @@ function TestBuilder() {
     let str: string = builder.getServerUrl();
 
     builder = builder.setAlertBehavior('behavior');
+    builder = builder.setAlertBehavior();
     builder = builder.setChromeOptions(new chrome.Options());
+    let chromeOpts: chrome.Options = builder.getChromeOptions();
+    builder = builder.setChromeService(new chrome.ServiceBuilder());
     builder = builder.setEdgeOptions(new edge.Options());
+    builder = builder.setEdgeService(new edge.ServiceBuilder());
     builder = builder.setFirefoxOptions(new firefox.Options());
+    let firefoxOpts: firefox.Options = builder.getFirefoxOptions();
+    builder = builder.setFirefoxService(new firefox.ServiceBuilder());
+    builder = builder.setIeOptions(new ie.Options());
+    builder = builder.setIeService(new ie.ServiceBuilder());
     builder = builder.setLoggingPrefs(new webdriver.logging.Preferences());
     builder = builder.setLoggingPrefs({ key: 'value' });
     builder = builder.setProxy({ proxyType: 'type' });
+    builder = builder.setSafariOptions(new safari.Options());
+    let safariOpts: safari.Options = builder.getSafariOptions();
+    builder = builder.usingHttpAgent({});
+    let httpAgent = builder.getHttpAgent();
     builder = builder.usingServer('http://someserver');
     builder = builder.withCapabilities(new webdriver.Capabilities());
     builder = builder.withCapabilities({ something: true });
@@ -96,6 +111,10 @@ function TestCapabilities() {
     capabilities = capabilities.setEnableNativeEvents(true);
     capabilities = capabilities.setScrollBehavior(1);
     capabilities = capabilities.setAlertBehavior('accept');
+    capabilities = capabilities.setAlertBehavior();
+    capabilities = capabilities.setBrowserName('myBrowserName');
+    capabilities = capabilities.setBrowserName(webdriver.Browser.ANDROID);
+    capabilities = capabilities.setBrowserVersion('10.3.4');
 
     anything = capabilities.toJSON();
 
@@ -390,12 +409,20 @@ function TestWebDriver() {
     let executor: http.Executor = new http.Executor(httpClient);
     let driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
     driver = new webdriver.WebDriver(sessionPromise, executor);
+    let cmdExecutor = driver.getExecutor();
 
     let voidPromise: Promise<void>;
     let stringPromise: Promise<string>;
     let webElementPromise: webdriver.WebElementPromise;
 
     voidPromise = driver.close();
+
+    // executeCommand
+    cmdExecutor.defineCommand('SEND_COMMAND', 'POST', `/session/${session.getId()}/chromium/send_command`);
+    const cmd = new Command('SEND_COMMAND')
+        .setParameter('cmd', 'Page.setDownloadBehavior')
+        .setParameter('params', {behavior: 'allow', downloadPath: './'});
+    voidPromise = driver.execute(cmd);
 
     // executeAsyncScript
     stringPromise = driver.executeAsyncScript<string>('function(){}');

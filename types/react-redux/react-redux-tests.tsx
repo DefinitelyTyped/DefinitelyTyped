@@ -1,7 +1,36 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
+import {
+    Store,
+    Dispatch,
+    AnyAction,
+    ActionCreator,
+    createStore,
+    bindActionCreators,
+    ActionCreatorsMapObject,
+    Reducer,
+} from 'redux';
+import {
+    Connect,
+    connect,
+    ConnectedProps,
+    Provider,
+    DispatchProp,
+    MapStateToProps,
+    Options,
+    ReactReduxContext,
+    ReactReduxContextValue,
+    Selector,
+    shallowEqual,
+    MapDispatchToProps,
+    useDispatch,
+    useSelector,
+    useStore,
+    createDispatchHook,
+    createSelectorHook,
+    createStoreHook,
+    TypedUseSelectorHook,
+} from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -82,9 +111,34 @@ function MapDispatch() {
 
     class TestComponent extends React.Component<OwnProps & DispatchProps> { }
 
-    const mapDispatchToProps = () => ({
-        onClick: () => { }
-    });
+    const mapDispatchToProps = ({ onClick: () => { } });
+
+    const TestNull = connect(
+        null,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyNull = <TestNull foo='bar' />;
+
+    const TestUndefined = connect(
+        undefined,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyUndefined = <TestUndefined foo='bar' />;
+}
+
+function MapDispatchUnion() {
+    interface OwnProps { foo: string; }
+    interface DispatchProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+
+    // We deliberately cast the right-hand side to `any` because otherwise
+    // TypeScript would maintain the literal value, when we deliberately want to
+    // test the union type here (as per the annotation). See
+    // https://github.com/Microsoft/TypeScript/issues/30310#issuecomment-472218182.
+    const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
 
     const TestNull = connect(
         null,
@@ -379,15 +433,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
     };
 }
 
-connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Counter);
-
-@connect(mapStateToProps)
-class CounterContainer extends React.Component<any, any> {
-}
-
 // Ensure connect's first two arguments can be replaced by wrapper functions
 interface CounterStateProps {
     value: number;
@@ -570,10 +615,10 @@ const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
 // ie: DispatchProp has been removed through decoration
-const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
+const ADecoratedTestComponent: React.NamedExoticComponent<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;  // $ExpectError
 
 // stateless functions
 interface HelloMessageProps {
@@ -713,7 +758,7 @@ function TestMergedPropsInference() {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.NamedExoticComponent<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -721,7 +766,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.NamedExoticComponent<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -729,7 +774,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.NamedExoticComponent<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -1248,4 +1293,181 @@ function TestSelector() {
     notSimpleSelect(state, ownProps);
     simpleSelect(state, ownProps); // $ExpectError
     notSimpleSelect(state); // $ExpectError
+}
+
+function testShallowEqual() {
+    shallowEqual(); // $ExpectError
+    shallowEqual('a'); // $ExpectError
+    shallowEqual('a', 'a');
+    shallowEqual({ test: 'test' }, { test: 'test' });
+    shallowEqual({ test: 'test' }, 'a');
+    const x: boolean = shallowEqual('a', 'a');
+}
+
+function testUseDispatch() {
+    const actionCreator = (selected: boolean) => ({
+        type: "ACTION_CREATOR",
+        payload: selected,
+    });
+    const thunkActionCreator = (selected: boolean) => {
+        return (dispatch: Dispatch) => {
+            return dispatch(actionCreator(selected));
+        };
+    };
+
+    const dispatch = useDispatch();
+    dispatch(actionCreator(true));
+    dispatch(thunkActionCreator(true));
+    dispatch(true);
+
+    type ThunkAction<TReturnType> = (dispatch: Dispatch) => TReturnType;
+    type ThunkDispatch = <TReturnType>(action: ThunkAction<TReturnType>) => TReturnType;
+    // tslint:disable-next-line:no-unnecessary-callback-wrapper (required for the generic parameter)
+    const useThunkDispatch = () => useDispatch<ThunkDispatch>();
+    const thunkDispatch = useThunkDispatch();
+    const result: ReturnType<typeof actionCreator> = thunkDispatch(thunkActionCreator(true));
+}
+
+function testUseSelector() {
+    interface State {
+        counter: number;
+        active: string;
+    }
+
+    const selector = (state: State) => {
+        return {
+            counter: state.counter,
+            active: state.active,
+        };
+    };
+    const { counter, active } = useSelector(selector);
+    counter === 1;
+    counter === "321"; // $ExpectError
+    active === "hi";
+    active === {}; // $ExpectError
+
+    const { extraneous } = useSelector(selector); // $ExpectError
+    useSelector(selector);
+
+    useSelector(selector, 'a'); // $ExpectError
+    useSelector(selector, (l, r) => l === r);
+    useSelector(selector, (l, r) => {
+        // $ExpectType { counter: number; active: string; }
+        l;
+        return l === r;
+    });
+
+    useSelector(selector, shallowEqual);
+    const compare = (_l: number, _r: number) => true;
+    useSelector(() => 1, compare);
+    const compare2 = (_l: number, _r: string) => true;
+    useSelector(() => 1, compare2); // $ExpectError
+
+    interface RootState {
+        property: string;
+    }
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+     // $ExpectType string
+    const r = useTypedSelector(state => {
+        // $ExpectType RootState
+        state;
+        return state.property;
+    });
+}
+
+function testUseStore() {
+    interface TypedState {
+        counter: number;
+        active: boolean;
+    }
+    interface TypedAction {
+        type: "SET_STATE";
+    }
+
+    const untypedStore = useStore();
+    const state = untypedStore.getState();
+    state.things.stuff.anything; // any by default
+
+    const typedStore = useStore<TypedState, TypedAction>();
+    const typedState = typedStore.getState();
+    typedState.counter;
+    typedState.things.stuff; // $ExpectError
+}
+
+// These should match the types of the hooks.
+function testCreateHookFunctions() {
+    // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
+    createDispatchHook();
+    // $ExpectType <TState, TSelected>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    createSelectorHook();
+    interface RootState {
+        property: string;
+    }
+    // Should be able to create a version typed for a specific root state.
+    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
+    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    createStoreHook();
+}
+
+function testConnectedProps() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null;
+
+    const connector = connect();
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithState() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, dispatch }) => {
+        injected.slice();
+        return null;
+    };
+
+    const connector = connect((state: any) => ({ injected: '' }));
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithStateAndActions() {
+    interface OwnProps {
+        own: string;
+    }
+    const actionCreator = () => ({ type: 'action' });
+
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, actionCreator }) => {
+        actionCreator();
+        return null;
+    };
+
+    const ComponentWithDispatch: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null; // $ExpectError
+
+    const connector = connect(
+        (state: any) => ({ injected: '' }),
+        { actionCreator }
+    );
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectReturnType() {
+    const TestComponent: React.FC = () => null;
+
+    const Test = connect()(TestComponent);
+
+    const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
+    myHoc1(Test); // $ExpectError
+
+    const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
+    myHoc2(Test);
 }

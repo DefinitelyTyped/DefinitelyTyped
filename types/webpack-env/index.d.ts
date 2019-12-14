@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.13
+// Type definitions for webpack (module API) 1.14
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -15,6 +15,8 @@ declare namespace __WebpackModuleApi {
         (id: string): any;
         <T>(id: string): T;
         resolve(id: string): string;
+        /** The module id of the context module. This may be useful for module.hot.accept. */
+        id: string;
     }
 
     interface RequireFunction {
@@ -32,6 +34,7 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
+        ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
         ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
         context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
         /**

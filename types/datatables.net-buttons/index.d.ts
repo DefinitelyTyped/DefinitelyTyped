@@ -15,6 +15,10 @@ declare namespace DataTables {
         buttons?: boolean | string[] | ButtonsSettings | ButtonSettings[];
     }
 
+    interface LanguageSettings {
+        buttons?: {};
+    }
+
     interface StaticFunctions {
         Buttons: ButtonStaticFunctions;
     }
@@ -437,8 +441,9 @@ declare namespace DataTables {
         //#endregion ColVis
     }
 
+    type ButtonSelectorTypes = string | number | JQuery<any>;
     interface ButtonExportOptions {
-        columns?: string | number | string[] | number[];
+        columns?: ButtonSelectorTypes | ButtonSelectorTypes[];
     }
 
     type FunctionButtonCustomizeData = (content: any) => void;

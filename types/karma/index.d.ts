@@ -4,7 +4,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 

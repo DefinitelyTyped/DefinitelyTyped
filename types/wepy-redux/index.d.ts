@@ -2,7 +2,7 @@
 // Project: https://github.com/Tencent/wepy/tree/1.7.x/packages/wepy-redux
 // Definitions by: Jiayu Liu <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import wepy from "wepy";
 import { Store } from "redux";

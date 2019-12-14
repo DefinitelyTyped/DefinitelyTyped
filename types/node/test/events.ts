@@ -26,10 +26,18 @@ const any: any = 1;
     result = events.EventEmitter.defaultMaxListeners;
     result = events.EventEmitter.listenerCount(emitter, event); // deprecated
 
-    const promise: Promise<any> = events.once(new events.EventEmitter(), 'error');
+    const promise: Promise<any[]> = events.once(new events.EventEmitter(), 'error');
 
     result = emitter.getMaxListeners();
     result = emitter.listenerCount(event);
+}
+
+{
+    let result: Promise<number[]>;
+
+    result = events.once(emitter, event);
+
+    emitter.emit(event, 42);
 }
 
 {
@@ -65,4 +73,12 @@ const any: any = 1;
 
 {
     new events();
+}
+
+{
+    events.once({
+        addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
+            setTimeout(() => listener(123), 100);
+        }
+    }, 'name');
 }

@@ -409,6 +409,34 @@ term("My name is ")
   .green("32\n");
 term("My name is ^rJack^ and I'm ^g32\n");
 
+term.noFormat.red("hello");
+
+term.noFormat("hello");
+
+// color methods with a second argument
+term.color(1, "test");
+term.darkColor(1, "test");
+term.brightColor(1, "test");
+term.color256(1, "test");
+term.colorRgb(255, 0, 0, "test");
+term.colorRgbHex("#ff0000", "test");
+term.colorGrayscale(192, "test");
+
+// bgColor methods with a second argument
+term.bgColor(1, "test");
+term.bgDarkColor(1, "test");
+term.bgBrightColor(1, "test");
+term.bgColor256(1, "test");
+term.bgColorRgb(255, 0, 0, "test");
+term.bgColorRgbHex("#ff0000", "test");
+term.bgColorGrayscale(192, "test");
+
+// new color & bgColor with color name
+term.color("red");
+term.color("red", "test");
+term.bgColor("red");
+term.bgColor("red", "test");
+
 getDetectedTerminal((error: any, term: any) => {
   term.cyan("Terminal name: %s\n", term.appName);
   term.cyan("Terminal app: %s\n", term.app);

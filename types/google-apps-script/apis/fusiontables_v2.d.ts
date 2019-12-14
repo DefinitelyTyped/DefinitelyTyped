@@ -1,13 +1,12 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace FusionTables {
     namespace Collection {
-      export interface ColumnCollection {
+      interface ColumnCollection {
         // Retrieves a specific column by its ID.
         get(tableId: string, columnId: string): FusionTables.Schema.Column;
         // Adds a new column to the table.
@@ -23,7 +22,7 @@ declare namespace GoogleAppsScript {
         // Updates the name or type of an existing column.
         update(resource: Schema.Column, tableId: string, columnId: string): FusionTables.Schema.Column;
       }
-      export interface QueryCollection {
+      interface QueryCollection {
         // Executes a Fusion Tables SQL statement, which can be any of
         // - SELECT
         // - INSERT
@@ -53,7 +52,7 @@ declare namespace GoogleAppsScript {
         // - DESCRIBE
         sqlGet(sql: string, optionalArgs: object): FusionTables.Schema.Sqlresponse;
       }
-      export interface StyleCollection {
+      interface StyleCollection {
         // Gets a specific style.
         get(tableId: string, styleId: number): FusionTables.Schema.StyleSetting;
         // Adds a new style for the table.
@@ -69,7 +68,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing style.
         update(resource: Schema.StyleSetting, tableId: string, styleId: number): FusionTables.Schema.StyleSetting;
       }
-      export interface TableCollection {
+      interface TableCollection {
         // Copies a table.
         copy(tableId: string): FusionTables.Schema.Table;
         // Copies a table.
@@ -113,7 +112,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
         update(resource: Schema.Table, tableId: string, optionalArgs: object): FusionTables.Schema.Table;
       }
-      export interface TaskCollection {
+      interface TaskCollection {
         // Retrieves a specific task by its ID.
         get(tableId: string, taskId: string): FusionTables.Schema.Task;
         // Retrieves a list of tasks.
@@ -123,7 +122,7 @@ declare namespace GoogleAppsScript {
         // Deletes a specific task by its ID, unless that task has already started running.
         remove(tableId: string, taskId: string): void;
       }
-      export interface TemplateCollection {
+      interface TemplateCollection {
         // Retrieves a specific template by its id
         get(tableId: string, templateId: number): FusionTables.Schema.Template;
         // Creates a new template for the table.
@@ -141,15 +140,15 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Bucket {
+      interface Bucket {
         color?: string;
         icon?: string;
-        max?: Number;
-        min?: Number;
-        opacity?: Number;
+        max?: number;
+        min?: number;
+        opacity?: number;
         weight?: number;
       }
-      export interface Column {
+      interface Column {
         baseColumn?: FusionTables.Schema.ColumnBaseColumn;
         columnId?: number;
         columnJsonSchema?: string;
@@ -163,79 +162,79 @@ declare namespace GoogleAppsScript {
         validValues?: string[];
         validateData?: boolean;
       }
-      export interface ColumnBaseColumn {
+      interface ColumnBaseColumn {
         columnId?: number;
         tableIndex?: number;
       }
-      export interface ColumnList {
+      interface ColumnList {
         items?: FusionTables.Schema.Column[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
       }
-      export interface Geometry {
-        geometries?: Object[];
+      interface Geometry {
+        geometries?: object[];
         geometry?: object;
         type?: string;
       }
-      export interface Import {
+      interface Import {
         kind?: string;
         numRowsReceived?: string;
       }
-      export interface Line {
-        coordinates?: Number[][];
+      interface Line {
+        coordinates?: number[][];
         type?: string;
       }
-      export interface LineStyle {
+      interface LineStyle {
         strokeColor?: string;
         strokeColorStyler?: FusionTables.Schema.StyleFunction;
-        strokeOpacity?: Number;
+        strokeOpacity?: number;
         strokeWeight?: number;
         strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
-      export interface Point {
-        coordinates?: Number[];
+      interface Point {
+        coordinates?: number[];
         type?: string;
       }
-      export interface PointStyle {
+      interface PointStyle {
         iconName?: string;
         iconStyler?: FusionTables.Schema.StyleFunction;
       }
-      export interface Polygon {
-        coordinates?: Number[][][];
+      interface Polygon {
+        coordinates?: number[][][];
         type?: string;
       }
-      export interface PolygonStyle {
+      interface PolygonStyle {
         fillColor?: string;
         fillColorStyler?: FusionTables.Schema.StyleFunction;
-        fillOpacity?: Number;
+        fillOpacity?: number;
         strokeColor?: string;
         strokeColorStyler?: FusionTables.Schema.StyleFunction;
-        strokeOpacity?: Number;
+        strokeOpacity?: number;
         strokeWeight?: number;
         strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
-      export interface Sqlresponse {
+      interface Sqlresponse {
         columns?: string[];
         kind?: string;
-        rows?: Object[][];
+        rows?: object[][];
       }
-      export interface StyleFunction {
+      interface StyleFunction {
         buckets?: FusionTables.Schema.Bucket[];
         columnName?: string;
         gradient?: FusionTables.Schema.StyleFunctionGradient;
         kind?: string;
       }
-      export interface StyleFunctionGradient {
+      interface StyleFunctionGradient {
         colors?: FusionTables.Schema.StyleFunctionGradientColors[];
-        max?: Number;
-        min?: Number;
+        max?: number;
+        min?: number;
       }
-      export interface StyleFunctionGradientColors {
+      interface StyleFunctionGradientColors {
         color?: string;
-        opacity?: Number;
+        opacity?: number;
       }
-      export interface StyleSetting {
+      interface StyleSetting {
         kind?: string;
         markerOptions?: FusionTables.Schema.PointStyle;
         name?: string;
@@ -244,13 +243,13 @@ declare namespace GoogleAppsScript {
         styleId?: number;
         tableId?: string;
       }
-      export interface StyleSettingList {
+      interface StyleSettingList {
         items?: FusionTables.Schema.StyleSetting[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
       }
-      export interface Table {
+      interface Table {
         attribution?: string;
         attributionLink?: string;
         baseTableIds?: string[];
@@ -265,25 +264,25 @@ declare namespace GoogleAppsScript {
         tablePropertiesJson?: string;
         tablePropertiesJsonSchema?: string;
       }
-      export interface TableList {
+      interface TableList {
         items?: FusionTables.Schema.Table[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Task {
+      interface Task {
         kind?: string;
         progress?: string;
         started?: boolean;
         taskId?: string;
         type?: string;
       }
-      export interface TaskList {
+      interface TaskList {
         items?: FusionTables.Schema.Task[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
       }
-      export interface Template {
+      interface Template {
         automaticColumnNames?: string[];
         body?: string;
         kind?: string;
@@ -291,7 +290,7 @@ declare namespace GoogleAppsScript {
         tableId?: string;
         templateId?: number;
       }
-      export interface TemplateList {
+      interface TemplateList {
         items?: FusionTables.Schema.Template[];
         kind?: string;
         nextPageToken?: string;
@@ -299,7 +298,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface FusionTables {
+  interface FusionTables {
     Column?: FusionTables.Collection.ColumnCollection;
     Query?: FusionTables.Collection.QueryCollection;
     Style?: FusionTables.Collection.StyleCollection;

@@ -6,11 +6,15 @@ import { Validation } from './vuelidate'
 
 declare module 'vue/types/vue' {
     type ValidationProperties<V> = {
-        [P in keyof V]?: Validation & ValidationProperties<V[P]>
+        [P in keyof V]?: Validation & ValidationProperties<V[P]> & ValidationEvaluation
     }
 
     interface ValidationGroups {
         [groupName: string]: Validation & ValidationProperties<any>
+    }
+
+    interface ValidationEvaluation {
+        [ruleName: string]: boolean
     }
 
     interface Vue {

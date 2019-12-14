@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Spinner, Tooltip } from '../AtlaskitDummy';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 import { colourOptions } from '../data';
 
 const LoadingIndicator = (props: any) => {

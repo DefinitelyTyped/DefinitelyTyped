@@ -846,9 +846,11 @@ declare namespace Xrm {
 
         /**
          * Re-evaluates the ribbon's configured EnableRules.
+         * @param refreshAll Indicates whether all the ribbon command bars on the current page are refreshed. If you specify false only the page-level ribbon command bar is refreshed.
+         * If you do not specifiy this parameter, by default false is passed.
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
-        refreshRibbon(): void;
+        refreshRibbon(refreshAll?: boolean): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -2507,6 +2509,28 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for UI elements which can have the disabled value read.
+         */
+        interface UiCanGetDisabledElement {
+            /**
+             * Gets a boolean value, indicating whether the control is disabled.
+             * @returns true if it is disabled, otherwise false.
+             */
+            getDisabled(): boolean;
+        }
+
+        /**
+         * Interface for UI elements which can have the disabled value updated.
+         */
+        interface UiCanSetDisabledElement {
+            /**
+             * Sets the state of the control to either enabled, or disabled.
+             * @param disabled true to disable, false to enable.
+             */
+            setDisabled(disabled: boolean): void;
+        }
+
+        /**
          * Interface for UI elements which can have the visibility value read.
          */
         interface UiCanGetVisibleElement {
@@ -2715,7 +2739,7 @@ declare namespace Xrm {
          * Interface for a standard control.
          * @see {@link Control}
          */
-        interface StandardControl extends Control, UiStandardElement, UiFocusable {
+        interface StandardControl extends Control, UiStandardElement, UiFocusable, UiCanGetDisabledElement, UiCanSetDisabledElement {
             /**
              * Clears the notification identified by uniqueId.
              * @param uniqueId (Optional) Unique identifier.
@@ -2723,18 +2747,6 @@ declare namespace Xrm {
              * @remarks If the uniqueId parameter is not used, the current notification shown will be removed.
              */
             clearNotification(uniqueId?: string): boolean;
-
-            /**
-             * Gets a boolean value, indicating whether the control is disabled.
-             * @returns true if it is disabled, otherwise false.
-             */
-            getDisabled(): boolean;
-
-            /**
-             * Sets the state of the control to either enabled, or disabled.
-             * @param disabled true to disable, false to enable.
-             */
-            setDisabled(disabled: boolean): void;
 
             /**
              * Sets a control-local notification message.
@@ -2973,7 +2985,7 @@ declare namespace Xrm {
              *
              * @param handler The event handler.
              */
-            addOnLoad(handler: () => void): void;
+            addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * This method returns context information about the GridControl.
@@ -3160,7 +3172,7 @@ declare namespace Xrm {
          * Interface for a quick view control instance on a form.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
-        interface QuickFormControl extends Control, UiLabelElement, UiCanGetVisibleElement {
+        interface QuickFormControl extends Control, UiLabelElement, UiFocusable, UiCanGetDisabledElement, UiCanSetDisabledElement, UiCanGetVisibleElement, UiCanSetVisibleElement {
             /**
              * Gets the constituent controls in a quick view control.
              * @returns An array of controls.
@@ -3207,6 +3219,12 @@ declare namespace Xrm {
              * @returns Returns a string value ("quickform") that categorizes quick view controls.
              */
             getControlType(): ControlQuickFormType;
+
+            /**
+             * Gets a reference to the Section parent of the control.
+             * @returns The parent Section.
+             */
+            getParent(): Section;
 
             /**
              * Returns whether the data binding for the constituent controls in a quick view control is complete.
@@ -3271,6 +3289,12 @@ declare namespace Xrm {
          */
         interface Tab extends UiStandardElement, UiFocusable {
             /**
+             * Adds a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be executed on the TabStateChange event.
+             */
+            addTabStateChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
              * Gets display state of the tab.
              * @returns The display state, as either "expanded" or "collapsed"
              */
@@ -3287,6 +3311,12 @@ declare namespace Xrm {
              * @returns The parent.
              */
             getParent(): Ui;
+
+            /**
+             * Removes a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be removed from the TabStateChange event.
+             */
+            removeTabStateChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets display state of the tab.
@@ -4856,38 +4886,7 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse {
-        /**
-         * (Optional). Object.Response body.
-         */
-        body: string;
-        /**
-         * Response headers.
-         */
-        headers: any;
-        /**
-         * Indicates whether the request was successful.
-         */
-        ok: boolean;
-        /**
-         * Numeric value in the response status code.
-         * @example 200
-         */
-        status: number;
-        /**
-         * Description of the response status code.
-         * @example "OK"
-         */
-        statusText: string;
-        /**
-         * Response type.Values are: the empty string (default), "arraybuffer", "blob", "document", "json", and "text".
-         */
-        type: string;
-        /**
-         * Request URL of the action, function, or CRUD request that was sent to the Web API endpoint.
-         */
-        url: string;
-    }
+    interface ExecuteResponse extends Response { }
 }
 
 declare namespace XrmEnum {
@@ -5260,12 +5259,12 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Posible file types for Xrm.Device.pickFile options
+     * Constant Enum: Possible file types for Xrm.Device.pickFile options
      * @see {@link Xrm.Device.PickFileTypes}
      */
     const enum DevicePickFileType {
         Audio = "audio",
-        Video = "vidoe",
+        Video = "video",
         Image = "image"
     }
 }

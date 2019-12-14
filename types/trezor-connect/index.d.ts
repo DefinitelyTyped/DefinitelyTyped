@@ -1,4 +1,4 @@
-// Type definitions for trezor-connect 6.0
+// Type definitions for trezor-connect 7.0
 // Project: https://github.com/trezor/connect
 // Definitions by: Federico Bond <https://github.com/federicobond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -251,6 +251,11 @@ export interface SignedTransaction {
   txId?: string;
 }
 
+export interface ManifestParams {
+  email: string;
+  appUrl: string;
+}
+
 export interface Settings {
   debug: boolean | { [k: string]: boolean };
   configSrc?: string; // constant
@@ -269,6 +274,8 @@ export interface Settings {
   pendingTransportEvent?: boolean;
   supportedBrowser?: boolean;
   extension?: string;
+  lazyLoad?: string;
+  manifest?: ManifestParams;
 }
 
 export interface Input {
@@ -322,7 +329,7 @@ export interface RefTransaction {
 export interface SignTransactionParams extends CommonParams {
   inputs: Input[];
   outputs: Output[];
-  refTxs: RefTransaction[];
+  refTxs?: RefTransaction[];
   coin: string;
   locktime?: number;
   version?: number;
@@ -345,6 +352,8 @@ export namespace TrezorConnect {
    * Initializes TrezorConnect.
    */
   function init(settings: Settings): void;
+
+  function manifest(params: ManifestParams): void;
 
   /**
    * Retrieves BIP32 extended public derived by given BIP32 path.

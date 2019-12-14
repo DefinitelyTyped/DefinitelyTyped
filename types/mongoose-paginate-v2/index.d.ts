@@ -1,10 +1,12 @@
-// Type definitions for mongoose-paginate-v2 1.0
+// Type definitions for mongoose-paginate-v2 1.3
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
+//                 oktapodia <https://github.com/oktapodia>
+//                 Dongjun Lee <https://github.com/ChazEpps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
@@ -19,6 +21,11 @@ declare module 'mongoose' {
     prevPage?: string;
   }
 
+  interface ReadOptions {
+    pref: string;
+    tags?: any[];
+  }
+
   interface PaginateOptions {
     /* tslint:disable-next-line: ban-types */
     select?: Object | string;
@@ -27,12 +34,28 @@ declare module 'mongoose' {
     customLabels?: CustomLabels;
     collation?: CollationOptions;
     /* tslint:disable-next-line: ban-types */
-    populate?: Object[] | string[] | Object | string;
+    populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
     lean?: boolean;
     leanWithId?: boolean;
     offset?: number;
     page?: number;
     limit?: number;
+    read?: ReadOptions;
+  }
+
+  interface QueryPopulateOptions {
+    /** space delimited path(s) to populate */
+    path: string;
+    /** optional fields to select */
+    select?: any;
+    /** optional query conditions to match */
+    match?: any;
+    /** optional model to use for population */
+    model?: string | Model<any>;
+    /** optional query options like sort, limit, etc */
+    options?: any;
+    /** deep populate */
+    populate?: QueryPopulateOptions | QueryPopulateOptions[];
   }
 
   interface PaginateResult<T> {

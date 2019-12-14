@@ -205,11 +205,6 @@ declare module "koa" {
         session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
     }
-
-    interface Application {
-        on(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
-        once(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
-    }
 }
 
 export = session;

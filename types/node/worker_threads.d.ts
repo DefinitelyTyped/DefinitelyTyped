@@ -73,7 +73,11 @@ declare module "worker_threads" {
         postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
         ref(): void;
         unref(): void;
-        terminate(callback?: (err: Error, exitCode: number) => void): void;
+        /**
+         * Stop all JavaScript execution in the worker thread as soon as possible.
+         * Returns a Promise for the exit code that is fulfilled when the `exit` event is emitted.
+         */
+        terminate(): Promise<number>;
         /**
          * Transfer a `MessagePort` to a different `vm` Context. The original `port`
          * object will be rendered unusable, and the returned `MessagePort` instance will
@@ -89,6 +93,14 @@ declare module "worker_threads" {
          * events using it.
          */
         moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+
+        /**
+         * Receive a single message from a given `MessagePort`. If no message is available,
+         * `undefined` is returned, otherwise an object with a single `message` property
+         * that contains the message payload, corresponding to the oldest message in the
+         * `MessagePort`’s queue.
+         */
+        receiveMessageOnPort(port: MessagePort): {} | undefined;
 
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;

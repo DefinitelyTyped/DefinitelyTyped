@@ -162,7 +162,6 @@ export class Code {
 
 /**
  * A class representation of the BSON DBRef type.
- * @deprecated
  */
 export class DBRef {
     /**

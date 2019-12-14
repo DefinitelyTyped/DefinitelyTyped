@@ -13,7 +13,6 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 //                 Peter Thorson <https://github.com/zaphoyd>
-//                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -207,6 +206,10 @@ export interface IPOptions {
 export interface StringRegexOptions {
     name?: string;
     invert?: boolean;
+}
+
+export interface ArrayUniqueOptions {
+    ignoreUndefined?: boolean;
 }
 
 export interface JoiObject {
@@ -762,7 +765,7 @@ export interface ArraySchema extends AnySchema {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(comparator?: string): this;
+    unique(comparator?: string, options?: ArrayUniqueOptions): this;
     unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
 }
 

@@ -2,7 +2,6 @@ namespace Components {
 	export class TestComponent extends polymer.Base {
 
 		public field: string = 'foo';
-		public is: string;
 		
 		constructor() {
 			super();

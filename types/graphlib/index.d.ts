@@ -92,7 +92,7 @@ declare module "graphlib" {
 		 * @argument v - node to get children of.
 		 * @returns children nodes names list.
 		 */
-		children(v: string): string[];
+		children(v?: string): string[];
 
 		/**
 		 * Creates new graph with nodes filtered via filter. Edges incident to rejected node

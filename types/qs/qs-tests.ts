@@ -87,8 +87,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
-  var withArray = qs.parse('a[]=b&a[]=c');
-  assert.deepEqual(withArray, { a: ['b', 'c'] });
+    var withArray = qs.parse('a[]=b&a[]=c');
+    assert.deepEqual(withArray, { a: ['b', 'c'] });
 }
 
 () => {
@@ -145,21 +145,33 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
-    var encoded = qs.stringify({ a: { b: 'c' } }, {
-        encoder: function (str) {
-            // Passed in values `a`, `b`, `c`
-            return // Return encoded string
+    var toBeCalled = new Set(['key', 'value']);
+    var encoded = qs.stringify({ a: 12 }, {
+        encoder: function (str, defaultEncoder, charset, type) {
+            assert.ok(toBeCalled.has(type));
+            toBeCalled.delete(type);
+            if (typeof str === 'number') return 'Number('+str+')';
+            return defaultEncoder(str, defaultEncoder, charset);
         }
-    })
+    });
+    assert.equal(toBeCalled.size, 0);
+    assert.equal(encoded, 'a=Number(12)');
 }
 
 () => {
-    var decoded = qs.parse('x=z', {
-        decoder: function (str) {
-            // Passed in values `x`, `z`
-            return // Return decoded string
+    var decoded = qs.parse('a=Number(12)&b=foo', {
+        decoder: function (str, defaultDecoder, charset, type) {
+            if (type !== 'key') {
+                var numberMatch = str.match(/^Number\((\d+)\)$/);            
+                if (numberMatch) {
+                    return +numberMatch[1];
+                }
+            }
+        
+            return defaultDecoder(str, defaultDecoder, charset);
         }
-    })
+    });
+    assert.deepEqual(decoded, { a: 12, b: 'foo' });
 }
 
 () => {
@@ -239,19 +251,22 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
+    var parsedCommaSeparatedArray = qs.parse('?a=b,c', { comma: true });
+    assert.equal(parsedCommaSeparatedArray, { a: ['b', 'c']});
+}
+
+() => {
     var nullsSkipped = qs.stringify({ a: 'b', c: null }, { skipNulls: true });
     assert.equal(nullsSkipped, 'a=b');
 }
 
 () => {
-    var encoder = () => {};
-    var shiftJISEncoded = qs.stringify({ a: 'こんにちは！' }, { encoder: encoder });
+    var shiftJISEncoded = qs.stringify({ a: 'こんにちは！' });
     assert.equal(shiftJISEncoded, 'a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
 }
 
 () => {
-    var decoder = () => {};
-    var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I', { decoder: decoder });
+    var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
     assert.deepEqual(obj, { a: 'こんにちは！' });
 }
 

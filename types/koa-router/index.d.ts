@@ -92,6 +92,9 @@ declare namespace Router {
         name: string;
         sensitive?: boolean;
         strict?: boolean;
+        end?: boolean;
+        prefix?: string;
+        ignoreCaptures?: boolean;
     }
 
     export interface IUrlOptionsQuery {
@@ -398,7 +401,7 @@ declare class Router<StateT = any, CustomT = {}> {
     ): Router<StateT & T, CustomT & U>;
 
     /**
-     * HTTP path method
+     * HTTP patch method
      */
     patch(
         name: string,
@@ -482,8 +485,8 @@ declare class Router<StateT = any, CustomT = {}> {
     register(
         path: string | RegExp,
         methods: string[],
-        middleware: Router.IMiddleware<StateT, CustomT>,
-        opts?: Object
+        middleware: Router.IMiddleware<StateT, CustomT> | Array<Router.IMiddleware<StateT, CustomT>>,
+        opts?: Router.ILayerOptions,
     ): Router.Layer;
 
     /**

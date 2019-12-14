@@ -1,14 +1,13 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace AdminDirectory {
     namespace Collection {
       namespace Groups {
-        export interface AliasesCollection {
+        interface AliasesCollection {
           // Add a alias for the group
           insert(resource: Schema.Alias, groupKey: string): AdminDirectory.Schema.Alias;
           // List all aliases for a group
@@ -18,7 +17,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Resources {
-        export interface BuildingsCollection {
+        interface BuildingsCollection {
           // Retrieves a building.
           get(customer: string, buildingId: string): AdminDirectory.Schema.Building;
           // Inserts a building.
@@ -40,7 +39,7 @@ declare namespace GoogleAppsScript {
           // Updates a building.
           update(resource: Schema.Building, customer: string, buildingId: string, optionalArgs: object): AdminDirectory.Schema.Building;
         }
-        export interface CalendarsCollection {
+        interface CalendarsCollection {
           // Retrieves a calendar resource.
           get(customer: string, calendarResourceId: string): AdminDirectory.Schema.CalendarResource;
           // Inserts a calendar resource.
@@ -58,7 +57,7 @@ declare namespace GoogleAppsScript {
           // This method supports patch semantics, meaning you only need to include the fields you wish to update. Fields that are not present in the request will be preserved.
           update(resource: Schema.CalendarResource, customer: string, calendarResourceId: string): AdminDirectory.Schema.CalendarResource;
         }
-        export interface FeaturesCollection {
+        interface FeaturesCollection {
           // Retrieves a feature.
           get(customer: string, featureKey: string): AdminDirectory.Schema.Feature;
           // Inserts a feature.
@@ -78,7 +77,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Users {
-        export interface AliasesCollection {
+        interface AliasesCollection {
           // Add a alias for the user
           insert(resource: Schema.Alias, userKey: string): AdminDirectory.Schema.Alias;
           // List all aliases for a user
@@ -92,7 +91,7 @@ declare namespace GoogleAppsScript {
           // Watch for changes in user aliases list
           watch(resource: Schema.Channel, userKey: string, optionalArgs: object): AdminDirectory.Schema.Channel;
         }
-        export interface PhotosCollection {
+        interface PhotosCollection {
           // Retrieve photo of a user
           get(userKey: string): AdminDirectory.Schema.UserPhoto;
           // Add a photo for the user. This method supports patch semantics.
@@ -103,7 +102,7 @@ declare namespace GoogleAppsScript {
           update(resource: Schema.UserPhoto, userKey: string): AdminDirectory.Schema.UserPhoto;
         }
       }
-      export interface AspsCollection {
+      interface AspsCollection {
         // Get information about an ASP issued by a user.
         get(userKey: string, codeId: number): AdminDirectory.Schema.Asp;
         // List the ASPs issued by a user.
@@ -111,11 +110,11 @@ declare namespace GoogleAppsScript {
         // Delete an ASP issued by a user.
         remove(userKey: string, codeId: number): void;
       }
-      export interface ChannelsCollection {
+      interface ChannelsCollection {
         // Stop watching resources through this channel
         stop(resource: Schema.Channel): void;
       }
-      export interface ChromeosdevicesCollection {
+      interface ChromeosdevicesCollection {
         // Take action on Chrome OS Device
         action(resource: Schema.ChromeOsDeviceAction, customerId: string, resourceId: string): void;
         // Retrieve Chrome OS Device
@@ -137,7 +136,7 @@ declare namespace GoogleAppsScript {
         // Update Chrome OS Device
         update(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string, optionalArgs: object): AdminDirectory.Schema.ChromeOsDevice;
       }
-      export interface CustomersCollection {
+      interface CustomersCollection {
         // Retrieves a customer.
         get(customerKey: string): AdminDirectory.Schema.Customer;
         // Updates a customer. This method supports patch semantics.
@@ -145,7 +144,7 @@ declare namespace GoogleAppsScript {
         // Updates a customer.
         update(resource: Schema.Customer, customerKey: string): AdminDirectory.Schema.Customer;
       }
-      export interface DomainAliasesCollection {
+      interface DomainAliasesCollection {
         // Retrieves a domain alias of the customer.
         get(customer: string, domainAliasName: string): AdminDirectory.Schema.DomainAlias;
         // Inserts a Domain alias of the customer.
@@ -157,7 +156,7 @@ declare namespace GoogleAppsScript {
         // Deletes a Domain Alias of the customer.
         remove(customer: string, domainAliasName: string): void;
       }
-      export interface DomainsCollection {
+      interface DomainsCollection {
         // Retrieves a domain of the customer.
         get(customer: string, domainName: string): AdminDirectory.Schema.Domains;
         // Inserts a domain of the customer.
@@ -167,7 +166,7 @@ declare namespace GoogleAppsScript {
         // Deletes a domain of the customer.
         remove(customer: string, domainName: string): void;
       }
-      export interface GroupsCollection {
+      interface GroupsCollection {
         Aliases?: AdminDirectory.Collection.Groups.AliasesCollection;
         // Retrieve Group
         get(groupKey: string): AdminDirectory.Schema.Group;
@@ -184,7 +183,7 @@ declare namespace GoogleAppsScript {
         // Update Group
         update(resource: Schema.Group, groupKey: string): AdminDirectory.Schema.Group;
       }
-      export interface MembersCollection {
+      interface MembersCollection {
         // Retrieve Group Member
         get(groupKey: string, memberKey: string): AdminDirectory.Schema.Member;
         // Checks whether the given user is a member of the group. Membership can be direct or nested.
@@ -202,7 +201,7 @@ declare namespace GoogleAppsScript {
         // Update membership of a user in the specified group.
         update(resource: Schema.Member, groupKey: string, memberKey: string): AdminDirectory.Schema.Member;
       }
-      export interface MobiledevicesCollection {
+      interface MobiledevicesCollection {
         // Take action on Mobile Device
         action(resource: Schema.MobileDeviceAction, customerId: string, resourceId: string): void;
         // Retrieve Mobile Device
@@ -216,7 +215,7 @@ declare namespace GoogleAppsScript {
         // Delete Mobile Device
         remove(customerId: string, resourceId: string): void;
       }
-      export interface NotificationsCollection {
+      interface NotificationsCollection {
         // Retrieves a notification.
         get(customer: string, notificationId: string): AdminDirectory.Schema.Notification;
         // Retrieves a list of notifications.
@@ -230,7 +229,7 @@ declare namespace GoogleAppsScript {
         // Updates a notification.
         update(resource: Schema.Notification, customer: string, notificationId: string): AdminDirectory.Schema.Notification;
       }
-      export interface OrgunitsCollection {
+      interface OrgunitsCollection {
         // Retrieve organizational unit
         get(customerId: string, orgUnitPath: string[]): AdminDirectory.Schema.OrgUnit;
         // Add organizational unit
@@ -246,22 +245,22 @@ declare namespace GoogleAppsScript {
         // Update organizational unit
         update(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): AdminDirectory.Schema.OrgUnit;
       }
-      export interface PrivilegesCollection {
+      interface PrivilegesCollection {
         // Retrieves a paginated list of all privileges for a customer.
         list(customer: string): AdminDirectory.Schema.Privileges;
       }
-      export interface ResolvedAppAccessSettingsCollection {
+      interface ResolvedAppAccessSettingsCollection {
         // Retrieves resolved app access settings of the logged in user.
         GetSettings(): AdminDirectory.Schema.AppAccessCollections;
         // Retrieves the list of apps trusted by the admin of the logged in user.
         ListTrustedApps(): AdminDirectory.Schema.TrustedApps;
       }
-      export interface ResourcesCollection {
+      interface ResourcesCollection {
         Buildings?: AdminDirectory.Collection.Resources.BuildingsCollection;
         Calendars?: AdminDirectory.Collection.Resources.CalendarsCollection;
         Features?: AdminDirectory.Collection.Resources.FeaturesCollection;
       }
-      export interface RoleAssignmentsCollection {
+      interface RoleAssignmentsCollection {
         // Retrieve a role assignment.
         get(customer: string, roleAssignmentId: string): AdminDirectory.Schema.RoleAssignment;
         // Creates a role assignment.
@@ -273,7 +272,7 @@ declare namespace GoogleAppsScript {
         // Deletes a role assignment.
         remove(customer: string, roleAssignmentId: string): void;
       }
-      export interface RolesCollection {
+      interface RolesCollection {
         // Retrieves a role.
         get(customer: string, roleId: string): AdminDirectory.Schema.Role;
         // Creates a role.
@@ -289,7 +288,7 @@ declare namespace GoogleAppsScript {
         // Updates a role.
         update(resource: Schema.Role, customer: string, roleId: string): AdminDirectory.Schema.Role;
       }
-      export interface SchemasCollection {
+      interface SchemasCollection {
         // Retrieve schema
         get(customerId: string, schemaKey: string): AdminDirectory.Schema.Schema;
         // Create schema.
@@ -303,7 +302,7 @@ declare namespace GoogleAppsScript {
         // Update schema
         update(resource: Schema.Schema, customerId: string, schemaKey: string): AdminDirectory.Schema.Schema;
       }
-      export interface TokensCollection {
+      interface TokensCollection {
         // Get information about an access token issued by a user.
         get(userKey: string, clientId: string): AdminDirectory.Schema.Token;
         // Returns the set of tokens specified user has issued to 3rd party applications.
@@ -311,7 +310,7 @@ declare namespace GoogleAppsScript {
         // Delete all access tokens issued by a user for an application.
         remove(userKey: string, clientId: string): void;
       }
-      export interface UsersCollection {
+      interface UsersCollection {
         Aliases?: AdminDirectory.Collection.Users.AliasesCollection;
         Photos?: AdminDirectory.Collection.Users.PhotosCollection;
         // retrieve user
@@ -339,7 +338,7 @@ declare namespace GoogleAppsScript {
         // Watch for changes in users list
         watch(resource: Schema.Channel, optionalArgs: object): AdminDirectory.Schema.Channel;
       }
-      export interface VerificationCodesCollection {
+      interface VerificationCodesCollection {
         // Generate new backup verification codes for the user.
         generate(userKey: string): void;
         // Invalidate the current backup verification codes for the user.
@@ -349,19 +348,19 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Alias {
+      interface Alias {
         alias?: string;
         etag?: string;
         id?: string;
         kind?: string;
         primaryEmail?: string;
       }
-      export interface Aliases {
-        aliases?: Object[];
+      interface Aliases {
+        aliases?: any[];
         etag?: string;
         kind?: string;
       }
-      export interface AppAccessCollections {
+      interface AppAccessCollections {
         blockedApiAccessBuckets?: string[];
         enforceSettingsForAndroidDrive?: boolean;
         errorMessage?: string;
@@ -371,7 +370,7 @@ declare namespace GoogleAppsScript {
         resourceName?: string;
         trustDomainOwnedApps?: boolean;
       }
-      export interface Asp {
+      interface Asp {
         codeId?: number;
         creationTime?: string;
         etag?: string;
@@ -380,12 +379,12 @@ declare namespace GoogleAppsScript {
         name?: string;
         userKey?: string;
       }
-      export interface Asps {
+      interface Asps {
         etag?: string;
         items?: AdminDirectory.Schema.Asp[];
         kind?: string;
       }
-      export interface Building {
+      interface Building {
         address?: AdminDirectory.Schema.BuildingAddress;
         buildingId?: string;
         buildingName?: string;
@@ -395,7 +394,7 @@ declare namespace GoogleAppsScript {
         floorNames?: string[];
         kind?: string;
       }
-      export interface BuildingAddress {
+      interface BuildingAddress {
         addressLines?: string[];
         administrativeArea?: string;
         languageCode?: string;
@@ -404,17 +403,17 @@ declare namespace GoogleAppsScript {
         regionCode?: string;
         sublocality?: string;
       }
-      export interface BuildingCoordinates {
-        latitude?: Number;
-        longitude?: Number;
+      interface BuildingCoordinates {
+        latitude?: number;
+        longitude?: number;
       }
-      export interface Buildings {
+      interface Buildings {
         buildings?: AdminDirectory.Schema.Building[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
       }
-      export interface CalendarResource {
+      interface CalendarResource {
         buildingId?: string;
         capacity?: number;
         etags?: string;
@@ -431,13 +430,13 @@ declare namespace GoogleAppsScript {
         resourceType?: string;
         userVisibleDescription?: string;
       }
-      export interface CalendarResources {
+      interface CalendarResources {
         etag?: string;
         items?: AdminDirectory.Schema.CalendarResource[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Channel {
+      interface Channel {
         address?: string;
         expiration?: string;
         id?: string;
@@ -449,7 +448,7 @@ declare namespace GoogleAppsScript {
         token?: string;
         type?: string;
       }
-      export interface ChromeOsDevice {
+      interface ChromeOsDevice {
         activeTimeRanges?: AdminDirectory.Schema.ChromeOsDeviceActiveTimeRanges[];
         annotatedAssetId?: string;
         annotatedLocation?: string;
@@ -482,46 +481,46 @@ declare namespace GoogleAppsScript {
         tpmVersionInfo?: AdminDirectory.Schema.ChromeOsDeviceTpmVersionInfo;
         willAutoRenew?: boolean;
       }
-      export interface ChromeOsDeviceAction {
+      interface ChromeOsDeviceAction {
         action?: string;
         deprovisionReason?: string;
       }
-      export interface ChromeOsDeviceActiveTimeRanges {
+      interface ChromeOsDeviceActiveTimeRanges {
         activeTime?: number;
         date?: string;
       }
-      export interface ChromeOsDeviceCpuStatusReports {
+      interface ChromeOsDeviceCpuStatusReports {
         cpuTemperatureInfo?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[];
         cpuUtilizationPercentageInfo?: number[];
         reportTime?: string;
       }
-      export interface ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo {
+      interface ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo {
         label?: string;
         temperature?: number;
       }
-      export interface ChromeOsDeviceDeviceFiles {
+      interface ChromeOsDeviceDeviceFiles {
         createTime?: string;
         downloadUrl?: string;
         name?: string;
         type?: string;
       }
-      export interface ChromeOsDeviceDiskVolumeReports {
+      interface ChromeOsDeviceDiskVolumeReports {
         volumeInfo?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo[];
       }
-      export interface ChromeOsDeviceDiskVolumeReportsVolumeInfo {
+      interface ChromeOsDeviceDiskVolumeReportsVolumeInfo {
         storageFree?: string;
         storageTotal?: string;
         volumeId?: string;
       }
-      export interface ChromeOsDeviceRecentUsers {
+      interface ChromeOsDeviceRecentUsers {
         email?: string;
         type?: string;
       }
-      export interface ChromeOsDeviceSystemRamFreeReports {
+      interface ChromeOsDeviceSystemRamFreeReports {
         reportTime?: string;
         systemRamFreeInfo?: string[];
       }
-      export interface ChromeOsDeviceTpmVersionInfo {
+      interface ChromeOsDeviceTpmVersionInfo {
         family?: string;
         firmwareVersion?: string;
         manufacturer?: string;
@@ -529,16 +528,16 @@ declare namespace GoogleAppsScript {
         tpmModel?: string;
         vendorSpecific?: string;
       }
-      export interface ChromeOsDevices {
+      interface ChromeOsDevices {
         chromeosdevices?: AdminDirectory.Schema.ChromeOsDevice[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
       }
-      export interface ChromeOsMoveDevicesToOu {
+      interface ChromeOsMoveDevicesToOu {
         deviceIds?: string[];
       }
-      export interface Customer {
+      interface Customer {
         alternateEmail?: string;
         customerCreationTime?: string;
         customerDomain?: string;
@@ -549,7 +548,7 @@ declare namespace GoogleAppsScript {
         phoneNumber?: string;
         postalAddress?: AdminDirectory.Schema.CustomerPostalAddress;
       }
-      export interface CustomerPostalAddress {
+      interface CustomerPostalAddress {
         addressLine1?: string;
         addressLine2?: string;
         addressLine3?: string;
@@ -560,7 +559,7 @@ declare namespace GoogleAppsScript {
         postalCode?: string;
         region?: string;
       }
-      export interface DomainAlias {
+      interface DomainAlias {
         creationTime?: string;
         domainAliasName?: string;
         etag?: string;
@@ -568,12 +567,12 @@ declare namespace GoogleAppsScript {
         parentDomainName?: string;
         verified?: boolean;
       }
-      export interface DomainAliases {
+      interface DomainAliases {
         domainAliases?: AdminDirectory.Schema.DomainAlias[];
         etag?: string;
         kind?: string;
       }
-      export interface Domains {
+      interface Domains {
         creationTime?: string;
         domainAliases?: AdminDirectory.Schema.DomainAlias[];
         domainName?: string;
@@ -582,29 +581,29 @@ declare namespace GoogleAppsScript {
         kind?: string;
         verified?: boolean;
       }
-      export interface Domains2 {
+      interface Domains2 {
         domains?: AdminDirectory.Schema.Domains[];
         etag?: string;
         kind?: string;
       }
-      export interface Feature {
+      interface Feature {
         etags?: string;
         kind?: string;
         name?: string;
       }
-      export interface FeatureInstance {
+      interface FeatureInstance {
         feature?: AdminDirectory.Schema.Feature;
       }
-      export interface FeatureRename {
+      interface FeatureRename {
         newName?: string;
       }
-      export interface Features {
+      interface Features {
         etag?: string;
         features?: AdminDirectory.Schema.Feature[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Group {
+      interface Group {
         adminCreated?: boolean;
         aliases?: string[];
         description?: string;
@@ -616,13 +615,13 @@ declare namespace GoogleAppsScript {
         name?: string;
         nonEditableAliases?: string[];
       }
-      export interface Groups {
+      interface Groups {
         etag?: string;
         groups?: AdminDirectory.Schema.Group[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Member {
+      interface Member {
         delivery_settings?: string;
         email?: string;
         etag?: string;
@@ -632,16 +631,16 @@ declare namespace GoogleAppsScript {
         status?: string;
         type?: string;
       }
-      export interface Members {
+      interface Members {
         etag?: string;
         kind?: string;
         members?: AdminDirectory.Schema.Member[];
         nextPageToken?: string;
       }
-      export interface MembersHasMember {
+      interface MembersHasMember {
         isMember?: boolean;
       }
-      export interface MobileDevice {
+      interface MobileDevice {
         adbStatus?: boolean;
         applications?: AdminDirectory.Schema.MobileDeviceApplications[];
         basebandVersion?: string;
@@ -683,23 +682,23 @@ declare namespace GoogleAppsScript {
         userAgent?: string;
         wifiMacAddress?: string;
       }
-      export interface MobileDeviceAction {
+      interface MobileDeviceAction {
         action?: string;
       }
-      export interface MobileDeviceApplications {
+      interface MobileDeviceApplications {
         displayName?: string;
         packageName?: string;
         permission?: string[];
         versionCode?: number;
         versionName?: string;
       }
-      export interface MobileDevices {
+      interface MobileDevices {
         etag?: string;
         kind?: string;
         mobiledevices?: AdminDirectory.Schema.MobileDevice[];
         nextPageToken?: string;
       }
-      export interface Notification {
+      interface Notification {
         body?: string;
         etag?: string;
         fromAddress?: string;
@@ -709,14 +708,14 @@ declare namespace GoogleAppsScript {
         sendTime?: string;
         subject?: string;
       }
-      export interface Notifications {
+      interface Notifications {
         etag?: string;
         items?: AdminDirectory.Schema.Notification[];
         kind?: string;
         nextPageToken?: string;
         unreadNotificationsCount?: number;
       }
-      export interface OrgUnit {
+      interface OrgUnit {
         blockInheritance?: boolean;
         description?: string;
         etag?: string;
@@ -727,12 +726,12 @@ declare namespace GoogleAppsScript {
         parentOrgUnitId?: string;
         parentOrgUnitPath?: string;
       }
-      export interface OrgUnits {
+      interface OrgUnits {
         etag?: string;
         kind?: string;
         organizationUnits?: AdminDirectory.Schema.OrgUnit[];
       }
-      export interface Privilege {
+      interface Privilege {
         childPrivileges?: AdminDirectory.Schema.Privilege[];
         etag?: string;
         isOuScopable?: boolean;
@@ -741,12 +740,12 @@ declare namespace GoogleAppsScript {
         serviceId?: string;
         serviceName?: string;
       }
-      export interface Privileges {
+      interface Privileges {
         etag?: string;
         items?: AdminDirectory.Schema.Privilege[];
         kind?: string;
       }
-      export interface Role {
+      interface Role {
         etag?: string;
         isSuperAdminRole?: boolean;
         isSystemRole?: boolean;
@@ -756,7 +755,7 @@ declare namespace GoogleAppsScript {
         roleName?: string;
         rolePrivileges?: AdminDirectory.Schema.RoleRolePrivileges[];
       }
-      export interface RoleAssignment {
+      interface RoleAssignment {
         assignedTo?: string;
         etag?: string;
         kind?: string;
@@ -765,23 +764,23 @@ declare namespace GoogleAppsScript {
         roleId?: string;
         scopeType?: string;
       }
-      export interface RoleAssignments {
+      interface RoleAssignments {
         etag?: string;
         items?: AdminDirectory.Schema.RoleAssignment[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface RoleRolePrivileges {
+      interface RoleRolePrivileges {
         privilegeName?: string;
         serviceId?: string;
       }
-      export interface Roles {
+      interface Roles {
         etag?: string;
         items?: AdminDirectory.Schema.Role[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Schema {
+      interface Schema {
         displayName?: string;
         etag?: string;
         fields?: AdminDirectory.Schema.SchemaFieldSpec[];
@@ -789,7 +788,7 @@ declare namespace GoogleAppsScript {
         schemaId?: string;
         schemaName?: string;
       }
-      export interface SchemaFieldSpec {
+      interface SchemaFieldSpec {
         displayName?: string;
         etag?: string;
         fieldId?: string;
@@ -801,16 +800,16 @@ declare namespace GoogleAppsScript {
         numericIndexingSpec?: AdminDirectory.Schema.SchemaFieldSpecNumericIndexingSpec;
         readAccessType?: string;
       }
-      export interface SchemaFieldSpecNumericIndexingSpec {
-        maxValue?: Number;
-        minValue?: Number;
+      interface SchemaFieldSpecNumericIndexingSpec {
+        maxValue?: number;
+        minValue?: number;
       }
-      export interface Schemas {
+      interface Schemas {
         etag?: string;
         kind?: string;
         schemas?: AdminDirectory.Schema.Schema[];
       }
-      export interface Token {
+      interface Token {
         anonymous?: boolean;
         clientId?: string;
         displayText?: string;
@@ -820,25 +819,25 @@ declare namespace GoogleAppsScript {
         scopes?: string[];
         userKey?: string;
       }
-      export interface Tokens {
+      interface Tokens {
         etag?: string;
         items?: AdminDirectory.Schema.Token[];
         kind?: string;
       }
-      export interface TrustedAppId {
+      interface TrustedAppId {
         androidPackageName?: string;
         certificateHashSHA1?: string;
         certificateHashSHA256?: string;
         etag?: string;
         kind?: string;
       }
-      export interface TrustedApps {
+      interface TrustedApps {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
         trustedApps?: AdminDirectory.Schema.TrustedAppId[];
       }
-      export interface User {
+      interface User {
         addresses?: object;
         agreedToTerms?: boolean;
         aliases?: string[];
@@ -884,11 +883,11 @@ declare namespace GoogleAppsScript {
         thumbnailPhotoUrl?: string;
         websites?: object;
       }
-      export interface UserAbout {
+      interface UserAbout {
         contentType?: string;
         value?: string;
       }
-      export interface UserAddress {
+      interface UserAddress {
         country?: string;
         countryCode?: string;
         customType?: string;
@@ -903,23 +902,23 @@ declare namespace GoogleAppsScript {
         streetAddress?: string;
         type?: string;
       }
-      export interface UserEmail {
+      interface UserEmail {
         address?: string;
         customType?: string;
         primary?: boolean;
         type?: string;
       }
-      export interface UserExternalId {
+      interface UserExternalId {
         customType?: string;
         type?: string;
         value?: string;
       }
-      export interface UserGender {
+      interface UserGender {
         addressMeAs?: string;
         customGender?: string;
         type?: string;
       }
-      export interface UserIm {
+      interface UserIm {
         customProtocol?: string;
         customType?: string;
         im?: string;
@@ -927,16 +926,16 @@ declare namespace GoogleAppsScript {
         protocol?: string;
         type?: string;
       }
-      export interface UserKeyword {
+      interface UserKeyword {
         customType?: string;
         type?: string;
         value?: string;
       }
-      export interface UserLanguage {
+      interface UserLanguage {
         customLanguage?: string;
         languageCode?: string;
       }
-      export interface UserLocation {
+      interface UserLocation {
         area?: string;
         buildingId?: string;
         customType?: string;
@@ -945,15 +944,15 @@ declare namespace GoogleAppsScript {
         floorSection?: string;
         type?: string;
       }
-      export interface UserMakeAdmin {
+      interface UserMakeAdmin {
         status?: boolean;
       }
-      export interface UserName {
+      interface UserName {
         familyName?: string;
         fullName?: string;
         givenName?: string;
       }
-      export interface UserOrganization {
+      interface UserOrganization {
         costCenter?: string;
         customType?: string;
         department?: string;
@@ -967,13 +966,13 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface UserPhone {
+      interface UserPhone {
         customType?: string;
         primary?: boolean;
         type?: string;
         value?: string;
       }
-      export interface UserPhoto {
+      interface UserPhoto {
         etag?: string;
         height?: number;
         id?: string;
@@ -983,7 +982,7 @@ declare namespace GoogleAppsScript {
         primaryEmail?: string;
         width?: number;
       }
-      export interface UserPosixAccount {
+      interface UserPosixAccount {
         accountId?: string;
         gecos?: string;
         gid?: string;
@@ -995,46 +994,46 @@ declare namespace GoogleAppsScript {
         uid?: string;
         username?: string;
       }
-      export interface UserRelation {
+      interface UserRelation {
         customType?: string;
         type?: string;
         value?: string;
       }
-      export interface UserSshPublicKey {
+      interface UserSshPublicKey {
         expirationTimeUsec?: string;
         fingerprint?: string;
         key?: string;
       }
-      export interface UserUndelete {
+      interface UserUndelete {
         orgUnitPath?: string;
       }
-      export interface UserWebsite {
+      interface UserWebsite {
         customType?: string;
         primary?: boolean;
         type?: string;
         value?: string;
       }
-      export interface Users {
+      interface Users {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
         trigger_event?: string;
         users?: AdminDirectory.Schema.User[];
       }
-      export interface VerificationCode {
+      interface VerificationCode {
         etag?: string;
         kind?: string;
         userId?: string;
         verificationCode?: string;
       }
-      export interface VerificationCodes {
+      interface VerificationCodes {
         etag?: string;
         items?: AdminDirectory.Schema.VerificationCode[];
         kind?: string;
       }
     }
   }
-  export interface AdminDirectory {
+  interface AdminDirectory {
     Asps?: AdminDirectory.Collection.AspsCollection;
     Channels?: AdminDirectory.Collection.ChannelsCollection;
     Chromeosdevices?: AdminDirectory.Collection.ChromeosdevicesCollection;

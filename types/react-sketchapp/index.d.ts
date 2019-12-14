@@ -1,4 +1,4 @@
-// Type definitions for react-sketchapp 0.13
+// Type definitions for react-sketchapp 3.0
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
@@ -7,58 +7,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { Color, ResizeConstraints, SketchContext, SketchShadow } from './types';
 
 declare global {
     const context: SketchContext;
 }
-
-// sketch interfaces taken from
-// https://github.com/airbnb/react-sketchapp/blob/v0.12.1/src/types.js
-export interface SketchPage {
-    name: () => any;
-}
-export interface SketchAssetCollection {
-    colors: () => any[];
-    gradients: () => any[];
-}
-export interface SketchSharedStyleContainer {
-    setObjects: (objects: any[]) => void;
-    addSharedStyleWithName_firstInstance: (name: string, ins: any) => void;
-}
-export interface SketchDocumentData {
-    layerStyles: () => void;
-    layerTextStyles: () => SketchSharedStyleContainer;
-    layerSymbols: () => void;
-    assets: () => SketchAssetCollection;
-}
-export interface SketchDocument {
-    documentData: () => SketchDocumentData;
-    pages: () => SketchPage[];
-    addBlankPage: () => SketchPage;
-    currentPage: () => SketchPage;
-}
-export interface SketchContext {
-    document: SketchDocument;
-}
-
-/**
- * Returns the top-level rendered Sketch object or an array of Sketch objects if you use
- * components.
- * @param element Top-level React component that defines your Sketch document.
- * @param container The element to render into - will be replaced. Should either be a Sketch Group
- * or Page Object.
- * @return The top-most rendered native Sketch layer.
- */
-export function render(element: JSX.Element, container?: any): any;
-
-/**
- * Returns a Sketch JSON object for further consumption - doesn't add to the page.
- * @return The top-most Sketch layer as JSON.
- */
-export function renderToJSON(element: JSX.Element): any;
-
-// https://github.com/airbnb/react-sketchapp/blob/v0.12.1/src/types.js#L59
-export type Color = string | number;
 
 /**
  * The [`StyleSheet` api uses numbers as IDs][0] to pull registered styles. The component props
@@ -108,12 +61,7 @@ export interface Style {
     position?: 'absolute' | 'relative';
     flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
     flexWrap?: 'wrap' | 'nowrap';
-    justifyContent?:
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'space-between'
-        | 'space-around';
+    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch';
     alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch';
     overflow?: 'visible' | 'hidden' | 'scroll';
@@ -163,7 +111,7 @@ export interface TextStyle extends Style {
  * DocumentProps, a Document does not take any props but children
  */
 export interface DocumentProps {
-    children?: any;
+    children?: Array<React.ReactElement<PageProps, any>> | React.ReactElement<PageProps, any>;
 }
 
 /**
@@ -177,7 +125,7 @@ export class Document extends React.Component<DocumentProps, any> {}
  */
 export interface PageProps {
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 /**
@@ -195,7 +143,7 @@ export interface ArtboardProps {
      * The name to be displayed in the Sketch Layer List
      */
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
 }
 /**
@@ -205,15 +153,9 @@ export class Artboard extends React.Component<ArtboardProps, any> {}
 
 // Image
 export type ImageSource = string | { src: string };
-export type ResizeMode =
-    | 'contain'
-    | 'cover'
-    | 'stretch'
-    | 'center'
-    | 'repeat'
-    | 'none';
+export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center' | 'repeat' | 'none';
 export interface ImageProps {
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     source?: ImageSource;
     style?: Style | StyleReference;
     resizeMode: ResizeMode;
@@ -243,8 +185,10 @@ export class Text extends React.Component<TextProps, any> {}
 // View
 export interface ViewProps {
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
+    resizingConstraint?: ResizeConstraints;
+    shadows?: SketchShadow[];
 }
 /** View primitives */
 export class View extends React.Component<ViewProps, any> {}
@@ -255,19 +199,13 @@ export const StyleSheet: {
     /**
      * Create an optimized `StyleSheet` reference from a style object.
      */
-    create: <T extends { [key: string]: Style | TextStyle }>(
-        t: T
-    ) => { [P in keyof T]: StyleReference };
+    create: <T extends { [key: string]: Style | TextStyle }>(t: T) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
      * registered stylesheet.
      */
     flatten: (
-        input:
-            | Array<Style | TextStyle | StyleReference>
-            | StyleReference
-            | undefined
-            | Style
+        input: Array<Style | TextStyle | StyleReference> | StyleReference | undefined | Style,
     ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
@@ -286,7 +224,7 @@ export const TextStyles: {
      */
     create: (
         options: { context: SketchContext; clearExistingStyles?: boolean },
-        styles: { [key: string]: TextStyle }
+        styles: { [key: string]: TextStyle },
     ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
@@ -316,7 +254,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string
+    name?: string,
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**
@@ -329,3 +267,9 @@ export const Platform: {
     Version: 1;
     select: (obj: any) => any;
 };
+
+// render functions from render.d.ts
+export { render, renderToJSON } from './render';
+
+// Svg, similar to https://github.com/react-native-community/react-native-svg
+export { default as Svg, SvgProps } from './lib/components/Svg';

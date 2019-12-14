@@ -5,7 +5,8 @@
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Carlos Villavicencio <https://github.com/po5i>
 //                 Eric Camellini <https://github.com/ecamellini>
-//                 SardineFIsh <https://github.com/SardineFish>
+//                 SardineFish <https://github.com/SardineFish>
+//                 Ryo Ota <https://github.com/nwtgck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import BN = require("bn.js")
@@ -1634,6 +1635,8 @@ export namespace key {
          */
         constructor(packetlist: packet.List);
 
+        primaryKey: Key;
+
         /**
          * Transforms packetlist to structured key data
          * @param packetlist The packets that form a key
@@ -1672,7 +1675,7 @@ export namespace key {
          * Returns userids
          * @returns array of userids
          */
-        getUserIds(): any[];
+        getUserIds(): string[];
 
         /**
          * Returns true if this is a public key
@@ -1696,7 +1699,7 @@ export namespace key {
          * Returns ASCII armored text of key
          * @returns ASCII armor
          */
-        armor(): ReadableStream<String>;
+        armor(): string;
 
         /**
          * Returns last created key or key by given keyId that is available for signing and verification
@@ -1761,7 +1764,7 @@ export namespace key {
          * @param userId, optional user ID
          * @returns
          */
-        getExpirationTime(capabilities: any, keyId: type.keyid.Keyid, userId: object): Promise<Date | Infinity | null>;
+        getExpirationTime(capabilities?: any, keyId?: type.keyid.Keyid, userId?: object): Promise<Date | Infinity | null>;
 
         /**
          * Returns primary user and most significant (latest valid) self signature
@@ -1771,7 +1774,7 @@ export namespace key {
          * @param userId (optional) user ID to get instead of the primary user, if it exists
          * @returns The primary user and the self signature
          */
-        getPrimaryUser(date: Date, userId: object): Promise<{ user: User, selfCertification: packet.Signature }>;
+        getPrimaryUser(date?: Date, userId?: object): Promise<{ user: User, selfCertification: packet.Signature }>;
 
         /**
          * Update key with new components from specified key with same key ID:
@@ -1896,6 +1899,8 @@ export namespace key {
      */
     class User {
         constructor();
+
+        userId: packet.Userid;
 
         /**
          * Transforms structured user data to packetlist
@@ -2963,7 +2968,7 @@ export namespace packet {
          * class instance.
          * @returns A Uint8Array containing valid openpgp packets.
          */
-        write(): Uint8Array;
+        write(): Uint8Array | ReadableStream<Uint8Array>;
 
         /**
          * Adds a packet to the list. This is the only supported method of doing so;
@@ -4454,7 +4459,7 @@ export namespace util {
      * @param url If true, output is URL-safe
      * @returns Base-64 encoded string
      */
-    function Uint8Array_to_b64(bytes: Uint8Array, url: boolean): string;
+    function Uint8Array_to_b64(bytes: Uint8Array, url?: boolean): string;
 
     /**
      * Convert a hex string to an array of 8-bit integers
@@ -4631,12 +4636,12 @@ export namespace util {
     /**
      * Format user id for internal use.
      */
-    function formatUserId(): void;
+    function formatUserId(id: { name: string, email: string; comment: string }): string;
 
     /**
      * Parse user id.
      */
-    function parseUserId(): void;
+    function parseUserId(userId: string): { name: string, email: string; comment: string };
 
     /**
      * Normalize line endings to \r\n
@@ -4770,6 +4775,20 @@ export namespace worker {
     }
 }
 
+export interface WorkerOptions {
+    /**
+     * relative path to the worker scripts, default: 'openpgp.worker.js'
+     */
+    path: string;
+    /**
+     * number of workers to initialize
+     */
+    n?: number;
+    /**
+     * alternative to path parameter: web workers initialized with 'openpgp.worker.js'
+     */
+    workers?: any[];
+}
 
 /**
  * Set the path for the web worker script and create an instance of the async proxy
@@ -4777,7 +4796,7 @@ export namespace worker {
  * @param n number of workers to initialize
  * @param workers alternative to path parameter: web workers initialized with 'openpgp.worker.js'
  */
-export function initWorker(path: string, n?: number, workers?: any[]): void;
+export function initWorker(options: WorkerOptions): void;
 
 /**
  * Returns a reference to the async proxy if the worker was initialized with openpgp.initWorker()
@@ -4791,8 +4810,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
 }
 
 export interface KeyOptions {
@@ -4951,9 +4970,6 @@ export interface EncryptOptions {
 }
 
 export interface EncryptResult {
-    data: string | ReadableStream<String>;
-    message: message.Message;
-    signature: string | ReadableStream<String> | signature.Signature;
     sessionKey: { data: Uint8Array, algorithm: string, aeadAlgorithm: string };
 }
 
@@ -4970,7 +4986,15 @@ export interface EncryptResult {
  *          sessionKey: { data, algorithm, aeadAlgorithm } (if `returnSessionKey` was true)
  *          }
  */
-export function encrypt(options: EncryptOptions): Promise<EncryptResult>;
+export function encrypt(options: EncryptOptions & { armor?: true, detached?: false }): Promise<EncryptResult & { data: string }>
+export function encrypt(options: EncryptOptions & { armor?: true, detached: true }): Promise<EncryptResult & { data: string, signature: string }>
+export function encrypt(options: EncryptOptions & { armor: false, detached?: false }): Promise<EncryptResult & { message: message.Message }>
+export function encrypt(options: EncryptOptions & { armor: false, detached: true }): Promise<EncryptResult & { message: message.Message, signature: signature.Signature }>
+export function encrypt(options: EncryptOptions): Promise<EncryptResult & {
+    data: string | ReadableStream<String>;
+    message: message.Message;
+    signature: string | ReadableStream<String> | signature.Signature;
+}>;
 
 export interface DecryptOptions {
     /**
@@ -5039,6 +5063,8 @@ export interface DecryptResult {
  *          ]
  *          }
  */
+export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream}>
+export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
 export interface SignOptions {
@@ -5090,8 +5116,12 @@ export interface SignResult {
  *          {
  *          signature: string|ReadableStream<String>|NodeStream, (if `armor` was true, the default)
  *          signature: Signature (if `armor` was false)
- *          }
+ *          }{
  */
+export function sign(options: SignOptions & { armor?: true, detached?: false }): Promise<{ data: string }>
+export function sign(options: SignOptions & { armor: false, detached?: false }): Promise<{ message: message.Message }>
+export function sign(options: SignOptions & { armor?: true, detached: true }): Promise<{ signature: string }>
+export function sign(options: SignOptions & { armor: false, detached: true }): Promise<{ signature: signature.Signature }>
 export function sign(options: SignOptions): Promise<SignResult>;
 
 export interface VerifyOptions {

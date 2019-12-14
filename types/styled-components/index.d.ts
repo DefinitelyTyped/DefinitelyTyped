@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.1
+// Type definitions for styled-components 4.4
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -7,6 +7,8 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
+//                 Matthew Wagerfield <https://github.com/wagerfield>
+//                 Yuki Ito <https://github.com/Lazyuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -20,18 +22,16 @@ declare global {
 
 import * as CSS from "csstype";
 import * as React from "react";
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
 
-export type CSSObject = CSS.Properties<string | number> &
-    // Index type to allow selector nesting
-    // This is "[key in string]" and not "[key: string]" to allow CSSObject to be self-referential
-    {
-        // we need the CSS.Properties in here too to ensure the index signature doesn't create impossible values
-        [key in string]:
-            | CSS.Properties<string | number>[keyof CSS.Properties<
-                  string | number
-              >]
-            | CSSObject
-    };
+export type CSSProperties = CSS.Properties<string | number>;
+
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject };
+
+export interface CSSObject extends CSSProperties, CSSPseudos {
+    [key: string]: CSSObject | string | number | undefined;
+}
+
 export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {
@@ -65,16 +65,16 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any
-> = WithOptionalTheme<
-    Omit<
-        ReactDefaultizedProps<
-            C,
-            React.ComponentPropsWithRef<C>
-        > & O,
-        A
-    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
-    T
-> & WithChildrenIfReactComponentClass<C>;
+> =
+    // Distribute O if O is a union type
+    O extends object
+    ? WithOptionalTheme<
+          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
+              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+          T
+      > &
+          WithChildrenIfReactComponentClass<C>
+    : never;
 
 // Because of React typing quirks, when getting props from a React.ComponentClass,
 // we need to manually add a `children` field.
@@ -161,7 +161,7 @@ export type StyledComponent<
     A extends keyof any = never
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string & StyledComponentBase<C, T, O, A>;
+    string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -214,6 +214,7 @@ export interface ThemedStyledFunctionBase<
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
         first:
             | TemplateStringsArray
@@ -415,7 +416,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<
@@ -509,6 +510,7 @@ export class StyleSheetManager extends React.Component<
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
+    | CSSObject
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

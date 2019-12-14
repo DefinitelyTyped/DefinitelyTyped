@@ -2,6 +2,7 @@
 // Project: https://github.com/rse/tokenizr
 // Definitions by: Nicholas Sorokin <https://github.com/aNickzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 declare class Tokenizr {
     constructor();
@@ -14,7 +15,9 @@ declare class Tokenizr {
     /**
      * Execute multiple alternative callbacks
      */
-    alternatives(...alternatives: Array<(this: this) => any>): any;
+    alternatives<X extends Array<(this: this) => any>>(
+        ...alternatives: X
+    ): ReturnType<X[number]>;
 
     /**
      * Configure a tokenization before-rule callback
@@ -34,7 +37,7 @@ declare class Tokenizr {
     /**
      * Consume the current token (by expecting it to be a particular symbol)
      */
-    consume(type: string, value: any): Token;
+    consume(type: string, value?: any): Token;
 
     /**
      * Configure debug operation
@@ -247,10 +250,17 @@ declare class ParsingError extends Error {
     toString(): string;
 }
 
-declare class Token {
+declare class Token<T = unknown> {
+    column?: number;
+    line?: number;
+    pos?: number;
+    text: string;
+    type: string;
+    value: T;
+
     constructor(
         type: string,
-        value: any,
+        value: T,
         text: string,
         pos?: number,
         line?: number,
@@ -265,4 +275,5 @@ declare class Token {
     toString(): string;
 }
 
-export = Tokenizr;
+export type IToken<T = unknown> = Token<T>;
+export default Tokenizr;

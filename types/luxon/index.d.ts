@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.12
+// Type definitions for luxon 1.21
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -6,6 +6,9 @@
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Jason Yu <https://github.com/ycmjason>
+//                 Miklos Danka <https://github.com/mdanka>
+//                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,14 +23,14 @@ export interface ZoneOptions {
 }
 
 export type ToRelativeUnit =
-    | 'year'
-    | 'quarter'
-    | 'month'
-    | 'week'
-    | 'day'
-    | 'hour'
-    | 'minute'
-    | 'second';
+    | 'years'
+    | 'quarters'
+    | 'months'
+    | 'weeks'
+    | 'days'
+    | 'hours'
+    | 'minutes'
+    | 'seconds';
 
 export interface ToRelativeOptions {
     /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
@@ -329,6 +332,7 @@ export class Duration {
     reconfigure(objectPattern: DurationOptions): Duration;
     set(values: DurationObjectUnits): Duration;
     shiftTo(...units: DurationUnit[]): Duration;
+    mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
     toISO(): string;
     toJSON(): string;
@@ -474,6 +478,8 @@ export class Interval {
         },
     ): string;
     toISO(options?: ToISOTimeOptions): string;
+    toISODate(): string;
+    toISOTime(options?: ToISOTimeOptions): string;
     toString(): string;
     union(other: Interval): Interval;
     mapEndpoints(cb: (d: DateTime) => DateTime): Interval;
@@ -492,11 +498,14 @@ export namespace Settings {
 
 export interface ZoneOffsetOptions {
     format?: 'short' | 'long';
-    localeCode?: string;
+    locale?: string;
 }
 
+export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+
 export class Zone {
-    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    offsetName(ts: number, options: ZoneOffsetOptions): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string;
     isValid: boolean;
     name: string;
     type: string;
@@ -507,4 +516,18 @@ export class Zone {
 
 export class IANAZone extends Zone {
     constructor(ianaString: string);
+    static create(name: string): IANAZone;
+    static isValidSpecifier(s: string): boolean;
+    static isValidZone(zone: string): boolean;
+    static resetCache(): void;
 }
+
+export class FixedOffsetZone extends Zone {
+    static utcInstance: string;
+    static instance(offset: number): FixedOffsetZone;
+    static parseSpecifier(s: string): FixedOffsetZone;
+}
+
+export class InvalidZone extends Zone { }
+
+export class LocalZone extends Zone { }
