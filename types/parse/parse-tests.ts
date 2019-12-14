@@ -1144,6 +1144,7 @@ function testQuery() {
 
     async function testQueryMethodTypes() {
         class MySubClass extends Parse.Object<{attribute1: any, attribute2: any}> { }
+        class AnotherSubclass extends Parse.Object<{x: any}> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1196,11 +1197,12 @@ function testQuery() {
         // $ExpectError
         query.doesNotExist('nonexistentProp');
 
-        // TODO: type-check second argument for attributes in 'Example' Object
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('attribute1', 'aKey', new Parse.Query('Example'));
+        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('unexistenProp', 'aKey', new Parse.Query('Example'));
+        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
@@ -1259,9 +1261,11 @@ function testQuery() {
 
         // TODO: type-check second argument for attributes in 'Example' Object
         // $ExpectType Query<MySubClass>
-        query.matchesKeyInQuery('attribute1', 'aKey', new Parse.Query('Example'));
+        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
         // $ExpectError
-        query.matchesKeyInQuery('nonexistentProp', 'aKey', new Parse.Query('Example'));
+        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
 
         // $ExpectType Query<MySubClass>
         query.matchesQuery('attribute1', new Parse.Query('Example'));

@@ -584,7 +584,7 @@ declare namespace Parse {
         count(options?: Query.CountOptions): Promise<number>;
         descending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
         doesNotExist<K extends Extract<keyof T['attributes'], string>>(key: K): this;
-        doesNotMatchKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, queryKey: string, query: Query<U>): this;
+        doesNotMatchKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>, X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, query: Query<U>): this;
         distinct<K extends Extract<keyof T['attributes'], string>, V = any>(key: K): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
@@ -606,7 +606,7 @@ declare namespace Parse {
         lessThanOrEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
         limit(n: number): Query<T>;
         matches<K extends Extract<keyof T['attributes'], string>>(key: K, regex: RegExp, modifiers?: string): this;
-        matchesKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, queryKey: string, query: Query<U>): this;
+        matchesKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>, X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         matchesQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, query: Query<U>): this;
         near<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint): this;
         notContainedIn<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
