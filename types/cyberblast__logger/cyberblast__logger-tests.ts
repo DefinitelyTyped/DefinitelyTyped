@@ -55,3 +55,13 @@ logger.onError(callback); // $ExpectedType void
 logger.onWarning(callback); // $ExpectedType void
 logger.onInfo(callback); // $ExpectedType void
 logger.onVerbose(callback); // $ExpectedType void
+
+Severity.Error; // $ExpectedType string
+Severity.Warning; // $ExpectedType string
+Severity.Info; // $ExpectedType string
+Severity.Verbose; // $ExpectedType string
+
+SeverityLevel.Error; // $ExpectedType number
+SeverityLevel.Warning; // $ExpectedType number
+SeverityLevel.Info; // $ExpectedType number
+SeverityLevel.Verbose; // $ExpectedType number
