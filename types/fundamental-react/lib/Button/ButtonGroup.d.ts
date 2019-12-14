@@ -6,7 +6,7 @@ export type ButtonGroupProps = {
     disableStyles?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-declare const ButtonGroup: React.FC<ButtonGroupProps> & {
+declare const ButtonGroup: React.FunctionComponent<ButtonGroupProps> & {
     displayName: "ButtonGroup"
 };
 

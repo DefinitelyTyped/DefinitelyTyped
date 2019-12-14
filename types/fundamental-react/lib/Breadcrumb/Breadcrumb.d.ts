@@ -13,9 +13,9 @@ export type BreadcrumbItemProps = {
     url?: string;
 } & React.HTMLAttributes<HTMLLIElement>;
 
-declare const Breadcrumb: React.FC<BreadcrumbProps> & {
+declare const Breadcrumb: React.FunctionComponent<BreadcrumbProps> & {
     displayName: "Breadcrumb";
-    Item: React.FC<BreadcrumbItemProps> & {displayName: 'Breadcrumb.Item'};
+    Item: React.FunctionComponent<BreadcrumbItemProps> & {displayName: 'Breadcrumb.Item'};
 };
 
 export default Breadcrumb;

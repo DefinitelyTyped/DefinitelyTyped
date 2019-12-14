@@ -10,8 +10,6 @@ export type FormRadioItemProps = {
     disabled?: boolean;
     disableStyles?: boolean;
     id?: string;
-    /* _INTERNAL USE ONLY._ */
-    inline?: boolean;
     /* Sets the `name` for the radio input. */
     name?: string;
     /* Sets the `value` for the radio input. */

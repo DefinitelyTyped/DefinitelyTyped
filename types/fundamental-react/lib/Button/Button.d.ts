@@ -24,6 +24,6 @@ export type ButtonProps = {
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-declare const Button: React.FC<ButtonProps> & {displayName: "Button"};
+declare const Button: React.FunctionComponent<ButtonProps> & {displayName: "Button"};
 
 export default Button;

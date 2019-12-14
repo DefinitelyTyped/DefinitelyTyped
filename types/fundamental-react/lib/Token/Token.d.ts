@@ -6,6 +6,6 @@ export type TokenProps = {
     disableStyles?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-declare const Token: React.FC<TokenProps>;
+declare const Token: React.FunctionComponent<TokenProps>;
 
 export default Token;

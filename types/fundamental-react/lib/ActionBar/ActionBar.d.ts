@@ -33,11 +33,11 @@ export type ActionBarHeaderProps = {
     titleProps?: { [x: string]: any };
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const ActionBar: React.FC<ActionBarProps> & {
+export const ActionBar: React.FunctionComponent<ActionBarProps> & {
     displayName: "ActionBar";
-    Actions: React.FC<ActionBarActionsProps> & {displayName: "ActionBar.Actions"};
-    Back: React.FC<ActionBarBackProps> & {displayName: "ActionBar.Back"};
-    Header: React.FC<ActionBarHeaderProps> & {displayName: "ActionBar.Header"};
+    Actions: React.FunctionComponent<ActionBarActionsProps> & {displayName: "ActionBar.Actions"};
+    Back: React.FunctionComponent<ActionBarBackProps> & {displayName: "ActionBar.Back"};
+    Header: React.FunctionComponent<ActionBarHeaderProps> & {displayName: "ActionBar.Header"};
 };
 
 export default ActionBar;
