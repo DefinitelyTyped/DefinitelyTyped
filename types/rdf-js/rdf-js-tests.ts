@@ -177,27 +177,11 @@ function test_dataset() {
     const stream1: Stream = <any> {};
     const stream2: Stream<QuadBnode> = <any> {};
 
-    const quadFilterIteratee = (quad: Quad, dataset: Dataset): boolean => {
-        return dataset.has(quad);
-    };
-    const quadMapIteratee = (quad: Quad, dataset: Dataset): Quad => {
-        if (dataset.has(quad))
-            return quad;
-
-        return factory.quad(quad.subject, quad.predicate, quad.object, quad.graph);
-    };
-    const quadReduceToStringIteratee = (reduced: string, quad: Quad): string => {
-        return reduced + quad.subject.termType;
-    };
-    const quadReduceToArrayIteratee = (arr: boolean[], quad: Quad, dataset: Dataset): boolean[] => {
-        return [
-            ...arr,
-            dataset.has(quad)
-        ];
-    };
-    const quadForEachIteratee = (quad: Quad, dataset: Dataset): void => {
-        console.log(dataset.has(quad) ? 'it really has it' : 'what?');
-    };
+    const quadFilterIteratee: (quad: Quad, dataset: Dataset) => boolean = <any> {};
+    const quadMapIteratee: (quad: Quad, dataset: Dataset) => Quad = <any> {};
+    const quadReduceToStringIteratee: (reduced: string, quad: Quad) => string = <any> {};
+    const quadReduceToArrayIteratee: (arr: boolean[], quad: Quad, dataset: Dataset) => boolean[] = <any> {};
+    const quadForEachIteratee: (quad: Quad, dataset: Dataset) => void = <any> {};
 
     const datasetFactory1: DatasetFactory = <any> {};
     const datasetFactory2: DatasetFactory<QuadBnode> = <any> {};
