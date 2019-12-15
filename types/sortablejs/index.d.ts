@@ -164,7 +164,7 @@ declare namespace Sortable {
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: PutResult | ((to: Sortable, from: Sortable) => PullResult);
+        put?: PutResult | ((to: Sortable) => PullResult);
         /**
          * a canonical version of pull, created by Sortable
          */
