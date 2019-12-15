@@ -1,17 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -20,6 +16,7 @@
         "index.d.ts",
         "test/eslintFormatter.ts",
         "test/noopServiceWorkerMiddleware.ts",
+        "test/evalSourceMapMiddleware.ts",
         "test/utils.ts",
         "test/webpack-plugins.ts",
         "test/webpack-utils.ts"
