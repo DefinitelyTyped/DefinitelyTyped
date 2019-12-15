@@ -15,7 +15,7 @@
 //                 Simon Haenisch <https://github.com/simonhaenisch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
 /*
 The MIT License
