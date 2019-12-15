@@ -46,7 +46,9 @@ conversions.USVString(any, options); // $ExpectType string
 
 conversions.object(any, options); // $ExpectType any
 conversions.object(unknown, options); // $ExpectType object
-expectType<never>(conversions.object('string', options)); // $ExpectType never
+expectType<null & object>(conversions.object(null, options));
+expectType<string & object>(conversions.object('string', options));
+expectType<number & object>(conversions.object(123, options));
 conversions.object({}, options); // $ExpectType {}
 
 conversions.ArrayBuffer(any, options); // $ExpectType ArrayBuffer
