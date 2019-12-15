@@ -95,6 +95,10 @@ declare namespace Sortable {
             OnSpillOptions,
             SwapOptions {}
 
+    /**
+     * A class that all plugins inherit from for the sake of types
+     */
+    export class Plugin extends SortablePlugin {}
     export class MultiDrag extends MultiDragPlugin {}
     export class AutoScroll extends AutoScrollPlugin {}
     export class Swap extends SwapPlugin {}
