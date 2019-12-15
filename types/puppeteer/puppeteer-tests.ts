@@ -334,10 +334,15 @@ puppeteer.launch().then(async browser => {
   elementText; // $ExpectType string
 
   // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
-  await page.$eval('.hello-world', (
+  const helloWorldFoo = await page.$eval('.hello-world', (
     e, // $ExpectType Element
-    x1 // $ExpectType string
-  ) => x1, "hoge");
+    x1 // $ExpectType "foo"
+  ) => x1, "foo");
+  helloWorldFoo; // $ExpectType "foo"
+
+  // If pageFunction is string, it should return Serializable
+  const result = await page.$eval('.hello-world', `(e, s) => s`, "hoge");
+  result; // $ExpectType Serializable
 
   browser.close();
 })();
@@ -434,13 +439,18 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const eh = await page.$('tr.something') as puppeteer.ElementHandle<HTMLTableRowElement>;
+  const jsh: puppeteer.JSHandle<number> = await page.evaluateHandle(() => 42);
   const index = await page.$eval(
     '.demo',
     (
       e, // $ExpectType Element
       x1, // $ExpectType HTMLTableRowElement
+      x2, // $ExpectType number
+      x3, // $ExpectType "foo"
     ) => x1.rowIndex,
     eh,
+    jsh,
+    "foo"
   );
   index; // $ExpectType number
 });
@@ -473,16 +483,13 @@ puppeteer.launch().then(async browser => {
       timeout: 123,
   });
   await page.waitFor(() => !!document.querySelector('.foo'), {
-    hidden: true,
+    polling: "raf",
+    timeout: 1
   });
-  await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
-    hidden: true,
-  }, 'asd');
+  await page.waitFor((stuff: string) => !!document.querySelector(stuff), {}, 'asd');
 
   const frame: puppeteer.Frame = page.frames()[0];
-  await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {
-    hidden: true,
-  }, 'asd');
+  await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {}, 'asd');
 })();
 
 // Permission tests
@@ -607,13 +614,14 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  const reHandle: puppeteer.JSHandle = await page.evaluateHandle(
+  const reHandle: puppeteer.JSHandle<RegExp> = await page.evaluateHandle(
     () => /\s*bananas?\s*/i,
   );
   const numMatchingEls: number = await page.$$eval(
-    'p', (els: Element[], re: RegExp) =>
+    'p',
+    (els, re) =>
       els.filter(el => el.textContent && re.test(el.textContent)).length,
-      reHandle
+    reHandle
   );
   console.log('there are', numMatchingEls, 'banana paragaphs');
 });
@@ -669,11 +677,13 @@ puppeteer.launch().then(async browser => {
   const evaluatePromise1: Promise<void> = elementHandle.evaluate(element => {
     element; // $ExpectType HTMLDivElement
   });
-  const elementHandlePromise: Promise<puppeteer.JSHandle<HTMLDivElement>> = elementHandle.evaluateHandle(el => {
-      return el; // $ExpectType HTMLDivElement
-  });
+  const elementHandlePromise = elementHandle.evaluateHandle(// $ExpectType Promise<ElementHandle<HTMLDivElement>>
+    (
+      el // $ExpectType HTMLDivElement
+    ) => el);
+  elementHandlePromise; // $ExpectType Promise<ElementHandle<HTMLDivElement>>
   elementHandle.evaluate(element => Promise.resolve(1)); // $ExpectType Promise<number>
-  elementHandle.evaluate("() => { console.log('foo'); }"); // $ExpectType Promise<any>
+  elementHandle.evaluate("() => { console.log('foo'); }"); // $ExpectType Promise<Serializable>
 
   const jsHandle = await page.evaluateHandle(() => 'something');
   jsHandle.evaluate(obj => {});
