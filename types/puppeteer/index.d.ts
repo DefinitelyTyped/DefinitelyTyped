@@ -1499,7 +1499,7 @@ export interface Accessibility {
 }
 
 export interface MediaFeature {
-    name: string;
+    name: 'prefers-colors-scheme' | 'prefers-reduced-motion';
     value: string;
 }
 
