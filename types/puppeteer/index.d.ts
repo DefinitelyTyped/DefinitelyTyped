@@ -524,7 +524,7 @@ export type LoadEvent =
   | "networkidle0"
   | "networkidle2";
 
-export interface Timeoutable {
+export interface TimeoutOptions {
     /**
      * Maximum navigation time in milliseconds, pass 0 to disable timeout.
      * @default 30000
@@ -533,7 +533,7 @@ export interface Timeoutable {
 }
 
 /** The navigation options. */
-export interface NavigationOptions extends Timeoutable {
+export interface NavigationOptions extends TimeoutOptions {
   /**
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
@@ -712,7 +712,16 @@ export interface ScriptTagOptions {
   type?: string;
 }
 
-export interface PageFnOptions extends Timeoutable {
+export interface PageFnOptions extends TimeoutOptions {
+  /**
+   * An interval at which the `pageFunction` is executed, defaults to `raf`. If `polling` is a number, then
+   * it is treated as an interval in milliseconds at which the function would be executed.
+   * If `polling` is a string, then it can be one of the following values:
+   * `raf` - to constantly execute `pageFunction` in `requestAnimationFrame` callback.
+   * This is the tightest polling mode which is suitable to observe styling changes.
+   * `mutation` - to execute `pageFunction` on every DOM mutation.
+   * @default 'raf'
+   */
   polling?: "raf" | "mutation" | number;
 }
 
@@ -1109,7 +1118,7 @@ export interface Response {
   url(): string;
 }
 
-export interface WaitForSelectorOptions extends Timeoutable {
+export interface WaitForSelectorOptions extends TimeoutOptions {
   /**
    * Wait for element to be present in DOM and to be visible,
    * i.e. to not have display: none or visibility: hidden CSS properties.
@@ -1781,12 +1790,12 @@ export interface Page extends EventEmitter, FrameBase {
 
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
-    options?: Timeoutable
+    options?: TimeoutOptions
   ): Promise<Request>;
 
   waitForResponse(
     urlOrPredicate: string | ((res: Response) => boolean),
-    options?: Timeoutable
+    options?: TimeoutOptions
   ): Promise<Response>;
 
   /**
@@ -1794,14 +1803,14 @@ export interface Page extends EventEmitter, FrameBase {
    * This method is typically coupled with an action that triggers file choosing.
    * This must be called before the file chooser is launched. It will not return a currently active file chooser.
    */
-  waitForFileChooser(options?: Timeoutable): Promise<FileChooser>;
+  waitForFileChooser(options?: TimeoutOptions): Promise<FileChooser>;
 
   /** This method returns all of the dedicated WebWorkers associated with the page. */
   workers(): Worker[];
 }
 
 export interface TargetAwaiter {
-    waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
+    waitForTarget(predicate: (target: Target) => boolean, options?: TimeoutOptions): Promise<Target>;
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
@@ -2025,7 +2034,7 @@ export interface Target {
   worker(): Promise<Worker | null>;
 }
 
-export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
+export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, TimeoutOptions {
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
