@@ -815,7 +815,7 @@ declare namespace Parse {
     }
     interface UserConstructor extends ObjectStatic {
         new<T extends Attributes>(attributes: T): User<T>;
-        new(): User;
+        new(attributes?: Attributes): User;
 
         allowCustomUserClass(isAllowed: boolean): void;
         become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
