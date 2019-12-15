@@ -1143,8 +1143,8 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number}> { }
         class AnotherSubclass extends Parse.Object<{x: any}> { }
+        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1164,6 +1164,10 @@ function testQuery() {
 
         // $ExpectType Query<MySubClass>
         query.containedBy('attribute1', ['a', 'b', 'c']);
+        // $ExpectType Query<MySubClass>
+        query.containedBy('attribute3', ['objectId1', 'objectId2', 'objectId3']);
+        // $ExpectError
+        query.containedBy('attribute2', ['a', 'b', 'c']);
         // $ExpectError
         query.containedBy('attribute1', [1, 2, 3]);
         // $ExpectError
@@ -1171,8 +1175,12 @@ function testQuery() {
 
         // $ExpectType Query<MySubClass>
         query.containedIn('attribute1', ['a', 'b', 'c']);
+        // $ExpectType Query<MySubClass>
+        query.containedIn('attribute3', ['objectId1', 'objectId2', 'objectId3']);
         // $ExpectError
         query.containedIn('attribute2', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containedIn('attribute1', [1, 2, 3]);
         // $ExpectError
         query.containedIn('nonexistentProp', ['a', 'b', 'c']);
 
@@ -1220,6 +1228,12 @@ function testQuery() {
 
         // $ExpectType Query<MySubClass>
         query.equalTo('attribute2', 0);
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute3', new AnotherSubclass('Another'));
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute3', new AnotherSubclass('Another').toPointer());
+        // $ExpectError
+        query.equalTo('attribute1', new AnotherSubclass('Another').toPointer());
         // $ExpectError
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
@@ -1251,6 +1265,8 @@ function testQuery() {
 
         // $ExpectType Query<MySubClass>
         query.include(['attribute1', 'attribute2']);
+        // $ExpectType Query<MySubClass>
+        query.include<any>('attribute3.someProp');
         // $ExpectError
         query.include(['attribute1', 'nonexistentProp']);
 
