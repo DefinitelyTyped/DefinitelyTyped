@@ -1663,7 +1663,7 @@ export interface Page extends EventEmitter, FrameBase {
    * The method iterates JavaScript heap and finds all the objects with the given prototype.
    * @param prototypeHandle A handle to the object prototype.
    */
-  queryObjects(prototypeHandle: JSHandle): Promise<JSHandle>;
+  queryObjects<T>(prototypeHandle: JSHandle<T>): Promise<JSHandle<T[]>>;
 
   /**
    * Reloads the current page.
