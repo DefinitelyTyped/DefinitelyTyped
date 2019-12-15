@@ -123,6 +123,18 @@ declare namespace Sortable {
          * list, in which moved element.
          */
         to: HTMLElement;
+        /**
+         * Old index within parent, only counting draggable elements
+         */
+        oldDraggableIndex: number | undefined;
+        /**
+         * New index within parent, only counting draggable elements
+         */
+        newDraggableIndex: number | undefined;
+        /**
+         * Pull mode if dragging into another sortable
+         */
+        pullMode: 'clone' | boolean | undefined;
     }
 
     export interface MoveEvent extends Event {
