@@ -43,12 +43,12 @@ THE SOFTWARE.
 
 declare namespace google.maps {
     /***** Map *****/
-    class Map extends MVCObject {
-        constructor(mapDiv: Element | null, opts?: MapOptions);
+    class Map<E extends Element = Element> extends MVCObject {
+        constructor(mapDiv: E, opts?: MapOptions);
         fitBounds(bounds: LatLngBounds | LatLngBoundsLiteral, padding?: number | Padding): void;
         getBounds(): LatLngBounds | null | undefined;
         getCenter(): LatLng;
-        getDiv(): Element;
+        getDiv(): E;
         getHeading(): number;
         getMapTypeId(): MapTypeId;
         getProjection(): Projection | null;
