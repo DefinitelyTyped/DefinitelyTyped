@@ -152,7 +152,24 @@ declare namespace Sortable {
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: ((to: Sortable) => PutResult) | PutResult;
+        /**
+         * a canonical version of pull, created by Sortable
+         */
+        checkPull?: (
+            sortable: Sortable,
+            activeSortable: Sortable,
+            dragEl: HTMLElement,
+            event: SortableEvent,
+        ) => boolean | string | Array<string>;
+        /**
+         * a canonical version of put, created by Sortable
+         */
+        checkPut?: (
+            sortable: Sortable,
+            activeSortable: Sortable,
+            dragEl: HTMLElement,
+            event: SortableEvent,
+        ) => boolean | string | 'clone' | Array<string>;
         /**
          * revert cloned element to initial position after moving to a another list.
          */
