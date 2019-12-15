@@ -873,7 +873,7 @@ export interface JSHandle<T = any> extends JSEvalable<T> {
   /**
    * Returns a ElementHandle
    */
-  asElement(): ElementHandle | null;
+  asElement(): ElementHandle<T & Element> | null;
   /**
    * Stops referencing the element handle.
    */
@@ -1508,7 +1508,7 @@ export interface Accessibility {
 }
 
 export interface MediaFeature {
-    name: 'prefers-colors-scheme' | 'prefers-reduced-motion';
+    name: 'prefers-color-scheme' | 'prefers-reduced-motion';
     value: string;
 }
 

@@ -1,6 +1,8 @@
 import * as puppeteer from "puppeteer";
-import { TimeoutError } from "puppeteer/Errors";
+import {TimeoutError} from "puppeteer/Errors";
 import * as Devices from "puppeteer/DeviceDescriptors";
+import * as crypto from "crypto";
+import * as fs from "fs";
 
 // Accessibility
 
@@ -75,7 +77,7 @@ puppeteer.launch().then(async browser => {
   });
   console.log(await page.evaluate("1 + 2"));
 
-  const bodyHandle = await page.$("body");
+  const bodyHandle = await page.$("body") as puppeteer.ElementHandle<HTMLBodyElement>;
 
   // Typings for this are really difficult since they depend on internal state
   // of the page class.
@@ -84,9 +86,6 @@ puppeteer.launch().then(async browser => {
     bodyHandle
   );
 });
-
-import * as crypto from "crypto";
-import * as fs from "fs";
 
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
@@ -298,7 +297,7 @@ puppeteer.launch().then(async browser => {
 
   // queryObjects example
   // Create a Map object
-  await page.evaluate(() => (window as any).map = new Map());
+  await page.evaluate(() => {(window as any).map = new Map()});
   // Get a handle to the Map object prototype
   const mapPrototype = await page.evaluateHandle(() => Map.prototype);
   // Query all map instances into an array
@@ -334,21 +333,11 @@ puppeteer.launch().then(async browser => {
   );
   elementText; // $ExpectType string
 
-  // If one returns a DOM reference, puppeteer will wrap an ElementHandle instead
-  const someElement = await page.$$eval(
-    '.someClassName',
-    (
-      elements, // $ExpectType Element[]
-    ) => {
-      console.log(elements.length);
-      console.log(elements[0].outerHTML);
-      return elements[3] as HTMLDivElement;
-    }
-  );
-  someElement; // $ExpectType ElementHandle<HTMLDivElement>
-
   // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
-  await page.$eval('.hello-world', (e, x1) => (x1 as any).noWrap, someElement);
+  await page.$eval('.hello-world', (
+    e, // $ExpectType Element
+    x1 // $ExpectType string
+  ) => x1, "hoge");
 
   browser.close();
 })();
@@ -588,13 +577,13 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const link: puppeteer.JSHandle = await page.evaluateHandle(
+  const link: puppeteer.JSHandle<null> | puppeteer.ElementHandle = await page.evaluateHandle(
     () => document.body.querySelector('a')
   );
   const linkEl: puppeteer.ElementHandle | null = link.asElement();
   if (linkEl !== null) {
     const href = await page.evaluate(
-      (el: HTMLElement): string | null => el.getAttribute('href'),
+      (el: Element): string | null => el.getAttribute('href'),
       linkEl);
     console.log('href is', href);
   }
@@ -606,7 +595,10 @@ puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
 
   const paragraphContents: string[] = await page.$$eval(
-    'p', (ps: Element[]): string[] => ps.map(p => p.textContent || ''));
+    'p',
+    (
+      ps // $ExpectType Element[]
+    ): string[] => ps.map(p => p.textContent || ''));
   console.log('pgraph contents', paragraphContents);
 });
 
@@ -625,7 +617,6 @@ puppeteer.launch().then(async browser => {
   );
   console.log('there are', numMatchingEls, 'banana paragaphs');
 });
-
 (async () => {
   const rev = '630727';
   const defaultFetcher = puppeteer.createBrowserFetcher();
@@ -675,12 +666,14 @@ puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
 
   const elementHandle = (await page.$('.something')) as puppeteer.ElementHandle<HTMLDivElement>;
-  elementHandle.evaluate(element => {
+  const evaluatePromise1: Promise<void> = elementHandle.evaluate(element => {
     element; // $ExpectType HTMLDivElement
   });
-  elementHandle.evaluateHandle(element => {
-    element; // $ExpectType HTMLDivElement
+  const elementHandlePromise: Promise<puppeteer.JSHandle<HTMLDivElement>> = elementHandle.evaluateHandle(el => {
+      return el; // $ExpectType HTMLDivElement
   });
+  elementHandle.evaluate(element => Promise.resolve(1)); // $ExpectType Promise<number>
+  elementHandle.evaluate("() => { console.log('foo'); }"); // $ExpectType Promise<any>
 
   const jsHandle = await page.evaluateHandle(() => 'something');
   jsHandle.evaluate(obj => {});
