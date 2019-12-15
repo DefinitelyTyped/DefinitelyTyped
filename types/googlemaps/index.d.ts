@@ -63,7 +63,7 @@ declare namespace google.maps {
         setHeading(heading: number): void;
         setMapTypeId(mapTypeId: MapTypeId | string): void;
         setOptions(options: MapOptions): void;
-        setStreetView(panorama: StreetViewPanorama): void;
+        setStreetView(panorama: StreetViewPanorama | null): void;
         setTilt(tilt: number): void;
         setZoom(zoom: number): void;
         controls: Array<MVCArray<Node>>;
