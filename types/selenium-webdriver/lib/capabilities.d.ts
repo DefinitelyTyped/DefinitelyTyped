@@ -6,18 +6,12 @@ import { logging, ProxyConfig } from '../';
  * @enum {string}
  */
 export interface IBrowser {
-  ANDROID: string;
   CHROME: string;
   EDGE: string;
   FIREFOX: string;
   IE: string;
   INTERNET_EXPLORER: string;
-  IPAD: string;
-  IPHONE: string;
-  OPERA: string;
-  PHANTOM_JS: string;
   SAFARI: string;
-  HTMLUNIT: string;
 }
 
 /**
