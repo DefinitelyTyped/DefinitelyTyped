@@ -2909,6 +2909,8 @@ declare namespace google.maps {
         toString(): string;
     }
 
+    type MVCEventHandler<T extends MVCObject, A extends any[]> = (this: T, ...args: A) => void;
+
     /***** MVC *****/
     /** Base class implementing KVO. */
     class MVCObject {
@@ -2925,7 +2927,7 @@ declare namespace google.maps {
          * identifier for this listener that can be used with
          * google.maps.event.removeListener.
          */
-        addListener(eventName: string, handler: (...args: any[]) => void): MapsEventListener;
+        addListener(eventName: string, handler: MVCEventHandler<this, any[]>): MapsEventListener;
         /** Binds a View to a Model. */
         bindTo(key: string, target: MVCObject, targetKey?: string, noNotify?: boolean): void;
         changed(key: string): void;
