@@ -43,8 +43,35 @@ THE SOFTWARE.
 
 declare namespace google.maps {
     /***** Map *****/
+
+    interface MapHandlerMap {
+        bounds_changed: [];
+        center_changed: [];
+        click: [MouseEvent | IconMouseEvent];
+        dblclick: [MouseEvent];
+        drag: [];
+        dragend: [];
+        dragstart: [];
+        heading_changed: [];
+        idle: [];
+        maptypeid_changed: [];
+        mousemove: [MouseEvent];
+        mouseout: [MouseEvent];
+        mouseover: [MouseEvent];
+        projection_changed: [];
+        rightclick: [MouseEvent];
+        tilesloaded: [];
+        tilt_changed: [];
+        zoom_changed: [];
+    }
+
     class Map<E extends Element = Element> extends MVCObject {
         constructor(mapDiv: E, opts?: MapOptions);
+        addListener<N extends keyof MapHandlerMap>(
+            eventName: N,
+            handler: MVCEventHandler<this, MapHandlerMap[N]>,
+        ): MapsEventListener;
+        addListener(eventName: string, handler: MVCEventHandler<this, any[]>): MapsEventListener;
         fitBounds(bounds: LatLngBounds | LatLngBoundsLiteral, padding?: number | Padding): void;
         getBounds(): LatLngBounds | null | undefined;
         getCenter(): LatLng;
