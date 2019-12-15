@@ -9,7 +9,7 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Andrés Ortiz <https://github.com/angrykoala>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -21,10 +21,12 @@ import * as devices from "./DeviceDescriptors";
 
 export { errors, devices };
 
-/** Wraps a DOM element into an ElementHandle instance */
-export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
+/** Unwraps in-page object out of an JSHandle instance */
+export type UnwrapJSHandle<X> = X extends JSHandle<infer E> ? E : X;
+export type UnwrapJSHandleArray<Args> = { [P in keyof Args]: UnwrapJSHandle<Args[P]> };
+export type JSHandleOf<T> = T extends Element ? ElementHandle<T> : JSHandle<T>;
 
-export type Serializable = JSON | undefined | void | bigint;
+export type Serializable = JSON | undefined | bigint;
 export type JSON =
   | number
   | string
@@ -38,6 +40,11 @@ export interface JSONObject {
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
+export type PageFunction<Args extends any[], R> = string | ((...args: Args) => R | void | Promise<R | void>);
+export type PageFunctionWithArg0<T, Args extends any[], R> = string | ((arg0: T, ...args: Args) => R | void | Promise<R | void>);
+export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+export type PageFunctionReturnType<T, Default> = T extends (...args: any[]) => infer R ? UnwrapPromise<R> : Default;
+
 export type Platform = "mac" | "win32" | "win64" | "linux";
 
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
@@ -50,137 +57,14 @@ export interface Evalable {
    *
    * @param selector A selector to query for
    * @param pageFunction Function to be evaluated in browser context
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $eval<R>(
-    selector: string,
-    pageFunction: (element: Element) => R | Promise<R>,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
-   * If there's no element matching `selector`, the method throws an error.
-   *
-   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $eval<R, X1>(
-    selector: string,
-    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>) => R | Promise<R>,
-    x1: X1,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
-   * If there's no element matching `selector`, the method throws an error.
-   *
-   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @param x2 Second argument to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $eval<R, X1, X2>(
-    selector: string,
-    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
-    x1: X1,
-    x2: X2,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
-   * If there's no element matching `selector`, the method throws an error.
-   *
-   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @param x2 Second argument to pass to pageFunction
-   * @param x3 Third argument to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $eval<R, X1, X2, X3>(
-    selector: string,
-    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
-    x1: X1,
-    x2: X2,
-    x3: X3,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
-   * If there's no element matching `selector`, the method throws an error.
-   *
-   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
    * @param args Arguments to pass to pageFunction
    * @returns Promise which resolves to the return value of pageFunction
    */
-  $eval<R>(
+  $eval<T extends PageFunctionWithArg0<Element, UnwrapJSHandleArray<Args>, Serializable>, Args extends SerializableOrJSHandle[]>(
     selector: string,
-    pageFunction: (element: Element, ...args: any[]) => R | Promise<R>,
-    ...args: SerializableOrJSHandle[],
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
-   * first argument to `pageFunction`.
-   *
-   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval<R>(
-    selector: string,
-    pageFunction: (elements: Element[]) => R | Promise<R>,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
-   * first argument to `pageFunction`.
-   *
-   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval<R, X1>(
-    selector: string,
-    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>) => R | Promise<R>,
-    x1: X1,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
-   * first argument to `pageFunction`.
-   *
-   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param x1 First argument to pass to pageFunction
-   * @param x2 Second argument to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval<R, X1, X2>(
-    selector: string,
-    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
-    x1: X1,
-    x2: X2,
-  ): Promise<WrapElementHandle<R>>;
+    pageFunction: T,
+    ...args: Args,
+  ): Promise<PageFunctionReturnType<T, Serializable>>;
 
   /**
    * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
@@ -193,55 +77,36 @@ export interface Evalable {
    * @param args Arguments to pass to pageFunction
    * @returns Promise which resolves to the return value of pageFunction
    */
-  $$eval<R, X1, X2, X3>(
+  $$eval<T extends PageFunctionWithArg0<Element[], UnwrapJSHandleArray<Args>, Serializable>, Args extends SerializableOrJSHandle[]>(
     selector: string,
-    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
-    x1: X1,
-    x2: X2,
-    x3: X3,
-  ): Promise<WrapElementHandle<R>>;
-
-  /**
-   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
-   * first argument to `pageFunction`.
-   *
-   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
-   *
-   * @param selector A selector to query for
-   * @param pageFunction Function to be evaluated in browser context
-   * @param args Arguments to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval<R>(
-    selector: string,
-    pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<WrapElementHandle<R>>;
+    pageFunction: T,
+    ...args: Args
+  ): Promise<PageFunctionReturnType<T, Serializable>>;
 }
 
-export interface JSEvalable<A = any> {
-    /**
-     * Evaluates a function in the browser context.
-     * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
-     * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
-     * @param fn Function to be evaluated in browser context
-     * @param args Arguments to pass to `fn`
-     */
-    evaluate<T extends EvaluateFn<A>>(
-      pageFunction: T,
-      ...args: SerializableOrJSHandle[],
-    ): Promise<EvaluateFnReturnType<T>>;
-    /**
-     * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
-     * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
-     * promise to resolve and return its value.
-     * @param fn Function to be evaluated in browser context
-     * @param args Arguments to pass to `fn`
-     */
-    evaluateHandle(
-      pageFunction: string | ((arg1: A, ...args: any[]) => any),
-      ...args: SerializableOrJSHandle[],
-    ): Promise<JSHandle>;
+export interface JSEvalable {
+  /**
+   * Evaluates a function in the browser context.
+   * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
+   * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to `fn`
+   */
+  evaluate<T extends PageFunction<UnwrapJSHandleArray<Args>, Serializable>, Args extends SerializableOrJSHandle[]>(
+    pageFunction: T,
+    ...args: Args
+  ): Promise<PageFunctionReturnType<T, Serializable>>;
+  /**
+   * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
+   * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
+   * promise to resolve and return its value.
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to `fn`
+   */
+  evaluateHandle<T extends PageFunction<UnwrapJSHandleArray<Args>, unknown>, Args extends SerializableOrJSHandle[]>(
+    pageFunction: T,
+    ...args: Args,
+  ): Promise<JSHandleOf<PageFunctionReturnType<T, unknown>>>;
 }
 
 /** Keyboard provides an api for managing a virtual keyboard. */
@@ -514,9 +379,6 @@ export interface EmulateOptions {
   /** The emulated user-agent. */
   userAgent: string;
 }
-
-export type EvaluateFn<T = any> = string | ((arg1: T, ...args: any[]) => any);
-export type EvaluateFnReturnType<T extends EvaluateFn> = T extends ((...args: any[]) => infer R) ? R : unknown;
 
 export type LoadEvent =
   | "load"
@@ -869,7 +731,7 @@ export interface ExecutionContext extends JSEvalable {
 }
 
 /** JSHandle represents an in-page JavaScript object. */
-export interface JSHandle<T = any> extends JSEvalable<T> {
+export interface JSHandle<T = unknown> {
   /**
    * Returns a ElementHandle
    */
@@ -899,6 +761,28 @@ export interface JSHandle<T = any> extends JSEvalable<T> {
    * @throws The method will throw if the referenced object is not stringifiable.
    */
   jsonValue(): Promise<unknown>;
+  /**
+   * Evaluates a function in the browser context.
+   * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
+   * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to `fn`
+   */
+  evaluate<F extends PageFunctionWithArg0<T, UnwrapJSHandleArray<Args>, Serializable>, Args extends SerializableOrJSHandle[]>(
+    pageFunction: F,
+    ...args: Args
+  ): Promise<PageFunctionReturnType<F, Serializable>>;
+  /**
+   * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
+   * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
+   * promise to resolve and return its value.
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to `fn`
+   */
+  evaluateHandle<F extends PageFunctionWithArg0<T, UnwrapJSHandleArray<Args>, unknown>, Args extends SerializableOrJSHandle[]>(
+    pageFunction: F,
+    ...args: Args,
+  ): Promise<JSHandleOf<PageFunctionReturnType<F, unknown>>>;
 }
 
 export interface Metrics {
@@ -1244,20 +1128,20 @@ export interface FrameBase extends Evalable, JSEvalable {
   /**
    * Shortcut for waitForFunction.
    */
-  waitFor(
-    selector: EvaluateFn,
-    options?: WaitForSelectorOptions,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
+  waitFor<T extends (...args: Args) => any, Args extends SerializableOrJSHandle[]>(
+    pageFunction: T,
+    options?: PageFnOptions,
+    ...args: Args
+  ): Promise<JSHandleOf<PageFunctionReturnType<T, any>>>;
 
   /**
    * Allows waiting for various conditions.
    */
-  waitForFunction(
-    fn: EvaluateFn,
+  waitForFunction<T extends PageFunction<UnwrapJSHandleArray<Args>, any>, Args extends SerializableOrJSHandle[]>(
+    pageFunction: T,
     options?: PageFnOptions,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
+    ...args: Args
+  ): Promise<JSHandleOf<PageFunctionReturnType<T, any>>>;
 
   /**
    * Wait for the page navigation occur.
@@ -1267,13 +1151,17 @@ export interface FrameBase extends Evalable, JSEvalable {
 
   waitForSelector(
     selector: string,
+    options: WaitForSelectorOptionsHidden,
+  ): Promise<ElementHandle | null>;
+  waitForSelector(
+    selector: string,
     options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
-  waitForSelector(
-      selector: string,
-      options?: WaitForSelectorOptionsHidden,
-  ): Promise<ElementHandle | null>;
 
+  waitForXPath(
+    xpath: string,
+    options: WaitForSelectorOptionsHidden,
+  ): Promise<ElementHandle | null>;
   waitForXPath(
     xpath: string,
     options?: WaitForSelectorOptions,
@@ -1605,12 +1493,12 @@ export interface Page extends EventEmitter, FrameBase {
   /**
    * Adds a function which would be invoked in one of the following scenarios: whenever the page is navigated; whenever the child frame is attached or navigated.
    * The function is invoked after the document was created but before any of its scripts were run. This is useful to amend JavaScript environment, e.g. to seed Math.random.
-   * @param fn The function to be evaluated in browser context.
+   * @param pageFunction The function to be evaluated in browser context.
    * @param args The arguments to pass to the `fn`.
    */
-  evaluateOnNewDocument(
-    fn: EvaluateFn,
-    ...args: SerializableOrJSHandle[]
+  evaluateOnNewDocument<Args extends SerializableOrJSHandle[]>(
+    pageFunction: PageFunction<UnwrapJSHandleArray<Args>, void>,
+    ...args: Args
   ): Promise<void>;
 
   /**
