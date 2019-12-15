@@ -1143,10 +1143,9 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class MySubClass extends Parse.Object<{attribute1: any, attribute2: any}> { }
+        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number}> { }
         class AnotherSubclass extends Parse.Object<{x: any}> { }
         const query = new Parse.Query(MySubClass);
-
 
         // $ExpectType Query<MySubClass>
         query.addAscending(['attribute1', 'attribute2', 'updatedAt']);
@@ -1164,12 +1163,16 @@ function testQuery() {
         query.ascending(['attribute1', 'nonexistentProp']);
 
         // $ExpectType Query<MySubClass>
+        query.containedBy('attribute1', ['a', 'b', 'c']);
+        // $ExpectError
         query.containedBy('attribute1', [1, 2, 3]);
         // $ExpectError
         query.containedBy('nonexistentProp', ['a', 'b', 'c']);
 
         // $ExpectType Query<MySubClass>
         query.containedIn('attribute1', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containedIn('attribute2', ['a', 'b', 'c']);
         // $ExpectError
         query.containedIn('nonexistentProp', ['a', 'b', 'c']);
 
@@ -1216,7 +1219,9 @@ function testQuery() {
         query.endsWith('nonexistentProp', 'asuffixstring');
 
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute1', 'any value');
+        query.equalTo('attribute2', 0);
+        // $ExpectError
+        query.equalTo('attribute2', 'a string value');
         // $ExpectError
         query.equalTo('nonexistentProp', 'any value');
 
@@ -1231,12 +1236,16 @@ function testQuery() {
         query.fullText('nonexistentProp', 'full text');
 
         // $ExpectType Query<MySubClass>
-        query.greaterThan('attribute1', 1000);
+        query.greaterThan('attribute2', 1000);
+        // $ExpectError
+        query.greaterThan('attribute2', '1000');
         // $ExpectError
         query.greaterThan('nonexistentProp', 1000);
 
         // $ExpectType Query<MySubClass>
-        query.greaterThanOrEqualTo('attribute1', 1000);
+        query.greaterThanOrEqualTo('attribute2', 1000);
+        // $ExpectError
+        query.greaterThanOrEqualTo('attribute2', '1000');
         // $ExpectError
         query.greaterThanOrEqualTo('nonexistentProp', 1000);
 
@@ -1246,12 +1255,16 @@ function testQuery() {
         query.include(['attribute1', 'nonexistentProp']);
 
         // $ExpectType Query<MySubClass>
-        query.lessThan('attribute1', 1000);
+        query.lessThan('attribute2', 1000);
+        // $ExpectError
+        query.lessThan('attribute2', '1000');
         // $ExpectError
         query.lessThan('nonexistentProp', 1000);
 
         // $ExpectType Query<MySubClass>
-        query.lessThanOrEqualTo('attribute1', 1000);
+        query.lessThanOrEqualTo('attribute2', 1000);
+        // $ExpectError
+        query.lessThanOrEqualTo('attribute2', '1000');
         // $ExpectError
         query.lessThanOrEqualTo('nonexistentProp', 1000);
 
@@ -1278,11 +1291,15 @@ function testQuery() {
         query.near('nonexistentProp', new Parse.GeoPoint());
 
         // $ExpectType Query<MySubClass>
-        query.notContainedIn('attribute1', [1, 2, 3]);
+        query.notContainedIn('attribute2', [1, 2, 3]);
+        // $ExpectError
+        query.notContainedIn('attribute2', ['1', '2', '3']);
         // $ExpectError
         query.notContainedIn('nonexistentProp', [1, 2, 3]);
 
         // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute1', '1');
+        // $ExpectError
         query.notEqualTo('attribute1', 1);
         // $ExpectError
         query.notEqualTo('nonexistentProp', 1);
