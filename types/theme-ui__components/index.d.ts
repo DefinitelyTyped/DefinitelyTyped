@@ -6,6 +6,13 @@
 
 import * as React from 'react';
 
+import { Interpolation } from '@emotion/core';
+import { SxStyleProp } from 'theme-ui';
+
+export interface BoxProps {
+    css: Interpolation;
+    sx: SxStyleProp;
+}
 export const Box: React.FC;
 export const Flex: React.FC;
 export const Grid: React.FC;
@@ -39,4 +46,3 @@ export const NavLink: React.FC;
 export const Message: React.FC;
 export const IconButton: React.FC;
 export const MenuButton: React.FC;
-

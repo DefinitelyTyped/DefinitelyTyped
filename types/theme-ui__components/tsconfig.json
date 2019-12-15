@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -12,12 +13,16 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@theme-ui/components": ["theme-ui__components"],
+            "@styled-system/css": ["styled-system__css"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "theme-ui__components-tests.ts"
+        "theme-ui__components-tests.tsx"
     ]
 }
