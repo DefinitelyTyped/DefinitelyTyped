@@ -1368,6 +1368,9 @@ function testQuery() {
         // $ExpectType Object<Attributes>[]
         await queryUntyped.find();
 
+        // $ExpectType string
+        await queryTyped.distinct('example');
+
         // $ExpectType Object<Attributes> | undefined
         await queryUntyped.first();
 
