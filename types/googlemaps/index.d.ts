@@ -48,6 +48,7 @@ declare namespace google.maps {
         fitBounds(bounds: LatLngBounds | LatLngBoundsLiteral, padding?: number | Padding): void;
         getBounds(): LatLngBounds | null | undefined;
         getCenter(): LatLng;
+        getClickableIcons(): boolean;
         getDiv(): E;
         getHeading(): number;
         getMapTypeId(): MapTypeId;
