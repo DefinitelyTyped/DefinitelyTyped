@@ -36,9 +36,9 @@ declare class Sortable {
     /**
      * Mounts a plugin to Sortable
      * @param sortablePlugin a sortable plugin.
-     * 
+     *
      * @example
-     * 
+     *
      * Sortable.mount(new MultiDrag(), new AutoScroll())
      */
     static mount(...sortablePlugins: SortablePlugin[]): void;
@@ -164,6 +164,7 @@ declare namespace Sortable {
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
+        put?: PutResult | ((to: Sortable, from: Sortable) => PullResult);
         /**
          * a canonical version of pull, created by Sortable
          */
