@@ -1147,23 +1147,24 @@ function testQuery() {
         class AnotherSubclass extends Parse.Object<{x: any}> { }
         const query = new Parse.Query(MySubClass);
 
-        // $ExpectType Query<MySubClass>
-        query.addAscending(['attribute1', 'attribute2']);
-        // $ExpectError
-        query.addAscending('attribute1', 'unexistenProp');
 
         // $ExpectType Query<MySubClass>
-        query.addDescending(['attribute1', 'attribute2']);
+        query.addAscending(['attribute1', 'attribute2', 'updatedAt']);
         // $ExpectError
-        query.addDescending('attribute1', 'unexistenProp');
+        query.addAscending(['attribute1', 'unexistenProp']);
 
         // $ExpectType Query<MySubClass>
-        query.ascending(['attribute1', 'attribute2']);
+        query.addDescending(['attribute1', 'attribute2', 'createdAt']);
         // $ExpectError
-        query.ascending('attribute1', 'nonexistentProp');
+        query.addDescending(['attribute1', 'unexistenProp']);
 
         // $ExpectType Query<MySubClass>
-        query.containedBy('attribute1', ['a', 'b', 'c']);
+        query.ascending(['attribute1', 'attribute2', 'objectId']);
+        // $ExpectError
+        query.ascending(['attribute1', 'nonexistentProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.containedBy('attribute1', [1, 2, 3]);
         // $ExpectError
         query.containedBy('nonexistentProp', ['a', 'b', 'c']);
 
@@ -1188,9 +1189,9 @@ function testQuery() {
         query.containsAllStartingWith('nonexistentProp', ['a', 'b', 'c']);
 
         // $ExpectType Query<MySubClass>
-        query.descending(['attribute1', 'attribute2']);
+        query.descending(['attribute1', 'attribute2', 'objectId']);
         // $ExpectError
-        query.descending('attribute1', 'nonexistentProp');
+        query.descending(['attribute1', 'nonexistentProp']);
 
         // $ExpectType Query<MySubClass>
         query.doesNotExist('attribute1');
@@ -1259,7 +1260,6 @@ function testQuery() {
         // $ExpectError
         query.matches('nonexistentProp', /a regex/);
 
-        // TODO: type-check second argument for attributes in 'Example' Object
         // $ExpectType Query<MySubClass>
         query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
         // $ExpectError

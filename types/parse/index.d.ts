@@ -170,6 +170,12 @@ declare namespace Parse {
         [key: string]: any;
     }
 
+    interface BaseAttributes {
+        createdAt: Date;
+        objectId: string;
+        updatedAt: Date;
+    }
+
     /**
      * Creates a new ACL.
      * If no argument is given, the ACL has no permissions for anyone.
@@ -572,58 +578,58 @@ declare namespace Parse {
         static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
         static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
-        addAscending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
-        addDescending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
-        ascending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
+        addAscending<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K | K[]): this;
+        addDescending<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K | K[]): this;
+        ascending<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K | K[]): this;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-        containedBy<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
-        containedIn<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
-        contains<K extends Extract<keyof T['attributes'], string>>(key: K, substring: string): this;
-        containsAll<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
-        containsAllStartingWith<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
+        containedBy<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, values: any[]): this;
+        containedIn<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, values: any[]): this;
+        contains<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, substring: string): this;
+        containsAll<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, values: any[]): this;
+        containsAllStartingWith<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, values: any[]): this;
         count(options?: Query.CountOptions): Promise<number>;
-        descending<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
-        doesNotExist<K extends Extract<keyof T['attributes'], string>>(key: K): this;
+        descending<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K | K[]): this;
+        doesNotExist<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K): this;
         doesNotMatchKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>, X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, query: Query<U>): this;
         distinct<K extends Extract<keyof T['attributes'], string>, V = any>(key: K): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith<K extends Extract<keyof T['attributes'], string>>(key: K, suffix: string): this;
-        equalTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        exists<K extends Extract<keyof T['attributes'], string>>(key: K): this;
+        endsWith<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, suffix: string): this;
+        equalTo<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
+        exists<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromLocalDatastore(): void;
         fromPin(): void;
         fromPinWithName(name: string): void;
-        fullText<K extends Extract<keyof T['attributes'], string>>(key: K, value: string, options?: Query.FullTextOptions): this;
+        fullText<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        greaterThanOrEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        include<K extends Extract<keyof T['attributes'], string>>(key: K | K[]): this;
+        greaterThan<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
+        greaterThanOrEqualTo<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
+        include<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K | K[]): this;
         includeAll(): Query<T>;
-        lessThan<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        lessThanOrEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
+        lessThan<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
+        lessThanOrEqualTo<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
         limit(n: number): Query<T>;
-        matches<K extends Extract<keyof T['attributes'], string>>(key: K, regex: RegExp, modifiers?: string): this;
+        matches<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, regex: RegExp, modifiers?: string): this;
         matchesKeyInQuery<U extends Object, K extends Extract<keyof T['attributes'], string>, X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         matchesQuery<U extends Object, K extends Extract<keyof T['attributes'], string>>(key: K, query: Query<U>): this;
-        near<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint): this;
-        notContainedIn<K extends Extract<keyof T['attributes'], string>>(key: K, values: any[]): this;
-        notEqualTo<K extends Extract<keyof T['attributes'], string>>(key: K, value: any): this;
-        polygonContains<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint): this;
-        select<K extends Extract<keyof T['attributes'], string>>(...keys: K[]): this;
+        near<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
+        notContainedIn<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, values: any[]): this;
+        notEqualTo<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, value: any): this;
+        polygonContains<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
+        select<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(...keys: K[]): this;
         skip(n: number): Query<T>;
         sortByTextScore(): this;
-        startsWith<K extends Extract<keyof T['attributes'], string>>(key: K, prefix: string): this;
+        startsWith<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, prefix: string): this;
         subscribe(): Promise<LiveQuerySubscription>;
         toJSON(): any;
         withJSON(json: any): this;
-        withinGeoBox<K extends Extract<keyof T['attributes'], string>>(key: K, southwest: GeoPoint, northeast: GeoPoint): this;
-        withinKilometers<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint, maxDistance: number): this;
-        withinMiles<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint, maxDistance: number): this;
-        withinPolygon<K extends Extract<keyof T['attributes'], string>>(key: K, points: number[][]): this;
-        withinRadians<K extends Extract<keyof T['attributes'], string>>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinGeoBox<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, southwest: GeoPoint, northeast: GeoPoint): this;
+        withinKilometers<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinMiles<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinPolygon<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, points: number[][]): this;
+        withinRadians<K extends (Extract<keyof T['attributes'], string> | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
     }
 
     namespace Query {
