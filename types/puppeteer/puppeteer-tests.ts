@@ -1,5 +1,5 @@
 import * as puppeteer from "puppeteer";
-import {TimeoutError} from "puppeteer/Errors";
+import { TimeoutError } from "puppeteer/Errors";
 import * as Devices from "puppeteer/DeviceDescriptors";
 import * as crypto from "crypto";
 import * as fs from "fs";
@@ -297,7 +297,7 @@ puppeteer.launch().then(async browser => {
 
   // queryObjects example
   // Create a Map object
-  await page.evaluate(() => {(window as any).map = new Map()});
+  await page.evaluate(() => { (window as any).map = new Map(); });
   // Get a handle to the Map object prototype
   const mapPrototype = await page.evaluateHandle(() => Map.prototype);
   // Query all map instances into an array
