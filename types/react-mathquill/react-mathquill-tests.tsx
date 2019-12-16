@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MathQuill, { addStyles } from 'react-mathquill';
-import { Config, MQ } from 'edtr-io__mathquill';
+import { Config, MQ } from '@edtr-io/mathquill';
 
 addStyles();
 
