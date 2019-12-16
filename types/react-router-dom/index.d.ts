@@ -35,6 +35,7 @@ export {
     useLocation,
     useParams,
     useRouteMatch,
+    __RouterContext,
 } from 'react-router';
 
 export interface BrowserRouterProps {
