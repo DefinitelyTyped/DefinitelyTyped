@@ -40,7 +40,12 @@ import {
 const SectionBox = Box.withComponent('section');
 
 const _ = (
-    <SectionBox css={{ background: '#eee' }} sx={{ py: [1, 2, 3], paddingBlockStart: '2em' }} px={[3, 2, 1]}>
+    <SectionBox
+        css={{ background: '#eee' }}
+        sx={{ py: [1, 2, 3], paddingBlockStart: '2em' }}
+        px={[3, 2, 1]}
+        ref={ref => ref}
+    >
         <Box
             onPointerEnter={e => e.pointerType}
             sx={{
@@ -50,7 +55,7 @@ const _ = (
             }}
         />
         <Flex />
-        <Grid width={[128, null, 192]} backgroundColor="#eee">
+        <Grid width={[128, null, 192]} backgroundColor="#eee" ref={ref => ref}>
             <Box bg="primary">Box</Box>
             <Box bg="muted">Box</Box>
             <Box bg="primary">Box</Box>
@@ -63,13 +68,14 @@ const _ = (
             <Box bg="muted">Box</Box>
         </Grid>
         <Button
+            ref={ref => ref}
             sx={{
                 ':hover': {
                     bg: ['red', 'green', 'blue'],
                 },
             }}
         />
-        <Link href="#" target="_self" bg="blue" />
+        <Link href="#" target="_self" bg="blue" ref={r => r} />
         <Text backgroundColor="red" sx={{ py: 1 }} paddingX={[3, 2, 1]} />
         <Heading contentEditable="true" m="1em" />
         <Image />

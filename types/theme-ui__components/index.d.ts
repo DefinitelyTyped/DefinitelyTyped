@@ -16,6 +16,8 @@ type Assign<T, U> = {
     [P in keyof (T & U)]: P extends keyof U ? U[P] : P extends keyof T ? T[P] : never;
 };
 
+type ForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
+
 export interface BoxStyleProps extends SpaceProps, ColorProps {
     variant?: string;
     sx?: SxStyleProp;
@@ -25,7 +27,7 @@ export interface BoxProps extends Assign<React.ComponentProps<'div'>, BoxStylePr
 export const Box: StyledComponent<React.ComponentProps<'div'>, BoxStyleProps, {}>;
 
 export type FlexStyleProps = BoxStyleProps;
-export const Flex: React.FC<FlexStyleProps>;
+export const Flex: StyledComponent<React.ComponentProps<'div'>, FlexStyleProps, {}>;
 
 export interface GridProps extends BoxProps {
     /**
@@ -41,23 +43,33 @@ export interface GridProps extends BoxProps {
      */
     gap?: ResponsiveValue<string | number>;
 }
-export const Grid: React.RefForwardingComponent<'div', GridProps>;
+export const Grid: ForwardRef<HTMLDivElement, GridProps>;
 
 export interface ButtonProps extends Assign<React.ComponentPropsWithRef<'button'>, BoxStyleProps> {}
-export const Button: React.RefForwardingComponent<'button', BoxProps>;
+export const Button: ForwardRef<HTMLButtonElement, BoxProps>;
 
 export interface LinkProps extends Assign<React.ComponentPropsWithRef<'a'>, BoxStyleProps> {}
-export const Link: React.RefForwardingComponent<'a', LinkProps>;
+export const Link: ForwardRef<HTMLAnchorElement, LinkProps>;
 
 export type TextProps = BoxProps;
-export const Text: React.RefForwardingComponent<'div', BoxProps>;
+export const Text: ForwardRef<HTMLDivElement, BoxProps>;
 
 export interface HeadingProps extends Assign<React.ComponentPropsWithRef<'h2'>, BoxStyleProps> {}
-export const Heading: React.RefForwardingComponent<'h2', HeadingProps>;
-export const Image: React.FC;
-export const Card: React.FC;
-export const Label: React.FC;
-export const Input: React.FC;
+export const Heading: ForwardRef<HTMLHeadingElement, HeadingProps>;
+
+export interface ImageProps extends Assign<React.ComponentProps<'img'>, BoxStyleProps> {}
+export const Image: ForwardRef<HTMLImageElement, ImageProps>;
+
+export type CardProps = BoxProps;
+export const Card: ForwardRef<HTMLDivElement, CardProps>;
+
+export interface LabelProps extends Assign<React.ComponentProps<'label'>, BoxStyleProps> {}
+export const Label: ForwardRef<HTMLLabelElement, LabelProps>;
+
+export interface InputProps extends Assign<React.ComponentProps<'input'>, BoxStyleProps> {}
+export const Input: ForwardRef<HTMLInputElement, InputProps>;
+
+export interface SelectProps extends Assign<React.ComponentProps<'select'>, BoxStyleProps> {}
 export const Select: React.FC;
 export const Textarea: React.FC;
 export const Radio: React.FC;
