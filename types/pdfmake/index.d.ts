@@ -1,4 +1,4 @@
-// Type definitions for pdfmake 0.1
+// Type definitions for pdfmake 0.2
 // Project: http://pdfmake.org
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
