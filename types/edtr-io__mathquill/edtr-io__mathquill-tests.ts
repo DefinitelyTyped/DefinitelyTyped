@@ -1,4 +1,4 @@
-import { MQ, Config } from 'edtr-io__mathquill';
+import { MQ, Config } from '@edtr-io/mathquill';
 
 const Test = () => {
     const config: Config = {
