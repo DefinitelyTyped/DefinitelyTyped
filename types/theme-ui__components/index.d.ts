@@ -81,7 +81,7 @@ export const Radio: ForwardRef<HTMLInputElement, RadioProps>;
 export interface CheckboxProps extends Assign<React.ComponentProps<'input'>, BoxStyleProps> {}
 export const Checkbox: ForwardRef<HTMLInputElement, CheckboxProps>;
 
-export interface SliderProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export interface SliderProps extends Assign<React.ComponentProps<'input'>, BoxStyleProps> {}
 export const Slider: ForwardRef<HTMLInputElement, SliderProps>;
 
 export interface FieldOwnProps extends MarginProps {
