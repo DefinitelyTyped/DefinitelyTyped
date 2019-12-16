@@ -113,6 +113,7 @@ const _ = (
             rows={10}
             placeholder="Say hello"
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => console.log(e.target.value)}
+            mx={[1, 2, 3]}
         />
         <Field
             as={Textarea}
