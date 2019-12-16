@@ -8,16 +8,16 @@ class Folder extends DS.Model {
     children = DS.hasMany('folder', { inverse: 'parent' });
     parent = DS.belongsTo('folder', { inverse: 'children' });
 
-    @DS.belongsTo('owner') owner!: Owner;
+    @DS.belongsTo('icon') icon!: Icon;
 }
 
-class Owner extends DS.Model {
+class Icon extends DS.Model {
 }
 
 declare module 'ember-data/types/registries/model' {
     export default interface ModelRegistry {
         folder: Folder;
-        owner: Owner;
+        icon: Icon;
     }
 }
 
@@ -39,8 +39,8 @@ folder.set('parent', store.findRecord('folder', 3));
 folder.belongsTo('parent').value();
 
 // when used as decorator
-// $ExpectType Owner | null
-folder.belongsTo('owner').value();
+// $ExpectType Icon | null
+folder.belongsTo('icon').value();
 
 // $ExpectType "id" | "link"
 folder.belongsTo('parent').remoteType();
