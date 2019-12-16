@@ -28,6 +28,9 @@ markerClusterGroupOptions = {
     chunkedLoading: false,
     chunkDelay: 100,
     chunkInterval: 200,
+    chunkProgress: (processedMarkers, totalMarkers, timeElapsed) => {
+        console.log(`Reporting chunkProgress, processedMarkers: ${processedMarkers}, totalMarkers: ${totalMarkers}, timeElapsed: ${timeElapsed}.`);
+    }
 };
 
 markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
