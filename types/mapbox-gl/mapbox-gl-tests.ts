@@ -58,7 +58,8 @@ let map = new mapboxgl.Map({
 	boxZoom: true,
 	dragRotate: false,
 	dragPan: true,
-    antialias: true,
+	antialias: true,
+	accessToken: 'some-token',
     locale: {
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму'

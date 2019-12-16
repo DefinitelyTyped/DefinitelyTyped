@@ -51,7 +51,7 @@ declare class Multimap {
     /**
      * @return all the keys in the map
      */
-    keys(): { next: () => { value: any, done: boolean } };
+    keys(): { [Symbol.iterator](): any, next: () => { value: any, done: boolean } };
 
     /**
      * @param key
@@ -62,7 +62,7 @@ declare class Multimap {
     /**
      * @return all the values in the map
      */
-    values(): { next: () => { value: any, done: boolean } };
+    values(): { [Symbol.iterator](): any, next: () => { value: any, done: boolean } };
 }
 
 export = Multimap;

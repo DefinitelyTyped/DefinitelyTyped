@@ -2120,6 +2120,8 @@ export class AggregationCursor<T = Default> extends Readable {
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#limit */
     limit(value: number): AggregationCursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#lookup */
+    lookup(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#match */
     match(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#maxTimeMS */

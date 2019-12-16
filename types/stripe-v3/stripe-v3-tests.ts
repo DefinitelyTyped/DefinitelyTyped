@@ -300,4 +300,10 @@ describe("Stripe elements", () => {
             }
         });
     });
+
+    it("should get card element", () => {
+        elements.create('card');
+        const card = elements.getElement('card');
+        console.log(card);
+    });
 });

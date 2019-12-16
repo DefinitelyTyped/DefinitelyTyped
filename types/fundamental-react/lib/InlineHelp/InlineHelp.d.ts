@@ -13,6 +13,8 @@ export type InlineHelpProps = {
     /* Localized text to display in the inline help pop-up. */
     text: string;
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
 } & { [x: string]: any };
 
 declare const InlineHelp: React.FunctionComponent<InlineHelpProps>;

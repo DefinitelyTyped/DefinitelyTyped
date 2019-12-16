@@ -147,6 +147,10 @@ function test_datasetcore() {
     const dataset2Match3: DatasetCore = dataset2.match(term, term);
     const dataset2Match4: DatasetCore = dataset2.match(term, term, term);
     const dataset2Match5: DatasetCore = dataset2.match(term, term, term, term);
+    const dataset2MatchWithNull1: DatasetCore = dataset2.match(term);
+    const dataset2MatchWithNull2: DatasetCore = dataset2.match(null, term);
+    const dataset2MatchWithNull3: DatasetCore = dataset2.match(term, null, term);
+    const dataset2MatchWithNull4: DatasetCore = dataset2.match(term, term, null, term);
     const dataset2Iterable: Iterable<Quad> = dataset2;
 
     const dataset3Size: number = dataset3.size;
