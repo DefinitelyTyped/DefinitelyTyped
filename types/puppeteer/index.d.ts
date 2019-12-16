@@ -40,7 +40,9 @@ export interface JSONObject {
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
+// tslint:disable-next-line void-return
 export type PageFunction<Args extends any[], R> = string | ((...args: Args) => R | void | Promise<R | void>);
+// tslint:disable-next-line void-return
 export type PageFunctionWithArg0<T, Args extends any[], R> = string | ((arg0: T, ...args: Args) => R | void | Promise<R | void>);
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 export type PageFunctionReturnType<T, Default> = T extends (...args: any[]) => infer R ? UnwrapPromise<R> : Default;
