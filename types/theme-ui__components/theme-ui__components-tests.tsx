@@ -124,21 +124,87 @@ const _ = (
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => console.log(e.target.value)}
             px={[1, 2, 3]}
         />
-        <Progress />
-        <Donut />
-        <Spinner />
-        <Avatar />
-        <Badge />
+        <Box as="form" onSubmit={e => e.preventDefault()}>
+            <Label htmlFor="username">Username</Label>
+            <Input name="username" mb={3} />
+            <Label htmlFor="password">Password</Label>
+            <Input type="password" name="password" mb={3} />
+            <Box>
+                <Label mb={3}>
+                    <Checkbox />
+                    Remember me
+                </Label>
+            </Box>
+            <Label htmlFor="sound">Sound</Label>
+            <Select name="sound" mb={3}>
+                <option>Beep</option>
+                <option>Boop</option>
+                <option>Blip</option>
+            </Select>
+            <Label htmlFor="comment">Comment</Label>
+            <Textarea name="comment" rows={6} mb={3} />
+            <Flex mb={3}>
+                <Label>
+                    <Radio name="letter" /> Alpha
+                </Label>
+                <Label>
+                    <Radio name="letter" /> Bravo
+                </Label>
+                <Label>
+                    <Radio name="letter" /> Charlie
+                </Label>
+            </Flex>
+            <Label>Slider</Label>
+            <Slider mb={3} />
+            <Button>Submit</Button>
+        </Box>
+        <Progress max={1} value={1 / 2}>
+            50%
+        </Progress>{' '}
+        <Donut value={1 / 2} />
+        <Spinner size={100} />
+        <Avatar src="https://example.com/example.png" /> <Badge />
         <Close />
-        <Alert />
+        <Alert>
+            Beep boop, this is an alert!
+            <Close ml="auto" mr={-2} />
+        </Alert>{' '}
         <Divider />
-        <Embed />
-        <AspectRatio />
-        <AspectImage />
-        <Container />
-        <NavLink />
-        <Message />
-        <IconButton />
-        <MenuButton />
+        <Embed src="https://www.youtube.com/embed/GNCd_ERZvZM" />{' '}
+        <AspectRatio
+            ratio={16 / 9}
+            sx={{
+                p: 4,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'background',
+                bg: 'primary',
+            }}
+        >
+            <Heading>Aspect Ratio</Heading>
+        </AspectRatio>
+        <AspectImage ratio={4 / 3} src="./example.png" />
+        <Container p={4} bg="muted">
+            Centered container
+        </Container>
+        <Flex as="nav">
+            <NavLink href="#!" p={2}>
+                Home
+            </NavLink>
+            <NavLink href="#!" p={2}>
+                Blog
+            </NavLink>
+            <NavLink href="#!" p={2}>
+                About
+            </NavLink>
+        </Flex>{' '}
+        <Message mt={1}>This is just a message for someone to read</Message>{' '}
+        <IconButton aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentcolor">
+                <circle r={11} cx={12} cy={12} fill="none" stroke="currentcolor" strokeWidth={2} />
+            </svg>
+        </IconButton>
+        <MenuButton aria-label="Toggle Menu" />
     </SectionBox>
 );
