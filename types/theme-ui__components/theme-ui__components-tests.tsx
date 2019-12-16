@@ -81,13 +81,48 @@ const _ = (
         <Image />
         <Card />
         <Label />
-        <Input />
-        <Select />
-        <Textarea />
-        <Radio />
-        <Checkbox />
-        <Slider />
-        <Field />
+        <Input value="Hello" onChange={e => console.log(e.target.value)} />
+        <Select defaultValue="Hello">
+            <option>Hello</option>
+            <option>Hi</option>
+            <option>Beep</option>
+            <option>Boop</option>
+        </Select>
+        <Textarea defaultValue="Hello" rows={8} />
+        <Label>
+            <Radio name="dark-mode" value="true" defaultChecked={true} />
+            Dark Mode
+        </Label>
+        <Label>
+            <Radio name="dark-mode" value="false" />
+            Light Mode
+        </Label>
+        <Checkbox mx={[1, 2, 3]} defaultChecked={true} />
+        <Slider my={[1, 2, 3]} bg="gray" defaultValue={25} />
+        <Field
+            label="Email"
+            name="email"
+            defaultValue=""
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.value)}
+            mx={[1, 2, 3]}
+        />
+        <Field
+            as="textarea"
+            label="Message"
+            name="message"
+            rows={10}
+            placeholder="Say hello"
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => console.log(e.target.value)}
+        />
+        <Field
+            as={Textarea}
+            label="Complaint"
+            name="complaint"
+            rows={10}
+            placeholder="Complain here"
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => console.log(e.target.value)}
+            px={[1, 2, 3]}
+        />
         <Progress />
         <Donut />
         <Spinner />

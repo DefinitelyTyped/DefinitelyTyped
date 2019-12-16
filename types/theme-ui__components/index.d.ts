@@ -8,7 +8,7 @@ import * as React from 'react';
 import { StyledComponent } from '@emotion/styled';
 import { Interpolation } from '@emotion/core';
 import { SxStyleProp } from 'theme-ui';
-import { SpaceProps, ColorProps, ResponsiveValue } from 'styled-system';
+import { SpaceProps, ColorProps, ResponsiveValue, MarginProps } from 'styled-system';
 
 export {};
 
@@ -70,12 +70,39 @@ export interface InputProps extends Assign<React.ComponentProps<'input'>, BoxSty
 export const Input: ForwardRef<HTMLInputElement, InputProps>;
 
 export interface SelectProps extends Assign<React.ComponentProps<'select'>, BoxStyleProps> {}
-export const Select: React.FC;
-export const Textarea: React.FC;
-export const Radio: React.FC;
-export const Checkbox: React.FC;
-export const Slider: React.FC;
-export const Field: React.FC;
+export const Select: ForwardRef<HTMLSelectElement, SelectProps>;
+
+export interface TextareaProps extends Assign<React.ComponentProps<'textarea'>, BoxStyleProps> {}
+export const Textarea: ForwardRef<HTMLTextAreaElement, TextareaProps>;
+
+export interface RadioProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export const Radio: ForwardRef<HTMLInputElement, RadioProps>;
+
+export interface CheckboxProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export const Checkbox: ForwardRef<HTMLInputElement, CheckboxProps>;
+
+export interface SliderProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export const Slider: ForwardRef<HTMLInputElement, SliderProps>;
+
+export interface FieldOwnProps extends MarginProps {
+    /**
+     * Text for Label component
+     */
+    label: string;
+    /**
+     * Used for the for, id, and name attributes
+     */
+    name: string;
+}
+export type FieldProps<T extends React.ElementType> = FieldOwnProps &
+    Omit<React.ComponentProps<T>, 'as' | keyof FieldOwnProps> & {
+        /**
+         * form control to render, default Input
+         */
+        as?: T;
+    };
+export function Field<T extends React.ElementType = React.ElementType<InputProps>>(props: FieldProps<T>): JSX.Element;
+
 export const Progress: React.FC;
 export const Donut: React.FC;
 export const Spinner: React.FC;
