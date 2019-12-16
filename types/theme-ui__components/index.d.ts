@@ -13,7 +13,7 @@ import { SpaceProps, ColorProps, ResponsiveValue, MarginProps } from 'styled-sys
 export {};
 
 type Assign<T, U> = {
-    [P in keyof (T & U)]: P extends keyof U ? U[P] : P extends keyof T ? T[P] : never;
+    [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;
 };
 
 type ForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
@@ -199,7 +199,9 @@ export interface ProgressProps extends Assign<React.ComponentProps<'progress'>, 
  */
 export const Progress: ForwardRef<HTMLProgressElement, ProgressProps>;
 
-export interface DonutProps extends Omit<React.SVGProps<SVGSVGElement>, 'opacity' | 'color'>, BoxOwnProps {
+export interface DonutProps
+    extends Omit<React.SVGProps<SVGSVGElement>, 'opacity' | 'color' | 'css' | 'sx' | 'max' | 'min'>,
+        BoxOwnProps {
     value: number;
     min?: number;
     max?: number;
@@ -212,7 +214,9 @@ export interface DonutProps extends Omit<React.SVGProps<SVGSVGElement>, 'opacity
  */
 export const Donut: ForwardRef<SVGSVGElement, DonutProps>;
 
-export interface SpinnerProps extends Omit<React.SVGProps<SVGSVGElement>, 'opacity' | 'color'>, BoxOwnProps {
+export interface SpinnerProps
+    extends Omit<React.SVGProps<SVGSVGElement>, 'opacity' | 'color' | 'css' | 'sx'>,
+        BoxOwnProps {
     size?: number | string;
 }
 export const Spinner: ForwardRef<SVGSVGElement, SpinnerProps>;
