@@ -1,5 +1,6 @@
 import {
     ActionBar,
+    Alert,
     Badge,
     Breadcrumb,
     Button,
@@ -11,18 +12,23 @@ import {
     Dropdown,
     FormFieldset,
     FormGroup,
+    FormInput,
+    FormItem,
+    FormLabel,
     FormLegend,
     FormMessage,
     FormRadioGroup,
     FormRadioItem,
     FormSelect,
     FormSet,
+    FormTextarea,
     Icon,
     Identifier,
     Image,
     InlineHelp,
     InputGroup,
     Label,
+    LayoutGrid,
     ListGroup,
     LocalizationEditor,
     Menu,
@@ -30,9 +36,7 @@ import {
     MultiInput,
     Pagination,
     Panel,
-    PanelGrid,
     Popover,
-    ProductTile,
     SearchInput,
     Shellbar,
     SideNav,
@@ -41,18 +45,12 @@ import {
     TabGroup,
     Table,
     Tile,
-    TileGrid,
     Time,
     TimePicker,
     Toggle,
     Token,
     TreeView
 } from "fundamental-react";
-import { FormItem } from "fundamental-react/lib";
-import Alert from "fundamental-react/lib/Alert/Alert";
-import { FormLabel } from "fundamental-react/lib/Forms";
-import FormInput from "fundamental-react/lib/Forms/FormInput";
-import FormTextarea from "fundamental-react/lib/Forms/FormTextarea";
 import * as React from "react";
 
 const actionBars = (
@@ -103,7 +101,7 @@ const actionBars = (
             </ActionBar.Actions>
         </ActionBar>
 
-        <ActionBar mobile>
+        <ActionBar>
             <ActionBar.Back />
             <ActionBar.Header
                 description="Action Bar Description"
@@ -127,7 +125,7 @@ const actionBars = (
             </ActionBar.Actions>
         </ActionBar>
 
-        <ActionBar mobile width="768px">
+        <ActionBar ref={React.createRef()}>
             <ActionBar.Back />
             <ActionBar.Header
                 description="Action Bar Description"
@@ -441,7 +439,7 @@ const dropdowns = (
                         </Menu.List>
                     </Menu>
                 }
-                control={<Button dropdown>Select</Button>}
+                control={<Button>Select</Button>}
                 id="jhqD0555"
                 noArrow
             />
@@ -459,7 +457,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button compact dropdown>
+                    <Button compact>
                         Select
                     </Button>
                 }
@@ -480,7 +478,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button dropdown glyph="filter">
+                    <Button glyph="filter">
                         Select
                     </Button>
                 }
@@ -501,7 +499,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button compact dropdown glyph="filter">
+                    <Button compact glyph="filter">
                         Select
                     </Button>
                 }
@@ -522,7 +520,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button dropdown type="standard">
+                    <Button type="standard">
                         Select
                     </Button>
                 }
@@ -543,7 +541,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button compact dropdown type="standard">
+                    <Button compact type="standard">
                         Select
                     </Button>
                 }
@@ -564,7 +562,7 @@ const dropdowns = (
                     </Menu>
                 }
                 control={
-                    <Button disabled dropdown glyph="filter">
+                    <Button disabled glyph="filter">
                         Select
                     </Button>
                 }
@@ -1550,7 +1548,7 @@ const panels = (
             </Panel.Body>
             <Panel.Footer>Panel Footer</Panel.Footer>
         </Panel>
-        <PanelGrid>
+        <LayoutGrid>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1566,8 +1564,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid nogap>
+        </LayoutGrid>
+        <LayoutGrid nogap>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1583,8 +1581,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid cols={2}>
+        </LayoutGrid>
+        <LayoutGrid cols={2}>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1597,8 +1595,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid cols={6}>
+        </LayoutGrid>
+        <LayoutGrid cols={6}>
             <Panel colSpan={2}>
                 <Panel.Body>Panel with colSpan=2</Panel.Body>
             </Panel>
@@ -1644,7 +1642,7 @@ const panels = (
             <Panel colSpan={6}>
                 <Panel.Body>Panel with colSpan=6</Panel.Body>
             </Panel>
-        </PanelGrid>
+        </LayoutGrid>
     </div>
 );
 
@@ -2820,20 +2818,20 @@ const tiles = (
                 />
             </Tile.Actions>
         </Tile>
-        <ProductTile role="button">
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product role="button">
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
+            </Tile.Content>
+        </Tile>
         <br />
-        <ProductTile disabled>
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product disabled>
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
-        <TileGrid col={4}>
+            </Tile.Content>
+        </Tile>
+        <LayoutGrid cols={4}>
             <Tile colorAccent={7} rowSpan={2}>
                 <Tile.Content title="Tile Title">
                     <p>Tile Description</p>
@@ -2872,7 +2870,7 @@ const tiles = (
                     <p>Tile Description</p>
                 </Tile.Content>
             </Tile>
-        </TileGrid>
+        </LayoutGrid>
     </div>
 );
 
