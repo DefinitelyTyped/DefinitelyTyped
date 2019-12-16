@@ -75,10 +75,10 @@ export const Select: ForwardRef<HTMLSelectElement, SelectProps>;
 export interface TextareaProps extends Assign<React.ComponentProps<'textarea'>, BoxStyleProps> {}
 export const Textarea: ForwardRef<HTMLTextAreaElement, TextareaProps>;
 
-export interface RadioProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export interface RadioProps extends Assign<React.ComponentProps<'input'>, BoxStyleProps> {}
 export const Radio: ForwardRef<HTMLInputElement, RadioProps>;
 
-export interface CheckboxProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
+export interface CheckboxProps extends Assign<React.ComponentProps<'input'>, BoxStyleProps> {}
 export const Checkbox: ForwardRef<HTMLInputElement, CheckboxProps>;
 
 export interface SliderProps extends Assign<Omit<React.ComponentProps<'input'>, 'type'>, BoxStyleProps> {}
@@ -101,6 +101,9 @@ export type FieldProps<T extends React.ElementType> = FieldOwnProps &
          */
         as?: T;
     };
+
+// `T` is far from unnecessary. We derive component props from it.
+// tslint:disable-next-line no-unnecessary-generics
 export function Field<T extends React.ElementType = React.ElementType<InputProps>>(props: FieldProps<T>): JSX.Element;
 
 export const Progress: React.FC;
