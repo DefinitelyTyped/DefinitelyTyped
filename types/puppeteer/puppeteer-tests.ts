@@ -18,7 +18,7 @@ import * as fs from "fs";
   }
 });
 
-// Basic nagivation
+// Basic navigation
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
