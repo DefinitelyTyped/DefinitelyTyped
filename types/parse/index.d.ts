@@ -1274,14 +1274,14 @@ declare namespace Parse {
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
     /**
-     * Use this to set custom headers 
-     * The headers will be sent with every parse request 
+     * Use this to set custom headers
+     * The headers will be sent with every parse request
      */
     namespace CoreManager {
         function set(key: string, value: any): void;
-        function get(key: string): void;        
-      }  
-          
+        function get(key: string): void;
+      }
+
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
      * @param AsyncStorage AsyncStorage from 'react-native' package
