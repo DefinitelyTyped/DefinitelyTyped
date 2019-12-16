@@ -4,6 +4,7 @@
 //                 Felipe Ochoa <https://github.com/felipeochoa>
 //                 Chris Barth <https://github.com/cjbarth>
 //                 Rauno Viskus <https://github.com/rauno56>
+//                 Kyle Chine <https://github.com/kylechine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -11,11 +12,12 @@
 // because of the existing uuid-js npm types package being at 3.3.28,
 // meaning that `npm install @types/uuid` was installing the typings for uuid-js, not this
 
-import { v1, v4 } from './interfaces';
+import { v1, v4, v5 } from './interfaces';
 
 interface UuidStatic {
     v1: v1;
     v4: v4;
+    v5: v5;
 }
 
 declare const uuid: UuidStatic & v4;
