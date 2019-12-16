@@ -186,8 +186,8 @@ declare module "pdfmake/build/pdfmake" {
         compress?: boolean;
         content: string | Content | Array<string | Content>;
         defaultStyle?: Style;
-        footer?: TDocumentHeaderFooterFunction | Content;
-        header?: TDocumentHeaderFooterFunction | Content;
+        footer?: TDocumentHeaderFooterFunction | Content | string;
+        header?: TDocumentHeaderFooterFunction | Content | string;
         images?: { [key: string]: string };
         info?: TDocumentInformation;
         pageBreakBefore?: (
