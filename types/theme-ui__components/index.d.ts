@@ -1,25 +1,59 @@
-// Type definitions for @theme-ui/components 0.2.50
+// Type definitions for @theme-ui/components 0.2
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
 import * as React from 'react';
-
+import { StyledComponent } from '@emotion/styled';
 import { Interpolation } from '@emotion/core';
 import { SxStyleProp } from 'theme-ui';
+import { SpaceProps, ColorProps, ResponsiveValue } from 'styled-system';
 
-export interface BoxProps {
-    css: Interpolation;
-    sx: SxStyleProp;
+export {};
+
+type Assign<T, U> = {
+    [P in keyof (T & U)]: P extends keyof U ? U[P] : P extends keyof T ? T[P] : never;
+};
+
+export interface BoxStyleProps extends SpaceProps, ColorProps {
+    variant?: string;
+    sx?: SxStyleProp;
+    css?: Interpolation;
 }
-export const Box: React.FC;
-export const Flex: React.FC;
-export const Grid: React.FC;
-export const Button: React.FC;
-export const Link: React.FC;
-export const Text: React.FC;
-export const Heading: React.FC;
+export interface BoxProps extends Assign<React.ComponentProps<'div'>, BoxStyleProps> {}
+export const Box: StyledComponent<React.ComponentProps<'div'>, BoxStyleProps, {}>;
+
+export type FlexStyleProps = BoxStyleProps;
+export const Flex: React.FC<FlexStyleProps>;
+
+export interface GridProps extends BoxProps {
+    /**
+     * Minimum width of child elements
+     */
+    width?: ResponsiveValue<string | number>;
+    /**
+     * 	Number of columns to use for the layout (cannot be used in conjunction with the width prop)
+     */
+    columns?: ResponsiveValue<number>;
+    /**
+     * Space between child elements
+     */
+    gap?: ResponsiveValue<string | number>;
+}
+export const Grid: React.RefForwardingComponent<'div', GridProps>;
+
+export interface ButtonProps extends Assign<React.ComponentPropsWithRef<'button'>, BoxStyleProps> {}
+export const Button: React.RefForwardingComponent<'button', BoxProps>;
+
+export interface LinkProps extends Assign<React.ComponentPropsWithRef<'a'>, BoxStyleProps> {}
+export const Link: React.RefForwardingComponent<'a', LinkProps>;
+
+export type TextProps = BoxProps;
+export const Text: React.RefForwardingComponent<'div', BoxProps>;
+
+export interface HeadingProps extends Assign<React.ComponentPropsWithRef<'h2'>, BoxStyleProps> {}
+export const Heading: React.RefForwardingComponent<'h2', HeadingProps>;
 export const Image: React.FC;
 export const Card: React.FC;
 export const Label: React.FC;
