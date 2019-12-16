@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import * as CSS from 'csstype'
+import * as CSS from 'csstype';
 
 export interface InspectorNodeParams {
     depth: number;
