@@ -5,7 +5,7 @@
 // TypeScript Version: 3.5
 
 import { ComponentProps, ReactNode, Component } from 'react';
-import { MQ, Config } from 'edtr-io__mathquill';
+import { MQ, Config } from '@edtr-io/mathquill';
 
 export interface Props extends Omit<ComponentProps<'span'>, 'onChange'> {
     latex: string;
