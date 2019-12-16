@@ -10,7 +10,7 @@ import { MQ, Config } from '@edtr-io/mathquill';
 export interface Props extends Omit<ComponentProps<'span'>, 'onChange'> {
     latex: string;
     config?: Config;
-    onChange?(mathField: MQ): any;
+    onChange?(mathField: MQ): void;
     mathquillDidMount?(mathField: MQ): void;
 }
 
