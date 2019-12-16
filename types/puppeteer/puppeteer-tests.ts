@@ -556,11 +556,13 @@ puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
   const s = await page
     .waitForFunction(
-      (searchStrs: string[]) => searchStrs.find(v => document.body.innerText.includes(v)),
+      (
+        searchStrs // $ExpectType string[]
+      ) => searchStrs.find(v => document.body.innerText.includes(v)),
       { timeout: 2000 },
       ['once', 'upon', 'a', 'midnight', 'dreary'])
     .then(j => j.jsonValue());
-  console.log('found in page', (s as string).toLowerCase());
+  console.log('found in page', s ? s.toLowerCase() : "not found");
 });
 
 // Element access
