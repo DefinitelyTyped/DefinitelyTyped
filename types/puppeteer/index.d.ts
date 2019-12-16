@@ -647,6 +647,8 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle<E>,
   $$(selector: string): Promise<ElementHandle[]>;
 
   /**
+   * The method evaluates the XPath expression relative to the elementHandle.
+   * If there are no such elements, the method will resolve to an empty array.
    * @param expression XPath expression to evaluate.
    */
   $x(expression: string): Promise<ElementHandle[]>;
@@ -757,6 +759,10 @@ export interface JSHandle<T = unknown> {
    * @param propertyName The property to get.
    */
   getProperty<K extends keyof T>(propertyName: K): Promise<JSHandleOf<T[K]>>;
+  /**
+   * Fetches a single property from the objectHandle.
+   * @param propertyName The property to get.
+   */
   getProperty(propertyName: string): Promise<JSHandle>;
 
   /**
@@ -1506,7 +1512,7 @@ export interface Page extends EventEmitter, FrameBase {
   ): Promise<void>;
 
   /**
-   * The method adds a function called name on the page's `window` object.
+   * The method adds a function called `name` on the page's `window` object.
    * When called, the function executes `puppeteerFunction` in node.js and returns a
    * Promise which resolves to the return value of `puppeteerFunction`.
    * @param name The name of the function on the window object.
