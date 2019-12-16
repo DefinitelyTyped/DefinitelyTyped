@@ -4845,7 +4845,7 @@ export interface KeyOptions {
      * (optional) options for each subkey, default to main key options. e.g. [ {sign: true, passphrase: '123'}]
      *            sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
      */
-    subkeys?: { sign: true, passphrase: "string" }[];
+    subkeys?: { sign: true, passphrase: string }[];
 }
 
 /**
