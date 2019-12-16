@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.37
+// Type definitions for Google Maps JavaScript API 3.38
 // Project: https://developers.google.com/maps/
 // Definitions by: Chris Wrench <https://github.com/cgwrench>,
 //                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>,
@@ -12,6 +12,7 @@
 //                 Colin Doig <https://github.com/captain-igloo>
 //                 Dmitry Demensky <https://github.com/demensky>
 //                 Vladimir Dashukevich <https://github.com/life777>
+//                 Simon Haenisch <https://github.com/simonhaenisch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.7
@@ -41,6 +42,13 @@ THE SOFTWARE.
 */
 
 declare namespace google.maps {
+    /**
+     * Version of the Google Maps JavaScript API that the browser has loaded.
+     * Like '3.38.11'.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/versions#version-checks Maps JavaScript API}
+     */
+    const version: string;
+
     /***** Map *****/
     class Map extends MVCObject {
         constructor(mapDiv: Element | null, opts?: MapOptions);
@@ -49,7 +57,7 @@ declare namespace google.maps {
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
-        getMapTypeId(): MapTypeId | string;
+        getMapTypeId(): MapTypeId;
         getProjection(): Projection | null;
         getStreetView(): StreetViewPanorama;
         getTilt(): number;
@@ -149,7 +157,7 @@ declare namespace google.maps {
         /** The initial display options for the Map type control. */
         mapTypeControlOptions?: MapTypeControlOptions;
         /** The initial Map mapTypeId. Defaults to ROADMAP. */
-        mapTypeId?: MapTypeId;
+        mapTypeId?: MapTypeId | string;
         /**
          * The maximum zoom level which will be displayed on the map. If omitted, or
          * set to null, the maximum zoom from the current map type is used instead.
@@ -286,9 +294,11 @@ declare namespace google.maps {
     }
 
     enum MapTypeControlStyle {
-        DEFAULT,
-        DROPDOWN_MENU,
-        HORIZONTAL_BAR,
+        DEFAULT = 0,
+        HORIZONTAL_BAR = 1,
+        DROPDOWN_MENU = 2,
+        INSET = 3,
+        INSET_LARGE = 4,
     }
 
     type GestureHandlingOptions = 'cooperative' | 'greedy' | 'none' | 'auto';
@@ -343,7 +353,7 @@ declare namespace google.maps {
     }
 
     enum ScaleControlStyle {
-        DEFAULT,
+        DEFAULT = 0,
     }
 
     /** Options for the rendering of the Street View pegman control on the map. */
@@ -370,9 +380,9 @@ declare namespace google.maps {
     }
 
     enum ZoomControlStyle {
-        DEFAULT,
-        LARGE,
-        SMALL,
+        DEFAULT = 0,
+        SMALL = 1,
+        LARGE = 2,
     }
 
     /**
@@ -382,44 +392,44 @@ declare namespace google.maps {
      */
     enum ControlPosition {
         /** Elements are positioned in the center of the bottom row. */
-        BOTTOM_CENTER,
+        BOTTOM_CENTER = 11,
         /**
          * Elements are positioned in the bottom left and flow towards the middle.
          * Elements are positioned to the right of the Google logo.
          */
-        BOTTOM_LEFT,
+        BOTTOM_LEFT = 10,
         /**
          * Elements are positioned in the bottom right and flow towards the middle.
          * Elements are positioned to the left of the copyrights.
          */
-        BOTTOM_RIGHT,
+        BOTTOM_RIGHT = 12,
         /**
          * Elements are positioned on the left, above bottom-left elements, and flow
          * upwards.
          */
-        LEFT_BOTTOM,
+        LEFT_BOTTOM = 6,
         /** Elements are positioned in the center of the left side. */
-        LEFT_CENTER,
+        LEFT_CENTER = 4,
         /**
          * Elements are positioned on the left, below top-left elements, and flow
          * downwards.
          */
-        LEFT_TOP,
+        LEFT_TOP = 5,
         /**
          * Elements are positioned on the right, above bottom-right elements, and
          * flow upwards.
          */
-        RIGHT_BOTTOM,
+        RIGHT_BOTTOM = 9,
         /** Elements are positioned in the center of the right side. */
-        RIGHT_CENTER,
+        RIGHT_CENTER = 8,
         /** Elements are positioned on the right, below top-right elements, and flow downwards. */
-        RIGHT_TOP,
-        /**    Elements are positioned in the center of the top row. */
-        TOP_CENTER,
-        /** Elements are positioned in the top left and flow towards the middle. */
-        TOP_LEFT,
+        RIGHT_TOP = 7,
+        /** Elements are positioned in the center of the top row. */
+        TOP_CENTER = 2,
         /** Elements are positioned in the top right and flow towards the middle. */
-        TOP_RIGHT,
+        TOP_LEFT = 1,
+        /** Elements are positioned in the top right and flow towards the middle. */
+        TOP_RIGHT = 3,
     }
 
     type DrawingMode = 'Point' | 'LineString' | 'Polygon';
@@ -1565,11 +1575,11 @@ declare namespace google.maps {
          * The stroke is centered on the polygon's path, with half the stroke inside
          * the polygon and half the stroke outside the polygon.
          */
-        CENTER,
+        CENTER = 0,
         /** The stroke lies inside the polygon. */
-        INSIDE,
+        INSIDE = 1,
         /** The stroke lies outside the polygon. */
-        OUTSIDE,
+        OUTSIDE = 2,
     }
 
     class GroundOverlay extends MVCObject {
@@ -1674,13 +1684,13 @@ declare namespace google.maps {
     }
 
     enum GeocoderStatus {
-        ERROR,
-        INVALID_REQUEST,
-        OK,
-        OVER_QUERY_LIMIT,
-        REQUEST_DENIED,
-        UNKNOWN_ERROR,
-        ZERO_RESULTS,
+        ERROR = 'ERROR',
+        INVALID_REQUEST = 'INVALID_REQUEST',
+        OK = 'OK',
+        OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
+        REQUEST_DENIED = 'REQUEST_DENIED',
+        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+        ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
     interface GeocoderResult {
@@ -1707,10 +1717,10 @@ declare namespace google.maps {
     }
 
     enum GeocoderLocationType {
-        APPROXIMATE,
-        GEOMETRIC_CENTER,
-        RANGE_INTERPOLATED,
-        ROOFTOP,
+        APPROXIMATE = 'APPROXIMATE',
+        GEOMETRIC_CENTER = 'GEOMETRIC_CENTER',
+        RANGE_INTERPOLATED = 'RANGE_INTERPOLATED',
+        ROOFTOP = 'ROOFTOP',
     }
 
     class DirectionsRenderer extends MVCObject {
@@ -1816,15 +1826,16 @@ declare namespace google.maps {
     }
 
     enum TravelMode {
-        BICYCLING,
-        DRIVING,
-        TRANSIT,
-        WALKING,
+        BICYCLING = 'BICYCLING',
+        DRIVING = 'DRIVING',
+        TRANSIT = 'TRANSIT',
+        TWO_WHEELER = 'TWO_WHEELER',
+        WALKING = 'WALKING',
     }
 
     enum UnitSystem {
-        IMPERIAL,
-        METRIC,
+        METRIC = 0,
+        IMPERIAL = 1,
     }
 
     interface TransitOptions {
@@ -1835,16 +1846,16 @@ declare namespace google.maps {
     }
 
     enum TransitMode {
-        BUS,
-        RAIL,
-        SUBWAY,
-        TRAIN,
-        TRAM,
+        BUS = 'BUS',
+        RAIL = 'RAIL',
+        SUBWAY = 'SUBWAY',
+        TRAIN = 'TRAIN',
+        TRAM = 'TRAM',
     }
 
     enum TransitRoutePreference {
-        FEWER_TRANSFERS,
-        LESS_WALKING,
+        FEWER_TRANSFERS = 'FEWER_TRANSFERS',
+        LESS_WALKING = 'LESS_WALKING',
     }
 
     interface TransitFare {
@@ -1858,9 +1869,9 @@ declare namespace google.maps {
     }
 
     enum TrafficModel {
-        BEST_GUESS,
-        OPTIMISTIC,
-        PESSIMISTIC,
+        BEST_GUESS = 'bestguess',
+        OPTIMISTIC = 'optimistic',
+        PESSIMISTIC = 'pessimistic',
     }
 
     /**
@@ -1888,14 +1899,14 @@ declare namespace google.maps {
     }
 
     enum DirectionsStatus {
-        INVALID_REQUEST,
-        MAX_WAYPOINTS_EXCEEDED,
-        NOT_FOUND,
-        OK,
-        OVER_QUERY_LIMIT,
-        REQUEST_DENIED,
-        UNKNOWN_ERROR,
-        ZERO_RESULTS,
+        INVALID_REQUEST = 'INVALID_REQUEST',
+        MAX_WAYPOINTS_EXCEEDED = 'MAX_WAYPOINTS_EXCEEDED',
+        NOT_FOUND = 'NOT_FOUND',
+        OK = 'OK',
+        OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
+        REQUEST_DENIED = 'REQUEST_DENIED',
+        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+        ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
     interface DirectionsResult {
@@ -2098,11 +2109,11 @@ declare namespace google.maps {
     }
 
     enum ElevationStatus {
-        INVALID_REQUEST,
-        OK,
-        OVER_QUERY_LIMIT,
-        REQUEST_DENIED,
-        UNKNOWN_ERROR,
+        INVALID_REQUEST = 'INVALID_REQUEST',
+        OK = 'OK',
+        OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
+        REQUEST_DENIED = 'REQUEST_DENIED',
+        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
     }
 
     class MaxZoomService {
@@ -2115,8 +2126,8 @@ declare namespace google.maps {
     }
 
     enum MaxZoomStatus {
-        ERROR,
-        OK,
+        ERROR = 'ERROR',
+        OK = 'OK',
     }
 
     class DistanceMatrixService {
@@ -2159,19 +2170,19 @@ declare namespace google.maps {
     }
 
     enum DistanceMatrixStatus {
-        INVALID_REQUEST,
-        MAX_DIMENSIONS_EXCEEDED,
-        MAX_ELEMENTS_EXCEEDED,
-        OK,
-        OVER_QUERY_LIMIT,
-        REQUEST_DENIED,
-        UNKNOWN_ERROR,
+        INVALID_REQUEST = 'INVALID_REQUEST',
+        MAX_DIMENSIONS_EXCEEDED = 'MAX_DIMENSIONS_EXCEEDED',
+        MAX_ELEMENTS_EXCEEDED = 'MAX_ELEMENTS_EXCEEDED',
+        OK = 'OK',
+        OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
+        REQUEST_DENIED = 'REQUEST_DENIED',
+        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
     }
 
     enum DistanceMatrixElementStatus {
-        NOT_FOUND,
-        OK,
-        ZERO_RESULTS,
+        NOT_FOUND = 'NOT_FOUND',
+        OK = 'OK',
+        ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
     /***** Save to Google Maps *****/
@@ -2438,15 +2449,15 @@ declare namespace google.maps {
     }
 
     enum KmlLayerStatus {
-        DOCUMENT_NOT_FOUND,
-        DOCUMENT_TOO_LARGE,
-        FETCH_ERROR,
-        INVALID_DOCUMENT,
-        INVALID_REQUEST,
-        LIMITS_EXCEEDED,
-        OK,
-        TIMED_OUT,
-        UNKNOWN,
+        DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
+        DOCUMENT_TOO_LARGE = 'DOCUMENT_TOO_LARGE',
+        FETCH_ERROR = 'FETCH_ERROR',
+        INVALID_DOCUMENT = 'INVALID_DOCUMENT',
+        INVALID_REQUEST = 'INVALID_REQUEST',
+        LIMITS_EXCEEDED = 'LIMITS_EXCEEDED',
+        OK = 'OK',
+        TIMED_OUT = 'TIMED_OUT',
+        UNKNOWN = 'UNKNOWN',
     }
 
     interface KmlMouseEvent {
@@ -2588,13 +2599,13 @@ declare namespace google.maps {
     }
 
     enum StreetViewPreference {
-        BEST,
-        NEAREST,
+        BEST = 'best',
+        NEAREST = 'nearest',
     }
 
     enum StreetViewSource {
-        DEFAULT,
-        OUTDOOR,
+        DEFAULT = 'default',
+        OUTDOOR = 'outdoor',
     }
 
     interface StreetViewLocationRequest {
@@ -2625,9 +2636,9 @@ declare namespace google.maps {
     }
 
     enum StreetViewStatus {
-        OK,
-        UNKNOWN_ERROR,
-        ZERO_RESULTS,
+        OK = 'OK',
+        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+        ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
     class StreetViewCoverageLayer extends MVCObject {
@@ -3088,24 +3099,24 @@ declare namespace google.maps {
         }
 
         enum AdFormat {
-            BANNER,
-            BUTTON,
-            HALF_BANNER,
-            LARGE_HORIZONTAL_LINK_UNIT,
-            LARGE_RECTANGLE,
-            LARGE_VERTICAL_LINK_UNIT,
-            LEADERBOARD,
-            MEDIUM_RECTANGLE,
-            MEDIUM_VERTICAL_LINK_UNIT,
-            SKYSCRAPER,
-            SMALL_HORIZONTAL_LINK_UNIT,
-            SMALL_RECTANGLE,
-            SMALL_SQUARE,
-            SMALL_VERTICAL_LINK_UNIT,
-            SQUARE,
-            VERTICAL_BANNER,
-            WIDE_SKYSCRAPER,
-            X_LARGE_VERTICAL_LINK_UNIT,
+            BANNER = '468x60_as',
+            BUTTON = '125x125_as',
+            HALF_BANNER = '234x60_as',
+            LARGE_HORIZONTAL_LINK_UNIT = '728x15_0ads_al',
+            LARGE_RECTANGLE = '336x280_as',
+            LARGE_VERTICAL_LINK_UNIT = '180x90_0ads_al',
+            LEADERBOARD = '728x90_as',
+            MEDIUM_RECTANGLE = '300x250_as',
+            MEDIUM_VERTICAL_LINK_UNIT = '160x90_0ads_al',
+            SKYSCRAPER = '120x600_as',
+            SMALL_HORIZONTAL_LINK_UNIT = '468x15_0ads_al',
+            SMALL_RECTANGLE = '180x150_as',
+            SMALL_SQUARE = '200x200_as',
+            SMALL_VERTICAL_LINK_UNIT = '120x90_0ads_al',
+            SQUARE = '250x250_as',
+            VERTICAL_BANNER = '120x240_as',
+            WIDE_SKYSCRAPER = '160x600_as',
+            X_LARGE_VERTICAL_LINK_UNIT = '200x90_0ads_al',
         }
     }
 
@@ -3337,14 +3348,13 @@ declare namespace google.maps {
         }
 
         enum PlacesServiceStatus {
-            ERROR,
-            INVALID_REQUEST,
-            OK,
-            OVER_QUERY_LIMIT,
-            NOT_FOUND,
-            REQUEST_DENIED,
-            UNKNOWN_ERROR,
-            ZERO_RESULTS,
+            INVALID_REQUEST = 'INVALID_REQUEST',
+            NOT_FOUND = 'NOT_FOUND',
+            OK = 'OK',
+            OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
+            REQUEST_DENIED = 'REQUEST_DENIED',
+            UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+            ZERO_RESULTS = 'ZERO_RESULTS',
         }
 
         interface QueryAutocompletePrediction {
@@ -3373,8 +3383,8 @@ declare namespace google.maps {
         }
 
         enum RankBy {
-            DISTANCE,
-            PROMINENCE,
+            PROMINENCE = 0,
+            DISTANCE = 1,
         }
 
         class SearchBox extends MVCObject {
@@ -3497,27 +3507,27 @@ declare namespace google.maps {
              * Specifies that the DrawingManager creates circles, and that the overlay
              * given in the overlaycomplete event is a circle.
              */
-            CIRCLE,
+            CIRCLE = 'circle',
             /**
              * Specifies that the DrawingManager creates markers, and that the overlay
              * given in the overlaycomplete event is a marker.
              */
-            MARKER,
+            MARKER = 'marker',
             /**
              * Specifies that the DrawingManager creates polygons, and that the
              * overlay given in the overlaycomplete event is a polygon.
              */
-            POLYGON,
+            POLYGON = 'polygon',
             /**
              * Specifies that the DrawingManager creates polylines, and that the
              * overlay given in the overlaycomplete event is a polyline.
              */
-            POLYLINE,
+            POLYLINE = 'polyline',
             /**
              * Specifies that the DrawingManager creates rectangles, and that the
              * overlay given in the overlaycomplete event is a rectangle.
              */
-            RECTANGLE,
+            RECTANGLE = 'rectangle',
         }
     }
 
@@ -3567,9 +3577,9 @@ declare namespace google.maps {
         }
 
         enum MapsEngineStatus {
-            INVALID_LAYER,
-            OK,
-            UNKNOWN_ERROR,
+            INVALID_LAYER = 'INVALID_LAYER',
+            OK = 'OK',
+            UNKNOWN_ERROR = 'UNKNOWN_ERROR',
         }
 
         class HeatmapLayer extends MVCObject {

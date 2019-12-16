@@ -42,7 +42,7 @@ declare namespace echarts {
              * Notice: configurations of `tooltip.axisPointer` has
              * lower priority than that of `someAxis.axisPointer`.
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.axisPointer
+             * @see https://echarts.apache.org/en/option.html#tooltip.axisPointer
              */
             axisPointer?: Tooltip.AxisPointer;
 
@@ -183,7 +183,7 @@ declare namespace echarts {
              *   + Return:
              *     position as `String`, `Array` or `Object` described above
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.position
+             * @see https://echarts.apache.org/en/option.html#tooltip.position
              */
             position?: Tooltip.Position.Type;
 
@@ -300,7 +300,7 @@ declare namespace echarts {
             /**
              * The text style of tooltip's floating layer.
              */
-            textStyle?: {};
+            textStyle?: BaseTextStyle;
 
             /**
              * Extra CSS style for floating layer.

@@ -45,7 +45,8 @@ declare module "tty" {
         /**
          * Moves this WriteStream's cursor to the specified position.
          */
-        cursorTo(x: number, y: number, callback?: () => void): boolean;
+        cursorTo(x: number, y?: number, callback?: () => void): boolean;
+        cursorTo(x: number, callback: () => void): boolean;
         /**
          * Moves this WriteStream's cursor relative to its current position.
          */

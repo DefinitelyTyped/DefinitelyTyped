@@ -62,6 +62,15 @@ let _algoliaSecuredApiOptions: SecuredApiOptions = {
     userToken: '',
 };
 
+let _algoliaSecuredApiOptionsAdvanced: SecuredApiOptions = {
+  filters: '',
+  validUntil: 0,
+  restrictIndices: ['', ''],
+  userToken: '',
+  attributesToRetrieve: ['foo', 'bar'],
+  restrictSearchableAttributes: [''],
+};
+
 let _algoliaIndexSettings: IndexSettings = {
     attributesToIndex: [''],
     attributesForFaceting: [''],
@@ -102,6 +111,9 @@ let _algoliaIndexSettings: IndexSettings = {
     minProximity: 0,
     placeholders: { '': [''] },
     camelCaseAttributes: [''],
+    sortFacetValuesBy: 'count',
+    queryLanguages: ['fr', 'es'],
+    paginationLimitedTo: 500,
 };
 
 let _algoliaQueryParameters: QueryParameters = {
@@ -149,12 +161,14 @@ let _algoliaQueryParameters: QueryParameters = {
     numericAttributesForFiltering: [''],
     numericFilters: [''],
     tagFilters: [''],
-    facetFilters: [''],
+    facetFilters: ['', ['']],
     analytics: false,
+    clickAnalytics: true,
     analyticsTags: [''],
     synonyms: true,
     replaceSynonymsInHighlight: false,
     minProximity: 0,
+    sortFacetValuesBy: 'alpha',
 };
 
 let _apiKey: ApiKey = {

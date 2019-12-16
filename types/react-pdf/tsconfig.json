@@ -20,11 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "dist/Document.d.ts",
-        "dist/Outline.d.ts",
-        "dist/Page.d.ts",
-        "dist/entry.parcel.d.ts",
-        "dist/entry.webpack.d.ts",
         "react-pdf-tests.tsx"
     ]
 }

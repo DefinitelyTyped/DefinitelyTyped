@@ -87,6 +87,8 @@ import {
     Platform,
     ProgressBarAndroid,
     PushNotificationIOS,
+    AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -232,8 +234,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -366,10 +369,15 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: SectionList<any>;
+    myList: React.RefObject<SectionList<string>>;
+
+    constructor(props: SectionListProps<string>) {
+        super(props);
+        this.myList = React.createRef();
+    }
 
     scrollMe = () => {
-        this.myList.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+        this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
     };
 
     render() {
@@ -394,7 +402,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                 <Button title="Press" onPress={this.scrollMe} />
 
                 <SectionList
-                    ref={(ref: any) => (this.myList = ref)}
+                    ref={this.myList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
                         <View>
@@ -523,6 +531,32 @@ class AlertTest extends React.Component {
         return <Button title="Press me" onPress={this.showAlert} />;
     }
 }
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
 
 class MaskedViewTest extends React.Component {
     render() {
@@ -765,6 +799,8 @@ class AccessibilityTest extends React.Component {
     }
 }
 
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
+
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
@@ -921,3 +957,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;

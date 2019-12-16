@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, ValueType, ActionMeta } from './types';
+import { OptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType> {
+export interface CreatableProps<OptionType extends OptionTypeBase> {
   /* Allow options to be created while the `isLoading` prop is true. Useful to
      prevent the "create new ..." option being displayed while async results are
      still being loaded. */
@@ -26,16 +26,16 @@ export interface CreatableProps<OptionType> {
   createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType> = SelectProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase> = SelectProps<OptionType> & CreatableProps<OptionType>;
 
 export const defaultProps: Props<any>;
 
-export interface State<OptionType> {
+export interface State<OptionType extends OptionTypeBase> {
   newOption: OptionType | undefined;
   options: OptionsType<OptionType>;
 }
 
-export class Creatable<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+export class Creatable<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
   static defaultProps: Props<any>;
   select: React.Ref<any>;
 

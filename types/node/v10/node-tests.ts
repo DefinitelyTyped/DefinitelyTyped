@@ -70,11 +70,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         assert.equal(3, "3", "uses == comparator");
 
-        assert.fail('stuff broke');
+        if (!!true) assert.fail('stuff broke');
 
-        assert.fail('actual', 'expected', 'message');
+        if (!!true) assert.fail('actual', 'expected', 'message');
 
-        assert.fail(1, 2, undefined, '>');
+        if (!!true) assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 
@@ -946,8 +946,10 @@ function bufferTests() {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -1384,6 +1386,33 @@ async function asyncStreamPipelineFinished() {
             plaintextLength: ciphertext.length
         });
         const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key: string | null = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, 'binary', 'utf8');
         decipher.final();
     }
 
@@ -2746,6 +2775,21 @@ async function asyncStreamPipelineFinished() {
         childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
+    {
+        const forked = childProcess.fork('./', ['asd'], {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: "inherit",
+            execPath: '',
+            execArgv: ['asda']
+        });
+        const ipc: stream.Pipe = forked.channel;
+        const hasRef: boolean = ipc.hasRef();
+        ipc.close();
+        ipc.unref();
+        ipc.ref();
+    }
+
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
@@ -3230,6 +3274,69 @@ async function asyncStreamPipelineFinished() {
         result = os.constants.errno.ETXTBSY;
         result = os.constants.errno.EWOULDBLOCK;
         result = os.constants.errno.EXDEV;
+    }
+
+    if (os.platform() === 'win32') {
+        let result: number;
+
+        result = os.constants.errno.WSAEINTR;
+        result = os.constants.errno.WSAEBADF;
+        result = os.constants.errno.WSAEACCES;
+        result = os.constants.errno.WSAEFAULT;
+        result = os.constants.errno.WSAEINVAL;
+        result = os.constants.errno.WSAEMFILE;
+        result = os.constants.errno.WSAEWOULDBLOCK;
+        result = os.constants.errno.WSAEINPROGRESS;
+        result = os.constants.errno.WSAEALREADY;
+        result = os.constants.errno.WSAENOTSOCK;
+        result = os.constants.errno.WSAEDESTADDRREQ;
+        result = os.constants.errno.WSAEMSGSIZE;
+        result = os.constants.errno.WSAEPROTOTYPE;
+        result = os.constants.errno.WSAENOPROTOOPT;
+        result = os.constants.errno.WSAEPROTONOSUPPORT;
+        result = os.constants.errno.WSAESOCKTNOSUPPORT;
+        result = os.constants.errno.WSAEOPNOTSUPP;
+        result = os.constants.errno.WSAEPFNOSUPPORT;
+        result = os.constants.errno.WSAEAFNOSUPPORT;
+        result = os.constants.errno.WSAEADDRINUSE;
+        result = os.constants.errno.WSAEADDRNOTAVAIL;
+        result = os.constants.errno.WSAENETDOWN;
+        result = os.constants.errno.WSAENETUNREACH;
+        result = os.constants.errno.WSAENETRESET;
+        result = os.constants.errno.WSAECONNABORTED;
+        result = os.constants.errno.WSAECONNRESET;
+        result = os.constants.errno.WSAENOBUFS;
+        result = os.constants.errno.WSAEISCONN;
+        result = os.constants.errno.WSAENOTCONN;
+        result = os.constants.errno.WSAESHUTDOWN;
+        result = os.constants.errno.WSAETOOMANYREFS;
+        result = os.constants.errno.WSAETIMEDOUT;
+        result = os.constants.errno.WSAECONNREFUSED;
+        result = os.constants.errno.WSAELOOP;
+        result = os.constants.errno.WSAENAMETOOLONG;
+        result = os.constants.errno.WSAEHOSTDOWN;
+        result = os.constants.errno.WSAEHOSTUNREACH;
+        result = os.constants.errno.WSAENOTEMPTY;
+        result = os.constants.errno.WSAEPROCLIM;
+        result = os.constants.errno.WSAEUSERS;
+        result = os.constants.errno.WSAEDQUOT;
+        result = os.constants.errno.WSAESTALE;
+        result = os.constants.errno.WSAEREMOTE;
+        result = os.constants.errno.WSASYSNOTREADY;
+        result = os.constants.errno.WSAVERNOTSUPPORTED;
+        result = os.constants.errno.WSANOTINITIALISED;
+        result = os.constants.errno.WSAEDISCON;
+        result = os.constants.errno.WSAENOMORE;
+        result = os.constants.errno.WSAECANCELLED;
+        result = os.constants.errno.WSAEINVALIDPROCTABLE;
+        result = os.constants.errno.WSAEINVALIDPROVIDER;
+        result = os.constants.errno.WSAEPROVIDERFAILEDINIT;
+        result = os.constants.errno.WSASYSCALLFAILURE;
+        result = os.constants.errno.WSASERVICE_NOT_FOUND;
+        result = os.constants.errno.WSATYPE_NOT_FOUND;
+        result = os.constants.errno.WSA_E_NO_MORE;
+        result = os.constants.errno.WSA_E_CANCELLED;
+        result = os.constants.errno.WSAEREFUSED;
     }
 
     {

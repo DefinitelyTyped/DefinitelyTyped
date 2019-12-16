@@ -1,9 +1,10 @@
-// Type definitions for sharp 0.22
+// Type definitions for sharp 0.23
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
+//                 Floris de Bijl <https://github.com/Fdebijl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -201,21 +202,6 @@ declare namespace sharp {
         //#region Composite functions
 
         /**
-         * Overlay (composite) an image over the processed (resized, extracted etc.) image.
-         *
-         * The overlay image must be the same size or smaller than the processed image.
-         * If both top and left options are provided, they take precedence over gravity.
-         *
-         * If the overlay image contains an alpha channel then composition with premultiplication will occur.
-         * @param image Buffer containing image data or String containing the path to an image file.
-         * @param options overlay options
-         * @throws {Error} Invalid parameters
-         * @returns A sharp instance that can be used to chain operations
-         * @deprecated
-         */
-        overlayWith(image?: string | Buffer, options?: OverlayOptions): Sharp;
-
-        /**
          * Composite image(s) over the processed (resized, extracted etc.) image.
          *
          * The images to composite must be the same size or smaller than the processed image.
@@ -224,7 +210,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        composite(images: Array<{ input: string | Buffer } & OverlayOptions>): Sharp;
+        composite(images: OverlayOptions[]): Sharp;
 
         //#endregion
 
@@ -600,6 +586,15 @@ declare namespace sharp {
         resize(width?: number | null, height?: number | null, options?: ResizeOptions): Sharp;
 
         /**
+         * Shorthand for resize(null, null, options);
+         *
+         * @param options resize options
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        resize(options: ResizeOptions): Sharp;
+
+        /**
          * Extends/pads the edges of the image with the provided background colour.
          * This operation will always occur after resizing and extraction, if any.
          * @param extend single pixel count to add to all edges or an Object with per-edge counts
@@ -794,6 +789,10 @@ declare namespace sharp {
         lossless?: boolean;
         /** Use near_lossless compression mode (optional, default false) */
         nearLossless?: boolean;
+        /** Use high quality chroma subsampling (optional, default false) */
+        smartSubsample?: boolean;
+        /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
+        reductionEffort?: number;
     }
 
     interface TiffOptions extends OutputOptions {
@@ -912,6 +911,8 @@ declare namespace sharp {
     }
 
     interface OverlayOptions {
+        /** Buffer containing image data, String containing the path to an image file, or Create object  */
+        input?: string | Buffer | {create: Create};
         /** how to blend this image with the image below. (optional, default `'over'`) */
         blend?: Blend;
         /** gravity at which to place the overlay. (optional, default 'centre') */
@@ -922,14 +923,12 @@ declare namespace sharp {
         left?: number;
         /** set to true to repeat the overlay image across the entire image with the given  gravity. (optional, default false) */
         tile?: boolean;
-        /** set to true to apply only the alpha channel of the overlay image to the input image, giving the appearance of one image being cut out of another. (optional, default false) */
-        cutout?: boolean;
         /** number representing the DPI for vector overlay image. (optional, default 72) */
         density?: number;
         /** describes overlay when using raw pixel data. */
         raw?: Raw;
-        /** describes a blank overlay to be created. */
-        create?: Create;
+        /** Set to true to avoid premultipling the image below. Equivalent to the --premultiplied vips option. */
+        premultiplied?: boolean;
     }
 
     interface TileOptions {
@@ -939,12 +938,16 @@ declare namespace sharp {
         overlap?: number;
         /** Tile angle of rotation, must be a multiple of 90. (optional, default 0) */
         angle?: number;
+        /** background colour, parsed by the color module, defaults to white without transparency. (optional, default {r:255,g:255,b:255,alpha:1}) */
+        background?: string | RGBA;
         /** How deep to make the pyramid, possible values are "onepixel", "onetile" or "one" (default based on layout) */
         depth?: string;
+        /** Threshold to skip tile generation, a value 0 - 255 for 8-bit images or 0 - 65535 for 16-bit images */
+        skipBlanks?: number;
         /** Tile container, with value fs (filesystem) or zip (compressed file). (optional, default 'fs') */
         container?: string;
         /** Filesystem layout, possible values are dz, zoomify or google. (optional, default 'dz') */
-        layout?: string;
+        layout?: TileLayout;
     }
 
     interface OutputInfo {
@@ -996,6 +999,8 @@ declare namespace sharp {
         cmyk: string;
         srgb: string;
     }
+
+    type TileLayout = 'dz' | 'zoomify' | 'google';
 
     type Blend = 'clear' | 'source' | 'over' | 'in' | 'out' | 'atop' | 'dest' | 'dest-over' | 'dest-in' | 'dest-out' | 'dest-atop'  | 'xor' | 'add' | 'saturate' | 'multiply' | 'screen' | 'overlay'
                  | 'darken' | 'lighten' | 'colour-dodge' | 'colour-dodge' | 'colour-burn' | 'colour-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';

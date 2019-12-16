@@ -798,8 +798,8 @@ class DataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -1386,8 +1386,8 @@ class RemoteDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -1862,8 +1862,8 @@ class JSONDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -2441,8 +2441,8 @@ class RESTDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -2928,8 +2928,8 @@ class JSONPDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -3392,8 +3392,8 @@ class XmlDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -3868,8 +3868,8 @@ class FunctionDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -4344,8 +4344,8 @@ class HtmlTableDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -4808,8 +4808,8 @@ class ArrayDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -5783,8 +5783,8 @@ class TreeHierarchicalDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
+	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception

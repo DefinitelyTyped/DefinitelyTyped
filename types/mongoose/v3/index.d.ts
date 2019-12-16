@@ -45,8 +45,8 @@ declare module "mongoose" {
     Promise: any;
   }
 
-  export interface Connection extends NodeJS.EventEmitter {
-    constructor(base: Mongoose): Connection;
+  export class Connection extends NodeJS.EventEmitter {
+    constructor(base: Mongoose);
 
     close(callback?: (err: any) => void): Connection;
     collection(name: string, options?: Object): Collection;

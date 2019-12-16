@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "dom",
             "es6",
             "esnext.asynciterable"
         ],
@@ -19,10 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "relay-compiler-tests.ts",
-        "lib/FlattenTransform.d.ts",
-        "lib/InlineFragmentsTransform.d.ts",
-        "lib/RelayApplyFragmentArgumentTransform.d.ts",
-        "lib/SkipRedundantNodesTransform.d.ts"
+        "relay-compiler-tests.ts"
     ]
 }

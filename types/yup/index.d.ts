@@ -8,12 +8,11 @@
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
-//                 Dan Rumney <https://github.com/dancrumb>
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
 export function addMethod<T extends Schema<any>>(
@@ -61,7 +60,7 @@ export interface Schema<T> {
     validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
     isValid(value: any, options?: any): Promise<boolean>;
     isValidSync(value: any, options?: any): value is T;
-    cast(value: any, options?: any): T;
+    cast(value?: any, options?: any): T;
     isType(value: any): value is T;
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
@@ -69,8 +68,8 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: Array<T | Ref | null>, message?: TestOptionsMessage<{ values: T | Ref }>): this;
-    notOneOf(arrayOfValues: any[], message?: TestOptionsMessage<{ values: T | Ref }>): this;
+    oneOf(arrayOfValues: Array<T | Ref | null>, message?: MixedLocale['oneOf']): this;
+    notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
@@ -106,21 +105,21 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
-    length(limit: number | Ref, message?: TestOptionsMessage<{ length: number | Ref }>): StringSchema<T>;
-    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): StringSchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): StringSchema<T>;
+    length(limit: number | Ref, message?: StringLocale['length']): StringSchema<T>;
+    min(limit: number | Ref, message?: StringLocale['min']): StringSchema<T>;
+    max(limit: number | Ref, message?: StringLocale['max']): StringSchema<T>;
     matches(
         regex: RegExp,
         messageOrOptions?:
-            | TestOptionsMessage<{ regex: RegExp }>
-            | { message?: TestOptionsMessage<{ regex: RegExp }>; excludeEmptyString?: boolean },
+            | StringLocale['matches']
+            | { message?: StringLocale['matches']; excludeEmptyString?: boolean },
     ): StringSchema<T>;
-    email(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>;
-    url(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>;
+    email(message?: StringLocale['email']): StringSchema<T>;
+    url(message?: StringLocale['url']): StringSchema<T>;
     ensure(): StringSchema<T>;
-    trim(message?: TestOptionsMessage): StringSchema<T>;
-    lowercase(message?: TestOptionsMessage): StringSchema<T>;
-    uppercase(message?: TestOptionsMessage): StringSchema<T>;
+    trim(message?: StringLocale['trim']): StringSchema<T>;
+    lowercase(message?: StringLocale['lowercase']): StringSchema<T>;
+    uppercase(message?: StringLocale['uppercase']): StringSchema<T>;
     nullable(isNullable?: true): StringSchema<T | null>;
     nullable(isNullable: false): StringSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): StringSchema<T>;
@@ -134,13 +133,13 @@ export interface NumberSchemaConstructor {
 }
 
 export interface NumberSchema<T extends number | null | undefined = number> extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number }>): NumberSchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number }>): NumberSchema<T>;
-    lessThan(limit: number | Ref, message?: TestOptionsMessage<{ less: number }>): NumberSchema<T>;
-    moreThan(limit: number | Ref, message?: TestOptionsMessage<{ more: number }>): NumberSchema<T>;
-    positive(message?: TestOptionsMessage<{ more: number }>): NumberSchema<T>;
-    negative(message?: TestOptionsMessage<{ less: number }>): NumberSchema<T>;
-    integer(message?: TestOptionsMessage): NumberSchema<T>;
+    min(limit: number | Ref, message?: NumberLocale['min']): NumberSchema<T>;
+    max(limit: number | Ref, message?: NumberLocale['max']): NumberSchema<T>;
+    lessThan(limit: number | Ref, message?: NumberLocale['lessThan']): NumberSchema<T>;
+    moreThan(limit: number | Ref, message?: NumberLocale['moreThan']): NumberSchema<T>;
+    positive(message?: NumberLocale['positive']): NumberSchema<T>;
+    negative(message?: NumberLocale['negative']): NumberSchema<T>;
+    integer(message?: NumberLocale['integer']): NumberSchema<T>;
     truncate(): NumberSchema<T>;
     round(type: 'floor' | 'ceil' | 'trunc' | 'round'): NumberSchema<T>;
     nullable(isNullable?: true): NumberSchema<T | null>;
@@ -169,8 +168,8 @@ export interface DateSchemaConstructor {
 }
 
 export interface DateSchema<T extends Date | null | undefined = Date> extends Schema<T> {
-    min(limit: Date | string | Ref, message?: TestOptionsMessage<{ min: Date | string }>): DateSchema<T>;
-    max(limit: Date | string | Ref, message?: TestOptionsMessage<{ max: Date | string }>): DateSchema<T>;
+    min(limit: Date | string | Ref, message?: DateLocale['min']): DateSchema<T>;
+    max(limit: Date | string | Ref, message?: DateLocale['max']): DateSchema<T>;
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): DateSchema<T>;
@@ -184,8 +183,8 @@ export interface ArraySchemaConstructor {
 }
 
 interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number }>): this;
-    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number }>): this;
+    min(limit: number | Ref, message?: ArrayLocale['min']): this;
+    max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
@@ -252,7 +251,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
         noSortEdges?: Array<[string, string]>,
     ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys?: boolean, message?: TestOptionsMessage): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
@@ -430,23 +429,58 @@ export interface FormatErrorParams {
 
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
-type MessageFromParameters<P extends unknown[]> = {
-    [K in keyof P]: P[K] extends TestOptionsMessage<any> ? P[K] : never;
-}[number];
+interface MixedLocale {
+    default?: TestOptionsMessage;
+    required?: TestOptionsMessage;
+    oneOf?: TestOptionsMessage<{ values: any }>;
+    notOneOf?: TestOptionsMessage<{ values: any }>;
+    notType?: LocaleValue;
+}
 
-type MappedLocaleSchema<S extends Schema<any>> = {
-    [key in keyof S]?: S[key] extends (...args: infer P) => any ? MessageFromParameters<Required<P>> : never;
-};
+interface StringLocale {
+    length?: TestOptionsMessage<{ length: number }>;
+    min?: TestOptionsMessage<{ min: number }>;
+    max?: TestOptionsMessage<{ max: number }>;
+    matches?: TestOptionsMessage<{ regex: RegExp }>;
+    email?: TestOptionsMessage<{ regex: RegExp }>;
+    url?: TestOptionsMessage<{ regex: RegExp }>;
+    trim?: TestOptionsMessage;
+    lowercase?: TestOptionsMessage;
+    uppercase?: TestOptionsMessage;
+}
+
+interface NumberLocale {
+    min?: TestOptionsMessage<{ min: number }>;
+    max?: TestOptionsMessage<{ max: number }>;
+    lessThan?: TestOptionsMessage<{ less: number }>;
+    moreThan?: TestOptionsMessage<{ more: number }>;
+    positive?: TestOptionsMessage<{ more: number }>;
+    negative?: TestOptionsMessage<{ less: number }>;
+    integer?: TestOptionsMessage;
+}
+
+interface DateLocale {
+    min?: TestOptionsMessage<{ min: Date | string }>;
+    max?: TestOptionsMessage<{ max: Date | string }>;
+}
+
+interface ObjectLocale {
+    noUnknown?: TestOptionsMessage;
+}
+
+interface ArrayLocale {
+    min?: TestOptionsMessage<{ min: number }>;
+    max?: TestOptionsMessage<{ max: number }>;
+}
 
 export interface LocaleObject {
-    mixed?: MappedLocaleSchema<MixedSchema> & { notType?: LocaleValue };
-    string?: MappedLocaleSchema<StringSchema>;
-    number?: MappedLocaleSchema<NumberSchema>;
-    boolean?: MappedLocaleSchema<BooleanSchema>;
-    bool?: MappedLocaleSchema<BooleanSchema>;
-    date?: MappedLocaleSchema<DateSchema>;
-    array?: MappedLocaleSchema<ArraySchema<any>>;
-    object?: MappedLocaleSchema<ObjectSchema<any>>;
+    mixed?: MixedLocale;
+    string?: StringLocale;
+    number?: NumberLocale;
+    date?: DateLocale;
+    boolean?: {};
+    object?: ObjectLocale;
+    array?: ArrayLocale;
 }
 
 export type InferType<T> = T extends Schema<infer P> ? InnerInferType<P> : never;

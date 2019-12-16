@@ -26,7 +26,6 @@ export default class TileLayer extends Layer {
     protected type: LayerType;
     getPreload(): number;
     getSource(): TileSource;
-    getSource(): Source;
     getUseInterimTilesOnError(): boolean;
     setPreload(preload: number): void;
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;

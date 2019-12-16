@@ -2,7 +2,7 @@
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
@@ -793,7 +793,7 @@ declare namespace Slick {
 		/**
 		 * A custom cell editor.
 		 */
-		editor?: Slick.Editors.Editor<T>;
+		editor?: any;		
 
 		/**
 		 * Number of columns this cell will span. Can also contain "*" to indicate that the cell should span the rest of the row.

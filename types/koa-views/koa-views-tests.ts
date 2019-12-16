@@ -4,6 +4,7 @@ import views = require("koa-views");
 const app = new Koa();
 
 app.use(views('/views', {
+    autoRender: true,
     map: {
         html: 'underscore'
     },

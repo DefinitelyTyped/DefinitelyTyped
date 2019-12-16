@@ -126,9 +126,11 @@ export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: 
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
 export const mapSeries: typeof map;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
 
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,
@@ -136,8 +138,14 @@ export function mapValuesLimit<T, R, E = Error>(
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
     callback: AsyncResultObjectCallback<R, E>
     ): void;
+export function mapValuesLimit<T, R, E = Error>(
+	obj: Dictionary<T>,
+	limit: number,
+	iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
+): Promise<R>;
 
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
+export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void): Promise<R>;
 export const mapValuesSeries: typeof mapValues;
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
 export const filterSeries: typeof filter;
@@ -251,7 +259,7 @@ export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: 
 export function memoize(fn: Function, hasher?: Function): Function;
 export function unmemoize(fn: Function): Function;
 export function ensureAsync(fn: (... argsAndCallback: any[]) => void): Function;
-export function constant(...values: any[]): Function;
+export function constant(...values: any[]): AsyncFunction<any>;
 export function asyncify(fn: Function): (...args: any[]) => any;
 export function wrapSync(fn: Function): Function;
 export function log(fn: Function, ...args: any[]): void;

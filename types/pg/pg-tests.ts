@@ -137,6 +137,9 @@ const pool = new Pool({
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
   keepAlive: false,
+  log: (...args) => {
+    console.log.apply(console, args);
+  },
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {

@@ -1,8 +1,9 @@
 import * as React from "react";
-import SyntaxHighlighter, { SyntaxHighlighterProps } from "react-syntax-highlighter";
-import PrismSyntaxHighlighter from "react-syntax-highlighter/prism";
-import PrismLightHighlighter from "react-syntax-highlighter/prism-light";
-import jsx from "react-syntax-highlighter/languages/prism/jsx";
+import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
+import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
+import PrismLightHighlighter from "react-syntax-highlighter/dist/esm/prism-light";
+import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -21,6 +22,26 @@ function hljsHighlighter(): JSX.Element {
         <SyntaxHighlighter language="javascript" style={docco}>
             {codeString}
         </SyntaxHighlighter>
+    );
+}
+
+function hljsLightHighlighter(): JSX.Element {
+    const codeString: string = `class CPP {
+    private year: number;
+    public constructor(private version: string) {
+        this.year = Number(version.match(/.+\d+$/));
+    }
+    public version(): string {
+        return this.version;
+    }
+}
+`;
+    LightHighlighter.registerLanguage("javascript", javascript);
+
+    return (
+        <LightHighlighter language="javascript" style={docco}>
+            {codeString}
+        </LightHighlighter>
     );
 }
 
@@ -74,7 +95,7 @@ function codeTagProps() {
     }
     `;
 
-    const codeTagProps = {
+    const codeTagProps: SyntaxHighlighterProps["codeTagProps"] = {
         className: "some-classname",
         style: {
             opacity: 0
@@ -97,8 +118,7 @@ function linePropsObject() {
     }
     `;
 
-    const lineProps = {
-        otherProp: "otherProp",
+    const lineProps: SyntaxHighlighterProps["lineProps"] = {
         className: "some-classname",
         style: {
             opacity: 0
@@ -121,8 +141,7 @@ function lineTagPropsFunction() {
     }
     `;
 
-    const lineProps = (lineNumber: number) => ({
-        otherProp: "otherProp",
+    const lineProps: lineTagPropsFunction = (lineNumber: number) => ({
         className: "some-classname",
         style: {
             opacity: 0

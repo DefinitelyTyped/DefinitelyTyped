@@ -1,5 +1,7 @@
 // Test file for Google Maps JavaScript API Definition file
 
+const version = google.maps.version;  // $ExpectType string
+
 let mapOptions: google.maps.MapOptions = {
     backgroundColor: '#fff',
     center: { lat: -25.363, lng: 131.044 },
@@ -720,7 +722,7 @@ service.findPlaceFromQuery(
         fields: ['name'],
     },
     (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
             return;
         }
 
@@ -734,7 +736,7 @@ service.findPlaceFromPhoneNumber(
         fields: ['name'],
     },
     (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
             return;
         }
 

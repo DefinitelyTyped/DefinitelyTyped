@@ -25,8 +25,10 @@ const boxCss = css`
 
 const CssBox = () => <Box css={boxCss} />;
 
+const VariantBox = () => <Box tx="specialBoxes" />;
+
 export default () => (
-    <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
+    <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em" display="block">
         <Flex width={1} alignItems="center" justifyContent="center">
             <Heading fontSize={5} fontWeight="bold">
                 Hi, I'm a heading.
@@ -75,8 +77,16 @@ export default () => (
             >
                 String css prop
             </Box>
-
+            <Button sx={theme => ({
+                bg: "magenta",
+                border: "1em",
+                borderRadius: "1em"
+            })}>
+                Button
+            </Button>
             <CssBox />
+
+            <VariantBox />
         </Flex>
     </Box>
 );

@@ -113,10 +113,19 @@ export namespace JWE {
     }
 
     interface DecryptResult {
+        header: object;
         /**
          * an array of the member names from the "protected" member
          */
         protected: string[];
+        /**
+         * Key used to decrypt
+         */
+        key: JWK.Key;
+        /**
+         * Buffer of the decrypted content
+         */
+        payload: Buffer;
         /**
          * the decrypted content (alternate)
          */

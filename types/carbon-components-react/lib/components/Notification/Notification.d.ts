@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactAttr, ReactButtonAttr, ReactDivAttr, RenderIconProps } from "../../../typings/shared";
+import { EmbeddedIconProps, ReactButtonAttr, ReactDivAttr, RenderIconProps } from '../../../typings/shared';
 import { ButtonProps } from "../Button";
 
 export type NotificationType = "inline" | "toast";
@@ -9,10 +9,17 @@ interface SharedProps {
     notificationType?: NotificationType,
 }
 
+interface ContrastProps {
+    lowContrast?: boolean,
+}
+
+export interface NotificationTitleProps {
+    subtitle?: React.ReactNode;
+    title: React.ReactNode;
+}
+
 export interface NotificationContentProps {
-    caption: NonNullable<React.ReactNode>,
-    subtitle: NonNullable<React.ReactNode>,
-    title: NonNullable<React.ReactNode>,
+    caption: React.ReactNode;
 }
 
 export interface NotificationInteractionProps {
@@ -20,9 +27,7 @@ export interface NotificationInteractionProps {
     onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
 }
 
-export interface NotificationBaseProps extends NotificationInteractionProps, SharedProps {
-    kind: NotificationKind,
-}
+export interface NotificationBaseProps extends NotificationInteractionProps, SharedProps {}
 
 // NotificationActionButton
 
@@ -55,7 +60,8 @@ export declare class NotificationButton extends React.Component<NotificationButt
 type ExcludedDetailDivAttributes = "className" | "title";
 interface NotificationTextDetailInheritedProps extends
     Omit<ReactDivAttr, ExcludedDetailDivAttributes>,
-    NotificationContentProps,
+    Partial<NotificationContentProps>,
+    Partial<NotificationTitleProps>,
     SharedProps
 { }
 
@@ -65,18 +71,18 @@ export declare class NotificationTextDetails extends React.Component<Notificatio
 
 // ToastNotification
 
-type ExcludedToastDivAttributes = "role" | "title";
 interface ToastNotificationInheritedProps extends
-    Omit<ReactDivAttr, ExcludedToastDivAttributes>,
+    Omit<ReactDivAttr, "title">,
+    ContrastProps,
+    EmbeddedIconProps,
+    NotificationBaseProps,
     NotificationContentProps,
-    NotificationBaseProps
-{
-    iconDescription: NonNullable<EmbeddedIconProps["iconDescription"]>,
-    role: NonNullable<ReactAttr["role"]>,
-}
+    NotificationTitleProps
+{ }
 
 export interface ToastNotificationProps extends ToastNotificationInheritedProps {
-    timeout?: number,
+    kind?: NotificationKind;
+    timeout?: number;
 }
 
 export declare class ToastNotification extends React.Component<ToastNotificationProps> { }
@@ -85,12 +91,15 @@ export declare class ToastNotification extends React.Component<ToastNotification
 
 interface InlineNotificationInheritedProps extends
     Omit<ReactDivAttr, "title">,
-    Omit<NotificationContentProps, "caption">,
-    NotificationBaseProps
+    ContrastProps,
+    EmbeddedIconProps,
+    NotificationBaseProps,
+    NotificationTitleProps
 { }
 
 export interface InlineNotificationProps extends InlineNotificationInheritedProps {
-    actions?: React.ReactNode,
+    actions?: React.ReactNode;
+    kind: NotificationKind;
 }
 
 export declare class InlineNotification extends React.Component<InlineNotificationProps> { }

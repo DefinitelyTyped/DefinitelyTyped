@@ -3,6 +3,7 @@
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 //                 Mikko Vuorinen <https://github.com/vuorinem>
 //                 Vincent Biret <https://github.com/baywet>
+//                 Batuhan Wilhelm <https://github.com/batuhanw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -109,6 +110,7 @@ declare namespace hello {
     }
 
     interface HelloJSAuthResponse {
+        client_id?: string;
         access_token?: string;
         token_type?: string;
         expires_in?: number;

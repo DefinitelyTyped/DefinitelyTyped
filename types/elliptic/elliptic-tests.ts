@@ -34,6 +34,11 @@ const cPub = { x: x.toArrayLike(Buffer), y: y.toArrayLike(Buffer) }; // case 3
 // Import public key
 const newKey = ec.keyFromPublic(pub, 'hex');
 
+// Import public key from array
+const pubArray = pubPoint.encode('array', true);
+const newKeyFromArray = ec.keyFromPublic(pubArray);
+console.log(pub === newKeyFromArray.getPublic().encodeCompressed('hex'));
+
 // Signature MUST be either:
 // 1) DER-encoded signature as hex-string; or
 // 2) DER-encoded signature as buffer; or

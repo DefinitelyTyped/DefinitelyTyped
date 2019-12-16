@@ -236,7 +236,7 @@ export interface Client {
     // The algorithm used to sign the JsonWebToken
     alg?: 'HS256' | 'RS256';
   };
-  /** 
+  /**
    * A set of grant types that the client is authorized to use
    */
   grant_types?: Grant[];
@@ -555,6 +555,12 @@ export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+  scope?: string;
+}
+
+export interface AuthorizationCodeGrantOptions {
+  code: string;
+  redirect_uri: string;
 }
 
 export interface ObjectWithId {
@@ -1135,6 +1141,9 @@ export class OAuthAuthenticator {
 
   socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
   socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 }
 
 export class PasswordlessAuthenticator {

@@ -1,28 +1,33 @@
-// Type definitions for react-native-material-textfield 0.12
+// Type definitions for react-native-material-textfield 0.16
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Deividi Cavarzan <https://github.com/cavarzan>
+//                 Neel bhasin <https://github.com/neelb2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 import {
     StyleProp,
     TextInputProps,
     TextStyle,
     ViewStyle,
     View
-} from 'react-native';
+} from "react-native";
+
+export interface ContentInset {
+    top?: number;
+    label?: number;
+    input?: number;
+}
 
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
 
     fontSize?: number;
-    titleFontSize?: number;
     labelFontSize?: number;
-    labelHeight?: number;
-    labelPadding?: number;
-    inputContainerPadding?: number;
+    contentInset?: ContentInset;
 
     style?: StyleProp<TextStyle>;
     labelTextStyle?: StyleProp<TextStyle>;
@@ -48,8 +53,6 @@ export interface TextFieldProps extends TextInputProps {
 
     disabledLineWidth?: number;
 
-    renderAccessory?(): JSX.Element;
-
     clearTextOnFocus?: boolean;
 
     prefix?: string;
@@ -60,6 +63,15 @@ export interface TextFieldProps extends TextInputProps {
 
     onPress?(event: Event): void;
     onChangeText?(text: string): void;
+
+    renderLeftAccessory?(): JSX.Element;
+    renderRightAccessory?(): JSX.Element;
+
+    lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+
+    editable?: boolean;
+    multiline?: boolean;
 }
 
 /**
@@ -91,4 +103,11 @@ export class TextField extends React.Component<TextFieldProps, any> {
      * Get current restriction state
      */
     isRestricted(): boolean;
+    /*
+     * Set current value
+     */
+    setValue(value?: string): void;
 }
+
+export class OutlinedTextField extends TextField {}
+export class FilledTextField extends TextField {}
