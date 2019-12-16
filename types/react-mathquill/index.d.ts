@@ -11,7 +11,7 @@ export interface Props extends Omit<ComponentProps<'span'>, 'onChange'> {
     latex: string;
     config?: Config;
     onChange?(mathField: MQ): any;
-    mathquillDidMount?(mathField: MQ): any;
+    mathquillDidMount?(mathField: MQ): void;
 }
 
 export function addStyles(): void;
