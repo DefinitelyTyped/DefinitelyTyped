@@ -18,6 +18,7 @@
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
+//                  Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -572,58 +573,58 @@ declare namespace Parse {
         static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
         static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
-        addAscending(key: string | string[]): Query<T>;
-        addDescending(key: string | string[]): Query<T>;
-        ascending(key: string | string[]): Query<T>;
+        addAscending(key: string | string[]): this;
+        addDescending(key: string | string[]): this;
+        ascending(key: string | string[]): this;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-        containedBy(key: string, values: any[]): Query<T>;
-        containedIn(key: string, values: any[]): Query<T>;
-        contains(key: string, substring: string): Query<T>;
-        containsAll(key: string, values: any[]): Query<T>;
-        containsAllStartingWith(key: string, values: any[]): Query<T>;
+        containedBy(key: string, values: any[]): this;
+        containedIn(key: string, values: any[]): this;
+        contains(key: string, substring: string): this;
+        containsAll(key: string, values: any[]): this;
+        containsAllStartingWith(key: string, values: any[]): this;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string | string[]): Query<T>;
-        doesNotExist(key: string): Query<T>;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        descending(key: string | string[]): this;
+        doesNotExist(key: string): this;
+        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): this;
+        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): this;
         distinct<V = any>(key: string): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): Query<T>;
-        equalTo(key: string, value: any): Query<T>;
-        exists(key: string): Query<T>;
+        endsWith(key: string, suffix: string): this;
+        equalTo(key: string, value: any): this;
+        exists(key: string): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromLocalDatastore(): void;
         fromPin(): void;
         fromPinWithName(name: string): void;
-        fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
+        fullText(key: string, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan(key: string, value: any): Query<T>;
-        greaterThanOrEqualTo(key: string, value: any): Query<T>;
-        include(key: string | string[]): Query<T>;
-        includeAll(): Query<T>;
-        lessThan(key: string, value: any): Query<T>;
-        lessThanOrEqualTo(key: string, value: any): Query<T>;
-        limit(n: number): Query<T>;
-        matches(key: string, regex: RegExp, modifiers: any): Query<T>;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        matchesQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        near(key: string, point: GeoPoint): Query<T>;
-        notContainedIn(key: string, values: any[]): Query<T>;
-        notEqualTo(key: string, value: any): Query<T>;
-        polygonContains(key: string, point: GeoPoint): Query<T>;
-        select(...keys: string[]): Query<T>;
-        skip(n: number): Query<T>;
+        greaterThan(key: string, value: any): this;
+        greaterThanOrEqualTo(key: string, value: any): this;
+        include(key: string | string[]): this;
+        includeAll(): this;
+        lessThan(key: string, value: any): this;
+        lessThanOrEqualTo(key: string, value: any): this;
+        limit(n: number): this;
+        matches(key: string, regex: RegExp, modifiers: any): this;
+        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): this;
+        matchesQuery<U extends Object>(key: string, query: Query<U>): this;
+        near(key: string, point: GeoPoint): this;
+        notContainedIn(key: string, values: any[]): this;
+        notEqualTo(key: string, value: any): this;
+        polygonContains(key: string, point: GeoPoint): this;
+        select(...keys: string[]): this;
+        skip(n: number): this;
         sortByTextScore(): this;
-        startsWith(key: string, prefix: string): Query<T>;
+        startsWith(key: string, prefix: string): this;
         subscribe(): Promise<LiveQuerySubscription>;
         toJSON(): any;
         withJSON(json: any): this;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): this;
+        withinKilometers(key: string, point: GeoPoint, maxDistance: number): this;
+        withinMiles(key: string, point: GeoPoint, maxDistance: number): this;
+        withinPolygon(key: string, points: GeoPoint[]): this;
+        withinRadians(key: string, point: GeoPoint, maxDistance: number): this;
     }
 
     namespace Query {
