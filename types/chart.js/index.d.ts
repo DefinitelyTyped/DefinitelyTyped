@@ -35,9 +35,9 @@ declare class Chart {
     destroy: () => {};
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
+    stop: () => Chart;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
@@ -105,18 +105,27 @@ interface MetaData {
     hidden?: boolean;
 }
 
+// NOTE: This model is generic with a bunch of optional properties to represent all types of chart models.
+// Each chart type defines their own unique model structure so some of these optional properties
+// might always have values depending on the chart type.
 interface Model {
     backgroundColor: string;
+    borderAlign?: Chart.BorderAlignment;
     borderColor: string;
     borderWidth?: number;
+    circumference?: number;
     controlPointNextX: number;
     controlPointNextY: number;
     controlPointPreviousX: number;
     controlPointPreviousY: number;
+    endAngle?: number;
     hitRadius: number;
+    innerRadius?: number;
+    outerRadius?: number;
     pointStyle: string;
     radius: string;
     skip?: boolean;
+    startAngle?: number;
     steppedLine?: undefined;
     tension: number;
     x: number;
@@ -501,6 +510,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {
@@ -800,6 +810,21 @@ declare namespace Chart {
         duration?: number;
         lazy?: boolean;
         easing?: Easing;
+    }
+
+    // Model used with the doughnut chart
+    interface DoughnutModel {
+        backgroundColor: ChartColor;
+        borderAlign: BorderAlignment;
+        borderColor: string;
+        borderWidth: number;
+        circumference: number;
+        endAngle: number;
+        innerRadius: number;
+        outerRadius: number;
+        startAngle: number;
+        x: number;
+        y: number;
     }
 }
 

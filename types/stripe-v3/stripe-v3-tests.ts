@@ -48,6 +48,14 @@ describe("Stripe elements", () => {
                 console.log(response.elementType, response.brand);
             }
         });
+        card.addEventListener('ready', () => {
+            console.log('ready (ael)');
+        });
+        card.addEventListener('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
+        });
 
         stripe.createToken(card, {
             name: 'Jimmy',
@@ -291,5 +299,11 @@ describe("Stripe elements", () => {
                 console.log(result.setupIntent.id);
             }
         });
+    });
+
+    it("should get card element", () => {
+        elements.create('card');
+        const card = elements.getElement('card');
+        console.log(card);
     });
 });

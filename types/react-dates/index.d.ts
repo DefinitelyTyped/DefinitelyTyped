@@ -109,6 +109,8 @@ declare namespace ReactDates {
         renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         minimumNights?: number;
+        minDate?: momentPropTypes.momentObj;
+        maxDate?: momentPropTypes.momentObj;
         enableOutsideDays?: boolean;
         isDayBlocked?: (day: any) => boolean;
         isOutsideRange?: (day: any) => boolean;

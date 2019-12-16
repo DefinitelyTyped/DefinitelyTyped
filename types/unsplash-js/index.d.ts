@@ -1,4 +1,4 @@
-// Type definitions for unsplash-js 5.0
+// Type definitions for unsplash-js 6.0
 // Project: https://github.com/unsplash/unsplash-js#readme
 // Definitions by: Andrew Malikov <https://github.com/markupcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ export default class Unsplash {
     constructor(options: {
         apiUrl?: string;
         apiVersion?: string;
-        applicationId: string;
+        accessKey: string;
         secret: string;
         callbackUrl?: string;
         bearerToken?: string;

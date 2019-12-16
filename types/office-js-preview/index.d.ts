@@ -763,7 +763,7 @@ declare namespace Office {
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to 
         * other domains.
         *
-        * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
+        * Any page calling `Office.context.ui.messageParent` must also be on the same domain as the parent page.
         * 
         * **Design considerations**:
         *
@@ -868,7 +868,7 @@ declare namespace Office {
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to 
         * other domains.
         *
-        * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
+        * Any page calling `Office.context.ui.messageParent` must also be on the same domain as the parent page.
         * 
         * **Design considerations**:
         *
@@ -1836,14 +1836,10 @@ declare namespace Office {
     }
     /**
      * Specifies the format in which to return the document.
-     *
-     * @remarks
-     * 
-     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
      */
     enum FileType {
         /**
-         * Returns only the text of the document as a string. (Word only)
+         * Returns only the text of the document as a string.
          */
         Text,
         /**
@@ -3427,7 +3423,7 @@ declare namespace Office {
          */
         getActiveViewAsync(callback?: (result: AsyncResult<"edit" | "read">) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iPad, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3440,20 +3436,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iOS, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iPad, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iPad, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -3462,7 +3458,7 @@ declare namespace Office {
          */
         getFileAsync(fileType: FileType, options?: GetFileOptions, callback?: (result: AsyncResult<Office.File>) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iPad, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3475,20 +3471,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          * 
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office on iOS apps, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iPad, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office on iPad apps, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4942,8 +4938,8 @@ declare namespace Office {
      */
     interface Slice {
         /**
-         * Gets the raw data of the file slice in `Office.FileType.Text` ("text") or `Office.FileType.Compressed` ("compressed") format as specified 
-         * by the fileType parameter of the call to the Document.getFileAsync method.
+         * Gets the raw data of the file slice in `Office.FileType.Text` or `Office.FileType.Compressed` format as specified 
+         * by the `fileType` parameter of the call to the `Document.getFileAsync` method.
          *
          * @remarks
          * 
@@ -9486,8 +9482,6 @@ declare namespace Office {
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
-         *
          * [Api set: Mailbox 1.2]
          *
          * @returns
@@ -9514,8 +9508,6 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
-         *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -12503,8 +12495,6 @@ declare namespace Office {
          * To access the selected data from the callback method, call asyncResult.value.data.
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
-         *
          * [Api set: Mailbox 1.2]
          *
          * @returns
@@ -12532,8 +12522,6 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data.
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
-         *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -13928,7 +13916,7 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
      */
@@ -13991,7 +13979,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
@@ -14006,7 +13994,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
@@ -14731,8 +14719,6 @@ declare namespace Office {
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
-         *
          * [Api set: Mailbox 1.2]
          *
          * @returns
@@ -14760,8 +14746,6 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
          * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
-         *
-         * **Note**: In Outlook on the web, the method returns the string "null" if no text is selected but the cursor is in the body.
          *
          * [Api set: Mailbox 1.2]
          *
@@ -20195,6 +20179,14 @@ declare namespace Excel {
         readonly comments: Excel.CommentCollection;
         /**
          *
+         * Returns a collection of worksheet-level custom properties.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly customProperties: Excel.WorksheetCustomPropertyCollection;
+        /**
+         *
          * Gets an object that can be used to manipulate frozen panes on the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.7]
@@ -20695,8 +20687,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
-         * 
-         * **Note**: This API is currently only supported for Office on Windows and Mac.
+            
+             **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20711,8 +20703,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
-         * 
-         * **Note**: This API is currently only supported for Office on Windows and Mac.
+            
+             **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21973,8 +21965,7 @@ declare namespace Excel {
          * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
             The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param destinationRange destinationRange Specifies the range to where the information in this range will be moved.
          */
@@ -22519,7 +22510,9 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22548,7 +22541,9 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22570,7 +22565,9 @@ declare namespace Excel {
     interface ReplaceCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24099,7 +24096,9 @@ declare namespace Excel {
         readonly legacyId: string;
         /**
          *
-         * Name of the table.
+         * The name of the table.
+         * When setting the name of the table, you must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+         *
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -25190,10 +25189,9 @@ declare namespace Excel {
         set(properties: Excel.RangeFormat): void;
         /**
          *
-         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250.
+         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters..
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param amount The number of character spaces by which the current indent is adjusted. This value should be between -250 and 250.
             **Note**: If the amount would raise the indent level above 250, the indent level stays with 250.
@@ -30949,7 +30947,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
     }
     /**
      *
@@ -32880,6 +32878,123 @@ declare namespace Excel {
     }
     /**
      *
+     * Represents a worksheet-level custom property.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class WorksheetCustomProperty extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the key of the custom property. Read only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly key: string;
+        /**
+         *
+         * Gets the value of the custom property. Read only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly value: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyLoadOptions): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorksheetCustomProperty;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.WorksheetCustomProperty object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyData;
+    }
+    /**
+     *
+     * Contains the collection of worksheet-level custom property.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class WorksheetCustomPropertyCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.WorksheetCustomProperty[];
+        /**
+         *
+         * Gets the number of custom properties on this worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a custom property object by its key, which is case-insensitive. Throws if the custom property does not exist.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The key that identifies the custom property object.
+         */
+        getItem(key: string): Excel.WorksheetCustomProperty;
+        /**
+         *
+         * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The key that identifies the custom property object.
+         */
+        getItemOrNullObject(key: string): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.WorksheetCustomPropertyCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.WorksheetCustomPropertyCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyCollectionData;
+    }
+    /**
+     *
      * Represents workbook properties.
      *
      * [Api set: ExcelApi 1.7]
@@ -33936,7 +34051,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.6]
          */
-        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -36596,32 +36711,28 @@ declare namespace Excel {
      *
      * Represents the entity that is mentioned in comments.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApiOnline 1.1]
      */
     interface CommentMention {
         /**
          *
          * Gets or sets the email address of the entity that is mentioned in comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         email: string;
         /**
          *
-         * Gets or sets the id of the entity. This is aligned with the id information in `CommentRichContent.richContent`.
+         * Gets or sets the id of the entity. This matches one of the ids in `CommentRichContent.richContent`.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         id: number;
         /**
          *
          * Gets or sets the name of the entity that is mentioned in comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         name: string;
     }
@@ -36629,14 +36740,14 @@ declare namespace Excel {
      *
      * Represents the content contained within a comment or comment reply. Rich content incudes the text string and any other objects contained within the comment body, such as mentions.
      *
-     * [Api set: ExcelApi 1.10]
+     * [Api set: ExcelApiOnline 1.1]
      */
     interface CommentRichContent {
         /**
          *
          * An array containing all the entities (e.g. people) mentioned within the comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApiOnline 1.1]
          */
         mentions?: Excel.CommentMention[];
         richContent: string;
@@ -36659,8 +36770,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.Comment;
         /**
@@ -36670,8 +36781,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
         /**
@@ -36796,8 +36907,7 @@ declare namespace Excel {
          *
          * Gets the entities (e.g. people) that are mentioned in comments.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly mentions: Excel.CommentMention[];
         /**
@@ -36812,8 +36922,7 @@ declare namespace Excel {
          *
          * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -36848,8 +36957,7 @@ declare namespace Excel {
          *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
          */
@@ -36898,8 +37006,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
         /**
@@ -36908,8 +37016,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
         /**
@@ -37009,8 +37117,7 @@ declare namespace Excel {
          *
          * Gets the entities (e.g. people) that are mentioned in comments.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly mentions: Excel.CommentMention[];
         /**
@@ -37025,8 +37132,7 @@ declare namespace Excel {
          *
          * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -37068,8 +37174,7 @@ declare namespace Excel {
          *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
          */
@@ -40329,9 +40434,7 @@ declare namespace Excel {
         fiveQuarters = "FiveQuarters",
         threeStars = "ThreeStars",
         threeTriangles = "ThreeTriangles",
-        fiveBoxes = "FiveBoxes",
-        linkedEntityFinanceIcon = "LinkedEntityFinanceIcon",
-        linkedEntityMapIcon = "LinkedEntityMapIcon"
+        fiveBoxes = "FiveBoxes"
     }
     /**
      * [Api set: ExcelApi 1.2]
@@ -48605,6 +48708,10 @@ declare namespace Excel {
              */
             visible?: boolean;
         }
+        /** An interface for updating data on the WorksheetCustomPropertyCollection object, for use in `worksheetCustomPropertyCollection.set({ ... })`. */
+        interface WorksheetCustomPropertyCollectionUpdateData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
+        }
         /** An interface for updating data on the DocumentProperties object, for use in `documentProperties.set({ ... })`. */
         interface DocumentPropertiesUpdateData {
             /**
@@ -49018,7 +49125,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface for updating data on the ColorScaleConditionalFormat object, for use in `colorScaleConditionalFormat.set({ ... })`. */
         interface ColorScaleConditionalFormatUpdateData {
@@ -50512,6 +50619,14 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.10]
             */
             comments?: Excel.Interfaces.CommentData[];
+            /**
+            *
+            * Returns a collection of worksheet-level custom properties.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            customProperties?: Excel.Interfaces.WorksheetCustomPropertyData[];
             /**
             *
             * Gets the horizontal page break collection for the worksheet. This collection only contains manual page breaks.
@@ -54358,6 +54473,29 @@ declare namespace Excel {
              */
             visible?: boolean;
         }
+        /** An interface describing the data returned by calling `worksheetCustomProperty.toJSON()`. */
+        interface WorksheetCustomPropertyData {
+            /**
+             *
+             * Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: string;
+            /**
+             *
+             * Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: string;
+        }
+        /** An interface describing the data returned by calling `worksheetCustomPropertyCollection.toJSON()`. */
+        interface WorksheetCustomPropertyCollectionData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
+        }
         /** An interface describing the data returned by calling `documentProperties.toJSON()`. */
         interface DocumentPropertiesData {
             /**
@@ -54820,7 +54958,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface describing the data returned by calling `colorScaleConditionalFormat.toJSON()`. */
         interface ColorScaleConditionalFormatData {
@@ -55590,8 +55728,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: Excel.CommentMention[];
             /**
@@ -55606,8 +55743,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: string;
         }
@@ -55656,8 +55792,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: Excel.CommentMention[];
             /**
@@ -55672,8 +55807,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: string;
         }
@@ -62721,6 +62855,64 @@ declare namespace Excel {
         }
         /**
          *
+         * Represents a worksheet-level custom property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface WorksheetCustomPropertyLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: boolean;
+            /**
+             *
+             * Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: boolean;
+        }
+        /**
+         *
+         * Contains the collection of worksheet-level custom property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface WorksheetCustomPropertyCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: boolean;
+        }
+        /**
+         *
          * Represents workbook properties.
          *
          * [Api set: ExcelApi 1.7]
@@ -64916,8 +65108,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -64932,8 +65123,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -64987,8 +65177,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65003,8 +65192,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -65058,8 +65246,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65074,8 +65261,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -65129,8 +65315,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65145,8 +65330,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
