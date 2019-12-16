@@ -2,7 +2,7 @@
 // Project: https://github.com/storybookjs/storybook/tree/master/addons/storyshots, https://github.com/storybookjs/storybook/tree/master/addons/storyshots/storyshots-puppeteer
 // Definitions by: Yama-Tomo <https://github.com/Yama-Tomo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.2
 
 import { StoryContext } from '@storybook/addon-storyshots';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';

@@ -2,7 +2,7 @@
 // Project: https://github.com/GoogleChromeLabs/carlo#readme
 // Definitions by: Adam Dierkens <https://github.com/adierkens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
