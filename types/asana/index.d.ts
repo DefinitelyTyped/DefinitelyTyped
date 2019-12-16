@@ -1980,17 +1980,13 @@ declare namespace asana {
 
         /**
          * * Adds the specified task to a specific section of project. Returns empty object.
-         *   * @param {String} section The section to add task to.
-         *   * @param {Object} data Data for the request
-         *   * @param {String} data.task The id of task to be added to specified section.
-         *   * @param {String} data.insert_after An existing task within this section after which the added task should be inserted. Cannot be provided together with insert_before.
-         *   * @param {String} data.insert_before An existing task within this section before which the added task should be inserted. Cannot be provided together with insert_after.
-         *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
-         *   * @return {Promise} The response from the API
-         * @param project
-         * @param data
-         * @param dispatchOptions?
-         * @return
+         * @param {String} section The section to add task to.
+         * @param {Object} data Data for the request
+         * @param {String} data.task The id of task to be added to specified section.
+         * @param {String} data.insert_after An existing task within this section after which the added task should be inserted. Cannot be provided together with insert_before.
+         * @param {String} data.insert_before An existing task within this section before which the added task should be inserted. Cannot be provided together with insert_after.
+         * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+         * @return {Promise} The response from the API
          */
         addTask(section: string | number, data: Sections.SectionsParams, dispatchOptions?: any): Promise<{}>;
       }
