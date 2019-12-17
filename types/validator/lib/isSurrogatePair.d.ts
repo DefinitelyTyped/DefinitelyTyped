@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isSurrogatePair: typeof validator.isSurrogatePair;
-export = isSurrogatePair;
+import validator from '../';
+export default validator.isSurrogatePair;

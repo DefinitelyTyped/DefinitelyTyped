@@ -1,3 +1,4 @@
 import { MissingFieldHandler } from '../store/RelayStoreTypes';
 
-export const missingViewerFieldHandler: MissingFieldHandler;
+declare const DefaultMissingFieldHandlers: MissingFieldHandler[];
+export default DefaultMissingFieldHandlers;

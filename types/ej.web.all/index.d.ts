@@ -3,11 +3,12 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
 /// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.3.0.14
+*  version : 17.3.0.26
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing

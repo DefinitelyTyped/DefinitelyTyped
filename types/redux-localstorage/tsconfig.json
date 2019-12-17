@@ -19,9 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/adapters/AsyncStorage.d.ts",
-        "lib/adapters/localStorage.d.ts",
-        "lib/adapters/sessionStorage.d.ts",
         "redux-localstorage-tests.ts"
     ]
 }

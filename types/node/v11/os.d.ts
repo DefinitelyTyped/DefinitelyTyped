@@ -52,6 +52,7 @@ declare module "os" {
     function userInfo(options?: { encoding: string }): UserInfo<string>;
     const constants: {
         UV_UDP_REUSEADDR: number;
+        // signals: { [key in NodeJS.Signals]: number; }; @todo: change after migration to typescript 2.1
         signals: {
             SIGHUP: number;
             SIGINT: number;
@@ -74,6 +75,7 @@ declare module "os" {
             SIGCONT: number;
             SIGSTOP: number;
             SIGTSTP: number;
+            SIGBREAK: number;
             SIGTTIN: number;
             SIGTTOU: number;
             SIGURG: number;
@@ -84,7 +86,9 @@ declare module "os" {
             SIGWINCH: number;
             SIGIO: number;
             SIGPOLL: number;
+            SIGLOST: number;
             SIGPWR: number;
+            SIGINFO: number;
             SIGSYS: number;
             SIGUNUSED: number;
         };

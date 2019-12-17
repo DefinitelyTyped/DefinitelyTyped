@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isMultibyte: typeof validator.isMultibyte;
-export = isMultibyte;
+import validator from '../';
+export default validator.isMultibyte;

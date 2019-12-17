@@ -11,6 +11,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Erik Schierboom <https://github.com/ErikSchierboom>
 //                 Rebecca Turner <https://github.com/9999years>
+//                 Bogdan Paranytsia <https://github.com/bparan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -204,8 +205,8 @@ declare namespace Chai {
         eql: Equal;
         eqls: Equal;
         property: Property;
-        ownProperty: OwnProperty;
-        haveOwnProperty: OwnProperty;
+        ownProperty: Property;
+        haveOwnProperty: Property;
         ownPropertyDescriptor: OwnPropertyDescriptor;
         haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
@@ -290,13 +291,19 @@ declare namespace Chai {
     }
 
     interface Nested {
-      include: Include;
-      property: Property;
-      members: Members;
+        include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
+        property: Property;
+        members: Members;
     }
 
     interface Own {
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
     }
 
@@ -305,6 +312,9 @@ declare namespace Chai {
         equals: Equal;
         eq: Equal;
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
         members: Members;
         ordered: Ordered;
@@ -326,10 +336,7 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value?: any, message?: string): Assertion;
-    }
-
-    interface OwnProperty {
+        (name: string, value: any, message?: string): Assertion;
         (name: string, message?: string): Assertion;
     }
 
@@ -535,7 +542,7 @@ declare namespace Chai {
         isBelow(valueToCheck: number, valueToBeBelow: number, message?: string): void;
 
         /**
-         * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtMost.
+         * Asserts valueToCheck is less than or equal to (<=) valueToBeAtMost.
          *
          * @param valueToCheck   Actual value.
          * @param valueToBeAtMost   Minimum Potential expected value.
@@ -598,7 +605,7 @@ declare namespace Chai {
         isNotNull<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -607,7 +614,7 @@ declare namespace Chai {
         isNaN<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is not NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.

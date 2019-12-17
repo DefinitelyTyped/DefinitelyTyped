@@ -118,6 +118,7 @@ declare module "stream" {
 
         class Writable extends Stream implements NodeJS.WritableStream {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -209,6 +210,8 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -219,6 +222,7 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -305,7 +309,12 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;

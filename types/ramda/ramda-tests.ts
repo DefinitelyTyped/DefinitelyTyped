@@ -1,4 +1,5 @@
 import * as R from "ramda";
+import { Dictionary } from "ramda/tools";
 
 function double(x: number): number {
     return x + x;
@@ -106,15 +107,10 @@ class F2 {
 
 () => {
     // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.isArrayLike, R.of);
+    const coerceArray = R.unless(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1);         // => [1]
 };
-
-(() => {
-    R.nthArg(1)("a", "b", "c"); // => 'b'
-    R.nthArg(-1)("a", "b", "c"); // => 'c'
-});
 
 () => {
     const fn: (...args: string[]) => string = R.unapply(JSON.stringify);
@@ -269,41 +265,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    function multiply(a: number, b: number): number {
-        return a * b;
-    }
-
-    const double = R.partial<number>(multiply, [2]);
-    double(2); // => 4
-
-    function greet(salutation: string, title: string, firstName: string, lastName: string) {
-        return `${salutation}, ${title} ${firstName} ${lastName}!`;
-    }
-
-    const sayHello     = R.partial(greet, ["Hello"]);
-    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
-    sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
-
-    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
-    greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
-})();
-
-(() => {
-    const addOneOnce = R.once((x: number) => x + 1);
-    addOneOnce(10); // => 11
-    addOneOnce(addOneOnce(50)); // => 11
-
-    const str = R.once<string>(() => 'test')();
-})();
-
-(() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-})();
-
-(() => {
     const numbers = [1, 2, 3];
     R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
@@ -317,11 +278,6 @@ R.times(i, 5);
 
     R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
-
-(() => {
-    const b: number[][] = R.of([1]); // => [[1]]
-    const c: number[]   = R.of(1);
-});
 
 (() => {
     function isOdd(n: number) {
@@ -357,7 +313,7 @@ R.times(i, 5);
         return n % 2 === 0;
     }
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const objB: Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
@@ -366,7 +322,7 @@ R.times(i, 5);
         return n % 2 === 0;
     }
 
-    const a: R.Dictionary<number> = R.pipe(
+    const a: Dictionary<number> = R.pipe(
         R.filter<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { a: 0 }
 
@@ -374,23 +330,13 @@ R.times(i, 5);
         R.filter<number, 'array'>(isEven),
     )([0, 1]); // => [0]
 
-    const c: R.Dictionary<number> = R.pipe(
+    const c: Dictionary<number> = R.pipe(
         R.reject<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { b: 1 }
 
     const d: number[] = R.pipe(
         R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
-};
-
-() => {
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.pathEq(testPath, 2, testObj); // => true
-    R.pathEq(testPath, 2)(testObj); // => true
-    R.pathEq(testPath)(2)(testObj); // => true
-    R.pathEq(testPath)(2, testObj); // => true
 };
 
 () => {
@@ -474,45 +420,6 @@ interface Obj {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
-};
-
-() => {
-    const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
-
-    R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
-    R.move<string>(-1, 0, sampleList); // => ['f', 'a', 'b', 'c', 'd', 'e'] list rotation
-
-    const moveCurried1 = R.move(0, 2);
-    moveCurried1<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
-
-    const moveCurried2 = R.move(0);
-    moveCurried2<string>(2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
-
-    const moveCurried3 = R.move(0);
-    const moveCurried4 = moveCurried3(2);
-    moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
-};
-
-() => {
-    R.none(Number.isNaN, [1, 2, 3]); // => true
-    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
-    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
-};
-
-() => {
-    const list = ["foo", "bar", "baz", "quux"];
-    R.nth(1, list); // => 'bar'
-    R.nth(-1, list); // => 'quux'
-    R.nth(-99, list); // => undefined
-    R.nth(-99)(list); // => undefined
-};
-
-() => {
-    R.partition(R.contains("s"), ["sss", "ttt", "foo", "bars"]);
-    R.partition(R.contains("s"))(["sss", "ttt", "foo", "bars"]);
-    R.partition((x: number) => x > 2, [1, 2, 3, 4]);
-    R.partition((x: number) => x > 2)([1, 2, 3, 4]);
 };
 
 () => {
@@ -893,23 +800,18 @@ type Pair = KeyValuePair<string, number>;
     R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          // => {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          // => {x: 4, y: 2}
-    R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
-    R.over(xLens, R.negate)({x: 1, y: 2});  // => {x: -1, y: 2}
-    R.over(xLens)(R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
 };
 
 () => {
     const xLens = R.lensProp("x");
     R.view(xLens, {x: 1, y: 2});            // => 1
     R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
 () => {
@@ -918,98 +820,6 @@ type Pair = KeyValuePair<string, number>;
 
     R.view(xyLens, testObj);            // => 2
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
-    R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-};
-() => {
-    const orValue  = 11;
-    const orValueStr = "str";
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-    const testObjMiss = {c: {b: 2}};
-
-    R.pathOr<number>(orValue, testPath, testObj); // => 2
-    R.pathOr<number>(orValue, testPath)(testObj); // => 2
-    R.pathOr<number>(orValue)(testPath)(testObj); // => 2
-    R.pathOr<number>(orValue)(testPath, testObj); // => 2
-    R.pathOr<number>(orValue, testPath, testObjMiss); // => 11
-    R.pathOr<number | string>(orValueStr, testPath, testObjMiss); // => "str"
-};
-
-() => {
-    const a: boolean = R.pathSatisfies((x: number) => x > 0, ["x"], {x: 1, y: 2}); // => true
-    const b: boolean = R.pathSatisfies((x: number) => x > 0, ["x"])({x: 1, y: 2}); // => true
-    const c: boolean = R.pathSatisfies((x: number) => x > 0)(["x"])({x: 1, y: 2}); // => true
-};
-
-() => {
-    function isPositive(n: number) {
-        return n > 0;
-    }
-
-    const a1 = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); // => {a: 1, b: 2, e: 5}
-    function containsBackground(val: any) {
-        return val.bgcolor;
-    }
-
-    const colors = {1: {color: "read"}, 2: {color: "black", bgcolor: "yellow"}};
-    R.pickBy(containsBackground, colors); // => {2: {color: 'black', bgcolor: 'yellow'}}
-
-    function isUpperCase(val: number, key: string) {
-        return key.toUpperCase() === key;
-    }
-
-    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
-};
-
-() => {
-    const a1 = R.pick(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    const a2 = R.pick(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
-    const a3 = R.pick(["a", "e", "f"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
-    const a4 = R.pick(["a", "e", "f"], [1, 2, 3, 4]); // => {a: 1}
-};
-
-() => {
-    const matchPhrases = (xs: string[]) => R.objOf("must",
-        R.map(
-            (x: string) => R.objOf("match_phrase", x),
-            xs
-        )
-    );
-
-    const out: { must: Array<{ match_phrase: string }> } =
-              matchPhrases(["foo", "bar", "baz"]);
-};
-
-() => {
-    R.omit(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-    R.omit(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-};
-
-() => {
-    R.pair("foo", "bar"); // => ['foo', 'bar']
-    const p         = R.pair("foo", 1); // => ['foo', 'bar']
-    const x: string = p[0];
-    const y: number = p[1];
-};
-
-() => {
-    const headLens = R.lensIndex(0);
-    R.over(headLens, R.toUpper, ["foo", "bar", "baz"]); // => ['FOO', 'bar', 'baz']
-};
-
-() => {
-    R.pickAll(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    R.pickAll(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    R.pickAll(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, e: undefined, f: undefined}
-    R.pickAll(["a", "e", "f"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1, e: undefined, f: undefined}
-};
-
-() => {
-    function isUpperCase(val: number, key: string) {
-        return key.toUpperCase() === key;
-    }
-
-    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
 };
 
 () => {
@@ -1135,17 +945,6 @@ type Pair = KeyValuePair<string, number>;
  * Relation category
  */
 () => {
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.path(testPath, testObj); // => 2
-    R.path(testPath)(testObj); // => 2
-
-    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
-    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
-};
-
-() => {
     const sortByAgeDescending = R.sortBy(R.compose<{}, number, number>(R.negate, R.prop("age")));
     const alice               = {
         name: "ALICE",
@@ -1267,38 +1066,3 @@ type Pair = KeyValuePair<string, number>;
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
-
-/*****************************************************************
- * Logic category
- */
-
-() => {
-    R.not(true); // => false
-    R.not(false); // => true
-    R.not(0); // => true
-    R.not(1); // => false
-};
-
-class Why {
-    val: boolean;
-
-    constructor(val: boolean) {
-        this.val = val;
-    }
-
-    or(x: boolean) {
-        return this.val && x;
-    }
-}
-() => {
-    const x0: boolean        = R.or(false, true); // => false
-    const x1: number | any[] = R.or(0, []); // => []
-    const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string | null  = R.or(null, ""); // => ''
-
-    const why = new Why(true);
-    why.or(true);
-    const x4: Why | boolean = R.or(why, false); // false
-};
-
-// Curry tests

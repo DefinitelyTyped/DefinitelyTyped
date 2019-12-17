@@ -2,6 +2,7 @@
 // Project: https://rollout.io
 // Definitions by: ahanriat <https://github.com/ahanriat>
 //                 g-guirado <https://github.com/g-guirado>
+//                 glenna <https://github.com/glenna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -45,6 +46,12 @@ export interface RoxSetupOptions {
     freeze?: FreezeOptions;
     disableNetworkFetch?: boolean;
     devModeSecret?: string;
+    /**
+     * Set Roxy's URL for automated tests or local development.
+     *
+     * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+     */
+    roxy?: string;
     // https://support.rollout.io/docs/reactnative#section--asyncstorage-
     AsyncStorage?: any; // AsyncStorage from 'react-native' package
 }
@@ -109,7 +116,7 @@ export function unfreeze(namespace?: string): void;
  *
  * https://support.rollout.io/docs/reactnative#section-fetch
  */
-export function fetch(): Promise<unknown>;
+export function fetch(): void;
 
 /**
  * Default is untilForeground

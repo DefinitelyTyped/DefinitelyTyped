@@ -7,6 +7,10 @@ let resultDate: Date;
 import faker = require('faker');
 faker.locale = 'en';
 
+faker.seedValue === undefined;
+faker.seed(123);
+faker.seedValue === 123;
+
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
 resultStr = faker.address.zipCodeByState('AL');
@@ -207,6 +211,7 @@ resultNum = faker.random.float({
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();

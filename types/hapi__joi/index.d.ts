@@ -20,6 +20,7 @@
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
 //                 Miro Yovchev <https://github.com/myovchev>
 //                 David Recuenco <https://github.com/RecuencoJones>
+//                 Rob Everhardt <https://github.com/everhardt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,18 +28,18 @@
 
 declare namespace Joi {
     type Types =
-    | 'any'
-    | 'alternatives'
-    | 'array'
-    | 'boolean'
-    | 'binary'
-    | 'date'
-    | 'function'
-    | 'link'
-    | 'number'
-    | 'object'
-    | 'string'
-    | 'symbol';
+        | 'any'
+        | 'alternatives'
+        | 'array'
+        | 'boolean'
+        | 'binary'
+        | 'date'
+        | 'function'
+        | 'link'
+        | 'number'
+        | 'object'
+        | 'string'
+        | 'symbol';
 
     type LanguageMessages = Record<string, string>;
 
@@ -351,7 +352,7 @@ declare namespace Joi {
         /**
          * Validate the domain component using the options specified in `string.domain()`.
          */
-        domain?: boolean;
+        domain?: DomainOptions;
     }
 
     interface DataUriOptions {
@@ -576,10 +577,6 @@ declare namespace Joi {
         warn?: boolean;
     }
 
-    interface JoiObject {
-        isJoi: boolean;
-    }
-
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
@@ -590,8 +587,10 @@ declare namespace Joi {
         value: any;
     }
 
-    interface ValidationError extends Error, JoiObject {
+    interface ValidationError extends Error {
         name: 'ValidationError';
+
+        isJoi: boolean;
 
         /**
          * array of errors.
@@ -660,9 +659,9 @@ declare namespace Joi {
 
     type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
 
-    interface SchemaMap {
-        [key: string]: SchemaLike | SchemaLike[];
-    }
+    type SchemaMap<TSchema = any> = {
+        [key in keyof TSchema]?: SchemaLike | SchemaLike[];
+    };
 
     type Schema = AnySchema
         | ArraySchema
@@ -757,7 +756,7 @@ declare namespace Joi {
         $_validate(value: any, state: State, prefs: ValidationOptions): ValidationResult;
     }
 
-    interface AnySchema extends JoiObject {
+    interface AnySchema extends SchemaInternals {
         /**
          * Flags of current schema.
          */
@@ -1502,7 +1501,7 @@ declare namespace Joi {
         matches: SchemaLike | Reference;
     }
 
-    interface ObjectSchema extends AnySchema {
+    interface ObjectSchema<TSchema = any> extends AnySchema {
         /**
          * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
          *
@@ -1513,7 +1512,7 @@ declare namespace Joi {
         /**
          * Appends the allowed object keys. If schema is null, undefined, or {}, no changes will be applied.
          */
-        append(schema?: SchemaMap): this;
+        append(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Verifies an assertion where.
@@ -1532,7 +1531,7 @@ declare namespace Joi {
         /**
          * Sets or extends the allowed object keys.
          */
-        keys(schema?: SchemaMap): this;
+        keys(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Specifies the exact number of keys in the object.
@@ -1857,7 +1856,7 @@ declare namespace Joi {
 
     type ExtensionFactory = (joi: Root) => Extension;
 
-    interface Err extends JoiObject {
+    interface Err {
         toString(): string;
     }
 
@@ -1919,7 +1918,7 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        object(schema?: SchemaMap): ObjectSchema;
+        object<TSchema = any>(schema?: SchemaMap<TSchema>): ObjectSchema<TSchema>;
 
         /**
          * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
@@ -2012,7 +2011,7 @@ declare namespace Joi {
         /**
          * Creates a new Joi instance customized with the extension(s) you provide included.
          */
-        extend(...extensions: Array<Extension|ExtensionFactory>): any;
+        extend(...extensions: Array<Extension | ExtensionFactory>): any;
 
         /**
          * Creates a reference that when resolved, is used as an array of values to match against the rule.

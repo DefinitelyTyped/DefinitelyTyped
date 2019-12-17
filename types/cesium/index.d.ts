@@ -1714,6 +1714,7 @@ declare namespace Cesium {
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             imageSubRegion?: Property
+            heightReference?: Property;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
         merge(source: BillboardGraphics): BillboardGraphics;
@@ -2232,7 +2233,7 @@ declare namespace Cesium {
     class ImageMaterialProperty extends MaterialProperty {
         image: Property;
         repeat: Property;
-        constructor(options?: { image?: Property; repeat?: Property });
+        constructor(options?: { image?: Property; repeat?: Property, color?: Property, transparent?: Property });
     }
 
     class KmlDataSource extends DataSource {
@@ -2278,12 +2279,18 @@ declare namespace Cesium {
             outlineWidth?: number;
             show?: Property;
             scale?: Property;
+            showBackground?: Property;
+            backgroundColor?: Property;
+            backgroundPadding?: Property;
             horizontalOrigin?: Property;
             verticalOrigin?: Property;
             eyeOffset?: Property;
             pixelOffset?: Property;
             translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property
+            pixelOffsetScaleByDistance?: Property;
+            heightReference?: Property;
+            scaleByDistance?: Property;
+            distanceDisplayCondition?: Property;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -2901,7 +2908,7 @@ declare namespace Cesium {
         getRectangleCameraCoordinates(rectangle: Rectangle, result?: Cartesian3): Cartesian3;
         look(axis: Cartesian3, angle?: number): void;
         lookAt(target: Cartesian3, offset: Cartesian3 | HeadingPitchRange): void;
-        lookAtTransform(transform: Matrix4, offset: Cartesian3 | HeadingPitchRange): void;
+        lookAtTransform(transform: Matrix4, offset?: Cartesian3 | HeadingPitchRange): void;
         lookDown(amount?: number): void;
         lookLeft(amount?: number): void;
         lookRight(amount?: number): void;
@@ -3066,24 +3073,35 @@ declare namespace Cesium {
 
     class Globe {
         atmosphereBrightnessShift: number;
-        atmosphereSaturationShift: number;
         atmosphereHueShift: number;
-        terrainProvider: TerrainProvider;
-        northPoleColor: Cartesian3;
-        southPoleColor: Cartesian3;
-        show: boolean;
-        oceanNormalMapUrl: string;
-        depthTestAgainstTerrain: boolean;
-        maximumScreenSpaceError: number;
-        tileCacheSize: number;
-        enableLighting: boolean;
-        lightingFadeOutDistance: number;
-        lightingFadeInDistance: number;
-        showWaterEffect: boolean;
-        ellipsoid: Ellipsoid;
-        imageryLayers: ImageryLayerCollection;
+        atmosphereSaturationShift: number;
         baseColor: Color;
         cartographicLimitRectangle: Rectangle;
+        depthTestAgainstTerrain: boolean;
+        ellipsoid: Ellipsoid;
+        enableLighting: boolean;
+        fillHighlightColor: Color;
+        imageryLayers: ImageryLayerCollection;
+        readonly imageryLayersUpdatedEvent: Event;
+        lightingFadeInDistance: number;
+        lightingFadeOutDistance: number;
+        loadingDescendantLimit: number;
+        material: Material;
+        maximumScreenSpaceError: number;
+        nightFadeInDistance: number;
+        nightFadeOutDistance: number;
+        northPoleColor: Cartesian3;
+        oceanNormalMapUrl: string;
+        preloadSiblings: boolean;
+        preloadAncestors: boolean;
+        show: boolean;
+        showWaterEffect: boolean;
+        southPoleColor: Cartesian3;
+        terrainProvider: TerrainProvider;
+        readonly terrainProviderChanged: Event<[TerrainProvider]>;
+        tileCacheSize: number;
+        tileLoadProgressEvent: Event<[number]>;
+        readonly tilesLoaded: boolean;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -4183,15 +4201,15 @@ declare namespace Cesium {
         resolutionScale: number;
         constructor(container: Element | string, options?: {
             clock?: Clock;
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             sceneMode?: SceneMode;
             scene3DOnly?: boolean;
             orderIndependentTranslucency?: boolean;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
             showRenderLoopErrors?: boolean;
@@ -4515,10 +4533,10 @@ declare namespace Cesium {
             imageryProviderViewModels?: ProviderViewModel[];
             selectedTerrainProviderViewModel?: ProviderViewModel;
             terrainProviderViewModels?: ProviderViewModel[];
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             fullscreenElement?: Element | string;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
@@ -4527,7 +4545,7 @@ declare namespace Cesium {
             contextOptions?: any;
             sceneMode?: SceneMode;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             orderIndependentTranslucency?: boolean;
             creditContainer?: Element | string;
             creditViewport?: Element | string;
