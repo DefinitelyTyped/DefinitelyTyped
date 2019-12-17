@@ -7,7 +7,17 @@ const predicate: NamedNode = <any> {};
 const literal: Literal = <any> {};
 let term: Term = <any> {};
 
-let cf: Clownface = <any> {};
+// .ctor
+const dataset: Dataset = <any> {};
+const graph: NamedNode = <any> {};
+
+let cf = new Clownface({ dataset });
+cf = new Clownface({ dataset, graph });
+cf = new Clownface({ dataset, term });
+cf = new Clownface({ dataset, term: [term, term] });
+cf = new Clownface({ dataset, value: 'foo' });
+cf = new Clownface({ dataset, value: ['foo', 'bar'] });
+cf = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
 
 // .addIn
 cf = cf.addIn(node);
@@ -44,18 +54,6 @@ let blankNode: Clownface;
 blankNode = cf.blankNode();
 blankNode = cf.blankNode('label');
 blankNode = cf.blankNode([ 'b1', 'b2' ]);
-
-// .ctor
-const dataset: Dataset = <any> {};
-const graph: NamedNode = <any> {};
-
-cf = new Clownface({ dataset });
-cf = new Clownface({ dataset, graph });
-cf = new Clownface({ dataset, term });
-cf = new Clownface({ dataset, term: [term, term] });
-cf = new Clownface({ dataset, value: 'foo' });
-cf = new Clownface({ dataset, value: ['foo', 'bar'] });
-cf = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
 
 // .deleteIn
 cf = cf.deleteIn();

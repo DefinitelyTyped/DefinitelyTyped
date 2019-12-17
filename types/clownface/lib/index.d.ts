@@ -15,11 +15,8 @@ export interface NodeOptions {
     language?: string;
 }
 
-export interface ClownfaceOptions<D extends DatasetCore> {
-    dataset?: D;
-    graph?: Quad_Graph;
-    _context?: any;
-}
+export type ClownfaceInit<D extends DatasetCore = DatasetCore, T extends Term = Term>
+    = Partial<Pick<Clownface<D, T>, 'dataset' | '_context'> & { graph: Quad_Graph }>;
 
 export interface WithValue {
     value: string | string[];
@@ -36,6 +33,7 @@ export interface Clownface<D extends DatasetCore = DatasetCore, T extends Term =
     readonly values: string[];
     readonly dataset: D;
     readonly datasets: D[];
+    readonly _context: any;
     list(): Iterator<Term>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;

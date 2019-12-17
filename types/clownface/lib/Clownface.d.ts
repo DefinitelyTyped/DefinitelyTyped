@@ -1,7 +1,7 @@
 import { BlankNode, DatasetCore, Literal, NamedNode, Quad_Graph, Term } from 'rdf-js';
 import {
     Clownface as ClownfaceContract,
-    ClownfaceOptions,
+    ClownfaceInit,
     AddCallback,
     NodeOptions,
     SafeClownface,
@@ -13,13 +13,14 @@ import {
 } from '.';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceOptions<D>  & Partial<WithTerm> & Partial<WithValue>);
+    constructor(options: ClownfaceInit & Partial<WithTerm> & Partial<WithValue>);
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;
     readonly values: string[];
     readonly dataset: D;
     readonly datasets: D[];
+    readonly _context: any;
     list(): Iterator<Term>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
