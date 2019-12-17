@@ -205,7 +205,7 @@ declare namespace Chance {
         pool: string;
         alpha: boolean;
         numeric: boolean;
-        symbols: string;
+        symbols: boolean;
     }
 
     type StringOptions = CharacterOptions & { length: number } ;
