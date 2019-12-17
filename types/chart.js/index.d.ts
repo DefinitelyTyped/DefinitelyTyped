@@ -35,9 +35,9 @@ declare class Chart {
     destroy: () => {};
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
+    stop: () => Chart;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
@@ -510,6 +510,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {

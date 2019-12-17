@@ -1040,6 +1040,37 @@ const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
 
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
+    class A extends React.Component<AProps> {}
+    class B extends React.Component {
+        static A = A;
+        PUBLIC = 'PUBIC_VAL';
+        static F = (props: BProps, state: BState) => props && state;
+        static getDerivedStateFromProps(props: BProps, state: BState) {
+            return state;
+        }
+    }
+    // Test FunctionComponent as well which can't be tested in <= TS 3.0
+    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
+    C.A = A;
+    C.F = () => {};
+    const StyledB = styled(B)``;
+    const StyledC = styled(C)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PUBLIC; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F({ b: 'b' } , {  b: 'b' });
+    StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+    <StyledC.A a={0} />;
+    StyledC.F();
+}
+
 function unionTest() {
     interface Book {
         kind: 'book';

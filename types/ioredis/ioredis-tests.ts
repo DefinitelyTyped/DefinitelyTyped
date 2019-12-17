@@ -80,15 +80,8 @@ new Redis({
 });
 
 const pub = new Redis();
-redis.subscribe('news', 'music', (err: any, count: any) => {
-    // Now we are subscribed to both the 'news' and 'music' channels.
-    // `count` represents the number of channels we are currently subscribed to.
 
-    pub.publish('news', 'Hello world!');
-    pub.publishBuffer('music', Buffer.from('Hello again!'));
-});
-
-redis.on('message', (channel: any, message: any) => {
+pub.on('message', (channel: any, message: any) => {
     // Receive message Hello world! from channel news
     // Receive message Hello again! from channel music
     console.log('Receive message %s from channel %s', message, channel);
@@ -96,7 +89,7 @@ redis.on('message', (channel: any, message: any) => {
 
 // There's also an event called 'messageBuffer', which is the same as 'message' except
 // it returns buffers instead of strings.
-redis.on('messageBuffer', (channel: any, message: any) => {
+pub.on('messageBuffer', (channel: any, message: any) => {
     // Both `channel` and `message` are buffers.
 });
 
@@ -332,11 +325,10 @@ const getBuiltinCommandsResult = cluster.getBuiltinCommands();
 console.log(getBuiltinCommandsResult);
 const createBuiltinCommandResult = cluster.createBuiltinCommand('createBuiltinCommand');
 console.log(createBuiltinCommandResult);
-const defineCommandResult = cluster.defineCommand('defineCommand', {
+cluster.defineCommand('defineCommand', {
     numberOfKeys: 1,
     lua: 'lua'
 });
-console.log(defineCommandResult);
 cluster.sendCommand();
 
 redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {

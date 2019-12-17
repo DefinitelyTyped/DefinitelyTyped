@@ -1,4 +1,4 @@
-// Type definitions for ejs 2.7
+// Type definitions for ejs 3.0
 // Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 //                 ExE Boss <https://github.com/ExE-Boss>
@@ -148,13 +148,6 @@ export class Template {
 	 * if the template hasn't been compiled yet.
 	 */
 	readonly source: string;
-
-	/**
-	 * The compiled dependencies of this template.
-	 *
-	 * Always empty if legacy include directives are disabled.
-	 */
-	readonly dependencies: ReadonlyArray<string>;
 
 	constructor(text: string, opts?: Options);
 
@@ -415,18 +408,6 @@ export interface Options {
 	 * @default false
 	 */
 	async?: boolean;
-
-	/**
-	 * Whether to enable legacy preprocessor include directives.
-	 *
-	 * @default true
-	 *
-	 * @example
-	 * ```ejs
-	 * <%- include foo %>
-	 * ```
-	 */
-	legacyInclude?: boolean;
 
 	/**
 	 * Name to use for the object storing local variables when not using `with` or destructuring.

@@ -199,7 +199,7 @@ export interface MUIDataTableOptions {
         buildBody: (data: any) => string,
         columns: any,
         data: any
-    ) => BlobPart;
+    ) => string;
     onFilterChange?: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;

@@ -476,6 +476,12 @@ function deepEqual3() {
 function deepInclude() {
     expect(['foo', 'bar']).to.deep.include(['bar', 'foo']);
     ['foo', 'bar'].should.deep.include(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.includes(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.includes(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contain(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contain(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contains(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contains(['bar', 'foo']);
     expect(['foo', 'bar']).not.to.deep.equal(['foo', 'baz']);
     ['foo', 'bar'].should.not.deep.equal(['foo', 'baz']);
 }

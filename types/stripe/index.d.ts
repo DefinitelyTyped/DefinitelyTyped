@@ -34,6 +34,7 @@
 //                 Richard Ward <https://github.com/richardwardza>
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
+//                 Timon van Spronsen <https://github.com/TimonVS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3868,7 +3869,7 @@ declare namespace Stripe {
                  */
                 object: IObject;
 
-                previous_attributes?: {};
+                previous_attributes?: { [key: string]: any };
             };
 
             livemode: boolean;
@@ -7245,7 +7246,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type PaymentIntentPaymentMethodType = 'card' | 'card_present';
+        type PaymentIntentPaymentMethodType = 'card' | 'ideal' | 'sepa_debit';
 
         interface IPaymentMethodCardOptions {
             /**
@@ -7612,7 +7613,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type SetupIntentPaymentMethodType = 'card' | 'card_present' | 'sepa_debit';
+        type SetupIntentPaymentMethodType = paymentIntents.PaymentIntentPaymentMethodType;
 
         interface ISetupIntent extends IResourceObject {
             /**
@@ -7835,6 +7836,11 @@ declare namespace Stripe {
         }
 
         interface ISetupIntentConfirmOptions {
+            /**
+             * The client secret of this SetupIntent. Used for client-side confirmation using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled.
+             */
+            client_secret?: string;
+
             /**
              * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
              * to attach to this SetupIntent.
@@ -10594,6 +10600,25 @@ declare namespace Stripe {
              * The identifier of the customer to subscribe.
              */
             customer: string;
+
+            /**
+             * A timestamp at which the subscription should cancel. If set to a date before the current period ends
+             * this will cause a proration if prorate=true.
+             */
+            cancel_at?: number | null;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (defaults to true) telling us whether to credit for unused time when the billing cycle changes
+             * (e.g. when switching plans, resetting billing_cycle_anchor=now, or starting a trial), or if an item’s
+             * quantity changes. If false, the anchor period will be free (similar to a trial) and
+             * proration adjustments will be created.
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
@@ -10636,7 +10661,7 @@ declare namespace Stripe {
              */
             quantity?: number;
 
-            source?: string | cards.ICardSourceCreationOptions;
+            default_source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -10678,6 +10703,16 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
 
             /**
              * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
