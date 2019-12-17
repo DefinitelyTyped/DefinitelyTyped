@@ -52,7 +52,9 @@ export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, U
 
 export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 
-export interface TableCommonProps {}
+export interface TableCommonProps {
+    style?: React.CSSProperties
+}
 
 export interface TableProps extends TableCommonProps {}
 
@@ -97,9 +99,9 @@ export type UseTableOptions<D extends object> = {
 }>;
 
 export type PropGetter<D extends object, Props, T extends any[] = [], P = Partial<Props>> =
-    | ((props: P, instance: TableInstance<D>, ...context: T) => P | Array<P>)
+    | ((props: P, instance: TableInstance<D>, ...context: T) => P | P[])
     | P
-    | Array<P>;
+    | P[];
 
 export type TablePropGetter<D extends object> = PropGetter<D, TableProps>;
 
