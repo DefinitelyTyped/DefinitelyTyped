@@ -10,7 +10,7 @@ import {
     SingleOrArrayOfTermsOrLiterals,
     WithValue,
     WithTerm
-} from '.';
+} from '..';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
     constructor(options: ClownfaceInit & Partial<WithTerm> & Partial<WithValue>);
