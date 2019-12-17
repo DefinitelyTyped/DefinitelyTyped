@@ -38,10 +38,13 @@ export type LoadableLibrary<Module> = React.ComponentType<{
     Module &
     LoadableComponentMethods<object>;
 
-declare function lib<Props>(loadFn: (props: object) => Promise<Props>, options?: Options<any>): LoadableLibrary<Props>;
+declare function lib<Props, Module = DefaultComponent<Props>>(
+    loadFn: (props: Props) => Promise<Module>,
+    options?: Options<Props>,
+): LoadableLibrary<Props>;
 
-declare function loadableFunc<Props>(
-    loadFn: (props: Props) => Promise<DefaultComponent<Props>>,
+declare function loadableFunc<Props, Module = DefaultComponent<Props>>(
+    loadFn: (props: Props) => Promise<Module>,
     options?: Options<Props>,
 ): LoadableComponent<Props>;
 
