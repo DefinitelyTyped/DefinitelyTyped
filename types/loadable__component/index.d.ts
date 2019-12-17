@@ -1,6 +1,7 @@
 // Type definitions for @loadable/component 5.10
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
+//                 Daniel Playfair Cal <https://github.com/hedgepigdaniel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
