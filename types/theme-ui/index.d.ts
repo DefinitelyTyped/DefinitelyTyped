@@ -13,7 +13,7 @@ import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
 import * as React from 'react';
 import { lineHeight, Theme as StyledSystemTheme } from 'styled-system';
-import { InterpolationWithTheme } from '@emotion/core;
+import { InterpolationWithTheme } from '@emotion/core';
 
 export {};
 
