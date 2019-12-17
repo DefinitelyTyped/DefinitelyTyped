@@ -112,14 +112,14 @@ randomString = chance.string({ length: 10 });
 randomString = chance.string({ casing: 'upper' });
 randomString = chance.string({ alpha: true });
 randomString = chance.string({ numeric: true });
-randomString = chance.string({ symbols: '!@#$' });
+randomString = chance.string({ symbols: true });
 randomString = chance.string({
     pool: 'abcdef',
     length: 10,
     casing: 'lower',
     alpha: true,
     numeric: true,
-    symbols: ')(*&',
+    symbols: true,
 });
 
 let char: string = chance.character();
@@ -127,8 +127,8 @@ char = chance.character({ pool: 'abcdef' });
 char = chance.character({ casing: 'upper' });
 char = chance.character({ alpha: true });
 char = chance.character({ numeric: true });
-char = chance.character({ symbols: '!@#$' });
-char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: ')(*&' });
+char = chance.character({ symbols: true });
+char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: true });
 
 let url: string = chance.url();
 url = chance.url({protocol: 'http'});
