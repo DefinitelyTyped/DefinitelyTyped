@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 17.4
+// Type definitions for non-npm package ej.web.all 17.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.4.0.39
+*  version : 17.3.0.26
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -37825,7 +37825,7 @@ declare namespace ej {
              */
             ajaxError?(e: AjaxErrorEventArgs): void;
 
-            /** Fires when the dependent parameter value is changingÂ in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+            /** Fires when the dependent parameter value is changing in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
              * ParameterUpdateStateChange event.
              */
             parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
@@ -43582,13 +43582,9 @@ declare namespace ej {
              */
             isChecked?: boolean;
 
-            /** Specifies the value for datepicker of Custom Cell type.
+            /** Specifies the datepicker of Custom Cell type.
              */
             value?: string;
-
-            /** Specifies the format for datepicker.
-             */
-            format?: string;
         }
 
         export interface XLCellType {
@@ -73657,7 +73653,7 @@ declare namespace ej.datavisualization {
             //Used to specify node type as Image
             Image,
             //Used to specify node type as HTML
-            Html,
+            HTML,
             //Used to specify node type as Native
             Native,
             //Used to specify node type as Basic
