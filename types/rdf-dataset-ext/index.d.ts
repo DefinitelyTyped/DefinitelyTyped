@@ -1,3 +1,8 @@
+// Type definitions for rdf-dataset-ext 1.0
+// Project: https://github.com/rdf-ext/rdf-dataset-ext
+// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import { EventEmitter } from 'events';
 import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
 
