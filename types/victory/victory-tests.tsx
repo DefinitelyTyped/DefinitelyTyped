@@ -20,7 +20,10 @@ import {
     createContainer,
     VictoryZoomContainerProps,
     VictoryBrushContainerProps,
-    VictoryPortal,
+    ScatterSymbolType,
+    Flyout,
+    VictoryClipContainer,
+    VictoryPortal
 } from 'victory';
 
 const commonData1 = [
@@ -51,6 +54,74 @@ let test = (
     >
         {(style: AnimationStyle) => <span style={{ color: style['color'] as string }}>Hello!</span>}
     </VictoryAnimation>
+);
+
+// VictoryClipContainer test
+test = (
+    <VictoryClipContainer
+        circleComponent={<circle/>}
+        className="container-class"
+        clipHeight={100}
+        clipId={10}
+        clipPadding={{
+            top: 10,
+            bottom: 20,
+            left: 30,
+            right: 40
+        }}
+        clipPathComponent={<clipPath/>}
+        clipWidth={300}
+        events={{onClick: () => {}}}
+        groupComponent={<g/>}
+        origin={{x: 0, y: 30}}
+        polar={true}
+        radius={45}
+        rectComponent={<rect/>}
+        translateX={50}
+        translateY={70}
+    >
+        {[
+            <span>child a</span>,
+            <span>child b</span>
+        ]}
+    </VictoryClipContainer>
+);
+
+// Flyout test
+test = (
+    <Flyout
+        active={true}
+        center={{x: 0, y: 2}}
+        className="flyout-class"
+        cornerRadius={3}
+        data={[]}
+        datum={{x: -3, y: 3}}
+        dx={-6}
+        dy={30}
+        events={{
+            onClick: () => {}
+        }}
+        height={50}
+        id="ab"
+        index={0}
+        orientation="top"
+        origin={{x: 0, y: 0}}
+        pathComponent={<rect/>}
+        pointerLength={5}
+        pointerWidth={10}
+        polar={false}
+        role="button"
+        shapeRendering="crispEdges"
+        style={{
+            fill: 'blue',
+        }}
+        transform="rotate(0 10 100)"
+        width={200}
+        x={0}
+        y={0}
+    >
+        {'Flyout child!'}
+    </Flyout>
 );
 
 // VictoryLabel test
@@ -744,6 +815,7 @@ type RecursiveRequired<T> = {
 // tslint:disable-next-line: no-object-literal-type-assertion
 const cssProps: Required<React.CSSProperties> = {} as Required<React.CSSProperties>;
 const colorScale: string[] = ['blue'];
+const scatterSymbolType: {type: ScatterSymbolType} = { type: 'square' };
 const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
     parent: cssProps,
     data: cssProps,
@@ -752,8 +824,8 @@ const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
 const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
     area: {
         style: {
-            data: victoryStyle,
-            labels: victoryStyle,
+            data: cssProps,
+            labels: cssProps,
         },
         colorScale,
         height: 0,
@@ -826,7 +898,7 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
         width: 0,
     },
     legend: {
-        style: { data: cssProps, labels: cssProps, title: cssProps },
+        style: { data: {...cssProps, ...scatterSymbolType}, labels: cssProps, title: cssProps },
         colorScale,
         gutter: 0,
         height: 0,
