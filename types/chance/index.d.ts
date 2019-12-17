@@ -4,6 +4,7 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
 //                 Colby M. White <https://github.com/colbywhite>
+//                 Zachary Dow <https://github.com/NewDark90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -270,9 +271,7 @@ declare namespace Chance {
         max?: Date;
     }
 
-    interface UniqueOptions<T> implements Options {
-        comparator?: (array: Array<T>, value: T) => boolean;
-    }
+    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
 
     interface Month {
         name: string;

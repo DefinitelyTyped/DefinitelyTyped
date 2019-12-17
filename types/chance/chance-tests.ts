@@ -18,7 +18,7 @@ const strArr: string[] = chance.n(chance.string, 42);
 const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
-const uniqInts2: number[] = chance.unique((a) => { return chance.integer(0, 999) + a.value }, 99, { value: 1000 });
+const uniqInts2: number[] = chance.unique(a => chance.integer({ min: 0, max: 999 }) + a.value, 99, { value: 1000 });
 
 const currencyPair = chance.currency_pair();
 const firstCurrency = currencyPair[0];
