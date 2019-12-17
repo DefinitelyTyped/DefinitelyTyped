@@ -174,7 +174,7 @@ declare namespace Chance {
         rpg(dice: string, opts?: Options): number[] | number;
         tv(opts?: Options): string;
         unique<T>(generator: () => T, count: number): T[];
-        unique<T, O extends Options>(generator: (options: O) => T, count: number, options: O): T[];
+        unique<T, O extends UniqueOptions<T>>(generator: (options: O) => T, count: number, options: O): T[];
         weighted<T>(values: T[], weights: number[]): T;
 
         // "Hidden"
@@ -268,6 +268,10 @@ declare namespace Chance {
         day?: number;
         min?: Date;
         max?: Date;
+    }
+
+    interface UniqueOptions<T> implements Options {
+        comparator?: (array: Array<T>, value: T) => boolean;
     }
 
     interface Month {

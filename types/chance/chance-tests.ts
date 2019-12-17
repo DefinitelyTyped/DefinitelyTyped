@@ -18,7 +18,7 @@ const strArr: string[] = chance.n(chance.string, 42);
 const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
-const uniqInts2: number[] = chance.unique(a => a.value, 99, { value: 1 });
+const uniqInts2: number[] = chance.unique((a) => { return chance.integer(0, 999) + a.value }, 99, { value: 1000 });
 
 const currencyPair = chance.currency_pair();
 const firstCurrency = currencyPair[0];
@@ -101,7 +101,8 @@ const languages: string[] = chance.locales();
 const regions: string[] = chance.locales({region: true});
 
 let word: string = chance.word();
-word = chance.word({syllables: 10, length: 10, capitalize: true});
+word = chance.word({syllables: 10, capitalize: true});
+word = chance.word({length: 10, capitalize: true});
 word = chance.word({syllables: 10});
 word = chance.word({length: 10});
 word = chance.word({capitalize: true});
