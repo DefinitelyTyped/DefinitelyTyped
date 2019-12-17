@@ -11,6 +11,7 @@ import {
     FilterValue,
     HeaderGroup,
     HeaderProps,
+    Hooks,
     IdType,
     Row,
     useExpanded,
@@ -275,7 +276,7 @@ function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>,
     // return matchSorter(rows, filterValue, {
     //     keys: [(row: Row<any>) => row.values[id]],
     // });
-  return rows;
+    return rows;
 }
 
 // Let the table remove the filter if the string is empty
@@ -363,6 +364,31 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         useExpanded,
         usePagination,
         useRowSelect,
+        (hooks: Hooks<Data>) => {
+            hooks.flatColumns.push(columns => [
+                {
+                    id: 'selection',
+                    // Make this column a groupByBoundary. This ensures that groupBy columns
+                    // are placed after it
+                    groupByBoundary: true,
+                    // The header can use the table's getToggleAllRowsSelectedProps method
+                    // to render a checkbox
+                    Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
+                        <div>
+                            <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
+                        </div>
+                    ),
+                    // The cell can use the individual row's getToggleRowSelectedProps method
+                    // to the render a checkbox
+                    Cell: ({ row }: CellProps<Data>) => (
+                        <div>
+                            <input type="checkbox" {...row.getToggleRowSelectedProps()} />
+                        </div>
+                    ),
+                },
+                ...columns,
+            ]);
+        },
     );
 
     // Render the UI for your table
@@ -675,12 +701,7 @@ const Component = (props: {}) => {
     return (
         <>
             <button onClick={resetData}>Reset Data</button>
-            <Table
-                columns={columns}
-                data={data}
-                updateMyData={updateMyData}
-                skipPageReset={skipPageResetRef.current}
-            />
+            <Table columns={columns} data={data} updateMyData={updateMyData} skipPageReset={skipPageResetRef.current} />
         </>
     );
 };
