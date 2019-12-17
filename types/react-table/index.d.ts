@@ -52,13 +52,19 @@ export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, U
 
 export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 
-export interface TableProps {}
+export interface TableCommonProps {}
 
-export interface TableBodyProps {}
+export interface TableProps extends TableCommonProps {}
 
-export interface TableKeyedProps {
+export interface TableBodyProps extends TableCommonProps {}
+
+export interface TableKeyedProps extends TableCommonProps {
     key: React.Key;
 }
+
+export interface TableHeaderGroupProps extends TableKeyedProps {}
+
+export interface TableFooterGroupProps extends TableKeyedProps {}
 
 export interface TableHeaderProps extends TableKeyedProps {}
 
@@ -90,21 +96,26 @@ export type UseTableOptions<D extends object> = {
     getRowId: (originalRow: D, relativeIndex: number) => IdType<D>;
 }>;
 
-interface InstancePropGetter<D extends object> {
-    (props: object, instance: TableInstance<D>): object | Array<object | InstancePropGetter<D>>;
-}
+export type PropGetter<D extends object, Props, T extends any[] = [], P = Partial<Props>> =
+    | ((props: P, instance: TableInstance<D>, ...context: T) => P | Array<P>)
+    | P
+    | Array<P>;
 
-interface HeaderPropGetter<D extends object> {
-    (props: object, instance: TableInstance<D>, header: HeaderGroup<D>): object | Array<object | HeaderPropGetter<D>>;
-}
+export type TablePropGetter<D extends object> = PropGetter<D, TableProps>;
 
-interface RowPropGetter<D extends object> {
-    (props: object, instance: TableInstance<D>, row: Row<D>): object | Array<object | RowPropGetter<D>>;
-}
+export type TableBodyPropGetter<D extends object> = PropGetter<D, TableBodyProps>;
 
-interface CellPropGetter<D extends object> {
-    (props: object, instance: TableInstance<D>, cell: Cell<D>): object | Array<object | CellPropGetter<D>>;
-}
+export type HeaderPropGetter<D extends object> = PropGetter<D, TableHeaderProps, [HeaderGroup<D>]>;
+
+export type FooterGroupPropGetter<D extends object> = PropGetter<D, TableFooterGroupProps, [HeaderGroup<D>]>;
+
+export type HeaderGroupPropGetter<D extends object> = PropGetter<D, TableHeaderGroupProps, [HeaderGroup<D>]>;
+
+export type FooterPropGetter<D extends object> = PropGetter<D, TableFooterProps, [HeaderGroup<D>]>;
+
+export type RowPropGetter<D extends object> = PropGetter<D, TableRowProps, [Row<D>]>;
+
+export type CellPropGetter<D extends object> = PropGetter<D, TableCellProps, [Cell<D>]>;
 
 export interface ReducerTableState<D extends object> extends TableState<D>, Record<string, any> {}
 
@@ -127,16 +138,16 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
     useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => void>;
     useInstance: Array<(instance: TableInstance<D>) => void>;
     useRows: Array<(rows: Array<Row<D>>, instance: TableInstance<D>) => Array<Row<D>>>;
-    prepareRow: Array<(row: Row<D>, instance: TableInstance<D>) => Row<D>>;
+    prepareRow: Array<(row: Row<D>, instance: TableInstance<D>) => void>;
 
-    getTableProps: Array<InstancePropGetter<D> | object>;
-    getTableBodyProps: Array<InstancePropGetter<D> | object>;
-    getHeaderGroupProps: Array<HeaderPropGetter<D> | object>;
-    getFooterGroupProps: Array<HeaderPropGetter<D> | object>;
-    getHeaderProps: Array<HeaderPropGetter<D> | object>;
-    getFooterProps: Array<HeaderPropGetter<D> | object>;
-    getRowProps: Array<RowPropGetter<D> | object>;
-    getCellProps: Array<CellPropGetter<D> | object>;
+    getTableProps: Array<TablePropGetter<D>>;
+    getTableBodyProps: Array<TableBodyPropGetter<D>>;
+    getHeaderGroupProps: Array<HeaderGroupPropGetter<D>>;
+    getFooterGroupProps: Array<FooterGroupPropGetter<D>>;
+    getHeaderProps: Array<HeaderPropGetter<D>>;
+    getFooterProps: Array<FooterPropGetter<D>>;
+    getRowProps: Array<RowPropGetter<D>>;
+    getCellProps: Array<CellPropGetter<D>>;
     useFinalInstance: Array<(instance: TableInstance<D>) => void>;
 }
 
@@ -165,8 +176,8 @@ export interface UseTableInstanceProps<D extends object> {
     headers: Array<ColumnInstance<D>>;
     flatHeaders: Array<ColumnInstance<D>>;
     rows: Array<Row<D>>;
-    getTableProps: (props?: Partial<TableProps>) => TableProps;
-    getTableBodyProps: (props?: Partial<TableBodyProps>) => TableBodyProps;
+    getTableProps: (propGetter?: TablePropGetter<D>) => TableProps;
+    getTableBodyProps: (propGetter?: TableBodyPropGetter<D>) => TableBodyProps;
     prepareRow: (row: Row<D>) => void;
     flatRows: Array<Row<D>>;
     totalColumnsWidth: number;
@@ -178,8 +189,8 @@ export interface UseTableInstanceProps<D extends object> {
 
 export interface UseTableHeaderGroupProps<D extends object> {
     headers: Array<ColumnInstance<D>>;
-    getHeaderGroupProps: (props?: Partial<TableHeaderProps>) => TableHeaderProps;
-    getFooterGroupProps: (props?: Partial<TableFooterProps>) => TableFooterProps;
+    getHeaderGroupProps: (propGetter?: HeaderGroupPropGetter<D>) => TableHeaderProps;
+    getFooterGroupProps: (propGetter?: FooterGroupPropGetter<D>) => TableFooterProps;
     totalHeaderCount: number; // not documented
 }
 
@@ -190,8 +201,8 @@ export interface UseTableColumnProps<D extends object> {
     render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
-    getHeaderProps: (props?: Partial<TableHeaderProps>) => TableHeaderProps;
-    getFooterProps: (props?: Partial<TableFooterProps>) => TableFooterProps;
+    getHeaderProps: (propGetter?: HeaderPropGetter<D>) => TableHeaderProps;
+    getFooterProps: (propGetter?: FooterPropGetter<D>) => TableFooterProps;
     toggleHidden: (value?: boolean) => void;
     parent: ColumnInstance<D>; // not documented
     getToggleHideColumnsProps: (userProps: any) => any;
@@ -202,7 +213,7 @@ export interface UseTableColumnProps<D extends object> {
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
     values: Record<IdType<D>, CellValue>;
-    getRowProps: (props?: Partial<TableRowProps>) => TableRowProps;
+    getRowProps: (propGetter?: RowPropGetter<D>) => TableRowProps;
     index: number;
     original: D;
     id: string;
@@ -214,7 +225,7 @@ export interface UseTableCellProps<D extends object> {
     column: ColumnInstance<D>;
     row: Row<D>;
     value: CellValue;
-    getCellProps: (props?: Partial<TableCellProps>) => TableCellProps;
+    getCellProps: (propGetter?: CellPropGetter<D>) => TableCellProps;
     render: (type: 'Cell' | string, userProps?: object) => ReactNode;
 }
 
