@@ -53,7 +53,7 @@ export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, U
 export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 
 export interface TableCommonProps {
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
 }
 
 export interface TableProps extends TableCommonProps {}
@@ -167,6 +167,10 @@ export interface UseTableColumnOptions<D extends object>
 
 type UpdateHiddenColumns<D extends object> = (oldHidden: Array<IdType<D>>) => Array<IdType<D>>;
 
+export interface TableToggleHideAllColumnProps {
+    indeterminate?: boolean;
+}
+
 export interface UseTableInstanceProps<D extends object> {
     state: TableState<D>;
     hooks: Hooks<D>;
@@ -184,9 +188,9 @@ export interface UseTableInstanceProps<D extends object> {
     flatRows: Array<Row<D>>;
     totalColumnsWidth: number;
     toggleHideColumn: (columnId: IdType<D>, value?: boolean) => void;
-    setColumnHidden: (param: Array<IdType<D>> | UpdateHiddenColumns<D>) => void;
+    setHiddenColumns: (param: Array<IdType<D>> | UpdateHiddenColumns<D>) => void;
     toggleHideAllColumns: (value?: boolean) => void;
-    getToggleHideAllColumnsProps: (userProps: any) => any;
+    getToggleHideAllColumnsProps: (props?: Partial<TableToggleHideAllColumnProps>) => TableToggleHideAllColumnProps;
 }
 
 export interface UseTableHeaderGroupProps<D extends object> {
@@ -538,12 +542,16 @@ export interface TableToggleAllRowsSelectedProps {
     style?: { cursor: string };
     checked?: boolean;
     title?: string;
+    indeterminate?: boolean;
 }
 
-export interface TableToggleRowsSelectedProps {}
+export interface TableToggleRowsSelectedProps {
+    indeterminate?: boolean;
+}
 
 export type UseRowSelectOptions<D extends object> = Partial<{
     manualRowSelectedKey: IdType<D>;
+    autoResetSelectedRows: boolean;
 }>;
 
 export interface UseRowSelectHooks<D extends object> {
@@ -584,6 +592,7 @@ export namespace useRowState {
 export type UseRowStateOptions<D extends object> = Partial<{
     initialRowStateAccessor: (row: Row<D>) => UseRowStateLocalState<D>;
     getResetRowStateDeps: (instance: TableInstance<D>) => any[];
+    autoResetRowState?: boolean;
 }>;
 
 export interface UseRowStateState<D extends object> {
