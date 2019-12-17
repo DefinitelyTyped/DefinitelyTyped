@@ -45,7 +45,7 @@ export interface ResizableProps {
     onResize?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     draggableOpts?: any;
     resizeHandles?: ResizeHandle[];
-    transofrmScale?: number;
+    transformScale?: number;
 }
 
 export class Resizable extends React.Component<
