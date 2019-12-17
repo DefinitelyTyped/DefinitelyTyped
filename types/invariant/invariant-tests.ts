@@ -1,5 +1,12 @@
 import invariant = require("invariant");
 
+// has assertion side effect
+let val: {a: number} | false = null;
+// $ExpectError
+val.a === 1;
+invariant(val, 'val must be truthy');
+val.a === 1;
+
 // will throw in dev mode (process.env.NODE_ENV !== 'production')
 invariant(true);
 
