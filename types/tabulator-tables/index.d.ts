@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.3
+// Type definitions for tabulator-tables 4.5
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,6 +25,7 @@ declare namespace Tabulator {
             OptionsClipboard,
             OptionsDataTree,
             OptionsCell,
+            OptionsCells,
             OptionsHTML {}
 
     interface OptionsCells extends CellCallbacks {
@@ -68,7 +69,7 @@ declare namespace Tabulator {
 
       These selectors can also be used when programatically triggering a copy event. in this case if the selector is not specified it will default to the value set in the clipboardCopySelector property (which is active by default).
      */
-        clipboardCopySelector?: 'active' | 'table' | 'selected';
+        clipboardCopySelector?: 'active' | 'table' | 'selected' | 'visible';
         /**  The copy formatter is used to take the row data provided by the selector and turn it into a text string for the clipboard.
       There is one built in copy formatter called table, if you have extended the clipboard module and want to change the default you can use the clipboardCopyFormatter property. you can also pass in a formatting function directly into this property.*/
         clipboardCopyFormatter?: 'table' | ((rowData: any[]) => string);
@@ -128,6 +129,30 @@ declare namespace Tabulator {
         persistentSort?: boolean;
         /**  You can ensure the data filtering is stored for the next page load by setting the persistentFilter option to true*/
         persistentFilter?: boolean;
+        /**By setting the persistence property to true the table will persist the sort, filter, group (groupBy, groupStartOpen, groupHeader), pagination (paginationSize), and column (title, width, visibility, order) configuration of the table */
+        persistence?: true | PersistenceOptions;
+        /**The persistenceWriterFunc function will receive three arguments, the persistance id of the table, the type of data to be written and an object or array representing the data */
+        persistenceWriterFunc?: (id: string, type: keyof PersistenceOptions, data: any) => any;
+        /**The persistenceReaderFunc function will receive two arguments, the persistance id of the table, and the type of data to be written. This function must synchronously return the data in the format in which it was passed to the persistenceWriterFunc function. It should return a value of false if no data was present */
+        persistenceReaderFunc?: (id: string, type: keyof PersistenceOptions) => any;
+    }
+    interface PersistenceOptions {
+        sort?: boolean;
+        filter?: boolean;
+        group?: boolean | PersistenceGroupOptions;
+        page?: boolean | PersistencePageOptions;
+        columns?: boolean | string[];
+    }
+
+    interface PersistenceGroupOptions {
+        groupBy?: boolean;
+        groupStartOpen?: boolean;
+        groupHeader?: boolean;
+    }
+
+    interface PersistencePageOptions {
+        size?: boolean;
+        page?: boolean;
     }
 
     interface OptionsPagination {
@@ -165,6 +190,8 @@ declare namespace Tabulator {
         paginationAddRow?: 'table' | 'page';
         /**  The number of pagination page buttons shown in the footer using the paginationButtonCount option. By default this has a value of 5.*/
         paginationButtonCount?: number;
+        /** Specify that a specific page should be loaded when the table first load */
+        paginationInitialPage?: number;
     }
 
     interface OptionsRowGrouping {
@@ -486,6 +513,9 @@ declare namespace Tabulator {
         rowSelected?: RowChangedCallback;
         /** The rowDeselected event is triggered when a row is deselected, either by the user or programatically. */
         rowDeselected?: RowChangedCallback;
+
+        /**  Allows you to specifcy the behaviour when the user tabs from the last editable cell on the last row of the table */
+        tabEndNewRow?: boolean | JSONRecord | ((row: RowComponent) => any);
     }
 
     interface OptionsColumns {
@@ -498,7 +528,7 @@ declare namespace Tabulator {
         autoColumns?: boolean;
 
         /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
-        layout?: 'fitData' | 'fitColumns' | 'fitDataFill';
+        layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch';
 
         /** To keep the layout of the columns consistent, once the column widths have been set on the first data load (either from the data property in the constructor or the setData function) they will not be changed when new data is loaded.
 
@@ -553,8 +583,8 @@ declare namespace Tabulator {
         /** Header tooltips can be set globally using the tooltipsHeader options parameter */
         tooltipsHeader?: boolean;
 
-        /** You can use the columnVertAlign option to set how the text in your column headers should be vertically  */
-        columnVertAlign?: 'top' | 'middle' | 'bottom';
+        /** You can use the columnHeaderVertAlign option to set how the text in your column headers should be vertically  */
+        columnHeaderVertAlign?: 'top' | 'middle' | 'bottom';
 
         /** The default placeholder text used for input elements can be set using the headerFilterPlaceholder option in the table definition */
         headerFilterPlaceholder?: string;
@@ -604,6 +634,12 @@ declare namespace Tabulator {
 
         /**If you don't want to show a particular column in the print table you can set the print property in its column definition object to false */
         print?: boolean;
+
+        /** The headerSort option can now be set in the table options to affect all columns as well as in column definitions. */
+        headerSort?: boolean;
+
+        /** The headerSortTristate option can now be set in the table options to affect all columns as well as in column definitions.*/
+        headerSortTristate?: boolean;
     }
 
     interface OptionsCell {
@@ -700,11 +736,25 @@ declare namespace Tabulator {
 
         /** The dataSorted callback is triggered after the table dataset is sorted. */
         dataSorted?: (sorters: Sorter[], rows: RowComponent[]) => void;
+
+        /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object */
+        invalidOptionWarnings?: boolean;
+
+        /** Prevent actions from riggering an update of the Virtual DOM: */
+        blockRedraw?: () => void;
+        /** This will restore automatic table redrawing and trigger an appropriate redraw if one was needed as a result of any actions that happened while the redraw was blocked. */
+        restoreRedraw?: () => void;
+
+        /** Callback is triggered when the table is vertically scrolled. */
+        scrollVertical?: (top: any) => void;
+
+        /** Callback is triggered when the table is horizontally scrolled. */
+        scrollHorizontal?: (left: any) => void;
     }
 
-    type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf';
+    type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf' | 'html';
 
-    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF {}
+    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML {}
 
     interface DownloadCSV {
         /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
@@ -713,9 +763,15 @@ declare namespace Tabulator {
         bom?: boolean;
     }
 
+    interface DownloadHTML {
+        /** By default the HTML output is a simple unstyled table. if you would like to match the current table styling you can set the style property to true  */
+        style?: boolean;
+    }
+
     interface DownloadXLXS {
         /** The sheet name must be a valid Excel sheet name, and cannot include any of the following characters \, /, *, [, ], :,  */
         sheetName?: string;
+        documentProcessing?: (input: any) => any;
     }
 
     interface DownloadPDF {
@@ -822,7 +878,7 @@ declare namespace Tabulator {
         /** title - Required This is the title that will be displayed in the header for this column */
         title: string;
         /** field - Required (not required in icon/button columns) this is the key for this column in the data array*/
-        field: string;
+        field?: string;
         /** visible - (boolean, default - true) determines if the column is visible. (see Column Visibility for more details */
         visible?: boolean;
 
@@ -886,7 +942,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
                   bRow: RowComponent,
                   column: ColumnComponent,
                   dir: SortDirection,
-                  sorterParams: {}
+                  sorterParams: {},
               ) => number);
         /** If you want to dynamically generate the sorterParams at the time the sort is called you can pass a function into the property that should return the params object. */
         sorterParams?: ColumnDefinitionSorterParams | ColumnSorterParamLookupFunction;
@@ -1037,6 +1093,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
         /** Show/Hide a particular column in the HTML output*/
         htmlOutput?: boolean;
+
+        /** If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false */
+        clipboard?: boolean;
+
+        /** A column can be a "group" of columns (Example: group header column -> Measurements, grouped column -> Length, Width, Height) */
+        columns?: ColumnDefinition[];
     }
 
     interface CellCallbacks {
@@ -1092,7 +1154,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         data: any,
         type: 'data' | 'edit',
         mutatorParams: any,
-        cell?: CellComponent
+        cell?: CellComponent,
     ) => any;
     type CustomMutatorParams = {} | ((value: any, data: any, type: 'data' | 'edit', cell?: CellComponent) => any);
     type CustomAccessor = (
@@ -1100,7 +1162,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         data: any,
         type: 'data' | 'download' | 'clipboard',
         AccessorParams: any,
-        column?: ColumnComponent
+        column?: ColumnComponent,
     ) => any;
     type CustomAccessorParams =
         | {}
@@ -1133,6 +1195,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | 'buttonCross'
         | 'rownum'
         | 'handle'
+        | 'rowSelection'
         | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams =
         | MoneyParams
@@ -1159,9 +1222,9 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | ((
               cell: CellComponent,
               onRendered: EmptyCallback,
-              success: ValueVoidCallback,
+              success: ValueBooleanCallback,
               cancel: ValueVoidCallback,
-              editorParams: {}
+              editorParams: {},
           ) => HTMLElement | false);
 
     type EditorParams =
@@ -1170,6 +1233,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | SelectParams
         | AutoCompleteParams
         | InputParams
+        | TextAreaParams
         | ((cell: CellComponent) => {});
 
     type ScrollToRowPostition = 'top' | 'center' | 'bottom' | 'nearest';
@@ -1197,6 +1261,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         urlField?: string;
         url?: string;
         target?: string;
+        download?: boolean;
     }
 
     interface DateTimeParams {
@@ -1239,27 +1304,41 @@ You can pass an optional additional property with sorter, sorterParams that shou
         stars?: number;
     }
 
-    interface NumberParams {
+    interface SharedEditorParams {
+        elementAttributes?: JSONRecord;
+    }
+
+    interface NumberParams extends SharedEditorParams {
         // range,number
         min?: number;
         max?: number;
         step?: number;
+        verticalNavigation?: 'editor' | 'table';
     }
 
-    interface InputParams {
+    interface InputParams extends SharedEditorParams {
         /**Changes input type to 'search' and shows an 'X' clear button to clear the cell value easily */
         search?: boolean;
     }
 
-    interface CheckboxParams {
+    interface TextAreaParams extends SharedEditorParams {
+        verticalNavigation?: 'editor' | 'table' | 'hybrid';
+    }
+
+    interface CheckboxParams extends SharedEditorParams {
         // tick
         tristate?: boolean;
         indeterminateValue?: string;
     }
 
-    interface SelectParams {
-        values: true | string[] | JSONRecord | SelectParamsGroup[];
+    interface SharedSelectAutoCompleteEditorParams {
+        defaultValue?: string;
+    }
+
+    interface SelectParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
+        values: true | string[] | JSONRecord | SelectParamsGroup[] | string;
         listItemFormatter?: (value: string, text: string) => string;
+        verticalNavigation?: 'editor' | 'table' | 'hybrid';
     }
 
     interface SelectParamsGroup {
@@ -1272,13 +1351,14 @@ You can pass an optional additional property with sorter, sorterParams that shou
         value: string | number | boolean;
     }
 
-    interface AutoCompleteParams {
-        values: true | string[] | JSONRecord;
+    interface AutoCompleteParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
+        values: true | string[] | JSONRecord | string;
         listItemFormatter?: (value: string, text: string) => string;
         searchFunc?: (term: string, values: string[]) => string[];
         allowEmpty?: boolean;
         freetext?: boolean;
         showListOnEmpty?: boolean;
+        verticalNavigation?: 'editor' | 'table' | 'hybrid';
     }
 
     type ValueStringCallback = (value: any) => string;
@@ -1309,6 +1389,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
     type RowLookup = RowComponent | HTMLElement | string | number;
+    type VisibleRowRangeLookup = 'active' | 'visible';
 
     interface KeyBinding {
         navPrev?: string | boolean;
@@ -1437,6 +1518,9 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** The getKey function returns the unique key that is shared between all rows in this group. */
         getKey: () => any;
 
+        /** Returns the string of the field that all rows in this group have been grouped by. (if a function is used to group the rows rather than a field, this function will return false) */
+        getField: () => string;
+
         /** The getRows function returns an array of RowComponent objects, one for each row in the group */
         getRows: () => RowComponent[];
 
@@ -1473,6 +1557,10 @@ You can pass an optional additional property with sorter, sorterParams that shou
         getNextColumn: () => ColumnComponent | false;
         /** The getPrevColumn function returns the Column Component for the previous visible column in the table, if there is no previous column it will return a value of false. */
         getPrevColumn: () => ColumnComponent | false;
+
+        /**You can move a column component next to another column using the move function */
+        move: (toColumn: ColumnLookup, after: boolean) => void;
+
         /** The getVisibility function returns a boolean to show if the column is visible, a value of true means it is visible.*/
         getVisibility: () => boolean;
         /** The show function shows the column if it is hidden.*/
@@ -1482,7 +1570,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** The toggle function toggles the visibility of the column, switching between hidden and visible.*/
         toggle: () => void;
         /** The delete function deletes the column, removing it from the table*/
-        delete: () => void;
+        delete: () => Promise<void>;
         /** The scrollTo function will scroll the table to the column if it is visible. */
         scrollTo: () => Promise<void>;
         /** The getSubColumns function returns an array of ColumnComponent objects, one for each sub column of this column. */
@@ -1496,6 +1584,9 @@ You can pass an optional additional property with sorter, sorterParams that shou
         setHeaderFilterValue: (value: any) => void;
         /** The reloadHeaderFilter function rebuilds the header filter element, updating any params passed into the editor used to generate the filter. */
         reloadHeaderFilter: () => void;
+
+        /** Update the definition of a column */
+        updateDefinition: (definition: ColumnDefinition) => Promise<void>;
     }
 
     interface CellComponent {
@@ -1562,7 +1653,8 @@ declare class Tabulator {
             | Tabulator.DownloadType
             | ((columns: Tabulator.ColumnDefinition[], data: any, options: any, setFileContents: any) => any),
         fileName: string,
-        params?: Tabulator.DownloadOptions
+        params?: Tabulator.DownloadOptions,
+        filter?: 'active' | 'all' | 'visible',
     ) => void;
 
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
@@ -1573,7 +1665,7 @@ declare class Tabulator {
     The first argument is the copy selector, you can choose from any of the built in options or pass a function in to the argument, that must return the selected row components.
 
     If you leave this argument undefined, Tabulator will use the value of the clipboardCopySelector property, which has a default value of table */
-    copyToClipboard: (type: 'selection' | 'table') => void;
+    copyToClipboard: (type?: 'selected' | 'table' | 'active') => void;
 
     /** With history enabled you can use the undo function to automatically undo a user action, the more times you call the function, the further up the history log you go. */
     undo: () => boolean;
@@ -1596,8 +1688,8 @@ declare class Tabulator {
     /** You can remove all data from the table using clearData */
     clearData: () => void;
     /** You can retrieve the data stored in the table using the getData function. */
-    getData: (activeOnly?: boolean) => any[];
-    getDataCount: (activeOnly?: boolean) => number;
+    getData: (activeOnly?: Tabulator.VisibleRowRangeLookup) => any[];
+    getDataCount: (activeOnly?: Tabulator.VisibleRowRangeLookup) => number;
     /** The searchRows function allows you to retreive an array of row components that match any filters you pass in. it accepts the same arguments as the setFilter function. */
     searchRows: (field: string, type: Tabulator.FilterType, value: any) => Tabulator.RowComponent[];
     /** The searchData function allows you to retreive an array of table row data that match any filters you pass in. it accepts the same arguments as the setFilter function. */
@@ -1627,7 +1719,7 @@ declare class Tabulator {
     addData: (
         data?: Array<{}>,
         addToTop?: boolean,
-        positionTarget?: Tabulator.RowLookup
+        positionTarget?: Tabulator.RowLookup,
     ) => Promise<Tabulator.RowComponent>;
 
     /** If the data you are passng to the table contains a mix of existing rows to be updated and new rows to be added then you can call the updateOrAddData function. This will check each row object provided and update the existing row if available, or else create a new row with the data. */
@@ -1638,9 +1730,9 @@ declare class Tabulator {
     /** You can retrieve the Row Component of a row at a given position in the table using getRowFromPosition function. By default this will return the row based in its position in all table data, including data currently filtered out of the table.
 
   If you want to get a row based on its position in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function. */
-    getRowFromPosition: (position: number, activeOnly?: boolean) => void;
+    getRowFromPosition: (position: number, activeOnly?: boolean) => Tabulator.RowComponent;
     /** You can delete any row in the table using the deleteRow function. */
-    deleteRow: (row: Tabulator.RowLookup) => void;
+    deleteRow: (index: Tabulator.RowLookup | Tabulator.RowLookup[]) => void;
 
     /** You can add a row to the table using the addRow function.
 
@@ -1671,7 +1763,7 @@ declare class Tabulator {
     scrollToRow: (
         row: Tabulator.RowLookup,
         position?: Tabulator.ScrollToRowPostition,
-        ifVisible?: boolean
+        ifVisible?: boolean,
     ) => Promise<void>;
     /** If you want to programmatically move a row to a new position you can use the moveRow function.
 
@@ -1681,9 +1773,8 @@ declare class Tabulator {
 
     The third argument determines whether the row is moved to above or below the target row. A value of false will cause to the row to be placed below the target row, a value of true will result in the row being placed above the target */
     moveRow: (fromRow: Tabulator.RowLookup, toRow: Tabulator.RowLookup, placeAboveTarget?: boolean) => void;
-    /** You can retrieve all the row components in the table using the getRows function.* By default getRows will return an array containing all the Row Component's held in the Tabulator. If you only want to access the currently filtered/sorted elements, you can pass a value of true to the first argument of the function.
-     */
-    getRows: (activeOnly?: boolean) => Tabulator.RowComponent[];
+    /** You can retrieve all the row components in the table using the getRows function.* By default getRows will return an array containing all the Row Component's held in the Tabulator. If you only want to access the currently filtered/sorted elements, you can pass a value of true to the first argument of the function.*/
+    getRows: (activeOnly?: Tabulator.VisibleRowRangeLookup) => Tabulator.RowComponent[];
     /** Use the getRowPosition function to retrieve the numerical position of a row in the table. By default this will return the position of the row in all data, including data currently filtered out of the table.
 
     The first argument is the row you are looking for, it will take any of the standard row component look up options. If you want to get the position of the row in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function.
@@ -1722,10 +1813,14 @@ declare class Tabulator {
     addColumn: (
         definition: Tabulator.ColumnDefinition,
         insertRightOfTarget?: boolean,
-        positionTarget?: Tabulator.ColumnLookup
-    ) => void;
+        positionTarget?: Tabulator.ColumnLookup,
+    ) => Promise<void>;
     /** To permanently remove a column from the table deleteColumn function. This function takes any of the standard column component look up options as its first parameter */
-    deleteColumn: (column: Tabulator.ColumnLookup) => void;
+    deleteColumn: (column: Tabulator.ColumnLookup) => Promise<void>;
+
+    /**Programmatically move a column to a new position */
+    moveColumn: (fromColumn: Tabulator.ColumnLookup, toColumn: Tabulator.ColumnLookup, after: boolean) => void;
+
     /** If you want to trigger an animated scroll to a column then you can use the scrollToColumn function. The first argument should be any of the standard column component look up options for the column you want to scroll to.
 
   The second argument is optional, and is used to set the position of the column, it should be a string with a value of either left, middle or right, if omitted it will be set to the value of the scrollToColumnPosition option which has a default value of left.
@@ -1735,8 +1830,11 @@ declare class Tabulator {
     scrollToColumn: (
         column: Tabulator.ColumnLookup,
         position?: Tabulator.ScrollToColumnPosition,
-        ifVisible?: boolean
+        ifVisible?: boolean,
     ) => Promise<void>;
+
+    updateColumnDefinition: (column: Tabulator.ColumnLookup, definition: Tabulator.ColumnDefinition) => Promise<void>;
+
     /** You can also set the language at any point after the table has loaded using the setLocale function, which takes the same range of values as the locale setup option mentioned above. */
     setLocale: (locale: string | boolean) => void;
     /** It is possible to retrieve the locale code currently being used by Tabulator using the getLocale function: */
@@ -1765,7 +1863,7 @@ declare class Tabulator {
     setFilter: (
         p1: string | Tabulator.Filter[] | any[] | ((data: any, filterParams: any) => boolean),
         p2?: Tabulator.FilterType | {},
-        value?: any
+        value?: any,
     ) => void;
     /** If you want to add another filter to the existing filters then you can call the addFilter function: */
     addFilter: Tabulator.FilterFunction;
@@ -1787,7 +1885,7 @@ declare class Tabulator {
     /** To programmatically select a row you can use the selectRow function.
 
     To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). */
-    selectRow: (row?: Tabulator.RowLookup) => void;
+    selectRow: (lookup?: Tabulator.RowLookup[] | 'all' | 'active' | 'visible') => void;
     deselectRow: (row?: Tabulator.RowLookup) => void;
     toggleSelectRow: (row?: Tabulator.RowLookup) => void;
     /** To get the RowComponent's for the selected rows at any time you can use the getSelectedRows function.
@@ -1836,13 +1934,13 @@ declare class Tabulator {
      ** Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
     setGroupStartOpen: (
-        values: boolean | ((value: any, count: number, data: any, group: Tabulator.GroupComponent) => boolean)
+        values: boolean | ((value: any, count: number, data: any, group: Tabulator.GroupComponent) => boolean),
     ) => void;
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
     setGroupHeader: (
         values:
             | ((value: any, count: number, data: any, group: Tabulator.GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
+            | Array<(value: any, count: number, data: any) => string>,
     ) => void;
     /** You can use the getGroups function to retrieve an array of all the first level Group Components in the table. */
     getGroups: () => Tabulator.GroupComponent[];
@@ -1906,4 +2004,7 @@ declare class Tabulator {
 
     The function takes three arguments, the name of the module, the name of the property you want to extend, and an object containing the elements you want to add in your module. In the example below we extend the format module to add two new default formatters: */
     extendModule: (name: string, property: string, values: {}) => void;
+
+    /** Lookup the table object for any existing table using the element they were created on. */
+    findTable: (query: string) => Tabulator;
 }

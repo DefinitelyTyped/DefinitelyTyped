@@ -1,6 +1,7 @@
 import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
+import * as url from 'url';
 
 {
     const ws = new WebSocket('ws://www.host.com/path');
@@ -9,7 +10,8 @@ import * as https from 'https';
 }
 
 {
-    const ws = new WebSocket('ws://www.host.com/path');
+    const addr = new url.URL('ws://www.host.com/path');
+    const ws = new WebSocket(addr);
     ws.on('open', () => {
         const array = new Float32Array(5);
         for (let i = 0; i < array.length; ++i) array[i] = i / 2;
@@ -100,11 +102,14 @@ import * as https from 'https';
                 strategy: 0,
                 dictionary: new Buffer('test'),
                 info: false
+            },
+            zlibInflateOptions: {
+                chunkSize: 0
             }
         },
         verifyClient: (info: any, cb: any) => {
-            cb(true, 123, 'message', { Upgrade: "websocket" });
-        }
+            cb(true, 123, 'message', { Upgrade: 'websocket' });
+        },
     });
 }
 

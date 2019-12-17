@@ -28,6 +28,7 @@ export interface ReactTagsProps {
     handleTagClick?: ((i: number) => void);
 
     autofocus?: boolean;
+    allowAdditionFromPaste?: boolean;
     allowDeleteFromEmptyInput?: boolean;
     handleInputChange?: ((value: string) => void);
     handleInputFocus?: ((value: string) => void);
@@ -36,16 +37,19 @@ export interface ReactTagsProps {
     removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
     readOnly?: boolean;
+    resetInputOnDelete?: boolean;
 
     name?: string;
     id?: string;
     maxLength?: number;
+    inputValue?: string;
 
     inline?: boolean;
     inputFieldPosition?: 'top' | 'bottom' | 'inline';
     allowUnique?: boolean;
     allowDragDrop?: boolean;
     renderSuggestion?(tag: Tag, query: string): React.ReactChild | void;
+    shouldRenderSuggestions?: (query: string) => boolean;
 
     classNames?: {
         tags?: string;

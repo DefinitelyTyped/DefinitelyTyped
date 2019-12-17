@@ -7,7 +7,7 @@
 //                 HyunSeob Lee <https://github.com/hyunseob>
 //                 Pierre Tchuente <https://github.com/PierreTchuente>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 
@@ -43,9 +43,9 @@ declare namespace multer {
             parts?: number;
             /** For multipart forms, the max number of header key=> value pairs to parse Default: 2000(same as node's http). */
             headerPairs?: number;
-            /** Keep the full path of files instead of just the base name (Default: false) */
-            preservePath?: boolean;
         };
+        /** Keep the full path of files instead of just the base name (Default: false) */
+        preservePath?: boolean;
         /** A function to control which files to upload and which to skip. */
         fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
     }

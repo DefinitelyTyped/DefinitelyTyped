@@ -1,4 +1,4 @@
-// Type definitions for styled-system 5.0
+// Type definitions for styled-system 5.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -15,6 +15,9 @@
 //                 Dhalton Huber <https://github.com/Dhalton>
 //                 Elliot Bonneville <https://github.com/elliotbonneville>
 //                 Jack Caldwell <https://github.com/jackcaldwell>
+//                 Eliseu Monar dos Santos <https://github.com/eliseumds>
+//                 Craig Michael Thompson <https://github.com/craga89>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,10 +48,8 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 
 export function style<N = string | number, S = Scale>(
     // tslint:disable-next-line no-unnecessary-generics
-    args: LowLevelStyleFunctionArguments<N, S>
-): {
-    [cssProp: string]: string;
-};
+    args: LowLevelStyleFunctionArguments<N, S>,
+): styleFn;
 
 export interface styleFn {
     (...args: any[]): any;
@@ -89,6 +90,8 @@ export interface VariantArgs {
     prop?: string;
     /** theme key for variant definitions */
     scale?: string;
+    /** inline theme aware variants definitions  */
+    variants?: object;
 }
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
@@ -626,12 +629,28 @@ export interface OrderProps {
 export const order: styleFn;
 
 export interface FlexGrowProps {
+    /**
+     * The flex-grow CSS property sets the flex grow factor of a flex item main size. It specifies how much of the
+     * remaining space in the flex container should be assigned to the item (the flex grow factor).
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow)
+     */
     flexGrow?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
+export const flexGrow: styleFn;
+
 export interface FlexShrinkProps {
+    /**
+     * The flex-shrink CSS property sets the flex shrink factor of a flex item. If the size of all flex items is larger
+     * than the flex container, items shrink to fit according to flex-shrink.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink)
+     */
     flexShrink?: ResponsiveValue<CSS.GlobalsNumber>;
 }
+
+export const flexShrink: styleFn;
 
 /**
  * A convenience style group containing props related to flexbox.
@@ -845,7 +864,8 @@ export interface LayoutProps
         MaxHeightProps,
         DisplayProps,
         VerticalAlignProps,
-        SizeProps {}
+        SizeProps,
+        OverflowProps {}
 
 export const layout: styleFn;
 
@@ -860,6 +880,30 @@ export interface BorderWidthProps<TLength = TLengthStyledSystem> {
      * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
      */
     borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+    /**
+     * The border-top-width CSS property sets the width of the top border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-width)
+     */
+    borderTopWidth?: ResponsiveValue<CSS.BorderTopWidthProperty<TLength>>;
+    /**
+     * The border-bottom-width CSS property sets the width of the bottom border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width)
+     */
+    borderBottomWidth?: ResponsiveValue<CSS.BorderBottomWidthProperty<TLength>>;
+    /**
+     * The border-left-width CSS property sets the width of the left border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-width)
+     */
+    borderLeftWidth?: ResponsiveValue<CSS.BorderLeftWidthProperty<TLength>>;
+    /**
+     * The border-right-width CSS property sets the width of the right border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-width)
+     */
+    borderRightWidth?: ResponsiveValue<CSS.BorderRightWidthProperty<TLength>>;
 }
 
 export const borderWidth: styleFn;
@@ -871,6 +915,30 @@ export interface BorderStyleProps {
      * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
      */
     borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+    /**
+     * The border-top-style CSS property sets the line style of an element's top border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-style)
+     */
+    borderTopStyle?: ResponsiveValue<CSS.BorderTopStyleProperty>;
+    /**
+     * The border-bottom-style CSS property sets the line style of an element's bottom border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style)
+     */
+    borderBottomStyle?: ResponsiveValue<CSS.BorderBottomStyleProperty>;
+    /**
+     * The border-left-style CSS property sets the line style of an element's left border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-style)
+     */
+    borderLeftStyle?: ResponsiveValue<CSS.BorderLeftStyleProperty>;
+    /**
+     * The border-right-style CSS property sets the line style of an element's right border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-style)
+     */
+    borderRightStyle?: ResponsiveValue<CSS.BorderRightStyleProperty>;
 }
 
 export const borderStyle: styleFn;
@@ -882,6 +950,30 @@ export interface BorderColorProps {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
      */
     borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
+    /**
+     * The border-top-color CSS property sets the color of an element's top border. It can also be set with the shorthand CSS properties border-color or border-top.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color)
+     */
+    borderTopColor?: ResponsiveValue<CSS.BorderTopColorProperty>;
+    /**
+     * The border-bottom-color CSS property sets the color of an element's bottom border. It can also be set with the shorthand CSS properties border-color or border-bottom.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color)
+     */
+    borderBottomColor?: ResponsiveValue<CSS.BorderBottomColorProperty>;
+    /**
+     * The border-left-color CSS property sets the color of an element's left border. It can also be set with the shorthand CSS properties border-color or border-left.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-color)
+     */
+    borderLeftColor?: ResponsiveValue<CSS.BorderLeftColorProperty>;
+    /**
+     * The border-right-color CSS property sets the color of an element's right border. It can also be set with the shorthand CSS properties border-color or border-right.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-color)
+     */
+    borderRightColor?: ResponsiveValue<CSS.BorderRightColorProperty>;
 }
 
 export const borderColor: styleFn;
@@ -942,6 +1034,30 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
      */
     borderRadius?: ResponsiveValue<CSS.BorderRadiusProperty<TLength>>;
+    /**
+     * The border-top-left-radius CSS property rounds the top-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-left-radius)
+     */
+    borderTopLeftRadius?: ResponsiveValue<CSS.BorderTopLeftRadiusProperty<TLength>>;
+    /**
+     * The border-top-right-radius CSS property rounds the top-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-right-radius)
+     */
+    borderTopRightRadius?: ResponsiveValue<CSS.BorderTopRightRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-left-radius CSS property rounds the bottom-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-left-radius)
+     */
+    borderBottomLeftRadius?: ResponsiveValue<CSS.BorderBottomLeftRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-right-radius CSS property rounds the bottom-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius)
+     */
+    borderBottomRightRadius?: ResponsiveValue<CSS.BorderBottomRightRadiusProperty<TLength>>;
 }
 
 export const borderRadius: styleFn;
@@ -1030,6 +1146,20 @@ export interface OverflowProps {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow)
      */
     overflow?: ResponsiveValue<CSS.OverflowProperty>;
+    /**
+     * The overflow-x CSS property sets what shows when content overflows a block-level element's left
+     * and right edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x)
+     */
+    overflowX?: ResponsiveValue<CSS.OverflowXProperty>;
+    /**
+     * The overflow-y CSS property sets what shows when content overflows a block-level element's top
+     * and bottom edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y)
+     */
+    overflowY?: ResponsiveValue<CSS.OverflowYProperty>;
 }
 
 export const overflow: styleFn;

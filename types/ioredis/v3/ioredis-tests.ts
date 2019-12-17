@@ -74,7 +74,7 @@ redis.subscribe('news', 'music', (err: any, count: any) => {
     // `count` represents the number of channels we are currently subscribed to.
 
     pub.publish('news', 'Hello world!');
-    pub.publish('music', 'Hello again!');
+    pub.publishBuffer('music', Buffer.from('Hello again!'));
 });
 
 redis.on('message', (channel: any, message: any) => {
@@ -179,4 +179,8 @@ new Redis.Cluster([], {
 
 new Redis.Cluster([], {
     clusterRetryStrategy: (times: number) => 1
+});
+
+redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
+    // sorted set 'foo' now has score 'foo1' containing barBuffer
 });

@@ -29,6 +29,15 @@ nameof.toArray(testInstance.prop1); // $ExpectType string[]
 nameof.toArray(testInstance.prop1, testInstance.prop2); // $ExpectType string[]
 nameof.toArray<TestClass>(t => [t.prop1]); // $ExpectType string[]
 
+// nameof.split tests
+nameof.split(testInstance.prop1); // $ExpectType string[]
+nameof.split(testInstance.prop1, 1); // $ExpectType string[]
+nameof.split<TestClass>(obj => obj.prop1); // $ExpectType string[]
+nameof.split<TestClass>(obj => obj.prop1, 1); // $ExpectType string[]
+
+// nameof.interpolate tests
+nameof.interpolate("" as string); // $ExpectType string
+
 // reference type test
 const myObj = { test: "" };
 nameof(myObj); // $ExpectType string

@@ -16,6 +16,18 @@ interface SampleObject { [key: string]: string; }
     result = querystring.stringify(obj, sep, eq);
     result = querystring.stringify(obj, sep, eq);
     result = querystring.stringify(obj, sep, eq, options);
+
+    querystring.stringify({ foo: () => {} }); // $ExpectError
+    querystring.stringify({ foo: { bar: 1 } }); // $ExpectError
+
+    querystring.stringify({
+        foo: 'foo',
+        bar: 1,
+        baz: true,
+        foo2: ['a', 'b'],
+        bar2: [1, 2],
+        baz2: [true, false]
+    });
 }
 
 {

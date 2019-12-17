@@ -85,6 +85,10 @@ export interface ChromeOptions {
      * A list of window types that will appear in the list of window handles. For access to <webview> elements, include "webview" in this list.
      */
     windowTypes?: string[];
+    /**
+     * Flag to activate W3C WebDriver API. Chromedriver (as of version 2.41 at least) simply does not support the W3C WebDriver API.
+     */
+    w3c?: boolean;
 }
 
 export interface NightwatchDesiredCapabilities {
@@ -235,7 +239,7 @@ export interface NightwatchOptions {
     /**
      * Location(s) where page object files will be loaded from.
      */
-    page_object_path?: string | string[];
+    page_objects_path?: string | string[];
 
     /**
      * Location of an external globals module which will be loaded and made available to the test as a property globals on the main client instance.
@@ -279,6 +283,16 @@ export interface NightwatchOptions {
      * Example: "test_runner" : {"type" : "mocha", "options" : {"ui" : "tdd"}}
      */
     test_runner?: string | NightwatchTestRunner;
+
+    /**
+     * Allows for webdriver config (mostly the same as selenium)
+     */
+    webdriver?: {
+        port: number;
+        start_process: boolean;
+        server_path: string;
+        cli_args: string[];
+    };
 }
 
 export interface NightwatchGlobals {

@@ -53,6 +53,8 @@ export interface VideoProperties extends ViewProps {
   src?: any;
   seek?: number;
   fullscreen?: boolean;
+  fullscreenOrientation?: 'all' | 'landscape' | 'portrait';
+  fullscreenAutorotate?: boolean;
   onVideoLoadStart?(): void;
   onVideoLoad?(): void;
   onVideoBuffer?(): void;

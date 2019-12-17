@@ -48,6 +48,14 @@ describe("Stripe elements", () => {
                 console.log(response.elementType, response.brand);
             }
         });
+        card.addEventListener('ready', () => {
+            console.log('ready (ael)');
+        });
+        card.addEventListener('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
+        });
 
         stripe.createToken(card, {
             name: 'Jimmy',
@@ -257,6 +265,18 @@ describe("Stripe elements", () => {
                 console.log(result.paymentIntent.shipping && result.paymentIntent.shipping.address);
             }
         });
+
+        stripe
+          .handleCardPayment('{PAYMENT_INTENT_CLIENT_SECRET}', {
+            source: '{SOURCE_ID}',
+          })
+          .then(result => {
+            if (result.error) {
+              console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+          });
     });
 
     it("should handle card setup", () => {
@@ -279,5 +299,11 @@ describe("Stripe elements", () => {
                 console.log(result.setupIntent.id);
             }
         });
+    });
+
+    it("should get card element", () => {
+        elements.create('card');
+        const card = elements.getElement('card');
+        console.log(card);
     });
 });

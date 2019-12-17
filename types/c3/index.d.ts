@@ -18,7 +18,7 @@ export function generate(config: ChartConfiguration): ChartAPI;
 
 export const version: string;
 
-export type Primitive = string | boolean | number | null;
+export type Primitive = string | boolean | number | Date | null;
 export type PrimitiveArray = Primitive[];
 export type ArrayOrSingle<T extends any> = T | T[];
 export type ArrayOrString = ArrayOrSingle<string>;
@@ -739,10 +739,6 @@ export interface YAxisConfigurationWithTime extends YAxisConfiguration {
 
 export interface TickConfiguration {
     /**
-     * A function to format tick value. Format string is also available for timeseries data.
-     */
-    format?: string | ((x: number | Date) => string | number);
-    /**
      * Show x axis outer tick.
      */
     outer?: boolean;
@@ -766,22 +762,31 @@ export interface TickConfiguration {
 
 export interface XTickConfiguration extends TickConfiguration {
     /**
+     * A function to format x-axis tick values. A format string is also supported for timeseries data.
+     */
+    format?: string | ((x: number | Date) => string | number);
+
+    /**
      * Centerise ticks on category axis
      */
     centered?: boolean;
     /**
      * Setting for culling ticks.
-     * If `true` is set, the ticks will be culled, then only limitted tick text will be shown. This option does not hide the tick lines. If `false` is set, all of ticks will be shown.
+     * If `true` is set, the ticks will be culled, then only limitted tick text will be shown.
+     * This option does not hide the tick lines. If `false` is set, all of ticks will be shown.
      */
-    culling?: boolean | {
-        /**
-         * The number of tick texts will be adjusted to less than this value.
-         */
-        max: number;
-    };
+    culling?:
+      | boolean
+      | {
+          /**
+           * The number of tick texts will be adjusted to less than this value.
+           */
+          max: number;
+        };
     /**
      * Fit x axis ticks.
-     * If `true` set, the ticks will be positioned nicely. If `false` set, the ticks will be positioned according to x value of the data points.
+     * If `true` set, the ticks will be positioned nicely. If `false` set, the ticks will be positioned
+     * according to x value of the data points.
      */
     fit?: boolean;
     /**
@@ -793,7 +798,10 @@ export interface XTickConfiguration extends TickConfiguration {
 }
 
 export interface YTickConfiguration extends TickConfiguration {
-    format: (x: number) => string;
+    /**
+     * A function to format y-axis tick values.
+     */
+    format?: (x: number) => string | number;
 }
 
 export interface YTickConfigurationWithTime extends YTickConfiguration {

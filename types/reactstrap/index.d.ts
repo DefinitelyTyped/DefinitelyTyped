@@ -1,14 +1,15 @@
-// Type definitions for reactstrap 8.0
+// Type definitions for reactstrap 8.2
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 FaithForHumans <https://github.com/FaithForHumans>
 //                 Tim Chen <https://github.com/timc13>
-//                 Pat Gaffney <https://github.com/patrickrgaffney>
 //                 Prabodh Tiwari <https://github.com/prabodht>
 //                 Georg Steinmetz <https://github.com/georg94>
 //                 Kyle Tsang <https://github.com/kyletsang>
+//                 Hayato Shimokawa <https://github.com/ichiwa>
+//                 Bill Parrott <https://github.com/chimericdream>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -30,6 +31,8 @@ export { default as ButtonDropdown } from './lib/ButtonDropdown';
 export { ButtonDropdownProps } from './lib/ButtonDropdown';
 export { default as ButtonGroup } from './lib/ButtonGroup';
 export { ButtonGroupProps } from './lib/ButtonGroup';
+export { default as ButtonToggle } from './lib/ButtonToggle';
+export { ButtonToggleProps } from './lib/ButtonToggle';
 export { default as ButtonToolbar } from './lib/ButtonToolbar';
 export { ButtonToolbarProps } from './lib/ButtonToolbar';
 export { default as Card } from './lib/Card';
@@ -132,6 +135,8 @@ export { default as Navbar } from './lib/Navbar';
 export { NavbarProps } from './lib/Navbar';
 export { default as NavbarBrand } from './lib/NavbarBrand';
 export { NavbarBrandProps } from './lib/NavbarBrand';
+export { default as NavbarText } from './lib/NavbarText';
+export { NavbarTextProps } from './lib/NavbarText';
 export { default as NavbarToggler } from './lib/NavbarToggler';
 export { NavbarTogglerProps } from './lib/NavbarToggler';
 export { default as NavItem } from './lib/NavItem';

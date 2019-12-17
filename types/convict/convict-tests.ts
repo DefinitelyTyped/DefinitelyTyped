@@ -1,5 +1,5 @@
 import * as convict from 'convict';
-import * as validator from 'validator';
+import validator from 'validator';
 import { safeLoad } from 'js-yaml';
 
 // define a schema

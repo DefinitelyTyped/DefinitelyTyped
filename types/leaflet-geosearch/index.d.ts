@@ -4,9 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import { MarkerOptions, Control } from 'leaflet';
+
 type BoundsTuple = [[number, number], [number, number]];
 type PointTuple = [number, number];
-interface LatLngLiteral { lat: number; lng: number; }
+
+interface LatLngLiteral {
+    lat: number;
+    lng: number;
+}
 
 interface SearchResult<Raw> {
     x: string;
@@ -47,9 +53,7 @@ interface OpenStreetMapProviderResultRaw {
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type OpenStreetMapProviderReverseResult =
-    Omit<SearchResult<OpenStreetMapProviderResultRaw>, 'raw'>
-    & {
+type OpenStreetMapProviderReverseResult = Omit<SearchResult<OpenStreetMapProviderResultRaw>, 'raw'> & {
     raw: {
         address: {
             house_number: string;
@@ -62,7 +66,7 @@ type OpenStreetMapProviderReverseResult =
             postcode: string;
             country: string;
             country_code: string;
-        }
+        };
     };
 };
 
@@ -103,19 +107,21 @@ interface OpenStreetMapProviderOptionsOther {
     debug?: 0 | 1;
 }
 
-type OpenStreetMapProviderOptions =
-    OpenStreetMapProviderOptionsOutputFormat
-    & OpenStreetMapProviderOptionsOutputDetails
-    & OpenStreetMapProviderOptionsResultLanguage
-    & OpenStreetMapProviderOptionsResultLimitation
-    & OpenStreetMapProviderOptionsPolygonOutput
-    & OpenStreetMapProviderOptionsOther;
+type OpenStreetMapProviderOptions = OpenStreetMapProviderOptionsOutputFormat &
+    OpenStreetMapProviderOptionsOutputDetails &
+    OpenStreetMapProviderOptionsResultLanguage &
+    OpenStreetMapProviderOptionsResultLimitation &
+    OpenStreetMapProviderOptionsPolygonOutput &
+    OpenStreetMapProviderOptionsOther;
 
 interface OpenStreetMapProviderReverseSearch {
     data: { raw: { osm_id?: number; osm_type?: 'node' | 'way' | 'relation' } };
 }
 
-export class OpenStreetMapProvider extends BaseProvider<OpenStreetMapProviderOptions, OpenStreetMapProviderResultRaw | OpenStreetMapProviderReverseResult> {
+export class OpenStreetMapProvider extends BaseProvider<
+    OpenStreetMapProviderOptions,
+    OpenStreetMapProviderResultRaw | OpenStreetMapProviderReverseResult
+> {
     /** https://nominatim.org/release-docs/develop/api/Search/ */
     search(options: SearchQuery): Promise<Array<SearchResult<OpenStreetMapProviderResultRaw>>>;
     /** https://nominatim.org/release-docs/develop/api/Reverse/ */
@@ -149,7 +155,8 @@ export type BingProviderOptions = {
     include?: string;
     incl?: string;
     maxResults?: number;
-} & BingProviderCultureOptions & BingProviderUserContextOptions;
+} & BingProviderCultureOptions &
+    BingProviderUserContextOptions;
 
 export interface BingProviderResultPoint {
     type: string;
@@ -182,8 +189,7 @@ export class BingProvider<Options = BingProviderOptions> extends BaseProvider<Op
 }
 
 /** ArcGIS Online Geocoding Service */
-export class EsriProvider extends BaseProvider<BingProviderOptions> {
-}
+export class EsriProvider extends BaseProvider<BingProviderOptions> {}
 
 /**
  *  Google Maps Service
@@ -206,12 +212,12 @@ export interface GoogleProviderResultRaw {
     address_components: GoogleProviderResultAddressComponent[];
     formatted_address: string;
     geometry: {
-        location: LatLngLiteral
+        location: LatLngLiteral;
         location_type: string;
         viewport: {
             northeast: LatLngLiteral;
             southwest: LatLngLiteral;
-        }
+        };
     };
     place_id: string;
     types: string[];
@@ -220,6 +226,77 @@ export interface GoogleProviderResultRaw {
 /** https://developers.google.com/maps/documentation/geocoding/intro#geocoding */
 export class GoogleProvider<Options = GoogleProviderOptions> extends BaseProvider<Options, GoogleProviderResultRaw> {
     constructor(options: Options);
+}
+
+/**
+ * GeoSearchControl
+ */
+
+interface GeoSearchControlOptions {
+    provider: BaseProvider;
+    /** @default 'topleft' */
+    position?: string;
+    /** @default 'button' */
+    style?: 'button' | 'bar';
+    /** @default true */
+    showMarker?: boolean;
+    /** @default false */
+    showPopup?: boolean;
+
+    /** @default ({ result }) => `${result.label}` */
+    popupFormat?({ query, result }: { query: string; result: SearchResult<object> }): string;
+
+    /**
+     *  @default {
+     *      icon: new L.Icon.Default(),
+     *      draggable: false,
+     *  }
+     */
+    marker?: MarkerOptions;
+    /** @default false */
+    maxMarkers?: number;
+    /** @default false */
+    retainZoomLevel?: boolean;
+    /** @default true */
+    animateZoom?: boolean;
+    /** @default 'Enter address' */
+    searchLabel?: string;
+    /** @default 'Sorry; that address could not be found.' */
+    notFoundMessage?: string;
+    /** @default 3000 */
+    messageHideDelay?: number;
+    /** @default 18 */
+    zoomLevel?: number;
+    /**
+     * @default {
+     *      container: 'leaflet-bar leaflet-control leaflet-control-geosearch';
+     *      button: 'leaflet-bar-part leaflet-bar-part-single';
+     *      resetButton: 'reset';
+     *      msgbox: 'leaflet-bar message';
+     *      form: '';
+     *      input: '';
+     * }
+     */
+    classNames?: {
+        container?: string;
+        button?: string;
+        resetButton?: string;
+        msgbox?: string;
+        form?: string;
+        input?: string;
+    };
+    /** @default true */
+    autoComplete?: boolean;
+    /** @default 250 */
+    autoCompleteDelay?: number;
+    /** @default false */
+    autoClose?: boolean;
+    /** @default false */
+    keepResult?: boolean;
+}
+
+export class GeoSearchControl extends Control {
+    constructor(options: GeoSearchControlOptions);
 }
 
 export {};

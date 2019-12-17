@@ -19,8 +19,8 @@ declare global {
         }
 
         interface PromisedAssertion extends Eventually, PromiseLike<any> {
-            (message?: string): Assertion;
-            ensure: Assertion;
+            (message?: string): PromisedAssertion;
+            ensure: PromisedAssertion;
         }
     }
 }

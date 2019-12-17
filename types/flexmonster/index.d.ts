@@ -1,6 +1,10 @@
 // Type definitions for flexmonster 2.7
 // Project: https://flexmonster.com/
-// Definitions by:  Flexmonster <https://github.com/flexmonster>
+// Definitions by:  Dima Zvazhii <https://github.com/Uaman>
+//                  Ian Sadovy <https://github.com/iansadovy>
+//                  Flexmonster Team (Admin) <https://github.com/flexmonsterowner>
+//                  Flexmonster Team <https://github.com/flexmonsterteam>
+//                  Iryna Kulchytska <https://github.com/irakulchytska>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -33,6 +37,7 @@ declare namespace Flexmonster {
         beforetoolbarcreated?: (toolbar: Toolbar) => void;
         cellclick?: (cell: CellData) => void;
         celldoubleclick?: (cell: CellData) => void;
+        chartclick?: (data: ChartData) => void;
         datachanged?: (param: object) => void;
         dataerror?: (param: object) => void;
         datafilecancelled?: () => void;
@@ -59,6 +64,7 @@ declare namespace Flexmonster {
         ready?: () => void;
         reportchange?: () => void;
         reportcomplete?: () => void;
+        reportfileloaded?: () => void;
         reportfilecancelled?: () => void;
         reportfileerror?: () => void;
         runningquery?: () => void;
@@ -112,7 +118,7 @@ declare namespace Flexmonster {
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
-        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: {uniqueName: string, isRemoved: boolean}) => void) | string): void;
+        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: { uniqueName: string, isRemoved: boolean }) => void) | string): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;
@@ -135,7 +141,7 @@ declare namespace Flexmonster {
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
-        updateData(object: DataSource | object[]): void;
+        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean, ignoreSorting?: boolean, partial?: boolean}): void;
         version: string;
         fusioncharts?: {
             getData(options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
@@ -172,15 +178,18 @@ declare namespace Flexmonster {
             rows?: RowSize[];
         };
         localization?: object | string;
+        version?: string;
+        creationDate?: string;
     }
 
     interface DataSource {
+        type?: string;
+        dataSourceType?: string;
         browseForFile?: boolean;
         catalog?: string;
         cube?: string;
         data?: object[];
         dataSourceInfo?: string;
-        dataSourceType?: string;
         fieldSeparator?: string;
         thousandSeparator?: string;
         filename?: string;
@@ -343,17 +352,19 @@ declare namespace Flexmonster {
         isTotal?: boolean;
         isTotalColumn?: boolean;
         isTotalRow?: boolean;
-        member?: Member;
-        width?: number;
-        x?: number;
-        y?: number;
         label?: string;
         level?: number;
         measure?: MeasureObject;
+        member?: Member;
+        recordId?: string | string[];
+        rowData?: CellData[];
         rowIndex?: number;
         rows?: object[];
         type?: string;
         value?: number;
+        width?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ExportOptions {
@@ -379,6 +390,7 @@ declare namespace Flexmonster {
         sortName?: string;
         sortOrder?: string[];
         uniqueName?: string;
+        levels?: Level[];
     }
 
     interface Filter {
@@ -543,11 +555,12 @@ declare namespace Flexmonster {
     }
 
     interface ChartData {
-        columnTuple?: number[];
+        element: any;
+        columns?: object[];
         id?: string;
         label?: string;
         measure?: MeasureObject;
-        rawTuple?: number[];
+        rows?: object[];
         value?: number;
     }
 
@@ -581,6 +594,39 @@ declare namespace Flexmonster {
         fieldsHandler: () => void;
         // Fullscreen tab
         fullscreenHandler: () => void;
+        icons: {
+            connect: string,
+            connect_csv: string,
+            connect_csv_remote: string,
+            connect_json_remote: string,
+            connect_olap: string,
+            open: string,
+            open_local: string,
+            open_remote: string,
+            save: string,
+            export: string,
+            export_print: string,
+            export_html: string,
+            export_csv: string,
+            export_excel: string,
+            export_image: string,
+            export_pdf: string,
+            grid: string,
+            charts: string,
+            charts_bar: string,
+            charts_line: string,
+            charts_scatter: string,
+            charts_pie: string,
+            charts_stacked_column: string,
+            charts_column_line: string,
+            format: string,
+            format_number: string,
+            format_conditional: string,
+            options: string,
+            fields: string,
+            fullscreen: string,
+            minimize: string
+        };
     }
 
     interface ToolbarTab {
@@ -604,5 +650,10 @@ declare namespace Flexmonster {
         dataHeight: number;
         dataWidth: number;
         errorMessage: string;
+    }
+
+    interface Level {
+        caption: string;
+        uniqueName: string;
     }
 }

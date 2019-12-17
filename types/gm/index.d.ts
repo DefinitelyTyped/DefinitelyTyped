@@ -15,6 +15,7 @@ declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
     interface ClassOptions {
+        appPath?: string;
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
     }
@@ -184,6 +185,7 @@ declare namespace m {
         modulate(b: number, s: number, h: number): State;
         monitor(): State;
         monochrome(): State;
+        montage(otherImg: string): State;
         morph(otherImg: string | string[], outName: string, callback?: WriteCallback): State;
         mosaic(): State;
         motionBlur(radius: number, sigma?: number, angle?: number): State;
@@ -316,8 +318,8 @@ declare namespace m {
         // Commands
         stream(callback?: WriteCallback): stream.PassThrough;
         stream(format: string, callback?: WriteCallback): stream.PassThrough;
-        toBuffer(callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
-        toBuffer(format: string, callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(format: string, callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
         write(filename: string, callback: WriteCallback): void;
     }
 
@@ -391,7 +393,7 @@ declare namespace m {
         | 'YPbPr'
         | 'YUV';
 
-    type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
+    type CompareCallback = (err: Error|null, isEqual: boolean, equality: number, raw: number) => any;
 
     type ComposeOperator = 'Over'
         | 'In'
@@ -465,7 +467,7 @@ declare namespace m {
         | 'Bessel'
         | 'Sinc';
 
-    type GetterCallback<T> = (err: Error, value: T) => any;
+    type GetterCallback<T> = (err: Error|null, value: T) => any;
 
     type GravityDirection = 'NorthWest'
         | 'North'
@@ -601,7 +603,7 @@ declare namespace m {
         | 'DirectColor'
         | 'default';
 
-    type WriteCallback = (err: Error, stdout: string, stderr: string, cmd: string) => any;
+    type WriteCallback = (err: Error|null, stdout: stream.Readable, stderr: stream.Readable, cmd: string) => any;
 }
 
 export = m;

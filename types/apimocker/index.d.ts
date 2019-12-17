@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/apimocker
 // Definitions by: Uchenna <https://github.com/uchilaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { RequestHandler, Application } from 'express';
 

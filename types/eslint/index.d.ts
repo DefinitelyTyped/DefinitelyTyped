@@ -1,8 +1,9 @@
-// Type definitions for eslint 4.16
+// Type definitions for eslint 6.1
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -384,11 +385,12 @@ export namespace Linter {
     }
     interface HasRules {
         rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
+            [name: string]: RuleLevel | RuleLevelAndOptions;
         };
     }
 
     interface RuleOverride extends HasRules {
+        extends?: string | string[];
         excludedFiles?: string[];
         files?: string[];
     }
@@ -407,7 +409,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 2015 | 2016 | 2017 | 2018;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
         sourceType?: 'script' | 'module';
         ecmaFeatures?: {
             globalReturn?: boolean;
@@ -451,11 +453,13 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule = {
-        parse(text: string, options?: any): AST.Program;
-    } | {
-        parseForESLint(text: string, options?: any): ESLintParseResult;
-    };
+    type ParserModule =
+        | {
+              parse(text: string, options?: any): AST.Program;
+          }
+        | {
+              parseForESLint(text: string, options?: any): ESLintParseResult;
+          };
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -515,6 +519,7 @@ export namespace CLIEngine {
         parser?: string;
         parserOptions?: Linter.ParserOptions;
         plugins?: string[];
+        resolvePluginsRelativeTo?: string;
         rules?: {
             [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
         };

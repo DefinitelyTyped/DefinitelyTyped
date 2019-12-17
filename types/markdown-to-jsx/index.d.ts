@@ -8,7 +8,7 @@ import * as React from 'react';
 
 export default class Markdown extends React.Component<MarkdownProps> { }
 
-export interface MarkdownProps {
+export interface MarkdownProps extends React.HTMLAttributes<HTMLElement> {
     options?: MarkdownOptions;
     // React.ReactNode contains both null and undefined
     // tslint:disable-next-line:no-null-undefined-union

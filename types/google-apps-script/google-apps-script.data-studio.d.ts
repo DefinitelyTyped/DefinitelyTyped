@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-07-30
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,17 +6,15 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Data_Studio {
+  namespace Data_Studio {
     /**
      * An enum that defines the aggregation types that can be set for a Field.
      */
-    export enum AggregationType { AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM, AUTO, NO_AGGREGATION }
-
+    enum AggregationType { AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM, AUTO, NO_AGGREGATION }
     /**
      * An enum that defines the authentication types that can be set for a connector.
      */
-    export enum AuthType { NONE, OAUTH2, USER_PASS, KEY, USER_TOKEN }
-
+    enum AuthType { NONE, OAUTH2, USER_PASS, KEY, USER_TOKEN }
     /**
      * A configuration object for a native BigQuery connector. Return this object from getData()
      * for Data Studio to query BigQuery for the connector.
@@ -32,21 +30,19 @@ declare namespace GoogleAppsScript {
      *       .addQueryParameter('dob', types.STRING, '01011990')
      *       .build();
      */
-    export interface BigQueryConfig {
+    interface BigQueryConfig {
       addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
-      build(): object;
+      build(): Config;
       printJson(): string;
       setAccessToken(accessToken: string): BigQueryConfig;
       setBillingProjectId(billingProjectId: string): BigQueryConfig;
       setQuery(query: string): BigQueryConfig;
       setUseStandardSql(useStandardSql: boolean): BigQueryConfig;
     }
-
     /**
      * An enum that defines the BigQuery parameter types that you can set.
      */
-    export enum BigQueryParameterType { STRING, INT64, BOOL, FLOAT64 }
-
+    enum BigQueryParameterType { STRING, INT64, BOOL, FLOAT64 }
     /**
      * Contains checkbox information for the config. Its properties determine how the checkbox is
      * displayed in Data Studio.
@@ -57,13 +53,12 @@ declare namespace GoogleAppsScript {
      *       .setHelpText("Whether or not https should be used.")
      *       .setAllowOverride(true);
      */
-    export interface Checkbox {
+    interface Checkbox {
       setAllowOverride(allowOverride: boolean): Checkbox;
       setHelpText(helpText: string): Checkbox;
       setId(id: string): Checkbox;
       setName(name: string): Checkbox;
     }
-
     /**
      * CommunityConnector enables scripts to access builders and utilities to help with development of
      * Community Connectors for Data Studio. Use this class to get a reference to the Fields
@@ -80,7 +75,7 @@ declare namespace GoogleAppsScript {
      *       .setAggregation(aggregationType.AVG)
      *       .setType(fieldType.CURRENCY_USD);
      */
-    export interface CommunityConnector {
+    interface CommunityConnector {
       AggregationType: typeof AggregationType;
       AuthType: typeof AuthType;
       BigQueryParameterType: typeof BigQueryParameterType;
@@ -92,7 +87,6 @@ declare namespace GoogleAppsScript {
       newDebugError(): DebugError;
       newUserError(): UserError;
     }
-
     /**
      * Contains the configuration entries for a connector. These configuration entries define what
      * questions are asked when adding a new connector.
@@ -104,8 +98,8 @@ declare namespace GoogleAppsScript {
      *       .setId("info_id")
      *       .setHelpText("This connector can connect to multiple data endpoints.");
      */
-    export interface Config {
-      build(): any;
+    interface Config {
+      build(): Config;
       newCheckbox(): Checkbox;
       newInfo(): Info;
       newOptionBuilder(): OptionBuilder;
@@ -116,14 +110,12 @@ declare namespace GoogleAppsScript {
       printJson(): string;
       setDateRangeRequired(dateRangeRequired: boolean): Config;
     }
-
     /**
      * DataStudioApp allows scripts to interact with developer-oriented features for Data Studio.
      */
-    export interface DataStudioApp {
+    interface DataStudioApp {
       createCommunityConnector(): CommunityConnector;
     }
-
     /**
      * An error that is only visible to admins of the connector.
      *
@@ -133,12 +125,11 @@ declare namespace GoogleAppsScript {
      *       .setText("This is the debug error text.")
      *       .throwException();
      */
-    export interface DebugError {
+    interface DebugError {
       printJson(): string;
       setText(text: string): DebugError;
       throwException(): void;
     }
-
     /**
      * Contains field-related data. Its properties determine how the field is used in Data Studio.
      *
@@ -153,7 +144,7 @@ declare namespace GoogleAppsScript {
      *       .setType(types.YEAR_MONTH)
      *       .setGroup('DATETIME');
      */
-    export interface Field {
+    interface Field {
       getAggregation(): AggregationType;
       getDescription(): string;
       getFormula(): string;
@@ -176,12 +167,10 @@ declare namespace GoogleAppsScript {
       setName(name: string): Field;
       setType(type: FieldType): Field;
     }
-
     /**
      * An enum that defines the types that can be set for a Field.
      */
-    export enum FieldType { YEAR, YEAR_QUARTER, YEAR_MONTH, YEAR_WEEK, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, QUARTER, MONTH, WEEK, MONTH_DAY, DAY_OF_WEEK, DAY, HOUR, MINUTE, DURATION, COUNTRY, COUNTRY_CODE, CONTINENT, CONTINENT_CODE, SUB_CONTINENT, SUB_CONTINENT_CODE, REGION, REGION_CODE, CITY, CITY_CODE, METRO, METRO_CODE, LATITUDE_LONGITUDE, NUMBER, PERCENT, TEXT, BOOLEAN, URL, HYPERLINK, IMAGE, IMAGE_LINK, CURRENCY_AED, CURRENCY_ALL, CURRENCY_ARS, CURRENCY_AUD, CURRENCY_BDT, CURRENCY_BGN, CURRENCY_BOB, CURRENCY_BRL, CURRENCY_CAD, CURRENCY_CDF, CURRENCY_CHF, CURRENCY_CLP, CURRENCY_CNY, CURRENCY_COP, CURRENCY_CRC, CURRENCY_CZK, CURRENCY_DKK, CURRENCY_DOP, CURRENCY_EGP, CURRENCY_ETB, CURRENCY_EUR, CURRENCY_GBP, CURRENCY_HKD, CURRENCY_HRK, CURRENCY_HUF, CURRENCY_IDR, CURRENCY_ILS, CURRENCY_INR, CURRENCY_IRR, CURRENCY_ISK, CURRENCY_JMD, CURRENCY_JPY, CURRENCY_KRW, CURRENCY_LKR, CURRENCY_LTL, CURRENCY_MNT, CURRENCY_MVR, CURRENCY_MXN, CURRENCY_MYR, CURRENCY_NOK, CURRENCY_NZD, CURRENCY_PAB, CURRENCY_PEN, CURRENCY_PHP, CURRENCY_PKR, CURRENCY_PLN, CURRENCY_RON, CURRENCY_RSD, CURRENCY_RUB, CURRENCY_SAR, CURRENCY_SEK, CURRENCY_SGD, CURRENCY_THB, CURRENCY_TRY, CURRENCY_TWD, CURRENCY_TZS, CURRENCY_UAH, CURRENCY_USD, CURRENCY_UYU, CURRENCY_VEF, CURRENCY_VND, CURRENCY_YER, CURRENCY_ZAR }
-
+    enum FieldType { YEAR, YEAR_QUARTER, YEAR_MONTH, YEAR_WEEK, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, YEAR_MONTH_DAY_SECOND, QUARTER, MONTH, WEEK, MONTH_DAY, DAY_OF_WEEK, DAY, HOUR, MINUTE, DURATION, COUNTRY, COUNTRY_CODE, CONTINENT, CONTINENT_CODE, SUB_CONTINENT, SUB_CONTINENT_CODE, REGION, REGION_CODE, CITY, CITY_CODE, METRO, METRO_CODE, LATITUDE_LONGITUDE, NUMBER, PERCENT, TEXT, BOOLEAN, URL, HYPERLINK, IMAGE, IMAGE_LINK, CURRENCY_AED, CURRENCY_ALL, CURRENCY_ARS, CURRENCY_AUD, CURRENCY_BDT, CURRENCY_BGN, CURRENCY_BOB, CURRENCY_BRL, CURRENCY_CAD, CURRENCY_CDF, CURRENCY_CHF, CURRENCY_CLP, CURRENCY_CNY, CURRENCY_COP, CURRENCY_CRC, CURRENCY_CZK, CURRENCY_DKK, CURRENCY_DOP, CURRENCY_EGP, CURRENCY_ETB, CURRENCY_EUR, CURRENCY_GBP, CURRENCY_HKD, CURRENCY_HRK, CURRENCY_HUF, CURRENCY_IDR, CURRENCY_ILS, CURRENCY_INR, CURRENCY_IRR, CURRENCY_ISK, CURRENCY_JMD, CURRENCY_JPY, CURRENCY_KRW, CURRENCY_LKR, CURRENCY_LTL, CURRENCY_MNT, CURRENCY_MVR, CURRENCY_MXN, CURRENCY_MYR, CURRENCY_NOK, CURRENCY_NZD, CURRENCY_PAB, CURRENCY_PEN, CURRENCY_PHP, CURRENCY_PKR, CURRENCY_PLN, CURRENCY_RON, CURRENCY_RSD, CURRENCY_RUB, CURRENCY_SAR, CURRENCY_SEK, CURRENCY_SGD, CURRENCY_THB, CURRENCY_TRY, CURRENCY_TWD, CURRENCY_TZS, CURRENCY_UAH, CURRENCY_USD, CURRENCY_UYU, CURRENCY_VEF, CURRENCY_VND, CURRENCY_YER, CURRENCY_ZAR }
     /**
      * Contains a set of Fields for a community connector. This set of fields define which
      * dimensions and metrics can be used in Data Studio.
@@ -194,7 +183,7 @@ declare namespace GoogleAppsScript {
      *       // Set other properties as needed.
      *       .setId('field1_id');
      */
-    export interface Fields {
+    interface Fields {
       asArray(): Field[];
       build(): any[];
       forIds(ids: string[]): Fields;
@@ -206,7 +195,6 @@ declare namespace GoogleAppsScript {
       setDefaultDimension(fieldId: string): void;
       setDefaultMetric(fieldId: string): void;
     }
-
     /**
      * Builder to create a getAuthType() response for your script project.
      *
@@ -220,13 +208,12 @@ declare namespace GoogleAppsScript {
      *         .build();
      *     }
      */
-    export interface GetAuthTypeResponse {
-      build(): any;
+    interface GetAuthTypeResponse {
+      build(): GetAuthTypeResponse;
       printJson(): string;
       setAuthType(authType: AuthType): GetAuthTypeResponse;
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;
     }
-
     /**
      * Contains info data for the config. Its properties determine how the info is displayed in Data
      * Studio.
@@ -238,11 +225,10 @@ declare namespace GoogleAppsScript {
      *       .setId("info1")
      *       .setText("This text gives some context on the configuration.");
      */
-    export interface Info {
+    interface Info {
       setId(id: string): Info;
       setText(text: string): Info;
     }
-
     /**
      * A builder for creating options for SelectSingles and SelectMultiples.
      *
@@ -264,11 +250,10 @@ declare namespace GoogleAppsScript {
      *       .addOption(option1)
      *       .addOption(option2);
      */
-    export interface OptionBuilder {
+    interface OptionBuilder {
       setLabel(label: string): OptionBuilder;
       setValue(value: string): OptionBuilder;
     }
-
     /**
      * Contains select multiple information for the config. Its properties determine how the select
      * multiple is displayed in Data Studio.
@@ -291,14 +276,13 @@ declare namespace GoogleAppsScript {
      *       .addOption(option1)
      *       .addOption(option2);
      */
-    export interface SelectMultiple {
+    interface SelectMultiple {
       addOption(optionBuilder: OptionBuilder): SelectMultiple;
       setAllowOverride(allowOverride: boolean): SelectMultiple;
       setHelpText(helpText: string): SelectMultiple;
       setId(id: string): SelectMultiple;
       setName(name: string): SelectMultiple;
     }
-
     /**
      * Contains select single information for the config. Its properties determine how the select single
      * is displayed in Data Studio.
@@ -319,14 +303,13 @@ declare namespace GoogleAppsScript {
      *       .addOption(option1)
      *       .addOption(option2);
      */
-    export interface SelectSingle {
+    interface SelectSingle {
       addOption(optionBuilder: OptionBuilder): SelectSingle;
       setAllowOverride(allowOverride: boolean): SelectSingle;
       setHelpText(helpText: string): SelectSingle;
       setId(id: string): SelectSingle;
       setName(name: string): SelectSingle;
     }
-
     /**
      * Contains text area information for the config. Its properties determine how the text input is
      * displayed in Data Studio.
@@ -343,14 +326,13 @@ declare namespace GoogleAppsScript {
      *       .setAllowOverride(true)
      *       .setPlaceholder("Search for an artist for all songs.");
      */
-    export interface TextArea {
+    interface TextArea {
       setAllowOverride(allowOverride: boolean): TextArea;
       setHelpText(helpText: string): TextArea;
       setId(id: string): TextArea;
       setName(name: string): TextArea;
       setPlaceholder(placeholder: string): TextArea;
     }
-
     /**
      * Contains text input information for the config. Its properties determine how the text input is
      * displayed in Data Studio.
@@ -365,14 +347,13 @@ declare namespace GoogleAppsScript {
      *       .setAllowOverride(true)
      *       .setPlaceholder("Search for an artist for all songs.");
      */
-    export interface TextInput {
+    interface TextInput {
       setAllowOverride(allowOverride: boolean): TextInput;
       setHelpText(helpText: string): TextInput;
       setId(id: string): TextInput;
       setName(name: string): TextInput;
       setPlaceholder(placeholder: string): TextInput;
     }
-
     /**
      * An error that is shown to users of the connector.
      *
@@ -383,13 +364,65 @@ declare namespace GoogleAppsScript {
      *       .setDebugText("This text is only shown to admins.")
      *       .throwException();
      */
-    export interface UserError {
+    interface UserError {
       printJson(): string;
       setDebugText(text: string): UserError;
       setText(text: string): UserError;
       throwException(): void;
     }
 
+    /**
+     * function getData(request: GoogleAppsScript.Data_Studio.Request<YourConnectorParams>)
+     *
+     * See https://developers.google.com/datastudio/connector/reference#getdata
+     */
+    interface Request<T> {
+      /** An object containing the user provided values for the config parameters defined by the connector. */
+      configParams: T;
+      /** An object containing information relevant to connector execution. */
+      scriptParams: ScriptParams;
+      /**
+       * By default, the date range provided will be the last 28 days excluding today.
+       * If a user applies a date range filter for a report, then the date range provided will reflect the user selection.
+       * When sampleExtraction is set to true, the date two days earlier than today is given as both the start and end date.
+       */
+      dateRange: DateRange;
+      /** The names of the requested fields. */
+      fields: { name: string }[];
+      /**
+       * A nested array of the user selected filters.
+       * The innermost arrays should be ORed together, the outermost arrays should be ANDed together.
+       */
+      dimensionsFilters: DimensionsFilters[][];
+    }
+
+    interface DateRange {
+      /** The start date for filtering the data. Applies only if dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
+      startDate: string;
+      /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
+      endDate: string;
+    }
+
+    interface ScriptParams {
+      /** If true, the getData() request is for automatic semantic type detection. */
+      sampleExtraction?: boolean;
+      /** A timestamp that marks the most recent request for a refresh of data. */
+      lastRefresh: string;
+    }
+
+    type RegexpOperator = "REGEXP_PARTIAL_MATCH" | "REGEXP_EXACT_MATCH";
+    type NumericOperator = "NUMERIC_GREATER_THAN" | "NUMERIC_GREATER_THAN_OR_EQUAL" | "NUMERIC_LESS_THAN" | "NUMERIC_LESS_THAN_OR_EQUAL";
+
+    interface DimensionsFilters {
+      /** The name of the field to be filtered */
+      fieldName: string;
+      /** An array of values to use for the operator. */
+      values: string[];
+      /** Whether data matching this filter should be included or excluded from the getData() response. */
+      type: "INCLUDE" | "EXCLUDE";
+      /** The operator to apply. */
+      operator: "EQUALS" | "CONTAINS" | RegexpOperator | "IN_LIST" | "IS_NULL" | "BETWEEN" | NumericOperator;
+    }
   }
 }
 
