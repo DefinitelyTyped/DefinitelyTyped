@@ -86,8 +86,17 @@ declare module 'victory' {
     type PaddingProps = number | BlockProps;
 
     // Many victory components accept string or number or callback which returns string or number
-    type StringOrNumberOrCallback = string | number | ((d: { datum: any; active: boolean }) => string | number);
-    type NumberOrCallback = ((d: { datum: any; active: boolean }) => number) | number;
+    interface CallbackArgs {
+        active: boolean;
+        datum: any;
+        horizontal: boolean;
+        x: number;
+        y: number;
+    }
+    type VictoryStringOrNumberCallback = (args: CallbackArgs) => string | number;
+    type VictoryNumberCallback = (args: CallbackArgs) => number;
+    type StringOrNumberOrCallback = string | number | VictoryStringOrNumberCallback;
+    type NumberOrCallback = number | VictoryNumberCallback;
 
     type VictoryStyleObject = { [K in keyof React.CSSProperties]: StringOrNumberOrCallback };
     /**
@@ -849,7 +858,7 @@ declare module 'victory' {
          * This prop can be given as “top”, “bottom”, “left”, “right”, or as a function of datum that returns one of these values.
          * If this prop is not provided it will be determined from the sign of the datum, and the value of the horizontal prop.
          */
-        orientation?: OrientationTypes;
+        orientation?: OrientationTypes | VictoryNumberCallback;
         /**
          * The pointerLength prop determines the length of the triangular pointer extending from the flyout. This prop may be given as a positive number or a function of datum.
          */
