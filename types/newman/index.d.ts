@@ -178,9 +178,9 @@ export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;
-    source: any;
+    source: NewmanRunExecutionItem | undefined;
     parent: any;
-    cursor: any;
+    cursor: { ref: string } | {};
 }
 export function run(
     options: NewmanRunOptions,
