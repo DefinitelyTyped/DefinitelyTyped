@@ -2341,7 +2341,7 @@ stripe.plans.update('gold-plan', { nickname: 'New gold plan nickname' }).then(pl
 stripe.plans.update('gold-plan', { active: true }).then(plan => {
     // asynchronously called
 });
-stripe.plans.update('gold-plan', { trial_period_days: true }).then(plan => {
+stripe.plans.update('gold-plan', { trial_period_days: 1 }).then(plan => {
     // asynchronously called
 });
 
