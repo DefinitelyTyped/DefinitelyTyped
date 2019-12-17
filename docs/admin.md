@@ -22,7 +22,7 @@ For a [quick TLDR overview, you can read these slides](https://docs.google.com/p
 Some key concepts:
 
 - Popular packages can break more installs, and will need more time and focus
-- There are a handful of authors who have shipped a lot of high quality contributions who you can happy delegate to
+- There are a handful of authors who have shipped a lot of high quality contributions who you can happily delegate to
 
 ##### Amending an existing DefinitelyTyped Package
 
