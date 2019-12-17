@@ -21,7 +21,7 @@ const logData2 = {
   severity: Severity.Error,
   category: "",
   message: "",
-  data: new Date()
+  time: new Date()
 };
 logger.log(logData2); // $ExpectedType void
 
