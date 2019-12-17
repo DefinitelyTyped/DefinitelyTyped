@@ -5,7 +5,8 @@ import { DataFactory, NamedNode } from 'rdf-js';
 const factory: DataFactory = {} as any;
 
 const builder1: NamespaceBuilder = namespace('http://schema.org/');
-const builder2: NamespaceBuilder = namespace('http://schema.org/', { factory });
+const builder2: NamespaceBuilder = namespace('http://schema.org/', {});
+const builder3: NamespaceBuilder = namespace('http://schema.org/', { factory });
 
 const node1: NamedNode = builder1.Thing;
 const node2: NamedNode = builder1.url;
