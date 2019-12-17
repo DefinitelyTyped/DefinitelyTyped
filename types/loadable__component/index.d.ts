@@ -12,10 +12,22 @@ export interface DefaultImportedComponent<Props> {
 
 export type DefaultComponent<Props> = React.ComponentType<Props> | DefaultImportedComponent<Props>;
 
-export interface Options<Props> {
+/**
+ * Synchronous function that returns the component from the
+ * imported module.
+ *
+ * The default works with default exports, both CommonJS or ESM
+ */
+export type ComponentResolver<Props, Module = DefaultComponent<Props>> = (
+    module: Module,
+    props: Props,
+) => React.ComponentType<Props>;
+
+export interface Options<Props, Module = DefaultComponent<Props>> {
     cacheKey?(props: Props): any;
     fallback?: JSX.Element;
     ssr?: boolean;
+    resolveComponent?: ComponentResolver<Props, Module>;
 }
 
 export interface LoadableReadyOptions {
@@ -40,12 +52,12 @@ export type LoadableLibrary<Module> = React.ComponentType<{
 
 declare function lib<Props, Module = DefaultComponent<Props>>(
     loadFn: (props: Props) => Promise<Module>,
-    options?: Options<Props>,
+    options?: Options<Props, Module>,
 ): LoadableLibrary<Props>;
 
 declare function loadableFunc<Props, Module = DefaultComponent<Props>>(
     loadFn: (props: Props) => Promise<Module>,
-    options?: Options<Props>,
+    options?: Options<Props, Module>,
 ): LoadableComponent<Props>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
