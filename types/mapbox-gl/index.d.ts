@@ -1,10 +1,11 @@
-// Type definitions for Mapbox GL JS 1.5
+// Type definitions for Mapbox GL JS 1.6
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,9 +19,27 @@ declare namespace mapboxgl {
     let version: string;
     let baseApiUrl: string;
 
+    /**
+     * Number of web workers instantiated on a page with GL JS maps.
+     * By default, it is set to half the number of CPU cores (capped at 6).
+     */
+    let workerCount: number;
+
+    /**
+     * Maximum number of images (raster tiles, sprites, icons) to load in parallel, which affects performance in raster-heavy maps.
+     * 16 by default.
+    */
+    let maxParallelImageRequests: number;
+
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
-    export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
+    /**
+     * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
+     * Tiles may still be cached by the browser in some cases.
+     */
+    export function clearStorage(callback?: (err?: Error) => void): void;
+
+    export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void, deferred?: boolean): void;
     export function getRTLTextPluginStatus(): PluginStatus;
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
@@ -386,6 +405,14 @@ declare namespace mapboxgl {
         /** If true, enable keyboard shortcuts (see KeyboardHandler). */
         keyboard?: boolean;
 
+        /** A patch to apply to the default localization table for UI strings, e.g. control tooltips.
+         * The `locale` object maps namespaced UI string IDs to translated strings in the target language;
+         * see `src/ui/default_locale.js` for an example with all supported string IDs.
+         * The object may specify all UI strings (thereby adding support for a new translation) or
+         * only a subset of strings (thereby patching the default translation table).
+        */
+        locale?: { [key: string]: string };
+
         /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
          * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
@@ -406,8 +433,14 @@ declare namespace mapboxgl {
         /** If set, the map is constrained to the given bounds. */
         maxBounds?: LngLatBoundsLike;
 
+        /** Maximum pitch of the map */
+        maxPitch?: number,
+
         /** Maximum zoom of the map */
         maxZoom?: number;
+
+        /** Minimum pitch of the map */
+        minPitch?: number,
 
         /** Minimum zoom of the map */
         minZoom?: number;
@@ -475,6 +508,13 @@ declare namespace mapboxgl {
          * @default null
          */
         maxTileCacheSize?: number;
+
+        /**
+         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
+         * 
+         * @default null
+         */
+        accessToken?: string;
     }
 
     export type ResourceType =
@@ -737,6 +777,41 @@ declare namespace mapboxgl {
         getMaxWidth(): string;
 
         setMaxWidth(maxWidth: string): this;
+
+        /**
+         * Adds a CSS class to the popup container element.
+         *
+         * @param {string} className Non-empty string with CSS class name to add to popup container
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.addClassName('some-class')
+         */
+        addClassName(className: string): void;
+
+        /**
+         * Removes a CSS class from the popup container element.
+         *
+         * @param {string} className Non-empty string with CSS class name to remove from popup container
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.removeClassName('some-class')
+         */
+        removeClassName(className: string): void;
+
+        /**
+         * Add or remove the given CSS class on the popup container, depending on whether the container currently has that class.
+         *
+         * @param {string} className Non-empty string with CSS class name to add/remove
+         *
+         * @returns {boolean} if the class was removed return false, if class was added, then return true
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.toggleClassName('toggleClass')
+         */
+        toggleClassName(className: string): void;
     }
 
     export interface PopupOptions {
@@ -989,6 +1064,9 @@ declare namespace mapboxgl {
 
         setSouthWest(sw: LngLatLike): this;
 
+        /** Check if the point is within the bounding box. */
+        contains(lnglat: LngLatLike): boolean;
+
         /** Extend the bounds to include a given LngLat or LngLatBounds. */
         extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
 
@@ -1151,16 +1229,45 @@ declare namespace mapboxgl {
         isDraggable(): boolean;
     }
 
+    type Alignment = 'map' | 'viewport' | 'auto';
+
     export interface MarkerOptions {
+        /** DOM element to use as a marker. The default is a light blue, droplet-shaped SVG marker */
         element?: HTMLElement;
 
+        /** The offset in pixels as a PointLike object to apply relative to the element's center. Negatives indicate left and up. */
         offset?: PointLike;
 
+        /** A string indicating the part of the Marker that should be positioned closest to the coordinate set via Marker.setLngLat.
+         * Options are `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-right'`.
+         * The default value os `'center'`
+        */
         anchor?: Anchor;
 
+        /** The color to use for the default marker if options.element is not provided. The default is light blue (#3FB1CE). */
         color?: string
 
+        /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean;
+
+        /** The rotation angle of the marker in degrees, relative to its `rotationAlignment` setting. A positive value will rotate the marker clockwise.
+         * The default value is 0.
+        */
+        rotation?: number,
+
+        /** `map` aligns the `Marker`'s rotation relative to the map, maintaining a bearing as the map rotates.
+         * `viewport` aligns the `Marker`'s rotation relative to the viewport, agnostic to map rotations.
+         * `auto` is equivalent to `viewport`.
+         * The default value is `auto`
+        */
+        rotationAlignment?: Alignment,
+
+        /** `map` aligns the `Marker` to the plane of the map.
+         * `viewport` aligns the `Marker` to the plane of the viewport.
+         * `auto` automatically matches the value of `rotationAlignment`.
+         * The default value is `auto`.
+         */
+        pitchAlignment?: Alignment
     }
 
     /**
@@ -1305,6 +1412,11 @@ declare namespace mapboxgl {
         offset?: PointLike;
         /** When set to false, no animation happens */
         animate?: boolean;
+
+        /** If `true`, then the animation is considered essential and will not be affected by `prefers-reduced-motion`.
+         * Otherwise, the transition will happen instantly if the user has enabled the `reduced motion` accesibility feature in their operating system.
+         */
+        essential?: boolean;
     }
 
     /**
@@ -1717,7 +1829,7 @@ declare namespace mapboxgl {
         'raster-contrast'?: number | Expression;
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
-        'raster-resample'?: 'linear' | 'nearest';
+        'raster-resampling'?: 'linear' | 'nearest';
     }
 
     export interface CircleLayout extends Layout {

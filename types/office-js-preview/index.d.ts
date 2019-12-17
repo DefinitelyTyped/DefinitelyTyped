@@ -582,8 +582,6 @@ declare namespace Office {
         /**
          * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -616,8 +614,6 @@ declare namespace Office {
          *
          * The RoamingSettings object lets you store and access data for a mail add-in that is stored in a user's mailbox, so that is available to 
          * that add-in when it is running from any host client application used to access that mailbox.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -767,7 +763,7 @@ declare namespace Office {
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to 
         * other domains.
         *
-        * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
+        * Any page calling `Office.context.ui.messageParent` must also be on the same domain as the parent page.
         * 
         * **Design considerations**:
         *
@@ -872,7 +868,7 @@ declare namespace Office {
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to 
         * other domains.
         *
-        * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
+        * Any page calling `Office.context.ui.messageParent` must also be on the same domain as the parent page.
         * 
         * **Design considerations**:
         *
@@ -1840,14 +1836,10 @@ declare namespace Office {
     }
     /**
      * Specifies the format in which to return the document.
-     *
-     * @remarks
-     * 
-     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
      */
     enum FileType {
         /**
-         * Returns only the text of the document as a string. (Word only)
+         * Returns only the text of the document as a string.
          */
         Text,
         /**
@@ -3431,7 +3423,7 @@ declare namespace Office {
          */
         getActiveViewAsync(callback?: (result: AsyncResult<"edit" | "read">) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iPad, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3444,20 +3436,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iOS, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iPad, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iPad, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -3466,7 +3458,7 @@ declare namespace Office {
          */
         getFileAsync(fileType: FileType, options?: GetFileOptions, callback?: (result: AsyncResult<Office.File>) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iPad, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3479,20 +3471,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          * 
-         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office on iOS apps, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iPad, the `getFileAsync` method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office on iPad apps, the `getFileAsync` method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
-         * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
+         * The `fileType` parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
-         *
-         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
-         *
-         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * *Supported FileTypes, by platform*
+         *  <table>
+         *   <tr><th>                             </th><th> Office on Windows           </th><th> Office on the web           </th><th> Office on iPad      </th><th> Office on Mac               </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`         </td><td>                     </td><td> `Compressed`, `Pdf`, `Text` </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf`         </td><td> `Compressed`, `Pdf` </td><td> `Compressed`, `Pdf`         </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`, `Pdf`, `Text` </td><td> `Compressed`        </td><td> `Compressed`, `Pdf`, `Text` </td></tr> 
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3906,7 +3898,7 @@ declare namespace Office {
          * <table>
          *   <tr>
          *     <td>`Office.CoercionType.XmlSvg`</td>
-         *     <td>(Excel only): There is a 64KB size limitation for SVG insertions as of build 16.0.11526.10000.</td>
+         *     <td>(Excel only): In Excel builds between 16.0.11526.10000 and 16.0.12309.10000, there is a 64KB size limitation for SVG insertions.</td>
          *   </tr>
          * </table>
          * 
@@ -4946,8 +4938,8 @@ declare namespace Office {
      */
     interface Slice {
         /**
-         * Gets the raw data of the file slice in `Office.FileType.Text` ("text") or `Office.FileType.Compressed` ("compressed") format as specified 
-         * by the fileType parameter of the call to the Document.getFileAsync method.
+         * Gets the raw data of the file slice in `Office.FileType.Text` or `Office.FileType.Compressed` format as specified 
+         * by the `fileType` parameter of the call to the `Document.getFileAsync` method.
          *
          * @remarks
          * 
@@ -7757,8 +7749,6 @@ declare namespace Office {
         /**
          * Specifies an attachment's type.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -7984,8 +7974,6 @@ declare namespace Office {
         /**
          * Specifies an entity's type.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -8045,8 +8033,6 @@ declare namespace Office {
         }
         /**
          * Specifies an item's type.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -8774,8 +8760,6 @@ declare namespace Office {
         /**  
          * Specifies the type of response to a meeting invitation.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -8920,8 +8904,6 @@ declare namespace Office {
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
          * the client to UTC for the server.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -8947,8 +8929,6 @@ declare namespace Office {
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or an appointment.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -8959,8 +8939,6 @@ declare namespace Office {
         /**
          * Gets or sets the location of an appointment. The location property returns a {@link Office.Location | Location} object that provides methods that are 
          * used to get and set the location of the appointment.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -8990,8 +8968,6 @@ declare namespace Office {
          * - Get 500 members maximum.
          *
          * - Set a maximum of 100 members per call, up to 500 members total.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -9044,8 +9020,6 @@ declare namespace Office {
          *
          * - Set a maximum of 100 members per call, up to 500 members total.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -9085,8 +9059,6 @@ declare namespace Office {
          * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on 
          * the client to UTC for the server.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -9100,8 +9072,6 @@ declare namespace Office {
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
          *
          * The subject property returns a Subject object that provides methods to get and set the subject.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -9506,7 +9476,7 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
@@ -9533,7 +9503,7 @@ declare namespace Office {
          /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
@@ -9566,8 +9536,6 @@ declare namespace Office {
          * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
          * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
          * the server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -9813,8 +9781,6 @@ declare namespace Office {
     /**
      * The AppointmentForm namespace is used to access the currently selected appointment.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -9833,7 +9799,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        body: string;
+        body: Body | string;
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
@@ -9851,15 +9817,13 @@ declare namespace Office {
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
          * the client to UTC for the server.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        end: Date;
+        end: Time | Date;
         /**
         * Gets or sets the location of an appointment.
         *
@@ -9871,15 +9835,13 @@ declare namespace Office {
         *
         * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
         *
-        * [Api set: Mailbox 1.0]
-        *
         * @remarks
         *
         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
         * 
         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
         */
-        location: string;
+        location: Location | string;
         /**
         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
         *
@@ -9897,8 +9859,6 @@ declare namespace Office {
         *
         * - Set a maximum of 100 members per call, up to 500 members total.
         *
-        * [Api set: Mailbox 1.0]
-        *
         * @remarks
         *
         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -9908,8 +9868,6 @@ declare namespace Office {
        optionalAttendees: Recipients[] | EmailAddressDetails[];
         /**
         * Provides access to the resources of an event. Returns an array of strings containing the resources required for the appointment.
-        *
-        * [Api set: Mailbox 1.0]
         *
         * @remarks
         *
@@ -9935,8 +9893,6 @@ declare namespace Office {
          *
          * - Set a maximum of 100 members per call, up to 500 members total.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -9961,15 +9917,13 @@ declare namespace Office {
          * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on 
          * the client to UTC for the server.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        start: Date;
+        start: Time | Date;
         /**
          * Gets or sets the description that appears in the subject field of an item.
          *
@@ -9983,15 +9937,13 @@ declare namespace Office {
          *
          * The subject property returns a Subject object that provides methods to get and set the subject.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        subject: string;
+        subject: Subject | string;
     }
     /**
      * The appointment attendee mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -10003,8 +9955,6 @@ declare namespace Office {
     interface AppointmentRead extends Appointment, ItemRead {
         /**
          * Gets the item's attachments as an array.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -10044,8 +9994,6 @@ declare namespace Office {
         /**
          * Gets the date and time that an item was created.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10055,8 +10003,6 @@ declare namespace Office {
         dateTimeCreated: Date;
         /**
          * Gets the date and time that an item was last modified.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10075,8 +10021,6 @@ declare namespace Office {
          *
          * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
          * the client to UTC for the server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10103,10 +10047,7 @@ declare namespace Office {
         /**
          * Gets the Exchange Web Services item class of the selected item.
          *
-         *
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10137,18 +10078,18 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10162,8 +10103,6 @@ declare namespace Office {
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or an appointment.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10175,8 +10114,6 @@ declare namespace Office {
          * Gets the location of an appointment.
          *
          * The location property returns a string that contains the location of the appointment.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10190,8 +10127,6 @@ declare namespace Office {
          *
          * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by email programs. 
          * To get the subject of the item with the prefixes intact, use the subject property.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10218,8 +10153,6 @@ declare namespace Office {
          * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
          * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10229,8 +10162,6 @@ declare namespace Office {
         optionalAttendees: EmailAddressDetails[];
         /**
          * Gets the email address of the meeting organizer for a specified meeting.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10265,8 +10196,6 @@ declare namespace Office {
          * The requiredAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each required attendee to 
          * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10279,8 +10208,6 @@ declare namespace Office {
          *
          * The start property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
          * You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10318,8 +10245,6 @@ declare namespace Office {
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
          *
          * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10385,8 +10310,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10411,8 +10334,6 @@ declare namespace Office {
          * If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10478,8 +10399,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10492,8 +10411,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         * 
          * @param entityType - One of the EntityType enumeration values.
          *
          * @returns
@@ -10561,8 +10478,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -10591,8 +10506,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @returns
          * An object that contains arrays of strings that match the regular expressions defined in the manifest XML file. 
          * The name of each array is equal to the corresponding value of the RegExName attribute of the matching ItemHasRegularExpressionMatch rule 
@@ -10616,8 +10529,6 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @returns
          * An array that contains the strings that match the regular expression defined in the manifest XML file.
@@ -10687,8 +10598,6 @@ declare namespace Office {
          * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
          * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
          * the server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -10799,8 +10708,6 @@ declare namespace Office {
      * Represents an attachment on an item from the server. Read mode only.
      *
      * An array of **AttachmentDetails** objects is returned as the attachments property of an appointment or message item.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -11284,12 +11191,10 @@ declare namespace Office {
         color: MailboxEnums.CategoryColor | string;
     }
     /**
-     * Represents a contact stored on the server. Read mode only.
+     * Represents the details about a contact (similar to what's on a physical contact or business card) extracted from the item's body. Read mode only.
      *
-     * The list of contacts associated with an email message or appointment is returned in the contacts property of the {@link Office.Entities | Entities} object 
-     * that is returned by the getEntities or getEntitiesByType method of the active item.
-     *
-     * [Api set: Mailbox 1.0]
+     * The list of contacts extracted from the body of an email message or appointment is returned in the contacts property of the
+     * {@link Office.Entities | Entities} object returned by the getEntities or getEntitiesByType method of the current item.
      *
      * @remarks
      * 
@@ -11331,8 +11236,6 @@ declare namespace Office {
      *
      * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -11344,8 +11247,6 @@ declare namespace Office {
          * Returns the value of the specified custom property.
          * @param name - The name of the custom property to be returned.
          * @returns The value of the specified custom property.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -11363,8 +11264,6 @@ declare namespace Office {
          * otherwise, the existing value is replaced with the new value. 
          * The value parameter can be of any type; however, it is always passed to the server as a string.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -11380,8 +11279,6 @@ declare namespace Office {
          *
          * To make the removal of the property permanent, you must call the saveAsync method of the CustomProperties object.
          * @param name - The name of the property to be removed.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -11406,8 +11303,6 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          * @param asyncContext - Optional. Any state data that is passed to the callback method.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -11418,8 +11313,6 @@ declare namespace Office {
     }
     /**
      * Provides diagnostic information to an Outlook add-in.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -11435,8 +11328,6 @@ declare namespace Office {
          *
          * **Note**: The "Outlook" value is returned for Outlook on desktop clients (i.e., Windows and Mac).
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -11449,8 +11340,6 @@ declare namespace Office {
          *
          * If the mail add-in is running in Outlook on a desktop or mobile client, the hostVersion property returns the version of the host 
          * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -11476,8 +11365,6 @@ declare namespace Office {
          * - "ThreeColumns", which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
          * desktop computer.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -11488,8 +11375,6 @@ declare namespace Office {
     }
     /**
      * Provides the email properties of the sender or specified recipients of an email message or appointment.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -11519,8 +11404,6 @@ declare namespace Office {
     }
     /**
      * Represents an email account on an Exchange Server.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -11704,8 +11587,6 @@ declare namespace Office {
      *
      * When the property arrays are returned by the getEntitiesByType method, only the property for the specified entity contains data; 
      * all other properties are null.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -11950,8 +11831,6 @@ declare namespace Office {
      * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
      * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -11988,8 +11867,6 @@ declare namespace Office {
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
          * an appointment.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -12225,8 +12102,6 @@ declare namespace Office {
          * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
          * the server.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -12292,8 +12167,6 @@ declare namespace Office {
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
          *
          * The subject property returns a Subject object that provides methods to get and set the subject.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -12616,7 +12489,7 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data.
@@ -12644,7 +12517,7 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data.
@@ -12874,8 +12747,6 @@ declare namespace Office {
         /**
          * Gets the item's attachments as an array.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -12891,11 +12762,8 @@ declare namespace Office {
         /**
          * Gets the Exchange Web Services item class of the selected item.
          *
-         *
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class 
          * IPM.Appointment.Contoso.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -12926,18 +12794,18 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -12952,8 +12820,6 @@ declare namespace Office {
          * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by 
          * email programs. To get the subject of the item with the prefixes intact, use the subject property.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -12967,8 +12833,6 @@ declare namespace Office {
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
          *
          * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -12991,8 +12855,6 @@ declare namespace Office {
          * If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -13018,8 +12880,6 @@ declare namespace Office {
          * If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -13086,8 +12946,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13100,8 +12958,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         * 
          * @param entityType - One of the EntityType enumeration values.
          *
          * @returns
@@ -13170,8 +13026,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13200,8 +13054,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @returns
          * An object that contains arrays of strings that match the regular expressions defined in the manifest XML file. 
          * The name of each array is equal to the corresponding value of the RegExName attribute of the matching ItemHasRegularExpressionMatch rule 
@@ -13225,8 +13077,6 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @returns
          * An array that contains the strings that match the regular expression defined in the manifest XML file.
@@ -13287,8 +13137,6 @@ declare namespace Office {
     }
     /**
      * Represents a date and time in the local client's time zone. Read mode only.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      *
@@ -13490,8 +13338,6 @@ declare namespace Office {
      *
      * - userProfile: Provides information about the user in an Outlook add-in.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -13520,8 +13366,6 @@ declare namespace Office {
          *
          *  More information is under {@link Office.Diagnostics}. 
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13536,8 +13380,6 @@ declare namespace Office {
          *
          * In compose mode you must call the saveAsync method before you can use the ewsUrl member. 
          * Your app must have ReadWriteItem permissions to call the saveAsync method.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -13672,8 +13514,6 @@ declare namespace Office {
          * If the mail app is running in Outlook on the web, the convertToLocalClientTime method will return a dictionary object with the values set to 
          * the time zone specified in the EAC.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13710,8 +13550,6 @@ declare namespace Office {
          * The convertToUtcClientTime method converts a dictionary containing a local date and time to a Date object with the correct values for the 
          * local date and time.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13739,8 +13577,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -13764,8 +13600,6 @@ declare namespace Office {
          * an existing appointment, and displayNewAppointmentForm to display a form to create a new appointment.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -13793,8 +13627,6 @@ declare namespace Office {
          * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -13934,7 +13766,7 @@ declare namespace Office {
          * Calling the `getCallbackTokenAsync` method in compose mode requires you to have saved the item.
          * The `saveAsync` method requires a minimum permission level of **ReadWriteItem**.
          *
-         * [Api set: Mailbox 1.0 for Read mode support; 1.3 for Compose mode support]
+         * [Api set: All support Read mode; Mailbox 1.3 introduced Compose mode support]
          *
          * @remarks
          *
@@ -13960,8 +13792,6 @@ declare namespace Office {
          * Gets a token identifying the user and the Office Add-in.
          *
          * The token is returned as a string in the `asyncResult.value` property.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -14025,8 +13855,6 @@ declare namespace Office {
          * You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. 
          * You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
@@ -14088,7 +13916,7 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
      */
@@ -14151,7 +13979,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
@@ -14166,7 +13994,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
@@ -14224,8 +14052,6 @@ declare namespace Office {
      * begin and end. 
      * The values are in the default time zone specified for the current user.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -14275,8 +14101,6 @@ declare namespace Office {
          *
          * You get null for this property for a new item in a compose form. 
          * If the user sets a subject and saves the item, the conversationId property will return a value.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -14347,8 +14171,6 @@ declare namespace Office {
          *
          * - Set a maximum of 100 members per call, up to 500 members total.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -14365,8 +14187,6 @@ declare namespace Office {
          *
          * You get null for this property for a new item in a compose form. 
          * If the user sets a subject and saves the item, the conversationId property will return a value.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -14411,8 +14231,6 @@ declare namespace Office {
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
          * an appointment.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -14463,8 +14281,6 @@ declare namespace Office {
          *
          * The subject property returns a Subject object that provides methods to get and set the subject.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -14482,8 +14298,6 @@ declare namespace Office {
          * - Get 500 members maximum.
          *
          * - Set a maximum of 100 members per call, up to 500 members total.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -14847,34 +14661,6 @@ declare namespace Office {
          */
         getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Asynchronously returns selected data from the subject or body of a message.
-         *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
-         * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
-         *
-         * To access the selected data from the callback method, call asyncResult.value.data. 
-         * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
-         *
-         * [Api set: Mailbox 1.2]
-         *
-         * @returns
-         * The selected data as a string with format determined by coercionType.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         *
-         * @param coercionType - Requests a format for the data. If Text, the method returns the plain text as a string, removing any HTML tags present. 
-         *                     If HTML, the method returns the selected text, whether it is plaintext or HTML.
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        getSelectedDataAsync(coercionType: Office.CoercionType | string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
-        /**
          * Asynchronously gets the ID of a saved item.
          *
          * When invoked, this method returns the item ID via the callback method.
@@ -14927,7 +14713,35 @@ declare namespace Office {
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
-         * If there is no selection but the cursor is in the body or subject, the method returns null for the selected data. 
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
+         * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
+         *
+         * To access the selected data from the callback method, call asyncResult.value.data. 
+         * To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
+         *
+         * [Api set: Mailbox 1.2]
+         *
+         * @returns
+         * The selected data as a string with format determined by coercionType.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
+         *
+         * @param coercionType - Requests a format for the data. If Text, the method returns the plain text as a string, removing any HTML tags present. 
+         *                     If HTML, the method returns the selected text, whether it is plaintext or HTML.
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        getSelectedDataAsync(coercionType: Office.CoercionType | string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
+        /**
+         * Asynchronously returns selected data from the subject or body of a message.
+         *
+         * If there is no selection but the cursor is in the body or subject, the method returns an empty string for the selected data. 
          * If a field other than the body or subject is selected, the method returns the InvalidSelection error.
          *
          * To access the selected data from the callback method, call asyncResult.value.data. 
@@ -14960,8 +14774,6 @@ declare namespace Office {
          * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
          * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
          * the server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15217,8 +15029,6 @@ declare namespace Office {
         /**
          * Gets the item's attachments as an array.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15262,8 +15072,6 @@ declare namespace Office {
          * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. 
          * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15281,8 +15089,6 @@ declare namespace Office {
          * You get null for this property for a new item in a compose form. 
          * If the user sets a subject and saves the item, the conversationId property will return a value.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15292,8 +15098,6 @@ declare namespace Office {
         conversationId: string;
         /**
          * Gets the date and time that an item was created.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15305,8 +15109,6 @@ declare namespace Office {
         /**
          * Gets the date and time that an item was last modified.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15317,6 +15119,22 @@ declare namespace Office {
          */
         dateTimeModified: Date;
         /**
+         * Gets the date and time that the appointment is to end.
+         *
+         * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
+         *
+         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
+         * the client to UTC for the server.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        end: Date;
+        /**
          * Gets the email address of the sender of a message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. 
@@ -15326,8 +15144,6 @@ declare namespace Office {
          * 
          * The from property returns an EmailAddressDetails object.
          * 
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15337,8 +15153,6 @@ declare namespace Office {
         from: EmailAddressDetails;
         /**
          * Gets the Internet message identifier for an email message.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15352,8 +15166,6 @@ declare namespace Office {
          * 
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class 
          * IPM.Appointment.Contoso.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -15385,18 +15197,18 @@ declare namespace Office {
          */
         itemClass: string;
         /**
-         * Gets the Exchange Web Services item identifier for the current item.
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
          *
          * The itemId property is not available in compose mode. 
          * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
          * in the asyncResult.value parameter in the callback function.
          *
-         * **Note**: The identifier returned by the itemId property is the same as the Exchange Web Services item identifier. 
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
          * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
          * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
          * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15411,8 +15223,6 @@ declare namespace Office {
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
          * an appointment.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15421,13 +15231,23 @@ declare namespace Office {
          */
         itemType: MailboxEnums.ItemType | string;
         /**
+         * Gets the location of a meeting request.
+         *
+         * The location property returns a string that contains the location of the appointment.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        location: string;
+        /**
          * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
          *
          * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by 
          * email programs. 
          * To get the subject of the item with the prefixes intact, use the subject property.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15501,8 +15321,6 @@ declare namespace Office {
          *
          * **Note**: The recipientType property of the EmailAddressDetails object in the sender property is undefined.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15511,13 +15329,24 @@ declare namespace Office {
          */
         sender: EmailAddressDetails;
         /**
+         * Gets the date and time that the appointment is to begin.
+         *
+         * The start property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the value to the client's local date and time.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        start: Date;
+        /**
          * Gets the description that appears in the subject field of an item.
          *
          * The subject property gets or sets the entire subject of the item, as sent by the email server.
          *
          * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15532,8 +15361,6 @@ declare namespace Office {
          *
          * The to property returns an array that contains an EmailAddressDetails object for each recipient listed on the To line of the message. 
          * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15599,8 +15426,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15625,8 +15450,6 @@ declare namespace Office {
          * If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15733,8 +15556,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15746,8 +15567,6 @@ declare namespace Office {
          * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @param entityType - One of the EntityType enumeration values.
          * 
@@ -15817,8 +15636,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -15847,8 +15664,6 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @returns
          * An object that contains arrays of strings that match the regular expressions defined in the manifest XML file. 
          * The name of each array is equal to the corresponding value of the RegExName attribute of the matching ItemHasRegularExpressionMatch rule 
@@ -15872,8 +15687,6 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @returns
          * An array that contains the strings that match the regular expression defined in the manifest XML file.
@@ -15943,8 +15756,6 @@ declare namespace Office {
          * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
          * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
          * the server.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -16277,8 +16088,6 @@ declare namespace Office {
      *
      * An array of PhoneNumber objects containing the phone numbers found in an email message is returned in the phoneNumbers property of the 
      * Entities object that is returned when you call the getEntities method on the selected item.
-     *
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -16852,8 +16661,6 @@ declare namespace Office {
      * your add-in has persisted changes.
      * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -16863,8 +16670,6 @@ declare namespace Office {
     export interface RoamingSettings {
         /**
          * Retrieves the specified setting.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -16878,8 +16683,6 @@ declare namespace Office {
         get(name: string): any;
         /**
          * Removes the specified setting
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -16896,8 +16699,6 @@ declare namespace Office {
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use 
          * the set and get methods to work with the in-memory copy of the settings property bag. 
          * When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -16918,8 +16719,6 @@ declare namespace Office {
          * A maximum of 32KB is available for the settings of each add-in.
          *
          * Any changes made to settings using the set function will not be saved to the server until the saveAsync function is called.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -17252,8 +17051,6 @@ declare namespace Office {
      * The list of tasks suggested in an email message is returned in the taskSuggestions property of the {@link Office.Entities | Entities} object 
      * that is returned when the getEntities or getEntitiesByType method is called on the active item.
      *
-     * [Api set: Mailbox 1.0]
-     *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -17377,8 +17174,6 @@ declare namespace Office {
     }
     /**
      * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
-     * 
-     * [Api set: Mailbox 1.0]
      *
      * @remarks
      * 
@@ -17429,8 +17224,6 @@ declare namespace Office {
         /**
          * Gets the user's display name.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -17441,8 +17234,6 @@ declare namespace Office {
         /**
          * Gets the user's display name.
          *
-         * [Api set: Mailbox 1.0]
-         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -17452,8 +17243,6 @@ declare namespace Office {
         emailAddress: string;
         /**
          * Gets the user's SMTP email address.
-         *
-         * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
@@ -20390,6 +20179,14 @@ declare namespace Excel {
         readonly comments: Excel.CommentCollection;
         /**
          *
+         * Returns a collection of worksheet-level custom properties.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly customProperties: Excel.WorksheetCustomPropertyCollection;
+        /**
+         *
          * Gets an object that can be used to manipulate frozen panes on the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.7]
@@ -20890,8 +20687,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
-         * 
-         * **Note**: This API is currently only supported for Office on Windows and Mac.
+            
+             **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20906,8 +20703,8 @@ declare namespace Excel {
         /**
          *
          * Inserts the specified worksheets of a workbook into the current workbook.
-         * 
-         * **Note**: This API is currently only supported for Office on Windows and Mac.
+            
+             **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -22168,8 +21965,7 @@ declare namespace Excel {
          * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
             The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param destinationRange destinationRange Specifies the range to where the information in this range will be moved.
          */
@@ -22714,7 +22510,9 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22743,7 +22541,9 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22765,7 +22565,9 @@ declare namespace Excel {
     interface ReplaceCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
+         * Specifies whether the match needs to be complete or partial.
+            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+            Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24294,7 +24096,9 @@ declare namespace Excel {
         readonly legacyId: string;
         /**
          *
-         * Name of the table.
+         * The name of the table.
+         * When setting the name of the table, you must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+         *
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -25385,10 +25189,9 @@ declare namespace Excel {
         set(properties: Excel.RangeFormat): void;
         /**
          *
-         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250.
+         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters..
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param amount The number of character spaces by which the current indent is adjusted. This value should be between -250 and 250.
             **Note**: If the amount would raise the indent level above 250, the indent level stays with 250.
@@ -31144,7 +30947,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        set: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
     }
     /**
      *
@@ -33075,6 +32878,123 @@ declare namespace Excel {
     }
     /**
      *
+     * Represents a worksheet-level custom property.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class WorksheetCustomProperty extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the key of the custom property. Read only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly key: string;
+        /**
+         *
+         * Gets the value of the custom property. Read only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly value: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyLoadOptions): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorksheetCustomProperty;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.WorksheetCustomProperty object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyData;
+    }
+    /**
+     *
+     * Contains the collection of worksheet-level custom property.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class WorksheetCustomPropertyCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.WorksheetCustomProperty[];
+        /**
+         *
+         * Gets the number of custom properties on this worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a custom property object by its key, which is case-insensitive. Throws if the custom property does not exist.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The key that identifies the custom property object.
+         */
+        getItem(key: string): Excel.WorksheetCustomProperty;
+        /**
+         *
+         * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The key that identifies the custom property object.
+         */
+        getItemOrNullObject(key: string): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.WorksheetCustomPropertyCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.WorksheetCustomPropertyCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyCollectionData;
+    }
+    /**
+     *
      * Represents workbook properties.
      *
      * [Api set: ExcelApi 1.7]
@@ -34131,7 +34051,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.6]
          */
-        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+        style: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -36791,32 +36711,28 @@ declare namespace Excel {
      *
      * Represents the entity that is mentioned in comments.
      *
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-     * @beta
+     * [Api set: ExcelApiOnline 1.1]
      */
     interface CommentMention {
         /**
          *
          * Gets or sets the email address of the entity that is mentioned in comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         email: string;
         /**
          *
-         * Gets or sets the id of the entity. This is aligned with the id information in `CommentRichContent.richContent`.
+         * Gets or sets the id of the entity. This matches one of the ids in `CommentRichContent.richContent`.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         id: number;
         /**
          *
          * Gets or sets the name of the entity that is mentioned in comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         name: string;
     }
@@ -36824,14 +36740,14 @@ declare namespace Excel {
      *
      * Represents the content contained within a comment or comment reply. Rich content incudes the text string and any other objects contained within the comment body, such as mentions.
      *
-     * [Api set: ExcelApi 1.10]
+     * [Api set: ExcelApiOnline 1.1]
      */
     interface CommentRichContent {
         /**
          *
          * An array containing all the entities (e.g. people) mentioned within the comment.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApiOnline 1.1]
          */
         mentions?: Excel.CommentMention[];
         richContent: string;
@@ -36854,8 +36770,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.Comment;
         /**
@@ -36865,8 +36781,8 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
-         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
         /**
@@ -36991,8 +36907,7 @@ declare namespace Excel {
          *
          * Gets the entities (e.g. people) that are mentioned in comments.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly mentions: Excel.CommentMention[];
         /**
@@ -37007,8 +36922,7 @@ declare namespace Excel {
          *
          * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -37043,8 +36957,7 @@ declare namespace Excel {
          *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
          */
@@ -37093,8 +37006,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
         /**
@@ -37103,8 +37016,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApi Preview for CommentRichContent object]
-         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.plain`.
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
+         * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
         /**
@@ -37204,8 +37117,7 @@ declare namespace Excel {
          *
          * Gets the entities (e.g. people) that are mentioned in comments.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly mentions: Excel.CommentMention[];
         /**
@@ -37220,8 +37132,7 @@ declare namespace Excel {
          *
          * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         readonly richContent: string;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -37263,8 +37174,7 @@ declare namespace Excel {
          *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param contentWithMentions The content for the comment. This contains a specially formatted string and a list of mentions that will be parsed into the string when displayed by Excel.
          */
@@ -40524,9 +40434,7 @@ declare namespace Excel {
         fiveQuarters = "FiveQuarters",
         threeStars = "ThreeStars",
         threeTriangles = "ThreeTriangles",
-        fiveBoxes = "FiveBoxes",
-        linkedEntityFinanceIcon = "LinkedEntityFinanceIcon",
-        linkedEntityMapIcon = "LinkedEntityMapIcon"
+        fiveBoxes = "FiveBoxes"
     }
     /**
      * [Api set: ExcelApi 1.2]
@@ -48800,6 +48708,10 @@ declare namespace Excel {
              */
             visible?: boolean;
         }
+        /** An interface for updating data on the WorksheetCustomPropertyCollection object, for use in `worksheetCustomPropertyCollection.set({ ... })`. */
+        interface WorksheetCustomPropertyCollectionUpdateData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
+        }
         /** An interface for updating data on the DocumentProperties object, for use in `documentProperties.set({ ... })`. */
         interface DocumentPropertiesUpdateData {
             /**
@@ -49213,7 +49125,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface for updating data on the ColorScaleConditionalFormat object, for use in `colorScaleConditionalFormat.set({ ... })`. */
         interface ColorScaleConditionalFormatUpdateData {
@@ -50707,6 +50619,14 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.10]
             */
             comments?: Excel.Interfaces.CommentData[];
+            /**
+            *
+            * Returns a collection of worksheet-level custom properties.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            customProperties?: Excel.Interfaces.WorksheetCustomPropertyData[];
             /**
             *
             * Gets the horizontal page break collection for the worksheet. This collection only contains manual page breaks.
@@ -54553,6 +54473,29 @@ declare namespace Excel {
              */
             visible?: boolean;
         }
+        /** An interface describing the data returned by calling `worksheetCustomProperty.toJSON()`. */
+        interface WorksheetCustomPropertyData {
+            /**
+             *
+             * Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: string;
+            /**
+             *
+             * Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: string;
+        }
+        /** An interface describing the data returned by calling `worksheetCustomPropertyCollection.toJSON()`. */
+        interface WorksheetCustomPropertyCollectionData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
+        }
         /** An interface describing the data returned by calling `documentProperties.toJSON()`. */
         interface DocumentPropertiesData {
             /**
@@ -55015,7 +54958,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.6]
              */
-            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes" | "LinkedEntityFinanceIcon" | "LinkedEntityMapIcon";
+            style?: Excel.IconSet | "Invalid" | "ThreeArrows" | "ThreeArrowsGray" | "ThreeFlags" | "ThreeTrafficLights1" | "ThreeTrafficLights2" | "ThreeSigns" | "ThreeSymbols" | "ThreeSymbols2" | "FourArrows" | "FourArrowsGray" | "FourRedToBlack" | "FourRating" | "FourTrafficLights" | "FiveArrows" | "FiveArrowsGray" | "FiveRating" | "FiveQuarters" | "ThreeStars" | "ThreeTriangles" | "FiveBoxes";
         }
         /** An interface describing the data returned by calling `colorScaleConditionalFormat.toJSON()`. */
         interface ColorScaleConditionalFormatData {
@@ -55785,8 +55728,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: Excel.CommentMention[];
             /**
@@ -55801,8 +55743,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: string;
         }
@@ -55851,8 +55792,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: Excel.CommentMention[];
             /**
@@ -55867,8 +55807,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: string;
         }
@@ -62916,6 +62855,64 @@ declare namespace Excel {
         }
         /**
          *
+         * Represents a worksheet-level custom property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface WorksheetCustomPropertyLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: boolean;
+            /**
+             *
+             * Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: boolean;
+        }
+        /**
+         *
+         * Contains the collection of worksheet-level custom property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface WorksheetCustomPropertyCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the key of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            key?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the value of the custom property. Read only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            value?: boolean;
+        }
+        /**
+         *
          * Represents workbook properties.
          *
          * [Api set: ExcelApi 1.7]
@@ -65111,8 +65108,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65127,8 +65123,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -65182,8 +65177,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65198,8 +65192,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -65253,8 +65246,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65269,8 +65261,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }
@@ -65324,8 +65315,7 @@ declare namespace Excel {
              *
              * Gets the entities (e.g. people) that are mentioned in comments.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             mentions?: boolean;
             /**
@@ -65340,8 +65330,7 @@ declare namespace Excel {
              *
              * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
-             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-             * @beta
+             * [Api set: ExcelApiOnline 1.1]
              */
             richContent?: boolean;
         }

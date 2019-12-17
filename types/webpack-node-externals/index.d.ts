@@ -1,6 +1,7 @@
-// Type definitions for webpack-node-externals 1.6
+// Type definitions for webpack-node-externals 1.7
 // Project: https://github.com/liady/webpack-node-externals
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
+//                 Manuel Pogge <https://github.com/MrSpoocy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,6 +13,12 @@ declare function webpackNodeExternals(options?: webpackNodeExternals.Options): E
 
 declare namespace webpackNodeExternals {
     type WhitelistOption = string | RegExp;
+    type ImportTypeCallback = (moduleName: string) => string;
+
+    interface ModulesFromFileType {
+        exclude?: string | string[];
+        include?: string | string[];
+    }
 
     interface Options {
         /**
@@ -33,7 +40,7 @@ declare namespace webpackNodeExternals {
          * 'commonjs' for node modules.
          * @default 'commonjs'
          */
-        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd';
+        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | ImportTypeCallback;
         /**
          * The folder in which to search for the node modules.
          * @default 'node_modules'
@@ -43,7 +50,7 @@ declare namespace webpackNodeExternals {
          * Read the modules from the package.json file instead of the node_modules folder.
          * @default false
          */
-        modulesFromFile?: boolean;
+        modulesFromFile?: boolean | ModulesFromFileType;
         /**
          * @default false
          */

@@ -15,6 +15,7 @@
 import * as React from 'react';
 import {
     Environment,
+    IEnvironment,
     Variables,
     Disposable,
     Observer,
@@ -109,7 +110,7 @@ export {
 export type FetchPolicy = 'store-and-network' | 'network-only';
 
 interface QueryRendererProps<TOperation extends OperationType> {
-    environment: Environment;
+    environment: IEnvironment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
         error: Error | null;

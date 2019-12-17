@@ -45,6 +45,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type Booleanish = boolean | 'true' | 'false';
 
 /**
  * defined in scheduler/tracing
@@ -1656,19 +1657,20 @@ declare namespace React {
         // Standard HTML Attributes
         accessKey?: string;
         className?: string;
-        contentEditable?: boolean;
+        contentEditable?: Booleanish | "inherit";
         contextMenu?: string;
         dir?: string;
-        draggable?: boolean;
+        draggable?: Booleanish;
         hidden?: boolean;
         id?: string;
         lang?: string;
         placeholder?: string;
         slot?: string;
-        spellCheck?: boolean;
+        spellCheck?: Booleanish;
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
         radioGroup?: string; // <command>, <menuitem>
@@ -2195,6 +2197,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
         valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
@@ -2204,6 +2207,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2255,6 +2259,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2269,7 +2274,7 @@ declare namespace React {
         ascent?: number | string;
         attributeName?: string;
         attributeType?: string;
-        autoReverse?: number | string;
+        autoReverse?: Booleanish;
         azimuth?: number | string;
         baseFrequency?: number | string;
         baselineShift?: number | string;
@@ -2309,7 +2314,7 @@ declare namespace React {
         enableBackground?: number | string;
         end?: number | string;
         exponent?: number | string;
-        externalResourcesRequired?: number | string;
+        externalResourcesRequired?: Booleanish;
         fill?: string;
         fillOpacity?: number | string;
         fillRule?: "nonzero" | "evenodd" | "inherit";
@@ -2318,7 +2323,7 @@ declare namespace React {
         filterUnits?: number | string;
         floodColor?: number | string;
         floodOpacity?: number | string;
-        focusable?: number | string;
+        focusable?: Booleanish | "auto";
         fontFamily?: string;
         fontSize?: number | string;
         fontSizeAdjust?: number | string;
@@ -2396,7 +2401,7 @@ declare namespace React {
         pointsAtX?: number | string;
         pointsAtY?: number | string;
         pointsAtZ?: number | string;
-        preserveAlpha?: number | string;
+        preserveAlpha?: Booleanish;
         preserveAspectRatio?: string;
         primitiveUnits?: number | string;
         r?: number | string;

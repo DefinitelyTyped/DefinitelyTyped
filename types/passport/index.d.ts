@@ -10,6 +10,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { IncomingMessage } from 'http';
+
 declare global {
     namespace Express {
         // tslint:disable-next-line:no-empty-interface
@@ -72,7 +74,9 @@ declare namespace passport {
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
         authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
+        serializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: TUser, done: (err: any, id?: TID) => void) => void): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
+        deserializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 

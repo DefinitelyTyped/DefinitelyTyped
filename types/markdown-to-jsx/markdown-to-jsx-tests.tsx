@@ -63,3 +63,9 @@ render(
 );
 
 <Markdown options={{ slugify: str => str }}># 中文</Markdown>;
+
+// supports passing extra properties to the underlying element
+<Markdown className="markdown-body">{`
+# Header 1
+## Header 2
+`}</Markdown>;

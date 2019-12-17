@@ -86,7 +86,7 @@ const defaultLocale = getDefaultLocale();
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
     }) => <div />}
-    renderDayContents={dayOfMonth => <div />}
+    renderDayContents={(dayOfMonth, date) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
@@ -98,6 +98,7 @@ const defaultLocale = getDefaultLocale();
     showMonthDropdown
     showMonthYearDropdown
     showMonthYearPicker
+    showQuarterYearPicker
     showPopperArrow
     showTimeSelect
     showTimeSelectOnly

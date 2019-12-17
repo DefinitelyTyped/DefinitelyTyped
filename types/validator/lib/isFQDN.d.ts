@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isFQDN: typeof validator.isFQDN;
-export = isFQDN;
+import validator from '../';
+export default validator.isFQDN;

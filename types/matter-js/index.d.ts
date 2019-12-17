@@ -2432,6 +2432,13 @@ declare namespace Matter {
          * @default true 
          */
         wireframes?: boolean;
+        
+        /**
+         * Sets scene background
+         * @type string
+         * default undefined
+         */
+        background?: string
     }
 
     /**

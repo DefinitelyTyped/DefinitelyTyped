@@ -171,6 +171,11 @@ declare namespace Bull {
     returnvalue: any;
 
     /**
+     * Get progress on a job
+     */
+    progress(): any;
+
+    /**
      * Report progress on a job
      */
     progress(value: any): Promise<void>;

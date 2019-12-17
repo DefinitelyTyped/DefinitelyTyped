@@ -196,6 +196,11 @@ _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
+_([1, 2, 3]).chain()
+    .sortBy(x => -x)
+    .sortBy(x => -x)
+    .value().length;
+
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
 _.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');

@@ -9584,7 +9584,7 @@ declare namespace Titanium {
 			/**
 			 * Replaces an existing section.
 			 */
-			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation: ListViewAnimationProperties): void;
+			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation?: ListViewAnimationProperties): void;
 
 			/**
 			 * Selects an item in the list using the specified item and section indices.
@@ -19496,7 +19496,7 @@ declare namespace Titanium {
 			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
-			function fireEvent(name: string, event: any): void;
+			function fireEvent(name: string, event?: any): void;
 
 			/**
 			 * Applies the properties to the proxy.
@@ -62543,6 +62543,7 @@ interface ListDataItem {
 	 */
 	properties?: any;
 
+	[key: string]: any;
 }
 /**
  * Represents the custom edit action for a ListItem.

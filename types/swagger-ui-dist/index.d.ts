@@ -74,7 +74,7 @@ export interface SwaggerConfigs {
     /**
      * The name of a component available via the plugin system to use as the top-level layout for Swagger UI.
      */
-    layout?: 'BaseLayout';
+    layout?: string;
 
     /**
      * Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).
@@ -99,6 +99,12 @@ export interface SwaggerConfigs {
      */
     requestInterceptor?: ((request: SwaggerRequest) => SwaggerRequest);
 
+    /**
+     *  Function to intercept remote definition, "Try it out", and OAuth 2.0 responses.
+     *  Accepts one argument responseInterceptor(response) and must return the modified response, or a Promise that resolves to the modified response.
+     */
+    responseInterceptor?: ((response: SwaggerResponse) => SwaggerResponse);
+
     [k: string]: any;
 }
 
@@ -115,6 +121,10 @@ export const SwaggerUIBundle: SwaggerUIBundle;
 export interface SwaggerRequest {
   url: string;
   credentials: string;
+  [k: string]: any;
+}
+
+export interface SwaggerResponse {
   [k: string]: any;
 }
 

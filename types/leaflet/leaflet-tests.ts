@@ -592,6 +592,7 @@ const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
+polyline.addLatLng([45.51, -122.68]);
 const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 
 // multi polyline
@@ -602,6 +603,8 @@ const multiPolylineLatLngs: L.LatLngExpression[][] = [
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
+const segment = polyline.getLatLngs() as L.LatLng[][];
+polyline.addLatLng([40.78, -73.91], segment[1]);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
 const obj1 = {

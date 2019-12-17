@@ -58,7 +58,7 @@ export interface ReactImageGalleryProps {
     startIndex?: number;
     slideDuration?: number;
     slideInterval?: number;
-    slideOnThumbnailHover?: boolean;
+    slideOnThumbnailOver?: boolean;
     swipeThreshold?: number;
     swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;
@@ -81,6 +81,7 @@ export interface ReactImageGalleryProps {
     renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
     renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
     renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
+    renderThumbInner?: (item: ReactImageGalleryItem) => React.ReactNode;
     stopPropagation?: boolean;
     additionalClass?: string;
     useTranslate3D?: boolean;

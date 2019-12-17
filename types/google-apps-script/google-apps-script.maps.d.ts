@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,12 +12,10 @@ declare namespace GoogleAppsScript {
      * An enum representing the types of restrictions to avoid when finding directions.
      */
     enum Avoid { TOLLS, HIGHWAYS }
-
     /**
      * An enum representing the named colors available to use in map images.
      */
     enum Color { BLACK, BROWN, GREEN, PURPLE, YELLOW, BLUE, GRAY, ORANGE, RED, WHITE }
-
     /**
      * Allows for the retrieval of directions between locations.
      * The example below shows how you can use this class to get the directions from Times Square to
@@ -91,7 +89,6 @@ declare namespace GoogleAppsScript {
       setOrigin(address: string): DirectionFinder;
       setRegion(region: string): DirectionFinder;
     }
-
     /**
      * A collection of enums used by DirectionFinder.
      */
@@ -99,7 +96,6 @@ declare namespace GoogleAppsScript {
       Avoid: typeof Avoid;
       Mode: typeof Mode;
     }
-
     /**
      * Allows for the sampling of elevations at particular locations.
      * The example below shows how you can use this class to determine the highest point along the route
@@ -148,7 +144,6 @@ declare namespace GoogleAppsScript {
       samplePath(points: number[], numSamples: Integer): any;
       samplePath(encodedPolyline: string, numSamples: Integer): any;
     }
-
     /**
      * An enum representing the format of the map image.
      * See also
@@ -156,7 +151,6 @@ declare namespace GoogleAppsScript {
      * Google Static Maps API
      */
     enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
-
     /**
      * Allows for the conversion between an address and geographical coordinates.
      * The example below shows how you can use this class find the top nine matches for the location
@@ -195,7 +189,6 @@ declare namespace GoogleAppsScript {
       setLanguage(language: string): Geocoder;
       setRegion(region: string): Geocoder;
     }
-
     /**
      * Allows for direction finding, geocoding, elevation sampling and the creation of static map
      * images.
@@ -211,7 +204,6 @@ declare namespace GoogleAppsScript {
       newStaticMap(): StaticMap;
       setAuthentication(clientId: string, signingKey: string): void;
     }
-
     /**
      * An enum representing the size of a marker added to a map.
      * See also
@@ -219,12 +211,10 @@ declare namespace GoogleAppsScript {
      * Google Static Maps API
      */
     enum MarkerSize { TINY, MID, SMALL }
-
     /**
      * An enum representing the mode of travel to use when finding directions.
      */
     enum Mode { DRIVING, WALKING, BICYCLING, TRANSIT }
-
     /**
      * Allows for the creation and decoration of static map images.
      *
@@ -290,7 +280,6 @@ declare namespace GoogleAppsScript {
       setSize(width: Integer, height: Integer): StaticMap;
       setZoom(zoom: Integer): StaticMap;
     }
-
     /**
      * A collection of enums used by StaticMap.
      */
@@ -300,7 +289,6 @@ declare namespace GoogleAppsScript {
       MarkerSize: typeof MarkerSize;
       Type: typeof Type;
     }
-
     /**
      * An enum representing the type of map to render.
      * See also

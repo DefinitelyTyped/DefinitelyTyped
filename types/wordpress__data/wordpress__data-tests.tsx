@@ -20,8 +20,14 @@ data.registerStore<FooBar>('foo', {
         getSomething: (state, thing: keyof FooBar) => state[thing],
     },
     actions: {
-        setFoo: (text: 'foo') => ({ type: 'SET_FOO', text }),
+        setFoo: (text: string) => ({ type: 'SET_FOO', text }),
     },
+    persist: ['foo'],
+});
+
+data.registerStore<{ key: string }>('bad-persist', {
+    reducer: (state = { key: 'value' }) => state,
+    persist: ['invalid-persist-key'], // $ExpectError
 });
 
 const HookComponent = () => {
