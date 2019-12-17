@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { BaseQuad, DatasetCore, Quad, Stream, Term } from '../rdf-js';
+import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
 import grouped = require('rdf-dataset-ext');
 import addAll = require('rdf-dataset-ext/addAll');
 import deleteMatch = require('rdf-dataset-ext/deleteMatch');
@@ -18,9 +18,7 @@ const eventEmitter: EventEmitter = {} as any;
 // addAll
 
 const dataset1addAll1: DatasetCore = addAll(dataset1, iterable1);
-const dataset1addAll2: DatasetCore = addAll<Quad, DatasetCore<Quad>>(dataset1, iterable1);
-const dataset1addAll3: DatasetCore = grouped.addAll(dataset1, iterable1);
-const dataset1addAll4: DatasetCore = grouped.addAll<Quad, DatasetCore<Quad>>(dataset1, iterable1);
+const dataset1addAll2: DatasetCore = grouped.addAll(dataset1, iterable1);
 
 const dataset2addAll1: DatasetCore<BaseQuad> = addAll(dataset2, iterable2);
 const dataset2addAll2: DatasetCore<BaseQuad> = addAll<BaseQuad, DatasetCore<BaseQuad>>(dataset2, iterable2);
@@ -30,17 +28,15 @@ const dataset2addAll4: DatasetCore<BaseQuad> = grouped.addAll<BaseQuad, DatasetC
 // deleteMatch
 
 const dataset1deleteMatch1: DatasetCore = deleteMatch(dataset1);
-const dataset1deleteMatch2: DatasetCore = deleteMatch<DatasetCore<Quad>>(dataset1);
-const dataset1deleteMatch3: DatasetCore = deleteMatch(dataset1, term);
-const dataset1deleteMatch4: DatasetCore = deleteMatch(dataset1, term, term);
-const dataset1deleteMatch5: DatasetCore = deleteMatch(dataset1, term, term, term);
-const dataset1deleteMatch6: DatasetCore = deleteMatch(dataset1, term, term, term, term);
-const dataset1deleteMatch7: DatasetCore = grouped.deleteMatch(dataset1);
-const dataset1deleteMatch8: DatasetCore = grouped.deleteMatch<DatasetCore<Quad>>(dataset1);
-const dataset1deleteMatch9: DatasetCore = grouped.deleteMatch(dataset1, term);
-const dataset1deleteMatch10: DatasetCore = grouped.deleteMatch(dataset1, term, term);
-const dataset1deleteMatch11: DatasetCore = grouped.deleteMatch(dataset1, term, term, term);
-const dataset1deleteMatch12: DatasetCore = grouped.deleteMatch(dataset1, term, term, term, term);
+const dataset1deleteMatch2: DatasetCore = deleteMatch(dataset1, term);
+const dataset1deleteMatch3: DatasetCore = deleteMatch(dataset1, term, term);
+const dataset1deleteMatch4: DatasetCore = deleteMatch(dataset1, term, term, term);
+const dataset1deleteMatch5: DatasetCore = deleteMatch(dataset1, term, term, term, term);
+const dataset1deleteMatch6: DatasetCore = grouped.deleteMatch(dataset1);
+const dataset1deleteMatch7: DatasetCore = grouped.deleteMatch(dataset1, term);
+const dataset1deleteMatch8: DatasetCore = grouped.deleteMatch(dataset1, term, term);
+const dataset1deleteMatch9: DatasetCore = grouped.deleteMatch(dataset1, term, term, term);
+const dataset1deleteMatch10: DatasetCore = grouped.deleteMatch(dataset1, term, term, term, term);
 
 const dataset2deleteMatch1: DatasetCore<BaseQuad> = deleteMatch(dataset2);
 const dataset2deleteMatch2: DatasetCore<BaseQuad> = deleteMatch<DatasetCore<BaseQuad>>(dataset2);
@@ -67,11 +63,11 @@ const equals6: boolean = grouped.equals(dataset2, dataset1);
 // fromStream
 
 const fromStream1: Promise<DatasetCore> = fromStream(dataset1, eventEmitter);
-const fromStream2: Promise<DatasetCore> = fromStream<DatasetCore>(dataset1, eventEmitter);
-const fromStream3: Promise<DatasetCore<BaseQuad>> = fromStream(dataset2, eventEmitter);
+const fromStream2: Promise<DatasetCore<BaseQuad>> = fromStream(dataset2, eventEmitter);
+const fromStream3: Promise<DatasetCore<BaseQuad>> = fromStream<DatasetCore<BaseQuad>>(dataset2, eventEmitter);
 const fromStream4: Promise<DatasetCore> = grouped.fromStream(dataset1, eventEmitter);
-const fromStream5: Promise<DatasetCore> = grouped.fromStream<DatasetCore>(dataset1, eventEmitter);
-const fromStream6: Promise<DatasetCore<BaseQuad>> = grouped.fromStream(dataset2, eventEmitter);
+const fromStream5: Promise<DatasetCore<BaseQuad>> = grouped.fromStream(dataset2, eventEmitter);
+const fromStream6: Promise<DatasetCore<BaseQuad>> = grouped.fromStream<DatasetCore<BaseQuad>>(dataset2, eventEmitter);
 
 // toCanonical
 
@@ -83,8 +79,8 @@ const toCanonical4: string = grouped.toCanonical(dataset2);
 // toStream
 
 const toStream1: Stream = toStream(dataset1);
-const toStream2: Stream<Quad> = toStream<Quad>(dataset1);
-const toStream3: Stream<BaseQuad> = toStream(dataset2);
+const toStream2: Stream<BaseQuad> = toStream(dataset2);
+const toStream3: Stream<BaseQuad> = toStream<BaseQuad>(dataset2);
 const toStream4: Stream = grouped.toStream(dataset1);
-const toStream5: Stream<Quad> = grouped.toStream<Quad>(dataset1);
-const toStream6: Stream<BaseQuad> = grouped.toStream(dataset2);
+const toStream5: Stream<BaseQuad> = grouped.toStream(dataset2);
+const toStream6: Stream<BaseQuad> = grouped.toStream<BaseQuad>(dataset2);

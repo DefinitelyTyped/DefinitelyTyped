@@ -1,3 +1,3 @@
-import { fromStream} from '.';
+import { fromStream } from '.';
 
 export = fromStream;
