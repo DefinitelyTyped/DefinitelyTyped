@@ -1,6 +1,6 @@
-import namespace = require('./index');
-import { DataFactory, NamedNode } from '../rdf-js';
-import { NamespaceBuilder } from './index';
+import namespace = require('@rdfjs/namespace');
+import { NamespaceBuilder } from '@rdfjs/namespace';
+import { DataFactory, NamedNode } from 'rdf-js';
 
 const factory: DataFactory = {} as any;
 

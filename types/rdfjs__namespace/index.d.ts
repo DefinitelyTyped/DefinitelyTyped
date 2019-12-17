@@ -3,19 +3,15 @@ import { DataFactory, NamedNode } from 'rdf-js';
 declare function namespace(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder;
 
 declare namespace namespace {
-
-    export interface NamespaceBuilder {
-        (property: TemplateStringsArray): NamedNode;
-
-        (property: string): NamedNode;
+    interface NamespaceBuilder {
+        (property: TemplateStringsArray | string): NamedNode;
 
         readonly [property: string]: NamedNode;
     }
 
-    export interface BuilderOptions {
+    interface BuilderOptions {
         factory?: DataFactory;
     }
-
 }
 
 export = namespace;
