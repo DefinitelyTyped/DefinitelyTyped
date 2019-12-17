@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rdfjs/namespace": [
+                "rdfjs__namespace"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
