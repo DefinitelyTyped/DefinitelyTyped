@@ -1246,7 +1246,7 @@ declare namespace Office {
         asyncContext?: any
     }
     /**
-     * Provides options for identifying the binding that is created.
+     * Provides options for configuring the prompt and identifying the binding that is created.
      */
     interface AddBindingFromSelectionOptions {
         /**
@@ -2505,7 +2505,7 @@ declare namespace Office {
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
          *                    Returns null if the selected object cannot be coerced into the specified type.
-         * @param options Provides options for identifying the binding that is created.
+         * @param options Provides options for configuring the prompt and identifying the binding that is created.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the Binding object that represents the selection specified by the user.
          */
