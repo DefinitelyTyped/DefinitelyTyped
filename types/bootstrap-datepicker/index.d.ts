@@ -66,7 +66,7 @@ interface DatepickerOptions {
     orientation?: DatepickerOrientations;
     showOnFocus?: boolean;
     startDate?: Date | string;
-    startView?: number;
+    startView?: DatepickerViewModes;
     templates?: any;
     showWeekDays?: boolean;
     title?: string;
