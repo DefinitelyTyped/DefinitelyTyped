@@ -900,8 +900,7 @@ declare namespace React {
     // overload where dispatch could accept 0 arguments.
     function useReducer<R extends ReducerWithoutAction<any>>(
         reducer: R,
-        initializerArg: ReducerStateWithoutAction<R>,
-        initializer?: undefined
+        initializerArg: ReducerStateWithoutAction<R>
     ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
