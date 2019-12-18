@@ -1,6 +1,6 @@
 declare namespace gsap {
-    export type Tween = TweenLite | TweenMax;
-    export class TweenLite extends Animation {
+    type Tween = TweenLite | TweenMax;
+    class TweenLite extends Animation {
         constructor(target: any, duration: number, vars: any);
 
         /** Provides An easy way to change the default easing equation. */
@@ -15,26 +15,41 @@ declare namespace gsap {
         /** Target object (or array of objects) whose properties the tween affects. */
         readonly target: any;
 
-        /** The object that dispatches a "tick" event each time the engine updates, making it easy for you to add your own listener(s) to run custom logic after each update (great for game developers). */
+        /**
+         * The object that dispatches a "tick" event each time the engine updates, making it easy for you to add your own listener(s) to run custom logic after each update
+         * (great for game developers).
+         */
         static ticker: any;
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: () => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
+        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
 
-        /** Static method for creating a TweenLite instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing things like animating objects onto the screen because you can set them up initially the way you want them to look at the end of the tween and then animate in from elsewhere. */
+        /**
+         * Static method for creating a TweenLite instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing
+         * things like animating objects onto the screen because you can set them up initially the way you want them to look at the end of the tween and then animate in from elsewhere.
+         */
         static from(target: any, duration: number, vars: any): TweenLite;
 
-        /** Static method for creating a TweenLite instance that allows you to define both the starting and ending values (as opposed to to() and from() tweens which are based on the target's current values at one end or the other). */
+        /**
+         * Static method for creating a TweenLite instance that allows you to define both the starting and ending values (as opposed to to() and from() tweens which are based on the target's
+         * current values at one end or the other).
+         */
         static fromTo(target: any, duration: number, fromVars: any, toVars: any): TweenLite;
 
-        /** Returns an array containing all the tweens of a particular target (or group of targets) that have not been released for garbage collection yet which typically happens within a few seconds after the tween completes. */
+        /**
+         * Returns an array containing all the tweens of a particular target (or group of targets) that have not been released for garbage collection yet which typically happens within a few
+         * seconds after the tween completes.
+         */
         static getTweensOf(target: any, onlyActive?: boolean): TweenLite[];
 
-        /** [override] Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded starting values. */
+        /**
+         * [override] Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously
+         * recorded starting values.
+         */
         invalidate(): TweenLite;
 
         /** Immediately kills all of the delayedCalls to a particular () => void. */
-        static killDelayedCallsTo(func: () => void): void;
+        static killDelayedCallsTo(func: (...args: any[]) => void): void;
 
         /** Kills all the tweens (or specific tweening properties) of a particular object or delayedCalls to a particular () => void. */
         static killTweensOf(target: any, onlyActive?: boolean, vars?: any): void;
@@ -42,7 +57,10 @@ declare namespace gsap {
         /** Permits you to control what happens when too much time elapses between two ticks (updates) of the engine, adjusting the core timing mechanism to compensate and avoid "jumps". */
         static lagSmoothing(threshold: number, adjustedLag: number): void;
 
-        /** Forces a render of all active tweens which can be useful if, for example, you set up a bunch of from() tweens and then you need to force an immediate render (even of "lazy" tweens) to avoid a brief delay before things render on the very next tick. */
+        /**
+         * Forces a render of all active tweens which can be useful if, for example, you set up a bunch of from() tweens and then you need to force an immediate render (even of "lazy" tweens) to
+         * avoid a brief delay before things render on the very next tick.
+         */
         static render(): void;
 
         /** Immediately sets properties of the target accordingly - essentially a zero-duration to() tween with a more intuitive name. */
@@ -52,26 +70,35 @@ declare namespace gsap {
         static to(target: any, duration: number, vars: any): TweenLite;
     }
 
-    export class TweenMax extends TweenLite {
+    class TweenMax extends TweenLite {
         constructor(target: {}, duration: number, vars: {});
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: () => void, params?: any[], scope?: {}, useFrames?: boolean): TweenMax;
+        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: {}, useFrames?: boolean): TweenMax;
 
-        /** Static method for creating a TweenMax instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing things like animating objects onto the screen because you can set them up initially the way you want them to look at the end of the tween and then animate in from elsewhere. */
+        /**
+         * Static method for creating a TweenMax instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for
+         * doing things like animating objects onto the screen because you can set them up initially the way you want them to look at the end of the tween and then animate in from elsewhere.
+         */
         static from(target: {}, duration: number, vars: {}): TweenMax;
 
-        /** Static method for creating a TweenMax instance that allows you to define both the starting and ending values (as opposed to to() and from() tweens which are based on the target's current values at one end or the other). */
+        /**
+         * Static method for creating a TweenMax instance that allows you to define both the starting and ending values (as opposed to to() and from() tweens which are based on the target's
+         * current values at one end or the other).
+         */
         static fromTo(target: {}, duration: number, fromVars: {}, toVars: {}): TweenMax;
 
         /** Returns an array containing all tweens (and optionally timelines too, excluding the root timelines). */
         static getAllTweens(includeTimelines?: boolean): Tween[];
 
-        /** Returns an array containing all the tweens of a particular target (or group of targets) that have not been released for garbage collection yet which typically happens within a few seconds after the tween completes. */
+        /**
+         * Returns an array containing all the tweens of a particular target (or group of targets) that have not been released for garbage collection yet which typically happens within a
+         * few seconds after the tween completes.
+         */
         static getTweensOf(target: {}): Tween[];
 
         /** Gets or sets the global timeScale which is a multiplier that affects ALL animations equally. This is a great way to globally speed up or slow down all animations at once. */
-        static globalTimeScale(value: number): void;
+        static globalTimeScale(value?: number): number;
 
         /** Reports whether or not a particular object is actively tweening. */
         static isTweening(target: {}): boolean;
@@ -83,7 +110,7 @@ declare namespace gsap {
         static killChildTweensOf(parent: any, complete?: boolean): void;
 
         /** Immediately kills all of the delayedCalls to a particular () => void. */
-        static killDelayedCallsTo(func: () => void): void;
+        static killDelayedCallsTo(func: (...args: any[]) => void): void;
 
         /** Kills all the tweens (or specific tweening properties) of a particular object or the delayedCalls to a particular () => void. */
         static killTweensOf(target: {}, vars?: {}): void;
@@ -91,7 +118,10 @@ declare namespace gsap {
         /** Pauses all tweens and/or delayedCalls/callbacks and/or timelines. */
         static pauseAll(tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
 
-        /**  Gets or sets the tween's progress which is a value between 0 and 1 indicating the position of the virtual playhead (excluding repeats) where 0 is at the beginning, 0.5 is halfway complete, and 1 is complete. */
+        /**
+         * Gets or sets the tween's progress which is a value between 0 and 1 indicating the position of the virtual playhead (excluding repeats) where 0 is at the beginning, 0.5 is halfway
+         * complete, and 1 is complete.
+         */
         repeat(): number;
         repeat(value: number): TweenMax;
 
@@ -105,14 +135,48 @@ declare namespace gsap {
         /** Immediately sets properties of the target accordingly - essentially a zero-duration to() tween with a more intuitive name. */
         static set(target: {}, vars: {}): TweenMax;
 
-        /** Tweens an array of targets from a common set of destination values (using the current values as the destination), but staggers their start times by a specified amount of time, creating an evenly-spaced sequence with a surprisingly small amount of code. */
-        static staggerFrom(targets: any, duration: number, vars: {}, stagger: number, onCompleteAll?: () => void, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+        /**
+         * Tweens an array of targets from a common set of destination values (using the current values as the destination), but staggers their start times by a specified amount of time, creating
+         * an evenly-spaced sequence with a surprisingly small amount of code.
+         */
+        static staggerFrom(
+            targets: any,
+            duration: number,
+            vars: {},
+            stagger: number,
+            onCompleteAll?: (...args: any[]) => void,
+            onCompleteAllParams?: any[],
+            onCompleteAllScope?: any
+        ): any[];
 
-        /** Tweens an array of targets from a common set of destination values to a common set of destination values, but staggers their start times by a specified amount of time, creating an evenly-spaced sequence with a surprisingly small amount of code. */
-        static staggerFromTo(targets: any, duration: number, fromVars: {}, toVars: {}, stagger: number, onCompleteAll?: () => void, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+        /**
+         * Tweens an array of targets from a common set of destination values to a common set of destination values, but staggers their start times by a specified amount of time, creating an
+         * evenly-spaced sequence with a surprisingly small amount of code.
+         */
+        static staggerFromTo(
+            targets: any,
+            duration: number,
+            fromVars: {},
+            toVars: {},
+            stagger: number,
+            onCompleteAll?: (...args: any[]) => void,
+            onCompleteAllParams?: any[],
+            onCompleteAllScope?: any
+        ): any[];
 
-        /** Tweens an array of targets to a common set of destination values, but staggers their start times by a specified amount of time, creating an evenly-spaced sequence with a surprisingly small amount of code. */
-        static staggerTo(targets: any, duration: number, vars: {}, stagger: number, onCompleteAll?: () => void, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+        /**
+         * Tweens an array of targets to a common set of destination values, but staggers their start times by a specified amount of time, creating an evenly-spaced sequence with a surprisingly
+         * small amount of code.
+         */
+        static staggerTo(
+            targets: any,
+            duration: number,
+            vars: {},
+            stagger: number,
+            onCompleteAll?: (...args: any[]) => void,
+            onCompleteAllParams?: any[],
+            onCompleteAllScope?: any
+        ): any[];
 
         /** Static method for creating a TweenMax instance that animates to the specified destination values (from the current values). */
         static to(target: {}, duration: number, vars: TweenConfig): TweenMax;

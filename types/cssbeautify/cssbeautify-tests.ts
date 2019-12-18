@@ -1,4 +1,4 @@
-import cssbeautify = require('./index');
+import cssbeautify = require('cssbeautify');
 
 var str = '';
 

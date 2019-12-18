@@ -1,6 +1,6 @@
-// Type definitions for wavesurfer.js 2.0
+// Type definitions for wavesurfer.js 3.2
 // Project: https://github.com/katspaugh/wavesurfer.js
-// Definitions by: Yusuke Higuchi <https://github.com/higuri>
+// Definitions by: Yusuke Higuchi <https://github.com/higuri>, Egor Gorbachev <https://github.com/kubk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -90,7 +90,7 @@ declare namespace WaveSurfer {
     }
 
     class WaveSurferPlugin {
-        constructor(ws: WaveSurfer, params: object);
+        constructor(params: object, ws: WaveSurfer);
         static create(params: object): PluginDefinition;
         init(): void;
         destroy(): void;
@@ -116,7 +116,9 @@ declare namespace WaveSurfer {
         autoCenter?: boolean;
         backend?: string;
         barHeight?: number;
+        barWidth?: number;
         barGap?: number;
+        barRadius?: number;
         closeAudioContext?: boolean;
         container: string | HTMLElement;
         cursorColor?: string;
@@ -151,7 +153,7 @@ declare namespace WaveSurfer {
         staticProps?: object;
         deferInit?: boolean;
         params: object;
-        instance: { new(ws: WaveSurfer, params: object): WaveSurferPlugin };
+        instance: { new(params: object, ws: WaveSurfer): WaveSurferPlugin };
     }
 
     interface ListenerDescriptor {

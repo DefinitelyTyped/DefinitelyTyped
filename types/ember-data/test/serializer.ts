@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+interface Dict<T> {
+    [key: string]: T | null | undefined;
+}
+
 const JsonApi = DS.JSONAPISerializer.extend({});
 
 const Customized = DS.JSONAPISerializer.extend({
@@ -74,14 +78,16 @@ const SerializerUsingSnapshots = DS.RESTSerializer.extend({
 
 DS.Serializer.extend({
     serialize(snapshot: DS.Snapshot<'message-for-serializer'>, options: {}) {
-        let json: any = {
+        let json: Dict<any> = {
             id: snapshot.id
         };
 
+        // $ExpectType void
         snapshot.eachAttribute((key, attribute) => {
             json[key] = snapshot.attr(key);
         });
 
+        // $ExpectType void
         snapshot.eachRelationship((key, relationship) => {
             if (relationship.kind === 'belongsTo') {
                 json[key] = snapshot.belongsTo(key, { id: true });

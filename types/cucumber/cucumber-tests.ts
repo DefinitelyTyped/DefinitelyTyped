@@ -1,5 +1,5 @@
 import * as assert from "power-assert";
-import { setWorldConstructor, defineParameterType, After, AfterAll, Before, BeforeAll, Given, When, Then } from "cucumber";
+import { setDefinitionFunctionWrapper, setWorldConstructor, defineParameterType, After, AfterAll, Before, BeforeAll, Given, When, Then } from "cucumber";
 import cucumber = require("cucumber");
 
 type Callback = cucumber.CallbackStepDefinition;
@@ -57,6 +57,13 @@ function StepSampleWithoutDefineSupportCode() {
 
     After((scenarioResult: HookScenarioResult, callback: Callback) => {
         console.log("After");
+        callback();
+    });
+
+    After((scenarioResult: HookScenarioResult, callback: Callback) => {
+        if (scenarioResult.result.exception) {
+            console.error(scenarioResult.result.exception);
+        }
         callback();
     });
 
@@ -186,6 +193,22 @@ function StepSampleWithoutDefineSupportCode() {
 
     Given('a {param} step', param => {
         assert.equal(param, 'PARTICULAR');
+    });
+
+    Given('a step with custom options for function wrapper', { timeout: 1, wrapperOptions: { retry: 2 } }, param => {
+        console.log('Mock step');
+    });
+
+    Given('a step with custom options for function wrapper with any complext wrapper options', { wrapperOptions: { moreOptions: { nested: [] } } }, param => {
+        console.log('Mock step');
+    });
+
+    setDefinitionFunctionWrapper((fn: () => void) => {
+        return fn;
+    });
+    setDefinitionFunctionWrapper((fn: () => void, options: {}) => {
+        console.log(`Custom Options passed into step`);
+        return fn;
     });
 }
 

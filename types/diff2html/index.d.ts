@@ -2,17 +2,22 @@
 // Project: https://github.com/rtfpessoa/diff2html
 // Definitions by: rtfpessoa <https://github.com/rtfpessoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace Diff2Html {
 
     export interface Options {
-        inputFormat?: string;
-        outputFormat?: string;
+        inputFormat?: 'diff' | 'json';
+        outputFormat?: 'line-by-line' | 'side-by-side';
         showFiles?: boolean;
-        matching?: string;
-        synchronisedScroll?: boolean;
+        matching?: 'lines' | 'words' | 'none';
         matchWordsThreshold?: number;
         matchingMaxComparisons?: number;
+        maxLineSizeInBlockForComparison?: number;
+        maxLineLengthHighlight?: number;
+        templates?: object;
+        rawTemplates?: object;
+        renderNothingWhenEmpty?: boolean;
     }
 
     export interface Line {
@@ -57,7 +62,6 @@ declare namespace Diff2Html {
     export interface Diff2Html {
         getJsonFromDiff(input: string, configuration?: Options): Result[];
         getPrettyHtml(input: any, configuration?: Options): string;
-        getPrettyHtmlFromJson(input: Result[], configuration?: Options): string;
     }
 }
 

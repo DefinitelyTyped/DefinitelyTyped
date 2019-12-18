@@ -90,6 +90,7 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
         responseError() {}
     };
     actionDescriptor.cancellable = true;
+    actionDescriptor.hasBody = true;
 });
 
 ///////////////////////////////////////

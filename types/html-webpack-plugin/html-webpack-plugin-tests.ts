@@ -103,7 +103,7 @@ const plugins: HtmlWebpackPlugin[] = optionsArray.map(options => new HtmlWebpack
 // Webpack plugin `apply` function
 function apply(compiler: Compiler) {
 	compiler.hooks.compilation.tap('SomeWebpackPlugin', (compilation: compilation.Compilation) => {
-		(<HtmlWebpackPlugin.Hooks> compilation.hooks).htmlWebpackPluginAfterHtmlProcessing.tap(
+		(compilation.hooks as HtmlWebpackPlugin.Hooks).htmlWebpackPluginAfterHtmlProcessing.tap(
 			'MyPlugin',
 			(data) => {
 				data.html += 'The Magic Footer';

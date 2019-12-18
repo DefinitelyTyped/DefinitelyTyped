@@ -41,7 +41,7 @@ googletag.openConsole();
 
 googletag.setAdIframeTitle("title");
 
-googletag.cmd.push(function() {
+googletag.cmd.push(() => {
     googletag.defineSlot("/1234567/sports", [160, 600]).
             addService(googletag.pubads());
 });
@@ -79,8 +79,8 @@ googletag.pubads().definePassback("/1234567/sports", [468, 60]).
             display();
 
 googletag.pubads().definePassback("/1234567/sports", [160, 600]).
-    updateTargetingFromMap({"color": "red",
-                                                    "interests": ["sports", "music", "movies"]}).
+    updateTargetingFromMap({color: "red",
+                            interests: ["sports", "music", "movies"]}).
             display();
 
 googletag.pubads().enableLazyLoad();
@@ -262,9 +262,11 @@ googletag.pubads().updateCorrelator();
 // The listener will be called only when the pubads service renders a slot.
 // To listen to companion ads, add a similar listener to
 // googletag.companionAds().
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     console.log("Slot has been rendered:");
-    console.log(event);
+    console.log(event.isEmpty);
+    console.log(event.lineItemId);
+    console.log(event.creativeId);
 });
 
 // 2. Slot render ended listener, slot specific logic.
@@ -273,7 +275,7 @@ googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag
 // however, programmatically filter a listener to respond only to a certain
 // ad slot, using this pattern:
 let targetSlot = slot1;
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
@@ -283,9 +285,27 @@ googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag
 // The listener will be called when the impression is considered viewable.
 // This event also operates at service level, but, as above, you can filter
 // to respond only to a certain ad slot by using this pattern:
-googletag.pubads().addEventListener("impressionViewable", function(event: googletag.events.ImpressionViewableEvent) {
+googletag.pubads().addEventListener("impressionViewable", (event) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotRequested", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotResponseReceived", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
+    if (event.slot === targetSlot) {
+        console.log(event.inViewPercentage);
     }
 });
 
@@ -316,7 +336,6 @@ slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
 slot.clearCategoryExclusions();
 
 // Make an ad request. Any ad can be returned for the slot.
-
 
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         setTargeting("allow_expandable", "true").
@@ -447,6 +466,9 @@ slot.setTargeting("interests", ["sports", "music", "movies"]);
 // googletag.display accepts a div element as well as a div ID.
 googletag.display(new HTMLElement());
 
+// googletag.display accepts a slot
+googletag.display(slot);
+
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
 
@@ -456,3 +478,8 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
+
+// Set Privact Settings
+googletag.pubads().setPrivacySettings({
+    restrictDataProcessing: true,
+});

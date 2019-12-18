@@ -19,6 +19,23 @@ export type ExtractPropertyNamesOfType<T, S> = {
 export type Fix<T> = { [K in keyof T]: T[K] };
 
 /**
+ * Used to capture type information about a computed property, both
+ * the type of its value and (if it differs) the type its setter expects
+ * to receive.
+ *
+ * Note that this is intentionally a `class` and not a `type` or
+ * `interface` so that we can sneak in private fields that capture
+ * type info for the computed property without impacting the
+ * user-visible type.
+ */
+export class ComputedPropertyMarker<Get, Set = Get> {
+    // Necessary in order to avoid losing type information
+    //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
+    private ______getType: Get;
+    private ______setType: Set;
+}
+
+/**
  * Used to infer the type of ember classes of type `T`.
  *
  * Generally you would use `EmberClass.create()` instead of `new EmberClass()`.
@@ -56,7 +73,7 @@ export type MixinOrLiteral<T, Base> = Mixin<T, Base> | T;
 /**
  * Deconstructs computed properties into the types which would be returned by `.get()`.
  */
-export type UnwrapComputedPropertyGetter<T> = T extends ComputedProperty<
+export type UnwrapComputedPropertyGetter<T> = T extends ComputedPropertyMarker<
     infer U,
     any
 >
@@ -66,7 +83,7 @@ export type UnwrapComputedPropertyGetters<T> = {
     [P in keyof T]: UnwrapComputedPropertyGetter<T[P]>
 };
 
-export type UnwrapComputedPropertySetter<T> = T extends ComputedProperty<
+export type UnwrapComputedPropertySetter<T> = T extends ComputedPropertyMarker<
     any,
     infer V
 >

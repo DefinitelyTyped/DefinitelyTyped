@@ -54,12 +54,12 @@ declare namespace AltJS {
   export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(state:any, ...args: any[]):any;
+    local?(state:any, ...args: any[]):any;
     remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;
-    success?:(state:S) => void;
-    error?:(args:any) => void;
+    success:(state:S) => void;
+    error:(args:any) => void;
     interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
   }
 
@@ -148,7 +148,7 @@ declare module "alt/AltContainer" {
     stores?:Array<AltJS.AltStore<any>>;
     inject?:{[key:string]:any};
     actions?:{[key:string]:Object};
-    render?:(...props:Array<any>) => React.ReactElement<any>;
+    render?:(...props:Array<any>) => React.ReactElement;
     flux?:AltJS.Alt;
     transform?:(store:AltJS.AltStore<any>, actions:any) => any;
     shouldComponentUpdate?:(props:any) => boolean;

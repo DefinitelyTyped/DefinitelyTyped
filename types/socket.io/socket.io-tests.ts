@@ -103,6 +103,15 @@ function testRestrictingYourselfToANamespace() {
         });
 }
 
+function testDynamicNamespace() {
+    var io = socketIO.listen(80);
+    var dynamic = io
+        .of(/^\/dynamic-\d+$/)
+        .on('connection', function (socket) {
+            socket.emit('item', { dynamic: 'item' });
+        });
+}
+
 function testSendingVolatileMessages() {
     var io = socketIO.listen(80);
 

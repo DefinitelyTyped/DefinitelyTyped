@@ -1,6 +1,6 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>, Daniel Müller <https://github.com/chdanielmueller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,6 +13,7 @@ declare namespace helmet {
     export interface IHelmetConfiguration {
         contentSecurityPolicy?: boolean | IHelmetContentSecurityPolicyConfiguration;
         dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration;
+        featurePolicy?: IFeaturePolicyOptions;
         frameguard?: boolean | IHelmetFrameguardConfiguration;
         hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration;
         hpkp?: boolean | IHelmetHpkpConfiguration;
@@ -24,6 +25,12 @@ declare namespace helmet {
         xssFilter?: boolean | IHelmetXssFilterConfiguration;
         expectCt?: boolean | IHelmetExpectCtConfiguration;
         permittedCrossDomainPolicies?: boolean | IHelmetPermittedCrossDomainPoliciesConfiguration;
+    }
+
+    export interface IFeaturePolicyOptions {
+        features: {
+            [featureName: string]: string[];
+        };
     }
 
     export interface IHelmetPermittedCrossDomainPoliciesConfiguration {
@@ -134,7 +141,11 @@ declare namespace helmet {
     export interface IHelmetHpkpConfiguration {
         maxAge: number;
         sha256s: string[];
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
         includeSubdomains?: boolean;
+        includeSubDomains?: boolean;
         reportUri?: string;
         reportOnly?: boolean;
         setIf?: IHelmetSetIfFunction;
@@ -142,7 +153,11 @@ declare namespace helmet {
 
     export interface IHelmetHstsConfiguration {
         maxAge?: number;
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
         includeSubdomains?: boolean;
+        includeSubDomains?: boolean;
         preload?: boolean;
         setIf?: IHelmetSetIfFunction;
         force?: boolean;
@@ -154,6 +169,7 @@ declare namespace helmet {
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+        reportUri?: string;
     }
 
     export interface IHelmetExpectCtConfiguration {
@@ -186,6 +202,13 @@ declare namespace helmet {
          * @return {RequestHandler} The Request handler
          */
         dnsPrefetchControl(options?: IHelmetDnsPrefetchControlConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Restrict which browser features can be used
+         * @param {IFeaturePolicyOptions} options The options
+         * @return {RequestHandler} The Request handler
+         */
+        featurePolicy(options: IFeaturePolicyOptions): express.RequestHandler;
 
         /**
          * @summary Prevent clickjacking.

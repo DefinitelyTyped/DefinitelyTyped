@@ -1,4 +1,4 @@
-// Type definitions for canvas-confetti 0.0
+// Type definitions for canvas-confetti 0.1
 // Project: https://github.com/catdad/canvas-confetti#readme
 // Definitions by: Martin Tracey <https://github.com/matracey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -81,6 +81,14 @@ declare namespace confetti {
          */
         y?: number;
     }
+    interface GlobalOptions {
+        resize: boolean;
+    }
+
+    function create(
+        canvas: HTMLCanvasElement,
+        options?: GlobalOptions
+    ): (options?: Options) => Promise<null> | null;
 }
 
 export = confetti;

@@ -16,6 +16,9 @@ interface SortLogInfo {
   Text: string;
 }
 
+// Ensure that the jQuery-ui defined `sortable()` method is not overwritten
+jQuery().sortable(); // $ExpectType JQuery<HTMLElement>
+
 myApp.controller('sortableController', function ($scope: MySortableControllerScope) {
   $scope.sortableOptions = {
     activate: function(e, ui) {
@@ -84,6 +87,7 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
     update: function(e, ui) {
       var jQueryEventObject: JQueryEventObject = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
+      ui.item.sortable; // $ExpectType UISortableProperties<SortableModelInfo>
       var voidcanceled: void = ui.item.sortable.cancel();
       var isCanceled: Boolean = ui.item.sortable.isCanceled();
       var isCustomHelperUsed: Boolean =ui.item.sortable.isCustomHelperUsed();

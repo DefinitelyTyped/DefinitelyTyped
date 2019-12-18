@@ -25,6 +25,8 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
+        ReactDOM.findDOMNode(null);
+        ReactDOM.findDOMNode(undefined);
     });
 });
 
@@ -59,7 +61,7 @@ describe('React dom test utils', () => {
 
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
-        ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
+        ReactTestUtils.Simulate.keyDown(node, { key: "Enter", charCode: 13, keyCode: 13, which: 13 });
     });
 
     it('renderIntoDocument', () => {

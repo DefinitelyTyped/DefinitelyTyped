@@ -1,4 +1,4 @@
-// Type definitions for socket.io 1.4.5
+// Type definitions for socket.io 2.1
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
@@ -6,6 +6,8 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Alexey Snigirev <https://github.com/gigi>
 //                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
+//                 Kevin Kam <https://github.com/kevinkam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -143,6 +145,17 @@ declare namespace SocketIO {
 		origins( v: string|string[] ): Server;
 
 		/**
+		 * Provides a function taking two arguments origin:String
+		 * and callback(error, success), where success is a boolean
+		 * value indicating whether origin is allowed or not. If
+		 * success is set to false, error must be provided as a string
+		 * value that will be appended to the server response, e.g. “Origin not allowed”.
+		 * @param fn The function that will be called to check the origin
+		 * return This Server
+		 */
+		origins( fn: ( origin: string, callback: ( error: string | null, success: boolean ) => void ) => void ): Server;
+
+		/**
 		 * Attaches socket.io to a server
 		 * @param srv The http.Server that we want to attach to
 		 * @param opts An optional parameters object
@@ -169,7 +182,7 @@ declare namespace SocketIO {
 		listen( port: number, opts?: ServerOptions ): Server;
 
 		/**
-		 * Binds socket.io to an engine.io intsance
+		 * Binds socket.io to an engine.io instance
 		 * @param src The Engine.io (or compatible) server to bind to
 		 * @return This Server
 		 */
@@ -188,7 +201,7 @@ declare namespace SocketIO {
 		 * with a '/'
 		 * @return The Namespace
 		 */
-		of( nsp: string ): Namespace;
+		of( nsp: string | RegExp | Function ): Namespace;
 
 		/**
 		 * Closes the server connection
@@ -367,6 +380,13 @@ declare namespace SocketIO {
 		 * @default "io"
 		 */
 		cookie?: string|boolean;
+
+        /**
+         * Whether to let engine.io handle the OPTIONS requests.
+         * You can also pass a custom function to handle the requests
+         * @default true
+         */
+        handlePreflightRequest?: ((req: any, res: any) => void) | boolean;
 	}
 
 	/**
@@ -651,6 +671,12 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+
+        /**
+         * Emits the error
+         * @param err Error message=
+         */
+        error(err: any): void;
 	}
 
 	interface Handshake {

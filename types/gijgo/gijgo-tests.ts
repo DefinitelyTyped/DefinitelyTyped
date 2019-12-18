@@ -2,7 +2,7 @@
 
 // Grid
 $(() => {
-        this.grid = $('#grid').grid({
+        (this as any).grid = $('#grid').grid({
             primaryKey: 'ID',
             columns: [
                 { field: 'ID', width: 50, sortable: true },
@@ -14,7 +14,7 @@ $(() => {
 
 // Dialog
 $(() => {
-        this.dialog = $('#playerModal').dialog({
+        (this as any).dialog = $('#playerModal').dialog({
             autoOpen: false,
             title: 'Player',
             width: 400

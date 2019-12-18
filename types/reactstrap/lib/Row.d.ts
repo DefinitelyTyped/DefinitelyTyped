@@ -1,12 +1,21 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type RowProps<T = {}> = React.HTMLProps<HTMLElement> & {
-  className?: string;
-  cssModule?: CSSModule;
-  tag?: React.ReactType;
-  noGutters?: boolean;
-} & T;
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-declare class Row<T = {[key: string]: any}> extends React.Component<RowProps<T>> {}
+export interface RowProps extends Omit<React.HTMLProps<HTMLElement>, 'form'> {
+    [key: string]: any;
+    className?: string;
+    cssModule?: CSSModule;
+    tag?: string | React.ReactType;
+    noGutters?: boolean;
+    form?: boolean;
+    xs?: number | string;
+    sm?: number | string;
+    md?: number | string;
+    lg?: number | string;
+    xl?: number | string;
+}
+
+declare class Row<T = {[key: string]: any}> extends React.Component<RowProps> {}
 export default Row;

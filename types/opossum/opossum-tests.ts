@@ -1,46 +1,125 @@
-import { Transform } from "stream";
-import circuitBreaker, { CircuitBreaker, CircuitBreakerOptions } from "opossum";
+import * as fs from 'fs';
+import * as CircuitBreaker from 'opossum';
+import { promisify } from 'util';
 
-const _blank = () => {};
-const async_blank = () => new Promise(resolve => null);
+let breaker: CircuitBreaker;
+const callbackNoArgs = async () => console.log('foo');
 
-const testNoOptions: CircuitBreaker = circuitBreaker(_blank);
+CircuitBreaker.isOurError(new Error()); // $ExpectType boolean
 
-const options: CircuitBreakerOptions = {
-    timeout: 1,
-    maxFailures: 1,
-    resetTimeout: 1,
-    rollingCountTimeout: 1,
-    rollingCountBuckets: 1,
-    name: "testing",
+breaker = new CircuitBreaker(async () => true, {
+    timeout: 1000,
+    maxFailures: 50,
+    resetTimeout: 10,
+    rollingCountTimeout: 500,
+    rollingCountBuckets: 20,
+    name: 'test',
+    group: 'group',
     rollingPercentilesEnabled: true,
     capacity: 1,
     errorThresholdPercentage: 1,
     enabled: true,
-    allowWarmUp: true
+    allowWarmUp: true,
+    volumeThreshold: 1,
+    cache: true,
+});
+
+breaker.name; // $ExpectType string
+breaker.group; // $ExpectType string
+breaker.enabled; // $ExpectType boolean
+breaker.pendingClose; // $ExpectType boolean
+breaker.closed; // $ExpectType boolean
+breaker.opened; // $ExpectType boolean
+breaker.halfOpen; // $ExpectType boolean
+breaker.warmUp; // $ExpectType boolean
+breaker.isShutdown; // $ExpectType boolean
+breaker.volumeThreshold; // $ExpectType number
+breaker.status.stats.latencyMean; // $ExpectType number
+breaker.stats.latencyTimes; // $ExpectType number[]
+
+breaker.clearCache(); // $ExpectType void
+breaker.open(); // $ExpectType void
+breaker.close(); // $ExpectType void
+breaker.disable(); // $ExpectType void
+breaker.enable(); // $ExpectType void
+breaker.shutdown(); // $ExpectType void
+
+// Check the generic types pass down correctly from constructor to `fire` and events.
+const action = async (foo: string, bar: number) => {
+    return foo ? bar : bar * 2;
 };
+const typedBreaker = new CircuitBreaker(action);
+typedBreaker.fire(5, 'hello'); // $ExpectError
+typedBreaker.fire('hello world', 42); // $ExpectType Promise<number>
+typedBreaker.on('success', (result, latencyMs) => {
+    result; // $ExpectType number
+    latencyMs; // $ExpectType number
+});
+typedBreaker.on('fire', ([foo, bar]) => {
+    foo; // $ExpectType string
+    bar; // $ExpectType number
+});
 
-const testWithOptions: CircuitBreaker = circuitBreaker(_blank, options);
-const shouldBeAPromise: Promise<any> = testWithOptions.promisify(_blank);
-const shouldBeATransformStream: Transform = testWithOptions.stats();
+// The following are examples are from the libs README and official documentation
+// https://nodeshift.github.io/opossum/index.html.
 
-const healthCheck: Promise<any> = testWithOptions.healthCheck(async_blank, 8);
-const shouldBeACircuitBreaker: CircuitBreaker = testWithOptions.fallback();
-const shouldBeAPromiseGeneric: Promise<any> = testWithOptions.fire();
+function asyncFunctionThatCouldFail(x: any, y: any) {
+    return new Promise((resolve, reject) => {
+        // Do something, maybe on the network or a disk
+        resolve([x, y]);
+    });
+}
 
-const shouldBeVoid = (): void => testWithOptions.enable();
-const shouldBeVoid2 = (): void => testWithOptions.disable();
-const shouldBeVoid3 = (): void => testWithOptions.close();
-const shouldBeVoid4 = (): void => testWithOptions.open();
-const shouldBeVoid5 = (): void => testWithOptions.clearCache();
+const options: CircuitBreaker.Options = {
+    timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
+    errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
+    resetTimeout: 30000, // After 30 seconds, try again.
+};
+breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
-const shouldBeSymbol: symbol = CircuitBreaker.name;
-const shouldBeSymbol2: symbol = CircuitBreaker.group;
-const shouldBeSymbol3: symbol = CircuitBreaker.pendingClose;
-const shouldBeSymbol4: symbol = CircuitBreaker.closed;
-const shouldBeSymbol5: symbol = CircuitBreaker.opened;
-const shouldBeSymbol6: symbol = CircuitBreaker.halfOpen;
-const shouldBeSymbol7: symbol = CircuitBreaker.hystrixStats;
-const shouldBeSymbol8: symbol = CircuitBreaker.status;
-const shouldBeSymbol9: symbol = CircuitBreaker.enabled;
-const shouldBeSymbol10: symbol = CircuitBreaker.warmUp;
+breaker
+    .fire('foo')
+    .then(console.log)
+    .catch(console.error);
+
+breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
+// if asyncFunctionThatCouldFail starts to fail, firing the breaker
+// will trigger our fallback function
+breaker.fallback(() => 'Sorry, out of service right now');
+breaker.on('fallback', result => console.log(result));
+
+breaker = new CircuitBreaker(callbackNoArgs, options);
+
+breaker.fallback(callbackNoArgs);
+
+breaker.on('success', result => console.log(result));
+breaker.on('timeout', callbackNoArgs);
+breaker.on('reject', callbackNoArgs);
+breaker.on('open', callbackNoArgs);
+breaker.on('halfOpen', callbackNoArgs);
+breaker.on('close', callbackNoArgs);
+breaker.on('fallback', data => console.log(data));
+
+const readFile = promisify(fs.readFile);
+breaker = new CircuitBreaker(readFile, options);
+
+breaker
+    .fire('./package.json', 'utf-8')
+    .then(console.log)
+    .catch(console.error);
+
+breaker = new CircuitBreaker(readFile, {});
+
+// Creates a 1 second window consisting of ten time slices,
+// each 100ms long.
+const circuit = new CircuitBreaker(readFile, {
+    rollingCountBuckets: 10,
+    rollingCountTimeout: 1000,
+});
+
+// get the cumulative statistics for the last second
+const theStats: CircuitBreaker.Stats = breaker.status.stats;
+
+// get the array of 10, 1 second time slices for the last second
+const window: CircuitBreaker.Window = breaker.status.window;
+window[0].fires; // $ExpectType number

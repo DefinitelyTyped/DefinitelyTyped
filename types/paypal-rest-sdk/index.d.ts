@@ -1,6 +1,6 @@
 // Type definitions for paypal-rest-sdk 1.7
 // Project: https://github.com/paypal/PayPal-node-SDK
-// Definitions by: Andrew Throener <https://github.com/trainerbill>
+// Definitions by: Andrew Throener <https://github.com/trainerbill>, Barron Wei <https://github.com/barronwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -162,7 +162,7 @@ export interface Transaction {
     };
     notify_url?: string;
     order_url?: string;
-    readonly related_resources?: RelatedResources;
+    readonly related_resources?: RelatedResources[];
 }
 
 export interface Payee {
@@ -181,7 +181,7 @@ export interface Payment {
     payer: {
         payment_method: string;
     };
-    transactions: [ Transaction ];
+    transactions: Transaction[];
     readonly state?: string;
     experience_profile_id?: string;
     note_to_payer?: string;
@@ -258,6 +258,22 @@ export interface Item {
     url?: string;
 }
 
+export interface PayerInfo {
+  email?: string;
+  readonly salutation?: string;
+  readonly first_name?: string;
+  readonly middle_name?: string;
+  readonly last_name?: string;
+  readonly suffix?: string;
+  readonly payer_id?: string;
+  birth_date?: string;
+  tax_id?: string;
+  tax_id_type?: string;
+  country_code?: string;
+  billing_address?: Address;
+  readonly shipping_address?: Address;
+}
+
 export interface RefundRequest {
     amount?: Amount;
     description?: string;
@@ -266,8 +282,7 @@ export interface RefundRequest {
     invoice_number?: string;
     refund_advice?: boolean;
     items?: Item[];
-    // TODO: Type this https://developer.paypal.com/docs/api/payments/#definition-payer_info
-    payer_info?: any;
+    payer_info?: PayerInfo;
     supplementary_data?: any[];
 }
 

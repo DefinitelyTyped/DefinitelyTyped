@@ -1,10 +1,13 @@
-import { EmitterBase, Base, Reply, RuntimeEvent } from '../base';
+import { EmitterBase, Base, Reply } from '../base';
 import { Identity } from '../../identity';
 import { _Window } from '../window/window';
 import { Point } from '../system/point';
 import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
-import Bounds from '../window/bounds';
+import { Bounds } from '../../shapes';
+import { ApplicationEvents } from '../events/application';
+import { ApplicationOption } from './applicationOption';
+import { BrowserView } from '../browserview/browserview';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -17,11 +20,14 @@ export interface ApplicationInfo {
     parentUuid?: string;
     runtime: object;
 }
+export interface LogInfo {
+    logId: string;
+}
 export declare class NavigationRejectedReply extends Reply<'window-navigation-rejected', void> {
     sourceName: string;
     url: string;
 }
-export interface ConfigInterface {
+export interface ShortCutConfig {
     desktop?: boolean;
     startMenu?: boolean;
     systemStartup?: boolean;
@@ -32,47 +38,234 @@ export interface TrayInfo {
     x: number;
     y: number;
 }
+export interface ManifestInfo {
+    uuid: string;
+    manifestUrl: string;
+}
+export interface RvmLaunchOptions {
+    noUi?: boolean;
+    userAppConfigArgs?: object;
+}
+/**
+ * @typedef {object} ApplicationOption
+ * @summary Application creation options.
+ * @desc This is the options object required by {@link Application.start Application.start}.
+ *
+ * The following options are required:
+ * * `uuid` is required in the app manifest as well as by {@link Application.start Application.start}
+ * * `name` is optional in the app manifest but required by {@link Application.start Application.start}
+ * * `url` is optional in both the app manifest {@link Application.start Application.start} and  but is usually given
+ * (defaults to `"about:blank"` when omitted).
+ *
+ * _This jsdoc typedef mirrors the `ApplicationOption` TypeScript interface in `@types/openfin`._
+ *
+ * **IMPORTANT NOTE:**
+ * This object inherits all the properties of the window creation {@link Window~options options} object,
+ * which will take priority over those of the same name that may be provided in `mainWindowOptions`.
+ *
+ * @property {boolean} [disableIabSecureLogging=false]
+ * When set to `true` it will disable IAB secure logging for the app.
+ *
+ * @property {string} [loadErrorMessage="There was an error loading the application."]
+ * An error message to display when the application (launched via manifest) fails to load.
+ * A dialog box will be launched with the error message just before the runtime exits.
+ * Load fails such as failed DNS resolutions or aborted connections as well as cancellations, _e.g.,_ `window.stop()`,
+ * will trigger this dialog.
+ * Client response codes such as `404 Not Found` are not treated as fails as they are valid server responses.
+ *
+ * @property {Window~options} [mainWindowOptions]
+ * The options of the main window of the application.
+ * For a description of these options, click the link (in the Type column).
+ *
+ * @property {string} [name]
+ * The name of the application (and the application's main window).
+ *
+ * If provided, _must_ match `uuid`.
+ *
+ * @property {boolean} [nonPersistent=false]
+ * A flag to configure the application as non-persistent.
+ * Runtime exits when there are no persistent apps running.
+ *
+ * @property {boolean} [plugins=false]
+ * Enable Flash at the application level.
+ *
+ * @property {boolean} [spellCheck=false]
+ * Enable spell check at the application level.
+ *
+ * @property {string} [url="about:blank"]
+ * The url to the application (specifically the application's main window).
+ *
+ * @property {string} uuid
+ * The _Unique Universal Identifier_ (UUID) of the application, unique within the set of all other applications
+ *  running in the OpenFin Runtime.
+ *
+ * Note that `name` and `uuid` must match.
+ *
+ * @property {boolean} [webSecurity=true]
+ * When set to `false` it will disable the same-origin policy for the app.
+ */
+/**
+ * @lends Application
+ */
 export default class ApplicationModule extends Base {
     /**
-     * Returns an Application object that represents an existing application.
-     * @param { Identity } indentity
+     * Asynchronously returns an Application object that represents an existing application.
+     * @param { Identity } identity
      * @return {Promise.<Application>}
      * @tutorial Application.wrap
+     * @static
      */
     wrap(identity: Identity): Promise<Application>;
     /**
-     * Creates a new Application.
-     * @param {*} appOptions
-     * @return {Promise.<Application>}
-     * @tutorial Application.create
+     * Synchronously returns an Application object that represents an existing application.
+     * @param { Identity } identity
+     * @return {Application}
+     * @tutorial Application.wrapSync
+     * @static
      */
-    create(appOptions: any): Promise<Application>;
+    wrapSync(identity: Identity): Application;
+    private _create;
     /**
-     * Returns an Application object that represents the current application
+    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+    * @param { ApplicationOption } appOptions
+    * @return {Promise.<Application>}
+    * @tutorial Application.create
+    * @ignore
+    */
+    create(appOptions: ApplicationOption): Promise<Application>;
+    /**
+    * Creates and starts a new Application.
+    * @param { ApplicationOption } appOptions
+    * @return {Promise.<Application>}
+    * @tutorial Application.start
+    * @static
+    */
+    start(appOptions: ApplicationOption): Promise<Application>;
+    /**
+     * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
+     * Returns once the RVM is finished attempting to launch the applications.
+     * @param { Array.<ManifestInfo> } applications
+     * @return {Promise.<void>}
+     * @static
+     * @tutorial Application.startManyManifests
+     * @experimental
+     */
+    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    /**
+     * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
      * @tutorial Application.getCurrent
+     * @static
      */
     getCurrent(): Promise<Application>;
     /**
-     * Retrieves application's manifest and returns a wrapped application.
-     * @param {string} manifestUrl - The URL of app's manifest.
-     * @return {Promise.<Application>}
-     * @tutorial Application.createFromManifest
+     * Synchronously returns an Application object that represents the current application
+     * @return {Application}
+     * @tutorial Application.getCurrentSync
+     * @static
      */
+    getCurrentSync(): Application;
+    /**
+     * Retrieves application's manifest and returns a running instance of the application.
+     * @param {string} manifestUrl - The URL of app's manifest.
+     * @param { rvmLaunchOpts} [opts] - Parameters that the RVM will use.
+     * @return {Promise.<Application>}
+     * @tutorial Application.startFromManifest
+     * @static
+     */
+    startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Application>;
     createFromManifest(manifestUrl: string): Promise<Application>;
+    private _createFromManifest;
 }
 /**
  * @classdesc An object representing an application. Allows the developer to create,
- * execute, show/close an application as well as listen to application events.
+ * execute, show/close an application as well as listen to <a href="tutorial-Application.EventEmitter.html">application events</a>.
  * @class
+ * @hideconstructor
  */
-export declare class Application extends EmitterBase {
+export declare class Application extends EmitterBase<ApplicationEvents> {
     identity: Identity;
     _manifestUrl?: string;
     private window;
     constructor(wire: Transport, identity: Identity);
-    protected runtimeEventComparator: (listener: RuntimeEvent) => boolean;
     private windowListFromIdentityList;
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function addListener
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function on
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function once
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Adds a listener to the beginning of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependListener
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * The listener is added to the beginning of the listeners array.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependOnceListener
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Remove a listener from the listener array for the specified event.
+     * Caution: Calling this method changes the array indices in the listener array behind the listener.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function removeListener
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
+    /**
+     * Removes all listeners, or those of the specified event.
+     * @param { string | symbol } [eventType]  - The type of the event.
+     * @return {Promise.<this>}
+     * @function removeAllListeners
+     * @memberof Application
+     * @instance
+     * @tutorial Application.EventEmitter
+     */
     /**
      * Determines if the application is currently running.
      * @return {Promise.<boolean>}
@@ -81,11 +274,14 @@ export declare class Application extends EmitterBase {
     isRunning(): Promise<boolean>;
     /**
      * Closes the application and any child windows created by the application.
+     * Cleans the application from state so it is no longer found in getAllApplications.
      * @param { boolean } [force = false] Close will be prevented from closing when force is false and
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<boolean>}
-     * @tutorial Application.close
+     * @tutorial Application.quit
      */
+    quit(force?: boolean): Promise<void>;
+    private _close;
     close(force?: boolean): Promise<void>;
     /**
      * Retrieves an array of wrapped fin.Windows for each of the application’s child windows.
@@ -116,10 +312,23 @@ export declare class Application extends EmitterBase {
     getParentUuid(): Promise<string>;
     /**
      * Retrieves current application's shortcut configuration.
-     * @return {Promise.<ConfigInterface>}
+     * @return {Promise.<ShortCutConfig>}
      * @tutorial Application.getShortcuts
      */
-    getShortcuts(): Promise<ConfigInterface>;
+    getShortcuts(): Promise<ShortCutConfig>;
+    /**
+    * Retrieves current application's views.
+    * @experimental
+    * @return {Promise.Array.<BrowserView>}
+    * @tutorial Application.getViews
+    */
+    getViews(): Promise<Array<BrowserView>>;
+    /**
+     * Returns the current zoom level of the application.
+     * @return {Promise.<number>}
+     * @tutorial Application.getZoomLevel
+     */
+    getZoomLevel(): Promise<number>;
     /**
      * Returns an instance of the main Window of the application
      * @return {Promise.<_Window>}
@@ -147,11 +356,14 @@ export declare class Application extends EmitterBase {
      */
     restart(): Promise<void>;
     /**
-     * Runs the application. When the application is created, run must be called.
+     * DEPRECATED method to run the application.
+     * Needed when starting application via {@link Application.create}, but NOT needed when starting via {@link Application.start}.
      * @return {Promise.<void>}
      * @tutorial Application.run
+     * @ignore
      */
     run(): Promise<void>;
+    private _run;
     /**
      * Instructs the RVM to schedule one restart of the application.
      * @return {Promise.<void>}
@@ -159,22 +371,44 @@ export declare class Application extends EmitterBase {
      */
     scheduleRestart(): Promise<void>;
     /**
-     * Adds a customizable icon in the system tray and notifies the application when clicked.
+     * Sends a message to the RVM to upload the application's logs. On success,
+     * an object containing logId is returned.
+     * @return {Promise.<any>}
+     * @tutorial Application.sendApplicationLog
+     */
+    sendApplicationLog(): Promise<LogInfo>;
+    /**
+     * Adds a customizable icon in the system tray.  To listen for a click on the icon use the `tray-icon-clicked` event.
      * @param { string } iconUrl Image URL to be used as the icon
      * @return {Promise.<void>}
      * @tutorial Application.setTrayIcon
      */
     setTrayIcon(iconUrl: string): Promise<void>;
     /**
-     * Sets new application's shortcut configuration.
-     * @param { Object } config New application's shortcut configuration.
-     * @param {Boolean} [config.desktop] - Enable/disable desktop shortcut.
-     * @param {Boolean} [config.startMenu] - Enable/disable start menu shortcut.
-     * @param {Boolean} [config.systemStartup] - Enable/disable system startup shortcut.
+     * Sets new application's shortcut configuration. Windows only.
+     * @param { ShortCutConfig } config New application's shortcut configuration.
+     * @param { boolean } [config.desktop] - Enable/disable desktop shortcut.
+     * @param { boolean } [config.startMenu] - Enable/disable start menu shortcut.
+     * @param { boolean } [config.systemStartup] - Enable/disable system startup shortcut.
      * @return {Promise.<void>}
      * @tutorial Application.setShortcuts
      */
-    setShortcuts(config: ConfigInterface): Promise<void>;
+    setShortcuts(config: ShortCutConfig): Promise<void>;
+    /**
+     * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
+     * larger or smaller to default limits of 300% and 50% of original size, respectively.
+     * @param { number } level The zoom level
+     * @return {Promise.<void>}
+     * @tutorial Application.setZoomLevel
+     */
+    setZoomLevel(level: number): Promise<void>;
+    /**
+     * Sets a username to correlate with App Log Management.
+     * @param { string } username Username to correlate with App's Log.
+     * @return {Promise.<void>}
+     * @tutorial Application.setAppLogUsername
+     */
+    setAppLogUsername(username: string): Promise<void>;
     /**
      * @summary Retrieves information about the system tray.
      * @desc The only information currently returned is the position and dimensions.
@@ -202,22 +436,4 @@ export declare class Application extends EmitterBase {
      * @tutorial Application.getInfo
      */
     getInfo(): Promise<ApplicationInfo>;
-}
-export interface Application {
-    on(type: 'closed', listener: (data: Reply<'application', 'closed'>) => void): Promise<void>;
-    on(type: 'initialized', listener: (data: Reply<'application', 'initialized'>) => void): Promise<void>;
-    on(type: 'connected', listener: (data: Reply<'application', 'connected'>) => void): Promise<void>;
-    on(type: 'crashed', listener: (data: Reply<'application', 'crashed'>) => void): Promise<void>;
-    on(type: 'error', listener: (data: Reply<'application', 'error'>) => void): Promise<void>;
-    on(type: 'not-responding', listener: (data: Reply<'application', 'not-responding'>) => void): Promise<void>;
-    on(type: 'out-of-memory', listener: (data: Reply<'application', 'out-of-memory'>) => void): Promise<void>;
-    on(type: 'responding', listener: (data: Reply<'application', 'responding'>) => void): Promise<void>;
-    on(type: 'started', listener: (data: Reply<'application', 'started'>) => void): Promise<void>;
-    on(type: 'run-requested', listener: (data: Reply<'application', 'run-requested'>) => void): Promise<void>;
-    on(type: 'window-navigation-rejected', listener: (data: NavigationRejectedReply) => void): Promise<void>;
-    on(type: 'window-created', listener: (data: Reply<'application', 'window-created'>) => void): Promise<void>;
-    on(type: 'window-closed', listener: (data: Reply<'application', 'window-closed'>) => void): Promise<void>;
-    on(type: 'tray-icon-clicked', listener: (data: TrayIconClickReply) => void): Promise<void>;
-    on(type: 'removeListener', listener: (eventType: string) => void): Promise<void>;
-    on(type: 'newListener', listener: (eventType: string) => void): Promise<void>;
 }

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es2015", "dom"
+            "es2015"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,8 +19,14 @@
     },
     "files": [
         "index.d.ts",
-        "http.d.ts",
-        "crypto.d.ts",
-        "k6-tests.ts"
+        "k6-tests.ts",
+        "test/crypto.ts",
+        "test/encoding.ts",
+        "test/global.ts",
+        "test/html.ts",
+        "test/http.ts",
+        "test/index.ts",
+        "test/metrics.ts",
+        "test/ws.ts"
     ]
 }

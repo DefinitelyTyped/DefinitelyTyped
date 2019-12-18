@@ -56,6 +56,17 @@ declare namespace Mail {
         raw?: string | Buffer | Readable | AttachmentLike;
     }
 
+    interface AmpAttachment extends AttachmentLike {
+        /** is an alternative for content to load the AMP4EMAIL data from an URL */
+        href?: string;
+        /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
+        encoding?: string;
+        /** optional content type for the attachment, if not set will be derived from the filename property */
+        contentType?: string;
+        /** an optional value that overrides entire node content in the mime message. If used then all other options set for this node are ignored. */
+        raw?: string | Buffer | Readable | AttachmentLike;
+    }
+
     interface IcalAttachment extends AttachmentLike {
         /** optional method, case insensitive, defaults to ‘publish’. Other possible values would be ‘request’, ‘reply’, ‘cancel’ or any other valid calendar method listed in RFC5546. This should match the METHOD: value in calendar event file. */
         method?: string;
@@ -107,6 +118,8 @@ declare namespace Mail {
         html?: string | Buffer | Readable | AttachmentLike;
         /** Apple Watch specific HTML version of the message, same usage as with text and html */
         watchHtml?: string | Buffer | Readable | AttachmentLike;
+        /** AMP4EMAIL specific HTML version of the message, same usage as with text and html. Make sure it is a full and valid AMP4EMAIL document, otherwise the displaying email client falls back to html and ignores the amp part */
+        amp?: string | Buffer | Readable | AmpAttachment;
         /** iCalendar event, same usage as with text and html. Event method attribute defaults to ‘PUBLISH’ or define it yourself: {method: 'REQUEST', content: iCalString}. This value is added as an additional alternative to html or text. Only utf-8 content is allowed */
         icalEvent?: string | Buffer | Readable | IcalAttachment;
         /** An object or array of additional header fields */
@@ -137,6 +150,7 @@ declare namespace Mail {
         dkim?: DKIM.Options;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
+        priority?: "high"|"normal"|"low";
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
@@ -153,7 +167,7 @@ declare class Mail extends EventEmitter {
     /** Usage: typeof transporter.MailMessage */
     MailMessage: MailMessage;
 
-    constructor(transporter: Transport, options: TransportOptions, defaults: TransportOptions);
+    constructor(transporter: Transport, options?: TransportOptions, defaults?: TransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

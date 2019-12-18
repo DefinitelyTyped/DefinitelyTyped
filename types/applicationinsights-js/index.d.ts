@@ -670,14 +670,16 @@ declare module Microsoft.ApplicationInsights {
         context: ITelemetryContext;
         queue: Array<() => void>;
         /**
-         * Starts timing how long the user views a page or other item. Call this when the page opens.
-         * This method doesn't send any telemetry. Call {@link stopTrackTelemetry} to log the page when it closes.
+         * Starts the timer for tracking a page load time. Use this instead of `trackPageView` if you want to control when the page view timer starts and stops,
+         * but don't want to calculate the duration yourself. This method doesn't send any telemetry. Call `stopTrackPage` to log the end of the page view
+         * and send the event.
          * @param   name  A string that idenfities this item, unique within this HTML document. Defaults to the document title.
          */
         startTrackPage(name?: string): any;
         /**
-         * Logs how long a page or other item was visible, after {@link startTrackPage}. Call this when the page closes.
-         * @param   name  The string you used as the name in startTrackPage. Defaults to the document title.
+         * Stops the timer that was started by calling `startTrackPage` and sends the pageview load time telemetry with the specified properties and measurements.
+         * The duration of the page view will be the time between calling `startTrackPage` and `stopTrackPage`.
+         * @param   name  The string you used as the name in `startTrackPage`. Defaults to the document title.
          * @param   url   String - a relative or absolute URL that identifies the page or other item. Defaults to the window location.
          * @param   properties  map[string, string] - additional data used to filter pages and metrics in the portal. Defaults to empty.
          * @param   measurements    map[string, number] - metrics associated with this page, displayed in Metrics Explorer on the portal. Defaults to empty.
@@ -689,7 +691,7 @@ declare module Microsoft.ApplicationInsights {
             measurements?: { [name: string]: number }): any;
         /**
          * Logs that a page or other item was viewed.
-         * @param   name  The string you used as the name in startTrackPage. Defaults to the document title.
+         * @param   name  The string you used as the name in `startTrackPage`. Defaults to the document title.
          * @param   url   String - a relative or absolute URL that identifies the page or other item. Defaults to the window location.
          * @param   properties  map[string, string] - additional data used to filter pages and metrics in the portal. Defaults to empty.
          * @param   measurements    map[string, number] - metrics associated with this page, displayed in Metrics Explorer on the portal. Defaults to empty.
@@ -701,13 +703,13 @@ declare module Microsoft.ApplicationInsights {
             properties?: { [name: string]: string },
             measurements?: { [name: string]: number }, duration?: number): any;
         /**
-         * Start timing an extended event. Call {@link stopTrackEvent} to log the event when it ends.
+         * Start timing an extended event. Call `stopTrackEvent` to log the event when it ends.
          * @param   name    A string that identifies this event uniquely within the document.
          */
         startTrackEvent(name: string): any;
         /**
-         * Log an extended event that you started timing with {@link startTrackEvent}.
-         * @param   name    The string you used to identify this event in startTrackEvent.
+         * Log an extended event that you started timing with `startTrackEvent`.
+         * @param   name    The string you used to identify this event in `startTrackEvent`.
          * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
          * @param   measurements    map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
@@ -734,8 +736,11 @@ declare module Microsoft.ApplicationInsights {
          * @param   totalTime total request time
          * @param   success   indicates if the request was sessessful
          * @param   resultCode    response code returned by the dependency request
+         * @param   properties    map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+         * @param   measurements  map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
-        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number): any;
+        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number,
+            properties?: { [name: string]: string }, measurements?: { [name: string]: number }): any;
         /**
          * Log an exception you have caught.
          * @param   exception   An Error from a catch clause, or the string error message.

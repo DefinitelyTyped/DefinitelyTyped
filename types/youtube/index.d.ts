@@ -5,19 +5,20 @@
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
 //                 Terry Mun <https://github.com/terrymun>
+//                 Paul Hobbel <https://github.com/paulhobbel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
- * @see https://developers.google.com/YouTube/player_parameters
+ * @see https://developers.google.com/youtube/player_parameters
  */
 declare namespace YT
 {
 	/**
 	 * State of a video player.
 	 */
-	export enum PlayerState
+	export const enum PlayerState
 	{
 		UNSTARTED = -1,
 		ENDED = 0,
@@ -252,7 +253,7 @@ declare namespace YT
 		 */
 		Modest = 1
 	}
-	
+
 	/**
 	 * Whether to playback video inline or full-screen in an HTML5 player on iOS
 	 */
@@ -284,7 +285,7 @@ declare namespace YT
 		 */
 		Show = 1
 	}
-	
+
 	/**
 	 * Whether to show video information before playing.
 	 */
@@ -541,7 +542,7 @@ declare namespace YT
 		 * Comma separated list of video IDs to play after the URL path's video.
 		 */
 		playlist?: string;
-		
+
 		/**
 		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
 		 */
@@ -950,6 +951,14 @@ declare namespace YT
 		 */
 		addEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
 
+        /**
+		 * Remove an event listener for the specified event.
+		 *
+		 * @param eventName   Name of the event.
+		 * @param listener   Handler for the event.
+		 */
+		removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        
 		/**
 		 * @returns The DOM node for the embedded <iframe>.
 		 */

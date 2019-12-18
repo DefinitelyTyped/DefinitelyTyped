@@ -57,13 +57,19 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
+	const readyState: videojs.ReadyState = this.readyState();
+
 	this.requestFullscreen();
+
+	const networkState: videojs.NetworkState = this.networkState();
 
 	testEvents(this);
 
 	testComponents(this);
 
 	testPlugin(this, {});
+
+	testLogger();
 });
 
 function testEvents(player: videojs.Player) {
@@ -110,4 +116,13 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+}
+
+function testLogger() {
+	const mylogger = videojs.log.createLogger('mylogger');
+	const anotherlogger = mylogger.createLogger('anotherlogger');
+
+	videojs.log('hello');
+	mylogger('how are you');
+	anotherlogger('today');
 }

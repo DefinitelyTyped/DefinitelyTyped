@@ -2,6 +2,7 @@ const options: MoveTo.MoveToOptions = {
     tolerance: 70,
     duration: 300,
     easing: "easeOutQuart",
+    container: Math.random() > 0.5 ? window : document.createElement('div'),
     callback: () => {}
 };
 

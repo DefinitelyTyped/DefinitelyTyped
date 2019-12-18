@@ -73,6 +73,10 @@ myCodeMirror.getValue();
 myCodeMirror.getValue("foo")
 myCodeMirror.setValue("bar");
 
+myCodeMirror.getCursor();
+myCodeMirror.getCursor('from');
+myCodeMirror.setCursor({ ch: 1, line: 0 });
+
 myCodeMirror.on(
   "renderLine",
   (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }
@@ -91,3 +95,19 @@ CodeMirror.registerHelper("lint", "javascript", {});
 
 myCodeMirror.isReadOnly();
 myCodeMirror.execCommand('selectAll');
+
+let htmlElement1 = document.createElement('div');
+let htmlElement2 = document.createElement('div');
+let widget1 = myCodeMirror.addLineWidget(1, htmlElement1, {});
+let widget2 = doc.addLineWidget(1, htmlElement2, {});
+widget1.clear();
+widget2.clear();
+htmlElement1.remove();
+htmlElement2.remove();
+
+CodeMirror.commands.newlineAndIndent(myCodeMirror);
+
+let stringStream = new CodeMirror.StringStream("var myEditor;");
+
+// Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
+myCodeMirror.getCursor();

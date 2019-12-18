@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { WrapOptions } from "retry";
+import { OperationOptions } from "retry";
 /**
  * A function that is retryable, by having implicitly-bound params for both an error handler and an attempt number.
  *
@@ -22,6 +22,6 @@ type RetryableFn<ResolutionType> = ((retry: (error: any) => never, attempt: numb
  * @param options The options for how long/often to retry the function for.
  * @returns The Promise resolved by the input retryableFn, or rejected (if not retried) from its catch block.
  */
-declare function promiseRetry<ResolutionType>(retryableFn: RetryableFn<ResolutionType>, options?: WrapOptions): Promise<ResolutionType>;
-declare function promiseRetry<ResolutionType>(options: WrapOptions, retryableFn: RetryableFn<ResolutionType>): Promise<ResolutionType>;
+declare function promiseRetry<ResolutionType>(retryableFn: RetryableFn<ResolutionType>, options?: OperationOptions): Promise<ResolutionType>;
+declare function promiseRetry<ResolutionType>(options: OperationOptions, retryableFn: RetryableFn<ResolutionType>): Promise<ResolutionType>;
 export = promiseRetry;

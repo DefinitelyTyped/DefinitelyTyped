@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET 181.3
+// Type definitions for non-npm package DevExpress ASP.NET 181.3
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <https://github.com/devexpress>
 //                 Andrey Skubarenko <https://github.com/skubarenko>

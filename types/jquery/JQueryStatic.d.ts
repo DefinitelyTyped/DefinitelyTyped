@@ -148,21 +148,26 @@ $( "div", xml.responseXML );
 $( document.body ).css( "background", "black" );
 ```
      */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    <T extends Element>(element: T): JQuery<T>;
+    // NOTE: `HTMLSelectElement` is both an Element and an Array-Like Object but jQuery treats it as an Element.
+    (element: HTMLSelectElement): JQuery<HTMLSelectElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     * @param element_elementArray _&#x40;param_ `element_elementArray`
+     * <br>
+     * * `element` — A DOM element to wrap in a jQuery object. <br>
+     * * `elementArray` — An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
+     * @example ​ ````Set the background color of the page to black.
+```javascript
+$( document.body ).css( "background", "black" );
+```
      * @example ​ ````Hide all the input elements within a form.
 ```javascript
 $( myForm.elements ).hide();
 ```
      */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    // tslint:disable-next-line:unified-signatures
-    <T extends Element>(elementArray: T[]): JQuery<T>;
+    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param selection An existing jQuery object to clone.
@@ -944,6 +949,14 @@ $( "#log" ).append( JSON.stringify( object1 ) );
      * Merge the contents of two or more objects together into the first object.
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
+     * @since 1.1.4
+     */
+    extend<T>(deep: true, target: T): this & T;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
      * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
@@ -1435,6 +1448,14 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * Merge the contents of two or more objects together into the first object.
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
+     * @since 1.0
+     */
+    extend<T>(target: T): this & T;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
      * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
@@ -1772,8 +1793,9 @@ test();
     /**
      * Finds the elements of an array which satisfy a filter function. The original array is not affected.
      * @param array The array-like object to search through.
-     * @param fn The function to process each item against. The first argument to the function is the item, and the
-     *           second argument is the index. The function should return a Boolean value. this will be the global window object.
+     * @param funсtion The function to process each item against. The first argument to the function is the item, and the
+     *                 second argument is the index. The function should return a Boolean value. `this` will be the global
+     *                 window object.
      * @param invert If "invert" is false, or not provided, then the function returns an array consisting of all elements
      *               for which "callback" returns true. If "invert" is true, then the function returns an array
      *               consisting of all elements for which "callback" returns false.
@@ -1839,7 +1861,7 @@ $.grep( [ 0, 1, 2 ], function( n, i ) {
 ```
      */
     grep<T>(array: ArrayLike<T>,
-            fn: (elementOfArray: T, indexInArray: number) => boolean,
+            funсtion: (elementOfArray: T, indexInArray: number) => boolean,
             invert?: boolean): T[];
     /**
      * Determine whether an element has any jQuery data associated with it.
@@ -2743,8 +2765,8 @@ $.post( "test.php" );
     // region proxy
     // #region proxy
 
-    // region (fn, null | undefined)
-    // #region (fn, null | undefined)
+    // region (funсtion, null | undefined)
+    // #region (funсtion, null | undefined)
 
     // region 0 to 7 additional arguments
     // #region 0 to 7 additional arguments
@@ -2754,97 +2776,125 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+        A, B, C, D, E, F, G>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+        A, B, C, D, E, F>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+        A, B, C, D, E>(funсtion: (a: A, b: B, c: C, d: D, e: E) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C, d: D, e: E): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+        A, B, C, D>(funсtion: (a: A, b: B, c: C, d: D) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C, d: D): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+        A, B, C>(funсtion: (a: A, b: B, c: C) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A, B>(fn: (a: A, b: B) => TReturn,
+        A, B>(funсtion: (a: A, b: B) => TReturn,
               context: null | undefined,
               a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        A>(fn: (a: A) => TReturn,
+        A>(funсtion: (a: A) => TReturn,
            context: null | undefined,
            a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn>(fn: () => TReturn,
+    proxy<TReturn>(funсtion: () => TReturn,
                    context: null | undefined): () => TReturn;
 
     // #endregion
@@ -2854,112 +2904,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T>(fn: (a: A, b: B, c: C, d: D,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B, c: C, d: D,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B, c: C, d: D): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T>(fn: (a: A, b: B, c: C,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B, c: C,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B, c: C): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T>(fn: (a: A, b: B,
-                t: T) => TReturn,
+        T>(funсtion: (a: A, b: B,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A, b: B): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T>(fn: (a: A,
-                t: T) => TReturn,
+        T>(funсtion: (a: A,
+                      t: T) => TReturn,
            context: null | undefined,
            a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T>(fn: (t: T) => TReturn,
+        T>(funсtion: (t: T) => TReturn,
            context: null | undefined): (t: T) => TReturn;
 
     // #endregion
@@ -2969,112 +3047,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U>(fn: (a: A, b: B, c: C, d: D,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B, c: C, d: D,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U>(fn: (a: A, b: B, c: C,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B, c: C,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B, c: C): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U>(fn: (a: A, b: B,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A, b: B,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A, b: B): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U>(fn: (a: A,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (a: A,
+                         t: T, u: U) => TReturn,
               context: null | undefined,
               a: A): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U>(fn: (t: T, u: U) => TReturn,
+        T, U>(funсtion: (t: T, u: U) => TReturn,
               context: null | undefined): (t: T, u: U) => TReturn;
 
     // #endregion
@@ -3084,112 +3190,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U, V>(fn: (a: A, b: B, c: C,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B, c: C,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U, V>(fn: (a: A, b: B,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A, b: B,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A, b: B): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U, V>(fn: (a: A,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (a: A,
+                            t: T, u: U, v: V) => TReturn,
                  context: null | undefined,
                  a: A): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (t: T, u: U, v: V) => TReturn,
                  context: null | undefined): (t: T, u: U, v: V) => TReturn;
 
     // #endregion
@@ -3199,112 +3333,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U, V, W>(fn: (a: A, b: B, c: C,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U, V, W>(fn: (a: A, b: B,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A, b: B,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U, V, W>(fn: (a: A,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (a: A,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined,
                     a: A): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
 
     // #endregion
@@ -3314,112 +3476,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U, V, W, X>(fn: (a: A, b: B,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U, V, W, X>(fn: (a: A,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (a: A,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined,
                        a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // #endregion
@@ -3429,112 +3619,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U, V, W, X, Y>(fn: (a: A, b: B,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A, b: B,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U, V, W, X, Y>(fn: (a: A,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (a: A,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined,
                           a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // #endregion
@@ -3544,112 +3762,140 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B, C,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A, B,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
         A,
-        T, U, V, W, X, Y, Z>(fn: (a: A,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (a: A,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined,
                              a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
-        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // #endregion
@@ -3661,14 +3907,14 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn>(fn: (...args: any[]) => TReturn,
+    proxy<TReturn>(funсtion: (...args: any[]) => TReturn,
                    context: null | undefined,
                    ...additionalArguments: any[]): (...args: any[]) => TReturn;
 
@@ -3676,8 +3922,8 @@ $.post( "test.php" );
 
     // #endregion
 
-    // region (fn, context)
-    // #region (fn, context)
+    // region (funсtion, context)
+    // #region (funсtion, context)
 
     // region 0 to 7 additional arguments
     // #region 0 to 7 additional arguments
@@ -3687,8 +3933,15 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -3812,15 +4065,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+        A, B, C, D, E, F, G>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -3944,15 +4203,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+        A, B, C, D, E, F>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4076,15 +4340,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+        A, B, C, D, E>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4208,15 +4476,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+        A, B, C, D>(funсtion: (this: TContext, a: A, b: B, c: C, d: D) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
+                    a: A, b: B, c: C, d: D): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4340,15 +4611,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+        A, B, C>(funсtion: (this: TContext, a: A, b: B, c: C) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C): (this: TContext) => TReturn;
+                 a: A, b: B, c: C): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4472,15 +4745,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A, B>(fn: (a: A, b: B) => TReturn,
+        A, B>(funсtion: (this: TContext, a: A, b: B) => TReturn,
               context: TContext,
-              a: A, b: B): (this: TContext) => TReturn;
+              a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
@@ -4604,14 +4878,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        A>(fn: (a: A) => TReturn,
+        A>(funсtion: (this: TContext, a: A) => TReturn,
            context: TContext,
-           a: A): (this: TContext) => TReturn;
+           a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -4736,9 +5010,9 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
-        TReturn>(fn: () => TReturn,
-                 context: TContext): (this: TContext) => TReturn;
+    proxy<TContext,
+        TReturn>(funсtion: (this: TContext) => TReturn,
+                 context: TContext): () => TReturn;
 
     // #endregion
 
@@ -4747,8 +5021,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4872,17 +5153,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5006,17 +5293,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5140,17 +5432,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T>(fn: (a: A, b: B, c: C, d: D, e: E,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5274,17 +5570,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T>(fn: (a: A, b: B, c: C, d: D,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5408,17 +5707,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T>(fn: (a: A, b: B, c: C,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5542,17 +5843,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T>(fn: (a: A, b: B,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A, b: B,
+                      t: T) => TReturn,
            context: TContext,
-           a: A, b: B): (this: TContext, t: T) => TReturn;
+           a: A, b: B): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5676,16 +5978,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T>(fn: (a: A,
-                t: T) => TReturn,
+        T>(funсtion: (this: TContext, a: A,
+                      t: T) => TReturn,
            context: TContext,
-           a: A): (this: TContext, t: T) => TReturn;
+           a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -5810,10 +6112,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T>(fn: (t: T) => TReturn,
-           context: TContext): (this: TContext, t: T) => TReturn;
+        T>(funсtion: (this: TContext, t: T) => TReturn,
+           context: TContext): (t: T) => TReturn;
 
     // #endregion
 
@@ -5822,8 +6124,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5947,17 +6256,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6081,17 +6396,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6215,17 +6535,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6349,17 +6673,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U>(fn: (a: A, b: B, c: C, d: D,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6483,17 +6810,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U>(fn: (a: A, b: B, c: C,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6617,17 +6946,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U>(fn: (a: A, b: B,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A, b: B,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6751,16 +7081,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U>(fn: (a: A,
-                   t: T, u: U) => TReturn,
+        T, U>(funсtion: (this: TContext, a: A,
+                         t: T, u: U) => TReturn,
               context: TContext,
-              a: A): (this: TContext, t: T, u: U) => TReturn;
+              a: A): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -6885,10 +7215,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U>(fn: (t: T, u: U) => TReturn,
-              context: TContext): (this: TContext, t: T, u: U) => TReturn;
+        T, U>(funсtion: (this: TContext, t: T, u: U) => TReturn,
+              context: TContext): (t: T, u: U) => TReturn;
 
     // #endregion
 
@@ -6897,8 +7227,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7022,17 +7359,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7156,17 +7499,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7290,17 +7638,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7424,17 +7776,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U, V>(fn: (a: A, b: B, c: C, d: D,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7558,17 +7913,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U, V>(fn: (a: A, b: B, c: C,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7692,17 +8049,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U, V>(fn: (a: A, b: B,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7826,16 +8184,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U, V>(fn: (a: A,
-                      t: T, u: U, v: V) => TReturn,
+        T, U, V>(funсtion: (this: TContext, a: A,
+                            t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -7960,10 +8318,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
-                 context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
+        T, U, V>(funсtion: (this: TContext, t: T, u: U, v: V) => TReturn,
+                 context: TContext): (t: T, u: U, v: V) => TReturn;
 
     // #endregion
 
@@ -7972,8 +8330,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8097,17 +8462,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8231,17 +8602,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8365,17 +8741,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8499,17 +8879,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8633,17 +9016,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U, V, W>(fn: (a: A, b: B, c: C,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8767,17 +9152,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U, V, W>(fn: (a: A, b: B,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8901,16 +9287,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U, V, W>(fn: (a: A,
-                         t: T, u: U, v: V, w: W) => TReturn,
+        T, U, V, W>(funсtion: (this: TContext, a: A,
+                               t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -9035,10 +9421,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+        T, U, V, W>(funсtion: (this: TContext, t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext): (t: T, u: U, v: V, w: W) => TReturn;
 
     // #endregion
 
@@ -9047,8 +9433,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9172,17 +9565,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9306,17 +9705,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9440,17 +9844,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9574,17 +9982,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9708,17 +10119,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U, V, W, X>(fn: (a: A, b: B, c: C,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9842,17 +10255,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U, V, W, X>(fn: (a: A, b: B,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9976,16 +10390,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U, V, W, X>(fn: (a: A,
-                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A,
+                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -10110,10 +10524,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+        T, U, V, W, X>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // #endregion
 
@@ -10122,8 +10536,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10247,17 +10668,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10381,17 +10808,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10515,17 +10947,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10649,17 +11085,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10783,17 +11222,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10917,17 +11358,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U, V, W, X, Y>(fn: (a: A, b: B,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11051,16 +11493,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U, V, W, X, Y>(fn: (a: A,
-                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A,
+                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -11185,10 +11627,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+        T, U, V, W, X, Y>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // #endregion
 
@@ -11197,8 +11639,15 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11322,17 +11771,23 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11456,17 +11911,22 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11590,17 +12050,21 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11724,17 +12188,20 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11858,17 +12325,19 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11992,17 +12461,18 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
-        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -12126,16 +12596,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
-        T, U, V, W, X, Y, Z>(fn: (a: A,
-                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A,
+                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
@@ -12260,10 +12730,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
-        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12274,7 +12744,7 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     * @param fn The function whose context will be changed.
+     * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -12400,10 +12870,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
-        TReturn>(fn: (...args: any[]) => TReturn,
+    proxy<TContext,
+        TReturn>(funсtion: (this: TContext, ...args: any[]) => TReturn,
                  context: TContext,
-                 ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
+                 ...additionalArguments: any[]): (...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12450,9 +12920,9 @@ $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
 </html>
 ```
      */
-    proxy<TContext extends object>(context: TContext,
-                                   name: keyof TContext,
-                                   ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
+    proxy<TContext>(context: TContext,
+                    name: keyof TContext,
+                    ...additionalArguments: any[]): (...args: any[]) => any;
 
     // #endregion
 

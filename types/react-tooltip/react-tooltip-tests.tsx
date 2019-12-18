@@ -6,7 +6,12 @@ export class ReactTooltipTest extends React.PureComponent {
     componentDidMount() {
         ReactTooltip.rebuild();
     }
-
+    options: ReactTooltip.SanitizeHtmlOptions = {
+        parser: {
+            decodeEntities: false
+        }
+    };
+    msgString = "<i>Tooltip With &lt;Entity&gt;</i>";
     render() {
         const getContent: ReactTooltip.GetContent = [dataTip => Math.floor(Math.random() * 100), 30];
 
@@ -105,6 +110,9 @@ export class ReactTooltipTest extends React.PureComponent {
             <ReactTooltip id="hide-on-click" />
 
             <CommonTooltipComponent data-tip="my tooltip" />
+
+            <a data-tip={this.msgString} data-for="SanitizeHTMLOptions"> Sanitize HTML Options </a>
+            <ReactTooltip sanitizeHtmlOptions = {this.options} id="SanitizeHTMLOptions" html={true} type="light" />
         </div>;
     }
 }

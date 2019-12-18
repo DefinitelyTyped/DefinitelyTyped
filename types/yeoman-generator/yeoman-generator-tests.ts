@@ -1,13 +1,18 @@
 import Base = require('yeoman-generator');
 import { Questions, Answers } from 'yeoman-generator';
 import { EventEmitter } from 'events';
+import * as inquirer from 'inquirer';
 
 class MyES2015Generator extends Base {}
 
 const generator = new MyES2015Generator(['arg1', 'arg2'], { opt1: 'foo', opt2: 3, opt3: false });
 const eventEmitter: EventEmitter = generator;
 
-const env: {} = generator.env;
+const env: {
+  adapter: {
+    promptModule: inquirer.PromptModule;
+  }
+} = generator.env;
 const args: {} = generator.args;
 const resolved: string = generator.resolved;
 const description: string = generator.description;
@@ -41,6 +46,7 @@ generator.argument('arg4', {
 });
 
 const argsHelp = generator.argumentsHelp();
+generator.async();
 
 async function install() {
     generator.installDependencies();
@@ -107,6 +113,8 @@ generator.option('opt4', {
   type: Number,
   default: 3.2,
 });
+
+const optionValue1 = generator.options.opt1;
 
 const optionsHelp: string = generator.optionsHelp();
 

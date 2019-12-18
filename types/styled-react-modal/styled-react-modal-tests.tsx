@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Modal, { ModalProvider, BackgroundComponent } from 'styled-react-modal';
+import Modal, { ModalProvider, BaseModalBackground as BackgroundComponent } from 'styled-react-modal';
 import styled from 'styled-components';
 
 const background = styled.div`
@@ -29,6 +29,7 @@ const test2 = (
     <ModalProvider backgroundComponent={BackgroundComponent}>
         <Modal
             isOpen={true}
+            backgroundProps={{style: {padding: "20px"}}}
             onBackgroundClick={() => console.log('Background click!')}
             onEscapeKeydown={() => console.log('Background click!')}
             afterOpen={() => console.log('After Open!')}

@@ -1,8 +1,9 @@
-// Type definitions for emoji-mart 2.8
+// Type definitions for emoji-mart 2.11
 // Project: https://github.com/missive/emoji-mart
-// Definitions by: Diogo Franco <https://github.com/Kovensky>
+// Definitions by: Jessica Franco <https://github.com/Jessidhia>
 //                 Nick Winans <https://github.com/Nicell>
+//                 Elvis Wolcott <https://github.com/elvis-wolcott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 export * from './dist-es';

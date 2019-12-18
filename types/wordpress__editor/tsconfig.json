@@ -1,0 +1,69 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "jsx": "preserve",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/api-fetch": [
+                "wordpress__api-fetch"
+            ],
+            "@wordpress/block-editor": [
+                "wordpress__block-editor"
+            ],
+            "@wordpress/block-editor/store/actions": [
+                "wordpress__block-editor/store/actions"
+            ],
+            "@wordpress/block-editor/store/selectors": [
+                "wordpress__block-editor/store/selectors"
+            ],
+            "@wordpress/blocks": [
+                "wordpress__blocks"
+            ],
+            "@wordpress/components": [
+                "wordpress__components"
+            ],
+            "@wordpress/core-data": [
+                "wordpress__core-data"
+            ],
+            "@wordpress/data": [
+                "wordpress__data"
+            ],
+            "@wordpress/editor": [
+                "wordpress__editor"
+            ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
+            "@wordpress/keycodes": [
+                "wordpress__keycodes"
+            ],
+            "@wordpress/media-utils": [
+                "wordpress__media-utils"
+            ],
+            "@wordpress/notices": [
+                "wordpress__notices"
+            ],
+            "@wordpress/rich-text": [
+                "wordpress__rich-text"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "wordpress__editor-tests.tsx"
+    ]
+}

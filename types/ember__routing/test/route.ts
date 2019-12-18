@@ -61,6 +61,14 @@ Route.extend({
 });
 
 Route.extend({
+    controllerName: 'photos',
+    templateName: 'anOutletName',
+    renderTemplate() {
+        this.render(); // Render using defaults
+    },
+});
+
+Route.extend({
     renderTemplate(controller: Controller, model: {}) {
         this.render('posts', {
             view: 'someView', // the template to render, referenced by name
@@ -80,6 +88,22 @@ Route.extend({
     },
 });
 
+class RedirectRoute extends Route {
+    redirect(model: {}, a: Transition) {
+        if (!model) {
+            this.transitionTo('there');
+        }
+    }
+}
+
+class InvalidRedirect extends Route {
+    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+        if (!model) {
+            this.transitionTo('there');
+        }
+    }
+}
+
 class ApplicationController extends Controller {}
 declare module '@ember/controller' {
     interface Registry {
@@ -93,6 +117,9 @@ Route.extend({
         this.controllerFor('application').set('model', model);
     },
 });
+
+const route = Route.create();
+route.controllerFor('whatever'); // $ExpectType Controller
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',

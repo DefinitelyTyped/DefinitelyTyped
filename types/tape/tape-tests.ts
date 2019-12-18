@@ -14,8 +14,16 @@ tape(name, (test: tape.Test) => {
 	t = test;
 });
 
+tape.skip(cb);
 tape.skip(name, cb);
+tape.skip(opts, cb);
+tape.skip(name, opts, cb);
+
+tape.only(cb);
 tape.only(name, cb);
+tape.only(opts, cb);
+tape.only(name, opts, cb);
+
 tape.onFinish(() => {});
 
 

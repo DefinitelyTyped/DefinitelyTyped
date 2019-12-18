@@ -1,5 +1,20 @@
 import * as puppeteer from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
+import * as Devices from "puppeteer/DeviceDescriptors";
+
+// Accessibility
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const snap = await page.accessibility.snapshot({
+    interestingOnly: true,
+    root: undefined,
+  });
+  for (const child of snap.children) {
+    console.log(child.name);
+  }
+});
 
 // Basic nagivation
 (async () => {
@@ -16,6 +31,7 @@ import { TimeoutError } from "puppeteer/Errors";
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  page.setDefaultTimeout(100000);
   await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle0" });
   await page.pdf({ path: "hn.pdf", format: "A4" });
 
@@ -104,7 +120,13 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  await page.emulateMedia("screen");
+  Devices.forEach(device => console.log(device.name));
+  puppeteer.devices.forEach(device => console.log(device.name));
+
+  await page.emulateMediaType("screen");
+  await page.emulate(Devices['test']);
+  await page.emulate(puppeteer.devices['test']);
+  await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -114,7 +136,11 @@ puppeteer.launch().then(async browser => {
       interceptedRequest.url().endsWith(".jpg")
     )
       interceptedRequest.abort();
-    else interceptedRequest.continue();
+    else interceptedRequest.continue({
+      headers: {
+        dope: 'yes',
+      }
+    });
   });
 
   page.keyboard.type("Hello"); // Types instantly
@@ -187,6 +213,13 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
+// Launching with default viewport disabled
+(async () => {
+  await puppeteer.launch({
+    defaultViewport: null
+  });
+})();
+
 // Test v0.12 features
 (async () => {
   const browser = await puppeteer.launch({
@@ -215,13 +248,13 @@ puppeteer.launch().then(async browser => {
   page.type("#myInput", "Hello World!");
 
   page.on("console", (event: puppeteer.ConsoleMessage, ...args: any[]) => {
-    console.log(event.text, event.type);
+    console.log(event.text(), event.type(), event.location());
     for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
   });
 
   await button.focus();
   await button.press("Enter");
-  await button.screenshot({
+  const screenshotOpts: puppeteer.BinaryScreenShotOptions = {
     type: "jpeg",
     omitBackground: true,
     clip: {
@@ -230,7 +263,8 @@ puppeteer.launch().then(async browser => {
       width: 200,
       height: 100
     }
-  });
+  };
+  await button.screenshot(screenshotOpts);
   console.log(button.toString());
   input.type("Hello World", { delay: 10 });
 
@@ -240,11 +274,15 @@ puppeteer.launch().then(async browser => {
 
   const metrics = await page.metrics();
   console.log(metrics.Documents, metrics.Frames, metrics.JSEventListeners);
+  page.on('metrics', data => {
+    const title: string = data.title;
+    const metrics: puppeteer.Metrics = data.metrics;
+  });
 
   const navResponse = await page.waitForNavigation({
     timeout: 1000
   });
-  console.log(navResponse.ok, navResponse.status, navResponse.url, navResponse.headers);
+  console.log(navResponse.ok(), navResponse.status(), navResponse.url(), navResponse.headers()['Content-Type']);
 
   // evaluate example
   const bodyHandle = (await page.$('body'))!;
@@ -272,6 +310,7 @@ puppeteer.launch().then(async browser => {
 
   // evaluateHandle example
   const aHandle = await page.evaluateHandle(() => document.body);
+  await page.evaluateHandle('document.body');
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();
@@ -287,7 +326,7 @@ puppeteer.launch().then(async browser => {
   const elementText = await page.$eval(
     '#someElement',
     (
-      element,  // $ExpectType Element
+      element, // $ExpectType Element
     ) => {
       element.innerHTML; // $ExpectType string
       return element.innerHTML;
@@ -318,8 +357,10 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const handler = (r: puppeteer.Request) => {
+  const handler = async (r: puppeteer.Request) => {
     const failure = r.failure();
+
+    console.log(r.headers().Test);
 
     const response = r.response();
     if (!response) {
@@ -327,6 +368,8 @@ puppeteer.launch().then(async browser => {
     }
     const text: string = response.statusText();
     const ip: string = response.remoteAddress().ip;
+    const data = (await response.json()) as string;
+    const randomHeader = response.headers().Test;
 
     if (failure == null) {
       console.error("Request completed successfully");
@@ -432,13 +475,16 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.waitFor(1000);
-  await page.waitFor('selector');
-  await page.waitFor('selector', {
+  await page.waitFor(1000); // $ExpectType void
+  const el: puppeteer.ElementHandle = await page.waitFor('selector');
+  const nullableEl: puppeteer.ElementHandle | null = await page.waitFor('selector', {
+    hidden: true,
+  });
+  const el2: puppeteer.ElementHandle = await page.waitFor('selector', {
       timeout: 123,
   });
   await page.waitFor(() => !!document.querySelector('.foo'), {
-      hidden: true,
+    hidden: true,
   });
   await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
@@ -474,9 +520,171 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-    try {
-        await page.waitFor('test');
-    } catch (err) {
-        console.log(err instanceof TimeoutError);
+  try {
+    await page.waitFor('test');
+  } catch (err) {
+    console.log(err instanceof TimeoutError);
+  }
+});
+
+// domcontentloaded page event test
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('domcontentloaded', async () => {
+    page.evaluate(() => {
+      console.log('dom changed');
+    });
+  });
+});
+
+// evaluates return type of inner function
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => document.body.innerHTML);
+  console.log('body html has length', s.length);
+});
+
+// even through a double promise.
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => Promise.resolve(document.body.innerHTML));
+  console.log('body html has length', s.length);
+});
+
+// JSHandle.jsonValue produces compatible type
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page
+    .waitForFunction(
+      (searchStrs: string[]) => searchStrs.find(v => document.body.innerText.includes(v)),
+      { timeout: 2000 },
+      ['once', 'upon', 'a', 'midnight', 'dreary'])
+    .then(j => j.jsonValue());
+  console.log('found in page', (s as string).toLowerCase());
+});
+
+// Element access
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const el = await page.$('input');
+  const val: string = await (await el!.getProperty('type')).jsonValue() as string;
+});
+
+// Request manipualtion
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setExtraHTTPHeaders({
+    a: '1'
+  });
+});
+
+// ElementHandles are well-typed
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const link: puppeteer.JSHandle = await page.evaluateHandle(
+    () => document.body.querySelector('a')
+  );
+  const linkEl: puppeteer.ElementHandle | null = link.asElement();
+  if (linkEl !== null) {
+    const href = await page.evaluate(
+      (el: HTMLElement): string | null => el.getAttribute('href'),
+      linkEl);
+    console.log('href is', href);
+  }
+});
+
+// test $$eval return type
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const paragraphContents: string[] = await page.$$eval(
+    'p', (ps: Element[]): string[] => ps.map(p => p.textContent || ''));
+  console.log('pgraph contents', paragraphContents);
+});
+
+// JSHandle of non-serializable works
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const reHandle: puppeteer.JSHandle = await page.evaluateHandle(
+    () => /\s*bananas?\s*/i,
+  );
+  const numMatchingEls: number = await page.$$eval(
+    'p', (els: Element[], re: RegExp) =>
+      els.filter(el => el.textContent && re.test(el.textContent)).length,
+      reHandle
+  );
+  console.log('there are', numMatchingEls, 'banana paragaphs');
+});
+
+(async () => {
+  const rev = '630727';
+  const defaultFetcher = puppeteer.createBrowserFetcher();
+  const options: puppeteer.FetcherOptions = {
+    host: 'https://storage.googleapis.com',
+    path: '/tmp/.local-chromium',
+    platform: 'linux',
+  };
+  const browserFetcher = puppeteer.createBrowserFetcher(options);
+  const canDownload = await browserFetcher.canDownload(rev);
+  if (canDownload) {
+      const revisionInfo = await browserFetcher.download(rev);
+      const localRevisions = await browserFetcher.localRevisions();
+      const browser = await puppeteer.launch({executablePath: revisionInfo.executablePath});
+      browser.close();
+      if (localRevisions.includes(rev)) {
+        await browserFetcher.remove(rev);
+      }
+      await browserFetcher.download(rev, (download, total) => {
+        console.log('downloadBytes:', download, 'totalBytes:', total);
+      });
+      await browserFetcher.remove(rev);
     }
 });
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const url = page.workers()[0].url();
+  if (page.target().type() === 'shared_worker') {
+      const a: number = await (await page.target().worker())!.evaluate(() => 1);
+  }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const fileChooser = await page.waitForFileChooser({ timeout: 999 });
+  await fileChooser.cancel();
+  const isMultiple: boolean = fileChooser.isMultiple();
+  await fileChooser.accept(['/foo/bar']);
+});
+
+// .evaluate and .evaluateHandle on ElementHandle and JSHandle, and elementHandle.select
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const elementHandle = (await page.$('.something')) as puppeteer.ElementHandle<HTMLDivElement>;
+  elementHandle.evaluate(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+  elementHandle.evaluateHandle(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+
+  const jsHandle = await page.evaluateHandle(() => 'something');
+  jsHandle.evaluate(obj => {});
+  jsHandle.evaluateHandle(handle => {});
+
+  const selected: string[] = await elementHandle.select('a', 'b', 'c');
+})();

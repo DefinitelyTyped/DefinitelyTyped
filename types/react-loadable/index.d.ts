@@ -1,6 +1,6 @@
-// Type definitions for react-loadable 5.4
+// Type definitions for react-loadable 5.5
 // Project: https://github.com/thejameskyle/react-loadable#readme
-// Definitions by: Diogo Franco <https://github.com/Kovensky>
+// Definitions by: Jessica Franco <https://github.com/Jessidhia>
 //                 Oden S. <https://github.com/odensc>
 //                 Ian Ker-Seymer <https://github.com/ianks>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
@@ -28,8 +28,7 @@ declare namespace LoadableExport {
          * If you don't want to render anything you can pass a function that returns null
          * (this is considered a valid React component).
          */
-        // NOTE: () => null is only needed until React.SFC supports components returning null
-        loading: React.ComponentType<LoadingComponentProps> | (() => null);
+        loading: React.ComponentType<LoadingComponentProps>;
         /**
          * Defaults to 200, in milliseconds.
          *
@@ -66,7 +65,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        webpack?: () => number[];
+        webpack?: () => Array<string | number>;
     }
 
     interface OptionsWithoutRender<Props> extends CommonOptions {

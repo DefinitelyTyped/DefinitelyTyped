@@ -27,3 +27,7 @@ var view4 = new class extends Mustache.Context
 };
 var template4 = "Hello, {{firstName}} {{lastName}}";
 var html4 = Mustache.render(template4, view4);
+
+var view5 = { title: "Joe", calc: function () { return 2 + 4; } };
+var template5 = "[[title]] spends [[calc]]";
+var output5 = Mustache.render(template5, view5, {}, ["[[", "]]"]);

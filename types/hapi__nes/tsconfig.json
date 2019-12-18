@@ -1,0 +1,70 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@hapi/hapi": [
+                "hapi__hapi"
+            ],
+            "@hapi/boom": [
+                "hapi__boom"
+            ],
+            "@hapi/shot": [
+                "hapi__shot"
+            ],
+            "@hapi/mimos": [
+                "hapi__mimos"
+            ],
+            "@hapi/iron": [
+                "hapi__iron"
+            ],
+            "@hapi/joi": [
+                "hapi__joi"
+            ],
+            "@hapi/podium": [
+                "hapi__podium"
+            ],
+            "@hapi/catbox": [
+                "hapi__catbox"
+            ],
+            "@hapi/basic": [
+                "hapi__basic"
+            ],
+            "@hapi/nes": [
+                "hapi__nes"
+            ],
+            "@hapi/nes/lib/client": [
+                "hapi__nes/lib/client"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/client-require.ts",
+        "test/hapi__nes-tests.ts",
+        "test/broadcast-client.ts",
+        "test/broadcast-server.ts",
+        "test/route-authentication-client.ts",
+        "test/route-authentication-server.ts",
+        "test/route-invocation-client.ts",
+        "test/route-invocation-server.ts",
+        "test/socket.ts",
+        "test/subscription-filter-client.ts",
+        "test/subscription-filter-server.ts",
+        "test/subscriptions-client.ts",
+        "test/subscriptions-server.ts"
+    ]
+}

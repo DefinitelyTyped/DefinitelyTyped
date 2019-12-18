@@ -35,7 +35,7 @@ const colors = ["#000", "#333"];
 
 render(<AlphaPicker height="100px" width="100px" />, document.getElementById("main"));
 render(<BlockPicker colors={ colors } width="100px" />, document.getElementById("main"));
-render(<ChromePicker disableAlpha />, document.getElementById("main"));
+render(<ChromePicker disableAlpha styles={{ default: { picker: { width: 200 }}}} />, document.getElementById("main"));
 render(<CirclePicker colors={ colors } width="100px" />, document.getElementById("main"));
 render(<CompactPicker colors={ colors } />, document.getElementById("main"));
 render(<GithubPicker colors={ colors } width="100px" />, document.getElementById("main"));

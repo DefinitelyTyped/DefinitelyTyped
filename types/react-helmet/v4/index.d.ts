@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-declare function ReactHelmet(): ReactHelmet.HelmetComponent;
+declare class ReactHelmet extends React.Component<ReactHelmet.HelmetProps> {}
 
 declare namespace ReactHelmet {
     function peek(): ReactHelmet.HelmetData;
@@ -41,8 +41,6 @@ declare namespace ReactHelmet {
         toString(): string;
         toComponent(): React.Component<any>;
     }
-
-    class HelmetComponent extends React.Component<HelmetProps> {}
 }
 
 export = ReactHelmet;

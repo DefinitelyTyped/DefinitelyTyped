@@ -66,6 +66,7 @@ declare const defineValue: string;
 declare const customCommand: string;
 declare const customInArguments: string[];
 declare const customOutArguments: string[];
+declare const customFormat: string;
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -177,6 +178,7 @@ gm(src)
 	.modulate(b, s, h)
 	.monitor()
 	.monochrome()
+	.montage(src)
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
 	})
@@ -309,6 +311,8 @@ gm(src)
 	})
 	.identify((err, info) => {
 	})
+	.identify(customFormat, (err, info) => {
+	})
 	.identify({ bufferStream: true }, (err, info) => {
 	})
 	.res((err, resolution) => {
@@ -325,17 +329,17 @@ gm(src)
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
-	.drawBezier(x, y, x, y)
-	.drawBezier(x, y, x, y, x, y)
-	.drawBezier(x, y, x, y, x, y, x, y)
+	.drawBezier([x, y], [x, y])
+	.drawBezier([x, y], [x, y], [x, y])
+	.drawBezier([x, y], [x, y], [x, y], [x, y])
 	.drawCircle(x, y, x, y)
 	.drawEllipse(x, y, radius, radius, radius, radius)
 	.drawLine(x, y, x, y)
 	.drawPoint(x, y)
-	.drawPolygon(x, y, x, y, x, y)
-	.drawPolygon(x, y, x, y, x, y, x, y)
-	.drawPolyline(x, y, x, y, x, y)
-	.drawPolyline(x, y, x, y, x, y, x, y)
+	.drawPolygon([x, y], [x, y], [x, y])
+	.drawPolygon([x, y], [x, y], [x, y], [x, y])
+	.drawPolyline([x, y], [x, y], [x, y])
+	.drawPolyline([x, y], [x, y], [x, y], [x, y])
 	.drawRectangle(x, y, x, y)
 	.drawRectangle(x, y, x, y, radius)
 	.drawRectangle(x, y, x, y, radius, radius)
@@ -366,7 +370,10 @@ gm(src).toBuffer(format, (err, buffer) => {
 const imageMagick = gm.subClass({ imageMagick: true });
 readStream = imageMagick(src)
 	.adjoin()
-	.stream();
+    .stream();
+
+const customGm = gm.subClass({ appPath: '' });
+readStream = customGm(src).stream();
 
 const passStream = imageMagick(readStream).stream();
 

@@ -26,7 +26,7 @@ p.eachRelationship((n, meta) => {
     let m: 'belongsTo' | 'hasMany' = meta.kind;
 });
 
-class Comment extends DS.Model {
+export class Comment extends DS.Model {
     author = DS.attr('string');
 }
 

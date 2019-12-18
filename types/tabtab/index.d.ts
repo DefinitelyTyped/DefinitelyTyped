@@ -1,89 +1,143 @@
-// Type definitions for tabtab 0.0.4
+// Type definitions for tabtab 3.0.2
 // Project: https://github.com/mklabs/node-tabtab
 // Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
+//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
-/**
- * Main completion method, has support for installation and actual completion.
- * @param name Name of the command to complete.
- * @param cb Get called when a tab-completion command happens.
- */
-export declare function complete(name: string, cb: CallBack): void;
+// TypeScript Version: 2.0
 
 /**
- * Main completion method, has support for installation and actual completion.
- * @param name Name of the command to complete.
- * @param completer Name of the command to call on completion.
- * @param cb Get called when a tab-completion command happens.
+ * Install option
+ *
+ * @param name is a name of the cli command
+ * @param completer Somethings, you want to complete another program that's where the `completer` option might come handy.
  */
-export declare function complete(name: string, completer: string, cb: CallBack): void;
+export type InstallOption = {
+    name: string;
+    completer: string;
+};
 
 /**
- * Simple helper function to know if the script is run in the context of a completion command.
+ * Uninstall option
+ *
+ * @param name is a name of the cli command
  */
-export declare function isComplete(): boolean;
+export type UninstallOption = {
+    name: string;
+};
 
 /**
- * Helper to return the list of short and long options, parsed from the usual --help output of a command (cake/rake -H, vagrant, commander -h, optimist.help(), ...).
+ * This type represent object (Json object)
  */
-export declare function parseOut(str: string): { shorts: string[]; longs: string[] };
+export type Json = {
+    [key: string]: string;
+};
 
 /**
- * Same purpose as parseOut, but for parsing tasks from an help command (cake/rake -T, vagrant, etc.).
+ * Tabtab environment data that return from {@link parseEnv} method
+ *
+ *   @param complete    A Boolean indicating whether we act in "plumbing mode" or not
+ *   @param words       The Number of words in the completed line
+ *   @param point       A Number indicating cursor position
+ *   @param line        The String input line
+ *   @param partial     The String part of line preceding cursor position
+ *   @param last        The last String word of the line
+ *   @param lastPartial The last word String of partial
+ *   @param prev        The String word preceding last
  */
-export declare function parseTasks(str: string, prefix: string, reg?: RegExp | string): string[];
-
-/**
- * Helper to return completion output and log to standard output.
- * @param values Array of values to complete against.
- * @param data The data object returned by the complete callback, used mainly to filter results accordingly upon the text that is supplied by the user.
- * @param prefix A prefix to add to the completion results, useful for options to add dashes (eg. - or --).
- */
-export declare function log(values: string[], data: Data, prefix?: string): void;
-
-interface CallBack {
-    (error?: Error, data?: Data, text?: string): any;
-}
-
-/**
- * Holds interesting values to drive the output of the completion.
- */
-interface Data {
-
+export type TabtabEnv = {
     /**
-     * full command being completed
+     * A Boolean indicating whether we act in "plumbing mode" or not
      */
-    line: string;
+    complete: boolean;
 
     /**
-     * number of words
+     * The Number of words in the completed line
      */
     words: number;
 
     /**
-     * cursor position
+     * A Number indicating cursor position
      */
     point: number;
 
     /**
-     * tabing in the middle of a word: foo bar baz bar foobarrrrrrr
+     * The String input line
+     */
+    line: string;
+
+    /**
+     * The String part of line preceding cursor position
      */
     partial: string;
 
     /**
-     * last word of the line
+     * The last String word of the line
      */
     last: string;
 
     /**
-     * last partial of the line
+     * The last word String of partial
      */
     lastPartial: string;
-
     /**
-     * the previous word
+     * The String word preceding last
      */
     prev: string;
-}
+};
+
+/**
+ * this is a item to show when completion enable,
+ *
+ * @param name usually is a subcommand name or option name
+ * @param description this is a optional description of the completion
+ */
+export type CompleteItem = {
+    name: string;
+    description?: string;
+};
+
+export type CompleteItemOrString = string | CompleteItem;
+
+/**
+ * Install and enable completion on user system.
+ *
+ * @param option install option
+ *
+ */
+export function install(option: InstallOption): Promise<void>;
+
+/**
+ * Uninstall and remove all completion on user system
+ *
+ * @param option uninstall option
+ */
+export function uninstall(option: UninstallOption): Promise<void>;
+
+/**
+ * Public: Main utility to extract information from command line arguments and
+ * Environment variables, namely COMP args in "plumbing" mode.
+ *
+ * @param env environment (usually will be process.env)
+ * @returns env is a object of completion environment
+ *
+ * @example
+ * const env = tabtab.parseEnv(process.env);
+ */
+export function parseEnv(env: Json): TabtabEnv;
+
+/**
+ * Helper to normalize String and Objects when logging out.
+ */
+export function completionItem(item: CompleteItemOrString): CompleteItem;
+
+/**
+ * Main logging utility to pass completion items.
+ * This is simply an helper to log to stdout with each item separated by a new
+ * line.
+ *
+ * Bash needs in addition to filter out the args for the completion to work
+ * (zsh, fish don't need this).
+ *
+ * @param args Strings or Objects with name and description property.
+ */
+export function log(args: string[] | CompleteItem[] | CompleteItemOrString[]): void;

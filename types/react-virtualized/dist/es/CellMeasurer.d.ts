@@ -1,15 +1,10 @@
-import { PureComponent } from "react";
+import { PureComponent } from 'react';
 
 export type CellMeasurerCacheInterface = {
     hasFixedWidth(): boolean;
     hasFixedHeight(): boolean;
     has(rowIndex: number, columnIndex: number): boolean;
-    set(
-        rowIndex: number,
-        columnIndex: number,
-        width: number,
-        height: number
-    ): void;
+    set(rowIndex: number, columnIndex: number, width: number, height: number): void;
     getHeight(rowIndex: number, columnIndex?: number): number;
     getWidth(rowIndex: number, columnIndex?: number): number;
 };
@@ -38,12 +33,7 @@ export class CellMeasurerCache implements CellMeasurerCacheInterface {
     getWidth(rowIndex: number, columnIndex: number): number;
     has(rowIndex: number, columnIndex: number): boolean;
     rowHeight: (params: { index: number }) => number;
-    set(
-        rowIndex: number,
-        columnIndex: number,
-        width: number,
-        height: number
-    ): void;
+    set(rowIndex: number, columnIndex: number, width: number, height: number): void;
 }
 
 export type CellPosition = {
@@ -58,9 +48,7 @@ export type MeasuredCellParent = {
 
 export type CellMeasurerProps = {
     cache: CellMeasurerCacheInterface;
-    children:
-        | ((props: { measure: () => void }) => React.ReactNode)
-        | React.ReactNode;
+    children: ((props: { measure: () => void }) => React.ReactNode) | React.ReactNode;
     columnIndex?: number;
     index?: number;
     parent: MeasuredCellParent;

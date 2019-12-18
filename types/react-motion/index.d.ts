@@ -65,7 +65,7 @@ interface MotionProps {
      * Callback with your interpolated styles. Must return one react element to render
      * @param interpolatedStyle
      */
-    children?: (interpolatedStyle: PlainStyle) => ReactElement<any>;
+    children?: (interpolatedStyle: PlainStyle) => JSX.Element;
     /**
      * The callback that fires when the animation comes to a rest.
      */
@@ -113,7 +113,7 @@ interface TransitionProps {
      * <StaggeredMotion/>
      */
     styles: Array<TransitionStyle> | InterpolateFunction;
-    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => ReactElement<any>;
+    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => JSX.Element;
     /**
      * Triggers when a new element will appear
      * @param styleThatEntered

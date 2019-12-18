@@ -10,7 +10,7 @@ export interface DescribeSObjectResult {
     createable: boolean;
     custom: boolean;
     customSetting: boolean;
-    deleteable: boolean;
+    deletable: boolean;
     deprecatedAndHidden: boolean;
     feedEnabled: boolean;
     fields: Field[];
@@ -33,7 +33,7 @@ export interface DescribeSObjectResult {
     searchLayoutable: boolean;
     supportedScopes: ScopeInfo[];
     triggerable: boolean;
-    undeleteable: boolean;
+    undeletable: boolean;
     updateable: boolean;
     urlDetail?: string;
     urlEdit?: string;

@@ -1,7 +1,19 @@
 // Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>, Chennakrishna <https://github.com/chennakrishna8>
+// Definitions by: Bret Little <https://github.com/blittle>
+//                 VILIC VANE <http://vilic.info>
+//                 Wayne Maurer <https://github.com/wmaurer>
+//                 Umar Nizamani <https://github.com/umarniz>
+//                 LiJinyao <https://github.com/LiJinyao>
+//                 Chennakrishna <https://github.com/chennakrishna8>
+//                 AzSiAz <https://github.com/AzSiAz>
+//                 Ryo Ota <https://github.com/nwtgck>
+//                 Rebecca Turner <https://github.com/9999years>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
+declare type AttrFunction = (el: CheerioElement, i: number, currentValue: string) => any;
 
 interface Cheerio {
     // Document References
@@ -9,13 +21,21 @@ interface Cheerio {
     // JQuery http://api.jquery.com
 
     [index: number]: CheerioElement;
+    cheerio: string;
     length: number;
 
     // Attributes
 
-    attr(): {[attr: string]: string};
-    attr(name: string): string;
-    attr(name: string, value: any): Cheerio;
+    attr(): { [attr: string]: string };
+    attr(name: string): string | undefined;
+    attr(name: string, value: AttrFunction): Cheerio;
+    // `value` *can* be `any` here but:
+    // 1. That makes type-checking the function-type useless
+    // 2. It's converted to a string anyways
+    attr(name: string, value: string): Cheerio;
+    // The map's values *can* be `any` but they'll all be cast to strings
+    // regardless.
+    attr(map: { [key: string]: any }): Cheerio;
 
     data(): any;
     data(name: string): any;
@@ -39,7 +59,10 @@ interface Cheerio {
     toggleClass(className: string): Cheerio;
     toggleClass(className: string, toggleSwitch: boolean): Cheerio;
     toggleClass(toggleSwitch?: boolean): Cheerio;
-    toggleClass(func: (index: number, className: string, toggleSwitch: boolean) => string, toggleSwitch?: boolean): Cheerio;
+    toggleClass(
+        func: (index: number, className: string, toggleSwitch: boolean) => string,
+        toggleSwitch?: boolean,
+    ): Cheerio;
 
     is(selector: string): boolean;
     is(element: CheerioElement): boolean;
@@ -49,10 +72,10 @@ interface Cheerio {
 
     // Form
     serialize(): string;
-    serializeArray(): {name: string, value: string}[];
+    serializeArray(): { name: string; value: string }[];
 
     // Traversing
-    
+
     find(selector: string): Cheerio;
     find(element: Cheerio): Cheerio;
 
@@ -111,9 +134,8 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
-    get(): string[];
-    get(): CheerioElement[];
-    get(index: number): CheerioElement;
+    get(): any[];
+    get(index: number): any;
 
     index(): number;
     index(selector: string): number;
@@ -127,12 +149,12 @@ interface Cheerio {
     add(elements: CheerioElement[]): Cheerio;
     add(selection: Cheerio): Cheerio;
 
-    addBack():Cheerio;
-    addBack(filter: string):Cheerio;
+    addBack(): Cheerio;
+    addBack(filter: string): Cheerio;
 
     // Manipulation
-    appendTo(target: Cheerio) : Cheerio
-    prependTo(target: Cheerio) : Cheerio
+    appendTo(target: Cheerio): Cheerio;
+    prependTo(target: Cheerio): Cheerio;
 
     append(content: string, ...contents: any[]): Cheerio;
     append(content: Document, ...contents: any[]): Cheerio;
@@ -251,7 +273,7 @@ interface CheerioElement {
     tagName: string;
     type: string;
     name: string;
-    attribs: {[attr: string]: string};
+    attribs: { [attr: string]: string };
     children: CheerioElement[];
     childNodes: CheerioElement[];
     lastChild: CheerioElement;
@@ -264,17 +286,18 @@ interface CheerioElement {
     parentNode: CheerioElement;
     nodeValue: string;
     data?: string;
+    startIndex?: number;
 }
 
 interface CheerioAPI extends CheerioSelector, CheerioStatic {
-  load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
-  load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
+    load(html: string | Buffer, options?: CheerioOptionsInterface): CheerioStatic;
+    load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
 
-interface Document { }
+interface Document {}
 
-declare var cheerio:CheerioAPI;
+declare const cheerio: CheerioAPI;
 
-declare module "cheerio" {
+declare module 'cheerio' {
     export = cheerio;
 }

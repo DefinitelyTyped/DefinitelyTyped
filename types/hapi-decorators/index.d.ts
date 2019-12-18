@@ -2,7 +2,7 @@
 // Project: https://github.com/knownasilya/hapi-decorators
 // Definitions by: Ken Howard <https://github.com/kenhowardpdx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as hapi from 'hapi';
 import * as Joi from 'joi';

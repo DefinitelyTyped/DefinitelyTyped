@@ -143,6 +143,11 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      */
     busy?: boolean;
     /**
+     * An optional ReactNode to override the spinner gif element when the busy property
+     * is set to true.
+     */
+    busySpinner?: React.ReactNode;
+    /**
      * The speed, in milliseconds, of the dropdown animation.
      * @default 250
      */
@@ -166,6 +171,11 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * when false the SelectList will render as a list of radio buttons, and checkboxes when true.
      */
     multiple?: boolean;
+
+    /**
+     * Adds a css class to the input container element.
+     */
+    containerClassName?: string;
 }
 
 interface DropdownListMessages {

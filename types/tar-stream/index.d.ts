@@ -37,6 +37,6 @@ export interface Extract extends stream.Writable {
     on(event: "entry", listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
 }
 
-export function extract(opts?: stream.WritableOptions): stream.Writable;
+export function extract(opts?: stream.WritableOptions): Extract;
 
 export function pack(opts?: stream.ReadableOptions): Pack;

@@ -30,7 +30,9 @@ limit(request, function(err, rate) {
 var middleware = rateLimiter.middleware({
   redis: redisClient,
   key: 'ip',
-  rate: '100/minute'
+  rate: '100/minute',
+  deleteImmediatelyIfRaceCondition: true,
+  onPossibleRaceCondition: key => console.log(`A race condition has been detected for <${key}>!`)
 });
 
 var app = express();

@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 16.3
+// Type definitions for non-npm package ej.web.all 17.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.3.0.21
-*  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
+*  version : 17.3.0.26
+*  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
@@ -192,9 +192,9 @@ declare namespace ej {
         from(tableName: any): ej.Query;
         addParams(key: string, value: string): ej.Query;
         expand(tables: any): ej.Query;
-        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean): ej.Query;
+        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         where(predicate: ej.Predicate): ej.Query;
-        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean): ej.Query;
+        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         sortBy(fieldName: string, comparer?: ej.SortOrder, isFromGroup?: boolean): ej.Query;
         sortByDesc(fieldName: string): ej.Query;
         group(fieldName: string): ej.Query;
@@ -433,9 +433,9 @@ declare namespace ej {
     }
     class Predicate {
         constructor();
-        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean);
-        and(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
-        or(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
+        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean, ignoreAccent?: boolean);
+        and(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
+        or(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
         or(predicate: any[]): any;
         validate(record: any): boolean;
         toJSON(): {
@@ -589,6 +589,21 @@ declare namespace ej {
              * @Default {'default'}
              */
             scope?: string;
+
+            /** Used to enable auto scroll while drag and drop the element.
+             * @Default {'false'}
+             */
+            autoScroll?: boolean;
+
+            /** Represents when to start the scrolling inside the scroll container on dragging
+             * @Default {'20'}
+             */
+            scrollSensitivity?: number;
+
+            /** Specifies how much distance of scroll should move on dragging once reached scroll sensitivity area.
+             * @Default {'20'}
+             */
+            scrollSpeed?: number;
 
             /** This event is triggered when dragging element is destroyed.
              */
@@ -1998,6 +2013,11 @@ declare namespace ej {
              * @Default {0}
              */
             itemsCount?: number;
+
+            /** To enable or disable the diacritic characters of the Autocomplete suggestion list when filtering.
+             * @Default {false}
+             */
+            ignoreAccent?: boolean;
 
             /** Set the localization culture for Autocomplete Widget.
              */
@@ -4640,13 +4660,9 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
+            /** return the previous color value
              */
-            cancel?: boolean;
-
-            /** returns the color picker model
-             */
-            model?: ej.ColorPicker.Model;
+            changeFrom?: string;
 
             /** returns the name of the event
              */
@@ -4659,10 +4675,6 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the color picker model
              */
             model?: ej.ColorPicker.Model;
@@ -4673,10 +4685,6 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the color picker model
              */
@@ -4704,10 +4712,6 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the color picker model
              */
             model?: ej.ColorPicker.Model;
@@ -4718,10 +4722,6 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the color picker model
              */
@@ -6293,6 +6293,11 @@ declare namespace ej {
          */
         getValue(): string;
 
+        /** sets the date value for the DatePicker.
+         * @returns {string}
+         */
+        setValue(): string;
+
         /** Close the DatePicker popup, if it is in opened state.
          * @returns {void}
          */
@@ -6586,10 +6591,6 @@ declare namespace ej {
 
         export interface BeforeDateCreateEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6636,10 +6637,6 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6658,10 +6655,6 @@ declare namespace ej {
         }
 
         export interface CloseEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the current date object.
              */
@@ -6685,10 +6678,6 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the DatePicker model.
              */
@@ -6716,10 +6705,6 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6734,10 +6719,6 @@ declare namespace ej {
         }
 
         export interface FocusOutEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the DatePicker model.
              */
@@ -6757,10 +6738,6 @@ declare namespace ej {
         }
 
         export interface NavigateEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the current date object.
              */
@@ -6789,10 +6766,6 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the current date object.
              */
             date?: any;
@@ -6815,10 +6788,6 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the selected date object.
              */
@@ -6955,6 +6924,11 @@ declare namespace ej {
              */
             buttonText?: ButtonText;
 
+            /** Disable the list of specified date value.
+             * @Default {{}}
+             */
+            blackoutDates?: any;
+
             /** Set the root class for DateTimePicker theme. This cssClass API helps to use custom skinning option for DateTimePicker control.
              */
             cssClass?: string;
@@ -6973,6 +6947,11 @@ declare namespace ej {
              * See ej.DatePicker.Level
              */
             depthLevel?: ej.DatePicker.Level|string;
+
+            /** Specifies the list of time range to be disabled.
+             * @Default {{}}
+             */
+            disableTimeRanges?: any;
 
             /** Enable or disable the animation effect in DateTimePicker.
              * @Default {true}
@@ -7059,6 +7038,11 @@ declare namespace ej {
              * @Default {false}
              */
             showRoundedCorner?: boolean;
+
+            /** Specifies the special dates in DateTimePicker.
+             * @Default {null}
+             */
+            specialDates?: any;
 
             /** Specifies the start day of the week in datepicker inside the DateTimePicker popup.
              * @Default {1}
@@ -7199,10 +7183,6 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7230,10 +7210,6 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7252,10 +7228,6 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the DateTimePicker model
              */
@@ -7283,10 +7255,6 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7302,10 +7270,6 @@ declare namespace ej {
 
         export interface FocusOutEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7320,10 +7284,6 @@ declare namespace ej {
         }
 
         export interface OpenEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -7625,10 +7585,6 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the DateRangePicker model.
              */
             model?: ej.DateRangePicker.Model;
@@ -7652,10 +7608,6 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the current date object.
              */
             date?: any;
@@ -7674,10 +7626,6 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the DateRangePicker model.
              */
@@ -7705,10 +7653,6 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
-
             /** returns the current date object.
              */
             date?: any;
@@ -7727,10 +7671,6 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
-
-            /** Set to true when the event has to be canceled, else false.
-             */
-            cancel?: boolean;
 
             /** returns the selected date object.
              */
@@ -10920,7 +10860,7 @@ declare namespace ej {
         show(): void;
 
         /** To show item in the given index.
-         * @param {number} Specifies the index value to show the hided item.
+         * @param {number} Specifies the index value to show the hidden item.
          * @returns {void}
          */
         showItem(index: number): void;
@@ -11069,7 +11009,7 @@ declare namespace ej {
             itemRequestCount?: number;
 
             /** Specifies the maximum number of items to be fetched. Note: This will work only with Virtual scrolling
-             * @Default {null}
+             * @Default {5}
              */
             totalItemsCount?: number;
 
@@ -19661,6 +19601,16 @@ declare namespace ej {
              */
             timeFormat?: string;
 
+            /** Set the jQuery validation error message in TimePicker.
+             * @Default {null}
+             */
+            validationMessages?: any;
+
+            /** Set the jQuery validation rules in TimePicker.
+             * @Default {null}
+             */
+            validationRules?: any;
+
             /** Sets a specified time value on the TimePicker.
              * @Default {null}
              */
@@ -19718,10 +19668,6 @@ declare namespace ej {
 
         export interface BeforeChangeEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19764,10 +19710,6 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19791,10 +19733,6 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19813,10 +19751,6 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -19844,10 +19778,6 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19866,10 +19796,6 @@ declare namespace ej {
         }
 
         export interface FocusOutEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -19890,10 +19816,6 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
-
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19908,10 +19830,6 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
-
-            /** if the event should be canceled; otherwise, false.
-             */
-            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -29321,6 +29239,11 @@ declare namespace ej {
              */
             memberEditorPageSize?: number;
 
+            /** Enables/Disables sorting option in member editor dialog for the members of the respective field.
+             * @Default {false}
+             */
+            enableMemberEditorSorting?: boolean;
+
             /** Enables/disables the display of grand total for rows and columns.
              * @Default {true}
              */
@@ -31522,6 +31445,11 @@ declare namespace ej {
              * @Default {100}
              */
             memberEditorPageSize?: number;
+
+            /** Enables/Disables sorting option in member editor dialog for the members of the respective field.
+             * @Default {false}
+             */
+            enableMemberEditorSorting?: boolean;
 
             /** Sets the summary layout for the pivot grid. Following are the ways in which the summary can be positioned: normal summary (bottom), top summary, no summary, and Microsoft Excel
              * summary.
@@ -36706,11 +36634,11 @@ declare namespace ej {
 
             /** Returns the taskbar background of current item.
              */
-            TaskbarBackground?: string;
+            taskbarBackground?: string;
 
             /** Returns the progressbar background of current item.
              */
-            ProgressbarBackground?: string;
+            progressbarBackground?: string;
 
             /** Returns the parent taskbar background of current item.
              */
@@ -36719,6 +36647,34 @@ declare namespace ej {
             /** Returns the parent progressbar background of current item.
              */
             parentProgressbarBackground?: string;
+
+            /** Returns the taskbar text color of current item.
+             */
+            taskbarTextColor?: string;
+
+            /** Returns the taskbar border color of current item.
+             */
+            taskbarBorder?: string;
+
+            /** Returns the parent taskbar border color of current item.
+             */
+            parentTaskbarBorder?: string;
+
+            /** Returns the progressbar border color of current item.
+             */
+            progressbarBorder?: string;
+
+            /** Returns the parent progressbar border color of current item.
+             */
+            parentProgressbarBorder?: string;
+
+            /** Returns the milestone background of current item.
+             */
+            milestoneBackground?: string;
+
+            /** Returns the baseline background of current item.
+             */
+            baselineBackground?: string;
 
             /** Returns the data of the record.
              */
@@ -37699,6 +37655,10 @@ declare namespace ej {
              */
             parameters?: Parameter[];
 
+            /** Specifies the parameter settings.
+             */
+            parameterSettings?: ParameterSettings;
+
             /** Enables and disables the print mode.
              * @Default {false}
              */
@@ -37707,7 +37667,7 @@ declare namespace ej {
             /** Specifies the print option of the report.
              * @Default {ej.ReportViewer.PrintOptions.Default}
              */
-            printOptions?: ej.ReportViewer.PrintOptions|string;
+            printOption?: ej.ReportViewer.PrintOptions|string;
 
             /** Specifies the processing mode of the report.
              * @Default {ej.ReportViewer.ProcessingMode.Remote}
@@ -37748,6 +37708,46 @@ declare namespace ej {
              */
             serviceAuthorizationToken?: string;
 
+            /** Enables and disables the parameter block scroller.
+             * @Default {true}
+             */
+            enableParameterBlockScroller?: boolean;
+
+            /** Enables and disables the data source credential block scroller.
+             * @Default {true}
+             */
+            enableDatasourceBlockScroller?: boolean;
+
+            /** Render the ReportViewer height based on the report content size.
+             * @Default {false}
+             */
+            sizeToReportContent?: boolean;
+
+            /** Enables and disables the rendering of Viewer when default values are specified for the parameters.
+             * @Default {true}
+             */
+            autoRender?: boolean;
+
+            /** Enables and disables the Error Notification bar.
+             * @Default {true}
+             */
+            enableNotificationBar?: boolean;
+
+            /** Enables and disables the drop-down parameter search.
+             * @Default {false}
+             */
+            enableDropDownSearch?: boolean;
+
+            /** Enables and disables the PageVirtualization.
+             * @Default {false}
+             */
+            enablePageVirtualization?: boolean;
+
+            /** Gets or sets the showExceptionsInDialog for report viewer.
+             * @Default {false}
+             */
+            showExceptionsInDialog?: boolean;
+
             /** Fires when the report viewer is destroyed successfully.If you want to perform any operation after destroying the reportviewer control,you can make use of the destroy event.
              */
             destroy?(e: DestroyEventArgs): void;
@@ -37776,9 +37776,42 @@ declare namespace ej {
              */
             reportLoaded?(e: ReportLoadedEventArgs): void;
 
+            /** Fires when user clicks on a failed report item in the rendered report, before displaying error details dialog. If you want to show custom error detail or perform any action before
+             * viewing error detail, you can make use of the showError event.
+             */
+            showError?(e: ShowErrorEventArgs): void;
+
             /** Fires when click the View Report Button.
              */
             viewReportClick?(e: ViewReportClickEventArgs): void;
+
+            /** Fires when the export progress is changed. To perform any operation when the export progress is changed, use the exportProgressChanged event.
+             */
+            exportProgressChanged?(e: ExportProgressChangedEventArgs): void;
+
+            /** Fires when the print progress is changed. To perform any operation when the print progress is changed, use the printProgressChanged event.
+             */
+            printProgressChanged?(e: PrintProgressChangedEventArgs): void;
+
+            /** Fires when the export items are clicked. To perform any operation when the export items are clicked, use the exportItemClick event.
+             */
+            exportItemClick?(e: ExportItemClickEventArgs): void;
+
+            /** This event will be triggered on rendering the Report Viewer toolbar.
+             */
+            toolbarRendering?(e: ToolbarRenderingEventArgs): void;
+
+            /** Fires when the toolbar items are clicked. To perform any operation when the toolbar items are clicked, use the toolBarItemClick event.
+             */
+            toolBarItemClick?(e: ToolBarItemClickEventArgs): void;
+
+            /** Fires when the hyperlink action is performed in the report. To perform any operation during the hyperlink action, use the hyperlink event.
+             */
+            hyperlink?(e: HyperlinkEventArgs): void;
+
+            /** Fires when the report print action is performed in the report. To perform any operation during the report print action, use the ReportPrint event.
+             */
+            reportPrint?(e: ReportPrintEventArgs): void;
 
             /** Fires before the ajax request process started.
              */
@@ -37792,9 +37825,10 @@ declare namespace ej {
              */
             ajaxError?(e: AjaxErrorEventArgs): void;
 
-            /** This event will be triggered on rendering the Report Viewer toolbar.
+            /** Fires when the dependent parameter value is changing in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+             * ParameterUpdateStateChange event.
              */
-            toolbarRendering?(e: ToolbarRenderingEventArgs): void;
+            parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
         }
 
         export interface DestroyEventArgs {
@@ -37818,7 +37852,7 @@ declare namespace ej {
              */
             cancel?: boolean;
 
-            /** returns the actionInfo's parameters bookmarkLink, hyperLink, reportName, parameters.
+            /** returns the actionInfo's parameters bookmarkLink, reportName, parameters.
              */
             actionInfo?: any;
 
@@ -37914,6 +37948,25 @@ declare namespace ej {
             type?: string;
         }
 
+        export interface ShowErrorEventArgs {
+
+            /** true if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the error code.
+             */
+            errorCode?: string;
+
+            /** returns the error message.
+             */
+            message?: string;
+
+            /** returns the detailed error information.
+             */
+            detail?: string;
+        }
+
         export interface ViewReportClickEventArgs {
 
             /** true if the event should be canceled; otherwise, false.
@@ -37931,6 +37984,107 @@ declare namespace ej {
             /** returns the name of the event.
              */
             type?: string;
+        }
+
+        export interface ExportProgressChangedEventArgs {
+
+            /** returns the export format
+             */
+            format?: string;
+
+            /** returns the stage of export processing.
+             */
+            stage?: string;
+
+            /** true if the event should be handled; otherwise, false.
+             */
+            handled?: boolean;
+
+            /** returns ReportViewer container Id.
+             */
+            containerId?: string;
+        }
+
+        export interface PrintProgressChangedEventArgs {
+
+            /** returns the stage of export processing.
+             */
+            stage?: string;
+
+            /** returns the currentPage value
+             */
+            currentPage?: string;
+
+            /** returns the totalPages value
+             */
+            totalPages?: string;
+
+            /** true if the event should be handled; otherwise, false.
+             */
+            handled?: boolean;
+
+            /** returns ReportViewer container Id.
+             */
+            containerId?: string;
+        }
+
+        export interface ExportItemClickEventArgs {
+
+            /** returns the export format value.
+             */
+            value?: string;
+        }
+
+        export interface ToolbarRenderingEventArgs {
+        }
+
+        export interface ToolBarItemClickEventArgs {
+
+            /** returns the toolbar clicked item name .
+             */
+            target?: string;
+
+            /** returns the CSS class name specified for the toolbar item
+             */
+            cssClass?: string;
+
+            /** returns the Toolbar item rendered group index
+             */
+            groupIndex?: string;
+
+            /** returns the Toolbar item rendered index
+             */
+            Index?: string;
+
+            /** returns the Toolbar item value.
+             */
+            value?: string;
+        }
+
+        export interface HyperlinkEventArgs {
+
+            /** true if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the actionInfo's hyperLink detail
+             */
+            actionInfo?: any;
+
+            /** returns the report model.
+             */
+            model?: any;
+
+            /** returns the name of the event.
+             */
+            type?: string;
+        }
+
+        export interface ReportPrintEventArgs {
+
+            /** true if you have to load the external style file; otherwise, false.
+             */
+            isStyleLoad?: boolean;
         }
 
         export interface AjaxBeforeLoadEventArgs {
@@ -37970,7 +38124,39 @@ declare namespace ej {
             msg?: string;
         }
 
-        export interface ToolbarRenderingEventArgs {
+        export interface ParameterUpdateStateChangeEventArgs {
+
+            /** true if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** true, if the event handled by user; otherwise, false.
+             */
+            handled?: boolean;
+
+            /** The processing state.
+             */
+            state?: string;
+
+            /** returns the report model
+             */
+            model?: any;
+
+            /** The parameter block id.
+             */
+            containerId?: string;
+
+            /** Its only to notify the the current parameter.
+             */
+            name?: string;
+
+            /** Its only to notify the current parameter prompt value.
+             */
+            prompt?: string;
+
+            /** The progress text that is displayed on the loading indicator.
+             */
+            progressText?: string;
         }
 
         export interface DataSource {
@@ -38002,6 +38188,16 @@ declare namespace ej {
              * @Default {ej.ReportViewer.WordFormats.Doc}
              */
             wordFormat?: ej.ReportViewer.WordFormats|string;
+
+            /** Specifies the ppt export format.
+             * @Default {ej.ReportViewer.PPTFormats.PowerPoint97to2003}
+             */
+            pptFormat?: ej.ReportViewer.PPTFormats|string;
+
+            /** Add the custom icon item to the export options.
+             * @Default {empty}
+             */
+            customItems?: any[];
         }
 
         export interface PageSettings {
@@ -38045,6 +38241,36 @@ declare namespace ej {
             values?: any[];
         }
 
+        export interface ParameterSettings {
+
+            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled with the dropdown. When you enter the delimiter value, the texts after the delimiter are
+             * considered as a separate word or query. The delimiter string is a single character and must be a symbol. Mostly, the delimiter symbol is used as comma (,) or semi-colon (;) or
+             * any other special character.
+             * @Default {,}
+             */
+            delimiterChar?: string;
+
+            /** Specifies the height of the combobox parameter popup list. By default, the popup height value is &quot;152px&quot;.
+             * @Default {152px}
+             */
+            popupHeight?: string;
+
+            /** Specifies the width of the combobox parameter popup list. By default, the popup width sets based on the width of the component.
+             * @Default {auto}
+             */
+            popupWidth?: string;
+
+            /** Specifies the width of the parameter item. By default, the item width value is set as &quot;185px&quot;.
+             * @Default {185px}
+             */
+            itemWidth?: string;
+
+            /** Specifies the width of the parameter label. By default, the parameter label width value is set as &quot;110px&quot;.
+             * @Default {110px}
+             */
+            labelWidth?: string;
+        }
+
         export interface ToolbarSettings {
 
             /** Fires when user click on toolbar item in the toolbar.
@@ -38071,6 +38297,16 @@ declare namespace ej {
              * @Default {empty}
              */
             templateId?: string;
+
+            /** Add the custom icon item to the toolbar.
+             * @Default {empty}
+             */
+            customItems?: any[];
+
+            /** Add the custom icon groups to the toolbar.
+             * @Default {empty}
+             */
+            customGroups?: any[];
         }
 
         enum ExportOptions {
@@ -38078,8 +38314,8 @@ declare namespace ej {
             ///Specifies the All property in ExportOptions to get all available options.
             All,
 
-            ///Specifies the PDF property in ExportOptions to get PDF option.
-            PDF,
+            ///Specifies the Pdf property in ExportOptions to get Pdf option.
+            Pdf,
 
             ///Specifies the Word property in ExportOptions to get Word option.
             Word,
@@ -38087,8 +38323,17 @@ declare namespace ej {
             ///Specifies the Excel property in ExportOptions to get Excel option.
             Excel,
 
-            ///Specifies the HTML property in ExportOptions to get HTML option.
-            HTML
+            ///Specifies the Html property in ExportOptions to get Html option.
+            Html,
+
+            ///Specifies the PPT property in ExportOptions to get PPT option.
+            PPT,
+
+            ///Specifies the CSV property in ExportOptions to get CSV option.
+            CSV,
+
+            ///Specifies the customItems property in ExportOptions to get customItems option.
+            CustomItems
         }
 
 
@@ -38172,6 +38417,22 @@ declare namespace ej {
 
             ///Specifies the Automatic property in WordFormats to get specified version of exported format.
             Automatic
+        }
+
+
+        enum PPTFormats {
+
+            ///Represents PowerPoint97to2003 version.
+            PowerPoint97to2003,
+
+            ///Represents PowerPoint2007 version.
+            PowerPoint2007,
+
+            ///Represents PowerPoint2010 version.
+            PowerPoint2010,
+
+            ///Represents PowerPoint2013 version.
+            PowerPoint2013
         }
 
 
@@ -42112,7 +42373,7 @@ declare namespace ej {
          */
         save(Filename: string): void;
 
-        /** Used to Show the signature widget, if it is already hided.
+        /** Used to Show the signature widget, if it is already hidden.
          * @returns {void}
          */
         show(): void;
@@ -42594,13 +42855,13 @@ declare namespace ej {
         /** It is used to remove data in the specified range of cells based on the defined property.
          * @param {any[]|string} Optional. If range is specified, it will clear data for the specified range else it will use the current selected range.
          * @param {string} Optional. If property is specified, it will remove the specified property in the range else it will remove default properties
-         * @param {any} Optional.
+         * @param {HTMLElement} Optional.
          * @param {boolean} Optional. pass {{'`true`' | markdownify}}, if you want to skip the hidden rows
-         * @param {any} Optional. Pass the status to perform undo and redo operation.
-         * @param {any} Optional. It specifies whether to skip element processing or not.
+         * @param {string} Optional. Pass the status to perform undo and redo operation.
+         * @param {boolean} Optional. It specifies whether to skip element processing or not.
          * @returns {void}
          */
-        clearRangeData(range?: any[]|string, property?: string, cells?: any, skipHiddenRow?: boolean, status?: any, skipCell?: any): void;
+        clearRangeData(range?: any[]|string, property?: string, cells?: HTMLElement, skipHiddenRow?: boolean, status?: string, skipCell?: boolean): void;
 
         /** This method is used to clear undo and redo collections in the Spreadsheet.
          * @returns {void}
@@ -42636,18 +42897,18 @@ declare namespace ej {
         deleteSheet(idx: number): void;
 
         /** This method is used to delete the selected cells and shift the remaining cells to left.
-         * @param {any} Row index and column index of the starting cell.
-         * @param {any} Row index and column index of the ending cell.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @returns {void}
          */
-        deleteShiftLeft(startCell: any, endCell: any): void;
+        deleteShiftLeft(startCell: Spreadsheet.CellIndex, endCell: Spreadsheet.CellIndex): void;
 
         /** This method is used to delete the selected cells and shift the remaining cells up.
-         * @param {any} Row index and column index of the start cell.
-         * @param {any} Row index and column index of the end cell.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @returns {void}
          */
-        deleteShiftUp(startCell: any, endCell: any): void;
+        deleteShiftUp(startCell: Spreadsheet.CellIndex, endCell: Spreadsheet.CellIndex): void;
 
         /** This method is used to edit data in the specified range of cells based on its corresponding rangeSettings.
          * @param {string} Pass the defined rangeSettings property name.
@@ -42739,18 +43000,18 @@ declare namespace ej {
         getRange(range: string, sheetIdx: number, skipHiddenRow?: boolean): HTMLElement;
 
         /** This method is used to get the data in specified range in Spreadsheet.
-         * @param {any} Optional. Pass the range, property, sheetIdx, valueOnly in options.
+         * @param {any} Optional. Pass the range, property, sheetIdx, valueOnly in options
          * @returns {any[]}
          */
         getRangeData(options?: any): any[];
 
         /** This method is used to get the data as object in the specified range.
-         * @param {any} Pass the start cell.
-         * @param {any} Pass the end cell.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @param {boolean} Optional. Pass {{'`true`' | markdownify}}, if you want to skip the hidden rows.
          * @returns {any}
          */
-        getRangeDataAsObject(startcell: any, endcell: any, skipHiddenRow?: boolean): any;
+        getRangeDataAsObject(startcell: Spreadsheet.CellIndex, endcell: Spreadsheet.CellIndex, skipHiddenRow?: boolean): any;
 
         /** This method is used to get the range indices array based on the specified alpha range in Spreadsheet.
          * @param {string} Pass the alpha range that you want to get range indices.
@@ -42781,6 +43042,11 @@ declare namespace ej {
          * @returns {void}
          */
         gotoPage(sheetIdx: number, newSheet: boolean): void;
+
+        /** This method is used to get the visible cell details in Spreadsheet.
+         * @returns {void}
+         */
+        getVisibleCellDetails(): void;
 
         /** This method is used to hide the pivot table activationPanel in the Spreadsheet.
          * @returns {void}
@@ -42837,30 +43103,30 @@ declare namespace ej {
         insertSheet(): void;
 
         /** This method is used to insert cells in the selected or specified range and shift remaining cells to bottom.
-         * @param {any} Row index and column index of the start cell.
-         * @param {any} Row index and column index of the end cell.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @returns {void}
          */
-        insertShiftBottom(startCell: any, endCell: any): void;
+        insertShiftBottom(startCell: Spreadsheet.CellIndex, endCell: Spreadsheet.CellIndex): void;
 
         /** This method is used to insert cells in the selected or specified range and shift remaining cells to right.
-         * @param {any} Row index and column index of the start cell.
-         * @param {any} Row index and column index of the end cell.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @returns {void}
          */
-        insertShiftRight(startCell: any, endCell: any): void;
+        insertShiftRight(startCell: Spreadsheet.CellIndex, endCell: Spreadsheet.CellIndex): void;
 
         /** This method is used to import excel file manually by using form data.
-         * @param {any} Pass the form data object to import files manually.
+         * @param {Spreadsheet.ImportingOptions} Pass the form data object to import files manually.
          * @returns {void}
          */
-        import(importRequest: any): void;
+        import(importRequest: Spreadsheet.ImportingOptions): void;
 
         /** This method is used to load JSON data in Spreadsheet.
-         * @param {any} Pass the response that you want to load.
+         * @param {HTMLElement} Pass the response that you want to load.
          * @returns {void}
          */
-        loadFromJSON(response: any): void;
+        loadFromJSON(response: HTMLElement): void;
 
         /** This method is used to lock/unlock the range of cells in active sheet. Lock cells are activated only after the sheet is protected. Once the sheet is protected it is unable to
          * lock/unlock cells.
@@ -42885,11 +43151,11 @@ declare namespace ej {
         mergeCells(range?: string|any[], alertStatus?: boolean): void;
 
         /** This method is used to select a cell or range in the Spreadsheet.
-         * @param {any} Pass the start cell to perform selection.
-         * @param {any} Pass the end cell to perform selection.
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
+         * @param {Spreadsheet.CellIndex} Pass the Object "CellIndex"
          * @returns {void}
          */
-        performSelection(startCell: any, endCell: any): void;
+        performSelection(startCell: Spreadsheet.CellIndex, endCell: Spreadsheet.CellIndex): void;
 
         /** This method is used to protect or unprotect active sheet.
          * @param {boolean} Optional. By default is {{'`true`' | markdownify}}. If it is {{'`false`' | markdownify}} active sheet is unprotected.
@@ -42902,16 +43168,21 @@ declare namespace ej {
          */
         redo(): void;
 
-        /** This method is used to refresh the content in Spreadsheet.
+        /** This method is used to refresh the Spreadsheet based on the sheet model values.
          * @param {number} Pass the index of the sheet.
          * @returns {void}
          */
         refreshContent(sheetIdx: number): void;
 
-        /** This method is used to refresh the Spreadsheet.
+        /** This method is used to refresh the Spreadsheet element based on the page layout.
          * @returns {void}
          */
         refreshSpreadsheet(): void;
+
+        /** This method destroys and re-creates the entire Spreadsheet control.
+         * @returns {void}
+         */
+        refresh(): void;
 
         /** This method is used to remove custom formulae in Spreadsheet.
          * @param {string} Pass the name of the formula.
@@ -42924,11 +43195,11 @@ declare namespace ej {
          * @param {string} Hyperlink remove from the specified range.
          * @param {boolean} Optional. If it is {{'`true`' | markdownify}}, It will clear link only not format.
          * @param {boolean} Optional. Pass the status to perform undo and redo operations.
-         * @param {any} Optional. Pass the cells that you want to remove hyperlink.
+         * @param {string|any[]} Optional. Pass the cells that you want to remove hyperlink.
          * @param {boolean} Optional. Pass {{'`true`' | markdownify}}, if you want to skip the hidden rows.
          * @returns {void}
          */
-        removeHyperlink(range: string, isClearHLink?: boolean, status?: boolean, cells?: any, skipHiddenRow?: boolean): void;
+        removeHyperlink(range: string, isClearHLink?: boolean, status?: boolean, cells?: string|any[], skipHiddenRow?: boolean): void;
 
         /** This method is used to remove the range data and its defined rangeSettings property based on the specified range name.
          * @param {string} Pass the defined rangeSetting property name.
@@ -42968,11 +43239,11 @@ declare namespace ej {
         setActiveSheetIndex(sheetIdx: number): void;
 
         /** This method is used to set border for the specified range of cells in the Spreadsheet.
-         * @param {any} Pass the border properties that you want to set.
+         * @param {Spreadsheet.BorderOptions} Pass the Object "BorderOptions".
          * @param {string} Optional. If range is specified, it will set border for the specified range else it will use the selected range.
          * @returns {void}
          */
-        setBorder(property: any, range?: string): void;
+        setBorder(property: Spreadsheet.BorderOptions, range?: string): void;
 
         /** This method is used to set the height for the rows in the Spreadsheet.
          * @param {any[]|any} Pass the row index and height of the rows.
@@ -42982,11 +43253,11 @@ declare namespace ej {
 
         /** This method is used to set the hyperlink in selected cells of the current sheet.
          * @param {string|any[]} If range is specified, it will set the hyperlink in range of the cells.
-         * @param {any} Pass cellAddress or webAddress
+         * @param {Spreadsheet.LinkOptions} Pass the Object "LinkOptions"
          * @param {number} If we pass cellAddress then which sheet to be navigate in the applied link.
          * @returns {void}
          */
-        setHyperlink(range: string|any[], link: any, sheetIdx: number): void;
+        setHyperlink(range: string|any[], link: Spreadsheet.LinkOptions, sheetIdx: number): void;
 
         /** This method is used to set the readonly option for the specified range.
          * @param {string|any[]} Pass the range.
@@ -43084,11 +43355,11 @@ declare namespace ej {
         unWrapText(range?: any[]|string): void;
 
         /** This method is used to update the data for the specified range of cells in the Spreadsheet.
-         * @param {any} Pass the cells data that you want to update.
+         * @param {Spreadsheet.DataOptions} Pass the Object "DataOptions"
          * @param {any[]|string} Optional. If range is specified, it will update data for the specified range  else it will use the current selected range.
          * @returns {void}
          */
-        updateData(data: any, range?: any[]|string): void;
+        updateData(data: Spreadsheet.DataOptions, range?: any[]|string): void;
 
         /** This method is used to update the formula bar in the Spreadsheet.
          * @returns {void}
@@ -43097,24 +43368,24 @@ declare namespace ej {
 
         /** This method is used to update the range of cells based on the specified settings which we want to update in the Spreadsheet.
          * @param {number} Pass the sheet index that you want to update.
-         * @param {any} Pass the dataSource, startCell and showHeader values as settings.
+         * @param {Spreadsheet.RangeOptions} Pass the Object "RangeOptions"
          * @returns {void}
          */
-        updateRange(sheetIdx: number, settings: any): void;
+        updateRange(sheetIdx: number, settings: Spreadsheet.RangeOptions): void;
 
         /** This method is used to update the details for custom undo and redo operations.
-         * @param {any} Pass the details to update undo and redo collection
+         * @param {Spreadsheet.UndoRedoOptions} Pass the Object "UndoRedoOptions"
          * @returns {void}
          */
-        updateUndoRedoCollection(details: any): void;
+        updateUndoRedoCollection(details: Spreadsheet.UndoRedoOptions): void;
 
         /** This method is used to update the unique data for the specified range of cells in Spreadsheet.
-         * @param {any} Pass the  data that you want to update in the particular range
+         * @param {Spreadsheet.DataOptions} Pass the Object "DataOptions"
          * @param {any[]|string} Optional. If range is specified, it will update data for the specified range else it will use the current selected range.
-         * @param {any} Optional. It specifies whether to skip element processing or not.
+         * @param {boolean} Optional. It specifies whether to skip element processing or not.
          * @returns {void}
          */
-        updateUniqueData(data: any, range?: any[]|string, skipCell?: any): void;
+        updateUniqueData(data: Spreadsheet.DataOptions, range?: any[]|string, skipCell?: boolean): void;
 
         /** This method is used to wrap the selected range of cells in the Spreadsheet.
          * @param {any[]|string} Optional. If the range is specified, then it will update wrap in the specified  range else it will use the current selected range.
@@ -43142,21 +43413,11 @@ declare namespace ej {
 
         XLExport: Spreadsheet.XLExport;
 
-        /** This method is used to get the export properties in the Spreadsheet.
-         * @returns {any}
-         */
-        getExportProps(): any;
-
         XLFilter: Spreadsheet.XLFilter;
 
         XLFormat: Spreadsheet.XLFormat;
 
         XLFreeze: Spreadsheet.XLFreeze;
-
-        /** This method is used to unfreeze the frozen rows and columns in the Spreadsheet.
-         * @returns {void}
-         */
-        unfreezePanes(): void;
 
         XLPivot: Spreadsheet.XLPivot;
 
@@ -43182,15 +43443,159 @@ declare namespace ej {
     }
     export namespace Spreadsheet {
 
+        export interface CellIndex {
+
+            /** Pass the row index of the starting cell
+             */
+            rowIndex?: number;
+
+            /** Pass the column index of the starting cell
+             */
+            colIndex?: number;
+        }
+
+        export interface ImportingOptions {
+
+            /** Pass the file to import manually
+             */
+            file?: string;
+
+            /** Pass the password to import manually
+             */
+            password?: string;
+
+            /** Pass the url to import manually
+             */
+            Url?: string;
+
+            /** Pass the file stream to import manually
+             */
+            fileStream?: string;
+
+            /** Pass the filetype to import manually
+             */
+            fileType?: string;
+        }
+
+        export interface BorderOptions {
+
+            /** Pass the style to set border of the cell
+             */
+            style?: string;
+
+            /** Pass the type to set border of the cell
+             */
+            type?: string;
+
+            /** Pass the color to set border of the cell
+             */
+            color?: string;
+        }
+
+        export interface LinkOptions {
+
+            /** Pass the cell address in the cell
+             */
+            cellAddress?: string;
+
+            /** Pass the text address in the cell
+             */
+            text?: string;
+
+            /** Pass the web address in the cell
+             */
+            webAddress?: string;
+        }
+
+        export interface DataOptions {
+
+            /** Pass the value to update
+             */
+            value?: number;
+
+            /** Pass the value2 to update
+             */
+            value2?: number;
+
+            /** Pass the type to update
+             */
+            type?: string;
+        }
+
+        export interface RangeOptions {
+
+            /** Pass the datasource object values as settings
+             */
+            dataSource?: any;
+
+            /** Pass the showheader condition as settings
+             */
+            showHeader?: boolean;
+
+            /** Pass the startcell values as settings
+             */
+            startCell?: string;
+        }
+
+        export interface UndoRedoOptions {
+
+            /** Pass the action to update undo and redo collection
+             */
+            action?: string;
+
+            /** Pass the cell to update undo and redo collection
+             */
+            cell?: HTMLElement;
+
+            /** Pass the sheet index to update undo and redo collection
+             */
+            sheetIndex?: number;
+        }
+
+        export interface CellTypeSettings {
+
+            /** Specifies the button type of Custom Cell type.
+             */
+            type?: ej.Spreadsheet.CustomCellType;
+
+            /** Specifies the button text of Custom Cell type.
+             */
+            text?: string;
+
+            /** Specifies the button background color of Custom Cell type.
+             */
+            backgroundColor?: string;
+
+            /** Specifies the dropdown list data source range of Custom Cell type.
+             */
+            dataSourceRange?: string;
+
+            /** Specifies the dropdown list data source sheet index of Custom Cell type.
+             */
+            dataSourceSheetIndex?: number;
+
+            /** Specifies the text and value of field in dropdown list.
+             */
+            field?: any;
+
+            /** Specifies the checkbox is set true or false of Custom Cell type.
+             */
+            isChecked?: boolean;
+
+            /** Specifies the datepicker of Custom Cell type.
+             */
+            value?: string;
+        }
+
         export interface XLCellType {
 
             /** This method is used to set a cell type from the specified range of cells in the spreadsheet.
              * @param {string} Pass the range where you want apply cell type.
-             * @param {any} Pass type of cell type and its settings.
+             * @param {Spreadsheet.CellTypeSettings} Pass the Object "CellTypeSettings"
              * @param {number} Optional. Pass sheet index.
              * @returns {void}
              */
-            addCellTypes(range: string, settings: any, sheetIdx: number): void;
+            addCellTypes(range: string, settings: Spreadsheet.CellTypeSettings, sheetIdx: number): void;
 
             /** This method is used to remove cell type from the specified range of cells in the Spreadsheet.
              * @param {string|any[]} Pass the range where you want remove cell type.
@@ -43198,6 +43603,29 @@ declare namespace ej {
              * @returns {void}
              */
             removeCellTypes(range: string|any[], sheetIdx: number): void;
+        }
+
+        export interface CFormatOptions {
+
+            /** Pass the condition to set the conditional formatting
+             */
+            action?: string;
+
+            /** Pass the color to set the conditional formatting
+             */
+            color?: string;
+
+            /** Pass the inputs to set the conditional formatting
+             */
+            inputs?: any[]|string;
+
+            /** Pass the bgColor to set the conditional formatting
+             */
+            bgColor?: string;
+
+            /** Pass the range to set the conditional formatting
+             */
+            range?: string;
         }
 
         export interface XLCFormat {
@@ -43216,10 +43644,25 @@ declare namespace ej {
             getCFRule(rowIdx: number, colIdx: number): any[];
 
             /** This method is used to set the conditional formatting rule in the Spreadsheet.
-             * @param {any} Pass the rule to set.
+             * @param {Spreadsheet.CFormatOptions} Pass the Object "CFormatOptions"
              * @returns {void}
              */
-            setCFRule(rule: any): void;
+            setCFRule(rule: Spreadsheet.CFormatOptions): void;
+        }
+
+        export interface ChartOptions {
+
+            /** Pass the chart type
+             */
+            type?: string;
+
+            /** Pass the enable3D condition
+             */
+            enable3D?: boolean;
+
+            /** Pass the marker object to change type
+             */
+            marker?: any;
         }
 
         export interface XLChart {
@@ -43233,10 +43676,10 @@ declare namespace ej {
 
             /** This method is used to change the type of the chart in the Spreadsheet.
              * @param {string} Pass the chart id.
-             * @param {any} Pass the chart type.
+             * @param {Spreadsheet.ChartOptions} Pass Object ChartOptions.
              * @returns {void}
              */
-            changeType(chartId: string, option: any): void;
+            changeType(chartId: string, option: Spreadsheet.ChartOptions): void;
 
             /** This method is used to change the data range of the chart in the Spreadsheet.
              * @param {string} Pass the chart id.
@@ -43249,17 +43692,17 @@ declare namespace ej {
 
             /** This method is used to create a chart for specified range in Spreadsheet.
              * @param {string|any[]} Optional. If range is specified, it will create chart for the specified range else it will use the current selected range.
-             * @param {any} Optional. To pass the type of chart and chart name.
+             * @param {Spreadsheet.ChartOptions} Optional.
              * @returns {void}
              */
-            createChart(range: string|any[], options: any): void;
+            createChart(range: string|any[], options: Spreadsheet.ChartOptions): void;
 
             /** This method is used to refresh the chart in the Spreadsheet.
              * @param {string} To pass the chart Id.
-             * @param {any} To pass the type of chart and chart name.
+             * @param {Spreadsheet.ChartOptions} NameTypeDescriptiontypestringPass the chart typeenable3DbooleanPass the enable3D conditionmarkerobjectPass the marker object
              * @returns {void}
              */
-            refreshChart(id: string, options: any): void;
+            refreshChart(id: string, options: Spreadsheet.ChartOptions): void;
 
             /** This method is used to resize the chart of specified id in the Spreadsheet.
              * @param {string} To pass the chart id.
@@ -43312,10 +43755,10 @@ declare namespace ej {
             deleteComment(range: any[]|string, sheetIdx: number, skipHiddenRow: boolean): void;
 
             /** This method is used to edit the comment in the target Cell in Spreadsheet.
-             * @param {any} Optional. Pass the row index and column index of the cell which contains comment.
+             * @param {Spreadsheet.CellIndex} Optional.
              * @returns {void}
              */
-            editComment(targetCell: any): void;
+            editComment(targetCell: Spreadsheet.CellIndex): void;
 
             /** This method is used to find the next comment from the active cell in Spreadsheet.
              * @returns {boolean}
@@ -43357,13 +43800,13 @@ declare namespace ej {
         export interface XLCMenu {
 
             /** This method is used to dynamically add items in the context menu.
-             * @param {string} Specifies the context menu type in which the item to be inserted.
+             * @param {ej.Spreadsheet.ContextMenuType} Specifies the context menu type in which the item to be inserted.
              * @param {any[]} Pass the items to be inserted
              * @param {string} Specifies the type of operation to be performed
              * @param {number} Specifies the item index
              * @returns {void}
              */
-            addItem(target: string, itemColl: any[], operation: string, itemIdx: number): void;
+            addItem(target: ej.Spreadsheet.ContextMenuType, itemColl: any[], operation: string, itemIdx: number): void;
 
             /** This method is used to change data source in the context menu.
              * @param {string} Specifies the context menu type to bind the data source.
@@ -43418,13 +43861,32 @@ declare namespace ej {
             moveRangeTo(sourceRange: any|any[], destinationRange: any|any[]): void;
         }
 
+        export interface AutoFillObject {
+
+            /** Pass the data range to autofill
+             */
+            dataRange?: string;
+
+            /** Pass the direction to autofill
+             */
+            direction?: string;
+
+            /** Pass the fill range to autofill
+             */
+            fillRange?: string;
+
+            /** Pass the fill type to perform autofill in spreadsheet
+             */
+            fillType?: string;
+        }
+
         export interface XLDragFill {
 
             /** This method is used to perform auto fill in Spreadsheet.
-             * @param {any} Pass the options to perform auto fill in Spreadsheet.
+             * @param {Spreadsheet.AutoFillObject} Pass Object AutoFillObject.
              * @returns {void}
              */
-            autoFill(options: any): void;
+            autoFill(options: Spreadsheet.AutoFillObject): void;
 
             /** This method is used to hide the auto fill element in the Spreadsheet.
              * @returns {void}
@@ -43492,20 +43954,20 @@ declare namespace ej {
             saveCell(): void;
 
             /** This method is used to update a particular cell value in the Spreadsheet.
-             * @param {any} Pass row index and column index of the cell.
+             * @param {Spreadsheet.CellIndex} Pass Object CellIndex.
              * @param {string|number} Pass the cell value.
              * @returns {void}
              */
-            updateCell(cell: any, value: string|number): void;
+            updateCell(cell: Spreadsheet.CellIndex, value: string|number): void;
 
             /** This method is used to update a particular cell value and its format in the Spreadsheet.
-             * @param {any} Pass row index and column index of the cell.
+             * @param {Spreadsheet.CellIndex} Pass Object CellIndex.
              * @param {string|number} Pass the cell value.
              * @param {string} Pass the class name to update format.
              * @param {number} Pass sheet index.
              * @returns {void}
              */
-            updateCellValue(cellIdx: any, val: string|number, formatClass: string, sheetIdx: number): void;
+            updateCellValue(cellIdx: Spreadsheet.CellIndex, val: string|number, formatClass: string, sheetIdx: number): void;
 
             /** This method is used to update a particular cell value and its format in the Spreadsheet.
              * @param {string} Pass the range.
@@ -43521,10 +43983,10 @@ declare namespace ej {
 
             /** This method is used to save the sheet data as Excel ,CSV or PDF document (.xls, .xlsx .csv, .pdf) in Spreadsheet.
              * @param {string} Pass the export type that you want.
-             * @param {string} Pass the export filename that you want.
+             * @param {ej.Spreadsheet.ExportType} Pass the export filename that you want.
              * @returns {void}
              */
-            export(type: string, fileName: string): void;
+            export(type: string, fileName: ej.Spreadsheet.ExportType): void;
 
             /** This method is used to get the export properties in the Spreadsheet.
              * @returns {any}
@@ -43551,6 +44013,123 @@ declare namespace ej {
             filterByActiveCell(): void;
         }
 
+        export interface NumberFormatOptions {
+
+            /** Pass the number format object
+             */
+            NumFormat?: any;
+
+            /** Pass the style object
+             */
+            style?: any;
+        }
+
+        export interface TableIDOptions {
+
+            /** Pass the sheet index
+             */
+            sheetIdx?: number;
+
+            /** Pass the table id
+             */
+            tableId?: number;
+        }
+
+        export interface TableOptions {
+
+            /** Pass the header boolean condition of table
+             */
+            header?: boolean;
+
+            /** Pass the name of the table
+             */
+            name?: string;
+
+            /** Pass the format name of table
+             */
+            formatName?: string;
+        }
+
+        export interface FormatObjectOptions {
+
+            /** Pass the style object in a cell
+             */
+            style?: any;
+
+            /** Pass the type of cell
+             */
+            type?: string;
+
+            /** Pass the thousand separator in cell
+             */
+            thousandSeparator?: string;
+
+            /** Pass the decimal places in cell
+             */
+            decimalPlaces?: string;
+
+            /** Pass the format str in cell
+             */
+            formatStr?: string;
+        }
+
+        export interface FontOptions {
+
+            /** Pass the font family
+             */
+            fontFamily?: any;
+
+            /** Pass the font weight
+             */
+            fontWeight?: string;
+
+            /** Pass the font style
+             */
+            fontStyle?: string;
+
+            /** Pass the font size
+             */
+            fontSize?: string;
+
+            /** Pass the color
+             */
+            color?: string;
+
+            /** Pass the text decoration
+             */
+            textDecoration?: string;
+        }
+
+        export interface CustomStyleOptions {
+
+            /** Pass the style object
+             */
+            style?: any;
+
+            /** Pass the number format object
+             */
+            NumFormat?: any;
+        }
+
+        export interface FormatOptions {
+
+            /** Pass the cell style to be removed
+             */
+            cellStyle?: boolean;
+
+            /** Pass the table style to be removed
+             */
+            tableStyle?: boolean;
+
+            /** Pass the format
+             */
+            format?: boolean;
+
+            /** Pass the border condition
+             */
+            border?: boolean;
+        }
+
         export interface XLFormat {
 
             /** This method is used to add the custom Date &amp; Time format and recognize it as a preferred pattern in spreadsheet.
@@ -43569,10 +44148,10 @@ declare namespace ej {
 
             /** This method is used to add the new custom cell style in spreadsheet.
              * @param {string} Pass the style name.
-             * @param {any} Pass the format object.
+             * @param {Spreadsheet.NumberFormatOptions} Pass Object NumberFormatOptions.
              * @returns {void}
              */
-            addNewCustomStyle(styleName: string, options: any): void;
+            addNewCustomStyle(styleName: string, options: Spreadsheet.NumberFormatOptions): void;
 
             /** This method is used to apply the custom cell style in the specified range.
              * @param {string} Pass the style name.
@@ -43582,17 +44161,17 @@ declare namespace ej {
             applyCustomCellStyle(styleName: string, range: string): void;
 
             /** This method is used to convert table range to normal range.
-             * @param {any} Pass the sheet index and table id.
+             * @param {Spreadsheet.TableIDOptions} Pass Object TableIDOptions.
              * @returns {void}
              */
-            convertToRange(options: any): void;
+            convertToRange(options: Spreadsheet.TableIDOptions): void;
 
             /** This method is used to create a table for the selected range of cells in the Spreadsheet.
-             * @param {any} Pass the table object.
+             * @param {Spreadsheet.TableOptions} Pass Object TableOptions.
              * @param {string|any[]} Optional. If the range is specified, then it will create table in the specified range else it will use the current selected range.
              * @returns {string}
              */
-            createTable(tableObject: any, range: string|any[]): string;
+            createTable(tableObject: Spreadsheet.TableOptions, range: string|any[]): string;
 
             /** This method is used to delete the added custom cell style in spreadsheet.
              * @param {string} Pass the cell style name
@@ -43601,11 +44180,11 @@ declare namespace ej {
             deleteCustomStyle(styleName: string): void;
 
             /** This method is used to set format style and values in a cell or range of cells.
-             * @param {any} Pass the formatObject which contains style, type, format, groupSeparator and decimalPlaces.
+             * @param {Spreadsheet.FormatObjectOptions} Pass Object FormatObjectOptions.
              * @param {string} Pass the range to format cells.
              * @returns {void}
              */
-            format(formatObj: any, range: string): void;
+            format(formatObj: Spreadsheet.FormatObjectOptions, range: string): void;
 
             /** This method is used to get the border from hashcode in the Spreadsheet.
              * @param {string} Pass the border hashcode.
@@ -43628,10 +44207,10 @@ declare namespace ej {
             getFormatFromHashCode(hashCode: string): void;
 
             /** This method is used to get the hashcode from the given style object in spreadsheet.
-             * @param {any} Pass the style object that you want to get the hashcode.
+             * @param {Spreadsheet.FontOptions} Pass Object FontOptions.
              * @returns {void}
              */
-            getFormatHashCode(style: any): void;
+            getFormatHashCode(style: Spreadsheet.FontOptions): void;
 
             /** This method is used to get the format as array from the given specified range in spreadsheet.
              * @param {string} Pass the range.
@@ -43641,11 +44220,11 @@ declare namespace ej {
 
             /** This method is used to modify the added custom cell style in spreadsheet.
              * @param {string} pass the old style name
-             * @param {any} pass the format object to be modified
+             * @param {Spreadsheet.CustomStyleOptions} Pass Object CustomStyleOptions.
              * @param {string} pass the new style name
              * @returns {void}
              */
-            modifyCustomStyle(oldStyleName: string, options: any, newStyleName: string): void;
+            modifyCustomStyle(oldStyleName: string, options: Spreadsheet.CustomStyleOptions, newStyleName: string): void;
 
             /** This method is used to remove the font from the Ribbon font family dropdown.
              * @param {string} Font name which needs to remove from the font family drop down.
@@ -43655,10 +44234,10 @@ declare namespace ej {
 
             /** This method is used to remove the style in the specified range.
              * @param {any[]|string} Pass the cell range .
-             * @param {any} Optional. Pass the options for which the style gets removed.
+             * @param {Spreadsheet.FormatOptions} Optional.
              * @returns {void}
              */
-            removeStyle(range: any[]|string, options: any): void;
+            removeStyle(range: any[]|string, options: Spreadsheet.FormatOptions): void;
 
             /** This method is used to remove table with specified tableId in the Spreadsheet.
              * @param {number} Pass the tableId that you want to remove.
@@ -43674,11 +44253,11 @@ declare namespace ej {
             updateDecimalPlaces(type: string, range: string|any[]): void;
 
             /** This method is used to update the format for the selected range of cells in the Spreadsheet.
-             * @param {any} Pass the format object that you want to update.
+             * @param {Spreadsheet.BorderOptions} Pass Object BorderOptions.
              * @param {any[]} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range.
              * @returns {void}
              */
-            updateFormat(formatObj: any, range: any[]): void;
+            updateFormat(formatObj: Spreadsheet.BorderOptions, range: any[]): void;
 
             /** This method is used to update the unique format for selected range of cells in the Spreadsheet.
              * @param {string} Pass the unique format class.
@@ -43725,6 +44304,25 @@ declare namespace ej {
             unfreezePanes(): void;
         }
 
+        export interface PivotOptions {
+
+            /** Pass the rows object to create pivot table
+             */
+            rows?: any;
+
+            /** Pass the column object to create pivot table
+             */
+            columns?: any;
+
+            /** Pass the values to create pivot table
+             */
+            values?: any;
+
+            /** Pass the filter object to create pivot table
+             */
+            filter?: any;
+        }
+
         export interface XLPivot {
 
             /** This property is used to clear the pivot table list in Spreadsheet.
@@ -43737,11 +44335,11 @@ declare namespace ej {
              * @param {string} It specifies the range for which the pivot table is created.
              * @param {string} It specifies the location in which the pivot table is created.
              * @param {string} It specifies the name of the pivot table.
-             * @param {any} Pass the pivot table settings.
+             * @param {Spreadsheet.PivotOptions} Pass Object PivotOptions.
              * @param {any} Pass the pivot range, sheet index, address and data source .
              * @returns {string}
              */
-            createPivotTable(range: string, location: string, name: string, settings: any, pvt: any): string;
+            createPivotTable(range: string, location: string, name: string, settings: Spreadsheet.PivotOptions, pvt: any): string;
 
             /** This method is used to delete the pivot table which is selected.
              * @param {string} Pass the name of the pivot table.
@@ -43811,21 +44409,89 @@ declare namespace ej {
             setRowHeight(rowIdx: number, size: number): void;
         }
 
+        export interface BackstageOptions {
+
+            /** Pass the id to added in backstage
+             */
+            id?: string;
+
+            /** Pass the text to added in backstage
+             */
+            text?: string;
+
+            /** Pass the item type to added in backstage
+             */
+            itemType?: HTMLElement;
+        }
+
+        export interface ContextualTabOptions {
+
+            /** Pass the background color
+             */
+            backgroundColor?: string;
+
+            /** Pass the border color
+             */
+            borderColor?: string;
+
+            /** Pass the tabs object to add in ribbon
+             */
+            tabs?: any;
+        }
+
+        export interface TabOptions {
+
+            /** Pass the text to displayed in ribbon tab
+             */
+            text?: string;
+
+            /** Pass the align type
+             */
+            alignType?: HTMLElement;
+
+            /** Pass the content object to be displayed in ribbon tab
+             */
+            contents?: any;
+
+            /** Pass the defaults object to be displayed in ribbon tab
+             */
+            defaults?: any;
+        }
+
+        export interface MenuItemOptions {
+
+            /** Pass the id to update the menu item
+             */
+            id?: string;
+
+            /** Pass the text to update the menu item
+             */
+            text?: string;
+
+            /** Pass the parent id to update the menu item
+             */
+            parentId?: string;
+
+            /** Pass the sprite css class to update the menu item
+             */
+            spriteCssClass?: string;
+        }
+
         export interface XLRibbon {
 
             /** This method is used to add a new item in the backstage.
-             * @param {any} Specifies the item to be added in the backstage.
+             * @param {Spreadsheet.BackstageOptions} Pass Object BackstageOptions.
              * @param {number} pass the index of the item to be added in the backstage.
              * @returns {void}
              */
-            addBackStageItem(pageItem: any, index: number): void;
+            addBackStageItem(pageItem: Spreadsheet.BackstageOptions, index: number): void;
 
             /** This method is used to dynamically add the contextual tabs in the ribbon.
-             * @param {any} Specifies the contextual tab set object.
+             * @param {Spreadsheet.ContextualTabOptions} Pass Object ContextualTabOptions.
              * @param {number} pass the index of the contextual tab.
              * @returns {void}
              */
-            addContextualTabs(contextualTabSet: any, index: number): void;
+            addContextualTabs(contextualTabSet: Spreadsheet.ContextualTabOptions, index: number): void;
 
             /** This method is used to dynamically add the menu item in the file menu.
              * @param {any[]} Specifies the item to be added
@@ -43839,9 +44505,10 @@ declare namespace ej {
              * @param {string} Pass the cell reference.
              * @param {string} Optional. Pass comment, if you want.
              * @param {number} Optional. Pass the sheet index.
+             * @param {string} Optional. Pass the scope of the name manager.
              * @returns {void}
              */
-            addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number): void;
+            addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number, scope: string): void;
 
             /** This method is used to dynamically add the tab in the ribbon.
              * @param {string} Specifies the text to be displayed in the tab.
@@ -43853,11 +44520,11 @@ declare namespace ej {
 
             /** This method is used to dynamically add the tab group in the ribbon.
              * @param {number} Specifies the ribbon tab index.
-             * @param {any} pass the groups to be displayed in the ribbon tab.
+             * @param {Spreadsheet.TabOptions} Pass Object TabOptions.
              * @param {number} pass the index of the ribbon group.
              * @returns {void}
              */
-            addTabGroup(tabIndex: number, tabGroup: any, groupIndex: number): void;
+            addTabGroup(tabIndex: number, tabGroup: Spreadsheet.TabOptions, groupIndex: number): void;
 
             /** This method is used to insert the few type (SUM, MAX, MIN, AVG, COUNT) of formulas in the selected range of cells in the Spreadsheet.
              * @param {string} To pass the type("SUM","MAX","MIN","AVG","COUNT").
@@ -43885,9 +44552,10 @@ declare namespace ej {
 
             /** This method is used to delete the defined name in the Spreadsheet name manager.
              * @param {string} Pass the defined name that you want to remove from name manager.
+             * @param {string} Optional. Pass the scope of the name manager.
              * @returns {void}
              */
-            removeNamedRange(name: string): void;
+            removeNamedRange(name: string, scope: string): void;
 
             /** This method is used to remove the tab form ribbon in the spreadsheet.
              * @param {number} Specifies the index of the tab to be removed from the ribbon.
@@ -43909,11 +44577,11 @@ declare namespace ej {
             showMenu(): void;
 
             /** This method is used to update the menu item in the file menu.
-             * @param {any} Specifies the menu item to be updated in the ribbon
+             * @param {Spreadsheet.MenuItemOptions} Pass Object MenuItemOptions.
              * @param {number} pass the index of the item to be updated
              * @returns {void}
              */
-            updateMenuItem(item: any, index: number): void;
+            updateMenuItem(item: Spreadsheet.MenuItemOptions, index: number): void;
 
             /** This method is used to update the ribbon icons in the Spreadsheet.
              * @returns {void}
@@ -44022,23 +44690,53 @@ declare namespace ej {
             setPicture(range: string, url: string, width: number, height: number, top: number, left: number): string;
         }
 
+        export interface ColorOptions {
+
+            /** Pass the background color to sort the cell
+             */
+            backgroundColor?: string;
+
+            /** Pass the color to sort the cell
+             */
+            color?: string;
+        }
+
         export interface XLSort {
 
             /** This method is used to sort a particular range of cells based on its cell or font color in the Spreadsheet.
              * @param {string} Pass {{'`PutCellColor`' | markdownify}} to sort by cell color or {{'`PutFontColor`' | markdownify}} for sort by font color.
-             * @param {any} Pass the HEX color code to sort.
+             * @param {Spreadsheet.ColorOptions} Pass Object ColorOptions.
              * @param {string} Pass the range
              * @returns {void}
              */
-            sortByColor(operation: string, color: any, range: string): void;
+            sortByColor(operation: string, color: Spreadsheet.ColorOptions, range: string): void;
 
             /** This method is used to sort a particular range of cells based on its values in the Spreadsheet.
              * @param {any[]|string} Pass the range to sort.
              * @param {string} Pass the column name.
-             * @param {any} Pass the direction to sort (ascending or descending).
+             * @param {string} Pass the direction to sort
              * @returns {boolean}
              */
-            sortByRange(range: any[]|string, columnName: string, direction: any): boolean;
+            sortByRange(range: any[]|string, columnName: string, direction: string): boolean;
+        }
+
+        export interface SparklineOptions {
+
+            /** Pass the marker settings object to create sparkline
+             */
+            markerSettings?: any;
+
+            /** Pass the high point color to create sparkline
+             */
+            highPointColor?: string;
+
+            /** Pass the negative point color to create sparkline
+             */
+            negativePointColor?: string;
+
+            /** Pass the start point color to create sparkline
+             */
+            startPointColor?: string;
         }
 
         export interface XLSparkline {
@@ -44047,15 +44745,15 @@ declare namespace ej {
              * @param {string} Pass the data range
              * @param {string} Pass the location range
              * @param {string} Pass the sparkline chart type
-             * @param {any} Pass the sparkline chart options
+             * @param {Spreadsheet.SparklineOptions} Pass Object SparklineOptions.
              * @param {number} Pass the sheetIndex
              * @returns {void}
              */
-            createSparkline(dataRange: string, locationRange: string, type: string, options: any, sheetIndex: number): void;
+            createSparkline(dataRange: string, locationRange: string, type: string, options: Spreadsheet.SparklineOptions, sheetIndex: number): void;
 
             /** This method used to change the sparkline color and marker point color in the spreadsheet.
              * @param {string} Pass the sparkline ID
-             * @param {any} Pass the sparkline options
+             * @param {any}  pass the high point color as object.
              * @param {number} Optional. Pass the sheet index
              * @returns {void}
              */
@@ -44334,6 +45032,11 @@ declare namespace ej {
             /** Gets or sets an object that indicates to customize the import behavior in the Spreadsheet.
              */
             importSettings?: ImportSettings;
+
+            /** Gets a value that indicates whether importing or not while loading the sheets in Spreadsheet.
+             * @Default {false}
+             */
+            isImport?: boolean;
 
             /** Gets or sets a value that indicates whether to enable or disable readonly support in the Spreadsheet.
              * @Default {false}
@@ -45698,6 +46401,12 @@ declare namespace ej {
              */
             allowExporting?: boolean;
 
+            /** Gets or sets a value that indicates whether to enable or disable formula calculation in Spreadsheet. By enabling this feature, formula calculated while export the Spreadsheet in
+             * protected mode.
+             * @Default {false}
+             */
+            enableFormulaCalculation?: boolean;
+
             /** Gets or sets a value that indicates to define csvUrl for export to CSV format.
              * @Default {null}
              */
@@ -46335,6 +47044,22 @@ declare namespace ej {
         }
 
 
+        enum CustomCellType {
+
+            ///To insert the Button in cell.
+            Button,
+
+            ///To insert the Checkbox in cell.
+            CheckBox,
+
+            ///To insert the Datepicker in cell.
+            DatePicker,
+
+            ///To insert the Dropdownlist in cell.
+            DropDownList
+        }
+
+
         enum ChartProperties {
 
             ///Specifies to make the data label center of the chart.
@@ -46404,6 +47129,35 @@ declare namespace ej {
             TitleNone
         }
 
+
+        enum ContextMenuType {
+
+            ///To specify cell Context Menu.
+            Cell,
+
+            ///To specify row header Context Menu.
+            RowHeader,
+
+            ///To specify column header Context Menu.
+            ColumnHeader,
+
+            ///To specify footer Context Menu.
+            Footer
+        }
+
+
+        enum ExportType {
+
+            ///Specifies to export the file in Excel format.
+            Excel,
+
+            ///Specifies to export the file in Csv format.
+            Csv,
+
+            ///Specifies to export the file in Pdf format.
+            Pdf
+        }
+
     }
 
     class PdfViewer extends ej.Widget {
@@ -46434,6 +47188,11 @@ declare namespace ej {
          * @returns {void}
          */
         abortPrint(): void;
+
+        /** Aborts the download operation.
+         * @returns {void}
+         */
+        abortDownload(): void;
 
         /** Shows/hides the print icon in the toolbar.
          * @param {boolean} shows/hides print button in the toolbar
@@ -46508,6 +47267,12 @@ declare namespace ej {
          */
         showMagnificationTools(show: boolean): void;
 
+        /** Shows/hides the search tool in the toolbar.
+         * @param {boolean} shows/hides search tool in the toolbar
+         * @returns {void}
+         */
+        showTextSearchTool(show: boolean): void;
+
         /** Scales the page to fit the page in the container in the control.
          * @returns {void}
          */
@@ -46527,6 +47292,11 @@ declare namespace ej {
          * @returns {void}
          */
         zoomOut(): void;
+
+        /** Resize the viewer based on the parent element height.
+         * @returns {void}
+         */
+        updateViewerSize(): void;
 
         /** Scales the page to the specified percentage ranging from 50 to 400. If the given zoomValue is less than 50 or greater than 400; the PDF viewer scales the page to 50 and 400
          * respectively.
@@ -46550,6 +47320,12 @@ declare namespace ej {
          * @returns {void}
          */
         searchPrevious(): void;
+
+        /** Set the JSON data that are formed for rendering the document content in PDF viewer.
+         * @param {any} Set the JSON data that are formed for rendering the document content.
+         * @returns {void}
+         */
+        setJSONData(jsonData: any): void;
 
         /** Searches the target text with its casing.
          * @param {boolean} Specifies whether the text search must be performed with match case or not.
@@ -46643,6 +47419,14 @@ declare namespace ej {
              */
             signatureSettings?: SignatureSettings;
 
+            /** Enables/ disables the text selection context menu.
+             */
+            textSelectionContextMenu?: TextSelectionContextMenu;
+
+            /** Enables/disables the annotation context menu.
+             */
+            annotationContextMenu?: AnnotationContextMenu;
+
             /** Specifies the type of the annotations.
              */
             annotationType?: ej.PdfViewer.AnnotationType|string;
@@ -46666,6 +47450,10 @@ declare namespace ej {
             /** Specifies the viewer interaction mode.
              */
             interactionMode?: ej.PdfViewer.InteractionMode|string;
+
+            /** Gets or sets the buffering mode of the PDF viewer control when allowClientBuffering is set to true.
+             */
+            bufferingMode?: ej.PdfViewer.BufferingMode|string;
 
             /** Specifies the open state of the hyperlink in the PDF document.
              */
@@ -46710,6 +47498,10 @@ declare namespace ej {
             /** Triggers when the AJAX request is failed.
              */
             ajaxRequestFailure?(e: AjaxRequestFailureEventArgs): void;
+
+            /** Triggers when the ajax request is Success.
+             */
+            ajaxRequestSuccess?(e: AjaxRequestSuccessEventArgs): void;
 
             /** Triggers when there is change in the magnification value.
              */
@@ -46766,6 +47558,14 @@ declare namespace ej {
             /** Triggers when the client buffering process ends.
              */
             bufferEnd?(e: BufferEndEventArgs): void;
+
+            /** Triggers when the download is started.
+             */
+            downloadStart?(e: DownloadStartEventArgs): void;
+
+            /** Triggers when the download is completed or aborted.
+             */
+            downloadEnd?(e: DownloadEndEventArgs): void;
 
             /** Triggers when PDF viewer control is destroyed successfully.
              */
@@ -46842,6 +47642,25 @@ declare namespace ej {
             /** Returns the exception details.
              */
             message?: string;
+        }
+
+        export interface AjaxRequestSuccessEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the response data on ajax success.
+             */
+            responseData?: string;
         }
 
         export interface ZoomChangeEventArgs {
@@ -47194,6 +48013,52 @@ declare namespace ej {
             isBuffering?: boolean;
         }
 
+        export interface DownloadStartEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the name of the file being displayed in the PDF viewer.
+             */
+            fileName?: string;
+
+            /** Returns the status about the download is started.
+             */
+            status?: string;
+        }
+
+        export interface DownloadEndEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the name of the file being displayed in the PDF viewer.
+             */
+            fileName?: string;
+
+            /** Returns the status about the download is completed or aborted.
+             */
+            status?: string;
+        }
+
         export interface DestroyEventArgs {
 
             /** Returns the cancel option value.
@@ -47331,6 +48196,48 @@ declare namespace ej {
             opacity?: number;
         }
 
+        export interface TextSelectionContextMenu {
+
+            /** Enables/ disables the text selection context menu.
+             */
+            isEnable?: boolean;
+
+            /** Enables/disables the copy menu in the text selection context menu.
+             */
+            isCopyEnable?: boolean;
+
+            /** Enables/disables the search menu in the text selection context menu.
+             */
+            isSearchEnable?: boolean;
+
+            /** Enables/disables the highlight annotation menu in the text selection context menu.
+             */
+            isHighlightEnable?: boolean;
+
+            /** Enables/disables the strikeout annotation menu in the text selection context menu.
+             */
+            isStrikeoutEnable?: boolean;
+        }
+
+        export interface AnnotationContextMenu {
+
+            /** Enables/disables the annotation context menu.
+             */
+            isEnable?: boolean;
+
+            /** Enables/disables the popup menu in the annotation context menu.
+             */
+            isPopupEnable?: boolean;
+
+            /** Enables/disables the delete menu in the annotation context menu.
+             */
+            isDeleteEnable?: boolean;
+
+            /** Enables/disables the properties menu in the annotation context menu.
+             */
+            isPropertiesEnable?: boolean;
+        }
+
         enum ToolbarItems {
 
             ///Shows only magnification tools in the toolbar.
@@ -47392,6 +48299,16 @@ declare namespace ej {
 
             ///To set the panning mode to the PDF viewer control.
             Pan
+        }
+
+
+        enum BufferingMode {
+
+            ///Retrieves details to render first two pages in a request and rest of the pages in other request.
+            Default,
+
+            ///Retrieves complete details to render all the pages in a single request.
+            Complete
         }
 
 
@@ -47532,6 +48449,11 @@ declare namespace ej {
              * @Default {true}
              */
             enableAsync?: boolean;
+
+            /** To set either â€˜Postâ€™ or â€˜Getâ€™ for ajax request type which invokes when validate, get suggestion and dictionary action.Possible values are â€˜POSTâ€™ or â€˜GETâ€™
+             * @Default {GET}
+             */
+            ajaxRequestType?: string;
 
             /** Sets the data type for the ajax call used within the SpellCheck control, denoting the type of data that are expected to be retrieved from the server. The applicable values are
              * json and jsonp.
@@ -48586,6 +49508,34 @@ declare namespace ej {
         model: ReportDesigner.Model;
         defaults: ReportDesigner.Model;
 
+        /** Add a dataset to the report at runtime.
+         * @param {any} a JSON to define a connection properties for dataset.
+         * @returns {void}
+         */
+        addDataSet(dataset: any): void;
+
+        /** Add a datasource to the report at runtime.
+         * @param {any} a JSON to define a connection properties for datasource.
+         * @returns {void}
+         */
+        addDataSource(datasource: any): void;
+
+        /** Add a report item to the report at runtime.
+         * @param {any} JSON for the new report item to be added
+         * @returns {void}
+         */
+        addItem(item: any): void;
+
+        /** Visually move the selected report item over its closest intersected report items.
+         * @returns {void}
+         */
+        bringForward(): void;
+
+        /** Visually move the selected report item over all other intersected report items.
+         * @returns {void}
+         */
+        bringToFront(): void;
+
         /** Determines whether a copy operation is possible.
          * @returns {boolean}
          */
@@ -48596,57 +49546,64 @@ declare namespace ej {
          */
         canCut(): boolean;
 
-        /** Determines whether a delete operation is possible.
-         * @returns {boolean}
-         */
-        canRemove(): boolean;
-
         /** Determines whether a paste operation is possible.
          * @returns {boolean}
          */
         canPaste(): boolean;
 
-        /** Returns the bool value indicating whether the user can redo the previous action in the report.
+        /** Returns the boolean value indicating whether the user can redo the previous action in the report.
          * @returns {boolean}
          */
         canRedo(): boolean;
 
-        /** Returns a bool value indicating whether the user can undo the previous action in the report.
+        /** Determines whether a delete operation is possible.
+         * @returns {boolean}
+         */
+        canRemove(): boolean;
+
+        /** Returns a boolean value indicating whether the user can undo the previous action in the report.
          * @returns {boolean}
          */
         canUndo(): boolean;
 
-        /** Copies the selected ReportItem from design panel to Report Designer internal clipboard.
+        /** Clone the existing dataset in the report at runtime.
+         * @param {string} Name of the existing dataset.
+         * @returns {void}
+         */
+        cloneDataSet(name: string): void;
+
+        /** Clone the existing datasource in the report at runtime.
+         * @param {string} Name of the existing datasource.
+         * @returns {void}
+         */
+        cloneDataSource(name: string): void;
+
+        /** Copies the selected report item from design panel to the Report Designer internal clipboard.
          * @returns {void}
          */
         copy(): void;
 
-        /** Cuts the selected ReportItem from design panel to Report Designer internal clipboard.
+        /** Cuts the selected report item from design panel to the Report Designer internal clipboard.
          * @returns {void}
          */
         cut(): void;
 
-        /** Deletes the selected item from the report.
-         * @returns {void}
-         */
-        remove(): void;
-
-        /** Returns the bool value that specifies whether the report has changes or not.
+        /** Returns the boolean value that specifies whether the report has changes or not.
          * @returns {boolean}
          */
         hasReportChanges(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is a new report or not.
+        /** Returns the boolean value that specifies whether the currently processing report is a new report or not.
          * @returns {boolean}
          */
         isNewReport(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is a new server report or not.
+        /** Returns the boolean value that specifies whether the currently processing report is a new server report or not.
          * @returns {boolean}
          */
         isNewServerReport(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is obtained from the server or local.
+        /** Returns the boolean value that specifies whether the currently processing report is obtained from the server or local.
          * @returns {boolean}
          */
         isServerReport(): boolean;
@@ -48661,22 +49618,27 @@ declare namespace ej {
          */
         newServerReport(): void;
 
-        /** This method opens the report from the ReportServer.
+        /** This method opens the report from the server.
          * @returns {void}
          */
         openReport(): void;
 
-        /** To open the report client browse dialog.
+        /** This method opens the report using raw report data.
+         * @returns {void}
+         */
+        openReportDefinition(): void;
+
+        /** Opens the client browse dialog to browse the report.
          * @returns {void}
          */
         openReportFromDevice(): void;
 
-        /** To open the report open server browse dialog.
+        /** Opens the report designer browse dialog to browse the available reports in the reportserver.
          * @returns {void}
          */
         openServerReportDialog(): void;
 
-        /** Pastes the selected ReportItem from Report Designer internal clipboard to design panel.
+        /** Pastes the selected report item from the Report Designer internal clipboard to design panel.
          * @returns {void}
          */
         paste(): void;
@@ -48686,12 +49648,40 @@ declare namespace ej {
          */
         redo(): void;
 
-        /** This method saves the report into the ReportServer.
+        /** Deletes the selected report item from the report.
+         * @returns {void}
+         */
+        remove(): void;
+
+        /** Remove a dataset from the report at runtime.
+         * @param {string} Name of the dataset.
+         * @returns {void}
+         */
+        removeDataSet(dataset: string): void;
+
+        /** Remove a datasource from the report at runtime.
+         * @param {string} Name of the datasource.
+         * @returns {void}
+         */
+        removeDatasource(datasource: string): void;
+
+        /** Remove the given report item from the report.
+         * @param {string} Name of the report item to be removed from report
+         * @returns {void}
+         */
+        removeItem(itemName: string): void;
+
+        /** This method saves the report into the server.
          * @returns {void}
          */
         saveReport(): void;
 
-        /** To open the report save server browse dialog.
+        /** This method returns the report in JSON or XML format.
+         * @returns {void}
+         */
+        saveReportDefinition(): void;
+
+        /** Opens the report designer browse dialog to save the report into server.
          * @returns {void}
          */
         saveServerReportDialog(): void;
@@ -48701,7 +49691,23 @@ declare namespace ej {
          */
         saveToDevice(): void;
 
-        /** To show the report design.
+        /** Update the selection to report items at runtime.
+         * @param {any[]} Name of the report items as string array.
+         * @returns {void}
+         */
+        selectItems(itemNames: any[]): void;
+
+        /** Visually move the selected report item behind its closest intersected report item.
+         * @returns {void}
+         */
+        sendBackward(): void;
+
+        /** Visually move the selected report item behind all other intersected report items.
+         * @returns {void}
+         */
+        sendToBack(): void;
+
+        /** Performs switch action from viewer to designer at runtime.
          * @returns {void}
          */
         showDesign(): void;
@@ -48716,7 +49722,7 @@ declare namespace ej {
          */
         showOpenSaveReportDialog(): void;
 
-        /** To show the report preview.
+        /** Performs switch action from designer to viewer at runtime.
          * @returns {void}
          */
         showPreview(): void;
@@ -48725,22 +49731,60 @@ declare namespace ej {
          * @returns {void}
          */
         undo(): void;
+
+        /** Update the dataset in the report at runtime.
+         * @param {string} Name of the existing dataset.
+         * @param {any} a JSON to define a connection properties for dataset.
+         * @returns {void}
+         */
+        updateDataset(datasetName: string, dataset: any): void;
+
+        /** Update the datasource in the report at runtime.
+         * @param {string} Name of the existing datasource.
+         * @param {any} a JSON to define a connection properties for datasource.
+         * @returns {void}
+         */
+        updateDatasource(datasourceName: string, datasource: any): void;
     }
     export namespace ReportDesigner {
 
         export interface Model {
+
+            /** Shows or hides the items of configuration pane in ReportDesigner control.
+             */
+            configurePaneSettings?: ConfigurePaneSettings;
 
             /** Specifies the locale for report designer.
              * @Default {en-US}
              */
             locale?: string;
 
-            /** Gets or Sets the report path of server.
+            /** Shows or hides the create, edit, and delete options in data source and dataset panels.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            permissionSettings?: PermissionSettings;
+
+            /** Gets or sets the list of custom data extension items.
+             * @Default {[]}
+             */
+            reportDataExtensions?: ReportDataExtension[];
+
+            /** Gets or sets the list of custom report items.
+             * @Default {[]}
+             */
+            reportItemExtensions?: ReportItemExtension[];
+
+            /** Gets or sets the report path of server.
              * @Default {null}
              */
             reportPath?: string;
 
-            /** Gets or Sets the reports server URL.
+            /** Gets or sets the report type.
+             * @Default {ej.ReportDesigner.ReportType.RDL}
+             */
+            reportType?: string;
+
+            /** Gets or sets the reports server URL.
              * @Default {null}
              */
             reportServerUrl?: string;
@@ -48750,12 +49794,17 @@ declare namespace ej {
              */
             serviceAuthorizationToken?: string;
 
-            /** Gets or Sets the URL of the  WebAPI service; it will be used for processing the report.
+            /** Gets or sets the URL of the  WebAPI service; it will be used for processing the report.
              * @Default {null}
              */
             serviceUrl?: string;
 
-            /** Specifies the toolbar settings.
+            /** Gets or sets the tenant name of the user groups; it will be used when integrating report designer with server.
+             * @Default {null}
+             */
+            tenantName?: string;
+
+            /** Defines the settings of the ReportDesigner toolbar.
              */
             toolbarSettings?: ToolbarSettings;
 
@@ -48779,9 +49828,17 @@ declare namespace ej {
              */
             destroy?(e: DestroyEventArgs): void;
 
+            /** This event will be triggered while initiating new data click action. You can suppress the new data creation panel and perform custom actions.
+             */
+            newDataClick?(e: NewDataClickEventArgs): void;
+
             /** This event will be triggered while clicking open menu items.
              */
             openReportClick?(e: OpenReportClickEventArgs): void;
+
+            /** This event will be triggered while previewing the report in RDLC mode. It can be used to suppress the preview data dialog in RDLC mode.
+             */
+            previewReport?(e: PreviewReportEventArgs): void;
 
             /** This event will be triggered when the report is modified.
              */
@@ -48843,6 +49900,9 @@ declare namespace ej {
         export interface DestroyEventArgs {
         }
 
+        export interface NewDataClickEventArgs {
+        }
+
         export interface OpenReportClickEventArgs {
 
             /** DOM of the clicked target.
@@ -48852,6 +49912,21 @@ declare namespace ej {
             /** Name of selected item.
              */
             select?: string;
+        }
+
+        export interface PreviewReportEventArgs {
+
+            /** Contains the instance of Report Viewer component.
+             */
+            reportViewer?: any;
+
+            /** Specifies whether to show or hide preview data dialog.
+             */
+            cancelDataInputDialog?: boolean;
+
+            /** Contains the required data to load the report.
+             */
+            dataSets?: any[];
         }
 
         export interface ReportModifiedEventArgs {
@@ -48912,6 +49987,83 @@ declare namespace ej {
         export interface ToolbarRenderingEventArgs {
         }
 
+        export interface ConfigurePaneSettings {
+
+            /** Shows or hides the grouped items in the configuration pane with the help of enum ej.ReportDesigner.ConfigureItems
+             * @Default {ej.ReportDesigner.ConfigureItems.All}
+             */
+            items?: ej.ReportDesigner.ConfigureItems|string;
+
+            /** Shows or hides the configuration pane in ReportDesigner control.
+             * @Default {true}
+             */
+            showConfigurePane?: boolean;
+        }
+
+        export interface PermissionSettings {
+
+            /** Shows or hides the create, edit and delete options in data source pane with the help of ej.ReportDesigner.Permission enum.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            dataSource?: ej.ReportDesigner.Permission|string;
+        }
+
+        export interface ReportDataExtension {
+
+            /** Gets or sets the name of the datasource type.
+             * @Default {empty}
+             */
+            name?: string;
+
+            /** Gets or sets the class name of the data extension.
+             * @Default {empty}
+             */
+            className?: string;
+
+            /** Gets or sets the image class name to load image in data pane tile.
+             * @Default {empty}
+             */
+            imageClass?: string;
+
+            /** Gets or sets the name for data extension item to display in the data pane tile.
+             * @Default {empty}
+             */
+            displayName?: string;
+        }
+
+        export interface ReportItemExtension {
+
+            /** Gets or sets the name for the report item.
+             * @Default {empty}
+             */
+            name?: string;
+
+            /** Gets or sets the class name of the report item.
+             * @Default {empty}
+             */
+            className?: string;
+
+            /** Gets or sets the image class name to load image in widgets pane tile.
+             * @Default {empty}
+             */
+            imageClass?: string;
+
+            /** Gets or sets the name for custom report item to display in the widgets pane tile.
+             * @Default {empty}
+             */
+            displayName?: string;
+
+            /** Gets or sets the category name for the report item.
+             * @Default {empty}
+             */
+            category?: string;
+
+            /** Gets information to provide content for custom report item tooltip.
+             * @Default {null}
+             */
+            toolTip?: any;
+        }
+
         export interface ToolbarSettings {
 
             /** Shows or hides the grouped items in the toolbar with the help of enum ej.ReportDesigner.ToolbarItems.
@@ -48929,6 +50081,41 @@ declare namespace ej {
              */
             templateId?: string;
         }
+
+        enum ConfigureItems {
+
+            ///Shows or hides the properties panel in configuration pane.
+            Property,
+
+            ///Shows or hides the data panel in configuration pane.
+            Data,
+
+            ///Shows or hides the parameter panel in configuration pane.
+            Parameter,
+
+            ///Shows or hides the image manager panel in configuration pane.
+            ImageManager,
+
+            ///Shows all the configuration pane items.
+            All
+        }
+
+
+        enum Permission {
+
+            ///Shows or hides create option in data source pane.
+            Create,
+
+            ///Shows or hides the edit option in data source pane.
+            Edit,
+
+            ///Shows or hides the delete option in data source pane.
+            Delete,
+
+            ///Shows all the options in data source pane.
+            All
+        }
+
 
         enum ToolbarItems {
 
@@ -48962,20 +50149,32 @@ declare namespace ej {
             ///Used to "zoom in" to get a close-up view of a report or "zoom out" to see more of the page at a reduced size.
             Zoom,
 
-            ///Previews the active report in report viewer.
-            Preview,
+            ///Used to change the layout order of report items in design area surface.
+            Order,
 
-            ///Enables/Disables the gridline in active report.
-            GridLine,
+            ///Aligns all report items to the center position of design surface in horizontal or vertical direction.
+            Center,
 
-            ///Enables header area in the report.
-            Header,
+            ///Aligns the selected report item in the design surface.
+            Alignment,
 
-            ///Enables footer area in the report.
-            Footer,
+            ///Distributes selected report items at equal intervals from each other.
+            Distribute,
+
+            ///Equally size the selected report items in the design surface.
+            Sizing,
+
+            ///Snaps the selected report items to the closest gridline.
+            AlignGrid,
 
             ///Switches from preview to design view of the report.
             EditDesign,
+
+            ///Contains options to show or hide `Header`, `Footer`, `Grid Lines`, `Snap To Shape` in the report design.
+            View,
+
+            ///Previews the active report in report viewer.
+            Preview,
 
             ///Shows all the toolbar items.
             All
@@ -50374,11 +51573,11 @@ declare namespace ej.datavisualization {
 
             /** returns the pointer element.
              */
-            markerpointerelement?: any;
+            markerPointerElement?: any;
 
             /** returns the value of the pointer.
              */
-            markerpointervalue?: number;
+            markerPointerValue?: number;
 
             /** returns the pointer style
              */

@@ -39,6 +39,7 @@ export interface ResultSet {
 
 export interface ResultSetRowList {
     length: number;
+    raw(): any[];
     item(index: number): any;
 }
 

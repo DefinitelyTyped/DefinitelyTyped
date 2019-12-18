@@ -18,8 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "ImageClient.d.ts",
-        "Cluster.d.ts",
         "ali-oss-tests.ts"
     ]
 }

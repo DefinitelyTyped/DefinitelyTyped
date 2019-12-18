@@ -1,4 +1,4 @@
-import EmberObject, { computed } from "@ember/object";
+import EmberObject, { computed, notifyPropertyChange } from "@ember/object";
 
 const LifetimeHooks = EmberObject.extend({
     resource: null as {} | null,
@@ -46,6 +46,12 @@ class Foo extends EmberObject {
             a: 'def',
             b: 11
         });
+    }
+    bar() {
+        notifyPropertyChange(this, 'name');
+        notifyPropertyChange(this); // $ExpectError
+        notifyPropertyChange('name'); // $ExpectError
+        notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
     }
 }
 

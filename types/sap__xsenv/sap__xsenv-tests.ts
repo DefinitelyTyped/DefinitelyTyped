@@ -48,5 +48,4 @@ function test7() {
 
 function test8() {
     xsenv.loadCertificates();
-    xsenv.loadCaCert();
 }

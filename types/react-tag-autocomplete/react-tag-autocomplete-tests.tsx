@@ -30,6 +30,7 @@ class TestAll extends React.Component {
         const onBlur = () => {};
         const onFocus = () => {};
         const onInputChange = (input: string) => {};
+        const onValidate = (tag: { id: string | number; name: string }) => true;
         const inputAttributes = { maxLength: 10 };
         const suggestions = [
             { id: 3, name: "Bananas" },
@@ -55,6 +56,7 @@ class TestAll extends React.Component {
                 handleDelete={onDeleteTag}
                 handleFocus={onFocus}
                 handleInputChange={onInputChange}
+                handleValidate={onValidate}
                 inputAttributes={inputAttributes}
                 maxSuggestionsLength={10}
                 minQueryLength={5}

@@ -16,11 +16,9 @@ import * as React from "react";
 import {
     Alert,
     AppState,
-    AppStateIOS,
-    AlertIOS,
-    BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -33,6 +31,7 @@ import {
     ImageResolvedAssetSource,
     ImageBackground,
     InteractionManager,
+    Linking,
     ListView,
     ListViewDataSource,
     StyleSheet,
@@ -53,8 +52,12 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Share,
+    ShareDismissedAction,
+    ShareSharedAction,
     Switch,
     RefreshControl,
+    RegisteredStyle,
     TabBarIOS,
     NativeModules,
     MaskedViewIOS,
@@ -73,12 +76,19 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
-    WebView,
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
+    Keyboard,
+    PermissionsAndroid,
+    Platform,
+    ProgressBarAndroid,
+    PushNotificationIOS,
+    AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -96,7 +106,7 @@ NativeModules.NativeUntypedModule;
 NativeModules.NativeTypedModule.someFunction();
 NativeModules.NativeTypedModule.someProperty = "";
 
-function dimensionsListener(dimensions: { window: ScaledSize, screen: ScaledSize }) {
+function dimensionsListener(dimensions: { window: ScaledSize; screen: ScaledSize }) {
     console.log("window dimensions: ", dimensions.window);
     console.log("screen dimensions: ", dimensions.screen);
 }
@@ -104,13 +114,11 @@ function dimensionsListener(dimensions: { window: ScaledSize, screen: ScaledSize
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? "window" : "screen");
 
-    Dimensions.addEventListener('change', dimensionsListener);
-    Dimensions.removeEventListener('change', dimensionsListener);
+    Dimensions.addEventListener("change", dimensionsListener);
+    Dimensions.removeEventListener("change", dimensionsListener);
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
-
-BackAndroid.addEventListener("hardwareBackPress", () => {});
 
 interface LocalStyles {
     container: ViewStyle;
@@ -157,23 +165,35 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
-StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+StyleSheet.setStyleAttributePreprocessor("fontFamily", (family: string) => family);
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
-  backgroundColor: "#F5FCFF",
-}
+    backgroundColor: "#F5FCFF",
+};
 const textStyle: StyleProp<TextStyle> = {
-  fontSize: 20,
-}
+    fontSize: 20,
+};
 const imageStyle: StyleProp<ImageStyle> = {
-  resizeMode: 'contain',
+    resizeMode: "contain",
+};
+const fontVariantStyle: StyleProp<TextStyle> = {
+    fontVariant: ['tabular-nums']
 }
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
+
+const s = StyleSheet.create({
+    shouldWork: {
+        fontWeight: "900", // if we comment this line, errors gone
+        marginTop: 5, // if this line commented, errors also gone
+    },
+});
+const f1: TextStyle = s.shouldWork;
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -192,6 +212,12 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.timeStamp;
     e.type;
     e.nativeEvent;
+};
+
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+
+function handler(e: GestureResponderEvent) {
+    eventHandler(e);
 }
 
 type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
@@ -208,8 +234,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -256,18 +283,16 @@ export class TouchableNativeFeedbackTest extends React.Component {
         e.persist();
         e.isPropagationStopped();
         e.isDefaultPrevented();
-    }
+    };
 
     render() {
         return (
-            <TouchableNativeFeedback
-                onPress={this.onPressButton}
-            >
-                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
-                    <Text style={{margin: 30}}>Button</Text>
+            <TouchableNativeFeedback onPress={this.onPressButton}>
+                <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
+                    <Text style={{ margin: 30 }}>Button</Text>
                 </View>
             </TouchableNativeFeedback>
-        )
+        );
     }
 }
 
@@ -279,11 +304,6 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
-}
-
-function appStateIOSTest() {
-    console.log("Current state: " + AppStateIOS.currentState);
-    AppStateIOS.addEventListener("change", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -314,6 +334,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -327,22 +355,30 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: SectionList<any>
+    myList: React.RefObject<SectionList<string>>;
+
+    constructor(props: SectionListProps<string>) {
+        super(props);
+        this.myList = React.createRef();
+    }
 
     scrollMe = () => {
-        this.myList.scrollToLocation({itemIndex: 0, sectionIndex: 1});
-    }
+        this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+    };
 
     render() {
         const sections = [
@@ -366,7 +402,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                 <Button title="Press" onPress={this.scrollMe} />
 
                 <SectionList
-                    ref={(ref: any) => this.myList = ref}
+                    ref={this.myList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
                         <View>
@@ -392,10 +428,13 @@ export class CapsLockComponent extends React.Component<TextProps> {
     }
 }
 
-class ScrollerListComponentTest extends React.Component<
-    {},
-    { dataSource: ListViewDataSource }
-> {
+const getInitialUrlTest = () => Linking.getInitialURL().then(val => {
+    if (val !== null) {
+        val.indexOf('val is now a string');
+    }
+})
+
+class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -421,12 +460,13 @@ class ScrollerListComponentTest extends React.Component<
                         <ScrollView
                             horizontal={true}
                             nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
                             {...props}
-                            style={[
-                                scrollViewStyle1.scrollView,
-                                scrollViewStyle2
-                            ]}
+                            style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                         />
                     );
                 }}
@@ -492,6 +532,32 @@ class AlertTest extends React.Component {
     }
 }
 
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
+
 class MaskedViewTest extends React.Component {
     render() {
         return (
@@ -502,6 +568,16 @@ class MaskedViewTest extends React.Component {
     }
 }
 
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
+
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = "foobar";
@@ -509,7 +585,7 @@ class InputAccessoryViewTest extends React.Component {
             <InputAccessoryView nativeID={uniqueID}>
                 <TextInput inputAccessoryViewID={uniqueID} />
             </InputAccessoryView>
-        )
+        );
     }
 }
 
@@ -528,64 +604,63 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
-
-class TextInputTest extends React.Component<{}, {username: string}> {
+class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
 
     handleUsernameChange = (text: string) => {
-        console.log(`text: ${ text }`);
-    }
+        console.log(`text: ${text}`);
+    };
 
     onScroll = (e: NativeSyntheticEvent<TextInputScrollEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
-        console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
-    }
+        console.log(`x: ${e.nativeEvent.contentOffset.x}`);
+        console.log(`y: ${e.nativeEvent.contentOffset.y}`);
+    };
 
     handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         testNativeSyntheticEvent(e);
-    }
+    };
 
     handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         testNativeSyntheticEvent(e);
-    }
+    };
 
     handleOnSelectionChange = (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => {
         testNativeSyntheticEvent(e);
 
-        console.log(`target: ${ e.nativeEvent.target }`);
-        console.log(`start: ${ e.nativeEvent.selection.start }`);
-        console.log(`end: ${ e.nativeEvent.selection.end }`);
-    }
+        console.log(`target: ${e.nativeEvent.target}`);
+        console.log(`start: ${e.nativeEvent.selection.start}`);
+        console.log(`end: ${e.nativeEvent.selection.end}`);
+    };
 
     handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log(`key: ${ e.nativeEvent.key }`);
-    }
+        console.log(`key: ${e.nativeEvent.key}`);
+    };
 
     handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
         testNativeSyntheticEvent(e);
 
-        console.log(`eventCount: ${ e.nativeEvent.eventCount }`);
-        console.log(`target: ${ e.nativeEvent.target }`);
-        console.log(`text: ${ e.nativeEvent.text }`);
-    }
+        console.log(`eventCount: ${e.nativeEvent.eventCount}`);
+        console.log(`target: ${e.nativeEvent.target}`);
+        console.log(`text: ${e.nativeEvent.text}`);
+    };
 
     handleOnContentSizeChange = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log(`contentSize.width: ${ e.nativeEvent.contentSize.width }`);
-        console.log(`contentSize.height: ${ e.nativeEvent.contentSize.height }`);
-    }
+        console.log(`contentSize.width: ${e.nativeEvent.contentSize.width}`);
+        console.log(`contentSize.height: ${e.nativeEvent.contentSize.height}`);
+    };
 
     handleOnEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log(`text: ${ e.nativeEvent.text }`);
-    }
+        console.log(`text: ${e.nativeEvent.text}`);
+    };
 
     handleOnSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log(`text: ${ e.nativeEvent.text }`);
-    }
+        console.log(`text: ${e.nativeEvent.text}`);
+    };
 
     render() {
         return (
@@ -593,54 +668,32 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                 <Text onPress={() => this.username.focus()}>Username</Text>
 
                 <TextInput
-                    ref={input => this.username = input}
+                    ref={input => (this.username = input)}
                     textContentType="username"
+                    autoCompleteType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
 
-                <TextInput
-                    multiline
-                    onScroll={this.onScroll}
-                />
+                <TextInput multiline onScroll={this.onScroll} />
 
-                <TextInput
-                    onBlur={this.handleOnBlur}
-                    onFocus={this.handleOnFocus}
-                />
+                <TextInput onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} />
 
-                <TextInput
-                    onSelectionChange={this.handleOnSelectionChange}
-                />
+                <TextInput onSelectionChange={this.handleOnSelectionChange} />
 
-                <TextInput
-                    onKeyPress={this.handleOnKeyPress}
-                />
+                <TextInput onKeyPress={this.handleOnKeyPress} />
 
-                <TextInput
-                    onChange={this.handleOnChange}
-                />
+                <TextInput onChange={this.handleOnChange} />
 
-                <TextInput
-                    onChange={this.handleOnChange}
-                />
+                <TextInput onChange={this.handleOnChange} />
 
-                <TextInput
-                    onEndEditing={this.handleOnEndEditing}
-                />
+                <TextInput onEndEditing={this.handleOnEndEditing} />
 
-                <TextInput
-                    onSubmitEditing={this.handleOnSubmitEditing}
-                />
+                <TextInput onSubmitEditing={this.handleOnSubmitEditing} />
 
-                <TextInput
-                    multiline
-                    onContentSizeChange={this.handleOnContentSizeChange}
-                />
+                <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput
-                    contextMenuHidden={true}
-                />
+                <TextInput contextMenuHidden={true} textAlignVertical="top"/>
             </View>
         );
     }
@@ -650,66 +703,52 @@ class StatusBarTest extends React.Component {
     render() {
         StatusBar.setBarStyle("dark-content", true);
 
-        console.log('height:', StatusBar.currentHeight);
+        console.log("height:", StatusBar.currentHeight);
 
-        return (
-            <StatusBar
-                backgroundColor="blue"
-                barStyle="light-content"
-                translucent
-            />
-        );
-    }
-}
-
-class WebViewTest extends React.Component {
-    render() {
-        return (
-            <WebView
-                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
-                onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
-                originWhitelist={['https://origin.test']}
-                saveFormDataDisabled={false}
-                useWebKit={true}
-                allowFileAccess={true}
-            />
-        );
+        return <StatusBar backgroundColor="blue" barStyle="light-content" translucent />;
     }
 }
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log('height:', e.nativeEvent.source.height);
-        console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
-    }
+        console.log("height:", e.nativeEvent.source.height);
+        console.log("width:", e.nativeEvent.source.width);
+        console.log("url:", e.nativeEvent.source.url);
+    };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log('error:', e.nativeEvent.error);
-    }
+        console.log("error:", e.nativeEvent.error);
+    };
 
     render() {
-        const resizeMode: ImageResizeMode = 'contain';
+        const resizeMode: ImageResizeMode = "contain";
 
         return (
             <View>
                 <Image
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     onLoad={this.handleOnLoad}
                     onError={this.handleOnError}
                 />
 
                 <Image
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     resizeMode={resizeMode}
                 />
             </View>
@@ -722,13 +761,13 @@ export class ImageBackgroundProps extends React.Component {
 
     setImageRef = (image: Image) => {
         this._imageRef = image;
-    }
+    };
 
     render() {
         return (
             <View>
                 <ImageBackground
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     imageRef={this.setImageRef}
                 />
             </View>
@@ -736,7 +775,7 @@ export class ImageBackgroundProps extends React.Component {
     }
 }
 
-const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+const listViewDataSourceTest = new ListView.DataSource({ rowHasChanged: () => true });
 
 class AccessibilityTest extends React.Component {
     render() {
@@ -744,16 +783,14 @@ class AccessibilityTest extends React.Component {
             <View
                 accessibilityElementsHidden={true}
                 importantForAccessibility={"no-hide-descendants"}
-                accessibilityTraits={'none'}
+                accessibilityTraits={"none"}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates="selected"
+                accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
-                <Text
-                    accessibilityTraits={['key', 'text']}
-                    accessibilityIgnoresInvertColors
-                >
+                <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
                     Text
                 </Text>
                 <View />
@@ -762,68 +799,164 @@ class AccessibilityTest extends React.Component {
     }
 }
 
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
-const KeyboardAvoidingViewTest = () => (
-    <KeyboardAvoidingView enabled />
-);
+const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
+const ModalTest = () => <Modal hardwareAccelerated />;
 
-const AlertIOSTest = () => {
-    AlertIOS.prompt(
-        'My Prompt',
-        'Enter your email',
-        [
-            {
-                text: 'Cancel',
-                style: 'cancel'
-            },
-            {
-                text: 'Add',
-                onPress: (value: string) => {
-                  console.log(value);
-                },
-              },
-        ],
-        'default',
-        'email-address'
-    );
-}
-
-const ModalTest = () => (
-    <Modal hardwareAccelerated />
-)
-
-const TimePickerAndroidTest = () => (
+const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
         hour: 8,
         minute: 15,
         is24Hour: true,
-        mode: 'spinner'
-    })
-)
+        mode: "spinner",
+    }).then(result => {
+        if (result.action === TimePickerAndroid.timeSetAction) {
+            console.log('Time', result.hour, result.minute)
+        }
+    });
+}
+
+const DatePickerAndroidTest = () => {
+    DatePickerAndroid.open({
+        date: new Date(),
+        mode: 'calendar'
+    }).then(result => {
+        if (result.action === DatePickerAndroid.dateSetAction) {
+            console.log('Date', result.year, result.month, result.day)
+        }
+    });
+}
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
         jsProp: PropTypes.string.isRequired,
         ...ViewPropTypes,
-    }
+    };
 
     render() {
         return <NativeBridgedComponent {...this.props} nativeProp="test" />;
     }
 }
 
-const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
-    nativeOnly: {
-        nativeProp: true,
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
+
+const SwitchColorTest = () => <Switch trackColor={{ true: "pink", false: "red" }} />;
+
+const SwitchThumbColorTest = () => <Switch thumbColor={"red"} />;
+
+const NativeIDTest = () => (
+    <ScrollView nativeID={"nativeID"}>
+        <View nativeID={"nativeID"} />
+        <Text nativeID={"nativeID"}>Text</Text>
+    </ScrollView>
+);
+
+const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
+
+const ShareTest = () => {
+    Share.share(
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" }
+    );
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
+        if (result.action === Share.sharedAction) {
+            const activity = result.activityType;
+        } else if (result.action === Share.dismissedAction) {
+        }
+    });
+};
+
+const KeyboardTest = () => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    subscriber.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
     }
-});
+};
 
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
+};
 
-const SwitchColorTest = () => (
-    <Switch trackColor={{ true: 'pink', false: 'red'}} />
-)
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
 
-const SwitchThumbColorTest = () => (
-    <Switch thumbColor={'red'} />
-)
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
+}
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;

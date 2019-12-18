@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
+        "no-angle-bracket-type-assertion": false,
         "no-duplicate-imports": false,
         "no-object-literal-type-assertion": false
     }

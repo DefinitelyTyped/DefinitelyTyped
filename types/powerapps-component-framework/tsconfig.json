@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"es6",
+			"dom"
+		],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"forceConsistentCasingInFileNames": true,
+		"strictFunctionTypes": true,
+		"noEmit": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": []
+	},
+	"files": [
+		"index.d.ts",
+		"powerapps-component-framework-tests.ts"
+	]
+}

@@ -407,7 +407,7 @@ export type Engine = 'circo' | 'dot' | 'fdp' | 'neato' | 'osage' | 'patchwork' |
 export type TypeNames = 'initEnd' | 'start' | 'layoutStart' | 'layoutEnd' | 'dataExtractEnd' |
     'dataProcessPass1End' | 'dataProcessPass2End' | 'dataProcessEnd' |
     'renderStart' | 'renderEnd' | 'transitionStart' | 'transitionEnd' |
-    'resotreEnd' | 'end' | string; // string included to allow for optional addition of a name, e.g. initEnd.foo
+    'restoreEnd' | 'end' | string; // string included to allow for optional addition of a name, e.g. initEnd.foo
 
 /**
  * Enum defining the valid strings that can be passed as KeyModes

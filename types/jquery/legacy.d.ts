@@ -167,9 +167,12 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface JQueryKeyEventObject extends JQueryInputEventObject {
-    char: any;
+    /** @deprecated */
+    char: string;
+    /** @deprecated */
     charCode: number;
-    key: any;
+    key: string;
+    /** @deprecated */
     keyCode: number;
 }
 /**

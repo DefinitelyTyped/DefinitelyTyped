@@ -28,6 +28,10 @@ import * as Koa from "koa";
 
 declare function views(dir: string, opts?: {
     /*
+    * autoRender the result into ctx.body, defaults to true
+    */
+    autoRender?: boolean,
+    /*
     * default extension for your views
     */
     extension?: string,

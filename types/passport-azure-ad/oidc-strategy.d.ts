@@ -21,6 +21,10 @@ export interface IOIDCStrategyOptionWithRequest extends IOIDCStrategyOption {
     passReqToCallback: true;
 }
 
+export interface IOIDCStrategyOptionWithoutRequest extends IOIDCStrategyOption {
+    passReqToCallback: false;
+}
+
 export interface IProfile {
     sub?: string;
     oid?: string;
@@ -37,7 +41,7 @@ export interface IProfile {
 }
 
 export type VerifyOIDCFunction =
-    ((profile: IProfile, done: VerifyCallback) => void) | 
+    ((profile: IProfile, done: VerifyCallback) => void) |
     ((iss: string, sub: string, done: VerifyCallback) => void) |
     ((iss: string, sub: string, profile: IProfile, done: VerifyCallback) => void) |
     ((iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, done: VerifyCallback) => void) |
@@ -45,19 +49,19 @@ export type VerifyOIDCFunction =
     ((iss: string, sub: string, profile: IProfile, jwtClaims: any, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void);
 
 export type VerifyOIDCFunctionWithReq =
-    ((req: Request, profile: IProfile, done: VerifyCallback) => void) | 
+    ((req: Request, profile: IProfile, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, jwtClaims: any, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void);
 
-export class OIDCStrategy extends passport.Strategy {
+export class OIDCStrategy implements passport.Strategy {
     constructor(
         options: IOIDCStrategyOptionWithRequest,
-        verify: VerifyOIDCFunction
+        verify: VerifyOIDCFunctionWithReq
     );
-    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunctionWithReq);
+    constructor(options: IOIDCStrategyOptionWithoutRequest, verify: VerifyOIDCFunction);
 
     name: string;
 

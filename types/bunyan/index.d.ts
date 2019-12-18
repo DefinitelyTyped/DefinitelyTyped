@@ -259,7 +259,7 @@ declare namespace Logger {
         limit?: number;
     }
 
-    class RingBuffer extends EventEmitter implements NodeJS.WritableStream {
+    class RingBuffer extends EventEmitter {
         constructor(options: RingBufferOptions);
 
         writable: boolean;
@@ -277,7 +277,7 @@ declare namespace Logger {
         period?: string;
     }
 
-    class RotatingFileStream extends EventEmitter implements NodeJS.WritableStream {
+    class RotatingFileStream extends EventEmitter {
         constructor(options: RotatingFileStreamOptions);
 
         writable: boolean;

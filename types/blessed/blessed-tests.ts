@@ -7,11 +7,33 @@ let screen: blessed.Widgets.Screen = null;
 // https://github.com/chjj/blessed/blob/master/test/widget-autopad.js
 
 screen = blessed.screen({
+  log: __dirname + "/logs/just-logs.log"
+});
+
+screen = blessed.screen({
+  log: __dirname + "/logs/just-logs.log",
+  dump: false
+});
+
+screen = blessed.screen({
+  dump: __dirname + "/logs/logs-and-all-in-and-output.log"
+});
+
+screen = blessed.screen({
+  log: __dirname + "/logs/logs-and-all-in-and-output.log",
+  dump: true
+});
+
+screen = blessed.screen({
   dump: __dirname + "/logs/autopad.log",
   smartCSR: true,
   autoPadding: true,
   warnings: true
 });
+
+// `clickable` and `keyable` are arrays
+console.log(screen.clickable.length);
+console.log(screen.keyable.length);
 
 const box1 = blessed.box({
   parent: screen,
@@ -34,6 +56,17 @@ const box2 = blessed.box({
 screen.key("q", () => screen.destroy());
 
 screen.render();
+
+// Allow for arbitrary extra properties to be stored in `options`
+const extraProps = blessed.box({
+  parent: box1,
+  id: 'box3'
+});
+
+// Props on `progressbar()` are optional
+const progressbar = blessed.progressbar({
+  parent: screen
+});
 
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
 
@@ -744,6 +777,12 @@ setTimeout(() => {
   table.setData(data1);
   screen.render();
 }, 3000);
+
+// https://github.com/chjj/blessed#helpers
+
+blessed.escape('{bold}{/bold}');
+blessed.parseTags('{bold}hi{/bold}');
+blessed.generateTags({ fg: 'red' }, 'red text');
 
 // https://github.com/chjj/blessed/blob/master/test/program-mouse.js
 
