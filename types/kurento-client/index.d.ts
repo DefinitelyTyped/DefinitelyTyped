@@ -106,5 +106,6 @@ interface Kurento {
 
 declare const kurento: Kurento;
 
+// tslint:disable-next-line npm-naming
 export default kurento;
 export { KurentoClient, MediaPipeline, WebRtcEndpoint };
