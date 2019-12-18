@@ -35658,7 +35658,7 @@ declare namespace Excel {
          *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
-         * [Api set: ExcelApi 1.10]
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
@@ -35669,13 +35669,23 @@ declare namespace Excel {
          *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
-         * [Api set: ExcelApi 1.10]
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          * @param content The comment's content. This can be either a string or CommentRichContent object. Strings are used for plain text. CommentRichContent objects allow for other comment features, such as mentions. [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
+        /**
+         *
+         * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
+         *
+         * [Api set: ExcelApi 1.10]
+         *
+         * @param cellAddress The cell to which the comment is added. This can be a Range object or a string. If it's a string, it must contain the full address, including the sheet name. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
+         * @param content The comment's content, as a string representing plain text.
+         */
+        add(cellAddress: Range | string, content: string): Excel.Comment;
         /**
          *
          * Gets the number of comments in the collection.
@@ -35887,7 +35897,7 @@ declare namespace Excel {
          *
          * Creates a comment reply for comment.
          *
-         * [Api set: ExcelApi 1.10]
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
@@ -35897,12 +35907,30 @@ declare namespace Excel {
          *
          * Creates a comment reply for comment.
          *
-         * [Api set: ExcelApi 1.10]
+         * [Api set: ExcelApiOnline 1.1]
          *
          * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, ExcelApiOnline 1.1 for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, ExcelApiOnline 1.1 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
+        /**
+         *
+         * Creates a comment reply for comment.
+         *
+         * [Api set: ExcelApi 1.10]
+         *
+         * @param content The comment's plain text content.
+         */
+        add(content: string): Excel.CommentReply;
+        /**
+         *
+         * Creates a comment reply for comment.
+         *
+         * [Api set: ExcelApi 1.10]
+         *
+         * @param content The comment's plain text content.
+         */
+        add(content: string): Excel.CommentReply;
         /**
          *
          * Gets the number of comment replies in the collection.
