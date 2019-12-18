@@ -1,5 +1,5 @@
 import newrelicFormatter = require('@newrelic/winston-enricher');
-import * as winston from 'winston';
+import winston = require('winston');
 
 const logger = winston.createLogger({
     level: 'info',

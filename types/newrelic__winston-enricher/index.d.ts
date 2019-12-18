@@ -6,6 +6,4 @@
 
 import { Format } from 'logform';
 
-declare function newrelicFormatter(opts?: any): Format;
-
-export = newrelicFormatter;
+export function newrelicFormatter(opts?: any): Format;
