@@ -776,7 +776,7 @@ export namespace crypto {
                 class KeyPair {
                     privateKeyArmored: string;
                     publicKeyArmored: string;
-                    key?: key.Key;
+                    key?: Key;
                     revocationCertificate?: string;
                 }
             }
