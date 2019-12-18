@@ -26,7 +26,9 @@ interface SampleObject { [key: string]: string; }
         baz: true,
         foo2: ['a', 'b'],
         bar2: [1, 2],
-        baz2: [true, false]
+        baz2: [true, false],
+        a: undefined,
+        b: null
     });
 }
 
