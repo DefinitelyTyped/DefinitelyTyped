@@ -4,36 +4,37 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface IOptions {
-    failAfter: number;
-    enableTransactions: boolean;
-    useImplicitTransactions: boolean;
-    strict: boolean;
-    request_timeout: number;
-    response_timeout: number;
-    duplicates_timeout: number;
-    access_token: string;
-    socket: any;
-}
-
-type CreateTypes = 'MediaPipeline' | 'WebRtcEndpoint';
-type EventTypes = 'OnIceCandidate';
-type ComplexTypes = 'IceCandidate'
-
-export declare class KurentoClient {
-    create: (type: CreateTypes) => KurentoClient;
+interface KurentoClient {
+    id: string;
+    create: (type: 'MediaPipeline' | 'WebRtcEndpoint') => Promise<KurentoClient>;
+    connect: (client: KurentoClient, callback: (error: Error) => void) => void;
+    release: () => void;
     addIceCandidate: (candidate: RTCIceCandidate) => KurentoClient;
     processOffer: (sdpOffer: string) => Promise<string>;
     gatherCandidates: (callback: (error: Error) => void) => void;
     getMediaobjectById: (objectId: string) => Promise<KurentoClient>
-    on: (event: EventTypes, callback: (data: any) => void) => void;
+    on: (event: 'OnIceCandidate', callback: (data: any) => void) => void;
 }
 
-declare const client: (ws_uri: string, options: IOptions) => Promise<KurentoClient>;
-declare const getComplexType: (complex: ComplexTypes) => (value: any) => any;
+declare module 'kurento-client' {
+    interface Options {
+        failAfter: number;
+        enableTransactions: boolean;
+        useImplicitTransactions: boolean;
+        strict: boolean;
+        request_timeout: number;
+        response_timeout: number;
+        duplicates_timeout: number;
+        access_token: string;
+        socket: any;
+    }
 
-export default client;
+    interface Kurento {
+        (ws_uri: string, options?: Options): Promise<KurentoClient>;
+        getComplexType: (complex: 'IceCandidate') => (value: any) => any;
+    }
 
-export {
-    getComplexType
+    const kurento: Kurento;
+
+    export = kurento;
 }
