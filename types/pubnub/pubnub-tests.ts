@@ -75,6 +75,26 @@ pubnub.addListener({
             data: { userId, spaceId, eTag, created, updated, custom },
         },
     }) => console.log({ userId, spaceId, eTag, created, updated, custom }),
+    messageAction: ({
+        channel,
+        publisher,
+        subscription,
+        timetoken,
+        message: {
+            event,
+            data: { type, value, uuid, actionTimetoken, messageTimetoken },
+        },
+    }) =>
+        console.log({
+            channel,
+            publisher,
+            subscription,
+            timetoken,
+            message: {
+                event,
+                data: { type, value, uuid, actionTimetoken, messageTimetoken },
+            },
+        }),
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });

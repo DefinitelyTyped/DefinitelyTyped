@@ -971,7 +971,7 @@ declare module "../index" {
         overEvery<T, Result1 extends T, Result2 extends T>(
             a: (arg: T) => arg is Result1,
             b: (arg: T) => arg is Result2
-        ): (arg: T) => Result1 & Result2;
+        ): (arg: T) => arg is Result1 & Result2;
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
@@ -1002,7 +1002,7 @@ declare module "../index" {
         overSome<T, Result1 extends T, Result2 extends T>(
             a: (arg: T) => arg is Result1,
             b: (arg: T) => arg is Result2
-        ): (arg: T) => Result1 | Result2;
+        ): (arg: T) => arg is Result1 | Result2;
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 

@@ -20,6 +20,9 @@
         "paths": {
             "@fluent/bundle": [
                 "fluent__bundle"
+            ],
+            "@fluent/bundle/compat": [
+                "fluent__bundle/compat"
             ]
         }
     },

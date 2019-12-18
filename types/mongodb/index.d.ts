@@ -819,30 +819,35 @@ export interface Admin {
     addUser(username: string, password: string, options?: AddUserOptions): Promise<any>;
     addUser(username: string, password: string, options: AddUserOptions, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#buildInfo */
-    buildInfo(): Promise<any>;
+    buildInfo(options?: { session?: ClientSession }): Promise<any>;
+    buildInfo(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     buildInfo(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#command */
     command(command: object, callback: MongoCallback<any>): void;
     command(command: object, options?: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number }): Promise<any>;
     command(command: object, options: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#listDatabases */
-    listDatabases(): Promise<any>;
+    listDatabases(options?: { nameOnly?: boolean, session?: ClientSession }): Promise<any>;
+    listDatabases(options: { nameOnly?: boolean, session?: ClientSession }, callback: MongoCallback<any>): void;
     listDatabases(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#ping */
-    ping(): Promise<any>;
+    ping(options?: { session?: ClientSession }): Promise<any>;
+    ping(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     ping(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#removeUser */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: FSyncOptions): Promise<any>;
     removeUser(username: string, options: FSyncOptions, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#replSetGetStatus */
-    replSetGetStatus(): Promise<any>;
+    replSetGetStatus(options?: { session?: ClientSession }): Promise<any>;
+    replSetGetStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     replSetGetStatus(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#serverInfo */
     serverInfo(): Promise<any>;
     serverInfo(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#serverStatus */
-    serverStatus(): Promise<any>;
+    serverStatus(options?: { session?: ClientSession }): Promise<any>;
+    serverStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     serverStatus(callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#validateCollection */
     validateCollection(collectionNme: string, callback: MongoCallback<any>): void;
@@ -1766,6 +1771,12 @@ export interface OrderedBulkOperation {
     insert(doc: object): OrderedBulkOperation;
 }
 
+/** https://docs.mongodb.com/manual/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted */
+export interface BulkWriteResultUpsertedIdObject {
+    index: number;
+    _id: ObjectId;
+}
+
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/BulkWriteResult.html */
 export interface BulkWriteResult {
     ok: number;
@@ -1778,8 +1789,8 @@ export interface BulkWriteResult {
     getInsertedIds(): object[];
     getLastOp(): object;
     getRawResponse(): object;
-    getUpsertedIdAt(index: number): object;
-    getUpsertedIds(): object[];
+    getUpsertedIdAt(index: number): BulkWriteResultUpsertedIdObject;
+    getUpsertedIds(): BulkWriteResultUpsertedIdObject[];
     getWriteConcernError(): WriteConcernError;
     getWriteErrorAt(index: number): WriteError;
     getWriteErrorCount(): number;
@@ -2109,6 +2120,8 @@ export class AggregationCursor<T = Default> extends Readable {
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#limit */
     limit(value: number): AggregationCursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#lookup */
+    lookup(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#match */
     match(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#maxTimeMS */

@@ -88,6 +88,8 @@ declare class Pubnub {
 
     stop(): void;
 
+    reconnect(): void;
+
     addListener(params: Pubnub.ListenerParameters): void;
 
     removeListener(params: Pubnub.ListenerParameters): void;
@@ -301,6 +303,9 @@ declare namespace Pubnub {
         };
         suppressLeaveEvents?: boolean;
         secretKey?: string;
+        requestMessageCountThreshold?: number;
+        autoNetworkDetection?: boolean;
+        listenToBrowserNetworkEvents?: boolean;
     }
 
     interface MessageEvent {
@@ -407,6 +412,17 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    interface MessageActionEvent {
+        channel: string;
+        publisher: string;
+        subscription?: string;
+        timetoken: string;
+        message: {
+            event: string;
+            data: MessageAction;
+        };
+    }
+
     // publish
     interface PublishParameters {
         message: any;
@@ -446,7 +462,9 @@ declare namespace Pubnub {
     interface HistoryMessage {
         entry: any;
         timetoken?: string | number;
-        meta?: object;
+        meta?: {
+            [key: string]: string;
+        };
     }
 
     interface HistoryResponse {
@@ -471,7 +489,9 @@ declare namespace Pubnub {
             [channel: string]: Array<{
                 message: any;
                 timetoken: string | number;
-                meta?: object;
+                meta?: {
+                    [key: string]: any;
+                };
                 actions: {
                     [type: string]: {
                         [value: string]: Array<{
@@ -634,6 +654,8 @@ declare namespace Pubnub {
         space?(spaceEvent: SpaceEvent): void;
 
         membership?(membershipEvent: MembershipEvent): void;
+
+        messageAction?(messageActionEvent: MessageActionEvent): void;
     }
 
     // hereNow
@@ -710,7 +732,9 @@ declare namespace Pubnub {
         eTag: string;
         created: string;
         updated: string;
-        custom?: object | null;
+        custom?: {
+            [key: string]: string;
+        } | null;
     }
 
     interface GetObjectsParameters {
@@ -920,7 +944,8 @@ declare namespace Pubnub {
         PNUnknownCategory: string;
         PNReconnectedCategory: string;
         PNConnectedCategory: string;
-        PNRequestMessageCountExceededCategory: string;
+        PNRequestMessageCountExceedCategory: string;
+        PNMalformedResponseCategory: string;
     }
 
     interface Operations {

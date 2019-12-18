@@ -46,6 +46,10 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp('input.jpg')
+    .resize({width: 300})
+    .toFile('output.jpg');
+
 sharp({
     create: {
         width: 300,

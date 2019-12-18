@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isAlpha: typeof validator.isAlpha;
-export = isAlpha;
+import validator from '../';
+export default validator.isAlpha;

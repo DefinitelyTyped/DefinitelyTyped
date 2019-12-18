@@ -11,6 +11,7 @@
 //                 Thomas Marek <https://github.com/ttmarek>
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -673,6 +674,8 @@ declare namespace stripe {
             mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
             on(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
+            addEventListener(event: eventTypes, handler: handler): void;
+            addEventListener(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
             focus(): void;
             blur(): void;
             clear(): void;
@@ -700,6 +703,7 @@ declare namespace stripe {
         type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
+            getElement(type: elementsType): Element | null;
         }
 
         interface ElementsOptions {

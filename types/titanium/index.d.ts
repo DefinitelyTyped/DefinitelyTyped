@@ -19496,7 +19496,7 @@ declare namespace Titanium {
 			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
-			function fireEvent(name: string, event: any): void;
+			function fireEvent(name: string, event?: any): void;
 
 			/**
 			 * Applies the properties to the proxy.
@@ -62543,6 +62543,7 @@ interface ListDataItem {
 	 */
 	properties?: any;
 
+	[key: string]: any;
 }
 /**
  * Represents the custom edit action for a ListItem.
