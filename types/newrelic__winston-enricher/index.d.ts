@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as winston from 'winston';
 
-desclare function newrelicFormatter(opts?: any): winston.format;
+declare function newrelicFormatter(opts?: any): winston.format;
 
 export = newrelicFormatter;
