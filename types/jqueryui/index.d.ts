@@ -457,6 +457,7 @@ declare namespace JQueryUI {
         appendTo?: any;
         axis?: string;
         cancel?: string;
+        classes?: DraggableClasses;
         connectToSortable?: Element | Element[] | JQuery | string;
         containment?: any;
         cursor?: string;
@@ -480,6 +481,13 @@ declare namespace JQueryUI {
         snapTolerance?: number;
         stack?: string;
         zIndex?: number;
+    }
+
+    interface DraggableClasses {
+        "ui-draggable"?: string;
+        "ui-draggable-disabled"?: string;
+        "ui-draggable-dragging"?: string;
+        "ui-draggable-handle"?: string;
     }
 
     interface DraggableEvents {
