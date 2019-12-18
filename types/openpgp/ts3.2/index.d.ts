@@ -774,10 +774,6 @@ export namespace crypto {
 
             namespace key {
                 class KeyPair {
-                    privateKeyArmored: string;
-                    publicKeyArmored: string;
-                    key?: Key;
-                    revocationCertificate?: string;
                 }
             }
         }
