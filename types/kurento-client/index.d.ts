@@ -18,6 +18,7 @@ interface IOptions {
 
 type CreateTypes = 'MediaPipeline' | 'WebRtcEndpoint';
 type EventTypes = 'OnIceCandidate';
+type ComplexTypes = 'IceCandidate'
 
 export declare class KurentoClient {
     create: (type: CreateTypes) => KurentoClient;
@@ -29,7 +30,7 @@ export declare class KurentoClient {
 }
 
 declare const client: (ws_uri: string, options: IOptions) => Promise<KurentoClient>;
-declare const getComplexType: (complex: ComplexTypes) => any;
+declare const getComplexType: (complex: ComplexTypes) => (value: any) => any;
 
 export default client;
 
