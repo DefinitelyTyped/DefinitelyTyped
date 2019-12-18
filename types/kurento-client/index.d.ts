@@ -7,15 +7,15 @@
 type Callback<T> = (error: Error, result: T) => void;
 
 interface Options {
-    failAfter: number;
-    enableTransactions: boolean;
-    useImplicitTransactions: boolean;
-    strict: boolean;
-    request_timeout: number;
-    response_timeout: number;
-    duplicates_timeout: number;
-    access_token: string;
-    socket: any;
+    failAfter?: number;
+    enableTransactions?: boolean;
+    useImplicitTransactions?: boolean;
+    strict?: boolean;
+    request_timeout?: number;
+    response_timeout?: number;
+    duplicates_timeout?: number;
+    access_token?: string;
+    socket?: any;
 }
 
 interface Error {
