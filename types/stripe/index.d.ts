@@ -8571,6 +8571,16 @@ declare namespace Stripe {
              * be affected.
              */
             product?: string;
+
+            /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active?: boolean;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days?: number;
         }
 
         interface IPlanCreationOptionsProductHash {
