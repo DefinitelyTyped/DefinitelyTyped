@@ -21,6 +21,7 @@
 //                 Takuya Uehara <https://github.com/indigolain>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
+//                 Oscar Cabrera <https://github.com/mrjack88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -361,6 +362,7 @@ declare namespace Chart {
 
     interface ChartTooltipModel {
         backgroundColor: string;
+        body: ChartTooltipModelBody[];
         bodyFontColor: string;
         bodyFontSize: number;
         bodySpacing: number;
@@ -370,6 +372,7 @@ declare namespace Chart {
         caretX: number;
         caretY: number;
         cornerRadius: number;
+        dataPoints: ChartTooltipItem[];
         displayColors: boolean;
         footerFontColor: string;
         footerFontSize: number;
@@ -398,6 +401,12 @@ declare namespace Chart {
         _titleAlign: string;
         _titleFontFamily: string;
         _titleFontStyle: string;
+    }
+
+    interface ChartTooltipModelBody {
+        before: string[];
+        lines: string[];
+        after: string[];
     }
 
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
