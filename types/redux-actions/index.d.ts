@@ -6,6 +6,7 @@
 //                 Alexey Pelykh <https://github.com/alexey-pelykh>
 //                 Thiago de Andrade <https://github.com/7hi4g0>
 //                 Ziyu <https://github.com/oddui>
+//                 Andrei Todorut<https://github.com//candreitodorut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -180,6 +181,24 @@ export function handleActions<State, Payload>(
 
 export function handleActions<State, Payload, Meta>(
     reducerMap: ReducerMapMeta<State, Payload, Meta>,
+    initialState: State,
+    options?: Options
+): ReduxCompatibleReducerMeta<State, Payload, Meta>;
+
+export function handleActions<StateAndPayload>(
+    reducerMap: Map<string | ActionFunctions<StateAndPayload> | CombinedActionType, Reducer<StateAndPayload, StateAndPayload>>,
+    initialState: StateAndPayload,
+    options?: Options
+): ReduxCompatibleReducer<StateAndPayload, StateAndPayload>;
+
+export function handleActions<State, Payload>(
+    reducerMap: Map<string | ActionFunctions<Payload> | CombinedActionType, Reducer<State, Payload>>,
+    initialState: State,
+    options?: Options
+): ReduxCompatibleReducer<State, Payload>;
+
+export function handleActions<State, Payload, Meta>(
+    reducerMap: Map<string | ActionWithMetaFunctions<Payload, Meta> | CombinedActionType, ReducerMeta<State, Payload, Meta>>,
     initialState: State,
     options?: Options
 ): ReduxCompatibleReducerMeta<State, Payload, Meta>;
