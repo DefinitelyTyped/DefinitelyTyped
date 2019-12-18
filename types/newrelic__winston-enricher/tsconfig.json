@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@newrelic/winston-enricher": [
+                "newrelic__winston-enricher"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
