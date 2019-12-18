@@ -1,4 +1,5 @@
 import { Chance } from 'chance';
+
 // Instantiation
 const chance = new Chance();
 const createYourOwn = new Chance(Math.random);
@@ -19,6 +20,11 @@ const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
 const uniqInts2: number[] = chance.unique(a => chance.integer({ min: 0, max: 999 }) + a.value, 99, { value: 1000 });
+
+interface currencyType { name: string; code: string; }
+
+const currencyComparator = (arr: currencyType[], value: currencyType): boolean => arr.findIndex(x => x.code === value.code && x.name === value.name) > -1;
+const uniqCurrencies: currencyType[] = chance.unique(chance.currency, 2, { comparator: currencyComparator });
 
 const currencyPair = chance.currency_pair();
 const firstCurrency = currencyPair[0];
