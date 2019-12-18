@@ -95,7 +95,7 @@ export namespace cleartext {
      * Creates a new CleartextMessage object from text
      * @param text
      */
-    function fromText(text: string): void;
+    function fromText(text: string): CleartextMessage;
 }
 
 /**
@@ -774,6 +774,10 @@ export namespace crypto {
 
             namespace key {
                 class KeyPair {
+                    privateKeyArmored: string;
+                    publicKeyArmored: string;
+                    key?: key.Key;
+                    revocationCertificate?: string;
                 }
             }
         }
