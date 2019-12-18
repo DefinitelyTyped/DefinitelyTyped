@@ -38,8 +38,12 @@ can then leave a thanks comment and hit the merge button.
 
 Constraints which you should consider:
 
+- Will the PR break existing code? 
+  - This can sometimes be hard to decipher from the diff, e.g. an additional only PR may break superclasses of a class
+  - We try to make sure that types are a semver match on `major.min` for the library they represent
+  - A build breaking change therefore can be a trade-off where you have to talk with the library maintainer, and get their sign-offs that it is worth it
+
 - Is it popular? (e.g. do you recognise it) if so, it should probably have two sign-offs
-- Will the PR break existing code? If so, check that there's a semver bump
 - The PR has merge conflicts, you can try edit the PR using the GitHub UI if it's a trivial change, then come back tomorrow
 - The PR has no tests, possibly the package on DT hasn't got tests set up. You can decide if that's a blocker or not depending on how likely the code is going to break existing code
 - The `tslint.json` does not have exceptions to the rules in it
