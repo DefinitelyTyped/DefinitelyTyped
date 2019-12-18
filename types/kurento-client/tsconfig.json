@@ -9,6 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,5 +20,6 @@
     },
     "files": [
         "index.d.ts",
+        "kurento-client-tests.ts"
     ]
 }

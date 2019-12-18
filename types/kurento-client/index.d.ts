@@ -91,14 +91,12 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
 }
 
 declare class KurentoClient {
-    public create(type: 'MediaPipeline'): Promise<MediaPipeline>;
-    public create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
-    public on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
-    public on(event: 'Error', callback: (error: Error) => void): void;
-    public on(event: 'Recording', callback: () => void): void;
-    public on(event: 'Paused', callback: () => void): void;
-    public on(event: 'Stopped', callback: () => void): void;
-    public getMediaobjectById(objectId: string): Promise<any>;
+    create(type: 'MediaPipeline'): Promise<MediaPipeline>;
+    create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
+    on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
+    on(event: 'Error', callback: (error: Error) => void): void;
+    on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
+    getMediaobjectById(objectId: string): Promise<any>;
 }
 
 interface Kurento {
@@ -109,4 +107,4 @@ interface Kurento {
 declare const kurento: Kurento;
 
 export default kurento;
-export { KurentoClient, MediaPipeline, WebRtcEndpoint }
+export { KurentoClient, MediaPipeline, WebRtcEndpoint };
