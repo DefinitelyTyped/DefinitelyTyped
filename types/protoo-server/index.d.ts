@@ -48,13 +48,13 @@ export type WebSocketServerOptions = Pick<IServerConfig, Exclude<keyof IServerCo
 
 export type ConnectionRequestAcceptFn = () => WebSocketTransport;
 
-export type ConnectionRequestRejectFn = ((code: number, reason: string) => void) | ((error: Error) => void);
+export type ConnectionRequestRejectFn = ((code: number, reason: string) => void) & ((error: Error) => void);
 
 export type RequestCb = (request: ProtooRequest, accept: AcceptFn, reject: RejectFn) => void;
 
 export type AcceptFn = (data: any) => void;
 
-export type RejectFn = ((errorCode?: Error) => void) | ((errorCode: number, errorReason: Error | string) => void);
+export type RejectFn = ((errorCode?: Error) => void) & ((errorCode: number, errorReason: Error | string) => void);
 
 export type EmptyCb = () => void;
 
