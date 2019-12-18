@@ -47,7 +47,7 @@ interface DatepickerOptions {
     clearBtn?: boolean;
     container?: string;
     datesDisabled?: string | string[];
-    daysOfWeekDisabled?: number[];
+    daysOfWeekDisabled?: string | number[];
     daysOfWeekHighlighted?: string | number[];
     defaultViewDate?: Date | string | DatepickerViewDate;
     enableOnReadonly?: boolean;
