@@ -9,6 +9,7 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaLabelledBy=""
     autoComplete=""
     autoFocus
     calendarClassName=""
@@ -37,6 +38,7 @@ const defaultLocale = getDefaultLocale();
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
+    inlineFocusSelectedMonth={false}
     isClearable
     locale=""
     maxDate={new Date()}
@@ -48,14 +50,18 @@ const defaultLocale = getDefaultLocale();
     nextMonthButtonLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
+    onCalendarClose={(first: string, second: boolean, third: number) => null}
+    onCalendarOpen={(first: string, second: boolean, third: number) => null}
     onChange={(date: Date | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
+    onDayMouseEnter={(date: Date) => {}}
     onFocus={event => null}
     onInputClick={() => null}
     onInputError={err => err.code + err.msg}
     onKeyDown={event => null}
     onMonthChange={date => null}
+    onMonthMouseLeave={() => {}}
     onSelect={(date, event) => null}
     onWeekSelect={(firstDayOfWeek, weekNumber, event) => null}
     onYearChange={(date: Date) => {}}
@@ -98,8 +104,9 @@ const defaultLocale = getDefaultLocale();
     showMonthDropdown
     showMonthYearDropdown
     showMonthYearPicker
-    showQuarterYearPicker
     showPopperArrow
+    showPreviousMonths
+    showQuarterYearPicker
     showTimeSelect
     showTimeSelectOnly
     showWeekNumbers
@@ -109,6 +116,7 @@ const defaultLocale = getDefaultLocale();
     tabIndex={1}
     timeCaption=""
     timeFormat=""
+    timeInputLabel=""
     timeIntervals={1}
     title=""
     todayButton={<div />}
@@ -119,10 +127,6 @@ const defaultLocale = getDefaultLocale();
     withPortal
     wrapperClassName=""
     yearDropdownItemNumber={1}
-    timeInputLabel=""
-    inlineFocusSelectedMonth={false}
-    onDayMouseEnter={(date: Date) => {}}
-    onMonthMouseLeave={() => {}}
 >
     <div />
     <span />
