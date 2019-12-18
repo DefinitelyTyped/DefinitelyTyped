@@ -4,7 +4,6 @@
 //                 dtinth <https://github.com/dtinth>
 //                 Turadg Aleahmad <https://github.com/turadg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 declare let invariant:invariant.InvariantStatic;
 
@@ -14,7 +13,7 @@ export as namespace invariant;
 declare namespace invariant {
   interface InvariantStatic {
     (testValue:false, format?:string, ...extra:any[]):never;
-    (testValue:any, format?:string, ...extra:any[]):asserts testValue;
+    (testValue:any, format?:string, ...extra:any[]):void;
   }
 }
 
