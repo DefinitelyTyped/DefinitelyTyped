@@ -303,6 +303,7 @@ declare namespace Chart {
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
