@@ -127,7 +127,7 @@ export namespace Plaid {
         mfa_type: string;
         request_id: string;
         timestamp: string;
-        view_name: string;
+        view_name: ViewName;
     }
     interface ExitOptions {
         force: boolean;
