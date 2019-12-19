@@ -508,7 +508,7 @@ export interface Delta {
 	};
 }
 
-export interface GraphNumber {
+export interface PlotNumber {
 	valueformat: string;
 	font: Partial<Font>;
 	prefix: string;
