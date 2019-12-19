@@ -14,6 +14,7 @@
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
+//                 Michael Arnett <https://github.com/marnett-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -597,23 +598,24 @@ export interface PlotData {
 		axis: {
 			range: number[]
 			visible: boolean
-			ticks?: '' | 'outside' | 'inside'
-			ticklen?: number
-			tickwidth?: number
-			tickcolor?: Color
-			tickfont?: { 
-				family?: string
-				size?: number 
-				color?: Color
+			ticks: '' | 'outside' | 'inside'
+			ticklen: number
+			tickwidth: number
+			tickcolor: Color
+			tickfont: {
+				family: string
+				size: number
+				color: Color
 			}
 		}
+		steps: {range: number[], color: Color}[]
 		threshold: {
 			line: {
 				color: Color
 				width: number
 			}
 			value: number
-			thickness?: number
+			thickness: number
 		}
 	};
 	number: {
