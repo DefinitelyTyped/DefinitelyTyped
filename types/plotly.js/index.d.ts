@@ -608,7 +608,7 @@ export interface PlotData {
 				color: Color
 			}
 		}
-		steps: {range: number[], color: Color}[]
+		steps: Array<{range: number[], color: Color}>
 		threshold: {
 			line: {
 				color: Color
