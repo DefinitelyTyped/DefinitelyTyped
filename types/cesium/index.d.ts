@@ -21,6 +21,9 @@ declare namespace Cesium {
         getURL(resource: string): string;
     }
 
+    let Ion: {defaultAccessToken: string, defaultServer: string};
+    let BingMapsApi: {defaultKey: string};
+
     class ArcGisImageServerTerrainProvider extends TerrainProvider {
         constructor(options: { url: string; token?: string; proxy?: any; tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid; credit?: Credit | string });
     }
