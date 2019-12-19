@@ -24,6 +24,11 @@ interface Error {
     type: string;
 }
 
+interface Tag {
+    key: string;
+    value: string;
+}
+
 interface IceConnection {
     streamId: string;
     componentId: number;
@@ -36,20 +41,28 @@ interface IceCandidate {
     sdpMLineIndex: number;
 }
 
+interface ElementConnectionData {
+    source: WebRtcEndpoint;
+    sink: WebRtcEndpoint;
+    type: any;
+    sourceDescription: string;
+    sinkDescription: string;
+}
+
 interface MediaObject {
     id: string;
     name: string;
     tags: object;
-    addTag: (key: string, value: string) => Promise<any>;
-    getTag: (key: string) => Promise<string>;
-    getTags: (callback?: Callback<any>) => Promise<any[]>;
-    removeTag: (key: string) => Promise<any>;
+    addTag: (key: string, value: string, callback?: Callback<void>) => Promise<void>;
+    getTag: (key: string, callback?: Callback<string>) => Promise<string>;
+    getTags: (callback?: Callback<Tag[]>) => Promise<Tag[]>;
+    removeTag: (key: string, callback?: Callback<void>) => Promise<void>;
     getChildren: (callback?: Callback<MediaObject[]>) => Promise<MediaObject[]>;
-    getCreationTime: () => Promise<number>;
+    getCreationTime: (callback?: Callback<number>) => Promise<number>;
     getMediaPipeline: (callback?: Callback<MediaPipeline>) => Promise<MediaPipeline>;
     getParent: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
-    getName: () => Promise<string>;
-    setName: (name: string) => Promise<void>;
+    getName: (callback?: Callback<string>) => Promise<string>;
+    setName: (name: string, callback?: Callback<void>) => Promise<void>;
 }
 
 interface MediaPipeline extends KurentoClient, MediaObject {
@@ -59,9 +72,9 @@ interface MediaPipeline extends KurentoClient, MediaObject {
 }
 
 interface WebRtcEndpoint extends KurentoClient, MediaObject {
-    addIceCandidate: (candidate: RTCIceCandidate) => Promise<void>;
-    closeDataChannel: (channelId: number) => Promise<void>;
-    createDataChannel: (label?: string, ordered?: boolean, maxPacketLifeTime?: number, maxRetransmits?: number, protocol?: string) => Promise<void>;
+    addIceCandidate: (candidate: RTCIceCandidate, callback?: Callback<void>) => Promise<void>;
+    closeDataChannel: (channelId: number, callback?: Callback<void>) => Promise<void>;
+    createDataChannel: (label?: string, ordered?: boolean, maxPacketLifeTime?: number, maxRetransmits?: number, protocol?: string, callback?: Callback<void>) => Promise<void>;
     gatherCandidates: (callback?: Callback<void>) => Promise<void>;
     getConnectionState: (callback?: Callback<any>) => Promise<any>;
     getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
@@ -88,6 +101,9 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
     setTurnUrl: (url: string, callback?: Callback<void>) => Promise<void>;
     getTurnUrl: (callback?: Callback<string>) => Promise<string>;
     processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
+    connect: (endpoint: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    disconnect: (endpoint: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
 }
 
 declare class KurentoClient {
