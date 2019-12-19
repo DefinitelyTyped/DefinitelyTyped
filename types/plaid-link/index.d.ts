@@ -25,10 +25,14 @@ export namespace Plaid {
         onLoad?: OnLoad;
         language?: Language;
         countryCodes?: Country[];
+        webhook?: string;
         userLegalName?: string;
         userEmailAddress?: string;
         token?: string;
         isWebView?: boolean;
+        oauthNonce?: string;
+        oauthRedirectUri?: string;
+        oauthStateId?: string;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
@@ -58,7 +62,8 @@ export namespace Plaid {
         | 'SELECT_INSTITUTION'
         | 'SUBMIT_CREDENTIALS'
         | 'SUBMIT_MFA'
-        | 'TRANSITION_VIEW';
+        | 'TRANSITION_VIEW'
+        | 'SELECT_ACCOUNT';
     type ExitStatus =
         | 'requires_questions'
         | 'requires_selections'
