@@ -477,7 +477,7 @@ export interface Gauge {
 			width: number
 		}
 		thickness: number
-	}
+	};
 	bgcolor: Color;
 	bordercolor: Color;
 	borderwidth: number;
@@ -501,11 +501,11 @@ export interface Delta {
 	increasing: {
 		symbol: string;
 		color: Color;
-	}
+	};
 	decreasing: {
 		symbol: string;
 		color: Color;
-	}
+	};
 }
 
 export interface GraphNumber {
