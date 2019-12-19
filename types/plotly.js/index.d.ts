@@ -617,7 +617,7 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	delta: Partial<Delta>;
 	gauge: Partial<Gauge>;
-	number: Partial<GraphNumber>;
+	number: Partial<PlotNumber>;
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];
