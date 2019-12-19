@@ -117,6 +117,7 @@ declare class KurentoClient {
     on(event: 'Error', callback: (error: Error) => void): void;
     on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
     getMediaobjectById(objectId: string): Promise<any>;
+    close(): void;
 }
 
 interface Kurento {
