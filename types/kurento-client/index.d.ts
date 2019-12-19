@@ -66,8 +66,8 @@ interface MediaObject {
 }
 
 interface MediaElement {
-    connect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
-    disconnect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    connect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
+    disconnect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
     getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
     getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
 }
