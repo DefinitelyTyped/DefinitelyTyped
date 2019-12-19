@@ -475,7 +475,7 @@ export interface Gauge {
 		line: {
 			color: Color
 			width: number
-		}
+		};
 		thickness: number
 	};
 	bgcolor: Color;
@@ -487,7 +487,7 @@ export interface Gauge {
 		line: {
 			color: Color
 			width: number
-		}
+		};
 		value: number
 		thickness: number
 		};
