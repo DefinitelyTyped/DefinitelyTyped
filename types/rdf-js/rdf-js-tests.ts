@@ -14,29 +14,39 @@ function test_terms() {
     const namedNode: NamedNode = <any> {};
     const termType1: string = namedNode.termType;
     const value1: string = namedNode.value;
-    namedNode.equals(someTerm);
+    let namedNodeEqual: boolean = namedNode.equals(someTerm);
+    namedNodeEqual = namedNode.equals(null);
+    namedNodeEqual = namedNode.equals(undefined);
 
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
     const value2: string = blankNode.value;
-    blankNode.equals(someTerm);
+    let blankNodeEqual: boolean = blankNode.equals(someTerm);
+    blankNodeEqual = blankNode.equals(null);
+    blankNodeEqual = blankNode.equals(undefined);
 
     const literal: Literal = <any> {};
     const termType3: string = literal.termType;
     const value3: string = literal.value;
     const language3: string = literal.language;
     const datatype3: NamedNode = literal.datatype;
-    literal.equals(someTerm);
+    let literalEqual: boolean = literal.equals(someTerm);
+    literalEqual = literal.equals(null);
+    literalEqual = literal.equals(undefined);
 
     const variable: Variable = <any> {};
     const termType4: string = variable.termType;
     const value4: string = variable.value;
-    variable.equals(someTerm);
+    let variableEqual = variable.equals(someTerm);
+    variableEqual = variable.equals(null);
+    variableEqual = variable.equals(undefined);
 
     const defaultGraph: DefaultGraph = <any> {};
     const termType5: string = defaultGraph.termType;
     const value5: string = defaultGraph.value;
-    defaultGraph.equals(someTerm);
+    let defaultGraphEqual: boolean = defaultGraph.equals(someTerm);
+    defaultGraphEqual = defaultGraph.equals(null);
+    defaultGraphEqual = defaultGraph.equals(undefined);
 }
 
 function test_quads() {
