@@ -160,6 +160,22 @@ noUiSlider.create(testHtmlElement, {
         'max': 80
     }
 });
+noUiSlider.create(testHtmlElement, {
+    start: 40,
+    connect: 'lower',
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+noUiSlider.create(testHtmlElement, {
+    start: 40,
+    connect: 'upper',
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
 
 /**
  * Margin

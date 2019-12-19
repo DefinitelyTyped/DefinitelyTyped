@@ -24,12 +24,13 @@ declare namespace noUiSlider {
          */
 		range: { [key: string]: number | number[] };
 		/**
-         * The connect setting can be used to control the (green) bar between the handles, or the edges of the slider.
-         * Pass an array with a boolean for every connecting element, including the edges of the slider.
-         * The length of this array must match the handle count + 1.
-         * Setting true sets the bars between the handles, but not between the handles and the sliders edges.
+         * The connect option can be used to control the bar between the handles or the edges of the slider.
+         * If you are using one handle, set the value to either `upper` or `lower`.
+         * For sliders with 2 or more handles, pass an array with a boolean for every connecting element,
+         * including the edges of the slider. The length of this array must match the handle `count + 1`.
+         * Setting `true` sets the bars between the handles, but not between the handles and the sliders edges.
          */
-		connect?: boolean | boolean[];
+		connect?: 'lower' | 'upper' | boolean | boolean[];
 		/**
          * When using two handles, the minimum distance between the handles can be set using the margin option.
          * The margin value is relative to the value set in 'range'.
