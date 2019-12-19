@@ -6,6 +6,7 @@
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 //                 Emma Krantz <https://github.com/KeyboardSounds>
 //                 Wing Ho <https://github.com/soyarsauce>
+//                 Usama Mehmood <https://github.com/UsamaMehmood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
