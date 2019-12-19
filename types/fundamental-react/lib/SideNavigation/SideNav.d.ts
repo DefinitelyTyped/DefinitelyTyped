@@ -1,7 +1,9 @@
 import * as React from "react";
 
-export type SideNavigationProps = {
+export type SideNavProps = {
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Set to **true** to only render icons for each `SideNavListItem`. */
     icons?: boolean;
     /* The `id` of the selected `SideNavListItem`. */
@@ -12,17 +14,9 @@ export type SideNavigationProps = {
 
 export type SideNavListProps = {
     className?: string;
-    /* _INTERNAL USE ONLY._ */
-    hasParent?: boolean;
     headingLevel?: 2 | 3 | 4 | 5 | 6;
-    /* _INTERNAL USE ONLY._ */
-    open?: boolean;
-    /* _INTERNAL USE ONLY._ */
-    selectedId?: string;
     title?: string;
     titleProps?: { [x: string]: any };
-    /* _INTERNAL USE ONLY._ */
-    onItemSelect?: (e: any, id: any) => void;
 } & { [x: string]: any };
 
 export type SideNavListItemProps = {
@@ -30,24 +24,17 @@ export type SideNavListItemProps = {
     expanded?: boolean;
     glyph?: string;
     id?: string;
-    /* _INTERNAL USE ONLY._ */
-    isSubItem?: boolean;
     /* Localized text for the item (when `url` is provided). */
     name?: string;
-    /* _INTERNAL USE ONLY._ */
-    selected?: boolean;
-    /* _INTERNAL USE ONLY._ */
-    selectedId?: string;
     /* Enables use of `<a>` element. Value to be applied to the anchor\'s `href` attribute. */
     url?: string;
     onClick?: (e: React.MouseEvent) => void;
-    /* _INTERNAL USE ONLY._ */
-    onItemSelect?: (e: React.MouseEvent, id: any, hasChild: boolean) => void;
 } & { [x: string]: any };
 
-declare class SideNav extends React.Component<SideNavigationProps> {
-    static List: React.ComponentClass<SideNavListProps>;
-    static ListItem: React.ComponentClass<SideNavListItemProps>;
+declare class SideNav extends React.Component<SideNavProps> {
+    static displayName: "SideNav";
+    static List: React.ComponentClass<SideNavListProps> & {displayName: "SideNav.List"};
+    static ListItem: React.ComponentClass<SideNavListItemProps> & {displayName: "SideNav.ListItem"};
 }
 
 export default SideNav;

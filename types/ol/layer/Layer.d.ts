@@ -8,15 +8,35 @@ import Source from '../source/Source';
 import State_1 from '../source/State';
 import BaseLayer from './Base';
 
-export function visibleAtResolution(layerState: State, resolution: number): boolean;
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    source?: Source;
+    map?: PluggableMap;
+}
+export interface State {
+    layer: BaseLayer;
+    opacity: number;
+    sourceState: State_1;
+    visible: boolean;
+    managed: boolean;
+    extent?: Extent;
+    zIndex: number;
+    maxResolution: number;
+    minResolution: number;
+}
 export default class Layer extends BaseLayer {
     constructor(options: Options);
     getSource(): Source;
     setMap(map: PluggableMap): void;
     setSource(source: Source): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -57,24 +77,4 @@ export default class Layer extends BaseLayer {
     once(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'rendercomplete', listener: (evt: RenderEvent) => void): void;
 }
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    source?: Source;
-    map?: PluggableMap;
-}
-export interface State {
-    layer: BaseLayer;
-    opacity: number;
-    sourceState: State_1;
-    visible: boolean;
-    managed: boolean;
-    extent?: Extent;
-    zIndex: number;
-    maxResolution: number;
-    minResolution: number;
-}
+export function visibleAtResolution(layerState: State, resolution: number): boolean;

@@ -1,8 +1,8 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
-import Button from "../button";
-import Dashicon from "../dashicon";
-import Popover from "../popover";
+import Button from '../button';
+import Dashicon from '../dashicon';
+import Popover from '../popover';
 import Shortcut from '../shortcut';
 
 declare namespace IconButton {
@@ -10,7 +10,7 @@ declare namespace IconButton {
         /**
          * Icon to use. Either a Dashicon slug or a custom component.
          */
-        icon: Dashicon.Icon | ComponentType;
+        icon: Dashicon.Icon | JSX.Element;
         shortcut?: Shortcut.ShortcutType;
         /**
          * Label for the button.

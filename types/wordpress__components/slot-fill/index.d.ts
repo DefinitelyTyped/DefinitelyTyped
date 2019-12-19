@@ -1,8 +1,8 @@
-import { FC } from "@wordpress/element";
+import { FC } from '@wordpress/element';
 
-import Slot from "./slot";
-import Fill from "./fill";
-import Provider, { Consumer } from "./context";
+import Slot from './slot';
+import Fill from './fill';
+import Provider, { Consumer } from './context';
 
 export { Slot, Fill, Provider, Consumer };
 

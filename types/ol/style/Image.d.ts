@@ -3,6 +3,12 @@ import Event from '../events/Event';
 import ImageState from '../ImageState';
 import { Size } from '../size';
 
+export interface Options {
+    opacity: number;
+    rotateWithView: boolean;
+    rotation: number;
+    scale: number;
+}
 export default class ImageStyle {
     constructor(options: Options);
     clone(): ImageStyle;
@@ -19,18 +25,12 @@ export default class ImageStyle {
     getScale(): number;
     getSize(): Size;
     getSnapToPixel(): boolean;
-    listenImageChange<T>(listener: ((this: T, p1: Event) => void), thisArg: T): EventsKey;
+    listenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): EventsKey | undefined;
     load(): void;
     setOpacity(opacity: number): void;
     setRotateWithView(rotateWithView: boolean): void;
     setRotation(rotation: number): void;
     setScale(scale: number): void;
     setSnapToPixel(snapToPixel: boolean): void;
-    unlistenImageChange<T>(listener: ((this: T, p1: Event) => void), thisArg: T): void;
-}
-export interface Options {
-    opacity: number;
-    rotateWithView: boolean;
-    rotation: number;
-    scale: number;
+    unlistenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): void;
 }

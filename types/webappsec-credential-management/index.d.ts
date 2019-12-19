@@ -1,7 +1,8 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.3
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.5
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 //                 Joao Peixoto <https://github.com/Hartimer>
+//                 Michael J. Currie <https://github.com/Basaingeal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -123,7 +124,7 @@ interface CredentialData {
      * The credential’s identifier. This might be a GUID, username, or email
      * address, for instance.
      */
-    id: string;
+    readonly id: string;
 }
 
 type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
@@ -133,13 +134,12 @@ type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential
  * will inherit.
  * @see {@link https://www.w3.org/TR/credential-management-1/#credential}
  */
-declare abstract class CredentialBase {
+interface Credential {
     /**
      * The credential’s identifier. This might be a GUID, username, or email
      * address, for instance.
      */
     readonly id: string;
-
     /**
      * The credential’s type.
      */
@@ -169,7 +169,9 @@ interface SiteBoundCredentialData extends CredentialData {
  * agent’s credential
  * store.
  */
-declare abstract class SiteBoundCredential extends CredentialBase {
+// tslint:disable-next-line no-empty-interface
+interface SiteBoundCredential extends Credential { }
+declare abstract class SiteBoundCredential {
     /**
      * A name associated with the credential, intended as a human-understandable
      * public name.
@@ -371,16 +373,21 @@ interface FederatedCredentialRequestOptions {
 
 // Type definitions for webauthn
 // Spec: https://w3c.github.io/webauthn/
+interface txAuthGenericArg {
+    content: ArrayBuffer;
+    contentType: string;
+}
 
-/**
- * @see {@link https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype}
- */
-type PublicKeyCredentialType = "public-key";
-
-/**
- * @see {@link https://w3c.github.io/webauthn/#enumdef-userverificationrequirement}
- */
-type UserVerificationRequirement = "required" | "preferred" | "discouraged";
+interface AuthenticationExtensionsClientInputs {
+    appid?: string;
+    authnSel?: Array<ArrayBufferView | ArrayBuffer>;
+    exts?: boolean;
+    loc?: boolean;
+    txAuthGeneric?: txAuthGenericArg;
+    txAuthSimple?: string;
+    uvi?: boolean;
+    uvm?: boolean;
+}
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions}
@@ -390,24 +397,30 @@ interface PublicKeyCredentialRequestOptions {
     timeout?: number;
     rpId?: string;
     allowCredentials?: PublicKeyCredentialDescriptor[];
-    userVerification?: UserVerificationRequirement;
-    extensions?: any;
+    userVerification?: "required" | "preferred" | "discouraged";
+    extensions?: AuthenticationExtensionsClientInputs;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialentity}
+ */
+interface PublicKeyCredentialEntity {
+    icon?: string;
+    name: string;
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
-interface PublicKeyCredentialRpEntity {
-    id: string;
-    name: string;
+interface PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
+    id?: string;
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialuserentity}
  */
-interface PublicKeyCredentialUserEntity {
+interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
     id: BufferSource;
-    name: string;
     displayName: string;
 }
 
@@ -415,42 +428,27 @@ interface PublicKeyCredentialUserEntity {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
  */
 interface PublicKeyCredentialParameters {
-    type: PublicKeyCredentialType;
+    type: "public-key";
     alg: number;
 }
-
-/**
- * @see {@link https://w3c.github.io/webauthn/#transport}
- */
-type AuthenticatorTransport = "usb" | "nfc" | "ble" | "internal";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
  */
 interface PublicKeyCredentialDescriptor {
-    type: PublicKeyCredentialType;
+    type: "public-key";
     id: BufferSource;
-    transports?: AuthenticatorTransport[];
+    transports?: Array<"usb" | "nfc" | "ble" | "internal">;
 }
-
-/**
- * @see {@link https://w3c.github.io/webauthn/#attachment}
- */
-type AuthenticatorAttachment = "platform" | "cross-platform";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
  */
 interface AuthenticatorSelectionCriteria {
-    authenticatorAttachment?: AuthenticatorAttachment;
+    authenticatorAttachment?: "platform" | "cross-platform";
     requireResidentKey?: boolean;
-    requireUserVerification?: UserVerificationRequirement;
+    userVerification?: "required" | "preferred" | "discouraged";
 }
-
-/**
- * @see {@link https://w3c.github.io/webauthn/#attestation-convey}
- */
-type AttestationConveyancePreference = "none" | "indirect" | "direct";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-makepublickeycredentialoptions}
@@ -465,8 +463,8 @@ interface PublicKeyCredentialCreationOptions {
     timeout?: number;
     excludeCredentials?: PublicKeyCredentialDescriptor[];
     authenticatorSelection?: AuthenticatorSelectionCriteria;
-    attestation?: AttestationConveyancePreference;
-    extensions?: any;
+    attestation?: "none" | "indirect" | "direct";
+    extensions?: AuthenticationExtensionsClientInputs;
 }
 
 /**
@@ -495,8 +493,8 @@ interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
 /**
  * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
  */
-interface PublicKeyCredential extends CredentialData {
-    readonly type: PublicKeyCredentialType;
+interface PublicKeyCredential extends Credential {
+    readonly type: "public-key";
     readonly rawId: ArrayBuffer;
-    readonly response: AuthenticatorAttestationResponse|AuthenticatorAssertionResponse;
+    readonly response: AuthenticatorResponse;
 }

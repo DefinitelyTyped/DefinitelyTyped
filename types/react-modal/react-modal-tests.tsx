@@ -50,7 +50,8 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     const customAriaVariables = {
       labelledby: 'labelledby',
-      describedby: 'describedby'
+      describedby: 'describedby',
+      modal: true,
     };
     const customDataVariables = {
       dataOne: 'one',
@@ -81,3 +82,13 @@ class ExampleOfUsingReactModal extends React.Component {
     );
   }
 }
+
+const MyWrapperComponent: React.FC = () => {
+    const reactModaRef = React.useRef<ReactModal>();
+
+    React.useLayoutEffect(() => {
+        reactModaRef.current.portal.content.focus();
+    });
+
+    return <ReactModal isOpen ref={reactModaRef}>Hello, World!</ReactModal>;
+};

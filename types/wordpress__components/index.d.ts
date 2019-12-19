@@ -1,10 +1,11 @@
-// Type definitions for @wordpress/components 7.4
+// Type definitions for @wordpress/components 8.2
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
-export * from "./primitives";
+export * from './primitives';
 
 //
 // Components

@@ -1,6 +1,7 @@
 // Type definitions for promise.allsettled 1.0
 // Project: https://github.com/ljharb/promise.allsettled#readme
 // Definitions by: Martin Jurča <https://github.com/jurca>
+//                 Elizabeth Lorenz <https://github.com/kisaraofpern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -28,6 +29,6 @@ export = exportedImplementation;
 declare namespace exportedImplementation {
     type PromiseRejection<E> = PromiseRejectionType<E>;
     type PromiseResolution<T> = PromiseResolutionType<T>;
-    type PromiseResult<T, E> = PromiseResultType<T, E>;
+    type PromiseResult<T, E = unknown> = PromiseResultType<T, E>;
     type PromiseResultTuple<T extends [unknown, ...unknown[]]> = PromiseResultTupleType<T>;
 }

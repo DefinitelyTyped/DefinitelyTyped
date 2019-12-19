@@ -43,6 +43,7 @@ import * as net from 'net';
     const incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
 
     incoming.setEncoding('utf8');
+    incoming.setTimeout(1000).setTimeout(100, () => {});
 
     // stream
     incoming.pause();
@@ -69,6 +70,9 @@ import * as net from 'net';
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
+
+    // writeProcessing
+    res.writeProcessing();
 
     // write string
     res.write('Part of my res.');
@@ -138,6 +142,8 @@ import * as net from 'net';
     http.request({ agent: false });
     http.request({ agent });
     http.request({ agent: undefined });
+    // ensure compatibility with url.parse()
+    http.request(url.parse("http://www.example.org/xyz"));
 }
 
 {

@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
 
 declare namespace Autocomplete {
@@ -8,12 +8,12 @@ declare namespace Autocomplete {
      *   - `replace`: Replace the current block with the block specified in
      *      the `value` property.
      */
-    type Action = "insert-at-caret" | "replace";
+    type Action = 'insert-at-caret' | 'replace';
 
     type OptionCompletion =
         | ReactNode
-        | { action: "insert-at-caret"; value: ReactNode }
-        | { action: "replace"; value: Value };
+        | { action: 'insert-at-caret'; value: ReactNode }
+        | { action: 'replace'; value: Value };
 
     interface Completer<T> {
         /**
@@ -37,9 +37,7 @@ declare namespace Autocomplete {
          * those options are rendered and what their completions should be when
          * selected.
          */
-        options:
-            | ((query: string) => PromiseLike<readonly T[]> | readonly T[])
-            | readonly T[];
+        options: ((query: string) => PromiseLike<readonly T[]> | readonly T[]) | readonly T[];
 
         /**
          * A class name to apply to the autocompletion popup menu.

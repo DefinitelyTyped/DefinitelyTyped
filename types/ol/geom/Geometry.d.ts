@@ -3,7 +3,7 @@ import { EventsKey } from '../events';
 import Event from '../events/Event';
 import { Extent } from '../extent';
 import BaseObject, { ObjectEvent } from '../Object';
-import { TransformFunction, ProjectionLike } from '../proj';
+import { ProjectionLike, TransformFunction } from '../proj';
 import GeometryType from './GeometryType';
 
 export default class Geometry extends BaseObject {
@@ -27,9 +27,9 @@ export default class Geometry extends BaseObject {
     simplify(tolerance: number): Geometry;
     transform(source: ProjectionLike, destination: ProjectionLike): Geometry;
     translate(deltaX: number, deltaY: number): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

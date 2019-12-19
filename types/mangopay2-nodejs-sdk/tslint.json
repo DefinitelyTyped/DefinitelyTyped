@@ -5,6 +5,7 @@
         "no-misused-new": false,
         "no-empty-interface": false,
         "interface-name": false,
-        "no-unnecessary-class": false
+        "no-unnecessary-class": false,
+        "npm-naming": false
     }
 }

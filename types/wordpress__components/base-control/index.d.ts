@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
 declare namespace BaseControl {
     interface ControlProps {
@@ -7,6 +7,12 @@ declare namespace BaseControl {
          * property as the content.
          */
         label?: ReactNode;
+
+        /**
+         * If true, the label will only be visible to screen readers.
+         */
+        hideLabelFromVision?: boolean;
+
         /**
          * If this property is added, a help text will be generated using help
          * property as the content.

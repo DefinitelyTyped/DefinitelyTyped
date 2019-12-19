@@ -2,6 +2,7 @@
 // Project: https://github.com/styled-components/styled-theming#readme
 // Definitions by: Arjan Jassal <https://github.com/ArjanJ>
 //                 Hieu Ho <https://github.com/hieuhlc>
+//                 David Daniell <https://github.com/tinynumbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -10,8 +11,12 @@ import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from "styled-comp
 declare function theme(name: string, values: theme.ThemeMap): theme.ThemeSet;
 
 declare namespace theme {
-    type ThemeValueFn = (props: object) => string;
-    type ThemeValue = string | ThemeValueFn | FlattenInterpolation<ThemeProps<any>> | FlattenInterpolation<ThemedStyledProps<any, any>>;
+    type ThemeValueResult =
+        string
+        | FlattenInterpolation<ThemeProps<any>>
+        | FlattenInterpolation<ThemedStyledProps<any, any>>;
+    type ThemeValueFn = (props: object) => ThemeValueResult;
+    type ThemeValue = ThemeValueFn | ThemeValueResult;
 
     interface ThemeMap {
         [key: string]: ThemeValue;

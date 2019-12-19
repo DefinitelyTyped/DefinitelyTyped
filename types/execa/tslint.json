@@ -1,8 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // All are TODOs
-        "await-promise": false,
-        "no-boolean-literal-compare": false
-    }
-}

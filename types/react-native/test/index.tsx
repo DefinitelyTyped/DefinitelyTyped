@@ -16,9 +16,6 @@ import * as React from "react";
 import {
     Alert,
     AppState,
-    AppStateIOS,
-    AlertIOS,
-    BackAndroid,
     BackHandler,
     Button,
     CheckBox,
@@ -79,7 +76,6 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
-    WebView,
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
@@ -87,11 +83,12 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
-    NetInfo,
     PermissionsAndroid,
     Platform,
     ProgressBarAndroid,
     PushNotificationIOS,
+    AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -122,8 +119,6 @@ function testDimensions() {
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
-
-BackAndroid.addEventListener("hardwareBackPress", () => {});
 
 interface LocalStyles {
     container: ViewStyle;
@@ -239,8 +234,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -310,11 +306,6 @@ function appStateTest() {
     AppState.addEventListener("change", appStateListener);
 }
 
-function appStateIOSTest() {
-    console.log("Current state: " + AppStateIOS.currentState);
-    AppStateIOS.addEventListener("change", appStateListener);
-}
-
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
@@ -369,17 +360,24 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: SectionList<any>;
+    myList: React.RefObject<SectionList<string>>;
+
+    constructor(props: SectionListProps<string>) {
+        super(props);
+        this.myList = React.createRef();
+    }
 
     scrollMe = () => {
-        this.myList.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+        this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
     };
 
     render() {
@@ -404,7 +402,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                 <Button title="Press" onPress={this.scrollMe} />
 
                 <SectionList
-                    ref={(ref: any) => (this.myList = ref)}
+                    ref={this.myList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
                         <View>
@@ -533,6 +531,32 @@ class AlertTest extends React.Component {
         return <Button title="Press me" onPress={this.showAlert} />;
     }
 }
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
 
 class MaskedViewTest extends React.Component {
     render() {
@@ -685,21 +709,6 @@ class StatusBarTest extends React.Component {
     }
 }
 
-class WebViewTest extends React.Component {
-    render() {
-        return (
-            <WebView
-                nativeConfig={{ component: "test", props: {}, viewManager: {} }}
-                onShouldStartLoadWithRequest={event => event.navigationType !== "formresubmit"}
-                originWhitelist={["https://origin.test"]}
-                saveFormDataDisabled={false}
-                useWebKit={true}
-                allowFileAccess={true}
-            />
-        );
-    }
-}
-
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
@@ -778,6 +787,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
@@ -789,28 +799,9 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
-const AlertIOSTest = () => {
-    AlertIOS.prompt(
-        "My Prompt",
-        "Enter your email",
-        [
-            {
-                text: "Cancel",
-                style: "cancel",
-            },
-            {
-                text: "Add",
-                onPress: (value: string) => {
-                    console.log(value);
-                },
-            },
-        ],
-        "default",
-        "email-address"
-    );
-};
+const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
@@ -883,11 +874,6 @@ const KeyboardTest = () => {
     subscriber.remove();
 }
 
-const NetInfoTest = () => {
-    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
-    subscription.remove();
-}
-
 const PermissionsAndroidTest = () => {
     PermissionsAndroid.request('android.permission.CAMERA').then(result => {
         switch (result) {
@@ -950,6 +936,13 @@ const ProgressBarAndroidTest = () => {
 
 // Push notification
 const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+
     PushNotificationIOS.scheduleLocalNotification({
         alertAction: 'view',
         alertBody: 'Look at me!',
@@ -964,3 +957,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;

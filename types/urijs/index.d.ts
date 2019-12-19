@@ -5,8 +5,19 @@
 //                 Pete Johanson <https://github.com/petejohanson>
 //                 Zhibin Liu <https://github.com/ljqx>
 //                 TeamworkGuy2 <https://github.com/teamworkguy2>
+//                 Akuukis <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
+
+// urijs uses DOM dependencies which are absent in browserless envoronment like node.js.
+// to avoid compiler errors this monkey patch is used. See more details in:
+// - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
+// - rxjs: https://github.com/ReactiveX/rxjs/issues/1986
+/// <reference path="./dom-monkeypatch.d.ts" />
+
+// Compatability with node.js
+// tslint:disable-next-line:no-empty-interface
+interface HTMLElement { }
 
 declare namespace uri {
     interface URI {
@@ -192,7 +203,12 @@ declare namespace uri {
         encode(str: string): string;
         encodeQuery(qry: string): string;
         encodeReserved(str: string): string;
-        expand(template: string, vals: object): URI;
+
+        /**
+         * @description Wrapper for `URITemplate#expand`. Only present after
+         *              importing `urijs/src/URITemplate` explicitly.
+         */
+        expand?: (template: string, vals: object) => URI;
 
         iso8859(): void;
 

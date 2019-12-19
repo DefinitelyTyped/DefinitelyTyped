@@ -1,4 +1,11 @@
 import * as webdriver from './index';
+import * as remote from './remote';
+
+/**
+ * IEDriverServer logging levels.
+ * @enum {string}
+ */
+export type Level = 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE';
 
 /**
  * A WebDriver client for Microsoft's Internet Explorer.
@@ -7,11 +14,14 @@ export class Driver extends webdriver.WebDriver {
   /**
    * Creates a new session for Microsoft's Internet Explorer.
    *
-   * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
-   *     options.
+   * @param {(Capabilities|Options)=} options The configuration options.
+   * @param {(remote.DriverService)=} opt_service The `DriverService` to use
+   *   to start the IEDriverServer in a child process, optionally.
    * @return {!Driver} A new driver instance.
    */
-  static createSession(opt_config?: webdriver.Capabilities|Options): Driver;
+  static createSession(
+    options?: webdriver.Capabilities|Options,
+    opt_service?: remote.DriverService): Driver;
 
   /**
    * This function is a no-op as file detectors are not supported by this
@@ -159,7 +169,7 @@ export class Options extends webdriver.Capabilities {
    * @param {Level} level The logging level.
    * @return {!Options} A self reference.
    */
-  setLogLevel(level: webdriver.logging.Level): Options;
+  setLogLevel(level: Level): Options;
 
   /**
    * Sets the IP address of the driver's host adapter.
@@ -188,4 +198,17 @@ export class Options extends webdriver.Capabilities {
    * @return {!Options} A self reference.
    */
   setProxy(proxy: webdriver.ProxyConfig): Options;
+}
+
+/**
+ * Creates {@link selenium-webdriver/remote.DriverService} instances that manage
+ * an [IEDriverServer](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver)
+ * server in a child process.
+ */
+export class ServiceBuilder extends remote.DriverService.Builder {
+  /**
+   * @param {string=} opt_exe Path to the server executable to use. If omitted,
+   *     the builder will attempt to locate the IEDriverServer on the system PATH.
+   */
+  constructor(opt_exe?: string);
 }

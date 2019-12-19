@@ -8,7 +8,6 @@ import PluggableMap, { FrameState } from '../PluggableMap';
 import EventType from '../render/EventType';
 import LayerRenderer from './Layer';
 
-export function sortByZIndex(state1: State, state2: State): number;
 export default class MapRenderer extends Disposable {
     constructor(map: PluggableMap);
     protected calculateMatrices2D(frameState: FrameState): void;
@@ -18,11 +17,28 @@ export default class MapRenderer extends Disposable {
     protected scheduleExpireIconCache(frameState: FrameState): void;
     protected scheduleRemoveUnusedLayerRenderers(frameState: FrameState): void;
     dispatchRenderEvent(type: EventType, frameState: FrameState): void;
-    forEachFeatureAtCoordinate<S, T, U>(coordinate: Coordinate, frameState: FrameState, hitTolerance: number, callback: ((this: S, p1: FeatureLike, p2: Layer) => T), thisArg: S, layerFilter: ((this: U, p1: Layer) => boolean), thisArg2: U): T;
-    forEachLayerAtPixel<S, T, U>(pixel: Pixel, frameState: FrameState, hitTolerance: number, callback: ((this: S, p1: Layer, p2: Uint8ClampedArray | Uint8Array) => T), thisArg: S, layerFilter: ((this: U, p1: Layer) => boolean), thisArg2: U): T;
+    forEachFeatureAtCoordinate<S, T, U>(
+        coordinate: Coordinate,
+        frameState: FrameState,
+        hitTolerance: number,
+        callback: (this: S, p0: FeatureLike, p1: Layer) => T,
+        thisArg: S,
+        layerFilter: (this: U, p0: Layer) => boolean,
+        thisArg2: U
+    ): T | undefined;
+    forEachLayerAtPixel<S, T, U>(
+        pixel: Pixel,
+        frameState: FrameState,
+        hitTolerance: number,
+        callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T,
+        thisArg: S,
+        layerFilter: (this: U, p0: Layer) => boolean,
+        thisArg2: U
+    ): T | undefined;
     getMap(): PluggableMap;
-    hasFeatureAtCoordinate<U>(coordinate: Coordinate, frameState: FrameState, hitTolerance: number, layerFilter: ((this: U, p1: Layer) => boolean), thisArg: U): boolean;
+    hasFeatureAtCoordinate<U>(coordinate: Coordinate, frameState: FrameState, hitTolerance: number, layerFilter: (this: U, p0: Layer) => boolean, thisArg: U): boolean;
     registerLayerRenderers(constructors: LayerRenderer[]): void;
     removeLayerRenderers(): void;
     renderFrame(frameState: FrameState): void;
 }
+export function sortByZIndex(state1: State, state2: State): number;

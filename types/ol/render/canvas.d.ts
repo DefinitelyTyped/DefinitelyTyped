@@ -4,9 +4,6 @@ import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
 
-export function drawImage(context: CanvasRenderingContext2D, transform: Transform, opacity: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, originX: number, originY: number, w: number, h: number, x: number, y: number, scale: number): void;
-export function measureTextWidth(font: string, text: string): number;
-export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;
 export type DeclutterGroup = any[];
 export interface FillState {
     fillStyle: ColorLike;
@@ -30,7 +27,6 @@ export interface FillStrokeState {
     lineWidth?: number;
     miterLimit?: number;
 }
-export const labelCache: LRUCache<HTMLCanvasElement>;
 export interface StrokeState {
     lineCap: string;
     lineDash: number[];
@@ -52,3 +48,19 @@ export interface TextState {
     scale?: number;
     padding?: number[];
 }
+export const labelCache: LRUCache<HTMLCanvasElement>;
+export function drawImage(
+    context: CanvasRenderingContext2D,
+    transform: Transform | null,
+    opacity: number,
+    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+    originX: number,
+    originY: number,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    scale: number
+): void;
+export function measureTextWidth(font: string, text: string): number;
+export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;

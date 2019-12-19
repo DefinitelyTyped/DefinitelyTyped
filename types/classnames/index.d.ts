@@ -7,14 +7,11 @@
 //                 Michal Adamczyk <https://github.com/mradamczyk>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Josh McCullough <https://github.com/joshmccullough>
+//                 uhyo <https://github.com/uhyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ClassValue } from './types';
-
-type ClassNamesFn = (...classes: ClassValue[]) => string;
-
-type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };
+import { ClassValue, ClassNamesExport } from './types';
 
 declare const classNames: ClassNamesExport;
 

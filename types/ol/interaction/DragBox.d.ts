@@ -8,13 +8,26 @@ import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
 import PointerInteraction from './Pointer';
 
+export type EndCondition = (this: any, p0: MapBrowserEvent, p1: Pixel, p2: Pixel) => boolean;
+export interface Options {
+    className?: string;
+    condition?: Condition;
+    minArea?: number;
+    boxEndCondition?: EndCondition;
+    onBoxEnd: (this: DragBox, p0: MapBrowserEvent) => void;
+}
+export enum DragBoxEventType {
+    BOXSTART = 'boxstart',
+    BOXDRAG = 'boxdrag',
+    BOXEND = 'boxend',
+}
 export default class DragBox extends PointerInteraction {
     constructor(opt_options?: Options);
     defaultBoxEndCondition(mapBrowserEvent: MapBrowserEvent, startPixel: Pixel, endPixel: Pixel): boolean;
     getGeometry(): Polygon;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): void;
@@ -38,17 +51,4 @@ export class DragBoxEvent extends Event {
     constructor(type: string, coordinate: Coordinate, mapBrowserEvent: MapBrowserEvent);
     coordinate: Coordinate;
     mapBrowserEvent: MapBrowserEvent;
-}
-export enum DragBoxEventType {
-    BOXSTART = 'boxstart',
-    BOXDRAG = 'boxdrag',
-    BOXEND = 'boxend',
-}
-export type EndCondition = ((this: any, p1: MapBrowserEvent, p2: Pixel, p3: Pixel) => boolean);
-export interface Options {
-    className?: string;
-    condition?: Condition;
-    minArea?: number;
-    boxEndCondition?: EndCondition;
-    onBoxEnd: ((this: DragBox, p1: MapBrowserEvent) => void);
 }

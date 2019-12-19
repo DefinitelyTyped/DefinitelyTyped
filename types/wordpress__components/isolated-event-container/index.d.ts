@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
 declare namespace IsolatedEventContainer {
     type Props = HTMLProps<HTMLDivElement>;

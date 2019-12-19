@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from "@wordpress/element";
+import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
 
 declare namespace ButtonGroup {
     interface Props extends HTMLProps<HTMLDivElement> {

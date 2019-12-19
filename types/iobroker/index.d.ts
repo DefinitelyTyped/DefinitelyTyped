@@ -243,7 +243,7 @@ declare global {
         // Maybe this should extend Record<string, any>,
         // but the extra properties aren't defined anywhere,
         // so I'd rather force the user to explicitly state
-        // he knows what he's doing by casting to any
+        // they know what they're doing by casting to any
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -521,7 +521,7 @@ declare global {
         /** Provides low-level access to the ioBroker objects db */
         interface Objects {
             /**
-             * For a given user, returns the groups he belongs to, and his access rights
+             * For a given user, returns the groups they belong to, and their access rights
              * @param user Name of the user. Has to start with "system.user."
              * @param callback The callback function to be invoked with the return values
              */
@@ -791,8 +791,8 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getObjectView(design: string, search: string, params: GetObjectViewParams | null, callback: GetObjectViewCallback): void;
-            getObjectView(design: string, search: string, params: GetObjectViewParams | null, options: unknown, callback: GetObjectViewCallback): void;
+            getObjectView(design: string, search: string, params: GetObjectViewParams | null | undefined, callback: GetObjectViewCallback): void;
+            getObjectView(design: string, search: string, params: GetObjectViewParams | null | undefined, options: unknown, callback: GetObjectViewCallback): void;
 
             /**
              * Extends an object in the object db with new properties
@@ -811,8 +811,8 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            findObject(idOrName: string, type: CommonType | null, callback: FindObjectCallback): void;
-            findObject(idOrName: string, type: CommonType | null, options: unknown, callback: FindObjectCallback): void;
+            findObject(idOrName: string, type: CommonType | null | undefined, callback: FindObjectCallback): void;
+            findObject(idOrName: string, type: CommonType | null | undefined, options: unknown, callback: FindObjectCallback): void;
 
             // I'd rather not document a function with the name "destroyDB"
 
@@ -1186,6 +1186,29 @@ declare global {
              * @param id - The id of the object including namespace
              */
             delForeignObjectAsync(id: string, options?: unknown): Promise<void>;
+
+            /**
+             * Query a predefined object view (similar to SQL stored procedures) and return the results
+             * For a detailed description refer to https://github.com/ioBroker/ioBroker/wiki/Adapter-Development-Documentation#object-fields
+             * or http://guide.couchdb.org/editions/1/en/views.html
+             * @param design The namespace of the object view, as defined in io-package.json. Usually the adapter name, e.g. "hm-rpc"
+             * @param search The name of the object view.
+             * @param params Parameters to additionally filter out objects from the return list. Null to include all objects
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            getObjectView(design: string, search: string, params: GetObjectViewParams | null | undefined, callback: GetObjectViewCallback): void;
+            getObjectView(design: string, search: string, params: GetObjectViewParams | null | undefined, options: unknown, callback: GetObjectViewCallback): void;
+            /**
+             * Query a predefined object view (similar to SQL stored procedures) and return the results
+             * For a detailed description refer to https://github.com/ioBroker/ioBroker/wiki/Adapter-Development-Documentation#object-fields
+             * or http://guide.couchdb.org/editions/1/en/views.html
+             * @param design The namespace of the object view, as defined in io-package.json. Usually the adapter name, e.g. "hm-rpc"
+             * @param search The name of the object view.
+             * @param params Parameters to additionally filter out objects from the return list. Null to include all objects
+             * @param options (optional) Some internal options.
+             */
+            getObjectViewAsync(design: string, search: string, params: GetObjectViewParams | null | undefined, options?: unknown): Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
 
             // ==============================
             // states

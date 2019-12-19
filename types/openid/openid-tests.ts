@@ -9,4 +9,4 @@ const relyingParty = new openid.RelyingParty(
 
 relyingParty.authenticate('...', false, (err, authUrl) => {});
 
-relyingParty.verifyAssertion('...', (err) => {});
+relyingParty.verifyAssertion('...', (err, result) => {});

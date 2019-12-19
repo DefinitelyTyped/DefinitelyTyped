@@ -1,6 +1,6 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
-import Notice from "../notice";
+import Notice from '../notice';
 
 declare namespace Snackbar {
     interface Props {

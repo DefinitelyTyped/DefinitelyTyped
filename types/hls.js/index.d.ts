@@ -4,6 +4,7 @@
 //                 Johan Brook <https://github.com/brookback>
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 Alexey I. Berezin <https://github.com/beraliv>
+//                 Arkadiusz Babiarz <https://github.com/drax98>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -350,6 +351,15 @@ declare namespace Hls {
         log?: CustomLogger;
         debug?: CustomLogger;
         error?: CustomLogger;
+    }
+
+    interface AudioTrack {
+        buffer: SourceBuffer;
+        container: string;
+        codec: string;
+        id: string;
+        initSegment?: Uint8Array;
+        levelCodec: string;
     }
 
     interface Config {

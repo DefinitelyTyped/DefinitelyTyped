@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Cache {
+  namespace Cache {
     /**
      * A reference to a particular cache.
      *
@@ -27,17 +27,16 @@ declare namespace GoogleAppsScript {
      *       return contents;
      *     }
      */
-    export interface Cache {
-      get(key: string): string;
-      getAll(keys: string[]): any;
+    interface Cache {
+      get(key: string): string | null;
+      getAll(keys: string[]): { [key: string]: any };
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
-      putAll(values: any): void;
-      putAll(values: any, expirationInSeconds: Integer): void;
+      putAll(values: { [key: string]: any }): void;
+      putAll(values: { [key: string]: any }, expirationInSeconds: Integer): void;
       remove(key: string): void;
       removeAll(keys: string[]): void;
     }
-
     /**
      * CacheService allows you to access a cache for short term storage of data.
      *
@@ -48,12 +47,11 @@ declare namespace GoogleAppsScript {
      * The data you write to the cache is not guaranteed to persist until its expiration time. You
      * must be prepared to get back null from all reads.
      */
-    export interface CacheService {
-      getDocumentCache(): Cache;
-      getScriptCache(): Cache;
-      getUserCache(): Cache;
+    interface CacheService {
+      getDocumentCache(): Cache | null;
+      getScriptCache(): Cache | null;
+      getUserCache(): Cache | null;
     }
-
   }
 }
 

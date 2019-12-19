@@ -39,6 +39,7 @@ declare namespace debug {
     interface Debugger {
         (formatter: any, ...args: any[]): void;
 
+        color: string;
         enabled: boolean;
         log: (...args: any[]) => any;
         namespace: string;

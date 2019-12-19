@@ -2,6 +2,7 @@
 // Project: https://github.com/OpenBookPrices/country-data
 // Definitions by: Logan Dam <https://github.com/biltongza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 export interface Country {
     readonly alpha2: string;
@@ -41,6 +42,8 @@ export interface Region {
 }
 
 export const countries: {
+    readonly [key: string]: Country;
+} & {
     readonly all: ReadonlyArray<Country>;
 };
 

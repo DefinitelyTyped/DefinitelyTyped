@@ -32,7 +32,7 @@ export type HeightWidthType = IdType;
 export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
-  'weekday' | 'day' | 'month' | 'year';
+  'weekday' | 'day' | 'week' | 'month' | 'year';
 export type TimelineEventPropertiesResultWhatType = 'item' | 'background' | 'axis' |
   'group-label' | 'custom-time' | 'current-time';
 export type TimelineEvents =
@@ -1204,6 +1204,16 @@ export class Network {
    * This method can then be used to return the baseEdgeId.
    */
   getBaseEdge(clusteredEdgeId: IdType): IdType;
+
+  /**
+   * For the given clusteredEdgeId, this method will return all the original
+   * base edge id's provided in data.edges.
+   * For a non-clustered (i.e. 'base') edge, clusteredEdgeId is returned.
+   * Only the base edge id's are returned.
+   * All clustered edges id's under clusteredEdgeId are skipped,
+   * but scanned recursively to return their base id's.
+   */
+  getBaseEdges(clusteredEdgeId: IdType): IdType[];
 
   /**
    * Visible edges between clustered nodes are not the same edge as the ones provided

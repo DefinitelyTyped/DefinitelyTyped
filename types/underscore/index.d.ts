@@ -64,6 +64,11 @@ declare module _ {
         variable?: string;
     }
 
+    interface CompiledTemplate {
+        (data?: any): string;
+        source: string;
+    }
+
     interface Collection<T> { }
 
     // Common interface between Arrays and jQuery objects
@@ -963,7 +968,6 @@ declare module _ {
             isSorted?: boolean,
             iterator?: _.ListIterator<T, TSort>  | _.IterateePropertyShorthand,
             context?: any): T[];
-
 
         /**
         * Merges together the values of each of the arrays with the values at the corresponding position.
@@ -3752,7 +3756,6 @@ declare module _ {
             object: any,
             ...defaults: any[]): any;
 
-
         /**
         * Creates an object that inherits from the given prototype object.
         * If additional properties are provided then they will be added to the
@@ -4087,7 +4090,7 @@ declare module _ {
         * @param settings Settings to use while compiling.
         * @return Returns the compiled Underscore HTML template.
         **/
-        template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(templateString: string, settings?: _.TemplateSettings): CompiledTemplate;
 
         /**
         * By default, Underscore uses ERB-style template delimiters, change the
@@ -5043,7 +5046,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(settings?: _.TemplateSettings): CompiledTemplate;
 
         /********** *
          * Chaining *
@@ -5100,7 +5103,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any):  _Chain<TResult, TResult[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5112,7 +5115,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
 
         /**
         * @see _.map
@@ -5303,13 +5306,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator: string, context?: any): _Chain<T>;
+        sortBy(iterator: string, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -6009,7 +6012,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
+        template(settings?: _.TemplateSettings): _Chain<CompiledTemplate>;
 
         /************* *
         * Array proxy *

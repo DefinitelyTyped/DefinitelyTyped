@@ -4,15 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace routie {
-    interface Route {
-        constructor(path: string, name: string): Route;
-        addHandler(fn: Function): void;
-        removeHandler(fn: Function): void;
-        run(params: any): void;
-        match(path: string, params: any): boolean;
-        toURL(params: any): string;
-    }
-
     interface Routie extends RoutieStatic {
         (path: string): void;
         (path: string, fn: Function): void;

@@ -2,27 +2,26 @@ import { EventsKey } from './events';
 import Event from './events/Event';
 import BaseObject, { ObjectEvent } from './Object';
 
-export class CollectionEvent<T> extends Event {
-    constructor();
-    element: T;
+export interface Options {
+    unique?: boolean;
 }
 export default class Collection<T> extends BaseObject {
     constructor(opt_array?: T[], opt_options?: Options);
     clear(): void;
     extend(arr: T[]): Collection<T>;
-    forEach(f: ((p0: T, p1: number, p2: T[]) => void)): void;
+    forEach(f: (p0: T, p1: number, p2: T[]) => any): void;
     getArray(): T[];
     getLength(): number;
     insertAt(index: number, elem: T): void;
     item(index: number): T;
-    pop(): T;
+    pop(): T | undefined;
     push(elem: T): number;
-    remove(elem: T): T;
-    removeAt(index: number): T;
+    remove(elem: T): T | undefined;
+    removeAt(index: number): T | undefined;
     setAt(index: number, elem: T): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     once(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     un(type: 'add', listener: (evt: CollectionEvent<T>) => void): void;
@@ -39,6 +38,7 @@ export default class Collection<T> extends BaseObject {
     once(type: 'remove', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     un(type: 'remove', listener: (evt: CollectionEvent<T>) => void): void;
 }
-export interface Options {
-    unique?: boolean;
+export class CollectionEvent<T> extends Event {
+    constructor();
+    element: T;
 }

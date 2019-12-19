@@ -351,11 +351,16 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K, types?: string[]): T[K] extends (
+        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
             ...args: infer TArgs
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
+
+        <T, K extends keyof T>(obj: T, method: K, types: Array<('get'|'set')>): PropertyDescriptor & {
+            get: SinonSpy<[], T[K]>;
+            set: SinonSpy<[T[K]], void>;
+        };
     }
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>
@@ -757,27 +762,39 @@ declare namespace Sinon {
 
     interface SinonFakeTimers {
         now: number;
+        loopLimit: number;
 
-        setTimeout(
-            callback: (...args: any[]) => void,
+        setTimeout<TArgs extends any[] = any[]>(
+            callback: (...args: TArgs) => void,
             timeout: number,
-            ...args: any[]
+            ...args: TArgs
         ): SinonTimerId;
         clearTimeout(id: SinonTimerId): void;
-        setInterval(
-            callback: (...args: any[]) => void,
+
+        setInterval<TArgs extends any[] = any[]>(
+            callback: (...args: TArgs) => void,
             timeout: number,
-            ...args: any[]
+            ...args: TArgs
         ): SinonTimerId;
         clearInterval(id: SinonTimerId): void;
-        setImmediate(
-            callback: (...args: any[]) => void,
-            ...args: any[]
+
+        setImmediate<TArgs extends any[] = any[]>(
+            callback: (...args: TArgs) => void,
+            ...args: TArgs
         ): SinonTimerId;
         clearImmediate(id: SinonTimerId): void;
-        requestAnimationFrame(callback: (...args: any[]) => void): number;
-        cancelAnimationFrame(id: number): void;
-        nextTick(callback: () => void): void;
+
+        requestAnimationFrame(callback: (time: number) => void): SinonTimerId;
+        cancelAnimationFrame(id: SinonTimerId): void;
+
+        nextTick<TArgs extends any[] = any[]>(
+            callback: (...args: TArgs) => void,
+            ...args: TArgs): void;
+        queueMicrotask(callback: () => void): void;
+
+        requestIdleCallback<TArgs extends any[] = any[]>(func: (...args: TArgs) => void, timeout?: number, ...args:
+            TArgs): SinonTimerId;
+        cancelIdleCallback(timerId: SinonTimerId): void;
 
         /**
          * Tick the clock ahead time milliseconds.
@@ -787,20 +804,20 @@ declare namespace Sinon {
          * time may be negative, which causes the clock to change but won’t fire any callbacks.
          * @param ms
          */
-        tick(ms: number | string): void;
+        tick(ms: number | string): number;
         /**
          * Advances the clock to the the moment of the first scheduled timer, firing it.
          */
-        next(): void;
+        next(): number;
         /**
          * This runs all pending timers until there are none remaining. If new timers are added while it is executing they will be run as well.
          * This makes it easier to run asynchronous tests to completion without worrying about the number of timers they use, or the delays in those timers.
          */
-        runAll(): void;
-        runToLast(): void;
+        runAll(): number;
+        runToLast(): number;
         reset(): void;
         runMicrotasks(): void;
-        runToFrame(): void;
+        runToFrame(): number;
 
         Date(): Date;
         Date(year: number): Date;
@@ -851,6 +868,8 @@ declare namespace Sinon {
          * @param now The new 'now' as a JavaScript Date
          */
         setSystemTime(date: Date): void;
+
+        countTimers(): number;
     }
 
     interface SinonFakeTimersConfig {

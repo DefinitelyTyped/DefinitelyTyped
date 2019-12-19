@@ -116,7 +116,7 @@ management
 
 // Link users
 management
-  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .createUser({ connection: 'email', email: 'hi@me.co', user_id: "my_id" })
   .catch(err => console.error('Cannot create E-mail user', err))
   .then((emailUser) => {
     if (!emailUser) return;
@@ -143,6 +143,11 @@ auth
     // Handle the error.
   });
 
+auth
+  .oauth.authorizationCodeGrant({
+    code: '{CODE}',
+    redirect_uri: '{REDIRECT_URI}'
+  });
 
 // Update a user
 management
@@ -277,15 +282,20 @@ const retryableManagementClient = new auth0.ManagementClient({
   }
 });
 
-management.createPasswordChangeTicket({
-  connection_id: 'con_id',
-  email: 'test@me.co',
-  new_password: 'password',
-  result_url: 'https://www.google.com/',
-  ttl_sec: 86400,
-}, (err: Error, data) => {
-  console.log(data.ticket);
-});
+management.createPasswordChangeTicket(
+    {
+        connection_id: 'con_id',
+        email: 'test@me.co',
+        new_password: 'password',
+        result_url: 'https://www.google.com/',
+        ttl_sec: 86400,
+        mark_email_as_verified: true,
+        includeEmailInRedirect: true,
+    },
+    (err: Error, data) => {
+        console.log(data.ticket);
+    }
+);
 
 // Link users
 management.linkUsers('primaryId', { user_id: 'secondaryId' })
@@ -481,3 +491,81 @@ management.getUsersInRole({id: "role_id", per_page: 8}).then(users => console.lo
 management.getUsersInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
 management.getUsersInRole({id: "role_id", include_totals: true}).then(userPage => console.log(userPage));
 management.getUsersInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+
+management.createClient({
+    name: 'client'
+});
+
+management.createClient({
+    name: 'client',
+    grant_types: ['implicit'],
+    jwt_configuration: {
+        lifetime_in_seconds: 300,
+        scopes: {},
+        alg: 'RS256',
+    },
+    encryption_key: {
+        pub: 'pub',
+        cert: 'cert',
+        subject: 'subject',
+    }
+});
+
+management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
+management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.getEmailTemplate({name: 'template_name'}, (err, data) => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}).then(data => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}, (err, data) => {console.log(data)});
+
+management.getUserBlocks({ id: 'user_id' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocks({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.getUserBlocksByIdentifier({ identifier: 'email' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocksByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.unblockUser({ id: 'user_id' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUser({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+management.unblockUserByIdentifier({ identifier: 'email' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});

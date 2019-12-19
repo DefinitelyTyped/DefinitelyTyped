@@ -12,7 +12,12 @@ mark.mark('keyword', {
 });
 mark.mark(['keyword1', 'keyword2']);
 mark.markRegExp(/regex/, {className: 'highlight'});
-mark.markRanges([{start: 0, length: 10}], {className: 'highlight'});
+mark.markRanges([{start: 0, length: 10}], {
+    className: 'highlight',
+    each: (el: Element, range: Mark.Range) => {
+        el.id = '';
+    }
+});
 
 /* test jquery */
 $("div.context").mark("text", {

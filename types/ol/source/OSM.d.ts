@@ -6,7 +6,6 @@ import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
-export const ATTRIBUTION: string;
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -18,11 +17,12 @@ export interface Options {
     url?: string;
     wrapX?: boolean;
 }
+export const ATTRIBUTION: string;
 export default class OSM extends XYZ {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

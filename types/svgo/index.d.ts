@@ -1,12 +1,18 @@
-// Type definitions for svgo 1.0
+// Type definitions for svgo 1.3
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
 //                 Aankhen <https://github.com/Aankhen>
+//                 Jan Karres <https://github.com/jankarres>
+//                 Gavin Gregory <https://github.com/gavingregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 interface PluginCleanupAttrs {
+    cleanupAttrs: boolean | object;
+}
+
+interface PluginInlineStyles {
     cleanupAttrs: boolean | object;
 }
 
@@ -106,6 +112,10 @@ interface PluginRemoveUnusedNS {
     removeUnusedNS: boolean | object;
 }
 
+interface PluginPrefixIds {
+    removeUnusedNS: boolean | object;
+}
+
 interface PluginCleanupIDs {
     cleanupIDs: boolean | object;
 }
@@ -146,16 +156,16 @@ interface PluginSortAttrs {
     sortAttrs: boolean | object;
 }
 
-interface PluginTransformsWithOnePath {
-    transformsWithOnePath: boolean | object;
-}
-
 interface PluginRemoveDimensions {
     removeDimensions: boolean | object;
 }
 
 interface PluginRemoveAttrs {
     removeAttrs: boolean | object;
+}
+
+interface PluginRemoveAttributesBySelector {
+    removeAttributesBySelector: boolean | object;
 }
 
 interface PluginRemoveElementsByAttr {
@@ -170,6 +180,10 @@ interface PluginAddAttributesToSVGElement {
     addAttributesToSVGElement: boolean | object;
 }
 
+interface PluginRemoveOffCanvasPaths {
+    removeOffCanvasPaths: boolean | object;
+}
+
 interface PluginRemoveStyleElement {
     removeStyleElement: boolean | object;
 }
@@ -178,23 +192,33 @@ interface PluginRemoveScriptElement {
     removeScriptElement: boolean | object;
 }
 
+interface PluginReusePaths {
+    reusePaths: boolean | object;
+}
+
 interface SvgInfo {
     path?: string;
 }
 
 interface OptimizedSvg {
     data: string;
-    info: object;
+    info: {
+        width: string;
+        height: string;
+    };
+    path?: string;
 }
 
 declare class SVGO {
-    constructor(options?: SVGO.Options);
+    static Config(config?: SVGO.Options): SVGO.Options;
+    constructor(config?: SVGO.Options);
     optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
 }
 
 declare namespace SVGO {
     type PluginConfig =
         | PluginCleanupAttrs
+        | PluginInlineStyles
         | PluginRemoveDoctype
         | PluginRemoveXMLProcInst
         | PluginRemoveComments
@@ -219,6 +243,7 @@ declare namespace SVGO {
         | PluginRemoveNonInheritableGroupAttrs
         | PluginRemoveUselessStrokeAndFill
         | PluginRemoveUnusedNS
+        | PluginPrefixIds
         | PluginCleanupIDs
         | PluginCleanupNumericValues
         | PluginCleanupListOfValues
@@ -229,14 +254,16 @@ declare namespace SVGO {
         | PluginMergePaths
         | PluginConvertShapeToPath
         | PluginSortAttrs
-        | PluginTransformsWithOnePath
         | PluginRemoveDimensions
         | PluginRemoveAttrs
+        | PluginRemoveAttributesBySelector
         | PluginRemoveElementsByAttr
         | PluginAddClassesToSVGElement
         | PluginAddAttributesToSVGElement
+        | PluginRemoveOffCanvasPaths
         | PluginRemoveStyleElement
-        | PluginRemoveScriptElement;
+        | PluginRemoveScriptElement
+        | PluginReusePaths;
 
     interface Js2SvgOptions {
         /** @default '<!DOCTYPE' */
@@ -306,7 +333,7 @@ declare namespace SVGO {
 
     interface Options {
         /** Output as Data URI string. */
-        datauri?: "base64" | "enc" | "unenc";
+        datauri?: 'base64' | 'enc' | 'unenc';
 
         /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
         floatPrecision?: number;

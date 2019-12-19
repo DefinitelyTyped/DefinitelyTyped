@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, RefObject } from "@wordpress/element";
+import { ComponentType, HTMLProps, RefObject } from '@wordpress/element';
 
 declare namespace FocusableIframe {
     interface Props extends HTMLProps<HTMLIFrameElement> {

@@ -1,6 +1,6 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import BaseControl from "../base-control";
+import BaseControl from '../base-control';
 
 declare namespace SelectControl {
     interface Option {
@@ -16,7 +16,7 @@ declare namespace SelectControl {
     }
     type Props<T extends string | readonly string[]> = Omit<
         HTMLProps<HTMLSelectElement>,
-        keyof BaseControl.ControlProps | "multiple" | "onChange" | "value"
+        keyof BaseControl.ControlProps | 'multiple' | 'onChange' | 'value'
     > &
         BaseControl.ControlProps & {
             options?: readonly Option[];
@@ -28,9 +28,7 @@ declare namespace SelectControl {
              * is a single value with the new selected value.
              */
             onChange(value: T): void;
-        } & (T extends readonly string[]
-            ? { multiple: true }
-            : { multiple?: false });
+        } & (T extends readonly string[] ? { multiple: true } : { multiple?: false });
 }
 declare function SelectControl<T extends string | readonly string[]>(
     // tslint:disable-next-line:no-unnecessary-generics

@@ -1,4 +1,6 @@
 import pino = require('pino');
+import { IncomingMessage, ServerResponse } from 'http';
+import { Socket } from 'net';
 
 const log = pino();
 const info = log.info;
@@ -18,8 +20,21 @@ const log2: pino.Logger = pino({
     safe: true,
     serializers: {
         req: pino.stdSerializers.req,
-        res: pino.stdSerializers.res
-    }
+        res: pino.stdSerializers.res,
+        err: pino.stdSerializers.err,
+    },
+});
+
+pino({
+    write(o) {},
+});
+
+pino({
+    redact: { paths: [], censor: 'SECRET' },
+});
+
+pino({
+    redact: { paths: [], censor: () => 'SECRET' },
 });
 
 pino({
@@ -42,7 +57,6 @@ pino({
 
 pino({ base: null });
 pino({ base: { foo: 'bar' }, changeLevelName: 'severity' });
-
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
 log.child({ a: 'property' }).info('hello child!');
@@ -54,6 +68,7 @@ child.level = 'info';
 child.info('hooray');
 log.info('nope nope nope');
 log.child({ foo: 'bar', level: 'debug' }).debug('debug!');
+child.bindings();
 const customSerializers = {
     test() {
         return 'this is my serializer';
@@ -68,7 +83,6 @@ if (log.levelVal === 30) {
     console.log('logger level is `info`');
 }
 
-log.addLevel('myLevel', 35);
 log.level = 'myLevel';
 log.myLevel('a message');
 
@@ -138,3 +152,25 @@ const pretty = pino({
 		search: 'foo == `bar`'
 	}
 });
+
+// Properties/types imported from pino-std-serializers
+const wrappedErrSerializer = pino.stdSerializers.wrapErrorSerializer((err: pino.SerializedError) => {
+  return {...err, newProp: 'foo'};
+});
+const wrappedReqSerializer = pino.stdSerializers.wrapRequestSerializer((req: pino.SerializedRequest) => {
+  return {...req, newProp: 'foo'};
+});
+const wrappedResSerializer = pino.stdSerializers.wrapResponseSerializer((res: pino.SerializedResponse) => {
+  return {...res, newProp: 'foo'};
+});
+
+const socket = new Socket();
+const incomingMessage = new IncomingMessage(socket);
+const serverResponse = new ServerResponse(incomingMessage);
+
+const mappedHttpRequest: { req: pino.SerializedRequest } = pino.stdSerializers.mapHttpRequest(incomingMessage);
+const mappedHttpResponse: { res: pino.SerializedResponse } = pino.stdSerializers.mapHttpResponse(serverResponse);
+
+const serializedErr: pino.SerializedError = pino.stdSerializers.err(new Error());
+const serializedReq: pino.SerializedRequest = pino.stdSerializers.req(incomingMessage);
+const serializedRes: pino.SerializedResponse = pino.stdSerializers.res(serverResponse);

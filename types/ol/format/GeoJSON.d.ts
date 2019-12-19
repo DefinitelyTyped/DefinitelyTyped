@@ -1,15 +1,4 @@
-import {
-    Feature,
-    FeatureCollection,
-    Geometry,
-    GeometryCollection,
-    LineString,
-    MultiLineString,
-    MultiPoint,
-    MultiPolygon,
-    Point,
-    Polygon
-} from 'geojson';
+import { Feature, FeatureCollection, GeoJSON as GeoJSON_1, Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'geojson';
 import Geometry_1 from '../geom/Geometry';
 import GeometryCollection_1 from '../geom/GeometryCollection';
 import LineString_1 from '../geom/LineString';
@@ -22,9 +11,6 @@ import { ProjectionLike } from '../proj';
 import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
-export default class GeoJSON extends JSONFeature {
-    constructor(opt_options?: Options);
-}
 export type GeoJSONFeature = Feature;
 export type GeoJSONFeatureCollection = FeatureCollection;
 export type GeoJSONGeometry = Geometry;
@@ -33,7 +19,7 @@ export type GeoJSONLineString = LineString;
 export type GeoJSONMultiLineString = MultiLineString;
 export type GeoJSONMultiPoint = MultiPoint;
 export type GeoJSONMultiPolygon = MultiPolygon;
-export type GeoJSONObject = GeoJSON;
+export type GeoJSONObject = GeoJSON_1;
 export type GeoJSONPoint = Point;
 export type GeoJSONPolygon = Polygon;
 export interface Options {
@@ -41,4 +27,7 @@ export interface Options {
     featureProjection?: ProjectionLike;
     geometryName?: string;
     extractGeometryName?: boolean;
+}
+export default class GeoJSON extends JSONFeature {
+    constructor(opt_options?: Options);
 }

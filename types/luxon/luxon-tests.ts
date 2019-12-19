@@ -98,7 +98,7 @@ dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
     style: 'long',
-    unit: 'day',
+    unit: 'days',
     round: true,
     padding: 10,
     numberingSystem: 'bali',
@@ -108,7 +108,7 @@ dt.toRelative({
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
-    unit: 'day',
+    unit: 'days',
     numberingSystem: 'bali',
 });
 
@@ -160,6 +160,7 @@ dur.as('seconds'); // $ExpectType number
 dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
@@ -176,6 +177,8 @@ i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
+i.toISODate(); // $ExpectType string
+i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration

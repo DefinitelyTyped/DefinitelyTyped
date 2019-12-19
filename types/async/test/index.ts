@@ -237,6 +237,18 @@ aq.push(1, (err: Error, newLevel: number) => {
     console.log('finished processing bar' + newLevel);
 });
 
+// tests for the error method of queue
+const q3 = async.queue<string>((task: string, callback: ErrorCallback) => {
+    callback(new Error(task));
+}, 1);
+
+q3.error((error, task) => {
+    console.log('task: ' +  task);
+    console.log('error: ' + error);
+});
+
+q3.push(["task1", "task2", "task3"]);
+
 // create a cargo object with payload 2
 const cargo = async.cargo((tasks, callback) => {
     for (const task of tasks) {

@@ -1,4 +1,4 @@
-import { ComponentType, DragEventHandler, ReactNode } from "@wordpress/element";
+import { ComponentType, DragEventHandler, ReactNode } from '@wordpress/element';
 
 declare namespace Draggable {
     interface Props {
@@ -22,10 +22,7 @@ declare namespace Draggable {
          * Render prop providing `onDragStart` and `onDragEnd` for the
          * draggable element.
          */
-        children(props: {
-            onDraggableStart: DragEventHandler;
-            onDraggableEnd: DragEventHandler;
-        }): ReactNode;
+        children(props: { onDraggableStart: DragEventHandler; onDraggableEnd: DragEventHandler }): ReactNode;
     }
 }
 declare const Draggable: ComponentType<Draggable.Props>;

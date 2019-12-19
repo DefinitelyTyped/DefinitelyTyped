@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "unified-signatures": false,
         "class-name": true,
         "indent": [
@@ -20,6 +19,7 @@
         ],
         "jsdoc-format": true,
         "no-unnecessary-generics": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "npm-naming": false
     }
 }

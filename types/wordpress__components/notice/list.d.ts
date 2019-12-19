@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
-import Notice from "./";
+import Notice from './';
 
 declare namespace NoticeList {
     interface Props {
@@ -14,7 +14,7 @@ declare namespace NoticeList {
         onRemove?(noticeId: string): void;
         className?: string;
     }
-    interface Notice extends Omit<Notice.Props, "children" | "onRemove"> {
+    interface Notice extends Omit<Notice.Props, 'children' | 'onRemove'> {
         id: string;
         content: ReactNode;
     }

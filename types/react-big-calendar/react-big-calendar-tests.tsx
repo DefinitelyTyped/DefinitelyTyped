@@ -1,6 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventProps, EventWrapperProps } from "react-big-calendar";
+import {
+    Calendar,
+    CalendarProps,
+    momentLocalizer,
+    globalizeLocalizer,
+    move,
+    Views,
+    components,
+    Navigate,
+    View,
+    DateRange,
+    DateLocalizer,
+    ToolbarProps,
+    EventProps,
+    EventWrapperProps,
+    NavigateAction
+} from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // Don't want to add this as a dependency, because it is only used for tests.
@@ -47,7 +63,7 @@ class CalendarResource {
         localizer: DateLocalizer;
     }
     const Basic = ({ localizer }: Props) => (
-        <BigCalendar
+        <Calendar
             events={getEvents()}
             views={allViews}
             step={60}
@@ -57,7 +73,7 @@ class CalendarResource {
         />
     );
 
-    const localizer = BigCalendar.momentLocalizer(moment);
+    const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
@@ -67,7 +83,7 @@ class CalendarResource {
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(BigCalendar);
+    const DragAndDropCalendar = withDragAndDrop(Calendar);
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -76,25 +92,51 @@ class CalendarResource {
             showMultiDayTimes
             defaultDate={new Date(2015, 3, 1)}
             localizer={localizer}
+            selectable={true}
+            resizable={true}
             onEventDrop={console.log}
             onEventResize={console.log}
+            onDragStart={console.log}
+            onDropFromOutside={console.log}
+            draggableAccessor={() => true}
+            resizableAccessor={() => true}
+            elementProps={{ id: 'myCalendar' }}
+            components={{
+                event: Event,
+                agenda: {
+                    event: EventAgenda,
+                },
+                toolbar: Toolbar,
+                eventWrapper: EventWrapper,
+            }}
         />
     );
 
-    const localizer = BigCalendar.momentLocalizer(moment);
+    const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
 // overriding 'views' props
 {
-    const DaySFC: React.SFC = () => null;
+    interface DayProps {
+        random: string;
+    }
+    class DayComponent extends React.Component<DayProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
     // supplying object to 'views' prop with only some of the supported views.
-    // A view can be a boolean or an SFC
-    ReactDOM.render(<BigCalendar
-                        localizer={BigCalendar.momentLocalizer(moment)}
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
                         views={{
-                            day: DaySFC,
+                            day: DayComponent,
                             work_week: true
                         }}
     />, document.body);
@@ -102,15 +144,15 @@ class CalendarResource {
 
 // optional 'views' prop
 {
-    ReactDOM.render(<BigCalendar localizer={BigCalendar.momentLocalizer(moment)} />, document.body);
+    ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }
 
 {
-    class MyCalendar extends BigCalendar<CalendarEvent, CalendarResource> {}
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
 
     // Full API Example Test - based on API Documentation
     // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-    class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
+    class FullAPIExample extends React.Component<CalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
                 <MyCalendar
@@ -119,7 +161,7 @@ class CalendarResource {
                     getNow={() => new Date()}
                     view={'day'}
                     events={getEvents()}
-                    onNavigate={(newDate: Date, view: View, action: Navigate) => {}}
+                    onNavigate={(newDate: Date, view: View, action: NavigateAction) => {}}
                     onView={(view: View) => {}}
                     onSelectSlot={slotInfo => {
                         const start = slotInfo.start;
@@ -198,7 +240,7 @@ class CalendarResource {
         }
     }
 
-    const localizer = BigCalendar.globalizeLocalizer(globalize);
+    const localizer = globalizeLocalizer(globalize);
     ReactDOM.render(<FullAPIExample localizer={localizer} />, document.body);
 }
 

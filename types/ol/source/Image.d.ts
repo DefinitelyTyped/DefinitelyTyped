@@ -9,16 +9,26 @@ import Projection from '../proj/Projection';
 import Source, { AttributionLike } from './Source';
 import State from './State';
 
-export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;
+export interface Options {
+    attributions?: AttributionLike;
+    projection?: ProjectionLike;
+    resolutions?: number[];
+    state?: State;
+}
+export enum ImageSourceEventType {
+    IMAGELOADSTART = 'imageloadstart',
+    IMAGELOADEND = 'imageloadend',
+    IMAGELOADERROR = 'imageloaderror',
+}
 export default class ImageSource extends Source {
     constructor(options: Options);
     protected findNearestResolution(resolution: number): number;
     protected getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     protected handleImageChange(event: Event): void;
     getImage(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -30,14 +40,4 @@ export class ImageSourceEvent extends Event {
     constructor(type: string, image: ImageWrapper);
     image: ImageWrapper;
 }
-export enum ImageSourceEventType {
-    IMAGELOADSTART = 'imageloadstart',
-    IMAGELOADEND = 'imageloadend',
-    IMAGELOADERROR = 'imageloaderror',
-}
-export interface Options {
-    attributions?: AttributionLike;
-    projection?: ProjectionLike;
-    resolutions?: number[];
-    state?: State;
-}
+export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;

@@ -5,13 +5,22 @@ import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
 import BaseLayer from './Base';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    layers?: BaseLayer[] | Collection<BaseLayer>;
+}
 export default class LayerGroup extends BaseLayer {
     constructor(opt_options?: Options);
     getLayers(): Collection<BaseLayer>;
     setLayers(layers: Collection<BaseLayer>): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -39,13 +48,4 @@ export default class LayerGroup extends BaseLayer {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    layers?: BaseLayer[] | Collection<BaseLayer>;
 }

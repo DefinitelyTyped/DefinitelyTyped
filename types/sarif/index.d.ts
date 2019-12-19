@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.1 JSON Schema: a standard format for the output of static
+ * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema: a standard format for the output of static
  * analysis tools.
  */
 export interface Log {
@@ -430,7 +430,7 @@ export interface EdgeTraversal {
 }
 
 /**
- * TBD
+ * Describes a runtime exception encountered during the execution of an analysis tool.
  */
 export interface Exception {
     /**
@@ -461,7 +461,7 @@ export interface Exception {
 }
 
 /**
- * TBD
+ * The top-level element of an external property file.
  */
 export interface ExternalProperties {
     /**
@@ -576,7 +576,8 @@ export namespace ExternalProperties {
 }
 
 /**
- * TBD
+ * Contains information that enables a SARIF consumer to locate the external property file that contains the value of
+ * an externalized property associated with the run.
  */
 export interface ExternalPropertyFileReference {
     /**
@@ -2047,7 +2048,8 @@ export namespace Suppression {
 }
 
 /**
- * TBD
+ * Describes a sequence of code locations that specify a path through a single thread of execution such as an operating
+ * system or fiber.
  */
 export interface ThreadFlow {
     /**
@@ -2356,7 +2358,7 @@ export namespace ToolComponent {
 }
 
 /**
- * TBD
+ * Identifies a particular toolComponent object, either the driver or an extension.
  */
 export interface ToolComponentReference {
     /**
@@ -2463,7 +2465,7 @@ export interface VersionControlDetails {
 }
 
 /**
- * A web request object.
+ * Describes an HTTP request.
  */
 export interface WebRequest {
     /**
@@ -2514,7 +2516,7 @@ export interface WebRequest {
 }
 
 /**
- * A web response object.
+ * Describes the response to an HTTP request.
  */
 export interface WebResponse {
     /**

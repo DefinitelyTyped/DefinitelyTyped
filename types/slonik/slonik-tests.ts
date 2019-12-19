@@ -1,4 +1,6 @@
 import {
+  createSqlTag,
+  IdentifierNormalizerType,
   CheckIntegrityConstraintViolationError,
   createBenchmarkingInterceptor,
   createBigintTypeParser,
@@ -8,27 +10,25 @@ import {
   createQueryNormalizationInterceptor,
   createTimestampTypeParser,
   createTimestampWithTimeZoneTypeParser,
-  DatabaseConnectionType,
-  DatabasePoolConnectionType,
-  DatabasePoolType,
-  DatabaseTransactionConnectionType,
   createTypeParserPreset,
   DataIntegrityError,
   ForeignKeyIntegrityConstraintViolationError,
   IntegrityConstraintViolationError,
-  InterceptorType,
   NotFoundError,
   NotNullIntegrityConstraintViolationError,
   SlonikError,
   sql,
   TypeParserType,
-  UniqueIntegrityConstraintViolationError
+  UniqueIntegrityConstraintViolationError,
+  SqlTaggedTemplateType,
+  QueryContextType,
+  InterceptorType
 } from 'slonik';
-import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
+import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
 // make sure symbols are unique
 // $ExpectError
-const badSymbolAssignment: typeof ArrayTokenSymbol = TupleListTokenSymbol;
+const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
 const VALUE = 'foo';
 
@@ -135,11 +135,13 @@ createPool('postgres://localhost', {
         await connection.query(sql`SET auto_explain.log_min_duration=0`);
         await connection.query(sql`SET auto_explain.log_timing=true`);
         await connection.query(sql`SET client_min_messages=log`);
+
+        return null;
       },
       transformRow: (ctx, query, row, fields) => {
         ctx.queryId; // $ExpectType string
         query.sql; // $ExpectType string
-        fields[0].dataTypeID; // $ExpectType number
+        fields[0].dataTypeId; // $ExpectType number
         row.foo; // $ExpectType QueryResultRowColumnType
         return row;
       }
@@ -160,12 +162,26 @@ createPool('postgres://', {
   ]
 });
 
-const interceptors = [
+const interceptors: InterceptorType[] = [
     createBenchmarkingInterceptor(),
     createQueryNormalizationInterceptor(),
     createFieldNameTransformationInterceptor({
         format: 'CAMEL_CASE'
-    })
+    }),
+    {
+      afterQueryExecution: (queryContext) => {
+          // $ExpectType QueryContextType
+          queryContext;
+
+          // $ExpectType any
+          queryContext.sandbox.foo;
+
+          // $ExpectError
+          const foo = queryContext.sandbox + 1;
+
+          return null;
+      },
+    }
 ];
 
 const connection = createPool('postgres://', {
@@ -208,16 +224,6 @@ createTimestampWithTimeZoneTypeParser();
 //
 // RECIPES
 // ----------------------------------------------------------------------
-(async () => {
-    await connection.query(sql`
-        INSERT INTO (foo, bar, baz)
-        VALUES ${sql.tupleList([
-            [1, 2, 3],
-            [4, 5, 6]
-            ])}
-    `);
-})();
-
 (async () => {
     await connection.query(sql`
         INSERT INTO (foo, bar, baz)
@@ -281,21 +287,48 @@ createTimestampWithTimeZoneTypeParser();
   const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
 
   await connection.query(sql`
-      SELECT (${sql.valueList([1, 2, 3])})
+    SELECT ${sql.identifier(['foo', 'a'])}
+    FROM (
+      VALUES
+      (
+        ${sql.join(
+          [
+            sql.join(['a1', 'b1', 'c1'], sql`, `),
+            sql.join(['a2', 'b2', 'c2'], sql`, `)
+          ],
+          sql`), (`
+        )}
+      )
+    ) foo(a, b, c)
+    WHERE foo.b IN (${sql.join(['c1', 'a2'], sql`, `)})
   `);
 
   await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tuple([1, 2, 3])}
+      SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
   `);
 
   await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-          [1, 2, 3],
-          [4, 5, 6]
-      ])}
+      SELECT (${sql.json('test')})
   `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(null)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(123)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json({
+        nested: {
+          object: { is: { this: 'test', other: 12, and: new Date('123') } },
+        },
+      })})
+  `);
+
+  // $ExpectError
+  sql`SELECT ${sql.json(undefined)}`;
 
   await connection.query(sql`
       SELECT bar, baz
@@ -327,6 +360,33 @@ createTimestampWithTimeZoneTypeParser();
 })();
 
 //
+// createSQLTag
+// ----------------------------------------------------------------------
+(() => {
+  let sql: SqlTaggedTemplateType;
+
+  sql = createSqlTag();
+
+  sql`
+      SELECT 1;
+  `;
+
+  let normalizeIdentifier: IdentifierNormalizerType;
+
+  normalizeIdentifier = (input: string) =>
+      input
+          .split('')
+          .reverse()
+          .join('');
+
+  sql = createSqlTag({
+      normalizeIdentifier,
+  });
+
+  sql = createSqlTag({});
+});
+
+//
 // ERRORS
 // ----------------------------------------------------------------------
 new  SlonikError();
@@ -342,26 +402,6 @@ const samplesFromDocs = async () => {
   // some samples generated by parsing the readme from slonik's github page
   // start samples from readme
   const sample1 = async () => {
-    connection.query(sql`
-      SELECT ${sql.identifier(['foo', 'a'])}
-      FROM (
-        VALUES ${sql.tupleList([['a1', 'b1', 'c1'], ['a2', 'b2', 'c2']])}
-      ) foo(a, b, c)
-      WHERE foo.b IN (${sql.valueList(['c1', 'a2'])})
-    `);
-  };
-
-  const sample2 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-        [1, 2, 3],
-        [4, 5, 6]
-      ])}
-    `);
-  };
-
-  const sample3 = async () => {
     await connection.query(sql`
       INSERT INTO (foo, bar, baz)
       SELECT *
@@ -379,46 +419,22 @@ const samplesFromDocs = async () => {
     `);
   };
 
-  const sample4 = async () => {
-    await connection.query(sql`
-      SELECT (${sql.valueList([1, 2, 3])})
-    `);
-  };
-
-  const sample5 = async () => {
+  const sample2 = async () => {
     await connection.query(sql`
       SELECT (${sql.array([1, 2, 3], 'int4')})
     `);
+
+    await connection.query(sql`
+      SELECT (${sql.array([1, 2, 3], sql`int[]`)})
+    `);
   };
 
-  const sample6 = async () => {
-    sql`SELECT id FROM foo WHERE id IN (${sql.valueList([1, 2, 3])})`;
-    sql`SELECT id FROM foo WHERE id NOT IN (${sql.valueList([1, 2, 3])})`;
-  };
-
-  const sample7 = async () => {
+  const sample3 = async () => {
     sql`SELECT id FROM foo WHERE id = ANY(${sql.array([1, 2, 3], 'int4')})`;
     sql`SELECT id FROM foo WHERE id != ALL(${sql.array([1, 2, 3], 'int4')})`;
   };
 
-  const sample8 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tuple([1, 2, 3])}
-    `);
-  };
-
-  const sample9 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-        [1, 2, 3],
-        [4, 5, 6]
-      ])}
-    `);
-  };
-
-  const sample10 = async () => {
+  const sample4 = async () => {
     await connection.query(sql`
       SELECT bar, baz
       FROM ${sql.unnest(
@@ -434,59 +450,11 @@ const samplesFromDocs = async () => {
     `);
   };
 
-  const sample11 = async () => {
+  const sample5 = async () => {
     sql`
       SELECT 1
       FROM ${sql.identifier(['bar', 'baz'])}
     `;
-  };
-
-  const sample12 = async () => {
-    sql`
-      SELECT 1
-      FROM ${sql.identifierList([
-        ['bar', 'baz'],
-        ['qux', 'quux']
-      ])}
-    `;
-  };
-
-  const sample13 = async () => {
-    sql`
-      SELECT 1
-      FROM ${sql.identifierList([
-        {
-          alias: 'qux',
-          identifier: ['bar', 'baz']
-        },
-        {
-          alias: 'corge',
-          identifier: ['quux', 'quuz']
-        }
-      ])}
-    `;
-  };
-
-  const sample14 = async () => {
-    sql`
-      SELECT ${sql.booleanExpression([3, 4], 'AND')}
-    `;
-  };
-
-  const sample15 = async () => {
-    sql`
-      SELECT ${sql.comparisonPredicate(3, '=', 4)}
-    `;
-  };
-
-  const sample16 = async () => {
-    await connection.query(sql`
-      UPDATE foo
-      SET ${sql.assignmentList({
-        bar: 'baz',
-        qux: 'quux'
-      })}
-    `);
   };
   // end samples from readme
 };

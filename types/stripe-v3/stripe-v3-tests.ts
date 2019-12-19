@@ -48,6 +48,14 @@ describe("Stripe elements", () => {
                 console.log(response.elementType, response.brand);
             }
         });
+        card.addEventListener('ready', () => {
+            console.log('ready (ael)');
+        });
+        card.addEventListener('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
+        });
 
         stripe.createToken(card, {
             name: 'Jimmy',
@@ -57,9 +65,9 @@ describe("Stripe elements", () => {
             .then((result: stripe.TokenResponse) => {
                 console.log(result.token);
             },
-            (error: stripe.Error) => {
-                console.error(error);
-            });
+                (error: stripe.Error) => {
+                    console.error(error);
+                });
 
         // test 3D secure
         const threeDSecureFrame = <HTMLIFrameElement> document.getElementById('3d-secure-frame');
@@ -138,7 +146,7 @@ describe("Stripe elements", () => {
         });
     });
 
-    it ("should use payment request API", () => {
+    it("should use payment request API", () => {
         const paymentRequest = stripe.paymentRequest({
             country: 'US',
             currency: 'usd',
@@ -156,28 +164,28 @@ describe("Stripe elements", () => {
             }
         });
         paymentRequest.on('token', ev => {
-            const body = JSON.stringify({token: ev.token.id});
+            const body = JSON.stringify({ token: ev.token.id });
             // post to server...
-            Promise.resolve({ok: true})
-            .then(response => {
-                if (response.ok) {
-                    ev.complete('success');
-                } else {
-                    ev.complete('fail');
-                }
-            });
+            Promise.resolve({ ok: true })
+                .then(response => {
+                    if (response.ok) {
+                        ev.complete('success');
+                    } else {
+                        ev.complete('fail');
+                    }
+                });
         });
         paymentRequest.on('source', ev => {
-            const body = JSON.stringify({token: ev.source.id});
+            const body = JSON.stringify({ token: ev.source.id });
             // post to server...
-            Promise.resolve({ok: true})
-            .then(response => {
-                if (response.ok) {
-                    ev.complete('success');
-                } else {
-                    ev.complete('fail');
-                }
-            });
+            Promise.resolve({ ok: true })
+                .then(response => {
+                    if (response.ok) {
+                        ev.complete('success');
+                    } else {
+                        ev.complete('fail');
+                    }
+                });
         });
     });
 
@@ -191,18 +199,26 @@ describe("Stripe elements", () => {
             if (result.error) {
                 console.error(result.error.param);
             } else if (result.paymentMethod) {
-                console.log(result.paymentMethod.card && result.paymentMethod.card.number);
+                console.log(result.paymentMethod.card && result.paymentMethod.card.brand);
             }
         });
     });
 
-    it("should use checkout API", () => {
+    it("should use checkout API for client implementations", () => {
         stripe.redirectToCheckout({
             items: [
-                {sku: 'sku_123', quantity: 1}
+                { sku: 'sku_123', quantity: 1 }
             ],
             successUrl: 'https://example.com/success',
             cancelUrl: 'https://example.com/canceled',
+        }).then(errorResult => {
+            console.log(errorResult.error.param);
+        });
+    });
+
+    it("should use the checkout API for server implementations", () => {
+        stripe.redirectToCheckout({
+            sessionId: 'sess_test_123',
         }).then(errorResult => {
             console.log(errorResult.error.param);
         });
@@ -246,8 +262,48 @@ describe("Stripe elements", () => {
             if (result.error) {
                 console.error(result.error.message);
             } else if (result.paymentIntent) {
-                console.log(result.paymentIntent.shipping.address);
+                console.log(result.paymentIntent.shipping && result.paymentIntent.shipping.address);
             }
         });
+
+        stripe
+          .handleCardPayment('{PAYMENT_INTENT_CLIENT_SECRET}', {
+            source: '{SOURCE_ID}',
+          })
+          .then(result => {
+            if (result.error) {
+              console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+          });
+    });
+
+    it("should handle card setup", () => {
+        const card = elements.create('card');
+
+        stripe.handleCardSetup(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            card,
+            {
+                payment_method_data: {
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should get card element", () => {
+        elements.create('card');
+        const card = elements.getElement('card');
+        console.log(card);
     });
 });

@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
 declare namespace KeyboardShortcuts {
     interface BaseProps {
@@ -28,7 +28,7 @@ declare namespace KeyboardShortcuts {
          * To override this, pass `eventName` with the name of a specific keyboard
          * event.
          */
-        eventName?: "keydown" | "keypress" | "keyup";
+        eventName?: 'keydown' | 'keypress' | 'keyup';
     }
     interface PropsWithChildren extends BaseProps {
         children: ReactNode;

@@ -1,4 +1,4 @@
-import { ComponentType, DragEvent } from "@wordpress/element";
+import { ComponentType, DragEvent } from '@wordpress/element';
 
 declare namespace DropZone {
     interface Props {
@@ -35,14 +35,11 @@ declare namespace DropZone {
          * @param position - Indicates whether the drop event happened closer
          *     to the top or bottom edges and left or right ones.
          */
-        onDrop?(
-            event: DragEvent<HTMLDivElement>,
-            position: HoverPosition
-        ): void;
+        onDrop?(event: DragEvent<HTMLDivElement>, position: HoverPosition): void;
     }
     type HoverPosition = {
-        x: "left" | "right";
-        y: "top" | "bottom";
+        x: 'left' | 'right';
+        y: 'top' | 'bottom';
     } | null;
 }
 declare const DropZone: ComponentType<DropZone.Props>;

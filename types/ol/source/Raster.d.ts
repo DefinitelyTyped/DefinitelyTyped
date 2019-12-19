@@ -9,9 +9,9 @@ import ImageSource from './Image';
 import Source from './Source';
 import TileSource from './Tile';
 
-export type Operation = ((p0: number[][] | ImageData[], p1: object) => number[] | ImageData);
+export type Operation = (p0: number[][] | ImageData[], p1: object) => number[] | ImageData;
 export interface Options {
-    sources: any[];
+    sources: (Source | Layer)[];
     operation?: Operation;
     lib?: any;
     threads?: number;
@@ -20,9 +20,9 @@ export interface Options {
 export default class RasterSource extends ImageSource {
     constructor(options: Options);
     setOperation(operation: Operation, opt_lib?: any): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     once(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     un(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): void;

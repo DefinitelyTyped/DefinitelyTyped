@@ -1,4 +1,4 @@
-import { JSON } from 'k6';
+import { JSONValue } from 'k6';
 import { Selection } from 'k6/html';
 import {
     CookieJar,
@@ -38,7 +38,7 @@ let responsesMapNone: { [name: string]: RefinedResponse<'none'> };
 let responsesMapText: { [name: string]: RefinedResponse<'text'> };
 let fileData: FileData;
 let html: Selection;
-let json: JSON | undefined;
+let json: JSONValue | undefined;
 let cookies: CookieJarCookies;
 let jar: CookieJar;
 

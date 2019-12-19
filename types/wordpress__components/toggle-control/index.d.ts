@@ -1,6 +1,6 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
-import BaseControl from "../base-control";
+import BaseControl from '../base-control';
 
 declare namespace ToggleControl {
     interface Props extends BaseControl.ControlProps {

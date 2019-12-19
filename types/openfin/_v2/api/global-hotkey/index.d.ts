@@ -31,7 +31,7 @@ export default class GlobalHotkey extends EmitterBase<GlobalHotkeyEvents> {
     unregisterAll(): Promise<void>;
     /**
      * Checks if a given hotkey has been registered
-     * @return {Promise.<bookean>}
+     * @return {Promise.<boolean>}
      * @tutorial GlobalHotkey.isRegistered
      */
     isRegistered(hotkey: string): Promise<boolean>;

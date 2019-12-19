@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 declare namespace PanelRow {
     interface Props {

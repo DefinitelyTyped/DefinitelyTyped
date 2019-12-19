@@ -1,4 +1,5 @@
-import { ComponentType, HTMLProps, ReactNode } from "@wordpress/element";
+import { ComponentType, HTMLProps, ReactNode, ReactElement, FocusEvent } from '@wordpress/element';
+import { Slot } from '@wordpress/components';
 
 declare namespace Popover {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -35,7 +36,7 @@ declare namespace Popover {
          *
          * @defaultValue "firstElement"
          */
-        focusOnMount?: "firstElement" | "container" | false;
+        focusOnMount?: 'firstElement' | 'container' | false;
         /**
          * Set this to customize the text that is shown in popover's header
          * when it is fullscreen on mobile.
@@ -57,9 +58,7 @@ declare namespace Popover {
          * Function that should return a `DOMRect` of where to position the
          * popover.
          */
-        getAnchorRect?(
-            currentAnchorElement: HTMLSpanElement | null
-        ): DOMRect | ClientRect | undefined;
+        getAnchorRect?(currentAnchorElement: HTMLSpanElement | null): DOMRect | ClientRect | undefined;
         /**
          * A callback invoked when the popover should be closed.
          */
@@ -68,25 +67,60 @@ declare namespace Popover {
          * A callback invoked when the user clicks outside the opened popover,
          * passing the click event. The popover should be closed in response to
          * this interaction.
-         * @defaultValue Props.onClose
+         *
+         * @deprecated  use `onFocusOutside`
          */
         onClickOutside?(): void;
+
+        /**
+         * A callback invoked when the focus leaves the opened popover. This
+         * should only be provided in advanced use-cases when a Popover should
+         * close under specific circumstances; for example, if the new
+         * `document.activeElement` is content of or otherwise controlling
+         * Popover visibility.
+         *
+         * Defaults to `onClose` when not provided.
+         */
+        onFocusOutside?(event: FocusEvent): void;
     }
     /**
      * The direction in which the popover should open relative to its parent
      * node. Specify y- and x-axis as a space-separated string.
      */
     type Position =
-        | "top left"
-        | "top right"
-        | "top center"
-        | "middle left"
-        | "middle right"
-        | "middle center"
-        | "bottom left"
-        | "bottom right"
-        | "bottom center";
+        | 'top left'
+        | 'top right'
+        | 'top center'
+        | 'middle left'
+        | 'middle right'
+        | 'middle center'
+        | 'bottom left'
+        | 'bottom right'
+        | 'bottom center';
 }
-declare const Popover: ComponentType<Popover.Props>;
+
+declare const Popover: ComponentType<Popover.Props> & {
+    /**
+     * Use Popover.Slot to render the Popover to a specific location on the page.
+     *
+     * This is useful to allow style cascade to take effect.
+     *
+     * @example
+     *
+     * import { render } from '@wordpress/element';
+     * import { Popover } from '@wordpress/components';
+     * import Content from './Content';
+     *
+     * const app = document.getElementById( 'app' );
+     * render(
+     *   <div>
+     *       <Content />
+     *       <Popover.Slot />
+     *   </div>,
+     *   app
+     * );
+     */
+    Slot(): ReactElement<Slot.Props, typeof Slot>;
+};
 
 export default Popover;

@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+	"test/akamai-edgeworkers-global.test.ts",
+	"test/cookies-tests.ts",
+	"test/url-search-params-tests.ts"
+    ]
+}

@@ -23,8 +23,49 @@ var testOpts = {
 
 var testCb = function() {};
 
+// mock integration
+const createMockIntegration = (name: string) => {
+  function Integration(options: SegmentAnalytics.AnalyticsJS) {
+    options.addIntegration(Integration);
+  }
+  Integration.prototype.name = name;
+  return Integration;
+};
 
 /////////////
+
+function test_init() {
+  analytics.init();
+  analytics.init(undefined, {
+    cookie: { maxage: 1000, secure: true, path: '/path', domain: 'localhost' },
+    metrics: { sampleRate: 0 },
+    localStorage: { enabled: true },
+    user: { cookie: { key: 'my_user_key', oldKey: 'old_key' } },
+    group: { localStorage: { key: 'group_key' } },
+
+    integrations: { All: false, 'Segment.io': true }
+  });
+  analytics.init({ 'Segment.io': { apiKey: 'apiKey', apiHost: 'apiHost' } });
+}
+
+function test_use() {
+  analytics.use(createMockIntegration('Segment.io'));
+}
+
+function test_addIntegration() {
+  analytics.addIntegration(createMockIntegration('Integration'));
+}
+
+function test_chaining() {
+  analytics
+    .use(createMockIntegration('integration'))
+    .init({ integration: { works: true } })
+    .setAnonymousId('anonymousId');
+}
+
+function test_setAnonymousId() {
+  analytics.setAnonymousId('123');
+}
 
 function test_load() {
   analytics.load("YOUR_WRITE_KEY");

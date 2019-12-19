@@ -1,8 +1,8 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 declare namespace QueryControls {
-    type Order = "asc" | "desc";
-    type OrderBy = "date" | "title";
+    type Order = 'asc' | 'desc';
+    type OrderBy = 'date' | 'title';
     type CategoryProps =
         | {
               categoriesList: ReadonlyArray<{

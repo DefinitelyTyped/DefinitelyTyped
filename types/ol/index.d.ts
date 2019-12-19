@@ -32,7 +32,4 @@ export { default as VectorImageTile } from './VectorImageTile';
 export { default as VectorTile } from './VectorTile';
 export { default as View } from './View';
 export { default as WebGLMap } from './WebGLMap';
-export { VERSION } from './util';
-
-export function getUid(obj: any): string;
-export function inherits(childCtor: (() => void), parentCtor: (() => void)): void;
+export { getUid, inherits, VERSION } from './util';

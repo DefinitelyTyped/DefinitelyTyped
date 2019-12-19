@@ -4,12 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from "webpack";
+import { Compiler, Plugin } from 'webpack';
 
 export = ScriptExtHtmlWebpackPlugin;
 
 declare class ScriptExtHtmlWebpackPlugin extends Plugin {
     constructor(options?: ScriptExtHtmlWebpackPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
 
 type ScriptMatchingPatternBase =

@@ -18,9 +18,16 @@ declare module "stream" {
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
+            /**
+             * A utility method for creating Readable Streams out of iterators.
+             */
+            static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
+
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
+            readonly readableObjectMode: boolean;
+            destroyed: boolean;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -29,7 +36,7 @@ declare module "stream" {
             resume(): this;
             isPaused(): boolean;
             unpipe(destination?: NodeJS.WritableStream): this;
-            unshift(chunk: any): void;
+            unshift(chunk: any, encoding?: BufferEncoding): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
@@ -110,9 +117,13 @@ declare module "stream" {
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
-            writable: boolean;
+            readonly writable: boolean;
+            readonly writableEnded: boolean;
+            readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
+            readonly writableObjectMode: boolean;
+            destroyed: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -199,6 +210,8 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -208,9 +221,12 @@ declare module "stream" {
 
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
-            writable: boolean;
+            readonly writable: boolean;
+            readonly writableEnded: boolean;
+            readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
+            readonly writableObjectMode: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -293,7 +309,12 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;

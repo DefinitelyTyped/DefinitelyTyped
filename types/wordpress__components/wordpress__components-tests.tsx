@@ -1,5 +1,5 @@
-import * as C from "@wordpress/components";
-import { Component } from "@wordpress/element";
+import * as C from '@wordpress/components';
+import { Component } from '@wordpress/element';
 
 //
 // primitives
@@ -10,7 +10,7 @@ import { Component } from "@wordpress/element";
 //
 // animate
 //
-<C.Animate type="appear" options={{ origin: "top left" }}>
+<C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
 
@@ -25,14 +25,14 @@ interface MyCompleteOption {
 <C.Autocomplete<MyCompleteOption>
     completers={[
         {
-            name: "fruit",
+            name: 'fruit',
             // The prefix that triggers this completer
-            triggerPrefix: "~",
+            triggerPrefix: '~',
             // The option data
             options: [
-                { visual: "🍎", name: "Apple", id: 1 },
-                { visual: "🍊", name: "Orange", id: 2 },
-                { visual: "🍇", name: "Grapes", id: 3 }
+                { visual: '🍎', name: 'Apple', id: 1 },
+                { visual: '🍊', name: 'Orange', id: 2 },
+                { visual: '🍇', name: 'Grapes', id: 3 },
             ],
             // Returns a label for an option like "🍊 Orange"
             getOptionLabel: option => (
@@ -44,12 +44,10 @@ interface MyCompleteOption {
             // Declares that options should be matched by their name
             getOptionKeywords: option => [option.name],
             // Declares that the Grapes option is disabled
-            isOptionDisabled: option => option.name === "Grapes",
+            isOptionDisabled: option => option.name === 'Grapes',
             // Declares completions should be inserted as abbreviations
-            getOptionCompletion: option => (
-                <abbr title={option.name}>{option.visual}</abbr>
-            )
-        }
+            getOptionCompletion: option => <abbr title={option.name}>{option.visual}</abbr>,
+        },
     ]}
 >
     {({ isExpanded, listBoxId, activeId }) => (
@@ -67,7 +65,7 @@ interface MyCompleteOption {
 //
 // base-control
 //
-<C.BaseControl id="foo" label="hello world">
+<C.BaseControl id="foo" label="hello world" hideLabelFromVision>
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
@@ -97,11 +95,7 @@ interface MyCompleteOption {
 //
 // clipboard-button
 //
-<C.ClipboardButton
-    isPrimary
-    text="Copy this"
-    onFinishCopy={() => console.log("copied!")}
-/>;
+<C.ClipboardButton isPrimary text="Copy this" onFinishCopy={() => console.log('copied!')} />;
 
 //
 // color-indicator
@@ -113,21 +107,18 @@ interface MyCompleteOption {
 //
 <C.ColorPalette
     colors={[
-        { name: "red", color: "#ff0000" },
-        { name: "green", color: "#00ff00" },
-        { name: "blue", color: "#0000ff" }
+        { name: 'red', color: '#ff0000' },
+        { name: 'green', color: '#00ff00' },
+        { name: 'blue', color: '#0000ff' },
     ]}
-    value={{ name: "red", color: "#ff0000" }}
+    value={{ name: 'red', color: '#ff0000' }}
     onChange={color => color && console.log(color.name)}
 />;
 
 //
 // color-picker
 //
-<C.ColorPicker
-    color="#ff0000"
-    onChangeComplete={color => console.log(color.hex)}
-/>;
+<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
 
 //
 // dashicon
@@ -137,15 +128,8 @@ interface MyCompleteOption {
 //
 // date-time
 //
-<C.DatePicker
-    isInvalidDate={date => isNaN(date.valueOf())}
-    onChange={date => console.log(date.toUpperCase())}
-/>;
-<C.TimePicker
-    currentTime={new Date().toISOString()}
-    onChange={time => console.log(time.toUpperCase())}
-    is12Hour
-/>;
+<C.DatePicker isInvalidDate={date => isNaN(date.valueOf())} onChange={date => console.log(date.toUpperCase())} />;
+<C.TimePicker currentTime={new Date().toISOString()} onChange={time => console.log(time.toUpperCase())} is12Hour />;
 <C.DateTimePicker onChange={date => console.log(date.toUpperCase())} />;
 
 //
@@ -154,20 +138,14 @@ interface MyCompleteOption {
 <C.Disabled>
     <input type="text" />
 </C.Disabled>;
-<C.Disabled.Consumer>
-    {isDisabled => <button style={{ opacity: isDisabled ? 0.5 : 1 }} />}
-</C.Disabled.Consumer>;
+<C.Disabled.Consumer>{isDisabled => <button style={{ opacity: isDisabled ? 0.5 : 1 }} />}</C.Disabled.Consumer>;
 
 //
 // draggable
 //
 <C.Draggable elementId="draggable-panel" transferData={{}}>
     {({ onDraggableStart, onDraggableEnd }) => (
-        <div
-            onDragStart={onDraggableStart}
-            onDragEnd={onDraggableEnd}
-            draggable={true}
-        />
+        <div onDragStart={onDraggableStart} onDragEnd={onDraggableEnd} draggable={true} />
     )}
 </C.Draggable>;
 
@@ -212,25 +190,25 @@ interface MyCompleteOption {
     label="Select a direction"
     controls={[
         {
-            title: "Up",
-            icon: "arrow-up-alt",
-            onClick: () => console.log("up")
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
         },
         {
-            title: "Right",
-            icon: "arrow-right-alt",
-            onClick: () => console.log("right")
+            title: 'Right',
+            icon: 'arrow-right-alt',
+            onClick: () => console.log('right'),
         },
         {
-            title: "Down",
-            icon: "arrow-down-alt",
-            onClick: () => console.log("down")
+            title: 'Down',
+            icon: 'arrow-down-alt',
+            onClick: () => console.log('down'),
         },
         {
-            title: "Left",
-            icon: "arrow-left-alt",
-            onClick: () => console.log("left")
-        }
+            title: 'Left',
+            icon: 'arrow-left-alt',
+            onClick: () => console.log('left'),
+        },
     ]}
 />;
 
@@ -251,10 +229,7 @@ interface MyCompleteOption {
 //
 // focusable-iframe
 //
-<C.FocusableIframe
-    src="/my-iframe-url"
-    onFocus={() => console.log("iframe is focused")}
-/>;
+<C.FocusableIframe src="/my-iframe-url" onFocus={() => console.log('iframe is focused')} />;
 
 //
 // font-size-picker
@@ -262,15 +237,15 @@ interface MyCompleteOption {
 <C.FontSizePicker
     fontSizes={[
         {
-            name: "Small",
-            slug: "small",
-            size: 12
+            name: 'Small',
+            slug: 'small',
+            size: 12,
         },
         {
-            name: "Big",
-            slug: "big",
-            size: 26
-        }
+            name: 'Big',
+            slug: 'big',
+            size: 26,
+        },
     ]}
     value={16}
     fallbackFontSize={16}
@@ -280,39 +255,37 @@ interface MyCompleteOption {
 //
 // form-file-upload
 //
-<C.FormFileUpload accept="image/*" onChange={() => console.log("new image")}>
+<C.FormFileUpload accept="image/*" icon="welcome-learn-more" onChange={() => console.log('new image')}>
     Upload
 </C.FormFileUpload>;
 <C.FormFileUpload
     multiple
     accept="application/pdf"
-    onChange={() => console.log("changed")}
-    render={({ openFileDialog }) => (
-        <button onClick={openFileDialog}>Open dialog</button>
-    )}
+    onChange={() => console.log('changed')}
+    render={({ openFileDialog }) => <button onClick={openFileDialog}>Open dialog</button>}
 />;
 
 //
 // form-toggle
 //
-<C.FormToggle checked={true} onChange={() => console.log("changed")} />;
+<C.FormToggle checked={true} onChange={() => console.log('changed')} />;
 
 //
 // form-token-field
 //
 <C.FormTokenField
     value={[
-        "foo",
+        'foo',
         {
-            value: "bar",
-            status: "success"
+            value: 'bar',
+            status: 'success',
         },
-        "baz",
+        'baz',
         {
-            value: "qux"
-        }
+            value: 'qux',
+        },
     ]}
-    suggestions={["foo", "bar", "baz", "qux"]}
+    suggestions={['foo', 'bar', 'baz', 'qux']}
     onChange={tokens => console.log(tokens)}
 />;
 
@@ -341,16 +314,16 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // icon-button
 //
 <C.IconButton icon="ellipsis" label="More" />;
-<C.IconButton icon={() => <i>foo</i>} onClick={() => console.log("clicked")} />;
+<C.IconButton icon={<i>foo</i>} onClick={() => console.log('clicked')} />;
 
 //
 // keyboard-shortcuts
 //
-const kbshortcutActionOne = () => console.log("action 1");
-const kbshortcutActionTwo = () => console.log("action 1");
+const kbshortcutActionOne = () => console.log('action 1');
+const kbshortcutActionTwo = () => console.log('action 1');
 const kbshortcuts = {
-    "mod+a": kbshortcutActionOne,
-    "ctrl+shift+j": kbshortcutActionTwo
+    'mod+a': kbshortcutActionOne,
+    'ctrl+shift+j': kbshortcutActionTwo,
 };
 <C.KeyboardShortcuts shortcuts={kbshortcuts} eventName="keyup">
     <div>Hello world</div>
@@ -361,12 +334,7 @@ const kbshortcuts = {
 // menu-group, menu-item
 //
 <C.MenuGroup>
-    <C.MenuItem
-        icon="yes"
-        isSelected={true}
-        onClick={() => console.log("clicked")}
-        isLarge
-    >
+    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isLarge>
         Toggle
     </C.MenuItem>
 </C.MenuGroup>;
@@ -377,22 +345,22 @@ const kbshortcuts = {
 <C.MenuItemsChoice
     choices={[
         {
-            value: "visual",
-            label: "Visual Editor"
+            value: 'visual',
+            label: 'Visual Editor',
         },
         {
-            value: "text",
-            label: "Code Editor",
-            shortcut: "ctrl+shift+c"
+            value: 'text',
+            label: 'Code Editor',
+            shortcut: 'ctrl+shift+c',
         },
         {
-            value: "other",
-            label: "Other Editor",
+            value: 'other',
+            label: 'Other Editor',
             shortcut: {
-                display: "ctrl+alt+o",
-                ariaLabel: "use some other editor"
-            }
-        }
+                display: 'ctrl+alt+o',
+                ariaLabel: 'use some other editor',
+            },
+        },
     ]}
     value="visual"
     onSelect={value => console.log(`selected value is ${value}`)}
@@ -401,22 +369,14 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal
-    title="This is my modal"
-    onRequestClose={() => console.log("closing modal")}
->
-    <button onClick={() => console.log("clicked")}>
-        My custom close button
-    </button>
+<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+    <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
 //
 // navigable-container
 //
-<C.NavigableMenu
-    onNavigate={(idx, el) => console.log(el.nodeName)}
-    orientation="horizontal"
->
+<C.NavigableMenu onNavigate={(idx, el) => console.log(el.nodeName)} orientation="horizontal">
     <button>Item 1</button>
     <button>Item 2</button>
     <button>Item 3</button>
@@ -434,20 +394,20 @@ const kbshortcuts = {
 <C.Notice
     actions={[
         {
-            label: "Action One",
-            className: "foo",
+            label: 'Action One',
+            className: 'foo',
             onClick() {
-                console.log("clicked");
-            }
+                console.log('clicked');
+            },
         },
         {
-            label: "Action Two",
-            url: "https://wordpress.org",
-            noDefaultClasses: true
-        }
+            label: 'Action Two',
+            url: 'https://wordpress.org',
+            noDefaultClasses: true,
+        },
     ]}
     status="success"
-    onRemove={() => console.log("notice removed")}
+    onRemove={() => console.log('notice removed')}
 >
     <h1>Hello World</h1>
 </C.Notice>;
@@ -455,10 +415,10 @@ const kbshortcuts = {
     className="my-notice-list"
     notices={[
         {
-            id: "1",
-            content: "Hello",
-            actions: [{ label: "Action One", url: "https://wordpress.org" }]
-        }
+            id: '1',
+            content: 'Hello',
+            actions: [{ label: 'Action One', url: 'https://wordpress.org' }],
+        },
     ]}
 ></C.NoticeList>;
 
@@ -466,20 +426,12 @@ const kbshortcuts = {
 // panel
 //
 <C.Panel header="My Panel" className="foo">
-    <C.PanelBody
-        title="Panel Body One"
-        icon={() => <i>icon</i>}
-        initialOpen={true}
-    >
+    <C.PanelBody title="Panel Body One" icon={() => <i>icon</i>} initialOpen={true}>
         <C.PanelRow>My Panel Inputs and Labels</C.PanelRow>
     </C.PanelBody>
 </C.Panel>;
 <C.Panel header="My Other Panel">
-    <C.PanelBody
-        title="Panel Body Two"
-        icon="welcome-widgets-menus"
-        initialOpen={true}
-    >
+    <C.PanelBody title="Panel Body Two" icon="welcome-widgets-menus" initialOpen={true}>
         <C.PanelRow className="foo">My Panel Inputs and Labels</C.PanelRow>
     </C.PanelBody>
 </C.Panel>;
@@ -502,17 +454,21 @@ const kbshortcuts = {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
+    onClose={() => {}}
+    onClickOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;
 
+<C.Popover.Slot />;
+
 //
 // query-controls
 //
-<C.QueryControls
-    numberOfItems={3}
-    onNumberOfItemsChange={n => console.log(Math.floor(n))}
-/>;
+<C.QueryControls numberOfItems={3} onNumberOfItemsChange={n => console.log(Math.floor(n))} />;
 <C.QueryControls
     orderBy="title"
     order="asc"
@@ -522,19 +478,19 @@ const kbshortcuts = {
     categoriesList={[
         {
             id: 1,
-            name: "Category 1",
-            parent: 0
+            name: 'Category 1',
+            parent: 0,
         },
         {
             id: 2,
-            name: "Category 1b",
-            parent: 1
+            name: 'Category 1b',
+            parent: 1,
         },
         {
             id: 3,
-            name: "Category 2",
-            parent: 0
-        }
+            name: 'Category 2',
+            parent: 0,
+        },
     ]}
     selectedCategoryId={1}
     onCategoryChange={categoryId => console.log(Math.floor(categoryId))}
@@ -548,21 +504,21 @@ const kbshortcuts = {
     label="User type"
     help="The type of the current user"
     selected="a"
-    options={[{ label: "Author", value: "a" }, { label: "Editor", value: "e" }]}
-    onChange={value => console.log(value.toUpperCase())}
+    options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
+    onChange={value => value && console.log(value.toUpperCase())}
+/>;
+<C.RadioControl
+    label="User type"
+    help="The type of the current user"
+    selected={{ foo: 'bar' }}
+    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
+    onChange={value => value && console.log(value.foo)}
 />;
 
 //
 // range-control
 //
-<C.RangeControl
-    beforeIcon="move"
-    label="Columns"
-    value={5}
-    min={2}
-    max={10}
-    onChange={value => console.log(value)}
-/>;
+<C.RangeControl beforeIcon="move" label="Columns" value={5} min={2} max={10} onChange={value => console.log(value)} />;
 
 //
 // resizable-box
@@ -570,7 +526,7 @@ const kbshortcuts = {
 <C.ResizableBox
     size={{
         height: 100,
-        width: 100
+        width: 100,
     }}
     minHeight="50"
     minWidth={50}
@@ -582,7 +538,7 @@ const kbshortcuts = {
         topRight: false,
         bottomRight: true,
         bottomLeft: false,
-        topLeft: false
+        topLeft: false,
     }}
 />;
 
@@ -590,10 +546,7 @@ const kbshortcuts = {
 // responsive-wrapper
 //
 <C.ResponsiveWrapper naturalWidth={2000} naturalHeight={680}>
-    <img
-        src="https://s.w.org/style/images/about/WordPress-logotype-standard.png"
-        alt="WordPress"
-    />
+    <img src="https://s.w.org/style/images/about/WordPress-logotype-standard.png" alt="WordPress" />
 </C.ResponsiveWrapper>;
 
 //
@@ -612,22 +565,14 @@ const kbshortcuts = {
 <C.SelectControl
     label="Size"
     value="50%"
-    options={[
-        { label: "Big", value: "100%" },
-        { label: "Medium", value: "50%" },
-        { label: "Small", value: "25%" }
-    ]}
+    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
     onChange={size => console.log(size)}
 />;
 <C.SelectControl
     label="Size"
-    value={["50%"]}
+    value={['50%']}
     multiple
-    options={[
-        { label: "Big", value: "100%" },
-        { label: "Medium", value: "50%" },
-        { label: "Small", value: "25%" }
-    ]}
+    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
     onChange={size => console.log(size)}
 />;
 
@@ -638,19 +583,19 @@ const kbshortcuts = {
 <C.Snackbar
     actions={[
         {
-            label: "Action One",
-            className: "foo",
+            label: 'Action One',
+            className: 'foo',
             onClick() {
-                console.log("clicked");
-            }
+                console.log('clicked');
+            },
         },
         {
-            label: "Action Two",
-            url: "https://wordpress.org",
-            noDefaultClasses: true
-        }
+            label: 'Action Two',
+            url: 'https://wordpress.org',
+            noDefaultClasses: true,
+        },
     ]}
-    onRemove={() => console.log("removed")}
+    onRemove={() => console.log('removed')}
 >
     Post published successfully.
 </C.Snackbar>;
@@ -658,10 +603,10 @@ const kbshortcuts = {
     className="my-notice-list"
     notices={[
         {
-            id: "1",
-            content: "Hello",
-            actions: [{ label: "Action One", url: "https://wordpress.org" }]
-        }
+            id: '1',
+            content: 'Hello',
+            actions: [{ label: 'Action One', url: 'https://wordpress.org' }],
+        },
     ]}
 />;
 
@@ -679,15 +624,15 @@ const kbshortcuts = {
     onSelect={tabName => console.log(tabName.toUpperCase())}
     tabs={[
         {
-            name: "tab1",
-            title: "Tab 1",
-            className: "tab-one"
+            name: 'tab1',
+            title: 'Tab 1',
+            className: 'tab-one',
         },
         {
-            name: "tab2",
-            title: "Tab 2",
-            foo: "bar"
-        }
+            name: 'tab2',
+            title: 'Tab 2',
+            foo: 'bar',
+        },
     ]}
 >
     {tab => <p>{tab.title}</p>}
@@ -696,14 +641,11 @@ const kbshortcuts = {
 //
 // text-control
 //
-<C.TextControl
-    label="My text value"
-    value={"foo"}
-    onChange={value => console.log(value.toUpperCase())}
-/>;
+<C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
 <C.TextControl
     type="number"
     label="My numeric value"
+    hideLabelFromVision
     value={3}
     onChange={value => console.log(value.toUpperCase())}
 />;
@@ -721,11 +663,7 @@ const kbshortcuts = {
 //
 // toggle-control
 //
-<C.ToggleControl
-    label="Controlled"
-    checked={true}
-    onChange={isChecked => console.log(isChecked)}
-/>;
+<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
 <C.ToggleControl label="Uncontrolled" />;
 
 //
@@ -737,72 +675,68 @@ const kbshortcuts = {
     label="Testing array of controls"
     controls={[
         {
-            icon: "yes",
-            title: "Yes",
+            icon: 'yes',
+            title: 'Yes',
             onClick() {},
             shortcut: {
-                display: "Yes"
+                display: 'Yes',
             },
-            isDisabled: false
+            isDisabled: false,
         },
         {
-            icon: "no",
-            title: "No",
+            icon: 'no',
+            title: 'No',
             onClick() {},
-            subscript: "no",
+            subscript: 'no',
             isActive: false,
-            shortcut: "No"
-        }
+            shortcut: 'No',
+        },
     ]}
 />;
 <C.Toolbar
     isCollapsed
     icon="wordpress-alt"
-    label="Testing array of 'control sets'"
+    title="Testing array of 'control sets'"
     controls={[
         [
             {
-                icon: "yes",
-                title: "Yes",
-                onClick() {}
+                icon: 'yes',
+                title: 'Yes',
+                onClick() {},
             },
             {
-                icon: "no",
-                title: "No",
-                onClick() {}
-            }
+                icon: 'no',
+                title: 'No',
+                onClick() {},
+            },
         ],
         [
             {
-                icon: "carrot",
-                title: "Carrots are delicious",
-                onClick() {}
-            }
-        ]
+                icon: 'carrot',
+                title: 'Carrots are delicious',
+                onClick() {},
+            },
+        ],
     ]}
 />;
 
 //
 // toolbar-button
 //
-<C.ToolbarButton
-    icon="editor-help"
-    title="Minimal Button"
-    onClick={() => console.log("clicked")}
-/>;
+<C.ToolbarButton icon="editor-help" title="Minimal Button" onClick={() => console.log('clicked')} />;
 <C.ToolbarButton
     className="bar"
     containerClassName="foo"
     extraProps={{
-        labelPosition: "bottom right",
+        labelPosition: 'bottom right',
         onFocus(e) {
             console.log(e.currentTarget.nodeName);
-        }
+        },
     }}
     icon="editor-code"
     subscript="hi"
     title="Toolbar Button"
-    onClick={() => console.log("clicked")}
+    onClick={() => console.log('clicked')}
 />;
 
 //
@@ -814,7 +748,7 @@ const kbshortcuts = {
 <C.Tooltip text="Hello world" position="bottom center" shortcut="ctrl+s">
     <button>Hover me for more information</button>
 </C.Tooltip>;
-<C.Tooltip text={<h1>Hello world</h1>} shortcut={{ display: "ctrl+s" }}>
+<C.Tooltip text={<h1>Hello world</h1>} shortcut={{ display: 'ctrl+s' }}>
     <button>Hover me for more information</button>
 </C.Tooltip>;
 
@@ -828,41 +762,41 @@ const kbshortcuts = {
     selectedId="foo"
     tree={[
         {
-            id: "grandparent-1",
-            name: "first grandparent",
+            id: 'grandparent-1',
+            name: 'first grandparent',
             children: [
                 {
-                    id: "parent-1",
-                    name: "parent",
+                    id: 'parent-1',
+                    name: 'parent',
                     children: [
                         {
-                            id: "child-1",
-                            name: "child"
-                        }
-                    ]
-                }
-            ]
+                            id: 'child-1',
+                            name: 'child',
+                        },
+                    ],
+                },
+            ],
         },
         {
-            id: "grandparent-2",
-            name: "second grandparent",
+            id: 'grandparent-2',
+            name: 'second grandparent',
             children: [
                 {
-                    id: "parent-2",
-                    name: "parent",
+                    id: 'parent-2',
+                    name: 'parent',
                     children: [
                         {
-                            id: "child-2",
-                            name: "child"
-                        }
-                    ]
-                }
-            ]
+                            id: 'child-2',
+                            name: 'child',
+                        },
+                    ],
+                },
+            ],
         },
         {
-            id: "no children",
-            name: "Childless"
-        }
+            id: 'no children',
+            name: 'Childless',
+        },
     ]}
     onChange={id => console.log(id)}
 />;
@@ -870,10 +804,7 @@ const kbshortcuts = {
 //
 // isolated-event-container
 //
-<C.IsolatedEventContainer
-    className="component-some_component"
-    onClick={e => console.log(e.currentTarget.nodeName)}
->
+<C.IsolatedEventContainer className="component-some_component" onClick={e => console.log(e.currentTarget.nodeName)}>
     <p>This is an isolated component</p>
 </C.IsolatedEventContainer>;
 
@@ -898,13 +829,13 @@ const MySlotFillProvider = () => {
     );
 };
 (() => {
-    const { Fill, Slot } = C.createSlotFill("Toolbar");
+    const { Fill, Slot } = C.createSlotFill('Toolbar');
 
     const ToolbarItem = () => <Fill>My item</Fill>;
 
     const Toolbar = () => (
         <div className="toolbar">
-            <Slot bubblesVirtually fillProps={{ foo: "bar" }} />
+            <Slot bubblesVirtually fillProps={{ foo: 'bar' }} />
         </div>
     );
 })();
@@ -924,13 +855,11 @@ const MySlotFillProvider = () => {
 // higher-order/navigate-regions
 //
 (() => {
-    const EnhancedComponent = C.navigateRegions(
-        ({ foo, bar }: { foo: string; bar: number }) => (
-            <div>
-                {foo} and {bar}{" "}
-            </div>
-        )
-    );
+    const EnhancedComponent = C.navigateRegions(({ foo, bar }: { foo: string; bar: number }) => (
+        <div>
+            {foo} and {bar}{' '}
+        </div>
+    ));
     <EnhancedComponent foo="hello" bar={123} />;
 })();
 
@@ -938,13 +867,11 @@ const MySlotFillProvider = () => {
 // higher-order/with-constrained-tabbing
 //
 (() => {
-    const EnhancedComponent = C.withConstrainedTabbing(
-        ({ foo, bar }: { foo: string; bar: number }) => (
-            <div>
-                {foo} and {bar}{" "}
-            </div>
-        )
-    );
+    const EnhancedComponent = C.withConstrainedTabbing(({ foo, bar }: { foo: string; bar: number }) => (
+        <div>
+            {foo} and {bar}{' '}
+        </div>
+    ));
     <EnhancedComponent foo="hello" bar={123} />;
 })();
 
@@ -952,15 +879,11 @@ const MySlotFillProvider = () => {
 // higher-order/with-fallback-styles
 //
 (() => {
-    const OriginalComponent = (props: {
-        foo: string;
-        bar: string;
-        baz: string;
-    }) => <div>{JSON.stringify(props)}</div>;
+    const OriginalComponent = (props: { foo: string; bar: string; baz: string }) => <div>{JSON.stringify(props)}</div>;
     const EnhancedComponent = C.withFallbackStyles((node, ownProps) => {
         console.log(node.nodeName);
         return {
-            baz: "baz"
+            baz: 'baz',
         };
     })(OriginalComponent);
     <EnhancedComponent foo="" bar="" />;
@@ -970,17 +893,11 @@ const MySlotFillProvider = () => {
 // higher-order/with-filters
 //
 (() => {
-    const OriginalComponent = (props: { foo: string; bar: string }) => (
-        <div>{JSON.stringify(props)}</div>
-    );
-    const EnhancedComponentSameProps = C.withFilters("myFilter")(
-        OriginalComponent
-    );
+    const OriginalComponent = (props: { foo: string; bar: string }) => <div>{JSON.stringify(props)}</div>;
+    const EnhancedComponentSameProps = C.withFilters('myFilter')(OriginalComponent);
     <EnhancedComponentSameProps foo="" bar="" />;
 
-    const EnhancedComponentNewProps = C.withFilters<{ baz: number }>(
-        "myFilter"
-    )(OriginalComponent);
+    const EnhancedComponentNewProps = C.withFilters<{ baz: number }>('myFilter')(OriginalComponent);
     <EnhancedComponentNewProps baz={25} />;
 })();
 
@@ -991,26 +908,24 @@ const MySlotFillProvider = () => {
     const EnhancedComponentClassExpression = C.withFocusOutside(
         class extends Component<{ foo: string }> {
             handleFocusOutside() {
-                console.log("Hello World!");
+                console.log('Hello World!');
             }
             render() {
                 return <div>{this.props.foo}</div>;
             }
-        }
+        },
     );
     <EnhancedComponentClassExpression foo="hello world" />;
 
     class PredefinedComponentClass extends Component<{ bar: number }> {
         handleFocusOutside() {
-            console.log("Hello World!");
+            console.log('Hello World!');
         }
         render() {
             return <div>{this.props.bar}</div>;
         }
     }
-    const EnhancedComponentPredefinedClass = C.withFocusOutside(
-        PredefinedComponentClass
-    );
+    const EnhancedComponentPredefinedClass = C.withFocusOutside(PredefinedComponentClass);
     <EnhancedComponentPredefinedClass bar={1} />;
 })();
 
@@ -1018,27 +933,21 @@ const MySlotFillProvider = () => {
 // higher-order/with-focus-return
 //
 (() => {
-    const EnhancedComponentDefaultBehavior = C.withFocusReturn(
-        (props: { foo: string; bar: string }) => (
-            <div>{JSON.stringify(props)}</div>
-        )
-    );
+    const EnhancedComponentDefaultBehavior = C.withFocusReturn((props: { foo: string; bar: string }) => (
+        <div>{JSON.stringify(props)}</div>
+    ));
     <EnhancedComponentDefaultBehavior foo="foo" bar="bar" />;
 
     const EnhancedComponentCustomBehavior = C.withFocusReturn({
         onFocusReturn() {
-            console.log("Hello World!");
-        }
-    })((props: { foo: string; bar: string }) => (
-        <div>{JSON.stringify(props)}</div>
-    ));
+            console.log('Hello World!');
+        },
+    })((props: { foo: string; bar: string }) => <div>{JSON.stringify(props)}</div>);
     <EnhancedComponentCustomBehavior foo="foo" bar="bar" />;
 
-    const EnhancedComponentCustomBehaviorDefault = C.withFocusReturn({})(
-        (props: { foo: string; bar: string }) => (
-            <div>{JSON.stringify(props)}</div>
-        )
-    );
+    const EnhancedComponentCustomBehaviorDefault = C.withFocusReturn({})((props: { foo: string; bar: string }) => (
+        <div>{JSON.stringify(props)}</div>
+    ));
     <EnhancedComponentCustomBehaviorDefault foo="foo" bar="bar" />;
 })();
 
@@ -1046,16 +955,8 @@ const MySlotFillProvider = () => {
 // higher-order/with-notices
 //
 (() => {
-    const OriginalComponent = (
-        props: { foo: string } & C.withNotices.Props
-    ) => (
-        <button
-            onClick={() =>
-                props.noticeOperations.createErrorNotice("Hello World!")
-            }
-        >
-            {props.foo}
-        </button>
+    const OriginalComponent = (props: { foo: string } & C.withNotices.Props) => (
+        <button onClick={() => props.noticeOperations.createErrorNotice('Hello World!')}>{props.foo}</button>
     );
     const WrappedComponent = C.withNotices(OriginalComponent);
     <WrappedComponent foo="Hello World!" />;
@@ -1070,15 +971,11 @@ const MySlotFillProvider = () => {
         debouncedSpeak: any;
         foo: string;
     }
-    const MyComponentWithSpokenMessages = C.withSpokenMessages(
-        ({ speak, debouncedSpeak, foo }: Props) => (
-            <div>
-                <button onClick={() => speak("Spoken message")}>Speak</button>
-                <button onClick={() => debouncedSpeak("Delayed message")}>
-                    Debounced Speak
-                </button>
-            </div>
-        )
-    );
+    const MyComponentWithSpokenMessages = C.withSpokenMessages(({ speak, debouncedSpeak, foo }: Props) => (
+        <div>
+            <button onClick={() => speak('Spoken message')}>Speak</button>
+            <button onClick={() => debouncedSpeak('Delayed message')}>Debounced Speak</button>
+        </div>
+    ));
     <MyComponentWithSpokenMessages foo="Hello World!" />;
 })();

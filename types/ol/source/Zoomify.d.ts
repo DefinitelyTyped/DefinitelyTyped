@@ -13,9 +13,6 @@ import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
-export class CustomTile extends ImageTile {
-    constructor(tileGrid: TileGrid, tileCoord: TileCoord, state: TileState, src: string, crossOrigin: string, tileLoadFunction: LoadFunction, opt_options?: Options_1);
-}
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -29,11 +26,14 @@ export interface Options {
     transition?: number;
     tileSize?: number;
 }
+export class CustomTile extends ImageTile {
+    constructor(tileGrid: TileGrid, tileCoord: TileCoord, state: TileState, src: string, crossOrigin: string, tileLoadFunction: LoadFunction, opt_options?: Options_1);
+}
 export default class Zoomify extends TileImage {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

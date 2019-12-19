@@ -143,6 +143,9 @@ mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.oneOf(['hello', 'world'], () => 'message');
+mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
+// $ExpectError
+mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -198,6 +201,16 @@ mixed.test('with-context', 'it uses function context', testContext);
 mixed.test({
     test: testContext,
 });
+mixed.test({
+    message: ({ passed }) => (passed ? 'You passed' : 'You failed'),
+    name: 'checkParams',
+    params: { passed: true },
+    test: value => !!value,
+});
+
+// mixed with concat
+yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
+yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
 
 // Async ValidationError
 const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
@@ -263,19 +276,31 @@ strSchema.required('req');
 strSchema.required(() => 'req');
 strSchema.length(5, 'message');
 strSchema.length(5, () => 'message');
+strSchema.length(5, ({ length }) => `must be ${length}`);
+// $ExpectError
+strSchema.length(5, ({ min }) => `must be ${min}`);
 strSchema.min(5, 'message');
 strSchema.min(5, () => 'message');
+strSchema.min(5, ({ min }) => `more than ${min}`);
+// $ExpectError
+strSchema.min(5, ({ max }) => `more than ${max}`);
 strSchema.max(5, 'message');
 strSchema.max(5, () => 'message');
+strSchema.max(5, ({ max }) => `less than ${max}`);
+// $ExpectError
+strSchema.max(5, ({ min }) => `less than ${min}`);
 strSchema.matches(/(hi|bye)/);
 strSchema.matches(/(hi|bye)/, 'invalid');
 strSchema.matches(/(hi|bye)/, () => 'invalid');
+strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
 strSchema.email();
 strSchema.email('invalid');
 strSchema.email(() => 'invalid');
+strSchema.email(({ regex }) => `Does not match ${regex}`);
 strSchema.url();
 strSchema.url('bad url');
 strSchema.url(() => 'bad url');
+strSchema.url(({ regex }) => `Does not match ${regex}`);
 strSchema.ensure();
 strSchema.trim();
 strSchema.trim('trimmed');
@@ -293,9 +318,15 @@ numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
 numSchema.min(5, () => 'message');
+numSchema.min(5, ({ min }) => `more than ${min}`);
+// $ExpectError
+numSchema.min(5, ({ max }) => `more than ${max}`);
 numSchema.max(5);
 numSchema.max(5, 'message');
 numSchema.max(5, () => 'message');
+numSchema.max(5, ({ max }) => `less than ${max}`);
+// $ExpectError
+numSchema.max(5, ({ min }) => `more than ${min}`);
 numSchema.positive();
 numSchema.positive('pos');
 numSchema.positive(() => 'pos');
@@ -354,8 +385,8 @@ arrSchema.compact((value, index, array) => value === array[index]);
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
-        field: yup.number()
-    })
+        field: yup.number(),
+    }),
 );
 arrOfObjSchema.compact((value, index, array) => {
     return value.field > 10 && array[index].field > 10;
@@ -456,10 +487,68 @@ const localeNotType3: LocaleObject = {
         },
     },
 };
+// tslint:disable:no-invalid-template-strings
+const exhaustiveLocalObjectconst: LocaleObject = {
+    mixed: {
+        default: '${path} is invalid',
+        required: '${path} is a required field',
+        oneOf: '${path} must be one of the following values: ${values}',
+        notOneOf: '${path} must not be one of the following values: ${values}',
+        notType: '${path} is not the correct type',
+    },
+    string: {
+        length: '${path} must be exactly ${length} characters',
+        min: '${path} must be at least ${min} characters',
+        max: '${path} must be at most ${max} characters',
+        matches: '${path} must match the following: "${regex}"',
+        email: '${path} must be a valid email',
+        url: '${path} must be a valid URL',
+        trim: '${path} must be a trimmed string',
+        lowercase: '${path} must be a lowercase string',
+        uppercase: '${path} must be a upper case string',
+    },
+    number: {
+        min: '${path} must be greater than or equal to ${min}',
+        max: '${path} must be less than or equal to ${max}',
+        lessThan: '${path} must be less than ${less}',
+        moreThan: '${path} must be greater than ${more}',
+        positive: '${path} must be a positive number',
+        negative: '${path} must be a negative number',
+        integer: '${path} must be an integer',
+    },
+    date: {
+        min: '${path} field must be later than ${min}',
+        max: '${path} field must be at earlier than ${max}',
+    },
+    boolean: {
+        // NOOP
+    },
+    object: {
+        noUnknown: '${path} field cannot have keys not specified in the object shape',
+    },
+    array: {
+        min: '${path} field must have at least ${min} items',
+        max: '${path} field must have less than or equal to ${max} items',
+    },
+};
+// tslint:enable:no-invalid-template-strings
 
 yup.setLocale({
+    mixed: {
+        required: options => options,
+    },
     number: { max: 'Max message', min: 'Min message' },
-    string: { email: 'String message' },
+    string: {
+        email: 'String message',
+        length: ({ length }) => ({ key: 'stringLength', options: { length } }),
+    },
+});
+
+yup.setLocale({
+    string: {
+        // $ExpectError
+        nullable: 'message',
+    },
 });
 
 interface MyInterface {
@@ -572,8 +661,14 @@ yup.object<MyInterface>({
     arrayField: yup.array(yup.string()).required(),
 });
 
+enum Gender {
+    Male = 'Male',
+    Female = 'Female',
+}
+
 const personSchema = yup.object({
     firstName: yup.string(), // $ExpectType StringSchema<string>
+    gender: yup.mixed<Gender>().oneOf([Gender.Male, Gender.Female]),
     email: yup
         .string()
         .nullable()
@@ -606,6 +701,7 @@ type Person = yup.InferType<typeof personSchema>;
 // Equivalent to:
 // type Person = {
 //     firstName: string;
+//     gender: Gender;
 //     email?: string | null | undefined;
 //     birthDate?: Date | null | undefined;
 //     canBeNull: string | null;
@@ -616,12 +712,14 @@ type Person = yup.InferType<typeof personSchema>;
 
 const minimalPerson: Person = {
     firstName: '',
+    gender: Gender.Female,
     canBeNull: null,
     mustBeAString: '',
 };
 
 const person: Person = {
     firstName: '',
+    gender: Gender.Male,
     email: null,
     birthDate: null,
     canBeNull: null,
@@ -638,6 +736,8 @@ person.isAlive = undefined;
 person.children = ['1', '2', '3'];
 person.children = undefined;
 
+// $ExpectError
+person.gender = 1;
 // $ExpectError
 person.firstName = null;
 // $ExpectError
@@ -665,6 +765,14 @@ castPerson.isAlive = undefined;
 castPerson.children = ['1', '2', '3'];
 castPerson.children = null;
 castPerson.children = undefined;
+
+const loginSchema = yup.object({
+    password: yup.string(),
+    confirmPassword: yup
+        .string()
+        .nullable()
+        .oneOf([yup.ref('password'), null]),
+});
 
 function wrapper<T>(b: false, msx: MixedSchema<T>): MixedSchema<T>;
 function wrapper<T>(b: true, msx: MixedSchema<T>): MixedSchema<T | null>;

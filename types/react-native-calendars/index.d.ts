@@ -40,14 +40,17 @@ export interface CalendarTheme {
     selectedDotColor?: string;
     textDayFontFamily?: string;
     textDayFontSize?: number;
+    textDayFontWeight?: string;
     textDayHeaderFontFamily?: string;
     textDayHeaderFontSize?: number;
+    textDayHeaderFontWeight?: string;
     textDisabledColor?: string;
     textMonthFontFamily?: string;
     textMonthFontWeight?: string;
     textMonthFontSize?: number;
     textSectionTitleColor?: string;
     todayTextColor?: string;
+    indicatorColor?: string;
 
     // Theme ID's to style for
     "stylesheet.calendar.header"?: CalendarThemeIdStyle;

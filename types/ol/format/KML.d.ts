@@ -19,28 +19,9 @@ import Style, { StyleFunction } from '../style/Style';
 import Text from '../style/Text';
 import XMLFeature from './XMLFeature';
 
-export function getDefaultFillStyle(): Fill;
-export function getDefaultImageStyle(): ImageStyle;
-export function getDefaultStrokeStyle(): Stroke;
-export function getDefaultStyle(): Style;
-export function getDefaultStyleArray(): Style[];
-export function getDefaultTextStyle(): Text;
-export function readFlatCoordinates(node: Node): number[];
 export interface GxTrackObject {
     flatCoordinates: number[];
     whens: number[];
-}
-export default class KML extends XMLFeature {
-    constructor(opt_options?: Options);
-    readName(source: Document | Element | string): string;
-    readNameFromDocument(doc: Document): string;
-    readNameFromNode(node: Element): string;
-    readNetworkLinks(source: Document | Element | string): object[];
-    readNetworkLinksFromDocument(doc: Document): object[];
-    readNetworkLinksFromNode(node: Element): object[];
-    readRegion(source: Document | Element | string): object[];
-    readRegionFromDocument(doc: Document): object[];
-    readRegionFromNode(node: Element): object[];
 }
 export interface Options {
     extractStyles?: boolean;
@@ -55,3 +36,22 @@ export interface Vec2 {
     yunits: IconAnchorUnits;
     origin: IconOrigin;
 }
+export default class KML extends XMLFeature {
+    constructor(opt_options?: Options);
+    readName(source: Document | Element | string): string | undefined;
+    readNameFromDocument(doc: Document): string | undefined;
+    readNameFromNode(node: Element): string | undefined;
+    readNetworkLinks(source: Document | Element | string): object[];
+    readNetworkLinksFromDocument(doc: Document): object[];
+    readNetworkLinksFromNode(node: Element): object[];
+    readRegion(source: Document | Element | string): object[];
+    readRegionFromDocument(doc: Document): object[];
+    readRegionFromNode(node: Element): object[];
+}
+export function getDefaultFillStyle(): Fill;
+export function getDefaultImageStyle(): ImageStyle;
+export function getDefaultStrokeStyle(): Stroke;
+export function getDefaultStyle(): Style;
+export function getDefaultStyleArray(): Style[];
+export function getDefaultTextStyle(): Text;
+export function readFlatCoordinates(node: Node): number[] | undefined;

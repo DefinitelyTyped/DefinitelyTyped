@@ -6,9 +6,17 @@ import BaseObject, { ObjectEvent } from '../Object';
 import State_1 from '../source/State';
 import Layer, { State } from './Layer';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+}
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
-    getExtent(): Extent;
+    getExtent(): Extent | undefined;
     getLayersArray(opt_array?: Layer[]): Layer[];
     getLayerState(): State;
     getLayerStatesArray(opt_states?: State[]): State[];
@@ -19,15 +27,15 @@ export default class BaseLayer extends BaseObject {
     getType(): LayerType;
     getVisible(): boolean;
     getZIndex(): number;
-    setExtent(extent: Extent): void;
+    setExtent(extent: Extent | undefined): void;
     setMaxResolution(maxResolution: number): void;
     setMinResolution(minResolution: number): void;
     setOpacity(opacity: number): void;
     setVisible(visible: boolean): void;
     setZIndex(zindex: number): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -52,12 +60,4 @@ export default class BaseLayer extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
 }

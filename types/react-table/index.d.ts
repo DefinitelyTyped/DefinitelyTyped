@@ -318,19 +318,10 @@ export interface ComponentDecoratorProps {
     getTbodyProps: ComponentPropsGetter0;
     getTrGroupProps: ComponentPropsGetterR | ComponentPropsGetter0;
     getTrProps: ComponentPropsGetterR | ComponentPropsGetter0;
-
-    /**
-     * @TODO not exists in react-table but in the docs
-     */
-    // getThProps: ComponentPropsGetter
     getTdProps: ComponentPropsGetterRC | ComponentPropsGetterR;
     getTfootProps: ComponentPropsGetter0;
     getTfootTrProps: ComponentPropsGetter0;
-
-    /**
-     * @TODO not exists in react-table but in the docs
-     */
-    // getTfootThProps: ComponentPropsGetter
+    getTfootTdProps: ComponentPropsGetterC;
     getPaginationProps: ComponentPropsGetter0;
     getLoadingProps: ComponentPropsGetter0;
     getNoDataProps: ComponentPropsGetter0;

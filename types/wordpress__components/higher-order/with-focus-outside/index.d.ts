@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ComponentType } from "@wordpress/element";
+import { Component, ComponentClass, ComponentType } from '@wordpress/element';
 
 export interface HFOComponent<P = {}, S = any> extends ComponentClass<P, S> {
     new (props: P, context?: any): Component<P, S> & {

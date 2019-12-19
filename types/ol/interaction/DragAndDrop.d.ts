@@ -8,11 +8,20 @@ import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
 import Interaction from './Interaction';
 
+export interface Options {
+    formatConstructors?: FeatureFormat[];
+    source?: VectorSource;
+    projection?: ProjectionLike;
+    target?: HTMLElement;
+}
+export enum DragAndDropEventType {
+    ADD_FEATURES = 'addfeatures',
+}
 export default class DragAndDrop extends Interaction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     once(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     un(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): void;
@@ -31,13 +40,4 @@ export class DragAndDropEvent extends Event {
     features: FeatureLike[];
     file: File;
     projection: Projection;
-}
-export enum DragAndDropEventType {
-    ADD_FEATURES = 'addfeatures',
-}
-export interface Options {
-    formatConstructors?: FeatureFormat[];
-    source?: VectorSource;
-    projection?: ProjectionLike;
-    target?: HTMLElement;
 }

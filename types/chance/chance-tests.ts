@@ -15,8 +15,10 @@ guid = chance.guid({ version: 4 });
 guid = chance.guid({ version: 5 });
 
 const strArr: string[] = chance.n(chance.string, 42);
+const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
+const uniqInts2: number[] = chance.unique(a => a.value, 99, { value: 1 });
 
 const currencyPair = chance.currency_pair();
 const firstCurrency = currencyPair[0];
@@ -105,9 +107,28 @@ word = chance.word({length: 10});
 word = chance.word({capitalize: true});
 
 let randomString: string = chance.string();
-randomString = chance.string({pool: 'abcdef', length: 10});
-randomString = chance.string({pool: 'abcdef'});
-randomString = chance.string({length: 10});
+randomString = chance.string({ pool: 'abcdef' });
+randomString = chance.string({ length: 10 });
+randomString = chance.string({ casing: 'upper' });
+randomString = chance.string({ alpha: true });
+randomString = chance.string({ numeric: true });
+randomString = chance.string({ symbols: '!@#$' });
+randomString = chance.string({
+    pool: 'abcdef',
+    length: 10,
+    casing: 'lower',
+    alpha: true,
+    numeric: true,
+    symbols: ')(*&',
+});
+
+let char: string = chance.character();
+char = chance.character({ pool: 'abcdef' });
+char = chance.character({ casing: 'upper' });
+char = chance.character({ alpha: true });
+char = chance.character({ numeric: true });
+char = chance.character({ symbols: '!@#$' });
+char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: ')(*&' });
 
 let url: string = chance.url();
 url = chance.url({protocol: 'http'});
@@ -166,3 +187,5 @@ sentence = chance.sentence({punctuation: ';'});
 sentence = chance.sentence({punctuation: '!'});
 sentence = chance.sentence({punctuation: ':'});
 sentence = chance.sentence({words: 10, punctuation: '?'});
+
+const postcode: string = chance.postcode();

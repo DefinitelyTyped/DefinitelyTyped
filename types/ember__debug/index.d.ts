@@ -7,7 +7,7 @@
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
-export function assert(desc: string, test?: boolean): void | never;
+export function assert(desc: string, test?: any): void | never;
 /**
  * Display a debug notice.
  */
@@ -51,3 +51,36 @@ export function warn(message: string, test: boolean, options?: { id?: string }):
  * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
  */
 export function warn(message: string, options?: { id?: string }): void;
+
+/**
+ * Display a deprecation warning with the provided message and a stack trace
+ * (Chrome and Firefox only).
+ *
+ * In a production build, this method is defined as an empty function (NOP).
+ * Uses of this method in Ember itself are stripped from the ember.prod.js build.
+ *
+ * @param message A description of the deprecation.
+ * @param test If falsy, the deprecation will be displayed.
+ * @param options The deprecation options.
+ */
+export function deprecate(
+    message: string,
+    test: boolean,
+    options: {
+        /**
+         * A unique id for this deprecation. The id can be used by Ember debugging
+         * tools to change the behavior (raise, log or silence) for that specific
+         * deprecation. The id should be namespaced by dots, e.g.
+         * `"view.helper.select"`.
+         */
+        id: string;
+        /**
+         * The version of Ember when this deprecation warning will be removed.
+         */
+        until: string;
+        /**
+         * An optional url to the transition guide on the emberjs.com website.
+         */
+        url?: string;
+    },
+): void;

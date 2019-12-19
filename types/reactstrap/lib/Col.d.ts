@@ -13,16 +13,16 @@ export type ColumnProps
   };
 
 export interface ColProps extends React.HTMLProps<HTMLDivElement> {
-  [key: string]: any;
-  tag?: React.ReactType;
-  xs?: ColumnProps;
-  sm?: ColumnProps;
-  md?: ColumnProps;
-  lg?: ColumnProps;
-  xl?: ColumnProps;
+    [key: string]: any;
+    tag?: string | React.ReactType;
+    xs?: ColumnProps;
+    sm?: ColumnProps;
+    md?: ColumnProps;
+    lg?: ColumnProps;
+    xl?: ColumnProps;
 
-  // custom widths
-  widths?: string[];
+    // custom widths
+    widths?: string[];
 }
 
 declare class Col<T = {[key: string]: any}> extends React.Component<ColProps> {}

@@ -429,9 +429,9 @@ divs = divs
 
 divs = divs
     .style('background-color', 'blue') // string
-    .style('hidden', false) // boolean
-    // $ExpectError
-    .style('color', 'green', 'test') // fails, invalid priority value
+    .style('hidden', false); // boolean
+// $ExpectError
+divs = divs.style('color', 'green', 'test') // fails, invalid priority value
     .style('color', 'green', 'important');
 
 divs = divs
@@ -448,9 +448,9 @@ divs = divs
         }
         return d.padding; // string return value
     })
-    .style('hidden', () => true, null) // boolean return + test: priority = null
-    // $ExpectError
-    .style('color', () => 'green', 'test') // fails, test: invalid priority value
+    .style('hidden', () => true, null); // boolean return + test: priority = null
+// $ExpectError
+divs = divs.style('color', () => 'green', 'test') // fails, test: invalid priority value
     .style('color', () => 'green', 'important'); // boolean return + test: priority = 'important';
 
 // property(...) Tests

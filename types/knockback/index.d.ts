@@ -76,8 +76,8 @@ declare namespace Knockback {
         constructor (format: KnockoutObservable<any>, args: any[]);
     }
 
-    interface LocalizedObservable {
-        constructor (value: any, options: any, vm: any);
+    class LocalizedObservable {
+        constructor(value: any, options: any, vm: any);
         destroy();
         resetToCurrent();
         observedValue(value: any);

@@ -104,6 +104,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      */
     hasParallaxImages?: boolean;
     /**
+     * How many items should be rendered at the start?
+     */
+    initialNumToRender?: number;
+    /**
      * Prevent the user from interacting with the carousel while it is snapping. Ignored
      * if `enableMomentum` is `true`
      */
@@ -293,7 +297,7 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
      * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
      * on the current scroll position
      */
-    triggerRenderingHack(offset: number): void;
+    triggerRenderingHack(offset?: number): void;
 }
 
 export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;

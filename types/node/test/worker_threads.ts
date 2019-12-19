@@ -1,6 +1,5 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
-import { worker } from "cluster";
 import { createContext } from "vm";
 
 {
@@ -46,4 +45,11 @@ import { createContext } from "vm";
             value.hereIsYourPort.close();
         });
     }
+}
+
+{
+    const w = new workerThreads.Worker(__filename);
+    w.terminate().then(() => {
+        // woot
+    });
 }

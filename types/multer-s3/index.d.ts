@@ -4,7 +4,7 @@
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Matt Terski <https://github.com/terski>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as AWS from "aws-sdk";
 import { StorageEngine } from "multer";

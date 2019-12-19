@@ -1,11 +1,7 @@
-import {
-    ComponentType,
-    KeyboardEventHandler,
-    ReactNode
-} from "@wordpress/element";
+import { ComponentType, HTMLProps, KeyboardEventHandler, ReactNode } from '@wordpress/element';
 
 declare namespace TabbableContainer {
-    interface Props {
+    interface Props extends HTMLProps<HTMLDivElement> {
         /**
          * A boolean which tells the component whether or not to cycle from the
          * end back to the beginning and vice versa.

@@ -6,11 +6,18 @@ import { ObjectEvent } from '../Object';
 import { AttributionLike } from './Source';
 import VectorSource, { VectorSourceEvent } from './Vector';
 
+export interface Options {
+    attributions?: AttributionLike;
+    distance?: number;
+    geometryFunction?: (p0: Feature) => Point;
+    source: VectorSource;
+    wrapX?: boolean;
+}
 export default class Cluster extends VectorSource {
     constructor(options: Options);
     protected distance: number;
     protected features: Feature[];
-    protected geometryFunction: ((p0: Feature) => Point);
+    protected geometryFunction: (p0: Feature) => Point;
     protected resolution: number;
     protected source: VectorSource;
     protected cluster(): void;
@@ -18,9 +25,9 @@ export default class Cluster extends VectorSource {
     getDistance(): number;
     getSource(): VectorSource;
     setDistance(distance: number): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): void;
@@ -39,11 +46,4 @@ export default class Cluster extends VectorSource {
     on(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): void;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    distance?: number;
-    geometryFunction?: ((p0: Feature) => Point);
-    source: VectorSource;
-    wrapX?: boolean;
 }

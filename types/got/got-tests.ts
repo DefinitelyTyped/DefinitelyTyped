@@ -21,6 +21,11 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
+got('todomvc.com').then((response) => {
+    response.statusCode; // $ExpectType number
+    response.statusMessage; // $ExpectType string
+});
+
 got('todomvc.com', { json: true }).then((response) => {
     response.body; // $ExpectType any
 });
@@ -383,6 +388,15 @@ got('example.com', {
 });
 got('example.com', {
     hooks: {
+        beforeError: [
+            error => {
+                return error;
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         afterResponse: [
             (response, retryWithMergedOptions) => {
                 if (response.statusCode === 401) { // Unauthorized
@@ -425,6 +439,12 @@ got('example.com', {
                     await doSomethingAsync();
                 }
             ],
+            beforeError: [
+                async (error) => {
+                    await doSomethingAsync();
+                    return error;
+                }
+            ],
             afterResponse: [
                 async (response) => {
                     await doSomethingAsync();
@@ -434,3 +454,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});

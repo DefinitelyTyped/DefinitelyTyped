@@ -3,6 +3,7 @@ declare module "tty" {
 
     function isatty(fd: number): boolean;
     class ReadStream extends net.Socket {
+        constructor(fd: number, options?: net.SocketConstructorOpts);
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
@@ -14,6 +15,7 @@ declare module "tty" {
      */
     type Direction = -1 | 0 | 1;
     class WriteStream extends net.Socket {
+        constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "resize", listener: () => void): this;
 
@@ -32,9 +34,23 @@ declare module "tty" {
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "resize", listener: () => void): this;
 
-        clearLine(dir: Direction): void;
-        clearScreenDown(): void;
-        cursorTo(x: number, y: number): void;
+        /**
+         * Clears the current line of this WriteStream in a direction identified by `dir`.
+         */
+        clearLine(dir: Direction, callback?: () => void): boolean;
+        /**
+         * Clears this `WriteStream` from the current cursor down.
+         */
+        clearScreenDown(callback?: () => void): boolean;
+        /**
+         * Moves this WriteStream's cursor to the specified position.
+         */
+        cursorTo(x: number, y?: number, callback?: () => void): boolean;
+        cursorTo(x: number, callback: () => void): boolean;
+        /**
+         * Moves this WriteStream's cursor relative to its current position.
+         */
+        moveCursor(dx: number, dy: number, callback?: () => void): boolean;
         /**
          * @default `process.env`
          */

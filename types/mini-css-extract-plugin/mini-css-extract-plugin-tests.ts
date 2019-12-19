@@ -65,3 +65,14 @@ configuration = {
         }),
     ],
 };
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+            chunkFilename: 'style.css',
+            ignoreOrder: true,
+        }),
+    ],
+};

@@ -798,7 +798,6 @@ declare var WebGL2RenderingContext: {
     readonly STENCIL_CLEAR_VALUE: number;
     readonly STENCIL_FAIL: number;
     readonly STENCIL_FUNC: number;
-    readonly STENCIL_INDEX: number;
     readonly STENCIL_INDEX8: number;
     readonly STENCIL_PASS_DEPTH_FAIL: number;
     readonly STENCIL_PASS_DEPTH_PASS: number;

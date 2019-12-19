@@ -1,12 +1,10 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
-import DropdownMenu from "../dropdown-menu";
-import IconButton from "../icon-button";
+import DropdownMenu from '../dropdown-menu';
+import IconButton from '../icon-button';
 
 declare namespace ToolbarButton {
-    interface Props
-        extends DropdownMenu.Control,
-            Pick<IconButton.Props, "shortcut"> {
+    interface Props extends DropdownMenu.Control, Pick<IconButton.Props, 'shortcut'> {
         /**
          * Anything to add into the containing element after the button.
          */

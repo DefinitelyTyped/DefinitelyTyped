@@ -3,8 +3,7 @@ import SimpleGeometry from './geom/SimpleGeometry';
 import CanvasImmediateRenderer from './render/canvas/Immediate';
 import { Size } from './size';
 
-export function toContext(context: CanvasRenderingContext2D, opt_options?: ToContextOptions): CanvasImmediateRenderer;
-export type OrderFunction = ((p0: FeatureLike, p1: FeatureLike) => number);
+export type OrderFunction = (p0: FeatureLike, p1: FeatureLike) => number;
 export interface State {
     context: CanvasRenderingContext2D;
     feature: FeatureLike;
@@ -17,3 +16,4 @@ export interface ToContextOptions {
     size?: Size;
     pixelRatio?: number;
 }
+export function toContext(context: CanvasRenderingContext2D, opt_options?: ToContextOptions): CanvasImmediateRenderer;
