@@ -15,9 +15,9 @@ interface Module {
   run(): void;
 }
 
-type renderFunction = (instance: Module, src: string, options: Options) => string;
+type RenderFunction = (instance: Module, src: string, options: Options) => string;
 
 declare class Viz {
-  constructor(arg: { Module: Module; render: renderFunction });
+  constructor(arg: { Module: Module; render: RenderFunction });
   renderString(src: string, options?: Options): Promise<string>;
 }
