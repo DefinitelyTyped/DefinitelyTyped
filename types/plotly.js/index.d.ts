@@ -468,6 +468,53 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface Gauge {
+	shape: 'angular' | 'bullet';
+	bar: {
+		color: Color
+		line: {
+			color: Color
+			width: number
+		}
+		thickness: number
+	}
+	bgcolor: Color;
+	bordercolor: Color;
+	borderwidth: number;
+	axis: Partial<Axis>;
+	steps: Array<{range: number[], color: Color}>;
+	threshold: {
+		line: {
+			color: Color
+			width: number
+		}
+		value: number
+		thickness: number
+		};
+}
+
+export interface Delta {
+	reference: number;
+	position: 'top' | 'bottom' | 'left' | 'right';
+	relative: boolean;
+	valueformat: string;
+	increasing: {
+		symbol: string;
+		color: Color;
+	}
+	decreasing: {
+		symbol: string;
+		color: Color;
+	}
+}
+
+export interface GraphNumber {
+	valueformat: string;
+	font: Partial<Font>;
+	prefix: string;
+	suffix: string;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
@@ -568,66 +615,9 @@ export interface PlotData {
 	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
-	delta: {
-		reference: number;
-		position: 'top' | 'bottom' | 'left' | 'right';
-		relative: boolean
-		valueformat: string
-		increasing: {
-			symbol: string;
-			color: Color;
-		}
-		decreasing: {
-			symbol: string;
-			color: Color;
-		}
-	};
-	gauge: {
-		shape: 'angular' | 'bullet'
-		bar: {
-			color: Color
-			line: {
-				color: Color
-				width: number
-			}
-			thickness: number
-		}
-		bgcolor: Color
-		bordercolor: Color
-		borderwidth: number
-		axis: {
-			range: number[]
-			visible: boolean
-			ticks: '' | 'outside' | 'inside'
-			ticklen: number
-			tickwidth: number
-			tickcolor: Color
-			tickfont: {
-				family: string
-				size: number
-				color: Color
-			}
-		}
-		steps: Array<{range: number[], color: Color}>
-		threshold: {
-			line: {
-				color: Color
-				width: number
-			}
-			value: number
-			thickness: number
-		}
-	};
-	number: {
-		valueformat: string
-		font: {
-			family: string
-			size: number
-			color: Color
-		}
-		prefix: string
-		suffix: string
-	};
+	delta: Partial<Delta>;
+	gauge: Partial<Gauge>;
+	number: Partial<GraphNumber>;
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];
