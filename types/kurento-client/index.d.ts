@@ -65,13 +65,20 @@ interface MediaObject {
     setName: (name: string, callback?: Callback<void>) => Promise<void>;
 }
 
+interface MediaElement {
+    connect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    disconnect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
+    getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
+}
+
 interface MediaPipeline extends KurentoClient, MediaObject {
     getGstreamerDot: (callback?: Callback<string>) => Promise<string>;
     getLatencyStats: (callback?: Callback<boolean>) => Promise<boolean>;
     setLatencyStats: (callback?: Callback<string>) => Promise<string>;
 }
 
-interface WebRtcEndpoint extends KurentoClient, MediaObject {
+interface WebRtcEndpoint extends KurentoClient, MediaObject, MediaElement {
     addIceCandidate: (candidate: RTCIceCandidate, callback?: Callback<void>) => Promise<void>;
     closeDataChannel: (channelId: number, callback?: Callback<void>) => Promise<void>;
     createDataChannel: (label?: string, ordered?: boolean, maxPacketLifeTime?: number, maxRetransmits?: number, protocol?: string, callback?: Callback<void>) => Promise<void>;
@@ -79,6 +86,7 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
     getConnectionState: (callback?: Callback<any>) => Promise<any>;
     getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
     getIceConnectionState: (callback?: Callback<IceConnection>) => Promise<IceConnection>;
+    setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
     getMaxAudioRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
     setMinVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
     getMinVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
@@ -88,11 +96,10 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
     getMinVideoSendBandwidth: (callback?: Callback<number>) => Promise<number>;
     setMaxVideoSendBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
     getMaxVideoSendBandwidth: (callback?: Callback<number>) => Promise<number>;
-    setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
-    getMinOutputBitrate: (callback?: Callback<number>) => Promise<number>;
-    getMaxOutputBitrate: (callback?: Callback<number>) => Promise<number>;
-    setMaxOutputBitrate: (value: number, callback?: Callback<void>) => Promise<void>;
     setMinOutputBitrate: (value: number, callback?: Callback<void>) => Promise<void>;
+    getMinOutputBitrate: (callback?: Callback<number>) => Promise<number>;
+    setMaxOutputBitrate: (value: number, callback?: Callback<void>) => Promise<void>;
+    getMaxOutputBitrate: (callback?: Callback<number>) => Promise<number>;
     getMediaState: (callback?: Callback<number>) => Promise<any>;
     setStunServerAddress: (server: string, callback?: Callback<void>) => Promise<void>;
     getStunServerAddress: (callback?: Callback<string>) => Promise<string>;
@@ -101,9 +108,6 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
     setTurnUrl: (url: string, callback?: Callback<void>) => Promise<void>;
     getTurnUrl: (callback?: Callback<string>) => Promise<string>;
     processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
-    connect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
-    disconnect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
-    getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
 }
 
 declare class KurentoClient {
