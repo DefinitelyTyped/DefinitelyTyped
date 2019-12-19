@@ -101,8 +101,8 @@ interface WebRtcEndpoint extends KurentoClient, MediaObject {
     setTurnUrl: (url: string, callback?: Callback<void>) => Promise<void>;
     getTurnUrl: (callback?: Callback<string>) => Promise<string>;
     processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
-    connect: (endpoint: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
-    disconnect: (endpoint: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    connect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
+    disconnect: (sink: WebRtcEndpoint, callback?: Callback<void>) => Promise<void>;
     getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
 }
 
