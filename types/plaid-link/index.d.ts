@@ -52,6 +52,16 @@ export namespace Plaid {
     type Country = 'US' | 'CA' | 'GB';
 
     type VerificationStatus = 'pending_automatic_verification' | 'pending_manual_verification' | 'manually_verified';
+    type ViewName =
+        | 'CONNECTED'
+        | 'CREDENTIAL'
+        | 'ERROR'
+        | 'EXIT'
+        | 'LOADING'
+        | 'MFA'
+        | 'RECAPTCHA'
+        | 'SELECT_ACCOUNT'
+        | 'SELECT_INSTITUTION';
     type EventName =
         | 'ERROR'
         | 'EXIT'
@@ -62,8 +72,7 @@ export namespace Plaid {
         | 'SELECT_INSTITUTION'
         | 'SUBMIT_CREDENTIALS'
         | 'SUBMIT_MFA'
-        | 'TRANSITION_VIEW'
-        | 'SELECT_ACCOUNT';
+        | 'TRANSITION_VIEW';
     type ExitStatus =
         | 'requires_questions'
         | 'requires_selections'
