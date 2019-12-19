@@ -30,6 +30,10 @@ export interface OnProgressData {
     seekableDuration: number;
 }
 
+export interface OnBandwidthUpdateData {
+    bitrate: number;
+}
+
 export interface LoadError {
     error: {
         '': string;
@@ -43,13 +47,47 @@ export interface OnSeekData {
     target?: number;
 }
 
+export interface OnPlaybackRateData {
+    playbackRate: number;
+}
+
+export interface OnPictureInPictureStatusData {
+    isActive: boolean;
+}
+
+export interface OnExternalPlaybackChangeData {
+    isExternalPlaybackActive: boolean;
+}
+
 export const TextTrackType: {
     SRT: 'application/x-subrip';
     TTML: 'application/ttml+xml';
     VTT: 'text/vtt';
 };
 
+export enum FilterType {
+    NONE = '',
+    INVERT = 'CIColorInvert',
+    MONOCHROME = 'CIColorMonochrome',
+    POSTERIZE = 'CIColorPosterize',
+    FALSE = 'CIFalseColor',
+    MAXIMUMCOMPONENT = 'CIMaximumComponent',
+    MINIMUMCOMPONENT = 'CIMinimumComponent',
+    CHROME = 'CIPhotoEffectChrome',
+    FADE = 'CIPhotoEffectFade',
+    INSTANT = 'CIPhotoEffectInstant',
+    MONO = 'CIPhotoEffectMono',
+    NOIR = 'CIPhotoEffectNoir',
+    PROCESS = 'CIPhotoEffectProcess',
+    TONAL = 'CIPhotoEffectTonal',
+    TRANSFER = 'CIPhotoEffectTransfer',
+    SEPIA = 'CISepiaTone',
+}
+
 export interface VideoProperties extends ViewProps {
+    filter?: FilterType;
+    filterEnable?: boolean;
+
     /* Native only */
     src?: any;
     seek?: number;
@@ -72,22 +110,35 @@ export interface VideoProperties extends ViewProps {
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
     source: { uri?: string } | number;
+    minLoadRetryCount?: number;
+    maxBitRate?: number;
     resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
     posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
     poster?: string;
     repeat?: boolean;
+    automaticallyWaitsToMinimizeStalling?: boolean;
     paused?: boolean;
     muted?: boolean;
     volume?: number;
+    bufferConfig?: {
+        minBufferMs?: number;
+        maxBufferMs?: number;
+        bufferForPlaybackMs?: number;
+        playbackAfterRebufferMs?: number;
+    };
+    stereoPan?: number;
     rate?: number;
+    pictureInPicture?: boolean;
     playInBackground?: boolean;
     playWhenInactive?: boolean;
     ignoreSilentSwitch?: 'ignore' | 'obey';
+    reportBandwidth?: boolean;
     disableFocus?: boolean;
     controls?: boolean;
     currentTime?: number;
     progressUpdateInterval?: number;
     useTextureView?: boolean;
+    hideShutterView?: boolean;
     allowsExternalPlayback?: boolean;
     audioOnly?: boolean;
 
@@ -96,6 +147,7 @@ export interface VideoProperties extends ViewProps {
     onBuffer?(): void;
     onError?(error: LoadError): void;
     onProgress?(data: OnProgressData): void;
+    onBandwidthUpdate?(data: OnBandwidthUpdateData): void;
     onSeek?(data: OnSeekData): void;
     onEnd?(): void;
     onFullscreenPlayerWillPresent?(): void;
@@ -105,11 +157,22 @@ export interface VideoProperties extends ViewProps {
     onReadyForDisplay?(): void;
     onPlaybackStalled?(): void;
     onPlaybackResume?(): void;
-    onPlaybackRateChange?(data: { playbackRate: number }): void;
+    onPlaybackRateChange?(data: OnPlaybackRateData): void;
     onAudioFocusChanged?(): void;
     onAudioBecomingNoisy?(): void;
+    onPictureInPictureStatusChanged?(data: OnPictureInPictureStatusData): void;
+    onRestoreUserInterfaceForPictureInPictureStop?(): void;
+    onExternalPlaybackChange?(data: OnExternalPlaybackChangeData): void;
+    selectedAudioTrack?: {
+        type: 'system' | 'disabled' | 'title' | 'language' | 'index';
+        value?: string | number;
+    };
     selectedTextTrack?: {
         type: 'system' | 'disabled' | 'title' | 'language' | 'index';
+        value?: string | number;
+    };
+    selectedVideoTrack?: {
+        type: 'auto' | 'disabled' | 'resolution' | 'index';
         value?: string | number;
     };
     textTracks?: Array<{
@@ -120,7 +183,7 @@ export interface VideoProperties extends ViewProps {
     }>;
 
     /* Required by react-native */
-        scaleX?: number;
+    scaleX?: number;
     scaleY?: number;
     translateX?: number;
     translateY?: number;
