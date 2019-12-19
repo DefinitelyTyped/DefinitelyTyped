@@ -102,6 +102,12 @@ declare namespace noUiSlider {
 		pips?: PipsOptions;
 	}
 
+    /**
+     * Update options that can not be updated will be ignored without errors.
+     * The value null can be used to unset a previously set value.
+     */
+    type UpdateOptions = Partial<Options>;
+
 	interface PipsOptions {
 		/**
          * The 'range' mode uses the slider range to determine where the pips should be. A pip is generated for every percentage specified.
@@ -197,10 +203,18 @@ declare namespace noUiSlider {
          */
 		options: Options;
 		/**
-         * method that can change the 'margin',  'limit', 'step', 'range', 'animate' and  'snap' options.
+         * `noUiSlider` has an update method that can change the `margin`,
+         * `padding`, `limit`, `step`, `range`, `pips`, `tooltips`, `animate` and `snap` options.
          * All other options require changes to the slider's HTML or event bindings.
+         * Options that can not be updated will be ignored without errors.
+         * The value null can be used to unset a previously set value.
+         * The `set` event fires when the slider values are restored.
+         * If this is unwanted, you can pass false as the second parameter, `fireSetEvent`.
+         * Note that if you initiate multiple sliders using the same options object
+         * and update a subset of them later, this will move the options property out of sync
+         * with the actual slider options.
          */
-		updateOptions(newOptions: Options, fireSetEvent?: boolean): void;
+		updateOptions(newOptions: UpdateOptions, fireSetEvent?: boolean): void;
 	}
 
 	interface Instance extends HTMLElement {
