@@ -93,7 +93,7 @@ declare namespace PDFKit.Mixins {
         | 'ss03' | 'ss04' | 'ss05' | 'ss06' | 'ss07' | 'ss08' | 'ss09' | 'ss10' | 'ss11' | 'ss12' | 'ss13'
         | 'ss14' | 'ss15' | 'ss16' | 'ss17' | 'ss18' | 'ss19' | 'ss20' | 'ssty' | 'stch' | 'subs' | 'sups'
         | 'swsh' | 'titl' | 'tjmo' | 'tnam' | 'tnum' | 'trad' | 'twid' | 'unic' | 'valt' | 'vatu' | 'vert'
-        | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero'
+        | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero';
 
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
@@ -179,7 +179,7 @@ declare namespace PDFKit.Mixins {
         /** the vertical alignment of the text with respect to its insertion point */
         baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top';
         /** an array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
-        features?: OpenTypeFeatures[]
+        features?: OpenTypeFeatures[];
     }
 
     interface PDFText {
