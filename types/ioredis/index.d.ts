@@ -264,13 +264,13 @@ declare namespace IORedis {
         zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: string[]) => void): void;
         zrevrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<string[]>;
 
-        zrangebyscore(key: KeyType, min: number, max: number, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number, max: number, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number, max: number, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
 
-        zrevrangebyscore(key: KeyType, min: number, max: number, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number, max: number, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number, max: number, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
         zcount(key: KeyType, min: number | string, max: number | string): Promise<number>;
@@ -323,8 +323,8 @@ declare namespace IORedis {
         hvals(key: KeyType, callback: (err: Error, res: string[]) => void): void;
         hvals(key: KeyType): Promise<string[]>;
 
-        hgetall(key: KeyType, callback: (err: Error, res: string[]) => void): void;
-        hgetall(key: KeyType): Promise<string[]>;
+        hgetall(key: KeyType, callback: (err: Error, res: { [key: string]: string | number }) => void): void;
+        hgetall(key: KeyType): Promise<{ [key: string]: string | number }>;
 
         hexists(key: KeyType, field: string, callback: (err: Error, res: BooleanResponse) => void): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
@@ -739,7 +739,7 @@ declare namespace IORedis {
 
         hvals(key: KeyType, callback?: (err: Error, res: string[]) => void): Pipeline;
 
-        hgetall(key: KeyType, callback?: (err: Error, res: string[]) => void): Pipeline;
+        hgetall(key: KeyType, callback?: (err: Error, res: { [key: string]: string | number }) => void): Pipeline;
 
         hexists(key: KeyType, field: string, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 

@@ -45,6 +45,9 @@ jsonEditor.setName('foo');
 jsonEditor.setName();
 jsonEditor.setSchema({});
 jsonEditor.setText('{foo: 1}');
+jsonEditor.format();
+jsonEditor.compact();
+jsonEditor.repair();
 
 const json: any = jsonEditor.get();
 const name: string = jsonEditor.getName();

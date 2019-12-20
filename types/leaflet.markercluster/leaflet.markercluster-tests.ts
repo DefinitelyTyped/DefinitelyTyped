@@ -21,7 +21,7 @@ markerClusterGroupOptions = {
     iconCreateFunction: (cluster: L.MarkerCluster) => {
         const childMarkers: L.Marker[] = cluster.getAllChildMarkers();
         const childCount: number = cluster.getChildCount();
-        cluster.zoomToBounds();
+        cluster.zoomToBounds({padding: [1, 2]});
         const bounds: L.LatLngBounds = cluster.getBounds();
         return icon;
     },

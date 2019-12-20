@@ -31,6 +31,11 @@ export interface StarRatingProps {
     disabled?: boolean;
 
     /**
+     * Add an animation to the stars upon selection.
+     */
+    animation?: "bounce" | "flash" | "jello" | "pulse" | "rotate" | "rubberBand" | "shake" | "swing" | "tada" | "wobble";
+
+    /**
      * The name of the icon to represent an empty star.
      * Refer to react-native-vector-icons.
      * Also can be a image object, both {uri:xxx.xxx} and require('xx/xx/xx.xxx').

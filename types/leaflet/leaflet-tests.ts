@@ -336,6 +336,9 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
 });
 
 const eventHandler = () => { };
+const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
+const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
+const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
 const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
@@ -346,10 +349,16 @@ L.DomEvent
 	.addListener(htmlElement, { click: eventHandler })
 	.off(htmlElement, { click: eventHandler }, eventHandler)
 	.removeListener(htmlElement, { click: eventHandler }, eventHandler)
+	.stopPropagation(leafletMouseEvent)
+	.stopPropagation(leafletKeyboardEvent)
+	.stopPropagation(leafletEvent)
 	.stopPropagation(domEvent)
 	.disableScrollPropagation(htmlElement)
 	.disableClickPropagation(htmlElement)
 	.preventDefault(domEvent)
+	.stop(leafletMouseEvent)
+	.stop(leafletKeyboardEvent)
+	.stop(leafletEvent)
 	.stop(domEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent, htmlElement);

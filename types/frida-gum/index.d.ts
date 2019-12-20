@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.3
+// Type definitions for non-npm package frida-gum 14.5
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1501,6 +1501,29 @@ interface ObjectWrapper {
     handle: NativePointer;
 }
 
+interface ArrayBufferConstructor {
+    /**
+     * Creates an ArrayBuffer backed by an existing memory region. Unlike
+     * the NativePointer `read*()` and `write*()` APIs, no validation is
+     * performed on access, meaning a bad pointer will crash the process.
+     *
+     * @param address Base address of the region. Passing `NULL` will result
+     *                in an empty buffer.
+     * @param size Size of the region. Passing `0` will result in an empty
+     *             buffer.
+     */
+    wrap(address: NativePointerValue, size: number): ArrayBuffer;
+}
+
+interface ArrayBuffer {
+    /**
+     * Gets a pointer to the base address of the ArrayBuffer's backing store.
+     * It is the caller's responsibility to keep the buffer alive while the
+     * backing store is still being used.
+     */
+    unwrap(): NativePointer;
+}
+
 type NativePointerValue = NativePointer | ObjectWrapper;
 
 declare const NativeFunction: NativeFunctionConstructor;
@@ -1569,11 +1592,14 @@ interface NativeFunctionOptions {
     abi?: NativeABI;
     scheduling?: SchedulingBehavior;
     exceptions?: ExceptionsBehavior;
+    traps?: CodeTraps;
 }
 
 type SchedulingBehavior = "cooperative" | "exclusive";
 
 type ExceptionsBehavior = "steal" | "propagate";
+
+type CodeTraps = "default" | "all";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -2528,7 +2554,9 @@ declare namespace Stalker {
      * Time in milliseconds between each time the event queue is drained.
      *
      * Defaults to 250 ms, which means that the event queue is drained four
-     * times per second.
+     * times per second. You may also set this property to zero to disable
+     * periodic draining and instead call `Stalker.flush()` when you would
+     * like the queue to be drained.
      */
     let queueDrainInterval: number;
 }
@@ -3529,7 +3557,7 @@ declare namespace ObjC {
         [name: string]: ObjectMethod;
     }
 
-    class ObjectMethod implements ObjectWrapper {
+    interface ObjectMethod extends ObjectWrapper, AnyFunction {
         handle: NativePointer;
 
         /**
@@ -3552,12 +3580,20 @@ declare namespace ObjC {
         /**
          * Argument type names.
          */
-        argumentTypes: string;
+        argumentTypes: string[];
 
         /**
          * Signature.
          */
         types: string;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => ObjectMethod;
     }
 
     /**
@@ -3623,9 +3659,14 @@ declare namespace ObjC {
      * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>);
+        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
+
+        /**
+         * Signature, if available.
+         */
+        types?: string;
 
         /**
          * Current implementation. You may replace it by assigning to this property.
@@ -3752,6 +3793,14 @@ declare namespace ObjC {
     function selectorAsString(sel: NativePointerValue): string;
 
     interface ProxySpec<D extends ProxyData = ProxyData, T = ObjC.Object, S = ObjC.Object> {
+        /**
+         * Name of the proxy class.
+         *
+         * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
+         * for you.
+         */
+        name?: string;
+
         /**
          * Protocols this proxy class conforms to.
          */
@@ -4277,6 +4326,14 @@ declare namespace Java {
          * Queries whether the method may be invoked with a given argument list.
          */
         canInvokeWith: (...args: any[]) => boolean;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => Method;
     }
 
     type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
