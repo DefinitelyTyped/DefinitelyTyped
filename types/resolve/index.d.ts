@@ -98,7 +98,7 @@ declare namespace resolve {
     /** function to asynchronously test whether a file exists */
     isFile?: (file: string, cb: existsCallback) => void;
     /** function to asynchronously test whether a directory exists */
-    isDirectory?: (directory: string, cb: existsCallback) => boolean;
+    isDirectory?: (directory: string, cb: existsCallback) => void;
   }
 
   export interface SyncOpts extends Opts {
