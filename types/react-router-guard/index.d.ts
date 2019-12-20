@@ -1,12 +1,16 @@
-// Type definitions for react-router-guard 2.2
-// Project: https://github.com/tsl/react-router-guard#readme
-// Definitions by: TSL <https://github.com/tsl>
+// Type definitions for react-router-guard 2.3
+// Project: https://github.com/laptransang/react-router-guard#readme
+// Definitions by: TSL <https://github.com/laptransang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
 import * as H from 'history';
 
 export const history: H.History;
+
+export {
+    Loadable
+} from 'react-loadable';
 
 export {
     BrowserRouter,
