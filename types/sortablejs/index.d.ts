@@ -96,7 +96,7 @@ declare namespace Sortable {
             SwapOptions {}
 
     /**
-     * A class that all plugins inherit from for the sake of types
+     * A class that all plugins inherit from for the sake of type inference.
      */
     export class Plugin extends SortablePlugin {}
     export class MultiDrag extends MultiDragPlugin {}
