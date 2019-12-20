@@ -139,6 +139,24 @@ declare namespace Sortable {
          * Pull mode if dragging into another sortable
          */
         pullMode: 'clone' | boolean | undefined;
+        /**
+         * When MultiDrag is used to sort, this holds a HTMLElement and oldIndex for each item selected.
+         *
+         * `oldIndicies[number]` is directly related to `newIndicies[number]`
+         *
+         * If MultiDrag is not used to sort, this array will be empty.
+         */
+        oldIndicies: { multiDragElement: HTMLElement; index: number }[];
+        /**
+         * When MultiDrag is used to sort, this holds a HTMLElement and newIndex for each item.
+         *
+         * `oldIndicies[number]` is directly related to `newIndicies[number]`
+         *
+         * If MultiDrag is not used to sort, this array will be empty.
+         */
+        newIndicies: { multiDragElement: HTMLElement; index: number }[];
+        /** When Swap is used to sort, this will contain the dragging item that was dropped on.*/
+        swapItem: HTMLElement | null;
     }
 
     export interface MoveEvent extends Event {
