@@ -105,4 +105,4 @@ ffmpeg.ffprobe('/path/to/file.mp4', (err, data) => {
 
 ffmpeg('/path/to.mp4')
     .loop()
-    .videoBitrate(300, true)
+    .videoBitrate(300, true);
