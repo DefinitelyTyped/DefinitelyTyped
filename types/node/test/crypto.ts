@@ -671,7 +671,7 @@ import { promisify } from 'util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
-    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
+    const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
 }
 
 {
