@@ -278,9 +278,10 @@ export interface Layout {
 	legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
-	barmode: "stack" | "group" | "overlay" | "relative";
-	bargap: number;
-	bargroupgap: number;
+	barmode: 'stack' | 'group' | 'overlay' | 'relative';
+	barnorm: '' | 'fraction' | 'percent';
+	bargap: 0 | 1;
+	bargroupgap: 0 | 1;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
 }
