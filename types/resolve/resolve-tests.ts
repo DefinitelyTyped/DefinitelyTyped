@@ -31,6 +31,17 @@ function test_options_async() {
     paths: [process.cwd()],
     moduleDirectory: 'node_modules',
     readFile: fs.readFile,
+    isDirectory: function(directory, cb) {
+      fs.stat(directory, function(error, stat) {
+        if (error && error.code === 'ENOENT') {
+          return cb(null, false);
+        } else if (error) {
+          return cb(error);
+        } else {
+          return cb(null, stat.isDirectory());
+        }
+      });
+    },
     isFile: function(file, cb) {
       fs.stat(file, function(error, stat) {
         if (error && error.code === 'ENOENT') {
@@ -67,6 +78,13 @@ function test_options_sync() {
     paths: [process.cwd()],
     moduleDirectory: 'node_modules',
     readFileSync: fs.readFileSync,
+    isDirectory: function(directory) {
+      try {
+        return fs.statSync(directory).isDirectory();
+      } catch (error) {
+        return false;
+      }
+    },
     isFile: function(file) {
       try {
         return fs.statSync(file).isFile();
