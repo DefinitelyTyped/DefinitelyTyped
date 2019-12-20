@@ -102,3 +102,7 @@ ffmpeg.ffprobe('/path/to/file.mp4', (err, data) => {
     console.log(data.format.filename);
     console.log(data.streams[0].bit_rate);
 });
+
+ffmpeg('/path/to.mp4')
+    .loop()
+    .videoBitrate(300, true)
