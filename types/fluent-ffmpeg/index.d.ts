@@ -4,6 +4,7 @@
 //                 DingWeizhe <https://github.com/DingWeizhe>
 //                 Mounir Abid <https://github.com/mabidina>
 //                 Doyoung Ha <https://github.com/hados99>
+//                 Prasad Nayak <https://github.com/buzzertech>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
