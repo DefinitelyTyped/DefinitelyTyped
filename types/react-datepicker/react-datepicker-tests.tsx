@@ -50,8 +50,8 @@ const defaultLocale = getDefaultLocale();
     nextMonthButtonLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
-    onCalendarClose={(first: string, second: boolean, third: number) => null}
-    onCalendarOpen={(first: string, second: boolean, third: number) => null}
+    onCalendarClose={() => null}
+    onCalendarOpen={() => null}
     onChange={(date: Date | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}

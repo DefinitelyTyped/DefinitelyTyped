@@ -15,7 +15,7 @@
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Walter Kennedy <https://github.com/wthefourth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as Popper from 'popper.js';
@@ -74,8 +74,8 @@ export interface ReactDatePickerProps {
     nextMonthButtonLabel?: string;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
-    onCalendarClose?(...args: any): void;
-    onCalendarOpen?(...args: any): void;
+    onCalendarClose?(): void;
+    onCalendarOpen?(): void;
     onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
