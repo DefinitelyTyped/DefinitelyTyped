@@ -126,7 +126,7 @@ declare namespace Parse {
         progress?: Function;
     }
 
-    interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
+    interface SuccessFailureOptions extends SuccessOption, ErrorOption { }
 
     interface SignUpOptions {
         useMasterKey?: boolean;
@@ -152,7 +152,7 @@ declare namespace Parse {
         useMasterKey?: boolean;
     }
 
-    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption { }
 
     interface SilentOption {
         /**
@@ -239,7 +239,7 @@ declare namespace Parse {
      *     extension.
      */
     class File {
-        constructor(name: string, data: number[] | { base64: string } | Blob | { uri: string }, type?: string);
+        constructor(name: string, data: number[] | { base64: string } | { size: number; type: string; } | { uri: string }, type?: string);
         /**
          * Return the data for the file, downloading it if not already present.
          * Data is present if initialized with Byte Array, Base64 or Saved with Uri.
@@ -448,28 +448,28 @@ declare namespace Parse {
         unPinAllWithName(name: string, objects: Object[]): Promise<void>;
     }
     interface ObjectConstructor extends ObjectStatic {
-        new<T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
+        new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
         new(className?: string, attributes?: Attributes, options?: any): Object;
     }
     const Object: ObjectConstructor;
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions {}
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
 
-        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface SaveOptions
             extends CascadeSaveOption,
-                SuccessFailureOptions,
-                SilentOption,
-                ScopeOptions,
-                WaitOption {}
+            SuccessFailureOptions,
+            SilentOption,
+            ScopeOptions,
+            WaitOption { }
 
-        interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -502,7 +502,7 @@ declare namespace Parse {
         appIdentifier: string;
     }
     interface InstallationConstructor extends ObjectStatic {
-        new<T extends Attributes>(attributes: T): Installation<T>;
+        new <T extends Attributes>(attributes: T): Installation<T>;
         new(): Installation;
     }
     const Installation: InstallationConstructor;
@@ -628,11 +628,11 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
-        interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
-        interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
-        interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
-        interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
@@ -756,7 +756,7 @@ declare namespace Parse {
         setName(name: string, options?: SuccessFailureOptions): any;
     }
     interface RoleConstructor extends ObjectStatic {
-        new<T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
+        new <T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
         new(name: string, acl: ACL): Role;
     }
     const Role: RoleConstructor;
@@ -774,8 +774,8 @@ declare namespace Parse {
         getSessionToken(): string;
         isCurrentSessionRevocable(): boolean;
     }
-    interface SessionConstructor  extends ObjectStatic {
-        new<T extends Attributes>(attributes: T): Session<T>;
+    interface SessionConstructor extends ObjectStatic {
+        new <T extends Attributes>(attributes: T): Session<T>;
         new(): Session;
 
         current(): Promise<Session>;
@@ -809,7 +809,7 @@ declare namespace Parse {
         _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
     interface UserConstructor extends ObjectStatic {
-        new<T extends Attributes>(attributes: T): User<T>;
+        new <T extends Attributes>(attributes: T): User<T>;
         new(): User;
 
         allowCustomUserClass(isAllowed: boolean): void;
@@ -1024,8 +1024,8 @@ declare namespace Parse {
         interface AfterSaveRequest extends TriggerRequest {
             context: object;
         }
-        interface AfterDeleteRequest extends TriggerRequest {}      // tslint:disable-line no-empty-interface
-        interface BeforeDeleteRequest extends TriggerRequest {}     // tslint:disable-line no-empty-interface
+        interface AfterDeleteRequest extends TriggerRequest { }      // tslint:disable-line no-empty-interface
+        interface BeforeDeleteRequest extends TriggerRequest { }     // tslint:disable-line no-empty-interface
         interface BeforeSaveRequest extends TriggerRequest {
             context: object;
         }
@@ -1084,7 +1084,7 @@ declare namespace Parse {
         function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
 
-        interface RunOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
