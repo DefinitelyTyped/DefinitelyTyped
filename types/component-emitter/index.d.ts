@@ -5,13 +5,13 @@
 
 // TypeScript Version: 2.2
 
-interface Emitter {
-    on(event: string, listener: Function): Emitter;
-    once(event: string, listener: Function): Emitter;
-    off(event?: string, listener?: Function): Emitter;
-    emit(event: string, ...args: any[]): Emitter;
-    listeners(event: string): Function[];
-    hasListeners(event: string): boolean;
+interface Emitter<Event = string> {
+    on(event: Event, listener: Function): Emitter;
+    once(event: Event, listener: Function): Emitter;
+    off(event?: Event, listener?: Function): Emitter;
+    emit(event: Event, ...args: any[]): Emitter;
+    listeners(event: Event): Function[];
+    hasListeners(event: Event): boolean;
 }
 
 declare const Emitter: {
