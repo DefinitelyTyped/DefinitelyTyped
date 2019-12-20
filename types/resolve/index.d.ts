@@ -21,12 +21,12 @@ interface PackageMeta {
 type resolveCallback = (err: Error | null, resolved?: string, pkg?: PackageMeta) => void;
 
 /**
- * Callback invoked when checking if a file exists
+ * Callback invoked when checking if a file or directory exists
  *
  * @param error
- * @param isFile If the given file exists
+ * @param exists If the given file or directory exists
  */
-type isFileCallback = (err: Error | null, isFile?: boolean) => void;
+type existsCallback = (err: Error | null, isFile?: boolean) => void;
 
 /**
  * Callback invoked when reading a file
@@ -96,7 +96,9 @@ declare namespace resolve {
     /** how to read files asynchronously (defaults to fs.readFile) */
     readFile?: (file: string, cb: readFileCallback) => void;
     /** function to asynchronously test whether a file exists */
-    isFile?: (file: string, cb: isFileCallback) => void;
+    isFile?: (file: string, cb: existsCallback) => void;
+    /** function to asynchronously test whether a directory exists */
+    isDirectory?: (directory: string, cb: existsCallback) => boolean;
   }
 
   export interface SyncOpts extends Opts {
@@ -104,6 +106,8 @@ declare namespace resolve {
     readFileSync?: (file: string, charset: string) => string | Buffer;
     /** function to synchronously test whether a file exists */
     isFile?: (file: string) => boolean;
+    /** function to synchronously test whether a directory exists */
+    isDirectory?: (directory: string) => boolean;
   }
 
   export var sync: typeof resolveSync;
