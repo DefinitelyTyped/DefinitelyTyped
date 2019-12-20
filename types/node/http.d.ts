@@ -179,7 +179,7 @@ declare module "http" {
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
         method: string;
-        readonly path: string;
+        path: string;
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
