@@ -98,7 +98,7 @@ var client_id = '',
 
 gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
     if (authResult && !authResult.error) {
-        /* handle succesfull authorization */
+        /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
