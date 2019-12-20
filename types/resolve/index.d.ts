@@ -1,4 +1,4 @@
-// Type definitions for resolve
+// Type definitions for resolve 1.14.1
 // Project: https://github.com/substack/node-resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Klaus Meinhardt <https://github.com/ajafff>
