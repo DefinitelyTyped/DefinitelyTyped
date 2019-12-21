@@ -1,9 +1,11 @@
-// Type definitions for roslib.js 0.18.2
+// Type definitions for roslib.js 1.0.1
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>,
 //                 Cooper Benson <https://github.com/skycoop>,
 //                 David Gonzalez <https://github.com/dgorobopec>
+//                 Arvid Norlander <https://github.com/VorpalBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 
 /* ----------------------------------
@@ -29,10 +31,16 @@ declare namespace ROSLIB {
 		 *
 		 * @constructor
 		 * @param options - possible keys include:
-		 *   * url (optional) - the WebSocket URL for rosbridge (can be specified later with `connect`)
+		 *   * url (optional) - (can be specified later with `connect`) the WebSocket URL for rosbridge or the node server url to connect using socket.io (if socket.io exists in the page) <br>
+		 *   * groovyCompatibility - don't use interfaces that changed after the last groovy release or rosbridge_suite and related tools (defaults to true)
+		 *   * transportLibrary (optional) - one of 'websocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
+		 *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
 		 */
 		constructor(options:{
-			url?: string
+			url?: string,
+			groovyCompatibility?: boolean,
+			transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection,
+			transportOptions?: RTCDataChannelInit
 		});
 
 		on(eventName:string, callback:(event:any) => void):void;

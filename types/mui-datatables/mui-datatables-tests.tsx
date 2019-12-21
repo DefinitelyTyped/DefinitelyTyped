@@ -1,4 +1,4 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, SelectableRows } from 'mui-datatables';
+import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, MUIDataTableState, MUIDataTableColumn } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
@@ -9,11 +9,25 @@ interface Props extends MUIDataTableOptions {
 
 const MuiCustomTable: React.FC<Props> = (props) => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
-    const columns = props.data
-        .map((entry: any) => Object.keys(entry))
-        .flat()
-        .map((title: string) => title.toUpperCase())
-        .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
+    const columns: MUIDataTableColumn[] = [
+        {
+            name: 'id',
+            label: 'id'
+        },
+        {
+            name: 'name',
+            label: 'Name',
+            options: {
+                filterType: 'custom',
+                sortDirection: 'none'
+            }
+        },
+        {
+            name: 'amount',
+            label: 'Amount'
+        }
+    ];
+
     const TableOptions: MUIDataTableOptions = {
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
@@ -49,6 +63,16 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                     </button>
                 </span>
             );
+        },
+        onTableChange: (action, tableState: MUIDataTableState) => {
+            switch (action) {
+                case 'sort':
+                    tableState.columns.forEach(c => {
+                        if (c.sort && (c.sortDirection === 'asc' || c.sortDirection === 'desc')) {
+                            console.log(`${c.sortDirection} sort set on ${c.name}`);
+                        }
+                    });
+            }
         },
         textLabels: {
             body: {

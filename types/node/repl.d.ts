@@ -353,13 +353,13 @@ declare module "repl" {
     /**
      * A flag passed in the REPL options. Evaluates expressions in sloppy mode.
      */
-    export const REPL_MODE_SLOPPY: symbol; // TODO: unique symbol
+    const REPL_MODE_SLOPPY: symbol; // TODO: unique symbol
 
     /**
      * A flag passed in the REPL options. Evaluates expressions in strict mode.
      * This is equivalent to prefacing every repl statement with `'use strict'`.
      */
-    export const REPL_MODE_STRICT: symbol; // TODO: unique symbol
+    const REPL_MODE_STRICT: symbol; // TODO: unique symbol
 
     /**
      * Creates and starts a `repl.REPLServer` instance.

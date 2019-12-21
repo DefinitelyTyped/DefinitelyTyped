@@ -27,11 +27,11 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewsProps = View[] | {
-    work_week?: boolean | React.SFC | React.Component,
-    day?: boolean | React.SFC | React.Component,
-    agenda?: boolean | React.SFC | React.Component,
-    month?: boolean | React.SFC | React.Component,
-    week?: boolean | React.SFC | React.Component
+    work_week?: boolean | React.ComponentType<any> & ViewStatic,
+    day?: boolean | React.ComponentType<any> & ViewStatic,
+    agenda?: boolean | React.ComponentType<any> & ViewStatic,
+    month?: boolean | React.ComponentType<any> & ViewStatic,
+    week?: boolean | React.ComponentType<any> & ViewStatic
 };
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
@@ -309,8 +309,15 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onShowMore?: (events: TEvent[], date: Date) => void;
 }
 
+export interface TitleOptions {
+    formats: DateFormat[];
+    culture?: string;
+    [propName: string]: any;
+}
+
 export interface ViewStatic {
     navigate(date: Date, action: NavigateAction, props: any): Date;
+    title(date: Date, options: TitleOptions): string;
 }
 
 export interface MoveOptions {

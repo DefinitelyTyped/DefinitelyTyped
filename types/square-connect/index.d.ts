@@ -2,553 +2,685 @@
 // Project: https://docs.connect.squareup.com/
 // Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
 //                 Richard Moot <https://github.com/mootrichard>
+//                 Nican <https://github.com/Nican>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export enum CountryEnum {
-    ZZ = 'ZZ',
-    AD = 'AD',
-    AE = 'AE',
-    AF = 'AF',
-    AG = 'AG',
-    AI = 'AI',
-    AL = 'AL',
-    AM = 'AM',
-    AO = 'AO',
-    AQ = 'AQ',
-    AR = 'AR',
-    AS = 'AS',
-    AT = 'AT',
-    AU = 'AU',
-    AW = 'AW',
-    AX = 'AX',
-    AZ = 'AZ',
-    BA = 'BA',
-    BB = 'BB',
-    BD = 'BD',
-    BE = 'BE',
-    BF = 'BF',
-    BG = 'BG',
-    BH = 'BH',
-    BI = 'BI',
-    BJ = 'BJ',
-    BL = 'BL',
-    BM = 'BM',
-    BN = 'BN',
-    BO = 'BO',
-    BQ = 'BQ',
-    BR = 'BR',
-    BS = 'BS',
-    BT = 'BT',
-    BV = 'BV',
-    BW = 'BW',
-    BY = 'BY',
-    BZ = 'BZ',
-    CA = 'CA',
-    CC = 'CC',
-    CD = 'CD',
-    CF = 'CF',
-    CG = 'CG',
-    CH = 'CH',
-    CI = 'CI',
-    CK = 'CK',
-    CL = 'CL',
-    CM = 'CM',
-    CN = 'CN',
-    CO = 'CO',
-    CR = 'CR',
-    CU = 'CU',
-    CV = 'CV',
-    CW = 'CW',
-    CX = 'CX',
-    CY = 'CY',
-    CZ = 'CZ',
-    DE = 'DE',
-    DJ = 'DJ',
-    DK = 'DK',
-    DM = 'DM',
-    DO = 'DO',
-    DZ = 'DZ',
-    EC = 'EC',
-    EE = 'EE',
-    EG = 'EG',
-    EH = 'EH',
-    ER = 'ER',
-    ES = 'ES',
-    ET = 'ET',
-    FI = 'FI',
-    FJ = 'FJ',
-    FK = 'FK',
-    FM = 'FM',
-    FO = 'FO',
-    FR = 'FR',
-    GA = 'GA',
-    GB = 'GB',
-    GD = 'GD',
-    GE = 'GE',
-    GF = 'GF',
-    GG = 'GG',
-    GH = 'GH',
-    GI = 'GI',
-    GL = 'GL',
-    GM = 'GM',
-    GN = 'GN',
-    GP = 'GP',
-    GQ = 'GQ',
-    GR = 'GR',
-    GS = 'GS',
-    GT = 'GT',
-    GU = 'GU',
-    GW = 'GW',
-    GY = 'GY',
-    HK = 'HK',
-    HM = 'HM',
-    HN = 'HN',
-    HR = 'HR',
-    HT = 'HT',
-    HU = 'HU',
-    ID = 'ID',
-    IE = 'IE',
-    IL = 'IL',
-    IM = 'IM',
-    IN = 'IN',
-    IO = 'IO',
-    IQ = 'IQ',
-    IR = 'IR',
-    IS = 'IS',
-    IT = 'IT',
-    JE = 'JE',
-    JM = 'JM',
-    JO = 'JO',
-    JP = 'JP',
-    KE = 'KE',
-    KG = 'KG',
-    KH = 'KH',
-    KI = 'KI',
-    KM = 'KM',
-    KN = 'KN',
-    KP = 'KP',
-    KR = 'KR',
-    KW = 'KW',
-    KY = 'KY',
-    KZ = 'KZ',
-    LA = 'LA',
-    LB = 'LB',
-    LC = 'LC',
-    LI = 'LI',
-    LK = 'LK',
-    LR = 'LR',
-    LS = 'LS',
-    LT = 'LT',
-    LU = 'LU',
-    LV = 'LV',
-    LY = 'LY',
-    MA = 'MA',
-    MC = 'MC',
-    MD = 'MD',
-    ME = 'ME',
-    MF = 'MF',
-    MG = 'MG',
-    MH = 'MH',
-    MK = 'MK',
-    ML = 'ML',
-    MM = 'MM',
-    MN = 'MN',
-    MO = 'MO',
-    MP = 'MP',
-    MQ = 'MQ',
-    MR = 'MR',
-    MS = 'MS',
-    MT = 'MT',
-    MU = 'MU',
-    MV = 'MV',
-    MW = 'MW',
-    MX = 'MX',
-    MY = 'MY',
-    MZ = 'MZ',
-    NA = 'NA',
-    NC = 'NC',
-    NE = 'NE',
-    NF = 'NF',
-    NG = 'NG',
-    NI = 'NI',
-    NL = 'NL',
-    NO = 'NO',
-    NP = 'NP',
-    NR = 'NR',
-    NU = 'NU',
-    NZ = 'NZ',
-    OM = 'OM',
-    PA = 'PA',
-    PE = 'PE',
-    PF = 'PF',
-    PG = 'PG',
-    PH = 'PH',
-    PK = 'PK',
-    PL = 'PL',
-    PM = 'PM',
-    PN = 'PN',
-    PR = 'PR',
-    PS = 'PS',
-    PT = 'PT',
-    PW = 'PW',
-    PY = 'PY',
-    QA = 'QA',
-    RE = 'RE',
-    RO = 'RO',
-    RS = 'RS',
-    RU = 'RU',
-    RW = 'RW',
-    SA = 'SA',
-    SB = 'SB',
-    SC = 'SC',
-    SD = 'SD',
-    SE = 'SE',
-    SG = 'SG',
-    SH = 'SH',
-    SI = 'SI',
-    SJ = 'SJ',
-    SK = 'SK',
-    SL = 'SL',
-    SM = 'SM',
-    SN = 'SN',
-    SO = 'SO',
-    SR = 'SR',
-    SS = 'SS',
-    ST = 'ST',
-    SV = 'SV',
-    SX = 'SX',
-    SY = 'SY',
-    SZ = 'SZ',
-    TC = 'TC',
-    TD = 'TD',
-    TF = 'TF',
-    TG = 'TG',
-    TH = 'TH',
-    TJ = 'TJ',
-    TK = 'TK',
-    TL = 'TL',
-    TM = 'TM',
-    TN = 'TN',
-    TO = 'TO',
-    TR = 'TR',
-    TT = 'TT',
-    TV = 'TV',
-    TW = 'TW',
-    TZ = 'TZ',
-    UA = 'UA',
-    UG = 'UG',
-    UM = 'UM',
-    US = 'US',
-    UY = 'UY',
-    UZ = 'UZ',
-    VA = 'VA',
-    VC = 'VC',
-    VE = 'VE',
-    VG = 'VG',
-    VI = 'VI',
-    VN = 'VN',
-    VU = 'VU',
-    WF = 'WF',
-    WS = 'WS',
-    YE = 'YE',
-    YT = 'YT',
-    ZA = 'ZA',
-    ZM = 'ZM',
-    ZW = 'ZW',
-}
+export type CountryType =
+    | 'ZZ'
+    | 'AD'
+    | 'AE'
+    | 'AF'
+    | 'AG'
+    | 'AI'
+    | 'AL'
+    | 'AM'
+    | 'AO'
+    | 'AQ'
+    | 'AR'
+    | 'AS'
+    | 'AT'
+    | 'AU'
+    | 'AW'
+    | 'AX'
+    | 'AZ'
+    | 'BA'
+    | 'BB'
+    | 'BD'
+    | 'BE'
+    | 'BF'
+    | 'BG'
+    | 'BH'
+    | 'BI'
+    | 'BJ'
+    | 'BL'
+    | 'BM'
+    | 'BN'
+    | 'BO'
+    | 'BQ'
+    | 'BR'
+    | 'BS'
+    | 'BT'
+    | 'BV'
+    | 'BW'
+    | 'BY'
+    | 'BZ'
+    | 'CA'
+    | 'CC'
+    | 'CD'
+    | 'CF'
+    | 'CG'
+    | 'CH'
+    | 'CI'
+    | 'CK'
+    | 'CL'
+    | 'CM'
+    | 'CN'
+    | 'CO'
+    | 'CR'
+    | 'CU'
+    | 'CV'
+    | 'CW'
+    | 'CX'
+    | 'CY'
+    | 'CZ'
+    | 'DE'
+    | 'DJ'
+    | 'DK'
+    | 'DM'
+    | 'DO'
+    | 'DZ'
+    | 'EC'
+    | 'EE'
+    | 'EG'
+    | 'EH'
+    | 'ER'
+    | 'ES'
+    | 'ET'
+    | 'FI'
+    | 'FJ'
+    | 'FK'
+    | 'FM'
+    | 'FO'
+    | 'FR'
+    | 'GA'
+    | 'GB'
+    | 'GD'
+    | 'GE'
+    | 'GF'
+    | 'GG'
+    | 'GH'
+    | 'GI'
+    | 'GL'
+    | 'GM'
+    | 'GN'
+    | 'GP'
+    | 'GQ'
+    | 'GR'
+    | 'GS'
+    | 'GT'
+    | 'GU'
+    | 'GW'
+    | 'GY'
+    | 'HK'
+    | 'HM'
+    | 'HN'
+    | 'HR'
+    | 'HT'
+    | 'HU'
+    | 'ID'
+    | 'IE'
+    | 'IL'
+    | 'IM'
+    | 'IN'
+    | 'IO'
+    | 'IQ'
+    | 'IR'
+    | 'IS'
+    | 'IT'
+    | 'JE'
+    | 'JM'
+    | 'JO'
+    | 'JP'
+    | 'KE'
+    | 'KG'
+    | 'KH'
+    | 'KI'
+    | 'KM'
+    | 'KN'
+    | 'KP'
+    | 'KR'
+    | 'KW'
+    | 'KY'
+    | 'KZ'
+    | 'LA'
+    | 'LB'
+    | 'LC'
+    | 'LI'
+    | 'LK'
+    | 'LR'
+    | 'LS'
+    | 'LT'
+    | 'LU'
+    | 'LV'
+    | 'LY'
+    | 'MA'
+    | 'MC'
+    | 'MD'
+    | 'ME'
+    | 'MF'
+    | 'MG'
+    | 'MH'
+    | 'MK'
+    | 'ML'
+    | 'MM'
+    | 'MN'
+    | 'MO'
+    | 'MP'
+    | 'MQ'
+    | 'MR'
+    | 'MS'
+    | 'MT'
+    | 'MU'
+    | 'MV'
+    | 'MW'
+    | 'MX'
+    | 'MY'
+    | 'MZ'
+    | 'NA'
+    | 'NC'
+    | 'NE'
+    | 'NF'
+    | 'NG'
+    | 'NI'
+    | 'NL'
+    | 'NO'
+    | 'NP'
+    | 'NR'
+    | 'NU'
+    | 'NZ'
+    | 'OM'
+    | 'PA'
+    | 'PE'
+    | 'PF'
+    | 'PG'
+    | 'PH'
+    | 'PK'
+    | 'PL'
+    | 'PM'
+    | 'PN'
+    | 'PR'
+    | 'PS'
+    | 'PT'
+    | 'PW'
+    | 'PY'
+    | 'QA'
+    | 'RE'
+    | 'RO'
+    | 'RS'
+    | 'RU'
+    | 'RW'
+    | 'SA'
+    | 'SB'
+    | 'SC'
+    | 'SD'
+    | 'SE'
+    | 'SG'
+    | 'SH'
+    | 'SI'
+    | 'SJ'
+    | 'SK'
+    | 'SL'
+    | 'SM'
+    | 'SN'
+    | 'SO'
+    | 'SR'
+    | 'SS'
+    | 'ST'
+    | 'SV'
+    | 'SX'
+    | 'SY'
+    | 'SZ'
+    | 'TC'
+    | 'TD'
+    | 'TF'
+    | 'TG'
+    | 'TH'
+    | 'TJ'
+    | 'TK'
+    | 'TL'
+    | 'TM'
+    | 'TN'
+    | 'TO'
+    | 'TR'
+    | 'TT'
+    | 'TV'
+    | 'TW'
+    | 'TZ'
+    | 'UA'
+    | 'UG'
+    | 'UM'
+    | 'US'
+    | 'UY'
+    | 'UZ'
+    | 'VA'
+    | 'VC'
+    | 'VE'
+    | 'VG'
+    | 'VI'
+    | 'VN'
+    | 'VU'
+    | 'WF'
+    | 'WS'
+    | 'YE'
+    | 'YT'
+    | 'ZA'
+    | 'ZM'
+    | 'ZW';
 
-export enum CurrencyEnum {
-    UNKNOWN_CURRENCY = 'UNKNOWN_CURRENCY',
-    AED = 'AED',
-    AFN = 'AFN',
-    ALL = 'ALL',
-    AMD = 'AMD',
-    ANG = 'ANG',
-    AOA = 'AOA',
-    ARS = 'ARS',
-    AUD = 'AUD',
-    AWG = 'AWG',
-    AZN = 'AZN',
-    BAM = 'BAM',
-    BBD = 'BBD',
-    BDT = 'BDT',
-    BGN = 'BGN',
-    BHD = 'BHD',
-    BIF = 'BIF',
-    BMD = 'BMD',
-    BND = 'BND',
-    BOB = 'BOB',
-    BOV = 'BOV',
-    BRL = 'BRL',
-    BSD = 'BSD',
-    BTN = 'BTN',
-    BWP = 'BWP',
-    BYR = 'BYR',
-    BZD = 'BZD',
-    CAD = 'CAD',
-    CDF = 'CDF',
-    CHE = 'CHE',
-    CHF = 'CHF',
-    CHW = 'CHW',
-    CLF = 'CLF',
-    CLP = 'CLP',
-    CNY = 'CNY',
-    COP = 'COP',
-    COU = 'COU',
-    CRC = 'CRC',
-    CUC = 'CUC',
-    CUP = 'CUP',
-    CVE = 'CVE',
-    CZK = 'CZK',
-    DJF = 'DJF',
-    DKK = 'DKK',
-    DOP = 'DOP',
-    DZD = 'DZD',
-    EGP = 'EGP',
-    ERN = 'ERN',
-    ETB = 'ETB',
-    EUR = 'EUR',
-    FJD = 'FJD',
-    FKP = 'FKP',
-    GBP = 'GBP',
-    GEL = 'GEL',
-    GHS = 'GHS',
-    GIP = 'GIP',
-    GMD = 'GMD',
-    GNF = 'GNF',
-    GTQ = 'GTQ',
-    GYD = 'GYD',
-    HKD = 'HKD',
-    HNL = 'HNL',
-    HRK = 'HRK',
-    HTG = 'HTG',
-    HUF = 'HUF',
-    IDR = 'IDR',
-    ILS = 'ILS',
-    INR = 'INR',
-    IQD = 'IQD',
-    IRR = 'IRR',
-    ISK = 'ISK',
-    JMD = 'JMD',
-    JOD = 'JOD',
-    JPY = 'JPY',
-    KES = 'KES',
-    KGS = 'KGS',
-    KHR = 'KHR',
-    KMF = 'KMF',
-    KPW = 'KPW',
-    KRW = 'KRW',
-    KWD = 'KWD',
-    KYD = 'KYD',
-    KZT = 'KZT',
-    LAK = 'LAK',
-    LBP = 'LBP',
-    LKR = 'LKR',
-    LRD = 'LRD',
-    LSL = 'LSL',
-    LTL = 'LTL',
-    LVL = 'LVL',
-    LYD = 'LYD',
-    MAD = 'MAD',
-    MDL = 'MDL',
-    MGA = 'MGA',
-    MKD = 'MKD',
-    MMK = 'MMK',
-    MNT = 'MNT',
-    MOP = 'MOP',
-    MRO = 'MRO',
-    MUR = 'MUR',
-    MVR = 'MVR',
-    MWK = 'MWK',
-    MXN = 'MXN',
-    MXV = 'MXV',
-    MYR = 'MYR',
-    MZN = 'MZN',
-    NAD = 'NAD',
-    NGN = 'NGN',
-    NIO = 'NIO',
-    NOK = 'NOK',
-    NPR = 'NPR',
-    NZD = 'NZD',
-    OMR = 'OMR',
-    PAB = 'PAB',
-    PEN = 'PEN',
-    PGK = 'PGK',
-    PHP = 'PHP',
-    PKR = 'PKR',
-    PLN = 'PLN',
-    PYG = 'PYG',
-    QAR = 'QAR',
-    RON = 'RON',
-    RSD = 'RSD',
-    RUB = 'RUB',
-    RWF = 'RWF',
-    SAR = 'SAR',
-    SBD = 'SBD',
-    SCR = 'SCR',
-    SDG = 'SDG',
-    SEK = 'SEK',
-    SGD = 'SGD',
-    SHP = 'SHP',
-    SLL = 'SLL',
-    SOS = 'SOS',
-    SRD = 'SRD',
-    SSP = 'SSP',
-    STD = 'STD',
-    SVC = 'SVC',
-    SYP = 'SYP',
-    SZL = 'SZL',
-    THB = 'THB',
-    TJS = 'TJS',
-    TMT = 'TMT',
-    TND = 'TND',
-    TOP = 'TOP',
-    TRY = 'TRY',
-    TTD = 'TTD',
-    TWD = 'TWD',
-    TZS = 'TZS',
-    UAH = 'UAH',
-    UGX = 'UGX',
-    USD = 'USD',
-    USN = 'USN',
-    USS = 'USS',
-    UYI = 'UYI',
-    UYU = 'UYU',
-    UZS = 'UZS',
-    VEF = 'VEF',
-    VND = 'VND',
-    VUV = 'VUV',
-    WST = 'WST',
-    XAF = 'XAF',
-    XAG = 'XAG',
-    XAU = 'XAU',
-    XBA = 'XBA',
-    XBB = 'XBB',
-    XBC = 'XBC',
-    XBD = 'XBD',
-    XCD = 'XCD',
-    XDR = 'XDR',
-    XOF = 'XOF',
-    XPD = 'XPD',
-    XPF = 'XPF',
-    XPT = 'XPT',
-    XTS = 'XTS',
-    XXX = 'XXX',
-    YER = 'YER',
-    ZAR = 'ZAR',
-    ZMK = 'ZMK',
-    ZMW = 'ZMW',
-    BTC = 'BTC',
-}
+export type CurrencyType =
+    | 'UNKNOWN_CURRENCY'
+    | 'AED'
+    | 'AFN'
+    | 'ALL'
+    | 'AMD'
+    | 'ANG'
+    | 'AOA'
+    | 'ARS'
+    | 'AUD'
+    | 'AWG'
+    | 'AZN'
+    | 'BAM'
+    | 'BBD'
+    | 'BDT'
+    | 'BGN'
+    | 'BHD'
+    | 'BIF'
+    | 'BMD'
+    | 'BND'
+    | 'BOB'
+    | 'BOV'
+    | 'BRL'
+    | 'BSD'
+    | 'BTN'
+    | 'BWP'
+    | 'BYR'
+    | 'BZD'
+    | 'CAD'
+    | 'CDF'
+    | 'CHE'
+    | 'CHF'
+    | 'CHW'
+    | 'CLF'
+    | 'CLP'
+    | 'CNY'
+    | 'COP'
+    | 'COU'
+    | 'CRC'
+    | 'CUC'
+    | 'CUP'
+    | 'CVE'
+    | 'CZK'
+    | 'DJF'
+    | 'DKK'
+    | 'DOP'
+    | 'DZD'
+    | 'EGP'
+    | 'ERN'
+    | 'ETB'
+    | 'EUR'
+    | 'FJD'
+    | 'FKP'
+    | 'GBP'
+    | 'GEL'
+    | 'GHS'
+    | 'GIP'
+    | 'GMD'
+    | 'GNF'
+    | 'GTQ'
+    | 'GYD'
+    | 'HKD'
+    | 'HNL'
+    | 'HRK'
+    | 'HTG'
+    | 'HUF'
+    | 'IDR'
+    | 'ILS'
+    | 'INR'
+    | 'IQD'
+    | 'IRR'
+    | 'ISK'
+    | 'JMD'
+    | 'JOD'
+    | 'JPY'
+    | 'KES'
+    | 'KGS'
+    | 'KHR'
+    | 'KMF'
+    | 'KPW'
+    | 'KRW'
+    | 'KWD'
+    | 'KYD'
+    | 'KZT'
+    | 'LAK'
+    | 'LBP'
+    | 'LKR'
+    | 'LRD'
+    | 'LSL'
+    | 'LTL'
+    | 'LVL'
+    | 'LYD'
+    | 'MAD'
+    | 'MDL'
+    | 'MGA'
+    | 'MKD'
+    | 'MMK'
+    | 'MNT'
+    | 'MOP'
+    | 'MRO'
+    | 'MUR'
+    | 'MVR'
+    | 'MWK'
+    | 'MXN'
+    | 'MXV'
+    | 'MYR'
+    | 'MZN'
+    | 'NAD'
+    | 'NGN'
+    | 'NIO'
+    | 'NOK'
+    | 'NPR'
+    | 'NZD'
+    | 'OMR'
+    | 'PAB'
+    | 'PEN'
+    | 'PGK'
+    | 'PHP'
+    | 'PKR'
+    | 'PLN'
+    | 'PYG'
+    | 'QAR'
+    | 'RON'
+    | 'RSD'
+    | 'RUB'
+    | 'RWF'
+    | 'SAR'
+    | 'SBD'
+    | 'SCR'
+    | 'SDG'
+    | 'SEK'
+    | 'SGD'
+    | 'SHP'
+    | 'SLL'
+    | 'SOS'
+    | 'SRD'
+    | 'SSP'
+    | 'STD'
+    | 'SVC'
+    | 'SYP'
+    | 'SZL'
+    | 'THB'
+    | 'TJS'
+    | 'TMT'
+    | 'TND'
+    | 'TOP'
+    | 'TRY'
+    | 'TTD'
+    | 'TWD'
+    | 'TZS'
+    | 'UAH'
+    | 'UGX'
+    | 'USD'
+    | 'USN'
+    | 'USS'
+    | 'UYI'
+    | 'UYU'
+    | 'UZS'
+    | 'VEF'
+    | 'VND'
+    | 'VUV'
+    | 'WST'
+    | 'XAF'
+    | 'XAG'
+    | 'XAU'
+    | 'XBA'
+    | 'XBB'
+    | 'XBC'
+    | 'XBD'
+    | 'XCD'
+    | 'XDR'
+    | 'XOF'
+    | 'XPD'
+    | 'XPF'
+    | 'XPT'
+    | 'XTS'
+    | 'XXX'
+    | 'YER'
+    | 'ZAR'
+    | 'ZMK'
+    | 'ZMW'
+    | 'BTC';
 
-export enum DayOfWeekEnum {
-    SUN = 'SUN',
-    MON = 'MON',
-    TUE = 'TUE',
-    WED = 'WED',
-    THU = 'THU',
-    FRI = 'FRI',
-    SAT = 'SAT',
-}
+export type DayOfWeekType = 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
 
-export enum CardBrandEnum {
-    JCB = 'JCB',
-    VISA = 'VISA',
-    DISCOVER = 'DISCOVER',
-    MASTERCARD = 'MASTERCARD',
-    OTHER_BRAND = 'OTHER_BRAND',
-    CHINA_UNIONPAY = 'CHINA_UNIONPAY',
-    DISCOVER_DINERS = 'DISCOVER_DINERS',
-    AMERICAN_EXPRESS = 'AMERICAN_EXPRESS',
-    SQUARE_GIFT_CARD = 'SQUARE_GIFT_CARD',
-}
+export type CardBrandType =
+    | 'JCB'
+    | 'VISA'
+    | 'DISCOVER'
+    | 'MASTERCARD'
+    | 'OTHER_BRAND'
+    | 'CHINA_UNIONPAY'
+    | 'DISCOVER_DINERS'
+    | 'AMERICAN_EXPRESS'
+    | 'SQUARE_GIFT_CARD';
 
-export enum SortOrderEnum {
-    ASC = 'ASC',
-    DESC = 'DESC',
-}
+export type SortOrderType = 'ASC' | 'DESC';
 
-export enum TaxTypeEnum {
-    ADDITIVE = 'ADDITIVE',
-    INCLUSIVE = 'INCLUSIVE',
-    UNKNOWN_TAX = 'UNKNOWN_TAX',
-}
+export type TaxType = 'ADDITIVE' | 'INCLUSIVE' | 'UNKNOWN_TAX';
 
-export enum TaxApplicationScopeEnum {
-    ORDER = 'ORDER',
-    LINE_ITEM = 'LINE_ITEM',
-    OTHER_TAX_SCOPE = 'OTHER_TAX_SCOPE',
-}
+export type TaxApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_TAX_SCOPE';
 
-export enum DiscountTypeEnum {
-    FIXED_AMOUNT = 'FIXED_AMOUNT',
-    FIXED_PERCENTAGE = 'FIXED_PERCENTAGE',
-    VARIABLE_AMOUNT = 'VARIABLE_AMOUNT',
-    VARIABLE_PERCENTAGE = 'VARIABLE_PERCENTAGE',
-    UNKNOWN_DISCOUNT = 'UNKNOWN_DISCOUNT',
-}
+export type DiscountType =
+    | 'FIXED_AMOUNT'
+    | 'FIXED_PERCENTAGE'
+    | 'VARIABLE_AMOUNT'
+    | 'VARIABLE_PERCENTAGE'
+    | 'UNKNOWN_DISCOUNT';
 
-export enum DiscountApplicationScopeEnum {
-    ORDER = 'ORDER',
-    LINE_ITEM = 'LINE_ITEM',
-    OTHER_DISCOUNT_SCOPE = 'OTHER_DISCOUNT_SCOPE',
-}
+export type DiscountApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_DISCOUNT_SCOPE';
 
-export enum CustomerSourceEnum {
-    OTHER = 'OTHER',
-    APPOINTMENTS = 'APPOINTMENTS',
-    COUPON = 'COUPON',
-    DELETION_RECOVERY = 'DELETION_RECOVERY',
-    DIRECTORY = 'DIRECTORY',
-    EGIFTING = 'EGIFTING',
-    EMAIL_COLLECTION = 'EMAIL_COLLECTION',
-    FEEDBACK = 'FEEDBACK',
-    IMPORT = 'IMPORT',
-    INVOICES = 'INVOICES',
-    LOYALTY = 'LOYALTY',
-    MARKETING = 'MARKETING',
-    MERGE = 'MERGE',
-    ONLINE_STORE = 'ONLINE_STORE',
-    INSTANT_PROFILE = 'INSTANT_PROFILE',
-    TERMINAL = 'TERMINAL',
-    THIRD_PARTY = 'THIRD_PARTY',
-    THIRD_PARTY_IMPORT = 'THIRD_PARTY_IMPORT',
-    UNMERGE_RECOVERY = 'UNMERGE_RECOVERY',
-}
+export type CustomerSourceType =
+    | 'OTHER'
+    | 'APPOINTMENTS'
+    | 'COUPON'
+    | 'DELETION_RECOVERY'
+    | 'DIRECTORY'
+    | 'EGIFTING'
+    | 'EMAIL_COLLECTION'
+    | 'FEEDBACK'
+    | 'IMPORT'
+    | 'INVOICES'
+    | 'LOYALTY'
+    | 'MARKETING'
+    | 'MERGE'
+    | 'ONLINE_STORE'
+    | 'INSTANT_PROFILE'
+    | 'TERMINAL'
+    | 'THIRD_PARTY'
+    | 'THIRD_PARTY_IMPORT'
+    | 'UNMERGE_RECOVERY';
 
-export enum InventoryStateEnum {
-    CUSTOM = 'CUSTOM',
-    IN_STOCK = 'IN_STOCK',
-    SOLD = 'SOLD',
-    RETURNED_BY_CUSTOMER = 'RETURNED_BY_CUSTOMER',
-    RESERVED_FOR_SALE = 'RESERVED_FOR_SALE',
-    SOLD_ONLINE = 'SOLD_ONLINE',
-    ORDERED_FROM_VENDOR = 'ORDERED_FROM_VENDOR',
-    RECEIVED_FROM_VENDOR = 'RECEIVED_FROM_VENDOR',
-    IN_TRANSIT_TO = 'IN_TRANSIT_TO',
-    NONE = 'NONE',
-    WASTE = 'WASTE',
-    UNLINKED_RETURN = 'UNLINKED_RETURN',
-}
+export type InventoryStateType =
+    | 'CUSTOM'
+    | 'IN_STOCK'
+    | 'SOLD'
+    | 'RETURNED_BY_CUSTOMER'
+    | 'RESERVED_FOR_SALE'
+    | 'SOLD_ONLINE'
+    | 'ORDERED_FROM_VENDOR'
+    | 'RECEIVED_FROM_VENDOR'
+    | 'IN_TRANSIT_TO'
+    | 'NONE'
+    | 'WASTE'
+    | 'UNLINKED_RETURN';
 
-export enum ActivityStatusEnum {
-    ACTIVE = 'ACTIVE',
-    INACTIVE = 'INACTIVE',
-}
+export type ActivityStatusType = 'ACTIVE' | 'INACTIVE';
 
-export enum FulfillmentTypeEnum {
-    PICKUP = 'PICKUP',
-    SHIPMENT = 'SHIPMENT',
-}
-export enum FulfillmentStateEnum {
-    PROPOSED = 'PROPOSED',
-    RESERVED = 'RESERVED',
-    PREPARED = 'PREPARED',
-    COMPLETED = 'COMPLETED',
-    CANCELED = 'CANCELED',
-    FAILED = 'FAILED',
-}
+export type FulfillmentType = 'PICKUP' | 'SHIPMENT';
+
+export type FulfillmentStateType = 'PROPOSED' | 'RESERVED' | 'PREPARED' | 'COMPLETED' | 'CANCELED' | 'FAILED';
+
+export type InventoryType = 'PHYSICAL_COUNT' | 'ADJUSTMENT' | 'TRANSFER';
+
+export type ObjectType =
+    | 'ITEM'
+    | 'IMAGE'
+    | 'CATEGORY'
+    | 'ITEM_VARIATION'
+    | 'TAX'
+    | 'DISCOUNT'
+    | 'MODIFIER_LIST'
+    | 'MODIFIER';
+
+export type PricingType = 'FIXED_PRICING' | 'VARIABLE_PRICING';
+
+export type InventoryAlertType = 'NONE' | 'LOW_QUANTITY';
+
+export type OrderStateType = 'OPEN' | 'COMPLETED' | 'CANCELED';
+
+export type AreaUnitType =
+    | 'IMPERIAL_ACRE'
+    | 'IMPERIAL_SQUARE_INCH'
+    | 'IMPERIAL_SQUARE_FOOT'
+    | 'IMPERIAL_SQUARE_YARD'
+    | 'IMPERIAL_SQUARE_MILE'
+    | 'METRIC_SQUARE_METER'
+    | 'METRIC_SQUARE_KILOMETER'
+    | 'METRIC_SQUARE_CENTIMETER';
+
+export type LengthUnitType =
+    | 'IMPERIAL_INCH'
+    | 'IMPERIAL_FOOT'
+    | 'IMPERIAL_YARD'
+    | 'IMPERIAL_MILE'
+    | 'METRIC_MILLIMETER'
+    | 'METRIC_CENTIMETER'
+    | 'METRIC_METER'
+    | 'METRIC_KILOMETER';
+
+export type VolumeUnitType =
+    | 'GENERIC_FLUID_OUNCE'
+    | 'GENERIC_SHOT'
+    | 'GENERIC_CUP'
+    | 'GENERIC_PINT'
+    | 'GENERIC_QUART'
+    | 'GENERIC_GALLON'
+    | 'IMPERIAL_CUBIC_INCH'
+    | 'IMPERIAL_CUBIC_FOOT'
+    | 'IMPERIAL_CUBIC_YARD'
+    | 'METRIC_MILLILITER'
+    | 'METRIC_LITER';
+
+export type WeightUnitType =
+    | 'IMPERIAL_WEIGHT_OUNCE'
+    | 'IMPERIAL_POUND'
+    | 'IMPERIAL_STONE'
+    | 'METRIC_MILLIGRAM'
+    | 'METRIC_GRAM'
+    | 'METRIC_KILOGRAM';
+
+export type ErrorCategoryType =
+    | 'API_ERROR'
+    | 'AUTHENTICATION_ERROR'
+    | 'INVALID_REQUEST_ERROR'
+    | 'RATE_LIMIT_ERROR'
+    | 'PAYMENT_METHOD_ERROR'
+    | 'REFUND_ERROR';
+
+export type ErrorCodeType =
+    | 'INTERNAL_SERVER_ERROR'
+    | 'UNAUTHORIZED'
+    | 'ACCESS_TOKEN_EXPIRED'
+    | 'ACCESS_TOKEN_REVOKED'
+    | 'FORBIDDEN'
+    | 'INSUFFICIENT_SCOPES'
+    | 'APPLICATION_DISABLED'
+    | 'V1_APPLICATION'
+    | 'V1_ACCESS_TOKEN'
+    | 'CARD_PROCESSING_NOT_ENABLED'
+    | 'BAD_REQUEST'
+    | 'MISSING_REQUIRED_PARAMETER'
+    | 'INCORRECT_TYPE'
+    | 'INVALID_TIME'
+    | 'INVALID_TIME_RANGE'
+    | 'INVALID_VALUE'
+    | 'INVALID_CURSOR'
+    | 'UNKNOWN_QUERY_PARAMETER'
+    | 'CONFLICTING_PARAMETERS'
+    | 'EXPECTED_JSON_BODY'
+    | 'INVALID_SORT_ORDER'
+    | 'VALUE_REGEX_MISMATCH'
+    | 'VALUE_TOO_SHORT'
+    | 'VALUE_TOO_LONG'
+    | 'VALUE_TOO_LOW'
+    | 'VALUE_TOO_HIGH'
+    | 'VALUE_EMPTY'
+    | 'ARRAY_LENGTH_TOO_LONG'
+    | 'ARRAY_LENGTH_TOO_SHORT'
+    | 'ARRAY_EMPTY'
+    | 'EXPECTED_BOOLEAN'
+    | 'EXPECTED_INTEGER'
+    | 'EXPECTED_FLOAT'
+    | 'EXPECTED_STRING'
+    | 'EXPECTED_OBJECT'
+    | 'EXPECTED_ARRAY'
+    | 'EXPECTED_MAP'
+    | 'EXPECTED_BASE64_ENCODED_BYTE_ARRAY'
+    | 'INVALID_ARRAY_VALUE'
+    | 'INVALID_ENUM_VALUE'
+    | 'INVALID_CONTENT_TYPE'
+    | 'INVALID_FORM_VALUE'
+    | 'ONE_INSTRUMENT_EXPECTED'
+    | 'NO_FIELDS_SET'
+    | 'DEPRECATED_FIELD_SET'
+    | 'CARD_EXPIRED'
+    | 'INVALID_EXPIRATION'
+    | 'INVALID_EXPIRATION_YEAR'
+    | 'INVALID_EXPIRATION_DATE'
+    | 'UNSUPPORTED_CARD_BRAND'
+    | 'UNSUPPORTED_ENTRY_METHOD'
+    | 'INVALID_ENCRYPTED_CARD'
+    | 'INVALID_CARD'
+    | 'DELAYED_TRANSACTION_EXPIRED'
+    | 'DELAYED_TRANSACTION_CANCELED'
+    | 'DELAYED_TRANSACTION_CAPTURED'
+    | 'DELAYED_TRANSACTION_FAILED'
+    | 'CARD_TOKEN_EXPIRED'
+    | 'CARD_TOKEN_USED'
+    | 'AMOUNT_TOO_HIGH'
+    | 'UNSUPPORTED_INSTRUMENT_TYPE'
+    | 'REFUND_AMOUNT_INVALID'
+    | 'REFUND_ALREADY_PENDING'
+    | 'PAYMENT_NOT_REFUNDABLE'
+    | 'INVALID_CARD_DATA'
+    | 'LOCATION_MISMATCH'
+    | 'IDEMPOTENCY_KEY_REUSED'
+    | 'UNEXPECTED_VALUE'
+    | 'SANDBOX_NOT_SUPPORTED'
+    | 'INVALID_EMAIL_ADDRESS'
+    | 'INVALID_PHONE_NUMBER'
+    | 'CHECKOUT_EXPIRED'
+    | 'BAD_CERTIFICATE'
+    | 'INVALID_SQUARE_VERSION_FORMAT'
+    | 'API_VERSION_INCOMPATIBLE'
+    | 'CARD_DECLINED'
+    | 'VERIFY_CVV_FAILURE'
+    | 'VERIFY_AVS_FAILURE'
+    | 'CARD_DECLINED_CALL_ISSUER'
+    | 'NOT_FOUND'
+    | 'APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND'
+    | 'METHOD_NOT_ALLOWED'
+    | 'NOT_ACCEPTABLE'
+    | 'REQUEST_TIMEOUT'
+    | 'CONFLICT'
+    | 'REQUEST_ENTITY_TOO_LARGE'
+    | 'UNSUPPORTED_MEDIA_TYPE'
+    | 'RATE_LIMITED'
+    | 'NOT_IMPLEMENTED'
+    | 'SERVICE_UNAVAILABLE'
+    | 'GATEWAY_TIMEOUT';
+
+export type ProductSourceType =
+    | 'SQUARE_POS'
+    | 'EXTERNAL_API'
+    | 'BILLING'
+    | 'APPOINTMENTS'
+    | 'INVOICES'
+    | 'ONLINE_STORE'
+    | 'PAYROLL'
+    | 'DASHBOARD'
+    | 'ITEM_LIBRARY_IMPORT'
+    | 'OTHER';
 
 /**
  * Represents an additional recipient (other than the merchant) receiving a portion of this tender.
@@ -689,7 +821,7 @@ export class Address {
     /**
      * The address's country, in ISO 3166-1-alpha-2 format. See [Country](#type-country) for possible values
      */
-    country?: CountryEnum;
+    country?: CountryType;
     /**
      * Optional first name when it's representing recipient.
      */
@@ -749,7 +881,7 @@ export class BatchChangeInventoryResponse {
 
 export class BatchDeleteCatalogObjectsRequest {
     /**
-     * The IDs of the [CatalogObject](#type-catalogobject)s to be deleted. \When an object is deleted, other objects in
+     * The IDs of the [CatalogObject](#type-catalogobject)s to be deleted. When an object is deleted, other objects in
      * the graph that depend on that object will be deleted as well (for example, deleting a
      * [CatalogItem](#type-catalogitem) will delete its [CatalogItemVariation](#type-catalogitemvariation)s).
      */
@@ -815,11 +947,11 @@ export class BatchRetrieveInventoryChangesRequest {
      * Filters results by [InventoryChangeType](#type-inventorychangetype). Default: [`PHYSICAL_COUNT`, `ADJUSTMENT`].
      * `TRANSFER` is not supported as a filter.
      */
-    types?: Array<BatchRetrieveInventoryChangesRequest.TypesEnum>;
+    types?: Array<InventoryType>;
     /**
      * Filters `ADJUSTMENT` query results by [InventoryState](#type-inventorystate). Only applied when set. Default: unset.
      */
-    states?: Array<BatchRetrieveInventoryChangesRequest.StatesEnum>;
+    states?: Array<InventoryStateType>;
     /**
      * Provided as an RFC 3339 timestamp. Returns results whose `created_at` or `calculated_at` value is after the given time.
      * Default: UNIX epoch (`1970-01-01T00:00:00Z`).
@@ -835,28 +967,6 @@ export class BatchRetrieveInventoryChangesRequest {
      * results for the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
-}
-
-export namespace BatchRetrieveInventoryChangesRequest {
-    export enum TypesEnum {
-        PHYSICAL_COUNT = 'PHYSICAL_COUNT',
-        ADJUSTMENT = 'ADJUSTMENT',
-        TRANSFER = 'TRANSFER',
-    }
-    export enum StatesEnum {
-        CUSTOM = 'CUSTOM',
-        IN_STOCK = 'IN_STOCK',
-        SOLD = 'SOLD',
-        RETURNED_BY_CUSTOMER = 'RETURNED_BY_CUSTOMER',
-        RESERVED_FOR_SALE = 'RESERVED_FOR_SALE',
-        SOLD_ONLINE = 'SOLD_ONLINE',
-        ORDERED_FROM_VENDOR = 'ORDERED_FROM_VENDOR',
-        RECEIVED_FROM_VENDOR = 'RECEIVED_FROM_VENDOR',
-        IN_TRANSIT_TO = 'IN_TRANSIT_TO',
-        NONE = 'NONE',
-        WASTE = 'WASTE',
-        UNLINKED_RETURN = 'UNLINKED_RETURN',
-    }
 }
 
 export class BatchRetrieveInventoryChangesResponse {
@@ -1003,9 +1113,8 @@ export class BreakType {
      */
     is_paid: boolean;
     /**
-     * Used for resolving concurrency issues; request will fail if version provided does not match server version at
-     * time of request. If a value is not provided, Square's servers execute a \"blind\" write; potentially  overwriting
-     * another writer's data.
+     * Used for resolving concurrency issues; request will fail if version provided does not match server version at time of request.
+     * If a value is not provided, Square's servers execute a "blind" write; potentially overwriting another writer's data.
      */
     version?: number;
     /**
@@ -1035,7 +1144,7 @@ export class BusinessHoursPeriod {
     /**
      * The day of week for this time period. See [DayOfWeek](#type-dayofweek) for possible values
      */
-    day_of_week?: DayOfWeekEnum;
+    day_of_week?: DayOfWeekType;
     /**
      * The start time of a business hours period, specified in local time using partial-time RFC3339 format.
      */
@@ -1093,8 +1202,7 @@ export class CancelPaymentResponse {
 export class CaptureTransactionRequest {}
 
 /**
- * Defines the fields that are included in the response body of a request to the
- * [CaptureTransaction](#endpoint-capturetransaction) endpoint.
+ * Defines the fields that are included in the response body of a request to the [CaptureTransaction](#endpoint-capturetransaction) endpoint.
  */
 export class CaptureTransactionResponse {
     /**
@@ -1115,7 +1223,7 @@ export class Card {
     /**
      * The card's brand (such as `VISA`). See [CardBrand](#type-cardbrand) for possible values.
      */
-    card_brand?: CardBrandEnum;
+    card_brand?: CardBrandType;
     /**
      * The last 4 digits of the card number.
      */
@@ -1215,7 +1323,7 @@ export class CatalogDiscount {
      * Indicates whether the discount is a fixed amount or percentage, or entered at the time of sale.
      * See [CatalogDiscountType](#type-catalogdiscounttype) for possible values.
      */
-    discount_type?: DiscountTypeEnum;
+    discount_type?: DiscountType;
     /**
      * The percentage of the discount as a string representation of a decimal number, using a `.` as the decimal
      * separator and without a `%` sign. A value of `7.5` corresponds to `7.5%`. Specify a percentage of `0` if
@@ -1398,7 +1506,7 @@ export class CatalogItem {
      * Only items of product type `REGULAR` or `APPOINTMENTS_SERVICE` may be created by this API; items with other product
      * types are read-only. See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
      */
-    product_type?: CatalogItem.ProductTypeEnum;
+    product_type?: 'REGULAR' | 'GIFT_CARD' | 'APPOINTMENTS_SERVICE' | 'RETAIL_ITEM' | 'RESTAURANT_ITEM';
     /**
      * If `false`, the Square Point of Sale app will present the [CatalogItem](#type-catalogitem)'s details screen immediately,
      * allowing the merchant to choose [CatalogModifier](#type-catalogmodifier)s before adding the item to the cart.
@@ -1412,16 +1520,6 @@ export class CatalogItem {
      * Maximum: 6 item options.
      */
     item_options?: Array<CatalogItemOptionForItem>;
-}
-
-export namespace CatalogItem {
-    export enum ProductTypeEnum {
-        REGULAR = 'REGULAR',
-        GIFT_CARD = 'GIFT_CARD',
-        APPOINTMENTS_SERVICE = 'APPOINTMENTS_SERVICE',
-        RETAIL_ITEM = 'RETAIL_ITEM',
-        RESTAURANT_ITEM = 'RESTAURANT_ITEM',
-    }
 }
 
 /**
@@ -1583,7 +1681,7 @@ export class CatalogItemVariation {
      * Indicates whether the item variation's price is fixed or determined at the time of sale.
      * See [CatalogPricingType](#type-catalogpricingtype) for possible values.
      */
-    pricing_type?: CatalogItemVariation.PricingTypeEnum;
+    pricing_type?: PricingType;
     /**
      * The item variation's price, if fixed pricing is used.
      */
@@ -1600,7 +1698,7 @@ export class CatalogItemVariation {
      * Indicates whether the item variation displays an alert when its inventory quantity is less than or equal to its
      * `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: CatalogItemVariation.InventoryAlertTypeEnum;
+    inventory_alert_type?: InventoryAlertType;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
@@ -1624,17 +1722,6 @@ export class CatalogItemVariation {
      * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity sold of this item variation. If left unset, the item will be sold in whole quantities.
      */
     measurement_unit_id?: string;
-}
-
-export namespace CatalogItemVariation {
-    export enum PricingTypeEnum {
-        FIXED_PRICING = 'FIXED_PRICING',
-        VARIABLE_PRICING = 'VARIABLE_PRICING',
-    }
-    export enum InventoryAlertTypeEnum {
-        NONE = 'NONE',
-        LOW_QUANTITY = 'LOW_QUANTITY',
-    }
 }
 
 /**
@@ -1685,7 +1772,7 @@ export class CatalogModifierList {
      * single [CatalogItem](#type-catalogitem).
      * See [CatalogModifierListSelectionType](#type-catalogmodifierlistselectiontype) for possible values.
      */
-    selection_type?: CatalogModifierList.SelectionTypeEnum;
+    selection_type?: 'SINGLE' | 'MULTIPLE';
     /**
      * The options included in the [CatalogModifierList](#type-catalogmodifierlist). You must include at least one
      * [CatalogModifier](#type-catalogmodifier). Each [CatalogObject](#type-catalogobject) must have type `MODIFIER` and
@@ -1693,18 +1780,6 @@ export class CatalogModifierList {
      */
     modifiers?: Array<CatalogObject>;
 }
-
-export namespace CatalogModifierList {
-    export enum SelectionTypeEnum {
-        SINGLE = 'SINGLE',
-        MULTIPLE = 'MULTIPLE',
-    }
-}
-
-/**
- * Indicates whether a [CatalogModifierList](#type-catalogmodifierlist) supports multiple selections.
- */
-export class CatalogModifierListSelectionType {}
 
 export class CatalogModifierOverride {
     /**
@@ -1736,7 +1811,7 @@ export class CatalogObject {
      * The type of this object. Each object type has expected properties expressed in a structured format within its
      * corresponding `*_data` field below. See [CatalogObjectType](#type-catalogobjecttype) for possible values.
      */
-    type: CatalogObject.TypeEnum;
+    type: ObjectType;
     /**
      * An identifier to reference this object in the catalog. When a new CatalogObject is inserted, the client should
      * set the id to a temporary identifier starting with a `'#'` character. Other objects being inserted or updated
@@ -1839,19 +1914,6 @@ export class CatalogObject {
      * Structured data for a [CatalogItemOptionValue](#type-catalogitemoptionvalue), set for CatalogObjects of type `ITEM_OPTION_VAL`.
      */
     item_option_value_data?: CatalogItemOptionValue;
-}
-
-export namespace CatalogObject {
-    export enum TypeEnum {
-        ITEM = 'ITEM',
-        IMAGE = 'IMAGE',
-        CATEGORY = 'CATEGORY',
-        ITEM_VARIATION = 'ITEM_VARIATION',
-        TAX = 'TAX',
-        DISCOUNT = 'DISCOUNT',
-        MODIFIER_LIST = 'MODIFIER_LIST',
-        MODIFIER = 'MODIFIER',
-    }
 }
 
 /**
@@ -2123,7 +2185,7 @@ export class CatalogQuerySortedAttribute {
      * The desired [SortOrder](#type-sortorder), "ASC" (ascending) or "DESC" (descending).
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
 }
 
 export class CatalogQueryText {
@@ -2145,11 +2207,11 @@ export class CatalogTax {
      * Whether the tax is calculated based on a payment's subtotal or total.
      * See [TaxCalculationPhase](#type-taxcalculationphase) for possible values.
      */
-    calculation_phase?: CatalogTax.CalculationPhaseEnum;
+    calculation_phase?: 'TAX_SUBTOTAL_PHASE' | 'TAX_TOTAL_PHASE';
     /**
      * Whether the tax is `ADDITIVE` or `INCLUSIVE`. See [TaxInclusionType](#type-taxinclusiontype) for possible values.
      */
-    inclusion_type?: TaxTypeEnum;
+    inclusion_type?: TaxType;
     /**
      * The percentage of the tax in decimal form, using a '.' as the decimal separator and without a '%' sign.
      * A value of `7.5` corresponds to 7.5%.
@@ -2164,13 +2226,6 @@ export class CatalogTax {
      * If `true`, the tax will be shown as enabled in the Square Point of Sale app.
      */
     enabled?: boolean;
-}
-
-export namespace CatalogTax {
-    export enum CalculationPhaseEnum {
-        TAX_SUBTOTAL_PHASE = 'TAX_SUBTOTAL_PHASE',
-        TAX_TOTAL_PHASE = 'TAX_TOTAL_PHASE',
-    }
 }
 
 /**
@@ -2816,7 +2871,7 @@ export class CreateOrderRequestTax {
      * Default: `ADDITIVE`; See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      * See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
-    type?: TaxTypeEnum;
+    type?: TaxType;
     /**
      * Only used for ad hoc taxes. The percentage of the tax, as a string representation of a decimal number.
      * A value of `7.25` corresponds to a percentage of 7.25%. This value range between 0.0 up to 100.0.
@@ -3028,12 +3083,6 @@ export class CreateShiftResponse {
 }
 
 /**
- * Indicates the associated currency for an amount of money. Values correspond to [ISO
- * 4217](https://wikipedia.org/wiki/ISO_4217).
- */
-export class Currency {}
-
-/**
  * Represents one of a business's customers, which can have one or more cards on file associated with it.
  */
 export class Customer {
@@ -3107,7 +3156,7 @@ export class Customer {
      * A creation source represents the method used to create the customer profile.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
-    creation_source?: CustomerSourceEnum;
+    creation_source?: CustomerSourceType;
 }
 
 /**
@@ -3124,20 +3173,13 @@ export class CustomerCreationSourceFilter {
      * The list of creation sources used as filtering criteria.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
-    values?: Array<CustomerSourceEnum>;
+    values?: Array<CustomerSourceType>;
     /**
      * Indicates whether a customer profile matching the filter criteria should be included in the result or excluded
      * from the result. Default: `INCLUDE`.
      * See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for possible values.
      */
-    rule?: CustomerCreationSourceFilter.RuleEnum;
-}
-
-export namespace CustomerCreationSourceFilter {
-    export enum RuleEnum {
-        INCLUDE = 'INCLUDE',
-        EXCLUDE = 'EXCLUDE',
-    }
+    rule?: 'INCLUDE' | 'EXCLUDE';
 }
 
 /**
@@ -3212,20 +3254,13 @@ export class CustomerSort {
      * The field to sort the results on. It could be the total money spent at the merchant, the date of the first visit (etc).
      * See [CustomerSortField](#type-customersortfield) for possible values.
      */
-    field?: CustomerSort.FieldEnum;
+    field?: string;
     /**
      * Indicates the order in which results should be displayed based on the value of the sort field.
      * String comparisons use standard alphabetic comparison to determine order.
      * Strings representing numbers are sorted as strings. See [SortOrder](#type-sortorder) for possible values.
      */
-    order?: SortOrderEnum;
-}
-
-export namespace CustomerSort {
-    export enum FieldEnum {
-        DEFAULT = 'DEFAULT',
-        CREATED_AT = 'CREATED_AT',
-    }
+    order?: SortOrderType;
 }
 
 /**
@@ -3376,7 +3411,7 @@ export class Employee {
     /**
      * Specifies the status of the employee being fetched. See [EmployeeStatus](#type-employeestatus) for possible values.
      */
-    status?: ActivityStatusEnum;
+    status?: ActivityStatusType;
     /**
      * A read-only timestamp in RFC 3339 format.
      */
@@ -3479,11 +3514,11 @@ export class GetPaymentRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    'errors'?: Array<Error>;
+    errors?: Array<Error>;
     /**
      * The requested `PaymentRefund`.
      */
-    'refund'?: PaymentRefund;
+    refund?: PaymentRefund;
 }
 
 /**
@@ -3543,12 +3578,12 @@ export class InventoryAdjustment {
      * The [InventoryState](#type-inventorystate) of the related quantity of items before the adjustment.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    from_state?: InventoryStateEnum;
+    from_state?: InventoryStateType;
     /**
      * The [InventoryState](#type-inventorystate) of the related quantity of items after the adjustment.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    to_state?: InventoryStateEnum;
+    to_state?: InventoryStateType;
     /**
      * The Square ID of the [Location](#type-location) where the related quantity of items are being tracked.
      */
@@ -3615,12 +3650,6 @@ export class InventoryAdjustment {
 }
 
 /**
- * Indicates whether Square should alert the merchant when the inventory quantity of a
- * [CatalogItemVariation](#type-catalogitemvariation) is low.
- */
-export class InventoryAlertType {}
-
-/**
  * Represents a single physical count, inventory, adjustment, or transfer that is part of the history of inventory
  * changes for a particular [CatalogObject](#type-catalogobject).
  */
@@ -3629,7 +3658,7 @@ export class InventoryChange {
      * Indicates how the inventory change was applied.
      * See [InventoryChangeType](#type-inventorychangetype) for possible values.
      */
-    type?: InventoryChange.TypeEnum;
+    type?: InventoryType;
     /**
      * Contains details about the physical count when `type` is `PHYSICAL_COUNT` and unset for all other types.
      */
@@ -3642,14 +3671,6 @@ export class InventoryChange {
      * Contains details about the inventory transfer when `type` is `TRANSFER` and unset for all other types.
      */
     transfer?: InventoryTransfer;
-}
-
-export namespace InventoryChange {
-    export enum TypeEnum {
-        PHYSICAL_COUNT = 'PHYSICAL_COUNT',
-        ADJUSTMENT = 'ADJUSTMENT',
-        TRANSFER = 'TRANSFER',
-    }
 }
 
 /**
@@ -3675,7 +3696,7 @@ export class InventoryCount {
      * The current [InventoryState](#type-inventorystate) for the related quantity of items.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    state?: InventoryStateEnum;
+    state?: InventoryStateType;
     /**
      * The Square ID of the [Location](#type-location) where the related quantity of items are being tracked.
      */
@@ -3723,7 +3744,7 @@ export class InventoryPhysicalCount {
      * The current [InventoryState](#type-inventorystate) for the related quantity of items.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    state?: InventoryStateEnum;
+    state?: InventoryStateType;
     /**
      * The Square ID of the [Location](#type-location) where the related quantity of items are being tracked.
      */
@@ -3776,7 +3797,7 @@ export class InventoryTransfer {
      * The [InventoryState](#type-inventorystate) for the quantity of items being transfered.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    state?: InventoryStateEnum;
+    state?: InventoryStateType;
     /**
      * The Square ID of the [Location](#type-location) where the related quantity of items were tracked before the transfer.
      */
@@ -3839,7 +3860,7 @@ export class ItemVariationLocationOverrides {
      * The pricing type (fixed or variable) for the [CatalogItemVariation](#type-catalogitemvariation) at the given
      * [location](#type-location). See [CatalogPricingType](#type-catalogpricingtype) for possible values.
      */
-    pricing_type?: ItemVariationLocationOverrides.PricingTypeEnum;
+    pricing_type?: PricingType;
     /**
      * If `true`, inventory tracking is active for the [CatalogItemVariation](#type-catalogitemvariation) at this
      * [location](#type-location).
@@ -3850,23 +3871,12 @@ export class ItemVariationLocationOverrides {
      * quantity is less than or equal to its `inventory_alert_threshold`.
      * See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: ItemVariationLocationOverrides.InventoryAlertTypeEnum;
+    inventory_alert_type?: InventoryAlertType;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
      */
     inventory_alert_threshold?: number;
-}
-
-export namespace ItemVariationLocationOverrides {
-    export enum PricingTypeEnum {
-        FIXED_PRICING = 'FIXED_PRICING',
-        VARIABLE_PRICING = 'VARIABLE_PRICING',
-    }
-    export enum InventoryAlertTypeEnum {
-        NONE = 'NONE',
-        LOW_QUANTITY = 'LOW_QUANTITY',
-    }
 }
 
 /**
@@ -3887,7 +3897,7 @@ export class ListAdditionalRecipientReceivableRefundsRequest {
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
      * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
@@ -3933,7 +3943,7 @@ export class ListAdditionalRecipientReceivablesRequest {
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
      * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
@@ -4042,19 +4052,12 @@ export class ListCustomersRequest {
      * Indicates how Customers should be sorted. Default: `DEFAULT`.
      * See [CustomerSortField](#type-customersortfield) for possible values.
      */
-    sort_field?: ListCustomersRequest.SortFieldEnum;
+    sort_field?: string;
     /**
      * Indicates whether Customers should be sorted in ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
-}
-
-export namespace ListCustomersRequest {
-    export enum SortFieldEnum {
-        DEFAULT = 'DEFAULT',
-        CREATED_AT = 'CREATED_AT',
-    }
+    sort_order?: SortOrderType;
 }
 
 /**
@@ -4126,7 +4129,7 @@ export class ListEmployeesRequest {
     /**
      * Specifies the EmployeeStatus to filter the employee by. See [EmployeeStatus](#type-employeestatus) for possible values.
      */
-    status?: ActivityStatusEnum;
+    status?: ActivityStatusType;
     /**
      * The number of employees to be returned on each page.
      */
@@ -4192,7 +4195,7 @@ export class ListPaymentRefundsRequest {
     /**
      * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
@@ -4274,7 +4277,7 @@ export class ListPaymentsRequest {
     /**
      * The brand of `Payment` card. For example, `VISA`.
      */
-    card_brand?: CardBrandEnum;
+    card_brand?: CardBrandType;
 }
 
 /**
@@ -4315,7 +4318,7 @@ export class ListRefundsRequest {
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
      * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
@@ -4363,7 +4366,7 @@ export class ListTransactionsRequest {
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
+    sort_order?: SortOrderType;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
      * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
@@ -4449,11 +4452,11 @@ export class Location {
      * Indicates which Square features are enabled for the location.
      * See [LocationCapability](#type-locationcapability) for possible values.
      */
-    capabilities?: Array<Location.CapabilitiesEnum>;
+    capabilities?: Array<'CREDIT_CARD_PROCESSING'>;
     /**
      * The location's status. See [LocationStatus](#type-locationstatus) for possible values.
      */
-    status?: ActivityStatusEnum;
+    status?: ActivityStatusType;
     /**
      * The time when the location was created, in RFC 3339 format.
      */
@@ -4465,7 +4468,7 @@ export class Location {
     /**
      * The location's country, in ISO 3166-1-alpha-2 format. See [Country](#type-country) for possible values.
      */
-    country?: CountryEnum;
+    country?: CountryType;
     /**
      * The language associated with the location in [BCP 47 format](https://tools.ietf.org/html/bcp47#appendix-A).
      */
@@ -4475,7 +4478,7 @@ export class Location {
      * For example, the currency for a location processing transactions in the United States is 'USD'.
      * See [Currency](#type-currency) for possible values.
      */
-    currency?: CurrencyEnum;
+    currency?: CurrencyType;
     /**
      * The location's phone_number.
      */
@@ -4490,7 +4493,7 @@ export class Location {
      * Typically used to indicate whether or not the location object represents a physical space like a building or mall space.
      * See [LocationType](#type-locationtype) for possible values.
      */
-    type?: Location.TypeEnum;
+    type?: 'PHYSICAL' | 'MOBILE';
     /**
      * The location's website, as set by the account owner in the Square dashboard.
      * Default: none; only exists if explicitly set.
@@ -4534,16 +4537,6 @@ export class Location {
     pos_background_url?: string;
 }
 
-export namespace Location {
-    export enum CapabilitiesEnum {
-        CREDIT_CARD_PROCESSING = 'CREDIT_CARD_PROCESSING',
-    }
-    export enum TypeEnum {
-        PHYSICAL = 'PHYSICAL',
-        MOBILE = 'MOBILE',
-    }
-}
-
 /**
  * Indicates payment capabilities that a business's location might or might not have enabled.
  */
@@ -4553,11 +4546,6 @@ export class LocationCapability {}
  * Indicates the location's status.
  */
 export class LocationStatus {}
-
-/**
- * Indicates the location's type.
- */
-export class LocationType {}
 
 /**
  * Represents a unit of measurement to use with a quantity, such as ounces or inches.
@@ -4572,19 +4560,19 @@ export class MeasurementUnit {
     /**
      * Represents a standard area unit. See [MeasurementUnitArea](#type-measurementunitarea) for possible values.
      */
-    area_unit?: MeasurementUnit.AreaUnitEnum;
+    area_unit?: AreaUnitType;
     /**
      * Represents a standard length unit. See [MeasurementUnitLength](#type-measurementunitlength) for possible values.
      */
-    length_unit?: MeasurementUnit.LengthUnitEnum;
+    length_unit?: LengthUnitType;
     /**
      * Represents a standard volume unit. See [MeasurementUnitVolume](#type-measurementunitvolume) for possible values.
      */
-    volume_unit?: MeasurementUnit.VolumeUnitEnum;
+    volume_unit?: VolumeUnitType;
     /**
      * Represents a standard unit of weight or mass. See [MeasurementUnitWeight](#type-measurementunitweight) for possible values.
      */
-    weight_unit?: MeasurementUnit.WeightUnitEnum;
+    weight_unit?: WeightUnitType;
     /**
      * Reserved for API integrations that lack the ability to specify a real measurement unit.
      * See [MeasurementUnitGeneric](#type-measurementunitgeneric) for possible values.
@@ -4595,50 +4583,6 @@ export class MeasurementUnit {
      * See [MeasurementUnitUnitType](#type-measurementunitunittype) for possible values.
      */
     type?: string;
-}
-
-export namespace MeasurementUnit {
-    export enum AreaUnitEnum {
-        IMPERIAL_ACRE = 'IMPERIAL_ACRE',
-        IMPERIAL_SQUARE_INCH = 'IMPERIAL_SQUARE_INCH',
-        IMPERIAL_SQUARE_FOOT = 'IMPERIAL_SQUARE_FOOT',
-        IMPERIAL_SQUARE_YARD = 'IMPERIAL_SQUARE_YARD',
-        IMPERIAL_SQUARE_MILE = 'IMPERIAL_SQUARE_MILE',
-        METRIC_SQUARE_CENTIMETER = 'METRIC_SQUARE_CENTIMETER',
-        METRIC_SQUARE_METER = 'METRIC_SQUARE_METER',
-        METRIC_SQUARE_KILOMETER = 'METRIC_SQUARE_KILOMETER',
-    }
-    export enum LengthUnitEnum {
-        IMPERIAL_INCH = 'IMPERIAL_INCH',
-        IMPERIAL_FOOT = 'IMPERIAL_FOOT',
-        IMPERIAL_YARD = 'IMPERIAL_YARD',
-        IMPERIAL_MILE = 'IMPERIAL_MILE',
-        METRIC_MILLIMETER = 'METRIC_MILLIMETER',
-        METRIC_CENTIMETER = 'METRIC_CENTIMETER',
-        METRIC_METER = 'METRIC_METER',
-        METRIC_KILOMETER = 'METRIC_KILOMETER',
-    }
-    export enum VolumeUnitEnum {
-        GENERIC_FLUID_OUNCE = 'GENERIC_FLUID_OUNCE',
-        GENERIC_SHOT = 'GENERIC_SHOT',
-        GENERIC_CUP = 'GENERIC_CUP',
-        GENERIC_PINT = 'GENERIC_PINT',
-        GENERIC_QUART = 'GENERIC_QUART',
-        GENERIC_GALLON = 'GENERIC_GALLON',
-        IMPERIAL_CUBIC_INCH = 'IMPERIAL_CUBIC_INCH',
-        IMPERIAL_CUBIC_FOOT = 'IMPERIAL_CUBIC_FOOT',
-        IMPERIAL_CUBIC_YARD = 'IMPERIAL_CUBIC_YARD',
-        METRIC_MILLILITER = 'METRIC_MILLILITER',
-        METRIC_LITER = 'METRIC_LITER',
-    }
-    export enum WeightUnitEnum {
-        IMPERIAL_WEIGHT_OUNCE = 'IMPERIAL_WEIGHT_OUNCE',
-        IMPERIAL_POUND = 'IMPERIAL_POUND',
-        IMPERIAL_STONE = 'IMPERIAL_STONE',
-        METRIC_MILLIGRAM = 'METRIC_MILLIGRAM',
-        METRIC_GRAM = 'METRIC_GRAM',
-        METRIC_KILOGRAM = 'METRIC_KILOGRAM',
-    }
 }
 
 /**
@@ -4730,12 +4674,12 @@ export class ModelError {
      * The high-level category for the error.
      * See [ErrorCategory](#type-errorcategory) See [ErrorCategory](#type-errorcategory) for possible values.
      */
-    category: ModelError.CategoryEnum;
+    category: ErrorCategoryType;
     /**
      * The specific code of the error.
      * See [ErrorCode](#type-errorcode) for possible See [ErrorCode](#type-errorcode) for possible values.
      */
-    code: ModelError.CodeEnum;
+    code: ErrorCodeType;
     /**
      * A human-readable description of the error for debugging purposes.
      */
@@ -4744,110 +4688,6 @@ export class ModelError {
      * The name of the field provided in the original request (if any) that the error pertains to.
      */
     field?: string;
-}
-
-export namespace ModelError {
-    export enum CategoryEnum {
-        API_ERROR = 'API_ERROR',
-        AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR',
-        INVALID_REQUEST_ERROR = 'INVALID_REQUEST_ERROR',
-        RATE_LIMIT_ERROR = 'RATE_LIMIT_ERROR',
-        PAYMENT_METHOD_ERROR = 'PAYMENT_METHOD_ERROR',
-        REFUND_ERROR = 'REFUND_ERROR',
-    }
-    export enum CodeEnum {
-        INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
-        UNAUTHORIZED = 'UNAUTHORIZED',
-        ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED',
-        ACCESS_TOKEN_REVOKED = 'ACCESS_TOKEN_REVOKED',
-        FORBIDDEN = 'FORBIDDEN',
-        INSUFFICIENT_SCOPES = 'INSUFFICIENT_SCOPES',
-        APPLICATION_DISABLED = 'APPLICATION_DISABLED',
-        V1_APPLICATION = 'V1_APPLICATION',
-        V1_ACCESS_TOKEN = 'V1_ACCESS_TOKEN',
-        CARD_PROCESSING_NOT_ENABLED = 'CARD_PROCESSING_NOT_ENABLED',
-        BAD_REQUEST = 'BAD_REQUEST',
-        MISSING_REQUIRED_PARAMETER = 'MISSING_REQUIRED_PARAMETER',
-        INCORRECT_TYPE = 'INCORRECT_TYPE',
-        INVALID_TIME = 'INVALID_TIME',
-        INVALID_TIME_RANGE = 'INVALID_TIME_RANGE',
-        INVALID_VALUE = 'INVALID_VALUE',
-        INVALID_CURSOR = 'INVALID_CURSOR',
-        UNKNOWN_QUERY_PARAMETER = 'UNKNOWN_QUERY_PARAMETER',
-        CONFLICTING_PARAMETERS = 'CONFLICTING_PARAMETERS',
-        EXPECTED_JSON_BODY = 'EXPECTED_JSON_BODY',
-        INVALID_SORT_ORDER = 'INVALID_SORT_ORDER',
-        VALUE_REGEX_MISMATCH = 'VALUE_REGEX_MISMATCH',
-        VALUE_TOO_SHORT = 'VALUE_TOO_SHORT',
-        VALUE_TOO_LONG = 'VALUE_TOO_LONG',
-        VALUE_TOO_LOW = 'VALUE_TOO_LOW',
-        VALUE_TOO_HIGH = 'VALUE_TOO_HIGH',
-        VALUE_EMPTY = 'VALUE_EMPTY',
-        ARRAY_LENGTH_TOO_LONG = 'ARRAY_LENGTH_TOO_LONG',
-        ARRAY_LENGTH_TOO_SHORT = 'ARRAY_LENGTH_TOO_SHORT',
-        ARRAY_EMPTY = 'ARRAY_EMPTY',
-        EXPECTED_BOOLEAN = 'EXPECTED_BOOLEAN',
-        EXPECTED_INTEGER = 'EXPECTED_INTEGER',
-        EXPECTED_FLOAT = 'EXPECTED_FLOAT',
-        EXPECTED_STRING = 'EXPECTED_STRING',
-        EXPECTED_OBJECT = 'EXPECTED_OBJECT',
-        EXPECTED_ARRAY = 'EXPECTED_ARRAY',
-        EXPECTED_MAP = 'EXPECTED_MAP',
-        EXPECTED_BASE64_ENCODED_BYTE_ARRAY = 'EXPECTED_BASE64_ENCODED_BYTE_ARRAY',
-        INVALID_ARRAY_VALUE = 'INVALID_ARRAY_VALUE',
-        INVALID_ENUM_VALUE = 'INVALID_ENUM_VALUE',
-        INVALID_CONTENT_TYPE = 'INVALID_CONTENT_TYPE',
-        INVALID_FORM_VALUE = 'INVALID_FORM_VALUE',
-        ONE_INSTRUMENT_EXPECTED = 'ONE_INSTRUMENT_EXPECTED',
-        NO_FIELDS_SET = 'NO_FIELDS_SET',
-        DEPRECATED_FIELD_SET = 'DEPRECATED_FIELD_SET',
-        CARD_EXPIRED = 'CARD_EXPIRED',
-        INVALID_EXPIRATION = 'INVALID_EXPIRATION',
-        INVALID_EXPIRATION_YEAR = 'INVALID_EXPIRATION_YEAR',
-        INVALID_EXPIRATION_DATE = 'INVALID_EXPIRATION_DATE',
-        UNSUPPORTED_CARD_BRAND = 'UNSUPPORTED_CARD_BRAND',
-        UNSUPPORTED_ENTRY_METHOD = 'UNSUPPORTED_ENTRY_METHOD',
-        INVALID_ENCRYPTED_CARD = 'INVALID_ENCRYPTED_CARD',
-        INVALID_CARD = 'INVALID_CARD',
-        DELAYED_TRANSACTION_EXPIRED = 'DELAYED_TRANSACTION_EXPIRED',
-        DELAYED_TRANSACTION_CANCELED = 'DELAYED_TRANSACTION_CANCELED',
-        DELAYED_TRANSACTION_CAPTURED = 'DELAYED_TRANSACTION_CAPTURED',
-        DELAYED_TRANSACTION_FAILED = 'DELAYED_TRANSACTION_FAILED',
-        CARD_TOKEN_EXPIRED = 'CARD_TOKEN_EXPIRED',
-        CARD_TOKEN_USED = 'CARD_TOKEN_USED',
-        AMOUNT_TOO_HIGH = 'AMOUNT_TOO_HIGH',
-        UNSUPPORTED_INSTRUMENT_TYPE = 'UNSUPPORTED_INSTRUMENT_TYPE',
-        REFUND_AMOUNT_INVALID = 'REFUND_AMOUNT_INVALID',
-        REFUND_ALREADY_PENDING = 'REFUND_ALREADY_PENDING',
-        PAYMENT_NOT_REFUNDABLE = 'PAYMENT_NOT_REFUNDABLE',
-        INVALID_CARD_DATA = 'INVALID_CARD_DATA',
-        LOCATION_MISMATCH = 'LOCATION_MISMATCH',
-        IDEMPOTENCY_KEY_REUSED = 'IDEMPOTENCY_KEY_REUSED',
-        UNEXPECTED_VALUE = 'UNEXPECTED_VALUE',
-        SANDBOX_NOT_SUPPORTED = 'SANDBOX_NOT_SUPPORTED',
-        INVALID_EMAIL_ADDRESS = 'INVALID_EMAIL_ADDRESS',
-        INVALID_PHONE_NUMBER = 'INVALID_PHONE_NUMBER',
-        CHECKOUT_EXPIRED = 'CHECKOUT_EXPIRED',
-        BAD_CERTIFICATE = 'BAD_CERTIFICATE',
-        INVALID_SQUARE_VERSION_FORMAT = 'INVALID_SQUARE_VERSION_FORMAT',
-        API_VERSION_INCOMPATIBLE = 'API_VERSION_INCOMPATIBLE',
-        CARD_DECLINED = 'CARD_DECLINED',
-        VERIFY_CVV_FAILURE = 'VERIFY_CVV_FAILURE',
-        VERIFY_AVS_FAILURE = 'VERIFY_AVS_FAILURE',
-        CARD_DECLINED_CALL_ISSUER = 'CARD_DECLINED_CALL_ISSUER',
-        NOT_FOUND = 'NOT_FOUND',
-        APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND = 'APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND',
-        METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED',
-        NOT_ACCEPTABLE = 'NOT_ACCEPTABLE',
-        REQUEST_TIMEOUT = 'REQUEST_TIMEOUT',
-        CONFLICT = 'CONFLICT',
-        REQUEST_ENTITY_TOO_LARGE = 'REQUEST_ENTITY_TOO_LARGE',
-        UNSUPPORTED_MEDIA_TYPE = 'UNSUPPORTED_MEDIA_TYPE',
-        RATE_LIMITED = 'RATE_LIMITED',
-        NOT_IMPLEMENTED = 'NOT_IMPLEMENTED',
-        SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
-        GATEWAY_TIMEOUT = 'GATEWAY_TIMEOUT',
-    }
 }
 
 /**
@@ -4859,12 +4699,12 @@ export class Money {
      * For example, when `currency` is `USD`, `amount` is in cents. Monetary amounts can be positive or negative.
      * See the specific API documentation to determine the meaning of the sign in a particular case.
      */
-    amount?: number;
+    amount: number;
     /**
      * The type of currency, in __ISO 4217 format__. For example, the currency code for US dollars is `USD`.
      * See [Currency](#type-currency) for possible values. See [Currency](#type-currency) for possible values
      */
-    currency?: CurrencyEnum;
+    currency: CurrencyType;
 }
 
 export class ObtainTokenRequest {
@@ -5043,7 +4883,7 @@ export class Order {
     /**
      * The current state of the order. `OPEN`,`COMPLETED`,`CANCELED` See [OrderState](#type-orderstate) for possible values.
      */
-    state?: Order.StateEnum;
+    state?: OrderStateType;
     /**
      * Version number which is incremented each time an update is committed to the order.
      * Orders that were not created through the API will not include a version and thus cannot be updated.
@@ -5068,14 +4908,6 @@ export class Order {
      * Therefore, `total_service_charge_money` will only include inclusive tax amounts, not additive tax amounts.
      */
     total_service_charge_money?: Money;
-}
-
-export namespace Order {
-    export enum StateEnum {
-        OPEN = 'OPEN',
-        COMPLETED = 'COMPLETED',
-        CANCELED = 'CANCELED'
-    }
 }
 
 /**
@@ -5110,11 +4942,11 @@ export class OrderFulfillment {
     /**
      * The type of the fulfillment. See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    type?: FulfillmentTypeEnum;
+    type?: FulfillmentType;
     /**
      * The state of the fulfillment. See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    state?: FulfillmentStateEnum;
+    state?: FulfillmentStateType;
     /**
      * Contains details for a pickup fulfillment. Required when fulfillment type is `PICKUP`.
      */
@@ -5156,7 +4988,7 @@ export class OrderFulfillmentPickupDetails {
      * The schedule type of the pickup fulfillment. Defaults to `SCHEDULED`.
      * See [OrderFulfillmentPickupDetailsScheduleType](#type-orderfulfillmentpickupdetailsscheduletype) for possible values.
      */
-    schedule_type?: OrderFulfillmentPickupDetails.ScheduleTypeEnum;
+    schedule_type?: 'SCHEDULED' | 'ASAP';
     /**
      * The [timestamp](#workingwithdates) that represents the start of the pickup window.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`,
@@ -5216,17 +5048,6 @@ export class OrderFulfillmentPickupDetails {
      */
     cancel_reason?: string;
 }
-
-export namespace OrderFulfillmentPickupDetails {
-    export enum ScheduleTypeEnum {
-        SCHEDULED = 'SCHEDULED',
-        ASAP = 'ASAP',
-    }
-}
-/**
- * The schedule type of the pickup fulfillment.
- */
-export class OrderFulfillmentPickupDetailsScheduleType {}
 
 /**
  * Contains information on the recipient of a fulfillment.
@@ -5514,7 +5335,7 @@ export class OrderLineItemDiscount {
      * VARIABLE_* is not supported in API because the order is created at the time of sale and either percentage or amount has
      * to be specified. See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible values.
      */
-    type?: DiscountTypeEnum;
+    type?: DiscountType;
     /**
      * The percentage of the discount, as a string representation of a decimal number.
      * A value of `7.25` corresponds to a percentage of 7.25%. The percentage won't be set for an amount-based discount.
@@ -5537,7 +5358,7 @@ export class OrderLineItemDiscount {
      * This field is immutable. To change the scope of a discount you must delete the discount and re-add it as a new discount.
      * See [OrderLineItemDiscountScope](#type-orderlineitemdiscountscope) for possible values.
      */
-    scope?: DiscountApplicationScopeEnum;
+    scope?: DiscountApplicationScopeType;
 }
 
 /**
@@ -5601,7 +5422,7 @@ export class OrderLineItemTax {
      * Indicates the calculation method used to apply the tax.
      * See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
-    type?: TaxTypeEnum;
+    type?: TaxType;
     /**
      * The percentage of the tax, as a string representation of a decimal number.
      * For example, a value of "7.25" corresponds to a percentage of 7.25%.
@@ -5618,7 +5439,7 @@ export class OrderLineItemTax {
      * To change the scope, you must delete the tax and re-add it as a new tax.
      * See [OrderLineItemTaxScope](#type-orderlineitemtaxscope) for possible values.
      */
-    scope?: TaxApplicationScopeEnum;
+    scope?: TaxApplicationScopeType;
 }
 
 /**
@@ -5741,7 +5562,7 @@ export class OrderReturnDiscount {
      * VARIABLE_* is not supported in API because the order is created at the time of sale and either percentage
      * or amount has to be specified. See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible values.
      */
-    type?: DiscountTypeEnum;
+    type?: DiscountType;
     /**
      * The percentage of the tax, as a string representation of a decimal number.
      * A value of `7.25` corresponds to a percentage of 7.25%.
@@ -5764,7 +5585,7 @@ export class OrderReturnDiscount {
      * If set in a CreateOrder request, it will be ignored on write.
      * See [OrderLineItemDiscountScope](#type-orderlineitemdiscountscope) for possible values.
      */
-    scope?: DiscountApplicationScopeEnum;
+    scope?: DiscountApplicationScopeType;
 }
 
 /**
@@ -5988,7 +5809,7 @@ export class OrderReturnTax {
      * Indicates the calculation method used to apply the tax.
      * See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
-    type?: TaxTypeEnum;
+    type?: TaxType;
     /**
      * The percentage of the tax, as a string representation of a decimal number.
      * For example, a value of "7.25" corresponds to a percentage of 7.25%.
@@ -6004,7 +5825,7 @@ export class OrderReturnTax {
      * `OrderReturnLineItem`s with references in their `applied_discounts` field.
      * See [OrderLineItemTaxScope](#type-orderlineitemtaxscope) for possible values.
      */
-    scope?: TaxApplicationScopeEnum;
+    scope?: TaxApplicationScopeType;
 }
 
 /**
@@ -6266,7 +6087,7 @@ export class PaymentRefund {
      * - `REJECTED` - the refund was rejected
      * - `FAILED` - an error occurred
      */
-    status?: string;
+    status: 'PENDING' | 'COMPLETED' | 'REJECTED' | 'FAILED';
     /**
      * Location ID associated with the payment this refund is attached to.
      */
@@ -6368,7 +6189,7 @@ export class Refund {
      * The current status of the refund (`PENDING`, `APPROVED`, `REJECTED`, or `FAILED`).
      * See [RefundStatus](#type-refundstatus) for possible values.
      */
-    status: Refund.StatusEnum;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'FAILED';
     /**
      * The amount of Square processing fee money refunded to the *merchant*.
      */
@@ -6378,15 +6199,6 @@ export class Refund {
      * For example, fees assessed on a refund of a purchase by a third party integration.
      */
     additional_recipients?: Array<AdditionalRecipient>;
-}
-
-export namespace Refund {
-    export enum StatusEnum {
-        PENDING = 'PENDING',
-        APPROVED = 'APPROVED',
-        REJECTED = 'REJECTED',
-        FAILED = 'FAILED',
-    }
 }
 
 /**
@@ -6467,14 +6279,7 @@ export class RegisterDomainResponse {
      * Status of the domain registration.
      * See [RegisterDomainResponseStatus](#type-registerdomainresponsestatus) for possible values.
      */
-    status?: RegisterDomainResponse.StatusEnum;
-}
-
-export namespace RegisterDomainResponse {
-    export enum StatusEnum {
-        PENDING = 'PENDING',
-        VERIFIED = 'VERIFIED',
-    }
+    status?: 'PENDING' | 'VERIFIED';
 }
 
 /**
@@ -6746,7 +6551,7 @@ export class SearchCatalogObjectsRequest {
      * "ITEM_VARIATION", "CATEGORY", "DISCOUNT", "TAX", "MODIFIER", or "MODIFIER_LIST".
      * See [CatalogObjectType](#type-catalogobjecttype) for possible values.
      */
-    object_types?: Array<SearchCatalogObjectsRequest.ObjectTypesEnum>;
+    object_types?: Array<ObjectType>;
     /**
      * If `true`, deleted objects will be included in the results.
      * Deleted objects will have their `is_deleted` field set to `true`.
@@ -6776,19 +6581,6 @@ export class SearchCatalogObjectsRequest {
      * If the supplied limit is negative, zero, or is higher than the maximum limit of 1,000, it will be ignored.
      */
     limit?: number;
-}
-
-export namespace SearchCatalogObjectsRequest {
-    export enum ObjectTypesEnum {
-        ITEM = 'ITEM',
-        IMAGE = 'IMAGE',
-        CATEGORY = 'CATEGORY',
-        ITEM_VARIATION = 'ITEM_VARIATION',
-        TAX = 'TAX',
-        DISCOUNT = 'DISCOUNT',
-        MODIFIER_LIST = 'MODIFIER_LIST',
-        MODIFIER = 'MODIFIER',
-    }
 }
 
 export class SearchCatalogObjectsResponse {
@@ -6930,13 +6722,13 @@ export class SearchOrdersFulfillmentFilter {
      * Will return orders if any of its fulfillments match any of the fulfillment types listed in this field.
      * See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    fulfillment_types: Array<FulfillmentTypeEnum>;
+    fulfillment_types: Array<FulfillmentType>;
     /**
      * List of [fulfillment states](#type-orderfulfillmentstate) to filter for.
      * Will return orders if any of its fulfillments match any of the fulfillment states listed in this field.
      * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    fulfillment_states?: Array<FulfillmentStateEnum>;
+    fulfillment_states?: Array<FulfillmentStateType>;
 }
 
 /**
@@ -7026,20 +6818,12 @@ export class SearchOrdersSort {
      * match the timestamp field in `DateTimeFilter`, SearchOrders will return an error. Default: `CREATED_AT`.
      * See [SearchOrdersSortField](#type-searchorderssortfield) for possible values.
      */
-    sort_field: SearchOrdersSort.SortFieldEnum;
+    sort_field: 'CREATED_AT' | 'UPDATED_AT' | 'CLOSED_AT';
     /**
      * The chronological order in which results are returned. Defaults to `DESC`.
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderEnum;
-}
-
-export namespace SearchOrdersSort {
-    export enum SortFieldEnum {
-        CREATED_AT = 'CREATED_AT',
-        UPDATED_AT = 'UPDATED_AT',
-        CLOSED_AT = 'CLOSED_AT',
-    }
+    sort_order?: SortOrderType;
 }
 
 /**
@@ -7065,15 +6849,7 @@ export class SearchOrdersStateFilter {
     /**
      * States to filter for. See [OrderState](#type-orderstate) for possible values.
      */
-    states: Array<SearchOrdersStateFilter.StatesEnum>;
-}
-
-export namespace SearchOrdersStateFilter {
-    export enum StatesEnum {
-        OPEN = 'OPEN',
-        COMPLETED = 'COMPLETED',
-        CANCELED = 'CANCELED',
-    }
+    states: Array<OrderStateType>;
 }
 
 /**
@@ -7156,7 +6932,7 @@ export class Shift {
     /**
      * Describes working state of the current `Shift`. See [ShiftStatus](#type-shiftstatus) for possible values.
      */
-    status?: Shift.StatusEnum;
+    status?: 'OPEN' | 'CLOSED';
     /**
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at
      * time of request. If not provided, Square executes a blind write; potentially overwriting data from another write.
@@ -7170,13 +6946,6 @@ export class Shift {
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
     updated_at?: string;
-}
-
-export namespace Shift {
-    export enum StatusEnum {
-        OPEN = 'OPEN',
-        CLOSED = 'CLOSED',
-    }
 }
 
 /**
@@ -7195,7 +6964,7 @@ export class ShiftFilter {
     /**
      * Fetch a `Shift` instance by `Shift.status`. See [ShiftFilterStatus](#type-shiftfilterstatus) for possible values.
      */
-    status?: ShiftFilter.StatusEnum;
+    status?: 'OPEN' | 'CLOSED';
     /**
      * Fetch `Shift`s that start in the time range - Inclusive.
      */
@@ -7208,13 +6977,6 @@ export class ShiftFilter {
      * Fetch the `Shift`s based on workday date range.
      */
     workday?: ShiftWorkday;
-}
-
-export namespace ShiftFilter {
-    export enum StatusEnum {
-        OPEN = 'OPEN',
-        CLOSED = 'CLOSED',
-    }
 }
 
 /**
@@ -7243,20 +7005,11 @@ export class ShiftSort {
     /**
      * The field to sort on. See [ShiftSortField](#type-shiftsortfield) for possible values.
      */
-    field?: ShiftSort.FieldEnum;
+    field?: 'START_AT' | 'END_AT' | 'CREATED_AT' | 'UPDATED_AT';
     /**
      * The order in which results are returned. Defaults to DESC. See [SortOrder](#type-sortorder) for possible values.
      */
-    order?: SortOrderEnum;
-}
-
-export namespace ShiftSort {
-    export enum FieldEnum {
-        START_AT = 'START_AT',
-        END_AT = 'END_AT',
-        CREATED_AT = 'CREATED_AT',
-        UPDATED_AT = 'UPDATED_AT',
-    }
+    order?: SortOrderType;
 }
 
 /**
@@ -7295,21 +7048,13 @@ export class ShiftWorkday {
     /**
      * The strategy on which the dates are applied. See [ShiftWorkdayMatcher](#type-shiftworkdaymatcher) for possible values.
      */
-    match_shifts_by?: ShiftWorkday.MatchShiftsByEnum;
+    match_shifts_by?: 'START_AT' | 'END_AT' | 'INTERSECTION';
     /**
      * Location-specific timezones convert workdays to datetime filters.
      * Every location included in the query must have a timezone, or this field must be provided as a fallback.
      * Format: the IANA timezone database identifier for the relevant timezone.
      */
     default_timezone?: string;
-}
-
-export namespace ShiftWorkday {
-    export enum MatchShiftsByEnum {
-        START_AT = 'START_AT',
-        END_AT = 'END_AT',
-        INTERSECTION = 'INTERSECTION',
-    }
 }
 
 /**
@@ -7329,7 +7074,7 @@ export class SourceApplication {
     /**
      * Read-only [Product](#type-product) type for the application. See [Product](#type-product) for possible values.
      */
-    product?: SourceApplication.ProductEnum;
+    product?: ProductSourceType;
     /**
      * Read-only Square ID assigned to the application. Only used for [Product](#type-product) type `EXTERNAL_API`.
      */
@@ -7338,21 +7083,6 @@ export class SourceApplication {
      * Read-only display name assigned to the application (e.g. "Custom Application", "Square POS 4.74 for Android").
      */
     name?: string;
-}
-
-export namespace SourceApplication {
-    export enum ProductEnum {
-        SQUARE_POS = 'SQUARE_POS',
-        EXTERNAL_API = 'EXTERNAL_API',
-        BILLING = 'BILLING',
-        APPOINTMENTS = 'APPOINTMENTS',
-        INVOICES = 'INVOICES',
-        ONLINE_STORE = 'ONLINE_STORE',
-        PAYROLL = 'PAYROLL',
-        DASHBOARD = 'DASHBOARD',
-        ITEM_LIBRARY_IMPORT = 'ITEM_LIBRARY_IMPORT',
-        OTHER = 'OTHER',
-    }
 }
 
 /**
@@ -7443,7 +7173,7 @@ export class Tender {
     /**
      * The type of tender, such as `CARD` or `CASH`. See [TenderType](#type-tendertype) for possible values.
      */
-    type: Tender.TypeEnum;
+    type: 'CARD' | 'CASH' | 'THIRD_PARTY_CARD' | 'SQUARE_GIFT_CARD' | 'NO_SALE' | 'OTHER';
     /**
      * The details of the card tender. This value is present only if the value of `type` is `CARD`.
      */
@@ -7464,17 +7194,6 @@ export class Tender {
     payment_id?: string;
 }
 
-export namespace Tender {
-    export enum TypeEnum {
-        CARD = 'CARD',
-        CASH = 'CASH',
-        THIRD_PARTY_CARD = 'THIRD_PARTY_CARD',
-        SQUARE_GIFT_CARD = 'SQUARE_GIFT_CARD',
-        NO_SALE = 'NO_SALE',
-        OTHER = 'OTHER',
-    }
-}
-
 /**
  * Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD`.
  */
@@ -7483,7 +7202,7 @@ export class TenderCardDetails {
      * The credit card payment's current state (such as `AUTHORIZED` or `CAPTURED`).
      * See [TenderCardDetailsStatus](#type-tendercarddetailsstatus) for possible values.
      */
-    status?: TenderCardDetails.StatusEnum;
+    status?: 'AUTHORIZED' | 'CAPTURED' | 'VOIDED' | 'FAILED';
     /**
      * The credit card's non-confidential details.
      */
@@ -7492,23 +7211,7 @@ export class TenderCardDetails {
      * The method used to enter the card's details for the transaction.
      * See [TenderCardDetailsEntryMethod](#type-tendercarddetailsentrymethod) for possible values.
      */
-    entry_method?: TenderCardDetails.EntryMethodEnum;
-}
-
-export namespace TenderCardDetails {
-    export enum StatusEnum {
-        AUTHORIZED = 'AUTHORIZED',
-        CAPTURED = 'CAPTURED',
-        VOIDED = 'VOIDED',
-        FAILED = 'FAILED',
-    }
-    export enum EntryMethodEnum {
-        SWIPED = 'SWIPED',
-        KEYED = 'KEYED',
-        EMV = 'EMV',
-        ON_FILE = 'ON_FILE',
-        CONTACTLESS = 'CONTACTLESS',
-    }
+    entry_method?: 'SWIPED' | 'KEYED' | 'EMV' | 'ON_FILE' | 'CONTACTLESS';
 }
 
 /**
@@ -7589,7 +7292,7 @@ export class Transaction {
     /**
      * The Square product that processed the transaction. See [TransactionProduct](#type-transactionproduct) for possible values.
      */
-    product?: Transaction.ProductEnum;
+    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER';
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
      * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
@@ -7606,19 +7309,6 @@ export class Transaction {
      * The order_id is an identifier for the order associated with this transaction, if any.
      */
     order_id?: string;
-}
-
-export namespace Transaction {
-    export enum ProductEnum {
-        REGISTER = 'REGISTER',
-        EXTERNAL_API = 'EXTERNAL_API',
-        BILLING = 'BILLING',
-        APPOINTMENTS = 'APPOINTMENTS',
-        INVOICES = 'INVOICES',
-        ONLINE_STORE = 'ONLINE_STORE',
-        PAYROLL = 'PAYROLL',
-        OTHER = 'OTHER',
-    }
 }
 
 /**
@@ -10116,7 +9806,7 @@ export class WorkweekConfig {
      * The day of the week on which a business week cuts over for compensation purposes.
      * See [Weekday](#type-weekday) for possible values.
      */
-    start_of_week: DayOfWeekEnum;
+    start_of_week: DayOfWeekType;
     /**
      * The local time at which a business week cuts over. Represented as a string in `HH:MM` format (`HH:MM:SS` is also
      * accepted, but seconds are truncated).
@@ -10137,14 +9827,64 @@ export class WorkweekConfig {
     updated_at?: string;
 }
 
-// @todo think how to declare properly
-export namespace ApiClient {
-    export const authentications: Record<string, any>;
-    export const instance: any;
-    export const basePath: any;
+/**
+ * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
+ * application to use this class directly - the *Api and model classes provide the public API for the service. The
+ * contents of this file should be regarded as internal but are documented for completeness.
+ */
+export class ApiClient {
+    /**
+     * The base URL against which to resolve every API call's (relative) path.
+     */
+    basePath: string;
+
+    /**
+     * The authentication methods to be included for all API calls.
+     */
+    authentications: {
+        oauth2: {
+            type: string;
+            accessToken: string;
+        }
+        oauth2ClientSecret: {
+            type: string;
+            in: string;
+            name: string;
+        }
+    };
+
+    /**
+     * The default HTTP headers to be included for all API calls.
+     */
+    defaultHeaders: {[key: string]: string};
+
+    /**
+     *  The default HTTP timeout for all API calls.
+     */
+    timeout: number;
+
+    /**
+     * If set to false an additional timestamp parameter is added to all API GET calls to prevent browser caching.
+     */
+    cache: boolean;
+
+    /**
+     * If set to true, the client will save the cookies from each server response, and return them in the next request.
+     */
+    enableCookies: boolean;
+
+    /**
+     * The default API client implementation.
+     */
+    static instance: ApiClient;
 }
 
 export class ApplePayApi {
+    /**
+     * Constructs a new ApplePayApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Activates a domain for use with Web Apple Pay and Square.
      * A validation will be performed on this domain by Apple to ensure is it properly set up as an Apple Pay enabled domain.
@@ -10152,10 +9892,15 @@ export class ApplePayApi {
      * their platform. To learn more about Apple Pay on Web see the Apple Pay section in
      * the [Embedding the Square Payment Form](/payment-form/add-digital-wallets/apple-pay) guide.
      */
-    registerDomain(params: RegisterDomainRequest): Promise<RegisterDomainResponse>;
+    registerDomain(...args: Array<any>): Promise<RegisterDomainResponse>;
 }
 
 export class CatalogApi {
+    /**
+     * Constructs a new CatalogApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types
      * (for example, all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
@@ -10164,13 +9909,13 @@ export class CatalogApi {
      * @note ListCatalog does not return deleted catalog items. To retrieve deleted catalog items, use SearchCatalogObjects
      * and set `include_deleted_objects` to `true`.
      */
-    batchDeleteCatalogObjects(params: BatchDeleteCatalogObjectsRequest): Promise<BatchDeleteCatalogObjectsResponse>;
+    batchDeleteCatalogObjects(...args: Array<any>): Promise<BatchDeleteCatalogObjectsResponse>;
     /**
      * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem) returned in the set includes all of
      * its child information including: all of its [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
      * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    batchRetrieveCatalogObjects(body: BatchRetrieveCatalogObjectsRequest): Promise<BatchRetrieveCatalogObjectsResponse>;
+    batchRetrieveCatalogObjects(...args: Array<any>): Promise<BatchRetrieveCatalogObjectsResponse>;
     /**
      * Creates or updates up to 10,000 target objects based on the provided list of objects. The target objects are grouped into
      * batches and each batch is inserted/updated in an all-or-nothing manner. If an object within a batch is malformed in some way,
@@ -10178,99 +9923,109 @@ export class CatalogApi {
      * the same request may still succeed. Each batch may contain up to 1,000 objects, and batches will be processed in order as long
      * as the total object count for the request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
      */
-    batchUpsertCatalogObjects(body: BatchUpsertCatalogObjectsRequest): Promise<BatchUpsertCatalogObjectsResponse>;
+    batchUpsertCatalogObjects(...args: Array<any>): Promise<BatchUpsertCatalogObjectsResponse>;
     /**
      * Returns information about the Square Catalog API, such as batch size limits for `BatchUpsertCatalogObjects`.
      */
-    catalogInfo(params: CatalogInfoRequest): Promise<CatalogInfoResponse>;
+    catalogInfo(...args: Array<any>): Promise<CatalogInfoResponse>;
     /**
      * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns the set of successfully deleted
      * IDs in the response. Deletion is a cascading event such that all children of the targeted object are also deleted.
      * For example, deleting a [CatalogItem](#type-catalogitem) will also delete all of its
      * [CatalogItemVariation](#type-catalogitemvariation) children.
      */
-    deleteCatalogObject(params: DeleteCatalogObjectRequest): Promise<DeleteCatalogObjectResponse>;
+    deleteCatalogObject(...args: Array<any>): Promise<DeleteCatalogObjectResponse>;
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types
      * (for example, all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
      * The types parameter is specified as a comma-separated list of valid [CatalogObject](#type-catalogobject)
      * types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`.
      */
-    listCatalog(params: ListCatalogRequest): Promise<ListCatalogResponse>;
+    listCatalog(...args: Array<any>): Promise<ListCatalogResponse>;
     /**
      * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject) based on the provided ID.
      * The returned object includes all of the relevant [CatalogItem](#type-catalogitem) information including:
      * [CatalogItemVariation](#type-catalogitemvariation) children, references to its [CatalogModifierList](#type-catalogmodifierlist)
      * objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    retrieveCatalogObject(params: RetrieveCatalogObjectRequest): Promise<RetrieveCatalogObjectResponse>;
+    retrieveCatalogObject(...args: Array<any>): Promise<RetrieveCatalogObjectResponse>;
     /**
      * Queries the targeted catalog using a variety of query types: [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
      * [CatalogQueryExact](#type-catalogqueryexact), [CatalogQueryRange](#type-catalogqueryrange),
      * [CatalogQueryText](#type-catalogquerytext), [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
      * and [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist).
      */
-    searchCatalogObjects(params: SearchCatalogObjectsRequest): Promise<SearchCatalogObjectsResponse>;
+    searchCatalogObjects(...args: Array<any>): Promise<SearchCatalogObjectsResponse>;
     /**
      * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the targeted
      * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
      */
-    updateItemModifierLists(params: UpdateItemModifierListsRequest): Promise<UpdateItemModifierListsResponse>;
+    updateItemModifierLists(...args: Array<any>): Promise<UpdateItemModifierListsResponse>;
     /**
      * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted [CatalogItem](#type-catalogitem)
      * without having to perform an upsert on the entire item.
      */
-    updateItemTaxes(params: UpdateItemTaxesRequest): Promise<UpdateItemTaxesResponse>;
+    updateItemTaxes(...args: Array<any>): Promise<UpdateItemTaxesResponse>;
     /**
      * Creates or updates the target [CatalogObject](#type-catalogobject).
      */
-    upsertCatalogObject(params: UpsertCatalogObjectRequest): Promise<UpsertCatalogObjectResponse>;
+    upsertCatalogObject(...args: Array<any>): Promise<UpsertCatalogObjectResponse>;
 }
 
 export class CheckoutApi {
     /**
+     * Constructs a new CheckoutApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Links a `checkoutId` to a `checkout_page_url` that customers will be directed to in order to provide their payment
      * information using a payment processing workflow hosted on connect.squareup.com.
      */
-    createCheckout(params: CreateCheckoutRequest): Promise<CreateCheckoutResponse>;
+    createCheckout(locationId: string, body: CreateCheckoutRequest): Promise<CreateCheckoutResponse>;
 }
 
 export class CustomersApi {
     /**
+     * Constructs a new CustomersApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Creates a new customer for a business, which can have associated cards on file. You must provide at least one of the
      * following values in your request to this endpoint: `given_name`. `family_name`, `company_name`, `email_address`,`phone_number`.
      */
-    createCustomer(params: CreateCustomerRequest): Promise<CreateCustomerResponse>;
+    createCustomer(body: CreateCustomerRequest): Promise<CreateCustomerResponse>;
     /**
      * Adds a card on file to an existing customer. As with charges, calls to `CreateCustomerCard` are idempotent.
      * Multiple calls with the same card nonce return the same card record that was created with the provided nonce during the
      * _first_ call. Cards on file are automatically updated on a monthly basis to confirm they are still valid and can be charged.
      */
-    createCustomerCard(params: CreateCustomerCardRequest): Promise<CreateCustomerCardResponse>;
+    createCustomerCard(customerId: string, body: CreateCustomerCardRequest): Promise<CreateCustomerCardResponse>;
     /**
      * Deletes a customer from a business, along with any linked cards on file.
      * When two profiles are merged into a single profile, that profile is assigned a new `customer_id`.
      * You must use the new `customer_id` to delete merged profiles.
      */
-    deleteCustomer(params: DeleteCustomerRequest): Promise<DeleteCustomerResponse>;
+    deleteCustomer(...args: Array<any>): Promise<DeleteCustomerResponse>;
     /**
      * Removes a card on file from a customer.
      */
-    deleteCustomerCard(params: DeleteCustomerCardRequest): Promise<DeleteCustomerCardResponse>;
+    deleteCustomerCard(customerId: string, cardId: string): Promise<DeleteCustomerCardResponse>;
     /**
      * Lists a business's customers.
      */
-    listCustomers(params: ListCustomersRequest): Promise<ListCustomersResponse>;
+    listCustomers(...args: Array<any>): Promise<ListCustomersResponse>;
     /**
      * Returns details for a single customer.
      */
-    retrieveCustomer(params: RetrieveCustomerRequest): Promise<RetrieveCustomerResponse>;
+    retrieveCustomer(customerId: string): Promise<RetrieveCustomerResponse>;
     /**
      * Searches the customer profiles associated with a Square account.
      * Calling SearchCustomers without an explicit query parameter returns all customer profiles ordered alphabetically based
      * on `given_name` and `family_name`.
      */
-    searchCustomers(params: SearchCustomersRequest): Promise<SearchCustomersResponse>;
+    searchCustomers(...args: Array<any>): Promise<SearchCustomersResponse>;
     /**
      * Updates the details of an existing customer. When two profiles are merged into a single profile, that profile is assigned
      * a new `customer_id`. You must use the new `customer_id` to update merged profiles.
@@ -10278,10 +10033,15 @@ export class CustomersApi {
      * existing card on file with the [DeleteCustomerCard](#endpoint-customers-deletecustomercard) endpoint, then create a
      * new one with the [CreateCustomerCard](#endpoint-customers-createcustomercard) endpoint.
      */
-    updateCustomer(params: UpdateCustomerRequest): Promise<UpdateCustomerResponse>;
+    updateCustomer(...args: Array<any>): Promise<UpdateCustomerResponse>;
 }
 
 export class EmployeesApi {
+    /**
+     * Constructs a new EmployeesApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Gets a list of `Employee` objects for a business.
      */
@@ -10294,17 +10054,22 @@ export class EmployeesApi {
 
 export class InventoryApi {
     /**
+     * Constructs a new InventoryApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Applies adjustments and counts to the provided item quantities.
      * On success: returns the current calculated counts for all objects referenced in the request.
      * On failure: returns a list of related errors.
      */
-    batchChangeInventory(params: BatchChangeInventoryRequest): Promise<BatchChangeInventoryResponse>;
+    batchChangeInventory(...args: Array<any>): Promise<BatchChangeInventoryResponse>;
     /**
      * Returns historical physical counts and adjustments based on the provided filter criteria.
      * Results are paginated and sorted in ascending order according their `occurred_at` timestamp (oldest first).
      * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that cannot be handled by other, simpler endpoints.
      */
-    batchRetrieveInventoryChanges(params: BatchRetrieveInventoryChangesRequest): Promise<BatchRetrieveInventoryChangesResponse>;
+    batchRetrieveInventoryChanges(...args: Array<any>): Promise<BatchRetrieveInventoryChangesResponse>;
     /**
      * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the requested [Location](#type-location)s.
      * Results are paginated and sorted in descending order according to their `calculated_at` timestamp (newest first).
@@ -10312,7 +10077,7 @@ export class InventoryApi {
      * the most recent change) are returned. This allows clients to perform a "sync" operation, for example in response to
      * receiving a Webhook notification.
      */
-    batchRetrieveInventoryCounts(params: BatchRetrieveInventoryCountsRequest): Promise<BatchRetrieveInventoryCountsResponse>;
+    batchRetrieveInventoryCounts(...args: Array<any>): Promise<BatchRetrieveInventoryCountsResponse>;
     /**
      * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided `adjustment_id`.
      */
@@ -10336,16 +10101,121 @@ export class InventoryApi {
     retrieveInventoryPhysicalCount(...args: Array<any>): Promise<RetrieveInventoryPhysicalCountResponse>;
 }
 
-// @todo describe methods
-export class LaborApi {}
+export class LaborApi {
+    /**
+     * Constructs a new LaborApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
+     * Creates a new `BreakType`. A `BreakType` is a template for creating `Break` objects.
+     * You must provide the following values in your request to this endpoint:
+     * - `location_id` - `break_name` - `expected_duration` - `is_paid`
+     * You can only have 3 `BreakType` instances per location. If you attempt to add a 4th `BreakType` for a location,
+     * an `INVALID_REQUEST_ERROR` "Exceeded limit of 3 breaks per location." is returned.
+     */
+    createBreakType(...args: Array<any>): Promise<CreateBreakTypeResponse>;
+    /**
+     * Creates a new `Shift`. A `Shift` represents a complete work day for a single employee.
+     * You must provide the following values in your request to this endpoint:
+     * - `location_id` - `employee_id` - `start_at`
+     * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when: - The `status` of the new `Shift`
+     * is `OPEN` and the employee has another shift with an `OPEN` status. - The `start_at` date is in the future - the
+     * `start_at` or `end_at` overlaps another shift for the same employee - If `Break`s are set in the request, a break
+     * `start_at` must not be before the `Shift.start_at`. A break `end_at` must not be after the `Shift.end_at`.
+     */
+    createShift(...args: Array<any>): Promise<CreateShiftResponse>;
+    /**
+     * Deletes an existing `BreakType`. A `BreakType` can be deleted even if it is referenced from a `Shift`.
+     */
+    deleteBreakType(...args: Array<any>): Promise<DeleteBreakTypeResponse>;
+    /**
+     * Deletes a `Shift`.
+     */
+    deleteShift(...args: Array<any>): Promise<DeleteShiftResponse>;
+    /**
+     * Returns a single `BreakType` specified by id.
+     */
+    getBreakType(...args: Array<any>): Promise<GetBreakTypeResponse>;
+    /**
+     * Returns a single `EmployeeWage` specified by id.
+     */
+    getEmployeeWage(...args: Array<any>): Promise<GetEmployeeWageResponse>;
+    /**
+     * Returns a single `Shift` specified by id.
+     */
+    getShift(...args: Array<any>): Promise<GetShiftResponse>;
+    /**
+     * Returns a paginated list of `BreakType` instances for a business.
+     */
+    listBreakTypes(...args: Array<any>): Promise<ListBreakTypesResponse>;
+    /**
+     * Returns a paginated list of `EmployeeWage` instances for a business.
+     */
+    listEmployeeWages(...args: Array<any>): Promise<ListEmployeeWagesResponse>;
+    /**
+     * Returns a list of `WorkweekConfig` instances for a business.
+     */
+    listWorkweekConfigs(...args: Array<any>): Promise<ListWorkweekConfigsResponse>;
+    /**
+     * Returns a paginated list of `Shift` records for a business.
+     * The list to be returned can be filtered by: - Location IDs **and** - employee IDs **and** - shift
+     * status (`OPEN`, `CLOSED`) **and** - shift start **and** - shift end **and** - work day details.
+     * The list can be sorted by: - `start_at` - `end_at` - `created_at` - `updated_at`.
+     */
+    searchShifts(...args: Array<any>): Promise<SearchShiftsResponse>;
+    /**
+     * Updates an existing `BreakType`.
+     */
+    updateBreakType(...args: Array<any>): Promise<UpdateBreakTypeResponse>;
+    /**
+     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string. When closing a `Shift`, all `Break` instances
+     * in the shift must be complete with `end_at` set on each `Break`.
+     */
+    updateShift(...args: Array<any>): Promise<UpdateShiftResponse>;
+    /**
+     * Updates a `WorkweekConfig`.
+     */
+    updateWorkweekConfig(...args: Array<any>): Promise<UpdateWorkweekConfigResponse>;
+}
 
-// @todo describe methods
-export class LocationsApi {}
+export class LocationsApi {
+    /**
+     * Constructs a new LocationsApi.
+     * @param apiClient Optional API client implementation to use, default to {@link module:ApiClient#instance} if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
+     * Provides the details for all of a business's locations.
+     * Most other Connect API endpoints have a required `location_id` path parameter. The `id` field of the
+     * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
+     */
+    listLocations(): Promise<ListLocationsResponse>;
+}
 
-// @todo describe methods
-export class MobileAuthorizationApi {}
+export class MobileAuthorizationApi {
+    /**
+     * Constructs a new MobileAuthorizationApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
+     * Generates code to authorize a mobile application to connect to a Square card reader Authorization codes are
+     * one-time-use and expire __60 minutes__ after being issued.
+     * @note The `Authorization` header you provide to this endpoint must have the following format:
+     * `Authorization: Bearer ACCESS_TOKEN` Replace `ACCESS_TOKEN` with a [valid production authorization credential]
+     * @link https://docs.connect.squareup.com/get-started#step-4-understand-the-different-application-credentials
+     */
+    createMobileAuthorizationCode(body: CreateMobileAuthorizationCodeRequest): Promise<CreateMobileAuthorizationCodeResponse>;
+}
 
 export class OAuthApi {
+    /**
+     * Constructs a new OAuthApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Returns an OAuth access token. The endpoint supports distinct methods of obtaining OAuth access tokens.
      * Applications specify a method by adding the `grant_type` parameter  in the request and also provide relevant information.
@@ -10380,10 +10250,15 @@ export class OAuthApi {
 
 export class OrdersApi {
     /**
+     * Constructs a new OrdersApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
      */
-    batchRetrieveOrders(params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
+    batchRetrieveOrders(locationId: string, params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
     /**
      * Creates an [Order](#type-order) that can then be referenced as `order_id` in a request to the [Charge](#endpoint-charge)
      * endpoint. Orders specify products for purchase, along with discounts, taxes, and other settings to apply to the purchase.
@@ -10391,7 +10266,7 @@ export class OrdersApi {
      * your request. You cannot modify an order after you create it. If you need to modify an order, instead create a new order
      * with modified details. To learn more about the Orders API, see the [Orders API Overview](/products/orders/overview).
      */
-    createOrder(params: CreateOrderRequest): Promise<CreateOrderResponse>;
+    createOrder(locationId: string, params: CreateOrderRequest): Promise<CreateOrderResponse>;
     /**
      * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or settle an order with a total of `0`.
      * The total of the `payment_ids` listed in the request must be equal to the order total. Orders with a total amount
@@ -10428,6 +10303,11 @@ export class OrdersApi {
 }
 
 export class PaymentsApi {
+    /**
+     * Constructs a new PaymentsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Cancels a payment. If you set `autocomplete` to false when creating a payment, you can cancel the payment using
      * this endpoint. For more information, see [Delayed Payments](/payments-api/take-payments#delayed-payments).
@@ -10469,6 +10349,11 @@ export class PaymentsApi {
 
 export class RefundsApi {
     /**
+     * Constructs a new RefundsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Retrieves a specific `Refund` using the `refund_id`.
      */
     getPaymentRefund(refundId: string): Promise<GetPaymentRefundResponse>;
@@ -10487,6 +10372,12 @@ export class RefundsApi {
 export class ReportingApi {}
 
 export class TransactionsApi {
+    /**
+     * Constructs a new TransactionsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-transactions-charge) endpoint with a `delay_capture` value of `true`.
      * See the [Delay Capture of Funds](/transactions-api/cookbook/delay-capture) recipe for more information.

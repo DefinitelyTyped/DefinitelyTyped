@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "dom-monkeypatch.d.ts",
         "test/urijs-dom.test.ts",
         "test/urijs-nodejs.test.ts"
     ]

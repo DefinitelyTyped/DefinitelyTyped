@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.1
+// Type definitions for non-npm package frida-gum 14.5
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -660,6 +660,18 @@ declare namespace Memory {
     function patchCode(address: NativePointerValue, size: number | UInt64, apply: MemoryPatchApplyCallback): void;
 }
 
+interface MemoryRange {
+    /**
+     * Base address.
+     */
+    base: NativePointer;
+
+    /**
+     * Size in bytes.
+     */
+    size: number;
+}
+
 /**
  * Monitors one or more memory ranges for access, and notifies on the first
  * access of each contained memory page.
@@ -923,6 +935,11 @@ interface ModuleSymbolDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number;
 }
 
 type ModuleImportType = "function" | "variable";
@@ -1484,6 +1501,29 @@ interface ObjectWrapper {
     handle: NativePointer;
 }
 
+interface ArrayBufferConstructor {
+    /**
+     * Creates an ArrayBuffer backed by an existing memory region. Unlike
+     * the NativePointer `read*()` and `write*()` APIs, no validation is
+     * performed on access, meaning a bad pointer will crash the process.
+     *
+     * @param address Base address of the region. Passing `NULL` will result
+     *                in an empty buffer.
+     * @param size Size of the region. Passing `0` will result in an empty
+     *             buffer.
+     */
+    wrap(address: NativePointerValue, size: number): ArrayBuffer;
+}
+
+interface ArrayBuffer {
+    /**
+     * Gets a pointer to the base address of the ArrayBuffer's backing store.
+     * It is the caller's responsibility to keep the buffer alive while the
+     * backing store is still being used.
+     */
+    unwrap(): NativePointer;
+}
+
 type NativePointerValue = NativePointer | ObjectWrapper;
 
 declare const NativeFunction: NativeFunctionConstructor;
@@ -1552,11 +1592,14 @@ interface NativeFunctionOptions {
     abi?: NativeABI;
     scheduling?: SchedulingBehavior;
     exceptions?: ExceptionsBehavior;
+    traps?: CodeTraps;
 }
 
 type SchedulingBehavior = "cooperative" | "exclusive";
 
 type ExceptionsBehavior = "steal" | "propagate";
+
+type CodeTraps = "default" | "all";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -1872,7 +1915,7 @@ declare abstract class OutputStream {
     close(): Promise<void>;
 
     /**
-     * Tries to write `data` to the stream. Returns how how many bytes of `data` were written to the stream.
+     * Tries to write `data` to the stream. Returns how many bytes of `data` were written to the stream.
      */
     write(data: ArrayBuffer | number[]): Promise<number>;
 
@@ -1882,6 +1925,13 @@ declare abstract class OutputStream {
      * before the error occurred.
      */
     writeAll(data: ArrayBuffer | number[]): Promise<void>;
+
+    /**
+     * Tries to write `size` bytes to the stream, reading them from `address`. Returns how many bytes were written
+     * to the stream. Premature error or end of stream results in an `Error` object with a `partialSize` property
+     * specifying how many bytes of `data` were written to the stream before the error occurred.
+     */
+    writeMemoryRegion(address: NativePointerValue, size: number): Promise<number>;
 }
 
 /**
@@ -2268,8 +2318,14 @@ declare namespace Interceptor {
      * Intercepts calls to function/instruction at `target`. It is important
      * to specify a `InstructionProbeCallback` if `target` is not the first
      * instruction of a function.
+     *
+     * @param target Address of function/instruction to intercept.
+     * @param callbacksOrProbe Callbacks or instruction-level probe callback.
+     * @param data User data exposed to `NativeInvocationListenerCallbacks`
+     *             through the `GumInvocationContext *`.
      */
-    function attach(target: NativePointerValue, callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback): InvocationListener;
+    function attach(target: NativePointerValue, callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback,
+        data?: NativePointerValue): InvocationListener;
 
     /**
      * Detaches all previously attached listeners.
@@ -2278,8 +2334,17 @@ declare namespace Interceptor {
 
     /**
      * Replaces function at `target` with implementation at `replacement`.
+     *
+     * May be implemented using e.g. `NativeCallback` or `CModule`.
+     *
+     * @param target Address of function to replace.
+     * @param replacement Replacement implementation.
+     * @param data User data exposed to native replacement through the
+     *             `GumInvocationContext *`, obtained using
+     *             `gum_interceptor_get_current_invocation()`.
      */
-    function replace(target: NativePointerValue, replacement: NativePointerValue): void;
+    function replace(target: NativePointerValue, replacement: NativePointerValue,
+        data?: NativePointerValue): void;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -2297,9 +2362,38 @@ declare class InvocationListener {
 /**
  * Callbacks to invoke synchronously before and after a function call.
  */
-interface InvocationListenerCallbacks {
+type InvocationListenerCallbacks = ScriptInvocationListenerCallbacks | NativeInvocationListenerCallbacks;
+
+interface ScriptInvocationListenerCallbacks {
+    /**
+     * Called synchronously when a thread is about to enter the target function.
+     */
     onEnter?: (this: InvocationContext, args: InvocationArguments) => void;
+
+    /**
+     * Called synchronously when a thread is about to leave the target function.
+     */
     onLeave?: (this: InvocationContext, retval: InvocationReturnValue) => void;
+}
+
+interface NativeInvocationListenerCallbacks {
+    /**
+     * Called synchronously when a thread is about to enter the target function.
+     *
+     * Typically implemented using `CModule`.
+     *
+     * Signature: `void onEnter (GumInvocationContext * ic)`
+     */
+    onEnter?: NativePointer;
+
+    /**
+     * Called synchronously when a thread is about to leave the target function.
+     *
+     * Typically implemented using `CModule`.
+     *
+     * Signature: `void onLeave (GumInvocationContext * ic)`
+     */
+    onLeave?: NativePointer;
 }
 
 /**
@@ -2370,6 +2464,19 @@ interface UnixInvocationContext extends PortableInvocationContext {
  */
 declare namespace Stalker {
     /**
+     * Marks a memory range as excluded. This means Stalker will not follow
+     * execution when encountering a call to an instruction in such a range.
+     * You will thus be able to observe/modify the arguments going in, and
+     * the return value coming back, but won't see the instructions that
+     * happened between.
+     *
+     * Useful to improve performance and reduce noise.
+     *
+     * @param range Range to exclude.
+     */
+    function exclude(range: MemoryRange): void;
+
+    /**
      * Starts following the execution of a given thread.
      *
      * @param threadId Thread ID to start following the execution of, or the
@@ -2408,14 +2515,16 @@ declare namespace Stalker {
     function garbageCollect(): void;
 
     /**
-     * Calls `callback` synchronously when a `CALL` is made to `address`.
+     * Calls `callback` synchronously when a call is made to `address`.
      * Returns an id that can be passed to `removeCallProbe()` later.
      *
      * @param address Address of function to monitor stalked calls to.
      * @param callback Function to be called synchronously when a stalked
      *                 thread is about to call the function at `address`.
+     * @param data User data to be passed to `StalkerNativeCallProbeCallback`.
      */
-    function addCallProbe(address: NativePointerValue, callback: StalkerCallProbeCallback): StalkerCallProbeId;
+    function addCallProbe(address: NativePointerValue, callback: StalkerCallProbeCallback,
+        data?: NativePointerValue): StalkerCallProbeId;
 
     /**
      * Removes a call probe added by `addCallProbe()`.
@@ -2445,7 +2554,9 @@ declare namespace Stalker {
      * Time in milliseconds between each time the event queue is drained.
      *
      * Defaults to 250 ms, which means that the event queue is drained four
-     * times per second.
+     * times per second. You may also set this property to zero to disable
+     * periodic draining and instead call `Stalker.flush()` when you would
+     * like the queue to be drained.
      */
     let queueDrainInterval: number;
 }
@@ -2526,6 +2637,11 @@ interface StalkerOptions {
      * by the stalked thread.
      */
     transform?: StalkerTransformCallback;
+
+    /**
+     * User data to be passed to `StalkerNativeTransformCallback`.
+     */
+    data?: NativePointerValue;
 }
 
 interface StalkerParseOptions {
@@ -2546,7 +2662,19 @@ interface StalkerCallSummary {
     [target: string]: number;
 }
 
-type StalkerCallProbeCallback = (args: InvocationArguments) => void;
+type StalkerCallProbeCallback = StalkerScriptCallProbeCallback | StalkerNativeCallProbeCallback;
+
+/**
+ * Called synchronously when a call is made to the given address.
+ */
+type StalkerScriptCallProbeCallback = (args: InvocationArguments) => void;
+
+/**
+ * Called synchronously when a call is made to the given address.
+ *
+ * Signature: `void onCall (GumCallSite * site, gpointer user_data)`
+ */
+type StalkerNativeCallProbeCallback = NativePointer;
 
 type StalkerCallProbeId = number;
 
@@ -2578,24 +2706,41 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
 
-type StalkerTransformCallback = StalkerX86TransformCallback | StalkerArm64TransformCallback;
+type StalkerTransformCallback =
+    | StalkerX86TransformCallback
+    | StalkerArm64TransformCallback
+    | StalkerNativeTransformCallback
+    ;
 
 type StalkerX86TransformCallback = (iterator: StalkerX86Iterator) => void;
+
 type StalkerArm64TransformCallback = (iterator: StalkerArm64Iterator) => void;
+
+/**
+ * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerWriter * output, gpointer user_data)`
+ */
+type StalkerNativeTransformCallback = NativePointer;
 
 declare abstract class StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
-    putCallout(callout: StalkerCallout): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
 declare abstract class StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
-    putCallout(callout: StalkerCallout): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
-type StalkerCallout = (context: CpuContext) => void;
+type StalkerCallout = StalkerScriptCallout | StalkerNativeCallout;
+
+type StalkerScriptCallout = (context: CpuContext) => void;
+
+/**
+ * Signature: `void onAesEnc (GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeCallout = NativePointer;
 
 /**
  * Provides efficient API resolving using globs, allowing you to quickly
@@ -2729,6 +2874,54 @@ declare class DebugSymbol {
      * Converts to a human-readable string.
      */
     toString(): string;
+}
+
+/**
+ * Compiles C source code to machine code, straight to memory.
+ *
+ * Useful for implementing hot callbacks, e.g. for `Interceptor` and `Stalker`,
+ * but also useful when needing to start new threads in order to call functions
+ * in a tight loop, e.g. for fuzzing purposes.
+ *
+ * Global functions are automatically exported as `NativePointer` properties
+ * named exactly like in the C source code. This means you can pass them to
+ * `Interceptor` and `Stalker`, or call them using `NativeFunction`.
+ *
+ * Symbols can also be plugged in at creation, e.g. memory allocated using
+ * `Memory.alloc()`, or `NativeCallback` for receiving callbacks from the C
+ * module.
+ *
+ * To perform initialization and cleanup, you may define functions with the
+ * following names and signatures:
+ *
+ *     `void init (void)`
+ *     `void finalize (void)`
+ *
+ * Note that all data is read-only, so writable globals should be declared
+ * `extern`, allocated using e.g. `Memory.alloc()`, and passed in as symbols
+ * through the constructor's second argument.
+ */
+declare class CModule {
+  /**
+   * Creates a new C module by compiling the provided C source code to machine
+   * code, straight to memory.
+   *
+   * @param source C source code to compile.
+   * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+   */
+  constructor(source: string, symbols?: CSymbols);
+
+  /**
+   * Eagerly unmaps the module from memory. Useful for short-lived modules
+   * when waiting for a future garbage collection isn't desirable.
+   */
+  dispose(): void;
+
+  readonly [name: string]: any;
+}
+
+interface CSymbols {
+    [name: string]: NativePointerValue;
 }
 
 declare class Instruction {
@@ -3364,7 +3557,7 @@ declare namespace ObjC {
         [name: string]: ObjectMethod;
     }
 
-    class ObjectMethod implements ObjectWrapper {
+    interface ObjectMethod extends ObjectWrapper, AnyFunction {
         handle: NativePointer;
 
         /**
@@ -3387,12 +3580,20 @@ declare namespace ObjC {
         /**
          * Argument type names.
          */
-        argumentTypes: string;
+        argumentTypes: string[];
 
         /**
          * Signature.
          */
         types: string;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => ObjectMethod;
     }
 
     /**
@@ -3452,19 +3653,28 @@ declare namespace ObjC {
     }
 
     /**
-     * Dynamically generated language binding for any Objective-C block. Also supports implementing a block from
-     * scratch by passing in a MethodDefinition.
+     * Dynamically generated language binding for any Objective-C block.
+     *
+     * Also supports implementing a block from scratch by passing in an
+     * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec);
+        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
+
+        /**
+         * Signature, if available.
+         */
+        types?: string;
 
         /**
          * Current implementation. You may replace it by assigning to this property.
          */
         implementation: AnyFunction;
     }
+
+    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -3582,7 +3792,15 @@ declare namespace ObjC {
      */
     function selectorAsString(sel: NativePointerValue): string;
 
-    interface ProxySpec {
+    interface ProxySpec<D extends ProxyData = ProxyData, T = ObjC.Object, S = ObjC.Object> {
+        /**
+         * Name of the proxy class.
+         *
+         * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
+         * for you.
+         */
+        name?: string;
+
         /**
          * Protocols this proxy class conforms to.
          */
@@ -3592,22 +3810,34 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
 
         /**
          * Callbacks for getting notified about events.
          */
-        events?: {
-            /**
-             * Gets notified about the method name that we’re about to forward a call to. This might be where you’d
-             * start out with a temporary callback that just logs the names to help you decide which methods to
-             * override.
-             *
-             * @param name Name of method that is about to get called.
-             */
-            forward?(name: string): void;
-        };
+        events?: ProxyEventCallbacks<D, T, S>;
+    }
+
+    interface ProxyEventCallbacks<D, T, S> {
+        /**
+         * Gets notified right after the object has been deallocated.
+         *
+         * This is where you might clean up any associated state.
+         */
+        dealloc?(this: UserMethodInvocation<D, T, S>): void;
+
+        /**
+         * Gets notified about the method name that we’re about to forward
+         * a call to.
+         *
+         * This might be where you’d start out with a temporary callback
+         * that just logs the names to help you decide which methods to
+         * override.
+         *
+         * @param name Name of method that is about to get called.
+         */
+        forward?(this: UserMethodInvocation<D, T, S>, name: string): void;
     }
 
     /**
@@ -3616,9 +3846,27 @@ declare namespace ObjC {
      * @param target Target object to proxy to.
      * @param data Object with arbitrary data.
      */
-    type ProxyConstructor = (target: ObjC.Object | NativePointer, data: InstanceData) => void;
+    interface ProxyConstructor {
+        new (target: ObjC.Object | NativePointer, data?: InstanceData): ProxyInstance;
+    }
 
-    interface ClassSpec {
+    interface ProxyInstance {
+        handle: NativePointer;
+    }
+
+    interface ProxyData extends InstanceData {
+        /**
+         * This proxy's target object.
+         */
+        target: ObjC.Object;
+
+        /**
+         * Used by the implementation.
+         */
+        events: {};
+    }
+
+    interface ClassSpec<D = InstanceData, T = ObjC.Object, S = ObjC.Object> {
         /**
          * Name of the class.
          *
@@ -3641,13 +3889,13 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
     }
 
-    type MethodSpec = SimpleMethodSpec | DetailedMethodSpec;
+    type MethodSpec<I> = SimpleMethodSpec<I> | DetailedMethodSpec<I>;
 
-    interface SimpleMethodSpec {
+    interface SimpleMethodSpec<I> {
         /**
          * Return type.
          */
@@ -3661,10 +3909,10 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
     }
 
-    interface DetailedMethodSpec {
+    interface DetailedMethodSpec<I> {
         /**
          * Signature.
          */
@@ -3673,7 +3921,15 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
+    }
+
+    type UserMethodImplementation<D, T, S> = (this: UserMethodInvocation<D, T, S>, ...args: any[]) => any;
+
+    interface UserMethodInvocation<D, T, S> {
+        self: T;
+        super: S;
+        data: D;
     }
 
     /**
@@ -3841,7 +4097,7 @@ declare namespace Java {
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string): Wrapper;
+    function use(className: string, options?: UseOptions): Wrapper;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -3935,6 +4191,17 @@ declare namespace Java {
          * Called when all class loaders have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    interface UseOptions {
+        /**
+         * Whether to consult the class wrapper cache – which is the default
+         * behavior – or skip it and create a brand new class wrapper.
+         *
+         * Skipping the cache is useful when dealing with multiple class-loaders
+         * and colliding class names.
+         */
+        cache?: "consult" | "skip";
     }
 
     interface ChooseCallbacks {
@@ -4059,6 +4326,14 @@ declare namespace Java {
          * Queries whether the method may be invoked with a given argument list.
          */
         canInvokeWith: (...args: any[]) => boolean;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => Method;
     }
 
     type MethodImplementation = (this: Wrapper, ...params: any[]) => any;

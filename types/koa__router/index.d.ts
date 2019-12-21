@@ -64,7 +64,7 @@
     type Middleware<StateT = any, CustomT = {}> = Koa.Middleware<StateT, CustomT & RouterParamContext<StateT, CustomT>>;
 
     interface ParamMiddleware {
-        (param: string, ctx: RouterContext, next: () => Promise<any>): any;
+        (param: string, ctx: RouterContext, next: Koa.Next): any;
     }
 
     interface RouterAllowedMethodsOptions {
@@ -507,8 +507,8 @@ declare class Router<StateT = any, CustomT = {}> {
      * // => "/users/3?limit=1"
      *
      */
-    url(name: string, params: any, options?: Router.UrlOptionsQuery): string;
-    url(name: string, params: any, options?: Router.UrlOptionsQuery): Error;
+    url(name: string, params?: any, options?: Router.UrlOptionsQuery): string;
+    url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error;
 
     /**
      * Match given `path` and return corresponding routes.

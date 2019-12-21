@@ -1,6 +1,11 @@
 import * as oracledb from 'oracledb';
-import * as dotenv from 'dotenv';
-import * as assert from 'assert';
+
+
+import defaultOracledb from 'oracledb';
+import dotenv from 'dotenv';
+import assert from 'assert';
+
+
 
 dotenv.config();
 
@@ -143,7 +148,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
             SELECT 2 FROM DUAL
             UNION
             SELECT 3 FROM DUAL`,
-        {},
+        {
+            test: undefined,
+        },
         {
             resultSet: true,
         },
@@ -482,3 +489,21 @@ const testGenerics = async () => {
 
     console.log(result3.outBinds[0].firstColumn);
 }
+
+
+
+const test4point1 = async (): Promise<void> => {
+  defaultOracledb.poolMaxPerShard = 45;
+
+  await oracledb.createPool({
+    poolMaxPerShard: 5,
+  });
+
+  const connection = await oracledb.getConnection({
+    shardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+    superShardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+  });
+
+  connection.clientInfo = '12345';
+  connection.dbOp = '12345';
+};

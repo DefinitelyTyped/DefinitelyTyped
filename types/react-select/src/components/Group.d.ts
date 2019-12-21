@@ -1,7 +1,7 @@
 import { ReactNode, ComponentType } from 'react';
 
 import { spacing } from '../theme';
-import { CommonProps } from '../types';
+import { CommonProps, OptionTypeBase } from '../types';
 
 interface ComponentProps {
   /** The children to be rendered. */
@@ -11,7 +11,7 @@ interface ComponentProps {
   /** Label to be displayed in the heading component. */
   label: ReactNode;
 }
-export type GroupProps<OptionType> = CommonProps<OptionType> & ComponentProps;
+export type GroupProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & ComponentProps;
 
 export function groupCSS(): React.CSSProperties;
 

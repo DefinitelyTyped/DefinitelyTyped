@@ -8,12 +8,16 @@ export type IdentifierProps = {
     /* Image URL. */
     backgroundImageUrl?: string;
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Applies a background color. */
     color?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
     glyph?: string;
     /* Localized text for label. */
     label?: string;
     modifier?: IdentifierModifiers;
+    /* Applies an aria-role. Set to button if Identifier opens a Popover or Modal. */
+    role?: string;
     /* Size of the image. These sizes are available:
       **xxs** (extra extra small) - 20px,
       **xs** (extra small) - 28px,

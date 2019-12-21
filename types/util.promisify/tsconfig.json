@@ -17,10 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "auto.d.ts",
         "index.d.ts",
-        "polyfill.d.ts",
-        "shim.d.ts",
         "util.promisify-tests.ts"
     ]
 }

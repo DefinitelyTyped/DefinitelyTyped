@@ -1,3 +1,6 @@
+import * as React from 'react';
+import { render } from 'react-dom';
+
 import {
     Link,
     Location,
@@ -6,8 +9,6 @@ import {
     Router,
     Redirect
 } from '@reach/router';
-import * as React from 'react';
-import { render } from 'react-dom';
 
 interface DashParams {
     id: string;
@@ -40,7 +41,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>
                         Go Home
                     </button>
                 </>
@@ -50,7 +51,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>
                         Go Home
                     </button>
                 </>

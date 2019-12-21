@@ -13,19 +13,23 @@ declare namespace websiteScraper {
         url: string;
         filename: string;
     }
+
     interface SubDirectory {
         directory: string;
         extensions: string[];
     }
+
     interface Source {
         selector: string;
-        attr: string;
+        attr?: string;
     }
+
     interface RequestOptions {
-        headers: request.Headers
+        headers: request.Headers;
     }
+
     interface Options {
-        urls: Array<string | Url>;
+        urls: (string | Url)[];
         directory: string;
         urlFilter?: (url: string) => boolean;
         filenameGenerator?: string;
@@ -37,21 +41,27 @@ declare namespace websiteScraper {
         recursive?: boolean;
         maxDepth?: number;
         ignoreErrors?: boolean;
+        maxRecursiveDepth?: number;
+        requestConcurrency?: number;
+        plugins?: object[];
     }
+
     interface Resource {
         url: string;
         filename: string;
         assets: Resource[];
     }
+
     interface Callback {
         (error: any | null, result: Resource[] | null): void;
     }
-    interface scrape {
+
+    interface Scrape {
         (options: Options, callback: Callback): void;
         (options: Options): Promise<Resource[]>;
     }
 }
 
-declare var websiteScraper: websiteScraper.scrape;
+declare const websiteScraper: websiteScraper.Scrape;
 
 export = websiteScraper;

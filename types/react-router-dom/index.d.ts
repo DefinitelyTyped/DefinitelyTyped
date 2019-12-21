@@ -1,10 +1,11 @@
-// Type definitions for React Router 4.3
+// Type definitions for React Router 5.1
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
+//                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,6 +19,7 @@ export {
     MemoryRouter,
     RedirectProps,
     Redirect,
+    RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,
@@ -28,7 +30,11 @@ export {
     match,
     matchPath,
     withRouter,
-    RouterChildContext
+    RouterChildContext,
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch,
 } from 'react-router';
 
 export interface BrowserRouterProps {
@@ -46,11 +52,11 @@ export interface HashRouterProps {
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-export interface LinkProps<S = H.LocationState>
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  to: H.LocationDescriptor<S>;
-  replace?: boolean;
-  innerRef?: React.Ref<HTMLAnchorElement>;
+export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    component?: React.ComponentType<any>;
+    to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
+    replace?: boolean;
+    innerRef?: React.Ref<HTMLAnchorElement>;
 }
 export class Link<S = H.LocationState> extends React.Component<
   LinkProps<S>,

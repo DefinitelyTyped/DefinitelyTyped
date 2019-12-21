@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, jsx, InitializeColorMode, ColorMode, Styled, Theme } from 'theme-ui';
+import { Flex, jsx, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme } from 'theme-ui';
 
 export const Component = () => {
     return (
@@ -96,3 +96,41 @@ const incompleteThemeColorModes: Theme = {
         },
     },
 };
+
+const themeWithStyles: Theme = {
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+    styles: {
+        h1: {
+            fontSize: 32,
+            color: 'primary',
+            mt: 4,
+            mb: 2,
+        },
+    },
+};
+
+function SpreadingAndMergingInSxProp() {
+    const buttonStyles: SxStyleProp = {
+        font: 'inherit',
+        color: 'primary',
+        background: 'papayawhip',
+        border: 'none',
+        boxShadow: () => `0 0 4px black`,
+        ':hover': {
+            background: 'yellow',
+            width: ['80%', '40%', '20%'],
+        },
+        height: '2rem',
+        width: ['100%', '50%', '25%'],
+    };
+
+    return (
+        <button type="button" sx={{ ...buttonStyles, background: 'red' }}>
+            click me
+        </button>
+    );
+}

@@ -48,6 +48,14 @@ describe("Stripe elements", () => {
                 console.log(response.elementType, response.brand);
             }
         });
+        card.addEventListener('ready', () => {
+            console.log('ready (ael)');
+        });
+        card.addEventListener('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
+        });
 
         stripe.createToken(card, {
             name: 'Jimmy',
@@ -269,6 +277,44 @@ describe("Stripe elements", () => {
               console.log(result.paymentIntent.source);
             }
           });
+
+        stripe.confirmCardPayment(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    card,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+        });
+
+        const ibanElement = elements.create('iban');
+        stripe.confirmSepaDebitPayment(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    sepa_debit: ibanElement,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                        email: 'jenny@example.com',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+        });
     });
 
     it("should handle card setup", () => {
@@ -291,5 +337,56 @@ describe("Stripe elements", () => {
                 console.log(result.setupIntent.id);
             }
         });
+    });
+
+    it("should confirm card setup", () => {
+        const card = elements.create('card');
+
+        stripe.confirmCardSetup(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    card,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should confirm SEPA debit setup", () => {
+        const ibanElement = elements.create('iban');
+
+        stripe.confirmSepaDebitSetup(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    sepa_debit: ibanElement,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                        email: 'jenny@example.com',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should get card element", () => {
+        elements.create('card');
+        const card = elements.getElement('card');
+        console.log(card);
     });
 });
