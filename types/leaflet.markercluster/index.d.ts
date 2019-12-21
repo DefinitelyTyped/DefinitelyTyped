@@ -21,7 +21,7 @@ declare module 'leaflet' {
         /*
         * Zoom to the minimum of showing all of the child markers, or the extents of this cluster.
         */
-        zoomToBounds(): void;
+        zoomToBounds(options?: FitBoundsOptions): void;
 
         /*
         * Returns the cluster bounds.

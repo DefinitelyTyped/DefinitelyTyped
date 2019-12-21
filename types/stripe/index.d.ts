@@ -64,6 +64,16 @@ interface ResponseEvent {
     request_end_time: number;
 }
 
+interface StripeConfig {
+    apiVersion?: string | null;
+    maxNetworkRetries?: number;
+    httpAgent?: Agent | null;
+    timeout?: number;
+    host?: string;
+    port?: number;
+    telemetry?: boolean;
+}
+
 declare class Stripe {
     DEFAULT_HOST: string;
     DEFAULT_PORT: string;
@@ -85,6 +95,7 @@ declare class Stripe {
     StripeResource: typeof Stripe.StripeResource;
 
     constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, config?: StripeConfig);
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
@@ -8560,6 +8571,16 @@ declare namespace Stripe {
              * be affected.
              */
             product?: string;
+
+            /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active?: boolean;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days?: number;
         }
 
         interface IPlanCreationOptionsProductHash {

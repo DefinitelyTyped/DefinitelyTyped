@@ -96,7 +96,9 @@ function simplified_stream_ctor_test() {
             cb;
         },
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 
     new Transform({
@@ -154,7 +156,9 @@ function simplified_stream_ctor_test() {
         },
         allowHalfOpen: true,
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 }
 

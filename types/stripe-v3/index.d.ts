@@ -44,26 +44,48 @@ declare namespace stripe {
         retrievePaymentIntent(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardPayment(
             clientSecret: string,
             element: elements.Element,
             options?: HandleCardPaymentOptions,
         ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardPayment(
             clientSecret: string,
             options?: HandleCardPaymentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
+        confirmCardPayment(
+            clientSecret: string,
+            data?: ConfirmCardPaymentData,
+            options?: ConfirmCardPaymentOptions,
+        ): Promise<PaymentIntentResponse>;
         handleCardAction(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
+        confirmSepaDebitPayment(
+            clientSecret: string,
+            data?: ConfirmSepaDebitPaymentData,
+        ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardSetup(
             clientSecret: string,
             element: elements.Element,
             data?: HandleCardSetupOptions,
         ): Promise<SetupIntentResponse>;
+        /** @deprecated */
         handleCardSetup(
             clientSecret: string,
             data?: HandleCardSetupOptionsWithoutElementsOptions,
+        ): Promise<SetupIntentResponse>;
+        confirmCardSetup(
+            clientSecret: string,
+            data?: ConfirmCardSetupData,
+            options?: ConfirmCardSetupOptions,
+        ): Promise<SetupIntentResponse>;
+        confirmSepaDebitSetup(
+            clientSecret: string,
+            data?: ConfirmSepaDebitSetupData,
         ): Promise<SetupIntentResponse>;
         confirmPaymentIntent(
             clientSecret: string,
@@ -479,6 +501,67 @@ declare namespace stripe {
          */
        source?: string;
     }
+
+    interface ConfirmCardPaymentData {
+        /*
+         * Pass an object to confirm using data collected by a card or
+         * cardNumber Element or an with an existing token and to supply
+         * additional data relevant to the PaymentMethod, such as billing
+         * details:
+         */
+        payment_method?: string | {
+            /*
+             * Uses the provided card or cardNumber Element to create a
+             * PaymentMethod to use for confirmation.
+             */
+            card: elements.Element | {
+                /*
+                 * Converts the provided token into a PaymentMethod to use for
+                 * confirmation.
+                 */
+                token: string,
+            },
+            /**
+             * The billing_details associated with the card.
+             */
+            billing_details?: BillingDetails,
+        };
+    }
+    interface ConfirmCardPaymentOptions {
+        /*
+         * Set this to false if you want to handle next actions yourself, or if
+         * you want to defer next action handling until later (e.g. for use in
+         * the PaymentRequest API). Default is true.
+         */
+        handleActions?: boolean;
+    }
+
+    interface ConfirmSepaDebitPaymentData {
+        /**
+         * Pass an object to confirm using data collected by an iban Element or
+         * by passing data directly and to supply additional required billing
+         * details:
+         */
+        payment_method?: string | {
+            /**
+             * An iban Element.
+             */
+            sepa_debit: elements.Element | {
+                /*
+                 * An IBAN account number.
+                 */
+                iban: string,
+            },
+            /**
+             * The customer's billing_details. name and email are required.
+             */
+            billing_details: {
+                name: string,
+                email: string,
+            }
+        };
+    }
+
     interface HandleCardSetupOptions {
         /**
          * Use this parameter to supply additional data relevant to
@@ -557,6 +640,66 @@ declare namespace stripe {
                  * use for the payment.
                  */
                 token: string;
+            }
+        };
+    }
+
+    interface ConfirmCardSetupData {
+        /*
+         * Pass an object to confirm using data collected by a card or
+         * cardNumber Element or an with an existing token and to supply
+         * additional data relevant to the PaymentMethod, such as billing
+         * details:
+         */
+        payment_method?: string | {
+            /*
+             * Uses the provided card or cardNumber Element to create a
+             * PaymentMethod to use for confirmation.
+             */
+            card: elements.Element | {
+                /*
+                 * Converts the provided token into a PaymentMethod to use for
+                 * confirmation.
+                 */
+                token: string,
+            },
+            /**
+             * The billing_details associated with the card.
+             */
+            billing_details?: BillingDetails,
+        };
+    }
+    interface ConfirmCardSetupOptions {
+        /*
+         * Set this to false if you want to handle next actions yourself, or if
+         * you want to defer next action handling until later (e.g. for use in
+         * the PaymentRequest API). Default is true.
+         */
+        handleActions?: boolean;
+    }
+
+    interface ConfirmSepaDebitSetupData {
+        /**
+         * Pass an object to confirm using data collected by an iban Element or
+         * by passing data directly and to supply additional required billing
+         * details:
+         */
+        payment_method?: string | {
+            /**
+             * An iban Element.
+             */
+            sepa_debit: elements.Element | {
+                /*
+                 * An IBAN account number.
+                 */
+                iban: string,
+            },
+            /**
+             * The customer's billing_details. name and email are required.
+             */
+            billing_details: {
+                name: string,
+                email: string,
             }
         };
     }

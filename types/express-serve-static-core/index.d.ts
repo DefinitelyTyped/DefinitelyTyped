@@ -185,7 +185,7 @@ export interface CookieOptions {
     domain?: string;
     secure?: boolean;
     encode?: (val: string) => string;
-    sameSite?: boolean | string;
+    sameSite?: boolean | 'lax' | 'strict' | 'none';
 }
 
 export interface ByteRange { start: number; end: number; }
