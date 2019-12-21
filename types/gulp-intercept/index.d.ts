@@ -19,6 +19,6 @@ declare namespace intercept {
     }
 }
 
-declare var intercept: intercept.Intercept<Vinyl>;
+declare var intercept: intercept.Intercept;
 
 export = intercept;
