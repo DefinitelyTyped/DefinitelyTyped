@@ -63,7 +63,7 @@ export interface ButtonProps extends Assign<React.ComponentPropsWithRef<'button'
  * Primitive button component with variants
  * @see https://theme-ui.com/components/button
  */
-export const Button: ForwardRef<HTMLButtonElement, BoxProps>;
+export const Button: ForwardRef<HTMLButtonElement, ButtonProps>;
 
 export interface LinkProps extends Assign<React.ComponentPropsWithRef<'a'>, BoxOwnProps> {}
 /**
