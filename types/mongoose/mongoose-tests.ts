@@ -738,7 +738,7 @@ mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', time
  * section document.js
  * https://mongoosejs.com/docs/api/document.html
  */
-var doc = <mongoose.Document>{};
+var doc = new mongoose.Document();
 doc.$isDefault('path').valueOf();
 doc.$locals.field = 'value';
 const docDotDepopulate: mongoose.Document = doc.depopulate('path');
