@@ -40,7 +40,7 @@ export interface NamedNode {
      * @param other The term to compare with.
      * @return True if and only if other has termType "NamedNode" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -63,7 +63,7 @@ export interface BlankNode {
      * @param other The term to compare with.
      * @return True if and only if other has termType "BlankNode" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -94,7 +94,7 @@ export interface Literal {
      * @return True if and only if other has termType "Literal"
      *                   and the same `value`, `language`, and `datatype`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -114,7 +114,7 @@ export interface Variable {
      * @param other The term to compare with.
      * @return True if and only if other has termType "Variable" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -135,7 +135,7 @@ export interface DefaultGraph {
      * @param other The term to compare with.
      * @return True if and only if other has termType "DefaultGraph".
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -465,7 +465,7 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term, predicate?: Term, object?: Term, graph?: Term): this;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
 
     [Symbol.iterator](): Iterator<Q>;
 }

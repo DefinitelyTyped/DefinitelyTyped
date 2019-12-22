@@ -1,7 +1,9 @@
 import * as React from "react";
 
 export type FormRadioGroupProps = {
+    customStyles?: {[x: string]: any};
     disabled?: boolean;
+    disableStyles?: boolean;
     /* Set to **true** to display radio buttons in a row. */
     inline?: boolean;
     onChange?: (...args: any[]) => any;

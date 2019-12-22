@@ -5915,9 +5915,8 @@ interface IUtilDomMisc {
 	/**
 	 * Returns element scroll offsets
 	 * @param element Element to operate on
-	 * @param upperCanvasEl Upper canvas element
 	 */
-	getScrollLeftTop(element: HTMLElement, upperCanvasEl: HTMLElement): { left: number; right: number; };
+	getScrollLeftTop(element: HTMLElement): { left: number; top: number; };
 	/**
 	 * Returns offset for a given element
 	 * @param element Element to get offset for

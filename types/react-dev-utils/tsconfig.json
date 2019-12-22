@@ -20,6 +20,7 @@
         "index.d.ts",
         "test/eslintFormatter.ts",
         "test/noopServiceWorkerMiddleware.ts",
+        "test/evalSourceMapMiddleware.ts",
         "test/utils.ts",
         "test/webpack-plugins.ts",
         "test/webpack-utils.ts"
