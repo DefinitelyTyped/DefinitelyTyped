@@ -166,11 +166,11 @@ interface HighlandStatic {
 	 * @param x - the object to test
 	 * @api public
 	 */
-	isStream(x: any): boolean;
+	isStream(x: any): x is Highland.Stream<any>;
 
-	isStreamError(x: any): boolean;
+	isStreamError(x: any): x is Highland.Stream<any>;
 
-	isStreamRedirect(x: any): boolean;
+	isStreamRedirect(x: any): x is Highland.Stream<any>;
 
 	/**
 	 * Logs values to the console, a simple wrapper around `console.log` that
