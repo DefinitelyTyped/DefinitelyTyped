@@ -6,7 +6,7 @@
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = (number|Date)[][];
+    type DataArray = (number|Date|null)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
