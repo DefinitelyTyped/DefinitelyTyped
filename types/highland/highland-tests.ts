@@ -97,6 +97,9 @@ var barThenArr: PromiseLike<Bar>[];
 var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
 var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 
+var fooIterable: Iterable<Foo>;
+var fooIterator: Iterator<Foo>;
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // curries
@@ -155,6 +158,9 @@ fooStream = _(fooStreamThen);
 fooStream = _(fooThen);
 
 fooArrStream = _(fooArrThen);
+
+fooStream = _(fooIterable);
+fooStream = _(fooIterator);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // STREAM OBJECTS
