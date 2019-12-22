@@ -941,7 +941,7 @@ declare namespace CodeMirror {
          * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
          * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
          */
-        scrollbarStyle?: string;
+        scrollbarStyle: string | null;
 
         /**
          * When fixedGutter is on, and there is a horizontal scrollbar, by default the gutter will be visible to the left of this scrollbar.
