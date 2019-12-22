@@ -429,7 +429,6 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                     return (
                                         <td {...cell.getCellProps()}>
                                             {cell.isGrouped ? (
-                                                // If it's a grouped cell, add an expander and row count
                                                 <>
                                                     <span {...row.getExpandedToggleProps()}>
                                                         {row.isExpanded ? '👇' : '👉'}
@@ -524,9 +523,9 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
 }
 
 // Define a custom filter filter function!
-function filterGreaterThan(rows: Array<Row<any>>, id: IdType<any>, filterValue: FilterValue) {
+function filterGreaterThan(rows: Array<Row<any>>, id: Array<IdType<any>>, filterValue: FilterValue) {
     return rows.filter(row => {
-        const rowValue = row.values[id];
+        const rowValue = row.values[id[0]];
         return rowValue >= filterValue;
     });
 }
