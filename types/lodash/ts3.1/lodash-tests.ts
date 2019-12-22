@@ -1082,15 +1082,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.remove(list); // $ExpectType AbcObject[]
     _.remove(list, listIterator); // $ExpectType AbcObject[]
+    _.remove(list, ""); // $ExpectType AbcObject[]
+    _.remove(list, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).remove(); // $ExpectType Collection<AbcObject>
     _(list).remove(listIterator); // $ExpectType Collection<AbcObject>
+    _(list).remove(""); // $ExpectType Collection<AbcObject>
+    _(list).remove({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).remove(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).remove(listIterator); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).remove(""); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).remove({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.remove(valueIterator, list); // $ExpectType AbcObject[]
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
+    fp.remove("", list); // $ExpectType AbcObject[]
+    fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.tail
@@ -3545,6 +3553,8 @@ fp.now(); // $ExpectType number
     _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
     fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
 
+    _.negate(() => 'foo'); // $ExpectError
+
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType FunctionChain<(a1: number, a2: number) => boolean>
@@ -5596,8 +5606,7 @@ fp.now(); // $ExpectType number
     _.omit(obj, "a"); // $ExpectType Pick<AbcObject, "b" | "c">
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.omit(dictionary, "a"); // $ExpectType Pick<Dictionary<AbcObject>, string | number>
-    _.omit(numericDictionary, "a");  // $ExpectType Partial<NumericDictionary<AbcObject>>
-
+    _.omit(numericDictionary, "a"); // $ExpectType Pick<NumericDictionary<AbcObject>, number>
     _(obj).omit("a"); // $ExpectType Object<Pick<AbcObject, "b" | "c">>
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
     _(dictionary).omit("a"); // $ExpectType Object<Pick<Dictionary<AbcObject>, string | number>>
@@ -6957,14 +6966,6 @@ fp.now(); // $ExpectType number
     fp.stubArray(); // $ExpectType any[]
 }
 
-// _.stubFalse
-{
-    _.stubFalse(); // $ExpectType false
-    _(anything).stubFalse(); // $ExpectType false
-    _.chain(anything).stubFalse(); // $ExpectType PrimitiveChain<false>
-    fp.stubFalse(); // $ExpectType false
-}
-
 // _.stubObject
 {
     _.stubObject(); // $ExpectType any
@@ -6979,14 +6980,6 @@ fp.now(); // $ExpectType number
     _(anything).stubString(); // $ExpectType string
     _.chain(anything).stubString(); // $ExpectType StringChain
     fp.stubString(); // $ExpectType string
-}
-
-// _.stubTrue
-{
-    _.stubTrue(); // $ExpectType true
-    _(anything).stubTrue(); // $ExpectType true
-    _.chain(anything).stubTrue(); // $ExpectType PrimitiveChain<true>
-    fp.stubTrue(); // $ExpectType true
 }
 
 // _.times
@@ -7082,4 +7075,20 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
     fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
+}
+
+// _.stubTrue
+{
+    _.stubTrue(); // $ExpectType true
+    _("").stubTrue(); // $ExpectType true
+    _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }

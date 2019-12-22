@@ -1511,12 +1511,6 @@ declare namespace sap {
         constructor(extensionObject: any);
 
 
-
-        /**
-         * Calls the static emptyQueue function in the Opa namespace {@link sap.ui.test.Opa#.emptyQueue}
-        */
-        emptyQueue(): void;
-
         /**
          * Waits until all waitFor calls are done.
          * @returns If the waiting was successful, the promise will be resolved. If not it will be rejected
@@ -1542,14 +1536,6 @@ declare namespace sap {
          * @param options The values to be added to the existing config
         */
         extendConfig(options: any): void;
-
-        /**
-         * Gives access to a singleton object you can save values in.This object will only be created once and
-         * it will never be destroyed.That means you can use it to save values you need in multiple separated
-         * tests.
-         * @returns the context object
-        */
-        getContext(): any;
 
         /**
          * Gives access to a singleton object you can save values in.Same as {@link sap.ui.test.Opa#getContext}
@@ -1710,12 +1696,6 @@ declare namespace sap {
          * @returns A promise that gets resolved on success.
         */
         iStartMyUIComponent(oOptions: any): any;
-
-        /**
-         * Removes the IFrame from the DOM and removes all the references to its objects
-         * @returns A promise that gets resolved on success
-        */
-        iTeardownMyAppFrame(): any;
 
         /**
          * Removes the IFrame from the DOM and removes all the references to its objects
@@ -2813,12 +2793,6 @@ declare namespace sap {
         getMetadata(): sap.ui.base.Metadata;
 
         /**
-         * Returns the metadata for the ManagedObject class.
-         * @returns Metadata for the ManagedObject class.
-        */
-        getMetadata(): sap.ui.base.Metadata;
-
-        /**
          * Get the model to be used for data bindings with the given model name.If the object does not have a
          * model set on itself, it will use the firstmodel defined in its parent hierarchy.The name can be
          * omitted to reference the default model or it must be a non-empty string.Note: to be compatible with
@@ -3208,7 +3182,7 @@ declare namespace sap {
        * provide the support custom style classes. The control API provides functionsto the application which
        * allow it to add, remove or change style classes for the control.In general, this option is not
        * available for elements because elements do not necessarily have a representation in the DOM.This
-       * function can be used by a control developer to explicitly enrich the API of his/her element
+       * function can be used by a control developer to explicitly enrich the API of their element
        * implementation with the API functionsfor the custom style class support. It must be called on the
        * prototype of the element.<b>Usage Example:</b><pre>sap.ui.define(['sap/ui/core/Element',
        * 'sap/ui/core/CustomStyleClassSupport'], function(Element, CustomStyleClassSupport) {   "use strict";
@@ -9512,11 +9486,6 @@ declare namespace sap {
         getLastZIndex(): Number;
 
         /**
-         * Returns the last z-index that has been handed out. does not increase the internal z-index counter.
-        */
-        getLastZIndex(): Number;
-
-        /**
          * Returns a metadata object for class sap.ui.core.Popup.
          * @returns Metadata object describing this class
         */
@@ -9526,13 +9495,6 @@ declare namespace sap {
          * Returns the value if a Popup is of modal type
         */
         getModal(): void;
-
-        /**
-         * Returns the next available z-index on top of the existing/previous popups. Each call increases the
-         * internal z-index counter and the returned z-index.
-         * @returns the next z-index on top of the Popup stack
-        */
-        getNextZIndex(): Number;
 
         /**
          * Returns the next available z-index on top of the existing/previous popups. Each call increases the
@@ -10340,13 +10302,6 @@ declare namespace sap {
          * Element.
         */
         getLayoutData(): sap.ui.core.LayoutData;
-
-        /**
-         * Returns the runtime metadata for this UI element.When using the defineClass method, this function is
-         * automatically created and returnsa runtime representation of the design time metadata.
-         * @returns runtime metadata
-        */
-        getMetadata(): any;
 
         /**
          * Returns a metadata object for class sap.ui.core.Element.
@@ -11417,12 +11372,6 @@ declare namespace sap {
         getMetadata(): sap.ui.base.Metadata;
 
         /**
-         * Returns the metadata for the Component class.
-         * @returns Metadata for the Component class.
-        */
-        getMetadata(): sap.ui.base.Metadata;
-
-        /**
          * Returns the Component instance in whose "context" the given ManagedObject has been createdor
          * <code>undefined</code>.This is a convenience wrapper around {@link
          * sap.ui.core.Component.getOwnerIdFor Component.getOwnerIdFor}.If the owner ID cannot be determined
@@ -11544,7 +11493,7 @@ declare namespace sap {
        * The ScrollBar control can be used for virtual scrolling of a certain area.This means: to simulate a
        * very large scrollable area when technically the area is small and the control takes care of
        * displaying the respective part only. E.g. a Table control can take care of only rendering the
-       * currently visible rows and use this ScrollBar control to make the user think he actually scrolls
+       * currently visible rows and use this ScrollBar control to make the user think they actually scroll
        * through a long list.
        * @resource sap/ui/core/ScrollBar.js
       */

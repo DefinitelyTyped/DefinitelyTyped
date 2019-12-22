@@ -1889,6 +1889,13 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
+        omit<T extends object, K extends PropertyName[]>(
+            object: T | null | undefined,
+            ...paths: K
+        ): Pick<T, Exclude<keyof T, K[number]>>;
+        /**
+         * @see _.omit
+         */
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         /**
          * @see _.omit

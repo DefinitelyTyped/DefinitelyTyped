@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    redact: { paths: [], censor: 'SECRET' },
+});
+
+pino({
+    redact: { paths: [], censor: () => 'SECRET' },
+});
+
+pino({
     browser: {
         write(o) {
         }

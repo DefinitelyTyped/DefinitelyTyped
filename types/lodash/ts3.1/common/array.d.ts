@@ -1115,19 +1115,19 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T>(array: List<T>, predicate?: ListIterator<T, NotVoid>): T[];
+        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
     }
     interface Collection<T> {
         /**
          * @see _.remove
          */
-        remove(predicate?: ListIterator<T, NotVoid>): Collection<T>;
+        remove(predicate?: ListIteratee<T>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.remove
          */
-        remove(predicate?: ListIterator<T, NotVoid>): CollectionChain<T>;
+        remove(predicate?: ListIteratee<T>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**

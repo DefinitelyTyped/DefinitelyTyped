@@ -35,11 +35,18 @@ interface AttributeMeta<Model extends DS.Model> {
     parentType: Model;
     isAttribute: true;
 }
+
+interface RelationshipMetaOptions {
+    async?: boolean;
+    inverse?: string;
+    polymorphic?: boolean;
+    [k: string]: any;
+}
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
-    options: object;
+    options: RelationshipMetaOptions;
     name: string;
     parentType: Model;
     isRelationship: true;

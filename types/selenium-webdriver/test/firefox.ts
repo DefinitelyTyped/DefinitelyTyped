@@ -8,6 +8,8 @@ function TestFirefoxDriver() {
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox());
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new http.Executor(new http.HttpClient('http://someurl')));
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}));
+    let promise1: Promise<string> = driver.installAddon('addon1', true);
+    let promise2: Promise<void> = driver.uninstallAddon('addon1');
 
     let baseDriver: webdriver.WebDriver = driver;
 }
@@ -19,6 +21,10 @@ function TestFirefoxOptions() {
     options = options.setProfile('profile');
     options = options.setProxy({ proxyType: 'proxy' });
     options = options.headless();
+    options = options.addArguments('argument');
+    options = options.addExtensions('/dev/null');
+    options = options.setPreference('key', 'value');
+    options = options.windowSize({ width: 100, height: 50 });
 }
 
 function TestServiceBuilder() {

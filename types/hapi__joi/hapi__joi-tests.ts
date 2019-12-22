@@ -110,6 +110,7 @@ uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
 uriOpts = { scheme: strArr };
 uriOpts = { scheme: expArr };
+uriOpts = { domain: domainOpts };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -961,13 +962,22 @@ schema = Joi.compile(schemaMap);
 
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
+Joi.assert(obj, schema, str, validOpts);
 Joi.assert(obj, schema, err);
+Joi.assert(obj, schema, err, validOpts);
+Joi.assert(obj, schema, validOpts);
 Joi.assert(obj, schemaLike);
 
-Joi.attempt(obj, schema);
-Joi.attempt(obj, schema, str);
-Joi.attempt(obj, schema, err);
-Joi.attempt(obj, schemaLike);
+{
+    let value = { username: 'example', password: 'example' };
+    value = Joi.attempt(obj, schema);
+    value = Joi.attempt(obj, schema, str);
+    value = Joi.attempt(obj, schema, str, validOpts);
+    value = Joi.attempt(obj, schema, err);
+    value = Joi.attempt(obj, schema, err, validOpts);
+    value = Joi.attempt(obj, schema, validOpts);
+    value = Joi.attempt(obj, schemaLike);
+}
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
@@ -1089,4 +1099,43 @@ schema = Joi.symbol();
 schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test generic types
+
+interface User {
+    name: string;
+    family?: string;
+    age: number;
+}
+
+const userSchemaObject = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+let userSchema = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+userSchema = userSchema.append({
+    age: Joi.number(),
+});
+
+userSchema = userSchema.append({
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaError = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaObjectError = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
 });

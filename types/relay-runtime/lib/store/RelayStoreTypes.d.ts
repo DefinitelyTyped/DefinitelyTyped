@@ -1,6 +1,6 @@
 import { ReaderFragment } from '../util/ReaderNode';
 import { Variables, Disposable, DataID, CacheConfig } from '../util/RelayRuntimeTypes';
-import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
+import { ConcreteRequest } from '../util/RelayConcreteNode';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationSelectableNode,
@@ -120,7 +120,6 @@ export interface Props {
  */
 export interface RelayContext {
     environment: Environment;
-    variables: Variables;
 }
 
 /**
@@ -300,21 +299,51 @@ export type Scheduler = (callback: () => void) => void;
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
-export interface RecordProxy {
+export type Unarray<T> = T extends Array<infer U> ? U : T;
+export type Primitive = string | number | boolean | null | undefined;
+
+export interface RecordProxy<T = {}> {
     copyFieldsFrom(source: RecordProxy): void;
     getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
-    getLinkedRecords(name: string, args?: Variables | null): Array<RecordProxy | null | undefined> | null | undefined;
-    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy;
-    getType(): string;
-    getValue(name: string, args?: Variables | null): unknown;
-    setLinkedRecord(record: RecordProxy, name: string, args?: Variables | null): RecordProxy;
-    setLinkedRecords(
-        records: Array<RecordProxy | null | undefined>,
+    // If a parent type is provided, provide the child type
+    getLinkedRecord<K extends keyof T>(name: K, args?: Variables | null): RecordProxy<NonNullable<T[K]>>;
+    // If a hint is provided, the return value is guaranteed to be the hint type
+    getLinkedRecord<H = never>(name: string, args?: Variables | null): [H] extends [never] ? RecordProxy | null : RecordProxy<H>;
+    getLinkedRecords<K extends keyof T>(
+        name: K,
+        args?: Variables | null,
+    ): Array<RecordProxy<Unarray<NonNullable<T[K]>>>>;
+    getLinkedRecords<H = never>(
         name: string,
         args?: Variables | null,
-    ): RecordProxy;
-    setValue(value: unknown, name: string, args?: Variables | null): RecordProxy;
+    ): [H] extends [never] ? RecordProxy[] | null :
+        NonNullable<H> extends Array<infer U> ?
+            Array<RecordProxy<U>> | (H extends null ? null : never) :
+            never;
+    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
+    getType(): string;
+    getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
+    getValue(name: string, args?: Variables | null): Primitive | Primitive[];
+    setLinkedRecord<K extends keyof T>(
+        record: RecordProxy<T[K]> | null,
+        name: K,
+        args?: Variables | null): RecordProxy<T>;
+    setLinkedRecord(
+        record: RecordProxy | null,
+        name: string,
+        args?: Variables | null): RecordProxy;
+    setLinkedRecords<K extends keyof T>(
+        records: Array<RecordProxy<Unarray<T[K]>> | null> | null | undefined,
+        name: K,
+        args?: Variables | null,
+    ): RecordProxy<T>;
+    setLinkedRecords(
+        records: Array<RecordProxy | null> | null | undefined,
+        name: string,
+        args?: Variables | null,
+    ): RecordProxy<T>;
+    setValue<K extends keyof T>(value: T[K], name: K, args?: Variables | null): RecordProxy<T>;
+    setValue(value: Primitive | Primitive[], name: string, args?: Variables | null): RecordProxy;
 }
 
 export interface ReadOnlyRecordProxy {
@@ -331,10 +360,12 @@ export interface ReadOnlyRecordProxy {
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
+
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null | undefined;
+    // tslint:disable-next-line
+    get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
 
@@ -347,9 +378,11 @@ export interface ReadOnlyRecordSourceProxy {
  * Extends the RecordSourceProxy interface with methods for accessing the root
  * fields of a Selector.
  */
-export interface RecordSourceSelectorProxy extends RecordSourceProxy {
-    getRootField(fieldName: string): RecordProxy | null | undefined;
-    getPluralRootField(fieldName: string): Array<RecordProxy | null | undefined> | null | undefined;
+
+export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
+    getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>>;
+    getRootField(fieldName: string): RecordProxy | null;
+    getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
@@ -639,11 +672,11 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type SelectorStoreUpdater = (
-    store: RecordSourceSelectorProxy,
+export type     SelectorStoreUpdater<T = object> = (
+    store: RecordSourceSelectorProxy<T>,
     // Actually SelectorData, but mixed is inconvenient to access deeply in
     // product code.
-    data: any,
+    data: T,
 ) => void;
 
 /**

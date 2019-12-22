@@ -1181,7 +1181,7 @@ declare namespace browser.cookies {
          * The first-party domain of the cookie. This attribute is required if First-Party Isolation is enabled.
          */
         firstPartyDomain?: string;
-    }): Promise<Cookie | undefined>;
+    }): Promise<Cookie>;
 
     /**
      * Deletes a cookie by name.
@@ -1214,7 +1214,7 @@ declare namespace browser.cookies {
         storeId: string;
         /** The first-party domain associated with the cookie that's been removed. */
         firstPartyDomain: string;
-    } | undefined>;
+    }>;
 
     /** Lists all existing cookie stores. */
     function getAllCookieStores(): Promise<CookieStore[]>;
@@ -1515,7 +1515,7 @@ declare namespace browser.downloads {
         }>;
         /** Post body. */
         body?: string;
-    }): Promise<number | undefined>;
+    }): Promise<number>;
 
     /**
      * Find DownloadItems. Set `query` to the empty object to get all DownloadItems. To get a specific DownloadItem,
@@ -1565,12 +1565,12 @@ declare namespace browser.downloads {
     function open(downloadId: number): Promise<void>;
 
     /** Show the downloaded file in its folder in a file manager. */
-    function show(downloadId: number): Promise<boolean | undefined>;
+    function show(downloadId: number): Promise<boolean>;
 
     function showDefaultFolder(): void;
 
     /** Erase matching DownloadItems from history */
-    function erase(query: DownloadQuery): Promise<number[] | undefined>;
+    function erase(query: DownloadQuery): Promise<number[]>;
 
     function removeFile(downloadId: number): Promise<void>;
 
@@ -1687,7 +1687,7 @@ declare namespace browser.events {
          * @param rules Rules to be registered. These do not replace previously registered rules.
          * @deprecated Unsupported on Firefox at this time.
          */
-        addRules?(eventName: string, webViewInstanceId: number, rules: Rule[]): Promise<Rule[] | undefined>;
+        addRules?(eventName: string, webViewInstanceId: number, rules: Rule[]): Promise<Rule[]>;
 
         /**
          * Returns currently registered rules.
@@ -2189,7 +2189,7 @@ declare namespace browser.identity {
         interactive?: boolean;
         account?: AccountInfo;
         scopes?: string[];
-    }): Promise<AccountInfo[] | undefined>;
+    }): Promise<AccountInfo[]>;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -2209,7 +2209,7 @@ declare namespace browser.identity {
     }): Promise<{
         email: string;
         id: string;
-    } | undefined>;
+    }>;
 
     /** Starts an auth flow at the specified URL. */
     function launchWebAuthFlow(details: {
@@ -2351,13 +2351,13 @@ declare namespace browser.management {
 
     /* management functions */
     /** Returns a list of information about installed extensions. */
-    function getAll(): Promise<ExtensionInfo[] | undefined>;
+    function getAll(): Promise<ExtensionInfo[]>;
 
     /**
      * Returns information about the installed extension that has the given ID.
      * @param id The ID from an item of `management.ExtensionInfo`.
      */
-    function get(id: _manifest.ExtensionID): Promise<ExtensionInfo | undefined>;
+    function get(id: _manifest.ExtensionID): Promise<ExtensionInfo>;
 
     /** Installs and enables a theme extension from the given url. */
     function install(options: {
@@ -2367,13 +2367,13 @@ declare namespace browser.management {
         hash?: string;
     }): Promise<{
         id: _manifest.ExtensionID;
-    } | undefined>;
+    }>;
 
     /**
      * Returns information about the calling extension. Note: This function can be used without requesting the
      * 'management' permission in the manifest.
      */
-    function getSelf(): Promise<ExtensionInfo | undefined>;
+    function getSelf(): Promise<ExtensionInfo>;
 
     /**
      * Uninstalls the calling extension. Note: This function can be used without requesting the 'management' permission
@@ -2553,7 +2553,7 @@ declare namespace browser.notifications {
      * Creates and displays a notification.
      * @param options Contents of the notification.
      */
-    function create(options: CreateNotificationOptions): Promise<string | undefined>;
+    function create(options: CreateNotificationOptions): Promise<string>;
     /**
      * Creates and displays a notification.
      * @param notificationId Identifier of the notification. If it is empty, this method generates an id. If it matches
@@ -2561,7 +2561,7 @@ declare namespace browser.notifications {
      *     operation.
      * @param options Contents of the notification.
      */
-    function create(notificationId: string, options: CreateNotificationOptions): Promise<string | undefined>;
+    function create(notificationId: string, options: CreateNotificationOptions): Promise<string>;
 
     /**
      * Updates an existing notification.
@@ -2569,13 +2569,13 @@ declare namespace browser.notifications {
      * @param options Contents of the notification to update to.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function update(notificationId: string, options: UpdateNotificationOptions): Promise<boolean | undefined>;
+    function update(notificationId: string, options: UpdateNotificationOptions): Promise<boolean>;
 
     /**
      * Clears an existing notification.
      * @param notificationId The id of the notification to be updated.
      */
-    function clear(notificationId: string): Promise<boolean | undefined>;
+    function clear(notificationId: string): Promise<boolean>;
 
     /** Retrieves all the notifications. */
     function getAll(): Promise<{ [key: string]: CreateNotificationOptions }>;
@@ -2659,7 +2659,7 @@ declare namespace browser.permissions {
     function request(permissions: Permissions): Promise<boolean>;
 
     /** Relinquish the given permissions. */
-    function remove(permissions: Permissions): Promise<void>;
+    function remove(permissions: Permissions): Promise<boolean>;
 
     /* permissions events */
     /**
@@ -5051,13 +5051,13 @@ declare namespace browser.bookmarks {
     /**
      * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
      */
-    function create(bookmark: CreateDetails): Promise<BookmarkTreeNode | undefined>;
+    function create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
 
     /** Moves the specified BookmarkTreeNode to the provided location. */
     function move(id: string, destination: {
         parentId?: string;
         index?: number;
-    }): Promise<BookmarkTreeNode | undefined>;
+    }): Promise<BookmarkTreeNode>;
 
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified
@@ -5066,7 +5066,7 @@ declare namespace browser.bookmarks {
     function update(id: string, changes: {
         title?: string;
         url?: string;
-    }): Promise<BookmarkTreeNode | undefined>;
+    }): Promise<BookmarkTreeNode>;
 
     /** Removes a bookmark or an empty bookmark folder. */
     function remove(id: string): Promise<void>;
@@ -5518,7 +5518,7 @@ declare namespace browser.commands {
     function reset(name: string): Promise<void>;
 
     /** Returns all the registered extension commands for this extension and their shortcut (if active). */
-    function getAll(): Promise<Command[] | undefined>;
+    function getAll(): Promise<Command[]>;
 
     /* commands events */
     /** Fired when a registered command is activated using a keyboard shortcut. */
@@ -5560,7 +5560,7 @@ declare namespace browser.devtools.inspectedWindow {
          *     be persisted; false if this is a minor change sent in progress of the user editing the resource.
          * @deprecated Unsupported on Firefox at this time.
          */
-        setContent?(content: string, commit: boolean): Promise<{ [key: string]: any } | undefined>;
+        setContent?(content: string, commit: boolean): Promise<{ [key: string]: any }>;
     }
 
     /* devtools.inspectedWindow properties */
@@ -5599,7 +5599,7 @@ declare namespace browser.devtools.inspectedWindow {
          * @deprecated Unsupported on Firefox at this time.
          */
         contextSecurityOrigin?: string;
-    }): Promise<object | undefined>;
+    }): Promise<object>;
 
     /** Reloads the inspected page. */
     function reload(reloadOptions?: {
@@ -5702,9 +5702,8 @@ declare namespace browser.devtools.panels {
         /**
          * Creates a pane within panel's sidebar.
          * @param title Text that is displayed in sidebar caption.
-         * @param [callback] A callback invoked when the sidebar is created.
          */
-        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+        createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
 
         /** Fired when an object is selected in the panel. */
         onSelectionChanged: WebExtEvent<() => void>;
@@ -5717,7 +5716,7 @@ declare namespace browser.devtools.panels {
          * @param title Text that is displayed in sidebar caption.
          * @deprecated Unsupported on Firefox at this time.
          */
-        createSidebarPane?(title: string): Promise<ExtensionSidebarPane | undefined>;
+        createSidebarPane?(title: string): Promise<ExtensionSidebarPane>;
 
         /**
          * Fired when an object is selected in the panel.
@@ -5837,14 +5836,14 @@ declare namespace browser.devtools.panels {
      *     default extension icon as the panel icon.
      * @param pagePath Path of the panel's HTML page relative to the extension directory.
      */
-    function create(title: string, iconPath: _manifest.ExtensionURL | _Create, pagePath: _manifest.ExtensionURL): Promise<ExtensionPanel | undefined>;
+    function create(title: string, iconPath: _manifest.ExtensionURL | _Create, pagePath: _manifest.ExtensionURL): Promise<ExtensionPanel>;
 
     /**
      * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset
      * the handler, either call the method with no parameters or pass null as the parameter.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function setOpenResourceHandler(): Promise<devtools.inspectedWindow.Resource | undefined>;
+    function setOpenResourceHandler(): Promise<devtools.inspectedWindow.Resource>;
 
     /**
      * Requests DevTools to open a URL in a Developer Tools panel.
@@ -7018,9 +7017,7 @@ declare namespace browser.sessions {
     function forgetClosedWindow(sessionId: string): Promise<void>;
 
     /** Gets the list of recently closed tabs and/or windows. */
-    function getRecentlyClosed(callback: (sessions: Session[]) => void): Promise<Session[]>;
-    /** Gets the list of recently closed tabs and/or windows. */
-    function getRecentlyClosed(filter: Filter, callback: (sessions: Session[]) => void): Promise<Session[]>;
+    function getRecentlyClosed(filter?: Filter): Promise<Session[]>;
 
     /**
      * Retrieves all devices with synced sessions.
@@ -7033,7 +7030,7 @@ declare namespace browser.sessions {
      * @param [sessionId] The `windows.Window.sessionId`, or `tabs.Tab.sessionId` to restore. If this parameter is not
      *     specified, the most recently closed session is restored.
      */
-    function restore(sessionId?: string, callback?: (restoredSession: Session) => void): Promise<Session>;
+    function restore(sessionId?: string): Promise<Session>;
 
     /**
      * Set a key/value pair on a given tab.
@@ -7599,13 +7596,13 @@ declare namespace browser.tabs {
         discarded?: boolean;
         /** The title used for display if the tab is created in discarded mode. */
         title?: string;
-    }): Promise<Tab | undefined>;
+    }): Promise<Tab>;
 
     /**
      * Duplicates a tab.
      * @param tabId The ID of the tab which is to be duplicated.
      */
-    function duplicate(tabId: number): Promise<Tab | undefined>;
+    function duplicate(tabId: number): Promise<Tab>;
 
     /** Gets all tabs that have the specified properties, or all tabs if no properties are specified. */
     function query(queryInfo: {
@@ -7668,7 +7665,7 @@ declare namespace browser.tabs {
         populate?: boolean;
         /** One or more tab indices to highlight. */
         tabs: number[] | number;
-    }): Promise<windows.Window | undefined>;
+    }): Promise<windows.Window>;
 
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
@@ -7701,7 +7698,7 @@ declare namespace browser.tabs {
          * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
          */
         successorTabId?: number;
-    }): Promise<Tab | undefined>;
+    }): Promise<Tab>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
      * @param tabId Defaults to the selected tab of the current window.
@@ -7734,7 +7731,7 @@ declare namespace browser.tabs {
          * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
          */
         successorTabId?: number;
-    }): Promise<Tab | undefined>;
+    }): Promise<Tab>;
 
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved
@@ -7746,7 +7743,7 @@ declare namespace browser.tabs {
         windowId?: number;
         /** The position to move the window to. -1 will place the tab at the end of the window. */
         index: number;
-    }): Promise<Tab | Tab[] | undefined>;
+    }): Promise<Tab | Tab[]>;
 
     /**
      * Reload a tab.
@@ -7799,14 +7796,14 @@ declare namespace browser.tabs {
      * doc.
      * @param details Details of the script to run.
      */
-    function executeScript(details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
+    function executeScript(details: extensionTypes.InjectDetails): Promise<any[]>;
     /**
      * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts
      * doc.
      * @param tabId The ID of the tab in which to run the script; defaults to the active tab of the current window.
      * @param details Details of the script to run.
      */
-    function executeScript(tabId: number, details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
+    function executeScript(tabId: number, details: extensionTypes.InjectDetails): Promise<any[]>;
 
     /**
      * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
@@ -7887,7 +7884,7 @@ declare namespace browser.tabs {
      * Saves page in active tab as a PDF file.
      * @param pageSettings The page settings used to save the PDF file.
      */
-    function saveAsPDF(pageSettings: PageSettings): Promise<string | undefined>;
+    function saveAsPDF(pageSettings: PageSettings): Promise<string>;
 
     /**
      * Shows one or more tabs.
@@ -8446,7 +8443,7 @@ declare namespace browser.windows {
         cookieStoreId?: string;
         /** A string to add to the beginning of the window title. */
         titlePreface?: string;
-    }): Promise<Window | undefined>;
+    }): Promise<Window>;
 
     /**
      * Updates the properties of a window. Specify only the properties that you want to change; unspecified properties
@@ -8484,7 +8481,7 @@ declare namespace browser.windows {
         state?: WindowState;
         /** A string to add to the beginning of the window title. */
         titlePreface?: string;
-    }): Promise<Window | undefined>;
+    }): Promise<Window>;
 
     /** Removes (closes) a window, and all the tabs inside it. */
     function remove(windowId: number): Promise<void>;

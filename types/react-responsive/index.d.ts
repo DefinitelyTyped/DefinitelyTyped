@@ -80,6 +80,7 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     style?: React.CSSProperties;
     className?: string;
     children?: React.ReactNode | ((matches: boolean) => React.ReactNode);
+    device?: MediaQueryMatchers;
     values?: Partial<MediaQueryMatchers>;
     onBeforeChange?: (matches: boolean) => void;
     onChange?: (matches: boolean) => void;
@@ -92,7 +93,7 @@ export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
 
 export function useMediaQuery(
     settings: Partial<MediaQueryAllQueryable & { query?: string }>,
-    device?: MediaQueryTypes,
+    device?: MediaQueryMatchers,
     callback?: (matches: boolean) => void
 ): boolean;
 

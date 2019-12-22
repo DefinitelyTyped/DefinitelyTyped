@@ -1,4 +1,4 @@
-// Type definitions for Marked 0.6
+// Type definitions for Marked 0.7
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -30,6 +30,8 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
 declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
 
 declare namespace marked {
+    const defaults: MarkedOptions;
+
     /**
      * @param src String of markdown source to be compiled
      * @param options Hash of options
@@ -75,10 +77,26 @@ declare namespace marked {
      *
      * @param options Hash of options
      */
+    function options(options: MarkedOptions): typeof marked;
+
+    /**
+     * Sets the default options.
+     *
+     * @param options Hash of options
+     */
     function setOptions(options: MarkedOptions): typeof marked;
+
+    /**
+     * Gets the original marked default options.
+     */
+    function getDefaults(): MarkedOptions;
 
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);
+        options: MarkedOptions;
+        links: string[];
+        rules: Rules;
+        renderer: Renderer;
         static rules: Rules;
         static output(src: string, links: string[], options?: MarkedOptions): string;
         output(src: string): string;
@@ -90,13 +108,15 @@ declare namespace marked {
 
     class Renderer {
         constructor(options?: MarkedOptions);
-        code(code: string, language: string, isEscaped: boolean): string;
+        options: MarkedOptions;
+        code(code: string, language: string | undefined, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
-        heading(text: string, level: number, raw: string, slugger: Slugger): string;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
+        checkbox(checked: boolean): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
         tablerow(content: string): string;
@@ -127,16 +147,24 @@ declare namespace marked {
 
     class Parser {
         constructor(options?: MarkedOptions);
+        tokens: TokensList;
+        token: Token|null;
+        options: MarkedOptions;
+        renderer: Renderer;
+        slugger: Slugger;
         static parse(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
         next(): Token;
-        peek(): Token | number;
+        peek(): Token | 0;
         parseText(): string;
         tok(): string;
     }
 
     class Lexer {
         constructor(options?: MarkedOptions);
+        tokens: TokensList;
+        options: MarkedOptions;
+        rules: Rules;
         static rules: Rules;
         static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
@@ -144,6 +172,7 @@ declare namespace marked {
     }
 
     class Slugger {
+        seen: {[slugValue: string]: number};
         slug(value: string): string;
     }
 
@@ -181,6 +210,7 @@ declare namespace marked {
 
         interface Code {
             type: 'code';
+            codeBlockStyle?: 'indented';
             lang?: string;
             text: string;
         }
@@ -326,11 +356,6 @@ declare namespace marked {
          * Use "smart" typograhic punctuation for things like quotes and dashes.
          */
         smartypants?: boolean;
-
-        /**
-         * Enable GFM tables. This option requires the gfm option to be true.
-         */
-        tables?: boolean;
 
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)

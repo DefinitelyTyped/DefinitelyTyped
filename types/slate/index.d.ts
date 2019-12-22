@@ -12,17 +12,20 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
+//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                 Kamil Kamiński <https://github.com/0ctothorp>
+//                 Jay Chen <https://github.com/Jay0328>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
-export class Data extends Immutable.Record({}) {
-    [key: string]: any;
+export interface Data extends Immutable.Map<any, any> {}
 
-    static create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
-    static fromJSON(object: { [key: string]: any }): Data;
-    static fromJS(object: { [key: string]: any }): Data;
+export namespace Data {
+    function create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
+    function fromJSON(object: { [key: string]: any }): Data;
+    function fromJS(object: { [key: string]: any }): Data;
 }
 
 export interface RulesByNodeType {
@@ -490,7 +493,7 @@ declare class BaseNode extends Immutable.Record({}) {
     createSelection(properties: SelectionProperties | SelectionJSON | Selection | Range): Selection;
     descendants(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     filterDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Immutable.List<Node>;
-    findDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
+    findDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     forEachDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): void;
     getActiveMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
@@ -1825,6 +1828,8 @@ export class Editor implements Controller {
     save(operation: Operation): void;
     snapshotSelection(): Editor;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Editor;
+    hasCommand(type: string): boolean;
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
@@ -3033,6 +3038,14 @@ export interface Controller {
      */
     snapshotSelection(): Controller;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Controller;
+    /**
+     * Check if a command by type has been registered.
+     */
+    hasCommand(type: string): boolean;
+    /**
+     * Check if a query by type has been registered.
+     */
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     /**
      * Add a new command by type to the controller. This will make the command available as a top-level method on the controller

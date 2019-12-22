@@ -1,4 +1,4 @@
-// Tests by: Bart van der Schoor <https://github.com/Bartvds>
+// Tests by: Bart van der Schoor <https://github.com/Bartvds>, thislooksfun <https://github.com/thislooksfun>
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
@@ -106,6 +106,7 @@ let anyArrProm: Bluebird<any[]>;
 
 let fooArrProm: Bluebird<Foo[]> = Bluebird.resolve(fooArr);
 let barArrProm: Bluebird<Bar[]>;
+let fooOrNullArrProm: Bluebird<Array<Foo | null>> = Bluebird.resolve(fooArr);
 
 // - - - - - - - - - - - - - - - - -
 
@@ -609,7 +610,11 @@ barProm = fooArrProm.spread((one: Foo, two: Foo, twotwo: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// $ExpectType Bluebird<Foo[]>
 fooArrProm = fooArrProm.all();
+
+// $ExpectType Bluebird<(Foo | null)[]>
+fooOrNullArrProm = fooOrNullArrProm.all();
 
 // $ExpectType Bluebird<never>
 fooProm.all();
@@ -619,7 +624,11 @@ fooProm = fooArrProm.any();
 // $ExpectType Bluebird<never>
 fooProm.any();
 
+// $ExpectType Bluebird<Foo[]>
 fooArrProm = fooArrProm.some(num);
+
+// $ExpectType Bluebird<(Foo | null)[]>
+fooOrNullArrProm = fooOrNullArrProm.some(num);
 
 // $ExpectType Bluebird<never>
 fooProm.some(num);

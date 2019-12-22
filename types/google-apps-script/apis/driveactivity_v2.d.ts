@@ -1,26 +1,25 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace DriveActivity {
     namespace Collection {
-      export interface ActivityCollection {
+      interface ActivityCollection {
         // Query past activity in Google Drive.
         query(resource: Schema.QueryDriveActivityRequest): DriveActivity.Schema.QueryDriveActivityResponse;
       }
     }
     namespace Schema {
-      export interface Action {
+      interface Action {
         actor?: DriveActivity.Schema.Actor;
         detail?: DriveActivity.Schema.ActionDetail;
         target?: DriveActivity.Schema.Target;
         timeRange?: DriveActivity.Schema.TimeRange;
         timestamp?: string;
       }
-      export interface ActionDetail {
+      interface ActionDetail {
         comment?: DriveActivity.Schema.Comment;
         create?: DriveActivity.Schema.Create;
         delete?: DriveActivity.Schema.Delete;
@@ -33,48 +32,48 @@ declare namespace GoogleAppsScript {
         restore?: DriveActivity.Schema.Restore;
         settingsChange?: DriveActivity.Schema.SettingsChange;
       }
-      export interface Actor {
+      interface Actor {
         administrator?: string;
         anonymous?: string;
         impersonation?: DriveActivity.Schema.Impersonation;
         system?: DriveActivity.Schema.SystemEvent;
         user?: DriveActivity.Schema.User;
       }
-      export interface ApplicationReference {
+      interface ApplicationReference {
         type?: string;
       }
-      export interface Assignment {
+      interface Assignment {
         subtype?: string;
       }
-      export interface Comment {
+      interface Comment {
         assignment?: DriveActivity.Schema.Assignment;
         mentionedUsers?: DriveActivity.Schema.User[];
         post?: DriveActivity.Schema.Post;
         suggestion?: DriveActivity.Schema.Suggestion;
       }
-      export interface ConsolidationStrategy {
+      interface ConsolidationStrategy {
         legacy?: any;
         none?: any;
       }
-      export interface Copy {
+      interface Copy {
         originalObject?: DriveActivity.Schema.TargetReference;
       }
-      export interface Create {
+      interface Create {
         copy?: DriveActivity.Schema.Copy;
         new?: any;
         upload?: any;
       }
-      export interface DataLeakPreventionChange {
+      interface DataLeakPreventionChange {
         type?: string;
       }
-      export interface Delete {
+      interface Delete {
         type?: string;
       }
-      export interface Domain {
+      interface Domain {
         legacyId?: string;
         name?: string;
       }
-      export interface DriveActivity {
+      interface DriveActivity {
         actions?: DriveActivity.Schema.Action[];
         actors?: DriveActivity.Schema.Actor[];
         primaryActionDetail?: DriveActivity.Schema.ActionDetail;
@@ -82,7 +81,7 @@ declare namespace GoogleAppsScript {
         timeRange?: DriveActivity.Schema.TimeRange;
         timestamp?: string;
       }
-      export interface DriveItem {
+      interface DriveItem {
         file?: any;
         folder?: DriveActivity.Schema.Folder;
         mimeType?: string;
@@ -90,42 +89,42 @@ declare namespace GoogleAppsScript {
         owner?: DriveActivity.Schema.Owner;
         title?: string;
       }
-      export interface DriveItemReference {
+      interface DriveItemReference {
         file?: any;
         folder?: DriveActivity.Schema.Folder;
         name?: string;
         title?: string;
       }
-      export interface FileComment {
+      interface FileComment {
         legacyCommentId?: string;
         legacyDiscussionId?: string;
         linkToDiscussion?: string;
         parent?: DriveActivity.Schema.DriveItem;
       }
-      export interface Folder {
+      interface Folder {
         type?: string;
       }
-      export interface Group {
+      interface Group {
         email?: string;
         title?: string;
       }
-      export interface Impersonation {
+      interface Impersonation {
         impersonatedUser?: DriveActivity.Schema.User;
       }
-      export interface KnownUser {
+      interface KnownUser {
         isCurrentUser?: boolean;
         personName?: string;
       }
-      export interface Move {
+      interface Move {
         addedParents?: DriveActivity.Schema.TargetReference[];
         removedParents?: DriveActivity.Schema.TargetReference[];
       }
-      export interface Owner {
+      interface Owner {
         domain?: DriveActivity.Schema.Domain;
         teamDrive?: DriveActivity.Schema.TeamDriveReference;
         user?: DriveActivity.Schema.User;
       }
-      export interface Permission {
+      interface Permission {
         allowDiscovery?: boolean;
         anyone?: any;
         domain?: DriveActivity.Schema.Domain;
@@ -133,14 +132,14 @@ declare namespace GoogleAppsScript {
         role?: string;
         user?: DriveActivity.Schema.User;
       }
-      export interface PermissionChange {
+      interface PermissionChange {
         addedPermissions?: DriveActivity.Schema.Permission[];
         removedPermissions?: DriveActivity.Schema.Permission[];
       }
-      export interface Post {
+      interface Post {
         subtype?: string;
       }
-      export interface QueryDriveActivityRequest {
+      interface QueryDriveActivityRequest {
         ancestorName?: string;
         consolidationStrategy?: DriveActivity.Schema.ConsolidationStrategy;
         filter?: string;
@@ -148,60 +147,60 @@ declare namespace GoogleAppsScript {
         pageSize?: number;
         pageToken?: string;
       }
-      export interface QueryDriveActivityResponse {
+      interface QueryDriveActivityResponse {
         activities?: DriveActivity.Schema.DriveActivity[];
         nextPageToken?: string;
       }
-      export interface Rename {
+      interface Rename {
         newTitle?: string;
         oldTitle?: string;
       }
-      export interface Restore {
+      interface Restore {
         type?: string;
       }
-      export interface RestrictionChange {
+      interface RestrictionChange {
         feature?: string;
         newRestriction?: string;
       }
-      export interface SettingsChange {
+      interface SettingsChange {
         restrictionChanges?: DriveActivity.Schema.RestrictionChange[];
       }
-      export interface Suggestion {
+      interface Suggestion {
         subtype?: string;
       }
-      export interface SystemEvent {
+      interface SystemEvent {
         type?: string;
       }
-      export interface Target {
+      interface Target {
         driveItem?: DriveActivity.Schema.DriveItem;
         fileComment?: any;
         teamDrive?: DriveActivity.Schema.TeamDrive;
       }
-      export interface TargetReference {
+      interface TargetReference {
         driveItem?: DriveActivity.Schema.DriveItemReference;
         teamDrive?: DriveActivity.Schema.TeamDriveReference;
       }
-      export interface TeamDrive {
+      interface TeamDrive {
         name?: string;
         root?: DriveActivity.Schema.DriveItem;
         title?: string;
       }
-      export interface TeamDriveReference {
+      interface TeamDriveReference {
         name?: string;
         title?: string;
       }
-      export interface TimeRange {
+      interface TimeRange {
         endTime?: string;
         startTime?: string;
       }
-      export interface User {
+      interface User {
         deletedUser?: any;
         knownUser?: DriveActivity.Schema.KnownUser;
         unknownUser?: any;
       }
     }
   }
-  export interface DriveActivity {
+  interface DriveActivity {
     Activity?: DriveActivity.Collection.ActivityCollection;
     // Create a new instance of ConsolidationStrategy
     newConsolidationStrategy(): DriveActivity.Schema.ConsolidationStrategy;

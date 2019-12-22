@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7
+// Type definitions for Mongoose 5.5.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -32,6 +32,8 @@
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 //                 LKHO <https://github.com/lkho>
+//                 Tom Yam <https://github.com/tomyam1>
+//                 Thomas Pischulski <https://github.com/nephix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -98,7 +100,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: ConnectionStates;
+  export var STATES: typeof ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** An array containing all connections associated with this Mongoose instance. */
@@ -288,7 +290,7 @@ declare module "mongoose" {
     modelNames(): string[];
 
     /** A hash of the global options that are associated with this connection */
-    config: any;
+      config: Pick<ConnectionOptions, 'autoIndex' | 'autoCreate' | 'useCreateIndex' | 'useFindAndModify' | 'bufferCommands'>;
 
     /** The mongodb.Db instance, set when the connection is opened */
     db: mongodb.Db;
@@ -310,7 +312,7 @@ declare module "mongoose" {
     readyState: number;
 
     /** mapping of ready states */
-    states: ConnectionStates;
+    states: typeof ConnectionStates;
   }
 
   /**
@@ -412,7 +414,7 @@ declare module "mongoose" {
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
     /** Expose the possible connection states. */
-    static STATES: ConnectionStates;
+    static STATES: typeof ConnectionStates;
   }
 
   export enum ConnectionStates {
@@ -620,7 +622,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  interface QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends Document> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -634,7 +636,7 @@ declare module "mongoose" {
      * @event data Emitted when the stream is flowing and the next doc is ready
      * @event end Emitted when the stream is exhausted
      */
-    constructor(query: Query<T>, options: any): QueryCursor<T>;
+    constructor(query: Query<T>, options: any);
 
     /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
     close(callback?: (error: any, result: any) => void): Promise<any>;
@@ -777,6 +779,21 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      error: mongodb.MongoError, docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => Promise<any>
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
@@ -817,7 +834,7 @@ declare module "mongoose" {
       errorCb?: HookErrorCallback
     ): this;
     pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
-      method: string,
+      method: string | RegExp,
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
@@ -1107,7 +1124,8 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
     SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
     SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
-    SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts |
+    SchemaTypeOpts.AsyncPromiseValidationFn<T> | [SchemaTypeOpts.AsyncPromiseValidationFn<T>, string] |
+    SchemaTypeOpts.AsyncPromiseValidationOpts |
     (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
       SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts)[];
 
@@ -1182,6 +1200,7 @@ declare module "mongoose" {
 
     interface ValidateOptsBase {
       msg?: string;
+      message?: string;
       type?: string;
     }
 
@@ -1258,8 +1277,14 @@ declare module "mongoose" {
     /**
      * Returns the value of a path.
      * @param type optionally specify a type for on-the-fly attributes
+     * @param options
+     * @param options.virtuals apply virtuals before getting this path
+     * @param options.getters if false, skip applying getters and just get the raw value
      */
-    get(path: string, type?: any): any;
+    get(path: string, type?: any, options?: {
+      virtuals?: boolean;
+      getters?: boolean;
+    }): any;
 
     /**
      * Initializes the document without setters or marking anything modified.
@@ -1396,7 +1421,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns ValidationError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error.ValidationError;
+    validateSync(pathsToValidate?: string | string[]): Error.ValidationError | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -1406,6 +1431,8 @@ declare module "mongoose" {
     isNew: boolean;
     /** The documents schema. */
     schema: Schema;
+    /** Empty object that you can use for storing properties on the document */
+    $locals: { [k: string]: any };
   }
 
   interface MongooseDocumentOptionals {
@@ -1705,585 +1732,538 @@ declare module "mongoose" {
    */
   class Query<T> extends DocumentQuery<T, any> { }
   class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
-      /**
-       * Specifies a javascript function or expression to pass to MongoDBs query system.
-       * Only use $where when you have a condition that cannot be met using other MongoDB
-       * operators like $lt. Be sure to read about all of its caveats before using.
-       * @param js javascript string or function
-       */
-      $where(js: string | Function): this;
-
-      /**
-       * Specifies an $all query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      all(val: number): this;
-      all(path: string, val: number): this;
-
-      /**
-       * Specifies arguments for a $and condition.
-       * @param array array of conditions
-       */
-      and(array: any[]): this;
-
-      /** Specifies the batchSize option. Cannot be used with distinct() */
-      batchSize(val: number): this;
-
-      /** Get the current error flag value */
-      error(): Error | null;
-      /** Unset the error flag set on this query */
-      error(unset: null): this;
-      /**
-       * Set the error flag on this query
-       * @param err The error flag
-       */
-      error(err: Error): this;
-
-      /**
-       * Specifies a $box condition
-       * @param Upper Right Coords
-       */
-      box(val: any): this;
-      box(lower: number[], upper: number[]): this;
-
-      /** Casts this query to the schema of model, If obj is present, it is cast instead of this query.*/
-      cast(model: any, obj?: any): any;
-
-      /**
-       * Executes the query returning a Promise which will be
-       * resolved with either the doc(s) or rejected with the error.
-       * Like .then(), but only takes a rejection handler.
-       */
-      catch<TRes>(reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
-
-      /**
-       * DEPRECATED Alias for circle
-       * Specifies a $center or $centerSphere condition.
-       * @deprecated Use circle instead.
-       */
-      center(area: any): this;
-      center(path: string, area: any): this;
-      /**
-       * DEPRECATED Specifies a $centerSphere condition
-       * @deprecated Use circle instead.
-       */
-      centerSphere(path: string, val: any): this;
-      centerSphere(val: any): this;
-
-      /** Specifies a $center or $centerSphere condition. */
-      circle(area: any): this;
-      circle(path: string, area: any): this;
-
-      /** Adds a collation to this op (MongoDB 3.4 and up) */
-      collation(value: CollationOptions): this;
-
-      /** Specifies the comment option. Cannot be used with distinct() */
-      comment(val: string): this;
-
-      /**
-       * Specifying this query as a count query. Passing a callback executes the query.
-       * @param criteria mongodb selector
-       */
-      count(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-      count(criteria: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-
-      /**
-       * Specifies this query as a `countDocuments()` query. Behaves like `count()`,
-       * except it always does a full collection scan when passed an empty filter `{}`.
-       *
-       * There are also minor differences in how `countDocuments()` handles
-       * [`$where` and a couple geospatial operators](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#countDocuments).
-       * versus `count()`.
-       *
-       * Passing a `callback` executes the query.
-       *
-       * This function triggers the following middleware.
-       *
-       * - `countDocuments()`
-       *
-       *
-       * @param {Object} [criteria] mongodb selector
-       * @param {Function} [callback] optional params are (error, count)
-       * @return {Query} this
-       */
-      countDocuments(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-      countDocuments(criteria: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-
-      /**
-       * Estimates the number of documents in the MongoDB collection. Faster than
-       * using `countDocuments()` for large collections because
-       * `estimatedDocumentCount()` uses collection metadata rather than scanning
-       * the entire collection.
-       *
-       * @param {Object} [options] passed transparently to the [MongoDB driver](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#estimatedDocumentCount)
-       * @param {Function} [callback] optional params are (error, count)
-       * @return {Query} this
-       */
-      estimatedDocumentCount(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-      estimatedDocumentCount(options: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
-
-      /**
-       * Returns a wrapper around a mongodb driver cursor. A Query<T>Cursor exposes a
-       * Streams3-compatible interface, as well as a .next() function.
-       */
-      cursor(options?: any): QueryCursor<DocType>;
-
-      /** Declares or executes a distict() operation. Passing a callback executes the query. */
-      distinct(callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
-      distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
-      distinct(
-          field: string,
-          criteria: any | Query<any>,
-          callback?: (err: any, res: any[]) => void,
-      ): Query<any[]> & QueryHelpers;
-
-      /** Specifies an $elemMatch condition */
-      elemMatch(criteria: (elem: Query<any>) => void): this;
-      elemMatch(criteria: any): this;
-      elemMatch(path: string | any | Function, criteria: (elem: Query<any>) => void): this;
-      elemMatch(path: string | any | Function, criteria: any): this;
-
-      /** Specifies the complementary comparison value for paths specified with where() */
-      equals<T>(val: T): this;
-
-      /** Executes the query */
-      exec(callback?: (err: NativeError, res: T) => void): Promise<T>;
-      exec(operation: string | Function, callback?: (err: any, res: T) => void): Promise<T>;
-
-      /** Specifies an $exists condition */
-      exists(val?: boolean): this;
-      exists(path: string, val?: boolean): this;
-
-      /**
-       * Finds documents. When no callback is passed, the query is not executed. When the
-       * query is executed, the result will be an array of documents.
-       * @param criteria mongodb selector
-       */
-      find(callback?: (err: any, res: DocType[]) => void): DocumentQuery<DocType[], DocType> & QueryHelpers;
-      find(
-          criteria: any,
-          callback?: (err: any, res: DocType[]) => void,
-      ): DocumentQuery<DocType[], DocType> & QueryHelpers;
-
-      /**
-       * Declares the query a findOne operation. When executed, the first found document is
-       * passed to the callback. Passing a callback executes the query. The result of the query
-       * is a single document.
-       * @param criteria mongodb selector
-       * @param projection optional fields to return
-       */
-      findOne(
-          callback?: (err: any, res: DocType | null) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOne(
-          criteria: any,
-          callback?: (err: any, res: DocType | null) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-
-      /**
-       * Issues a mongodb findAndModify remove command.
-       * Finds a matching document, removes it, passing the found document (if any) to the
-       * callback. Executes immediately if callback is passed.
-       *
-       * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
-       * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
-       */
-      findOneAndRemove(
-          callback?: (error: any, doc: DocType | null, result: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOneAndRemove(
-          conditions: any,
-          callback?: (error: any, doc: DocType | null, result: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOneAndRemove(
-          conditions: any,
-          options: { rawResult: true } & QueryFindOneAndRemoveOptions,
-          callback?: (error: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, result: any) => void,
-      ): Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
-      findOneAndRemove(
-          conditions: any,
-          options: QueryFindOneAndRemoveOptions,
-          callback?: (error: any, doc: DocType | null, result: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-
-      /**
-       * Issues a mongodb findAndModify update command.
-       * Finds a matching document, updates it according to the update arg, passing any options, and returns
-       * the found document (if any) to the callback. The query executes immediately if callback is passed.
-       *
-       * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
-       * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
-       */
-      findOneAndUpdate(
-          callback?: (err: any, doc: DocType | null) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOneAndUpdate(
-          update: any,
-          callback?: (err: any, doc: DocType | null, res: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOneAndUpdate(
-          query: any,
-          update: any,
-          callback?: (err: any, doc: DocType | null, res: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-      findOneAndUpdate(
-          query: any,
-          update: any,
-          options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
-          callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType>, res: any) => void,
-      ): Query<mongodb.FindAndModifyWriteOpResultObject<DocType>> & QueryHelpers;
-      findOneAndUpdate(
-          query: any,
-          update: any,
-          options: { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
-          callback?: (err: any, doc: DocType, res: any) => void,
-      ): DocumentQuery<DocType, DocType> & QueryHelpers;
-      findOneAndUpdate(
-          query: any,
-          update: any,
-          options: { rawResult: true } & QueryFindOneAndUpdateOptions,
-          callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void,
-      ): Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
-      findOneAndUpdate(
-          query: any,
-          update: any,
-          options: QueryFindOneAndUpdateOptions,
-          callback?: (err: any, doc: DocType | null, res: any) => void,
-      ): DocumentQuery<DocType | null, DocType> & QueryHelpers;
-
-      /**
-       * Specifies a $geometry condition. geometry() must come after either intersects() or within().
-       * @param object Must contain a type property which is a String and a coordinates property which
-       *   is an Array. See the examples.
-       */
-      geometry(object: { type: string; coordinates: any[] }): this;
-
-      /**
-       * Returns the current query options as a JSON object.
-       * @returns current query options
-       */
-      getOptions(): any;
-
-      /**
-       * Returns the current query conditions as a JSON object.
-       * @returns current query conditions
-       */
-      getQuery(): any;
-
-      /**
-       * Returns the current update operations as a JSON object.
-       * @returns current update operations
-       */
-      getUpdate(): any;
-
-      /**
-       * Specifies a $gt query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      gt<T>(val: T): this;
-      gt<T>(path: string, val: T): this;
-
-      /**
-       * Specifies a $gte query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      gte<T>(val: T): this;
-      gte<T>(path: string, val: T): this;
-
-      /**
-       * Sets query hints.
-       * @param val a hint object
-       */
-      hint(val: any): this;
-
-      /**
-       * Specifies an $in query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      in(val: any[]): this;
-      in(path: string, val: any[]): this;
-
-      /** Declares an intersects query for geometry(). MUST be used after where(). */
-      intersects(arg?: any): this;
-
-      /**
-       * Sets the lean option.
-       * Documents returned from queries with the lean option enabled are plain
-       * javascript objects, not MongooseDocuments. They have no save method,
-       * getters/setters or other Mongoose magic applied.
-       * @param {Boolean|Object} bool defaults to true
-       */
-      lean(bool?: boolean | object): Query<any> & QueryHelpers;
-
-      /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
-      limit(val: number): this;
-
-      /**
-       * Specifies a $lt query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      lt<T>(val: T): this;
-      lt<T>(path: string, val: T): this;
-
-      /**
-       * Specifies a $lte query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      lte<T>(val: T): this;
-      lte<T>(path: string, val: T): this;
-
-      /**
-       * Runs a function fn and treats the return value of fn as the new value for the query to resolve to.
-       * Any functions you pass to map() will run after any post hooks.
-       */
-      map<TRes>(fn: (res: T) => TRes): DocumentQuery<TRes, DocType, QueryHelpers> & QueryHelpers;
-
-      /**
-       * Specifies a $maxDistance query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      maxDistance(val: number): this;
-      maxDistance(path: string, val: number): this;
-
-      /** @deprecated Alias of maxScan */
-      maxscan(val: number): this;
-      /** Specifies the maxScan option. Cannot be used with distinct() */
-      maxScan(val: number): this;
-
-      /** Specifies the maxTimeMS options. */
-      maxTimeMS(val: number): this;
-
-      /**
-       * Merges another Query or conditions object into this one.
-       * When a Query is passed, conditions, field selection and options are merged.
-       */
-      merge(source: any | Query<any>): this;
-
-      /** Specifies a $mod condition */
-      mod(val: number[]): this;
-      mod(path: string, val: number[]): this;
-
-      /**
-       * Specifies a $ne query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      ne(val: any): this;
-      ne(path: string, val: any): this;
-
-      /** Specifies a $near or $nearSphere condition. */
-      near(val: any): this;
-      near(path: string, val: any): this;
-
-      /**
-       * DEPRECATED Specifies a $nearSphere condition
-       * @deprecated Use query.near() instead with the spherical option set to true.
-       */
-      nearSphere(val: any): this;
-      nearSphere(path: string, val: any): this;
-
-      /**
-       * Specifies a $nin query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      nin(val: any[]): this;
-      nin(path: string, val: any[]): this;
-
-      /**
-       * Specifies arguments for a $nor condition.
-       * @param array array of conditions
-       */
-      nor(array: any[]): this;
-
-      /**
-       * Specifies arguments for an $or condition.
-       * @param array array of conditions
-       */
-      or(array: any[]): this;
-
-      /**
-       * Make this query throw an error if no documents match the given `filter`.
-       * This is handy for integrating with async/await, because `orFail()` saves you
-       * an extra `if` statement to check if no document was found.
-       *
-       * Example:
-       *
-       *     // Throws if no doc returned
-       *     await Model.findOne({ foo: 'bar' }).orFail();
-       *
-       *     // Throws if no document was updated
-       *     await Model.updateOne({ foo: 'bar' }, { name: 'test' }).orFail();
-       *
-       *     // Throws "No docs found!" error if no docs match `{ foo: 'bar' }`
-       *     await Model.find({ foo: 'bar' }).orFail(new Error('No docs found!'));
-       *
-       *     // Throws "Not found" error if no document was found
-       *     await Model.findOneAndUpdate({ foo: 'bar' }, { name: 'test' }).
-       *       orFail(() => Error('Not found'));
-       *
-       * @param err optional error to throw if no docs match `filter`
-       */
-      orFail(err?: Error | (() => Error)): this;
-
-      /** Specifies a $polygon condition */
-      polygon(...coordinatePairs: number[][]): this;
-      polygon(path: string, ...coordinatePairs: number[][]): this;
-
-      /**
-       * Specifies paths which should be populated with other documents.
-       * Paths are populated after the query executes and a response is received. A separate
-       * query is then executed for each path specified for population. After a response for
-       * each query has also been returned, the results are passed to the callback.
-       * @param path either the path to populate or an object specifying all parameters
-       * @param select Field selection for the population query
-       * @param model The model you wish to use for population. If not specified, populate
-       *   will look up the model by the name in the Schema's ref field.
-       * @param match Conditions for the population query
-       * @param options Options for the population query (sort, etc)
-       */
-      populate(path: string | any, select?: string | any, model?: any, match?: any, options?: any): this;
-      populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
-
-      /**
-       * Determines the MongoDB nodes from which to read.
-       * @param pref one of the listed preference options or aliases
-       * @tags optional tags for this query
-       */
-      read(pref: string, tags?: any[]): this;
-
-      /**
-       * Sets the readConcern option for the query.
-       * @param level one of the listed read concern level or their aliases
-       */
-      readConcern(level: string): this;
-
-      /**
-       * Specifies a $regex query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      regex(val: RegExp): this;
-      regex(path: string, val: RegExp): this;
-
-      /**
-       * Declare and/or execute this query as a remove() operation.
-       * The operation is only executed when a callback is passed. To force execution without a callback,
-       * you must first call remove() and then execute it by using the exec() method.
-       * @param criteria mongodb selector
-       */
-      remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-      remove(
-          criteria: any | Query<any>,
-          callback?: (err: any) => void,
-      ): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-
-      /** Specifies which document fields to include or exclude (also known as the query "projection") */
-      select(arg: string | any): this;
-      /** Determines if field selection has been made. */
-      selected(): boolean;
-      /** Determines if exclusive field selection has been made.*/
-      selectedExclusively(): boolean;
-      /** Determines if inclusive field selection has been made. */
-      selectedInclusively(): boolean;
-      /** Sets query options. */
-      setOptions(options: any): this;
-      /** Sets query conditions to the provided JSON object. */
-      setQuery(conditions: any): this;
-
-      /**
-       * Sets the [MongoDB session](https://docs.mongodb.com/manual/reference/server-sessions/)
-       * associated with this query. Sessions are how you mark a query as part of a
-       * [transaction](/docs/transactions.html).
-       */
-      session(session: mongodb.ClientSession | null): this;
-
-      /**
-       * Specifies a $size query condition.
-       * When called with one argument, the most recent path passed to where() is used.
-       */
-      size(val: number): this;
-      size(path: string, val: number): this;
-
-      /** Specifies the number of documents to skip. Cannot be used with distinct() */
-      skip(val: number): this;
-
-      /**
-       * DEPRECATED Sets the slaveOk option.
-       * @param v defaults to true
-       * @deprecated in MongoDB 2.2 in favor of read preferences.
-       */
-      slaveOk(v?: boolean): this;
-
-      /**
-       * Specifies a $slice projection for an array.
-       * @param val number/range of elements to slice
-       */
-      slice(val: number | number[]): this;
-      slice(path: string, val: number | number[]): this;
-
-      /** Specifies this query as a snapshot query. Cannot be used with distinct() */
-      snapshot(v?: boolean): this;
-
-      /**
-       * Sets the sort order
-       * If an object is passed, values allowed are asc, desc, ascending, descending, 1, and -1.
-       * If a string is passed, it must be a space delimited list of path names. The
-       * sort order of each path is ascending unless the path name is prefixed with -
-       * which will be treated as descending.
-       */
-      sort(arg: string | any): this;
-
-      /**
-       * Sets the tailable option (for use with capped collections). Cannot be used with distinct()
-       * @param bool defaults to true
-       * @param opts options to set
-       * @param opts.numberOfRetries if cursor is exhausted, retry this many times before giving up
-       * @param opts.tailableRetryInterval if cursor is exhausted, wait this many milliseconds before retrying
-       */
-      tailable(
-          bool?: boolean,
-          opts?: {
-              numberOfRetries?: number;
-              tailableRetryInterval?: number;
-          },
-      ): this;
-
-      /** Executes this query and returns a promise */
-      then: Promise<T>['then'];
-
-      /**
-       * Converts this query to a customized, reusable query
-       * constructor with all arguments and options retained.
-       */
-      toConstructor<T>(): new (...args: any[]) => Query<T> & QueryHelpers;
-      toConstructor<T, Doc extends Document>(): new (...args: any[]) => DocumentQuery<T, Doc> & QueryHelpers;
-
-      /**
-       * Declare and/or execute this query as an update() operation.
-       * All paths passed that are not $atomic operations will become $set ops.
-       * @param doc the update command
-       */
-      update(callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
-      update(doc: any, callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
-      update(
-          criteria: any,
-          doc: any,
-          callback?: (err: any, affectedRows: number) => void,
-      ): Query<number> & QueryHelpers;
-      update(
-          criteria: any,
-          doc: any,
-          options: QueryUpdateOptions,
-          callback?: (err: any, affectedRows: number) => void,
-      ): Query<number> & QueryHelpers;
-
-      /** Specifies a path for use with chaining. */
-      where(path?: string | any, val?: any): this;
-
-      /** Defines a $within or $geoWithin argument for geo-spatial queries. */
-      within(val?: any): this;
-      within(coordinate: number[], ...coordinatePairs: number[][]): this;
-
-      /** Flag to opt out of using $geoWithin. */
-      static use$geoWithin: boolean;
+    /**
+     * Specifies a javascript function or expression to pass to MongoDBs query system.
+     * Only use $where when you have a condition that cannot be met using other MongoDB
+     * operators like $lt. Be sure to read about all of its caveats before using.
+     * @param js javascript string or function
+     */
+    $where(js: string | Function): this;
+
+    /**
+     * Specifies an $all query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    all(val: number): this;
+    all(path: string, val: number): this;
+
+    /**
+     * Specifies arguments for a $and condition.
+     * @param array array of conditions
+     */
+    and(array: any[]): this;
+
+    /** Specifies the batchSize option. Cannot be used with distinct() */
+    batchSize(val: number): this;
+
+    /** Get the current error flag value */
+    error(): Error | null;
+    /** Unset the error flag set on this query */
+    error(unset: null): this;
+    /**
+     * Set the error flag on this query
+     * @param err The error flag
+     */
+    error(err: Error): this;
+
+    /**
+     * Specifies a $box condition
+     * @param Upper Right Coords
+     */
+    box(val: any): this;
+    box(lower: number[], upper: number[]): this;
+
+    /** Casts this query to the schema of model, If obj is present, it is cast instead of this query.*/
+    cast(model: any, obj?: any): any;
+
+    /**
+     * Executes the query returning a Promise which will be
+     * resolved with either the doc(s) or rejected with the error.
+     * Like .then(), but only takes a rejection handler.
+     */
+    catch<TRes>(reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+
+    /**
+     * DEPRECATED Alias for circle
+     * Specifies a $center or $centerSphere condition.
+     * @deprecated Use circle instead.
+     */
+    center(area: any): this;
+    center(path: string, area: any): this;
+    /**
+     * DEPRECATED Specifies a $centerSphere condition
+     * @deprecated Use circle instead.
+     */
+    centerSphere(path: string, val: any): this;
+    centerSphere(val: any): this;
+
+    /** Specifies a $center or $centerSphere condition. */
+    circle(area: any): this;
+    circle(path: string, area: any): this;
+
+    /** Adds a collation to this op (MongoDB 3.4 and up) */
+    collation(value: CollationOptions): this;
+
+    /** Specifies the comment option. Cannot be used with distinct() */
+    comment(val: string): this;
+
+    /**
+     * Specifying this query as a count query. Passing a callback executes the query.
+     * @param criteria mongodb selector
+     */
+    count(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+    count(criteria: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+
+    /**
+     * Specifies this query as a `countDocuments()` query. Behaves like `count()`,
+     * except it always does a full collection scan when passed an empty filter `{}`.
+     *
+     * There are also minor differences in how `countDocuments()` handles
+     * [`$where` and a couple geospatial operators](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#countDocuments).
+     * versus `count()`.
+     *
+     * Passing a `callback` executes the query.
+     *
+     * This function triggers the following middleware.
+     *
+     * - `countDocuments()`
+     *
+     *
+     * @param {Object} [criteria] mongodb selector
+     * @param {Function} [callback] optional params are (error, count)
+     * @return {Query} this
+    */
+    countDocuments(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+    countDocuments(criteria: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+
+    /**
+     * Estimates the number of documents in the MongoDB collection. Faster than
+     * using `countDocuments()` for large collections because
+     * `estimatedDocumentCount()` uses collection metadata rather than scanning
+     * the entire collection.
+     *
+     * @param {Object} [options] passed transparently to the [MongoDB driver](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#estimatedDocumentCount)
+     * @param {Function} [callback] optional params are (error, count)
+     * @return {Query} this
+     */
+    estimatedDocumentCount(callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+    estimatedDocumentCount(options: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
+
+    /**
+     * Returns a wrapper around a mongodb driver cursor. A Query<T>Cursor exposes a
+     * Streams3-compatible interface, as well as a .next() function.
+     */
+    cursor(options?: any): QueryCursor<DocType>;
+
+    /** Declares or executes a distict() operation. Passing a callback executes the query. */
+    distinct(callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
+    distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
+    distinct(field: string, criteria: any | Query<any>,
+      callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
+
+    /** Specifies an $elemMatch condition */
+    elemMatch(criteria: (elem: Query<any>) => void): this;
+    elemMatch(criteria: any): this;
+    elemMatch(path: string | any | Function, criteria: (elem: Query<any>) => void): this;
+    elemMatch(path: string | any | Function, criteria: any): this;
+
+    /** Specifies the complementary comparison value for paths specified with where() */
+    equals<T>(val: T): this;
+
+    /** Executes the query */
+    exec(callback?: (err: NativeError, res: T) => void): Promise<T>;
+    exec(operation: string | Function, callback?: (err: any, res: T) => void): Promise<T>;
+
+    /** Specifies an $exists condition */
+    exists(val?: boolean): this;
+    exists(path: string, val?: boolean): this;
+
+    /**
+     * Finds documents. When no callback is passed, the query is not executed. When the
+     * query is executed, the result will be an array of documents.
+     * @param criteria mongodb selector
+     */
+    find(callback?: (err: any, res: DocType[]) => void): DocumentQuery<DocType[], DocType> & QueryHelpers;
+    find(criteria: any,
+      callback?: (err: any, res: DocType[]) => void): DocumentQuery<DocType[], DocType> & QueryHelpers;
+
+    /**
+     * Declares the query a findOne operation. When executed, the first found document is
+     * passed to the callback. Passing a callback executes the query. The result of the query
+     * is a single document.
+     * @param criteria mongodb selector
+     * @param projection optional fields to return
+     */
+    findOne(callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOne(criteria: any,
+      callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+
+    /**
+     * Issues a mongodb findAndModify remove command.
+     * Finds a matching document, removes it, passing the found document (if any) to the
+     * callback. Executes immediately if callback is passed.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     */
+    findOneAndRemove(callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndRemove(conditions: any,
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndRemove(conditions: any, options: { rawResult: true } & QueryFindOneAndRemoveOptions,
+      callback?: (error: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, result: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
+    findOneAndRemove(conditions: any, options: QueryFindOneAndRemoveOptions,
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+
+    /**
+     * Issues a mongodb findAndModify update command.
+     * Finds a matching document, updates it according to the update arg, passing any options, and returns
+     * the found document (if any) to the callback. The query executes immediately if callback is passed.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     */
+    findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndUpdate(update: any,
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any,
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any,
+      options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType>> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any,
+      options: { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any, options: QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+
+    /**
+     * Specifies a $geometry condition. geometry() must come after either intersects() or within().
+     * @param object Must contain a type property which is a String and a coordinates property which
+     *   is an Array. See the examples.
+     */
+    geometry(object: { type: string, coordinates: any[] }): this;
+
+    /**
+     * Returns the current query options as a JSON object.
+     * @returns current query options
+     */
+    getOptions(): any;
+
+    /**
+     * Returns the current query conditions as a JSON object.
+     * @returns current query conditions
+     */
+    getQuery(): any;
+
+    /**
+     * Returns the current update operations as a JSON object.
+     * @returns current update operations
+     */
+    getUpdate(): any;
+
+    /**
+     * Specifies a $gt query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    gt<T>(val: T): this;
+    gt<T>(path: string, val: T): this;
+
+    /**
+     * Specifies a $gte query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    gte<T>(val: T): this;
+    gte<T>(path: string, val: T): this;
+
+    /**
+     * Sets query hints.
+     * @param val a hint object
+     */
+    hint(val: any): this;
+
+    /**
+     * Specifies an $in query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    in(val: any[]): this;
+    in(path: string, val: any[]): this;
+
+    /** Declares an intersects query for geometry(). MUST be used after where(). */
+    intersects(arg?: any): this;
+
+    /**
+     * Sets the lean option.
+     * Documents returned from queries with the lean option enabled are plain
+     * javascript objects, not MongooseDocuments. They have no save method,
+     * getters/setters or other Mongoose magic applied.
+     * @param {Boolean|Object} bool defaults to true
+     */
+    lean<P = any>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
+
+    /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
+    limit(val: number): this;
+
+    /**
+     * Specifies a $lt query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    lt<T>(val: T): this;
+    lt<T>(path: string, val: T): this;
+
+    /**
+     * Specifies a $lte query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    lte<T>(val: T): this;
+    lte<T>(path: string, val: T): this;
+
+    /**
+     * Runs a function fn and treats the return value of fn as the new value for the query to resolve to.
+     * Any functions you pass to map() will run after any post hooks.
+     */
+    map<TRes>(fn: (res: T) => TRes): DocumentQuery<TRes, DocType, QueryHelpers> & QueryHelpers;
+
+    /**
+     * Specifies a $maxDistance query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    maxDistance(val: number): this;
+    maxDistance(path: string, val: number): this;
+
+    /** @deprecated Alias of maxScan */
+    maxscan(val: number): this;
+    /** Specifies the maxScan option. Cannot be used with distinct() */
+    maxScan(val: number): this;
+
+    /** Specifies the maxTimeMS options. */
+    maxTimeMS(val: number): this;
+
+    /**
+     * Merges another Query or conditions object into this one.
+     * When a Query is passed, conditions, field selection and options are merged.
+     */
+    merge(source: any | Query<any>): this;
+
+    /** Specifies a $mod condition */
+    mod(val: number[]): this;
+    mod(path: string, val: number[]): this;
+
+    /**
+     * Specifies a $ne query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    ne(val: any): this;
+    ne(path: string, val: any): this;
+
+    /** Specifies a $near or $nearSphere condition. */
+    near(val: any): this;
+    near(path: string, val: any): this;
+
+    /**
+     * DEPRECATED Specifies a $nearSphere condition
+     * @deprecated Use query.near() instead with the spherical option set to true.
+     */
+    nearSphere(val: any): this;
+    nearSphere(path: string, val: any): this;
+
+    /**
+     * Specifies a $nin query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    nin(val: any[]): this;
+    nin(path: string, val: any[]): this;
+
+    /**
+     * Specifies arguments for a $nor condition.
+     * @param array array of conditions
+     */
+    nor(array: any[]): this;
+
+    /**
+     * Specifies arguments for an $or condition.
+     * @param array array of conditions
+     */
+    or(array: any[]): this;
+
+    /**
+     * Make this query throw an error if no documents match the given `filter`.
+     * This is handy for integrating with async/await, because `orFail()` saves you
+     * an extra `if` statement to check if no document was found.
+     *
+     * Example:
+     *
+     *     // Throws if no doc returned
+     *     await Model.findOne({ foo: 'bar' }).orFail();
+     *
+     *     // Throws if no document was updated
+     *     await Model.updateOne({ foo: 'bar' }, { name: 'test' }).orFail();
+     *
+     *     // Throws "No docs found!" error if no docs match `{ foo: 'bar' }`
+     *     await Model.find({ foo: 'bar' }).orFail(new Error('No docs found!'));
+     *
+     *     // Throws "Not found" error if no document was found
+     *     await Model.findOneAndUpdate({ foo: 'bar' }, { name: 'test' }).
+     *       orFail(() => Error('Not found'));
+     *
+     * @param err optional error to throw if no docs match `filter`
+     */
+    orFail(err?: Error | (() => Error)): this;
+
+    /** Specifies a $polygon condition */
+    polygon(...coordinatePairs: number[][]): this;
+    polygon(path: string, ...coordinatePairs: number[][]): this;
+
+    /**
+     * Specifies paths which should be populated with other documents.
+     * Paths are populated after the query executes and a response is received. A separate
+     * query is then executed for each path specified for population. After a response for
+     * each query has also been returned, the results are passed to the callback.
+     * @param path either the path to populate or an object specifying all parameters
+     * @param select Field selection for the population query
+     * @param model The model you wish to use for population. If not specified, populate
+     *   will look up the model by the name in the Schema's ref field.
+     * @param match Conditions for the population query
+     * @param options Options for the population query (sort, etc)
+     */
+    populate(path: string | any, select?: string | any, model?: any,
+      match?: any, options?: any): this;
+    populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
+
+    /**
+     * Determines the MongoDB nodes from which to read.
+     * @param pref one of the listed preference options or aliases
+     * @tags optional tags for this query
+     */
+    read(pref: string, tags?: any[]): this;
+
+    /**
+     * Sets the readConcern option for the query.
+     * @param level one of the listed read concern level or their aliases
+     */
+    readConcern(level: string): this;
+
+    /**
+     * Specifies a $regex query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    regex(val: RegExp): this;
+    regex(path: string, val: RegExp): this;
+
+    /**
+     * Declare and/or execute this query as a remove() operation.
+     * The operation is only executed when a callback is passed. To force execution without a callback,
+     * you must first call remove() and then execute it by using the exec() method.
+     * @param criteria mongodb selector
+     */
+    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
+    remove(criteria: any | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
+
+    /** Specifies which document fields to include or exclude (also known as the query "projection") */
+    select(arg: string | any): this;
+    /** Determines if field selection has been made. */
+    selected(): boolean;
+    /** Determines if exclusive field selection has been made.*/
+    selectedExclusively(): boolean;
+    /** Determines if inclusive field selection has been made. */
+    selectedInclusively(): boolean;
+    /** Sets query options. */
+    setOptions(options: any): this;
+    /** Sets query conditions to the provided JSON object. */
+    setQuery(conditions: any): this;
+
+    /**
+     * Sets the [MongoDB session](https://docs.mongodb.com/manual/reference/server-sessions/)
+     * associated with this query. Sessions are how you mark a query as part of a
+     * [transaction](/docs/transactions.html).
+     */
+    session(session: mongodb.ClientSession | null): this;
+
+    /**
+     * Specifies a $size query condition.
+     * When called with one argument, the most recent path passed to where() is used.
+     */
+    size(val: number): this;
+    size(path: string, val: number): this;
+
+    /** Specifies the number of documents to skip. Cannot be used with distinct() */
+    skip(val: number): this;
+
+    /**
+     * DEPRECATED Sets the slaveOk option.
+     * @param v defaults to true
+     * @deprecated in MongoDB 2.2 in favor of read preferences.
+     */
+    slaveOk(v?: boolean): this;
+
+    /**
+     * Specifies a $slice projection for an array.
+     * @param val number/range of elements to slice
+     */
+    slice(val: number | number[]): this;
+    slice(path: string, val: number | number[]): this;
+
+    /** Specifies this query as a snapshot query. Cannot be used with distinct() */
+    snapshot(v?: boolean): this;
+
+    /**
+     * Sets the sort order
+     * If an object is passed, values allowed are asc, desc, ascending, descending, 1, and -1.
+     * If a string is passed, it must be a space delimited list of path names. The
+     * sort order of each path is ascending unless the path name is prefixed with -
+     * which will be treated as descending.
+     */
+    sort(arg: string | any): this;
+
+    /**
+     * Sets the tailable option (for use with capped collections). Cannot be used with distinct()
+     * @param bool defaults to true
+     * @param opts options to set
+     * @param opts.numberOfRetries if cursor is exhausted, retry this many times before giving up
+     * @param opts.tailableRetryInterval if cursor is exhausted, wait this many milliseconds before retrying
+     */
+    tailable(bool?: boolean, opts?: {
+      numberOfRetries?: number;
+      tailableRetryInterval?: number;
+    }): this;
+
+    /** Executes this query and returns a promise */
+    then: Promise<T>["then"];
+
+    /**
+     * Converts this query to a customized, reusable query
+     * constructor with all arguments and options retained.
+     */
+    toConstructor<T>(): new (...args: any[]) => Query<T> & QueryHelpers;
+    toConstructor<T, Doc extends Document>(): new (...args: any[]) => DocumentQuery<T, Doc> & QueryHelpers;
+
+    /**
+     * Declare and/or execute this query as an update() operation.
+     * All paths passed that are not $atomic operations will become $set ops.
+     * @param doc the update command
+     */
+    update(callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
+    update(doc: any, callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
+    update(criteria: any, doc: any,
+      callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
+    update(criteria: any, doc: any, options: QueryUpdateOptions,
+      callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
+
+    /** Specifies a path for use with chaining. */
+    where(path?: string | any, val?: any): this;
+
+    /** Defines a $within or $geoWithin argument for geo-spatial queries. */
+    within(val?: any): this;
+    within(coordinate: number[], ...coordinatePairs: number[][]): this;
+
+    wtimeout(ms?: number): this;
+
+    /** Flag to opt out of using $geoWithin. */
+    static use$geoWithin: boolean;
   }
 
   // https://github.com/aheckmann/mquery
@@ -2445,15 +2425,17 @@ declare module "mongoose" {
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+        discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
 
         /**
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
       }
 
@@ -3053,8 +3035,8 @@ declare module "mongoose" {
      * @param callback optional callback
      * @return Returns `undefined` if callback is specified, returns a promise if no callback.
      */
-    syncIndexes(options: object, callback?: (err: any) => void): void;
-    syncIndexes(options: object): Promise<void>;
+    syncIndexes(options: object | null | undefined, callback: (err: any) => void): void;
+    syncIndexes(options?: object | null): Promise<void>;
 
     /**
      * Lists the indexes currently defined in MongoDB. This may or may not be

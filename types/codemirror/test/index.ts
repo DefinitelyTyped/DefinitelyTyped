@@ -108,3 +108,6 @@ htmlElement2.remove();
 CodeMirror.commands.newlineAndIndent(myCodeMirror);
 
 let stringStream = new CodeMirror.StringStream("var myEditor;");
+
+// Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
+myCodeMirror.getCursor();

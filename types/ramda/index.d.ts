@@ -1,6 +1,7 @@
 // Type definitions for ramda 0.26
 // Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
-// Definitions by: Erwin Poeze <https://github.com/donnut>
+// Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
+//                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -15,7 +16,6 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
 //                 Tomas Szabo <https://github.com/deftomat>
-//                 Bonggyun Lee <https://github.com/deptno>
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
@@ -29,6 +29,7 @@
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
+//                 Saul Mirone <https://github.com/Saul-Mirone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -128,10 +129,8 @@
 /// <reference path="./es/invert.d.ts" />
 /// <reference path="./es/invertObj.d.ts" />
 /// <reference path="./es/invoker.d.ts" />
-/// <reference path="./es/isArrayLike.d.ts" />
 /// <reference path="./es/is.d.ts" />
 /// <reference path="./es/isEmpty.d.ts" />
-/// <reference path="./es/isNaN.d.ts" />
 /// <reference path="./es/isNil.d.ts" />
 /// <reference path="./es/join.d.ts" />
 /// <reference path="./es/juxt.d.ts" />
@@ -179,6 +178,7 @@
 /// <reference path="./es/not.d.ts" />
 /// <reference path="./es/nthArg.d.ts" />
 /// <reference path="./es/nth.d.ts" />
+/// <reference path="./es/o.d.ts" />
 /// <reference path="./es/objOf.d.ts" />
 /// <reference path="./es/of.d.ts" />
 /// <reference path="./es/omit.d.ts" />
@@ -280,7 +280,6 @@
 /// <reference path="./es/where.d.ts" />
 /// <reference path="./es/whereEq.d.ts" />
 /// <reference path="./es/without.d.ts" />
-/// <reference path="./es/wrap.d.ts" />
 /// <reference path="./es/xprod.d.ts" />
 /// <reference path="./es/zip.d.ts" />
 /// <reference path="./es/zipObj.d.ts" />
@@ -384,10 +383,8 @@
 /// <reference path="./src/invert.d.ts" />
 /// <reference path="./src/invertObj.d.ts" />
 /// <reference path="./src/invoker.d.ts" />
-/// <reference path="./src/isArrayLike.d.ts" />
 /// <reference path="./src/is.d.ts" />
 /// <reference path="./src/isEmpty.d.ts" />
-/// <reference path="./src/isNaN.d.ts" />
 /// <reference path="./src/isNil.d.ts" />
 /// <reference path="./src/join.d.ts" />
 /// <reference path="./src/juxt.d.ts" />
@@ -435,6 +432,7 @@
 /// <reference path="./src/not.d.ts" />
 /// <reference path="./src/nthArg.d.ts" />
 /// <reference path="./src/nth.d.ts" />
+/// <reference path="./src/o.d.ts" />
 /// <reference path="./src/objOf.d.ts" />
 /// <reference path="./src/of.d.ts" />
 /// <reference path="./src/omit.d.ts" />
@@ -536,7 +534,6 @@
 /// <reference path="./src/where.d.ts" />
 /// <reference path="./src/whereEq.d.ts" />
 /// <reference path="./src/without.d.ts" />
-/// <reference path="./src/wrap.d.ts" />
 /// <reference path="./src/xprod.d.ts" />
 /// <reference path="./src/zip.d.ts" />
 /// <reference path="./src/zipObj.d.ts" />
@@ -1485,7 +1482,7 @@ declare namespace R {
          */
         head(str: string): string;
         head(list: readonly []): undefined;
-        head<T extends any>(list: readonly T[]): T;
+        head<T extends any>(list: readonly T[]): T | undefined;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1631,19 +1628,9 @@ declare namespace R {
         is(ctor: any): (val: any) => boolean;
 
         /**
-         * Tests whether or not an object is similar to an array.
-         */
-        isArrayLike(val: any): boolean;
-
-        /**
          * Reports whether the list has zero elements.
          */
         isEmpty(value: any): boolean;
-
-        /**
-         * Returns true if the input value is NaN.
-         */
-        isNaN(x: any): boolean;
 
         /**
          * Checks if the input value is null or undefined.
@@ -1684,7 +1671,7 @@ declare namespace R {
          */
         last(str: string): string;
         last(list: readonly []): undefined;
-        last<T extends any>(list: readonly T[]): T;
+        last<T extends any>(list: readonly T[]): T | undefined;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
@@ -1779,6 +1766,13 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        mapObjIndexed<T, TResult, TKey extends string>(
+            fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+            obj: Record<TKey, T>
+        ): Record<TKey, TResult>;
+        mapObjIndexed<T, TResult, TKey extends string>(
+            fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
+        ): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
         mapObjIndexed<T, TResult>(
             fn: (value: T, key: string, obj?: {
                 [key: string]: T
@@ -2009,6 +2003,21 @@ declare namespace R {
          * Returns a function which returns its nth argument.
          */
         nthArg(n: number): (...a: readonly any[]) => any;
+
+        /**
+         * o is a curried composition function that returns a unary function. Like compose, o performs right-to-left function composition.
+         * Unlike compose, the rightmost function passed to o will be invoked with only one argument.
+         * Also, unlike compose, o is limited to accepting only 2 unary functions.
+         * The name o was chosen because of its similarity to the mathematical composition operator ∘.
+         */
+        o<T1, T2, R>(f: (x: T2) => R, g: (x: T1) => T2, v: T1): R;
+        o<T1, T2, R>(f: (x: T2) => R, g: (x: T1) => T2): (v: T1) => R;
+        o<T2, R>(
+            f: (x: T2) => R,
+        ): {
+            <T1>(g: (x: T1) => T2, v: T1): R;
+            <T1>(g: (x: T1) => T2): (v: T1) => R;
+        };
 
         /**
          * Creates an object containing a single key:value pair.
@@ -3122,12 +3131,6 @@ declare namespace R {
          */
         without<T>(list1: readonly T[], list2: readonly T[]): T[];
         without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        wrap(fn: (...a: readonly any[]) => any, wrapper: (...a: readonly any[]) => any): (...a: readonly any[]) => any;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
