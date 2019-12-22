@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal } from 'rdf-js';
-import Clownface = require('./lib/Clownface');
 
 declare namespace clownface {
     type TermOrClownface = Clownface | Term;
@@ -89,6 +88,6 @@ declare namespace clownface {
 }
 
 declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D> & clownface.WithTerm | clownface.ClownfaceInit<D> & clownface.WithValue): clownface.SafeClownface<D>;
-declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D>): Clownface<D>;
+declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D>): clownface.Clownface<D>;
 
 export = clownface;
