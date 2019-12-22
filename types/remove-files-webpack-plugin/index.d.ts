@@ -2,11 +2,9 @@
 // Project: https://github.com/Amaimersion/remove-files-webpack-plugin/blob/master/README.md
 // Definitions by: Sergey Kuznetsov <https://github.com/Amaimersion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7.3
+// TypeScript Version: 3.7
 
-
-import {Plugin, compilation, Compiler} from "webpack";
-
+import { Plugin, compilation, Compiler } from "webpack";
 
 /**
  * A plugin for webpack that removes files and
@@ -16,7 +14,6 @@ declare class RemovePlugin extends Plugin {
     constructor(parameters: PluginParameters);
     apply(compiler: Compiler): void;
 }
-
 
 /**
  * A parameters of plugin.
@@ -32,7 +29,6 @@ interface PluginParameters {
      */
     after?: RemoveParameters;
 }
-
 
 /**
  * A parameters of removing.
@@ -128,7 +124,6 @@ interface RemoveParameters {
     allowRootAndOutside?: boolean;
 }
 
-
 /**
  * A folder for testing of files that should be removed.
  */
@@ -153,6 +148,5 @@ interface TestObject {
      */
     recursive?: boolean;
 }
-
 
 export = RemovePlugin;
