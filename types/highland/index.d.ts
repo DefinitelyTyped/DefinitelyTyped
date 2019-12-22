@@ -828,6 +828,7 @@ declare namespace Highland {
 		 * @param {String} prop - the property to which values should be associated
 		 * @api public
 		 */
+		pluck<Prop extends keyof R>(prop: Prop): Stream<R[Prop]>;
 		pluck<U>(prop: string): Stream<U>;
 
 		/**

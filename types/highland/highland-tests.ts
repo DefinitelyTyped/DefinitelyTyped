@@ -257,6 +257,8 @@ barStream = fooStream.map((x: Foo) => {
   return bar;
 });
 
+// $ExpectType Stream<() => string>
+fooStream.pluck('foo');
 barStream = fooStream.pluck<Bar>(str);
 
 fooStream = fooStream.ratelimit(3, 1000);
