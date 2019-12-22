@@ -610,9 +610,10 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = (
-    <StyledTestContainer as={Test2Container} type='foo' />
-);
+<StyledTestContainer as={Test2Container} type="foo" />;
+<StyledTestContainer as={Test2Container} size="small" type="foo" />;
+<StyledTestContainer as={Test2Container} size="small" type="foo" foo="bar" />; // $ExpectError
+
 
 // 4.0 refs
 

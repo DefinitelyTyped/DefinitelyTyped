@@ -158,8 +158,8 @@ export interface StyledComponentBase<
         props: StyledComponentProps<C, T, O, A> & { as?: never }
       ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
     <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
-      props: StyledComponentPropsWithAs<AsC, T, O, A>
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
+      props: Partial<StyledComponentProps<C, T, O, A>> & StyledComponentPropsWithAs<AsC, T, O, A>
+    ): React.ReactElement<Partial<StyledComponentProps<C, T, O, A>> & StyledComponentPropsWithAs<AsC, T, O, A>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
