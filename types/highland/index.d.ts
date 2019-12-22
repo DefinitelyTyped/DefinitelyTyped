@@ -1296,23 +1296,41 @@ declare namespace Highland {
 		each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
 
 		/**
-		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
-		 * (Highland Streams are also Node Writable Streams). This will pull all the
-		 * data from the source Highland Stream and write it to the destination,
-		 * automatically managing flow so that the destination is not overwhelmed
-		 * by a fast source.
+		 * Pipes a Highland Stream to a [Node Writable
+		 * Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable).
+		 * This will pull all the data from the source Highland Stream and write it to
+		 * the destination, automatically managing flow so that the destination is not
+		 * overwhelmed by a fast source.
 		 *
-		 * This function returns the destination so you can chain together pipe calls.
+		 * Users may optionally pass an object that may contain any of these fields:
+		 *
+		 * - `end` - Ends the destination when this stream ends. Default: `true`. This
+		 *   option has no effect if the destination is either `process.stdout` or
+		 *   `process.stderr`. Those two streams are never ended.
+		 *
+		 * Like [Readable#pipe](https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options),
+		 * this function will throw errors if there is no `error` handler installed on
+		 * the stream.
+		 *
+		 * This function returns the destination so you can chain together `pipe` calls.
+		 *
+		 * **NOTE**: While Highland streams created via `_()` and [pipeline](#pipeline)
+		 * support being piped to, it is almost never appropriate to `pipe` from a
+		 * Highland stream to another Highland stream. Those two cases are meant for
+		 * use when piping from *Node* streams. You might be tempted to use `pipe` to
+		 * construct reusable transforms. Do not do it. See [through](#through) for a
+		 * better way.
 		 *
 		 * @id pipe
-		 * @section Streams
-		 * @name Stream.pipe(dest)
+		 * @section Consumption
+		 * @name Stream.pipe(dest, options)
 		 * @param {Writable Stream} dest - the destination to write all data to
+		 * @param {Object} options - (optional) pipe options.
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
-		pipe(dest: NodeJS.WritableStream): void;
+		pipe<U>(dest: NodeJS.ReadWriteStream, options?: { end?: boolean }): Stream<U>;
+		pipe(dest: NodeJS.WritableStream, options?: { end?: boolean }): Stream<void>;
 
 		/**
 		 * Consumes a single item from the Stream. Unlike consume, this function will

@@ -71,6 +71,7 @@ var barArr: Bar[];
 
 var fooStream: Highland.Stream<Foo>;
 var barStream: Highland.Stream<Bar>;
+var voidStream: Highland.Stream<void>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
 var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
@@ -355,6 +356,8 @@ fooStream.each((x: Foo) => {});
 
 fooStream = fooStream.pipe(fooStream);
 barStream = fooStream.pipe(barStream);
+barStream = fooStream.pipe<Bar>(readwritable);
+voidStream = fooStream.pipe(writable, { end: false });
 
 fooStream.pull((err: Error, x: Foo) => {});
 
