@@ -610,5 +610,5 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPublicKey()`][].
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): Buffer;
+    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): boolean;
 }
