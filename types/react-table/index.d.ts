@@ -148,16 +148,16 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
             instance?: TableInstance<D>,
         ) => ReducerTableState<D> | undefined
     >;
-    columns: Array<(columns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
-    columnsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
-    flatColumns: Array<(flatColumns: Array<Column<D>>, instance: TableInstance<D>) => Array<Column<D>>>;
-    flatColumnsDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
-    headerGroups: Array<(flatColumns: Array<HeaderGroup<D>>, instance: TableInstance<D>) => Array<HeaderGroup<D>>>;
-    headerGroupDeps: Array<(deps: any[], instance: TableInstance<D>) => any[]>;
+    columns: Array<(columns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
+    columnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
+    flatColumns: Array<(flatColumns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
+    flatColumnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
+    headerGroups: Array<(flatColumns: Array<HeaderGroup<D>>, meta: Meta<D>) => Array<HeaderGroup<D>>>;
+    headerGroupDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
     useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => void>;
     useInstance: Array<(instance: TableInstance<D>) => void>;
-    useRows: Array<(rows: Array<Row<D>>, instance: TableInstance<D>) => Array<Row<D>>>;
-    prepareRow: Array<(row: Row<D>, instance: TableInstance<D>) => void>;
+    useRows: Array<(rows: Array<Row<D>>, meta: Meta<D>) => Array<Row<D>>>;
+    prepareRow: Array<(row: Row<D>, meta: Meta<D>) => void>;
     useControlledState: Array<(state: TableState<D>, meta: Meta<D>) => TableState<D>>;
 
     getTableProps: Array<TablePropGetter<D>>;
@@ -411,7 +411,7 @@ export type DefaultFilterTypes =
     | 'between';
 
 export interface FilterType<D extends object> {
-    (rows: Array<Row<D>>, columnId: Array<IdType<D>>, filterValue: FilterValue): Array<Row<D>>;
+    (rows: Array<Row<D>>, columnIds: Array<IdType<D>>, filterValue: FilterValue): Array<Row<D>>;
 
     autoRemove?: (filterValue: FilterValue) => boolean;
 }
@@ -434,11 +434,15 @@ export namespace useGlobalFilter {
 }
 
 export type UseGlobalFiltersOptions<D extends object> = Partial<{
-    globalFilter: ((filterValue: FilterValue) => void) | string;
+    globalFilter: ((rows: Array<Row<D>>, columnIds: Array<IdType<D>>, filterValue: any) => Array<Row<D>>) | string;
     manualGlobalFilter: boolean;
     filterTypes: FilterTypes<D>;
     autoResetGlobalFilter?: boolean;
 }>;
+
+export interface UseGlobalFiltersState<D extends object> {
+    globalFilter: any;
+}
 
 export interface UseGlobalFiltersInstanceProps<D extends object> {
     rows: Array<Row<D>>;
