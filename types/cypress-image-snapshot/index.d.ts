@@ -3,12 +3,22 @@
 // Definitions by: Alex Kessock <https://github.com/Keysox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export interface Options {
+    customSnapshotsDir?: string;
+    customDiffDir?: string;
+    failureThreshold?: number;
+    failureThresholdType?: 'percent' | 'number';
+    customDiffConfig?: {
+        threshold: number;
+    };
+    capture?: 'viewport';
+}
+
 declare global {
     namespace Cypress {
         interface Chainable {
-            matchImageSnapshot: () => void;
+            matchImageSnapshot(nameOrOptions?: string | Options): void;
+            matchImageSnapshot(name: string, options: Options): void;
         }
     }
 }
-
-export {};

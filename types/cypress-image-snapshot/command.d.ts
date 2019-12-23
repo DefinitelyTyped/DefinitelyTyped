@@ -1,15 +1,6 @@
-interface MaybeOptions {
-    customSnapshotsDir?: string;
-    customDiffDir?: string;
-    failureThreshold?: number;
-    failureThresholdType?: 'percent' | 'number';
-    customDiffConfig?: {
-        threshold: number;
-    };
-    capture?: 'viewport';
-}
+import { Options } from './index.d';
 
-declare function addMatchImageSnapshotCommand(maybeNameOrOptions?: string | MaybeOptions): void;
-declare function addMatchImageSnapshotCommand(maybeName: string, maybeOptions?: MaybeOptions): void;
+declare function addMatchImageSnapshotCommand(nameOrOptions?: string | Options): void;
+declare function addMatchImageSnapshotCommand(name: string, options: Options): void;
 
 export { addMatchImageSnapshotCommand };
