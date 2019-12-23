@@ -1,5 +1,7 @@
+let resizer: Pica = new Pica();
+
 let picaOptions: PicaOptions = { features: ['js', 'wasm', 'ww', 'cib'] };
-let resizer: Pica = new Pica(picaOptions);
+let resizerWithOptions: Pica = new Pica(picaOptions);
 
 let image: HTMLImageElement = document.createElement('img');
 image.width = 100;
@@ -11,18 +13,22 @@ canvas.height = 100;
 
 // Resize image
 resizer.resize(image, canvas);
+resizerWithOptions.resize(image, canvas);
 
 // Resize image with options
 let resizeOptions: PicaResizeOptions = {
     quality: 9
 };
 resizer.resize(image, canvas, resizeOptions);
+resizerWithOptions.resize(image, canvas, resizeOptions);
 
 // Blob canvas
 resizer.toBlob(canvas, 'image/png');
+resizerWithOptions.toBlob(canvas, 'image/png');
 
 // Blob canvas with quality
 resizer.toBlob(canvas, 'image/png', 9);
+resizerWithOptions.toBlob(canvas, 'image/png', 9);
 
 // Resize buffer
 let resizeBufferOptions: PicaResizeBufferOptions = {
@@ -32,3 +38,4 @@ let resizeBufferOptions: PicaResizeBufferOptions = {
     toHeigh: 50,
 };
 resizer.resizeBuffer(resizeBufferOptions);
+resizerWithOptions.resizeBuffer(resizeBufferOptions);
