@@ -1,5 +1,6 @@
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/comment/comment";
 
-/// <reference types="../../codemirror/codemirror-comment" />
 const editor = CodeMirror(document.body);
 const position: CodeMirror.Position = { ch: 0, line: 0 };
 const opt: CodeMirror.CommentOptions = {

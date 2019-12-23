@@ -1,8 +1,8 @@
-/// <reference types="../../codemirror/searchcursor" />
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/search/searchcursor";
 
-
-var doc = new CodeMirror.Doc('text some string and another text match');
-var cursor = doc.getSearchCursor('text', new CodeMirror.Pos(0,0), false);
+const doc = new CodeMirror.Doc('text some string and another text match');
+let cursor = doc.getSearchCursor('text', new CodeMirror.Pos(0,0), false);
 cursor = doc.getSearchCursor('text', new CodeMirror.Pos(0,0));
 cursor = doc.getSearchCursor('text');
 
