@@ -26,7 +26,7 @@ export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] |
 export type QueryFunction<TResult, TVariables extends object> = (variables: TVariables) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
-    manual?: boolean;    
+    manual?: boolean;
     retry?: boolean | number;
     retryDelay?: (retryAttempt: number) => number;
     staleTime?: number;
