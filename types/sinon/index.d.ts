@@ -216,10 +216,6 @@ declare namespace Sinon {
          * If the call did not explicitly return a value, the value at the call’s location in .returnValues will be undefined.
          */
         returnValues: any[];
-        /**
-         * Get the original method. Only available if the spy replaced an existing method.
-         */
-        wrappedMethod: (...args: any[]) => any;
 
         // Methods
         (...args: any[]): any;
@@ -339,6 +335,10 @@ declare namespace Sinon {
          * Replaces the spy with the original method. Only available if the spy replaced an existing method.
          */
         restore(): void;
+        /**
+         * Get the original method. Only available if the spy replaced an existing method.
+         */
+        wrappedMethod: (...args: any[]) => any;
     }
 
     interface SinonSpyStatic {
