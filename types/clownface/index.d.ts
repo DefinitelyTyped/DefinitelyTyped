@@ -10,7 +10,7 @@ declare namespace clownface {
     type TermOrClownface = Clownface | Term;
     type TermOrLiteral = TermOrClownface | string | number | boolean;
 
-    type AddCallback<D extends DatasetCore, X extends Term> = (added: Clownface<D, X>) => void;
+    type AddCallback<D extends DatasetCore, X extends Term> = (added: SingleContextClownface<D, X>) => void;
     type SingleOrArray<T> = T | T[];
 
     type SingleOrArrayOfTerms = SingleOrArray<TermOrClownface>;
@@ -64,7 +64,7 @@ declare namespace clownface {
         addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
         addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
 
-        addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTerms, callback?: AddCallback<D, X>): SafeClownface<D, X>;
+        addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals, callback?: AddCallback<D, X>): SafeClownface<D, X>;
 
         deleteIn<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
         deleteOut<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
