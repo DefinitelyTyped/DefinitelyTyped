@@ -215,7 +215,7 @@ declare namespace Sinon {
         /**
          * Get the original method. Only available if the spy replaced an existing method.
          */
-        wrappedMethod: (...args: TArgs)=>TReturnValue;
+        wrappedMethod: (...args: TArgs) => TReturnValue;
 
         // Methods
         (...args: TArgs): TReturnValue;

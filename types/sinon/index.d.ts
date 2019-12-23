@@ -219,7 +219,7 @@ declare namespace Sinon {
         /**
          * Get the original method. Only available if the spy replaced an existing method.
          */
-        wrappedMethod: (...args: any[])=>any;
+        wrappedMethod: (...args: any[]) => any;
 
         // Methods
         (...args: any[]): any;
