@@ -2020,6 +2020,12 @@ interface NodeModule {
     context: Foxx.Context;
 }
 
+declare namespace NodeJS {
+    interface Module {
+        context: Foxx.Context;
+    }
+}
+
 interface Console {
     logLines(...args: any[]): void;
     errorLines(...args: any[]): void;

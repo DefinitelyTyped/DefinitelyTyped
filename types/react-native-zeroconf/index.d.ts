@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 /**
  * @example
  * ```json
@@ -32,7 +34,7 @@ export interface Service {
     };
 }
 
-export default class Zeroconf extends NodeJS.EventEmitter {
+export default class Zeroconf extends EventEmitter {
     /**
      * Start the zeroconf scan.
      *
