@@ -124,7 +124,7 @@ export interface VideoProperties extends ViewProps {
         minBufferMs?: number;
         maxBufferMs?: number;
         bufferForPlaybackMs?: number;
-        playbackAfterRebufferMs?: number;
+        bufferForPlaybackAfterRebufferMs?: number;
     };
     stereoPan?: number;
     rate?: number;
