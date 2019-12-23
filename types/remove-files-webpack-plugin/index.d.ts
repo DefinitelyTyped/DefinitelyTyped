@@ -1,4 +1,4 @@
-// Type definitions for remove-files-webpack-plugin 1.2.0
+// Type definitions for remove-files-webpack-plugin 1.2
 // Project: https://github.com/Amaimersion/remove-files-webpack-plugin/blob/master/README.md
 // Definitions by: Sergey Kuznetsov <https://github.com/Amaimersion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

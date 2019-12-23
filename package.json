@@ -31,5 +31,9 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
+    },
+    "dependencies": {
+        "@types/source-map": "^0.5.7",
+        "@types/webpack": "^4.41.0"
     }
 }
