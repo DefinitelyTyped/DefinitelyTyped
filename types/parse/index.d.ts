@@ -19,6 +19,7 @@
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Linus Unnebäck <https://github.com/LinusU>
+//                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -1276,6 +1277,15 @@ namespace Parse {
      * @param masterKey (optional) Your Parse Master Key. (Node.js only!)
      */
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
+
+    /**
+     * Use this to set custom headers
+     * The headers will be sent with every parse request
+     */
+    namespace CoreManager {
+        function set(key: string, value: any): void;
+        function get(key: string): void;
+      }
 
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
