@@ -448,9 +448,11 @@ export interface LayerProps {
     type: string;
     source?: string;
     beforeId?: string;
-    layout?: any;
-    paint: any;
-    filter?: [any];
+    layout?: MapboxGL.AnyLayout;
+    paint: MapboxGL.BackgroundPaint | MapboxGL.FillPaint | MapboxGL.FillExtrusionPaint |
+           MapboxGL.LinePaint | MapboxGL.SymbolPaint | MapboxGL.RasterPaint | MapboxGL.CirclePaint |
+           MapboxGL.HeatmapPaint | MapboxGL.HillshadePaint;
+    filter?: any[];
     minzoom?: number;
     maxzoom?: number;
 }
