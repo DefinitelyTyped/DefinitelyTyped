@@ -31,7 +31,9 @@ resizer.toBlob(canvas, 'image/png', 9);
 resizerWithOptions.toBlob(canvas, 'image/png', 9);
 
 // Resize buffer
+let resizeBufferSrc: number[] = [21, 31];
 let resizeBufferOptions: PicaResizeBufferOptions = {
+    src: resizeBufferSrc,
     width: 100,
     height: 100,
     toWidth: 50,

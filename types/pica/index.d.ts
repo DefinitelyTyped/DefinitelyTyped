@@ -70,7 +70,7 @@ interface PicaResizeOptions {
 
 interface PicaResizeBufferOptions {
     // Uint8Array with source data.
-    src?: number[];
+    src: number[];
     // src image width.
     width: number;
     // src image height.
