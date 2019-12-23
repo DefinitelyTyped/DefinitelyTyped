@@ -471,13 +471,18 @@ const any: any = null;
     result = validator.isISBN('sample');
     result = validator.isISBN('sample', '13');
 
-    const isISSNOptions: validator.IsISSNOptions = {};
+    const isISSNOptions: validator.IsISSNOptions = {
+        case_sensitive: true,
+        require_hyphen: true,
+    };
     result = validator.isISSN('sample');
     result = validator.isISSN('sample', isISSNOptions);
 
     result = validator.isISIN('sample');
 
-    const isISO8601Options: validator.IsISO8601Options = {};
+    const isISO8601Options: validator.IsISO8601Options = {
+        strict: true,
+    };
     result = validator.isISO8601('sample');
     result = validator.isISO8601('sample', isISO8601Options);
 
@@ -498,16 +503,23 @@ const any: any = null;
 
     const isLengthOptions: validator.IsLengthOptions = {};
     result = validator.isLength('sample', isLengthOptions);
+    result = validator.isLength('sample');
 
     result = validator.isLowercase('sample');
 
+    const isMACAddressOptions: validator.IsMACAddressOptions = {
+        no_colons: true,
+    };
+    result = validator.isMACAddress('sample', isMACAddressOptions);
     result = validator.isMACAddress('sample');
 
     result = validator.isMD5('sample');
 
     result = validator.isMimeType('sample');
 
-    const isMobilePhoneOptions: validator.IsMobilePhoneOptions = {};
+    const isMobilePhoneOptions: validator.IsMobilePhoneOptions = {
+        strictMode: true,
+    };
     result = validator.isMobilePhone('sample', 'any', isMobilePhoneOptions);
     result = validator.isMobilePhone('sample', 'ar-AE');
     result = validator.isMobilePhone('sample', 'ar-DZ');
