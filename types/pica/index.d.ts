@@ -6,9 +6,11 @@
 declare class Pica {
     constructor(config?: PicaOptions);
     /**
-     * Resize image from one canvas (or image) to another. Sizes are taken from source and destination objects.
+     * Resize image from one canvas (or image) to another.
+     * Sizes are taken from source and destination objects.
      * Result is Promise, resolved with to on success.
-     * (!) If you need to process multiple images, do it sequentially to optimize CPU & memory use. Pica already knows how to use multiple cores (if browser allows).
+     * (!) If you need to process multiple images, do it sequentially to optimize CPU & memory use.
+     * Pica already knows how to use multiple cores (if browser allows).
      */
     resize(
         from: HTMLCanvasElement | HTMLImageElement | File | Blob,
@@ -26,19 +28,25 @@ declare class Pica {
     ): Promise<Blob>;
 
     /**
-     * Supplementary method, not recommended for direct use. Resize Uint8Array with raw RGBA bitmap (don't confuse with jpeg / png / ... binaries). It does not use tiles & webworkers. Left for special cases when you really need to process raw binary data (for example, if you decode jpeg files "manually").
+     * Supplementary method, not recommended for direct use.
+     * Resize Uint8Array with raw RGBA bitmap (don't confuse with jpeg / png / ... binaries).
+     * It does not use tiles & webworkers. Left for special cases when you really need to process raw binary data (for example, if you decode jpeg files "manually").
      */
     resizeBuffer(
         options: PicaResizeBufferOptions
-    ): Promise<Array<number>>;
+    ): Promise<number[]>;
 }
 
 interface PicaOptions {
-    // tile width/height. Images are processed by regions, to restrict peak memory use. Default 1024.
+    // tile width/height.
+    // Images are processed by regions, to restrict peak memory use. Default 1024.
     tile?: number;
-    // list of features to use. Default is [ 'js', 'wasm', 'ww' ]. Can be [ 'js', 'wasm', 'cib', 'ww' ] or [ 'all' ]. Note, resize via createImageBitmap() ('cib') disabled by default due problems with quality.
-    features?: Array<string>;
-    // cache timeout, ms. Webworkers create is not fast. This option allow reuse webworkers effectively. Default 2000.
+    // list of features to use.
+    // Default is [ 'js', 'wasm', 'ww' ]. Can be [ 'js', 'wasm', 'cib', 'ww' ] or [ 'all' ].
+    // Note, resize via createImageBitmap() ('cib') disabled by default due problems with quality.
+    features?: string[];
+    // cache timeout, ms. Webworkers create is not fast.
+    // This option allow reuse webworkers effectively. Default 2000.
     idle?: number;
     // max webworkers pool size. Default is autodetected CPU count, but not more than 4.
     concurrency?: number;
@@ -51,7 +59,8 @@ interface PicaResizeOptions {
     alpha?: boolean;
     // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
     unsharpAmount?: number;
-    //  0.5..2.0. By default it's not set. Radius of Gaussian blur. If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
+    //  0.5..2.0. By default it's not set. Radius of Gaussian blur.
+    // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
     unsharpRadius?: number;
     // 0..255. Default = 0. Threshold for applying unsharp mask.
     unsharpThreshold?: number;
@@ -61,7 +70,7 @@ interface PicaResizeOptions {
 
 interface PicaResizeBufferOptions {
     // Uint8Array with source data.
-    src?: Array<number>;
+    src?: number[];
     // src image width.
     width: number;
     // src image height.
@@ -76,7 +85,8 @@ interface PicaResizeBufferOptions {
     alpha?: boolean;
     // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
     unsharpAmount?: number;
-    // 0.5..2.0. Radius of Gaussian blur. If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
+    // 0.5..2.0. Radius of Gaussian blur.
+    // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
     unsharpRadius?: number;
     // 0..255. Default = 0. Threshold for applying unsharp mask.
     unsharpThreshold?: number;
