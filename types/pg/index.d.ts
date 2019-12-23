@@ -144,10 +144,15 @@ export class Connection extends events.EventEmitter {
     end(): void;
 }
 
+/**
+ * {@link https://node-postgres.com/api/pool}
+ */
 export class Pool extends events.EventEmitter {
-    // `new Pool('pg://user@localhost/mydb')` is not allowed.
-    // But it passes type check because of issue:
-    // https://github.com/Microsoft/TypeScript/issues/7485
+    /**
+     * Every field of the config object is entirely optional.
+     * The config passed to the pool is also passed to every client
+     * instance within the pool when the pool creates that client.
+     */
     constructor(config?: PoolConfig);
 
     readonly totalCount: number;
