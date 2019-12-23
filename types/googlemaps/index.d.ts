@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.38
+// Type definitions for Google Maps JavaScript API 3.39
 // Project: https://developers.google.com/maps/
 // Definitions by: Chris Wrench <https://github.com/cgwrench>,
 //                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>,
@@ -13,6 +13,7 @@
 //                 Dmitry Demensky <https://github.com/demensky>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Simon Haenisch <https://github.com/simonhaenisch>
+//                 Gavin Nitta <https://github.com/gshigeto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.7
@@ -3160,9 +3161,14 @@ declare namespace google.maps {
         }
 
         interface OpeningHours {
+            /**
+             * @deprecated open_now is deprecated as of November 2019 and will be turned off in November 2020.
+             *      Use the PlaceOpeningHours.isOpen function from a PlacesService.getDetails result instead.
+             */
             open_now: boolean;
             periods: OpeningPeriod[];
             weekday_text: string[];
+            isOpen(date?: Date): boolean;
         }
 
         interface OpeningPeriod {
@@ -3231,6 +3237,11 @@ declare namespace google.maps {
             type: string;
         }
 
+        interface PlacePlusCode {
+            compound_code?: string;
+            global_code: string;
+        }
+
         interface PlaceDetailsRequest {
             placeId: string;
             fields?: string[];
@@ -3270,12 +3281,19 @@ declare namespace google.maps {
             permanently_closed?: boolean;
             photos?: PlacePhoto[];
             place_id?: string;
+            plus_code?: PlacePlusCode;
             price_level?: number;
             rating?: number;
             reviews?: PlaceReview[];
             types?: string[];
             url?: string;
+            user_ratings_total?: number;
+            /**
+             * @deprecated utc_offset is deprecated as of November 2019 and will be turned off in November 2020.
+             *      Use PlaceResult.utc_offset_minutes instead.
+             */
             utc_offset?: number;
+            utc_offset_minutes?: number;
             vicinity?: string;
             website?: string;
         }
