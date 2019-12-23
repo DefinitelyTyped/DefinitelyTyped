@@ -7593,7 +7593,7 @@ declare namespace Stripe {
             /**
              * Only return PaymentIntents for the customer specified by this customer ID.
              */
-            customer?: string
+            customer?: string;
         }
     }
 
