@@ -1,7 +1,8 @@
-// Type definitions for react-query 0.3
+// Type definitions for react-query 0.3.23
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
+//                 Matteo Frana <https://github.com/matteofrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentType } from 'react';
@@ -25,15 +26,18 @@ export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] |
 export type QueryFunction<TResult, TVariables extends object> = (variables: TVariables) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
-    manual?: boolean;
+    manual?: boolean;    
     retry?: boolean | number;
     retryDelay?: (retryAttempt: number) => number;
     staleTime?: number;
     cacheTime?: number;
     refetchInterval?: false | number;
+    refetchIntervalInBackground?: boolean;
+    refetchOnWindowFocus?: boolean;
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
     suspense?: boolean;
+    initialData: any;
 }
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
