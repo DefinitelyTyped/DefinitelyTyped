@@ -15,6 +15,7 @@ import isAlphanumericFunc from 'validator/lib/isAlphanumeric';
 import isAsciiFunc from 'validator/lib/isAscii';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
+import isBICFunc from 'validator/lib/isBIC';
 import isBooleanFunc from 'validator/lib/isBoolean';
 import isByteLengthFunc from 'validator/lib/isByteLength';
 import isCreditCardFunc from 'validator/lib/isCreditCard';
@@ -53,6 +54,7 @@ import isMobilePhoneFunc from 'validator/lib/isMobilePhone';
 import isMongoIdFunc from 'validator/lib/isMongoId';
 import isMultibyteFunc from 'validator/lib/isMultibyte';
 import isNumericFunc from 'validator/lib/isNumeric';
+import isOctalFunc from 'validator/lib/isOctal';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
@@ -73,6 +75,7 @@ import toIntFunc from 'validator/lib/toInt';
 import trimFunc from 'validator/lib/trim';
 import unescapeFunc from 'validator/lib/unescape';
 import whitelistFunc from 'validator/lib/whitelist';
+import isSlugFunc from 'validator/lib/isSlug';
 
 {
     let _blacklist = validator.blacklist;
@@ -104,6 +107,9 @@ import whitelistFunc from 'validator/lib/whitelist';
 
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
+
+    let _isBIC = validator.isBIC;
+    _isBIC = isBICFunc;
 
     let _isBoolean = validator.isBoolean;
     _isBoolean = isBooleanFunc;
@@ -219,6 +225,9 @@ import whitelistFunc from 'validator/lib/whitelist';
     let _isNumeric = validator.isNumeric;
     _isNumeric = isNumericFunc;
 
+    let _isOctal = validator.isOctal;
+    _isOctal = isOctalFunc;
+
     let _isPort = validator.isPort;
     _isPort = isPortFunc;
 
@@ -278,6 +287,9 @@ import whitelistFunc from 'validator/lib/whitelist';
 
     let _whitelist = validator.whitelist;
     _whitelist = whitelistFunc;
+
+    let _isSlug = validator.isSlug;
+    _isSlug = isSlugFunc;
 }
 
 /************************************************
@@ -407,6 +419,8 @@ const any: any = null;
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
+
+    result = validator.isBIC('SBICKEN1345');
 
     result = validator.isBoolean('sample');
 
@@ -578,6 +592,8 @@ const any: any = null;
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
 
+    result = validator.isOctal('076543210');
+
     result = validator.isPort('sample');
 
     result = validator.isPostalCode('sample', 'AT');
@@ -636,6 +652,8 @@ const any: any = null;
 
     result = validator.matches('foobar', 'foo/i');
     result = validator.matches('foobar', 'foo', 'i');
+
+    result = validator.isSlug('cs_67CZ');
 }
 
 // **************
