@@ -37,7 +37,7 @@ export interface QueryOptions<TResult> {
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
     suspense?: boolean;
-    initialData: any;
+    initialData?: TResult;
 }
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
