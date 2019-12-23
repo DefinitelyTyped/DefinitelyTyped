@@ -212,6 +212,10 @@ declare namespace Sinon {
          * If the call did not explicitly return a value, the value at the call’s location in .returnValues will be undefined.
          */
         returnValues: TReturnValue[];
+        /**
+         * Get the original method. Only available if the spy replaced an existing method.
+         */
+        wrappedMethod: (...args: TArgs)=>TReturnValue;
 
         // Methods
         (...args: TArgs): TReturnValue;
