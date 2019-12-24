@@ -39,6 +39,7 @@ const router: Router = Router();
 router.get('/users.json', (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
+    options.pagination = true;
     options.select = 'email username';
     options.sort = { username: (descending ? -1 : 1) };
     options.collation = { locale: 'en_US', strength: 1 };
@@ -61,8 +62,7 @@ router.get('/users.json', (req: Request, res: Response) => {
         prevPage: 'prevPageCustom'
     };
 
-    UserModel
-    .paginate({}, options, (err: any, value: PaginateResult<User>) => {
+    UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);
