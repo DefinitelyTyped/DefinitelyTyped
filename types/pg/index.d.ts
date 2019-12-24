@@ -1,4 +1,4 @@
-// Type definitions for pg 7.11
+// Type definitions for pg 7.14
 // Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,9 @@ import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
 
-export interface ConnectionConfig {
+import { ConnectionOptions } from "tls";
+
+export interface ClientConfig {
     user?: string;
     database?: string;
     password?: string;
@@ -20,22 +22,19 @@ export interface ConnectionConfig {
     keepAlive?: boolean;
     stream?: stream.Duplex;
     statement_timeout?: false | number;
-    connectionTimeoutMillis?: number;
+    ssl?: boolean | ConnectionOptions;
+    query_timeout?: number;
     keepAliveInitialDelayMillis?: number;
 }
 
-export interface Defaults extends ConnectionConfig {
+export type ConnectionConfig = ClientConfig;
+
+export interface Defaults extends ClientConfig {
     poolSize?: number;
     poolIdleTimeout?: number;
     reapIntervalMillis?: number;
     binary?: boolean;
     parseInt8?: boolean;
-}
-
-import { ConnectionOptions } from 'tls';
-
-export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | ConnectionOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -145,10 +144,15 @@ export class Connection extends events.EventEmitter {
     end(): void;
 }
 
+/**
+ * {@link https://node-postgres.com/api/pool}
+ */
 export class Pool extends events.EventEmitter {
-    // `new Pool('pg://user@localhost/mydb')` is not allowed.
-    // But it passes type check because of issue:
-    // https://github.com/Microsoft/TypeScript/issues/7485
+    /**
+     * Every field of the config object is entirely optional.
+     * The config passed to the pool is also passed to every client
+     * instance within the pool when the pool creates that client.
+     */
     constructor(config?: PoolConfig);
 
     readonly totalCount: number;

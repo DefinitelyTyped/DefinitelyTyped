@@ -4,6 +4,12 @@ export type InputGroupAddonPosition = "before" | "after";
 
 export type InputGroupTypes = "text" | "number" | "search";
 
+export interface InputGroupAddonProps {
+    className?: string;
+    /* Set to **true** if add-on is a button. */
+    isButton?: boolean;
+}
+
 export type InputGroupProps = {
     /* Set to **true** to enable an input with actions. Actions can be shown with a text label or icon. */
     actions?: boolean;
@@ -12,6 +18,8 @@ export type InputGroupProps = {
     /* Location of the add-on relative to the input. */
     addonPos?: InputGroupAddonPosition;
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     compact?: boolean;
     glyph?: string;
     /* CSS class(es) to add to the `<input>` element. */
@@ -43,6 +51,9 @@ export type InputGroupProps = {
     searchButtonProps?: { [x: string]: any };
 } & { [x: string]: any };
 
-declare class InputGroup extends React.Component<InputGroupProps> {}
+declare class InputGroup extends React.Component<InputGroupProps> {
+    static displayName: "InputGroup";
+    static Addon: React.FunctionComponent<InputGroupAddonProps> & {displayName: "InputGroup.Addon"};
+}
 
 export default InputGroup;

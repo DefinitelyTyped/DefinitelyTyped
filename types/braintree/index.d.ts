@@ -1,7 +1,8 @@
 // Type definitions for braintree 2.20
 // Project: https://github.com/braintree/braintree_node
 // Definitions by: Sam Rubin <https://github.com/smrubin>,
-//                 Mohamed Elsharnouby <https://github.com/sharno>
+//                 Mohamed Elsharnouby <https://github.com/sharno>,
+//                 Aaron Rose <https://github.com/acdr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -50,6 +51,8 @@ declare namespace braintree {
         testing: TestingGateway;
         transaction: TransactionGateway;
         transactionLineItem: TransactionLineItemGateway;
+        webhookNotification: WebhookNotificationGateway;
+        webhookTesting: WebhookTestingGateway;
     }
 
     interface ValidatedResponse<T> {
@@ -212,6 +215,14 @@ declare namespace braintree {
 
     interface TransactionLineItemGateway {
         findAll(transactionId: string): Promise<TransactionLineItem[]>;
+    }
+
+    interface WebhookNotificationGateway {
+        parse(signature: string, payload: string): Promise<WebhookNotification>;
+    }
+
+    interface WebhookTestingGateway {
+        sampleNotification(kind: WebhookNotificationKind, id: string): Promise<SampleNotification>;
     }
 
     /**
@@ -815,6 +826,56 @@ declare namespace braintree {
         | 'VenmoAccount'
         | 'VisaCheckoutCard'
         | 'SamsungPayCard';
+
+    /**
+     * Webhooks
+     */
+
+    export class SampleNotification {
+        bt_signature: string;
+        bt_payload: string;
+    }
+
+    export class WebhookNotification {
+        kind: WebhookNotificationKind;
+        timestamp: Date;
+        subscription?: Subscription;
+        merchantAccount?: MerchantAccount;
+        transaction?: Transaction;
+        dispute?: Dispute;
+    }
+
+    export type WebhookNotificationKind =
+        | 'account_updater_daily_report'
+        | 'check'
+        | 'connected_merchant_paypal_status_changed'
+        | 'connected_merchant_status_transitioned'
+        | 'disbursement'
+        | 'disbursement_exception'
+        | 'dispute_opened'
+        | 'dispute_lost'
+        | 'dispute_won'
+        | 'grantor_updated_granted_payment_method'
+        | 'granted_payment_method_revoked'
+        | 'local_payment_completed'
+        | 'partner_merchant_connected'
+        | 'partner_merchant_disconnected'
+        | 'partner_merchant_declined'
+        | 'payment_method_revoked_by_customer'
+        | 'oauth_access_revoked'
+        | 'recipient_updated_granted_payment_method'
+        | 'subscription_canceled'
+        | 'subscription_charged_successfully'
+        | 'subscription_charged_unsuccessfully'
+        | 'subscription_expired'
+        | 'subscription_trial_ended'
+        | 'subscription_went_active'
+        | 'subscription_went_past_due'
+        | 'sub_merchant_account_approved'
+        | 'sub_merchant_account_declined'
+        | 'transaction_disbursed'
+        | 'transaction_settled'
+        | 'transaction_settlement_declined';
 
     /**
      * Plan

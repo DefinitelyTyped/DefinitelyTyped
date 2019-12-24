@@ -162,7 +162,8 @@ const scaleOptions: Chart.RadialLinearScale = {
         zeroLineColor: 'rgba(0, 0, 0, 0.25)',
         zeroLineBorderDash: [],
         zeroLineBorderDashOffset: 0.0,
-        offsetGridLines: false
+        offsetGridLines: false,
+        z: 9
     }
 };
 const radarChartOptions: Chart.RadialChartOptions = {

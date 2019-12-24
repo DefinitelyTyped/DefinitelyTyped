@@ -6,6 +6,7 @@ import {
     Action,
     ActionConstructorOptions,
     Namespace,
+    Const,
 } from 'argparse';
 let args: any;
 
@@ -305,3 +306,46 @@ customActionExample.addArgument('--abc', {
 customActionExample.addArgument('--def', {
     action: CustomAction2,
 });
+
+const constExample = new ArgumentParser();
+constExample.addArgument(
+    ['-f', '--foo'],
+    {
+        help: 'foo bar',
+        nargs: Const.ONE_OR_MORE
+    }
+);
+constExample.addArgument(
+    ['-b', '--bar'],
+    {
+        help: 'bar foo',
+        nargs: Const.ZERO_OR_MORE
+    }
+);
+constExample.addArgument(
+    '--baz',
+    {
+        help: 'baz',
+        nargs: Const.OPTIONAL
+    }
+);
+constExample.addArgument(
+    '--qux',
+    {
+        help: Const.SUPPRESS
+    }
+);
+constExample.addArgument(
+    'quux',
+    {
+        help: 'quux',
+        nargs: Const.REMAINDER
+    }
+);
+
+constExample.printHelp();
+console.log('-----------');
+
+args = constExample.parseArgs('--foo x --bar --baz y --qux z a b c d e'.split(' '));
+console.dir(args);
+console.log('-----------');

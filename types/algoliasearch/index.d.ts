@@ -1309,6 +1309,11 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+    /**
+     * Associates a certain user token with the current search
+     * https://www.algolia.com/doc/api-reference/api-parameters/userToken/
+     */
+    userToken?: string;
 
     sortFacetValuesBy?: 'count' | 'alpha';
 

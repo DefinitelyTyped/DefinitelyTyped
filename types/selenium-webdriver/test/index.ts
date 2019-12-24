@@ -5,7 +5,9 @@ import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
 import * as ie from 'selenium-webdriver/ie';
 import * as safari from 'selenium-webdriver/safari';
+import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdriver/lib/capabilities';
 import { Command } from 'selenium-webdriver/lib/command';
+import Symbols from 'selenium-webdriver/lib/symbols';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -80,15 +82,11 @@ function TestAlert() {
 function TestBrowser() {
     let browser: string;
 
-    browser = webdriver.Browser.ANDROID;
     browser = webdriver.Browser.CHROME;
+    browser = webdriver.Browser.EDGE;
     browser = webdriver.Browser.FIREFOX;
-    browser = webdriver.Browser.HTMLUNIT;
+    browser = webdriver.Browser.IE;
     browser = webdriver.Browser.INTERNET_EXPLORER;
-    browser = webdriver.Browser.IPAD;
-    browser = webdriver.Browser.IPHONE;
-    browser = webdriver.Browser.OPERA;
-    browser = webdriver.Browser.PHANTOM_JS;
     browser = webdriver.Browser.SAFARI;
 }
 
@@ -96,61 +94,46 @@ function TestCapabilities() {
     let capabilities: webdriver.Capabilities = new webdriver.Capabilities();
     capabilities = new webdriver.Capabilities(webdriver.Capabilities.chrome());
     let objCapabilities: any = {};
-    objCapabilities[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.PHANTOM_JS;
+    objCapabilities[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.SAFARI;
     capabilities = new webdriver.Capabilities(objCapabilities);
 
-    let anything: any = capabilities.get(webdriver.Capability.SECURE_SSL);
-    let check: boolean = capabilities.has(webdriver.Capability.SECURE_SSL);
+    let anything: any = capabilities.get(webdriver.Capability.ACCEPT_INSECURE_TLS_CERTS);
+    let check: boolean = capabilities.has(webdriver.Capability.ACCEPT_INSECURE_TLS_CERTS);
     capabilities = capabilities.merge(capabilities);
     capabilities = capabilities.merge(objCapabilities);
-    capabilities = capabilities.set(webdriver.Capability.VERSION, { abc: 'def' });
-    capabilities = capabilities.set(webdriver.Capability.VERSION, null);
+    capabilities = capabilities.set(webdriver.Capability.BROWSER_VERSION, { abc: 'def' });
+    capabilities = capabilities.set(webdriver.Capability.BROWSER_VERSION, null);
     capabilities = capabilities.setLoggingPrefs(new webdriver.logging.Preferences());
     capabilities = capabilities.setLoggingPrefs({ key: 'value' });
     capabilities = capabilities.setProxy({ proxyType: 'Type' });
-    capabilities = capabilities.setEnableNativeEvents(true);
-    capabilities = capabilities.setScrollBehavior(1);
-    capabilities = capabilities.setAlertBehavior('accept');
-    capabilities = capabilities.setAlertBehavior();
+    capabilities = capabilities.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+    capabilities = capabilities.setAlertBehavior(UserPromptHandler.ACCEPT);
     capabilities = capabilities.setBrowserName('myBrowserName');
-    capabilities = capabilities.setBrowserName(webdriver.Browser.ANDROID);
+    capabilities = capabilities.setBrowserName(webdriver.Browser.SAFARI);
     capabilities = capabilities.setBrowserVersion('10.3.4');
 
-    anything = capabilities.toJSON();
+    anything = capabilities[Symbols.serialize]();
 
-    capabilities = webdriver.Capabilities.android();
     capabilities = webdriver.Capabilities.chrome();
+    capabilities = webdriver.Capabilities.edge();
     capabilities = webdriver.Capabilities.firefox();
-    capabilities = webdriver.Capabilities.htmlunit();
-    capabilities = webdriver.Capabilities.htmlunitwithjs();
     capabilities = webdriver.Capabilities.ie();
-    capabilities = webdriver.Capabilities.ipad();
-    capabilities = webdriver.Capabilities.iphone();
-    capabilities = webdriver.Capabilities.opera();
-    capabilities = webdriver.Capabilities.phantomjs();
     capabilities = webdriver.Capabilities.safari();
 }
 
 function TestCapability() {
     let capability: string;
 
-    capability = webdriver.Capability.ACCEPT_SSL_CERTS;
+    capability = webdriver.Capability.ACCEPT_INSECURE_TLS_CERTS;
     capability = webdriver.Capability.BROWSER_NAME;
-    capability = webdriver.Capability.ELEMENT_SCROLL_BEHAVIOR;
-    capability = webdriver.Capability.HANDLES_ALERTS;
+    capability = webdriver.Capability.BROWSER_VERSION;
     capability = webdriver.Capability.LOGGING_PREFS;
-    capability = webdriver.Capability.NATIVE_EVENTS;
-    capability = webdriver.Capability.PLATFORM;
+    capability = webdriver.Capability.PLATFORM_NAME;
+    capability = webdriver.Capability.PAGE_LOAD_STRATEGY;
     capability = webdriver.Capability.PROXY;
-    capability = webdriver.Capability.ROTATABLE;
-    capability = webdriver.Capability.SECURE_SSL;
-    capability = webdriver.Capability.SUPPORTS_APPLICATION_CACHE;
-    capability = webdriver.Capability.SUPPORTS_CSS_SELECTORS;
-    capability = webdriver.Capability.SUPPORTS_JAVASCRIPT;
-    capability = webdriver.Capability.SUPPORTS_LOCATION_CONTEXT;
-    capability = webdriver.Capability.TAKES_SCREENSHOT;
-    capability = webdriver.Capability.UNEXPECTED_ALERT_BEHAVIOR;
-    capability = webdriver.Capability.VERSION;
+    capability = webdriver.Capability.SET_WINDOW_RECT;
+    capability = webdriver.Capability.TIMEOUTS;
+    capability = webdriver.Capability.UNHANDLED_PROMPT_BEHAVIOR;
 }
 
 function TestEventEmitter() {
@@ -285,10 +268,10 @@ function TestBy() {
 }
 
 function TestSession() {
-    let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
+    let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.chrome());
     let capabilitiesObj: any = {};
-    capabilitiesObj[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.ANDROID;
-    capabilitiesObj[webdriver.Capability.PLATFORM] = 'ANDROID';
+    capabilitiesObj[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.CHROME;
+    capabilitiesObj[webdriver.Capability.PLATFORM_NAME] = Platform.LINUX;
     session = new webdriver.Session('ABC', capabilitiesObj);
 
     let capabilities: webdriver.Capabilities = session.getCapabilities();
@@ -404,7 +387,7 @@ declare const booleanCondition: webdriver.Condition<boolean>;
 declare const webElementCondition: webdriver.WebElementCondition;
 
 function TestWebDriver() {
-    let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
+    let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.chrome());
     let httpClient: http.HttpClient = new http.HttpClient('http://someserver');
     let executor: http.Executor = new http.Executor(httpClient);
     let driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
@@ -475,7 +458,7 @@ function TestWebDriver() {
     webElementPromise = driver.wait(webElementCondition);
     voidPromise = driver.wait(webElementCondition).click();
 
-    driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
+    driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());
 }
 
 declare const serializable: webdriver.Serializable<string>;

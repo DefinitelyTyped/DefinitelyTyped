@@ -87,8 +87,9 @@ declare class MimeNode {
      */
     setContent(content: string | Buffer | Readable): this;
 
-    /** Generate the message and return it with a callback */
+    /** Generate the message and return it with a callback or promise */
     build(callback: (err: Error | null, buf: Buffer) => void): void;
+    build(): Promise<Buffer>;
 
     getTransferEncoding(): string;
 

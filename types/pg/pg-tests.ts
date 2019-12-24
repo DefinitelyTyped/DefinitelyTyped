@@ -131,6 +131,12 @@ client
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));
 
+// pg.Pool
+// https://node-postgres.com/api/pool
+
+// no params ctor
+const poolParameterlessCtor = new Pool();
+
 const poolOne = new Pool({
     connectionString: 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb',
 });
