@@ -778,6 +778,12 @@ setTimeout(() => {
   screen.render();
 }, 3000);
 
+// https://github.com/chjj/blessed#helpers
+
+blessed.escape('{bold}{/bold}');
+blessed.parseTags('{bold}hi{/bold}');
+blessed.generateTags({ fg: 'red' }, 'red text');
+
 // https://github.com/chjj/blessed/blob/master/test/program-mouse.js
 
 const program = blessed.program({

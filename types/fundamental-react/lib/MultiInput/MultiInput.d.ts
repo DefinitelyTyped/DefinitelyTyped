@@ -6,6 +6,8 @@ export type MultiInputProps = {
     buttonProps?: { [x: string]: any };
     className?: string;
     compact?: boolean;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     inputProps?: { [x: string]: any };
     listProps?: { [x: string]: any };
     localizedText?: {
@@ -14,6 +16,7 @@ export type MultiInputProps = {
     };
     /* Localized placeholder text of the input. */
     placeHolder?: string;
+    popoverProps?: { [x: string]: any };
     /* Additional props to be spread to the tags `<div>` element. */
     tagProps?: { [x: string]: any };
     /* Callback function when a tag is added or removed. Returns array of tags selected. */

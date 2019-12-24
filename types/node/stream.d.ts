@@ -123,6 +123,7 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             destroyed: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
@@ -210,6 +211,9 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
+            writableCorked?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -225,6 +229,7 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;

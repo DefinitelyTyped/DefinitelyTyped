@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "acme-client",
+            "typingsPackageName": "acme-client",
+            "sourceRepoURL": "https://github.com/publishlab/node-acme-client",
+            "asOfVersion": "3.3.0"
+        },
+        {
             "libraryName": "actions-on-google",
             "typingsPackageName": "actions-on-google",
             "sourceRepoURL": "https://github.com/actions-on-google/actions-on-google-nodejs",

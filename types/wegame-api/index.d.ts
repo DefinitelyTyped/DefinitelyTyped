@@ -204,13 +204,20 @@ declare class FileSystemManager {
      */
     readFile(param: wx.types.ReadfileParams): void;
     /**
-     * readFile 的同步版本
+     * readFile 的同步版本，读取并返回指定路径的文件的原始二进制内容
      * @param filePath 要读取的文件的路径
-     * @param encoding 指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
      * @throws 指定的 filePath 所在目录不存在
      * @throws 指定的 filePath 路径没有读权限
      */
-    readFileSync(filePath: string, encoding?: wx.types.FileContentEncoding): string | ArrayBuffer;
+    readFileSync(filePath: string): ArrayBuffer;
+    /**
+     * readFile 的同步版本，读取并按指定字符编码返回字符串
+     * @param filePath 要读取的文件的路径
+     * @param encoding 指定读取文件的字符编码
+     * @throws 指定的 filePath 所在目录不存在
+     * @throws 指定的 filePath 路径没有读权限
+     */
+    readFileSync(filePath: string, encoding: wx.types.FileContentEncoding): string;
 
     /**
      * 获取文件 Stats 对象
@@ -229,14 +236,22 @@ declare class FileSystemManager {
      */
     writeFile(param: wx.types.WritefileParams): void;
     /**
-     * writeFile 的同步版本
+     * writeFile 的同步版本，写入二进制原始文件数据
      * @param filePath 要写入的文件路径
-     * @param data 要写入的文本或二进制数据
-     * @param encoding 指定写入文件的字符编码
+     * @param data 要写入的二进制数据
      * @throws 指定的 filePath 所在目录不存在
      * @throws 指定的 filePath 路径没有写权限
      */
-    writeFileSync(filePath: string, data: string | ArrayBuffer, encoding?: wx.types.FileContentEncoding): void;
+    writeFileSync(filePath: string, data: ArrayBuffer): void;
+    /**
+     * writeFile 的同步版本，写入文本字符串数据至文件
+     * @param filePath 要写入的文件路径
+     * @param data 要写入的文本内容
+     * @param encoding 指定写入的文本的字符编码格式
+     * @throws 指定的 filePath 所在目录不存在
+     * @throws 指定的 filePath 路径没有写权限
+     */
+    writeFileSync(filePath: string, data: string, encoding: wx.types.FileContentEncoding): void;
 
     /**
      * 判断文件/目录是否存在

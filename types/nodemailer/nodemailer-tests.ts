@@ -1282,11 +1282,17 @@ function mailcomposer_createReadStream_test() {
 
 // build
 
-function mailcomposer_build_test() {
+function mailcomposer_build_callback_test() {
     const mail = new MailComposer({ from: '...' });
     mail.compile().build((err, message) => {
         process.stdout.write(message);
     });
+}
+
+async function mailcomposer_build_promise_test() {
+    const mail = new MailComposer({ from: '...' });
+    const message = await mail.compile().build();
+    process.stdout.write(message);
 }
 
 // addressparser

@@ -1571,37 +1571,37 @@ declare namespace OracleDB {
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsnodbtype
          */
-        fetchType: number;
+        fetchType?: number;
         /**
          * One of the Node-oracledb Type Constant values.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsdbtype
          */
-        dbType: number;
+        dbType?: number;
         /**
          * The class associated with the database type. This is only set if the database type is an object type.
          */
-        dbTypeClass: DBObjectClass;
+        dbTypeClass?: DBObjectClass;
         /**
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
-        dbTypeName: string;
+        dbTypeName?: string;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
-        byteSize: number;
+        byteSize?: number;
         /**
          * Set only for DB_TYPE_NUMBER, DB_TYPE_TIMESTAMP, DB_TYPE_TIMESTAMP_TZ and DB_TYPE_TIMESTAMP_LTZ columns.
          */
-        precision: number;
+        precision?: number;
         /**
          * Set only for DB_TYPE_NUMBER columns.
          */
-        scale: number;
+        scale?: number;
         /**
          * Indicates whether NULL values are permitted for this column.
          */
-        nullable: boolean;
+        nullable?: boolean;
     }
 
     /**

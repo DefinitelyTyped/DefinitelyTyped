@@ -42,7 +42,7 @@ let mapOptions: google.maps.MapOptions = {
 };
 
 /***** Create map *****/
-let map: google.maps.Map = new google.maps.Map(document.getElementById('map'), mapOptions);
+let map: google.maps.Map = new google.maps.Map(document.createElement('div'), mapOptions);
 
 /***** Fitting map to bounds *****/
 map.fitBounds(
@@ -320,7 +320,7 @@ marker.getIcon(); // $ExpectType string | ReadonlyIcon | ReadonlySymbol | null |
 
 marker.getLabel(); // $ExpectType ReadonlyMarkerLabel | null | undefined
 
-marker.getMap(); // $ExpectType Map | StreetViewPanorama | null | undefined
+marker.getMap(); // $ExpectType Map<Element> | StreetViewPanorama | null | undefined
 
 marker.getOpacity(); // $ExpectType number | null | undefined
 
