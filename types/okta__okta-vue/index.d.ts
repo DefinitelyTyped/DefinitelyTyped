@@ -1,7 +1,7 @@
 // Type definitions for okta-vue 1.2
 // Project: https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue, https://github.com/okta/okta-oidc-js
 // Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
-//                 Mike Dodge <https://github.com/mgdodges>
+//                 Mike Dodge <https://github.com/mgdodge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
