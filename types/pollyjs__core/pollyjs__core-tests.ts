@@ -120,6 +120,14 @@ async function test() {
         log(`${req.url} took ${req.responseTime}ms with a status of ${res.statusCode}.`);
     });
 
+    const fn = () => {};
+    server
+        .any()
+        .on('request', fn)
+        .on('request', () => {})
+        .off('request', fn)
+        .off('request');
+
     polly.configure({
         adapterOptions: {
             fetch: {
