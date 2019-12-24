@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 0.8
+// Type definitions for mini-css-extract-plugin 0.9
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -34,6 +34,12 @@ declare namespace MiniCssExtractPlugin {
          * disabled by setting this flag to true for the plugin.
          */
         ignoreOrder?: boolean;
+        /**
+         * By default, mini-css-extract-plugin generates JS modules that use the CommonJS
+         * modules syntax. There are some cases in which using ES modules is beneficial,
+         * like in the case of module concatenation and tree shaking.
+         */
+        esModule?: boolean;
     }
 }
 

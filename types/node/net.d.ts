@@ -72,8 +72,8 @@ declare module "net" {
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): AddressInfo | string;
-        unref(): void;
-        ref(): void;
+        unref(): this;
+        ref(): this;
 
         readonly bufferSize: number;
         readonly bytesRead: number;

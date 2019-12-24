@@ -62,8 +62,14 @@ export interface Position {
 export interface Program extends BaseNode {
   type: "Program";
   sourceType: "script" | "module";
-  body: Array<Statement | ModuleDeclaration>;
+  body: Array<Directive | Statement | ModuleDeclaration>;
   comments?: Array<Comment>;
+}
+
+export interface Directive extends BaseNode {
+  type: "ExpressionStatement";
+  expression: Literal;
+  directive: string;
 }
 
 interface BaseFunction extends BaseNode {

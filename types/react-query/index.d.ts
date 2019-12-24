@@ -2,6 +2,7 @@
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
+//                 Matteo Frana <https://github.com/matteofrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentType } from 'react';
@@ -31,9 +32,12 @@ export interface QueryOptions<TResult> {
     staleTime?: number;
     cacheTime?: number;
     refetchInterval?: false | number;
+    refetchIntervalInBackground?: boolean;
+    refetchOnWindowFocus?: boolean;
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
     suspense?: boolean;
+    initialData?: TResult;
 }
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
