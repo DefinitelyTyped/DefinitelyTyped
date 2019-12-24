@@ -336,7 +336,7 @@ declare namespace Sinon {
          */
         restore(): void;
         /**
-         * Get the original method. Only available if the spy replaced an existing method.
+         * Get the original method. Only available if the spy replaced an existing method, but not a property.
          */
         wrappedMethod: (...args: any[]) => any;
     }
