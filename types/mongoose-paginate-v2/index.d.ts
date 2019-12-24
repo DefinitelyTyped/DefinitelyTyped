@@ -41,7 +41,7 @@ declare module 'mongoose' {
     page?: number;
     limit?: number;
     read?: ReadOptions;
-    pagination?: boolean
+    pagination?: boolean;
   }
 
   interface QueryPopulateOptions {
