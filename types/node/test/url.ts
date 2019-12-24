@@ -137,8 +137,6 @@ import * as url from 'url';
         ['user', 'abc'],
         ['query', 'first'],
         ['query', 'second'],
-    // ts 2.1/2.* compatibility
-    // tslint:disable-next-line no-unnecessary-type-assertion
     ] as Array<[string, string]>);
     assert.equal(params.toString(), 'user=abc&query=first&query=second');
 }

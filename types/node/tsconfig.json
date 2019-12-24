@@ -3,8 +3,10 @@
         "index.d.ts",
         "node-tests.ts",
         "test/assert.ts",
+        "test/async_hooks.ts",
         "test/buffer.ts",
         "test/child_process.ts",
+        "test/constants.ts",
         "test/cluster.ts",
         "test/crypto.ts",
         "test/dgram.ts",
@@ -13,6 +15,7 @@
         "test/global.ts",
         "test/http.ts",
         "test/http2.ts",
+        "test/module.ts",
         "test/net.ts",
         "test/os.ts",
         "test/path.ts",
@@ -36,7 +39,7 @@
         "module": "commonjs",
         "target": "es6",
         "lib": [
-            "es6",
+            "es2018",
             "dom"
         ],
         "noImplicitAny": true,
