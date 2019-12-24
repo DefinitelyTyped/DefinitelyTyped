@@ -34,6 +34,7 @@
 //                 Richard Ward <https://github.com/richardwardza>
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
+//                 Timon van Spronsen <https://github.com/TimonVS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -63,6 +64,16 @@ interface ResponseEvent {
     request_end_time: number;
 }
 
+interface StripeConfig {
+    apiVersion?: string | null;
+    maxNetworkRetries?: number;
+    httpAgent?: Agent | null;
+    timeout?: number;
+    host?: string;
+    port?: number;
+    telemetry?: boolean;
+}
+
 declare class Stripe {
     DEFAULT_HOST: string;
     DEFAULT_PORT: string;
@@ -84,6 +95,7 @@ declare class Stripe {
     StripeResource: typeof Stripe.StripeResource;
 
     constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, config?: StripeConfig);
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
@@ -3868,7 +3880,7 @@ declare namespace Stripe {
                  */
                 object: IObject;
 
-                previous_attributes?: {};
+                previous_attributes?: { [key: string]: any };
             };
 
             livemode: boolean;
@@ -7245,7 +7257,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type PaymentIntentPaymentMethodType = 'card' | 'card_present';
+        type PaymentIntentPaymentMethodType = 'card' | 'ideal' | 'sepa_debit';
 
         interface IPaymentMethodCardOptions {
             /**
@@ -7612,7 +7624,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type SetupIntentPaymentMethodType = 'card' | 'card_present' | 'sepa_debit';
+        type SetupIntentPaymentMethodType = paymentIntents.PaymentIntentPaymentMethodType;
 
         interface ISetupIntent extends IResourceObject {
             /**
@@ -8559,6 +8571,16 @@ declare namespace Stripe {
              * be affected.
              */
             product?: string;
+
+            /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active?: boolean;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days?: number;
         }
 
         interface IPlanCreationOptionsProductHash {
@@ -10660,7 +10682,7 @@ declare namespace Stripe {
              */
             quantity?: number;
 
-            source?: string | cards.ICardSourceCreationOptions;
+            default_source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -10702,6 +10724,16 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
 
             /**
              * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.

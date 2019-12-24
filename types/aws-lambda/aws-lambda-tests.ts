@@ -125,7 +125,7 @@ strOrUndefined = apiGwEvtReqCtx.routeKey;
 
 /* API Gateway Event */
 strOrNull = apiGwEvt.body;
-str = apiGwEvt.headers!['example'];
+str = apiGwEvt.headers['example'];
 str = apiGwEvt.multiValueHeaders['example'][0];
 str = apiGwEvt.httpMethod;
 bool = apiGwEvt.isBase64Encoded;
@@ -561,7 +561,7 @@ bool = context.callbackWaitsForEmptyEventLoop;
 str = context.functionName;
 str = context.functionVersion;
 str = context.invokedFunctionArn;
-num = context.memoryLimitInMB;
+str = context.memoryLimitInMB;
 str = context.awsRequestId;
 str = context.logGroupName;
 str = context.logStreamName;

@@ -1,10 +1,23 @@
 import Stripe = require('stripe');
 import { customers } from 'stripe';
 
-const stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K');
+let stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K');
+stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', 'latest');
 
 import { Agent as HttpAgent } from 'http';
 import { Agent as HttpsAgent } from 'https';
+
+stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {
+    apiVersion: 'latest',
+    maxNetworkRetries: 1,
+    httpAgent: new HttpAgent(),
+    timeout: 1000,
+    host: 'api.example.com',
+    port: 123,
+    telemetry: true
+});
+
+stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {});
 
 stripe.setHttpAgent(new HttpAgent());
 stripe.setHttpAgent(new HttpsAgent());
@@ -1028,6 +1041,9 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 
 //#region Events tests
 // ##################################################################################
+
+const fakeEvent: Stripe.events.IEvent = stripe.webhooks.constructEvent('', '', '');
+const previousStatus = fakeEvent.data.previous_attributes && fakeEvent.data.previous_attributes.status;
 
 //#endregion
 
@@ -2074,7 +2090,7 @@ stripe.paymentIntents.create(
     {
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     },
     (err, intent) => {},
 );
@@ -2083,7 +2099,7 @@ stripe.paymentIntents
     .create({
         amount: 2000,
         currency: 'eur',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'ideal', 'sepa_debit'],
     })
     .then(intent => {});
 
@@ -2333,6 +2349,12 @@ stripe.plans.update(
     },
 );
 stripe.plans.update('gold-plan', { nickname: 'New gold plan nickname' }).then(plan => {
+    // asynchronously called
+});
+stripe.plans.update('gold-plan', { active: true }).then(plan => {
+    // asynchronously called
+});
+stripe.plans.update('gold-plan', { trial_period_days: 1 }).then(plan => {
     // asynchronously called
 });
 

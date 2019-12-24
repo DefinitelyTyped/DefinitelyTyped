@@ -52,11 +52,11 @@ export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> = string | ((callback: CallbackFunc<T>) => void) | CachingConfig | CallbackFunc<T>;
 
 export interface Cache {
-    set<T>(key: string, value: T, options: CachingConfig, callback?: (error: any) => void): void;
-    set<T>(key: string, value: T, ttl: number, callback?: (error: any) => void): void;
     set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
     set<T>(key: string, value: T, ttl: number): Promise<any>;
-
+    set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
+    set<T>(key: string, value: T, ttl: number, callback: (error: any) => void): void;
+    
     // Because the library accepts multiple keys as arguments but not as an array and rather as individual parameters
     // of the function, the type definition had to be changed to this rather than specific ones
     // actual definitions would looks like this (impossible in typescript):

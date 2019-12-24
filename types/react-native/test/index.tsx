@@ -88,6 +88,7 @@ import {
     ProgressBarAndroid,
     PushNotificationIOS,
     AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -193,6 +194,62 @@ const s = StyleSheet.create({
     },
 });
 const f1: TextStyle = s.shouldWork;
+
+// StyleSheet.compose
+// It creates a new style object by composing two existing styles
+const composeTextStyle: StyleProp<TextStyle> = {
+    color: '#000000',
+    fontSize: 20,
+};
+
+const composeImageStyle: StyleProp<ImageStyle> = {
+    resizeMode: 'contain',
+};
+
+// The following use of the compose method is valid
+const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    composeTextStyle,
+);
+
+const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(
+    composeImageStyle,
+    composeImageStyle,
+);
+
+const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
+
+const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    null,
+);
+
+const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
+
+const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    Math.random() < 0.5 ? composeTextStyle : null,
+);
+
+const combinedStyle6: StyleProp<TextStyle> = StyleSheet.compose(
+    null,
+    null,
+);
+
+// The following use of the compose method is invalid:
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -956,3 +1013,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;
