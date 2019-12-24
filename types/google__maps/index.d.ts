@@ -1358,7 +1358,7 @@ export interface DistanceMatrixResponse {
      * contains an array of addresses as returned by the API from your original request.
      * These are formatted by the geocoder and localized according to the language parameter passed with the request.
      */
-    origin_addresses: string;
+    origin_addresses: string[];
     /**
      * contains an array of addresses as returned by the API from your original request.
      * As with origin_addresses, these are localized if appropriate.
