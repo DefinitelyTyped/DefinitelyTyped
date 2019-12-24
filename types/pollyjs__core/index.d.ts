@@ -182,7 +182,7 @@ export class Polly {
     mode: MODE;
     server: PollyServer;
     persister: Persister | null;
-    adapters: Map<string, typeof Adapter>;
+    adapters: Map<string, Adapter>;
     config: PollyConfig;
 
     pause: () => void;

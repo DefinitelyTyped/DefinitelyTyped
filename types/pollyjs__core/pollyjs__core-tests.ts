@@ -106,6 +106,8 @@ function log(_: string) {
 }
 
 async function test() {
+    polly.adapters.get('node-http');
+
     polly.pause();
     polly.play();
     const { server } = polly;
