@@ -1,8 +1,8 @@
 import {
     ConcreteRequest,
     ConnectionHandler,
-    DefaultMissingFieldHandlers,
     Environment,
+    getDefaultMissingFieldHandlers,
     Network,
     QueryResponseCache,
     ROOT_ID,
@@ -52,7 +52,7 @@ const environment = new Environment({
     network,
     store,
     missingFieldHandlers: [
-        ...DefaultMissingFieldHandlers,
+        ...getDefaultMissingFieldHandlers(),
         // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
         {
             handle(field, record, argValues) {
