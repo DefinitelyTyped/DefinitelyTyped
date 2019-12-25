@@ -1,4 +1,5 @@
 import SagaTester from 'redux-saga-tester';
+import { AnyAction, Dispatch, Middleware } from 'redux'; // tslint:disable-line
 
 // constructor with all options
 new SagaTester({
@@ -6,10 +7,10 @@ new SagaTester({
         orders: [],
     },
     reducers: {
-        orders: (state, action) => state,
+        orders: (state: any, action: AnyAction) => state,
     },
     middlewares: [
-        ({dispatch, getState}) => (next) => (action) => {
+        ({dispatch, getState}: Middleware) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
             dispatch({type: 'BLA'});
             getState();
 
@@ -24,15 +25,15 @@ new SagaTester({
 
 // constructor with function as reducers
 new SagaTester({
-    reducers: (state = {}, action) => state,
+    reducers: (state: any = {}, action: AnyAction) => state,
 });
 
 // constructor with reducer map
 new SagaTester({
     reducers: {
-        a: (state, action) => state,
-        b: (state, action) => state,
-        c: (state, action) => state,
+        a: (state: any, action: AnyAction) => state,
+        b: (state: any, action: AnyAction) => state,
+        c: (state: any, action: AnyAction) => state,
     }
 });
 
@@ -40,15 +41,6 @@ new SagaTester({
 interface MockStateType {
     orders: Array<{ name: string }>;
 }
-
-interface Action<T = any> {
-    type: T
-}
-  
-interface AnyAction extends Action {
-    [extraProps: string]: any
-}
-  
 
 const sagaTester = new SagaTester<MockStateType>({initialState: {orders: []}});
 

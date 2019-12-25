@@ -1,13 +1,13 @@
 // Type definitions for redux-saga-tester 1.0
 // Project: https://github.com/wix/redux-saga-tester#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>, 
+// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>,
 //                 Law Smith <https://github.com/lawsumisu>,
 //                 Dimitar Mitov <https://github.com/dmitov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Task } from 'redux-saga';
-import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux';
+import { Task } from 'redux-saga'; // tslint:disable-line
+import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux'; // tslint:disable-line
 
 export type SagaFunction = (...args: any[]) => any;
 
@@ -47,7 +47,7 @@ export default class SagaTester<StateType extends object> {
      * Returns a promise that will resolve if the specified action is dispatched to the store.
      * @param futureOnly Causes waitFor to only resolve if the action is called in the future.
      */
-    waitFor<T>(actionType: string, futureOnly?: boolean): PromiseLike<T>;
+    waitFor<T>(actionType: string, futureOnly?: boolean): PromiseLike<T>; // tslint:disable-line no-unnecessary-generics
 
     /**
      * Returns whether the specified was dispatched in the past.
