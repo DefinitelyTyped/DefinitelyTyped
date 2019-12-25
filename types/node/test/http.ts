@@ -120,6 +120,10 @@ import * as net from 'net';
 
     // path
     const path: string = req.path;
+    req.path = '/';
+
+    // method
+    const method: string = req.method;
 }
 
 {

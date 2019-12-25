@@ -19,10 +19,15 @@
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Linus Unnebäck <https://github.com/LinusU>
+//                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 /// <reference types="node" />
+/// <reference path="node.d.ts" />
+/// <reference path="react-native.d.ts" />
+
+import { EventEmitter } from 'events';
 
 declare enum ErrorCode {
     OTHER_CAUSE = -1,
@@ -82,7 +87,8 @@ declare enum ErrorCode {
     X_DOMAIN_REQUEST = 602,
 }
 
-declare namespace Parse {
+declare global {
+namespace Parse {
     let applicationId: string;
     let javaScriptKey: string | undefined;
     let liveQueryServerURL: string;
@@ -718,7 +724,7 @@ declare namespace Parse {
      * subscription.on('close', () => {});
      * ```
      */
-    class LiveQuerySubscription extends NodeJS.EventEmitter {
+    class LiveQuerySubscription extends EventEmitter {
         /**
          * Creates an instance of LiveQuerySubscription.
          *
@@ -1273,6 +1279,15 @@ declare namespace Parse {
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
     /**
+     * Use this to set custom headers
+     * The headers will be sent with every parse request
+     */
+    namespace CoreManager {
+        function set(key: string, value: any): void;
+        function get(key: string): void;
+      }
+
+    /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
      * @param AsyncStorage AsyncStorage from 'react-native' package
      */
@@ -1296,17 +1311,6 @@ declare namespace Parse {
 
     function setLocalDatastoreController(controller: any): void;
 }
-
-declare module 'parse/node' {
-    export = Parse;
 }
 
-declare module 'parse' {
-    import * as parse from 'parse/node';
-    export = parse;
-}
-
-declare module 'parse/react-native' {
-    import * as parse from 'parse/node';
-    export = parse;
-}
+export = Parse;
