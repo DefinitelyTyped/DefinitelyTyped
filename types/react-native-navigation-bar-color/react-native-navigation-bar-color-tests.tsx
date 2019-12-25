@@ -5,11 +5,11 @@ import changeNavigationBarColor, { HideNavigationBar, ShowNavigationBar } from '
 export default class Mynewapp extends React.Component {
     setNavigationColor = (color: string) => {
         changeNavigationBarColor(color);
-    };
+    }
 
     setNavBar = (color: string) => {
         changeNavigationBarColor(color, true, true);
-    };
+    }
 
     hideNavigation() {
         HideNavigationBar();
