@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-declare const useMousetrap: (keys: string | string[], callback: () => void) => void;
+declare function useMousetrap(keys: string | string[], callback: () => void): void;
 
 export default useMousetrap;
