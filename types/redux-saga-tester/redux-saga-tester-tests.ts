@@ -41,6 +41,15 @@ interface MockStateType {
     orders: Array<{ name: string }>;
 }
 
+interface Action<T = any> {
+    type: T
+}
+  
+interface AnyAction extends Action {
+    [extraProps: string]: any
+}
+  
+
 const sagaTester = new SagaTester<MockStateType>({initialState: {orders: []}});
 
 // start
@@ -67,7 +76,7 @@ sagaTester.getState().orders;
 // waitFor
 sagaTester.waitFor('LOAD_ORDERS').then(() => {
 });
-sagaTester.waitFor('LOAD_ORDERS', true).then(() => {
+sagaTester.waitFor<AnyAction>('LOAD_ORDERS', true).then(() => {
 });
 
 // wasCalled

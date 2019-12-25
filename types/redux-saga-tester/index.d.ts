@@ -45,7 +45,7 @@ export default class SagaTester<StateType extends object> {
      * Returns a promise that will resolve if the specified action is dispatched to the store.
      * @param futureOnly Causes waitFor to only resolve if the action is called in the future.
      */
-    waitFor(actionType: string, futureOnly?: boolean): PromiseLike<void>;
+    waitFor<T>(actionType: string, futureOnly?: boolean): PromiseLike<T>;
 
     /**
      * Returns whether the specified was dispatched in the past.
