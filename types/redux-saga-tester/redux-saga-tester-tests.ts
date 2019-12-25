@@ -1,5 +1,5 @@
 import SagaTester from 'redux-saga-tester';
-import { AnyAction, Dispatch, MiddlewareAPI } from 'redux'; // tslint:disable-line
+import { AnyAction, Dispatch } from 'redux'; // tslint:disable-line
 
 // constructor with all options
 new SagaTester({
@@ -10,7 +10,7 @@ new SagaTester({
         orders: (state: any, action: AnyAction) => state,
     },
     middlewares: [
-        ({ dispatch, getState }: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
+        ({ dispatch, getState }: any) => (next: any) => (action: AnyAction) => {
             dispatch({type: 'BLA'});
             getState();
 
