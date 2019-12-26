@@ -5,38 +5,13 @@
 
 import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
+import * as Rebass from 'rebass';
 import * as StyledComponents from 'styled-components';
 import * as StyledSystem from 'styled-system';
 
 declare module '@rebass/forms' {
-    interface BaseProps extends React.RefAttributes<any> {
-        as?: React.ElementType;
-        css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string;
-    }
-
-    /**
-     * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
-     * such that properties that are part of the `Theme` will be transformed to
-     * their corresponding values. Other valid CSS properties are also allowed.
-     */
-    type SxStyleProp =
-        | SystemStyleObject
-        | Record<
-              string,
-              | SystemStyleObject
-              | ResponsiveStyleValue<number | string>
-              | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
-          >;
-
-    interface SxProps {
-        /**
-         * The sx prop lets you style elements inline, using values from your theme.
-         */
-        sx?: SxStyleProp;
-    }
-
     interface BoxKnownProps
-        extends BaseProps,
+        extends Rebass.BaseProps,
             StyledSystem.SpaceProps,
             StyledSystem.LayoutProps,
             StyledSystem.FontSizeProps,
@@ -44,7 +19,7 @@ declare module '@rebass/forms' {
             StyledSystem.FlexProps,
             StyledSystem.OrderProps,
             StyledSystem.AlignSelfProps,
-            SxProps {
+            Rebass.SxProps {
         variant?: StyledSystem.ResponsiveValue<string>;
         tx?: string;
     }
