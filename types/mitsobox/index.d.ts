@@ -2,7 +2,6 @@
 // Project: https://github.com/jimfilippou/mitsobox
 // Definitions by: MrClemds <https://github.com/MrClemds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /**
  * Create a win32 messageBox ok dialog
