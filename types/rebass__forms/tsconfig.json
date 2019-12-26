@@ -5,17 +5,18 @@
             "es6",
             "dom"
         ],
-        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"]
+            "@styled-system/css": ["styled-system__css"],
+            "@rebass/forms": ["rebass__forms"]
         },
         "types": [],
         "noEmit": true,
