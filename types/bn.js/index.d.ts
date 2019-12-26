@@ -23,6 +23,33 @@ interface ReductionContext {
     [key: string]: any;
 }
 
+declare namespace BN {
+    /**
+     * @description  create a reduction context
+     */
+    function red(reductionContext: BN | IPrimeName): ReductionContext;
+
+    /**
+     * @description  create a reduction context  with the Montgomery trick.
+     */
+    function mont(num: BN): ReductionContext;
+
+    /**
+     * @description returns true if the supplied object is a BN.js instance
+     */
+    function isBN(b: any): b is BN;
+
+    /**
+     * @description returns the maximum of 2 BN instances.
+     */
+    function max(left: BN, right: BN): BN;
+
+    /**
+     * @description returns the minimum of 2 BN instances.
+     */
+    function min(left: BN, right: BN): BN;
+}
+
 declare class BN {
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
@@ -33,31 +60,6 @@ declare class BN {
         number: number | string | number[] | Uint8Array | Buffer | BN,
         endian?: Endianness
     )
-
-    /**
-     * @description  create a reduction context
-     */
-    static red(reductionContext: BN | IPrimeName): ReductionContext;
-
-    /**
-     * @description  create a reduction context  with the Montgomery trick.
-     */
-    static mont(num: BN): ReductionContext;
-
-    /**
-     * @description returns true if the supplied object is a BN.js instance
-     */
-    static isBN(b: any): b is BN;
-
-    /**
-     * @description returns the maximum of 2 BN instances.
-     */
-    static max(left: BN, right: BN): BN;
-
-    /**
-     * @description returns the minimum of 2 BN instances.
-     */
-    static min(left: BN, right: BN): BN;
 
     /**
      * @description  clone number
