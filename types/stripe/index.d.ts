@@ -35,6 +35,7 @@
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
 //                 Timon van Spronsen <https://github.com/TimonVS>
+//                 Sean Chen <https://github.com/kamiyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -7590,14 +7591,9 @@ declare namespace Stripe {
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
             /**
-             * Filter links by their expiration status. By default, all links are returned.
+             * Only return PaymentIntents for the customer specified by this customer ID.
              */
-            expired?: boolean;
-
-            /**
-             * Only return links for the given file.
-             */
-            file?: boolean;
+            customer?: string;
         }
     }
 
