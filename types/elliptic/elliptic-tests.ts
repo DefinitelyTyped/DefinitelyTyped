@@ -67,11 +67,11 @@ edkey.verify(msg, sig);
 edkey.verify(msg.toString('hex'), sig.toBytes());
 
 const edkey2 = eddsa.keyFromPublic(key.getPublic());
-// edkey2.verify(msg, sig);
+edkey2.verify(msg, sig);
 
-// eddsa.verify(msg, sig, edkey2.getPublic('hex'));
-// eddsa.verify(msg.toString('hex'), sig.toBytes(), edkey2.getPublic());
-// eddsa.verify(msg, sig.toHex(), edkey2.getPublic());
+eddsa.verify(msg, sig, edkey2.getPublic('hex'));
+eddsa.verify(msg.toString('hex'), sig.toBytes(), edkey2.getPublic());
+eddsa.verify(msg, sig.toHex(), edkey2.getPublic());
 
 // Curves Tests
 elliptic.curve.base.BasePoint;
