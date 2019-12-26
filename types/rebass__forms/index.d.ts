@@ -6,7 +6,6 @@
 import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
 import * as Rebass from 'rebass';
-import * as StyledComponents from 'styled-components';
 import * as StyledSystem from 'styled-system';
 
 declare module '@rebass/forms' {
