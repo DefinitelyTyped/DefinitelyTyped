@@ -27,17 +27,17 @@ export function getParametersSync(
 ): SSM.Types.GetParametersResult;
 
 export function getParametersByPath(
-    path: string,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): Promise<SSM.Types.ParameterList>;
 
 export function getParametersByPathSync(
-    path: string,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): SSM.Types.ParameterList;
 
 export interface ParameterQuery {
-    path(path: string): ParameterQuery;
+    path(path: SSM.Types.PSParameterName): ParameterQuery;
     named(nameOrNames: SSM.Types.PSParameterName | SSM.Types.ParameterNameList): ParameterQuery;
     decryption(enabled: boolean): ParameterQuery;
     recursive(enabled: boolean): ParameterQuery;

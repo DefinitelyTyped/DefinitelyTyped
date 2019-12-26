@@ -12,7 +12,6 @@ import {
 
 declare let bool: boolean;
 declare let query: ParameterQuery;
-declare let path: string;
 declare let psName: SSM.Types.PSParameterName;
 declare let psNames: SSM.Types.ParameterNameList;
 declare let options: SSM.Types.ClientConfiguration;
@@ -27,7 +26,7 @@ declare let promiseAllParamResults: Promise<typeof allParamResults>;
 
 query = parameterQuery();
 
-query.path(path);
+query.path(psName);
 query.named(psName);
 query.named(psNames);
 query.decryption(bool);
@@ -66,8 +65,8 @@ promiseParamResult = getParameter(psName, options);
 promiseParamsResult = getParameters(psNames);
 promiseParamsResult = getParameters(psNames, options);
 
-promiseParamsByPathResult = getParametersByPath(path);
-promiseParamsByPathResult = getParametersByPath(path, options);
+promiseParamsByPathResult = getParametersByPath(psName);
+promiseParamsByPathResult = getParametersByPath(psName, options);
 
 paramResult = getParameterSync(psName);
 paramResult = getParameterSync(psName, options);
@@ -75,5 +74,5 @@ paramResult = getParameterSync(psName, options);
 paramsResult = getParametersSync(psNames);
 paramsResult = getParametersSync(psNames, options);
 
-paramsByPathResult = getParametersByPathSync(path);
-paramsByPathResult = getParametersByPathSync(path, options);
+paramsByPathResult = getParametersByPathSync(psName);
+paramsByPathResult = getParametersByPathSync(psName, options);
