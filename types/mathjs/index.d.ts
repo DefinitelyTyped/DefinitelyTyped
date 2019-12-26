@@ -816,10 +816,13 @@ declare namespace math {
          * @param n Number of decimals Default value: 0.
          * @returns Rounded value of x
          */
-        round(
-            x: number | BigNumber | Fraction | Complex | MathArray | Matrix,
-            n?: number | BigNumber | MathArray
-        ): number | BigNumber | Fraction | Complex | MathArray | Matrix;
+        round(x: number, n?: number | BigNumber | MathArray): number
+        round(x: BigNumber, n?: number | BigNumber | MathArray): BigNumber;
+        round(x: Fraction, n?: number | BigNumber | MathArray): Fraction;
+        round(x: Complex, n?: number | BigNumber | MathArray): Complex;
+        round(x: MathArray, n?: number | BigNumber | MathArray): MathArray;
+        round(x: Matrix, n?: number | BigNumber | MathArray): Matrix;
+
 
         /**
          * Compute the sign of a value. The sign of a value x is: 1 when x > 1
