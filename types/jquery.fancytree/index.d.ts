@@ -669,14 +669,14 @@ declare namespace Fancytree {
         //#endregion
     }
 
-    enum FancytreeClickFolderMode {
+    const enum FancytreeClickFolderMode {
         activate = 1,
         expand = 2,
         activate_and_expand = 3,
         activate_dblclick_expands = 4
     }
 
-    enum FancytreeSelectMode {
+    const enum FancytreeSelectMode {
         single = 1,
         multi = 2,
         mutlti_hier = 3
