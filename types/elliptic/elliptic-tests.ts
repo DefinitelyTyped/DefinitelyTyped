@@ -67,11 +67,11 @@ edkey.verify(msg, sig);
 edkey.verify(msg.toString('hex'), sig.toBytes());
 
 const edkey2 = eddsa.keyFromPublic(key.getPublic());
-edkey2.verify(msg, sig);
+// edkey2.verify(msg, sig);
 
-eddsa.verify(msg, sig, edkey2.getPublic('hex'));
-eddsa.verify(msg.toString('hex'), sig.toBytes(), edkey2.getPublic());
-eddsa.verify(msg, sig.toHex(), edkey2.getPublic());
+// eddsa.verify(msg, sig, edkey2.getPublic('hex'));
+// eddsa.verify(msg.toString('hex'), sig.toBytes(), edkey2.getPublic());
+// eddsa.verify(msg, sig.toHex(), edkey2.getPublic());
 
 // Curves Tests
 elliptic.curve.base.BasePoint;
@@ -100,12 +100,11 @@ sc.pointFromJSON(p2.toJSON(), false).toJSON();
 
 // ECDH Tests
 
-var key1 = ec.genKeyPair();
-var key2 = ec.genKeyPair();
+const key1 = ec.genKeyPair();
+const key2 = ec.genKeyPair();
 
-var shared1 = key1.derive(key2.getPublic());
-var shared2 = key2.derive(key1.getPublic());
+const shared1 = key1.derive(key2.getPublic());
+const shared2 = key2.derive(key1.getPublic());
 
-console.log(BN.isBN(shared1) && BN.isBN(shared2))
+console.log(BN.isBN(shared1) && BN.isBN(shared2));
 console.log(shared1.toString('hex') === shared2.toString('hex'));
-
