@@ -13,8 +13,7 @@ type ColorParam = Color | string | ArrayLike<number> | number | { [key: string]:
 interface Color<T extends ColorParam = ColorParam> {
     toString(): string;
     toJSON(): Color<T>;
-    string(): string;
-    string(places: number): string;
+    string(places?: number): string;
     percentString(places?: number): string;
     array(): number[];
     object(): { alpha?: number } & { [key: string]: number };
