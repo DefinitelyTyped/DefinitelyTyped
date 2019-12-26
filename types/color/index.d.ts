@@ -4,7 +4,7 @@
 //                 James W. Lane <https://github.com/jameswlane>
 //                 Adam Haglund <https://github.com/BeeeQueue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import convert = require('color-convert');
 
