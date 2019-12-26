@@ -1,14 +1,11 @@
 import Color = require('color');
 
-// Copied from index.d.ts since it can't be exported because it uses `export = Color`
-type Colorparam = typeof Color | string | ArrayLike<number> | number | { [key: string]: any };
-
 const color: Color<"white"> = new Color("white");
 const colorOther: Color<"black"> = new Color("black");
-const colorRGB: Color<Colorparam> = new Color({ r: 0, g: 0, b: 0 }, "rgb");
-const colorInt: Color<Colorparam> = new Color(0x000000);
-const colorWithoutNew: Color<Colorparam> = Color(0x000000);
-const colorByStaticMethod: Color<Colorparam> = Color.rgb({ r: 0, g: 0, b: 0 });
+const colorRGB: Color = new Color({ r: 0, g: 0, b: 0 }, "rgb");
+const colorInt: Color = new Color(0x000000);
+const colorWithoutNew: Color = Color(0x000000);
+const colorByStaticMethod: Color = Color.rgb({ r: 0, g: 0, b: 0 });
 
 const hex: string = color.hex();
 const percent: string = color.percentString();
@@ -40,7 +37,7 @@ const a: number = color.a();
 const b: number = color.b();
 const rgbNumber: number = color.rgbNumber();
 
-const chain: Color<Colorparam> = color
+const chain: Color = color
     .alpha(0)
     .red(0)
     .green(0)
