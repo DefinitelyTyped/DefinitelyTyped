@@ -3,6 +3,7 @@
 // Definitions by:  Álvaro Martínez <https://github.com/alvaromartmart>
 //                  RobertYost <https://github.com/RobertYost>
 //                  Jasper Staab <https://github.com/jstaab>
+//                  Kristin Ruben <https://github.com/kristinruben>
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
 // TypeScript Version: 3.5
 /// <reference types="node"/>
