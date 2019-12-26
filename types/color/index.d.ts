@@ -105,7 +105,7 @@ interface Color<T extends ColorParam = ColorParam> {
 
 interface ColorConstructor {
     <T extends ColorParam>(obj?: T, model?: keyof (typeof convert)): Color<T>;
-    new<T extends ColorParam>(obj?: ColorParam, model?: keyof (typeof convert)): Color<T>;
+    new<T extends ColorParam>(obj?: T, model?: keyof (typeof convert)): Color<T>;
     rgb(...val: number[]): Color;
     rgb(color: ColorParam): Color;
     hsl(...val: number[]): Color;
