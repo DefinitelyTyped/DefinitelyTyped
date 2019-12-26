@@ -2,6 +2,7 @@
 // Project: https://github.com/rebassjs/rebass#readme
 // Definitions by: zinozzino <https://github.com/zinozzino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
