@@ -127,7 +127,11 @@ declare module "http" {
         sendDate: boolean;
         finished: boolean;
         headersSent: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
 
         constructor();
 
@@ -178,7 +182,8 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -273,7 +278,11 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         complete: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
@@ -295,7 +304,6 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: Socket;
         destroy(error?: Error): void;
     }
 

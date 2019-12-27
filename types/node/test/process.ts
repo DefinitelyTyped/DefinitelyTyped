@@ -13,7 +13,7 @@ import { EventEmitter } from "events";
     ok(process.argv[0] === process.argv0);
 }
 {
-    let module: NodeModule | undefined;
+    let module: NodeJS.Module | undefined;
     module = process.mainModule;
 }
 {

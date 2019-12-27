@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot, resetServerContext } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, BeforeCapture, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot, resetServerContext } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -48,6 +48,10 @@ class App extends React.Component<{}, AppState> {
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
+  onBeforeCapture(beforeCapture: BeforeCapture) {
+    //
+  }
+
   onBeforeDragStart(dragStart: DragStart) {
     //
   }
@@ -84,7 +88,7 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
+      <DragDropContext onBeforeCapture={this.onBeforeCapture} onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>

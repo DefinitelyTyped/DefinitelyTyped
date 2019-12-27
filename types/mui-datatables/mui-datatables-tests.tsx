@@ -5,6 +5,7 @@ interface Props extends MUIDataTableOptions {
     data: any;
     title: string;
     textLabels?: MUIDataTableTextLabels;
+    options?: MUIDataTableOptions;
 }
 
 const MuiCustomTable: React.FC<Props> = (props) => {
@@ -120,4 +121,16 @@ const TableFruits = [
     { id: 5, name: "Orange", amount: 9 },
 ];
 
-<MuiCustomTable title="Awesome Table" data={TableFruits} />;
+const options: MUIDataTableOptions = {
+    filter: true,
+    filterType: 'dropdown',
+    responsive: 'scrollMaxHeight',
+    onDownload: (buildHead, buildBody, columns, data) => {
+        if (data) {
+            return buildHead(columns) + buildBody(data);
+        }
+        return false;
+    },
+};
+
+<MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;

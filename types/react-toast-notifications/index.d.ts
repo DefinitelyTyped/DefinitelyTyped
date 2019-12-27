@@ -14,7 +14,7 @@ export type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited';
 
 export interface ToastProps {
     appearance: AppearanceTypes;
-    autoDismiss: boolean | number;
+    autoDismiss: boolean | number; // inherited from ToastProvider
     autoDismissTimeout: number; // inherited from ToastProvider
     children: ReactNode;
     isRunning: boolean;
@@ -47,6 +47,7 @@ export interface ToastContainerProps {
 }
 
 export interface ToastProviderProps {
+    autoDismiss?: boolean | number;
     autoDismissTimeout?: number;
     children: ReactNode;
     components?: {

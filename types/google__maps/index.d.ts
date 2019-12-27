@@ -1358,7 +1358,7 @@ export interface DistanceMatrixResponse {
      * contains an array of addresses as returned by the API from your original request.
      * These are formatted by the geocoder and localized according to the language parameter passed with the request.
      */
-    origin_addresses: string;
+    origin_addresses: string[];
     /**
      * contains an array of addresses as returned by the API from your original request.
      * As with origin_addresses, these are localized if appropriate.
@@ -2993,7 +2993,7 @@ export interface PlacesNearbyRequest {
      * Restricts the results to places matching the specified type.
      * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
      */
-    type?: AddressType;
+    type?: PlaceType1|PlaceType2;
     /**
      * Returns the next 20 results from a previously run search.
      * Setting a pagetoken parameter will execute a search with the same parameters used previously —

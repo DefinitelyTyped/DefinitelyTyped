@@ -757,7 +757,7 @@ declare namespace jest {
          */
         nthReturnedWith<E = any>(n: number, value: E): R;
         /**
-         * Checks that a value is what you expect. It uses `===` to check strict equality.
+         * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
          *
          * Optionally, you can provide a type for the expected value via a generic.
