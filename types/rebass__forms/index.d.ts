@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
 import * as Rebass from 'rebass';
 import * as StyledSystem from 'styled-system';
+
+type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
 
 interface BoxKnownProps
     extends Rebass.BaseProps,
