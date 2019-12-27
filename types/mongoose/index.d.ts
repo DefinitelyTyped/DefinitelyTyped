@@ -31,6 +31,7 @@
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 LKHO <https://github.com/lkho>
 //                 Tom Yam <https://github.com/tomyam1>
 //                 Thomas Pischulski <https://github.com/nephix>
 //                 Sam Kim <https://github.com/rlaace423>
@@ -2024,6 +2025,12 @@ declare module "mongoose" {
     lte<T>(path: string, val: T): this;
 
     /**
+     * Runs a function fn and treats the return value of fn as the new value for the query to resolve to.
+     * Any functions you pass to map() will run after any post hooks.
+     */
+    map<TRes>(fn: (res: T) => TRes): DocumentQuery<TRes, DocType, QueryHelpers> & QueryHelpers;
+
+    /**
      * Specifies a $maxDistance query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
@@ -3327,6 +3334,7 @@ declare module "mongoose" {
     where(path: string, val?: any): Query<any> & QueryHelpers;
   }
 
+  class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
