@@ -17,6 +17,13 @@ import * as DropdownListDefault from "react-widgets/lib/DropdownList";
 import * as MultiselectDefault from "react-widgets/lib/Multiselect";
 import * as NumberPickerDefault from "react-widgets/lib/NumberPicker";
 import * as SelectListDefault from "react-widgets/lib/SelectList";
+import { CalendarMessages, CalendarProps, CalendarView } from "react-widgets/lib/Calendar";
+import { ComboboxMessages, ComboboxProps } from "react-widgets/lib/Combobox";
+import { DateTimePickerMessages, DateTimePickerProps } from "react-widgets/lib/DateTimePicker";
+import { DropdownListMessages, DropdownListProps } from "react-widgets/lib/DropdownList";
+import { MultiselectMessages, MultiselectProps } from "react-widgets/lib/Multiselect";
+import { NumberPickerMessages, NumberPickerProps } from "react-widgets/lib/NumberPicker";
+import { SelectListMessages, SelectListProps } from "react-widgets/lib/SelectList";
 
 function tagComponent(props: { value: string }) {
     return <span>{props.value}</span>;
