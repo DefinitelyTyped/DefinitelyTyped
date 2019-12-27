@@ -27,5 +27,8 @@ export default () => (
             <Checkbox id="remember" name="remember" />
             Remember Me
         </Label>
+        <Label width={[1 / 2, 1 / 4]} p={2}>
+            <Textarea id="remember" name="remember" />
+        </Label>
     </>
 );
