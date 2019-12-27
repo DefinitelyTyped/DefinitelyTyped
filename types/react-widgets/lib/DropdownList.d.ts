@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DropdownListProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
@@ -205,6 +205,6 @@ interface DropdownListMessages {
     createOption?: string | ((props: DropdownListProps) => string);
 }
 
-interface DropdownListClass extends React.ComponentClass<DropdownListProps> { }
+interface DropdownListClass extends ComponentClass<DropdownListProps> { }
 declare var DropdownList: DropdownListClass;
 export = DropdownList;

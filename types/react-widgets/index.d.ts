@@ -13,8 +13,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-
 export import Calendar = require('./lib/Calendar');
 export import Combobox = require('./lib/Combobox');
 export import DateTimePicker = require('./lib/DateTimePicker');

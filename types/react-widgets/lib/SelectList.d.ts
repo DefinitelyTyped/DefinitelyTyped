@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
 interface SelectListProps extends ReactWidgetsCommonProps, AutoFocus {
@@ -114,6 +114,6 @@ interface SelectListMessages {
     emptyList?: string | ((props: SelectListProps) => string);
 }
 
-interface SelectListClass extends React.ComponentClass<SelectListProps> {}
+interface SelectListClass extends ComponentClass<SelectListProps> {}
 declare var SelectList: SelectListClass;
 export = SelectList;

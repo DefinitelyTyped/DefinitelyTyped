@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
 type CalendarView = 'month' | 'year' | 'decade' | 'century';
@@ -138,6 +138,6 @@ interface CalendarMessages {
     moveForward?: string;
 }
 
-interface CalendarClass extends React.ComponentClass<CalendarProps> {}
+interface CalendarClass extends ComponentClass<CalendarProps> {}
 declare var Calendar: CalendarClass;
 export = Calendar;

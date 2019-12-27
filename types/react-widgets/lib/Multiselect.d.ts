@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 interface MultiselectProps
@@ -214,6 +214,6 @@ interface MultiselectMessages {
     emptyFilter?: string | ((props: MultiselectProps) => string);
 }
 
-interface MultiselectClass extends React.ComponentClass<MultiselectProps> {}
+interface MultiselectClass extends ComponentClass<MultiselectProps> {}
 declare var Multiselect: MultiselectClass;
 export = Multiselect;

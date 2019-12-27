@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
 interface NumberPickerProps extends ReactWidgetsCommonProps, AutoFocus {
@@ -95,6 +95,6 @@ interface NumberPickerMessages {
     decrement?: string;
 }
 
-interface NumberPickerClass extends React.ComponentClass<NumberPickerProps> {}
+interface NumberPickerClass extends ComponentClass<NumberPickerProps> {}
 declare var NumberPicker: NumberPickerClass;
 export = NumberPicker;

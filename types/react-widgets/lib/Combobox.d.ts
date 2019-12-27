@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentClass } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface ComboBoxMessages {
@@ -159,6 +159,6 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
     messages?: ComboBoxMessages;
 }
 
-interface ComboBoxClass extends React.ComponentClass<ComboBoxProps> {}
+interface ComboBoxClass extends ComponentClass<ComboBoxProps> {}
 declare var ComboBox: ComboBoxClass;
 export = ComboBox;
