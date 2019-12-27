@@ -24,8 +24,15 @@ interface BoxKnownProps
     tx?: string;
 }
 
+interface LabelKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FlexWrapProps,
+        StyledSystem.FlexDirectionProps,
+        StyledSystem.AlignItemsProps,
+        StyledSystem.JustifyContentProps {}
+
 declare module '@rebass/forms' {
-    interface LabelProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLLabelElement>, keyof BoxKnownProps> {}
+    interface LabelProps extends LabelKnownProps, Omit<React.HTMLProps<HTMLLabelElement>, keyof BoxKnownProps> {}
 
     const Label: React.FunctionComponent<LabelProps>;
 
