@@ -24,31 +24,27 @@ interface BoxKnownProps
 }
 
 declare module '@rebass/forms' {
-    export interface LabelProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLLabelElement>, keyof BoxKnownProps> {}
+    interface LabelProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLLabelElement>, keyof BoxKnownProps> {}
 
-    export const Label: React.FunctionComponent<LabelProps>;
+    const Label: React.FunctionComponent<LabelProps>;
 
-    export interface InputProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+    interface InputProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
 
-    export const Input: React.FunctionComponent<InputProps>;
+    const Input: React.FunctionComponent<InputProps>;
 
-    export interface SelectProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLSelectElement>, keyof BoxKnownProps> {}
+    interface SelectProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLSelectElement>, keyof BoxKnownProps> {}
 
-    export const Select: React.FunctionComponent<SelectProps>;
+    const Select: React.FunctionComponent<SelectProps>;
 
-    export interface TextareaProps
-        extends BoxKnownProps,
-            Omit<React.HTMLProps<HTMLTextAreaElement>, keyof BoxKnownProps> {}
+    interface TextareaProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLTextAreaElement>, keyof BoxKnownProps> {}
 
-    export const Textarea: React.FunctionComponent<TextareaProps>;
+    const Textarea: React.FunctionComponent<TextareaProps>;
 
-    export interface RadioProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+    interface RadioProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
 
-    export const Radio: React.FunctionComponent<RadioProps>;
+    const Radio: React.FunctionComponent<RadioProps>;
 
-    export interface CheckboxProps
-        extends BoxKnownProps,
-            Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+    interface CheckboxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
 
-    export const Checkbox: React.FunctionComponent<CheckboxProps>;
+    const Checkbox: React.FunctionComponent<CheckboxProps>;
 }
