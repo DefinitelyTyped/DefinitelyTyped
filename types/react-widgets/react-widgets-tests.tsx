@@ -10,6 +10,13 @@ import {
     NumberPicker,
     SelectList
 } from "react-widgets";
+import * as CalendarDefault from "react-widgets/lib/Calendar";
+import * as ComboboxDefault from "react-widgets/lib/Combobox";
+import * as DateTimePickerDefault from "react-widgets/lib/DateTimePicker";
+import * as DropdownListDefault from "react-widgets/lib/DropdownList";
+import * as MultiselectDefault from "react-widgets/lib/Multiselect";
+import * as NumberPickerDefault from "react-widgets/lib/NumberPicker";
+import * as SelectListDefault from "react-widgets/lib/SelectList";
 
 function tagComponent(props: { value: string }) {
     return <span>{props.value}</span>;
@@ -35,6 +42,15 @@ class Test extends React.Component<React.Props<{}>> {
                     <Multiselect />
                     <NumberPicker />
                     <SelectList />
+                </div>
+                <div>
+                    <CalendarDefault />
+                    <ComboboxDefault />
+                    <DateTimePickerDefault />
+                    <DropdownListDefault />
+                    <MultiselectDefault />
+                    <NumberPickerDefault />
+                    <SelectListDefault />
                 </div>
                 <div>
                     <Calendar defaultValue={new Date()} />
@@ -77,6 +93,12 @@ class Test extends React.Component<React.Props<{}>> {
                 </div>
                 <div>
                     <Calendar
+                        autoFocus
+                        defaultValue={new Date()}
+                        defaultView="year"
+                        views={["year", "decade"]}
+                    />
+                    <CalendarDefault
                         autoFocus
                         defaultValue={new Date()}
                         defaultView="year"
