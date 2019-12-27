@@ -4,6 +4,7 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
 //                 Colby M. White <https://github.com/colbywhite>
+//                 Zachary Dow <https://github.com/NewDark90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -174,7 +175,7 @@ declare namespace Chance {
         rpg(dice: string, opts?: Options): number[] | number;
         tv(opts?: Options): string;
         unique<T>(generator: () => T, count: number): T[];
-        unique<T, O extends Options>(generator: (options: O) => T, count: number, options: O): T[];
+        unique<T, O extends UniqueOptions<T>>(generator: (options: O) => T, count: number, options: O): T[];
         weighted<T>(values: T[], weights: number[]): T;
 
         // "Hidden"
@@ -205,7 +206,7 @@ declare namespace Chance {
         pool: string;
         alpha: boolean;
         numeric: boolean;
-        symbols: string;
+        symbols: boolean;
     }
 
     type StringOptions = CharacterOptions & { length: number } ;
@@ -269,6 +270,8 @@ declare namespace Chance {
         min?: Date;
         max?: Date;
     }
+
+    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
 
     interface Month {
         name: string;

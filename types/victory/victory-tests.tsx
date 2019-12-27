@@ -147,7 +147,7 @@ test = (
 );
 
 test = (
-    <VictoryLabel text={datum => datum.label} labelPlacement="perpendicular" renderInPortal>
+    <VictoryLabel text={({ datum }) => datum.label} labelPlacement="perpendicular" renderInPortal>
         {'data viz \n is \n fun!'}
     </VictoryLabel>
 );
@@ -351,7 +351,7 @@ test = (
             { x: 5, y: 1 },
         ]}
         alignment="start"
-        barWidth={(datum, active) => (active ? datum.x : datum.y)}
+        barWidth={({ datum, active }) => (active ? datum.x : datum.y)}
         cornerRadius={{ top: 2, bottom: 4 }}
         events={[
             {
@@ -443,6 +443,12 @@ test = (
         height={500}
         labelOrientation="top"
         labels={true}
+        max="max_value"
+        min={() => 10}
+        q1="bonds.q1"
+        q3={['bonds', 'q3']}
+        q3Component={<div />}
+        q3LabelComponent={<VictoryLabel />}
         name="BoxPlot"
         style={{
             min: { stroke: 'tomato' },
@@ -612,8 +618,8 @@ test = (
         data={commonData1}
         style={{
             data: {
-                fill: d => d.x,
-                stroke: (datum, active) => (active ? datum.x : datum.y),
+                fill: ({ datum }) => datum.x,
+                stroke: ({ datum, active }) => (active ? datum.x : datum.y),
                 strokeWidth: 3,
             },
         }}

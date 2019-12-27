@@ -7,6 +7,8 @@
 //                 Emma Krantz <https://github.com/KeyboardSounds>
 //                 Wing Ho <https://github.com/soyarsauce>
 //                 Usama Mehmood <https://github.com/UsamaMehmood>
+//                 Joey Rafidi <https://github.com/jrafidi>
+//                 Morgan Snyder <https://github.com/morgansierrasnyder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2432,13 +2434,19 @@ declare namespace Cesium {
     }
 
     class PolygonGraphics {
+        arcType: Property;
+        classificationType: Property;
+        closeBottom: Property;
+        closeTop: Property;
         definitionChanged: Event;
+        distanceDisplayCondition: Property;
         show: Property;
         material: MaterialProperty | Color;
-        positions: Property;
         hierarchy: Property;
         height: Property;
+        heightReference: Property;
         extrudedHeight: Property;
+        extrudedHeightReference: Property;
         granularity: Property;
         stRotation: Property;
         fill: boolean;
@@ -2446,19 +2454,30 @@ declare namespace Cesium {
         outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
+        shadows: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
             hierarchy?: Property;
-            height?: number;
+            height?: Property | number;
+            heightReference?: Property;
             extrudedHeight?: Property;
-            show?: Property;
-            fill?: boolean;
+            extrudedHeightReference?: Property;
+            show?: Property | boolean;
+            fill?: Property | boolean;
             material?: MaterialProperty | Color;
-            outline?: boolean;
-            outlineColor?: Color;
-            outlineWidth?: number;
+            outline?: Property | boolean;
+            outlineColor?: Property | Color;
+            outlineWidth?: Property | number;
             stRotation?: Property;
             granularity?: Property;
-            perPositionHeight?: Property
+            perPositionHeight?: Property;
+            closeTop?: boolean;
+            closeBottom?: boolean;
+            arcType?: Property | ArcType;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex: ConstantProperty | number;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
@@ -2490,20 +2509,33 @@ declare namespace Cesium {
     }
 
     class PolylineGraphics {
-        definitionChanged: Event;
+        arcType: Property;
+        clampToGround: Property;
+        classificationType: Property;
+        readonly definitionChanged: Event;
+        depthFailMaterial: MaterialProperty;
+        distanceDisplayCondition: Property;
+        followSurface: Property;
+        granularity: Property;
+        shadows: Property;
         show: Property;
         material: MaterialProperty;
         positions: Property;
-        width: number;
-        followSurface: Property;
-        granularity: Property;
+        width: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
-            positions?: Cartesian3[];
-            followSurface?: Property;
-            width?: number;
-            show?: Property;
+            positions?: Property | Cartesian3[];
+            clampToGround?: Property | boolean;
+            width?: Property | number;
+            show?: Property | boolean;
             material?: MaterialProperty;
-            granularity?: Property
+            granularity?: Property;
+            arcType?: Property | ArcType;
+            depthFailMaterial?: MaterialProperty;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex?: Property | number;
         });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
@@ -3757,6 +3789,45 @@ declare namespace Cesium {
         update(): void;
     }
 
+    class GroundPrimitive {
+        readonly allowPicking: boolean;
+        appearance: Appearance;
+        readonly asynchronous: boolean;
+        classificationType: ClassificationType;
+        readonly compressVertices: boolean;
+        debugShowBoundingVolume: boolean;
+        debugShowShadowVolume: boolean;
+        depthFailAppearance: Appearance;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
+        readonly interleave: boolean;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<Primitive>;
+        readonly releaseGeometryInstances: boolean;
+        show: boolean;
+        readonly vertexCacheOptimize: boolean;
+        constructor(options?: {
+            geometryInstances?: any[] | GeometryInstance;
+            appearance?: Appearance;
+            show?: boolean;
+            vertexCacheOptimize?: boolean;
+            interleave?: boolean;
+            compressVertices?: boolean;
+            releaseGeometryInstances?: boolean;
+            allowPicking?: boolean;
+            asynchronous?: boolean;
+            classificationType?: ClassificationType;
+            debugShowBoundingVolume?: boolean;
+            debugShowShadowVolume?: boolean;
+        });
+        static initializeTerrainHeights(): Promise<void>;
+        static isSupported(scene: Scene): boolean;
+        static supportsMaterials(scene: Scene): boolean;
+        destroy(): void;
+        getGeometryInstanceAttributes(id: any): any;
+        isDestroyed(): boolean;
+        update(): void;
+    }
+
     class PrimitiveCollection {
         show: boolean;
         destroyPrimitives: boolean;
@@ -4680,6 +4751,12 @@ declare namespace Cesium {
         type TaskProcessorWorkerFunction = (event: any) => void;
     }
 
+    enum ArcType {
+        NONE,
+        GEODESIC,
+        RHUMB
+    }
+
     enum ClockRange {
         UNBOUNDED,
         CLAMPED,
@@ -4964,6 +5041,12 @@ declare namespace Cesium {
         TRIANGLES,
         TRIANGLE_STRIP,
         TRIANGLE_FAN,
+    }
+
+    enum ClassificationType {
+        CESIUM_3D_TILE,
+        BOTH,
+        TERRAIN
     }
 
     namespace QuadraticRealPolynomial {
