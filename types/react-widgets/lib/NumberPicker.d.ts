@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
-interface NumberPickerProps extends ReactWidgetsCommonProps<NumberPickerClass>, AutoFocus {
+interface NumberPickerProps extends ReactWidgetsCommonProps, AutoFocus {
     /**
      * Set the culture of the NumberPicker, passed to the configured localizer.
      */

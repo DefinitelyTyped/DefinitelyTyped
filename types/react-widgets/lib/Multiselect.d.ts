@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 interface MultiselectProps
-    extends ReactWidgetsCommonDropdownProps<MultiselectClass>,
+    extends ReactWidgetsCommonDropdownProps,
         AutoFocus {
     /**
      * Enables the list option creation UI. onFilter will only the UI when actively filtering for a list item.

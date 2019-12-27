@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
-interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass>, AutoFocus {
+interface DropdownListProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
     /**
      * Allow to create a new option on the data list.
      */
