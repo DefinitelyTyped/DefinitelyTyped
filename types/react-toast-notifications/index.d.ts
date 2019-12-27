@@ -67,7 +67,7 @@ export interface Options {
 
 export type AddToast = (content: ReactNode, options?: Options, callback?: (id: string) => void) => void;
 
-export type RemoveToast = (id: string, callback: () => void) => void;
+export type RemoveToast = (id: string, callback?: () => void) => void;
 
 export const DefaultToastContainer: ComponentType<ToastContainerProps>;
 export const DefaultToast: ComponentType<ToastProps>;
