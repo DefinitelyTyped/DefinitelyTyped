@@ -8,7 +8,9 @@ import * as React from 'react';
 import * as Rebass from 'rebass';
 import * as StyledSystem from 'styled-system';
 
-type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
+export {};
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 interface BoxKnownProps
     extends Rebass.BaseProps,
@@ -31,26 +33,38 @@ interface LabelKnownProps
         StyledSystem.AlignItemsProps,
         StyledSystem.JustifyContentProps {}
 
-export interface LabelProps extends LabelKnownProps, Omit<React.HTMLProps<HTMLLabelElement>, keyof BoxKnownProps> {}
+export interface LabelProps
+    extends LabelKnownProps,
+        Omit<React.LabelHTMLAttributes<HTMLLabelElement>, keyof LabelKnownProps> {}
 
-export const Label: React.FunctionComponent<LabelProps>;
+export const Label: React.ComponentType<LabelProps>;
 
-export interface InputProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+export interface InputProps
+    extends BoxKnownProps,
+        Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
 
-export const Input: React.FunctionComponent<InputProps>;
+export const Input: React.ComponentType<InputProps>;
 
-export interface SelectProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLSelectElement>, keyof BoxKnownProps> {}
+export interface SelectProps
+    extends BoxKnownProps,
+        Omit<React.SelectHTMLAttributes<HTMLSelectElement>, keyof BoxKnownProps> {}
 
-export const Select: React.FunctionComponent<SelectProps>;
+export const Select: React.ComponentType<SelectProps>;
 
-export interface TextareaProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLTextAreaElement>, keyof BoxKnownProps> {}
+export interface TextareaProps
+    extends BoxKnownProps,
+        Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, keyof BoxKnownProps> {}
 
-export const Textarea: React.FunctionComponent<TextareaProps>;
+export const Textarea: React.ComponentType<TextareaProps>;
 
-export interface RadioProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+export interface RadioProps
+    extends BoxKnownProps,
+        Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
 
-export const Radio: React.FunctionComponent<RadioProps>;
+export const Radio: React.ComponentType<RadioProps>;
 
-export interface CheckboxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLInputElement>, keyof BoxKnownProps> {}
+export interface CheckboxProps
+    extends BoxKnownProps,
+        Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
 
-export const Checkbox: React.FunctionComponent<CheckboxProps>;
+export const Checkbox: React.ComponentType<CheckboxProps>;
