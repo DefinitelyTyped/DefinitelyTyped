@@ -1,7 +1,6 @@
 // Type definitions for @google/maps 0.5
 // Project: https://github.com/googlemaps/google-maps-services-js
 // Definitions by: Indri Muska <https://github.com/indrimuska>
-//                 Paul Huynh <https://github.com/pheromonez>
 // Definitions: https://github.com/indrimuska/google-maps-api-typings
 // TypeScript Version: 2.3
 
@@ -268,7 +267,6 @@ export type GoogleMapsClientEndpointWithPromise<Request, Response> = (query: Req
 
 /**
  * Google Maps clieant that provides access to all the APIs.
- * @param Promisable Determine if `asPromise()` is available in request. Default is WITHOUT_PROMISE.
  */
 export interface GoogleMapsClient {
     /**
