@@ -3,4 +3,4 @@
 // Definitions by: Chris Atkin <https://github.com/atkinchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function knuthShuffle(array: any[]): void;
+export function knuthShuffle<T>(array: T[]): T[];
