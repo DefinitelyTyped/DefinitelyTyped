@@ -214,7 +214,6 @@ interface MultiselectMessages {
     emptyFilter?: string | ((props: MultiselectProps) => string);
 }
 
-interface Multiselect extends React.ReactElement<MultiselectProps> {}
 interface MultiselectClass extends React.ComponentClass<MultiselectProps> {}
 declare var Multiselect: MultiselectClass;
 export = Multiselect;

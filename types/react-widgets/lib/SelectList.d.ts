@@ -114,7 +114,6 @@ interface SelectListMessages {
     emptyList?: string | ((props: SelectListProps) => string);
 }
 
-interface SelectList extends React.ReactElement<SelectListProps> {}
 interface SelectListClass extends React.ComponentClass<SelectListProps> {}
 declare var SelectList: SelectListClass;
 export = SelectList;

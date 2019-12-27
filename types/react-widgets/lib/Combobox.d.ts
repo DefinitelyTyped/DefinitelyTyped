@@ -159,7 +159,6 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
     messages?: ComboBoxMessages;
 }
 
-interface ComboBox extends React.ReactElement<ComboBoxProps> {}
 interface ComboBoxClass extends React.ComponentClass<ComboBoxProps> {}
 declare var ComboBox: ComboBoxClass;
 export = ComboBox;

@@ -205,7 +205,6 @@ interface DropdownListMessages {
     createOption?: string | ((props: DropdownListProps) => string);
 }
 
-interface DropdownList extends React.ReactElement<DropdownListProps> { }
 interface DropdownListClass extends React.ComponentClass<DropdownListProps> { }
 declare var DropdownList: DropdownListClass;
 export = DropdownList;

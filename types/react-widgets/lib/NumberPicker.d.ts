@@ -95,7 +95,6 @@ interface NumberPickerMessages {
     decrement?: string;
 }
 
-interface NumberPicker extends React.ReactElement<NumberPickerProps> {}
 interface NumberPickerClass extends React.ComponentClass<NumberPickerProps> {}
 declare var NumberPicker: NumberPickerClass;
 export = NumberPicker;

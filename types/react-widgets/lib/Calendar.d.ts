@@ -138,7 +138,6 @@ interface CalendarMessages {
     moveForward?: string;
 }
 
-interface Calendar extends React.ReactElement<CalendarProps> {}
 interface CalendarClass extends React.ComponentClass<CalendarProps> {}
 declare var Calendar: CalendarClass;
 export = Calendar;

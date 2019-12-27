@@ -197,7 +197,6 @@ interface DateTimePickerMessages {
     timeButton?: string;
 }
 
-interface DateTimePicker extends ReactElement<DateTimePickerProps> {}
 interface DateTimePickerClass extends ComponentClass<DateTimePickerProps> {}
 declare var DateTimePicker: DateTimePickerClass;
 export = DateTimePicker;
