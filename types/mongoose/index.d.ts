@@ -1032,6 +1032,11 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: boolean | SchemaTimestampsConfig;
+    /**
+     * Determines whether a type set to a POJO becomes
+     * a Mixed path or a Subdocument (defaults to true).
+     */
+    typePojoToMixed?:boolean;
   }
 
   interface SchemaTimestampsConfig {
