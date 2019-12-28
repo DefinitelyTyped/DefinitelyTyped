@@ -58,6 +58,7 @@ import {
   UseFiltersState,
   UseGlobalFiltersInstanceProps,
   UseGlobalFiltersOptions,
+  UseGlobalFiltersState,
   UseGroupByCellProps,
   UseGroupByColumnOptions,
   UseGroupByColumnProps,
@@ -131,6 +132,7 @@ declare module 'react-table' {
     extends UseColumnOrderState<D>,
       UseExpandedState<D>,
       UseFiltersState<D>,
+      UseGlobalFiltersState<D>,
       UseGroupByState<D>,
       UsePaginationState<D>,
       UseResizeColumnsState<D>,
@@ -150,8 +152,8 @@ declare module 'react-table' {
       UseResizeColumnsColumnProps<D>,
       UseSortByColumnProps<D> {}
 
-  export interface Cell<D extends object = {}> 
-    extends UseGroupByCellProps<D>, 
+  export interface Cell<D extends object = {}>
+    extends UseGroupByCellProps<D>,
       UseRowStateCellProps<D> {}
 
   export interface Row<D extends object = {}>
