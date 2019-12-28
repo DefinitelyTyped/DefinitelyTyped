@@ -4,4 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function niceTry<T>(fn: () => T): T | void;
+declare function niceTry(val?: any): void;
+
 export = niceTry;
