@@ -4,6 +4,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Nokky Goren <https://github.com/ApeNox>
 //                 Aziz Khambati <https://github.com/azizhk>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 //
