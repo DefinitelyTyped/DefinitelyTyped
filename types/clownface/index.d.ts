@@ -12,6 +12,7 @@ declare namespace clownface {
 
     type AddCallback<D extends DatasetCore, X extends Term> = (added: SingleContextClownface<D, X>) => void;
     type SingleOrArray<T> = T | T[];
+    type SingleOrOneElementArray<T> = T | [T];
 
     type SingleOrArrayOfTerms = SingleOrArray<TermOrClownface>;
     type SingleOrArrayOfTermsOrLiterals = SingleOrArray<TermOrLiteral>;
@@ -73,6 +74,18 @@ declare namespace clownface {
     }
 
     interface SafeClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends Clownface<D, T> {
+        node<X extends Term = Term>(value: SingleOrOneElementArray<boolean | string | number | Term | null>, options?: NodeOptions): SingleContextClownface<D, X>;
+        node<X extends Term = Term>(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
+      
+        blankNode(value?: SingleOrOneElementArray<string>): SingleContextClownface<D, BlankNode>;
+        blankNode(values: Array<string>): SafeClownface<D, BlankNode>;
+      
+        literal(value: SingleOrOneElementArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SingleContextClownface<D, Literal>;
+        literal(values: Array<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
+      
+        namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
+        namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
+      
         filter(cb: (quad: SingleContextClownface<D, T>) => boolean): SafeClownface<D, T>;
         forEach(cb: (quad: SingleContextClownface<D, T>) => void): void;
         map<X>(cb: (quad: SingleContextClownface<D, T>, index: number) => X): X[];

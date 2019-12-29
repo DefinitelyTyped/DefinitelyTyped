@@ -1,4 +1,4 @@
-import { Term, NamedNode, Dataset, Literal } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 
@@ -143,3 +143,18 @@ if (cf.value) {
 
 // .values
 const values: string[] = cf.values;
+
+const safeCf: clownface.SafeClownface<DatasetCore> = <any> {};
+
+const singleBlankAuto: clownface.SingleContextClownface<DatasetCore, BlankNode> = safeCf.blankNode();
+const SingleBlank: clownface.SingleContextClownface<DatasetCore, BlankNode> = safeCf.blankNode('blank');
+const singleNamed: clownface.SingleContextClownface<DatasetCore, NamedNode> = safeCf.namedNode('http://example.com/a');
+const singleLiteral: clownface.SingleContextClownface<DatasetCore, Literal> = safeCf.literal('a');
+
+const fromSingleArrayBLank: clownface.SingleContextClownface<DatasetCore, BlankNode> = safeCf.blankNode([ 'b1' ]);
+const fromSingleArrayNamed: clownface.SingleContextClownface<DatasetCore, NamedNode> = safeCf.namedNode([ 'http://example.com/a' ]);
+const fromSingleArrayLiteral: clownface.SingleContextClownface<DatasetCore, Literal> = safeCf.literal([ 'a' ]);
+
+const multipleBlanks: clownface.SafeClownface<DatasetCore, BlankNode> = safeCf.blankNode([ 'b1', 'b2' ]);
+const multipleNamed: clownface.SafeClownface<DatasetCore, NamedNode> = safeCf.namedNode([ 'http://example.com/a', 'http://example.com/b' ]);
+const multipleLiterals: clownface.SafeClownface<DatasetCore, Literal> = safeCf.literal([ 'a', 'b' ]);
