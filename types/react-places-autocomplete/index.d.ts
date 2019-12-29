@@ -6,7 +6,7 @@
 //                 Aziz Khambati <https://github.com/azizhk>
 //                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 //
 /// <reference types="googlemaps" />
 import * as React from 'react';
