@@ -38,6 +38,7 @@ export interface PropTypes {
         location?: google.maps.LatLng | google.maps.LatLngLiteral;
         offset?: number | string;
         radius?: number | string;
+        sessionToken?: any;
         types?: string[];
     };
     debounce?: number;
