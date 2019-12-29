@@ -1,4 +1,4 @@
-const onFulfilled = function(item: WebMidi.MIDIAccess) {
+const onFulfilled = (item: WebMidi.MIDIAccess) => {
     const midiPort = item;
 
     midiPort.onstatechange = event => {
