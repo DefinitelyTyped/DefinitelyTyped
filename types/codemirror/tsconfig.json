@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/index.ts",
+        "test/addon/comment/comment.ts",
+        "test/addon/display/panel.ts",
+        "test/addon/edit/closebrackets.ts",
+        "test/addon/edit/closetag.ts",
+        "test/addon/edit/matchbrackets.ts",
+        "test/addon/edit/matchtags.ts",
+        "test/addon/hint/show-hint.ts",
+        "test/addon/runmode/runmode.ts",
+        "test/addon/scroll/scrollpastend.ts",
+        "test/addon/search/match-highlighter.ts",
+        "test/addon/search/searchcursor.ts",
+        "test/addon/selection/active-line.ts",
+        "test/addon/tern/tern.ts"
+    ]
+}

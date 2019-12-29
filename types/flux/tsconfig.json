@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "jsx": "react",
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/Flux.ts",
+        "test/FluxUtils.tsx"
+    ]
+}

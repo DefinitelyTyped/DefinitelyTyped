@@ -1,27 +1,35 @@
 {
-  "private": true,
-  "name": "definitely-typed",
-  "version": "0.0.1",
-  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
-  },
-  "engines": {
-    "node": ">= 6.9.1"
-  },
-  "scripts": {
-    "compile-scripts": "tsc -p scripts",
-    "new-package": "node scripts/new-package.js",
-    "not-needed": "node scripts/not-needed.js",
-    "lint": "node scripts/lint.js",
-    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1"
-  },
-  "devDependencies": {
-    "types-publisher": "Microsoft/types-publisher#production"
-  }
+    "private": true,
+    "name": "definitely-typed",
+    "version": "0.0.3",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+    },
+    "engines": {
+        "node": ">=7.8.0"
+    },
+    "scripts": {
+        "compile-scripts": "tsc -p scripts",
+        "not-needed": "node scripts/not-needed.js",
+        "update-codeowners": "node scripts/update-codeowners.js",
+        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
+        "lint": "dtslint types"
+    },
+    "devDependencies": {
+        "dtslint": "latest",
+        "prettier": "^1.17.1",
+        "types-publisher": "github:Microsoft/types-publisher#production"
+    },
+    "husky": {
+        "hooks": {
+            "_comment": "This will remove husky from when we started migrating to use prettier",
+            "pre-commit": "npm uninstall husky"
+        }
+    }
 }

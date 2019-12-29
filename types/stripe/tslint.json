@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "max-line-length": false,
+        "unified-signatures": false,
+        "strict-export-declare-modifiers": false
+    }
+}

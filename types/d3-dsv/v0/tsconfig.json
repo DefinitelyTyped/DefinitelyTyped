@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "d3-dsv": [
+                "d3-dsv/v0"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "d3-dsv-tests.ts"
+    ]
+}

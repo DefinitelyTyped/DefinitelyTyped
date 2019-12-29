@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/tests.ts",
+        "test/sample1.ts",
+        "test/sample2.ts",
+        "test/sample3.ts"
+    ]
+}

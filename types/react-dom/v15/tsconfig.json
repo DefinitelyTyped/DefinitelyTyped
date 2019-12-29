@@ -1,0 +1,32 @@
+{
+    "files": [
+        "index.d.ts",
+        "react-dom-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "paths": {
+            "react": [
+                "react/v15"
+            ],
+            "react-dom": [
+                "react-dom/v15"
+            ]
+        },
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

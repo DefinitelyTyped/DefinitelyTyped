@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"strictFunctionTypes": true,
+		"module": "commonjs",
+		"lib": [
+			"es6"
+		],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"index.d.ts",
+		"jsreport-html-embedded-in-docx-tests.ts"
+	]
+}

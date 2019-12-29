@@ -1,0 +1,61 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember/object": [
+                "ember__object"
+            ],
+            "@ember/object/*": [
+                "ember__object/*"
+            ],
+            "@ember/engine": [
+                "ember__engine"
+            ],
+            "@ember/engine/*": [
+                "ember__engine/*"
+            ],
+            "@ember/routing": [
+                "ember__routing"
+            ],
+            "@ember/routing/*": [
+                "ember__routing/*"
+            ],
+            "@ember/service": [
+                "ember__service"
+            ],
+            "@ember/application": [
+                "ember__application"
+            ],
+            "@ember/application/*": [
+                "ember__application/*"
+            ],
+            "@ember/controller": [
+                "ember__controller"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/application.ts",
+        "test/deprecations.ts",
+        "test/resolver.ts",
+        "test/globals-resolver.ts",
+        "test/application-instance.ts"
+    ]
+}

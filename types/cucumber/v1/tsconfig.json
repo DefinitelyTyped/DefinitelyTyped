@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "cucumber": [
+                "cucumber/v1"
+            ],
+            "cucumber/*": [
+                "cucumber/v1/*"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "cucumber-tests.ts"
+    ]
+}

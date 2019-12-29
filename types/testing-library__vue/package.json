@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "dependencies": {
+        "@vue/test-utils": "^1.0.0-beta.29",
+        "vue": "^2.6.10",
+        "vue-router": "^3.0",
+        "vuex": "^3.0"
+    }
+}

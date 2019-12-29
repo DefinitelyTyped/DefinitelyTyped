@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"es6"
+		],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+        "strictFunctionTypes": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"@pollyjs/core": [
+				"pollyjs__core"
+			],
+			"@pollyjs/adapter": [
+				"pollyjs__adapter"
+			],
+			"@pollyjs/adapter-fetch": [
+				"pollyjs__adapter-fetch"
+			],
+			"@pollyjs/persister": [
+				"pollyjs__persister"
+			],
+			"@pollyjs/utils": [
+				"pollyjs__utils"
+			]
+		}
+	},
+	"files": [
+		"index.d.ts",
+		"pollyjs__adapter-fetch-tests.ts"
+	]
+}

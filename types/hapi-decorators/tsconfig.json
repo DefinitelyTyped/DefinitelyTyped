@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "experimentalDecorators": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "paths": {
+            "boom": [
+                "boom/v4"
+            ],
+            "catbox": [
+                "catbox/v7"
+            ],
+            "hapi": [
+                "hapi/v16"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapi-decorators-tests.ts"
+    ]
+}

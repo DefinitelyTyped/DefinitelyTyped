@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/anchor.ts",
+        "test/background_tokenizer.ts",
+        "test/default.ts",
+        "test/document.ts",
+        "test/edit_session.ts",
+        "test/editor1.ts",
+        "test/editor_highlight_selected_word.ts",
+        "test/editor_navigation.ts",
+        "test/editor_text_edit.ts",
+        "test/multi_select.ts",
+        "test/placeholder.ts",
+        "test/range.ts",
+        "test/range_list.ts",
+        "test/search.ts",
+        "test/selection.ts",
+        "test/token_iterator.ts",
+        "test/virtual_renderer.ts"
+    ]
+}

@@ -1,0 +1,9 @@
+{ 
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-consecutive-blank-lines": false,
+        "eofline": false,
+        "unified-signatures": false,
+        "no-trailing-whitespace": [true, "ignore-comments"]
+    }
+}

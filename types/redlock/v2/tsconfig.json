@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "redlock": [
+                "redlock/v2"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "redlock-tests.ts"
+    ]
+}

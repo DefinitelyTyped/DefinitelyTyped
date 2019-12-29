@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "strict": true,
+        "baseUrl": "../types",
         "typeRoots": [
-            "../"
+            "../types"
         ],
         "types": [],
         "forceConsistentCasingInFileNames": true

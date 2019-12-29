@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noEmit": true,
+        "lib": [
+            "es6"
+        ],
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "types": [],
+        "typeRoots": [
+            "../"
+        ]
+    },
+    "files": [
+        "index.d.ts",
+        "mangopay2-nodejs-sdk-tests.ts"
+    ]
+}
