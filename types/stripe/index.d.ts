@@ -318,6 +318,13 @@ declare namespace Stripe {
                  * "legal_entity.first_name").
                  */
                 fields_needed: string[];
+
+                /**
+                 * The set of capabilities you want to unlock for this account (US only).
+                 * Each capability will be inactive until you have provided its specific requirements and Stripe has verified them.
+                 * An account may have some of its requested capabilities be active and some be inactive.
+                 */
+                requested_capabilities?: string[];
             };
         }
 
@@ -1039,6 +1046,31 @@ declare namespace Stripe {
                      */
                     front?: string;
                 };
+                
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details?: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code?:
+                    | 'document_address_mismatch'
+                    | ' document_dob_mismatch'
+                    | ' document_duplicate_type'
+                    | ' document_id_number_mismatch'
+                    | ' document_name_mismatch'
+                    | ' failed_keyed_identity'
+                    | 'failed_other';
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status?: 'unverified' | 'pending' | 'verified';
             };
         }
 
