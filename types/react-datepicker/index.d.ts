@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.9
+// Type definitions for react-datepicker 2.10
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -12,6 +12,8 @@
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
 //                 tu4mo <https://github.com/tu4mo>
+//                 Kerry Gougeon <https://github.com/kerry-g>
+//                 Walter Kennedy <https://github.com/wthefourth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,6 +32,7 @@ interface HighlightDates {
 export interface ReactDatePickerProps {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
+    ariaLabelledBy?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;
@@ -59,6 +62,7 @@ export interface ReactDatePickerProps {
     includeTimes?: Date[];
     injectTimes?: Date[];
     inline?: boolean;
+    inlineFocusSelectedMonth?: boolean;
     isClearable?: boolean;
     locale?: string | Locale;
     maxDate?: Date | null;
@@ -70,14 +74,18 @@ export interface ReactDatePickerProps {
     nextMonthButtonLabel?: string;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
+    onCalendarClose?(): void;
+    onCalendarOpen?(): void;
     onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
+    onDayMouseEnter?: (date: Date) => void;
     onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
     onInputClick?(): void;
     onInputError?(err: { code: number; msg: string }): void;
     onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
     onMonthChange?(date: Date): void;
+    onMonthMouseLeave?: () => void;
     onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
     onWeekSelect?(
         firstDayOfWeek: Date,
@@ -107,7 +115,7 @@ export interface ReactDatePickerProps {
         prevMonthButtonDisabled: boolean;
         nextMonthButtonDisabled: boolean;
     }): React.ReactNode;
-    renderDayContents?(dayOfMonth: number): React.ReactNode;
+    renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     required?: boolean;
     scrollableMonthYearDropdown?: boolean;
     scrollableYearDropdown?: boolean;
@@ -120,6 +128,9 @@ export interface ReactDatePickerProps {
     showMonthYearDropdown?: boolean;
     showMonthYearPicker?: boolean;
     showPopperArrow?: boolean;
+    showPreviousMonths?: boolean;
+    showQuarterYearPicker?: boolean;
+    showTimeInput?: boolean;
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;
     showWeekNumbers?: boolean;
@@ -130,6 +141,7 @@ export interface ReactDatePickerProps {
     tabIndex?: number;
     timeCaption?: string;
     timeFormat?: string;
+    timeInputLabel?: string;
     timeIntervals?: number;
     title?: string;
     todayButton?: React.ReactNode;
@@ -140,11 +152,6 @@ export interface ReactDatePickerProps {
     withPortal?: boolean;
     wrapperClassName?: string;
     yearDropdownItemNumber?: number;
-    timeInputLabel?: string;
-    showTimeInput?: boolean;
-    inlineFocusSelectedMonth?: boolean;
-    onDayMouseEnter?: (date: Date) => void;
-    onMonthMouseLeave?: () => void;
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {

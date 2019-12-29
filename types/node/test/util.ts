@@ -120,6 +120,7 @@ import { readFile } from 'fs';
     const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
     const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
     const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
     const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
     const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
@@ -127,8 +128,10 @@ import { readFile } from 'fs';
     const foo = () => {};
     // $ExpectType () => void
     util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-    // $ExpectType <T extends Function>(fn: T, message: string) => T
+    // $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
     util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+    // $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
+    util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
     // util.isDeepStrictEqual
     util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
@@ -161,6 +164,8 @@ import { readFile } from 'fs';
     const te = new util.TextEncoder();
     const teEncoding: string = te.encoding;
     const teEncodeRes: Uint8Array = te.encode("TextEncoder");
+
+    const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 
     // util.types
     let b: boolean;

@@ -61,6 +61,7 @@ declare namespace DineroFactory {
         toUnit(): number;
         toRoundedUnit(digits: number, roundingMode?: RoundingMode): number;
         toObject(): DineroObject;
+        toJson(): DineroObject;
     }
 
     type RoundingMode =
@@ -72,7 +73,7 @@ declare namespace DineroFactory {
         | 'HALF_AWAY_FROM_ZERO';
 
     interface ExchangeRatesApiOptions {
-        endpoint: string;
+        endpoint: string | Promise<{[key: string]: any}>;
         propertyPath: string;
         headers?: { [header: string]: string };
         roundingMode?: RoundingMode;

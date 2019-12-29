@@ -753,7 +753,6 @@ declare namespace Draft {
                 getKey(): string;
 
                 getType(): DraftBlockType;
-                getType(): string;
 
                 getText(): string;
                 getCharacterList(): Immutable.List<CharacterMetadata>;

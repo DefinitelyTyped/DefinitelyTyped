@@ -11,7 +11,7 @@ declare namespace FilterBase {
 
     interface Token {
         readonly name: string;
-        readonly value?: ReadonlyArray<string | null | true | false>;
+        readonly value?: string | null | boolean;
     }
 
     type FilterFunction = (stack: Stack, token: Token) => boolean;

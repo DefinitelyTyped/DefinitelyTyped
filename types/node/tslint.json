@@ -5,6 +5,7 @@
     "unified-signatures": false,
     "no-empty-interface": false,
     "no-single-declare-module": false,
-    "strict-export-declare-modifiers": false // http2 needs this
+    "strict-export-declare-modifiers": false, // http2 needs this
+    "no-unnecessary-class": false // needed for module
   }
 }

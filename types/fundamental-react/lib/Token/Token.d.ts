@@ -2,7 +2,9 @@ import * as React from "react";
 
 export type TokenProps = {
     className?: string;
-} & { [x: string]: any };
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 declare const Token: React.FunctionComponent<TokenProps>;
 

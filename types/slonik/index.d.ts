@@ -1,4 +1,4 @@
-// Type definitions for slonik 19.0
+// Type definitions for slonik 21.4
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -26,6 +26,17 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
 
+export type TypeNameIdentifierType =
+  'bool' |
+  'bytea' |
+  'float4' |
+  'float8' |
+  'int2' |
+  'int4' |
+  'json' |
+  'text' |
+  'timestamptz';
+
 export type SerializableValueType =
     | string
     | number
@@ -42,23 +53,28 @@ export interface SerializableValueObject {
 export interface SerializableValueArray
   extends ReadonlyArray<SerializableValueType> {}
 
-export interface IdentifierTokenType {
+export type NamedParameterValuesType = Record<string, ValueExpressionType>;
+
+export interface ArraySqlTokenType {
+    memberType: TypeNameIdentifierType | SqlTokenType;
+    type: typeof SlonikSymbol.ArrayTokenSymbol;
+    values: ReadonlyArray<ValueExpressionType>;
+}
+
+export interface BinarySqlTokenType {
+    data: Buffer;
+    type: typeof SlonikSymbol.BinaryTokenSymbol;
+}
+
+export interface IdentifierSqlTokenType {
     names: ReadonlyArray<string>;
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
 }
 
-export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
-
-export interface RawSqlTokenType {
-    sql: string;
-    type: typeof SlonikSymbol.RawSqlTokenSymbol;
-    values: PrimitiveValueExpressionType[];
-}
-
-export interface ArraySqlTokenType {
-    memberType: string;
-    type: typeof SlonikSymbol.ArrayTokenSymbol;
-    values: PrimitiveValueExpressionType[];
+export interface ListSqlTokenType {
+    glue: SqlTokenType;
+    members: ReadonlyArray<SqlTokenType>;
+    type: typeof SlonikSymbol.ListTokenSymbol;
 }
 
 export interface JsonSqlTokenType {
@@ -66,19 +82,24 @@ export interface JsonSqlTokenType {
     type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
+export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
+
 export interface UnnestSqlTokenType {
-    columnTypes: string[];
-    tuples: PrimitiveValueExpressionType[][];
+    columnTypes: ReadonlyArray<string>;
+    tuples: ReadonlyArray<ReadonlyArray<ValueExpressionType>>;
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
-export type PrimitiveValueExpressionType = string | number | boolean | null;
+export type PrimitiveValueExpressionType = string | number | boolean | null | PrimitiveValueExpressionTypeArray;
+
+export interface PrimitiveValueExpressionTypeArray extends Array<PrimitiveValueExpressionType> {}
 
 export type SqlTokenType =
     ArraySqlTokenType |
-    IdentifierTokenType |
+    BinarySqlTokenType |
+    IdentifierSqlTokenType |
     JsonSqlTokenType |
-    RawSqlTokenType |
+    ListSqlTokenType |
     SqlSqlTokenType<any> |
     UnnestSqlTokenType;
 
@@ -92,13 +113,8 @@ export type NamedAssignmentType = Record<string, ValueExpressionType>;
 // DATABASE
 // ----------------------------------------------------------------------
 export interface FieldType {
-    columnID: number;
-    dataTypeID: number;
-    dataTypeModifier: number;
-    dataTypeSize: number;
-    format: string;
+    dataTypeId: number;
     name: string;
-    tableID: number;
 }
 
 export type DatabaseTransactionConnectionType = CommonQueryMethodsType & {
@@ -112,8 +128,17 @@ export type DatabasePoolConnectionType = CommonQueryMethodsType & {
 
 export type ConnectionRoutineType<T> = (connection: DatabasePoolConnectionType) => Promise<T>;
 
+export interface PoolStateType {
+    activeConnectionCount: number;
+    ended: boolean;
+    idleConnectionCount: number;
+    waitingClientCount: number;
+}
+
 export type DatabasePoolType = CommonQueryMethodsType & {
     connect: <T>(connectionRoutine: ConnectionRoutineType<T>) => Promise<T>;
+    end: () => Promise<void>;
+    getPoolState: () => PoolStateType;
     stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
@@ -242,11 +267,17 @@ export interface QueryContextType {
      * Unique query ID
      */
     queryId: QueryIdType;
-    stackTrace: CallSiteType[] | null;
+
     /**
      * `process.hrtime.bigint()` for when query was received.
      */
     queryInputTime: number;
+
+    /** Object used by interceptors to assign interceptor-specific, query-specific context. */
+    sandbox: Record<string, any>;
+
+    stackTrace: ReadonlyArray<CallSiteType> | null;
+
     /**
      * Unique transaction ID
      */
@@ -277,24 +308,28 @@ export interface SqlTaggedTemplateType {
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
-        memberType: string
+        memberType: TypeNameIdentifierType | SqlTokenType
     ) => ArraySqlTokenType;
     identifier: (
         names: string[]
-    ) => IdentifierTokenType;
+    ) => IdentifierSqlTokenType;
     json: (
         value: SerializableValueType
     ) => JsonSqlTokenType;
+    join: (
+      members: ReadonlyArray<ValueExpressionType>,
+      glue: SqlTokenType,
+    ) => ListSqlTokenType;
     raw: (
         rawSql: string,
-        values?: PrimitiveValueExpressionType[]
-    ) => RawSqlTokenType;
+        values?: ReadonlyArray<PrimitiveValueExpressionType>
+    ) => SqlTokenType;
     unnest: (
-        // Value might be PrimitiveValueExpressionType[],
+        // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
         // https://github.com/gajus/slonik/issues/44
-        tuples: any[][],
-        columnTypes: string[]
+        tuples: ReadonlyArray<ReadonlyArray<any>>,
+        columnTypes: ReadonlyArray<string>
     ) => UnnestSqlTokenType;
 }
 
@@ -323,7 +358,7 @@ export interface PoolContextType {
 
 export function createPool(
     connectionConfiguration: DatabaseConfigurationType,
-    clientUserConfiguration?: ClientUserConfigurationType
+    clientUserConfiguration?: ClientConfigurationInputType
 ): DatabasePoolType;
 
 //
@@ -340,28 +375,37 @@ export interface InterceptorType {
     afterPoolConnection?: (
         connectionContext: ConnectionContextType,
         connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     afterQueryExecution?: (
         queryContext: QueryContextType,
         query: QueryType,
         result: QueryResultType<QueryResultRowType>
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType>>;
+    ) => MaybePromiseType<null>;
     beforePoolConnection?: (
         connectionContext: PoolContextType
     ) => MaybePromiseType<DatabasePoolType | null | undefined>;
     beforePoolConnectionRelease?: (
         connectionContext: ConnectionContextType,
         connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     beforeQueryExecution?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>;
+    beforeQueryResult?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        result: QueryResultType<QueryResultRowType>
+      ) => MaybePromiseType<null>;
+    beforeTransformQuery?: (
+        queryContext: QueryContextType,
+        query: QueryType
+    ) => MaybePromiseType<null>;
     queryExecutionError?: (
         queryContext: QueryContextType,
         query: QueryType,
         error: SlonikError
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
@@ -424,6 +468,9 @@ export interface ClientConfigurationType {
     /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
     captureStackTrace?: boolean;
 
+    /** Number of times to retry establishing a new connection. (Default: 3) */
+    connectionRetryLimit?: number;
+
     /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
     connectionTimeout?: number;
 
@@ -433,8 +480,8 @@ export interface ClientConfigurationType {
     /** Do not allow more than this many connections. (Default: 10) */
     maximumPoolSize?: number;
 
-    /** Add more server connections to pool if below this number. (Default: 1) */
-    minimumPoolSize?: number;
+    /** Uses libpq bindings when `pg-native` module is installed. (Default: true) */
+    preferNativeBindings?: boolean;
 
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
@@ -447,7 +494,7 @@ export interface ClientConfigurationType {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ClientUserConfigurationType extends ClientConfigurationType {}
+export interface ClientConfigurationInputType extends ClientConfigurationType {}
 
 //
 // ERRORS

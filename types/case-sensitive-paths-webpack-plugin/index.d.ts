@@ -20,5 +20,9 @@ declare namespace CaseSensitivePathsWebpackPlugin {
          * Show more information
          */
         debug?: boolean;
+        /**
+         * Run before emit instead of after resolve for individual files
+         */
+        useBeforeEmitHook?: boolean;
     }
 }

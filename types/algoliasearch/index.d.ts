@@ -1208,6 +1208,12 @@ declare namespace algoliasearch {
      */
     optionalWords?: string[];
     /**
+     * Determines how to calculate the total score for filtering
+     * default: false
+     * https://www.algolia.com/doc/api-reference/api-parameters/sumOrFiltersScores/
+     */
+    sumOrFiltersScores?: boolean;
+    /**
      * Remove stop words from the query before executing it
      * default: false
      * true|false: enable or disable stop words for all 41 supported languages; or
@@ -1303,10 +1309,21 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+    /**
+     * Associates a certain user token with the current search
+     * https://www.algolia.com/doc/api-reference/api-parameters/userToken/
+     */
+    userToken?: string;
 
     sortFacetValuesBy?: 'count' | 'alpha';
 
     ruleContexts?: string[];
+    
+    /**
+     * allow the usage of an AB-test. This parameter is only allowed for queries, not for settings.
+     * default: true
+     */
+    enableABTest?: boolean;
   }
 
   namespace SearchForFacetValues {

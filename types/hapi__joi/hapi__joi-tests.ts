@@ -110,6 +110,7 @@ uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
 uriOpts = { scheme: strArr };
 uriOpts = { scheme: expArr };
+uriOpts = { domain: domainOpts };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -176,10 +177,10 @@ validErrItem = {
 };
 
 validErrItem = {
-  message: str,
-  type: str,
-  path: [str, num, str],
-  context: obj,
+    message: str,
+    type: str,
+    path: [str, num, str],
+    context: obj,
 };
 
 validErrFunc = errs => errs[0];
@@ -891,7 +892,7 @@ expr = Joi.expression('{{foo}}', { adjust: (value) => value });
 expr = Joi.expression('{{foo}}', { ancestor: 3 });
 expr = Joi.expression('{{foo}}', { in: true });
 expr = Joi.expression('{{foo}}', { iterables: true });
-expr = Joi.expression('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.expression('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.expression('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.expression('{{foo}}', { separator: '_' });
 
@@ -900,7 +901,7 @@ expr = Joi.x('{{foo}}', { adjust: (value) => value });
 expr = Joi.x('{{foo}}', { ancestor: 3 });
 expr = Joi.x('{{foo}}', { in: true });
 expr = Joi.x('{{foo}}', { iterables: true });
-expr = Joi.x('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.x('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.x('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.x('{{foo}}', { separator: '_' });
 
@@ -950,7 +951,7 @@ schema = Joi.link(str);
         asyncResult
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
-            .catch(e => {});
+            .catch(e => { });
     }
 }
 
@@ -1098,4 +1099,48 @@ schema = Joi.symbol();
 schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+schema = Joi.any();
+const terms = schema.$_terms;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test generic types
+
+interface User {
+    name: string;
+    family?: string;
+    age: number;
+}
+
+const userSchemaObject = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+let userSchema = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+userSchema = userSchema.append({
+    age: Joi.number(),
+});
+
+userSchema = userSchema.append({
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaError = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaObjectError = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
 });

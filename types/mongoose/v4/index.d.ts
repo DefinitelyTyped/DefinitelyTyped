@@ -215,7 +215,7 @@ declare module "mongoose" {
    * QueryStream can only be accessed using query#stream(), we only
    *   expose its interface here.
    */
-  interface QueryStream extends stream.Stream {
+  class QueryStream extends stream.Stream {
     /**
      * Provides a Node.js 0.8 style ReadStream interface for Queries.
      * @event data emits a single Mongoose document
@@ -230,7 +230,7 @@ declare module "mongoose" {
        */
       transform?: Function;
       [other: string]: any;
-    }): QueryStream;
+    });
 
     /**
      * Destroys the stream, closing the underlying cursor, which emits the close event.
@@ -550,7 +550,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  interface QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends Document> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -564,7 +564,7 @@ declare module "mongoose" {
      * @event data Emitted when the stream is flowing and the next doc is ready
      * @event end Emitted when the stream is exhausted
      */
-    constructor(query: Query<T>, options: any): QueryCursor<T>;
+    constructor(query: Query<T>, options: any);
 
     /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
     close(callback?: (error: any, result: any) => void): Promise<any>;
@@ -1181,7 +1181,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;

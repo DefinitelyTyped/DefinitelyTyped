@@ -15,8 +15,12 @@
             "../"
         ],
         "paths": {
-            "@ember/polyfills": ["ember__polyfills"],
-            "@ember/polyfills/*": ["ember__polyfills/*"]
+            "@ember/polyfills": [
+                "ember__polyfills"
+            ],
+            "@ember/polyfills/*": [
+                "ember__polyfills/*"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -24,7 +28,6 @@
     },
     "files": [
         "index.d.ts",
-        "types.d.ts",
         "ember__polyfills-tests.ts"
     ]
 }

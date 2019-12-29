@@ -1,4 +1,4 @@
-// Type definitions for react-native-webrtc 1.69
+// Type definitions for react-native-webrtc 1.75
 // Project: https://github.com/react-native-webrtc/react-native-webrtc
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,6 +240,8 @@ export class mediaDevices {
 
     static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
 }
+
+export function registerGlobals(): void;
 
 export interface RTCViewProps {
     streamURL: string;

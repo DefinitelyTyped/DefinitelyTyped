@@ -10,6 +10,7 @@
 declare module 'twitter-stream-channels' {
 
   import * as Twit from 'twit';
+  import { EventEmitter } from 'events';
 
   namespace TwitterStreamChannels {
 
@@ -29,7 +30,7 @@ declare module 'twitter-stream-channels' {
 
     }
 
-    export class StreamChannels extends NodeJS.EventEmitter {
+    export class StreamChannels extends EventEmitter {
 
       /**
        * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L25

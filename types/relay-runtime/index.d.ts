@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 6.0
+// Type definitions for relay-runtime 8.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
@@ -7,8 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
-export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+import ConnectionInterface from './lib/handlers/connection/ConnectionInterface';
+export { ConnectionInterface };
+export { ConnectionMetadata } from './lib/handlers/connection/ConnectionHandler';
+export { EdgeRecord, PageInfo } from './lib/handlers/connection/ConnectionInterface';
 export {
     DeclarativeMutationConfig,
     MutationTypes,
@@ -168,10 +170,10 @@ export { readInlineData } from './lib/store/readInlineData';
 
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
-export {
-    missingViewerFieldHandler as DefaultMissingFieldHandlers,
-} from './lib/handlers/RelayDefaultMissingFieldHandlers';
-import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+
+import getDefaultMissingFieldHandlers from './lib/handlers/getRelayDefaultMissingFieldHandlers';
+export { getDefaultMissingFieldHandlers };
+import * as ConnectionHandler from './lib/handlers/connection/ConnectionHandler';
 export { ConnectionHandler };
 
 // Helpers (can be implemented via the above API)
@@ -184,6 +186,7 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
+export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
@@ -192,13 +195,28 @@ export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerT
 export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 export { deepFreeze } from './lib/util/deepFreeze';
 
-// These match the output of relay-compiler-language-typescript.
-export interface _RefType<T> {
-    ' $refType': T;
-}
-export interface _FragmentRefs<T> {
-    ' $fragmentRefs': T;
+/**
+ * relay-compiler-language-typescript support for fragment references
+ */
+
+/**
+ * @private
+ */
+export interface _RefType<Ref extends string> {
+    ' $refType': Ref;
 }
 
+/**
+ * @private
+ */
+export interface _FragmentRefs<Refs extends string> {
+    ' $fragmentRefs': FragmentRefs<Refs>;
+}
+
+// This is used in the actual artifacts to define the various fragment references a container holds.
+export type FragmentRefs<Refs extends string> = {
+    [ref in Refs]: true;
+};
+
 // This is a utility type for converting from a data type to a fragment reference that will resolve to that data type.
-export type FragmentRef<T> = T extends _RefType<infer U> ? _FragmentRefs<U> : never;
+export type FragmentRef<Fragment> = Fragment extends _RefType<infer U> ? _FragmentRefs<U> : never;

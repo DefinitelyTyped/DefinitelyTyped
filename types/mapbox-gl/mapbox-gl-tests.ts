@@ -1,4 +1,4 @@
-import mapboxgl = require('.');
+import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
@@ -13,6 +13,31 @@ mapboxgl.accessToken = 'foo';
 mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
+ * Set amount of workers
+ */
+mapboxgl.workerCount = 3;
+
+/**
+ * Set max amount of parallel images requests
+ */
+mapboxgl.maxParallelImageRequests = 10;
+
+/**
+ * Clears browser storage used by this library
+ */
+mapboxgl.clearStorage(() => {});
+
+/**
+ * Get RTL Text Plugin Status
+ */
+expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
+
+/**
+ * Set RTL Text Plugin
+ */
+expectType<void>(mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false));
+
+/**
  * Display a Map
  */
 let map = new mapboxgl.Map({
@@ -21,7 +46,9 @@ let map = new mapboxgl.Map({
 	center: [-50, 50],
 	zoom: 10,
 	minZoom: 1,
-	maxZoom: 2,
+    maxZoom: 2,
+    minPitch: 0,
+    maxPitch: 60,
 	interactive: true,
 	attributionControl: true,
 	customAttribution: '© YourCo',
@@ -32,6 +59,11 @@ let map = new mapboxgl.Map({
 	dragRotate: false,
 	dragPan: true,
 	antialias: true,
+	accessToken: 'some-token',
+    locale: {
+        'FullscreenControl.Enter': 'Розгорнути на весь екран',
+        'FullscreenControl.Exit': 'Вийти з повоноеранного режиму'
+    }
 });
 
 /**
@@ -224,6 +256,13 @@ map.flyTo({
 	maxDuration: 1
 });
 
+// QueryRenderedFeatures
+const features = map.queryRenderedFeatures(
+	[0, 0],
+	{ layers: ['custom' ], validate: false }
+);
+features // $ExpectType MapboxGeoJSONFeature[]
+
 /**
  * GeoJSONSource
  */
@@ -340,10 +379,15 @@ const popupOptions = {
 expectType<mapboxgl.PopupOptions>(popupOptions);
 const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
+	.trackPointer()
 	.setHTML('<h1>Hello World!</h1>')
 	.setMaxWidth('none')
 	.addTo(map);
 popup.getMaxWidth();
+popup.getElement();  // $ExpectType HTMLElement
+popup.addClassName('class1');
+popup.removeClassName('class2');
+popup.toggleClassName('class3');
 
 /**
  * Add an image
@@ -562,10 +606,24 @@ map = new mapboxgl.Map({
 	hash: false
 });
 
+map = new mapboxgl.Map({
+    container: 'map',
+	hash: 'customHash'
+});
+
 /**
  * Marker
  */
-let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
+let marker = new mapboxgl.Marker(undefined, {
+        element: undefined,
+        offset: [10, 0],
+        anchor: 'bottom-right',
+        color: 'green',
+        draggable: false,
+        rotation: 15,
+        rotationAlignment: 'map',
+        pitchAlignment: 'viewport'
+    })
 	.setLngLat([-50,50])
 	.addTo(map);
 
@@ -577,6 +635,8 @@ marker.remove();
 let bool:boolean;
 let bounds = new mapboxgl.LngLatBounds();
 bool = bounds.isEmpty();
+expectType<boolean>(bounds.contains([37, 50]));
+
 /*
  * AttributionControl
  */
@@ -654,10 +714,11 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 new mapboxgl.MercatorCoordinate(0, 0);
 new mapboxgl.MercatorCoordinate(0, 0, 0);
-expectType<number>(mercatorcoordinate.toAltitude());
-expectType<mapboxgl.LngLat>(mercatorcoordinate.toLngLat());
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike));
-expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0));
+mercatorcoordinate.toAltitude();  // $ExpectType number
+mercatorcoordinate.toLngLat();  // $ExpectType LngLat
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike);  // $ExpectType MercatorCoordinate
+mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0); // $ExpectType MercatorCoordinate
+mercatorcoordinate.meterInMercatorCoordinateUnits();  // $ExpectType number
 
 /*
  * TransformRequestFunction
@@ -682,7 +743,9 @@ let padding: mapboxgl.PaddingOptions = {
 	left: 0,
 	right: 0,
 };
-let animOpts: mapboxgl.AnimationOptions;
+let animOpts: mapboxgl.AnimationOptions = {
+    essential: true
+};
 let cameraOpts: mapboxgl.CameraOptions = {
 	around: lnglatlike,
 	center: lnglatlike,
@@ -1008,3 +1071,16 @@ expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'prope
  */
 expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
 expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
+
+/*
+ * Visibility
+ */
+expectType<mapboxgl.Visibility>('visible');
+expectType<mapboxgl.Visibility>('none');
+
+/*
+ * AnyLayout
+*/
+expectType<mapboxgl.AnyLayout>({visibility: 'none'});
+expectType<mapboxgl.AnyLayout>({visibility: 'none', 'line-cap': 'round' });
+expectType<mapboxgl.AnyLayout>({visibility: 'visible', 'icon-allow-overlap': true });

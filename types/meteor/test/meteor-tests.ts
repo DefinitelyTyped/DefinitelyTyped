@@ -23,11 +23,30 @@ import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        interface User {
+            // One of the tests assigns a new property to the user so it has to be typed
+            dexterity?: number;
+        }
+    }
+}
+
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 
-var Rooms = new Mongo.Collection('rooms');
-var Messages = new Mongo.Collection('messages');
+interface RoomDAO {
+    _id: string;
+    name: string;
+}
+
+interface MessageDAO {
+    _id: string;
+    text: string;
+}
+    
+const Rooms = new Mongo.Collection<RoomDAO>('rooms');
+let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
     _id: string;
     name: string;
@@ -184,11 +203,9 @@ var result = Meteor.call('foo', 1, 2);
 interface ChatroomsDAO {
     _id?: string;
 }
-interface MessagesDAO {
-    _id?: string;
-}
+
 var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
-Messages = new Mongo.Collection<MessagesDAO>("messages");
+Messages = new Mongo.Collection<MessageDAO>("messages");
 
 var myMessages: any[] = Messages.find({ userId: Session.get('myUserId') }).fetch();
 
@@ -196,7 +213,13 @@ Messages.insert({ text: "Hello, world!" });
 
 Messages.update(myMessages[0]._id, { $set: { important: true } });
 
-var Posts = new Mongo.Collection("posts");
+interface PostDAO {
+    _id: string;
+    title: string;
+    body: string;
+} 
+
+var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
 
 // Couldn't find assert() in the meteor docs
@@ -235,9 +258,16 @@ Animals.findOne({ name: "raptor" }).makeNoise(); // prints "roar"
 /**
  * From Collections, Collection.insert section
  */
+
+interface ListDAO {
+    _id: string;
+    list?: string;
+    name: string;
+}
+
 // DA: I added the variable declaration statements to make this work
-var Lists = new Mongo.Collection('Lists');
-var Items = new Mongo.Collection('Lists');
+var Lists = new Mongo.Collection<ListDAO>('Lists');
+var Items = new Mongo.Collection<ListDAO>('Lists');
 
 var groceriesId = Lists.insert({ name: "Groceries" });
 Items.insert({ list: groceriesId, name: "Watercress" });
@@ -345,10 +375,12 @@ Posts.deny({
 /**
  * From Collections, cursor.forEach section
  */
-var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 });
+var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 })as Mongo.Cursor<PostDAO | iPost>;
 var count = 0;
-topPosts.forEach(function (post: { title: string }) {
-    console.log("Title of post " + count + ": " + post.title);
+topPosts.forEach(function (post) {
+    if ('title' in post) {
+        console.log("Title of post " + count + ": " + post.title);
+    }
     count += 1;
 });
 
@@ -509,7 +541,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any, dexterity: number }) {
+Accounts.onCreateUser(function (options: { profile: any }, user) {
     var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
@@ -523,7 +555,7 @@ Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any,
  */
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
-Accounts.emailTemplates.enrollAccount.subject = function (user: { profile: { name: string } }) {
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Welcome to Awesome Town, " + user.profile.name;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {

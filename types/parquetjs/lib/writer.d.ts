@@ -5,6 +5,19 @@ import { ParquetSchema } from './schema';
 import { RowBufferInterface } from './rowBuffer.interface';
 import { RowInterface } from './row.interface';
 
+export interface ParquetWriterOpts {
+    autoClose?: boolean;
+    bitWidth?: number;
+    disableEnvelope?: boolean;
+    encoding?: string;
+    fd?: number;
+    flags?: string;
+    mode?: number;
+    rowGroupSize?: number;
+    start?: number;
+    useDataPageV2?: boolean;
+}
+
 export class ParquetWriter {
     schema: ParquetSchema;
 
@@ -25,17 +38,7 @@ export class ParquetWriter {
         path: PathLike,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     ): Promise<ParquetWriter>;
 
     static openStream(
@@ -43,17 +46,7 @@ export class ParquetWriter {
         outputStream: WriteStream,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     ): Promise<ParquetWriter>;
 
     constructor(
@@ -61,17 +54,7 @@ export class ParquetWriter {
         envelopeWriter: ParquetEnvelopeWriter,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     );
 
     appendRow(row: RowInterface): Promise<void>;
@@ -112,17 +95,7 @@ export class ParquetEnvelopeWriter {
         outputStream: WriteStream,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     ): Promise<ParquetEnvelopeWriter>;
 
     constructor(
@@ -132,17 +105,7 @@ export class ParquetEnvelopeWriter {
         fileOffset: number,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     );
 
     writeSection(buf: Buffer): Promise<void>;
@@ -163,17 +126,7 @@ export class ParquetTransformer extends stream.Transform {
         schema: ParquetSchema,
         opts?:
             | string
-            | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  rowGroupSize?: number;
-                  bitWidth?: number;
-                  disableEnvelope?: boolean;
-              }
+            | ParquetWriterOpts
     );
 
     _transform(row: RowInterface,

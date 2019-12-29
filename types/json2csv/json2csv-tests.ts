@@ -86,6 +86,15 @@ try {
     console.error(err);
 }
 
+// Test for Synchronous Parser with flatten and custom flattenSeparator
+try {
+    const parser = new Parser<any>({ ...opts, flatten: true, flattenSeparator: ' / ' });
+    const csv = parser.parse({ car: '', price: 1, foo: { bar: '' } });
+    console.log(csv);
+} catch (err) {
+    console.error(err);
+}
+
 // Test convenience method "parse"
 try {
     const csv = parse(data, opts);
