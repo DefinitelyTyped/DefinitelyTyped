@@ -144,7 +144,7 @@ if (cf.value) {
 // .values
 const values: string[] = cf.values;
 
-const safeCf: clownface.SafeClownface<DatasetCore> = <any> {};
+const safeCf: clownface.SafeClownface = <any> {};
 
 const singleBlankAuto: clownface.SingleContextClownface<DatasetCore, BlankNode> = safeCf.blankNode();
 const SingleBlank: clownface.SingleContextClownface<DatasetCore, BlankNode> = safeCf.blankNode('blank');
