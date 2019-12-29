@@ -13,7 +13,7 @@ export interface ServerContext {
     response: ServerResponse;
     logger?: Logger;
     client?: string;
-    route?: { [key:string]: any };
+    route?: { [key: string]: any };
     data?: string | Buffer;
 }
 

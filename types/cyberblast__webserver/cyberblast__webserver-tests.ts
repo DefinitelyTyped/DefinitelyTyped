@@ -3,9 +3,9 @@ import { Logger } from "@cyberblast/logger";
 import * as Http from "http";
 import * as Net from "net";
 
-let server1 = new WebServer(); // $ExpectType WebServer
-let server2 = new WebServer(""); // $ExpectType WebServer
-let server3 = new WebServer("", ""); // $ExpectType WebServer
+const server1 = new WebServer(); // $ExpectType WebServer
+const server2 = new WebServer(""); // $ExpectType WebServer
+const server3 = new WebServer("", ""); // $ExpectType WebServer
 server1.start(); // $ExpectType Promise<void>
 
 const request = new Http.IncomingMessage(new Net.Socket());
