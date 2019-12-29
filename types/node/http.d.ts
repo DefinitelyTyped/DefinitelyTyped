@@ -77,6 +77,10 @@ declare module "http" {
         defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
+        /**
+         * @default 8192
+         */
+        maxHeaderSize?: number;
         method?: string;
         path?: string | null;
         headers?: OutgoingHttpHeaders;
@@ -92,6 +96,13 @@ declare module "http" {
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage;
         ServerResponse?: typeof ServerResponse;
+        /**
+         * Optionally overrides the value of
+         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 8192
+         */
+        maxHeaderSize?: number;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;

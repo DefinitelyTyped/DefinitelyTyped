@@ -39,3 +39,4 @@
 /// <reference path="vm.d.ts" />
 /// <reference path="worker_threads.d.ts" />
 /// <reference path="zlib.d.ts" />
+/// <reference path="wasi.d.ts" />
