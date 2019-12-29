@@ -1,5 +1,4 @@
 import Parser = require('@rdfjs/parser-jsonld');
-import { EventEmitter } from 'events';
 import { Context } from 'jsonld/jsonld-spec';
 import { DataFactory, Sink, Stream } from 'rdf-js';
 
@@ -14,6 +13,6 @@ const parser3 = new Parser({ baseIRI, context, factory });
 
 const sink: Sink = parser1;
 
-const eventEmitter1: EventEmitter = parser1.import(stream);
-const eventEmitter2: EventEmitter = parser1.import(stream, {});
-const eventEmitter3: EventEmitter = parser1.import(stream, { baseIRI, context, factory });
+const eventEmitter1: Stream = parser1.import(stream);
+const eventEmitter2: Stream = parser1.import(stream, {});
+const eventEmitter3: Stream = parser1.import(stream, { baseIRI, context, factory });
