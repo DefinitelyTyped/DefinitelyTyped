@@ -1,5 +1,4 @@
-import { Agent, Logger } from 'openssi-websdk';
+import { Agent } from 'openssi-websdk';
 
-new Agent('a', 'b', 'c', 'd');
-new Logger('trace', 'name');
-new Logger('wrong', 'name'); // $ExpectError
+const agent = new Agent('a', 'b', 'c', 'd');
+agent.acceptConnection('connection');

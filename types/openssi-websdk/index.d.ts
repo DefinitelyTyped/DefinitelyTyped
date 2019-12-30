@@ -5,23 +5,6 @@
 // TypeScript Version: 2.1
 
 /**
- * A simple logging mechanism for the SDK.
- */
-// tslint:disable-next-line:no-unnecessary-class
-export class Logger {
-    constructor(
-        log_level:
-            | 'trace'
-            | 'debug'
-            | 'info'
-            | 'warn'
-            | 'error'
-            | 'fatal',
-        name: string
-    );
-}
-
-/**
  * Constructs an Agent instance for a user
  * {string} account_url  The Agent endpoint url
  * {string} agent_name User name for Agent endpoint
@@ -1105,71 +1088,6 @@ export interface ProofSelection {
         [key: string]: PredicateChoice;
     };
 }
-
-/**
- * Validates identity data.
- * {Agent} agent The agent that proxies the identity
- * {AgentInfo} identity The identity information
- * Returns {undefined}
- */
-export function checkIdentity(agent: Agent, identity: AgentInfo): void;
-
-/**
- * Connects A to B, where A and B are two agents.
- * {Agent} aAgent the A agent
- * {AgentInfo} aIdentity the A identity information
- * {Agent} bAgent the B agent
- * {AgentInfo} bIdentity the B identity information
- * Returns {Promise<string>} A promise that returns the remote pairwise DID of the connection.
- */
-export function connect(
-    aAgent: Agent,
-    aIdentity: AgentInfo,
-    bAgent: Agent,
-    bIdentity: AgentInfo
-): Promise<string>;
-
-/**
- * Disconnects A from B, where A and B are two agents.
- * {Agent} aAgent the A agent
- * {Agent} bAgent the B agent
- * {string} did Pairwise DID to find the connection
- * Returns {Promise<void>} A promise that resolves when the test completes.
- */
-export function disconnect(
-    aAgent: Agent,
-    bAgent: Agent,
-    did: string
-): Promise<void>;
-
-/**
- * Deletes all connections for an agent.
- * {Agent} agent the Agent
- * Returns {Promise<void>} A promise that resolves when all connections are deleted.
- */
-export function removeConnections(agent: Agent): Promise<void>;
-
-/**
- * Deletes all credentials in an agent's wallet.
- * {Agent} agent the Agent
- * Returns {Promise<void>} A promise that resolves when all credentials are deleted.
- */
-export function removeCredentials(agent: Agent): Promise<void>;
-
-/**
- * Issues a credential from issuer to holder.
- * {Agent} issuer The issuer's agent
- * {Agent} holder The holder's agent
- * {CredentialDefinition} credentialDefinition The schema or cred def the credential is based on
- * {string} did The DID to find the connection to issue the credential to
- * Returns {Promise<Credential>} A promise that resolves with the credential offer.
- */
-export function issueCredential(
-    issuer: Agent,
-    holder: Agent,
-    credentialDefinition: CredentialDefinition,
-    did: string
-): Promise<Credential>;
 
 /**
  * Describes a method for establishing a connection with another agent.  Out-of-band connections require a user to
