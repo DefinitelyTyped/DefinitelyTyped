@@ -4,7 +4,7 @@ import ShareExtension from 'react-native-share-extension';
 import { Text, View } from 'react-native';
 
 export default class Share extends React.Component {
-    public state = {
+    state = {
         type: '',
         value: '',
     };
@@ -23,8 +23,6 @@ export default class Share extends React.Component {
             console.log('errrr', e);
         }
     }
-
-    onClose() {}
 
     render() {
         return (
