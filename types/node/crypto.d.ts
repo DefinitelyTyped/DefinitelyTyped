@@ -128,6 +128,7 @@ declare module "crypto" {
 
     class Hash extends stream.Transform {
         private constructor();
+        copy(): Hash;
         update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
@@ -309,8 +310,8 @@ declare module "crypto" {
 
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: Object | KeyLike, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: Object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
+        verify(object: object | KeyLike, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
@@ -610,5 +611,5 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPublicKey()`][].
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): Buffer;
+    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): boolean;
 }

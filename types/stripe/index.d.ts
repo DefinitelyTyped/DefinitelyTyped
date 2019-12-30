@@ -35,6 +35,7 @@
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
 //                 Timon van Spronsen <https://github.com/TimonVS>
+//                 Sean Chen <https://github.com/kamiyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -64,6 +65,16 @@ interface ResponseEvent {
     request_end_time: number;
 }
 
+interface StripeConfig {
+    apiVersion?: string | null;
+    maxNetworkRetries?: number;
+    httpAgent?: Agent | null;
+    timeout?: number;
+    host?: string;
+    port?: number;
+    telemetry?: boolean;
+}
+
 declare class Stripe {
     DEFAULT_HOST: string;
     DEFAULT_PORT: string;
@@ -85,6 +96,7 @@ declare class Stripe {
     StripeResource: typeof Stripe.StripeResource;
 
     constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, config?: StripeConfig);
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
@@ -7579,14 +7591,9 @@ declare namespace Stripe {
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
             /**
-             * Filter links by their expiration status. By default, all links are returned.
+             * Only return PaymentIntents for the customer specified by this customer ID.
              */
-            expired?: boolean;
-
-            /**
-             * Only return links for the given file.
-             */
-            file?: boolean;
+            customer?: string;
         }
     }
 
@@ -8560,6 +8567,16 @@ declare namespace Stripe {
              * be affected.
              */
             product?: string;
+
+            /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active?: boolean;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days?: number;
         }
 
         interface IPlanCreationOptionsProductHash {

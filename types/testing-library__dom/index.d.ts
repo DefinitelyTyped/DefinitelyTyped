@@ -1,10 +1,11 @@
-// Type definitions for @testing-library/dom 6.10
+// Type definitions for @testing-library/dom 6.11
 // Project: https://github.com/testing-library/dom-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Weyert de Boer <https://github.com/weyert>
 //                 Ronald Rey <https://github.com/reyronald>
+//                 Justin Hall <https://github.com/wKovacs64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -17,6 +18,7 @@ export { queries, queryHelpers, within };
 
 export * from './queries';
 export * from './query-helpers';
+export * from './screen';
 export * from './wait';
 export * from './wait-for-dom-change';
 export * from './wait-for-element';

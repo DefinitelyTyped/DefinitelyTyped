@@ -3469,6 +3469,7 @@ export function escape(text: string): string;
 export function stripTags(text: string): string;
 export function cleanTags(text: string): string;
 export function generateTags(style: any, text: string): string;
+export function parseTags(text: string, screen?: Widgets.Screen): string;
 
 export const colors: {
     match(hexColor: string): string;

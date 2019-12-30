@@ -53,7 +53,7 @@ interface SubstringDistanceResult {
     substring: string;
     distance: number;
 }
-/*
+/**
  * Returns the Damerau-Levenshtein distance between strings. Counts the distance
  * between two strings by returning the number of edit operations required to
  * convert `source` into `target`.
@@ -69,7 +69,7 @@ export function DamerauLevenshteinDistance(
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options: DamerauLevenshteinDistanceOptions & { search?: false }
+    options?: DamerauLevenshteinDistanceOptions & { search?: false }
 ): number;
 export function DamerauLevenshteinDistance(
     source: string,

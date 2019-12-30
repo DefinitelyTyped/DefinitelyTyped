@@ -1,4 +1,4 @@
-import { ConnectionMetadata } from '../handlers/connection/RelayConnectionHandler';
+import { ConnectionMetadata } from '../handlers/connection/ConnectionHandler';
 import { ConcreteRequest } from './RelayConcreteNode';
 
 export type ReaderArgument = ReaderLiteral | ReaderVariable;
