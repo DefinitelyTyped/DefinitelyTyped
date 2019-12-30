@@ -62,6 +62,11 @@ declare module "tls" {
          * SSL/TLS protocol version.
          */
         version: string;
+
+        /**
+         * IETF name for the cipher suite.
+         */
+        standardName: string;
     }
 
     interface EphemeralKeyInfo {

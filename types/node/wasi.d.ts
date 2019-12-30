@@ -19,8 +19,7 @@ declare module 'wasi' {
          */
         preopens?: {
             [key: string]: string;
-        }
-
+        };
     }
 
     class WASI {
@@ -35,12 +34,12 @@ declare module 'wasi' {
          * `start()` requires that `instance` exports a [`WebAssembly.Memory`][] named
          * `memory`. If `instance` does not have a `memory` export an exception is thrown.
          */
-        public start(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
+        start(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
         /**
          * Is an object that implements the WASI system call API. This object
          * should be passed as the `wasi_unstable` import during the instantiation of a
          * [`WebAssembly.Instance`][].
          */
-        public readonly wasiImport: { [key: string]: any }; // TODO: Narrow to DOM types
+        readonly wasiImport: { [key: string]: any }; // TODO: Narrow to DOM types
     }
 }
