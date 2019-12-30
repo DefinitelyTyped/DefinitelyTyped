@@ -1046,7 +1046,7 @@ declare namespace Stripe {
                      */
                     front?: string;
                 };
-                
+
                 /**
                  * A user-displayable string describing the verification state for the person.
                  * For example, this may say “Provided identity information could not be verified”.
