@@ -12,6 +12,9 @@ export default class Share extends React.Component {
     async componentDidMount() {
         try {
             const { type, value } = await ShareExtension.data();
+            await ShareExtension.data();
+            ShareExtension.openURL('sample://example/url');
+            ShareExtension.close();
             this.setState({
                 type,
                 value,
@@ -21,9 +24,7 @@ export default class Share extends React.Component {
         }
     }
 
-    onClose() {
-        ShareExtension.close();
-    }
+    onClose() {}
 
     render() {
         return (

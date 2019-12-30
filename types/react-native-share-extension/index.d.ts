@@ -10,7 +10,7 @@ interface ShareData {
 
 interface ShareExtension {
     close(): void;
-    data(): ShareData;
+    data(): Promise<ShareData>;
     openURL(uri: string): void;
 }
 
