@@ -1,6 +1,6 @@
 import $getProto = require('es-abstract/helpers/getProto');
 
-const any: unknown = undefined;
+declare const any: unknown;
 
 if ($getProto) {
 	$getProto(any); // $ExpectType any

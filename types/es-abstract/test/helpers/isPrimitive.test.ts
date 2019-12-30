@@ -1,6 +1,6 @@
 import isPrimitive = require('es-abstract/helpers/isPrimitive');
 
-const any: unknown = undefined;
+declare const any: unknown;
 
 isPrimitive(any); // $ExpectType boolean
 

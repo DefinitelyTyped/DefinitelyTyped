@@ -9,7 +9,7 @@ interface WritableArrayLike<T> {
 interface ES2019 extends ES2018 {
 	AddEntriesFromIterable<T, K, V>(
 		target: T,
-		iterable: Iterable<[K, V]>,
+		iterable: Iterable<readonly [K, V]>,
 		adder: (this: T, key: K, value: V) => void,
 	): T;
 

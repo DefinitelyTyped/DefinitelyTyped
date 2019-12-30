@@ -16,6 +16,6 @@ declare function callBoundIntrinsic<K extends keyof Intrinsics>(
 	name: K,
 	allowMissing?: boolean,
 ): PrependThisParameter<Intrinsics[K]> | undefined;
-declare function callBoundIntrinsic(name: string, allowMissing?: boolean): unknown;
+declare function callBoundIntrinsic(name: string, allowMissing?: boolean): any;
 
 export = callBoundIntrinsic;

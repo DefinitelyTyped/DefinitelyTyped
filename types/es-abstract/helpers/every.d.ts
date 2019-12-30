@@ -1,2 +1,5 @@
-declare function every<T>(array: T[], predicate: (value: T, index: number, array: T[]) => unknown): boolean;
+declare function every<A extends ArrayLike<any>>(
+	array: A,
+	predicate: (value: A extends ArrayLike<infer T> ? T : any, index: number, array: A) => unknown,
+): boolean;
 export = every;

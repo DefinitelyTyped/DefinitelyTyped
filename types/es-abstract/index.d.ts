@@ -26,12 +26,12 @@ declare namespace ESAbstract {
 	}
 
 	interface AccessorDescriptor extends GenericDescriptor {
-		'[[Get]]'?: () => unknown;
-		'[[Set]]'?: (value: unknown) => void;
+		'[[Get]]'?(): any;
+		'[[Set]]'?(value: any): void;
 	}
 
 	interface DataDescriptor extends GenericDescriptor {
-		'[[Value]]'?: unknown;
+		'[[Value]]'?: any;
 		'[[Writable]]'?: boolean;
 	}
 

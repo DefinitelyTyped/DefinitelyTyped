@@ -1,12 +1,11 @@
 import { PropertyDescriptor as ESPropertyDescriptor } from '../index';
 
-declare function assertRecord<K extends keyof assertRecord.Predicates>(
-	ES: Parameters<assertRecord.Predicates[K]>[0],
+declare function assertRecord<K extends string>(
+	ES: K extends keyof assertRecord.Predicates ? Parameters<assertRecord.Predicates[K]>[0] : object,
 	recordType: K,
 	argumentName: string,
-	value: Parameters<assertRecord.Predicates[K]>[1],
+	value: K extends keyof assertRecord.Predicates ? Parameters<assertRecord.Predicates[K]>[1] : unknown,
 ): void;
-declare function assertRecord(ES: object, recordType: string, argumentName: string, value: unknown): void;
 
 declare namespace assertRecord {
 	interface Predicates {

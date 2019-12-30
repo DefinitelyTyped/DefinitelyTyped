@@ -1,7 +1,7 @@
 import ES2017 = require('es-abstract/es2017');
 
-const any: unknown = undefined;
-const object: object = Object();
+declare const any: unknown;
+declare const object: object;
 
 const OWN_PROPERTY_TYPES = String() as 'key' | 'value' | 'key+value';
 

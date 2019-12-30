@@ -1,6 +1,6 @@
-declare function forEach<A extends ArrayLike<unknown>, THIS_TYPE = undefined>(
+declare function forEach<A extends ArrayLike<any>, THIS_TYPE = undefined>(
 	array: A,
-	callback: (this: THIS_TYPE, value: A extends ArrayLike<infer T> ? T : unknown, index: number, array: A) => void,
+	callback: (this: THIS_TYPE, value: A extends ArrayLike<infer T> ? T : any, index: number, array: A) => void,
 	thisArg?: THIS_TYPE,
 ): void;
 declare function forEach<O extends object, THIS_TYPE = undefined>(

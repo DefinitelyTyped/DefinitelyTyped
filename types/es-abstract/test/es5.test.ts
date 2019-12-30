@@ -1,6 +1,6 @@
 import ES5 = require('es-abstract/es5');
 
-const any: unknown = undefined;
+declare const any: unknown;
 // tslint:disable-next-line: no-null-undefined-union
 const nullableObject: string | object | null | undefined =
 	Math.random() < 0.25 ? undefined : Math.random() < 0.5 ? null : Object('foo');

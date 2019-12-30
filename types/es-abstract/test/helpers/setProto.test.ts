@@ -1,6 +1,6 @@
 import $setProto = require('es-abstract/helpers/setProto');
 
-const any: unknown = undefined;
+declare const any: unknown;
 
 if ($setProto) {
 	$setProto(any, null);

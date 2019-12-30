@@ -1,7 +1,7 @@
 import ES2015 = require('es-abstract/es2015');
 import { expectType } from './index.test';
 
-const any: unknown = undefined;
+declare const any: unknown;
 
 ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
 ES2015.ToInt16(any); // $ExpectType number

@@ -5,13 +5,16 @@ import { Intrinsics } from './GetIntrinsic';
 import { PropertyKey as ESPropertyKey } from './index';
 
 type TSPropertyKey = PropertyKey;
-type AnyFunction = (...args: any) => unknown;
-type AnyConstructor = new (...args: any) => unknown;
 
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
-	Call<F extends (this: T, ...args: A) => unknown, T, A extends unknown[]>(F: F, thisArg: T, args?: A): ReturnType<F>;
-	Call<F extends (...args: A) => unknown, A extends unknown[]>(F: F, thisArg: unknown, args?: A): ReturnType<F>;
-	Call(F: AnyFunction, thisArg: unknown, args?: unknown[]): unknown;
+	// tslint:disable-next-line: ban-types
+	Call<F extends Function>(
+		F: F,
+		thisArg: ThisParameterType<F>,
+		args?: F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[],
+	): F extends (...args: any) => infer R ? R : any;
+	// tslint:disable-next-line: ban-types
+	Call<F extends Function>(F: F, thisArg: ThisParameterType<F>, args?: ArrayLike<unknown>): any;
 
 	readonly ToPrimitive: typeof toPrimitive;
 	ToInt16(value: unknown): number;
@@ -25,32 +28,35 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	readonly RequireObjectCoercible: typeof ES5.CheckObjectCoercible;
 
 	readonly IsArray: typeof Array.isArray;
-	IsConstructor(arg: unknown): arg is AnyConstructor;
+	IsConstructor(arg: unknown): arg is new (...args: any) => any;
 	readonly IsExtensible: typeof Object.isExtensible;
 	IsInteger(arg: unknown): arg is number;
 	IsPropertyKey(arg: unknown): arg is ESPropertyKey;
 	IsRegExp(arg: unknown): arg is RegExp;
 	SameValueZero(x: unknown, y: unknown): boolean;
 
-	GetV<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : unknown;
-	GetV(O: unknown, P: ESPropertyKey): unknown;
+	GetV<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
+	GetV(O: unknown, P: ESPropertyKey): any;
 
 	GetMethod<O, P extends ESPropertyKey>(
 		O: O,
 		P: P,
 	): P extends keyof O
-		? (NonNullable<O[P]> extends AnyFunction ? O[P] : never)
-		: AnyFunction | undefined;
-	GetMethod(O: unknown, P: ESPropertyKey): AnyFunction | undefined;
+		// tslint:disable-next-line: ban-types
+		? (NonNullable<O[P]> extends Function ? O[P] : never)
+		: ((...args: any) => any) | undefined;
+	GetMethod(O: unknown, P: ESPropertyKey): ((...args: any) => any) | undefined;
 
-	Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : unknown;
-	Get(O: object, P: ESPropertyKey): unknown;
+	Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
+	Get(O: object, P: ESPropertyKey): any;
 
 	Type(x: unknown): 'Null' | 'Undefined' | 'Object' | 'Number' | 'Boolean' | 'String' | 'Symbol' | undefined;
-	SpeciesConstructor<C extends AnyConstructor = AnyConstructor>(
+
+	// tslint:disable-next-line: ban-types
+	SpeciesConstructor<C extends Function = new (...args: any) => any>(
 		O: object,
 		defaultConstructor?: C,
-	): AnyConstructor | C;
+	): C | (new (...args: any) => any);
 
 	CompletePropertyDescriptor<D extends ES5.PropertyDescriptor>(
 		Desc: D & ThisType<any>,
@@ -170,11 +176,13 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 		types?: Array<'Undefined' | 'Null' | 'Boolean' | 'String' | 'Symbol' | 'Number' | 'Object'>,
 	): T[];
 	GetPrototypeFromConstructor<K extends keyof Intrinsics>(
-		constructor: AnyConstructor,
+		constructor: new (...args: any) => any,
 		intrinsicDefaultProto: K,
-	): Intrinsics[K];
-	GetPrototypeFromConstructor(constructor: AnyConstructor, intrinsicDefaultProto: string): unknown;
-	SetFunctionName(F: AnyFunction | AnyConstructor, name: string | symbol, prefix?: string): boolean;
+	): {} | Intrinsics[K];
+	GetPrototypeFromConstructor(constructor: new (...args: any) => any, intrinsicDefaultProto: string): any;
+
+	// tslint:disable-next-line: ban-types
+	SetFunctionName(F: Function, name: string | symbol, prefix?: string): boolean;
 }
 
 declare namespace ES2015 {
