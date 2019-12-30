@@ -29,8 +29,8 @@ declare namespace clownface {
         value: string | string[];
     }
 
-    interface WithTerm {
-        term: Term | Term[];
+    interface WithTerm<T extends Term = Term> {
+        term: T | T[];
     }
 
     interface Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> {
@@ -87,7 +87,11 @@ declare namespace clownface {
     }
 }
 
-declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D> & clownface.WithTerm | clownface.ClownfaceInit<D> & clownface.WithValue): clownface.SafeClownface<D>;
-declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D>): clownface.Clownface<D>;
+type ClownfaceInitWithNode<D extends DatasetCore, T extends Term> =
+    clownface.ClownfaceInit<D> & clownface.WithTerm<T> |
+    clownface.ClownfaceInit<D> & clownface.WithValue;
+
+declare function clownface<D extends DatasetCore, T extends Term = Term>(options: ClownfaceInitWithNode<D, T>): clownface.SafeClownface<D, T>;
+declare function clownface<D extends DatasetCore, T extends Term = Term>(options: clownface.ClownfaceInit<D, T>): clownface.Clownface<D, T>;
 
 export = clownface;

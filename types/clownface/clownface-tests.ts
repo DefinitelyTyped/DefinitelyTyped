@@ -1,8 +1,9 @@
-import { Term, NamedNode, Dataset, Literal } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 
 const node: NamedNode = <any> {};
+const blankNode: BlankNode = <any> {};
 const predicate: NamedNode = <any> {};
 const literal: Literal = <any> {};
 let term: Term = <any> {};
@@ -13,8 +14,8 @@ const graph: NamedNode = <any> {};
 
 let cf = new Clownface({ dataset });
 cf = new Clownface({ dataset, graph });
-cf = new Clownface({ dataset, term });
-cf = new Clownface({ dataset, term: [term, term] });
+const typedByTerm: Clownface<DatasetCore, NamedNode> = new Clownface({ dataset, term: node });
+const typedByTerms: Clownface<DatasetCore, NamedNode | BlankNode> = new Clownface({ dataset, term: [node, blankNode] });
 cf = new Clownface({ dataset, value: 'foo' });
 cf = new Clownface({ dataset, value: ['foo', 'bar'] });
 cf = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
@@ -50,10 +51,10 @@ cf = cf.addOut(predicate, child => {
 cf = cf.addOut(cf.node(predicate), cf.node(node));
 
 // .blankNode
-let blankNode: Clownface;
-blankNode = cf.blankNode();
-blankNode = cf.blankNode('label');
-blankNode = cf.blankNode([ 'b1', 'b2' ]);
+let blankContext: Clownface;
+blankContext = cf.blankNode();
+blankContext = cf.blankNode('label');
+blankContext = cf.blankNode([ 'b1', 'b2' ]);
 
 // .deleteIn
 cf = cf.deleteIn();
@@ -73,6 +74,25 @@ cf = clownface({ dataset });
 cf = clownface({ dataset, term });
 cf = clownface({ dataset, graph });
 cf = clownface({ dataset, value: 'foo' });
+
+const termContext: Clownface = clownface({
+    dataset,
+    term
+});
+
+const namedContext: Clownface<DatasetCore, NamedNode> = clownface({
+    dataset,
+    term: node,
+});
+
+const maybeNamed: BlankNode | NamedNode = <any> {};
+const altContext: Clownface<DatasetCore, BlankNode | NamedNode> = clownface({
+    dataset,
+    term: maybeNamed,
+});
+
+const literalContext: clownface.SingleContextClownface<Dataset, Literal> = <any> {};
+const deriveContextFromOtherGraph: Clownface<Dataset, Literal>  = clownface(literalContext);
 
 // .filter
 cf = cf.filter(() => true);
