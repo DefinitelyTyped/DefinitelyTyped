@@ -1,3 +1,3 @@
 export class Wrapper {
-    toBuffer(): Buffer;
+    toBuffer(bufSize: number): Buffer;
 }
