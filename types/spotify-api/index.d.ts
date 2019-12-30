@@ -138,6 +138,10 @@ declare namespace SpotifyApi {
         position_ms?: number;
     }
 
+    interface RestrictionsObject {
+        reason: string
+    }
+
     //
     // Responses from the Spotify Web API in the same order as in the API endpoint docs seen here:
     // [API Endpoint Reference](https://developer.spotify.com/web-api/endpoint-reference/)
@@ -665,14 +669,11 @@ declare namespace SpotifyApi {
      * [album object (full)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectFull extends AlbumObjectSimplified {
-        artists: ArtistObjectSimplified[],
         copyrights: CopyrightObject[],
         external_ids: ExternalIdObject,
         genres: string[],
         popularity: number,
-        release_date: string,
-        release_date_precision: string,
-        tracks: PagingObject<TrackObjectSimplified>,
+        tracks: PagingObject<TrackObjectSimplified>
     }
 
     /**
@@ -680,13 +681,18 @@ declare namespace SpotifyApi {
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectSimplified {
+        album_group?: string,
         album_type: string,
+        artists: ArtistObjectSimplified[],
         available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
         images: ImageObject[],
         name: string,
+        release_date: string,
+        release_date_precision: string,
+        restrictions?: RestrictionsObject,
         type: "album",
         uri: string
     }
