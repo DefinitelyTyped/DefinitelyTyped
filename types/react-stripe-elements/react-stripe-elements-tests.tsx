@@ -153,12 +153,12 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
                 currency: '',
             })
             .then((response: PatchedTokenResponse) => this.props.tokenCallback(response));
-    }
+    };
 
     isFormValid = () => {
         // use onChange callbacks from *Element components to detect if form is valid for submission
         return false;
-    }
+    };
 
     render() {
         return (
@@ -246,10 +246,8 @@ const TestStripeProviderOptions: React.SFC = () => <StripeProvider apiKey="" str
 
 class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
     testCreatePaymentMethod = () => {
-        this.props
-            .stripe!.createPaymentMethod('card')
-            .then((response) => response.paymentMethod);
-    }
+        this.props.stripe!.createPaymentMethod('card').then(response => response.paymentMethod);
+    };
 
     testCreatePaymentMethodWithData = () => {
         this.props
@@ -259,67 +257,100 @@ class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
                 },
                 metadata: {
                     foo: 'bar',
-                }
+                },
             })
-            .then((response) => response.paymentMethod);
-    }
+            .then(response => response.paymentMethod);
+    };
+
+    testCreatePaymentMethodWithNewData = () => {
+        const cardEl = this.props.elements!.getElement('card') || undefined;
+        this.props
+            .stripe!.createPaymentMethod({
+                type: 'card',
+                card: cardEl,
+                billing_details: {
+                    name: 'Jenny Rosen',
+                },
+            })
+            .then(response => response.paymentMethod);
+    };
 
     testCreatePaymentMethodWithError = () => {
-        this.props
-            .stripe!.createPaymentMethod('card')
-            .then((response) => response.error);
-    }
+        this.props.stripe!.createPaymentMethod('card').then(response => response.error);
+    };
 }
 
 class HandleCardPayment extends React.Component<InjectedStripeProps> {
     testHandleCardPayment = () => {
-        this.props
-            .stripe!.handleCardPayment('clientSecret')
-            .then((response) => response.paymentIntent);
-    }
+        this.props.stripe!.handleCardPayment('clientSecret').then(response => response.paymentIntent);
+    };
 
     testHandleCardPaymentWithOptions = () => {
         this.props
             .stripe!.handleCardPayment('clientSecret', {
                 payment_method_data: {
                     billing_details: {
-                      name: 'John Doe'
-                    }
+                        name: 'John Doe',
+                    },
                 },
                 receipt_email: 'john@doe.com',
             })
-            .then((response) => response.paymentIntent);
-    }
+            .then(response => response.paymentIntent);
+    };
 
     testHandleCardPaymentWithError = () => {
-        this.props
-            .stripe!.handleCardPayment('clientSecret')
-            .then((response) => response.error);
-    }
+        this.props.stripe!.handleCardPayment('clientSecret').then(response => response.error);
+    };
 }
 
 class HandleCardSetup extends React.Component<InjectedStripeProps> {
     testHandleCardSetup = () => {
-        this.props
-            .stripe!.handleCardSetup('clientSecret')
-            .then((response) => response.setupIntent);
-    }
+        this.props.stripe!.handleCardSetup('clientSecret').then(response => response.setupIntent);
+    };
 
     testHandleCardSetupWithData = () => {
         this.props
             .stripe!.handleCardSetup('clientSecret', {
                 payment_method_data: {
                     billing_details: {
-                      name: 'John Doe'
-                    }
+                        name: 'John Doe',
+                    },
                 },
             })
-            .then((response) => response.setupIntent);
-    }
+            .then(response => response.setupIntent);
+    };
 
     testHandleCardSetupWithError = () => {
+        this.props.stripe!.handleCardSetup('clientSecret').then(response => response.error);
+    };
+}
+
+class ConfirmPaymentPayment extends React.Component<InjectedStripeProps> {
+    testConfirmCardPayment = () => {
+        const el = this.props.elements?.getElement('card');
         this.props
-            .stripe!.handleCardSetup('clientSecret')
-            .then((response) => response.error);
-    }
+            .stripe!.confirmCardPayment('clientSecret', {
+                payment_method: { card: el || { token: 'test token' }, billing_details: { name: 'Jenny Rosen' } },
+            })
+            .then(response => response.paymentIntent);
+    };
+
+    testConfirmCardPaymentWithError = () => {
+        this.props.stripe!.handleCardSetup('clientSecret').then(response => response.error);
+    };
+}
+
+class ConfirmCardSetup extends React.Component<InjectedStripeProps> {
+    testConfirmCardSetup = () => {
+        const el = this.props.elements?.getElement('cardNumber');
+        this.props
+            .stripe!.confirmCardSetup('clientSecret', {
+                payment_method: { card: el || { token: 'test with token' }, billing_details: { name: 'Jenny Rosen' } },
+            })
+            .then(response => response.setupIntent);
+    };
+
+    testConfirmCardSetupWithError = () => {
+        this.props.stripe!.handleCardSetup('clientSecret').then(response => response.error);
+    };
 }

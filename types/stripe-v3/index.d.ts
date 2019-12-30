@@ -1,4 +1,4 @@
-// Type definitions for stripe-v3 3.1
+// Type definitions for stripe-v3 3.2
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
 //                 Eric J. Smith <https://github.com/ejsmith>
@@ -12,6 +12,7 @@
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -40,6 +41,9 @@ declare namespace stripe {
             type: paymentMethod.paymentMethodType,
             element: elements.Element,
             options?: CreatePaymentMethodOptions,
+        ): Promise<PaymentMethodResponse>;
+        createPaymentMethod(
+            data: PaymentMethodData
         ): Promise<PaymentMethodResponse>;
         retrievePaymentIntent(
             clientSecret: string,
@@ -456,6 +460,19 @@ declare namespace stripe {
          */
         billing_details?: BillingDetails;
         metadata?: Metadata;
+    }
+
+    interface PaymentMethodData {
+        /**
+         * Billing information associated with the PaymentMethod
+         * that may be used or required by particular types of
+         * payment methods.
+         */
+        type: string;
+        card?: elements.Element;
+        ideal?: elements.Element | { bank: string };
+        sepa_debit?: elements.Element | { iban: string };
+        billing_details?: BillingDetails;
     }
 
     interface HandleCardPaymentOptions {
