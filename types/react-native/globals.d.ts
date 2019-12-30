@@ -296,5 +296,12 @@ interface WebSocket extends EventTarget {
 
 declare var WebSocket: {
     prototype: WebSocket;
-    new (uri: string, protocols?: string | string[], options?: {headers: {[headerName: string]: string}}): WebSocket;
+    new (
+        uri: string,
+        protocols?: string | string[] | null,
+        options?: {
+            headers: {[headerName: string]: string};
+            [optionName: string]: any;
+        } | null,
+    ): WebSocket;
 };
