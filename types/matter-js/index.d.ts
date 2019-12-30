@@ -1671,7 +1671,7 @@ declare namespace Matter {
         stiffness?: number;
 
         /**
-         * A `Number` that specifies the damping of the constraint, 
+         * A `Number` that specifies the damping of the constraint,
          * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
          * Damping will only be apparent when the constraint also has a very low `stiffness`.
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
@@ -1827,7 +1827,7 @@ declare namespace Matter {
         stiffness: number;
 
         /**
-         * A `Number` that specifies the damping of the constraint, 
+         * A `Number` that specifies the damping of the constraint,
          * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
          * Damping will only be apparent when the constraint also has a very low `stiffness`.
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
@@ -2429,10 +2429,10 @@ declare namespace Matter {
         /**
          * Render wireframes only
          * @type boolean
-         * @default true 
+         * @default true
          */
         wireframes?: boolean;
-        
+
         /**
          * Sets scene background
          * @type string
@@ -2570,6 +2570,14 @@ declare namespace Matter {
         * @default 1000 / 60
         */
         delta?: number;
+
+        /**
+         * A flag that specifies whether the runner is running or not.
+         * @property enabled
+         * @type boolean
+         * @default true
+         */
+        enabled?: boolean;
     }
 
     /**
@@ -2590,7 +2598,7 @@ declare namespace Matter {
          * @method create
          * @param {} options
          */
-        static create(options:IRunnerOptions): Runner;
+        static create(options?: IRunnerOptions): Runner;
         /**
          * Continuously ticks a `Matter.Engine` by calling `Runner.tick` on the `requestAnimationFrame` event.
          * @method run
@@ -3088,9 +3096,9 @@ declare namespace Matter {
     }
 
     export interface ICollisionFilter {
-        category: number;
-        mask: number;
-        group: number;
+        category?: number;
+        mask?: number;
+        group?: number;
     }
 
     export interface IMousePoint {
@@ -3400,7 +3408,7 @@ declare namespace Matter {
         static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
 
     }
-    
+
     type Dependency = {name: string, range: string}
                     | {name: string, version: string}
                     | string;
@@ -3410,7 +3418,7 @@ declare namespace Matter {
         version: string;
         install: () => void;
         for?: string;
-        
+
         /**
          * Registers a plugin object so it can be resolved later by name.
          * @method register
@@ -3418,16 +3426,16 @@ declare namespace Matter {
          * @return {object} The plugin.
          */
         static register(plugin: Plugin): Plugin;
-      
+
         /**
-         * Resolves a dependency to a plugin object from the registry if it exists. 
+         * Resolves a dependency to a plugin object from the registry if it exists.
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
          * @param dependency {string} The dependency.
          * @return {object} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
-        
+
         /**
          * Returns `true` if the object meets the minimum standard to be considered a plugin.
          * This means it must define the following properties:
@@ -3501,7 +3509,7 @@ declare namespace Matter {
          * @return {object} The dependency parsed into its components.
          */
         static dependencyParse(dependency: Dependency) : {name: string, range: string};
-        
+
         /**
          * Parses a version string into its components.
          * Versions are strictly of the format `x.y.z` (as in [semver](http://semver.org/)).

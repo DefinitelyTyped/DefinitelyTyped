@@ -1,6 +1,7 @@
-// Type definitions for @testing-library/react-hooks 3.1
+// Type definitions for @testing-library/react-hooks 3.2
 // Project: https://github.com/testing-library/react-hooks-testing-library
 // Definitions by: Michael Peyper <https://github.com/mpeyper>
+//                 Sarah Dayan <https://github.com/sarahdayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -17,9 +18,16 @@ export interface HookResult<R> {
     readonly error: Error;
 }
 
+export interface WaitOptions {
+    timeout?: number;
+    suppressErrors?: boolean;
+}
+
 export interface RenderHookResult<P, R> {
     readonly result: HookResult<R>;
-    readonly waitForNextUpdate: () => Promise<void>;
+    readonly waitForNextUpdate: (options?: WaitOptions) => Promise<void>;
+    readonly waitForValueToChange: (selector: () => any, options?: WaitOptions) => Promise<void>;
+    readonly wait: (callback: () => boolean|void, options?: WaitOptions) => Promise<void>;
     readonly unmount: () => boolean;
     readonly rerender: (newProps?: P) => void;
 }

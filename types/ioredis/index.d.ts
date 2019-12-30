@@ -264,13 +264,13 @@ declare namespace IORedis {
         zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: string[]) => void): void;
         zrevrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<string[]>;
 
-        zrangebyscore(key: KeyType, min: number, max: number, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number, max: number, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number, max: number, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
 
-        zrevrangebyscore(key: KeyType, min: number, max: number, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number, max: number, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number, max: number, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
         zcount(key: KeyType, min: number | string, max: number | string): Promise<number>;

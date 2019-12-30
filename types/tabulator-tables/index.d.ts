@@ -1196,6 +1196,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | 'rownum'
         | 'handle'
         | 'rowSelection'
+        | 'responsiveCollapse'
         | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams =
         | MoneyParams

@@ -232,6 +232,7 @@ declare namespace Flexmonster {
             row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
         };
         drillThrough?: string[];
+        flatOrder?: string[];
     }
 
     interface Options {

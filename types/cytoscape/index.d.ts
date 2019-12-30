@@ -7,6 +7,7 @@
 //                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
+//                  Xavier Ho <https://github.com/spaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -4962,4 +4963,10 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#extensions
      */
     function use(module: Ext): void;
+    /**
+     * Surpress Cytoscape internal warnings globally with a flag.
+     * @param condition If true, all Cytoscape warnings are surpressed.
+     * https://js.cytoscape.org/#core/initialisation
+     */
+    function warnings(condition: boolean): void;
 }
