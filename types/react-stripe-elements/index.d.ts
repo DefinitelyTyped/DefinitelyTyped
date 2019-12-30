@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 6.1
+// Type definitions for react-stripe-elements 6.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -40,8 +40,8 @@ export namespace ReactStripeElements {
         stripeAccount?: string;
     }
     type StripeProviderProps =
-        | ({ apiKey: string; stripe?: never } & StripeProviderOptions)
-        | ({ apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions);
+        | { apiKey: string; stripe?: never } & StripeProviderOptions
+        | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
     interface StripeProps {
         createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
@@ -124,9 +124,7 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<
-    ReactStripeElements.PaymentRequestButtonElementProps
-> {}
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 
