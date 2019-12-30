@@ -4,8 +4,6 @@
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = introJs;
-
 declare function introJs(): introJs.IntroJs;
 declare function introJs(element: HTMLElement): introJs.IntroJs;
 declare function introJs(querySelector: string): introJs.IntroJs;
@@ -97,3 +95,6 @@ declare namespace introJs {
         onhintclose(callback: (stepId: number) => any): IntroJs;
     }
 }
+
+export = introJs;
+export as namespace introJs;
