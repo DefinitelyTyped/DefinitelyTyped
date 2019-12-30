@@ -1,6 +1,7 @@
 // Tests for the type definitions for The Spotify Web API (including changes March 29th 2016)
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
+//                 Nils Måsén <https://github.com/piksel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -59,6 +60,7 @@ const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
     "url" : "https://i.scdn.co/image/54b3222c8aaa77890d1ac37b3aaaa1fc9ba630ae",
     "width" : 64
   } ],
+  "label": "Epic/Legacy",
   "name" : "She's So Unusual",
   "popularity" : 0,
   "release_date" : "1983",
@@ -452,6 +454,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
       "url" : "https://i.scdn.co/image/21e1ebcd7ebd3b679d9d5084bba1e163638b103a",
       "width" : 64
     } ],
+    "label": "Universal Music Group",
     "name" : "The Best Of Keane (Deluxe Edition)",
     "popularity" : 56,
     "release_date" : "2013-01-01",
@@ -1459,6 +1462,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
       "url" : "https://i.scdn.co/image/b31365a528a6a8e1e8b4c8a2d5d1d4b48b672122",
       "width" : 64
     } ],
+    "label": "Universal-Island Records Ltd.",
     "name" : "Strangeland",
     "popularity" : 53,
     "release_date" : "2012-01-01",
@@ -1966,6 +1970,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
       "url" : "https://i.scdn.co/image/1e21ac3f484c184c0b168bfed2b4fbff1d03c4ab",
       "width" : 64
     } ],
+    "label": "Universal Music Group",
     "name" : "Night Train",
     "popularity" : 39,
     "release_date" : "2010-01-01",
@@ -5316,6 +5321,7 @@ const usersSavedAlbums : SpotifyApi.UsersSavedAlbumsResponse = {
         "url" : "https://i.scdn.co/image/609153aca7f4760136d97fbaccdb4ec0757e4c9e",
         "width" : 64
       } ],
+      "label": "Soblue Music Group AB",
       "name" : "In & ut",
       "popularity" : 49,
       "release_date" : "2013-01-01",
