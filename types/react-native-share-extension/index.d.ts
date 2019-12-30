@@ -8,9 +8,11 @@ interface ShareData {
     type: 'text/plain' | 'images/*';
 }
 
-declare class ShareExtension {
+interface ShareExtension {
+    close(): void;
     data(): ShareData;
     openURL(uri: string): void;
 }
 
-export default ShareExtension;
+declare const RNShareExtension: ShareExtension;
+export default RNShareExtension;

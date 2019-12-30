@@ -14,7 +14,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react-native"
     },
     "files": [
         "index.d.ts",
