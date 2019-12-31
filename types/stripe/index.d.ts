@@ -1060,11 +1060,11 @@ declare namespace Stripe {
                  */
                 details_code?:
                     | 'document_address_mismatch'
-                    | ' document_dob_mismatch'
-                    | ' document_duplicate_type'
-                    | ' document_id_number_mismatch'
-                    | ' document_name_mismatch'
-                    | ' failed_keyed_identity'
+                    | 'document_dob_mismatch'
+                    | 'document_duplicate_type'
+                    | 'document_id_number_mismatch'
+                    | 'document_name_mismatch'
+                    | 'failed_keyed_identity'
                     | 'failed_other';
 
                 /**
