@@ -2,7 +2,7 @@
 
 import onecolor = require('onecolor');
 
-// Contrustor
+// Constructor
 const color = onecolor('red');
 
 // Serialization methods:

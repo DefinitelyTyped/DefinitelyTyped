@@ -1,5 +1,5 @@
 // Type definitions for onecolor 3.1
-// Project: onecolor
+// Project: https://github.com/One-com/one-color
 // Definitions by: Azliya <https://github.com/Azliya>
 // Definitions: https://github.com/DefinitelyTyped/onecolor
 
