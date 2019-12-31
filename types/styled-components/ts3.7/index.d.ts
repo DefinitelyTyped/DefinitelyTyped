@@ -154,12 +154,17 @@ export interface StyledComponentBase<
     A extends keyof any = never
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
+    // TODO replace the following call signature with an actually polymorphic 'as' to make 'as' typesafe
     (
-        props: StyledComponentProps<C, T, O, A> & { as?: never }
-      ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
-    <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
-      props: StyledComponentPropsWithAs<AsC, T, O, A>
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
+        props: StyledComponentProps<C, T, O, A> & {
+            /**
+             * Typing Note: prefer using .withComponent for now as it is actually type-safe.
+             *
+             * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
+             */
+            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+        }
+    ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
