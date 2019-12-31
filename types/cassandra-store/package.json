@@ -1,8 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/express": "^4.17.2",
-        "@types/express-session": "^1.15.16",
         "cassandra-driver": "^4.3.0"
     }
 }
