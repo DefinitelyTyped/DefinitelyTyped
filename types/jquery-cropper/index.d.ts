@@ -1,4 +1,4 @@
-// Type definitions for jquery-cropper 0.9
+// Type definitions for jquery-cropper v1.0.1
 // Project: https://github.com/davidstutz/jquery-cropper
 // Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,6 @@
 
 /// <reference types="jquery"/>
 
-/**
- * See {@link https://davidstutz.github.io/jquery-cropper/#configuration-options|https://davidstutz.github.io/jquery-cropper/#configuration-options}
- */
 interface ICropperOptions {
     viewMode?: number;
     dragMode?: string;
