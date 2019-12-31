@@ -1,4 +1,4 @@
-// Type definitions for lightship 3.0
+// Type definitions for lightship 4.0
 // Project: https://github.com/gajus/lightship#readme
 // Definitions by: Scott Chang <https://github.com/purmac>, Karoun Kasraie <https://github.com/karoun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,7 +23,7 @@ export interface UserConfigurationType {
     detectKubernetes?: boolean;
     /* The port on which the Lightship service listens. This port must be different than your main service port, if any. The default port is 9000. */
     port?: number;
-    /* An a array of [signal events]{@link https://nodejs.org/api/process.html#process_signal_events}. Default: [SIGTERM, SIHHP, SIGINT]. */
+    /* An a array of [signal events]{@link https://nodejs.org/api/process.html#process_signal_events}. Default: [SIGTERM, SIGHUP, SIGINT]. */
     signals?: ReadonlyArray<NodeJS.Signals>;
     /* A number of milliseconds before forceful termination. Default: 60000. */
     timeout?: number;
