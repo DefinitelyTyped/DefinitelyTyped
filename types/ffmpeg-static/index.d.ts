@@ -7,5 +7,5 @@
 /**
  * Binary location
  */
-declare const path: string
-export = path
+declare const pathToFfmpeg: string
+export = pathToFfmpeg
