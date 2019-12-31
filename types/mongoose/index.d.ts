@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5.1
+// Type definitions for Mongoose 5.8
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -36,6 +36,7 @@
 //                 Thomas Pischulski <https://github.com/nephix>
 //                 Sam Kim <https://github.com/rlaace423>
 //                 Dongjun Lee <https://github.com/ChazEpps>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -371,6 +372,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** Enables the new unified topology layer */
+    useUnifiedTopology?: boolean;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;

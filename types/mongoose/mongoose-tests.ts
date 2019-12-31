@@ -30,6 +30,7 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useCreateIndex: true,
   autoIndex: true,
   autoCreate: true,
+  useUnifiedTopology: true
 });
 const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
