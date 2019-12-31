@@ -16,7 +16,16 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
+type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailled;
+    
 type ProxyTargetUrl = string | Partial<url.Url>;
+interface ProxyTargetDetailled {
+  host: string,
+  port: string,
+  protocol?: string,
+  pfx?: Buffer | string,
+  passphrase?: string,
+}
 
 type ErrorCallback = (
   err: Error,
@@ -169,7 +178,7 @@ declare class Server extends events.EventEmitter {
 declare namespace Server {
   interface ServerOptions {
     /** URL string to be parsed with the url module. */
-    target?: ProxyTargetUrl;
+    target?: ProxyTarget;
     /** URL string to be parsed with the url module. */
     forward?: ProxyTargetUrl;
     /** Object to be passed to http(s).request. */
