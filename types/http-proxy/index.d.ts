@@ -24,8 +24,15 @@ interface ProxyTargetDetailled {
   host: string;
   port: number;
   protocol?: string;
-  pfx?: Buffer | string;
+  hostname?: string;
+  socketPath?: string;
+  key?: string;
   passphrase?: string;
+  pfx?: Buffer | string;
+  cert?: string;
+  ca?: string;
+  ciphers?: string;
+  secureProtocol?: string;
 }
 
 type ErrorCallback = (

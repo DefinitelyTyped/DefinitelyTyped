@@ -43,6 +43,13 @@ const newProxyComplete = HttpProxy.createProxyServer({
     host: 'localhost',
     port: 9015,
     pfx: Buffer.from('foobar'),
+    hostname: 'localhost.com',
+    socketPath: '/foo',
     passphrase: 'password',
+    key: 'my-key',
+    cert: 'my-cert',
+    ca: 'my-ca',
+    ciphers: 'my-ciphers',
+    secureProtocol: 'my-secure-protocol'
   }
 });
