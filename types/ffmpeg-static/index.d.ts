@@ -7,4 +7,5 @@
 /**
  * Binary location
  */
-export const path: string;
+declare const path: string
+export = path
