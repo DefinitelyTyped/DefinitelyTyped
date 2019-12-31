@@ -7,7 +7,7 @@
 
 import { Connection, Options, Message } from 'amqplib';
 
-export declare namespace jackrabbit {
+export namespace jackrabbit {
     function jackrabbit(url: string): JackRabbit;
 
     type ExchangeOptions = Options.AssertExchange & {
