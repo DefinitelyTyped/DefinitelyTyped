@@ -72,7 +72,7 @@ export interface TextFieldProps extends TextInputProps {
 
     editable?: boolean;
     multiline?: boolean;
-    
+
     formatText?(text: string): string;
 }
 
