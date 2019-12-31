@@ -4,6 +4,7 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Daniel Schmidt <https://github.com/DanielMSchmidt>
 //                 Jordan Abreu <https://github.com/jabreu610>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
