@@ -1,3 +1,5 @@
-import * as ffmpegStatic from 'ffmpeg-static';
+import * as pathToFfmpeg from 'ffmpeg-static'
 
-ffmpegStatic.path;
+if (typeof pathToFfmpeg !== "string") {
+  throw new TypeError("invalid import")
+}
