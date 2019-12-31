@@ -7,7 +7,6 @@
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
 // TypeScript Version: 3.5
 /// <reference types="node"/>
-// declare module "openseadragon" {
 export class Browser {
     vendor: BROWSERS;
     version: number;
@@ -1378,6 +1377,5 @@ interface OSDEvent extends Event {
     clientX?: number;
     clientY?: number;
 }
-// }
 
 export default Viewer;
