@@ -17,14 +17,15 @@ import * as url from "url";
 import * as stream from "stream";
 
 type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailled;
-    
+
 type ProxyTargetUrl = string | Partial<url.Url>;
+
 interface ProxyTargetDetailled {
-  host: string,
-  port: string,
-  protocol?: string,
-  pfx?: Buffer | string,
-  passphrase?: string,
+  host: string;
+  port: number;
+  protocol?: string;
+  pfx?: Buffer | string;
+  passphrase?: string;
 }
 
 type ErrorCallback = (

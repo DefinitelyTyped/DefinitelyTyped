@@ -25,10 +25,24 @@ http.createServer((req, res) => {
   proxy.web(req, res);
 });
 
-const newProxy = HttpProxy.createProxyServer({
+const newProxyDefault = HttpProxy.createProxyServer({
     target: {
         host: 'localhost',
         port: '9015'
     },
     ws: true
+});
+
+const newProxyUrl = HttpProxy.createProxyServer({
+  target: 'http://localhost:9015'
+});
+
+const newProxyComplete = HttpProxy.createProxyServer({
+  target: {
+    protocol: 'http:',
+    host: 'localhost',
+    port: 9015,
+    pfx: Buffer.from('foobar'),
+    passphrase: 'password',
+  }
 });
