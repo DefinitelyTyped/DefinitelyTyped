@@ -1,20 +1,25 @@
-// Type definitions for jackrabbit 4.3
+// Type definitions for jackrabbit 4.4
 // Project: https://github.com/hunterloftis/jackrabbit
 // Definitions by: Elvis Adomnica <https://github.com/elvisvoer>
+//                 Benjamin Schuster-Boeckler <https://github.com/dagams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 import { Connection, Options, Message } from 'amqplib';
 
-declare namespace jackrabbit {
+export namespace jackrabbit {
     function jackrabbit(url: string): JackRabbit;
+
+    type ExchangeOptions = Options.AssertExchange & {
+        noReply?: boolean;
+    };
 
     interface JackRabbit extends NodeJS.EventEmitter {
         default(): Exchange;
-        direct(name?: string): Exchange;
-        fanout(name?: string): Exchange;
-        topic(name?: string): Exchange;
-        close(callback: (e: Error) => any): void;
+        direct(name?: string, options?: ExchangeOptions): Exchange;
+        fanout(name?: string, options?: ExchangeOptions): Exchange;
+        topic(name?: string, options?: ExchangeOptions): Exchange;
+        close(callback?: (e: Error) => any): void;
         getInternals: () => {
             amqp: any;
             connection: Connection;
