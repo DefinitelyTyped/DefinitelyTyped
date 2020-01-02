@@ -1,3 +1,7 @@
+// Type definitions for zingchart 2.8.x
+// Project: https://github.com/zingchart
+// Definitions by: Mike Schultz <https://github.com/mike-schultz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 import * as zingchart from 'zingchart';
 export as namespace zingchart;
