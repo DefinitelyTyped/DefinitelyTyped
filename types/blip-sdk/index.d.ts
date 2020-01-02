@@ -1,4 +1,4 @@
-// Type definitions for blip-sdk 7.x
+// Type definitions for blip-sdk 7.3.x
 // Project: https://github.com/takenet/blip-sdk-js#readme
 // Definitions by: Henrique Torquato <https://github.com/henriquetorquato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
