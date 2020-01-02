@@ -35,24 +35,18 @@ export interface ResponderProvided {
     announce: Announce;
 }
 
+export type OnBeforeCaptureResponder = (before: BeforeCapture) => void;
+
 export type OnBeforeDragStartResponder = (start: DragStart) => void;
 
-export type OnDragStartResponder = (
-    start: DragStart,
-    provided: ResponderProvided,
-) => void;
+export type OnDragStartResponder = (start: DragStart, provided: ResponderProvided) => void;
 
-export type OnDragUpdateResponder = (
-    update: DragUpdate,
-    provided: ResponderProvided,
-) => void;
+export type OnDragUpdateResponder = (update: DragUpdate, provided: ResponderProvided) => void;
 
-export type OnDragEndResponder = (
-    result: DropResult,
-    provided: ResponderProvided,
-) => void;
+export type OnDragEndResponder = (result: DropResult, provided: ResponderProvided) => void;
 
 export interface Responders {
+    onBeforeCapture?: OnBeforeCaptureResponder;
     onBeforeDragStart?: OnBeforeDragStartResponder;
     onDragStart?: OnDragStartResponder;
     onDragUpdate?: OnDragUpdateResponder;
@@ -63,11 +57,14 @@ export interface Responders {
  *  DragDropContext
  */
 
-export interface DragStart {
+export interface BeforeCapture {
     draggableId: DraggableId;
+    mode: MovementMode;
+}
+
+export interface DragStart extends BeforeCapture {
     type: TypeId;
     source: DraggableLocation;
-    mode: MovementMode;
 }
 
 export interface DragUpdate extends DragStart {
@@ -87,13 +84,14 @@ export interface DropResult extends DragUpdate {
 }
 
 export interface DragDropContextProps {
+    onBeforeCapture?(before: BeforeCapture): void;
     onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
 }
 
-export class DragDropContext extends React.Component<DragDropContextProps> { }
+export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 /**
  *  Droppable
@@ -125,7 +123,7 @@ export interface DroppableProps {
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
-export class Droppable extends React.Component<DroppableProps> { }
+export class Droppable extends React.Component<DroppableProps> {}
 
 /**
  *  Draggable
@@ -215,6 +213,6 @@ export interface DraggableProps {
     shouldRespectForcePress?: boolean;
 }
 
-export class Draggable extends React.Component<DraggableProps> { }
+export class Draggable extends React.Component<DraggableProps> {}
 
 export function resetServerContext(): void;

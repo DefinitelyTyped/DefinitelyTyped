@@ -8,10 +8,17 @@
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 
+interface AlloyControllerUI {
+  create(apiName: string, opts?: any): any;
+}
+
 /**
  * The base class for Alloy controllers.
  */
-interface AlloyController extends Backbone.Model {
+interface AlloyController extends Backbone.Events {
+  args: any;
+  UI: AlloyControllerUI;
+
   /**
    *
    * @param proxy View object to which to add class(es).
@@ -102,27 +109,17 @@ interface AlloyController extends Backbone.Model {
  */
 interface AlloyInterface {
   /**
-   * An object that stores Alloy configuration values as defined in your app's app/config.json file
-   */
-  CFG: any;
-
-  /**
    * An object for storing globally accessible Alloy collections. Singleton collections created via markup will be stored on this object.
    */
   Collections: {
-    [k: string]: any;
-    instance(name: string): any;
+    [k: string]: unknown;
+    instance(name: string): unknown;
   };
-
-  /**
-   * An object for storing globally accessible variables and functions.
-   */
-  Globals: any;
 
   /**
    * An object for storing globally accessible Alloy models. Singleton models created via markup will be stored on this object.
    */
-  Models: any;
+  Models: unknown;
 
   /**
    * Returns true if the current device is a handheld device (not a tablet).
@@ -148,7 +145,7 @@ interface AlloyInterface {
    * @param name Name of controller to instantiate.
    * @param args Arguments to pass to the controller
    */
-  createController(name: string, args?: any): AlloyController;
+  createController(name: string, args?: any): any;
 
   /**
    * Factory method for instantiating a Backbone Model object. Creates and returns an instance of the named model.
@@ -165,14 +162,32 @@ interface AlloyInterface {
    * @param name Name of the view within the widget to instantiate ('widget' by default)
    * @param args Arguments to pass to the widget.
    */
-  createWidget(id: string, args?: any): AlloyController;
-  createWidget(id: string, name?: string, args?: any): AlloyController;
+  createWidget(id: string, args?: any): any;
+  createWidget(id: string, name?: string, args?: any): any;
 }
 
 /**
  * The global Alloy module.
  */
 declare const Alloy: AlloyInterface;
+
+/**
+ * Top-level module for Alloy widget.
+ */
+interface WidgetInterface {
+  /**
+   * Factory method for instantiating a controller. Creates and returns an instance of the named controller.
+   *
+   * @param name Name of controller to instantiate.
+   * @param args Arguments to pass to the controller
+   */
+  createController(name: string, args?: any): any;
+}
+
+/**
+ * The global Widget module.
+ */
+declare const Widget: WidgetInterface;
 
 /**
  * Shows an AlertDialog with the specified message.

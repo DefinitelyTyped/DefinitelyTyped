@@ -26,7 +26,7 @@ function test1() {
     // change the progress characters
     // set fps limit to 5
     // change the output stream and barsize
-    const bar = new progress.Bar({
+    const bar = new progress.SingleBar({
         barCompleteChar: '#',
         barIncompleteChar: '.',
         fps: 5,
@@ -39,7 +39,7 @@ function test2() {
     // Example 2 - Change Styles defined by Preset
     // uee shades preset
     // change the barsize
-    const bar = new progress.Bar({
+    const bar = new progress.SingleBar({
         barsize: 65
     }, progress.Presets.shades_grey);
 }
@@ -47,7 +47,7 @@ function test2() {
 function test3() {
     // Example 3 - Custom Payload
     // create new progress bar with custom token "speed"
-    const bar = new progress.Bar({
+    const bar = new progress.SingleBar({
         format: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total} | Speed: {speed} kbit'
     });
 
@@ -86,7 +86,24 @@ function test5() {
 
     const _mypreset = require('./mypreset.js');
 
-    const bar = new progress.Bar({
+    const bar = new progress.SingleBar({
         barsize: 65
     }, _mypreset);
+}
+
+function test6() {
+    // SingleBar
+    const bar2 = new progress.SingleBar({}, progress.Presets.shades_classic);
+
+    // MultiBar
+    const multiBar = new progress.MultiBar({}, progress.Presets.shades_classic);
+    const subBar1 = multiBar.create(100, 0, {});
+    const subBar2 = multiBar.create(100, 30, {});
+    subBar1.update(50);
+
+    subBar1.stop();
+
+    const removed = multiBar.remove(subBar1);
+
+    multiBar.stop();
 }

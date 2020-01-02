@@ -17,6 +17,7 @@
 //                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 Eliot Ball <https://github.com/eliotball>
+//                 Ville Kentta <https://github.com/vkentta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -54,6 +55,7 @@ export type LineType =
 export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
 export type BaseValueType = number | 'auto' | 'dataMin' | 'dataMax';
+export type ReferenceLinePosition = 'start' | 'middle' | 'end';
 
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
@@ -711,7 +713,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
     > | React.ReactElement;
-    label: string | number | React.ReactElement | RechartsFunction;
+    label?: string | number | React.ReactElement | RechartsFunction;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
@@ -734,6 +736,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
         & Partial<PresentationAttributes<number | string, number | string>>
         & { x1: number; y1: number; x2: number; y2: number; }
     > | React.ReactElement;
+    position?: ReferenceLinePosition;
 }
 
 export class ReferenceLine extends React.Component<ReferenceLineProps> { }

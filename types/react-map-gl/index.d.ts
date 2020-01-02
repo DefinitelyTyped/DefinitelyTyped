@@ -4,8 +4,11 @@
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
 //                 Otto Urpelainen <https://github.com/oturpe>
+//                 Arman Safikhani <https://github.com/Arman92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
+
+/// <reference lib='dom' />
 
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
@@ -124,7 +127,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -213,7 +216,16 @@ export class LinearInterpolator extends TransitionInterpolator {
     constructor(transitionProps?: string[]);
 }
 
-export class FlyToInterpolator extends TransitionInterpolator {}
+export interface FlyToInterpolatorProps {
+    curve?: number;
+    speed?: number;
+    screenSpeed?: number;
+    maxDuraiton?: number;
+}
+
+export class FlyToInterpolator extends TransitionInterpolator {
+    constructor(props?: FlyToInterpolatorProps);
+}
 
 export interface ViewStateChangeInfo {
     viewState: ViewportProps;
@@ -237,7 +249,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     onViewStateChange?: ContextViewStateChangeHandler;
     onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;

@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.26
+// Type definitions for pubnub 4.27
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -21,6 +21,8 @@ declare class Pubnub {
     static generateUUID(): string;
 
     channelGroups: Pubnub.ChannelGroups;
+
+    push: Pubnub.Push;
 
     setUUID(uuid: string): void;
 
@@ -58,6 +60,26 @@ declare class Pubnub {
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.HistoryResponse) => void,
     ): void;
 
+    history(params: Pubnub.HistoryParameters): Promise<Pubnub.HistoryResponse>;
+
+    fetchMessages(
+        params: Pubnub.FetchMessagesParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchMessagesResponse) => void,
+    ): void;
+
+    fetchMessages(params: Pubnub.FetchMessagesParameters): Promise<Pubnub.FetchMessagesResponse>;
+
+    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: (status: Pubnub.PubnubStatus) => void): void;
+
+    deleteMessages(params: Pubnub.DeleteMessagesParameters): Promise<void>;
+
+    messageCounts(
+        params: Pubnub.MessageCountsParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.MessageCountsResponse) => void,
+    ): void;
+
+    messageCounts(params: Pubnub.MessageCountsParameters): Promise<Pubnub.MessageCountsResponse>;
+
     subscribe(params: Pubnub.SubscribeParameters): void;
 
     unsubscribe(params: Pubnub.UnsubscribeParameters): void;
@@ -65,6 +87,8 @@ declare class Pubnub {
     unsubscribeAll(): void;
 
     stop(): void;
+
+    reconnect(): void;
 
     addListener(params: Pubnub.ListenerParameters): void;
 
@@ -228,6 +252,27 @@ declare class Pubnub {
 
     removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
+    addMessageAction(
+        params: Pubnub.AddMessageActionParameters,
+        callback: (status: Pubnub.PubnubStatus, response: { data: Pubnub.MessageAction }) => void,
+    ): void;
+
+    addMessageAction(params: Pubnub.AddMessageActionParameters): Promise<{ data: Pubnub.MessageAction }>;
+
+    removeMessageAction(
+        params: Pubnub.RemoveMessageActionParameters,
+        callback: (status: Pubnub.PubnubStatus, response: { data: {} }) => void,
+    ): void;
+
+    removeMessageAction(params: Pubnub.RemoveMessageActionParameters): Promise<{ data: {} }>;
+
+    getMessageActions(
+        params: Pubnub.GetMessageActionsParameters,
+        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMessageActionsResponse) => void,
+    ): void;
+
+    getMessageActions(params: Pubnub.GetMessageActionsParameters): Promise<Pubnub.GetMessageActionsResponse>;
+
     encrypt(data: string, customCipherKey?: string, options?: Pubnub.CryptoParameters): any;
 
     decrypt(data: string | object, customCipherKey?: string, options?: Pubnub.CryptoParameters): any;
@@ -258,6 +303,9 @@ declare namespace Pubnub {
         };
         suppressLeaveEvents?: boolean;
         secretKey?: string;
+        requestMessageCountThreshold?: number;
+        autoNetworkDetection?: boolean;
+        listenToBrowserNetworkEvents?: boolean;
     }
 
     interface MessageEvent {
@@ -364,6 +412,17 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    interface MessageActionEvent {
+        channel: string;
+        publisher: string;
+        subscription?: string;
+        timetoken: string;
+        message: {
+            event: string;
+            data: MessageAction;
+        };
+    }
+
     // publish
     interface PublishParameters {
         message: any;
@@ -395,19 +454,107 @@ declare namespace Pubnub {
         stringifiedTimeToken?: boolean;
         includeTimetoken?: boolean;
         reverse?: boolean;
-        start?: number; // timetoken
-        end?: number; // timetoken
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+        includeMeta?: boolean;
     }
 
     interface HistoryMessage {
         entry: any;
         timetoken?: string | number;
+        meta?: {
+            [key: string]: string;
+        };
     }
 
     interface HistoryResponse {
-        endTimeToken?: number;
-        startTimeToken?: number;
+        endTimeToken?: string | number;
+        startTimeToken?: string | number;
         messages: HistoryMessage[];
+    }
+
+    interface FetchMessagesParameters {
+        channels: string[];
+        count?: number;
+        stringifiedTimeToken?: boolean;
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+        withMessageActions?: boolean;
+        includeMeta?: boolean;
+        includeMessageActions?: boolean;
+    }
+
+    interface FetchMessagesResponse {
+        channels: {
+            [channel: string]: Array<{
+                message: any;
+                timetoken: string | number;
+                meta?: {
+                    [key: string]: any;
+                };
+                actions: {
+                    [type: string]: {
+                        [value: string]: Array<{
+                            uuid: string;
+                            actionTimetoken: string | number; // timetoken
+                        }>;
+                    };
+                };
+            }>;
+        };
+    }
+
+    interface DeleteMessagesParameters {
+        channel: string;
+        start?: string | number; // timetoken
+        end?: string | number; // timetoken
+    }
+
+    interface MessageCountsParameters {
+        channels: string[];
+        channelTimetokens: string[] | number[];
+    }
+
+    interface MessageCountsResponse {
+        channels: {
+            [channel: string]: number;
+        };
+    }
+
+    interface Push {
+        addChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+
+        addChannels(params: PushChannelParameters): Promise<{}>;
+
+        listChannels(
+            params: PushDeviceParameters,
+            callback: (status: PubnubStatus, response: PushListChannelsResponse) => void,
+        ): void;
+
+        listChannels(params: PushDeviceParameters): Promise<PushListChannelsResponse>;
+
+        removeChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+
+        removeChannels(params: PushChannelParameters): Promise<{}>;
+
+        deleteDevice(params: PushDeviceParameters, callback: (status: PubnubStatus) => void): void;
+
+        deleteDevice(params: PushDeviceParameters): Promise<{}>;
+    }
+
+    interface PushChannelParameters {
+        channels: string[];
+        device: string;
+        pushGateway: string;
+    }
+
+    interface PushDeviceParameters {
+        device: string;
+        pushGateway: string;
+    }
+
+    interface PushListChannelsResponse {
+        channels: string[];
     }
 
     interface PubnubStatus {
@@ -507,6 +654,8 @@ declare namespace Pubnub {
         space?(spaceEvent: SpaceEvent): void;
 
         membership?(membershipEvent: MembershipEvent): void;
+
+        messageAction?(messageActionEvent: MessageActionEvent): void;
     }
 
     // hereNow
@@ -583,7 +732,9 @@ declare namespace Pubnub {
         eTag: string;
         created: string;
         updated: string;
-        custom?: object | null;
+        custom?: {
+            [key: string]: string;
+        } | null;
     }
 
     interface GetObjectsParameters {
@@ -734,6 +885,42 @@ declare namespace Pubnub {
         users: string[];
     }
 
+    interface AddMessageActionParameters {
+        channel: string;
+        messageTimetoken: string;
+        action: {
+            type: string;
+            value: string;
+        };
+    }
+
+    interface MessageAction {
+        type: string;
+        value: string;
+        uuid: string;
+        actionTimetoken: string;
+        messageTimetoken: string;
+    }
+
+    interface RemoveMessageActionParameters {
+        channel: string;
+        messageTimetoken: string;
+        actionTimetoken: string;
+    }
+
+    interface GetMessageActionsParameters {
+        channel: string;
+        start?: string;
+        end?: string;
+        limit?: number;
+    }
+
+    interface GetMessageActionsResponse {
+        data: MessageAction[];
+        start?: string;
+        end?: string;
+    }
+
     // encrypt & decrypt
     interface CryptoParameters {
         encryptKey?: boolean;
@@ -757,7 +944,8 @@ declare namespace Pubnub {
         PNUnknownCategory: string;
         PNReconnectedCategory: string;
         PNConnectedCategory: string;
-        PNRequestMessageCountExceededCategory: string;
+        PNRequestMessageCountExceedCategory: string;
+        PNMalformedResponseCategory: string;
     }
 
     interface Operations {
@@ -765,6 +953,7 @@ declare namespace Pubnub {
         PNHistoryOperation: string;
         PNDeleteMessagesOperation: string;
         PNFetchMessagesOperation: string;
+        PNMessageCountsOperation: string;
         PNSubscribeOperation: string;
         PNUnsubscribeOperation: string;
         PNPublishOperation: string;
@@ -793,6 +982,9 @@ declare namespace Pubnub {
         PNGetMembershipsOperation: string;
         PNGetMembersOperation: string;
         PNUpdateMembershipsOperation: string;
+        PNAddMessageActionOperation: string;
+        PNRemoveMessageActionOperation: string;
+        PNGetMessageActionsOperation: string;
     }
 }
 

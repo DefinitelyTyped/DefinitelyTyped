@@ -72,15 +72,19 @@ export interface AccessToken {
 
 export type AuthorizationCode = string;
 export interface AuthorizationTokenConfig {
+    [key: string]: any;
+
     /** Authorization code (from previous step) */
     code: AuthorizationCode;
     /** A string that represents the callback uri */
     redirect_uri: string;
     /** A string or array of strings that represents the application privileges */
-    scope: string | string[];
+    scope?: string | string[];
 }
 
 export interface PasswordTokenConfig {
+    [key: string]: any;
+
     /** A string that represents the registered username */
     username: string;
     /** A string that represents the registered password. */
@@ -90,6 +94,8 @@ export interface PasswordTokenConfig {
 }
 
 export interface ClientCredentialTokenConfig {
+    [key: string]: any;
+
     /** A string that represents the application privileges */
     scope?: string | string[];
 }

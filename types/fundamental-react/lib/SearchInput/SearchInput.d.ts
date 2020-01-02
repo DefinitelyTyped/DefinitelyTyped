@@ -3,6 +3,8 @@ import * as React from "react";
 export type SearchInputProps = {
     className?: string;
     compact?: boolean;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     inputProps?: { [x: string]: any };
     inShellbar?: boolean;
     listProps?: { [x: string]: any };
@@ -18,6 +20,8 @@ export type SearchInputProps = {
     onEnter?: (value?: string | number | string[]) => void;
 } & { [x: string]: any };
 
-declare class SearchInput extends React.Component<SearchInputProps> {}
+declare class SearchInput extends React.Component<SearchInputProps> {
+    static displayName: "SearchInput";
+}
 
 export default SearchInput;

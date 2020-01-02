@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "internal-types.d.ts",
         "libxslt-tests.ts"
     ]
 }

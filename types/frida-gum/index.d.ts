@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.2
+// Type definitions for non-npm package frida-gum 14.5
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -935,6 +935,11 @@ interface ModuleSymbolDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number;
 }
 
 type ModuleImportType = "function" | "variable";
@@ -1496,6 +1501,29 @@ interface ObjectWrapper {
     handle: NativePointer;
 }
 
+interface ArrayBufferConstructor {
+    /**
+     * Creates an ArrayBuffer backed by an existing memory region. Unlike
+     * the NativePointer `read*()` and `write*()` APIs, no validation is
+     * performed on access, meaning a bad pointer will crash the process.
+     *
+     * @param address Base address of the region. Passing `NULL` will result
+     *                in an empty buffer.
+     * @param size Size of the region. Passing `0` will result in an empty
+     *             buffer.
+     */
+    wrap(address: NativePointerValue, size: number): ArrayBuffer;
+}
+
+interface ArrayBuffer {
+    /**
+     * Gets a pointer to the base address of the ArrayBuffer's backing store.
+     * It is the caller's responsibility to keep the buffer alive while the
+     * backing store is still being used.
+     */
+    unwrap(): NativePointer;
+}
+
 type NativePointerValue = NativePointer | ObjectWrapper;
 
 declare const NativeFunction: NativeFunctionConstructor;
@@ -1564,11 +1592,14 @@ interface NativeFunctionOptions {
     abi?: NativeABI;
     scheduling?: SchedulingBehavior;
     exceptions?: ExceptionsBehavior;
+    traps?: CodeTraps;
 }
 
 type SchedulingBehavior = "cooperative" | "exclusive";
 
 type ExceptionsBehavior = "steal" | "propagate";
+
+type CodeTraps = "default" | "all";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -2523,7 +2554,9 @@ declare namespace Stalker {
      * Time in milliseconds between each time the event queue is drained.
      *
      * Defaults to 250 ms, which means that the event queue is drained four
-     * times per second.
+     * times per second. You may also set this property to zero to disable
+     * periodic draining and instead call `Stalker.flush()` when you would
+     * like the queue to be drained.
      */
     let queueDrainInterval: number;
 }
@@ -3524,7 +3557,7 @@ declare namespace ObjC {
         [name: string]: ObjectMethod;
     }
 
-    class ObjectMethod implements ObjectWrapper {
+    interface ObjectMethod extends ObjectWrapper, AnyFunction {
         handle: NativePointer;
 
         /**
@@ -3547,12 +3580,20 @@ declare namespace ObjC {
         /**
          * Argument type names.
          */
-        argumentTypes: string;
+        argumentTypes: string[];
 
         /**
          * Signature.
          */
         types: string;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => ObjectMethod;
     }
 
     /**
@@ -3612,19 +3653,28 @@ declare namespace ObjC {
     }
 
     /**
-     * Dynamically generated language binding for any Objective-C block. Also supports implementing a block from
-     * scratch by passing in a MethodDefinition.
+     * Dynamically generated language binding for any Objective-C block.
+     *
+     * Also supports implementing a block from scratch by passing in an
+     * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec);
+        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
+
+        /**
+         * Signature, if available.
+         */
+        types?: string;
 
         /**
          * Current implementation. You may replace it by assigning to this property.
          */
         implementation: AnyFunction;
     }
+
+    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -3742,7 +3792,15 @@ declare namespace ObjC {
      */
     function selectorAsString(sel: NativePointerValue): string;
 
-    interface ProxySpec {
+    interface ProxySpec<D extends ProxyData = ProxyData, T = ObjC.Object, S = ObjC.Object> {
+        /**
+         * Name of the proxy class.
+         *
+         * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
+         * for you.
+         */
+        name?: string;
+
         /**
          * Protocols this proxy class conforms to.
          */
@@ -3752,22 +3810,34 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
 
         /**
          * Callbacks for getting notified about events.
          */
-        events?: {
-            /**
-             * Gets notified about the method name that we’re about to forward a call to. This might be where you’d
-             * start out with a temporary callback that just logs the names to help you decide which methods to
-             * override.
-             *
-             * @param name Name of method that is about to get called.
-             */
-            forward?(name: string): void;
-        };
+        events?: ProxyEventCallbacks<D, T, S>;
+    }
+
+    interface ProxyEventCallbacks<D, T, S> {
+        /**
+         * Gets notified right after the object has been deallocated.
+         *
+         * This is where you might clean up any associated state.
+         */
+        dealloc?(this: UserMethodInvocation<D, T, S>): void;
+
+        /**
+         * Gets notified about the method name that we’re about to forward
+         * a call to.
+         *
+         * This might be where you’d start out with a temporary callback
+         * that just logs the names to help you decide which methods to
+         * override.
+         *
+         * @param name Name of method that is about to get called.
+         */
+        forward?(this: UserMethodInvocation<D, T, S>, name: string): void;
     }
 
     /**
@@ -3776,9 +3846,27 @@ declare namespace ObjC {
      * @param target Target object to proxy to.
      * @param data Object with arbitrary data.
      */
-    type ProxyConstructor = (target: ObjC.Object | NativePointer, data: InstanceData) => void;
+    interface ProxyConstructor {
+        new (target: ObjC.Object | NativePointer, data?: InstanceData): ProxyInstance;
+    }
 
-    interface ClassSpec {
+    interface ProxyInstance {
+        handle: NativePointer;
+    }
+
+    interface ProxyData extends InstanceData {
+        /**
+         * This proxy's target object.
+         */
+        target: ObjC.Object;
+
+        /**
+         * Used by the implementation.
+         */
+        events: {};
+    }
+
+    interface ClassSpec<D = InstanceData, T = ObjC.Object, S = ObjC.Object> {
         /**
          * Name of the class.
          *
@@ -3801,13 +3889,13 @@ declare namespace ObjC {
          * Methods to implement.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec;
+            [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
         };
     }
 
-    type MethodSpec = SimpleMethodSpec | DetailedMethodSpec;
+    type MethodSpec<I> = SimpleMethodSpec<I> | DetailedMethodSpec<I>;
 
-    interface SimpleMethodSpec {
+    interface SimpleMethodSpec<I> {
         /**
          * Return type.
          */
@@ -3821,10 +3909,10 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
     }
 
-    interface DetailedMethodSpec {
+    interface DetailedMethodSpec<I> {
         /**
          * Signature.
          */
@@ -3833,7 +3921,15 @@ declare namespace ObjC {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: I;
+    }
+
+    type UserMethodImplementation<D, T, S> = (this: UserMethodInvocation<D, T, S>, ...args: any[]) => any;
+
+    interface UserMethodInvocation<D, T, S> {
+        self: T;
+        super: S;
+        data: D;
     }
 
     /**
@@ -4001,7 +4097,7 @@ declare namespace Java {
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string): Wrapper;
+    function use(className: string, options?: UseOptions): Wrapper;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -4095,6 +4191,17 @@ declare namespace Java {
          * Called when all class loaders have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    interface UseOptions {
+        /**
+         * Whether to consult the class wrapper cache – which is the default
+         * behavior – or skip it and create a brand new class wrapper.
+         *
+         * Skipping the cache is useful when dealing with multiple class-loaders
+         * and colliding class names.
+         */
+        cache?: "consult" | "skip";
     }
 
     interface ChooseCallbacks {
@@ -4219,6 +4326,14 @@ declare namespace Java {
          * Queries whether the method may be invoked with a given argument list.
          */
         canInvokeWith: (...args: any[]) => boolean;
+
+        /**
+         * Makes a new method wrapper with custom NativeFunction options.
+         *
+         * Useful for e.g. setting `traps: "all"` to perform execution tracing
+         * in conjunction with Stalker.
+         */
+        clone: (options: NativeFunctionOptions) => Method;
     }
 
     type MethodImplementation = (this: Wrapper, ...params: any[]) => any;

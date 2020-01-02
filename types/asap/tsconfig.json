@@ -18,7 +18,6 @@
     },
     "files": [
         "asap-tests.ts",
-        "index.d.ts",
-        "raw.d.ts"
+        "index.d.ts"
     ]
 }

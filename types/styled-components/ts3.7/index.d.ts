@@ -8,6 +8,7 @@ declare global {
 
 import * as CSS from "csstype";
 import * as React from "react";
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
 
 export type CSSProperties = CSS.Properties<string | number>;
 
@@ -144,7 +145,7 @@ export type StyledComponent<
     A extends keyof any = never
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string & StyledComponentBase<C, T, O, A>;
+    string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -383,7 +384,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2019-11-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 //                 takoyaki9n <https://github.com/takoyaki9n>
@@ -27,9 +27,9 @@ declare namespace GoogleAppsScript {
     }
 
     interface URLFetchRequest extends URLFetchRequestOptions {
-      url: string;
-    }
-    interface URLFetchRequestOptions {
+        url: string;
+      }
+      interface URLFetchRequestOptions {
         /**
          * the content type (defaults to 'application/x-www-form-urlencoded'). Another example of content
          * type is 'application/xml; charset=utf-8'.

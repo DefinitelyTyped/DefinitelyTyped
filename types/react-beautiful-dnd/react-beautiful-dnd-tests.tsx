@@ -1,15 +1,5 @@
 import * as React from 'react';
-import {
-    DragDropContext,
-    Draggable,
-    DragStart,
-    DragUpdate,
-    Droppable,
-    DroppableStateSnapshot,
-    DropResult,
-    resetServerContext,
-    ResponderProvided,
-} from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
 interface Item {

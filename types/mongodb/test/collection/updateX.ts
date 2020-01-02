@@ -7,7 +7,8 @@ async function run() {
     const db = client.db('test');
 
     interface SubTestModel {
-        field: string;
+        field1: string;
+        field2: string;
     }
 
     // test with collection type
@@ -106,6 +107,8 @@ async function run() {
     buildUpdateQuery({ $pull: { fruitTags: { $in: ['a'] } } });
     buildUpdateQuery({ $pull: { 'dot.notation': 1 } });
     buildUpdateQuery({ $pull: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
+    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: 'a' } }});
+    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: { $in: ['a'] } }  }});
 
     buildUpdateQuery({ $push: { fruitTags: 'a' } });
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'] } } });

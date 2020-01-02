@@ -1147,7 +1147,9 @@ function simplified_stream_ctor_test() {
             cb;
         },
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 
     new stream.Transform({
@@ -1205,7 +1207,9 @@ function simplified_stream_ctor_test() {
         },
         allowHalfOpen: true,
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 }
 
@@ -2773,6 +2777,21 @@ async function asyncStreamPipelineFinished() {
     {
         childProcess.execFileSync("echo test", {input: new Uint8Array([])});
         childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    }
+
+    {
+        const forked = childProcess.fork('./', ['asd'], {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: "inherit",
+            execPath: '',
+            execArgv: ['asda']
+        });
+        const ipc: stream.Pipe = forked.channel;
+        const hasRef: boolean = ipc.hasRef();
+        ipc.close();
+        ipc.unref();
+        ipc.ref();
     }
 
     async function testPromisify() {

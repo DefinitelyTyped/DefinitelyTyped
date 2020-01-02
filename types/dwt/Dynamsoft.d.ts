@@ -3553,7 +3553,7 @@ interface WebTwain {
      * @method WebTwain#SelectSource
      * @return {boolean}
      */
-    SelectSource(): boolean;
+    SelectSource(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): boolean;
 
     /**
      * Selects the index-the source in SourceNameItems property as the current source.

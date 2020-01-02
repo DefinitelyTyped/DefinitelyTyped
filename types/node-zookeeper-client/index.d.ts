@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import * as EventEmitter from "events";
+import { EventEmitter } from "events";
 
 export class Id {
     scheme: string;

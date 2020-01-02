@@ -1,16 +1,19 @@
 import {
     ConcreteRequest,
-    Environment,
-    Network,
-    RecordSource,
-    Store,
     ConnectionHandler,
-    commitLocalUpdate,
+    Environment,
+    getDefaultMissingFieldHandlers,
+    Network,
     QueryResponseCache,
     ROOT_ID,
+    ROOT_TYPE,
+    RecordProxy,
+    RecordSource,
+    RecordSourceSelectorProxy,
     RelayNetworkLoggerTransaction,
+    Store,
+    commitLocalUpdate,
     createRelayNetworkLogger,
-    RecordSourceSelectorProxy, RecordProxy,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -48,6 +51,36 @@ const environment = new Environment({
     handlerProvider, // Can omit.
     network,
     store,
+    missingFieldHandlers: [
+        ...getDefaultMissingFieldHandlers(),
+        // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
+        {
+            handle(field, record, argValues) {
+                if (
+                    record != null &&
+                    record.__typename === ROOT_TYPE &&
+                    field.name === 'user' &&
+                    argValues.hasOwnProperty('id')
+                ) {
+                    // If field is user(id: $id), look up the record by the value of $id
+                    return argValues.id;
+                }
+                if (
+                    record != null &&
+                    record.__typename === ROOT_TYPE &&
+                    field.name === 'story' &&
+                    argValues.hasOwnProperty('story_id')
+                ) {
+                    // If field is story(story_id: $story_id), look up the record by the
+                    // value of $story_id.
+                    return argValues.story_id;
+                }
+
+                return null;
+            },
+            kind: 'linked',
+        },
+    ],
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -83,8 +116,8 @@ interface MessageEdge {
 interface SendConversationMessageMutationResponse {
     readonly sendConversationMessage: {
         readonly messageEdge: MessageEdge & {
-            error: string
-        }
+            error: string;
+        };
     };
 }
 

@@ -6,6 +6,8 @@
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 //                 Emma Krantz <https://github.com/KeyboardSounds>
 //                 Wing Ho <https://github.com/soyarsauce>
+//                 Joey Rafidi <https://github.com/jrafidi>
+//                 Morgan Snyder <https://github.com/morgansierrasnyder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1714,6 +1716,7 @@ declare namespace Cesium {
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             imageSubRegion?: Property
+            heightReference?: Property;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
         merge(source: BillboardGraphics): BillboardGraphics;
@@ -2232,7 +2235,7 @@ declare namespace Cesium {
     class ImageMaterialProperty extends MaterialProperty {
         image: Property;
         repeat: Property;
-        constructor(options?: { image?: Property; repeat?: Property });
+        constructor(options?: { image?: Property; repeat?: Property, color?: Property, transparent?: Property });
     }
 
     class KmlDataSource extends DataSource {
@@ -2278,12 +2281,18 @@ declare namespace Cesium {
             outlineWidth?: number;
             show?: Property;
             scale?: Property;
+            showBackground?: Property;
+            backgroundColor?: Property;
+            backgroundPadding?: Property;
             horizontalOrigin?: Property;
             verticalOrigin?: Property;
             eyeOffset?: Property;
             pixelOffset?: Property;
             translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property
+            pixelOffsetScaleByDistance?: Property;
+            heightReference?: Property;
+            scaleByDistance?: Property;
+            distanceDisplayCondition?: Property;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -2409,13 +2418,19 @@ declare namespace Cesium {
     }
 
     class PolygonGraphics {
+        arcType: Property;
+        classificationType: Property;
+        closeBottom: Property;
+        closeTop: Property;
         definitionChanged: Event;
+        distanceDisplayCondition: Property;
         show: Property;
         material: MaterialProperty | Color;
-        positions: Property;
         hierarchy: Property;
         height: Property;
+        heightReference: Property;
         extrudedHeight: Property;
+        extrudedHeightReference: Property;
         granularity: Property;
         stRotation: Property;
         fill: boolean;
@@ -2423,19 +2438,30 @@ declare namespace Cesium {
         outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
+        shadows: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
             hierarchy?: Property;
-            height?: number;
+            height?: Property | number;
+            heightReference?: Property;
             extrudedHeight?: Property;
-            show?: Property;
-            fill?: boolean;
+            extrudedHeightReference?: Property;
+            show?: Property | boolean;
+            fill?: Property | boolean;
             material?: MaterialProperty | Color;
-            outline?: boolean;
-            outlineColor?: Color;
-            outlineWidth?: number;
+            outline?: Property | boolean;
+            outlineColor?: Property | Color;
+            outlineWidth?: Property | number;
             stRotation?: Property;
             granularity?: Property;
-            perPositionHeight?: Property
+            perPositionHeight?: Property;
+            closeTop?: boolean;
+            closeBottom?: boolean;
+            arcType?: Property | ArcType;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex: ConstantProperty | number;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
@@ -2467,20 +2493,33 @@ declare namespace Cesium {
     }
 
     class PolylineGraphics {
-        definitionChanged: Event;
+        arcType: Property;
+        clampToGround: Property;
+        classificationType: Property;
+        readonly definitionChanged: Event;
+        depthFailMaterial: MaterialProperty;
+        distanceDisplayCondition: Property;
+        followSurface: Property;
+        granularity: Property;
+        shadows: Property;
         show: Property;
         material: MaterialProperty;
         positions: Property;
-        width: number;
-        followSurface: Property;
-        granularity: Property;
+        width: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
-            positions?: Cartesian3[];
-            followSurface?: Property;
-            width?: number;
-            show?: Property;
+            positions?: Property | Cartesian3[];
+            clampToGround?: Property | boolean;
+            width?: Property | number;
+            show?: Property | boolean;
             material?: MaterialProperty;
-            granularity?: Property
+            granularity?: Property;
+            arcType?: Property | ArcType;
+            depthFailMaterial?: MaterialProperty;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex?: Property | number;
         });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
@@ -2901,7 +2940,7 @@ declare namespace Cesium {
         getRectangleCameraCoordinates(rectangle: Rectangle, result?: Cartesian3): Cartesian3;
         look(axis: Cartesian3, angle?: number): void;
         lookAt(target: Cartesian3, offset: Cartesian3 | HeadingPitchRange): void;
-        lookAtTransform(transform: Matrix4, offset: Cartesian3 | HeadingPitchRange): void;
+        lookAtTransform(transform: Matrix4, offset?: Cartesian3 | HeadingPitchRange): void;
         lookDown(amount?: number): void;
         lookLeft(amount?: number): void;
         lookRight(amount?: number): void;
@@ -3066,24 +3105,35 @@ declare namespace Cesium {
 
     class Globe {
         atmosphereBrightnessShift: number;
-        atmosphereSaturationShift: number;
         atmosphereHueShift: number;
-        terrainProvider: TerrainProvider;
-        northPoleColor: Cartesian3;
-        southPoleColor: Cartesian3;
-        show: boolean;
-        oceanNormalMapUrl: string;
-        depthTestAgainstTerrain: boolean;
-        maximumScreenSpaceError: number;
-        tileCacheSize: number;
-        enableLighting: boolean;
-        lightingFadeOutDistance: number;
-        lightingFadeInDistance: number;
-        showWaterEffect: boolean;
-        ellipsoid: Ellipsoid;
-        imageryLayers: ImageryLayerCollection;
+        atmosphereSaturationShift: number;
         baseColor: Color;
         cartographicLimitRectangle: Rectangle;
+        depthTestAgainstTerrain: boolean;
+        ellipsoid: Ellipsoid;
+        enableLighting: boolean;
+        fillHighlightColor: Color;
+        imageryLayers: ImageryLayerCollection;
+        readonly imageryLayersUpdatedEvent: Event;
+        lightingFadeInDistance: number;
+        lightingFadeOutDistance: number;
+        loadingDescendantLimit: number;
+        material: Material;
+        maximumScreenSpaceError: number;
+        nightFadeInDistance: number;
+        nightFadeOutDistance: number;
+        northPoleColor: Cartesian3;
+        oceanNormalMapUrl: string;
+        preloadSiblings: boolean;
+        preloadAncestors: boolean;
+        show: boolean;
+        showWaterEffect: boolean;
+        southPoleColor: Cartesian3;
+        terrainProvider: TerrainProvider;
+        readonly terrainProviderChanged: Event<[TerrainProvider]>;
+        tileCacheSize: number;
+        tileLoadProgressEvent: Event<[number]>;
+        readonly tilesLoaded: boolean;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -3717,6 +3767,45 @@ declare namespace Cesium {
             debugShowBoundingVolume?: boolean;
             shadows?: ShadowMode
         });
+        destroy(): void;
+        getGeometryInstanceAttributes(id: any): any;
+        isDestroyed(): boolean;
+        update(): void;
+    }
+
+    class GroundPrimitive {
+        readonly allowPicking: boolean;
+        appearance: Appearance;
+        readonly asynchronous: boolean;
+        classificationType: ClassificationType;
+        readonly compressVertices: boolean;
+        debugShowBoundingVolume: boolean;
+        debugShowShadowVolume: boolean;
+        depthFailAppearance: Appearance;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
+        readonly interleave: boolean;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<Primitive>;
+        readonly releaseGeometryInstances: boolean;
+        show: boolean;
+        readonly vertexCacheOptimize: boolean;
+        constructor(options?: {
+            geometryInstances?: any[] | GeometryInstance;
+            appearance?: Appearance;
+            show?: boolean;
+            vertexCacheOptimize?: boolean;
+            interleave?: boolean;
+            compressVertices?: boolean;
+            releaseGeometryInstances?: boolean;
+            allowPicking?: boolean;
+            asynchronous?: boolean;
+            classificationType?: ClassificationType;
+            debugShowBoundingVolume?: boolean;
+            debugShowShadowVolume?: boolean;
+        });
+        static initializeTerrainHeights(): Promise<void>;
+        static isSupported(scene: Scene): boolean;
+        static supportsMaterials(scene: Scene): boolean;
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
         isDestroyed(): boolean;
@@ -4646,6 +4735,12 @@ declare namespace Cesium {
         type TaskProcessorWorkerFunction = (event: any) => void;
     }
 
+    enum ArcType {
+        NONE,
+        GEODESIC,
+        RHUMB
+    }
+
     enum ClockRange {
         UNBOUNDED,
         CLAMPED,
@@ -4930,6 +5025,12 @@ declare namespace Cesium {
         TRIANGLES,
         TRIANGLE_STRIP,
         TRIANGLE_FAN,
+    }
+
+    enum ClassificationType {
+        CESIUM_3D_TILE,
+        BOTH,
+        TERRAIN
     }
 
     namespace QuadraticRealPolynomial {

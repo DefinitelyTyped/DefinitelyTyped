@@ -507,8 +507,8 @@ declare class Router<StateT = any, CustomT = {}> {
      * // => "/users/3?limit=1"
      *
      */
-    url(name: string, params: any, options?: Router.UrlOptionsQuery): string;
-    url(name: string, params: any, options?: Router.UrlOptionsQuery): Error;
+    url(name: string, params?: any, options?: Router.UrlOptionsQuery): string;
+    url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error;
 
     /**
      * Match given `path` and return corresponding routes.

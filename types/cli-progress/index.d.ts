@@ -1,6 +1,7 @@
-// Type definitions for cli-progress 1.8
+// Type definitions for cli-progress 3.4
 // Project: https://github.com/AndiDittrich/Node.CLI-Progress
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
+// Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
+//                  Álvaro Martínez <https://github.com/alvaromartmart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -61,15 +62,51 @@ export interface Options {
 
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null;
+
+    /** trigger redraw during update() in case threshold time x2 is exceeded (default: true) - limited to single bar usage */
+    synchronousUpdate?: boolean;
+
+    /** enable scheduled output to notty streams - e.g. redirect to files (default: false) */
+    noTTYOutput?: boolean;
+
+    /** set the output schedule/interval for notty output in ms (default: 2000ms) */
+    notTTYSchedule?: number;
+
+    /** display progress bars with 'total' of zero(0) as empty, not full (default: false) */
+    emptyOnZero?: boolean;
+
+    /** trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
+    forceRedraw?: boolean;
 }
 
 export interface Preset {
     barCompleteChar: string;
     barIncompleteChar: string;
+
+    /**
+     *   Example: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}'
+     *
+     * {bar} - the progress bar, customizable by the options barsize, barCompleteString and barIncompleteString
+     *
+     * {percentage} - the current progress in percent (0-100)
+     *
+     * {total} - the end value
+     *
+     * {value} - the current value set by last update() call
+     *
+     * {eta} - expected time of accomplishment in seconds
+     *
+     * {duration} - elapsed time in seconds
+     *
+     * {eta_formatted} - expected time of accomplishment formatted into appropriate units
+     *
+     * {duration_formatted} - elapsed time formatted into appropriate units
+     *
+     */
     format: string;
 }
 
-export class Bar {
+export class SingleBar {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
 
@@ -99,6 +136,16 @@ export class Bar {
     update(current: number, payload?: object): void;
 }
 
+export class MultiBar {
+    constructor(opt: Options, preset?: Preset);
+
+    create(total: number, startValue: number, payload: any): SingleBar;
+
+    remove(bar: SingleBar): boolean;
+
+    stop(): void;
+}
+
 export const Presets: {
     /** Styles as of cli-progress v1.3.0 */
     legacy: Preset;
@@ -112,3 +159,5 @@ export const Presets: {
     /** Unicode background shades with grey bar */
     shades_grey: Preset;
 };
+
+export class Bar extends SingleBar {}

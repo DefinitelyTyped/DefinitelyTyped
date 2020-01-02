@@ -321,6 +321,10 @@ export interface DragPositions {
 
 export interface DraggableRubric {
     draggableId: DraggableId;
+    mode: MovementMode;
+}
+
+export interface DragStart extends BeforeCapture {
     type: TypeId;
     source: DraggableLocation;
 }
@@ -552,6 +556,7 @@ export type Sensor = (api: SensorAPI) => void;
  */
 
 export interface DragDropContextProps {
+    onBeforeCapture?(before: BeforeCapture): void;
     onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;

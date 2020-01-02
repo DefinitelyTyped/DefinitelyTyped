@@ -1,4 +1,4 @@
-import mapboxgl = require('.');
+import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
@@ -18,12 +18,12 @@ mapboxgl.baseApiUrl = 'https://example.com';
 mapboxgl.workerCount = 3;
 
 /**
- * Set max amount of parallel images requests 
+ * Set max amount of parallel images requests
  */
 mapboxgl.maxParallelImageRequests = 10;
 
 /**
- * Clears browser storage used by this library 
+ * Clears browser storage used by this library
  */
 mapboxgl.clearStorage(() => {});
 
@@ -32,6 +32,10 @@ mapboxgl.clearStorage(() => {});
  */
 expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
 
+/**
+ * Set RTL Text Plugin
+ */
+expectType<void>(mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false));
 
 /**
  * Display a Map
@@ -42,7 +46,9 @@ let map = new mapboxgl.Map({
 	center: [-50, 50],
 	zoom: 10,
 	minZoom: 1,
-	maxZoom: 2,
+    maxZoom: 2,
+    minPitch: 0,
+    maxPitch: 60,
 	interactive: true,
 	attributionControl: true,
 	customAttribution: '© YourCo',
@@ -53,6 +59,11 @@ let map = new mapboxgl.Map({
 	dragRotate: false,
 	dragPan: true,
 	antialias: true,
+	accessToken: 'some-token',
+    locale: {
+        'FullscreenControl.Enter': 'Розгорнути на весь екран',
+        'FullscreenControl.Exit': 'Вийти з повоноеранного режиму'
+    }
 });
 
 /**
@@ -374,6 +385,9 @@ const popup = new mapboxgl.Popup(popupOptions)
 	.addTo(map);
 popup.getMaxWidth();
 popup.getElement();  // $ExpectType HTMLElement
+popup.addClassName('class1');
+popup.removeClassName('class2');
+popup.toggleClassName('class3');
 
 /**
  * Add an image
@@ -600,7 +614,16 @@ map = new mapboxgl.Map({
 /**
  * Marker
  */
-let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
+let marker = new mapboxgl.Marker(undefined, {
+        element: undefined,
+        offset: [10, 0],
+        anchor: 'bottom-right',
+        color: 'green',
+        draggable: false,
+        rotation: 15,
+        rotationAlignment: 'map',
+        pitchAlignment: 'viewport'
+    })
 	.setLngLat([-50,50])
 	.addTo(map);
 
@@ -612,6 +635,8 @@ marker.remove();
 let bool:boolean;
 let bounds = new mapboxgl.LngLatBounds();
 bool = bounds.isEmpty();
+expectType<boolean>(bounds.contains([37, 50]));
+
 /*
  * AttributionControl
  */
@@ -718,7 +743,9 @@ let padding: mapboxgl.PaddingOptions = {
 	left: 0,
 	right: 0,
 };
-let animOpts: mapboxgl.AnimationOptions;
+let animOpts: mapboxgl.AnimationOptions = {
+    essential: true
+};
 let cameraOpts: mapboxgl.CameraOptions = {
 	around: lnglatlike,
 	center: lnglatlike,
