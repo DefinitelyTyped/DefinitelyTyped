@@ -18073,5 +18073,5 @@ export interface series {
         */
        visible?: boolean;
    };
-   values?: Array<any>;
+   values?: any;
 }
