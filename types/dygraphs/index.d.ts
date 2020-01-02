@@ -1285,6 +1285,16 @@ declare class Dygraph {
     indexFromSetName(name: string): number;
 
     /**
+     * Find the row number corresponding to the given x-value.
+     * Returns null if there is no such x-value in the data.
+     * If there are multiple rows with the same x-value, this will return the
+     * first one.
+     * @param {number} xVal The x-value to look for (e.g. millis since epoch).
+     * @return {?number} The row number, which you can pass to getValue(), or null.
+     */
+    getRowForX(xVal: number): number | null;
+
+    /**
      * Trigger a callback when the dygraph has drawn itself and is ready to be
      * manipulated. This is primarily useful when dygraphs has to do an XHR for the
      * data (i.e. a URL is passed as the data source) and the chart is drawn
