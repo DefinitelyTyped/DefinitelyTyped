@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -43,7 +43,6 @@ declare namespace GoogleAppsScript {
       tryLock(timeoutInMillis: Integer): boolean;
       waitLock(timeoutInMillis: Integer): void;
     }
-
     /**
      * Prevents concurrent access to sections of code. This can be useful when you have multiple users
      * or processes modifying a shared resource and want to prevent collisions.

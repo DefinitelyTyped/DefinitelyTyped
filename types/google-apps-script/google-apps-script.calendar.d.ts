@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,7 +47,6 @@ declare namespace GoogleAppsScript {
       setTimeZone(timeZone: string): Calendar;
       unsubscribeFromCalendar(): void;
     }
-
     /**
      * Allows a script to read and update the user's Google Calendar. This class provides direct access
      * to the user's default calendar, as well as the ability to retrieve additional calendars that the
@@ -105,7 +104,6 @@ declare namespace GoogleAppsScript {
       subscribeToCalendar(id: string): Calendar;
       subscribeToCalendar(id: string, options: { [key: string]: any }): Calendar;
     }
-
     /**
      * Represents a single calendar event.
      */
@@ -165,7 +163,6 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): CalendarEvent;
       setVisibility(visibility: Visibility): CalendarEvent;
     }
-
     /**
      * Represents a series of events (a recurring event).
      */
@@ -217,17 +214,14 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): CalendarEventSeries;
       setVisibility(visibility: Visibility): CalendarEventSeries;
     }
-
     /**
      * An enum representing the named colors available in the Calendar service.
      */
     enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
-
     /**
      * An enum representing the named event colors available in the Calendar service.
      */
     enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
-
     /**
      * Represents a guest of an event.
      */
@@ -236,10 +230,8 @@ declare namespace GoogleAppsScript {
       getEmail(): string;
       getGuestStatus(): GuestStatus;
       getName(): string;
-      /** @deprecated DO NOT USE */
-      getStatus(): string;
+      /** @deprecated DO NOT USE */ getStatus(): string;
     }
-
     /**
      * Represents the recurrence settings for an event series.
      */
@@ -256,12 +248,10 @@ declare namespace GoogleAppsScript {
       addYearlyRule(): RecurrenceRule;
       setTimeZone(timeZone: string): EventRecurrence;
     }
-
     /**
      * An enum representing the statuses a guest can have for an event.
      */
     enum GuestStatus { INVITED, MAYBE, NO, OWNER, YES }
-
     /**
      * Represents a recurrence rule for an event series.
      *
@@ -300,7 +290,6 @@ declare namespace GoogleAppsScript {
       until(endDate: Base.Date): RecurrenceRule;
       weekStartsOn(day: Base.Weekday): RecurrenceRule;
     }
-
     /**
      * An enum representing the visibility of an event.
      */

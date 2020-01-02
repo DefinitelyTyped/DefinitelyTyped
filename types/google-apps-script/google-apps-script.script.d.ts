@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,7 +39,6 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum AuthMode { NONE, CUSTOM_FUNCTION, LIMITED, FULL }
-
     /**
      * An object used to determine whether the user needs to authorize this script to use one or more
      * services, and to provide the URL for an authorization dialog. If the script is published as an add-on that uses installable triggers, this information can be used
@@ -55,12 +54,10 @@ declare namespace GoogleAppsScript {
       getAuthorizationStatus(): AuthorizationStatus;
       getAuthorizationUrl(): string;
     }
-
     /**
      * An enumeration denoting the authorization status of a script.
      */
     enum AuthorizationStatus { REQUIRED, NOT_REQUIRED }
-
     /**
      * Builder for calendar triggers.
      */
@@ -68,7 +65,6 @@ declare namespace GoogleAppsScript {
       create(): Trigger;
       onEventUpdated(): CalendarTriggerBuilder;
     }
-
     /**
      * A builder for clock triggers.
      */
@@ -87,7 +83,6 @@ declare namespace GoogleAppsScript {
       onMonthDay(day: Integer): ClockTriggerBuilder;
       onWeekDay(day: Base.Weekday): ClockTriggerBuilder;
     }
-
     /**
      * A builder for document triggers.
      */
@@ -95,12 +90,10 @@ declare namespace GoogleAppsScript {
       create(): Trigger;
       onOpen(): DocumentTriggerBuilder;
     }
-
     /**
      * An enumeration denoting the type of triggered event.
      */
     enum EventType { CLOCK, ON_OPEN, ON_EDIT, ON_FORM_SUBMIT, ON_CHANGE, ON_EVENT_UPDATED }
-
     /**
      * A builder for form triggers.
      */
@@ -109,13 +102,11 @@ declare namespace GoogleAppsScript {
       onFormSubmit(): FormTriggerBuilder;
       onOpen(): FormTriggerBuilder;
     }
-
     /**
      * An enumeration that indicates how the script came to be installed as an add-on for the current
      * user.
      */
     enum InstallationSource { APPS_MARKETPLACE_DOMAIN_ADD_ON, NONE, WEB_STORE_ADD_ON }
-
     /**
      * Access and manipulate script publishing and triggers. This class allows users to create script
      * triggers and control publishing the script as a service.
@@ -129,6 +120,7 @@ declare namespace GoogleAppsScript {
       WeekDay: typeof Base.Weekday;
       deleteTrigger(trigger: Trigger): void;
       getAuthorizationInfo(authMode: AuthMode): AuthorizationInfo;
+      getIdentityToken(): string;
       getInstallationSource(): InstallationSource;
       getOAuthToken(): string;
       getProjectTriggers(): Trigger[];
@@ -140,22 +132,17 @@ declare namespace GoogleAppsScript {
       invalidateAuth(): void;
       newStateToken(): StateTokenBuilder;
       newTrigger(functionName: string): TriggerBuilder;
-      /** @deprecated DO NOT USE */
-      getProjectKey(): string;
-      /** @deprecated DO NOT USE */
-      getScriptTriggers(): Trigger[];
+      /** @deprecated DO NOT USE */ getProjectKey(): string;
+      /** @deprecated DO NOT USE */ getScriptTriggers(): Trigger[];
     }
-
     /**
      * Access and manipulate script publishing.
      */
     interface Service {
       getUrl(): string;
       isEnabled(): boolean;
-      /** @deprecated DO NOT USE */
-      disable(): void;
+      /** @deprecated DO NOT USE */ disable(): void;
     }
-
     /**
      * Builder for spreadsheet triggers.
      */
@@ -166,7 +153,6 @@ declare namespace GoogleAppsScript {
       onFormSubmit(): SpreadsheetTriggerBuilder;
       onOpen(): SpreadsheetTriggerBuilder;
     }
-
     /**
      * Allows scripts to create state tokens that can be used in callback APIs (like OAuth flows).
      *
@@ -190,7 +176,6 @@ declare namespace GoogleAppsScript {
       withMethod(method: string): StateTokenBuilder;
       withTimeout(seconds: Integer): StateTokenBuilder;
     }
-
     /**
      * A script trigger.
      */
@@ -201,7 +186,6 @@ declare namespace GoogleAppsScript {
       getTriggerSourceId(): string;
       getUniqueId(): string;
     }
-
     /**
      * A generic builder for script triggers.
      */
@@ -215,7 +199,6 @@ declare namespace GoogleAppsScript {
       forUserCalendar(emailId: string): CalendarTriggerBuilder;
       timeBased(): ClockTriggerBuilder;
     }
-
     /**
      * An enumeration denoting the source of the event that causes the trigger to fire.
      */

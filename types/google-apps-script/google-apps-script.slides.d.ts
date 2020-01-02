@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,7 +31,6 @@ declare namespace GoogleAppsScript {
       getTranslateY(): number;
       toBuilder(): AffineTransformBuilder;
     }
-
     /**
      * A builder for AffineTransform objects. Defaults to the identity transform.
      *
@@ -54,12 +53,10 @@ declare namespace GoogleAppsScript {
       setTranslateX(translateX: number): AffineTransformBuilder;
       setTranslateY(translateY: number): AffineTransformBuilder;
     }
-
     /**
      * The alignment position to apply.
      */
     enum AlignmentPosition { CENTER, HORIZONTAL_CENTER, VERTICAL_CENTER }
-
     /**
      * The kinds of start and end forms with which linear geometry can be rendered.
      *
@@ -68,7 +65,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum ArrowStyle { UNSUPPORTED, NONE, STEALTH_ARROW, FILL_ARROW, FILL_CIRCLE, FILL_SQUARE, FILL_DIAMOND, OPEN_ARROW, OPEN_CIRCLE, OPEN_SQUARE, OPEN_DIAMOND }
-
     /**
      * An element of text that is dynamically replaced with content that can change over time, such as a
      * slide number.
@@ -78,12 +74,10 @@ declare namespace GoogleAppsScript {
       getIndex(): Integer;
       getRange(): TextRange;
     }
-
     /**
      * The types of auto text.
      */
     enum AutoTextType { UNSUPPORTED, SLIDE_NUMBER }
-
     /**
      * Describes the border around an element.
      */
@@ -96,12 +90,10 @@ declare namespace GoogleAppsScript {
       setTransparent(): Border;
       setWeight(points: number): Border;
     }
-
     /**
      * The table cell merge states.
      */
     enum CellMergeState { NORMAL, HEAD, MERGED }
-
     /**
      * An opaque color
      */
@@ -110,7 +102,6 @@ declare namespace GoogleAppsScript {
       asThemeColor(): ThemeColor;
       getColorType(): Base.ColorType;
     }
-
     /**
      * A color scheme defines a mapping from members of ThemeColorType to the actual colors used
      * to render them.
@@ -122,7 +113,6 @@ declare namespace GoogleAppsScript {
       setConcreteColor(type: ThemeColorType, red: Integer, green: Integer, blue: Integer): ColorScheme;
       setConcreteColor(type: ThemeColorType, hexColor: string): ColorScheme;
     }
-
     /**
      * The connection site on a PageElement that can connect to a connector.
      */
@@ -130,7 +120,6 @@ declare namespace GoogleAppsScript {
       getIndex(): Integer;
       getPageElement(): PageElement;
     }
-
     /**
      * The content alignments for a Shape or TableCell. The supported alignments
      * correspond to predefined text anchoring types from the ECMA-376 standard.
@@ -141,7 +130,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum ContentAlignment { UNSUPPORTED, TOP, MIDDLE, BOTTOM }
-
     /**
      * The kinds of dashes with which linear geometry can be rendered. These values are based on the
      * "ST_PresetLineDashVal" simple type described in section 20.1.10.48 of "Office Open XML File
@@ -149,7 +137,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum DashStyle { UNSUPPORTED, SOLID, DOT, DASH, DASH_DOT, LONG_DASH, LONG_DASH_DOT }
-
     /**
      * Describes the page element's background
      */
@@ -167,12 +154,10 @@ declare namespace GoogleAppsScript {
       setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
-
     /**
      * The kinds of fill.
      */
     enum FillType { UNSUPPORTED, NONE, SOLID }
-
     /**
      * A collection of PageElements joined as a single unit.
      */
@@ -215,7 +200,6 @@ declare namespace GoogleAppsScript {
       setWidth(width: number): Group;
       ungroup(): void;
     }
-
     /**
      * A PageElement representing an image.
      */
@@ -271,7 +255,6 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): Image;
       setWidth(width: number): Image;
     }
-
     /**
      * A layout in a presentation.
      *
@@ -331,7 +314,6 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * A PageElement representing a line.
      */
@@ -402,7 +384,6 @@ declare namespace GoogleAppsScript {
       setWeight(points: number): Line;
       setWidth(width: number): Line;
     }
-
     /**
      * The line category.
      *
@@ -410,7 +391,6 @@ declare namespace GoogleAppsScript {
      * connect to other page elements.
      */
     enum LineCategory { UNSUPPORTED, STRAIGHT, BENT, CURVED }
-
     /**
      * Describes the fill of a line or outline
      */
@@ -426,12 +406,10 @@ declare namespace GoogleAppsScript {
       setSolidFill(color: ThemeColorType): void;
       setSolidFill(color: ThemeColorType, alpha: number): void;
     }
-
     /**
      * The kinds of line fill.
      */
     enum LineFillType { UNSUPPORTED, NONE, SOLID }
-
     /**
      * The line types.
      *
@@ -440,7 +418,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum LineType { UNSUPPORTED, STRAIGHT_CONNECTOR_1, BENT_CONNECTOR_2, BENT_CONNECTOR_3, BENT_CONNECTOR_4, BENT_CONNECTOR_5, CURVED_CONNECTOR_2, CURVED_CONNECTOR_3, CURVED_CONNECTOR_4, CURVED_CONNECTOR_5, STRAIGHT_LINE }
-
     /**
      * A hypertext link.
      */
@@ -452,12 +429,10 @@ declare namespace GoogleAppsScript {
       getSlidePosition(): SlidePosition;
       getUrl(): string;
     }
-
     /**
      * The types of a Link.
      */
     enum LinkType { UNSUPPORTED, URL, SLIDE_POSITION, SLIDE_ID, SLIDE_INDEX }
-
     /**
      * A list in the text.
      */
@@ -465,7 +440,6 @@ declare namespace GoogleAppsScript {
       getListId(): string;
       getListParagraphs(): Paragraph[];
     }
-
     /**
      * Preset patterns of glyphs for lists in text.
      *
@@ -508,7 +482,6 @@ declare namespace GoogleAppsScript {
      *       point
      */
     enum ListPreset { DISC_CIRCLE_SQUARE, DIAMONDX_ARROW3D_SQUARE, CHECKBOX, ARROW_DIAMOND_DISC, STAR_CIRCLE_SQUARE, ARROW3D_CIRCLE_SQUARE, LEFTTRIANGLE_DIAMOND_DISC, DIAMONDX_HOLLOWDIAMOND_SQUARE, DIAMOND_CIRCLE_SQUARE, DIGIT_ALPHA_ROMAN, DIGIT_ALPHA_ROMAN_PARENS, DIGIT_NESTED, UPPERALPHA_ALPHA_ROMAN, UPPERROMAN_UPPERALPHA_DIGIT, ZERODIGIT_ALPHA_ROMAN }
-
     /**
      * The list styling for a range of text.
      */
@@ -520,7 +493,6 @@ declare namespace GoogleAppsScript {
       isInList(): boolean;
       removeFromList(): ListStyle;
     }
-
     /**
      * A master in a presentation.
      *
@@ -587,7 +559,6 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * A notes master in a presentation.
      *
@@ -610,7 +581,6 @@ declare namespace GoogleAppsScript {
       getVideos(): Video[];
       getWordArts(): WordArt[];
     }
-
     /**
      * A notes page in a presentation.
      *
@@ -637,7 +607,6 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
     }
-
     /**
      * A page in a presentation.
      */
@@ -695,7 +664,6 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * Describes the page's background
      */
@@ -716,12 +684,10 @@ declare namespace GoogleAppsScript {
       setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
-
     /**
      * The kinds of page backgrounds.
      */
     enum PageBackgroundType { UNSUPPORTED, NONE, SOLID, PICTURE }
-
     /**
      * A visual element rendered on a page.
      */
@@ -770,31 +736,26 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): PageElement;
       setWidth(width: number): PageElement;
     }
-
     /**
      * A collection of one or more PageElement instances.
      */
     interface PageElementRange {
       getPageElements(): PageElement[];
     }
-
     /**
      * The page element type.
      */
     enum PageElementType { UNSUPPORTED, SHAPE, IMAGE, VIDEO, TABLE, GROUP, LINE, WORD_ART, SHEETS_CHART }
-
     /**
      * A collection of one or more Page instances.
      */
     interface PageRange {
       getPages(): Page[];
     }
-
     /**
      * The page types.
      */
     enum PageType { UNSUPPORTED, SLIDE, LAYOUT, MASTER }
-
     /**
      * A segment of text terminated by a newline character.
      */
@@ -802,12 +763,10 @@ declare namespace GoogleAppsScript {
       getIndex(): Integer;
       getRange(): TextRange;
     }
-
     /**
      * The types of text alignment for a paragraph.
      */
     enum ParagraphAlignment { UNSUPPORTED, START, CENTER, END, JUSTIFIED }
-
     /**
      * The styles of text that apply to entire paragraphs.
      *
@@ -835,7 +794,6 @@ declare namespace GoogleAppsScript {
       setSpacingMode(mode: SpacingMode): ParagraphStyle;
       setTextDirection(direction: TextDirection): ParagraphStyle;
     }
-
     /**
      * A fill that renders an image that's stretched to the dimensions of its container.
      */
@@ -845,7 +803,6 @@ declare namespace GoogleAppsScript {
       getContentUrl(): string;
       getSourceUrl(): string;
     }
-
     /**
      * The placeholder types. Many of these placeholder types correspond to placeholder IDs from the
      * ECMA-376 standard. More information on those shapes can be found in the description of the
@@ -854,7 +811,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum PlaceholderType { UNSUPPORTED, NONE, BODY, CHART, CLIP_ART, CENTERED_TITLE, DIAGRAM, DATE_AND_TIME, FOOTER, HEADER, MEDIA, OBJECT, PICTURE, SLIDE_NUMBER, SUBTITLE, TABLE, TITLE, SLIDE_IMAGE }
-
     /**
      * A point representing a location.
      */
@@ -862,14 +818,12 @@ declare namespace GoogleAppsScript {
       getX(): number;
       getY(): number;
     }
-
     /**
      * Predefined layouts. These are commonly found layouts in presentations. However, there is no
      * guarantee that these layouts are present in the current master as they could have been deleted or
      * not part of the used theme. Additionally, the placeholders on each layout may have been changed.
      */
     enum PredefinedLayout { UNSUPPORTED, BLANK, CAPTION_ONLY, TITLE, TITLE_AND_BODY, TITLE_AND_TWO_COLUMNS, TITLE_ONLY, SECTION_HEADER, SECTION_TITLE_AND_DESCRIPTION, ONE_COLUMN_TEXT, MAIN_POINT, BIG_NUMBER }
-
     /**
      * A presentation.
      */
@@ -915,7 +869,6 @@ declare namespace GoogleAppsScript {
       saveAndClose(): void;
       setName(name: string): void;
     }
-
     /**
      * The user's selection in the active presentation.
      *
@@ -932,7 +885,6 @@ declare namespace GoogleAppsScript {
       getTableCellRange(): TableCellRange;
       getTextRange(): TextRange;
     }
-
     /**
      * Type of Selection.
      *
@@ -943,7 +895,6 @@ declare namespace GoogleAppsScript {
      * Selection.getCurrentPage.
      */
     enum SelectionType { UNSUPPORTED, NONE, TEXT, TABLE_CELL, PAGE, PAGE_ELEMENT, CURRENT_PAGE }
-
     /**
      * A PageElement representing a generic shape that does not have a more specific
      * classification. Includes text boxes, rectangles, and other predefined shapes.
@@ -1006,7 +957,6 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): Shape;
       setWidth(width: number): Shape;
     }
-
     /**
      * The shape types. Many of these shapes correspond to predefined shapes from the ECMA-376 standard.
      * More information on those shapes can be found in the description of the "ST_ShapeType" simple
@@ -1015,7 +965,6 @@ declare namespace GoogleAppsScript {
      * edition.
      */
     enum ShapeType { UNSUPPORTED, TEXT_BOX, RECTANGLE, ROUND_RECTANGLE, ELLIPSE, ARC, BENT_ARROW, BENT_UP_ARROW, BEVEL, BLOCK_ARC, BRACE_PAIR, BRACKET_PAIR, CAN, CHEVRON, CHORD, CLOUD, CORNER, CUBE, CURVED_DOWN_ARROW, CURVED_LEFT_ARROW, CURVED_RIGHT_ARROW, CURVED_UP_ARROW, DECAGON, DIAGONAL_STRIPE, DIAMOND, DODECAGON, DONUT, DOUBLE_WAVE, DOWN_ARROW, DOWN_ARROW_CALLOUT, FOLDED_CORNER, FRAME, HALF_FRAME, HEART, HEPTAGON, HEXAGON, HOME_PLATE, HORIZONTAL_SCROLL, IRREGULAR_SEAL_1, IRREGULAR_SEAL_2, LEFT_ARROW, LEFT_ARROW_CALLOUT, LEFT_BRACE, LEFT_BRACKET, LEFT_RIGHT_ARROW, LEFT_RIGHT_ARROW_CALLOUT, LEFT_RIGHT_UP_ARROW, LEFT_UP_ARROW, LIGHTNING_BOLT, MATH_DIVIDE, MATH_EQUAL, MATH_MINUS, MATH_MULTIPLY, MATH_NOT_EQUAL, MATH_PLUS, MOON, NO_SMOKING, NOTCHED_RIGHT_ARROW, OCTAGON, PARALLELOGRAM, PENTAGON, PIE, PLAQUE, PLUS, QUAD_ARROW, QUAD_ARROW_CALLOUT, RIBBON, RIBBON_2, RIGHT_ARROW, RIGHT_ARROW_CALLOUT, RIGHT_BRACE, RIGHT_BRACKET, ROUND_1_RECTANGLE, ROUND_2_DIAGONAL_RECTANGLE, ROUND_2_SAME_RECTANGLE, RIGHT_TRIANGLE, SMILEY_FACE, SNIP_1_RECTANGLE, SNIP_2_DIAGONAL_RECTANGLE, SNIP_2_SAME_RECTANGLE, SNIP_ROUND_RECTANGLE, STAR_10, STAR_12, STAR_16, STAR_24, STAR_32, STAR_4, STAR_5, STAR_6, STAR_7, STAR_8, STRIPED_RIGHT_ARROW, SUN, TRAPEZOID, TRIANGLE, UP_ARROW, UP_ARROW_CALLOUT, UP_DOWN_ARROW, UTURN_ARROW, VERTICAL_SCROLL, WAVE, WEDGE_ELLIPSE_CALLOUT, WEDGE_RECTANGLE_CALLOUT, WEDGE_ROUND_RECTANGLE_CALLOUT, FLOW_CHART_ALTERNATE_PROCESS, FLOW_CHART_COLLATE, FLOW_CHART_CONNECTOR, FLOW_CHART_DECISION, FLOW_CHART_DELAY, FLOW_CHART_DISPLAY, FLOW_CHART_DOCUMENT, FLOW_CHART_EXTRACT, FLOW_CHART_INPUT_OUTPUT, FLOW_CHART_INTERNAL_STORAGE, FLOW_CHART_MAGNETIC_DISK, FLOW_CHART_MAGNETIC_DRUM, FLOW_CHART_MAGNETIC_TAPE, FLOW_CHART_MANUAL_INPUT, FLOW_CHART_MANUAL_OPERATION, FLOW_CHART_MERGE, FLOW_CHART_MULTIDOCUMENT, FLOW_CHART_OFFLINE_STORAGE, FLOW_CHART_OFFPAGE_CONNECTOR, FLOW_CHART_ONLINE_STORAGE, FLOW_CHART_OR, FLOW_CHART_PREDEFINED_PROCESS, FLOW_CHART_PREPARATION, FLOW_CHART_PROCESS, FLOW_CHART_PUNCHED_CARD, FLOW_CHART_PUNCHED_TAPE, FLOW_CHART_SORT, FLOW_CHART_SUMMING_JUNCTION, FLOW_CHART_TERMINATOR, ARROW_EAST, ARROW_NORTH_EAST, ARROW_NORTH, SPEECH, STARBURST, TEARDROP, ELLIPSE_RIBBON, ELLIPSE_RIBBON_2, CLOUD_CALLOUT, CUSTOM }
-
     /**
      * A PageElement representing a linked chart embedded from Google Sheets.
      */
@@ -1067,12 +1016,10 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): SheetsChart;
       setWidth(width: number): SheetsChart;
     }
-
     /**
      * The Sheets chart's embed type.
      */
     enum SheetsChartEmbedType { UNSUPPORTED, IMAGE }
-
     /**
      * A slide in a presentation.
      *
@@ -1139,17 +1086,14 @@ declare namespace GoogleAppsScript {
       selectAsCurrentPage(): void;
       unlink(): void;
     }
-
     /**
      * The mode of links between slides.
      */
     enum SlideLinkingMode { UNSUPPORTED, LINKED, NOT_LINKED }
-
     /**
      * The relative position of a Slide.
      */
     enum SlidePosition { NEXT_SLIDE, PREVIOUS_SLIDE, FIRST_SLIDE, LAST_SLIDE }
-
     /**
      * Creates and opens Presentations that can be edited.
      *
@@ -1196,7 +1140,6 @@ declare namespace GoogleAppsScript {
       openById(id: string): Presentation;
       openByUrl(url: string): Presentation;
     }
-
     /**
      * A solid color fill.
      *
@@ -1207,12 +1150,10 @@ declare namespace GoogleAppsScript {
       getAlpha(): number;
       getColor(): Color;
     }
-
     /**
      * The different modes for paragraph spacing.
      */
     enum SpacingMode { UNSUPPORTED, NEVER_COLLAPSE, COLLAPSE_LISTS }
-
     /**
      * A PageElement representing a table.
      */
@@ -1262,7 +1203,6 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): Table;
       setWidth(width: number): Table;
     }
-
     /**
      * A cell in a table.
      */
@@ -1281,14 +1221,12 @@ declare namespace GoogleAppsScript {
       getText(): TextRange;
       setContentAlignment(contentAlignment: ContentAlignment): TableCell;
     }
-
     /**
      * A collection of one or more TableCell instances.
      */
     interface TableCellRange {
       getTableCells(): TableCell[];
     }
-
     /**
      * A column in a table. A column consists of a list of table cells. A column is identified by the
      * column index.
@@ -1301,7 +1239,6 @@ declare namespace GoogleAppsScript {
       getWidth(): number;
       remove(): void;
     }
-
     /**
      * A row in a table. A row consists of a list of table cells. A row is identified by the row index.
      */
@@ -1313,17 +1250,14 @@ declare namespace GoogleAppsScript {
       getParentTable(): Table;
       remove(): void;
     }
-
     /**
      * The text vertical offset from its normal position.
      */
     enum TextBaselineOffset { UNSUPPORTED, NONE, SUPERSCRIPT, SUBSCRIPT }
-
     /**
      * The directions text can flow in.
      */
     enum TextDirection { UNSUPPORTED, LEFT_TO_RIGHT, RIGHT_TO_LEFT }
-
     /**
      * A segment of the text contents of a Shape or a TableCell.
      */
@@ -1360,7 +1294,6 @@ declare namespace GoogleAppsScript {
       select(): void;
       setText(newText: string): TextRange;
     }
-
     /**
      * The style of text.
      *
@@ -1407,7 +1340,6 @@ declare namespace GoogleAppsScript {
       setStrikethrough(strikethrough: boolean): TextStyle;
       setUnderline(underline: boolean): TextStyle;
     }
-
     /**
      * A color that refers to an entry in the page's ColorScheme.
      */
@@ -1415,12 +1347,10 @@ declare namespace GoogleAppsScript {
       getColorType(): Base.ColorType;
       getThemeColorType(): ThemeColorType;
     }
-
     /**
      * The name of an entry in the page's color scheme.
      */
     enum ThemeColorType { UNSUPPORTED, DARK1, LIGHT1, DARK2, LIGHT2, ACCENT1, ACCENT2, ACCENT3, ACCENT4, ACCENT5, ACCENT6, HYPERLINK, FOLLOWED_HYPERLINK }
-
     /**
      * A PageElement representing a video.
      */
@@ -1466,12 +1396,10 @@ declare namespace GoogleAppsScript {
       setTransform(transform: AffineTransform): Video;
       setWidth(width: number): Video;
     }
-
     /**
      * The video source types.
      */
     enum VideoSourceType { UNSUPPORTED, YOUTUBE }
-
     /**
      * A PageElement representing word art.
      */

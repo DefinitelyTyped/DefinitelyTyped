@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,7 +18,6 @@ declare namespace GoogleAppsScript {
      *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
     enum Access { ANYONE, ANYONE_WITH_LINK, DOMAIN, DOMAIN_WITH_LINK, PRIVATE }
-
     /**
      * Allows scripts to create, find, and modify files and folders in Google Drive.
      *
@@ -132,7 +131,6 @@ declare namespace GoogleAppsScript {
        */
       searchFolders(params: string): FolderIterator;
     }
-
     /**
      * A file in Google Drive. Files can be accessed or created from DriveApp.
      *
@@ -200,7 +198,6 @@ declare namespace GoogleAppsScript {
       setStarred(starred: boolean): File;
       setTrashed(trashed: boolean): File;
     }
-
     /**
      * An iterator that allows scripts to iterate over a potentially large collection of files. File
      * iterators can be acccessed from DriveApp or a Folder.
@@ -227,7 +224,6 @@ declare namespace GoogleAppsScript {
        */
       next(): File;
     }
-
     /**
      * A folder in Google Drive. Folders can be accessed or created from DriveApp.
      *
@@ -293,7 +289,6 @@ declare namespace GoogleAppsScript {
       setStarred(starred: boolean): Folder;
       setTrashed(trashed: boolean): Folder;
     }
-
     /**
      * An object that allows scripts to iterate over a potentially large collection of folders. Folder
      * iterators can be acccessed from DriveApp, a File, or a Folder.
@@ -310,7 +305,6 @@ declare namespace GoogleAppsScript {
       hasNext(): boolean;
       next(): Folder;
     }
-
     /**
      * An enum representing the permissions granted to users who can access a file or folder, besides
      * any individual users who have been explicitly given access. These properties can be accessed from
@@ -322,7 +316,6 @@ declare namespace GoogleAppsScript {
      *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
     enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
-
     /**
      * A user associated with a file in Google Drive. Users can be accessed from File.getEditors(), Folder.getViewers(), and other methods.
      *
@@ -348,11 +341,7 @@ declare namespace GoogleAppsScript {
       getName(): string;
       /** Gets the URL for the user's photo. This method returns null if the user's photo is not available. */
       getPhotoUrl(): string;
-      /**
-       * Gets the user's email address.
-       * @deprecated As of June 24, 2013, replaced by getEmail()
-       */
-      getUserLoginId(): string;
+      /** @deprecated DO NOT USE */ getUserLoginId(): string;
     }
   }
 }

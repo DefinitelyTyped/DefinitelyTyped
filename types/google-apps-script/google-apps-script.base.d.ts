@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,10 +25,8 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Blob;
       setDataFromString(string: string, charset: string): Blob;
       setName(name: string): Blob;
-      /** @deprecated DO NOT USE */
-      getAllBlobs(): Blob[];
+      /** @deprecated DO NOT USE */ getAllBlobs(): Blob[];
     }
-
     /**
      * Interface for objects that can export their data as a Blob.
      * Implementing classes
@@ -73,7 +71,6 @@ declare namespace GoogleAppsScript {
       getAs(contentType: string): Blob;
       getBlob(): Blob;
     }
-
     /**
      * This class provides access to dialog boxes specific to Google Sheets.
      *
@@ -92,7 +89,6 @@ declare namespace GoogleAppsScript {
       msgBox(prompt: string, buttons: ButtonSet): string;
       msgBox(title: string, prompt: string, buttons: ButtonSet): string;
     }
-
     /**
      * An enum representing predetermined, localized dialog buttons returned by an alert or PromptResponse.getSelectedButton() to indicate
      * which button in a dialog the user clicked. These values cannot be set; to add buttons to an
@@ -110,7 +106,6 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum Button { CLOSE, OK, CANCEL, YES, NO }
-
     /**
      * An enum representing predetermined, localized sets of one or more dialog buttons that can be
      * added to an alert or a prompt. To determine which button the user clicked,
@@ -128,12 +123,10 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum ButtonSet { OK, OK_CANCEL, YES_NO, YES_NO_CANCEL }
-
     /**
      * The types of Colors
      */
     enum ColorType { UNSUPPORTED, RGB, THEME }
-
     /**
      * This class allows the developer to write out text to the debugging logs.
      */
@@ -143,7 +136,6 @@ declare namespace GoogleAppsScript {
       log(data: any): Logger;
       log(format: string, ...values: any[]): Logger;
     }
-
     /**
      * A custom menu in an instance of the user interface for a Google App. A script can only interact
      * with the UI for the current instance of an open document or form, and only if the script is container-bound to the document or form. For more
@@ -167,7 +159,6 @@ declare namespace GoogleAppsScript {
       addSubMenu(menu: Menu): Menu;
       addToUi(): void;
     }
-
     /**
      * An enumeration that provides access to MIME-type declarations without typing the strings
      * explicitly. Methods that expect a MIME type rendered as a string (for example,
@@ -189,12 +180,10 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum MimeType { GOOGLE_APPS_SCRIPT, GOOGLE_DRAWINGS, GOOGLE_DOCS, GOOGLE_FORMS, GOOGLE_SHEETS, GOOGLE_SITES, GOOGLE_SLIDES, FOLDER, BMP, GIF, JPEG, PNG, SVG, PDF, CSS, CSV, HTML, JAVASCRIPT, PLAIN_TEXT, RTF, OPENDOCUMENT_GRAPHICS, OPENDOCUMENT_PRESENTATION, OPENDOCUMENT_SPREADSHEET, OPENDOCUMENT_TEXT, MICROSOFT_EXCEL, MICROSOFT_EXCEL_LEGACY, MICROSOFT_POWERPOINT, MICROSOFT_POWERPOINT_LEGACY, MICROSOFT_WORD, MICROSOFT_WORD_LEGACY, ZIP }
-
     /**
      * An enum representing the months of the year.
      */
     enum Month { JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER }
-
     /**
      * A response to a prompt dialog displayed in the
      * user-interface environment for a Google App. The response contains any text the user entered in
@@ -218,7 +207,6 @@ declare namespace GoogleAppsScript {
       getResponseText(): string;
       getSelectedButton(): Button;
     }
-
     /**
      * A color defined by red, green, blue color channels.
      */
@@ -229,7 +217,6 @@ declare namespace GoogleAppsScript {
       getGreen(): Integer;
       getRed(): Integer;
     }
-
     /**
      * The Session class provides access to session information, such as the user's email address (in
      * some circumstances) and language setting.
@@ -240,12 +227,9 @@ declare namespace GoogleAppsScript {
       getEffectiveUser(): User;
       getScriptTimeZone(): string;
       getTemporaryActiveUserKey(): string;
-      /** @deprecated DO NOT USE */
-      getTimeZone(): string;
-      /** @deprecated DO NOT USE */
-      getUser(): User;
+      /** @deprecated DO NOT USE */ getTimeZone(): string;
+      /** @deprecated DO NOT USE */ getUser(): User;
     }
-
     /**
      * An instance of the user-interface environment for a Google App that allows the script to add
      * features like menus, dialogs, and sidebars. A script can only interact with the UI for the
@@ -279,24 +263,19 @@ declare namespace GoogleAppsScript {
       showModalDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showModelessDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showSidebar(userInterface: HTML.HtmlOutput): void;
-      /** @deprecated DO NOT USE */
-      showDialog(userInterface: HTML.HtmlOutput): void;
+      /** @deprecated DO NOT USE */ showDialog(userInterface: HTML.HtmlOutput): void;
     }
-
     /**
      * Representation of a user, suitable for scripting.
      */
     interface User {
       getEmail(): string;
-      /** @deprecated DO NOT USE */
-      getUserLoginId(): string;
+      /** @deprecated DO NOT USE */ getUserLoginId(): string;
     }
-
     /**
      * An enum representing the days of the week.
      */
     enum Weekday { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
-
     /**
      * This class allows the developer to write logs to the Google Cloud Platform's Stackdriver Logging service. The following
      * shows some logging examples:

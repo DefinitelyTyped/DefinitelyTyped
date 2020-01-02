@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,7 +37,6 @@ declare namespace GoogleAppsScript {
       hasUser(email: string): boolean;
       hasUser(user: Base.User): boolean;
     }
-
     /**
      * This class provides access to Google Groups information. It can be used to query information such
      * as a group's email address, or the list of groups in which the user is a direct member.
@@ -52,7 +51,6 @@ declare namespace GoogleAppsScript {
       getGroupByEmail(email: string): Group;
       getGroups(): Group[];
     }
-
     /**
      * Possible roles of a user within a group, such as owner or ordinary member. Users subscribed to a
      * group have exactly one role within the context of that group.

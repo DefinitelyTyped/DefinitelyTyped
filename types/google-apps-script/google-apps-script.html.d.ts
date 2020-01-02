@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,7 +18,8 @@ declare namespace GoogleAppsScript {
      *     }
      *
      * HtmlOutput
-     * Google Caja
+     * iframe
+     * sandboxing
      * guide to restrictions in HTML service
      */
     interface HtmlOutput {
@@ -43,7 +44,6 @@ declare namespace GoogleAppsScript {
       setWidth(width: Integer): HtmlOutput;
       setXFrameOptionsMode(mode: XFrameOptionsMode): HtmlOutput;
     }
-
     /**
      * An object that represents a meta tag added to the page by calling HtmlOutput.addMetaTag(name, content).
      *
@@ -57,7 +57,6 @@ declare namespace GoogleAppsScript {
       getContent(): string;
       getName(): string;
     }
-
     /**
      * Service for returning HTML and other text content from a script.
      *
@@ -77,7 +76,6 @@ declare namespace GoogleAppsScript {
       createTemplateFromFile(filename: string): HtmlTemplate;
       getUserAgent(): string;
     }
-
     /**
      * A template object for dynamically constructing HTML. For more information, see the guide to templates.
      */
@@ -88,7 +86,6 @@ declare namespace GoogleAppsScript {
       getRawContent(): string;
       [propName: string]: any;
     }
-
     /**
      * An enum representing the sandbox modes that can be used for client-side HtmlService
      * scripts. These values can be accessed from HtmlService.SandboxMode, and set by calling
@@ -115,7 +112,6 @@ declare namespace GoogleAppsScript {
      *     </script>
      */
     enum SandboxMode { EMULATED, IFRAME, NATIVE }
-
     /**
      * An enum representing the X-Frame-Options modes that can be used for client-side HtmlService scripts. These values can be accessed from HtmlService.XFrameOptionsMode,
      * and set by calling HtmlOutput.setXFrameOptionsMode(mode).

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,6 @@ declare namespace GoogleAppsScript {
       setNamespace(namespace: Namespace): Attribute;
       setValue(value: string): Attribute;
     }
-
     /**
      * A representation of an XML CDATASection node.
      *
@@ -56,7 +55,6 @@ declare namespace GoogleAppsScript {
       getValue(): string;
       setText(text: string): Text;
     }
-
     /**
      * A representation of an XML Comment node.
      */
@@ -67,7 +65,6 @@ declare namespace GoogleAppsScript {
       getValue(): string;
       setText(text: string): Comment;
     }
-
     /**
      * A representation of a generic XML node.
      * Implementing classes
@@ -101,12 +98,10 @@ declare namespace GoogleAppsScript {
       getType(): ContentType;
       getValue(): string;
     }
-
     /**
      * An enumeration representing the types of XML content nodes.
      */
     enum ContentType { CDATA, COMMENT, DOCTYPE, ELEMENT, ENTITYREF, PROCESSINGINSTRUCTION, TEXT }
-
     /**
      * A representation of an XML DocumentType node.
      */
@@ -123,7 +118,6 @@ declare namespace GoogleAppsScript {
       setPublicId(id: string): DocType;
       setSystemId(id: string): DocType;
     }
-
     /**
      * A representation of an XML document.
      */
@@ -145,7 +139,6 @@ declare namespace GoogleAppsScript {
       setDocType(docType: DocType): Document;
       setRootElement(element: Element): Document;
     }
-
     /**
      * A representation of an XML Element node.
      *
@@ -209,7 +202,6 @@ declare namespace GoogleAppsScript {
       setNamespace(namespace: Namespace): Element;
       setText(text: string): Element;
     }
-
     /**
      * A representation of an XML EntityReference node.
      */
@@ -224,7 +216,6 @@ declare namespace GoogleAppsScript {
       setPublicId(id: string): EntityRef;
       setSystemId(id: string): EntityRef;
     }
-
     /**
      * A formatter for outputting an XML document, with three pre-defined formats that can be further
      * customized.
@@ -248,7 +239,6 @@ declare namespace GoogleAppsScript {
       setOmitDeclaration(omitDeclaration: boolean): Format;
       setOmitEncoding(omitEncoding: boolean): Format;
     }
-
     /**
      * A representation of an XML namespace.
      */
@@ -256,7 +246,6 @@ declare namespace GoogleAppsScript {
       getPrefix(): string;
       getURI(): string;
     }
-
     /**
      * A representation of an XML ProcessingInstruction node.
      */
@@ -267,7 +256,6 @@ declare namespace GoogleAppsScript {
       getTarget(): string;
       getValue(): string;
     }
-
     /**
      * A representation of an XML Text node.
      */
@@ -279,7 +267,6 @@ declare namespace GoogleAppsScript {
       getValue(): string;
       setText(text: string): Text;
     }
-
     /**
      * This service allows scripts to parse, navigate, and programmatically create XML documents.
      *

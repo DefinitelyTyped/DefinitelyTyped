@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -78,7 +78,6 @@ declare namespace GoogleAppsScript {
       unstarMessage(message: GmailMessage): GmailApp;
       unstarMessages(messages: GmailMessage[]): GmailApp;
     }
-
     /**
      * An attachment from Gmail. This is a regular Blob except that it has an extra getSize() method that is faster than calling
      * getBytes().length and does not count against the Gmail read quota.
@@ -113,10 +112,8 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Base.Blob;
       setDataFromString(string: string, charset: string): Base.Blob;
       setName(name: string): Base.Blob;
-      /** @deprecated DO NOT USE */
-      getAllBlobs(): Base.Blob[];
+      /** @deprecated DO NOT USE */ getAllBlobs(): Base.Blob[];
     }
-
     /**
      * A user-created draft message in a user's Gmail account.
      */
@@ -150,7 +147,6 @@ declare namespace GoogleAppsScript {
        */
       update(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailDraft;
     }
-
     /**
      * Options for a Gmail draft.
      */
@@ -190,7 +186,6 @@ declare namespace GoogleAppsScript {
     }
     /** alias to GmailAdvancedOptions */
     type GmailDraftOptions = GmailAdvancedOptions;
-
     /**
      * Options for a Gmail Attachments.
      */
@@ -207,7 +202,6 @@ declare namespace GoogleAppsScript {
        * A comma-separated list of email addresses to BCC.
        */
     }
-
     /**
      * A user-created label in a user's Gmail account.
      */
@@ -222,7 +216,6 @@ declare namespace GoogleAppsScript {
       removeFromThread(thread: GmailThread): GmailLabel;
       removeFromThreads(threads: GmailThread[]): GmailLabel;
     }
-
     /**
      * A message in a user's Gmail account.
      */
@@ -266,7 +259,6 @@ declare namespace GoogleAppsScript {
       star(): GmailMessage;
       unstar(): GmailMessage;
     }
-
     /**
      * A thread in a user's Gmail account.
      */

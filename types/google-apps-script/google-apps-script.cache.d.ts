@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-10-24
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,7 +37,6 @@ declare namespace GoogleAppsScript {
       remove(key: string): void;
       removeAll(keys: string[]): void;
     }
-
     /**
      * CacheService allows you to access a cache for short term storage of data.
      *
