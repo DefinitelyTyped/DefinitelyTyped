@@ -89,7 +89,7 @@ type StyledComponentPropsWithAs<
     T extends object,
     O extends object,
     A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C };
+> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: C };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
@@ -190,6 +190,7 @@ export interface StyledComponentBase<
              * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
              */
             as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+            forwardedAs?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
 
