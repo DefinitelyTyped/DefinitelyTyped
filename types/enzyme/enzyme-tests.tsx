@@ -67,7 +67,12 @@ class AnotherComponent extends Component<AnotherComponentProps> {
     setState(...args: any[]) {
         console.log(args);
     }
+
+    handleAnotherEcho(value: string) {
+      return value;
+    }
 }
+
 interface OptionalFunctionProp {
     functionProp?(): void;
     requiredFunctionProp(): void;
@@ -647,6 +652,11 @@ function ReactWrapperTest() {
         anotherComponentWrapper = reactWrapper.find(AnotherComponent);
         anotherStatelessWrapper = reactWrapper.find(AnotherStatelessComponent);
         reactWrapper = reactWrapper.find({ prop: 'myprop' });
+    }
+
+    function test_findWithType() {
+      const anotherComponentTypedWrapper = reactWrapper.find<AnotherComponent>(AnotherComponent);
+      anotherComponentTypedWrapper.instance().handleAnotherEcho('it works');
     }
 
     function test_findWhere() {

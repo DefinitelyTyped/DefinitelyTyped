@@ -17,8 +17,7 @@ import {
     RSAASuccessTypeDescriptor,
     RSAAFailureTypeDescriptor,
     RSAARequestAction,
-    RSAASuccessAction,
-    RSAAFailureAction,
+    RSAAResultAction,
 } from 'redux-api-middleware';
 
 {
@@ -156,7 +155,7 @@ import {
 
 {
     const store: Store = createStore(() => undefined);
-    const action: RSAAAction = {
+    const action: RSAAAction<any, string, number> = {
         [RSAA]: {
             endpoint: '/test/endpoint',
             method: 'GET',
@@ -165,10 +164,21 @@ import {
     };
 
     store.dispatch(action);
-    store.dispatch(action).then((action: RSAASuccessAction) => Promise.resolve());
+    store.dispatch(action).then((action: RSAAResultAction<string, number>) => Promise.resolve());
     store.dispatch(action).then(() => Promise.resolve());
+    store
+        .dispatch(action)
+        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
+        .then((payload: string) => payload);
+    store
+        .dispatch(action)
+        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.meta)))
+        .then((payload: number) => Promise.resolve());
+    store
+        .dispatch(action)
+        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
+        .then((payload: number) => Promise.resolve()); // $ExpectError
     store.dispatch(action).then((action: string) => Promise.resolve()); // $ExpectError
-    store.dispatch(action).catch((action: RSAAFailureAction) => Promise.reject());
 }
 
 {
@@ -222,18 +232,93 @@ import {
 }
 
 {
-    const requestAction0: RSAARequestAction<number, number> = {
-        type: ''
+    const requestActionSimple: RSAARequestAction = {
+        type: '',
     };
 
-    const successAction0: RSAASuccessAction<number, number> = {
+    const requestActionWithPayload: RSAARequestAction<number> = {
         type: '',
-        payload: 6
+        payload: 1,
     };
 
-    const failureAction0: RSAAFailureAction<number, number> = {
+    const requestActionWithIncorrectPayload: RSAARequestAction<number> = {
         type: '',
+        payload: '', // $ExpectError
+    };
+
+    const requestActionWithMeta: RSAARequestAction<never, number> = {
+        type: '',
+        meta: 1,
+    };
+
+    // $ExpectError
+    const requestActionWithMissingPayload: RSAARequestAction<number> = {
+        type: '',
+    };
+
+    const requestActionWithExtraneousMeta: RSAARequestAction<number> = {
+        type: '',
+        payload: 1,
+        meta: 1, // $ExpectError
+    };
+
+    const requestActionWithError: RSAARequestAction<number> = {
+        type: '',
+        error: true,
+        payload: new InvalidRSAA(['']),
+    };
+
+    const resultActionSimple: RSAAResultAction = {
+        type: '',
+    };
+
+    const resultActionWithPayload: RSAAResultAction<number> = {
+        type: '',
+        payload: 1,
+    };
+
+    const resultActionWithIncorrectPayload: RSAAResultAction<number> = {
+        type: '',
+        payload: '', // $ExpectError
+    };
+
+    const resultActionWithMeta: RSAAResultAction<never, number> = {
+        type: '',
+        meta: 1,
+    };
+
+    // $ExpectError
+    const resultActionWithMissingPayload: RSAAResultAction<number> = {
+        type: '',
+    };
+
+    const resultActionWithExtraneousMeta: RSAAResultAction<number> = {
+        type: '',
+        payload: 1,
+        meta: 1, // $ExpectError
+    };
+
+    const resultActionWithApiError: RSAAResultAction<number> = {
+        type: '',
+        error: true,
         payload: new ApiError(500, '', 1),
-        error: true
+    };
+
+    const resultActionWithInternalError: RSAAResultAction<number> = {
+        type: '',
+        error: true,
+        payload: new InternalError(''),
+    };
+
+    const resultActionWithRequestError: RSAAResultAction<number> = {
+        type: '',
+        error: true,
+        payload: new RequestError(''),
+    };
+
+    // $ExpectError
+    const resultActionWithMissingErrorPayload: RSAAResultAction<number> = {
+        type: '',
+        error: true,
     };
 }

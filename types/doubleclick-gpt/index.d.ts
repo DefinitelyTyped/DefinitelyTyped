@@ -4,6 +4,7 @@
 //                 Steven Joyce <https://github.com/steven-joyce>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 Vanessa Garcia <https://github.com/vanessa-lyn>
+//                 Krishna Glick <https://github.com/krishnaglick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -166,6 +167,7 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
+        setPrivacySettings(settings: { restrictDataProcessing: boolean }): Slot;
     }
 
     interface SizeMappingBuilder {

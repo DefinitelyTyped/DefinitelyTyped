@@ -120,9 +120,13 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  await page.emulateMedia("screen");
+  Devices.forEach(device => console.log(device.name));
+  puppeteer.devices.forEach(device => console.log(device.name));
+
+  await page.emulateMediaType("screen");
   await page.emulate(Devices['test']);
   await page.emulate(puppeteer.devices['test']);
+  await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -306,6 +310,7 @@ puppeteer.launch().then(async browser => {
 
   // evaluateHandle example
   const aHandle = await page.evaluateHandle(() => document.body);
+  await page.evaluateHandle('document.body');
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();
@@ -559,7 +564,7 @@ puppeteer.launch().then(async browser => {
       { timeout: 2000 },
       ['once', 'upon', 'a', 'midnight', 'dreary'])
     .then(j => j.jsonValue());
-  console.log('found in page', s.toLowerCase());
+  console.log('found in page', (s as string).toLowerCase());
 });
 
 // Element access
@@ -567,7 +572,7 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const el = await page.$('input');
-  const val: string = await (await el!.getProperty('type')).jsonValue();
+  const val: string = await (await el!.getProperty('type')).jsonValue() as string;
 });
 
 // Request manipualtion

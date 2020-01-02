@@ -1,11 +1,12 @@
-// Type definitions for mongoose-paginate-v2 1.0
+// Type definitions for mongoose-paginate-v2 1.3
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
+//                 Dongjun Lee <https://github.com/ChazEpps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
@@ -18,6 +19,11 @@ declare module 'mongoose' {
     docs?: string;
     nextPage?: string;
     prevPage?: string;
+  }
+
+  interface ReadOptions {
+    pref: string;
+    tags?: any[];
   }
 
   interface PaginateOptions {
@@ -34,6 +40,7 @@ declare module 'mongoose' {
     offset?: number;
     page?: number;
     limit?: number;
+    read?: ReadOptions;
   }
 
   interface QueryPopulateOptions {

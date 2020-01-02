@@ -76,6 +76,13 @@ jwt.verify(token, "wrong-secret", (err, decoded) => {
     // decoded undefined
 });
 
+// verify with encrypted RSA SHA256 private key
+jwt.verify(token, secret, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
+});
+
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {

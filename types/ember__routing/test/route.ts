@@ -61,6 +61,14 @@ Route.extend({
 });
 
 Route.extend({
+    controllerName: 'photos',
+    templateName: 'anOutletName',
+    renderTemplate() {
+        this.render(); // Render using defaults
+    },
+});
+
+Route.extend({
     renderTemplate(controller: Controller, model: {}) {
         this.render('posts', {
             view: 'someView', // the template to render, referenced by name

@@ -4,6 +4,7 @@
 //                 Marcus Weiner <https://github.com/mraerino>
 //                 Moritz Gunz <https://github.com/NeoLegends>
 //                 Daniel Almaguer <https://github.com/deini>
+//                 Hanna Becker <https://github.com/hanna-becker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -33,7 +34,9 @@ declare namespace Spotify {
     type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
 
     interface Image {
+        height?: number | null;
         url: string;
+        width?: number | null;
     }
 
     interface PlaybackContext {

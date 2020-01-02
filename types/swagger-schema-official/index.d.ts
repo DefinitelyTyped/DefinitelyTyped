@@ -41,7 +41,7 @@ export interface Header extends BaseSchema {
 
 // ----------------------------- Parameter -----------------------------------
 
-export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object';
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object' | 'file';
 
 export type BaseParameter = {
   name: string;
@@ -176,7 +176,7 @@ export type BaseSchema = {
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: Schema;
+  additionalProperties?: Schema | boolean;
   properties?: { [propertyName: string]: Schema };
   discriminator?: string;
   readOnly?: boolean;

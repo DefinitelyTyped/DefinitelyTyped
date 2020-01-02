@@ -2,20 +2,19 @@ import { MutableRecordSource, RecordMap, Record } from './RelayStoreTypes';
 import { DataID } from '../util/RelayRuntimeTypes';
 import { RecordState } from './RelayRecordState';
 
-export class RelayRecordSource {
+export class RelayRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
 
     static create(records?: RecordMap): MutableRecordSource;
 
-    clear(): void;
-    delete(dataID: DataID): void;
-    get(dataID: DataID): Record;
-    getRecordIDs(): string[];
+    get(dataID: DataID): Record | null | undefined;
+    getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
+    size(): number;
+    toJSON(): { [key: string]: Record };
+    clear(): void;
+    delete(dataID: DataID): void;
     remove(dataID: DataID): void;
     set(dataID: DataID, record: Record): void;
-    size(): number;
-    toJSON(): Record;
 }

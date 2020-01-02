@@ -1,6 +1,6 @@
 import { ReaderFragment } from '../util/ReaderNode';
 import { Variables, Disposable, DataID, CacheConfig } from '../util/RelayRuntimeTypes';
-import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
+import { ConcreteRequest } from '../util/RelayConcreteNode';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationSelectableNode,
@@ -8,7 +8,6 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { RecordState, GraphQLResponse } from '../..';
 import {
     ConnectionReference,
     ConnectionResolver,
@@ -17,9 +16,10 @@ import {
     ConnectionID,
 } from './RelayConnection';
 import { LoggerTransactionConfig } from '../network/RelayNetworkLoggerTransaction';
-import { PayloadData, Network, UploadableMap, PayloadError } from '../network/RelayNetworkTypes';
+import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
+import { RecordState } from './RelayRecordState';
 
 export type FragmentReference = unknown;
 export type OperationTracker = RelayOperationTracker;
@@ -28,7 +28,7 @@ export type OperationTracker = RelayOperationTracker;
  * An individual cached graph object.
  */
 export interface Record {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface Record {
  */
 export interface RecordMap {
     // theoretically, this should be `[dataID: DataID]`, but `DataID` is a string.
-    [dataID: string]: Record;
+    [dataID: string]: Record | null | undefined;
 }
 
 export interface FragmentMap {
@@ -47,28 +47,28 @@ export interface FragmentMap {
  * The results of a selector given a store/RecordSource.
  */
 export interface SelectorData {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export interface SingularReaderSelector {
-    kind: string;
-    dataID: string;
-    node: ReaderFragment;
-    owner: RequestDescriptor;
-    variables: Variables;
+    readonly kind: string;
+    readonly dataID: DataID;
+    readonly node: ReaderFragment;
+    readonly owner: RequestDescriptor;
+    readonly variables: Variables;
 }
 
 export type ReaderSelector = SingularReaderSelector | PluralReaderSelector;
 
 export interface PluralReaderSelector {
-    kind: string;
-    selectors: ReadonlyArray<SingularReaderSelector>;
+    readonly kind: string;
+    readonly selectors: ReadonlyArray<SingularReaderSelector>;
 }
 
 export interface RequestDescriptor {
-    identifier: RequestIdentifier;
-    node: ConcreteRequest;
-    variables: Variables;
+    readonly identifier: RequestIdentifier;
+    readonly node: ConcreteRequest;
+    readonly variables: Variables;
 }
 
 /**
@@ -76,19 +76,19 @@ export interface RequestDescriptor {
  * purposes of targeting a subgraph.
  */
 export interface NormalizationSelector {
-    dataID: string;
-    node: NormalizationSelectableNode;
-    variables: Variables;
+    readonly dataID: DataID;
+    readonly node: NormalizationSelectableNode;
+    readonly variables: Variables;
 }
 
 /**
  * A representation of a selector and its results at a particular point in time.
  */
 export interface TypedSnapshot<TData> {
-    data: TData;
-    isMissingData: boolean;
-    seenRecords: RecordMap;
-    selector: SingularReaderSelector;
+    readonly data: TData;
+    readonly isMissingData: boolean;
+    readonly seenRecords: RecordMap;
+    readonly selector: SingularReaderSelector;
 }
 export type Snapshot = TypedSnapshot<SelectorData>;
 
@@ -102,16 +102,16 @@ export type Snapshot = TypedSnapshot<SelectorData>;
  *   the results of the the operation.
  */
 export interface OperationDescriptor {
-    fragment: SingularReaderSelector;
-    request: RequestDescriptor;
-    root: NormalizationSelector;
+    readonly fragment: SingularReaderSelector;
+    readonly request: RequestDescriptor;
+    readonly root: NormalizationSelector;
 }
 
 /**
  * Arbitrary data e.g. received by a container as props.
  */
 export interface Props {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -120,7 +120,6 @@ export interface Props {
  */
 export interface RelayContext {
     environment: Environment;
-    variables: Variables;
 }
 
 /**
@@ -128,7 +127,7 @@ export interface RelayContext {
  * `Props`.
  */
 export interface FragmentSpecResults {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -176,10 +175,10 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    get(dataID: string): Record;
-    getRecordIDs(): string[];
-    getStatus(dataID: string): RecordState;
-    has(dataID: string): boolean;
+    get(dataID: DataID): Record | null | undefined;
+    getRecordIDs(): DataID[];
+    getStatus(dataID: DataID): RecordState;
+    has(dataID: DataID): boolean;
     size(): number;
     toJSON(): { [key: string]: Record };
 }
@@ -189,9 +188,9 @@ export interface RecordSource {
  */
 export interface MutableRecordSource extends RecordSource {
     clear(): void;
-    delete(dataID: string): void;
-    remove(dataID: string): void;
-    set(dataID: string, record: Record): void;
+    delete(dataID: DataID): void;
+    remove(dataID: DataID): void;
+    set(dataID: DataID, record: Record): void;
 }
 
 /**
@@ -300,25 +299,59 @@ export type Scheduler = (callback: () => void) => void;
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
-export interface RecordProxy {
+export type Unarray<T> = T extends Array<infer U> ? U : T;
+export type Primitive = string | number | boolean | null | undefined;
+
+export interface RecordProxy<T = {}> {
     copyFieldsFrom(source: RecordProxy): void;
     getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables): RecordProxy;
-    getLinkedRecords(name: string, args?: Variables): RecordProxy[];
-    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy;
+    // If a parent type is provided, provide the child type
+    getLinkedRecord<K extends keyof T>(name: K, args?: Variables | null): RecordProxy<NonNullable<T[K]>>;
+    // If a hint is provided, the return value is guaranteed to be the hint type
+    getLinkedRecord<H = never>(name: string, args?: Variables | null): [H] extends [never] ? RecordProxy | null : RecordProxy<H>;
+    getLinkedRecords<K extends keyof T>(
+        name: K,
+        args?: Variables | null,
+    ): Array<RecordProxy<Unarray<NonNullable<T[K]>>>>;
+    getLinkedRecords<H = never>(
+        name: string,
+        args?: Variables | null,
+    ): [H] extends [never] ? RecordProxy[] | null :
+        NonNullable<H> extends Array<infer U> ?
+            Array<RecordProxy<U>> | (H extends null ? null : never) :
+            never;
+    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
-    getValue(name: string, args?: Variables): any;
-    setLinkedRecord(record: RecordProxy, name: string, args?: Variables): RecordProxy;
-    setLinkedRecords(records: RecordProxy[], name: string, args?: Variables): RecordProxy;
-    setValue(value: any, name: string, args?: Variables): RecordProxy;
+    getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
+    getValue(name: string, args?: Variables | null): Primitive | Primitive[];
+    setLinkedRecord<K extends keyof T>(
+        record: RecordProxy<T[K]> | null,
+        name: K,
+        args?: Variables | null): RecordProxy<T>;
+    setLinkedRecord(
+        record: RecordProxy | null,
+        name: string,
+        args?: Variables | null): RecordProxy;
+    setLinkedRecords<K extends keyof T>(
+        records: Array<RecordProxy<Unarray<T[K]>> | null> | null | undefined,
+        name: K,
+        args?: Variables | null,
+    ): RecordProxy<T>;
+    setLinkedRecords(
+        records: Array<RecordProxy | null> | null | undefined,
+        name: string,
+        args?: Variables | null,
+    ): RecordProxy<T>;
+    setValue<K extends keyof T>(value: T[K], name: K, args?: Variables | null): RecordProxy<T>;
+    setValue(value: Primitive | Primitive[], name: string, args?: Variables | null): RecordProxy;
 }
 
 export interface ReadOnlyRecordProxy {
     getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables): RecordProxy;
-    getLinkedRecords(name: string, args?: Variables): RecordProxy[];
+    getLinkedRecord(name: string, args?: Variables): RecordProxy | null | undefined;
+    getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null | undefined> | null | undefined;
     getType(): string;
-    getValue(name: string, args?: Variables): any;
+    getValue(name: string, args?: Variables | null): unknown;
 }
 
 /**
@@ -327,15 +360,17 @@ export interface ReadOnlyRecordProxy {
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
+
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy;
+    // tslint:disable-next-line
+    get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
 
 export interface ReadOnlyRecordSourceProxy {
-    get(dataID: DataID): ReadOnlyRecordProxy;
+    get(dataID: DataID): ReadOnlyRecordProxy | null | undefined;
     getRoot(): ReadOnlyRecordProxy;
 }
 
@@ -343,53 +378,22 @@ export interface ReadOnlyRecordSourceProxy {
  * Extends the RecordSourceProxy interface with methods for accessing the root
  * fields of a Selector.
  */
-export interface RecordSourceSelectorProxy extends RecordSourceProxy {
-    getRootField(fieldName: string): RecordProxy;
-    getPluralRootField(fieldName: string): RecordProxy[];
+
+export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
+    getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>>;
+    getRootField(fieldName: string): RecordProxy | null;
+    getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
 export interface Logger {
-    log(message: string, ...values: any[]): void;
+    log(message: string, ...values: unknown[]): void;
     flushLogs(): void;
 }
 
 export interface LoggerProvider {
     getLogger(config: LoggerTransactionConfig): Logger;
 }
-
-export type LogEvent =
-    | {
-          name: string;
-          transactionID: number;
-          info: any;
-      }
-    | {
-          name: string;
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }
-    | {
-          name: string;
-          transactionID: number;
-          response: GraphQLResponse;
-      }
-    | {
-          name: string;
-          transactionID: number;
-          error: Error;
-      }
-    | {
-          name: string;
-          transactionID: number;
-      }
-    | {
-          name: string;
-          transactionID: number;
-      };
-export type LogFunction = (logEvent: LogEvent) => void;
-export type LogRequestInfoFunction = (arg: any) => void;
 
 /**
  * The public API of Relay core. Represents an encapsulated environment with its
@@ -457,7 +461,7 @@ export interface Environment {
     /**
      * Get an instance of a logger
      */
-    getLogger(config: LoggerTransactionConfig): Logger;
+    getLogger(config: LoggerTransactionConfig): Logger | null | undefined;
 
     /**
      * Returns the environment specific OperationTracker.
@@ -484,8 +488,8 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig;
-        updater?: SelectorStoreUpdater;
+        cacheConfig?: CacheConfig | null;
+        updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -506,10 +510,10 @@ export interface Environment {
         uploadables,
     }: {
         operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater;
-        optimisticResponse?: object;
-        updater?: SelectorStoreUpdater;
-        uploadables?: UploadableMap;
+        optimisticUpdater?: SelectorStoreUpdater | null;
+        optimisticResponse?: { [key: string]: any } | null;
+        updater?: SelectorStoreUpdater | null;
+        uploadables?: UploadableMap | null;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -545,9 +549,9 @@ export interface FragmentPointer {
  * selection
  */
 export interface ModuleImportPointer {
-    __fragmentPropName: string;
-    __module_component: any;
-    fragmentRefs: any;
+    readonly __fragmentPropName: string | null | undefined;
+    readonly __module_component: unknown;
+    readonly $fragmentRefs: unknown;
 }
 
 /**
@@ -580,16 +584,16 @@ export class Handler {
  */
 export interface HandleFieldPayload {
     // The arguments that were fetched.
-    args: Variables;
+    readonly args: Variables;
     // The __id of the record containing the source/handle field.
-    dataID: DataID;
+    readonly dataID: DataID;
     // The (storage) key at which the original server data was written.
-    fieldKey: string;
+    readonly fieldKey: string;
     // The name of the handle.
-    handle: string;
+    readonly handle: string;
     // The (storage) key at which the handle's data should be written by the
     // handler.
-    handleKey: string;
+    readonly handleKey: string;
 }
 
 /**
@@ -607,12 +611,12 @@ export interface HandleFieldPayload {
  * typeName can also be used to construct a root record for normalization.
  */
 export interface ModuleImportPayload {
-    data: PayloadData;
-    dataID: DataID;
-    operationReference: any;
-    path: ReadonlyArray<string>;
-    typeName: string;
-    variables: Variables;
+    readonly data: PayloadData;
+    readonly dataID: DataID;
+    readonly operationReference: any;
+    readonly path: ReadonlyArray<string>;
+    readonly typeName: string;
+    readonly variables: Variables;
 }
 
 /**
@@ -621,20 +625,20 @@ export interface ModuleImportPayload {
  * arrives.
  */
 export interface DeferPlaceholder {
-    kind: 'defer';
-    data: PayloadData;
-    label: string;
-    path: ReadonlyArray<string>;
-    selector: NormalizationSelector;
-    typeName: string;
+    readonly kind: 'defer';
+    readonly data: PayloadData;
+    readonly label: string;
+    readonly path: ReadonlyArray<string>;
+    readonly selector: NormalizationSelector;
+    readonly typeName: string;
 }
 export interface StreamPlaceholder {
-    kind: 'stream';
-    label: string;
-    path: ReadonlyArray<string>;
-    parentID: DataID;
-    node: NormalizationSelectableNode;
-    variables: Variables;
+    readonly kind: 'stream';
+    readonly label: string;
+    readonly path: ReadonlyArray<string>;
+    readonly parentID: DataID;
+    readonly node: NormalizationSelectableNode;
+    readonly variables: Variables;
 }
 export type IncrementalDataPlaceholder = DeferPlaceholder | StreamPlaceholder;
 
@@ -649,12 +653,12 @@ export interface OperationLoader {
      * Synchronously load an operation, returning either the node or null if it
      * cannot be resolved synchronously.
      */
-    get(reference: any): NormalizationSplitOperation;
+    get(reference: unknown): NormalizationSplitOperation | null | undefined;
 
     /**
      * Asynchronously load an operation.
      */
-    load(reference: any): Promise<NormalizationSplitOperation>;
+    load(reference: unknown): Promise<NormalizationSplitOperation | null | undefined>;
 }
 
 /**
@@ -668,7 +672,12 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type SelectorStoreUpdater<T = {}> = (store: RecordSourceSelectorProxy, data: T) => void;
+export type     SelectorStoreUpdater<T = object> = (
+    store: RecordSourceSelectorProxy<T>,
+    // Actually SelectorData, but mixed is inconvenient to access deeply in
+    // product code.
+    data: T,
+) => void;
 
 /**
  * A set of configs that can be used to apply an optimistic update into the
@@ -677,19 +686,19 @@ export type SelectorStoreUpdater<T = {}> = (store: RecordSourceSelectorProxy, da
 export type OptimisticUpdate = OptimisticUpdateFunction | OptimisticUpdateRelayPayload;
 
 export interface OptimisticUpdateFunction {
-    storeUpdater: StoreUpdater;
+    readonly storeUpdater: StoreUpdater;
 }
 
 export interface OptimisticUpdateRelayPayload {
-    operation: OperationDescriptor;
-    payload: RelayResponsePayload;
-    updater: SelectorStoreUpdater;
+    readonly operation: OperationDescriptor;
+    readonly payload: RelayResponsePayload;
+    readonly updater: SelectorStoreUpdater | null | undefined;
 }
 
 export interface OptimisticResponseConfig {
-    operation: OperationDescriptor;
-    response: PayloadData;
-    updater: SelectorStoreUpdater;
+    readonly operation: OperationDescriptor;
+    readonly response: PayloadData | null | undefined;
+    readonly updater: SelectorStoreUpdater | null | undefined;
 }
 
 /**
@@ -698,43 +707,43 @@ export interface OptimisticResponseConfig {
  */
 export type MissingFieldHandler =
     | {
-          kind: string;
+          kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record,
+              record: Record | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
-          ) => any;
+          ) => unknown;
       }
     | {
-          kind: string;
+          kind: 'linked';
           handle: (
               field: NormalizationLinkedField,
-              record: Record,
+              record: Record | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
-          ) => DataID;
+          ) => DataID | null | undefined;
       }
     | {
-          kind: string;
+          kind: 'pluralLinked';
           handle: (
               field: NormalizationLinkedField,
-              record: Record,
+              record: Record | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
-          ) => DataID[];
+          ) => Array<DataID | null | undefined> | null | undefined;
       };
 
 /**
  * The results of normalizing a query.
  */
 export interface RelayResponsePayload {
-    connectionEvents: ConnectionInternalEvent[];
-    errors: PayloadError[];
-    fieldPayloads: HandleFieldPayload[];
-    incrementalPlaceholders: IncrementalDataPlaceholder[];
-    moduleImportPayloads: ModuleImportPayload[];
-    source: MutableRecordSource;
+    readonly connectionEvents: ConnectionInternalEvent[] | null | undefined;
+    readonly errors: PayloadError[] | null | undefined;
+    readonly fieldPayloads: HandleFieldPayload[] | null | undefined;
+    readonly incrementalPlaceholders: IncrementalDataPlaceholder[] | null | undefined;
+    readonly moduleImportPayloads: ModuleImportPayload[] | null | undefined;
+    readonly source: MutableRecordSource;
 }
 
 /**
@@ -759,7 +768,11 @@ export interface PublishQueue {
     /**
      * Schedule applying a payload to the store on the next `run()`.
      */
-    commitPayload(operation: OperationDescriptor, payload: RelayResponsePayload, updater?: SelectorStoreUpdater): void;
+    commitPayload(
+        operation: OperationDescriptor,
+        payload: RelayResponsePayload,
+        updater?: SelectorStoreUpdater | null,
+    ): void;
 
     /**
      * Schedule an updater to mutate the store on the next `run()` typically to

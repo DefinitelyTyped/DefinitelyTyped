@@ -7,7 +7,9 @@
 /// <reference types="node" />
 /// <reference types="bytebuffer" />
 
-export class CMClient extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+export class CMClient extends EventEmitter {
     /**
      * A boolean that indicates whether you are currently connected and the encryption handshake is complete.
      * 'connected' is emitted when it changes to true, and 'error' is emitted when it changes to false unless you called disconnect.

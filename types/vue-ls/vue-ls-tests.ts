@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import { VueStorage, Options, Types } from 'vue-ls';
+import VueStoragePlugin, * as VueStorage from 'vue-ls';
 
-const storageOptions: Options = {
+const storageOptions: VueStorage.Options = {
     namespace: 'my_project',
     name: 'ls',
-    storage: Types.Local,
+    storage: VueStorage.Types.Local,
 };
 
-Vue.use(VueStorage, storageOptions);
+Vue.use(VueStoragePlugin, storageOptions);

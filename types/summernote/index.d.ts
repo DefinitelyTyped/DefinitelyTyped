@@ -2,6 +2,7 @@
 // Project: https://github.com/summernote/summernote#readme
 // Definitions by: Wouter Staelens <https://github.com/wstaelens>
 //                 Denny Harijanto <https://github.com/nusantara-cloud>
+//                 Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -10,7 +11,12 @@
 declare global {
 	namespace Summernote {
 		interface Options {
-			airMode?: boolean;
+            airMode?: boolean;
+            tabDisable?: boolean;
+            codeviewFilter?: boolean;
+            codeviewFilterRegex?: string;
+            codeviewIframeWhitelistSrc?: string[];
+            codeviewIframeFilter?: boolean;
 			callbacks?: any; // todo
 			codemirror?: CodemirrorOptions;
 			colors?: colorsDef;
@@ -45,17 +51,18 @@ declare global {
 		}
 
 		type toolbarStyleGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear';
-		type toolbarFontGroupOptions = 'strikethrough' | 'superscript' | 'subscript';
-		type toolbarFontsizeGroupOptions = 'fontsize';
+		type toolbarFontGroupOptions = 'fontname' | 'fontsize' | 'color' | 'forecolor' | 'backcolor' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'superscript' | 'subscript' | 'clear';
+		type toolbarFontsizeGroupOptions = 'fontsize' | 'fontname' | 'color';
 		type toolbarColorGroupOptions = 'color';
-		type toolbarParaGroupOptions = 'ul' | 'ol' | 'paragraph';
+		type toolbarParaGroupOptions = 'ul' | 'ol' | 'paragraph' | 'style' | 'height';
 		type toolbarHeightGroupOptions = 'height';
 		type toolbarTableGroupOptions = 'table';
-		type toolbarInsertGroupOptions = 'link' | 'picture' | 'hr';
-		type toolbarViewGroupOptions = 'fullscreen' | 'codeview';
-		type toolbarHelpGroupOptions = 'help';
+        type toolbarInsertGroupOptions = 'link' | 'picture' | 'hr' | 'table' | 'video';
+		type toolbarViewGroupOptions = 'fullscreen' | 'codeview' | 'help';
+        type toolbarHelpGroupOptions = 'help';
+        type miscGroupOptions = 'fullscreen' | 'codeview' | 'undo' | 'redo' | 'help';
 		// type toolbarDef = [string, string[]][]
-		type toolbarDef = [
+		type toolbarDef = Array<
 			['style', toolbarStyleGroupOptions[]]
 			| ['font', toolbarFontGroupOptions[]]
 			| ['fontsize', toolbarFontsizeGroupOptions[]]
@@ -66,7 +73,8 @@ declare global {
 			| ['insert', toolbarInsertGroupOptions[]]
 			| ['view', toolbarViewGroupOptions[]]
 			| ['help', toolbarHelpGroupOptions[]]
-		];
+			| ['misc', miscGroupOptions[]]
+		>;
 
 		type colorsDef = Array<[string[]]>;
 		type styleTagsOptions = 'p' | 'blockquote' | 'pre' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

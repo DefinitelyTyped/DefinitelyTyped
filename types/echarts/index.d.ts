@@ -1,5 +1,5 @@
-// Type definitions for echarts 4.1.0
-// Project: http://echarts.baidu.com/
+// Type definitions for ECharts 4.4.0
+// Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
 //                 Liveangela <https://github.com/liveangela>
@@ -104,7 +104,7 @@ declare namespace echarts {
      *     [http://geojson.org/](http://geojson.org/) for more format information.
      * @param {object} [specialAreas] Zoomed part of a specific area in the map
      *     for better visual effect.
-     *     See [USA Population Estimates example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=map-usa).
+     *     See [USA Population Estimates example](https://echarts.apache.org/examples/en/editor.html?c=map-usa).
      */
     function registerMap(
         mapName: string,
@@ -462,7 +462,7 @@ declare namespace echarts {
          * than one title components.
          * It is more useful when multiple diagrams in one instance all need titles.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
+         * @see https://echarts.apache.org/en/option.html#title
          */
         title?: EChartTitleOption | EChartTitleOption[]
 
@@ -477,7 +477,7 @@ declare namespace echarts {
          * or `horizontally scrollable` legend are options to paginate them.
          * Check `legend.type` please.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#legend
+         * @see https://echarts.apache.org/en/option.html#legend
          */
         legend?: EChartOption.Legend,
 
@@ -490,7 +490,7 @@ declare namespace echarts {
          * at most in a single echarts instance.
          * But in ECharts 3, there is no limitation.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#grid
+         * @see https://echarts.apache.org/en/option.html#grid
          */
         grid?: EChartOption.Grid | EChartOption.Grid[],
 
@@ -501,7 +501,7 @@ declare namespace echarts {
          * offset can be used to avoid overlap when you need to put more
          * than two x axis.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis
+         * @see https://echarts.apache.org/en/option.html#xAxis
          */
         xAxis?: EChartOption.XAxis | EChartOption.XAxis[],
 
@@ -511,7 +511,7 @@ declare namespace echarts {
          * one on the left and another on the right. offset can be used
          * to avoid overlap when you need to put more than two y axis.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis
+         * @see https://echarts.apache.org/en/option.html#yAxis
          */
          yAxis?: EChartOption.YAxis | EChartOption.YAxis[],
 
@@ -519,21 +519,21 @@ declare namespace echarts {
           * Polar coordinate can be used in scatter and line chart.
           * Every polar coordinate has an `angleAxis` and a `radiusAxis`.
           *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#polar
+         * @see https://echarts.apache.org/en/option.html#polar
          */
         polar?: object,
 
         /**
          * Radial axis of polar coordinate.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#radiusAxis
+         * @see https://echarts.apache.org/en/option.html#radiusAxis
          */
         radiusAxis?: object,
 
         /**
          * The angle axis in Polar Coordinate.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#angleAxis
+         * @see https://echarts.apache.org/en/option.html#angleAxis
          */
         angleAxis?: object,
 
@@ -551,7 +551,7 @@ declare namespace echarts {
          * including `name`, `axisLine`, `axisTick`, `axisLabel`,
          * `splitLine`, `splitArea`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#radar
+         * @see https://echarts.apache.org/en/option.html#radar
          */
         radar?: object,
 
@@ -573,7 +573,7 @@ declare namespace echarts {
          *   That is `toolbox.feature.dataZoom`, which can only be configured
          *   in toolbox.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom
+         * @see https://echarts.apache.org/en/option.html#dataZoom
          */
         dataZoom?: EChartOption.DataZoom[],
 
@@ -610,7 +610,7 @@ declare namespace echarts {
          *   ...
          * };
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap
+         * @see https://echarts.apache.org/en/option.html#visualMap
          */
         visualMap?: EChartOption.VisualMap[],
 
@@ -623,7 +623,7 @@ declare namespace echarts {
          * + Configured in a series: `series.tooltip`
          * + Configured in each item of `series.data`: `series.data.tooltip`
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip
+         * @see https://echarts.apache.org/en/option.html#tooltip
          */
         tooltip?: EChartOption.Tooltip,
 
@@ -631,7 +631,7 @@ declare namespace echarts {
          * `axisPointer` is a tool for displaying reference line and axis value
          * under mouse pointer.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#axisPointer
+         * @see https://echarts.apache.org/en/option.html#axisPointer
          */
         axisPointer?: EChartOption.AxisPointer,
 
@@ -639,7 +639,7 @@ declare namespace echarts {
          * A group of utility tools, which includes `export`, `data view`,
          * `dynamic type switching`, `data area zooming`, and `reset`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#toolbox
+         * @see https://echarts.apache.org/en/option.html#toolbox
          */
         toolbox?: object,
 
@@ -648,7 +648,7 @@ declare namespace echarts {
          * part of data from a chart to display in detail, or doing calculations
          * with them.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#brush
+         * @see https://echarts.apache.org/en/option.html#brush
          */
         brush?: object,
 
@@ -657,7 +657,7 @@ declare namespace echarts {
          * Geographic coorinate system component is used to draw maps,
          * which also supports `scatter series`, and `line series`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#geo
+         * @see https://echarts.apache.org/en/option.html#geo
          */
         geo?: object,
 
@@ -680,14 +680,14 @@ declare namespace echarts {
          *     ...
          * ]
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel
+         * @see https://echarts.apache.org/en/option.html#parallel
          */
         parallel?: object,
 
         /**
          * This component is the coordinate axis for parallel coordinate.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis
+         * @see https://echarts.apache.org/en/option.html#parallelAxis
          */
         parallelAxis?: object,
 
@@ -695,7 +695,7 @@ declare namespace echarts {
          * An axis with a single dimension. It can be used to display data
          * in one dimension.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#singleAxis
+         * @see https://echarts.apache.org/en/option.html#singleAxis
          */
         singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[],
 
@@ -703,7 +703,7 @@ declare namespace echarts {
          * `timeline` component, which provides functions like switching and playing
          * between multiple ECharts `options`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#timeline
+         * @see https://echarts.apache.org/en/option.html#timeline
          */
         timeline?: object,
 
@@ -713,7 +713,7 @@ declare namespace echarts {
          * `image`, `text`, `circle`, `sector`, `ring`, `polygon`,
          * `polyline`, `rect`, `line`, `bezierCurve`, `arc`, `group`,
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#graphic
+         * @see https://echarts.apache.org/en/option.html#graphic
          */
         graphic?: object | object[],
 
@@ -725,12 +725,12 @@ declare namespace echarts {
          * we can use calendar coordinates
          * in `heatmap`, `scatter`, `effectScatter`, and `graph`.
 
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#calendar
+         * @see https://echarts.apache.org/en/option.html#calendar
          */
         calendar?: EChartOption.Calendar | EChartOption.Calendar[],
 
         /**
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset
+         * @see https://echarts.apache.org/en/option.html#dataset
          */
         dataset?: EChartOption.Dataset | EChartOption.Dataset[],
 
@@ -741,12 +741,12 @@ declare namespace echarts {
          * More importantly, is enables data encoding from data to visual,
          * which brings convenience in some scenarios.
          * More details about `dataset` can be checked in the tutorial.
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#aria
+         * @see https://echarts.apache.org/en/option.html#aria
          */
         aria?: object,
 
         /**
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series
+         * @see https://echarts.apache.org/en/option.html#series
          */
         series?: TSeries[],
 
@@ -762,28 +762,28 @@ declare namespace echarts {
          *   '#c4ccd3'
          * ]
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#color
+         * @see https://echarts.apache.org/en/option.html#color
          */
         color?: string[],
 
         /**
          * Background color. Defaults to have no background.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#backgroundColor
+         * @see https://echarts.apache.org/en/option.html#backgroundColor
          */
         backgroundColor?: string,
 
         /**
          * Global font style.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#textStyle
+         * @see https://echarts.apache.org/en/option.html#textStyle
          */
         textStyle?: EChartOption.BaseTextStyle,
 
         /**
          * Whether to enable animation.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animation
+         * @see https://echarts.apache.org/en/option.html#animation
          */
         animation?: boolean,
 
@@ -791,7 +791,7 @@ declare namespace echarts {
          * Whether to set graphic number threshold to animation.
          * Animation will be disabled when graphic number is larger than threshold.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationThreshold
+         * @see https://echarts.apache.org/en/option.html#animationThreshold
          */
         animationThreshold?: number,
 
@@ -804,7 +804,7 @@ declare namespace echarts {
          *     // delay for later data is larger
          *     return idx * 100;
          * }
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationDuration
+         * @see https://echarts.apache.org/en/option.html#animationDuration
          */
         animationDuration?: number,
 
@@ -812,7 +812,7 @@ declare namespace echarts {
          * Easing method used for the first animation.
          * Varied easing effects can be found at `easing effect example`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationEasing
+         * @see https://echarts.apache.org/en/option.html#animationEasing
          */
         animationEasing?: string,
 
@@ -826,7 +826,7 @@ declare namespace echarts {
          *     // delay for later data is larger
          *     return idx * 100;
          * }
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationDelay
+         * @see https://echarts.apache.org/en/option.html#animationDelay
          */
         animationDelay?: number | Function,
 
@@ -839,14 +839,14 @@ declare namespace echarts {
          *     // delay for later data is larger
          *     return idx * 100;
          * }
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationDurationUpdate
+         * @see https://echarts.apache.org/en/option.html#animationDurationUpdate
          */
         animationDurationUpdate?: number | Function,
 
         /**
          * Easing method used for animation.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationEasingUpdate
+         * @see https://echarts.apache.org/en/option.html#animationEasingUpdate
          */
         animationEasingUpdate?: string,
 
@@ -859,7 +859,7 @@ declare namespace echarts {
          *     // delay for later data is larger
          *     return idx * 100;
          * }
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#animationDelayUpdate
+         * @see https://echarts.apache.org/en/option.html#animationDelayUpdate
          */
         animationDelayUpdate?: number | Function,
 
@@ -915,7 +915,7 @@ declare namespace echarts {
          * About how time value (like `1491339540396`, `'2013-01-04'`, ...)
          * is parsed in echarts, see `the time part in date`.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#useUTC
+         * @see https://echarts.apache.org/en/option.html#useUTC
          */
         useUTC?: boolean,
     }
@@ -1093,7 +1093,7 @@ declare namespace echarts {
                  * Useful when multiple axis of this type has same position value.
                  *
                  * @default 0
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.offset
+                 * @see https://echarts.apache.org/en/option.html#yAxis.offset
                  */
                 offset?: number;
 
@@ -1112,7 +1112,7 @@ declare namespace echarts {
                 /**
                  * Text style of axis name.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.nameTextStyle
+                 * @see https://echarts.apache.org/en/option.html#yAxis.nameTextStyle
                  */
                 nameTextStyle?: TextStyleWithRich;
 
@@ -1153,7 +1153,7 @@ declare namespace echarts {
                  * @example
                  * boundaryGap: ['20%', '20%']
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.boundaryGap
+                 * @see https://echarts.apache.org/en/option.html#yAxis.boundaryGap
                  */
                 boundaryGap?: boolean | (string | number)[];
 
@@ -1201,7 +1201,7 @@ declare namespace echarts {
                  * are set.
                  *
                  * @default false
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.scale
+                 * @see https://echarts.apache.org/en/option.html#yAxis.scale
                  */
                 scale?: boolean;
 
@@ -1212,7 +1212,7 @@ declare namespace echarts {
                  * This is unavailable for category axis.
                  *
                  * @default 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitNumber
+                 * @see https://echarts.apache.org/en/option.html#yAxis.splitNumber
                  */
                 splitNumber?: number;
 
@@ -1226,7 +1226,7 @@ declare namespace echarts {
                  *     maxInterval: 3600 * 1000 * 24
                  * }
                  * It is available only for axis of type `'value'` or `'time'`.
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.minInterval
+                 * @see https://echarts.apache.org/en/option.html#yAxis.minInterval
                  */
                 minInterval?: any;
 
@@ -1242,7 +1242,7 @@ declare namespace echarts {
                  * Timestamp should be passed for type: `'time'` axis.
                  * Logged value should be passed for type: `'log'` axis.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.interval
+                 * @see https://echarts.apache.org/en/option.html#yAxis.interval
                  */
                 interval?: number;
 
@@ -1251,7 +1251,7 @@ declare namespace echarts {
                  * `'log'`.
                  *
                  * @default 10
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.logBase
+                 * @see https://echarts.apache.org/en/option.html#yAxis.logBase
                  */
                 logBase?: number;
 
@@ -1286,21 +1286,21 @@ declare namespace echarts {
                 /**
                  * Settings related to axis line.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLine
+                 * @see https://echarts.apache.org/en/option.html#yAxis.axisLine
                  */
                 axisLine?: Line;
 
                 /**
                  * Settings related to axis tick.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisTick
+                 * @see https://echarts.apache.org/en/option.html#yAxis.axisTick
                  */
                 axisTick?: CartesianAxis.Tick;
 
                 /**
                  * Settings related to axis label.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLabel
+                 * @see https://echarts.apache.org/en/option.html#yAxis.axisLabel
                  */
 
                 axisLabel?: CartesianAxis.Label;
@@ -1308,7 +1308,7 @@ declare namespace echarts {
                 /**
                  * SplitLine of axis in grid area.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitLine
+                 * @see https://echarts.apache.org/en/option.html#yAxis.splitLine
                  */
 
                 splitLine?: CartesianAxis.SplitLine;
@@ -1316,7 +1316,7 @@ declare namespace echarts {
                 /**
                  * Split area of axis in grid area, not shown by default.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitArea
+                 * @see https://echarts.apache.org/en/option.html#yAxis.splitArea
                  */
                 splitArea?: CartesianAxis.SplitArea;
 
@@ -1347,14 +1347,14 @@ declare namespace echarts {
                  *      }
                  *  }, 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
+                 * @see https://echarts.apache.org/en/option.html#yAxis.data
                  */
                 data?: (string | number | CartesianAxis.DataObject)[];
 
                 /**
                  * axisPointer settings on the axis.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisPointer
+                 * @see https://echarts.apache.org/en/option.html#yAxis.axisPointer
                  */
                 axisPointer?: CartesianAxis.Pointer;
 
@@ -1371,7 +1371,7 @@ declare namespace echarts {
                  * with smaller `zlevel`.
                  *
                  * @default 0
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.zlevel
+                 * @see https://echarts.apache.org/en/option.html#yAxis.zlevel
                  */
                 zlevel?: number;
 
@@ -1382,7 +1382,7 @@ declare namespace echarts {
                  * with larger z values.
                  * z has a lower priority to zlevel, and will not create new Canvas.
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.z
+                 * @see https://echarts.apache.org/en/option.html#yAxis.z
                  */
                 z?: number;
             }
@@ -1488,7 +1488,7 @@ declare namespace echarts {
                     show?: boolean;
                     precision?: number | string;
                     formatter?: string | Function;
-                    margin?: boolean;
+                    margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
                     fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'

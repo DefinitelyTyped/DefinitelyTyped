@@ -1,6 +1,6 @@
-// Type definitions for Angular Wizard 0.6.1
+// Type definitions for Angular Wizard 1.1.1
 // Project: https://github.com/mgonto/angular-wizard
-// Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>
+// Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>, Rannie Peralta <https://github.com/ranndev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -28,6 +28,7 @@ declare module 'angular' {
       currentStepDescription: () => string;
       currentStepTitle: () => string;
       getEnabledSteps(): WzStep[];
+      totalStepCount(): number;
     }
 
     interface WzStep {

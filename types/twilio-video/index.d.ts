@@ -4,6 +4,7 @@
 //                 Darío Blanco <https://github.com/darioblanco>
 //                 katashin <https://github.com/ktsn>
 //                 Benjamin Santalucia <https://github.com/ben8p>
+//                 Erick Delfin <https://github.com/nifled>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -170,6 +171,38 @@ export class MediaServerRemoteDescFailedError extends TwilioError {
     code: 53403;
     message: 'Server is unable to apply a remote media description';
 }
+export class NetworkQualityAudioStats extends NetworkQualityMediaStats { }
+export class NetworkQualityBandwidthStats {
+    actual: number | null;
+    available: number | null;
+    level: NetworkQualityLevel | null;
+}
+export class NetworkQualityFractionLostStats {
+    fractionLost: number | null;
+    level: NetworkQualityLevel | null;
+}
+export class NetworkQualityLatencyStats {
+    jitter: number | null;
+    rtt: number | null;
+    level: NetworkQualityLevel | null;
+}
+export class NetworkQualityMediaStats {
+    send: NetworkQualityLevel;
+    recv: NetworkQualityLevel;
+    sendStats: NetworkQualitySendOrRecvStats | null;
+    recvStats: NetworkQualitySendOrRecvStats | null;
+}
+export class NetworkQualitySendOrRecvStats {
+    bandwidth: NetworkQualityBandwidthStats | null;
+    latency: NetworkQualityLatencyStats | null;
+    fractionLost: NetworkQualityFractionLostStats | null;
+}
+export class NetworkQualityStats {
+    level: NetworkQualityLevel;
+    audio: NetworkQualityAudioStats | null; // nullable depending on verbosity config
+    video: NetworkQualityVideoStats | null;
+}
+export class NetworkQualityVideoStats extends NetworkQualityMediaStats { }
 export namespace Participant {
     type Identity = string;
     type SID = string;
@@ -179,6 +212,7 @@ export class Participant extends EventEmitter {
     dataTracks: Map<Track.SID, DataTrackPublication>;
     identity: Participant.Identity;
     networkQualityLevel: NetworkQualityLevel | null;
+    networkQualityStats: NetworkQualityStats | null;
     sid: Participant.SID;
     state: string;
     tracks: Map<Track.SID, TrackPublication>;
@@ -245,7 +279,7 @@ export class RemoteTrackPublication extends TrackPublication {
     kind: Track.Kind;
     track: RemoteTrack | null;
 }
-export class RemoteTrackStats {
+export class RemoteTrackStats extends TrackStats {
     bytesReceived: number | null;
     packetsReceived: number | null;
 }
