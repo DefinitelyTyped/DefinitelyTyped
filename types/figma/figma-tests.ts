@@ -12,4 +12,8 @@ async () => {
     const { a } = await figma.clientStorage.getAsync('happy');
 };
 
+if (frame.cornerRadius !== figma.mixed) {
+    frame.topLeftRadius = frame.cornerRadius;
+}
+
 figma.closePlugin();

@@ -1,4 +1,4 @@
-// Type definitions for blip-sdk 7.x
+// Type definitions for blip-sdk 7.3
 // Project: https://github.com/takenet/blip-sdk-js#readme
 // Definitions by: Henrique Torquato <https://github.com/henriquetorquato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,9 +8,28 @@ export namespace BlipSdk.Extensions {
     interface ArtificialIntelligence {
         // Analysis
 
-        getAnalysis(skip?: number, take?: number, ascending?: boolean, filter?: string): Promise<object[]>;
+        getAnalysis(
+            skip?: number,
+            take?: number,
+            ascending?: boolean,
+            filter?: string,
+            intents?: object[],
+            feedbacks?: object[],
+            source?: string,
+            beginDate?: string,
+            endDate?: string,
+            minScore?: string,
+            maxScore?: string): Promise<object>;
         analyse(analysis: object): Promise<object>;
-        setAnalysisByEmail(analysis: object): Promise<object>;
+        setAnalysisByEmail(
+            emailAndFilter: object,
+            intents?: object[],
+            feedbacks?: object[],
+            source?: string,
+            beginDate?: string,
+            endDate?: string,
+            minScore?: string,
+            maxScore?: string): Promise<object>;
         setAnalysisFeedback(id: string, analysisFeedback: object): Promise<object>;
         setAnalysesFeedback(analyses: object[]): Promise<object>;
 

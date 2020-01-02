@@ -253,8 +253,7 @@ class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
 
     testCreatePaymentMethodWithData = () => {
         this.props
-            .stripe!
-            .createPaymentMethod('card', {
+            .stripe!.createPaymentMethod('card', {
                 billing_details: {
                     name: 'John Doe'
                 },
@@ -268,8 +267,7 @@ class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
     testCreatePaymentMethodWithNewData = () => {
         const cardEl = this.props.elements!.getElement('card') || undefined;
         this.props
-            .stripe!
-            .createPaymentMethod({
+            .stripe!.createPaymentMethod({
                 type: 'card',
                 card: cardEl,
                 billing_details: {
@@ -281,24 +279,27 @@ class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
 
     testCreatePaymentMethodWithError = () => {
         this.props
-            .stripe!
-            .createPaymentMethod('card')
+            .stripe!.createPaymentMethod('card')
             .then((response) => response.error);
     }
 }
 
 class HandleCardPayment extends React.Component<InjectedStripeProps> {
+    testHandleCardAction = () => {
+        this.props
+            .stripe!.handleCardAction('{PAYMENT_INTENT_CLIENT_SECRET}')
+            .then((response) => response.paymentIntent);
+    }
+
     testHandleCardPayment = () => {
         this.props
-            .stripe!
-            .handleCardPayment('clientSecret')
+            .stripe!.handleCardPayment('clientSecret')
             .then((response) => response.paymentIntent);
     }
 
     testHandleCardPaymentWithOptions = () => {
         this.props
-            .stripe!
-            .handleCardPayment('clientSecret', {
+            .stripe!.handleCardPayment('clientSecret', {
                 payment_method_data: {
                     billing_details: {
                         name: 'John Doe'
@@ -311,8 +312,7 @@ class HandleCardPayment extends React.Component<InjectedStripeProps> {
 
     testHandleCardPaymentWithError = () => {
         this.props
-            .stripe!
-            .handleCardPayment('clientSecret')
+            .stripe!.handleCardPayment('clientSecret')
             .then((response) => response.error);
     }
 }
@@ -320,15 +320,13 @@ class HandleCardPayment extends React.Component<InjectedStripeProps> {
 class HandleCardSetup extends React.Component<InjectedStripeProps> {
     testHandleCardSetup = () => {
         this.props
-            .stripe!
-            .handleCardSetup('clientSecret')
+            .stripe!.handleCardSetup('clientSecret')
             .then((response) => response.setupIntent);
     }
 
     testHandleCardSetupWithData = () => {
         this.props
-            .stripe!
-            .handleCardSetup('clientSecret', {
+            .stripe!.handleCardSetup('clientSecret', {
                 payment_method_data: {
                     billing_details: {
                         name: 'John Doe'
@@ -340,8 +338,7 @@ class HandleCardSetup extends React.Component<InjectedStripeProps> {
 
     testHandleCardSetupWithError = () => {
         this.props
-            .stripe!
-            .handleCardSetup('clientSecret')
+            .stripe!.handleCardSetup('clientSecret')
             .then((response) => response.error);
     }
 }
@@ -350,8 +347,7 @@ class ConfirmPaymentPayment extends React.Component<InjectedStripeProps> {
     testConfirmCardPayment = () => {
         const el = this.props.elements!.getElement('card');
         this.props
-            .stripe!
-            .confirmCardPayment('clientSecret', {
+            .stripe!.confirmCardPayment('clientSecret', {
                 payment_method: {
                     card: el || { token: 'test token' },
                     billing_details: {
@@ -364,8 +360,7 @@ class ConfirmPaymentPayment extends React.Component<InjectedStripeProps> {
 
     testConfirmCardPaymentWithError = () => {
         this.props
-            .stripe!
-            .handleCardSetup('clientSecret')
+            .stripe!.handleCardSetup('clientSecret')
             .then((response) => response.error);
     }
 }
@@ -374,8 +369,7 @@ class ConfirmCardSetup extends React.Component<InjectedStripeProps> {
     testConfirmCardSetup = () => {
         const el = this.props.elements!.getElement('cardNumber');
         this.props
-            .stripe!
-            .confirmCardSetup('clientSecret', {
+            .stripe!.confirmCardSetup('clientSecret', {
                 payment_method: {
                     card: el || { token: 'test with token' },
                     billing_details: {
@@ -388,8 +382,7 @@ class ConfirmCardSetup extends React.Component<InjectedStripeProps> {
 
     testConfirmCardSetupWithError = () => {
         this.props
-            .stripe!
-            .handleCardSetup('clientSecret')
+            .stripe!.handleCardSetup('clientSecret')
             .then((response) => response.error);
     }
 }

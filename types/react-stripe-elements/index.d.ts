@@ -57,6 +57,12 @@ export namespace ReactStripeElements {
             data?: stripe.CreatePaymentMethodOptions,
         ): Promise<stripe.PaymentMethodResponse>;
         createPaymentMethod(data: stripe.PaymentMethodData): Promise<stripe.PaymentMethodResponse>;
+        /**
+         * Use `stripe.handleCardAction` in the Payment Intents API manual confirmation flow
+         * to handle a PaymentIntent with the requires_action status.
+         * It will throw an error if the PaymentIntent has a different status.
+         */
+        handleCardAction(clientSecret: string): Promise<stripe.PaymentIntentResponse>;
         handleCardPayment(
             clientSecret: string,
             options?: stripe.HandleCardPaymentWithoutElementsOptions,

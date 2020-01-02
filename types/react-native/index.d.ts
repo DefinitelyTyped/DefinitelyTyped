@@ -28,6 +28,7 @@
 //                 Jesse Katsumata <https://github.com/Naturalclar>
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
+//                 Sergey Sychev <https://github.com/SychevSP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
