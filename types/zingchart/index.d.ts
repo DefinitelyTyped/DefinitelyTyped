@@ -12653,7 +12653,7 @@ export interface graphset {
            width?: any;
        };
    };
-   series?: series;
+   series?: [series];
    shapes?: [
        {
            /**
@@ -18073,5 +18073,5 @@ export interface series {
         */
        visible?: boolean;
    };
-   values?: [{}];
+   values?: Array<any>;
 }
