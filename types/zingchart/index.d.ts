@@ -5480,9 +5480,6 @@ export interface graphset {
             * moving node). true (default) | false | 1 | 0
             */
            'on-change'?: boolean;
-           /**
-            *
-            */
            'on-legend-toggle'?: any;
            /**
             * Sets the animation effect. Numeric Code String Name 1 `ANIMGATION_FADE_IN` 2 `ANIMATION_EXPAND_VERTICAL` 3 `ANIMATION_EXPAND_TOP`
