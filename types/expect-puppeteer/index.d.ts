@@ -2,6 +2,7 @@
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Jason Mong <https://github.com/jfm710>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -27,6 +28,11 @@ interface ExpectTimingActions {
      * Maximum time to wait for in milliseconds. Defaults to 500.
      */
     timeout?: number;
+
+    /**
+     * delay to pass to the puppeteer element.type API in milliseconds
+     */
+    delay?: number;
 }
 
 interface ExpectToClickOptions extends ExpectTimingActions {
