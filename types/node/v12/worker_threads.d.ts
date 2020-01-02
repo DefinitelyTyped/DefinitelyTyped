@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
 
@@ -54,6 +55,7 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
