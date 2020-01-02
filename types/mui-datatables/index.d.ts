@@ -28,7 +28,12 @@ interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
+    columns: MUIDataTableColumnState[];
+    count: number;
+    data: any[];
+    displayData: Array<{dataIndex: number; data: any[]}>;
     expandedRows: MUIDataTableStateRows;
+    filterData: any[];
     filterList: string[][];
     page: number;
     rowsPerPage: number;
@@ -109,6 +114,11 @@ export interface MUIDataTableFilterOptions {
     logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
+export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
+    name: string;
+    label?: string;
+}
+
 export interface MUIDataTableColumnOptions {
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
@@ -117,8 +127,8 @@ export interface MUIDataTableColumnOptions {
     download?: boolean;
     empty?: boolean;
     filter?: boolean;
-    filterList?: string[];
     filterType?: FilterType;
+    filterList?: string[];
     filterOptions?: MUIDataTableFilterOptions;
     hint?: string;
     print?: boolean;
@@ -126,7 +136,7 @@ export interface MUIDataTableColumnOptions {
     setCellHeaderProps?: (columnMeta: MUIDataTableCustomHeadRenderer) => object;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
-    sortDirection?: 'asc' | 'desc';
+    sortDirection?: 'asc' | 'desc' | 'none';
     viewColumns?: boolean;
 }
 
@@ -194,12 +204,17 @@ export interface MUIDataTableOptions {
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
+    /**
+     * A callback function that triggers when the user downloads the CSV file.
+     * In the callback, you can control what is written to the CSV file.
+     * Return false to cancel download of file.
+     */
     onDownload?: (
         buildHead: (columns: any) => string,
         buildBody: (data: any) => string,
         columns: any,
-        data: any
-    ) => string;
+        data: any,
+    ) => string | boolean;
     onFilterChange?: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;

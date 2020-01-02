@@ -39,7 +39,7 @@ import { EventEmitter } from 'events';
 import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
-// This line can be removed after minimum required TypeScript Version is above 3.5
+// We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
@@ -626,8 +626,8 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#admin */
     admin(): Admin;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
-    collection<TSchema = Default>(name: string, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = DefaultSchema>(name: string, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = DefaultSchema>(name: string, options: DbCollectionOptions, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collections */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
@@ -636,9 +636,9 @@ export class Db extends EventEmitter {
     command(command: object, options?: { readPreference: ReadPreferenceOrMode, session?: ClientSession }): Promise<any>;
     command(command: object, options: { readPreference: ReadPreferenceOrMode, session?: ClientSession }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createCollection */
-    createCollection<TSchema = Default>(name: string, callback: MongoCallback<Collection<TSchema>>): void;
-    createCollection<TSchema = Default>(name: string, options?: CollectionCreateOptions): Promise<Collection<TSchema>>;
-    createCollection<TSchema = Default>(name: string, options: CollectionCreateOptions, callback: MongoCallback<Collection<TSchema>>): void;
+    createCollection<TSchema = DefaultSchema>(name: string, callback: MongoCallback<Collection<TSchema>>): void;
+    createCollection<TSchema = DefaultSchema>(name: string, options?: CollectionCreateOptions): Promise<Collection<TSchema>>;
+    createCollection<TSchema = DefaultSchema>(name: string, options: CollectionCreateOptions, callback: MongoCallback<Collection<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createIndex */
     createIndex(name: string, fieldOrSpec: string | object, callback: MongoCallback<any>): void;
     createIndex(name: string, fieldOrSpec: string | object, options?: IndexOptions): Promise<any>;
@@ -673,9 +673,9 @@ export class Db extends EventEmitter {
     removeUser(username: string, options?: CommonOptions): Promise<any>;
     removeUser(username: string, options: CommonOptions, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#renameCollection */
-    renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, callback: MongoCallback<Collection<TSchema>>): void;
-    renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
-    renameCollection<TSchema = Default>(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
+    renameCollection<TSchema = DefaultSchema>(fromCollection: string, toCollection: string, callback: MongoCallback<Collection<TSchema>>): void;
+    renameCollection<TSchema = DefaultSchema>(fromCollection: string, toCollection: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
+    renameCollection<TSchema = DefaultSchema>(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#setProfilingLevel */
     setProfilingLevel(level: ProfilingLevel, callback: MongoCallback<ProfilingLevel>): void;
     setProfilingLevel(level: ProfilingLevel, options?: { session?: ClientSession }): Promise<ProfilingLevel>;
@@ -867,7 +867,10 @@ export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
 
-type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
+// TypeScript Omit (Exclude to be specific) does not work for objects with an "any" indexed type
+type EnhancedOmit<T, K> =
+    string | number extends keyof T ? T : // T has indexed type e.g. { _id: string; [k: string]: any; } or it is "any"
+    Omit<T, K>;
 
 type ExtractIdType<TSchema> =
     TSchema extends { _id: infer U } // user has defined a type for _id
@@ -875,12 +878,19 @@ type ExtractIdType<TSchema> =
       unknown extends U ? ObjectId : U
     : ObjectId; // user has not defined _id on schema
 
+// this makes _id optional
+type OptionalId<TSchema extends { _id?: any }> =
+    ObjectId extends TSchema['_id']
+        // a Schema with ObjectId _id type or "any" or "indexed type" provided
+        ? EnhancedOmit<TSchema, '_id'> & { _id?: ExtractIdType<TSchema> }
+        // a Schema provided but _id type is not ObjectId
+        : WithId<TSchema>;
+
 // this adds _id as a required property
-type WithId<TSchema> =
-    Omit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
+type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
-export interface Collection<TSchema = Default> {
+export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
     /**
      * Get the collection name.
      */
@@ -1709,7 +1719,7 @@ export interface DeleteWriteOpResultObject {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~findAndModifyWriteOpResult */
-export interface FindAndModifyWriteOpResultObject<TSchema = Default> {
+export interface FindAndModifyWriteOpResultObject<TSchema> {
     //Document returned from findAndModify command.
     value?: TSchema;
     //The raw lastErrorObject returned from the command.
@@ -1884,15 +1894,6 @@ export interface FindOneOptions {
     session?: ClientSession;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertWriteOpResult */
-export interface InsertWriteOpResult<TSchema extends Record<string, any>> {
-    insertedCount: number;
-    ops: TSchema[];
-    insertedIds: { [key: number]: TSchema['_id'] };
-    connection: any;
-    result: { ok: number; n: number };
-}
-
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
 export interface CollectionInsertOneOptions extends CommonOptions {
     /**
@@ -1905,8 +1906,17 @@ export interface CollectionInsertOneOptions extends CommonOptions {
     bypassDocumentValidation?: boolean;
 }
 
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertWriteOpResult */
+export interface InsertWriteOpResult<TSchema extends { _id: any }> {
+    insertedCount: number;
+    ops: TSchema[];
+    insertedIds: { [key: number]: TSchema['_id'] };
+    connection: any;
+    result: { ok: number; n: number };
+}
+
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertOneWriteOpResult */
-export interface InsertOneWriteOpResult<TSchema extends Record<string, any>> {
+export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
     insertedId: TSchema['_id'];
@@ -1986,6 +1996,7 @@ export interface WriteOpResult {
 export type CursorResult = object | null | boolean;
 
 type Default = any;
+type DefaultSchema = any;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html */
 export class Cursor<T = Default> extends Readable {

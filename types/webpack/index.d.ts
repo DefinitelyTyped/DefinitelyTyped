@@ -113,8 +113,6 @@ declare namespace webpack {
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
-        /** Switch loaders to debug mode. */
-        debug?: boolean;
         /** Include polyfills or mocks for various node stuff */
         node?: Node | false;
         /** Set the value of require.amd and define.amd. */
@@ -265,10 +263,6 @@ declare namespace webpack {
     }
 
     interface Module {
-        /** A array of applied pre loaders. */
-        preLoaders?: RuleSetRule[];
-        /** A array of applied post loaders. */
-        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;

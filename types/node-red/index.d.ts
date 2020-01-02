@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 
 /**
  * Node-RED node creation api.

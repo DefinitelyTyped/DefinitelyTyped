@@ -64,6 +64,29 @@ declare module "dgram" {
         setSendBufferSize(size: number): void;
         setTTL(ttl: number): void;
         unref(): this;
+        /**
+         * Tells the kernel to join a source-specific multicast channel at the given
+         * `sourceAddress` and `groupAddress`, using the `multicastInterface` with the
+         * `IP_ADD_SOURCE_MEMBERSHIP` socket option.
+         * If the `multicastInterface` argument
+         * is not specified, the operating system will choose one interface and will add
+         * membership to it.
+         * To add membership to every available interface, call
+         * `socket.addSourceSpecificMembership()` multiple times, once per interface.
+         */
+        addSourceSpecificMembership(sourceAddress: string, groupAddress: string, multicastInterface?: string): void;
+
+        /**
+         * Instructs the kernel to leave a source-specific multicast channel at the given
+         * `sourceAddress` and `groupAddress` using the `IP_DROP_SOURCE_MEMBERSHIP`
+         * socket option. This method is automatically called by the kernel when the
+         * socket is closed or the process terminates, so most apps will never have
+         * reason to call this.
+         *
+         * If `multicastInterface` is not specified, the operating system will attempt to
+         * drop membership on all valid interfaces.
+         */
+        dropSourceSpecificMembership(sourceAddress: string, groupAddress: string, multicastInterface?: string): void;
 
         /**
          * events.EventEmitter

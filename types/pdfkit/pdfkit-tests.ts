@@ -181,6 +181,8 @@ doc.text('Baseline - string literal', { baseline: 'alphabetic' });
 
 doc.text('Baseline - numeric', { baseline: 10 });
 
+doc.text('Text with features', { features: [ "kern" ] });
+
 doc.goTo(0, 0, 0, 0, 'lorem');
 
 doc.image('path/to/image.png', {
