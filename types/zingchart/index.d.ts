@@ -1,9 +1,9 @@
-// Type definitions for zingchart 2.8.x
+// Type definitions for zingchart 2.8
 // Project: https://github.com/zingchart
 // Definitions by: Mike Schultz <https://github.com/mike-schultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-import * as zingchart from 'zingchart';
+import * as zingchart from '.';
 export as namespace zingchart;
 export function render(config: object): null;
 
@@ -5458,57 +5458,18 @@ export interface graphset {
         */
        'z-start'?: number;
        animation?: {
-           /**
-            *
-            */
            '1'?: any;
-           /**
-            *
-            */
            '2'?: any;
-           /**
-            *
-            */
            '3'?: any;
-           /**
-            *
-            */
            '4'?: any;
-           /**
-            *
-            */
            '5'?: any;
-           /**
-            *
-            */
            '6'?: any;
-           /**
-            *
-            */
            '7'?: any;
-           /**
-            *
-            */
            '8'?: any;
-           /**
-            *
-            */
            '9'?: any;
-           /**
-            *
-            */
            '10'?: any;
-           /**
-            *
-            */
            '11'?: any;
-           /**
-            *
-            */
            '12'?: any;
-           /**
-            *
-            */
            '13'?: any;
            /**
             * Sets the delay in milliseconds between each step of the animation. 5 | 10 | ...
@@ -10843,73 +10804,22 @@ export interface graphset {
             * ys the year in 4-digit format. `%y` Displays the year in 2-digit format.
             */
            all?: string;
-           /**
-            *
-            */
            '`%A`'?: any;
-           /**
-            *
-            */
            '`%a`'?: any;
-           /**
-            *
-            */
            '`%D`'?: any;
-           /**
-            *
-            */
            '`%d`'?: any;
-           /**
-            *
-            */
            '`%dd`'?: any;
-           /**
-            *
-            */
            '`%G`'?: any;
-           /**
-            *
-            */
            '`%g`'?: any;
-           /**
-            *
-            */
            '`%H`'?: any;
-           /**
-            *
-            */
            '`%h`'?: any;
-           /**
-            *
-            */
            '`%i`'?: any;
-           /**
-            *
-            */
            '`%M`'?: any;
-           /**
-            *
-            */
            '`%m`'?: any;
-           /**
-            *
-            */
            '`%mm`'?: any;
-           /**
-            *
-            */
            '`%q`'?: any;
-           /**
-            *
-            */
            '`%s`'?: any;
-           /**
-            *
-            */
            '`%Y`'?: any;
-           /**
-            *
-            */
            '`%y`'?: any;
            guide?: {
                /**
