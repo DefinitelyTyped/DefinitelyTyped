@@ -27,6 +27,7 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
+  useUnifiedTopology: true,
   useCreateIndex: true,
   autoIndex: true,
   autoCreate: true,
