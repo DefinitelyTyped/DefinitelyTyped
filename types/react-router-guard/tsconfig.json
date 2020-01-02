@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-router-guard-tests.ts",
         "test/RouterGuard.tsx",
         "test/Page.tsx",
         "test/Layout.tsx",
