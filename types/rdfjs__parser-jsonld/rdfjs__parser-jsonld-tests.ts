@@ -1,6 +1,6 @@
 import Parser = require('@rdfjs/parser-jsonld');
 import { Context } from 'jsonld/jsonld-spec';
-import { DataFactory, Sink, Stream } from 'rdf-js';
+import { DataFactory, Sink, Stream, BaseQuad } from 'rdf-js';
 
 const baseIRI = '';
 const context: Context = {} as any;
@@ -16,3 +16,12 @@ const sink: Sink = parser1;
 const eventEmitter1: Stream = parser1.import(stream);
 const eventEmitter2: Stream = parser1.import(stream, {});
 const eventEmitter3: Stream = parser1.import(stream, { baseIRI, context, factory });
+
+interface SpecializedQuad extends BaseQuad {
+    foo: string;
+}
+const typedStream: Stream<SpecializedQuad> = <any> {};
+const typedParser: Parser<SpecializedQuad> = <any> {};
+const typedImported: Stream<SpecializedQuad> = typedParser.import(typedStream);
+const typedImported1: Stream<SpecializedQuad> = typedParser.import(typedStream, {});
+const typedImported2: Stream<SpecializedQuad> = typedParser.import(typedStream, { baseIRI, context, factory });
