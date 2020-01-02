@@ -14,6 +14,9 @@ import tarStream = require('tar-stream');
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
 
+export type Pack = tarStream.Pack;
+export type Extract = tarStream.Extract;
+
 export interface Options {
     ignore?: (name: string) => boolean;
     filter?: (name: string) => boolean;
