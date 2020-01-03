@@ -546,6 +546,10 @@ function test_geo_points() {
     let point = new Parse.GeoPoint();
     // $ExpectError
     point = new Parse.GeoPoint('40.0');
+    // $ExpectError
+    point = new Parse.GeoPoint(40.0);
+    // $ExpectError
+    point = new Parse.GeoPoint([40.0, -30.0, 20.0]);
     point = new Parse.GeoPoint([40.0, -30.0]);
     point = new Parse.GeoPoint(40.0, -30.0);
     point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
