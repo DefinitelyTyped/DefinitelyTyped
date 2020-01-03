@@ -2,6 +2,8 @@ import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 declare namespace DateTimePicker {
+    type Open = false | "date" | "time";
+
     interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
         /**
          * Set the culture of the DateTimePicker, passed to the configured localizer.
@@ -137,17 +139,17 @@ declare namespace DateTimePicker {
          * handle the opening and closing internally.
          * @default false
          */
-        open?: false | "date" | "time";
+        open?: Open;
         /**
          * The defaultOpen prop can be used to set an
          * initialization value for uncontrolled widgets.
          */
-        defaultOpen?: false | "calendar" | "time";
+        defaultOpen?: Open;
         /**
          * Called when the DateTimePicker is about to open or close. onToggle should be used when
          * the open prop is set otherwise the widget will never open or close.
          */
-        onToggle?: (isOpen: boolean) => void;
+        onToggle?: (isOpen: Open) => void;
         /**
          * The speed, in milliseconds, of the either dropdown animation.
          */

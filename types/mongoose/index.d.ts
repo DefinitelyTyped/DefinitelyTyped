@@ -371,6 +371,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** Flag for using new Server Discovery and Monitoring engine instead of current (deprecated) one */
+    useUnifiedTopology?: boolean;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;
