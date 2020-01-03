@@ -3,6 +3,37 @@ import { expectType } from './index.test';
 
 declare const any: unknown;
 
+ES2015.Type(undefined); // $ExpectType "Undefined"
+ES2015.Type(null); // $ExpectType "Null"
+ES2015.Type('foo'); // $ExpectType "String"
+ES2015.Type(123); // $ExpectType "Number"
+ES2015.Type(true); // $ExpectType "Boolean"
+ES2015.Type(false); // $ExpectType "Boolean"
+ES2015.Type({}); // $ExpectType "Object"
+ES2015.Type([]); // $ExpectType "Object"
+
+// Can't use '$ExpectType' due to union type ordering weirdness:
+expectType<
+	| 'String'
+	| 'Number'
+	| 'Boolean'
+	| 'Symbol' // New in ES2015
+	| 'Null'
+	| 'Undefined'
+	| 'Object'
+	| undefined
+>(ES2015.Type(any));
+expectType<
+	| 'String'
+	| 'Number'
+	| 'Boolean'
+	| 'Symbol' // New in ES2015
+	| 'Null'
+	| 'Undefined'
+	| 'Object'
+	| undefined
+>(ES2015.Type<any>(any));
+
 ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
 ES2015.ToInt16(any); // $ExpectType number
 ES2015.ToInt8(any); // $ExpectType number
@@ -16,17 +47,35 @@ ES2015.Call(Object.prototype.toString, BigInt(Number.MAX_SAFE_INTEGER)); // $Exp
 ES2015.GetIterator([1, 2, 3]);
 
 function* generable() {
-	yield 1;
+	const foo: string = yield 1;
+	return Boolean(foo);
 }
 
-// $ExpectType Generator<number, void, unknown>
+declare function iterNext<T, TReturn = any, TNext = unknown>(
+	this: Iterator<T, TReturn, TNext>,
+	...args: [] | [TNext]
+): IteratorResult<T, TReturn>;
+
+// $ExpectType IteratorResult<number, boolean>
+ES2015.Call(iterNext, generable());
+
+// $ExpectType IteratorResult<number, boolean>
+ES2015.Invoke(generable(), 'next', any as IArguments);
+
+ES2015.Invoke(generable(), Symbol.iterator, any as IArguments);
+
+// $ExpectType boolean
+ES2015.Invoke(Reflect, 'has', any as IArguments);
+
+// $ExpectType Generator<number, boolean, string>
 ES2015.GetIterator({ [Symbol.iterator]: generable });
 
-// $ExpectType Generator<number, void, unknown>
+// $ExpectType Generator<number, boolean, string>
 ES2015.GetIterator(null, generable);
 
-ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, void>
+ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, boolean>
 ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise<IteratorResult<number, void>>
+
 // $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
 	// tslint:disable-next-line: invalid-void

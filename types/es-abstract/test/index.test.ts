@@ -14,7 +14,7 @@ import ES2019 = require('es-abstract/es2019');
  * The `expectType` function from https://www.npmjs.com/package/tsd,
  * except instead of returning `void`, it returns `T`.
  */
-export declare function expectType<T>(t: T): T;
+export declare function expectType<T>(value: T): T;
 
 expectType<typeof ES5>(ESAbstract.ES5); // $ExpectType ES5
 

@@ -7,14 +7,20 @@ import { PropertyKey as ESPropertyKey } from './index';
 type TSPropertyKey = PropertyKey;
 
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
+	Call<R, T = unknown>(F: (this: T) => R, thisArg: T): R;
+	Call<R, A extends unknown[] | [unknown], T = unknown>(
+		F: (this: T, ...args: A) => R,
+		thisArg: T,
+		args: Readonly<A>,
+	): R;
 	// tslint:disable-next-line: ban-types
 	Call<F extends Function>(
 		F: F,
-		thisArg: ThisParameterType<F>,
-		args?: F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[],
+		thisArg: F extends (this: infer T) => any ? T : unknown,
+		args?:
+			| (F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[])
+			| ArrayLike<F extends (...args: infer A) => any ? (A extends Array<infer T> ? T : unknown) : unknown>,
 	): F extends (...args: any) => infer R ? R : any;
-	// tslint:disable-next-line: ban-types
-	Call<F extends Function>(F: F, thisArg: ThisParameterType<F>, args?: ArrayLike<unknown>): any;
 
 	readonly ToPrimitive: typeof toPrimitive;
 	ToInt16(value: unknown): number;
@@ -36,21 +42,25 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	SameValueZero(x: unknown, y: unknown): boolean;
 
 	GetV<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
-	GetV(O: unknown, P: ESPropertyKey): any;
-
 	GetMethod<O, P extends ESPropertyKey>(
 		O: O,
 		P: P,
-	): P extends keyof O
-		// tslint:disable-next-line: ban-types
-		? (NonNullable<O[P]> extends Function ? O[P] : never)
+	): P extends keyof O // tslint:disable-next-line: ban-types
+		? NonNullable<O[P]> extends Function
+			? O[P]
+			: never
 		: ((...args: any) => any) | undefined;
-	GetMethod(O: unknown, P: ESPropertyKey): ((...args: any) => any) | undefined;
-
 	Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
-	Get(O: object, P: ESPropertyKey): any;
 
-	Type(x: unknown): 'Null' | 'Undefined' | 'Object' | 'Number' | 'Boolean' | 'String' | 'Symbol' | undefined;
+	Type<T>(x: T)
+		: T extends string ? 'String'
+		: T extends number ? 'Number'
+		: T extends boolean ? 'Boolean'
+		: T extends symbol ? 'Symbol'
+		: T extends null ? 'Null'
+		: T extends undefined ? 'Undefined'
+		: T extends object ? 'Object'
+		: 'String' | 'Number' | 'Boolean' | 'Symbol' | 'Null' | 'Undefined' | 'Object' | undefined;
 
 	// tslint:disable-next-line: ban-types
 	SpeciesConstructor<C extends Function = new (...args: any) => any>(
@@ -69,35 +79,59 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	>;
 	CompletePropertyDescriptor(Desc: ES5.PropertyDescriptor & ThisType<any>): Required<ES5.PropertyDescriptor>;
 
-	Set(O: object, P: ESPropertyKey, V: unknown, Throw: true): true | never;
-	Set(O: object, P: ESPropertyKey, V: unknown, Throw: boolean): boolean;
+	Set<O extends object, P extends ESPropertyKey>(
+		O: O,
+		P: P,
+		V: P extends keyof O ? O[P] : unknown,
+		Throw: true,
+	): true | never;
+	Set<O extends object, P extends ESPropertyKey>(
+		O: O,
+		P: P,
+		V: P extends keyof O ? O[P] : unknown,
+		Throw: boolean,
+	): boolean;
 
 	HasOwnProperty(O: object, P: ESPropertyKey): boolean;
 	HasProperty(O: object, P: ESPropertyKey): boolean;
 
 	IsConcatSpreadable(O: object): boolean;
-	Invoke<O, P extends keyof O & ESPropertyKey, AX extends unknown[]>(
+	Invoke<O, P extends ESPropertyKey>(
 		O: O,
 		P: P,
-		args?: AX,
-	): O[P] extends (...args: AX) => infer R ? R : never;
+		args?:
+			| (P extends keyof O
+					? O[P] extends (...args: infer A) => any
+						? Readonly<A>
+						: readonly unknown[]
+					: readonly unknown[])
+			| ArrayLike<
+					P extends keyof O
+						? O[P] extends (...args: infer A) => any
+							? A extends Array<infer T>
+								? T
+								: unknown
+							: unknown
+						: unknown
+			  >,
+	): P extends keyof O ? (O[P] extends (...args: any) => infer R ? R : never) : any;
 
 	/**
 	 * @param obj The iterable
 	 * @param method The method to use to get the `Iterator`
 	 */
-	GetIterator<I extends Iterator<unknown>>(obj: { [Symbol.iterator](): I }): I;
-	GetIterator<O, I extends Iterator<unknown>>(obj: O, method: (this: O) => I): I;
+	GetIterator<I extends Iterator<any, any, any>>(obj: { [Symbol.iterator](): I }): I;
+	GetIterator<O, I extends Iterator<any, any, any>>(obj: O, method: (this: O) => I): I;
 
-	IteratorNext<T, TReturn = unknown, TNext = undefined>(
+	IteratorNext<T, TReturn = any, TNext = undefined>(
 		iterator: Iterator<T, TReturn, TNext>,
 		value?: TNext,
 	): IteratorResult<T, TReturn>;
-	IteratorNext<T, TReturn = unknown, TNext = undefined>(
+	IteratorNext<T, TReturn = any, TNext = undefined>(
 		iterator: AsyncIterator<T, TReturn, TNext>,
 		value?: TNext,
 	): Promise<IteratorResult<T, TReturn>>;
-	IteratorNext<T, TReturn = unknown, TNext = undefined>(
+	IteratorNext<T, TReturn = any, TNext = undefined>(
 		iterator: Iterator<T, TReturn, TNext> | AsyncIterator<T, TReturn, TNext>,
 		value?: TNext,
 	): IteratorResult<T, TReturn> | Promise<IteratorResult<T, TReturn>>;
@@ -108,12 +142,12 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
 	CreateIterResultObject<T>(value: T, done: boolean): IteratorResult<T, T>;
 
 	RegExpExec(R: RegExp | { exec(string: string): RegExpExecArray | null }, S: string): RegExpExecArray | null;
-	ArraySpeciesCreate<T>(originalArray: T[], length: number): T[];
+	ArraySpeciesCreate<T>(originalArray: readonly T[], length: number): T[];
 
 	CreateDataProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
 	CreateDataPropertyOrThrow(O: object, P: ESPropertyKey, V: unknown): boolean;
 
-	ObjectCreate(proto: object | null, internalSlotsList?: []): object;
+	ObjectCreate(proto: object | null, internalSlotsList?: readonly []): any;
 	AdvanceStringIndex(S: string, index: number, unicode: boolean): number;
 
 	CreateMethodProperty(O: object, P: ESPropertyKey, V: unknown): boolean;

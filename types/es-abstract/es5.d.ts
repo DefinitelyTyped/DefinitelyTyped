@@ -19,14 +19,28 @@ interface ES5 {
 	ToUint32(value: unknown): number;
 	ToUint16(value: unknown): number;
 	ToString(value: unknown): string;
-	ToObject<T>(value: T): T extends object ? T : T extends null | undefined ? never : object;
-	ToObject(value: unknown): object;
-	CheckObjectCoercible<T>(value: T, errorMessage?: string): T extends null | undefined ? never : T;
+	// tslint:disable: ban-types
+	ToObject<T>(value: T): T extends object ? T
+		: T extends null | undefined ? never
+		: T extends string ? String
+		: T extends number ? Number
+		: T extends boolean ? Boolean
+		: T extends symbol ? Symbol
+		: T extends bigint ? BigInt
+		: object;
+	// tslint:enable: ban-types
+	CheckObjectCoercible<T>(value: T, errorMessage?: string): NonNullable<T>;
 
 	readonly IsCallable: typeof isCallable;
 	SameValue(x: unknown, y: unknown): boolean;
 
-	Type(x: unknown): 'Null' | 'Undefined' | 'Object' | 'Number' | 'Boolean' | 'String' | undefined;
+	Type<T>(x: T): T extends string ? 'String'
+		: T extends number ? 'Number'
+		: T extends boolean ? 'Boolean'
+		: T extends null ? 'Null'
+		: T extends undefined ? 'Undefined'
+		: T extends object ? 'Object'
+		: 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
 
 	IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
 	IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
