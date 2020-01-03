@@ -1917,7 +1917,8 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        object<TSchema = any>(schema?: SchemaMap<TSchema>): ObjectSchema<TSchema>;
+        // tslint:disable-next-line:no-unnecessary-generics
+        object<TSchema = any, T = TSchema>(schema?: SchemaMap<T>): ObjectSchema<TSchema>;
 
         /**
          * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
