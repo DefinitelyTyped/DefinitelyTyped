@@ -32,7 +32,6 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 
     await expect(instance).toUploadFile("selector", "filePath");
     await expect(instance).toUploadFile("selector", "filePath", { timeout: 777 });
-
 };
 
 const testImported = async (instance: ElementHandle | Page) => {

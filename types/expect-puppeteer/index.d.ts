@@ -44,7 +44,7 @@ interface ExpectToClickOptions extends ExpectTimingActions {
     /**
      * defaults to 1. See UIEvent.detail.
      */
-    clickCount?:  number;
+    clickCount?: number;
 
     /**
      * Time to wait between mousedown and mouseup in milliseconds. Defaults to 0.
