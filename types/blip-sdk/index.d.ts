@@ -13,8 +13,8 @@ export namespace BlipSdk.Extensions {
             take?: number,
             ascending?: boolean,
             filter?: string,
-            intents?: object[],
-            feedbacks?: object[],
+            intents?: string[],
+            feedbacks?: string[],
             source?: string,
             beginDate?: string,
             endDate?: string,
@@ -23,8 +23,8 @@ export namespace BlipSdk.Extensions {
         analyse(analysis: object): Promise<object>;
         setAnalysisByEmail(
             emailAndFilter: object,
-            intents?: object[],
-            feedbacks?: object[],
+            intents?: string[],
+            feedbacks?: string[],
             source?: string,
             beginDate?: string,
             endDate?: string,
