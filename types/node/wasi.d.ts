@@ -23,7 +23,7 @@ declare module 'wasi' {
     }
 
     class WASI {
-        constructor(options: WASIOptions);
+        constructor(options?: WASIOptions);
         /**
          *
          * Attempt to begin execution of `instance` by invoking its `_start()` export.
