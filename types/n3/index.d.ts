@@ -18,7 +18,7 @@ export interface Prefixes<I = RDF.NamedNode> {
 }
 
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
-export type PrefixedToIri = (suffix: string) => RDF.NamedNode;
+export type PrefixedToIri = (suffix: string) => NamedNode;
 
 export class NamedNode implements RDF.NamedNode {
     readonly termType: "NamedNode";

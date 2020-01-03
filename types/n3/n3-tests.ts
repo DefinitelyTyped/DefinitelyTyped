@@ -239,4 +239,5 @@ function test_doc_utility() {
     const prefixes: N3.Prefixes = { rdfs: N3.DataFactory.namedNode('http://www.w3.org/2000/01/rdf-schema#') };
     const namedNode1: RDF.NamedNode = N3Util.prefix('http://www.w3.org/2000/01/rdf-schema#')('label');
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
+    const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
 }
