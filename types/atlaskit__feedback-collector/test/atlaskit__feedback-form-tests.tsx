@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import { render } from "react-dom";
 import { FeedbackForm, FormFields } from '@atlaskit/feedback-collector';
 
