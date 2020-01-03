@@ -586,8 +586,6 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
-        <WithComponentH1 as="a" href="" />
-        <WithComponentH1 as="div" href="" /> // $ExpectError
     </>
 );
 
@@ -597,8 +595,6 @@ const forwardedAsTest = (
     <>
         <ForwardedAsComponent forwardedAs="h2" />
         <ForwardedAsComponent forwardedAs={WithComponentH2} />
-        <ForwardedAsComponent forwardedAs="a" href="" />
-        <ForwardedAsComponent forwardedAs="div" href="" /> // $ExpectError
     </>
 );
 
