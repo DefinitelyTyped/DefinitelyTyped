@@ -52,3 +52,11 @@ const obj = new ObjC.Object(ptr("0x42"));
 
 // $ExpectType Object
 obj;
+
+Java.enumerateClassLoadersSync()
+    .forEach(classLoader => {
+        // $ExpectType ClassFactory
+        const factory = Java.ClassFactory.get(classLoader);
+        // $ExpectType Wrapper
+        factory.use("java.lang.String");
+    });
