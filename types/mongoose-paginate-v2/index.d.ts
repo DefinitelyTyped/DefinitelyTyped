@@ -41,6 +41,8 @@ declare module 'mongoose' {
         page?: number;
         limit?: number;
         read?: ReadOptions;
+        /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
+        pagination?: boolean;
     }
 
     interface QueryPopulateOptions {
