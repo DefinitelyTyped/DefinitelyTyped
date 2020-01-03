@@ -1,4 +1,4 @@
-// Type definitions for react-simple-maps 1.0.0
+// Type definitions for react-simple-maps 1.0
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
