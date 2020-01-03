@@ -2,28 +2,21 @@
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
-import {
-    Schema,
-    model,
-    PaginateModel,
-    PaginateOptions,
-    PaginateResult,
-    Document
-} from 'mongoose';
+import { Schema, model, PaginateModel, PaginateOptions, PaginateResult, Document } from 'mongoose';
 import mongoosePaginate = require('mongoose-paginate');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
 interface User extends Document {
-  email: string;
-  username: string;
-  password: string;
+    email: string;
+    username: string;
+    password: string;
 }
 
 const UserSchema: Schema = new Schema({
-  email: String,
-  username: String,
-  password: String
+    email: String,
+    username: String,
+    password: String,
 });
 
 UserSchema.plugin(mongoosePaginate);
@@ -40,11 +33,11 @@ router.get('/users.json', (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
     options.select = 'email username';
-    options.sort = { username: (descending ? -1 : 1) };
+    options.sort = { username: descending ? -1 : 1 };
     options.collation = { locale: 'en_US', strength: 1 };
     options.populate = '';
     options.populate = {
-      path: '',
+        path: '',
     };
     options.lean = true;
     options.leanWithId = false;
@@ -58,11 +51,10 @@ router.get('/users.json', (req: Request, res: Response) => {
         totalPages: 'totalPagesCustom',
         docs: 'docsCustom',
         nextPage: 'nextPageCustom',
-        prevPage: 'prevPageCustom'
+        prevPage: 'prevPageCustom',
     };
 
-    UserModel
-    .paginate({}, options, (err: any, value: PaginateResult<User>) => {
+    UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);
