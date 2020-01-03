@@ -292,7 +292,8 @@ namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: number[] | { latitude: number, longitude: number } | number, arg2?: number);
+        constructor(latitude: number, longitude: number);
+        constructor(coords?: { latitude: number, longitude: number } | [number, number]);
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
