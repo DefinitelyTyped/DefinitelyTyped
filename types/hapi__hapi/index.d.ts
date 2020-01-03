@@ -3965,6 +3965,11 @@ export class Server {
     table(host?: string): RequestRoute[];
 }
 
+/**
+ * Supporting v17 introduced new syntax
+ */
+export function server(opts?: ServerOptions): Server
+
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
  +                                                                           +
