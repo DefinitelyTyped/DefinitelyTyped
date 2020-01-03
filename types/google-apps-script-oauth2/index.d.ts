@@ -89,6 +89,13 @@ declare namespace GoogleAppsScriptOAuth2 {
          */
         setCache(cache: GoogleAppsScript.Cache.Cache): OAuth2Service;
         /**
+         * Sets the lock to use when checking and refreshing credentials (optional).
+         * Using a lock will ensure that only one execution will be able to access the
+         * stored credentials at a time. This can prevent race conditions that arise
+         * when two executions attempt to refresh an expired token.
+         */
+        setLock(lock: GoogleAppsScript.Lock.Lock): OAuth2Service;
+        /**
          * Sets the name of the authorization callback function (required).
          * This is the function that will be called when the user completes the authorization flow
          * on the service provider's website. The callback accepts a request parameter, which

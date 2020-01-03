@@ -6,8 +6,7 @@ import Form, {
   ErrorSchema,
   withTheme,
 } from 'react-jsonschema-form';
-import {
-  SchemaField,
+import SchemaField, {
   SchemaFieldProps,
 } from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from "json-schema";

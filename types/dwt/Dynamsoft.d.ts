@@ -11,7 +11,7 @@
 */
 
 interface DynamsoftStatic<TElement extends Node = HTMLElement> {
-	Lib: DynamsoftLib;
+    Lib: DynamsoftLib;
     WebTwainEnv: dwtEnv;
 }
 
@@ -50,7 +50,7 @@ interface dwtEnv {
     JSVersion: string;
     PluginVersion: string;
     ServerVersionInfo: string;
-	
+
     RemoveAllAuthorizations(): void;
     ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
     CloseDialog(): void;
@@ -107,6 +107,7 @@ interface DynamsoftLib {
     */
     hideMask(): void;
     showMask(): void;
+    getScript(url: string, bAsync: boolean, callback: () => void): void;
 }
 
 /**
@@ -3552,7 +3553,7 @@ interface WebTwain {
      * @method WebTwain#SelectSource
      * @return {boolean}
      */
-    SelectSource(): boolean;
+    SelectSource(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): boolean;
 
     /**
      * Selects the index-the source in SourceNameItems property as the current source.
@@ -3785,7 +3786,7 @@ interface WebTwain {
     /*ingored    
     SourceNameItems
     */
-    
+
     /**
      * Shows the GUI of Image Editor.
      * @method WebTwain#startScan
@@ -3812,14 +3813,14 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
-	TagImages(aryImageIndices: number[], tagName: string): boolean;
-	
+    TagImages(aryImageIndices: number[], tagName: string): boolean;
+
     SetDefaultTag(tagName: string): boolean;
-	
+
     ClearImageTags(sImageIndex: number): boolean;
-	
+
     FilterImagesByTag(tagName: string): boolean;
-	
+
     /*ignored
     checkErrorString
     first
@@ -3832,5 +3833,5 @@ interface WebTwain {
 
     ...other internal ones
     */
-	Addon: DynamsoftWebTwainAddon;
+    Addon: DynamsoftWebTwainAddon;
 }

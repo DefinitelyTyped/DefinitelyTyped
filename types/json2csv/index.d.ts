@@ -2,6 +2,7 @@
 // Project: https://github.com/zemirco/json2csv
 // Definitions by: Juanjo Diaz <https://github.com/juanjoDiaz>
 //                 Daniel Gooß <https://github.com/dangoo>
+//                 Denis Yilmaz <https://github.com/denisyilmaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

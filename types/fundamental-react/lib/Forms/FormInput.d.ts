@@ -4,7 +4,10 @@ export type InputType = "normal" | "valid" | "invalid" | "warning";
 
 export type FormInputProps = {
     className?: string;
+    compact?: boolean;
+    customStyles?: {[x: string]: any};
     disabled?: boolean;
+    disableStyles?: boolean;
     id?: string;
     /* Value for the `name` attribute on the input. */
     name?: string;

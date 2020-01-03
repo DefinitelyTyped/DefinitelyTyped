@@ -15,6 +15,7 @@ declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
     interface ClassOptions {
+        appPath?: string;
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
     }
@@ -181,9 +182,10 @@ declare namespace m {
         median(radius?: number): State;
         minify(factor: number): State;
         mode(mode: OperationMode | string): State;
-        modulate(b: number, s: number, h: number): State;
+        modulate(b: number, s?: number, h?: number): State;
         monitor(): State;
         monochrome(): State;
+        montage(otherImg: string): State;
         morph(otherImg: string | string[], outName: string, callback?: WriteCallback): State;
         mosaic(): State;
         motionBlur(radius: number, sigma?: number, angle?: number): State;

@@ -3,6 +3,9 @@
 // Definitions by: Erik Stockmeier <https://github.com/erikdstock>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Brian Andrews <https://github.com/sbardian>
+//                 Rodrigo Pombo <https://github.com/pomber>
+//                 Justin Hall <https://github.com/wKovacs64>
+//                 Prateek Kathal <https://github.com/prateekkathal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -28,8 +31,6 @@ export interface ThemeProviderProps<Theme> {
 // tslint:disable-next-line: no-unnecessary-generics
 export function ThemeProvider<Theme>(props: ThemeProviderProps<Theme>): React.ReactElement;
 
-type SSColors = StyledSystemTheme['colors'];
-
 /**
  * To use Theme UI color modes, color scales should include at least a text
  * and background color. These values are used in the ColorMode component to
@@ -40,22 +41,50 @@ type SSColors = StyledSystemTheme['colors'];
  * initialColorMode key is required to enable color modes and will be used as
  * the name for the root color palette.
  */
-export interface ColorModes {
-    [k: string]: {
-        /**
-         * This is required for a color mode.
-         */
-        text: string;
+export type ColorMode = {
+    [k: string]: CSS.ColorProperty | ObjectOrArray<CSS.ColorProperty>;
+} & {
+    /**
+     * Body background color
+     */
+    background: CSS.ColorProperty;
 
-        /**
-         * This is required for the color mode.
-         */
-        background: string;
-        [k: string]: Partial<Omit<StyledSystemTheme['colors'], 'modes'>>;
-    };
-}
+    /**
+     * Body foreground color
+     */
+    text: CSS.ColorProperty;
+
+    /**
+     * Primary brand color for links, buttons, etc.
+     */
+    primary?: CSS.ColorProperty;
+
+    /**
+     * A secondary brand color for alternative styling
+     */
+    secondary?: CSS.ColorProperty;
+
+    /**
+     * A faint color for backgrounds, borders, and accents that do not require
+     * high contrast with the background color
+     */
+    muted?: CSS.ColorProperty;
+
+    /**
+     * A contrast color for emphasizing UI
+     */
+    accent?: CSS.ColorProperty;
+};
 
 export interface Theme extends StyledSystemTheme {
+    /**
+     * Enable/disable custom CSS properties/variables if lower browser
+     * support is required (for eg. IE 11).
+     *
+     * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
+     */
+    useCustomProperties?: boolean;
+
     /**
      * Provide a value here to enable color modes
      */
@@ -64,43 +93,14 @@ export interface Theme extends StyledSystemTheme {
     /**
      * Define the colors that are available through this theme
      */
-    colors?: { [k: string]: CSS.ColorProperty | ObjectOrArray<CSS.ColorProperty> } & {
-        /**
-         * Body background color
-         */
-        background: CSS.ColorProperty;
-
-        /**
-         * Body foreground color
-         */
-        text: CSS.ColorProperty;
-
-        /**
-         * Primary brand color for links, buttons, etc.
-         */
-        primary?: CSS.ColorProperty;
-
-        /**
-         * A secondary brand color for alternative styling
-         */
-        secondary?: CSS.ColorProperty;
-
-        /**
-         * A faint color for backgrounds, borders, and accents that do not require
-         * high contrast with the background color
-         */
-        muted?: CSS.ColorProperty;
-
-        /**
-         * A contrast color for emphasizing UI
-         */
-        accent?: CSS.ColorProperty;
-
+    colors?: ColorMode & {
         /**
          * Nested color modes can provide overrides when used in conjunction with
          * `Theme.initialColorMode and `useColorMode()`
          */
-        modes?: ColorModes;
+        modes?: {
+            [k: string]: ColorMode;
+        };
     };
 
     /**
@@ -111,7 +111,7 @@ export interface Theme extends StyledSystemTheme {
      * fonts, etc.
      */
     styles?: {
-        [P in StyledTags]: SystemStyleObject;
+        [P in StyledTags]?: SystemStyleObject;
     };
 }
 
@@ -123,17 +123,11 @@ export interface Theme extends StyledSystemTheme {
 export const jsx: typeof React.createElement;
 
 /**
- * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
- * such that properties that are part of the `Theme` will be transformed to
- * their corresponding values. Other valid CSS properties are also allowed.
+ * The `sx` prop accepts a `SxStyleProp` object and properties that are part of
+ * the `Theme` will be transformed to their corresponding values. Other valid
+ * CSS properties are also allowed.
  */
-export type SxStyleProp = SystemStyleObject &
-    Record<
-        string,
-        | SystemStyleObject
-        | ResponsiveStyleValue<number | string>
-        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
-    >;
+export type SxStyleProp = SystemStyleObject;
 
 export interface SxProps {
     /**

@@ -23,6 +23,12 @@
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
 //                 Eli White <https://github.com/TheSavior>
+//                 Romain Faust <https://github.com/romain-faust>
+//                 Be Birchall <https://github.com/bebebebebe>
+//                 Jesse Katsumata <https://github.com/Naturalclar>
+//                 Xianming Zhong <https://github.com/chinesedfan>
+//                 Valentyn Tolochko <https://github.com/vtolochk>
+//                 Sergey Sychev <https://github.com/SychevSP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -87,8 +93,8 @@ interface EventSubscription {
  * EventSubscriptionVendor stores a set of EventSubscriptions that are
  * subscribed to a particular event type.
  */
-interface EventSubscriptionVendor {
-    constructor(): EventSubscriptionVendor;
+declare class EventSubscriptionVendor {
+    constructor();
 
     /**
      * Adds a subscription keyed by an event type.
@@ -735,7 +741,6 @@ export interface TextStyleIOS extends ViewStyle {
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
-    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     writingDirection?: 'auto' | 'ltr' | 'rtl';
 }
 
@@ -765,6 +770,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     textShadowColor?: string;
     textShadowOffset?: { width: number; height: number };
     textShadowRadius?: number;
+    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     testID?: string;
 }
 
@@ -1960,7 +1966,7 @@ type Falsy = undefined | null | false;
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
-export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
+export type StyleProp<T> = T | RegisteredStyle<T> | ReadonlyArray<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
@@ -2008,9 +2014,38 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
 }
 
 export type AccessibilityActionInfo = Readonly<{
-    name: string;
+    name: AccessibilityActionName;
     label?: string;
 }>;
+
+export type AccessibilityActionName =
+    /**
+     * Generated when a screen reader user double taps the component.
+     */
+    | 'activate'
+    /**
+     * Gererated when a screen reader user increments an adjustable component.
+     */
+    | 'increment'
+    /**
+     * Gererated when a screen reader user decrements an adjustable component.
+     */
+    | 'decrement'
+    /**
+     * Generated when a TalkBack user places accessibility focus on the component and double taps and holds one finger on the screen.
+     * @platform android
+     */
+    | 'longpress'
+    /**
+     * Generated when a VoiceOver user places focus on or inside the component and double taps with two fingers.
+     * @platform ios
+     * */
+    | 'magicTap'
+    /**
+     * Generated when a VoiceOver user places focus on or inside the component and performs a two finger scrub gesture (left, right, left).
+     * @platform ios
+     * */
+    | 'escape';
 
 export type AccessibilityActionEvent = NativeSyntheticEvent<
     Readonly<{
@@ -4165,6 +4200,40 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
+export class SectionList<SectionT> extends React.Component<SectionListProps<SectionT>> {
+    /**
+     * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
+     * positioned in the viewable area such that viewPosition 0 places it at the top
+     * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
+     */
+    scrollToLocation(params: SectionListScrollParams): void;
+
+    /**
+     * Tells the list an interaction has occurred, which should trigger viewability calculations, e.g.
+     * if `waitForInteractions` is true and the user has not scrolled. This is typically called by
+     * taps on items or by navigation actions.
+     */
+    recordInteraction(): void;
+
+    /**
+     * Displays the scroll indicators momentarily.
+     *
+     * @platform ios
+     */
+    flashScrollIndicators(): void;
+
+    /**
+     * Provides a handle to the underlying scroll responder.
+     */
+    getScrollResponder(): ScrollView | undefined;
+
+    /**
+     * Provides a handle to the underlying scroll node.
+     */
+    getScrollableNode(): NodeHandle | undefined;
+}
+
+/* This definition is deprecated because it extends the wrong base type */
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
@@ -4554,7 +4623,7 @@ export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
     /**
-     * @deprecated Use animationType indead
+     * @deprecated Use animationType instead
      */
     animated?: boolean;
     /**
@@ -5060,6 +5129,14 @@ export namespace StyleSheet {
      * the alternative use.
      */
     export function flatten<T>(style?: StyleProp<T>): T;
+
+    /**
+     * Combines two styles such that style2 will override any styles in style1.
+     * If either style is falsy, the other one is returned without allocating
+     * an array, saving allocations and maintaining reference equality for
+     * PureComponent checks.
+     */
+    export function compose<T>(style1: StyleProp<T>, style2: StyleProp<T>): StyleProp<T>;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
@@ -6626,7 +6703,7 @@ export interface AccessibilityInfoStatic {
      *
      * @deprecated use isScreenReaderChanged instead
      */
-    fetch(): () => Promise<boolean>;
+    fetch: () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:
@@ -6666,7 +6743,7 @@ export interface AccessibilityInfoStatic {
  */
 export interface AlertButton {
     text?: string;
-    onPress?: () => void;
+    onPress?: (value?: string) => void;
     style?: 'default' | 'cancel' | 'destructive';
 }
 
@@ -6717,6 +6794,7 @@ interface AlertOptions {
  */
 export interface AlertStatic {
     alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
+    prompt: (title: string, message?: string, callbackOrButtons?: ((text: string) => void) | AlertButton[], type?: AlertType, defaultValue?: string, keyboardType?: string) => void;
 }
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
@@ -8212,6 +8290,10 @@ export namespace Animated {
 
     interface LoopAnimationConfig {
         iterations?: number; // default -1 for infinite
+        /**
+         * Defaults to `true`
+         */
+        resetBeforeIteration?: boolean;
     }
 
     /**
@@ -8615,9 +8697,6 @@ export interface KeyboardStatic extends NativeEventEmitter {
 export const ART: ARTStatic;
 export type ART = ARTStatic;
 
-export const SectionList: SectionListStatic<any>;
-export type SectionList<ItemT> = SectionListStatic<ItemT>;
-
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
 export type ActionSheetIOS = ActionSheetIOSStatic;
@@ -8789,7 +8868,7 @@ export function findNodeHandle(
 
 export function processColor(color: any): number;
 
-export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
+export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 //////////////////////////////////////////////////////////////////////////
 //

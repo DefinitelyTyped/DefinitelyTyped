@@ -13,7 +13,6 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 //                 Peter Thorson <https://github.com/zaphoyd>
-//                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -165,7 +165,8 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -184,7 +185,7 @@ declare module "http" {
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs: number, callback?: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */

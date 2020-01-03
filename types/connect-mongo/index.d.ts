@@ -1,8 +1,9 @@
-// Type definitions for connect-mongo
+// Type definitions for connect-mongo 3.0
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
+//                 Guy Ellis <https://github.com/guyellis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="express-session" />
 
@@ -92,11 +93,11 @@ declare namespace connectMongo {
     }
 
     export interface NativeMongoOptions extends DefaultOptions {
-        db: mongodb.Db;
+        client: mongodb.MongoClient;
     }
 
     export interface NativeMongoPromiseOptions extends DefaultOptions {
-        dbPromise: Promise<mongodb.Db>;
+        clientPromise: Promise<mongodb.MongoClient>;
     }
 
     export interface MongoStoreFactory {

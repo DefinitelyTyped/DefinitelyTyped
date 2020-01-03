@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const stripLow: typeof validator.stripLow;
-export = stripLow;
+import validator from '../';
+export default validator.stripLow;

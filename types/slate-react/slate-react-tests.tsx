@@ -1,11 +1,32 @@
 import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from 'slate-react';
-import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
+import { Value, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
 import * as React from "react";
 import { List } from "immutable";
 
+declare module 'slate-react' {
+    // Plugins can add command and query method.
+    // Testing that if we extend the interface, the compiler is aware of the
+    // new methods inside of other plugin functions.
+    interface Editor {
+        someCommand: () => Editor;
+        someQuery: () => string;
+    }
+}
+
 class MyPlugin implements Plugin {
-    renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
+    commands = {
+        someCommand: (editor: Editor) => editor,
+    };
+    queries = {
+        someQuery: (editor: Editor) => 'query result',
+    };
+
+    renderBlock(props: RenderBlockProps, editor: Editor, next: () => void) {
         const { node } = props;
+
+        editor.someCommand();
+        const queryResult: string = editor.someQuery();
+
         if (node) {
             switch (node.object) {
                 case 'block':
@@ -15,7 +36,7 @@ class MyPlugin implements Plugin {
             }
         }
     }
-    renderInline(props: RenderInlineProps, editor: Controller, next: () => void) {
+    renderInline(props: RenderInlineProps, editor: Editor, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
@@ -32,8 +53,31 @@ class MyPlugin implements Plugin {
     }
 }
 
+const eventPlugin: Plugin = {
+    onBeforeInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onBlur: (event, editor, next) => {[event.nativeEvent, ]; },
+    onClick: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
+    onCompositionEnd: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onCompositionStart: (event, editor, next) => {[event.nativeEvent, event.data, ]; },
+    onContextMenu: (event, editor, next) => {[event.nativeEvent, event.clientX, ]; },
+    onCopy: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onCut: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onDragEnd: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragEnter: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragExit: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragLeave: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragOver: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDragStart: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onDrop: (event, editor, next) => {[event.nativeEvent.dataTransfer, event.clientX, ]; },
+    onFocus: (event, editor, next) => {[event.nativeEvent, ]; },
+    onInput: (event, editor, next) => {[event.nativeEvent, ]; },
+    onKeyDown: (event, editor, next) => {[event.nativeEvent, event.key, ]; },
+    onPaste: (event, editor, next) => {[event.nativeEvent, event.clipboardData, ]; },
+    onSelect: (event, editor, next) => {[event.nativeEvent, ]; },
+};
+
 const myPlugin = new MyPlugin();
-const plugins = [myPlugin, [myPlugin, [myPlugin]]];
+const plugins = [myPlugin, [myPlugin, [myPlugin]], eventPlugin];
 
 interface MyEditorState {
     value: Value;

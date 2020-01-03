@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isUUID: typeof validator.isUUID;
-export = isUUID;
+import validator from '../';
+export default validator.isUUID;

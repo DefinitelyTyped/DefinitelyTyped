@@ -163,13 +163,20 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
-map.off('moveend');
-map.off('moveend', () => {});
-map.off('moveend', () => {}, {});
+map.on('zoomanim', (_e: L.ZoomAnimEvent) => {});
 
-map.removeEventListener('moveend');
-map.removeEventListener('moveend', () => {});
-map.removeEventListener('moveend', () => {}, {});
+map.once({
+    dragend: (_e: L.DragEndEvent) => {},
+    locationfound: (_e: L.LocationEvent) => {},
+});
+
+map.off('moveend');
+map.off('resize', (_e: L.ResizeEvent) => {});
+map.off('baselayerchange', (_e: L.LayersControlEvent) => {}, {});
+
+map.removeEventListener('loading');
+map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
+map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
 
@@ -329,6 +336,9 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
 });
 
 const eventHandler = () => { };
+const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
+const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
+const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
 const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
@@ -339,10 +349,16 @@ L.DomEvent
 	.addListener(htmlElement, { click: eventHandler })
 	.off(htmlElement, { click: eventHandler }, eventHandler)
 	.removeListener(htmlElement, { click: eventHandler }, eventHandler)
+	.stopPropagation(leafletMouseEvent)
+	.stopPropagation(leafletKeyboardEvent)
+	.stopPropagation(leafletEvent)
 	.stopPropagation(domEvent)
 	.disableScrollPropagation(htmlElement)
 	.disableClickPropagation(htmlElement)
 	.preventDefault(domEvent)
+	.stop(leafletMouseEvent)
+	.stop(leafletKeyboardEvent)
+	.stop(leafletEvent)
 	.stop(domEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent, htmlElement);
@@ -585,6 +601,7 @@ const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
+polyline.addLatLng([45.51, -122.68]);
 const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 
 // multi polyline
@@ -595,6 +612,8 @@ const multiPolylineLatLngs: L.LatLngExpression[][] = [
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
+const segment = polyline.getLatLngs() as L.LatLng[][];
+polyline.addLatLng([40.78, -73.91], segment[1]);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
 const obj1 = {
@@ -699,7 +718,6 @@ const AsyncCanvasLayer = L.GridLayer.extend({
 });
 
 export class ExtendedTileLayer extends L.TileLayer {
-	options: L.TileLayerOptions;
 	createTile(coords: L.Coords, done: L.DoneCallback) {
 		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
 		newCoords.z = coords.z;

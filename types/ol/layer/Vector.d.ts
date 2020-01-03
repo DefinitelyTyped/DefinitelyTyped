@@ -38,7 +38,6 @@ export default class VectorLayer extends Layer {
     getRenderMode(): VectorRenderType | string;
     getRenderOrder(): (p0: Feature, p1: Feature) => number | null | undefined;
     getSource(): VectorSource;
-    getSource(): Source;
     getStyle(): StyleLike | null | undefined;
     getStyleFunction(): StyleFunction | undefined;
     getUpdateWhileAnimating(): boolean;

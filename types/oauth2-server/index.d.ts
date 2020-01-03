@@ -308,7 +308,11 @@ declare namespace OAuth2Server {
          * Invoked to save an authorization code.
          *
          */
-        saveAuthorizationCode(code: AuthorizationCode, client: Client, user: User, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode | Falsey>;
+        saveAuthorizationCode(
+          code: Pick<AuthorizationCode, 'authorizationCode' | 'expiresAt' | 'redirectUri' | 'scope'>,
+          client: Client,
+          user: User,
+          callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode | Falsey>;
 
         /**
          * Invoked to revoke an authorization code.
