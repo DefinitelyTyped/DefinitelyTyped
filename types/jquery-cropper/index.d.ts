@@ -1,5 +1,5 @@
 // Type definitions for jquery-cropper v1.0.1
-// Project: https://github.com/davidstutz/jquery-cropper
+// Project: https://github.com/fengyuanchen/jquery-cropper
 // Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -51,7 +51,4 @@ interface ICropperOptions {
 interface JQuery {
     cropper(options?: ICropperOptions): JQuery;
     cropper(method: string, ...arguments: any[]): JQuery;
-}
-
-declare module "jquery-cropper" {
 }
