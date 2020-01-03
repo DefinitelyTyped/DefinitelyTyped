@@ -791,7 +791,7 @@ export function functionalUpdate<D extends object = {}>(
     old: Partial<TableState<D>>,
 ): Partial<TableState<D>>;
 
-export function useGetLatest(obj: any): any;
+export function useGetLatest<T>(obj: T): () => T;
 
 export function safeUseLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
 
