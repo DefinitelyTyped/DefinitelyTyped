@@ -3,18 +3,17 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
-import { Sink, Stream, DataFactory } from 'rdf-js';
+import { Sink, Stream, DataFactory, BaseQuad, Quad } from 'rdf-js';
 
 interface ParserOptions {
     baseIRI?: string;
     factory?: DataFactory;
 }
 
-declare class Parser implements Sink {
+declare class Parser<Q extends BaseQuad = Quad> implements Sink<Q> {
     constructor(options?: ParserOptions);
 
-    import(stream: Stream, options?: ParserOptions): EventEmitter;
+    import(stream: Stream<Q>, options?: ParserOptions): Stream<Q>;
 }
 
 export = Parser;
