@@ -14,6 +14,10 @@ declare const math: math.MathJsStatic;
 export as namespace math;
 export = math;
 
+type NoLiteralType<T> = T extends number ? number : 
+    T extends string ? string : 
+        T extends boolean ? boolean : 
+            T;
 declare namespace math {
     type MathArray = number[] | number[][];
     type MathType =
@@ -709,7 +713,7 @@ declare namespace math {
         log<T extends number | BigNumber | Complex | MathArray | Matrix>(
             x: T,
             base?: number | BigNumber | Complex
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Calculate the 10-base of a value. This is the same as calculating
@@ -759,7 +763,7 @@ declare namespace math {
         mod<T extends number | BigNumber | Fraction | MathArray | Matrix>(
             x: T,
             y: number | BigNumber | Fraction | MathArray | Matrix
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Multiply two values, x * y. The result is squeezed. For matrices, the
@@ -819,7 +823,7 @@ declare namespace math {
         round<T extends number | BigNumber | Fraction | Complex | MathArray | Matrix>(
             x: T,
             n?: number | BigNumber | MathArray
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Compute the sign of a value. The sign of a value x is: 1 when x > 1
@@ -929,7 +933,7 @@ declare namespace math {
         bitAnd<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
             y: number | BigNumber | MathArray | Matrix
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise NOT value, ~x. For matrices, the function is evaluated
@@ -966,7 +970,7 @@ declare namespace math {
         bitXor<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
             y: number | BigNumber | MathArray | Matrix
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise left logical shift of a value x by y number of bits, x << y.
@@ -979,7 +983,7 @@ declare namespace math {
         leftShift<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
             y: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise right arithmetic shift of a value x by y number of bits, x >>
@@ -992,7 +996,7 @@ declare namespace math {
         rightArithShift<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
             y: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise right logical shift of value x by y number of bits, x >>> y.
@@ -1005,7 +1009,7 @@ declare namespace math {
         rightLogShift<T extends number | MathArray | Matrix>(
             x: T,
             y: number
-        ): T;
+        ): NoLiteralType<T>;
 
         /*************************************************************************
          * Combinatorics functions
@@ -1042,7 +1046,7 @@ declare namespace math {
         composition<T extends number | BigNumber>(
             n: T,
             k: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * The Stirling numbers of the second kind, counts the number of ways to
@@ -1057,7 +1061,7 @@ declare namespace math {
         stirlingS2<T extends number | BigNumber>(
             n: T,
             k: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /*************************************************************************
          * Complex functions
@@ -1084,7 +1088,7 @@ declare namespace math {
          */
         conj<T extends number | BigNumber | Complex | MathArray | Matrix>(
             x: T
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Get the imaginary part of a complex number. For a complex number a +
@@ -1337,7 +1341,7 @@ declare namespace math {
          */
         inv<T extends number | Complex | MathArray | Matrix>(
             x: T
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Calculate the kronecker product of two matrices or vectors
@@ -1546,7 +1550,7 @@ declare namespace math {
         combinations<T extends number | BigNumber>(
             n: T,
             k: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Compute the factorial of a value Factorial only supports an integer
@@ -1557,7 +1561,7 @@ declare namespace math {
          */
         factorial<T extends number | BigNumber | MathArray | Matrix>(
             n: T
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Compute the gamma function of a value using Lanczos approximation for
@@ -1585,7 +1589,7 @@ declare namespace math {
          * @param a Integer number of objects in the subset
          * @returns multinomial coefficent
          */
-        multinomial<T extends number | BigNumber>(a: T[]): T;
+        multinomial<T extends number | BigNumber>(a: T[]): NoLiteralType<T>;
 
         /**
          * Compute the number of ways of obtaining an ordered subset of k
@@ -1598,7 +1602,7 @@ declare namespace math {
         permutations<T extends number | BigNumber>(
             n: T,
             k?: number | BigNumber
-        ): T;
+        ): NoLiteralType<T>;
 
         /**
          * Random pick a value from a one dimensional array. Array element is
@@ -1689,10 +1693,10 @@ declare namespace math {
          * @returns Returns the result of the comparison: 1 when x > y, -1 when
          * x < y, and 0 when x == y.
          */
-        compareText<T extends string | MathArray | Matrix>(
-            x: T,
+        compareText(
+            x: string | MathArray | Matrix,
             y: string | MathArray | Matrix
-        ): T;
+        ): number | MathArray | Matrix;
 
         /**
          * Test element wise whether two matrices are equal. The function
@@ -1947,7 +1951,7 @@ declare namespace math {
          * @param x A real number
          * @returns The erf of x
          */
-        erf<T extends number | MathArray | Matrix>(x: T): T;
+        erf<T extends number | MathArray | Matrix>(x: T): NoLiteralType<T>;
 
         /*************************************************************************
          * Statistics functions
