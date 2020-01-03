@@ -1,4 +1,4 @@
-// Type definitions for react-simple-maps 1.0.0-beta.0
+// Type definitions for react-simple-maps 1.0.0
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
@@ -95,7 +95,8 @@ export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
     children?: (data: GeographiesChildrenArgument) => void;
 }
 
-export interface GeographyProps extends React.SVGProps<SVGPathElement> {
+export interface GeographyProps
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     geography?: object;
     style?: {
         default?: React.CSSProperties;
@@ -110,7 +111,8 @@ export interface GeographyProps extends React.SVGProps<SVGPathElement> {
     onBlur?: (event: React.FocusEvent<SVGPathElement>) => void;
 }
 
-export interface MarkerProps extends React.SVGProps<SVGGElement> {
+export interface MarkerProps
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     coordinates?: Point;
     style?: {
         default?: React.CSSProperties;
