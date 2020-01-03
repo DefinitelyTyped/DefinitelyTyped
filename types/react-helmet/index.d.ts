@@ -12,13 +12,13 @@
 
 import * as React from 'react';
 
-type HtmlProps = JSX.IntrinsicElements['html'] & {
-    [key: string]: string;
-};
+interface OtherElementAttributes {
+    [key: string]: string | number | boolean | null | undefined;
+}
 
-type BodyProps = JSX.IntrinsicElements['body'] & {
-    [key: string]: string;
-};
+type HtmlProps = JSX.IntrinsicElements['html'] & OtherElementAttributes;
+
+type BodyProps = JSX.IntrinsicElements['body'] & OtherElementAttributes;
 
 type LinkProps = JSX.IntrinsicElements['link'];
 
